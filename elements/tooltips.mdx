@@ -1,0 +1,54 @@
+---
+title: "Tooltips"
+---
+
+<script src="https://raw.githubusercontent.com/andrewmatlock/Sitrus/refs/heads/main/public/scripts/indux.min.js?token=GHSAT0AAAAAAC4UTWXQHK4V2S4WYWPLNFL42BCG5EQ"></script>
+
+Apply tooltips to any element with the `x-tooltip` attribute.
+
+<Frame>
+    <button x-tooltip="Hello world">Hover me</button>
+</Frame>
+
+```html
+    <button x-tooltip="Hello world">Hover me</button>
+```
+
+---
+
+## Anchoring
+By default the tooltip appears centred below its element. The `x-tooltip` attribute name accepts parameters like `x-tooltip.bottom.left` that will anchor the tooltip to a different position.
+
+```html
+    <button x-tooltip.bottom.left="Hello world">Hover me</button>
+```
+
+Parameters are:
+- `left`
+- `right`
+- `top` - centres above
+- `top.left` - top left corner
+- `top.right` - top right corner
+- `bottom.left` - bottom left corner
+- `bottom.right` - bottom right corner
+- No parameter centres below
+
+<Note>Tooltips will automatically flip sides to always appear onscreen.</Note>
+
+---
+
+## Rich Content
+Tooltip values accept HTML.
+
+<Frame>
+    <button x-tooltip="Hello <b>world</b>">Hover me</button>
+</Frame>
+
+```html
+    <button x-tooltip="Hello <b>world</b>">Hover me</button>
+```
+
+---
+
+## Styles
+Tooltips are styled by the `.tooltip` class in `elements.css`, including colors and offset (margin).

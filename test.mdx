@@ -1,0 +1,86 @@
+---
+title: "JavaScript Test"
+description: "Testing JavaScript functionality in Mintlify"
+---
+
+<Frame>
+  <div id="test-output"></div>
+</Frame>
+
+<CodeGroup>
+  <CodeBlock title="Test Code" language="javascript">
+    // Test initialization
+    const testInit = () => {
+      // Initialize theme settings
+      const themeSettings = {
+        theme: 'light',
+        components: {
+          header: true,
+          sidebar: true
+        }
+      };
+
+      // Test theme application
+      const applyTheme = (theme) => {
+        console.log(`Applying theme: ${theme}`);
+        return theme === 'light' ? 'light-theme-applied' : 'dark-theme-applied';
+      };
+
+      // Test component initialization
+      const initComponents = (components) => {
+        console.log('Initializing components:', components);
+        return Object.keys(components).filter(key => components[key]).length;
+      };
+
+      // Run tests
+      const output = document.getElementById('test-output');
+      output.innerHTML = `
+        <p>Theme test: ${applyTheme(themeSettings.theme)}</p>
+        <p>Components test: ${initComponents(themeSettings.components)}</p>
+      `;
+    };
+
+    // Execute test
+    testInit();
+  </CodeBlock>
+</CodeGroup>
+
+<Note>
+  The test code above demonstrates theme initialization and component handling. Check the browser console for additional logging.
+</Note>
+
+```markup test
+<div>Hello!</div>
+```
+
+<CodeGroup>
+  ```javascript helloWorld.js
+  console.log("Hello World");
+  ```
+
+  ```
+  console.log("Hello World");
+  ```
+
+  ```
+  console.log("Hello World");
+  ```
+</CodeGroup>
+
+<Frame as="div">
+  Adjust the caption and image of your Frame component here.
+</Frame>
+
+
+
+# Hello world!
+
+\`\`\`html
+
+\<div class="p-4 bg-gray-100 rounded">
+
+&#x20; \<p class="text-gray-800">This is a rendered HTML snippet!\</p>
+
+\</div>
+
+\`\`\`

@@ -1,0 +1,70 @@
+---
+title: "Setup"
+description: "Get the starter kit, or grab select framework components for existing projects."
+---
+
+import StylesheetList from '/snippets/stylesheet-list.mdx';
+
+---
+
+
+### Starter Project
+
+```node
+npx @indux/create-starter my-app
+```
+
+The starter project contains files and folder to kick start your next app or website, more fully described in [project structure](/projects/project-structure). "my-app" is the modifiable root directory name.
+
+---
+### Framework Only
+
+<Tabs>
+
+    <Tab title="CDN">
+        ```html
+        /* Stylesheets */
+        <link rel="stylesheet" href="https://whatever/indux.css">
+
+        /* Script */
+        <script href="https://whatever/indux.min.js">
+
+        ```
+        Add the Indux CDN stylesheet and/or script tags to the `<head>` of your HTML file. They can be used together or independently to suit your project objectives—the stylesheets embody the Indux CSS libary, while the script provides Indux's framework functionality.
+
+    </Tab>
+
+    <Tab title="CLI">
+
+        Open the command line interface to your root project directory.
+
+        #### Install Stylesheets
+        To install Indux [stylesheets](/styles/overview) in a `styles` folder (or update wherever situated) run:
+        ```node
+        npm install @indux/styles
+        ```
+        If `theme.css` already exists it will be backed up as `theme.old.css` to preserve custom styles.
+        Remember to reference the main stylesheet in the `<head>` of your HTML:
+
+        ```html
+        <link rel="stylesheet" href="styles/theme.css">
+        ```
+
+        #### Install Core Script
+        To install the Indux core in the root (or update wherever situated) run:
+
+        ```node
+        npm install @indux/core
+        ```
+        And reference the script in the `<head>` of your HTML:
+        ```html
+        <script src="wherever/indux.min.js"></script>
+        ```
+
+    </Tab>
+
+</Tabs>
+
+---
+
+<Note>`indux.min.js` includes Alpine JS, Iconify, Marked JS, and Tailwind CSS, which do not require separate reference or installation.</Note>

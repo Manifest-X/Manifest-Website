@@ -1,0 +1,74 @@
+---
+title: "Project Structure"
+description: "The files and folders of an Indux project"
+---
+
+import StylesheetList from '/snippets/stylesheet-list.mdx';
+
+### Overview
+Indux eliminates the complexity often found in the project structures of larger frameworks like Vue or React. The Indux design philosophy is to streamline development, and this approach includes a straightforward project directory that forgoes things like multiple framework files and scoped styles, though you can layer them in from other frameworks as needed.
+
+---
+
+### Breakdown
+The Indux [starter project](/getting-started/setup) uses this folder structure for both development and deployment:
+```
+root
+├─ 📁 assets
+├─ 📁 components
+├─ 📁 content
+├─ 📁 pages
+├─ 📁 styles
+├─ favicon.ico
+├─ index.html
+├─ indux.min.js
+├─ sitemap.xml
+└─ robots.txt
+```
+<Note>Only `index.html`, `indux.min.js`, and the `pages` folder containing at least on page are required for core framework operability.</Note>
+
+#### 📁 root
+The root folder (using any name) contains essential configuration and documentation files. Important files include:
+- `.gitignore` to exclude files from version control.
+- `index.html` as the main entry point for page rendering. Only edit this file when adding custom tags to the `<head>`.
+- Website-specific files (`favicon.ico`, `robots.txt`, `sitemap.xml`) which can be removed for app-only projects.
+
+#### 📁 components
+Contains HTML [components](/project/components) that can be applied within pages or other components, e.g.:
+- `footer.html` — page footer navigation.
+- `header.html` — page header navigation.
+- `logo.html` — a brand logo seen around the project.
+
+#### 📁 content
+Indux features a built-in [CMS](docs/cms-collections) for managing content in YAML format, facilitating easy maintenance of lists and long-form content. The only default file is:
+- `app.yaml` - a mandatory, specialty content file for project configuration.
+
+#### 📁 pages
+Holds the project's HTML [pages](/pages) like a `home.html`.
+
+#### 📁 scripts
+For custom scripts, and typically contains the `indux.min.js` core framework script, though this can exist anywhere in the project directory.
+<Note>`indux.min.js` includes Alpine JS baked into it, and a separate Alpine script is not required.</Note>
+
+#### 📁 style
+For custom stylesheets, and typically contains Indux's curated CSS:
+<StylesheetList />
+
+<Tabs>
+  <Tab title="First Tab">
+    ☝️ Welcome to the content that you can only see inside the first Tab.
+    ```java HelloWorld.java
+      class HelloWorld {
+          public static void main(String[] args) {
+              System.out.println("Hello, World!");
+          }
+      }
+    ```
+  </Tab>
+  <Tab title="Second Tab">
+    ✌️ Here's content that's only inside the second Tab.
+  </Tab>
+  <Tab title="Third Tab">
+    💪 Here's content that's only inside the third Tab.
+  </Tab>
+</Tabs>
