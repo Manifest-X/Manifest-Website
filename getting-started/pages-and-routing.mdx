@@ -1,216 +1,122 @@
 ---
-title: "Pages and Routing"
-description: "Indux runs traditional HTML within a single-page application (SPA) framework."
+title: "Pages & Routing"
+description: "SPA routing with simple HTML pages registered in the manifest."
+icon: "files"
 ---
 
 ---
 
-### Page Files
-Place HTML documents in the `pages` folder or any subfolder for organization. These pages are formatted like tradtional HTML documents:
-```html
-<!DOCTYPE html>
-<html>
+### Overview
 
-<head>
-...
-</head>
+Indux includes a native routing system that uses HTML files for pages and `manifest.json` to define their routes, attributes, and other properties. If no pages are defined, `index.html` is rendered by default.
 
+---
+
+### Create Pages
+
+HTML page files can be placed anywhere in the project directory. Their contents can follow the standard HTML structure seen in `index.html`, however Indux only requires the `<body>` tag:
+
+```html home.html
 <body>
-...
+    <h1>Hello world</h1>
 </body>
-
-</html>
 ```
 
-<Note>Only the `<body>` element in a page document is required. The `<!DOCTYPE html>`, `<html>`, and `<head>` tags can be omitted at will.</Note>
-
-<Warning>At least one page must exist for Indux to function.</Warning>
-
----
-
-### Heads
-`index.html` requires no modification except to add your custom scripts, stylesheets, or other tags in its `head`, which apply globally.
-
-Page-specific head content, like `<title>` tags, go directly in the page's HTML document.
+If a head is included, its content will be appended to the global head when the page is loaded, and removed when unloaded:
 
 ```html home.html
 <head>
     <title>Home</title>
-    <meta name="description" content="The official home of Universal Exports on the web.">
-    <meta name="author" content="Universal Exports">
-</head>
-```
-
-#### Title
-
-#### Description
-
----
-
-### Bodies
-
-
-
-
-To customize a page:
-- Append any custom tags to the `head` that are required only by the current page.
-- In the `body` tag, update the list of `x-import` [components](docs/components) required by the page.
-- Apply unique HTML content within the `body` tag.
-
-For websites specifically, in the `head`:
-- Update the `title` tag for browser labels
-- Update the `meta` tags' `content` attributes for SEO.
-
----
-
-## Routing
-Pages will not be navigable until they're referenced in the root's `app.json`. This is the config file for all pages and CMS collections in the project. To add a new page:
-
-1. Open `app.json` and go to its actives `"pages"` array.
-2. Copy/paste an existing page into the array, like this *about* page:
-```json
-"pages": {
-    ...
-    "active": {
-        ...
-
-        "about": {
-            "file": "pages/about.html",
-            "cms": [],
-            "routes": [
-                {
-                "path": "about"
-                }
-            ]
-        },
-
-        ...
-    }
-}
-```
-3. Edit the new page's name, file, and desired path. The path is what the URL to the page will be, i.e. `domain.com/about`.
-
-<aside><span class="iconify" data-icon="ph:warning"></span><p>JSON files like <b>app.json</b> will break with a single syntax error. If you're unfamiliar with syntax requirements, run the file's contents through a <a href="https://jsonlint.com/" target="_blank">JSON validator first</a>.</p></aside>
-
-### Home Page
-The page that opens first can be specified in the `"pages": { "index": "Page Name" }` property. The home page can have a dedicated `"path"` like `/home` or be left blank, and will appear by default when visiting the base domain.
-
-### Not Found Page
-If the user navigates to a URL in your domain that doesn't exist, they will automatically redirect to the page designated in the `"pages": { "notfound": "Page Name" }` property. By default this is the home page.
-
----
-
-### Template Pages
-Template pages get their content structure from a single HTML file, but use a variable URL slug to display unique content from a CMS collection.
-
-A practical example are blog posts, where each post requires a consistent page appearance, but its URL slug and the content are unique. Template pages for [blogs](docs/blogs), [help docs](docs/help-docs), and [end user legal agreements](docs/legal) are already setup for convenience in the Indux starter project.
-
-To add a new template page, we need to update three things:
-
-1. **CMS Collection.** First, establish a [collection](docs/cms-collections) in the `cms` folder. The collection for a template page is easiest managed as a top-level array, like in this example:
-```products.json
-[
-    {
-        "path": "toaster",
-        "name": "Toaster",
-        "price": "$99"
-    },
-    {
-        "path": "microwave",
-        "name": "Microwave",
-        "price": "$199"
-    },
-    {
-        "path": "air-fryer",
-        "name": "Air Fryer",
-        "price": "$299"
-    }
-]
-```
-    Note that the array objects must have a property for the URL slug, in this case `path`.
-
-2. **Template Page.** Next, let's generate a new HTML document in `pages` to display the template content:
-```product.html
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Page Name</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <link rel="stylesheet" href="home.css">
+    <script src="home.js"></script>
 </head>
 
-<body x-data="$store.app" x-cloak x-import="logo,header,footer,socials">
-
-    <main>
-
-        <h1 text="cms.product.name"></h1>
-        <h5 text="cms.product.price"></h5>
-
-    </main>
-
+<body>
+    <h1>Hello world</h1>
 </body>
-</html>
 ```
 
-Note that on template pages, the reference path to the connected CMS collection is `cms.[prop]`, with `prop` established in the `app.json` step below. This will automatically fill the page's CMS references based on the current URL slug.
+<Note>Page-specific head content can also be declared in the manifest.</Note>
 
-If you need to reference other CMS collections unrelated to the URL, use the full dot notation syntax for store references in Indux: `$store.app.cms.[collection].[property]`.
+---
 
-3. **app.json.** To bring it all together, we need to establish the page in `app.json` under the `"pages"` array, and modify its `routes` properties to reference the CMS collection based on URL slug. Here's the required page snippet:
-```app.json
-"pages": {
-    ...
-    "active": {
-        ...
+### Register Pages
 
-        "product": {
-            "file": "/pages/product.html",
-            "cms": [ ],
-            "routes": [
-                {
-                "path": "product/:cms",
-                "cms": "products.path",
-                "prop": "product"
-                }
-            ]
-        },
+Pages must be registered in `manifest.json` under the `pages` array:
 
-        ...
+```json manifest.json
+"pages": [
+    {
+        "source": "html/home.html",
+        "path": "/"
     }
-}
+],
 ```
-In the above example:
 
-- `"path"` designates the URL structure, which can include arbitrary nested slugs like `product/`. The final slug always needs to be `:cms`.
-- `"cms"` specifies the CMS collection and the array object property used to define the path's value for `:cms` above. In the case of `"products.path"`, "products" is the CMS collection (`products.json`) and `path` is the property in the array objects that decides what the slug string is.
-- `"prop"` specifies how the CMS collection is referenced in your template HTML page, like `<h1 x-text="cms.product.name"><h1>`, where `product` is the prop value. This differs from regular CMS references that require the collection name.
+The `source` property is the path to the page file relative to the project root. The `path` property is the URL path where the page will be accessible.
+
+<Warning>`manifest.json` will break routing and rendering with a single syntax error. Be sure to validate your JSON before saving.</Warning>
 
 ---
 
-## Linking
-Linking from one page to another is easy: `<a href="page-name">Page Name</a>`, where `page-name` is the one you defined in `app.json`. Do not add a `/` in front of the path as this will prevent routing.
+#### Optional Properties
 
-### Anchor Links
-Link to specific content on a page with `<a href="page-name#anchor">Link Text</a>`, where `anchor` is the unique `id` of the target element, i.e. `<h1 id="anchor">Come see me!</h1>`. Indux supports smooth scrolling by default, enabling the user to glide to the new spot on the page.
+Other properties can be optionally applied to further configure the page:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `title` | string | Page title used for meta tags and browser title. |
+| `description` | string | Page description used for meta tags. |
+| `author` | string | Page author used for meta tags. |
+| `fallback` | boolean | If true, the page will be used as the 404 fallback page. The "/" path is otherwise used as the default fallback. |
+| `head` | object | Custom head content specific to this page. Can include `meta` tags, `scripts`, and `links` that will be injected into the document head. |
+| `pathContent` | string \| string [] | Content type(s) to load based on URL path segments. See [Template Pages](/abilities/template-pages). |
+
+For example:
+
+```json manifest.json
+"pages": [
+    {
+        "source": "html/home.html",
+        "path": "/",
+        "title": "Home",
+        "description": "There's no place like home.",
+        "author": "Agoraphobic"
+    },
+    {
+        "source": "html/about.html",
+        "path": "/about",
+        "collections": [
+            "team"
+        ]
+    }
+],
+```
 
 ---
 
-## Content Structure
-Pages should be semantically accurate and SEO-optimized. We suggest this best practice for the body element heirarchy:
-```html
-<pre><code>&lt;body&gt;
-    &lt;x-header&gt;&lt;/x-header&gt;
-    &lt;main&gt;
-        &lt;section&gt; ... &lt;/section&gt;
-        &lt;section&gt; ... &lt;/section&gt;
-        &lt;section&gt; ... &lt;/section&gt;
-    &lt;/main&gt;
-    &lt;x-footer&gt;&lt;/x-footer&gt;
-&lt;/body&gt;</code></pre>
+### Global Head
+
+Global head content will apply to all pages. It can be defined directly in the `index.html` head, or in `manifest.json` under the `defaultMeta` property:
+
+```json manifest.json
+"defaultMeta": {
+    "title": "My Project",
+    "author": "Me",
+    "description": "Lorem ipsum dolor sit amet.",
+    "image": "/images/default-og-image.jpg",
+    "ogType": "website"
+},
 ```
-- `<x-header>` and `<x-footer>` are injected components containing pre-styled `<header>` and `<footer>` tags. The components can be removed or overwritten, but we suggested containing any main navigation in the appropriate tags.
-- `<main>` can only appear once to represent the main content of the page.
-- Nested `<section>` tags break page content into distinct sections, pre-styled to enforce negative space and screen edge padding.
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `title` | string | Default page title used for meta tags and browser title. |
+| `author` | string | Site author used for meta tags. |
+| `description` | string | Default meta description used for SEO and social sharing. |
+| `image` | string | Default social share image URL. |
+| `ogType` | string | Open Graph type, defaults to "website". |
+
+<Note>Page-specific properties take precedence over global properties.</Note>
+
+---

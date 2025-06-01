@@ -1,35 +1,27 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "name": "Indux",
+  "theme": "mint",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/indux-dark.svg",
+    "light": "/logo/indux-light.svg"
   },
-  "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373"
+    "primary": "#C27F20",
+    "light": "#F9D7A7",
+    "dark": "#8C8478"
+  },
+  "background": {
+    "decoration": "gradient"
+  },
+  "icons": {
+    "library": "lucide"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Discord",
-        "href": "https://github.com/andrewmatlock/indux"
-      },
-      {
-        "label": "GitHub",
-        "href": "https://github.com/andrewmatlock/indux"
-      },
-      {
-        "label": "Donate",
-        "href": "#"
-      }
-    ],
+    "links": [],
     "primary": {
-      "type": "button",
-      "label": "Build with Sitrus",
-      "href": "https://sitrus.ai"
+      "type": "github",
+      "href": "https://github.com/andrewmatlock/indux"
     }
   },
   "navigation": {
@@ -39,39 +31,81 @@
         "pages": [
           "getting-started/introduction",
           "getting-started/setup",
-          "projects/project-structure",
-          "projects/pages-and-routing",
+          "getting-started/project-structure",
+          "getting-started/pages-and-routing",
           "getting-started/compatability"
         ]
       },
       {
-        "group": "Features",
+        "group": "Styles",
         "pages": [
-          "features/components",
-          "features/color-modes",
-          "features/content-collections",
-          "features/localization",
-          "features/markdown"
+          "styles/normalizer",
+          "styles/base-and-utilities",
+          "styles/theme",
+          "styles/tailwind-css",
+          "styles/accessibility"
         ]
       },
       {
-        "group": "Styling",
+        "group": "Abilities",
         "pages": [
-          "styling/baseline",
-          "styling/theme",
-          "styling/utilities",
-          "styling/semantic-html",
-          "styling/layouts",
-          "styling/background-patterns"
+          "abilities/components",
+          "abilities/color-modes",
+          "abilities/content-collections",
+          "abilities/extensions",
+          "abilities/localization",
+          "abilities/markdown",
+          "abilities/persist",
+          "abilities/resize",
+          "abilities/template-pages",
+          "abilities/url-queries"
         ]
       },
       {
-        "group": "Elements",
+        "group": "UI Elements",
         "pages": [
-          "elements/buttons",
-          "elements/icons",
-          "elements/typography",
-          "elements/tooltips"
+          {
+            "group": "Basics",
+            "pages": [
+              "elements/text",
+              "elements/icons",
+              "elements/dividers",
+              "elements/containers",
+              "elements/tables"
+            ]
+          },
+          {
+            "group": "Forms",
+            "pages": [
+              "elements/forms/buttons",
+              "elements/forms/inputs",
+              "elements/forms/groups",
+              "elements/forms/textareas",
+              "elements/forms/checkboxes",
+              "elements/forms/radios",
+              "elements/forms/selects",
+              "elements/forms/switches",
+              "elements/forms/toasts",
+              "elements/forms/tooltips"
+            ]
+          },
+          {
+            "group": "Menus",
+            "pages": [
+              "elements/menus/accordions",
+              "elements/menus/dropdowns",
+              "elements/menus/modals",
+              "elements/menus/tabs"
+            ]
+          },
+          {
+            "group": "Navigation",
+            "pages": [
+              "elements/navigation/headers",
+              "elements/navigation/footers",
+              "elements/navigation/drawers"
+            ]
+          }
         ]
       },
       {
@@ -82,6 +116,13 @@
           "publishing/apps"
         ]
       }
+    ]
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "chatgpt",
+      "claude"
     ]
   },
   "footer": {
