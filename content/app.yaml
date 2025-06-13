@@ -1,0 +1,89 @@
+# Fallback SEO tags when not defined in page below
+defaultMeta:
+  title: My Site
+  author: Me
+  description: Lorem ipsum dolor sit amet.
+  image: /images/default-og-image.jpg
+  ogType: website
+
+# Global head content
+globalHead:
+  scripts:
+    - src: /scripts/extensions/example.extension.js
+      type: module
+  #   cookie: analytics
+  # stylesheets:
+  #   - src: /styles/my-styles.css
+
+# Pages
+pages:
+  - path: /
+    page: home
+    title: Home
+    # head:
+    #   scripts:
+    #     - src: https://googletagmanager.com/gtag/js?id=G-XXXXXXX
+    #     type: module
+    #     cookie: analytics
+    # rawHead: |
+    #  <script src="/scripts/example.js" type="module"></script>
+    fallback: true # One page can be the fallback for bad links
+  - path: /docs
+    page: docs
+    auth: user
+    title: Docs
+    pathContent: # List /content files for dynamic pages. Their items' "path" properties become page slugs for use with "$pg" magic reference.
+      - docs # Points to /content/docs.yaml
+  - path: /studio
+    page: studio
+  - path: /work
+    page: work
+    pathContent:
+      - clients
+
+# Content
+content:
+  - en.core
+  - en.docs
+  - fr.core
+  - fr.docs
+  - views
+  - projects
+  - clients
+  - legal
+
+# Common components to cache - other components are loaded/unloaded on demand
+commonComponents:
+  - logo
+  - header
+  - footer
+
+# Authorization
+auth:
+  - name: user     # Basic user check
+    roles: []      # No specific roles required
+
+# Cookie types for user consent
+cookies:
+  - type: analytics
+    name: Analytics
+    description: For tracking site usage.
+  - type: marketing
+    name: Marketing
+    description: For personalized advertising.
+
+# Locales
+locales:
+  - name: English # Default
+    code: en # Valid ISO 639-1 code
+    icon: emojione-v1:flag-for-united-kingdom # Arbitrary property for locale icon
+  - name: Français
+    code: fr
+    icon: emojione-v1:flag-for-france
+    
+
+# Locale code in URL (requires locales above)
+localeURL:
+  subdomain: true # en.acme.com
+  # path: true # acme.com/en/
+  # query: "locale" # acme.com/?locale=en

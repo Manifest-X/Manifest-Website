@@ -1,6 +1,6 @@
 ---
 title: "Setup"
-description: "Get the starter kit, or grab select framework components for existing projects."
+description: "Get the project starter kit, or bring Indux into existing projects."
 icon: "terminal"
 ---
 
@@ -8,64 +8,76 @@ import StylesheetList from '/snippets/stylesheet-list.mdx';
 
 ---
 
-
-### Starter Project
-
-```node
-npx @indux/create-starter my-app
-```
-
-The starter project contains files and folder to kick start your next app or website, more fully described in [project structure](/projects/project-structure). "my-app" is the modifiable root directory name.
+If you're not installing the [starter project](/getting-started/starter-project), you can install individual Indux scripts and stylesheets by CDN or CLI (see below), or download from [Github](https://github.com/indux).
 
 ---
-### Framework Only
+
+## Scripts
+Alpine JS v3 or above is required to use Indux scripts, which are Alpine plugins. Place them anywhere in the `<head>` or `<body>`, in any order.
 
 <Tabs>
 
     <Tab title="CDN">
         ```html
-        /* Stylesheets */
-        <link rel="stylesheet" href="https://whatever/indux.css">
+        <!-- Alpine -->
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-        /* Script */
-        <script href="https://whatever/indux.min.js">
+        <!-- All Indux plugins -->
+        <script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.js"></script>
 
+        <!-- OR individual Indux plugins by name (see plugin articles) -->
+        <script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.components.js"></script>
         ```
-        Add the Indux CDN stylesheet and/or script tags to the `<head>` of your HTML file. They can be used together or independently to suit your project objectives—the stylesheets embody the Indux CSS libary, while the script provides Indux's framework functionality.
-
     </Tab>
 
     <Tab title="CLI">
-
-        Open the command line interface to your root project directory.
-
-        #### Install Stylesheets
-        To install Indux [stylesheets](/styles/overview) in a `styles` folder (or update wherever situated) run:
+        For the bundled script containing all plugins:
         ```node
-        npm install @indux/styles
-        ```
-        If `theme.css` already exists it will be backed up as `theme.old.css` to preserve custom styles.
-        Remember to reference the main stylesheet in the `<head>` of your HTML:
-
-        ```html
-        <link rel="stylesheet" href="styles/theme.css">
+        npx @indux/all
         ```
 
-        #### Install Core Script
-        To install the Indux core in the root (or update wherever situated) run:
-
+        OR individual plugins by name (see plugin articles):
         ```node
-        npm install @indux/core
-        ```
-        And reference the script in the `<head>` of your HTML:
-        ```html
-        <script src="wherever/indux.min.js"></script>
+        npx @indux/components
         ```
 
+        These commands will install the plugins in a `/scripts` folder, or update existing plugins (with matching names, e.g. `indux.components.js`) wherever they live in your project.
     </Tab>
 
 </Tabs>
 
 ---
 
-<Note>`indux.min.js` includes Alpine JS, Iconify, Marked JS, and Tailwind CSS, which do not require separate reference or installation.</Note>
+## Stylesheets
+Add the desired Indux CSS stylesheets to the `<head>` of your HTML file.
+
+<Tabs>
+
+    <Tab title="CDN">
+        ```html
+        <head>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.normalizer.css">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.base.css">
+
+            <!-- Your additive CSS in one or more files -->
+            <!-- Include Indux's CSS variables required by `indux.base.css` -->
+            <link rel="stylesheet" href="styles/main.css">
+            <link rel="stylesheet" href="styles/theme.css">
+
+        </head>
+        ```
+
+        <Note>Get Indux's CSS variables from [Github](https://github.com/indux/indux/blob/main/styles/indux.theme.css)</Note>
+
+    </Tab>
+
+    <Tab title="CLI">
+        Install or update local Indux scripts, and reference them in your `<head>`. This CLI command will install the sheets in a `/styles` folder, or update existing sheets with matching names wherever they live in your project.
+        ```node
+        npm install @indux/styles
+        ```
+    </Tab>
+
+</Tabs>
+
+---

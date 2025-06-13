@@ -4,9 +4,188 @@ icon: "text-cursor-input"
 ---
 
 <Frame>
-  <div x-data>
-    <h1>Hi <span x-icon="ph:house"></span></h1>
-  </div>
+  <template data-head>
+    <script>
+        console.log('🔄 Home page script loaded');
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🏠 Home page initialized')
+        });
+    </script>
+</template>
+
+<div x-data>
+    <h4 class="!mt-6">URL Queries</h4>
+    <div class="col gap-4">
+
+        <div class="col gap-2">
+            <h5>Single Values</h5>
+            <div class="row gap-2">
+                <button x-on:click="$query.status.set('active')">Set Status: Active</button>
+                <button x-on:click="$query.status.set('inactive')">Set Status: Inactive</button>
+                <button x-on:click="$query.status.clear()">Clear Status</button>
+                <span>Current: <span x-text="$query.status.value || 'none'"></span></span>
+            </div>
+        </div>
+
+        <div class="col gap-2">
+            <h5>Array Values</h5>
+            <div class="row gap-2">
+                <button x-on:click="$query.tags.add('featured')">Add Tag: Featured</button>
+                <button x-on:click="$query.tags.add('new')">Add Tag: New</button>
+                <button x-on:click="$query.tags.add(['urgent', 'important'])">Add Multiple Tags</button>
+                <button x-on:click="$query.tags.remove('featured')">Remove Tag: Featured</button>
+                <button x-on:click="$query.tags.clear()">Clear All Tags</button>
+                <span>Current: <span x-text="$query.tags.value?.join(', ') || 'none'"></span></span>
+            </div>
+        </div>
+
+        <div class="col gap-2">
+            <h5>Select Element</h5>
+            <select x-model="$query.filter.value" class="p-2 border rounded">
+                <option value="">All</option>
+                <option value="featured">Featured</option>
+                <option value="new">New</option>
+                <option value="urgent">Urgent</option>
+            </select>
+        </div>
+
+        <div class="col gap-2">
+            <h5>Multiple Parameters</h5>
+            <div class="row gap-2">
+                <button x-on:click="$query.page.set(1)">Page 1</button>
+                <button x-on:click="$query.page.set(2)">Page 2</button>
+                <button x-on:click="$query.sort.set('name')">Sort by Name</button>
+                <button x-on:click="$query.sort.set('date')">Sort by Date</button>
+                <button x-on:click="$query.direction.set('asc')">Ascending</button>
+                <button x-on:click="$query.direction.set('desc')">Descending</button>
+            </div>
+            <div class="row gap-4">
+                <span>Page: <span x-text="$query.page.value || '1'"></span></span>
+                <span>Sort: <span x-text="$query.sort.value || 'none'"></span></span>
+                <span>Direction: <span x-text="$query.direction.value || 'none'"></span></span>
+            </div>
+        </div>
+
+        <div class="col gap-2">
+            <h5>Current URL State</h5>
+            <div class="p-2 border rounded">
+                <pre x-text="JSON.stringify($store.queries.current, null, 2)"></pre>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="!mt-6">Collections</h4>
+    <div class="col gap-4" x-data>
+        <div x-text="$x.blog.posts[0].title"></div>
+        <div x-text="$x.blog.posts[1].title"></div>
+    </div>
+
+    <h4 class="!mt-6">Localization</h4>
+    <div class="col gap-4" x-data>
+
+        <div class="row items-center gap-2">
+            <p>Current Locale: <span x-text="$locale.current"></span></p>
+            <p>Available Locales: <span x-text="$locale.available.join(', ')"></span></p>
+        </div>
+
+        <div class="row items-center gap-2">
+            <button x-on:click="$locale.toggle()">Toggle Locale</button>
+            <template x-for="lang in $locale.available" x-bind:key="lang">
+                <button x-on:click="$locale.set(lang)" x-bind:class="{ 'bg-primary text-white': $locale.current === lang }">
+                    <span x-text="lang.toUpperCase()"></span>
+                </button>
+            </template>
+        </div>
+
+
+
+        <div class="col gap-4 mt-4">
+            <h5>Localized Pricing Plans</h5>
+            <div class="row gap-4">
+                <template x-for="plan in $x.pricing.plans" x-bind:key="plan.name">
+                    <div class="col gap-2 p-4 border rounded">
+                        <h6 x-text="plan.name"></h6>
+                        <p x-text="plan.price"></p>
+                        <ul class="col gap-1">
+                            <template x-for="feature in plan.features" x-bind:key="feature">
+                                <li x-text="feature"></li>
+                            </template>
+                        </ul>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="!mt-6">Color Modes</h4>
+    <div class="row items-center gap-1" x-data>
+        <button x-theme="'light'">Light Mode</button>
+        <button x-theme="'dark'">Dark Mode</button>
+        <button x-theme="'system'">System Mode</button>
+        <button x-theme="'toggle'">Toggle Theme</button>
+        <p>Theme: <span x-text="$theme.current"></span></p>
+    </div>
+
+    <h4 class="!mt-6">Markdown</h4>
+    <div class="row items-center gap-4">
+        <div x-markdown>###### Inline Text Content</div>
+        <div x-markdown="`###### Template Literal`"></div>
+        <div class="row items-center gap-2" x-data="{ content: '###### Prior Content' }">
+            <button x-on:click="content = '###### Dynamic Content'">Update</button>
+            <p x-markdown="content"></p>
+        </div>
+    </div>
+
+    <h4 class="!mt-6">Dropdown</h4>
+    <div class="row items-center gap-1">
+        <button x-dropdown="dropdown-menu">Open</button>
+    </div>
+
+    <div popover="true" id="dropdown-menu">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </div>
+    <menu popover="true" id="hover-menu">
+        <li>Hover Item 1</li>
+        <li>Hover Item 2</li>
+        <li>Hover Item 3</li>
+    </menu>
+   
+    <menu popover="true" id="top-right-menu">
+        <li>Top Right Item 1</li>
+        <li>Top Right Item 2</li>
+        <li>Top Right Item 3</li>
+    </menu>
+    <menu popover="true" id="bottom-start-menu">
+        <li>Bottom Start Item 1</li>
+        <li>Bottom Start Item 2</li>
+        <li>Bottom Start Item 3</li>
+    </menu>
+    <menu popover="true" id="left-end-menu">
+        <li>Left End Item 1</li>
+        <li>Left End Item 2</li>
+        <li>Left End Item 3</li>
+    </menu>
+
+    <h4 class="!mt-6">Tooltips</h4>
+    <div class="row items-center gap-1" x-data="{ dynamicMessage: 'Dynamic tooltip' }">
+        <button x-tooltip="Basic tooltip">Hover me</button>
+        <button x-tooltip="Press tooltip">Press me</button>
+       
+        <button x-tooltip="'Dynamic: ' + dynamicMessage">Dynamic</button>
+        <button x-tooltip="`Template literal: ${dynamicMessage}`">Template literal</button>
+    </div>
+
+    <h4 class="!mt-6">Toasts</h4>
+    <div class="row-wrap items-center gap-1" x-data="{ dynamicMessage: 'Dynamic content' }">
+  
+        <button x-toast="Basic directive toast">Basic Directive</button>
+      
+
+        <button x-toast="'Dynamic: ' + dynamicMessage">Dynamic Basic</button>
+    </div>
+</div>
 </Frame>
 
 <script dangerouslySetInnerHTML={{ __html: `

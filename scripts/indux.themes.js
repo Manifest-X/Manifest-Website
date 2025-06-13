@@ -4,13 +4,11 @@
 
 // Initialize plugin when either DOM is ready or Alpine is ready
 function initializeThemePlugin() {
-    console.log('[Indux Theme Plugin] Initializing...')
 
-    // Initialize theme state
-    const theme = {
+    // Initialize theme state with Alpine reactivity
+    const theme = Alpine.reactive({
         current: localStorage.getItem('theme') || 'system'
-    }
-    console.log('[Indux Theme Plugin] Initial theme:', theme.current)
+    })
 
     // Apply initial theme
     applyTheme(theme.current)
@@ -18,7 +16,6 @@ function initializeThemePlugin() {
     // Setup system theme listener
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
     mediaQuery.addEventListener('change', () => {
-        console.log('[Indux Theme Plugin] System theme changed')
         if (theme.current === 'system') {
             applyTheme('system')
         }
@@ -26,13 +23,11 @@ function initializeThemePlugin() {
 
     // Register theme directive
     Alpine.directive('theme', (el, { expression }, { evaluate, cleanup }) => {
-        console.log('[Indux Theme Plugin] Processing theme directive:', { expression, element: el })
 
         const handleClick = () => {
             const newTheme = expression === 'toggle'
                 ? (document.documentElement.classList.contains('dark') ? 'light' : 'dark')
                 : evaluate(expression)
-            console.log('[Indux Theme Plugin] Theme button clicked:', newTheme)
             setTheme(newTheme)
         }
 
@@ -40,8 +35,17 @@ function initializeThemePlugin() {
         cleanup(() => el.removeEventListener('click', handleClick))
     })
 
+    // Add $theme magic method
+    Alpine.magic('theme', () => ({
+        get current() {
+            return theme.current
+        },
+        set current(value) {
+            setTheme(value)
+        }
+    }))
+
     function setTheme(newTheme) {
-        console.log('[Indux Theme Plugin] Setting theme:', newTheme)
         if (newTheme === 'toggle') {
             newTheme = theme.current === 'light' ? 'dark' : 'light'
         }
@@ -59,8 +63,6 @@ function initializeThemePlugin() {
             ? window.matchMedia('(prefers-color-scheme: dark)').matches
             : theme === 'dark'
 
-        console.log('[Indux Theme Plugin] Applying theme:', { theme, isDark })
-
         // Update document classes
         document.documentElement.classList.remove('light', 'dark')
         document.documentElement.classList.add(isDark ? 'dark' : 'light')
@@ -71,8 +73,6 @@ function initializeThemePlugin() {
             metaThemeColor.setAttribute('content', isDark ? '#000000' : '#FFFFFF')
         }
     }
-
-    console.log('[Indux Theme Plugin] Initialization complete')
 }
 
 // Handle both DOMContentLoaded and alpine:init
