@@ -1,0 +1,109 @@
+---
+title: "Buttons"
+icon: "square-mouse-pointer"
+---
+
+
+## Base
+
+<Frame>
+    <button>Button</button>
+</Frame>
+
+```html
+<button>Button</button>
+```
+
+---
+
+## Modifiers
+
+Buttons accept Indux's preset form element classes, which can be stacked in any combination.
+
+### Colors
+<Frame>
+    <button class="primary">Primary</button>
+    <button class="accent">Accent</button>
+    <button class="danger">Danger</button>
+</Frame>
+
+```html
+<button class="primary">Primary</button>
+<button class="accent">Accent</button>
+<button class="danger">Danger</button>
+```
+
+### Size
+
+<Frame>
+    <button class="small">Small</button>
+    <button class="large">Large</button>
+</Frame>
+
+```html
+<button class="small">Small</button>
+<button class="large">Large</button>
+```
+
+### Appearance
+
+<Frame>
+    <button class="ghost">Ghost</button>
+    <button class="hug">Hug</button>
+    <button class="outlined">Outlined</button>
+    <button class="transparent">Transparent</button>
+</Frame>
+
+```html
+<button class="ghost">Ghost</button>
+<button class="hug">Hug</button>
+<button class="outlined">Outlined</button>
+<button class="transparent">Transparent</button>
+```
+
+---
+
+## Icons
+
+### Solo Icon
+
+Buttons containing a single icon are automatically squared.
+
+<Frame>
+    <button icon="ph:house"></button>
+</Frame>
+
+```html
+<button icon="ph:house"></button>
+```
+
+### Icon & Text
+
+Any number of icons and text can be nested in any order with `<span>` tags.
+
+<Frame>
+    <button><span icon="ph:house"></span><span>Home</span></button>
+</Frame>
+
+```html
+<button><span icon="ph:house"></span><span>Home</span></button>
+```
+
+---
+
+## Links
+
+For button links, use `<a role="button">`. Modifier classes above can also be applied.
+
+<Frame>
+    <a role="button" href="#">Learn more</a>
+    <a role="button" href="#" class="primary">Get some</a>
+</Frame>
+
+```html
+<a role="button" href="#">Learn more</a>
+<a role="button" href="#" class="primary" >Get some</a>
+```
+
+---
+

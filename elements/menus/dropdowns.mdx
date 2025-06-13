@@ -1,0 +1,43 @@
+---
+title: "Dropdowns"
+icon: "chevron-down"
+---
+
+## Dropdown
+
+```html
+  <button x-dropdown="menu">Open</button>
+
+  <!-- Hover dropdown -->
+  <button x-dropdown.hover="menu">Hover me</button>
+
+    <!-- Nested Dropdowns -->
+  <menu popover id="nested-menu">
+    <li>Nested Item 1</li>
+    <button x-dropdown.hover="nested-menu-2">Open Nested Menu</button>
+    <li>Nested Item 3</li>
+    <menu popover id="nested-menu-2">
+      <li>Nested Item 1</li>
+      <li>Nested Item 2</li>
+      <button x-dropdown.hover="nested-menu-3">Open Nested Menu</button>
+      <menu popover id="nested-menu-3">
+        <li>Nested Item 1</li>
+        <li>Nested Item 2</li>
+        <li>Nested Item 3</li>
+      </menu>
+    </menu>
+  </menu>
+
+  <!-- Positioned dropdown -->
+  <button x-dropdown.top.right="menu">Top Right</button>
+  <button x-dropdown.bottom.start="menu">Bottom Start</button>
+  <button x-dropdown.left.end="menu">Left End</button>
+
+  <menu popover id="menu">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+  </menu>
+```
+
+<Warning>Avoid mixing `x-dropdown.hover` and `x-tooltip.hover` in the same trigger element. Dropdowns and tooltips both utilize the HTML `popover` attribute, where only one can display at a time.</Warning>

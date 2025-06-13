@@ -1,0 +1,45 @@
+---
+title: "Tailwind CSS"
+description: "Leverage the popular utility-first CSS framework in your Indux project."
+icon: "code"
+---
+
+---
+
+### Overview
+
+While the Indux CSS library can be used independently, it's designed to pair well with [Tailwind CSS](https://tailwindcss.com), the popular utility-first CSS framework.
+
+---
+
+### Runtime Compiler
+
+The [starter project](/getting-started/setup) includes a local version of Tailwind's Play CDN script. It's been extended to compile any required custom utility classes deriving from CSS variables at runtime. For instance you might have any of the following:
+
+<CodeGroup>
+
+```css indux.theme.css
+@theme {
+    --color-primary: red;
+}
+```
+
+```css other.css
+:root {
+    --color-primary: red;
+}
+```
+
+```css style.css
+button.blue {
+    --color-primary: blue;
+}
+```
+
+</CodeGroup>
+
+HTML can now use color utilities like `bg-primary` and `text-primary`.
+
+The runtime compiler breaks with Tailwind's traditional build step for production environments. This maintains Indux as a purely client-side framework, simplifying the developer experience and benefiting WYSYWIG editors without a perceptible impact on performance throughout our testing.
+
+That said, the local Tailwind script can be removed in favour of a [standard Tailwind installation](https://tailwindcss.com/docs/installation/using-vite).

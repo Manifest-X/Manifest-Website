@@ -1,0 +1,21 @@
+---
+title: "Inputs"
+icon: "text-cursor-input"
+---
+
+<Frame>
+  <div x-data>
+    <h1>Hi <span x-icon="ph:house"></span></h1>
+  </div>
+</Frame>
+
+<script dangerouslySetInnerHTML={{ __html: `
+  console.log('[MDX] Script loaded')
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('[MDX] DOMContentLoaded fired')
+    console.log('[MDX] Alpine available:', !!window.Alpine)
+  })
+  document.addEventListener('alpine:init', () => {
+    console.log('[MDX] Alpine init event fired')
+  })
+` }} />

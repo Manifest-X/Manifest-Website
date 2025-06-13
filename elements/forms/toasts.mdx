@@ -1,0 +1,20 @@
+---
+title: "Toasts"
+icon: "arrow-big-up-dash"
+---
+
+```html
+<button x-toast="'Basic directive toast'">Basic Directive</button>
+    <button x-toast.success="'Success directive toast'">Success Directive</button>
+    <button x-toast.error="'Error directive toast'">Error Directive</button>
+    <button x-toast.dismiss="'Dismissible directive toast'">Dismiss Directive</button>
+    <button x-toast.success.dismiss="'Dismissible success directive'">Dismiss Success Directive</button>
+    <button x-toast.error.dismiss="'Dismissible error directive'">Dismiss Error Directive</button>
+    <button x-toast.fixed="'Fixed directive toast'">Fixed Directive</button>
+    <button x-toast.success.fixed="'Fixed success directive'">Fixed Success Directive</button>
+    <button x-toast.error.fixed="'Fixed error directive'">Fixed Error Directive</button>
+    <button x-toast.1000="'1 second duration'">1s Duration</button>
+    <button x-toast.error.dismiss.2000="'2 second error dismiss'">2s Error Dismiss</button>
+    <button @click="$toast('Magic toast')">Magic Toast</button>
+    <button @click="$toast.error.fixed('Magic fixed error')">Magic Fixed Error</button>
+```

@@ -1,0 +1,20 @@
+---
+title: "Markdown"
+description: "Write in Markdown and let Indux convert it to HTML."
+icon: "square-m"
+---
+
+## Inline Text Content
+
+  <div x-markdown># Inline Text Content</div>
+
+## Template Literals
+  <div x-markdown="`# Template Literal`"></div>
+
+## Dynamic Content
+```html
+  <div x-data="{ content: '# Hello World' }">
+    <p x-markdown="content"></p>
+    <button @click="content = '# New Content'">Update</button>
+  </div>
+```
