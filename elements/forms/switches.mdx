@@ -3,5 +3,151 @@ title: "Switches"
 icon: "toggle-right"
 ---
 
+---
+
+## Setup
+
+Switches are included with all other styles in Indux CSS, or as standalone styles.
+
+<CodeGroup>
+```html Indux CSS
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
+</head>
+```
+```html Standalone
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.switch.css" />
+</head>
+```
+</CodeGroup>
+
+---
+
+## Default
+
+<Frame>
+    <input type="checkbox" role="switch" />
+</Frame>
+
+```html
+<input type="checkbox" role="switch" />
+```
+
+---
+
+### Theme
+
+Default switches use the following [theme](/styles/theme) variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `--color-field-surface` | Switch background |
+| `--color-field-surface-hover` | Switch background on hover |
+| `--color-field-inverse` | Marker color |
+| `--spacing-field-height` | Switch size |
+| `--radius` | Border radius for switch corners |
+| `--transition` | Transition time for interactive states |
+
+## Labels
+
+Placing the switch and text inside a `<label>` automatically arranges them in a row (requires [Form](/elements/forms/forms) styles).
+
+
+<Frame>
+    <label>
+        <input type="checkbox" role="switch" />
+        Enable notifications
+    </label>
+</Frame>
+
+```html
+<label>
+    <input type="checkbox" role="switch" />
+    Enable notifications
+</label>
+```
+
+---
+
+## Utilities
+
+Switches accept Indux [utility](/styles/utilities) classes, which can be stacked in any combination.
+
+### Colors
+
+<Frame>
+    <input type="checkbox" role="switch" class="primary" />
+    <input type="checkbox" role="switch" class="accent" />
+    <input type="checkbox" role="switch" class="danger" />
+</Frame>
+
+```html
+<input type="checkbox" role="switch" class="primary" />
+<input type="checkbox" role="switch" class="accent" />
+<input type="checkbox" role="switch" class="danger" />
+```
+
+---
+
+### Size
+
+<Frame>
+    <input type="checkbox" role="switch" class="sm" />
+    <input type="checkbox" role="switch" class="lg" />
+</Frame>
+
+```html
+<input type="checkbox" role="switch" class="sm" />
+<input type="checkbox" role="switch" class="lg" />
+```
+
+---
+
+### Appearance
+
+<Frame>
+    <input type="checkbox" role="switch" class="outlined" />
+</Frame>
+
+```html
+<input type="checkbox" role="switch" class="outlined" />
+```
+
+---
+
+## Groups
+
+Placing labelled switches inside a `<fieldset>` automatically arranges them in a column with a gap.
+
+<Frame>
+<fieldset>
+    <label>
+        <input type="checkbox" role="switch" />
+        Option A
+    </label>
+    <label>
+        <input type="checkbox" role="switch" />
+        Option B
+    </label>
+</fieldset>
+</Frame>
+
+```html
+<fieldset>
+    <label>
+        <input type="checkbox" role="switch" />
+        Option A
+    </label>
+    <label>
+        <input type="checkbox" role="switch" />
+        Option B
+    </label>
+</fieldset>
+```
+
+---
+
 
 

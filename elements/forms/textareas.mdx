@@ -3,5 +3,130 @@ title: "Textareas"
 icon: "text-cursor"
 ---
 
+## Setup
 
+Textareas are included with all other styles in Indux CSS, or as standalone styles.
 
+<CodeGroup>
+```html Indux CSS
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
+</head>
+```
+```html Standalone
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.input.css" />
+</head>
+```
+</CodeGroup>
+
+---
+
+## Default
+
+<Frame>
+    <textarea placeholder="Type here"></textarea>
+</Frame>
+
+```html
+<textarea placeholder="Type here"></textarea>
+```
+
+---
+
+### Theme
+
+Default textareas use the following [theme](/styles/theme) variables:
+
+| Variable                   | Purpose                                 |
+|----------------------------|-----------------------------------------|
+| `--color-field-surface`    | Textarea background color                  |
+| `--color-field-surface-hover` | Textarea hover/active background color  |
+| `--color-field-inverse`    | Selection highlight color               |
+| `--spacing-field-padding`  | Horizontal padding for textarea content    |
+| `--spacing-field-height`   | Textarea height                            |
+| `--radius`                 | Border radius for input corners         |
+| `--transition`             | Transition time for interactive states  |
+
+## Utilities
+
+Textareas accept Indux [utility](/styles/utilities) classes, which can be stacked in any combination.
+
+### Colors
+
+<Frame>
+    <textarea class="primary" placeholder="Primary" />
+    <textarea class="accent" placeholder="Accent" />
+    <textarea class="danger" placeholder="Danger" />
+</Frame>
+
+```html
+<textarea class="primary" placeholder="Primary" />
+<textarea class="accent" placeholder="Accent" />
+<textarea class="danger" placeholder="Danger" />
+```
+
+---
+
+### Size
+
+<Frame>
+    <textarea class="sm" placeholder="Small" />
+    <textarea class="lg" placeholder="Large" />
+</Frame>
+
+```html
+<textarea class="sm" placeholder="Small" />
+<textarea class="lg" placeholder="Large" />
+```
+
+---
+
+### Appearance
+
+<Frame>
+    <textarea class="ghost" placeholder="Ghost" />
+    <textarea class="outlined" placeholder="Outlined" />
+    <textarea class="transparent" placeholder="Transparent" />
+</Frame>
+
+```html
+<textarea class="ghost" placeholder="Ghost" />
+<textarea class="outlined" placeholder="Outlined" />
+<textarea class="transparent" placeholder="Transparent" />
+```
+
+---
+
+## Resizing
+
+### Drag Handle
+
+The CSS [resize](https://developer.mozilla.org/en-US/docs/Web/CSS/resize) property or Tailwind's [resize](https://tailwindcss.com/docs/resize) utility can be used to control the textarea's resizing behavior with a manual drag handle.
+
+<Frame>
+    <textarea placeholder="Resize in any direction" class="resize-both"></textarea>
+</Frame>
+
+```html
+<textarea placeholder="Resize in any direction" class="resize-both"></textarea>
+```
+
+---
+
+### Automatic
+
+The CSS property [field-sizing: content](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing) or Tailwind's [field-sizing-content](https://tailwindcss.com/docs/field-sizing) utility allow a textarea to auto-resize from its minimum height to fit all content.
+
+<Frame>
+    <textarea placeholder="Type to resize" class="field-sizing-content"></textarea>
+</Frame>
+
+```html
+<textarea placeholder="Type to resize" class="field-sizing-content"></textarea>
+```
+
+If a resize drag handle is applied and interacted with, the manually-set height will override automatic resizing.
+
+---

@@ -3,10 +3,33 @@ title: "Text"
 icon: "type"
 ---
 
-## Block text
+---
+
+## Setup
+
+Typography styles are included with all other styles in Indux CSS, or on a standalone basis.
+
+<CodeGroup>
+```html Indux CSS
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
+</head>
+```
+```html Standalone
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.typography.css" />
+</head>
+```
+</CodeGroup>
+
+Styles make full use of theme variables, plus certain arbitrary property values for visual balance. Everything in the CSS files can be fully customized to suit your brand, or overridden in your HTML markup within classes.
+
+---
+## Block Text
 
 <Frame>
-    <div class="col">
+    <div>
         <h1>Heading 1</h1>
         <h2>Heading 2</h2>
         <h3>Heading 3</h3>
@@ -21,14 +44,135 @@ icon: "type"
     </div>
 </Frame>
 
+```html
+<h1>Heading 1</h1>
+<h2>Heading 2</h2>
+<h3>Heading 3</h3>
+<h4>Heading 4</h4>
+<h5>Heading 5</h5>
+<h6>Heading 6</h6>
+<p>Paragraph. Lorem ipsum dolar sit amet.</p>
+<small>Small text. Lorem ipsum dolar sit amet.</small>
+<figcaption>Caption. Lorem ipsum dolar sit amet.</figcaption>
+<blockquote>Blockquote. Lorem ipsum dolar sit amet.</blockquote>
+<pre><code>Hello world!</code></pre>
+```
+
 ---
 
-## Inline text
+## Inline Text
 <Frame>
-    <div class="col">
-        <p><b>Bold</b> and <strong>strong</strong>.</p>
-        <p><i>Italics</i> and <em>emphasis</em> .</p>
-        <p>This is an <a href="#">inline link</a>.</p>
-        <p>Inline <code>code</code> and <key>key</key> tags are handy.</p>
+    <div>
+        <p>Text can be <b>bold</b> or <strong>strong</strong>.</p>
+        <p>It can also be <i>italic</i> or <em>emphasized</em>.</p>
+        <p>Text often contains <a href="#">inline links</a>.</p>
+        <p>Inline <code>code</code> and keyboard tags like <kbd>SHIFT</kbd><kbd>⌘</kbd><kbd>Z</kbd> are handy.</p>
     </div>
 </Frame>
+
+```html
+<p>Text can be <b>bold</b> or <strong>strong</strong>.</p>
+<p>It can also be <i>italic</i> or <em>emphasized</em>.</p>
+<p>Text often contains <a href="#">inline links</a>.</p>
+<p>Inline <code>code</code> and keyboard tags like <kbd>SHIFT</kbd><kbd>⌘</kbd><kbd>Z</kbd> are handy.</p>
+```
+
+---
+
+## Theme
+
+Default text elements use the following [theme](/styles/theme) variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `--color-text-stark` | High contrast text color |
+| `--color-text-neutral` | Medium contrast text color |
+| `--color-text-subtle` | Low contrast text color |
+| `--color-text-inverse` | Text color inside form elements |
+| `--spacing` | Padding and margin factor in various elements |
+| `--radius` | Border radius for `<pre>` corners |
+| `--transition` | Transition time for `<a>` states |
+
+## Fonts
+
+The global font and text color is set in the [theme](/styles/theme), with the default value being the user's system UI font or fallbacks. To apply a different font to individual text elements, you can update their [typography styles](/styles/text#setup).
+
+`<pre>` and `<code>` elements use the user's system monospace font or fallbacks, set in the [reset](/styles/reset) styles if included.
+
+---
+
+## Color Utilities
+
+All text elements accept Indux [color utility](/styles/utilities) classes, either directly or inherited from a parent.
+
+### Direct
+
+<Frame>
+    <div>
+        <h3 class="primary">Lorem ipsum dolar sit amet.</h3>
+        <h3 class="accent">Lorem ipsum dolar sit amet.</h3>
+        <h3 class="danger">Lorem ipsum dolar sit amet.</h3>
+    </div >
+</Frame>
+
+```html
+<h3 class="primary">Lorem ipsum dolar sit amet.</h3>
+<h3 class="accent">Lorem ipsum dolar sit amet.</h3>
+<h3 class="danger">Lorem ipsum dolar sit amet.</h3>
+```
+
+---
+
+### Inherited
+
+<Frame>
+<div>
+    <div class="primary">
+        <h3>Lorem ipsum dolar sit amet.</h3>
+    </div>
+    <div class="accent">
+        <h3>Lorem ipsum dolar sit amet.</h3>
+    </div>
+    <div class="danger">
+        <h3>Lorem ipsum dolar sit amet.</h3>
+    </div>
+</div>
+</Frame>
+
+```html
+<div class="primary">
+    <h3>Lorem ipsum dolar sit amet.</h3>
+</div>
+<div class="accent">
+    <h3>Lorem ipsum dolar sit amet.</h3>
+</div>
+<div class="danger">
+    <h3>Lorem ipsum dolar sit amet.</h3>
+</div>
+```
+
+---
+
+## Lists
+
+Lists are styled to align their markers with the same edge as text elements above or below.
+
+---
+
+## Badges
+
+Badges use the `<mark>` tag for styling without a class required.
+
+<Frame>
+    <mark>Badge</mark>
+    <mark class="primary">Primary</mark>
+    <mark class="accent">Accent</mark>
+    <mark class="danger">Danger</mark>
+</Frame>
+
+```html
+<mark>Badge</mark>
+<mark class="primary">Primary</mark>
+<mark class="accent">Accent</mark>
+<mark class="danger">Danger</mark>
+```

@@ -3,4 +3,171 @@ title: "Radios"
 icon: "circle-dot"
 ---
 
+---
 
+## Setup
+
+Radios are included with all other styles in Indux CSS, or as standalone styles.
+
+<CodeGroup>
+```html Indux CSS
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
+</head>
+```
+```html Standalone
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.radio.css" />
+</head>
+```
+</CodeGroup>
+
+---
+
+## Default
+
+<Frame>
+    <input type="radio" id="11" name="default" checked />
+    <input type="radio" id="22" name="default" />
+</Frame>
+
+```html
+<input type="radio" id="1" name="default" checked />
+<input type="radio" id="2" name="default" />
+```
+
+---
+
+### Theme
+
+Default radios use the following [theme](/styles/theme) variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `--color-field-surface` | Radio background |
+| `--color-field-surface-hover` | Radio background on hover |
+| `--color-field-inverse` | Radio icon color |
+| `--spacing-field-height` | Radio size |
+| `--transition` | Transition time for interactive states |
+
+## Labels
+
+Placing the radio and text inside a `<label>` automatically arranges them in a row (requires [Form](/elements/forms/forms) styles).
+
+
+<Frame>
+    <label>
+        <input type="radio" id="a1"name="labelled" checked />
+        Option A
+    </label>
+    <label>
+        <input type="radio" id="b2" name="labelled" />
+        Option B
+    </label>
+</Frame>
+
+```html
+<label>
+    <input type="radio" id="a" name="labelled" checked />
+    Option A
+</label>
+<label>
+    <input type="radio" id="b" name="labelled" />
+    Option B
+</label>
+```
+
+---
+
+## Utilities
+
+Radios accept Indux [utility](/styles/utilities) classes, which can be stacked in any combination.
+
+### Colors
+
+<Frame>
+    <input type="radio" id="primary1" class="primary" name="colors" checked />
+    <input type="radio" id="accent2" class="accent" name="colors" />
+    <input type="radio" id="danger3" class="danger" name="colors" />
+</Frame>
+
+```html
+<input type="radio" id="primary" class="primary" name="colors" checked />
+<input type="radio" id="accent" class="accent" name="colors" />
+<input type="radio" id="danger" class="danger" name="colors" />
+```
+
+---
+
+### Size
+
+<Frame>
+    <input type="radio" id="small1" class="sm" name="sizes" checked />
+    <input type="radio" id="large2" class="lg" name="sizes" />
+</Frame>
+
+```html
+<input type="radio" id="small" class="sm" name="sizes" checked />
+<input type="radio" id="large" class="lg" name="sizes" />
+```
+
+---
+
+### Appearance
+
+<Frame>
+    <input type="radio" id="outlined1" class="outlined" name="outlines" checked />
+    <input type="radio" id="outlined-primary2" class="outlined primary" name="outlines" />
+    <input type="radio" id="outlined-accent3" class="outlined accent" name="outlines" />
+    <input type="radio" id="outlined-danger4" class="outlined danger" name="outlines" />
+</Frame>
+
+```html
+<input type="radio" id="outlined" class="outlined" name="outlines" checked />
+<input type="radio" id="outlined-primary" class="outlined primary" name="outlines" />
+<input type="radio" id="outlined-accent" class="outlined accent" name="outlines" />
+<input type="radio" id="outlined-danger" class="outlined danger" name="outlines" />
+```
+
+---
+
+## Groups
+
+Placing labelled radios inside a `<fieldset>` automatically arranges them in a column with a gap.
+
+<Frame>
+<fieldset>
+    <label>
+        <input type="radio" id="option-a1" name="group" checked />
+        Option A
+    </label>
+    <label>
+        <input type="radio" id="option-b2" name="group" />
+        Option B
+    </label>
+    <label>
+        <input type="radio" id="option-c3" name="group" />
+        Option C
+    </label>
+</fieldset>
+</Frame>
+
+```html
+<fieldset>
+    <label>
+        <input type="radio" id="option-a" name="group" checked />
+        Option A
+    </label>
+    <label>
+        <input type="radio" id="option-b" name="group" />
+        Option B
+    </label>
+    <label>
+        <input type="radio" id="option-c" name="group" />
+        Option C
+    </label>
+</fieldset>
+```
+
+---

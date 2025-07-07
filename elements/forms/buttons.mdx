@@ -3,8 +3,29 @@ title: "Buttons"
 icon: "square-mouse-pointer"
 ---
 
+---
 
-## Base
+## Setup
+
+Buttons are included with all other styles in Indux CSS, or as standalone styles.
+
+<CodeGroup>
+```html Indux CSS
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
+</head>
+```
+```html Standalone
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.button.css" />
+</head>
+```
+</CodeGroup>
+
+---
+
+## Default
 
 <Frame>
     <button>Button</button>
@@ -14,11 +35,27 @@ icon: "square-mouse-pointer"
 <button>Button</button>
 ```
 
+Button text is always single-line and will truncate with an ellipsis if it overflows.
+
 ---
 
-## Modifiers
+### Theme
 
-Buttons accept Indux's preset form element classes, which can be stacked in any combination.
+Default buttons use the following [theme](/styles/theme) variables:
+
+| Variable                   | Purpose                                 |
+|----------------------------|-----------------------------------------|
+| `--color-field-surface`    | Button background color                 |
+| `--color-field-surface-hover` | Button hover/active background color |
+| `--color-field-inverse`    | Button text color                      |
+| `--spacing-field-height`   | Button height and min-width             |
+| `--spacing-field-padding`  | Horizontal padding for button content   |
+| `--radius`                 | Border radius for button corners        |
+| `--transition`             | Transition time for interactive states  |
+
+## Utilities
+
+Buttons accept Indux [utility](/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
 <Frame>
@@ -33,17 +70,21 @@ Buttons accept Indux's preset form element classes, which can be stacked in any 
 <button class="danger">Danger</button>
 ```
 
+---
+
 ### Size
 
 <Frame>
-    <button class="small">Small</button>
-    <button class="large">Large</button>
+    <button class="sm">Small</button>
+    <button class="lg">Large</button>
 </Frame>
 
 ```html
-<button class="small">Small</button>
-<button class="large">Large</button>
+<button class="sm">Small</button>
+<button class="lg">Large</button>
 ```
+
+---
 
 ### Appearance
 
@@ -70,19 +111,21 @@ Buttons accept Indux's preset form element classes, which can be stacked in any 
 Buttons containing a single icon are automatically squared.
 
 <Frame>
-    <button icon="ph:house"></button>
+    <button x-icon="ph:house"></button>
 </Frame>
 
 ```html
 <button icon="ph:house"></button>
 ```
 
+---
+
 ### Icon & Text
 
-Any number of icons and text can be nested in any order with `<span>` tags.
+Any number of icons and text can be nested in any order with `<span>` tags, which are auto-spaced.
 
 <Frame>
-    <button><span icon="ph:house"></span><span>Home</span></button>
+    <button><span x-icon="ph:house"></span><span>Home</span></button>
 </Frame>
 
 ```html
@@ -97,13 +140,52 @@ For button links, use `<a role="button">`. Modifier classes above can also be ap
 
 <Frame>
     <a role="button" href="#">Learn more</a>
-    <a role="button" href="#" class="primary">Get some</a>
+    <a role="button" href="#" class="primary">Try now</a>
 </Frame>
 
 ```html
 <a role="button" href="#">Learn more</a>
-<a role="button" href="#" class="primary" >Get some</a>
+<a role="button" href="#" class="primary">Try now</a>
 ```
 
 ---
 
+## File Uploads
+
+<Frame>
+<label role="button">
+    <input type="file" />
+    Upload
+</label>
+</Frame>
+
+```html
+<label role="button">
+    <input type="file" />
+    Upload
+</label>
+```
+
+---
+
+## Groups
+
+Horizontally group buttons, inputs, or selects together with a `role="group"` attribute added to the parent container.
+
+<Frame>
+<div role="group">
+    <input placeholder="Insert email"/>
+    <button class="primary">Signup</button>
+</div>
+</Frame>
+
+```html
+<div role="group">
+    <input placeholder="Insert email"/>
+    <button class="primary">Signup</button>
+</div>
+```
+
+When these elements are grouped, only the outer elements' outercorners keep their `--radius` values for a seamless appearance.
+
+---

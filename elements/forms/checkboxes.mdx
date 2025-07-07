@@ -3,5 +3,168 @@ title: "Checkboxes"
 icon: "square-check"
 ---
 
+---
 
+## Setup
 
+Checkboxes are included with all other styles in Indux CSS, or as standalone styles.
+
+<CodeGroup>
+```html Indux CSS
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
+</head>
+```
+```html Standalone
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.checkbox.css" />
+</head>
+```
+</CodeGroup>
+
+---
+
+## Default
+
+<Frame>
+    <input type="checkbox" checked />
+    <input type="checkbox" />
+</Frame>
+
+```html
+<input type="checkbox" />
+```
+
+---
+
+### Theme
+
+Default checkboxes use the following [theme](/styles/theme) variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `--spacing-field-height` | Checkbox size |
+| `--color-field-surface` | Checkbox background |
+| `--color-field-surface-hover` | Checkbox background on hover |
+| `--color-field-inverse` | Checkmark icon color |
+| `--transition` | Transition time for interactive states |
+
+### Icon
+
+The checkbox icon is an encoded SVG in the checkbox style's `--icon-checkbox` variable. To modify it:
+1. Choose a desired icon from [Iconify](https://icon-sets.iconify.design/) or other SVG icon source.
+2. Copy the encoded SVG string (in Iconify, go to an icon's CSS tab and find the `--svg` value). Otherwise, use an [SVG encoder](https://yoksel.github.io/url-encoder/).
+3. Replace the `--icon-checkbox` variable value with the encoded SVG string.
+
+```CSS Checkbox Styles
+:root {
+    --icon-checkbox: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='currentColor' d='m0 11l2-2l5 5L18 3l2 2L7 18z'/%3E%3C/svg%3E")
+}
+```
+
+---
+
+## Labels
+
+Placing the checkbox and text inside a `<label>` automatically arranges them in a row (requires [Form](/elements/forms/forms) styles).
+
+<Frame>
+    <label>
+        <input type="checkbox" />
+        Lorem ipsum
+    </label>
+</Frame>
+
+```html
+<label>
+    <input type="checkbox" />
+    Lorem ipsum
+</label>
+```
+
+---
+
+## Utilities
+
+Checkboxes accept Indux [utility](/styles/utilities) classes, which can be stacked in any combination.
+
+### Colors
+
+<Frame>
+    <input type="checkbox" class="primary" checked />
+    <input type="checkbox" class="accent" checked />
+    <input type="checkbox" class="danger" checked />
+</Frame>
+
+```html
+<input type="checkbox" class="primary" checked />
+<input type="checkbox" class="accent" checked />
+<input type="checkbox" class="danger" checked />
+```
+
+---
+
+### Size
+
+<Frame>
+    <input class="sm" type="checkbox" checked />
+    <input class="lg" type="checkbox" checked />
+</Frame>
+
+```html
+<input class="sm" type="checkbox" checked />
+<input class="lg" type="checkbox" checked />
+```
+
+---
+
+### Appearance
+
+<Frame>
+    <input class="outlined" type="checkbox" checked />
+</Frame>
+
+```html
+<input class="outlined" type="checkbox" checked />
+```
+
+---
+
+## Groups
+
+Placing labelled checkboxes inside a `<fieldset>` automatically arranges them in a column with a gap.
+
+<Frame>
+    {/* <fieldset>
+        <label>
+            <input type="checkbox" />
+            Lorem ipsum
+        </label>
+        <label>
+            <input type="checkbox" />
+            Dolar sit amet
+        </label>
+        <label>
+            <input type="checkbox" />
+            Consectetur adipiscing elit
+        </label>
+    </fieldset> */}
+</Frame>
+
+```html
+<fieldset>
+    <label>
+        <input type="checkbox" />
+        Lorem ipsum
+    </label>
+    <label>
+        <input type="checkbox" />
+        Dolar sit amet
+    </label>
+    <label>
+        <input type="checkbox" />
+        Consectetur adipiscing elit
+    </label>
+</fieldset>
+```

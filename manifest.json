@@ -27,43 +27,27 @@
         "image": "/images/default-og-image.jpg",
         "ogType": "website"
     },
-    "pages": [
-        {
-            "path": "html/home.html",
-            "url": "/",
-            "title": "Home",
-            "description": "Testing",
-            "author": "you",
-            "fallback": true
-        },
-        {
-            "path": "html/about.html",
-            "url": "/about",
-            "collections": [
-                "team"
-            ]
-        }
-    ],
     "components": [
-        "html/home.html",
-        "html/about.html"
+        "components/home.html",
+        "components/about.html",
+        "components/ui.html"
     ],
     "commonComponents": [
-        "html/navigation/header.html",
-        "html/navigation/logo.html"
+        "components/navigation/header.html",
+        "components/navigation/logo.html"
     ],
     "collections": {
         "blog": {
-            "path": "/content/blog.json"
+            "path": "/collections/blog.json"
         },
         "pricing": {
-            "en": "/content/pricing.json",
-            "fr": "/content/fr.pricing.json",
-            "it": "/content/it.pricing.json"
+            "en": "/collections/pricing.json",
+            "fr": "/collections/fr.pricing.json",
+            "it": "/collections/it.pricing.json"
         },
         "features": {
-            "en": "/content/features.yaml",
-            "fr": "/content/fr.features.yaml"
+            "en": "/collections/features.yaml",
+            "fr": "/collections/fr.features.yaml"
         }
     },
     "cookies": [

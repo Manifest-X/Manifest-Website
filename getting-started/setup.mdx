@@ -1,6 +1,5 @@
 ---
 title: "Setup"
-description: "Get the project starter kit, or bring Indux into existing projects."
 icon: "terminal"
 ---
 
@@ -8,12 +7,69 @@ import StylesheetList from '/snippets/stylesheet-list.mdx';
 
 ---
 
-If you're not installing the [starter project](/getting-started/starter-project), you can install individual Indux scripts and stylesheets by CDN or CLI (see below), or download from [Github](https://github.com/indux).
+Bring individual Indux scripts and stylesheets into your project by CDN or CLI, or download them from [GitHub](https://github.com/andrewmatlock/Indux).
 
 ---
 
 ## Scripts
-Alpine JS v3 or above is required to use Indux scripts, which are Alpine plugins. Place them anywhere in the `<head>` or `<body>`, in any order.
+Indux scripts are plugins that extend [Alpine JS](https://alpinejs.dev) v3 or above.
+
+There are three ways to bring them into your project.
+
+<AccordionGroup>
+
+  <Accordion title="All plugins, Alpine, and Tailwind included">
+
+    `indux.alpine.tailwind.js` includes all plugins, with Alpine and Tailwind baked in. The script tag must include `defer` for Alpine to function.
+
+    ```html
+    <script defer src="https://cdn.jsdelivr.net/npm/indux/dist/indux.alpine.tailwind.js"></script>
+    ```
+
+    <Note>Tailwind code derives from the Play CDN script, with expansions to support custom utilities at runtime.</Note>
+    
+
+  </Accordion>
+
+  <Accordion title="All plugins included">
+
+    `indux.js` includes all plugins, and requires Alpine JS to run. Alpine's script tag must include `defer` to function.
+
+    ```html
+    <!-- Alpine -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Indux (all plugins) -->
+    <script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.js"></script>
+    ```
+  </Accordion>
+
+  <Accordion title="Individual plugins">
+
+
+    For projects requiring only certain components, load them individually to reduce payload.
+
+    ```html
+    <!-- Alpine -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Indux (individual plugins) -->
+    <script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.components.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.icons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.themes.js"></script>
+    ```
+
+    CDN links for each can be found in their plugin articles.
+
+  </Accordion>
+
+</AccordionGroup>
+
+
+<Note>All scripts can be placed anywhere in the `<head>` or `<body>`, in any order.<br/>
+The bundled scripts (or the standalone `indux.components.js` plugin) will manage page routing, and scripts only need to be applied once to `index.html`.</Note>
+
+
 
 <Tabs>
 
