@@ -1,0 +1,70 @@
+---
+title: "Utilities"
+description: "Maintain visual consistency with common utility classes."
+icon: "pencil-ruler"
+---
+
+---
+
+### Overview
+
+Sometimes the base styles for HTML elements aren't enough. Indux provides a curated set of utility classes for common use cases, particularly layouts and brand colors.
+
+---
+
+## Setup
+
+Utilities are available in the full Indux CSS library, or through standalone stylesheets.
+
+<CodeGroup>
+```html Indux CSS
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css">
+```
+```html Standalone
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.utilities.css">
+```
+</CodeGroup>
+
+---
+
+## Utilities
+
+### Layout
+
+With most modern container layouts making use of CSS flex properties, these utilities reduce the number of Tailwind classes otherwise required.
+
+| Class | Description | Tailwind Equivalent |
+|--------------|-------------|-------------------|
+| `content` | Contains content to middle of page | `w-(--spacing-content-width) max-w-full mx-auto` |
+| `row` | Horizontal flex container | `flex flex-row` |
+| `row-wrap` | Horizontally wrapping flex container | `flex flex-row flex-wrap` |
+| `col` | Vertical flex container | `flex flex-col` |
+| `col-wrap` | Vertically wrapping flex container | `flex flex-col flex-wrap` |
+| `center` | Centers content | `justify-center items-center` |
+
+### Form Elements
+
+These classes are used to modify form elements like buttons and inputs. See the respective element documentation for more detail.
+
+| Class | Type | Description |
+|--------------|-----------|---------------------|
+| `primary` | Color | Primary or contrast color |
+| `accent` | Color | Accent or brand color |
+| `danger` | Color | Danger or warning color |
+| `ghost` | Appearance | Transparent background until hovered or pressed |
+| `hug` | Appearance | Sizes to its content |
+| `transparent` | Appearance | Transparent background in all states |
+| `outlined` | Appearance | Bordered style |
+| `lg` | Size | Larger variant |
+| `sm` | Size | Smaller variant |
+
+### Miscellaneous
+
+| Class | Description |
+|--------------|--------------------------------|
+| `no-focus` | Removes an element's focus outline |
+| `no-scrollbar` | Hides an element's scrollbar |
+| `overlay-dark` | For banner elements with a dark overlay and light text inside |
+| `overlay-light` | For banner elements with a light overlay and dark text inside |
+| `prose` | Makes elements with long-form, child text content (e.g. articles) more readable |
+| `trailing` | Colors and pushes a trailing text or icon element to the right |

@@ -1,0 +1,121 @@
+---
+title: "Color Themes"
+description: "Toggle between light, dark, and system themes."
+icon: "sun-moon"
+---
+
+---
+
+## Setup
+
+Add an [Indux bundle](/getting-started/setup) to your project, or use the standalone themes plugin:
+
+```html
+<!-- Alpine -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- Indux Themes plugin -->
+<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.themes.js"></script>
+```
+
+---
+
+## Themes
+
+### Light/Default
+
+The light theme is the default color mode, picking up all colors not in a `.dark` declaration.
+
+<CodeGroup>
+
+```css Example 1
+:root {
+    --color-page: var(--color-50);
+    --color-surface-1: var(--color-100);
+    ...
+}
+```
+
+```css Example 2
+.card {
+    background-color: white;
+}
+```
+
+</CodeGroup>
+
+---
+
+### Dark
+
+Use `.dark { ... }` declarations to override light/default color values. The plugin works by adding or removing a `dark` class to or from the `<html>` tag.
+
+<CodeGroup>
+
+```css Example 1
+.dark {
+    --color-page: var(--color-950);
+    --color-surface-1: var(--color-900);
+    ...
+}
+```
+
+```css Example 2
+.dark .card {
+    background-color: black;
+}
+```
+
+</CodeGroup>
+
+Using Tailwind, dark colors can also be set inline with the `dark:` variant on color utilities.
+
+```html
+<div class="bg-page dark:bg-surface-1">We're going dark</div>
+```
+
+---
+
+### System
+
+The system theme follows the user's system preference for light or dark mode. No additional configuration is required.
+
+---
+
+## Usage
+
+### UI Toggles
+
+Allow users to toggle color themes with the `x-theme` directive, using the following values:
+- `'light'` sets to light theme
+- `'dark'` sets to dark theme
+- `'system'` sets to system theme
+- `'toggle'` toggles between light and dark themes
+
+<Frame>
+    <button x-theme="'light'">Light</button>
+    <button x-theme="'dark'">Dark</button>
+    <button x-theme="'system'">System</button>
+    <button x-theme="'toggle'" x-icon="$theme.current === 'light' ? 'ph:moon' : 'ph:sun'" aria-label="Toggle Theme"></button>
+</Frame>
+
+```html
+<button x-theme="'light'">Light Mode</button>
+<button x-theme="'dark'">Dark Mode</button>
+<button x-theme="'system'">System Mode</button>
+<button x-theme="'toggle'" icon="$theme.current === 'light' ? 'ph:moon' : 'ph:sun'" aria-label="Toggle Theme"></button>
+```
+
+---
+
+### Current Theme
+
+Display the current theme's title with `x-text="$theme.current"`:
+
+<Frame>
+    <p>Theme: <span x-text="$theme.current"></span></p>
+</Frame>
+
+```html
+<p>Theme: <span x-text="$theme.current"></span></p>
+```

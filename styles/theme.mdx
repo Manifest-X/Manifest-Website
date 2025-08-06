@@ -55,9 +55,9 @@ See [color themes](/plugins/color-themes) for more information on setting up lig
 | `--color-surface-1` | Initial surface background | `bg-surface-1` |
 | `--color-surface-2` | Next surface background | `bg-surface-2` |
 | `--color-surface-3` | Last surface background | `bg-surface-3` |
-| `--color-text-stark` | High contrast text color | `text-stark` |
-| `--color-text-neutral` | Medium contrast text color | `text-neutral` |
-| `--color-text-subtle` | Low contrast text color | `text-subtle` |
+| `--color-content-stark` | High contrast text color | `text-content-stark` |
+| `--color-content-neutral` | Medium contrast text color | `text-neutral` |
+| `--color-content-subtle` | Low contrast text color | `text-content-subtle` |
 | `--color-field-surface` | Background color for interactive elements | `bg-field-surface` |
 | `--color-field-surface-hover` | Hover state background for interactive elements | `hover:bg-field-surface-hover` |
 | `--color-field-inverse` | Content color for interactive elements | `text-field-inverse` |
@@ -125,17 +125,17 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
     --color-surface-1: var(--color-100);
     --color-surface-2: var(--color-200);
     --color-surface-3: var(--color-300);
-    --color-text-stark: var(--color-900);
-    --color-text-neutral: var(--color-600);
-    --color-text-subtle: var(--color-500);
-    --color-field-surface: color-mix(in oklch, var(--color-text-stark) 7%, transparent);
-    --color-field-surface-hover: color-mix(in oklch, var(--color-text-stark) 11%, transparent);
-    --color-field-inverse: var(--color-text-stark);
+    --color-content-stark: var(--color-900);
+    --color-content-neutral: var(--color-600);
+    --color-content-subtle: var(--color-500);
+    --color-field-surface: color-mix(in oklch, var(--color-content-stark) 7%, transparent);
+    --color-field-surface-hover: color-mix(in oklch, var(--color-content-stark) 11%, transparent);
+    --color-field-inverse: var(--color-content-stark);
     --color-popover-surface: var(--color-page);
-    --color-line: color-mix(in oklch, var(--color-text-stark) 11%, transparent);
-    --color-primary: var(--color-text-stark);
+    --color-line: color-mix(in oklch, var(--color-content-stark) 11%, transparent);
+    --color-primary: var(--color-content-stark);
     --color-primary-inverse: var(--color-page);
-    --color-primary-text: var(--color-text-stark);
+    --color-primary-text: var(--color-content-stark);
     --color-accent: oklch(90.56% 0.1724 148.7);
     --color-accent-inverse: var(--color-950);
     --color-accent-text: oklch(70.7% 0.229867 143.9);
@@ -165,9 +165,9 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
     --color-surface-2: var(--color-800);
     --color-surface-3: var(--color-700);
     --color-popover-surface: var(--color-700);
-    --color-text-stark: var(--color-50);
-    --color-text-neutral: var(--color-400);
-    --color-text-subtle: var(--color-500);
+    --color-content-stark: var(--color-50);
+    --color-content-neutral: var(--color-400);
+    --color-content-subtle: var(--color-500);
     --color-accent-text: oklch(90.56% 0.1724 148.7);
 }
 
@@ -178,13 +178,13 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
     :host {
         line-height: 1.5;
         font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-        color: var(--color-text-stark, inherit);
+        color: var(--color-content-stark, inherit);
         background-color: var(--color-page, inherit)
     }
 
     /* Text selection */
     ::selection {
-        background-color: color-mix(in oklch, var(--color-surface-1) 92%, var(--color-text-stark))
+        background-color: color-mix(in oklch, var(--color-surface-1) 92%, var(--color-content-stark))
     }
 
     /* Focus state */

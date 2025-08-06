@@ -3,4 +3,99 @@ title: "Modals"
 icon: "square-chart-gantt"
 ---
 
+import StyleDisclosure from '/snippets/style-disclosure.mdx';
 
+---
+
+## Setup
+
+Modal styles are included in Indux CSS, or a standalone stylesheet.
+
+<CodeGroup>
+```html Indux CSS
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
+</head>
+```
+```html Standalone
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.modal.css" />
+</head>
+```
+</CodeGroup>
+
+<StyleDisclosure />
+
+---
+
+## Default
+
+<Frame>
+    <button popovertarget="modal">Button</button>
+    <dialog popover id="modal">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+    </dialog>
+</Frame>
+
+```html
+<button popovertarget="modal">Button</button>
+<dialog popover id="modal">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+</dialog>
+
+Modals use the `<dialog>` element with the `popover` attribute. The button (or any element) that opens the modal requires the `popovertarget="ID"` attribute, where `ID` is the ID of the dialog element.
+
+---
+
+## Layout
+
+Use the `<header>`, `<main>`, and/or `<footer>` elements as direct children of the dialog element for a typical modal layout.
+
+<Frame>
+    <button popovertarget="modal-formatted">Open</button>
+    <dialog popover id="modal-formatted">
+      <header>
+        <h2>Title</h2>
+        <button popovertarget="modal-formatted" aria-label="Close" x-icon="ph:x"></button>
+      </header>
+      <main>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+      </main>
+      <footer>
+        <button popovertarget="modal-formatted">Okay</button>
+      </footer>
+    </dialog>
+</Frame>
+
+```html
+<button popovertarget="modal-formatted">Open</button>
+<dialog popover id="modal-formatted">
+    <header>
+        <h2>Title</h2>
+        <button popovertarget="modal-formatted" aria-label="Close" x-icon="ph:x"></button>
+    </header>
+    <main>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+    </main>
+    <footer>
+        <button popovertarget="modal-formatted">Okay</button>
+    </footer>
+</dialog>
+```
+
+---
+
+## Theme
+
+Default modals use the following [theme](/styles/theme) variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `--color-content-stark` | Modal text color |
+| `--color-popover-surface` | Modal background color |
+| `--radius` | Modal border radius |
+| `--spacing` | Modal layout gaps and padding |
+```
+
+---

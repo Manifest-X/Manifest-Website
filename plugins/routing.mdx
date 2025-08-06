@@ -1,0 +1,163 @@
+---
+title: "Routing"
+description: "Set page navigation paths in your project."
+icon: "route"
+---
+
+## Overview
+
+With the router plugin, Indux turns your project into a single-page application (SPA), where URL paths can be used to show or hide any element, including [components](/plugins/components).
+
+<Note>Indux routing should be used independent of other routing systems or frameworks.</Note>
+
+---
+
+## Setup
+
+Add an [Indux bundle](/getting-started/setup) to your project, or use the standalone router plugin:
+
+```html
+<!-- Alpine -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- Indux Router plugin -->
+<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.router.js"></script>
+```
+
+---
+
+## Routing
+
+`index.html` is the entrypoint for rendering, where high-level elements, layout structures, and [components](/plugins/components) can be applied. Within `index.html` or any component HTML file, use the `x-route` attribute to make any element conditional on a URL path.
+
+<CodeGroup>
+```html index.html
+<!DOCTYPE html>
+<html>
+    <head>
+        ...
+    </head>
+    <body>
+        <x-header></x-header>
+        <main>
+
+            <!-- Only renders at the base domain -->
+            <x-home x-route="/"></x-home>
+
+            <!-- Only renders at the /about route -->
+            <h1 x-route="about">About Us</h1>
+            <x-about x-route="about"></x-about>
+
+        </main>
+        <x-footer></x-footer>
+    </body>
+</html>
+```
+
+```html home.html
+<div>There's no place like home</div>
+```
+
+```html about.html
+<div>All about the Benjamins</div>
+```
+
+</CodeGroup>
+
+If an element in `index.html` has no `x-route` attribute or value, it will render on all routes. Use `/` for rendering only at the base domain route (e.g. `acme.com`).
+
+---
+
+### Wildcard Routes
+
+A wildcard route can be used to match any route that starts with the given path.
+
+```html
+<div x-route="about/*">...</div>
+```
+
+This will match any route that has a subpage after `/about/`, such as `/about/location` or `/about/team`. It will not render for `/about` on its own. Conversely, `x-route="about"` will render for both `/about` and all subpages since the value always matches one of the slugs.
+
+---
+
+### Multiple Routes
+
+Multiple comma-separated values allow the element to render if any of the routes match the current route.
+
+```html
+<div x-route="/,about,contact">...</div>
+```
+
+---
+
+### Omitted Routes
+
+A leading `!` in front of a value will hide the element from that route.
+
+```html
+<div x-route="!features,!pricing">...</div>
+```
+
+---
+
+### Undefined Routes
+
+Use `!*` to show an element on a route that is not defined by any other `x-route` attributes. Note that a bare wildcard `*` will appear at all routes, including those that are undefined.
+
+<Note>Indux does not require a declared route to render, and a non-existent route like `/no-bueno` will still render any elements in `index.html` that don't have conflicting `x-route` conditions.</Note>
+
+---
+
+## Page Head Content
+
+The static content in the `index.html` `<head>` tag is global across all routes. To make head content like the title, metas, scripts, or stylesheets conditional to a specific route, place them in a `<template data-head>` tag, subject to its own route condition or that of a parent's.
+
+<CodeGroup>
+```html index.html
+<!DOCTYPE html>
+<html>
+    <head>
+        ...
+    </head>
+    <body>
+
+        <!-- The script will only append to the head in the base and /about routes -->
+        <template data-head x-route="/,about">
+            <script>
+                console.log('Always use your head');
+            </script>
+        </template>
+
+        <!-- Specialty page component -->
+        <x-specialty x-route="specialty"></x-specialty>
+
+    </body>
+</html>
+```
+
+```html specialty.html
+<!-- These assets only append to the head if the specialty page component is rendered -->
+<template data-head>
+    <title>Specialty Page</title>
+    <link rel="stylesheet" href="/styles/specialty.css">
+    <script src="/scripts/specialty.js"></script>
+</template>
+
+<!-- data-head content can also be nested in a route-specific container -->
+ <div x-route="specialty/*">
+    <template data-head>
+        <script src="/scripts/even-more.js"></script>
+    </template>
+</div>
+
+...
+```
+</CodeGroup>
+
+---
+
+## URL Queries
+
+See the Indux plugins for [localization](/plugins/localization) and [URL queries](/plugins/url-queries) that can inject additional information into the URL.
+
+---

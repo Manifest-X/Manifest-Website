@@ -1,0 +1,107 @@
+---
+title: "Icons"
+description: "Add icons to elements with a simple HTML attribute."
+icon: "smile"
+---
+
+---
+
+## Overview
+
+Indux makes inclusion of icons easy and powerful, letting you add over 200,000 open source icons from every major library—courtesy of a built-in [Iconify](https://iconify.design/) integration.
+
+---
+
+## Setup
+
+Add an [Indux bundle](/getting-started/setup) to your project, or use the standalone icons plugin—both of which includes a baked-in Iconify CDN script:
+
+```html
+<!-- Alpine -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- Indux Icons plugin -->
+<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.icons.js"></script>
+```
+
+---
+
+## Usage
+
+Icons are inserted into any HTML element with the `x-icon` attributes.
+
+<Frame>
+    <i x-data x-icon="ph:house"></i>
+</Frame>
+
+<CodeGroup>
+```html icon
+<i x-icon="ph:house"></i>
+```
+```html x-icon
+<i x-icon="ph:house"></i>
+```
+</CodeGroup>
+
+Browse [Iconify](https://icon-sets.iconify.design/) for available icon values like the `ph:house` example above. The letters before the colon are the icon library code (e.g. `ph` for Phosphor), and the string after is the individual icon name (e.g. `house`). If an icon doesn't render, double check the value.
+
+---
+
+### Inline Icons
+
+When an icon renders, a child SVG is generated at runtime within the parent element. This event will overwrite any other children of the parent element. To preserve children, place the `x-icon` attribute in its own child element like a `<span>` or `<i>` tag.
+
+<Frame>
+<div x-data>
+    <h1><i x-icon="ph:house"></i> Lorem ipsum.</h1>
+    <button><span x-icon="ph:house"></span> Home</button>
+</div>
+</Frame>
+
+```html Text
+<h1><i x-icon="ph:house"></i> Lorem ipsum.</h1>
+<button><span x-icon="ph:house"></span> Home</button>
+```
+
+---
+
+### Dynamic Icons
+
+Icons can be switched dynamically with Alpine.js expressions.
+
+<Frame>
+    <button x-data x-on:click="icon = icon === 'ph:house' ? 'ph:check' : 'ph:x'" aria-label="Toggle" x-icon="icon"></button>
+</Frame>
+
+<CodeGroup>
+```html
+<button @click="icon = icon === 'ph:house' ? 'ph:check' : 'ph:x'" aria-label="Toggle" x-icon="icon"></button>
+```
+</CodeGroup>
+
+---
+
+### Collection Icons
+
+Icon values can be sourced from a [content collection](/plugins/content-collections) in a dynamic `x-bind:icon` (or `:icon` for shorthand) attribute.
+
+<CodeGroup>
+```html HTML
+<button x-icon="$x.content.icon"></button>
+```
+```json content.json
+{
+    "icon": "ph:house"
+}
+```
+</CodeGroup>
+
+---
+
+## Styles
+
+Icons are treated like text and inherit parent text properties like `font-size` and `color`.
+
+Certain elements like [buttons](/elements/forms/buttons) have unique styles to ensure icons always appear nicely inline, on their own, or alongside text.
+
+---
