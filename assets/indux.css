@@ -30,18 +30,18 @@
     --color-field-inverse: var(--color-content-stark);
     --color-popover-surface: var(--color-page);
     --color-line: color-mix(in oklch, var(--color-content-stark) 11%, transparent);
-    --color-primary: var(--color-900);
-    --color-primary-hover: var(--color-700);
-    --color-primary-inverse: var(--color-page);
-    --color-primary-text: var(--color-content-stark);
+    --color-brand-surface: var(--color-900);
+    --color-brand-surface-hover: var(--color-700);
+    --color-brand-inverse: var(--color-page);
+    --color-brand-content: var(--color-content-stark);
     --color-accent: #f6c07b;
-    --color-accent-hover: #f19b46;
+    --color-accent-surface-hover: #f19b46;
     --color-accent-inverse: #763518;
-    --color-accent-text: #de6618;
-    --color-danger: #ef4444;
-    --color-danger-hover: #dc2626;
-    --color-danger-inverse: white;
-    --color-danger-text: var(--color-danger);
+    --color-accent-content: #de6618;
+    --color-negative: #ef4444;
+    --color-negative-surface-hover: #dc2626;
+    --color-negative-inverse: white;
+    --color-negative-content: var(--color-negative-surface);
 
     /* Overlays */
     --color-overlay-dark: oklch(50% 0 0);
@@ -70,9 +70,9 @@
     --color-content-stark: var(--color-50);
     --color-content-neutral: var(--color-400);
     --color-content-subtle: var(--color-500);
-    --color-primary: var(--color-50);
-    --color-primary-hover: var(--color-100);
-    --color-accent-text: #f6c07b;
+    --color-brand-surface: var(--color-50);
+    --color-brand-surface-hover: var(--color-100);
+    --color-accent-content: #f6c07b;
 }
 
 .frame {
@@ -1026,29 +1026,29 @@
     line-height: 1.5
 }
 
-.prose x-code, .prose aside.preview:not(:has(ul, ol)) {
+.prose x-code, .prose aside.frame:not(:has(ul, ol)) {
     display: flex;
     flex-flow: row wrap;
 }
 
-.prose x-code, .prose aside.preview {
+.prose x-code, .prose aside.frame {
     background: color-mix(in oklch, var(--color-field-surface) 35%, transparent);
     border: 1px solid var(--color-field-surface);
     border-radius: calc(var(--radius) * 2)
 }
 
-.prose aside.preview {
+.prose aside.frame {
     align-items: center;
     gap: calc(var(--spacing) * 2)
 }
 
-.prose aside.preview:has(+ x-code) {
+.prose aside.frame:has(+ x-code) {
     border-bottom: 0 none;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0
 }
 
-.prose aside.preview + x-code {
+.prose aside.frame + x-code {
     margin-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0
@@ -1595,11 +1595,11 @@ x-code[line-numbers] pre {
 
     /* .dark input[type=radio] {
         &:checked {
-            border: 1.5px solid var(--color-primary);
+            border: 1.5px solid var(--color-brand-surface);
         }
 
         &::after {
-            background-color: var(--color-primary);
+            background-color: var(--color-brand-surface);
         }
     } */
 }
@@ -1806,12 +1806,12 @@ x-code[line-numbers] pre {
 
     :where(.toast-success) {
         color: var(--color-accent-inverse);
-        background-color: var(--color-accent)
+        background-color: var(--color-accent-surface)
     }
 
     :where(.toast-error) {
-        color: var(--color-danger-inverse);
-        background-color: var(--color-danger)
+        color: var(--color-negative-inverse);
+        background-color: var(--color-negative-surface)
     }
 
     :where(.toast-icon) {
@@ -2243,16 +2243,16 @@ x-code[line-numbers] pre {
             background-color: var(--color-field-surface-hover)
         }
 
-        &.primary:hover {
-            color: var(--color-primary-inverse)
+        &.brand:hover {
+            color: var(--color-brand-inverse)
         }
 
         &.accent:hover {
             color: var(--color-accent-inverse)
         }
 
-        &.danger:hover {
-            color: var(--color-danger-inverse)
+        &.negative:hover {
+            color: var(--color-negative-inverse)
         }
     }
 
@@ -2350,7 +2350,7 @@ x-code[line-numbers] pre {
             background-color: color-mix(in oklch, var(--color-field-surface) 25%, transparent);
             border: 1px solid color-mix(in oklch, var(--color-field-surface) 50%, transparent);
 
-            &:not(.preview) * {
+            &:not(.frame) * {
                 color: inherit
             }
         }
@@ -2442,30 +2442,30 @@ x-code[line-numbers] pre {
         color: var(--color-content-neutral)
     }
 
-    :where(.primary) {
-        --color-field-surface: var(--color-primary);
-        --color-field-surface-hover: var(--color-primary-hover);
-        --color-field-inverse: var(--color-primary-inverse);
-        --color-content-stark: var(--color-primary-text);
-        --color-content-neutral: color-mix(in oklch, var(--color-primary-text) 85%, transparent);
-        --color-content-subtle: color-mix(in oklch, var(--color-primary-text) 70%, transparent);
+    :where(.brand) {
+        --color-field-surface: var(--color-brand-surface);
+        --color-field-surface-hover: var(--color-brand-surface-hover);
+        --color-field-inverse: var(--color-brand-inverse);
+        --color-content-stark: var(--color-brand-content);
+        --color-content-neutral: color-mix(in oklch, var(--color-brand-content) 85%, transparent);
+        --color-content-subtle: color-mix(in oklch, var(--color-brand-content) 70%, transparent);
     }
 
     :where(.accent) {
-        --color-field-surface: var(--color-accent);
-        --color-field-surface-hover: var(--color-accent-hover);
+        --color-field-surface: var(--color-accent-surface);
+        --color-field-surface-hover: var(--color-accent-surface-hover);
         --color-field-inverse: var(--color-accent-inverse);
-        --color-content-stark: var(--color-accent-text);
-        --color-content-neutral: color-mix(in oklch, var(--color-accent-text) 85%, transparent);
-        --color-content-subtle: color-mix(in oklch, var(--color-accent-text) 70%, transparent);
+        --color-content-stark: var(--color-accent-content);
+        --color-content-neutral: color-mix(in oklch, var(--color-accent-content) 85%, transparent);
+        --color-content-subtle: color-mix(in oklch, var(--color-accent-content) 70%, transparent);
     }
 
-    :where(.danger) {
-        --color-field-surface: var(--color-danger);
-        --color-field-surface-hover: var(--color-danger-hover);
-        --color-field-inverse: var(--color-danger-inverse);
-        --color-content-stark: var(--color-danger-text);
-        --color-content-neutral: color-mix(in oklch, var(--color-danger-text) 85%, transparent);
-        --color-content-subtle: color-mix(in oklch, var(--color-danger-text) 70%, transparent);
+    :where(.negative) {
+        --color-field-surface: var(--color-negative-surface);
+        --color-field-surface-hover: var(--color-negative-surface-hover);
+        --color-field-inverse: var(--color-negative-inverse);
+        --color-content-stark: var(--color-negative-content);
+        --color-content-neutral: color-mix(in oklch, var(--color-negative-content) 85%, transparent);
+        --color-content-subtle: color-mix(in oklch, var(--color-negative-content) 70%, transparent);
     }
 }

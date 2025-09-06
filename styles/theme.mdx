@@ -65,19 +65,19 @@ See [color themes](/plugins/color-themes) for more information on setting up lig
 | `--color-line` | Border and divider color | `border-line` |
 
 ### Semantic Colors
-These semantic colors are easily applied to text, backgrounds, and certain form elements using the Indux [utility](/styles/utilities) classes `primary`, `accent`, and `danger`.
+These semantic colors are easily applied to text, backgrounds, and certain form elements using the Indux [utility](/styles/utilities) classes `primary`, `accent`, and `negative`.
 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
-| `--color-primary` | Primary brand color | `bg-primary`<br/>`border-primary` |
-| `--color-primary-inverse` | Content color on primary backgrounds | `text-primary-inverse` |
-| `--color-primary-text` | Primary text color | `text-primary-text` |
-| `--color-accent` | Accent color for highlights | `bg-accent`<br/>`border-accent` |
+| `--color-brand-surface` | Primary brand color | `bg-brand`<br/>`border-brand` |
+| `--color-brand-inverse` | Content color on primary backgrounds | `text-brand-inverse` |
+| `--color-brand-content` | Primary text color | `text-brand-text` |
+| `--color-accent-surface` | Accent color for highlights | `bg-accent`<br/>`border-accent` |
 | `--color-accent-inverse` | Content color on accent backgrounds | `text-accent-inverse` |
-| `--color-accent-text` | Accent text color | `text-accent-text` |
-| `--color-danger` | Error and danger states | `bg-danger`<br/>`border-danger` |
-| `--color-danger-inverse` | Content color on danger backgrounds | `text-danger-inverse` |
-| `--color-danger-text` | Danger text color | `text-danger-text` |
+| `--color-accent-content` | Accent text color | `text-accent-text` |
+| `--color-negative-surface` | Error and negative states | `bg-negative`<br/>`border-negative` |
+| `--color-negative-inverse` | Content color on negative backgrounds | `text-negative-inverse` |
+| `--color-negative-content` | Negative text color | `text-negative-text` |
 
 ### Overlay Colors
 | Variable | Purpose | Ex. Tailwind Utilities |
@@ -133,15 +133,15 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
     --color-field-inverse: var(--color-content-stark);
     --color-popover-surface: var(--color-page);
     --color-line: color-mix(in oklch, var(--color-content-stark) 11%, transparent);
-    --color-primary: var(--color-content-stark);
-    --color-primary-inverse: var(--color-page);
-    --color-primary-text: var(--color-content-stark);
+    --color-brand-surface: var(--color-content-stark);
+    --color-brand-inverse: var(--color-page);
+    --color-brand-content: var(--color-content-stark);
     --color-accent: oklch(90.56% 0.1724 148.7);
     --color-accent-inverse: var(--color-950);
-    --color-accent-text: oklch(70.7% 0.229867 143.9);
-    --color-danger: oklch(63.68% 0.2078 25.33);
-    --color-danger-inverse: oklch(100% 0 0);
-    --color-danger-text: var(--color-danger);
+    --color-accent-content: oklch(70.7% 0.229867 143.9);
+    --color-negative: oklch(63.68% 0.2078 25.33);
+    --color-negative-inverse: oklch(100% 0 0);
+    --color-negative-content: var(--color-negative-surface);
 
     /* Overlays */
     --color-overlay-dark: oklch(50% 0 0);
@@ -168,7 +168,7 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
     --color-content-stark: var(--color-50);
     --color-content-neutral: var(--color-400);
     --color-content-subtle: var(--color-500);
-    --color-accent-text: oklch(90.56% 0.1724 148.7);
+    --color-accent-content: oklch(90.56% 0.1724 148.7);
 }
 
 @layer base {
@@ -213,16 +213,16 @@ Any variables in any `:root` or `@theme` declarations throughout your project wi
 
 ```css
 :root {
-    --color-primary: red;
+    --color-brand-surface: red;
 }
 ```
 
 ...can compile into classes like:
 
 ```css
-.bg-primary { background-color: red; }
-.text-primary { color: red; }
-.border-primary { border-color: red; }
+.bg-brand { background-color: red; }
+.text-brand { color: red; }
+.border-brand { border-color: red; }
 ```
 
 The runtime compiler is highly optimized for performance. Running concurrent to other page load events, it only generates CSS for classes used in the current DOM view, and leverages caching to avoid redundant work. As a result, updating of the generated `<style>` tag in the head is nearly instantaneous, with average execution times under 10ms.

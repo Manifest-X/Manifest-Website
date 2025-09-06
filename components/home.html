@@ -100,7 +100,7 @@
         <div class="row items-center gap-2">
             <button @click="$locale.toggle()">Toggle Locale</button>
             <template x-for="lang in $locale.available" :key="lang">
-                <button @click="$locale.set(lang)" :class="{ 'bg-primary text-white': $locale.current === lang }">
+                <button @click="$locale.set(lang)" :class="{ 'bg-brand text-white': $locale.current === lang }">
                     <span x-text="lang.toUpperCase()"></span>
                 </button>
             </template>
