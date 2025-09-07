@@ -20,10 +20,10 @@
         ],
         "collections": {
             "blog": {
-                "path": "/collections/blog.json"
+                "path": "/data/blog.json"
             },
             "team": {
-                "path": "/collections/team.json"
+                "path": "/data/team.json"
             }
         },
         "locales": [
@@ -93,7 +93,7 @@
 
     // Mock collection data
     const mockCollections = {
-        '/collections/blog.json': [
+        '/data/blog.json': [
             {
                 "title": "Getting Started with Indux",
                 "excerpt": "Learn how to build fast, modern websites with Indux.",
@@ -107,7 +107,7 @@
                 "author": "Indux Team"
             }
         ],
-        '/collections/team.json': [
+        '/data/team.json': [
             {
                 "name": "John Doe",
                 "role": "Lead Developer",

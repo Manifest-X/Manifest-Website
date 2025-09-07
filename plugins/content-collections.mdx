@@ -1,11 +1,11 @@
 ---
-title: "Content Collections"
+title: "Data Sources"
 description: "Easily manage lists and reusable content."
 icon: "file-text"
 ---
 
 ## Overview
-Content collections are local JSON or YAML files that store content for use in HTML. They maintain highly repetitive or reusable content in a central, human-readable format.
+Data sources are local JSON or YAML files that store content for use in HTML. They maintain highly repetitive or reusable content in a central, human-readable format.
 
 <Note>Similar to HTML and CSS, collection files are maintained client-side and should not contain sensitive data.</Note>
 
@@ -27,7 +27,7 @@ Add an [Indux script](/getting-started/setup) to your project, or use the standa
 
 ## Create Collections
 
-Create a JSON or YAML file anywhere in your project, such as `/collections/team.json` or `team.yaml`. The filetypes are treated the same and their only distinction is developer preference. A collection's filename must be unique from other collections.
+Create a JSON or YAML file anywhere in your project, such as `/data/team.json` or `team.yaml`. The filetypes are treated the same and their only distinction is developer preference. A collection's filename must be unique from other collections.
 
 <CodeGroup>
 ```html team.json
@@ -77,11 +77,11 @@ Register collections in `manifest.json` so they can be accessed in HTML.
 {
     ...
     "collections": {
-        "team": "/collections/team.json",
-        "features": "/collections/features.yaml",
+        "team": "/data/team.json",
+        "features": "/data/features.yaml",
         "locale": {
-            "en": "/collections/locale/en.yaml",
-            "fr": "/collections/locale/fr.yaml"
+            "en": "/data/locale/en.yaml",
+            "fr": "/data/locale/fr.yaml"
         }
     },
     ...
