@@ -1,9 +1,13 @@
-/*! Indux CSS 1.0.0 - MIT License */
+/*  Indux CSS
+/*  By Andrew Matlock under MIT license
+/*  https://github.com/andrewmatlock/Indux
+*/
 
 /* Theme */
 
 :root,
 ::selection {
+    
     /* Default palette */
     --color-50: oklch(100% 0 0);
     --color-100: oklch(98.17% 0.0005 95.87);
@@ -102,7 +106,7 @@
     }
 }
 
-/* Browser Reset / Normalize */
+/* Browser reset / normalizer */
 
 @layer base {
 
@@ -371,6 +375,7 @@
         }
     }
 
+    /* Base popover styles */
     :where([popover]) {
         display: none;
         transition: opacity .15s ease-in, scale .15s ease-in, display .15s ease-in;
@@ -461,6 +466,7 @@
 
 @layer components {
 
+
     :where(details):not(.unset) {
         width: 100%;
         transition: var(--transition, all .05s ease-in-out);
@@ -470,15 +476,16 @@
             transform: rotate(90deg)
         }
 
+        /* Content spacing */
         & [open] summary {
             margin-bottom: calc(var(--spacing, 0.25rem) * 4)
         }
 
-        /* Content padding */
         &> :not(summary) {
             padding: var(--spacing-field-padding, 0.625rem) 0
         }
 
+        /* Content */
         :where(summary) {
             position: relative;
             display: flex;
@@ -524,6 +531,7 @@
         }
     }
 
+    /* RTL support */
     [dir="rtl"] :where(details):not(.unset) {
     
         & summary::before {
@@ -591,6 +599,7 @@
         }
     }
 
+    /* Button version */
     :where(button.avatar) {
         padding: 0;
         background-blend-mode: normal;
@@ -605,6 +614,7 @@
         }
     }
 
+    /* Wide version */
     :where(.avatar-wide) {
         display: flex;
         flex-flow: row;
@@ -623,6 +633,7 @@
         }
     }
 
+    /* Wide button version */
     :where(button.avatar-wide) {
         height: fit-content;
         padding: var(--spacing, 0.25rem);
@@ -634,6 +645,7 @@
         }
     }
 
+    /* Group wrapper */
     :where([role=group]:has(.avatar, button.avatar)) {
         display: flex;
         flex-flow: row nowrap;
@@ -644,37 +656,6 @@
             box-shadow: 0 0 0 3px var(--color-page, oklch(100% 0 0))
         }
     }
-}
-
-/* Badges */
-
-@layer components {
-
-    :where(mark) {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.25rem;
-        width: fit-content;
-        height: fit-content;
-        padding: calc(var(--spacing, 0.25rem) * 0.5) calc(var(--spacing, 0.25rem) * 2);
-        font-weight: 500;
-        font-size: 0.75rem;
-        color: var(--color-content-stark, oklch(16.6% 0.026 267));
-        background-color: var(--color-field-surface, oklch(91.79% 0.0029 264.26));
-        border-radius: 100px;
-
-        & span,
-        & [x-icon] {
-            color: inherit
-        }
-
-        /* Solo icons */
-        &:has([x-icon]:only-child) {
-            aspect-ratio: 1/1
-        }
-    }
-
 }
 
 /* Buttons */
@@ -745,6 +726,7 @@
         }
     }
 
+    /* Selects */
     :where(select) {
         appearance: base-select;
 
@@ -776,7 +758,7 @@
         border-radius: 0.4rem;
         cursor: pointer;
 
-        /* On */
+        /* Checked */
         &:checked {
 
             &:hover {
@@ -808,13 +790,13 @@
             transform-origin: center;
             transition: var(--transition, all .05s ease-in-out);
 
-            /* Icon off */
+            /* Icon unchecked */
             opacity: 0;
             -webkit-transform: translateX(-50%) translateY(-50%) scale(0);
             transform: translateX(-50%) translateY(-50%) scale(0)
         }
 
-        /* Icon on */
+        /* Icon checked */
         &:checked::after {
             opacity: 1;
             -webkit-transform: translateX(-50%) translateY(-50%) scale(1);
@@ -823,9 +805,12 @@
     }
 }
 
+/* Code blocks */
+
 @import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap');
 
 :root {
+
     /* Copy code button icons */
     --icon-copy-code: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Crect width='14' height='14' x='8' y='8' rx='2' ry='2'/%3E%3Cpath d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/%3E%3C/g%3E%3C/svg%3E");
     --icon-copied-code: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");
@@ -897,140 +882,8 @@
     --color-code-char: #dcdcaa;
 }
 
-/* Code syntax highlighting with prism.js and highlight.js support */
+/* Code syntax styles for highlight.js */
 @layer base {
-
-    /* Token highlighting styles for code elements */
-    ::highlight(keyword), .hljs-keyword {
-        color: var(--color-code-keyword) !important;
-        font-weight: 600 !important
-    }
-
-    ::highlight(string), .hljs-string {
-        color: var(--color-code-string) !important
-    }
-
-    ::highlight(comment), .hljs-comment {
-        color: var(--color-code-comment) !important;
-        font-style: italic !important
-    }
-
-    ::highlight(function), .hljs-title.function_ {
-        color: var(--color-code-function) !important
-    }
-
-    ::highlight(number), .hljs-number {
-        color: var(--color-code-number) !important
-    }
-
-    ::highlight(operator), .hljs-operator {
-        color: var(--color-code-operator) !important
-    }
-
-    ::highlight(class-name), .hljs-title.class_ {
-        color: var(--color-code-class-name) !important
-    }
-
-    ::highlight(tag), .hljs-tag {
-        color: var(--color-code-tag) !important
-    }
-
-    ::highlight(attr-name), .hljs-attr {
-        color: var(--color-code-attr-name) !important
-    }
-
-    ::highlight(attr-value), .hljs-string {
-        color: var(--color-code-attr-value) !important
-    }
-
-    ::highlight(property), .hljs-property {
-        color: var(--color-code-property) !important
-    }
-
-    ::highlight(selector), .hljs-selector-tag {
-        color: var(--color-code-selector) !important
-    }
-
-    ::highlight(punctuation), .hljs-punctuation {
-        color: var(--color-code-punctuation) !important
-    }
-
-    ::highlight(builtin), .hljs-built_in {
-        color: var(--color-code-builtin) !important
-    }
-
-    ::highlight(constant), .hljs-literal {
-        color: var(--color-code-constant) !important
-    }
-
-    ::highlight(boolean), .hljs-literal {
-        color: var(--color-code-boolean) !important
-    }
-
-    ::highlight(regex), .hljs-regexp {
-        color: var(--color-code-regex) !important
-    }
-
-    ::highlight(symbol), .hljs-symbol {
-        color: var(--color-code-symbol) !important
-    }
-
-    ::highlight(entity), .hljs-entity {
-        color: var(--color-code-entity) !important
-    }
-
-    ::highlight(url), .hljs-link {
-        color: var(--color-code-url) !important
-    }
-
-    ::highlight(atrule), .hljs-atrule {
-        color: var(--color-code-atrule) !important
-    }
-
-    ::highlight(rule), .hljs-rule {
-        color: var(--color-code-rule) !important
-    }
-
-    ::highlight(doctype), .hljs-doctype {
-        color: var(--color-code-doctype) !important
-    }
-
-    ::highlight(cdata), .hljs-cdata {
-        color: var(--color-code-cdata) !important
-    }
-
-    ::highlight(prolog), .hljs-prolog {
-        color: var(--color-code-prolog) !important
-    }
-
-    ::highlight(namespace), .hljs-namespace {
-        color: var(--color-code-namespace) !important
-    }
-
-    ::highlight(important), .hljs-important {
-        color: var(--color-code-important) !important;
-        font-weight: 600 !important
-    }
-
-    ::highlight(bold), .hljs-strong {
-        font-weight: 600 !important
-    }
-
-    ::highlight(italic), .hljs-emphasis {
-        font-style: italic !important
-    }
-
-    ::highlight(inserted), .hljs-addition {
-        color: var(--color-code-inserted) !important
-    }
-
-    ::highlight(deleted), .hljs-deletion {
-        color: var(--color-code-deleted) !important
-    }
-
-    ::highlight(char), .hljs-char.escape_ {
-        color: var(--color-code-char) !important
-    }
 
     /* Additional highlight.js specific classes */
     .hljs-type {
@@ -1144,7 +997,6 @@
     }
 }
 
-/* Code blocks */
 @layer components {
 
     :where(pre) {
@@ -1183,6 +1035,7 @@
         }
     }
 
+    /* Code block(s) wrapper */
     :where(x-code-group, x-code, [x-code]) {
         position: relative;
         display: flex;
@@ -1230,6 +1083,7 @@
                     background-color: var(--color-surface-3, oklch(91.79% 0.0029 264.26))
                 }
             
+                /* Selected tab */
                 &.selected {
                     position: relative;
                     color: var(--color-brand-content, #de6618);
@@ -1239,6 +1093,7 @@
                         background-color: var(--color-surface-3, oklch(91.79% 0.0029 264.26))
                     }
             
+                    /* Selected tab underline */
                     &::after {
                         content: '';
                         position: absolute;
@@ -1254,6 +1109,7 @@
             }
         }
 
+        /* Line numbers */
         & .lines {
             display: flex;
             flex-direction: column;
@@ -1289,6 +1145,7 @@
             border-end-start-radius: 0
         }
 
+        /* Copy button */
         & .copy {
             position: absolute;
             top: 0.3rem;
@@ -1321,7 +1178,7 @@
             }
         }
 
-        :where(x-code-group x-code) {
+        :where(x-code) {
             width: 100%;
             margin-top: 0;
             border: 0 none;
@@ -1333,13 +1190,14 @@
         }
     }
 
+    /* RTL support */
     [dir="rtl"] :where(x-code-group, x-code, [x-code]) .copy {
         right: auto;
         left: 0.5rem
     }
 }
 
-/* Preview asides to visualize code examples */
+/* Frames to visualize code examples */
 @layer utilities {
 
     .prose aside.frame {
@@ -1350,6 +1208,7 @@
         border-radius: calc(var(--radius, 0.5rem) * 2)
     }
 
+    /* Followed directly by code block */
     .prose aside.frame:has(+ x-code-group, + x-code) {
         border-bottom: 0 none;
         border-bottom-left-radius: 0;
@@ -1443,7 +1302,6 @@
             font-size: 0.875rem
         }
     }
-
 }
 
 /* Dropdowns */
@@ -1579,7 +1437,6 @@
     }
 
     /* Top alignment */
-
     :where(menu.top) {
         position-area: top;
         margin: var(--spacing-popover-offset, 0.5rem) 0
@@ -1664,7 +1521,6 @@
         margin: var(--spacing-popover-offset, 0.5rem)
     }
     
-    
     /* Bottom start corner alignment */
     :where(menu.bottom-start-corner, menu.start-bottom-corner) {
         position-area: end start;
@@ -1689,6 +1545,7 @@
         width: 100%;
     }
 
+    /* Form element wrapper */
     :where(fieldset) {
         display: flex;
         flex-direction: column;
@@ -1710,6 +1567,7 @@
         }
     }
 
+    /* Label wrapper */
     :where(label:has(input:not([role=button], [type=checkbox], [type=radio], [type=file]), textarea)) {
         display: flex;
         flex-direction: column;
@@ -1722,6 +1580,7 @@
         }
     }
 
+    /* Label wrapper for radios and checkboxes */
     :where(label:has([type=radio], [type=checkbox])) {
         display: flex;
         flex-flow: row;
@@ -1735,6 +1594,7 @@
         }
     }
 
+    /* Group wrapper */
     :where([role=group]:has(button, input, select)) {
         display: flex;
         flex-flow: row nowrap;
@@ -1811,18 +1671,21 @@
         }
     }
 
+    /* Input-specific styles */
     :where(input) {
         height: var(--spacing-field-height, 2.25rem);
         padding-left: var(--spacing-field-padding, 0.625rem);
         padding-right: var(--spacing-field-padding, 0.625rem)
     }
 
+    /* Label wrapper for search input */
     :where(label:has(input[type="search"])) {
         display: flex;
         flex-flow: row;
         justify-content: start;
         align-items: center;
 
+        /* Search icon */
         & [x-icon] {
             display: flex;
             justify-content: center;
@@ -1832,6 +1695,7 @@
             color: var(--color-content-subtle, oklch(67.4% 0.0318 251.27))
         }
 
+        /* Input element overrides */
         & :where(input) {
             padding-left: 0;
             padding-right: 0;
@@ -1847,11 +1711,13 @@
             }
         }
 
+        /* Spacing for trailing siblings */
         &:has(input + *) {
             padding-inline-end: 0.375rem;
         }
     }
 
+    /* Hide search input cancel button */
     :where(input[type="search"])::-webkit-search-cancel-button {
         appearance: none;
         -webkit-appearance: none;
@@ -1859,6 +1725,7 @@
         appearance: none
     }
 
+    /* Textarea-specific styles */
     :where(textarea) {
         display: block;
         height: auto;
@@ -1925,12 +1792,14 @@
         }
     }
 
+    /* Dark mode override */
     .dark :where(dialog)::backdrop {
         background-color: rgba(0, 0, 0, 0.35)
     }
 
     /* Hide dropdowns when modals are open */
     html:has(dialog:popover-open) {
+
         /* Hide dropdowns outside of any modal */
         & menu[popover]:not(dialog *) {
             opacity: 0;
@@ -1944,9 +1813,8 @@
         }
     }
 
-    /* When multiple modals are open, hide dropdowns in non-topmost modals */
+    /* When multiple modals are open, hide dropdowns in all but closest modal */
     html:has(dialog:popover-open ~ dialog:popover-open) {
-        /* Hide dropdowns in all but the last modal */
         & dialog:popover-open:not(:last-of-type) menu[popover] {
             opacity: 0;
             scale: .9;
@@ -1958,7 +1826,6 @@
             }
         }
     }
-
 }
 
 /* Radios */
@@ -1987,32 +1854,22 @@
             transform-origin: center;
             transition: var(--transition, all .05s ease-in-out);
 
-            /* Notch off */
+            /* Notch unchecked */
             opacity: 0;
             -webkit-transform: translateX(-50%) translateY(-50%) scale(0);
             transform: translateX(-50%) translateY(-50%) scale(0)
         }
 
-        /* Notch on */
+        /* Notch checked */
         &:checked::after {
             opacity: 1;
             -webkit-transform: translateX(-50%) translateY(-50%) scale(1);
             transform: translateX(-50%) translateY(-50%) scale(1)
         }
     }
-
-    /* .dark input[type=radio] {
-        &:checked {
-            border: 1.5px solid var(--color-brand-surface);
-        }
-
-        &::after {
-            background-color: var(--color-brand-surface);
-        }
-    } */
 }
 
-/*! Indux Resize 1.0.0 - MIT License */
+/* Resize Handles */
 
 :root { 
     --spacing-resize-handle: 1rem;
@@ -2034,7 +1891,7 @@
             border: none;
             outline: none;
 
-            /* Visual feedback */
+            /* Visible handle */
             &::before {    
                 content: '';
                 position: absolute;
@@ -2054,7 +1911,7 @@
             }
         }
 
-        /* Edge handles - full width/height */
+        /* Edge handles */
         .resize-handle-top,
         .resize-handle-bottom {
             width: 100%;
@@ -2132,7 +1989,6 @@
         }
 
         /* Logical direction handles */
-
         .resize-handle-top-start {
             width: var(--spacing-resize-handle, 1rem);
             height: var(--spacing-resize-handle, 1rem);
@@ -2165,8 +2021,7 @@
             cursor: se-resize;
         }
 
-
-        /* RTL adjustments for logical directions */
+        /* RTL overrides */
         [dir="rtl"] .resize-handle-top-start {
             cursor: ne-resize
         }
@@ -2183,7 +2038,7 @@
             cursor: sw-resize
         }
 
-        /* Resize overlay */
+        /* Screen overlay to get mouse coordinates */
         .resize-overlay {
             position: fixed;
             top: 0;
@@ -2237,7 +2092,6 @@
 
 @layer components {
 
-    /* Sidebar navigation */
     :where(aside[popover]) {
         inset-inline-start: auto;
         inset-inline-end: 0;
@@ -2266,7 +2120,7 @@
             scale: 1;
         }
 
-        /* RTL support - slide from left in RTL context */
+        /* RTL overrides - slide in from left in RTL context */
         [dir="rtl"] & {
             @starting-style {
                 transform: translateX(-100%);
@@ -2290,7 +2144,7 @@
                 transform: translateX(-100%);
             }
 
-            /* Override RTL behavior for sidebar-start */
+            /* RTL overrides */
             [dir="rtl"] & {
                 @starting-style {
                     transform: translateX(100%);
@@ -2383,7 +2237,6 @@
             }
         }
     }
-
 }
 
 /* Switches */
@@ -2414,7 +2267,7 @@
             transition: var(--transition, all .05s ease-in-out)
         }
 
-        /* On */
+        /* Checked */
         &:checked {
             background-color: var(--color-field-surface, oklch(91.79% 0.0029 264.26));
 
@@ -2429,7 +2282,6 @@
             }
         }
     }
-
 }
 
 /* Tables */
@@ -2444,23 +2296,28 @@
         border-spacing: 0;
         border-radius: var(--radius, 0.5rem);
 
+        /* Grid utility classes */
         :where(.grid-header, .grid-row, .grid-footer) {
             display: contents
         }
 
+        /* Header row */
         :where(thead, .grid-header > *) {
             background-color: var(--color-surface-1, oklch(98.17% 0.0005 95.87));
             border-bottom: 1px solid var(--color-line, oklch(48.3% 0.006422 17.4 / 0.15))
         }
 
+        /* Header cell */
         :where(th,.grid-header > *) {
             font-weight: bold
         }
 
+        /* Row */
         :where(tr, .grid-row > *) {
             border-bottom: 1px solid var(--color-line, oklch(48.3% 0.006422 17.4 / 0.15))
         }
 
+        /* Cell */
         :where(td, th, .grid-header > *, .grid-row > *, .grid-footer > *) {
             padding: calc(var(--spacing, 0.25rem) * 2.5) calc(var(--spacing, 0.25rem) * 4);
             font-size: 0.875rem;
@@ -2480,10 +2337,12 @@
             }
         }
         
+        /* Footer row */
         :where(:not(:has(tfoot)) tbody tr:last-child, tfoot tr:last-child, .grid-footer > *) {
             border-bottom: 0
         }
 
+        /* Striped utility class */
         &.striped {
             :where(tr:nth-child(even), .grid-row:nth-child(even)) {
                 background-color: var(--color-surface-1, oklch(98.17% 0.0005 95.87))
@@ -2527,10 +2386,8 @@
         border-radius: calc(var(--radius, 0.5rem) * 2);
         box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         overflow: hidden;
-        /* Initial state */
         opacity: 0;
         transform: translateY(1rem);
-        /* Add height, margin, and padding to transitions */
         transition:
             opacity 0.2s ease-out,
             transform 0.2s ease-out,
@@ -2538,6 +2395,7 @@
             margin 0.2s ease-out,
             padding 0.2s ease-out;
         
+        /* Icon */
         :where(.toast-icon) {
             display: flex;
             justify-content: center;
@@ -2546,6 +2404,7 @@
             color: inherit
         }
     
+        /* Content */
         :where(.toast-content) {
             display: flex;
             align-items: center;
@@ -2557,6 +2416,7 @@
             }
         }
     
+        /* Dismiss button */
         :where(.toast-dismiss-button) {
             position: relative;
             border-inline-start: 1px solid color-mix(in oklch, var(--color-content-stark, oklch(16.6% 0.026 267)) 20%, transparent);
@@ -2584,6 +2444,7 @@
         }
     }
 
+    /* Brand, accent, positive, negative utility class overrides (see Utilities) */
     :where(.toast.brand, .toast.accent, .toast.positive, .toast.negative) {
         color: var(--color-field-inverse, oklch(16.6% 0.026 267));
         background-color: var(--color-field-surface, oklch(91.79% 0.0029 264.26));
@@ -2593,11 +2454,13 @@
         }
     }
 
+    /* Entry animation */
     :where(.toast-entry) {
         opacity: 1;
         transform: translateY(0);
     }
 
+    /* Exit animation */
     :where(.toast-exit) {
         opacity: 0;
         transform: translateY(1rem)
@@ -2608,6 +2471,7 @@
 :root {
     --tooltip-hover-delay: 500ms;
 }
+
 
 @layer utilities {
 
@@ -2632,6 +2496,7 @@
             transition-delay: 1s
         }
 
+        /* Leading icon */
         & [x-icon]:first-child {
             margin-inline-end: 0.25rem
         }
@@ -2696,7 +2561,6 @@
         position-area: span-start start;
         margin: 0 var(--spacing-popover-offset, 0.5rem)
     }
-    
 
     /* End top alignment */
     :where(.tooltip.end-top) {
@@ -2722,43 +2586,45 @@
         margin: var(--spacing-popover-offset, 0.5rem)
     }
     
-    
     /* Bottom start corner alignment */
     :where(.tooltip.bottom-start-corner, .tooltip.start-bottom-corner) {
         position-area: end start;
         margin: var(--spacing-popover-offset, 0.5rem)
     }
     
-    
     /* Bottom end corner alignment */
     :where(.tooltip.bottom-end-corner, .tooltip.end-bottom-corner) {
         position-area: end end;
         margin: var(--spacing-popover-offset, 0.5rem)
     }
-
 }
 
 /* Typography */
 
 @layer base {
 
+    /* All text elements */
     :where(a, abbr, address, blockquote, code, del, figcaption, h1, h2, h3, h4, h5, h6, ins, label, legend, p, small, cite, q), .h1, .h2, .h3, .h4, .h5, .h6, .paragraph, .small, .caption {
         color: var(--color-content-stark, oklch(16.6% 0.026 267));
 
+        /* Support inline icons */
         &:where(:has( [x-icon])) {
             display: inline-flex;
             align-items: center;
             
+            /* Inline icon spacing */
             & [x-icon] {
                 margin-inline-end: 0.5ch;
             }
         }
 
+        /* Inline span alignment */
         & span {
             vertical-align: inherit
         }
     }
 
+    /* Headings */
     :where(h1, h2, h3, h4, h5, h6), .h1, .h2, .h3, .h4, .h5, .h6 {
         font-weight: bolder;
         word-wrap: break-word
@@ -2804,10 +2670,12 @@
         text-transform: uppercase;
     }
 
+    /* Paragraphs */
     :where(p), .paragraph {
         line-height: 1.6;
     }
 
+    /* Links */
     :where(a:not([role=button]), button.link) {
         text-decoration: underline;
         text-underline-offset: 2px;
@@ -2823,6 +2691,7 @@
         }
     }
 
+    /* Blockquotes */
     :where(blockquote) {
         display: block;
         width: 100%;
@@ -2838,6 +2707,7 @@
         }
     }
 
+    /* Inline code */
     :where(code) {
         display: inline-block;
         width: fit-content;
@@ -2851,8 +2721,10 @@
         border-radius: calc(var(--radius, 0.5rem) / 1.5)
     }
 
+    /* Captions */
     :where(figcaption), .caption {
         font-size: 0.8125rem;
+        color: var(--color-content-neutral, oklch(48.26% 0.0365 255.09));
 
         & a {
             font-weight: inherit;
@@ -2860,24 +2732,28 @@
         }
     }
 
+    :where(figure figcaption) {
+        margin: calc(var(--spacing, 0.25rem) * 2) auto;
+        text-align: center
+    }
+
+    /* Small text */
     :where(small), .small {
         font-size: 0.875rem;
         color: var(--color-content-neutral, oklch(48.26% 0.0365 255.09))
     }
 
-    :where(figcaption), .caption {
-        color: var(--color-content-neutral, oklch(48.26% 0.0365 255.09))
-    }
-
-
+    /* Icons */
     :where([x-icon]) {
         display: inline-flex
     }
 
+    /* Inserted text */
     :where(ins) {
         text-decoration: none
     }
 
+    /* Keyboard text */
     :where(kbd) {
         display: inline-block;
         vertical-align: baseline;
@@ -2898,23 +2774,27 @@
         }
     }
 
+    /* RTL keyboard overrides */
     [dir="rtl"] :where(kbd:not(:last-of-type)) {
         margin-inline-start: 1px;
         margin-inline-end: 0
     }
 
+    /* Labels */
     :where(label) {
         width: -moz-fit-content;
         width: fit-content;
         user-select: none
     }
 
+    /* Legends */
     :where(legend) {
         display: block;
         max-width: 100%;
         white-space: normal
     }
 
+    /* Badges */
     :where(mark) {
         display: inline-flex;
         justify-content: center;
@@ -2927,8 +2807,8 @@
         font-size: 0.75rem;
         line-height: 1;
         color: var(--color-content-stark, oklch(16.6% 0.026 267));
-        background-color: color-mix(in oklch, var(--color-content-stark, oklch(16.6% 0.026 267)) 10%, transparent);
-        border-radius: var(--radius, 0.5rem);
+        background-color: var(--color-field-surface, oklch(91.79% 0.0029 264.26));
+        border-radius: 100px;
 
         /* Solo icons */
         &:has(svg:only-child) {
@@ -2936,6 +2816,7 @@
         }
     }
 
+    /* Lists */
     :where(ol):not(nav ol):not(menu ol) {
         list-style-type: decimal;
     }
@@ -2948,7 +2829,7 @@
     :where(ul):not(nav ul):not(menu ul) {
         padding-inline-start: 1.5ch;
 
-        /* Offset items so markers align to the inside frame  */
+        /* Offset items so markers align inside the element frame  */
         & li {
             padding-inline-start: 1ch;
 
@@ -2972,6 +2853,7 @@
         }
     }
 
+    /* RTL list overrides */
     [dir="rtl"] :where(ol):not(nav ol):not(menu ol),
     [dir="rtl"] :where(ul):not(nav ul):not(menu ul) {
         & li:has([x-icon]) {
@@ -2982,17 +2864,13 @@
         }
     }
 
-    /* Nested lists */
+    /* Nested list spacing */
     :where(ol, ul):not(nav ol):not(menu ol) ul,
     :where(ol, ul):not(nav ul):not(menu ul) ol {
         margin-top: 1ch
     }
 
-    :where(figure figcaption) {
-        margin: calc(var(--spacing, 0.25rem) * 2) auto;
-        text-align: center
-    }
-
+    /* Spans */
     :where(span) {
         vertical-align: middle
     }
@@ -3007,31 +2885,38 @@
 
 @layer utilities {
 
+    /* Center in flex parent */
     :where(.center) {
         justify-content: center;
         align-items: center
     }
 
-    :where(.col) {
-        flex-flow: column nowrap
-    }
-
-    :where(.col-wrap) {
-        flex-flow: column wrap
-    }
-
-    :where(.row) {
-        flex-flow: row nowrap
-    }
-
-    :where(.row-wrap) {
-        flex-flow: row wrap
-    }
-
+    /* Flex utilities */
     :where(.row, .row-wrap, .col, .col-wrap) {
         display: flex
     }
 
+    /* Flex column */
+    :where(.col) {
+        flex-flow: column nowrap
+    }
+
+    /* Wrapping flex column */
+    :where(.col-wrap) {
+        flex-flow: column wrap
+    }
+
+    /* Flex row */
+    :where(.row) {
+        flex-flow: row nowrap
+    }
+
+    /* Wrapping flex row */
+    :where(.row-wrap) {
+        flex-flow: row wrap
+    }
+
+    /* Content width & horizontal centering */
     :where(.content) {
         width: var(--spacing-content-width, 68.75rem);
         max-width: 100%;
@@ -3039,6 +2924,7 @@
         margin-inline-end: auto
     }
 
+    /* Ghost */
     :where(.ghost) {
         color: var(--color-content-stark, oklch(16.6% 0.026 267));
         background-color: transparent;
@@ -3060,6 +2946,7 @@
         }
     }
 
+    /* Hug */
     :where(.hug) {
         min-width: 0;
         width: fit-content;
@@ -3067,26 +2954,31 @@
         padding: 0
     }
 
+    /* Outlined */
     :where(.outlined) {
         border-width: 1.5px;
         border-style: solid;
         border-color: color-mix(in oklch, var(--color-field-surface, oklch(91.79% 0.0029 264.26)) 80%, var(--color-field-inverse, oklch(16.6% 0.026 267)))
     }
 
+    /* Selected */
     :where(.selected) {
         background-color: color-mix(in oklch, var(--color-field-surface, oklch(91.79% 0.0029 264.26)) 25%, transparent);
     }
 
+    /* Transparent */
     :where(.transparent) {
         background-color: transparent !important
     }
 
+    /* Large */
     :where(.lg) {
         --spacing-field-height: 2.5rem;
         --spacing-field-padding: 0.78rem;
         font-size: 125%
     }
 
+    /* Small */
     :where(.sm) {
         --spacing-field-height: 1.5rem;
         --spacing-field-padding: 0.49rem;
@@ -3098,13 +2990,14 @@
         }
     }
 
+    /* Page content layout */
     :where(body.page) {
         min-height: 100vh
     }
 
     .page {
 
-        /* Overlay if fixed */
+        /* Overlay header & footer if fixed */
         & > header, & > footer {
             z-index: 30
         }
@@ -3115,7 +3008,7 @@
             padding-inline-end: var(--spacing-viewport-padding)
         }
 
-        /* Set nav elements and sections for page content */
+        /* Width and horizontal centering for content wrappers */
         & > header nav, & > footer nav, & > main > section:not(.banner, .overlay-dark, .overlay-light) {
             width: var(--spacing-content-width);
             max-width: 100%;
@@ -3129,10 +3022,12 @@
         }
     }
 
+    /* No focus */
     .no-focus:focus-visible {
         outline: 0 none
     }
 
+    /* No scrollbar */
     :where(.no-scrollbar) {
         -ms-overflow-style: none;
         scrollbar-width: none;
@@ -3142,6 +3037,7 @@
         }
     }
 
+    /* Banner overlays */
     :where(.overlay-dark, .overlay-light) {
         position: relative;
 
@@ -3161,6 +3057,7 @@
         }
     }
 
+    /* Dark overlay */
     :where(.overlay-dark) {
         color: white !important;
 
@@ -3169,6 +3066,7 @@
         }
     }
 
+    /* Light overlay */
     :where(.overlay-light) {
         color: black !important;
 
@@ -3177,6 +3075,7 @@
         }
     }
 
+    /* Prose styles for long-form content */
     :where(.prose) {
         width: 65ch;
         max-width: 100%;
@@ -3296,12 +3195,14 @@
         }
     }
 
+    /* Inline trailing content */
     :where(.trailing) {
         display: inline-block;
         margin-inline-start: auto;
         color: var(--color-content-neutral, oklch(48.26% 0.0365 255.09))
     }
 
+    /* Brand colors */
     :where(.brand) {
         --color-field-surface: var(--color-brand-surface, #f6c07b);
         --color-field-surface-hover: var(--color-brand-surface-hover, #f19b46);
@@ -3311,6 +3212,7 @@
         --color-content-subtle: color-mix(in oklch, var(--color-brand-content, #de6618) 70%, transparent);
     }
 
+    /* Accent colors */
     :where(.accent) {
         --color-field-surface: var(--color-accent-surface, oklch(16.6% 0.026 267));
         --color-field-surface-hover: var(--color-accent-surface-hover, oklch(28.7% 0.030787 270.1));
@@ -3320,6 +3222,7 @@
         --color-content-subtle: color-mix(in oklch, var(--color-accent-content, oklch(16.6% 0.026 267)) 70%, transparent);
     }
 
+    /* Negative colors */
     :where(.negative) {
         --color-field-surface: var(--color-negative-surface, #ef4444);
         --color-field-surface-hover: var(--color-negative-surface-hover, #dc2626);
@@ -3329,6 +3232,7 @@
         --color-content-subtle: color-mix(in oklch, var(--color-negative-content, #ef4444) 70%, transparent);
     }
 
+    /* Positive colors */
     :where(.positive) {
         --color-field-surface: var(--color-positive-surface, #16a34a);
         --color-field-surface-hover: var(--color-positive-surface-hover, #166534);
