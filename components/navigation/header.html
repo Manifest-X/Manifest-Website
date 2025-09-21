@@ -1,10 +1,40 @@
-<header class="card border-b border-line">
-    <nav>
-        <a href="/"><x-logo /></a>
-        <div class="row gap-4">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/ui">UI</a>
+<header class="fixed top-0 left-0 right-0 px-viewport-padding py-4 bg-page/65 border-b border-line backdrop-blur-xl">
+    <nav class="row gap-4 w-7xl max-w-full mx-auto px-3">
+        <div class="flex-1 col justify-center">
+            <a href="/" class="w-fit">
+                <img x-show="$theme.current === 'dark' || ($theme.current === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)" src="/assets/logos/indux-dark.svg" alt="Indux" class="h-7" />
+                <img x-show="$theme.current === 'light' || ($theme.current === 'system' && window.matchMedia('(prefers-color-scheme: light)').matches)" src="/assets/logos/indux-light.svg" alt="Indux" class="h-7" />
+            </a>
+        </div>
+        <div class="flex-1">
+            <label>
+                <span x-icon="lucide:search"></span>
+                <input type="search" placeholder="Search" />
+                <kbd>⌘</kbd>
+                <kbd>K</kbd>
+            </label>
+        </div>
+        <div class="flex-1 row justify-end items-center" x-data="{ 
+        currentDirection: document.documentElement.getAttribute('dir') || 'auto',
+        setDirection(dir) { 
+          document.documentElement.setAttribute('dir', dir); 
+          localStorage.setItem('indux-direction', dir);
+          this.currentDirection = dir;
+        }
+      }">
+            <a href="#" target="_blank" role="button" class="ghost" aria-label="Discord" x-icon="simple-icons:discord"></a>
+            <a href="#" target="_blank" role="button" class="ghost" aria-label="GitHub" x-icon="simple-icons:github"></a>
+            <button class="ghost" x-dropdown.bottom="theme" aria-label="Theme" x-icon="$theme.current === 'light' ? 'lucide:sun' : $theme.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'"></button>
+            <menu popover id="theme" class="min-w-0">
+                <li x-theme="'light'" x-icon="lucide:sun"></li>
+                <li x-theme="'dark'" x-icon="lucide:moon"></li>
+                <li x-theme="'system'" x-icon="lucide:sun-moon"></li>
+                <hr>
+                <li @click="setDirection('auto')" x-icon="lucide:align-justify" aria-label="Auto Text Direction"></li>
+                <li @click="setDirection('ltr')" x-icon="lucide:align-left" aria-label="Left to Right Text Direction"></li>
+                <li @click="setDirection('rtl')" x-icon="lucide:align-right" aria-label="Right to Left Text Direction"></li>
+            </menu>
+
         </div>
     </nav>
 </header>

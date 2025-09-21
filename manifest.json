@@ -29,52 +29,25 @@
     },
     "components": [
         "components/home.html",
-        "components/about.html",
-        "components/ui.html"
+        "components/variant-test.html",
+        "components/examples/disclaimer.html",
+        "components/examples/header-basic.html",
+        "components/examples/header-nested.html",
+        "components/examples/header-modified.html"
     ],
-    "commonComponents": [
+    "preloadedComponents": [
+        "components/navigation/doc-footer.html",
         "components/navigation/header.html",
         "components/navigation/logo.html"
     ],
-    "collections": {
-        "blog": {
-            "path": "/data/blog.json"
-        },
-        "pricing": {
-            "en": "/data/pricing.json",
-            "fr": "/data/fr.pricing.json",
-            "it": "/data/it.pricing.json"
-        },
+    "data": {
+        "docs": "/data/docs.yaml",
+        "example": "/data/example.json",
         "features": {
-            "en": "/data/features.yaml",
-            "fr": "/data/fr.features.yaml"
+            "ar": "/data/ar.locale.yaml",
+            "en": "/data/en.locale.yaml",
+            "fr": "/data/fr.locale.yaml",
+            "zh": "/data/zh.locale.yaml"
         }
-    },
-    "cookies": [
-        {
-            "type": "analytics",
-            "name": "Analytics",
-            "description": "For tracking site usage."
-        }
-    ],
-    "locales": [
-        {
-            "name": "English",
-            "code": "en",
-            "icon": "emojione-v1:flag-for-united-kingdom"
-        },
-        {
-            "name": "Français",
-            "code": "fr",
-            "icon": "emojione-v1:flag-for-france"
-        },
-        {
-            "name": "Italiano",
-            "code": "it",
-            "icon": "emojione-v1:flag-for-italy"
-        }
-    ],
-    "localeURL": {
-        "subdomain": true
     }
 }
