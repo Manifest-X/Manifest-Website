@@ -1,0 +1,75 @@
+# Starter Project
+The files and folders of an Indux project.
+
+---
+
+## Starter Project
+
+```node
+npx packages/starter my-project
+```
+
+The starter project contains files and folders to kick start your next app or website, more fully described in [project structure](/projects/starter-project). "my-project" is the modifiable root directory name.
+
+---
+
+## Overview
+Indux eliminates the complexity often found in the project structures of larger frameworks like Vue or React. The Indux design philosophy is to streamline development, and this approach includes a straightforward project directory that forgoes abundancy or complexity.
+
+---
+
+## Breakdown
+The Indux [starter project](/getting-started/setup) uses this folder structure for both development and deployment:
+```
+root
+├─ 📁 assets
+├─ 📁 collections
+├─ 📁 components
+├─ favicon.ico
+├─ indux.css
+├─ indux.alpine.tailwind.js
+├─ index.html
+├─ manifest.json
+├─ sitemap.xml
+└─ robots.txt
+```
+<Note>Only `index.html` with its Alpine and Indux script references are required for core framework operability.</Note>
+
+#### 📁 root
+The root folder (using any name) contains essential configuration and documentation files. Important files include:
+- `index.html` as the rendering entry point.
+- `manifest.json` as the project configuration file, used to define pages, components, collections, localization, web app settings, and more.
+- Website-specific files (`favicon.ico`, `robots.txt`, `sitemap.xml`) which can be removed for app-only projects.
+
+#### 📁 collections
+Indux features a built-in [CMS](docs/cms-collections) for managing data sources in YAML format, facilitating easy maintenance of lists and long-form content.
+
+#### 📁 html
+Holds the project's HTML [pages](/pages) like a `home.html`. Subfolders can be used for organization.
+
+#### 📁 scripts
+For custom scripts, and typically contains the `indux.min.js` core framework script, though this can exist anywhere in the project directory.
+<Note>`indux.min.js` includes Alpine JS baked into it, and a separate Alpine script is not required.</Note>
+
+#### 📁 style
+For custom stylesheets, and typically contains Indux's curated CSS:
+<StylesheetList />
+
+<Tabs>
+  <Tab title="First Tab">
+    ☝️ Welcome to the content that you can only see inside the first Tab.
+    ```java HelloWorld.java
+      class HelloWorld {
+          public static void main(String[] args) {
+              System.out.println("Hello, World!");
+          }
+      }
+    ```
+  </Tab>
+  <Tab title="Second Tab">
+    ✌️ Here's content that's only inside the second Tab.
+  </Tab>
+  <Tab title="Third Tab">
+    💪 Here's content that's only inside the third Tab.
+  </Tab>
+</Tabs>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Web -->
+  <title>Indux</title>
+  <meta name="description" content="Supercharge HTML for rapid, feature-rich website and web app development.">
+  <meta name="author" content="Andrew Matlock">
+  <meta name="keywords" content="Indux, HTML, CSS, JS, JavaScript, Alpine JS, Tailwind CSS, website, web app, framework">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="google" content="notranslate">
+
+  <!-- Web App & Manifest -->
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/styles/indux.css">
+
+  <!-- Scripts -->
+  <script defer src="/scripts/indux.quickstart.js"></script>
+
+  <!-- Anchor Positioning Polyfill -->
+  <script type="module">
+    if (!("anchorName" in document.documentElement.style)) {
+      import("https://unpkg.com/@oddbird/css-anchor-positioning");
+    }
+  </script>
+
+</head>
+
+<body class="page col" x-data="{ 
+  init() { 
+    const savedDirection = localStorage.getItem('indux-direction') || 'auto';
+    document.documentElement.setAttribute('dir', savedDirection);
+  }
+}">
+
+  <x-header></x-header>
+
+  <main class="px-viewport-padding">
+
+    <div class="row justify-between gap-4 w-7xl mx-auto">
+
+      <!-- Navigation-->
+      <div class="w-64 max-h-[calc(100vh-69px)] mt-[69px] pt-8 pb-64 pr-10 overflow-y-auto no-scrollbar">
+        <template x-for="group in $x.docs" :key="group.group">
+          <div>
+            <h5 class="mb-2.5 pl-2.5 text-content-subtle" x-text="group.group"></h5>
+            <div class="col mb-8">
+              <template x-for="item in group.items" :key="item.name">
+                <a :href="'/' + group.group.toLowerCase().replace(' ', '-') + '/' + item.path" role="button" class="ghost justify-start w-full text-content-neutral" :class="$x.docs.route('path') && $x.docs.route('path').path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                  <span x-icon="item.icon"></span>
+                  <span x-text="item.name"></span>
+                </a>
+              </template>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- Articles -->
+      <div class="grow max-h-screen pt-26 px-8 pb-[30vh] overflow-y-auto no-scrollbar scroll-smooth">
+
+        <div class="x-3xl max-w-full mx-auto">
+
+          <!-- Eyebrow Group Name -->
+          <h5 x-show="$x.docs.route('path')" class="mb-2.5 text-brand-content" x-data="{ 
+            currentPath: $store.data._currentUrl || window.location.pathname
+          }" x-watch="$store.data._currentUrl" x-text="$el.textContent || $x.docs.route('path').group || (() => { const segments = currentPath.split('/').filter(s => s); const localeStore = Alpine.store('locale'); if (localeStore?.available && segments.length > 0 && localeStore.available.includes(segments[0])) { segments.shift(); } return segments[segments.length - 2]?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || 'No group'; })()"></h5>
+
+          <!-- Markdown Document for Route -->
+          <div x-show="$x.docs.route('path')" class="prose [&_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="$x.docs.route('path').doc"></div>
+
+        </div>
+
+        <!-- Default Content -->
+        <div x-show="!$x.docs.route('path')" class="w-3xl max-w-full mx-auto prose">
+          <h1>Welcome to Indux Documentation</h1>
+          <p>Select a topic from the navigation to view its documentation.</p>
+        </div>
+
+        <x-doc-footer></x-doc-footer>
+
+      </div>
+
+      <!-- Anchor Links -->
+      <div class="col gap-2.5 w-64 max-h-[calc(100vh-69px)] mt-[69px] pt-8 pb-64 pl-10 overflow-y-auto no-scrollbar">
+
+        <h5 class="mb-2">
+          <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
+          <span>On this page</span>
+        </h5>
+
+        <div class="col gap-2.5">
+          <template x-anchors=".prose | h2, h3">
+            <a :href="anchor.link" 
+              class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" 
+              :class="{
+                'pl-2': anchor.tag === 'h3',
+                '!text-content-stark font-medium': anchor.selected
+              }"
+             x-text="anchor.text">
+            </a>
+          </template>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</body>
+
+</html>
