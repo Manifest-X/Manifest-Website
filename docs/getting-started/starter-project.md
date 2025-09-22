@@ -1,75 +1,93 @@
 # Starter Project
-The files and folders of an Indux project.
 
 ---
 
-## Starter Project
+## Installation
 
-```node
-npx packages/starter my-project
+Every Indux plugin and stylesheet can operate independently for existing projects. This starter project template is designed to give new projects a head start with a simple setup.
+
+Install it with this `npx` command:
+
+```bash copy
+npx @indux/starter my-project
 ```
 
-The starter project contains files and folders to kick start your next app or website, more fully described in [project structure](/projects/starter-project). "my-project" is the modifiable root directory name.
+"my-project" is the modifiable root directory name. The project includes a built-in SPA router, requiring a local server to run. See the README for more details.
 
 ---
 
-## Overview
-Indux eliminates the complexity often found in the project structures of larger frameworks like Vue or React. The Indux design philosophy is to streamline development, and this approach includes a straightforward project directory that forgoes abundancy or complexity.
+## Files & Folders
+The starter project begins with this folder structure for both development and deployment:
 
----
-
-## Breakdown
-The Indux [starter project](/getting-started/setup) uses this folder structure for both development and deployment:
 ```
-root
+my-project
 ├─ 📁 assets
-├─ 📁 collections
 ├─ 📁 components
+├─ 📁 icons
+├─ 📁 scripts
+├─ 📁 styles
 ├─ favicon.ico
-├─ indux.css
-├─ indux.alpine.tailwind.js
 ├─ index.html
 ├─ manifest.json
+├─ robots.txt
 ├─ sitemap.xml
-└─ robots.txt
+└─ LICENSE
 ```
-<Note>Only `index.html` with its Alpine and Indux script references are required for core framework operability.</Note>
 
-#### 📁 root
+::: brand icon="lucide:info"
+The only mandatory files required for operation are `index.html`, `indux.quickstart.js`, `indux.css`, and `manifest.json`. All other files and folders are provided for template purposes.
+:::
+
+### / root
 The root folder (using any name) contains essential configuration and documentation files. Important files include:
 - `index.html` as the rendering entry point.
-- `manifest.json` as the project configuration file, used to define pages, components, collections, localization, web app settings, and more.
+- `manifest.json` as the project configuration file, used to define components, dynamic data sources, web app settings, and more.
 - Website-specific files (`favicon.ico`, `robots.txt`, `sitemap.xml`) which can be removed for app-only projects.
 
-#### 📁 collections
-Indux features a built-in [CMS](docs/cms-collections) for managing data sources in YAML format, facilitating easy maintenance of lists and long-form content.
+---
 
-#### 📁 html
-Holds the project's HTML [pages](/pages) like a `home.html`. Subfolders can be used for organization.
+### / assets
+Contains static assets like images, fonts, and other media files used throughout the project.
 
-#### 📁 scripts
-For custom scripts, and typically contains the `indux.min.js` core framework script, though this can exist anywhere in the project directory.
-<Note>`indux.min.js` includes Alpine JS baked into it, and a separate Alpine script is not required.</Note>
+---
 
-#### 📁 style
-For custom stylesheets, and typically contains Indux's curated CSS:
-<StylesheetList />
+### / components
+Holds reusable HTML templates including a placeholder header, footer, and logo.
 
-<Tabs>
-  <Tab title="First Tab">
-    ☝️ Welcome to the content that you can only see inside the first Tab.
-    ```java HelloWorld.java
-      class HelloWorld {
-          public static void main(String[] args) {
-              System.out.println("Hello, World!");
-          }
-      }
-    ```
-  </Tab>
-  <Tab title="Second Tab">
-    ✌️ Here's content that's only inside the second Tab.
-  </Tab>
-  <Tab title="Third Tab">
-    💪 Here's content that's only inside the third Tab.
-  </Tab>
-</Tabs>
+---
+
+### / icons
+Contains icons for web app (PWA) usage.
+
+---
+
+### / scripts
+Contains the `indux.quickstart.js` framework script, bundling all Indux plugins with Alpine JS and Tailwind CSS, and is a good spot for other scripts.
+
+---
+
+### / styles
+Contains `indux.css`, including modifiable theme variables at the top. You can drop your custom stylesheets here too.
+
+---
+
+### index.html
+
+The main HTML file serves as the single-page application entry point. It includes:
+
+- **Meta tags** for SEO, web app configuration, and theme colors
+- **Indux CSS** (`/styles/indux.css`) for styling
+- **Indux Quickstart** (`/scripts/indux.quickstart.js`) bundling all plugins with Alpine JS and Tailwind CSS, requiring `defer` in its script tag
+- **Component placeholders** (`<x-header>`, `<x-footer>`) to dynamically load [HTML templates](/plugins/components)
+- **Routing views** (`x-route="/"`, `x-route="/other"`) for [URL-specific content](/plugins/router)
+
+---
+
+### manifest.json
+
+The web app manifest defines PWA behavior and Indux configuration:
+
+- **PWA settings** (name, icons, display mode, theme colors)
+- **Component registry** for [dynamic component loading](/plugins/components)
+- **Preloaded components** for loading common components, optimizing performance
+- **Data sources** for [dynamic content](/plugins/data-sources) and [localization](/plugins/localization)
