@@ -38,10 +38,10 @@
     --color-brand-surface-hover: #f19b46;
     --color-brand-inverse: #763518;
     --color-brand-content: #de6618;
-    --color-accent-surface: var(--color-900);
-    --color-accent-surface-hover: var(--color-700);
-    --color-accent-inverse: var(--color-page);
-    --color-accent-content: var(--color-content-stark);
+    --color-accent-surface: #ffccd3;
+    --color-accent-surface-hover: #ffa1ad;
+    --color-accent-inverse: #a50036;
+    --color-accent-content: #ff637e;
     --color-positive-surface: #16a34a;
     --color-positive-surface-hover: #166534;
     --color-positive-inverse: white;
@@ -78,8 +78,7 @@
     --color-content-neutral: var(--color-400);
     --color-content-subtle: var(--color-500);
     --color-brand-content: #f6c07b;
-    --color-accent-surface: var(--color-50);
-    --color-accent-surface-hover: var(--color-100);
+    --color-accent-content: #ffa1ad;
 }
 
 @layer base {
@@ -815,77 +814,96 @@
     --icon-copy-code: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Crect width='14' height='14' x='8' y='8' rx='2' ry='2'/%3E%3Cpath d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/%3E%3C/g%3E%3C/svg%3E");
     --icon-copied-code: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");
 
-    /* VS Code Light Theme Colors */
-    --color-code-keyword: #0000ff;
-    --color-code-string: #a31515;
-    --color-code-comment: #008000;
-    --color-code-function: #795e26;
-    --color-code-number: #098658;
-    --color-code-operator: #000000;
-    --color-code-class-name: #267f99;
-    --color-code-tag: #0000ff;
-    --color-code-attr-name: #ff0000;
-    --color-code-attr-value: #a31515;
-    --color-code-property: #001080;
-    --color-code-selector: #0000ff;
-    --color-code-punctuation: #000000;
-    --color-code-builtin: #0000ff;
-    --color-code-constant: #0000ff;
-    --color-code-boolean: #0000ff;
-    --color-code-regex: #811f3f;
-    --color-code-symbol: #0000ff;
-    --color-code-entity: #0000ff;
-    --color-code-url: #0000ff;
-    --color-code-atrule: #0000ff;
-    --color-code-rule: #0000ff;
-    --color-code-doctype: #000000;
-    --color-code-cdata: #000000;
-    --color-code-prolog: #000000;
-    --color-code-namespace: #000000;
-    --color-code-important: #0000ff;
-    --color-code-inserted: #000000;
-    --color-code-deleted: #000000;
-    --color-code-char: #000000;
-}
-
-.dark {
-    /* VS Code Dark Theme Colors */
-    --color-code-keyword: #569cd6;
-    --color-code-string: #ce9178;
-    --color-code-comment: #6a9955;
-    --color-code-function: #dcdcaa;
-    --color-code-number: #b5cea8;
-    --color-code-operator: #d4d4d4;
-    --color-code-class-name: #4ec9b0;
-    --color-code-tag: #569cd6;
-    --color-code-attr-name: #9cdcfe;
-    --color-code-attr-value: #ce9178;
-    --color-code-property: #9cdcfe;
-    --color-code-selector: #d7ba7d;
-    --color-code-punctuation: #d4d4d4;
-    --color-code-builtin: #569cd6;
-    --color-code-constant: #569cd6;
-    --color-code-boolean: #569cd6;
-    --color-code-regex: #d16969;
-    --color-code-symbol: #dcdcaa;
-    --color-code-entity: #569cd6;
-    --color-code-url: #569cd6;
-    --color-code-atrule: #c586c0;
-    --color-code-rule: #d7ba7d;
+    /* Syntax highlight colors */
+    --color-code-keyword: #b8860b;
+    --color-code-string: #8b4513;
+    --color-code-comment: #808080;
+    --color-code-function: #cd853f;
+    --color-code-number: #a0522d;
+    --color-code-operator: #2f4f4f;
+    --color-code-class-name: #daa520;
+    --color-code-tag: #4682b4;
+    --color-code-attr-name: #ff8c00;
+    --color-code-attr-value: #8b4513;
+    --color-code-property: #a0522d;
+    --color-code-selector: #4682b4;
+    --color-code-punctuation: #2f4f4f;
+    --color-code-builtin: #b8860b;
+    --color-code-constant: #a0522d;
+    --color-code-boolean: #a0522d;
+    --color-code-regex: #8b4513;
+    --color-code-symbol: #daa520;
+    --color-code-entity: #daa520;
+    --color-code-url: #a0522d;
+    --color-code-atrule: #b8860b;
+    --color-code-rule: #4682b4;
     --color-code-doctype: #808080;
     --color-code-cdata: #808080;
     --color-code-prolog: #808080;
     --color-code-namespace: #808080;
-    --color-code-important: #569cd6;
-    --color-code-inserted: #4ec9b0;
-    --color-code-deleted: #f44747;
-    --color-code-char: #dcdcaa;
+    --color-code-important: #b8860b;
+    --color-code-inserted: #228b22;
+    --color-code-deleted: #dc143c;
+    --color-code-char: #8b4513;
+}
+
+.dark {
+    --color-code-keyword: #f4a460;
+    --color-code-string: #deb887;
+    --color-code-comment: #8b8b8b;
+    --color-code-function: #daa520;
+    --color-code-number: #d2b48c;
+    --color-code-operator: #f5deb3;
+    --color-code-class-name: #cd853f;
+    --color-code-tag: #87ceeb;
+    --color-code-attr-name: #ffd700;
+    --color-code-attr-value: #deb887;
+    --color-code-property: #d2b48c;
+    --color-code-selector: #87ceeb;
+    --color-code-punctuation: #f5deb3;
+    --color-code-builtin: #f4a460;
+    --color-code-constant: #d2b48c;
+    --color-code-boolean: #d2b48c;
+    --color-code-regex: #deb887;
+    --color-code-symbol: #cd853f;
+    --color-code-entity: #cd853f;
+    --color-code-url: #d2b48c;
+    --color-code-atrule: #f4a460;
+    --color-code-rule: #98fb98;
+    --color-code-doctype: #8b8b8b;
+    --color-code-cdata: #8b8b8b;
+    --color-code-prolog: #8b8b8b;
+    --color-code-namespace: #8b8b8b;
+    --color-code-important: #f4a460;
+    --color-code-inserted: #98fb98;
+    --color-code-deleted: #f08080;
+    --color-code-char: #deb887;
 }
 
 /* Code syntax styles for highlight.js */
-@layer base {
+@layer utilities {
 
     /* Additional highlight.js specific classes */
+    .hljs-comment {
+        color: var(--color-code-comment) !important
+    }
+
+    .hljs-keyword {
+        color: var(--color-code-keyword) !important
+    }
+
+    .hljs-string {
+        color: var(--color-code-string) !important
+    }
+
+    .hljs-number {
+        color: var(--color-code-number) !important
+    }
+
+    .hljs-literal {
+        color: var(--color-code-constant) !important
+    }
+
     .hljs-type {
         color: var(--color-code-class-name) !important
     }
@@ -1172,9 +1190,9 @@
             }
 
             &.copied {
-                --color-field-surface: var(--color-accent-surface);
-                --color-field-surface-hover: var(--color-accent-surface-hover);
-                --color-field-inverse: var(--color-accent-inverse);
+                --color-field-surface: var(--color-positive-surface);
+                --color-field-surface-hover: var(--color-positive-surface-hover);
+                --color-field-inverse: var(--color-positive-inverse);
             }
         }
 
@@ -1280,6 +1298,7 @@
 
     /* Vertical modifier */
     .divider.vertical {
+        align-self: stretch;
         flex-flow: column nowrap;
         width: fit-content;
         min-width: 1px;
@@ -1604,7 +1623,11 @@
         max-width: 100%;
 
         &>* {
-            flex-shrink: 0
+            flex-shrink: 0;
+
+            &:focus {
+                z-index: 1
+            }
         }
 
         &>*:first-child {
@@ -1619,6 +1642,11 @@
         &>*:last-child {
             border-start-start-radius: 0;
             border-end-start-radius: 0
+        }
+
+        &.even>* {
+            flex-shrink: initial;
+            width: 100%
         }
     }
 }
@@ -1684,6 +1712,7 @@
         flex-flow: row;
         justify-content: start;
         align-items: center;
+        padding-inline-start: 0;
 
         /* Search icon */
         & [x-icon] {
@@ -1692,13 +1721,14 @@
             align-items: center;
             width: var(--spacing-field-height, 2.25rem);
             height: 100%;
+            margin-inline-end: 0;
             color: var(--color-content-subtle, oklch(67.4% 0.0318 251.27))
         }
 
         /* Input element overrides */
         & :where(input) {
-            padding-left: 0;
-            padding-right: 0;
+            padding-inline-start: 0;
+            padding-inline-end: 0;
             background: transparent;
 
             &:hover,
@@ -2021,23 +2051,6 @@
             cursor: se-resize;
         }
 
-        /* RTL overrides */
-        [dir="rtl"] .resize-handle-top-start {
-            cursor: ne-resize
-        }
-
-        [dir="rtl"] .resize-handle-top-end {
-            cursor: nw-resize
-        }
-
-        [dir="rtl"] .resize-handle-bottom-start {
-            cursor: se-resize
-        }
-
-        [dir="rtl"] .resize-handle-bottom-end {
-            cursor: sw-resize
-        }
-
         /* Screen overlay to get mouse coordinates */
         .resize-overlay {
             position: fixed;
@@ -2085,6 +2098,41 @@
                 transition: none
             }
         }
+    }
+
+    /* RTL overrides - more specific than :where([x-resize]) */
+    [dir="rtl"] :where([x-resize]) .resize-handle-start {
+        left: auto;
+        right: calc(var(--spacing-resize-handle, 1rem) * -0.5);
+    }
+
+    [dir="rtl"] :where([x-resize]) .resize-handle-end {
+        right: auto;
+        left: calc(var(--spacing-resize-handle, 1rem) * -0.5);
+    }
+
+    [dir="rtl"] :where([x-resize]) .resize-handle-top-start {
+        left: auto;
+        right: calc(var(--spacing-resize-handle, 1rem) * -0.5);
+        cursor: ne-resize;
+    }
+
+    [dir="rtl"] :where([x-resize]) .resize-handle-top-end {
+        right: auto;
+        left: calc(var(--spacing-resize-handle, 1rem) * -0.5);
+        cursor: nw-resize;
+    }
+
+    [dir="rtl"] :where([x-resize]) .resize-handle-bottom-start {
+        left: auto;
+        right: calc(var(--spacing-resize-handle, 1rem) * -0.5);
+        cursor: se-resize;
+    }
+
+    [dir="rtl"] :where([x-resize]) .resize-handle-bottom-end {
+        right: auto;
+        left: calc(var(--spacing-resize-handle, 1rem) * -0.5);
+        cursor: sw-resize;
     }
 }
 
@@ -2155,6 +2203,11 @@
                 }
             }
         }
+    }
+
+    /* Dark mode override */
+    .dark :where(aside[popover]) {
+        background-color: var(--color-surface-1, oklch(98.17% 0.0005 95.87))
     }
 }
 
@@ -2383,6 +2436,7 @@
         display: flex;
         max-width: 90vw;
         background-color: var(--color-popover-surface, oklch(100% 0 0));
+        border: 1px solid var(--color-line, oklch(48.3% 0.006422 17.4 / 0.15));
         border-radius: calc(var(--radius, 0.5rem) * 2);
         box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         overflow: hidden;
@@ -2394,15 +2448,6 @@
             height 0.2s ease-out,
             margin 0.2s ease-out,
             padding 0.2s ease-out;
-        
-        /* Icon */
-        :where(.toast-icon) {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-left: 0.625rem;
-            color: inherit
-        }
     
         /* Content */
         :where(.toast-content) {
@@ -2806,7 +2851,7 @@
         font-weight: 500;
         font-size: 0.75rem;
         line-height: 1;
-        color: var(--color-content-stark, oklch(16.6% 0.026 267));
+        color: var(--color-field-inverse, oklch(16.6% 0.026 267));
         background-color: var(--color-field-surface, oklch(91.79% 0.0029 264.26));
         border-radius: 100px;
 
@@ -2827,7 +2872,10 @@
 
     :where(ol):not(nav ol):not(menu ol),
     :where(ul):not(nav ul):not(menu ul) {
-        padding-inline-start: 1.5ch;
+
+        &:not(:has(input[type="checkbox"])) {
+            padding-inline-start: 1.75ch;
+        }
 
         /* Offset items so markers align inside the element frame  */
         & li {
@@ -2850,6 +2898,19 @@
                     left: -1.75ch
                 }
             }
+
+            /* Checklist items */
+            &:has(input[type="checkbox"]) {
+                position: relative;
+                display: inherit;
+                list-style: none;
+
+                & input[type="checkbox"] {
+                    position: absolute;
+                    top: 0.45ch;
+                    left: -1ch
+                }
+            }
         }
     }
 
@@ -2862,12 +2923,24 @@
                 right: -1.75ch
             }
         }
+
+        & li:has(input[type="checkbox"]) {
+            & input[type="checkbox"] {
+                left: auto;
+                right: -1.25ch
+            }
+        }
     }
 
     /* Nested list spacing */
     :where(ol, ul):not(nav ol):not(menu ol) ul,
     :where(ol, ul):not(nav ul):not(menu ul) ol {
-        margin-top: 1ch
+        margin-top: 1ch;
+        padding-inline-start: 2.75ch;
+
+        & + li {
+            margin-top: 1.5ch
+        }
     }
 
     /* Spans */
@@ -2958,6 +3031,11 @@
     :where(.outlined) {
         border-width: 1.5px;
         border-style: solid;
+        border-color: color-mix(in oklch, var(--color-field-surface, oklch(91.79% 0.0029 264.26)) 90%, var(--color-field-inverse, oklch(16.6% 0.026 267)))
+    }
+
+    /* Dark theme override */
+    .dark :where(.outlined) {
         border-color: color-mix(in oklch, var(--color-field-surface, oklch(91.79% 0.0029 264.26)) 80%, var(--color-field-inverse, oklch(16.6% 0.026 267)))
     }
 
@@ -2992,6 +3070,8 @@
 
     /* Page content layout */
     :where(body.page) {
+        display: flex;
+        flex-direction: column;
         min-height: 100vh
     }
 
@@ -3023,8 +3103,8 @@
     }
 
     /* No focus */
-    .no-focus:focus-visible {
-        outline: 0 none
+    .no-focus:focus, .no-focus:focus-visible, .no-focus:focus-within {
+        box-shadow: 0 0 0 0 transparent
     }
 
     /* No scrollbar */

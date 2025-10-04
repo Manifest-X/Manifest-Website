@@ -9,16 +9,12 @@ Typography styles are included with all other styles in Indux CSS, or on a stand
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.typography.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.typography.css" />
 ```
 
 </x-code-group>
@@ -70,7 +66,7 @@ Typography styles are included with all other styles in Indux CSS, or on a stand
 <blockquote>Blockquote. Lorem ipsum dolar sit amet.</blockquote>
 ```
 
-See [code blocks](/plugins/code-blocks) for use of the `<pre>` element.
+See [code blocks](/plugins/code) for use of the `<pre>` element.
 
 ---
 
@@ -93,11 +89,93 @@ See [badges](/elements/badges) for use of the `<mark>` tag.
 
 ---
 
+## Lists
+
+List styles are carefully styled to keep markers aligned with content above and below, rather than default browser behaviour where they float outside.
+
+::: frame !block
+<p>This is a preceding paragraph.</p><br>
+<ul>
+    <li>First level item</li>
+    <ul>
+        <li>Second level item</li>
+        <li>Another second level item</li>
+        <ol>
+            <li>Third level ordered item</li>
+            <li>Another third level item</li>
+        </ol>
+    </ul>
+    <li>Another first level item</li>
+</ul><br>
+<p>This is a following paragraph</p>
+:::
+
+```html copy
+<ul>
+    <li>First level item
+        <ul>
+            <li>Second level item</li>
+            <li>Another second level</li>
+            <ol>
+                <li>Third level ordered</li>
+                <li>Another third level</li>
+            </ol>
+        </ul>
+    </li>
+    <li>Another first level</li>
+</ul>
+```
+
+### Icon Markers
+
+List markers can be overwritten with inline [icons](/plugins/icons) using the `x-icon` attribute. The generated SVG is placed directly before any text content.
+
+::: frame
+<ul>
+    <li>Regular marker</li>
+    <li x-icon="lucide:house">House icon marker</li>
+    <li x-icon="lucide:heart">Heart icon marker</li>
+    <li x-icon="lucide:check">Check icon marker</li>
+</ul>
+:::
+
+```html copy
+<ul>
+    <li>Regular marker</li>
+    <li x-icon="lucide:house">House icon marker</li>
+    <li x-icon="lucide:heart">Heart icon marker</li>
+    <li x-icon="lucide:check">Checkmark icon marker</li>
+</ul>
+```
+
+Depending on your icon library's baked-in padding, you may wish to adjust marker positioning. Override default CSS by adjusting the `top` and `left` properties:
+
+```css copy
+/* Target text lists while omitting nav and menu lists */
+:where(ol):not(nav ol):not(menu ol),
+:where(ul):not(nav ul):not(menu ul) {
+
+    /* Target list items with the x-icon attribute */
+    & li:has([x-icon] {
+
+        /* Target the generated icon marker */
+        & [x-icon] {
+                position: absolute;
+                top: 0.45ch;
+                left: -1.75ch
+            }
+        }
+    }
+}
+```
+
+---
+
 ## Utilities
 
 Text elements accept [utility](/styles/utilities) classes, which can be stacked in any combination.
 
-### Styles
+### Elements
 
 Utility classes named for a corresponding text element will apply that element's styles to any other.
 
@@ -208,7 +286,9 @@ All text elements accept Indux color utility classes, either directly or inherit
 
 ---
 
-## Theme
+## Styles
+
+### Theme
 
 Default text elements use the following [theme](/styles/theme) variables:
 
@@ -223,93 +303,34 @@ Default text elements use the following [theme](/styles/theme) variables:
 | `--font-sans` | Sans-serif font stack applied to all elements by default |
 | `--font-mono` | Monospace font stack for code elements |
 
-## Fonts
+---
 
-The global font and text color is set in the [theme](/styles/theme), with the default value being the user's system UI font or fallbacks. To apply a different font to individual text elements, use custom CSS to modify its `font-family` property.
+### Fonts
 
-`<pre>` and `<code>` elements have a specialty font set by separate [code styles](/plugins/code-blocks#styles), and otherwise use the user's system monospace font or other fallbacks.
+The global font and text color is set in the [theme](/styles/theme), with the default value being the user's system UI font or fallbacks. To apply a different font to individual text elements, use custom CSS to modify its `font-family` property (like in the Customization example below).
+
+`<pre>` and `<code>` elements have a specialty font set by separate [code styles](/plugins/code#styles), and otherwise use the user's system monospace font or other fallbacks.
 
 ---
 
-## Lists
+### Customization
 
-List styles are carefully choreographed to keep markers aligned with content above and below, rather than floating outside as is default behaviour.
-
-::: frame !block
-<p>This is a preceding paragraph.</p><br>
-<ul>
-    <li>First level item
-        <ul>
-            <li>Second level item</li>
-            <li>Another second level
-                <ol>
-                    <li>Third level ordered</li>
-                    <li>Another third level</li>
-                </ol>
-            </li>
-        </ul>
-    </li>
-    <li>Another first level</li>
-</ul><br>
-<p>This is a following paragraph</p>
-:::
-
-```html copy
-<ul>
-    <li>First level item
-        <ul>
-            <li>Second level item</li>
-            <li>Another second level
-                <ol>
-                    <li>Third level ordered</li>
-                    <li>Another third level</li>
-                </ol>
-            </li>
-        </ul>
-    </li>
-    <li>Another first level</li>
-</ul>
-```
-
-### Icon Markers
-
-List markers can be overwritten with inline [icons](/plugins/icons) using the `x-icon` attribute.
+Modify base text element styles with custom CSS for its respective selector.
 
 ::: frame
-<ul>
-    <li>Regular marker</li>
-    <li x-icon="lucide:house">House icon marker</li>
-    <li x-icon="lucide:heart">Heart icon marker</li>
-    <li x-icon="lucide:check">Check icon marker</li>
-</ul>
+<style>
+.h3.custom {
+    font-family: Playfair Display, Abril Fatface;
+    font-style: italic;
+}
+</style>
+
+<span class="h3 custom">This is a custom h3 element.</span>
 :::
 
-```html copy
-<ul>
-    <li>Regular marker</li>
-    <li x-icon="lucide:house">House icon marker</li>
-    <li x-icon="lucide:heart">Heart icon marker</li>
-    <li x-icon="lucide:check">Checkmark icon marker</li>
-</ul>
-```
-
-Depending on your icon library's baked-in padding, you may wish to adjust marker positioning. Override default CSS by adjusting the `top` and `left` properties:
-
-```css copy
-/* Target text lists while omitting nav and menu lists */
-:where(ol):not(nav ol):not(menu ol),
-:where(ul):not(nav ul):not(menu ul) {
-
-    /* Target list items with the x-icon attribute */
-    & li:has([x-icon] {
-
-        /* Target the generated icon marker */
-        & [x-icon] {
-                position: absolute;
-                top: 0.45ch;
-                left: -1.75ch
-            }
-        }
-    }
+```css
+h3 {
+    font-family: Playfair Display, Abril Fatface;
+    font-style: italic;
 }
 ```

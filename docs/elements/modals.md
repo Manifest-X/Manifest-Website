@@ -9,16 +9,12 @@ Modal styles are included in Indux CSS, or a standalone stylesheet.
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.modal.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.modal.css" />
 ```
 
 </x-code-group>
@@ -30,12 +26,12 @@ Modal styles are included in Indux CSS, or a standalone stylesheet.
 Modals are supported in pure HTML using the `<dialog>` element as a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API" target="_blank">popover</a>. The `<button>` that opens the modal requires the `popovertarget="ID"` attribute, matching the dialog ID.
 
 ::: frame
-<button popovertarget="modal-default-preview">Open Modal</button>
+<button popovertarget="modal-default-preview">Open Empty Modal</button>
 <dialog popover id="modal-default-preview"></dialog>
 :::
 
 ```html copy
-<button popovertarget="modal-default">Open Modal</button>
+<button popovertarget="modal-default">Open Empty Modal</button>
 <dialog popover id="modal-default"></dialog>
 ```
 
@@ -47,7 +43,7 @@ Browser versions from 2023 and earlier require a polyfill script like <a href="h
 
 ## Light Dismiss
 
-Popovers operate by default as lightboxes, and clicking anywhere outside the modal will close it, know as "light dismiss". Prevent this with the `popover="manual"` attribute.
+Popovers operate by default as lightboxes, and clicking anywhere outside the modal or pressing <kbd>esc</kbd> will close it, know as "light dismiss". Prevent this with the `popover="manual"` attribute.
 
 ::: frame
 <button popovertarget="modal-manual-preview">Open Modal</button>
@@ -286,6 +282,8 @@ Default modals use the following [theme](/styles/theme) variables:
 | `--radius` | Modal border radius (doubled for modals) |
 | `--spacing` | Modal layout gaps and padding |
 
+---
+
 ### Backdrop
 
 Modal <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop" target="_blank">backdrops</a> (the light dismiss area) have arbitrary background colors with transparency. They can be styled with custom CSS in light and dark modes.
@@ -388,3 +386,97 @@ dialog[popover] {
 Modifying `display` properties can result in popovers not working properly.
 Remember to update `transition` with any new properties.
 :::
+
+---
+
+### Tailwind CSS
+
+If using Tailwind, individual modals can be customized with utility classes. Modals will automatically adjust their size and positioning based on content.
+
+::: frame
+<button popovertarget="modal-tailwind-preview">Custom Size & Position</button>
+<dialog popover id="modal-tailwind-preview" class="w-96 h-80 mt-20">
+    <header>
+        <span class="h3">Tailwind Modal</span>
+        <button popovertarget="modal-tailwind-preview" aria-label="Close" x-icon="lucide:x"></button>
+    </header>
+    <main>
+        <p>This modal uses Tailwind utility classes for custom sizing and positioning.</p>
+    </main>
+    <footer>
+        <button popovertarget="modal-tailwind-preview">Close</button>
+    </footer>
+</dialog>
+:::
+
+```html copy
+<button popovertarget="modal-tailwind-preview">Custom Size & Position</button>
+<dialog popover id="modal-tailwind-preview" class="w-96 h-80 mt-20">
+    <header>
+        <h3>Tailwind Modal</h3>
+        <button popovertarget="modal-tailwind-preview" aria-label="Close" x-icon="lucide:x"></button>
+    </header>
+    <main>
+        <p>This modal uses Tailwind utility classes for custom sizing and positioning.</p>
+    </main>
+    <footer>
+        <button popovertarget="modal-tailwind-preview">Close</button>
+    </footer>
+</dialog>
+```
+
+---
+
+### Customization
+
+Modify base modal styles with custom CSS for the `dialog[popover]` selector.
+
+::: frame
+<style>
+dialog[popover].custom {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+}
+
+dialog[popover].custom::backdrop {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+dialog[popover].custom :where(header, main, footer) {
+    padding: 2rem;
+}
+</style>
+
+<button popovertarget="custom-modal-preview">Custom Modal</button>
+<dialog popover id="custom-modal-preview" class="custom">
+    <header>
+        <span class="h3">Custom Modal</span>
+        <button popovertarget="custom-modal-preview" aria-label="Close" x-icon="lucide:x"></button>
+    </header>
+    <main>
+        <p>This modal has custom styling.</p>
+    </main>
+    <footer>
+        <button popovertarget="custom-modal-preview">Close</button>
+    </footer>
+</dialog>
+:::
+
+```css copy
+dialog[popover] {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+
+    &::backdrop {
+        background-color: rgba(59, 130, 246, 0.1);
+    }
+
+    & :where(header, main, footer) {
+        padding: 2rem;
+    }
+}
+```

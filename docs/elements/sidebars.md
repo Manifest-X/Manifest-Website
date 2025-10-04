@@ -9,16 +9,12 @@ Sidebar styles are included in Indux CSS, or as standalone stylesheets.
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.utilities.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.sidebar.css" />
 ```
 
 </x-code-group>
@@ -35,7 +31,7 @@ Sidebars are supported in pure HTML using the `<aside>` element as a <a href="ht
 
 ::: frame
 <button popovertarget="sidebar-default-preview">Open Sidebar</button>
-<aside popover id="sidebar-default-preview" class="col gap-4">
+<aside popover id="sidebar-default-preview" class="col gap-4 p-4 border-s border-line">
     <span class="h4">Sidebar</span>
     <p>This sidebar slides in from the right by default.</p>
 </aside>
@@ -43,7 +39,7 @@ Sidebars are supported in pure HTML using the `<aside>` element as a <a href="ht
 
 ```html copy
 <button popovertarget="sidebar-default">Open Sidebar</button>
-<aside popover id="sidebar-default" class="col gap-4">
+<aside popover id="sidebar-default" class="col gap-4 p-4 border-s border-line">
     <h4>Sidebar</h4>
     <p>This sidebar slides in from the right by default.</p>
 </aside>
@@ -57,7 +53,7 @@ By default, sidebars slide in from the inline-end (right in LTR, left in RTL). A
 
 ::: frame
 <button popovertarget="sidebar-start-preview">Open Start Sidebar</button>
-<aside popover id="sidebar-start-preview" class="start col gap-4">
+<aside popover id="sidebar-start-preview" class="col gap-4 p-4 border-e border-line">
     <span class="h4">Start Sidebar</span>
     <p>This sidebar slides in from the left in LTR screens.</p>
 </aside>
@@ -66,7 +62,7 @@ By default, sidebars slide in from the inline-end (right in LTR, left in RTL). A
 ```html copy
 <button popovertarget="sidebar-start">Open Start Sidebar</button>
 
-<aside popover id="sidebar-start" class="start col gap-4">
+<aside popover id="sidebar-start" class="col gap-4 p-4 border-e border-line">
     <h4>Start Sidebar</h4>
     <p>This sidebar slides in from the left in LTR screens.</p>
 </aside>
@@ -88,27 +84,26 @@ Default sidebars use the following [theme](/styles/theme) variables:
 
 ---
 
-### Customization
+### Tailwind CSS
 
-Sidebars can be modified with custom CSS and/or utility classes.
+If using Tailwind, individual sidebars can be customized with utility classes.
 
 ::: frame
-<button popovertarget="sidebar-custom-preview">Custom Sidebar</button>
-<aside popover id="sidebar-custom-preview" class="w-80 bg-brand-surface">
-    <div class="p-4">
-        <span class="h4 text-brand-inverse">Custom Styled</span>
-        <p class="text-brand-inverse">This sidebar has custom width and colors.</p>
+<button popovertarget="sidebar-tailwind-preview">Custom Sidebar</button>
+<aside popover id="sidebar-tailwind-preview" class="w-100 bg-surface-2/80 border-s border-line rounded-s-2xl backdrop-blur">
+    <div class="col gap-4 p-4">
+        <h4>Tailwind Sidebar</h4>
+        <p>This sidebar uses Tailwind utility classes with theme-aware colors.</p>
     </div>
 </aside>
 :::
 
 ```html copy
-<button popovertarget="sidebar-custom">Custom Sidebar</button>
-
-<aside popover id="sidebar-custom" class="w-80 bg-brand-surface">
-    <div class="p-4">
-        <h4 class="text-brand-inverse">Custom Styled</h4>
-        <p class="text-brand-inverse">This sidebar has custom width and colors.</p>
+<button popovertarget="sidebar">Custom Sidebar</button>
+<aside popover id="sidebar" class="w-100 bg-surface-2/80 border-s border-line rounded-s-2xl backdrop-blur">
+    <div class="col gap-4 p-4">
+        <h4>Tailwind Sidebar</h4>
+        <p>This sidebar uses Tailwind utility classes with theme-aware colors.</p>
     </div>
 </aside>
 ```
@@ -167,3 +162,55 @@ aside[popover] {
 Modifying `display` properties can result in popovers not working properly.
 Remember to update `transition` with any new properties.
 :::
+
+---
+
+### Customization
+
+Modify base sidebar styles with custom CSS for the `aside[popover]` selector.
+
+::: frame
+<style>
+aside[popover].custom {
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+    width: 400px;
+    padding: 1rem;
+    background-color: color-mix(in oklch, var(--color-surface-2) 90%, transparent);
+    backdrop-filter: blur(4px);
+    border-start-start-radius: 1rem;
+    border-end-start-radius: 1rem;
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
+
+    &::backdrop {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+}
+</style>
+
+<button popovertarget="sidebar-custom-preview">Custom Sidebar</button>
+<aside popover id="sidebar-custom-preview" class="custom">
+    <h4>Custom Sidebar</h4>
+    <p>This sidebar has custom styling with CSS variables and backdrop color.</p>
+</aside>
+:::
+
+```css copy
+aside[popover] {
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+    width: 400px;
+    padding: 1rem;
+    background-color: color-mix(in oklch, var(--color-surface-2) 90%, transparent);
+    backdrop-filter: blur(4px);
+    border-start-start-radius: 1rem;
+    border-end-start-radius: 1rem;
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
+
+    &::backdrop {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+}
+```

@@ -8,27 +8,46 @@ Leverage HTML templates across your project.
 
 Components in Indux are HTML files representing pages, sections, or other UI elements that can be reused throughout a project. Optimized for performance, components are resolved and rendered in milliseconds at browser runtime, eliminating the need for server-side rendering.
 
-<Note>See [Router](/plugins/router) for details on navigation.</Note>
+::: brand icon="lucide:info"
+See the [router](/plugins/router) plugin for details on navigation, which can be used to show and hide components based on URL paths.</Note>
+:::
 
 ---
 
 ## Setup
 
-Add an [Indux script](/getting-started/setup) to your project, or use the standalone components plugin:
+Components are supported by a plugin for Alpine JS, available on its own or as part of Indux bundles.
 
-```html "<head> or <body>" copy
+<x-code-group copy>
+
+```html "Standalone"
 <!-- Alpine -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-<!-- Indux components plugin -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.components.js"></script>
+<!-- Indux components plugin only -->
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.components.min.js"></script>
 ```
+
+```html "Indux JS"
+<!-- Alpine -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- Indux JS -->
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.js"></script>
+```
+
+```html "Quickstart"
+<!-- Indux JS, Alpine, and Tailwind combined -->
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js"></script>
+```
+
+</x-code-group>
 
 ---
 
 ## Create Components
 
-Create an HTML file anywhere in your project directory, such as `/components/navigation/header.html`. Its filename must be distinct from other components.
+Create an HTML file anywhere in your project directory, such as `/components/header.html`. Its filename must be distinct from other components.
 
 ::: frame
 <x-header-basic></x-header-basic>
@@ -109,13 +128,13 @@ HTML files need to be declared in `manifest.json` due to browser security restri
         "components/about.html"
     ],
     "preloadedComponents": [
-        "components/navigation/header.html",
-        "components/navigation/logo.html"
+        "components/header.html",
+        "components/logo.html"
     ],
     ...
 }
 ```
-Components are registered by filepath from the project root in one of two arrays:
+Components are registered by custom filepath from the project root in one of two arrays:
 - `components` is the default array, suitable for components that load on-demand.
 - `preloadedComponents` is for components that should load in the background if not already used by a current [route](/plugins/router), reducing their load time on subsequent navigations.
 
@@ -151,7 +170,7 @@ Components are applied with `<x-filename>` tags, where `filename` is the actual 
 </html>
 ```
 
-See [Router](/plugins/router) for more information on conditional rendering with the `x-route` attribute.
+See the [router](/plugins/router) plugin for more information on conditional rendering with the `x-route` attribute.
 
 ---
 
@@ -205,13 +224,13 @@ Modifying just the parent element can be done immediately by adding any new attr
 </body>
 ```
 
-These attribute values will be added to the first top-level element in the component file. If an attribute like `class` already exists on that element, the new values are appended to it. Appended Tailwind utility classes meant to override other may require an `!important` variant.
+These attribute values will be added to the first top-level element in the component file. If an attribute like `class` already exists on that element, the new values are appended to it. Appended Tailwind utility classes meant to override others may require an `!important` variant.
 
 ---
 
 ### Child Modification
 
-To modify child elements they require custom attributes that can be referenced in the instance placeholder tag, i.e. `<x-header colors="..." wordmark="...">`.
+Modifying child elements require custom attributes that can be referenced in the instance placeholder tag like `<x-header colors="..." wordmark="...">`.
 
 These custom attributes are created in the component source file using Alpine directives (dynamic attributes) like [x-text](https://alpinejs.dev/directives/text), [x-html](https://alpinejs.dev/directives/html), and [x-bind](https://alpinejs.dev/directives/bind), or Indux's extended directives like [x-icon](icons).
 
@@ -221,7 +240,7 @@ These custom attributes are created in the component source file using Alpine di
 ></x-header-modified>
 :::
 
-```html "header.html"
+```html "Component"
 <header class="row items-center gap-2 w-full p-4 bg-stone-400 dark:bg-stone-800 text-stone-50" :class="$modify('colors')">
     <span x-icon="$modify('icon')"></span>
     <strong x-text="$modify('wordmark')"></strong>
@@ -238,15 +257,12 @@ Each directive requires a `$modify('...')` value with the name of the custom att
 ></x-header-modified>
 :::
 
-```html "specialty.html"
-<body>
-    <x-header
-        colors="!text-white !bg-pink-400 dark:!bg-pink-900"
-        icon="lucide:globe"
-        wordmark="Universal Exports"
-    ></x-header>
-    ...
-</body>
+```html "Instance"
+<x-header
+    colors="!text-white !bg-pink-400 dark:!bg-pink-900"
+    icon="lucide:globe"
+    wordmark="Universal Exports"
+></x-header>
 ```
 
 If overrides with custom attribute are not required in every instance, place fallback logic in the component source to ensure optimal presentation.
@@ -255,7 +271,7 @@ If overrides with custom attribute are not required in every instance, place fal
 <x-header-modified></x-header-modified>
 :::
 
-```html "header.html"
+```html "Component"
 <!-- Static classes apply if not overriden by the colors attribute -->
 <header class="row items-center gap-2 w-full p-4 bg-color-400 dark:bg-color-800 text-color-50" :class="$modify('colors')">
 
@@ -274,8 +290,8 @@ Be sure to avoid <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Refe
 
 ---
 
-### Injecting Collections
-Instances can also receive their content from a [collection](content-collections). Simply make the custom attributes dynamic with a leading `:` and turn the values into collection references. In this example, we're referencing an `example.json` collection:
+### Injecting Dynamic Data
+Instances can also receive their content from a [data source](/plugins/data-sources). Simply make the custom attributes dynamic with a leading `:` and turn the value into a data source reference using `$x`. In this example, we're referencing an `example.json` collection:
 
 ::: frame
 <x-header-modified
@@ -285,13 +301,10 @@ Instances can also receive their content from a [collection](content-collections
 ></x-header-modified>
 :::
 
-```html "specialty.html"
-<body>
-    <x-header
-        :colors="$x.example.specialtyHeader.colors"
-        :icon="$x.example.specialtyHeader.icon"
-        :wordmark="$x.example.specialtyHeader.wordmark"
-    ></x-header>
-    ...
-</body>
+```html "Instance"
+<x-header
+    :colors="$x.example.specialtyHeader.colors"
+    :icon="$x.example.specialtyHeader.icon"
+    :wordmark="$x.example.specialtyHeader.wordmark"
+></x-header>
 ```

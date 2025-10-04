@@ -1,30 +1,42 @@
 # Icons
 
-Add icons to elements with a simple HTML attribute.
-
----
-
-## Overview
-
-Indux makes icons easy, letting you add over 200,000 open source icons from every major library, courtesy [Iconify](https://iconify.design/).
-
 ---
 
 ## Setup
 
 Add an [Indux script](/getting-started/setup) to your project, or use the standalone icons plugin:
 
-```html "<head> or <body>" copy
+<x-code-group copy>
+
+```html "Standalone"
 <!-- Alpine -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux icons plugin -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.icons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.icons.min.js"></script>
 ```
+
+```html "Indux JS"
+<!-- Alpine -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- Indux JS -->
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.js"></script>
+```
+
+```html "Quickstart"
+<!-- Indux JS, Alpine, and Tailwind combined -->
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js"></script>
+```
+
+</x-code-group>
+
+Indux makes icons easy, providing access to over 200,000 open source icons from every major library, courtesy of <a href="https://iconify.design/" target="_blank" rel="noopener">Iconify</a>. Iconify's lightweight script is bundled into the above Indux scripts.
 
 ---
 
 ## Usage
+
 
 Icons are inserted into any HTML element with the `x-icon` attributes.
 
@@ -37,7 +49,7 @@ Icons are inserted into any HTML element with the `x-icon` attributes.
 ```
 
 
-Browse [Iconify](https://icon-sets.iconify.design/) for available icon values like the `lucide:house` example above. The letters before the colon are the icon library code (e.g. `lucide`), and the string after is the individual icon name (e.g. `house`). If an icon doesn't render, double check the value.
+Browse the <a href="https://icon-sets.iconify.design/" target="_blank" rel="noopener">Iconify library</a> for available icon values like the `lucide:house` example above. The letters before the colon are the icon library code (e.g. `lucide`), and the string after is the individual icon name (e.g. `house`). If an icon doesn't render, double check the value.
 
 ---
 

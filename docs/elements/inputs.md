@@ -9,16 +9,12 @@ Inputs styles are included in Indux CSS, or a standalone stylesheet.
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.input.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.input.css" />
 ```
 
 </x-code-group>
@@ -35,19 +31,7 @@ Inputs styles are included in Indux CSS, or a standalone stylesheet.
 <input placeholder="Type here" />
 ```
 
-### Theme
-
-Default inputs use the following [theme](/styles/theme) variables:
-
-| Variable | Purpose |
-|----------|---------|
-| `--color-field-surface` | Input background color |
-| `--color-field-surface-hover` | Input hover/active background color |
-| `--color-field-inverse` | Text and selection highlight color |
-| `--spacing-field-height` | Input height |
-| `--spacing-field-padding` | Horizontal padding for input content |
-| `--radius` | Border radius for input corners |
-| `--transition` | Transition for interactive states |
+---
 
 ## Utilities
 
@@ -118,19 +102,27 @@ Inputs accept Indux [utility](/styles/utilities) classes, which can be stacked i
 
 ## Search
 
-Inputs of `type="search"` automatically display a search icon.
+Inputs of `type="search"` work on their own, or can be placed in a label to faciliate a search icon.
 
 ::: frame
-<input type="search" placeholder="Search..." />
+<label role="button">
+    <span x-icon="lucide:search"></span>
+    <input type="search" placeholder="Search" />
+</label>
 :::
 
 ```html copy
-<input type="search" placeholder="Search..." />
+<label role="button">
+    <span x-icon="lucide:search"></span>
+    <input type="search" placeholder="Search" />
+</label>
 ```
 
 ---
 
 ## File Uploads
+
+Inputs of `type="file"` work on their own, or can be placed in a label to faciliate an upload icon.
 
 ::: frame justify-start
 <label role="button">
@@ -152,20 +144,89 @@ Inputs of `type="search"` automatically display a search icon.
 
 ## Groups
 
+::: brand icon="lucide:info"
+These styles are included in `indux.css`. If using standlone stylesheets, `indux.form.css` is required.
+:::
+
 Horizontally group inputs, buttons, or selects together with a `role="group"` attribute on the parent container.
 
 ::: frame
 <div role="group">
     <input placeholder="Insert email" />
-    <button class="accent">Signup</button>
+    <button class="brand">Signup</button>
 </div>
 :::
 
 ```html copy
 <div role="group">
     <input placeholder="Insert email" />
-    <button class="accent">Signup</button>
+    <button class="brand">Signup</button>
 </div>
 ```
 
 When these elements are grouped, only the outer elements' outer corners retain their border radii for a seamless appearance.
+
+---
+
+## Styles
+
+### Theme
+
+Default inputs use the following [theme](/styles/theme) variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `--color-field-surface` | Input background color |
+| `--color-field-surface-hover` | Input hover/active background color |
+| `--color-field-inverse` | Text and selection highlight color |
+| `--spacing-field-height` | Input height |
+| `--spacing-field-padding` | Horizontal padding for input content |
+| `--radius` | Border radius for input corners |
+| `--transition` | Transition for interactive states |
+
+---
+
+### Customization
+
+Modify base input styles with custom CSS for the `input` selector.
+
+::: frame
+<style>
+input.custom {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 8px;
+    color: #1e40af;
+}
+
+input.custom::placeholder {
+    color: #60a5fa;
+}
+
+input.custom:focus-visible {
+    border-color: #1d4ed8;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+</style>
+
+<input class="custom" placeholder="Custom Input" />
+:::
+
+```css copy
+input {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 8px;
+    color: #1e40af;
+
+    &::placeholder {
+        color: #60a5fa;
+    }
+
+    &:focus-visible {
+        border-color: #1d4ed8;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+}
+```
+

@@ -4,7 +4,7 @@
 
 ## Setup
 
-Data sources are supported by an Alpine plugin, available on its own or as part of Indux bundles.
+Data sources are supported by a plugin for Alpine JS, available on its own or as part of Indux bundles.
 
 <x-code-group copy>
 
@@ -13,7 +13,7 @@ Data sources are supported by an Alpine plugin, available on its own or as part 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux data sources plugin only -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.data.min.js"></script>
 ```
 
 ```html "Indux JS"
@@ -21,17 +21,17 @@ Data sources are supported by an Alpine plugin, available on its own or as part 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux JS -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.js"></script>
 ```
 
 ```html "Quickstart"
 <!-- Indux JS, Alpine, and Tailwind combined -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.quickstart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js"></script>
 ```
 
 </x-code-group>
 
-Data sources provide access to content from local JSON/YAML files or cloud APIs, making it easy to manage data across your project. Sources are loaded on-demand and cached for the session duration.
+Data sources provide access to content from local files or cloud APIs, making it easy to manage data across your project. Sources are loaded on-demand and cached for the session duration.
 
 ::: brand icon="lucide:info"
 Local files are maintained client-side and should not contain sensitive data. Cloud APIs require proper authentication and security measures.
@@ -41,7 +41,7 @@ Local files are maintained client-side and should not contain sensitive data. Cl
 
 ## Local Data Sources
 
-Local data sources use JSON or YAML files stored in your project directory.
+Local data sources use JSON or YAML files stored anywhere in your project directory.
 
 ### Create Local Files
 
@@ -65,12 +65,12 @@ Create JSON or YAML files anywhere in your project. Both formats work identicall
 ```
 
 ```yaml "team.yaml"
-- name: Darth Vader
-  role: Lord
-  image: /assets/examples/vader.webp
-- name: Admiral Piett
-  role: Fleet Commander
-  image: /assets/examples/piett.webp
+-   name: Darth Vader
+    role: Lord
+    image: /assets/examples/vader.webp
+-   name: Admiral Piett
+    role: Fleet Commander
+    image: /assets/examples/piett.webp
 ```
 
 </x-code-group>
@@ -85,7 +85,7 @@ Syntax errors will prevent usability. Use validators like <a href="https://jsonl
 
 ### Register Local Files
 
-Register local sources in the project's `manifest.json` config file:
+Register local sources in the project's `manifest.json` config file. Under the `data` property, register each file with its custom filepath from the project root:
 
 ```json "manifest.json" copy
 {
@@ -99,6 +99,8 @@ Register local sources in the project's `manifest.json` config file:
     }
 }
 ```
+
+See [localization](/plugins/localization) for details on language variants, like the "features" example above.
 
 ---
 
@@ -266,21 +268,20 @@ All properties except `url` are optional.
 
 ## Display Content
 
-Data sources are accessed using the `$x` magic method with dot notation. The structure follows this pattern:
+Data sources are accessed in HTML using the `$x` magic method with dot notation. The structure follows this pattern:
 
-`$x.sourceName.property[index].subProperty[index]`
+`$x.sourceName.property.subProperty`
 
 **Structure breakdown:**
 - `$x` - Magic method prefix
 - `sourceName` - Data source name from `manifest.json` (e.g., `team`, `products`, `users`)
 - `property` - Object property or array name
 - `subProperty` - Nested property (optional at any level)
-- `[index]` - Array index (optional)
 
 **Examples:**
 - `$x.team` - Access the `team` data source
 - `$x.team.managers` - Access the `managers` array or object
-- `$x.team.managers[0].name` - First manager's name
+- `$x.team.managers[0].name` - Display the first manager's name (using a JS index counter)
 - `$x.team.filter(p => p.role === 'Junior Vice President')` - Filter team members by role
 
 ---

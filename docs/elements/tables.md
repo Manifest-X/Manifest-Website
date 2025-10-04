@@ -9,16 +9,12 @@ Table styles are included in Indux CSS, or a standalone stylesheet.
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.table.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.table.css" />
 ```
 
 </x-code-group>
@@ -99,8 +95,6 @@ Table styles are included in Indux CSS, or a standalone stylesheet.
 </table>
 </table>
 ```
-
-Tables are full width by default with consistent cell padding and borders. The header has a subtle background to distinguish it from data rows, and the last row has no bottom border.
 
 ---
 
@@ -184,99 +178,6 @@ Cells with multiple children will automatically inline and space those elements.
 
 ---
 
-## Utilities
-
-A variety of utility classes are available to tables.
-
-### Striped
-
-Add the `striped` class to alternate row background colors, which removes row borders for cleaner visual separation.
-
-::: frame !bg-transparent
-<table class="striped">
-    <thead>
-        <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Stock</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Laptop</td>
-            <td>$999</td>
-            <td>15</td>
-        </tr>
-        <tr>
-            <td>Mouse</td>
-            <td>$25</td>
-            <td>50</td>
-        </tr>
-        <tr>
-            <td>Keyboard</td>
-            <td>$75</td>
-            <td>30</td>
-        </tr>
-        <tr>
-            <td>Monitor</td>
-            <td>$300</td>
-            <td>8</td>
-        </tr>
-    </tbody>
-</table>
-:::
-
-```html
-<table class="striped">
-    ...
-</table>
-```
-
----
-
-### Column Width
-
-Table columns are automatically sized to fit the content of their cells. Add a custom class or Tailwind utility to a header cell to set the column's specific min, max, or default width.
-
-::: frame !bg-transparent
-<table>
-    <thead>
-        <tr>
-            <th class="w-full">User</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>John Doe</td>
-            <td><mark class="brand">Active</mark></td>
-        </tr>
-        <tr>
-            <td>Jane Smith</td>
-            <td><mark class="neutral">Pending</mark></td>
-        </tr>
-        <tr>
-            <td>Joe Johnson</td>
-            <td><mark class="negative">Inactive</mark></td>
-        </tr>
-    </tbody>
-</table>
-:::
-
-```html
-<table>
-    <thead>
-        <tr>
-            <th class="w-full">User</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    ...
-</table>
-```
-
----
-
 ### Grids
 
 If using a grid element instead of a `<table>`, the `grid-table` class applies table styles. Each row must be a parent container with a  `grid-header`, `grid-row`, or `grid-footer` class. These containers use `display: contents` to allow each cell to be rendered as a direct child of the grid, and so cannot be directly styled.
@@ -344,7 +245,55 @@ If using a grid element instead of a `<table>`, the `grid-table` class applies t
 
 ---
 
-## Theme
+## Striped
+
+Add the `striped` class to alternate row background colors, which removes row borders for cleaner visual separation.
+
+::: frame !bg-transparent
+<table class="striped">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Stock</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Laptop</td>
+            <td>$999</td>
+            <td>15</td>
+        </tr>
+        <tr>
+            <td>Mouse</td>
+            <td>$25</td>
+            <td>50</td>
+        </tr>
+        <tr>
+            <td>Keyboard</td>
+            <td>$75</td>
+            <td>30</td>
+        </tr>
+        <tr>
+            <td>Monitor</td>
+            <td>$300</td>
+            <td>8</td>
+        </tr>
+    </tbody>
+</table>
+:::
+
+```html
+<table class="striped">
+    ...
+</table>
+```
+
+---
+
+## Styles
+
+### Theme
 
 Default tables use the following [theme](/styles/theme) variables:
 
@@ -354,3 +303,170 @@ Default tables use the following [theme](/styles/theme) variables:
 | `--color-line` | Row border color |
 | `--spacing` | Cell padding base unit |
 | `--radius` | Table border radius |
+
+---
+
+### Tailwind CSS
+
+If using Tailwind, individual tables can be customized with utility classes.
+
+::: frame !bg-transparent
+<table class="bg-surface-2 border border-line rounded-lg">
+    <thead class="font-bold bg-surface-3">
+        <tr>
+            <th>Custom Table</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody class="[&_tr:hover]:bg-surface-1">
+        <tr>
+            <td>John Doe</td>
+            <td><mark class="brand">Active</mark></td>
+        </tr>
+        <tr>
+            <td>Jane Smith</td>
+            <td><mark class="neutral">Pending</mark></td>
+        </tr>
+    </tbody>
+</table>
+:::
+
+```html copy
+<table class="bg-surface-2 border border-line rounded-lg">
+    <thead class="font-bold bg-surface-3">
+        <tr>
+            <th>Custom Table</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody class="[&_tr:hover]:bg-surface-1">
+        <tr>
+            <td>John Doe</td>
+            <td><mark class="brand">Active</mark></td>
+        </tr>
+        <tr>
+            <td>Jane Smith</td>
+            <td><mark class="neutral">Pending</mark></td>
+        </tr>
+    </tbody>
+</table>
+```
+
+---
+
+### Column Width
+
+Table columns are automatically sized to fit the content of their cells. Add a custom class or Tailwind utility to a header cell to set the column's specific min, max, or default width.
+
+::: frame !bg-transparent
+<table>
+    <thead>
+        <tr>
+            <th class="w-full">User</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>John Doe</td>
+            <td><mark class="brand">Active</mark></td>
+        </tr>
+        <tr>
+            <td>Jane Smith</td>
+            <td><mark class="neutral">Pending</mark></td>
+        </tr>
+        <tr>
+            <td>Joe Johnson</td>
+            <td><mark class="negative">Inactive</mark></td>
+        </tr>
+    </tbody>
+</table>
+:::
+
+```html
+<table>
+    <thead>
+        <tr>
+            <th class="w-full">User</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    ...
+</table>
+```
+
+---
+
+### Customization
+
+Modify base table styles with custom CSS for the `table` selector.
+
+::: frame !bg-transparent
+<style>
+table.custom {
+    font-family: var(--font-mono);
+    border: 1px solid var(--color-line) !important;
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    & thead {
+        & th {
+            font-size: 0.875rem;
+            font-style: italic;
+        }
+    }
+
+    & tbody {
+        font-size: 1rem;
+
+        & tr:hover {
+            background-color: var(--color-surface-1);
+        }
+    }
+}
+</style>
+
+<table class="custom">
+    <thead>
+        <tr>
+            <th>Custom Table</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>John Doe</td>
+            <td><mark class="brand">Active</mark></td>
+        </tr>
+        <tr>
+            <td>Jane Smith</td>
+            <td><mark class="neutral">Pending</mark></td>
+        </tr>
+    </tbody>
+</table>
+:::
+
+```css copy
+table {
+    font-family: var(--font-mono);
+    border: 1px solid var(--color-line) !important;
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    & thead {
+        & th {
+            font-size: 0.875rem;
+            font-style: italic;
+        }
+    }
+
+    & tbody {
+        font-size: 1rem;
+
+        & tr:hover {
+            background-color: var(--color-surface-1);
+        }
+    }
+}
+```
+

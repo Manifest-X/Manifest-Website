@@ -9,16 +9,12 @@ Switches styles are included in Indux CSS, or a standalone stylesheet.
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.switch.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.switch.css" />
 ```
 
 </x-code-group>
@@ -33,41 +29,6 @@ Switches styles are included in Indux CSS, or a standalone stylesheet.
 
 ```html copy
 <input type="checkbox" role="switch" />
-```
-
----
-
-### Theme
-
-Default switches use the following [theme](/styles/theme) variables:
-
-| Variable | Purpose |
-|----------|---------|
-| `--color-field-surface` | Switch background |
-| `--color-field-surface-hover` | Switch background on hover |
-| `--color-field-inverse` | Marker color |
-| `--spacing-field-height` | Switch size |
-| `--radius` | Border radius for switch corners |
-| `--transition` | Transition for interactive states |
-
-
-## Labels
-
-Placing the switch and text inside a `<label>` automatically arranges them in a row (requires [Form](/elements/forms) styles).
-
-
-::: frame
-<label>
-    <input type="checkbox" role="switch" checked />
-    Enable notifications
-</label>
-:::
-
-```html copy
-<label>
-    <input type="checkbox" role="switch" />
-    Enable notifications
-</label>
 ```
 
 ---
@@ -141,7 +102,34 @@ Switches accept Indux [utility](/styles/utilities) classes, which can be stacked
 
 ---
 
-## Groups
+## Form Layouts
+
+::: brand icon="lucide:info"
+These styles are included in `indux.css`. If using standlone stylesheets, `indux.form.css` is required.
+:::
+
+### Labels
+
+Placing the switch and text inside a `<label>` automatically arranges them in a row (requires [Form](/elements/forms) styles).
+
+
+::: frame
+<label>
+    <input type="checkbox" role="switch" checked />
+    Enable notifications
+</label>
+:::
+
+```html copy
+<label>
+    <input type="checkbox" role="switch" />
+    Enable notifications
+</label>
+```
+
+---
+
+### Groups
 
 Placing labelled switches inside a `<fieldset>` automatically arranges them in a column with a gap.
 
@@ -169,4 +157,81 @@ Placing labelled switches inside a `<fieldset>` automatically arranges them in a
         Option B
     </label>
 </fieldset>
+```
+
+---
+
+## Styles
+
+### Theme
+
+Default switches use the following [theme](/styles/theme) variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `--color-field-surface` | Switch background |
+| `--color-field-surface-hover` | Switch background on hover |
+| `--color-field-inverse` | Marker color |
+| `--spacing-field-height` | Switch size |
+| `--radius` | Border radius for switch corners |
+| `--transition` | Transition for interactive states |
+
+---
+
+### Customization
+
+Modify base switch styles with custom CSS for the `input[role="switch"]` selector.
+
+::: frame
+<style>
+input[role="switch"].custom {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 20px;
+}
+
+/* Marker */
+input[role="switch"].custom::before {
+    background-color: #1e40af;
+    box-shadow: 0 2px 4px rgba(30, 64, 175, 0.3);
+}
+
+/* Background when checked */
+input[role="switch"].custom:checked {
+    background-color: #3b82f6;
+}
+
+/* Marker when checked */
+input[role="switch"].custom:checked::before {
+    background-color: white;
+    left: calc(100% - 1.5rem + 0.125rem);
+}
+</style>
+
+<input type="checkbox" role="switch" class="custom" checked />
+:::
+
+```css copy
+input[role="switch"] {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 20px;
+
+    /* Marker */
+    &::before {
+        background-color: #1e40af;
+        box-shadow: 0 2px 4px rgba(30, 64, 175, 0.3);
+    }
+
+    /* Background when checked */
+    &:checked {
+        background-color: #3b82f6;
+    }
+
+    /* Marker when checked */
+    &:checked::before {
+        background-color: white;
+        left: calc(100% - 1.5rem + 0.125rem);
+    }
+}
 ```

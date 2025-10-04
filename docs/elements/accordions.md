@@ -9,16 +9,12 @@ Accordion styles are included in Indux CSS, or a standalone stylesheet.
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.accordion.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.accordion.css" />
 ```
 
 </x-code-group>
@@ -27,7 +23,7 @@ Accordion styles are included in Indux CSS, or a standalone stylesheet.
 
 ## Default
 
-::: frame
+::: frame h-30
 <details>
     <summary>Accordion Item</summary>
     <p>This is the accordion content that can be expanded and collapsed by clicking the summary.</p>
@@ -41,7 +37,7 @@ Accordion styles are included in Indux CSS, or a standalone stylesheet.
 </details>
 ```
 
-Accordions use the native HTML `<details>` element with custom styling. The summary acts as the clickable header, and content below is shown/hidden when toggled.
+Accordions use the native HTML `<details>` element with custom styling. The `<summary>` acts as the clickable header, and any elements below it are shown/hidden when toggled.
 
 ---
 
@@ -49,7 +45,7 @@ Accordions use the native HTML `<details>` element with custom styling. The summ
 
 Multiple accordions can be stacked one after the other. To make them part of the same series where only one can be open at a time, add `name` attributes with matching values.
 
-::: frame col
+::: frame col h-46
 <details name="faq">
     <summary>First Item</summary>
     <p>Content for the first accordion item.</p>
@@ -85,7 +81,7 @@ Multiple accordions can be stacked one after the other. To make them part of the
 
 Add the `open` attribute to accordions that should be open on page load.
 
-::: frame col
+::: frame col h-46
 <details open>
     <summary>Pre-opened Item</summary>
     <p>This accordion item starts in the open state.</p>
@@ -109,7 +105,9 @@ Add the `open` attribute to accordions that should be open on page load.
 
 ---
 
-## Theme
+## Styles
+
+### Theme
 
 Default accordions use the following [theme](/styles/theme) variables:
 
@@ -124,12 +122,12 @@ Default accordions use the following [theme](/styles/theme) variables:
 
 ---
 
-## Icon
+### Icon
 
 The accordion icon is an encoded SVG in the accordion style's `--icon-accordion` variable. To modify it:
 
-1. Choose a desired icon from [Iconify](https://icon-sets.iconify.design/) or other SVG icon source.
-2. Copy the encoded SVG string (in Iconify, go to an icon's CSS tab and find the `--svg` value). Otherwise, use an [SVG encoder](https://yoksel.github.io/url-encoder/).
+1. Choose a desired icon from <a href="https://icon-sets.iconify.design/" target="_blank" rel="noopener">Iconify</a> or other SVG icon source.
+2. Copy the encoded SVG string (in Iconify, go to an icon's CSS tab and find the <code>--svg</code> value). Otherwise, use an <a href="https://yoksel.github.io/url-encoder/" target="_blank" rel="noopener">SVG encoder</a>.
 3. Overwrite the `--icon-accordion` variable value with the encoded SVG string.
 
 ```css "Default chevron icon" copy
@@ -140,7 +138,56 @@ The accordion icon is an encoded SVG in the accordion style's `--icon-accordion`
 
 ---
 
-## Remove Styles
+### Customization
+
+Modify base accordion styles with custom CSS for the `<details>` selector.
+
+::: frame
+<style>
+details.custom {
+    padding: 2px;
+    background-color: var(--color-surface-3);
+    
+    & summary {
+        padding: 0 1rem;
+        font-weight: regular;
+    }
+
+    & summary + * {
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: var(--color-page);
+    }
+}
+</style>
+
+<details class="custom">
+    <summary>Custom Accordion</summary>
+    <p>This is an accordion with custom styles.</p>
+</details>
+:::
+
+```css copy
+details.custom {
+    padding: 2px;
+    background-color: var(--color-surface-3);
+    
+    & summary {
+        padding: 0 1rem;
+        font-weight: regular;
+    }
+
+    & summary + * {
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: var(--color-page);
+    }
+}
+```
+
+---
+
+### Unset
 
 Add the `unset` class to disable Indux styling and use the browser's default appearance.
 

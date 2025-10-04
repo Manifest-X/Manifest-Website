@@ -1,11 +1,12 @@
 # Reset
+
 Normalize styles for consistent rendering across browsers.
 
 ---
 
 ## Overview
 
-Indux's normalizer provides a modern CSS reset and normalization library that ensures consistent rendering across browsers. It's based on Normalize.css and Tailwind's Preflight, with additional optimizations for modern web development.
+Indux's <code>reset.css</code> provides a modern CSS reset and normalization library or styles that ensures consistent rendering across browsers. It's based on <a href="https://necolas.github.io/normalize.css/" target="_blank" rel="noopener">Normalize.css</a> and <a href="https://tailwindcss.com/docs/preflight" target="_blank" rel="noopener">Tailwind's Preflight</a>, with additional optimizations for modern web development.
 
 ---
 
@@ -16,11 +17,11 @@ Reset styles are available in the full Indux CSS library, or as a standalone sty
 <x-code-group copy>
 
 ```html "Indux CSS"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css">
 ```
 
 ```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.reset.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.reset.css">
 ```
 
 </x-code-group>

@@ -4,21 +4,17 @@
 
 ## Setup
 
-Textareas styles are included in Indux CSS, or a standalone stylesheet.
+Textareas styles are included in Indux CSS, or the standalone [inputs](/elements/inputs) stylesheet.
 
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.input.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.input.css" />
 ```
 
 </x-code-group>
@@ -35,19 +31,7 @@ Textareas styles are included in Indux CSS, or a standalone stylesheet.
 <textarea placeholder="Type here"></textarea>
 ```
 
-### Theme
-
-Default textareas use the following [theme](/styles/theme) variables:
-
-| Variable | Purpose |
-|----------|---------|
-| `--color-field-surface` | Textarea background color |
-| `--color-field-surface-hover` | Textarea hover/active background color |
-| `--color-field-inverse` | Text and selection highlight color |
-| `--spacing-field-padding` | Padding for textarea content |
-| `--radius` | Border radius for textarea corners |
-| `--transition` | Transition for interactive states |
-
+---
 
 ## Utilities
 
@@ -145,3 +129,67 @@ The CSS property <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/field
 ```
 
 If a resize drag handle is applied and interacted with, the manually-set height will override automatic resizing.
+
+---
+
+## Styles
+
+### Theme
+
+Default textareas use the following [theme](/styles/theme) variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `--color-field-surface` | Textarea background color |
+| `--color-field-surface-hover` | Textarea hover/active background color |
+| `--color-field-inverse` | Text and selection highlight color |
+| `--spacing-field-padding` | Padding for textarea content |
+| `--radius` | Border radius for textarea corners |
+| `--transition` | Transition for interactive states |
+
+---
+
+### Customization
+
+Modify base textarea styles with custom CSS for the `textarea` selector.
+
+::: frame
+<style>
+textarea.custom {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 8px;
+    color: #1e40af;
+}
+
+textarea.custom::placeholder {
+    color: #60a5fa;
+}
+
+textarea.custom:focus-visible {
+    border-color: #1d4ed8;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+</style>
+
+<textarea class="custom" placeholder="Custom Textarea"></textarea>
+:::
+
+```css copy
+textarea {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 8px;
+    color: #1e40af;
+
+    &::placeholder {
+        color: #60a5fa;
+    }
+
+    &:focus-visible {
+        border-color: #1d4ed8;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+}
+```
+

@@ -6,7 +6,7 @@ Set page navigation paths in your project.
 
 ## Setup
 
-Routing is supported by an Alpine plugin, available on its own or as part of Indux bundles.
+Routing is supported by a plugin for Alpine JS, available on its own or as part of Indux bundles.
 
 <x-code-group copy>
 
@@ -14,8 +14,8 @@ Routing is supported by an Alpine plugin, available on its own or as part of Ind
 <!-- Alpine -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-<!-- Indux tabs plugin only -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.router.js"></script>
+<!-- Indux router plugin only -->
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.router.min.js"></script>
 ```
 
 ```html "Indux JS"
@@ -23,12 +23,12 @@ Routing is supported by an Alpine plugin, available on its own or as part of Ind
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux JS -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.js"></script>
 ```
 
 ```html "Quickstart"
 <!-- Indux JS, Alpine, and Tailwind combined -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.quickstart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js"></script>
 ```
 
 </x-code-group>
@@ -43,7 +43,7 @@ Indux routing should be used independent of other routing systems or frameworks.
 
 ## Routing
 
-`index.html` is the entrypoint for rendering, where high-level elements, layout structures, and [components](/plugins/components) can be applied. Within `index.html` or any component HTML file, use the `x-route` attribute to make any element conditional on a URL path.
+`index.html` is the entrypoint for rendering, where high-level elements, layout structures, and components can be applied. Within `index.html` or any component HTML file, use the `x-route` attribute to make any element conditional on a URL path.
 
 <x-code-group>
 
@@ -80,7 +80,7 @@ Indux routing should be used independent of other routing systems or frameworks.
 
 </x-code-group>
 
-If an element in `index.html` has no `x-route` attribute or value, it will render on all routes. Use `/` for rendering only at the base domain route (e.g. `acme.com` instead of `acme.com/page`).
+If an element in `index.html` has no `x-route` attribute or value, it will render on all routes. Use `/` for rendering only at the base domain route.
 
 ---
 
@@ -94,7 +94,7 @@ A wildcard route can be used to match any route that starts with the given path.
 
 This will match any route that has a subpage after `/about/`, such as `/about/location` or `/about/team`. It will not render for `/about` on its own. Conversely, `x-route="about"` will render for `/about` *and* all subpages, since the value always matches one of the slugs.
 
-A bare wildcard `*` will appear on all routes, similar to having no route defined at all.
+A bare wildcard `*` will appear on all routes. This is redundant since it's the same as having no `x-route` attribute at all.
 
 ---
 
@@ -120,11 +120,17 @@ A leading `!` in front of a value will hide the element from that route.
 
 ### Undefined Routes
 
-Use `!*` to show an element on a route that is not defined by any other `x-route` attributes in the project. This is useful for displaying 404 content if the user goes to a bad link. Note that a bare wildcard `*` appears on all routes, defined or not.
+Use `!*` to show an element on a route that is not defined by any other `x-route` in the project. This is useful for displaying 404 content if the user goes to a bad link. Note that a bare wildcard `*` appears on all routes, defined or not.
 
 ```html
 <div x-route="!*">404 page not found</div>
 ```
+
+---
+
+### Other Paths
+
+The router supports non-navigation paths. See [data sources](/plugins/data-sources), [localization](/plugins/localization), and [URL parameters](/plugins/url-parameters) for plugins that apply additional path segments to the URL for content purposes.
 
 ---
 
@@ -205,7 +211,7 @@ Use `<template x-anchors="...">` to automatically generate anchor links from any
 
 The `x-anchors` directive uses a pipeline syntax to specify the scope and target elements: `scope | targets`.
 
-```html
+```html copy
 <!-- Generates links from h2 and h3 headings within .prose -->
 <template x-anchors=".prose | h2, h3">
   <a :href="anchor.link" x-text="anchor.text"></a>
@@ -214,7 +220,7 @@ The `x-anchors` directive uses a pipeline syntax to specify the scope and target
 
 The plugin auto-expands the template with an `anchor` property:
 
-```html
+```html copy
 <!-- Indux automatically adds these attributes -->
 <template x-anchors=".prose | h2, h3" x-for="anchor in anchors || []" :key="anchor.id">
   <a :href="anchor.link" x-text="anchor.text"></a>
@@ -223,7 +229,7 @@ The plugin auto-expands the template with an `anchor` property:
 
 Multiple scopes and targets can be comma-separated:
 
-```html
+```html copy
 <!-- Multiple scopes and targets -->
 <template x-anchors="#article, .content, main | h1, h2, h3, .card">
   <a :href="anchor.link" 
@@ -236,7 +242,7 @@ Multiple scopes and targets can be comma-separated:
 
 Omit the scope to scan the entire page for the targets:
 
-```html
+```html copy
 <!-- Scan entire page for headings -->
 <template x-anchors="h1, h2, h3, #title, .card">
   <a :href="anchor.link" x-text="anchor.text"></a>
@@ -247,7 +253,7 @@ Omit the scope to scan the entire page for the targets:
 
 Template tags can only have one child. Use a parent container to arrange the links. Alpine binding can be used to conditionally style anchor links based on their target tag, class, or ID.
 
-```html
+```html copy
 <template x-anchors=".prose | h2, h3, .callout">
     <div class="col gap-2">
         <a :href="anchor.link" 
@@ -261,9 +267,3 @@ Template tags can only have one child. Use a parent container to arrange the lin
     </div>
 </template>
 ```
-
----
-
-## URL Queries
-
-See the Indux plugins for [localization](/plugins/localization) and [URL queries](/plugins/url-queries) that can inject additional information into the URL.

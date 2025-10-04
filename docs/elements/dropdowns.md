@@ -1,12 +1,10 @@
 # Dropdowns
 
-Menus made simple without the overhead.
-
 ---
 
 ## Setup
 
-Dropdowns are supported by an Alpine plugin, available on its own or as part of Indux bundles.
+Dropdowns are supported by a plugin for Alpine JS, available on its own or as part of Indux bundles.
 
 <x-code-group copy>
 
@@ -15,7 +13,7 @@ Dropdowns are supported by an Alpine plugin, available on its own or as part of 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux dropdowns plugin -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.dropdowns.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.dropdowns.min.js"></script>
 ```
 
 ```html "Indux JS"
@@ -23,12 +21,12 @@ Dropdowns are supported by an Alpine plugin, available on its own or as part of 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux JS -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.js"></script>
 ```
 
 ```html "Quickstart"
 <!-- Indux JS, Alpine, and Tailwind combined -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.quickstart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js"></script>
 ```
 
 </x-code-group>
@@ -38,16 +36,12 @@ Dropdown styles are included in Indux CSS, or as standalone stylesheets.
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.dropdown.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.dropdown.css" />
 ```
 
 </x-code-group>
@@ -113,7 +107,7 @@ Add the `hover` modifier to `x-dropdown` for mouse-triggered dropdowns:
 Hover dropdowns include a small delay to prevent accidental auto-close if the mouse briefly leaves the trigger or menu area.
 
 ::: brand icon="lucide:info"
-Avoid mixing `x-dropdown.hover` and `x-tooltip` on the same trigger button, since they both try to appear on the hover state and conflict.
+Avoid mixing `x-dropdown.hover` and `x-tooltip` on the same trigger button, since they both require a hover state.
 :::
 
 ---
@@ -366,6 +360,7 @@ Use `<li>` elements for generic options in a dropdown, with Alpine's `@click` di
     <li><span>Trailing</span><kbd class="trailing">⌘</kbd><kbd>D</kbd></li>
     <li class="brand">Brand</li>
     <li class="accent">Accent</li>
+    <li class="positive">Positive</li>
     <li class="negative">Negative</li>
     <hr>
     <small>Links</small>
@@ -478,12 +473,14 @@ Default dropdowns use the following [theme](/styles/theme) variables:
 | `--color-line` | Divider color |
 | `--spacing-popover-offset` | Offset from trigger element |
 
-### Custom Menus
+---
 
-Individual menus can be customized with CSS or Tailwind utility classes. Menus taller than a max height will vertically scroll.
+### Tailwind CSS
+
+If using Tailwind, individual menus can be customized with utility classes. Menus taller than a max height will vertically scroll.
 
 ::: frame
-<button x-dropdown="menu-wide-preview"">Wide and Offset</button>
+<button x-dropdown="menu-wide-preview"">Offset & Widen</button>
 <menu popover id="menu-wide-preview" class="w-100 !m-6">
     <li>Lorem ipsum dolar sit amet</li>
     <li>Consectetur adipiscing elit</li>
@@ -492,11 +489,63 @@ Individual menus can be customized with CSS or Tailwind utility classes. Menus t
 :::
 
 ```html copy
-<!-- Position offset -->
-<button x-dropdown="menu">Custom Offset</button>
-
-<!-- Different menu styles -->
-<menu popover id="menu" class="min-w-48 max-h-64">
-    <li>Styled menu content</li>
+<button x-dropdown="menu-wide-preview"">Offset & Widen</button>
+<menu popover id="menu-wide-preview" class="w-100 !m-6">
+    <li>Lorem ipsum dolar sit amet</li>
+    <li>Consectetur adipiscing elit</li>
+    <li>Sed do eiusmod tempor incididunt</li>
 </menu>
 ```
+
+---
+
+### Customization
+
+Modify base dropdown styles with custom CSS for the `menu[popover]` selector.
+
+::: frame
+<style>
+menu[popover] {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+
+    & :where(li, a, button, label) {
+        color: #1e40af;
+        border-radius: 8px;
+    }
+
+    & :where(li, a, button, label):hover {
+        background-color: #dbeafe;
+    }
+}
+</style>
+
+<button x-dropdown="custom-menu-preview">Custom Menu</button>
+<menu popover id="custom-menu-preview" class="custom">
+    <li>Custom Item 1</li>
+    <li>Custom Item 2</li>
+    <li>Custom Item 3</li>
+</menu>
+:::
+
+```css copy
+menu[popover] {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+
+    /* Any relevant options */
+    & :where(li, a, button, label) {
+        color: #1e40af;
+        border-radius: 8px;
+
+        &:hover {
+            background-color: #dbeafe;
+        }
+    }
+}
+```
+

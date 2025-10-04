@@ -9,16 +9,12 @@ Buttons styles are included in Indux CSS, or a standalone stylesheet.
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.button.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.button.css" />
 ```
 
 </x-code-group>
@@ -35,39 +31,31 @@ Buttons styles are included in Indux CSS, or a standalone stylesheet.
 <button>Button</button>
 ```
 
-Buttons are `inline-flex` with centered content by default. Use flexbox properties like Tailwind's `justify-start` to change content alignment. Overflow content is truncated, and internal text spans will show an ellipsis when truncated. Buttons will be squared if their content does not require more width.
+The buttons appearance is determined by these top-level factors:
+- **Sizing:** Buttons horizontally size to their content unless overriden, with the minimum size being a square.
+- **Content alignment:** Buttons use `display: inline-flex` with centered content by default. Flexbox properties like Tailwind's `justify-start` modify content alignment.
+- **Truncation:** To truncate overflowing text with ellipsis, place it in an internal `<span>`.
 
 ::: frame
-<button class="flex-1">Centered</button>
-<button class="flex-1 justify-start">
+<button>!</button>
+<button class="flex-1 justify-start">Starting Alignment</button>
+<button class="flex-1">
     <span> Truncated lorem ipsum dolar sit amet</span>
 </button>
-<button>!</button>
 :::
 
 ```html copy
-<button class="flex-1">Centered</button>
-<button class="flex-1 justify-start">
+<!-- Fit to content, or square -->
+<button>!</button>
+
+<!-- Modify alignment -->
+<button class="flex-1 justify-start">Starting Alignment</button>
+
+<!-- Truncate text -->
+<button class="flex-1">
     <span> Truncated lorem ipsum dolar sit amet</span>
 </button>
-<button>!</button>
 ```
-
----
-
-### Theme
-
-Default buttons use the following [theme](/styles/theme) variables:
-
-| Variable | Purpose |
-|----------|---------|
-| `--color-field-surface` | Button background color |
-| `--color-field-surface-hover` | Button hover/active background color |
-| `--color-field-inverse` | Button text color |
-| `--spacing-field-height` | Button height and min-width |
-| `--spacing-field-padding` | Horizontal padding for button content |
-| `--radius` | Border radius for button corners |
-| `--transition` | Transition for interactive states |
 
 ---
 
@@ -149,7 +137,7 @@ Buttons accept Indux [utility](/styles/utilities) classes, which can be stacked 
 
 ### Solo Icon
 
-Buttons containing a single icon are automatically squared.
+Buttons containing a single [icon](/elements/icons) are automatically squared.
 
 ::: frame
 <button x-icon="ph:house"></button>
@@ -163,7 +151,7 @@ Buttons containing a single icon are automatically squared.
 
 ### Icon & Text
 
-Any number of icons and text can be nested in any order. Place icons in `<span>` tags, and any sibling elements will auto-space.
+Any number of icons and text can be nested in any order. Place icons in `<span>` tags and any sibling elements will auto-space.
 
 ::: frame
 <button><span x-icon="ph:house"></span> Home</button>
@@ -217,20 +205,70 @@ Indux hides the `type="file"` input since its lack modern style control. To visu
 
 ## Groups
 
+::: brand icon="lucide:info"
+These styles are included in `indux.css`. If using standlone stylesheets, `indux.form.css` is required.
+:::
+
 Horizontally group buttons, inputs, or selects together with a `role="group"` attribute added to the parent container.
 
 ::: frame
 <div role="group">
     <input placeholder="Insert email"/>
-    <button class="accent">Signup</button>
+    <button class="brand">Signup</button>
 </div>
 :::
 
 ```html copy
 <div role="group">
     <input placeholder="Insert email"/>
-    <button class="accent">Signup</button>
+    <button class="brand">Signup</button>
 </div>
 ```
 
 When these elements are grouped, only the outer elements' outer corners retain their border radii for a seamless appearance.
+
+---
+
+## Styles
+
+### Theme
+
+Default buttons use the following [theme](/styles/theme) variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `--color-field-surface` | Button background color |
+| `--color-field-surface-hover` | Button hover/active background color |
+| `--color-field-inverse` | Button text color |
+| `--spacing-field-height` | Button height and min-width |
+| `--spacing-field-padding` | Horizontal padding for button content |
+| `--radius` | Border radius for button corners |
+| `--transition` | Transition for interactive states |
+
+---
+
+### Customization
+
+Modify base button styles with custom CSS for the `button` selector.
+
+::: frame
+<style>
+button.custom {
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 100px;
+}
+</style>
+
+<button class="custom">Custom Button</button>
+:::
+
+```css copy
+button {
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 100px;
+}
+```

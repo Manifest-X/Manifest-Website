@@ -4,21 +4,17 @@
 
 ## Setup
 
-Selects styles are included in Indux CSS, or a standalone stylesheet.
+Selects styles are included in Indux CSS, or the standalone [buttons](/elements/buttons) stylesheet.
 
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.button.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.button.css" />
 ```
 
 </x-code-group>
@@ -42,22 +38,6 @@ Selects styles are included in Indux CSS, or a standalone stylesheet.
     <option value="3">Option 3</option>
 </select>
 ```
-
----
-
-### Theme
-
-Default selects use the following [theme](/styles/theme) variables:
-
-| Variable | Purpose |
-|----------|---------|
-| `--color-field-surface` | Select background color |
-| `--color-field-surface-hover` | Select hover/active background color |
-| `--color-field-inverse` | Select text color |
-| `--spacing-field-height` | Select height and min-width |
-| `--spacing-field-padding` | Horizontal padding for select content |
-| `--radius` | Border radius for select corners |
-| `--transition` | Transition for interactive states |
 
 ---
 
@@ -213,6 +193,10 @@ Selects accept Indux [utility](/styles/utilities) classes, which can be stacked 
 
 ## Groups
 
+::: brand icon="lucide:info"
+These styles are included in `indux.css`. If using standlone stylesheets, `indux.form.css` is required.
+:::
+
 Horizontally group buttons, inputs, or selects together with a `role="group"` attribute added to the parent container.
 
 ::: frame
@@ -222,7 +206,7 @@ Horizontally group buttons, inputs, or selects together with a `role="group"` at
         <option value="2">Option 2</option>
         <option value="3">Option 3</option>
     </select>
-    <button class="accent">Confirm</button>
+    <button class="brand">Confirm</button>
 </div>
 :::
 
@@ -233,8 +217,73 @@ Horizontally group buttons, inputs, or selects together with a `role="group"` at
         <option value="2">Option 2</option>
         <option value="3">Option 3</option>
     </select>
-    <button class="accent">Confirm</button>
+    <button class="brand">Confirm</button>
 </div>
 ```
 
 When these elements are grouped, only the outer elements' outer corners retain their border radii for a seamless appearance.
+
+---
+
+## Style
+
+### Theme
+
+Default selects use the following [theme](/styles/theme) variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `--color-field-surface` | Select background color |
+| `--color-field-surface-hover` | Select hover/active background color |
+| `--color-field-inverse` | Select text color |
+| `--spacing-field-height` | Select height and min-width |
+| `--spacing-field-padding` | Horizontal padding for select content |
+| `--radius` | Border radius for select corners |
+| `--transition` | Transition for interactive states |
+
+---
+
+### Customization
+
+Modify base select styles with custom CSS for the `select` selector.
+
+::: frame
+<style>
+select.custom {
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 100px;
+
+    &::picker-icon {
+        content: "›";
+        transform: scaleY(1);
+        font-size: 20px;
+        line-height: 0.7;
+    }
+}
+</style>
+
+<select class="custom">
+    <option value="1">Custom Option 1</option>
+    <option value="2">Custom Option 2</option>
+    <option value="3">Custom Option 3</option>
+</select>
+:::
+
+```css copy
+select {
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 100px;
+
+    /* Icon */
+    &::picker-icon {
+        content: "›";
+        transform: scaleY(1);
+        font-size: 20px;
+        line-height: 0.7;
+    }
+}
+```

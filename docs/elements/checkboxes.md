@@ -9,16 +9,15 @@ Checkboxes styles are included in Indux CSS, or a standalone stylesheet.
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.checkbox.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.checkbox.css" />
+
+<!-- Required for label support -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.form.css" />
 ```
 
 </x-code-group>
@@ -34,55 +33,6 @@ Checkboxes styles are included in Indux CSS, or a standalone stylesheet.
 
 ```html copy
 <input type="checkbox" />
-```
-
----
-
-## Theme
-
-Default checkboxes use the following [theme](/styles/theme) variables:
-
-| Variable | Purpose |
-|----------|---------|
-| `--spacing-field-height` | Checkbox size |
-| `--color-field-surface` | Checkbox background |
-| `--color-field-surface-hover` | Checkbox background on hover |
-| `--color-field-inverse` | Checkmark icon color |
-| `--transition` | Transition for interactive states |
-
----
-
-## Icon
-
-The checkbox icon is an encoded SVG in the checkbox style's `--icon-checkbox` variable. To modify it:
-1. Choose a desired icon from <a href="https://icon-sets.iconify.design/" target="_blank">Iconify</a> or other SVG icon source.
-2. Copy the encoded SVG string (in Iconify, go to an icon's CSS tab and find the `--svg` value). Otherwise, use an <a href="https://yoksel.github.io/url-encoder/" target="_blank">SVG encoder</a>.
-3. Overwrite the `--icon-checkbox` variable value with the encoded SVG string.
-
-```css "Default checkmark icon" copy
-:root {
-    --icon-checkbox: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='currentColor' d='m0 11l2-2l5 5L18 3l2 2L7 18z'/%3E%3C/svg%3E")
-}
-```
-
----
-
-## Labels
-
-Placing the checkbox and text inside a `<label>` automatically arranges them in a row (requires [Form](/elements/forms) styles).
-
-::: frame
-<label>
-    <input type="checkbox" />
-    Lorem ipsum
-</label>
-:::
-
-```html copy
-<label>
-    <input type="checkbox" />
-    Lorem ipsum
-</label>
 ```
 
 ---
@@ -156,9 +106,35 @@ Checkboxes accept Indux [utility](/styles/utilities) classes, which can be stack
 
 ---
 
-## Groups
+## Form Layouts
 
-Placing labelled checkboxes inside a `<fieldset>` automatically arranges them in a column with a gap.
+::: brand icon="lucide:info"
+These styles are included in `indux.css`. If using standlone stylesheets, `indux.form.css` is required. [See above](#setup) under Standalone code.
+:::
+
+### Labels
+
+Placing the checkbox and text inside a `<label>` automatically arranges them in a row.
+
+::: frame
+<label>
+    <input type="checkbox" />
+    Lorem ipsum
+</label>
+:::
+
+```html copy
+<label>
+    <input type="checkbox" />
+    Lorem ipsum
+</label>
+```
+
+---
+
+### Groups
+
+Placing labelled checkboxes inside a `<fieldset>` automatically arranges them in a column with gaps.
 
 ::: frame
 <fieldset>
@@ -192,4 +168,61 @@ Placing labelled checkboxes inside a `<fieldset>` automatically arranges them in
         Consectetur adipiscing elit
     </label>
 </fieldset>
+```
+
+---
+
+## Styles
+
+### Theme
+
+Default checkboxes use the following [theme](/styles/theme) variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `--spacing-field-height` | Checkbox size |
+| `--color-field-surface` | Checkbox background |
+| `--color-field-surface-hover` | Checkbox background on hover |
+| `--color-field-inverse` | Checkmark icon color |
+| `--transition` | Transition for interactive states |
+
+---
+
+### Icon
+
+The checkbox icon is an encoded SVG in the checkbox style's `--icon-checkbox` variable. To modify it:
+1. Choose a desired icon from <a href="https://icon-sets.iconify.design/" target="_blank">Iconify</a> or other SVG icon source.
+2. Copy the encoded SVG string (in Iconify, go to an icon's CSS tab and find the `--svg` value). Otherwise, use an <a href="https://yoksel.github.io/url-encoder/" target="_blank">SVG encoder</a>.
+3. Overwrite the `--icon-checkbox` variable value with the encoded SVG string.
+
+```css "Default checkmark icon" copy
+:root {
+    --icon-checkbox: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='currentColor' d='m0 11l2-2l5 5L18 3l2 2L7 18z'/%3E%3C/svg%3E")
+}
+```
+
+---
+
+### Customization
+
+Modify base checkbox styles with custom CSS for the `input[type="checkbox"]` selector.
+
+::: frame
+<style>
+input[type="checkbox"].custom {
+    color: white;
+    background-color: aqua;
+    border-radius: 0;
+}
+</style>
+
+<input type="checkbox" class="custom" checked />
+:::
+
+```css copy
+input[type="checkbox"] {
+    color: white;
+    background-color: aqua;
+    border-radius: 0;
+}
 ```

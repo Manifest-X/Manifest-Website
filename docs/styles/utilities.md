@@ -8,19 +8,19 @@ Maintain visual consistency with common utility classes.
 
 Utilities are available in the full Indux CSS library, or through standalone stylesheets.
 
-<x-code-group>
+<x-code-group copy>
 
 ```html "Indux CSS"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css">
 ```
 
 ```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.utilities.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.utilities.css">
 ```
 
 </x-code-group>
 
-Sometimes the base styles for HTML elements aren't enough. Indux provides a curated set of utility classes for common use cases, particularly layouts and colors.
+Indux provides a curated set of utility classes for HTML elements encountering common use cases, particularly layouts and colors.
 
 See [custom utilities](/styles/theme#custom-utilities) for classes generated from CSS variables.
 
@@ -120,10 +120,10 @@ With most modern container layouts making use of CSS flex properties, these util
 | `col-wrap` | Vertically wrapping flex container | `flex flex-col flex-wrap` |
 | `center` | Centers content in flex container | `justify-center items-center` |
 
-::: frame col justify-start items-start gap-4 [&_fieldset]:p-2 [&_figure]:shrink-0 [&_figure]:size-10 [&_figure]:bg-surface-2 [&_figure]:border [&_figure]:border-dashed [&_figure]:border-line [&_figure]:rounded [&_figure]:min-w-0
+::: frame col justify-start items-start gap-4 [&_fieldset]:p-2 [&_figure]:shrink-0 [&_figure]:size-10 [&_figure]:bg-surface-3 [&_figure]:border [&_figure]:border-dashed [&_figure]:border-line [&_figure]:rounded [&_figure]:min-w-0
 <fieldset class="min-w-full !pb-0">
     <legend>content</legend>
-    <div class="row content w-80 h-40 -mt-4.5 p-4 bg-surface-2 border-x border-dashed border-line text-sm text-content-neutral">Look at that subtle off-white coloring. The tasteful thickness of it. Oh my God, it even has a watermark...</div>
+    <div class="row content w-80 h-40 -mt-4.5 p-4 bg-surface-3 border-x border-dashed border-line text-sm text-content-neutral">Look at that subtle off-white coloring. The tasteful thickness of it. Oh my God, it even has a watermark...</div>
 </fieldset>
 <div class="row gap-4 w-full">
     <div class="col gap-4">
@@ -244,7 +244,7 @@ Color utilities also modify text directly or from a parent container. Utility cl
 | `no-scrollbar` | Hides an element's scrollbar |
 | `overlay-dark` | For banner elements with a dark overlay and light text |
 | `overlay-light` | For banner elements with a light overlay and dark text |
-| `prose` | Makes elements with long-form, child text content (e.g. this whole article) more readable |
+| `prose` | Makes elements with long-form, child text content more readable (like this whole article) |
 | `trailing` | Pushes a trailing text or icon element to the right |
 
 ::: frame col gap-3

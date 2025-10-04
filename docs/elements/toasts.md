@@ -4,7 +4,7 @@
 
 ## Setup
 
-Toasts are supported by an Alpine plugin, available on its own or as part of Indux bundles.
+Toasts are supported by a plugin for Alpine JS, available on its own or as part of Indux bundles.
 
 <x-code-group copy>
 
@@ -13,7 +13,7 @@ Toasts are supported by an Alpine plugin, available on its own or as part of Ind
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux toasts plugin -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.toasts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.toasts.min.js"></script>
 ```
 
 ```html "Indux JS"
@@ -21,12 +21,12 @@ Toasts are supported by an Alpine plugin, available on its own or as part of Ind
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux JS -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.js"></script>
 ```
 
 ```html "Quickstart"
 <!-- Indux JS, Alpine, and Tailwind combined -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.quickstart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js"></script>
 ```
 
 </x-code-group>
@@ -36,16 +36,12 @@ Toast styles are included in Indux CSS, or as standalone stylesheets.
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.toast.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.toast.css" />
 ```
 
 </x-code-group>
@@ -196,7 +192,7 @@ Rich content supports HTML including [icons](/elements/icons) for enhanced forma
 
 ---
 
-## Dynamic Content
+## Dynamic Expressions
 
 Toast content can include dynamic expressions and variables.
 
@@ -223,23 +219,23 @@ Toast content can include dynamic expressions and variables.
 
 ---
 
-## Collection Content
+## Dynamic Data
 
 Toasts can retrieve content from [data sources](/plugins/data-sources) using the `$x` syntax.
 
 ::: frame
-<button x-toast="$x.example.toast">Collection Toast</button>
+<button x-toast="$x.example.toast">Data Source Toast</button>
 :::
 
 <x-code-group copy>
 
 ```html "HTML"
-<button x-toast="$x.example.toast">Collection Toast</button>
+<button x-toast="$x.example.toast">Data Source Toast</button>
 ```
 
 ```json "example.json"
 {
-    "toast": "This content comes from a collection"
+    "toast": "This content comes from a data source"
 }
 ```
 
@@ -247,7 +243,9 @@ Toasts can retrieve content from [data sources](/plugins/data-sources) using the
 
 ---
 
-## Theme
+## Styles
+
+### Theme
 
 Default toasts use the following [theme](/styles/theme) variables:
 
@@ -259,8 +257,6 @@ Default toasts use the following [theme](/styles/theme) variables:
 | `--radius` | Border radius for toast corners |
 
 ---
-
-## Styles
 
 ### Dismiss Button Icon
 
@@ -275,39 +271,34 @@ The dismiss button icon is an encoded SVG in the toast style's `--icon-toast-dis
 }
 ```
 
-
 ---
 
 ### Customization
 
-Toast elements are generated on page load. Customize their arrangement and appearance by modifiying their CSS classes.
+Modify styles with custom CSS for various toast classes.
 
-```css copy
-/* Container positioning */
+```css numbers copy
+/* Parent wrapper for multiple toasts */
 .toast-container { 
-    bottom: 1rem; 
+    position: fixed;
+    top: 3rem;
+    left: auto;
+    right: 3rem;
 }
 
-/* Base toast appearance */
+/* Toast */
 .toast { 
-    background: white; 
-}
+    background: white;
 
-/* Color utility classes */
-.toast.brand { 
-    background: blue; 
-}
+    /* Content area */
+    .toast-content { 
+        font-size: 1rem; 
+    }
 
-.toast.accent { 
-    background: orange; 
-}
-
-.toast.positive { 
-    background: green; 
-}
-
-.toast.negative { 
-    background: red; 
+    /* Dismiss button */
+    .toast-dismiss-button { 
+        color: gray; 
+    }
 }
 
 /* Entry animation */
@@ -318,20 +309,5 @@ Toast elements are generated on page load. Customize their arrangement and appea
 /* Exit animation */
 .toast-exit { 
     opacity: 0; 
-}
-
-/* Icon styling */
-.toast-icon { 
-    color: blue; 
-}
-
-/* Content area */
-.toast-content { 
-    font-size: 1rem; 
-}
-
-/* Dismiss button */
-.toast-dismiss-button { 
-    color: gray; 
 }
 ```

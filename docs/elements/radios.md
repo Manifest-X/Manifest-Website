@@ -9,16 +9,12 @@ Radios styles are included in Indux CSS, or a standalone stylesheet.
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.radio.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.radio.css" />
 ```
 
 </x-code-group>
@@ -35,47 +31,6 @@ Radios styles are included in Indux CSS, or a standalone stylesheet.
 ```html copy
 <input type="radio" id="1" name="default" checked />
 <input type="radio" id="2" name="default" />
-```
-
----
-
-### Theme
-
-Default radios use the following [theme](/styles/theme) variables:
-
-| Variable | Purpose |
-|----------|---------|
-| `--color-field-surface` | Radio background |
-| `--color-field-surface-hover` | Radio background on hover |
-| `--color-field-inverse` | Radio icon color |
-| `--spacing-field-height` | Radio size |
-| `--transition` | Transition for interactive states |
-
-## Labels
-
-Placing the radio and text inside a `<label>` automatically arranges them in a row (requires [Form](/elements/forms) styles).
-
-
-::: frame
-<label>
-    <input type="radio" id="a" name="labelled-preview" checked />
-    Option A
-</label>
-<label>
-    <input type="radio" id="b" name="labelled-preview" />
-    Option B
-</label>
-:::
-
-```html copy
-<label>
-    <input type="radio" id="a" name="labelled" checked />
-    Option A
-</label>
-<label>
-    <input type="radio" id="b" name="labelled" />
-    Option B
-</label>
 ```
 
 ---
@@ -149,7 +104,41 @@ Radios accept Indux [utility](/styles/utilities) classes, which can be stacked i
 
 ---
 
-## Groups
+## Form Layouts
+
+::: brand icon="lucide:info"
+These styles are included in `indux.css`. If using standlone stylesheets, `indux.form.css` is required.
+:::
+
+## Labels
+
+Placing the radio and text inside a `<label>` automatically arranges them in a row.
+
+::: frame
+<label>
+    <input type="radio" id="a" name="labelled-preview" checked />
+    Option A
+</label>
+<label>
+    <input type="radio" id="b" name="labelled-preview" />
+    Option B
+</label>
+:::
+
+```html copy
+<label>
+    <input type="radio" id="a" name="labelled" checked />
+    Option A
+</label>
+<label>
+    <input type="radio" id="b" name="labelled" />
+    Option B
+</label>
+```
+
+---
+
+### Groups
 
 Placing labelled radios inside a `<fieldset>` automatically arranges them in a column with a gap.
 
@@ -185,4 +174,59 @@ Placing labelled radios inside a `<fieldset>` automatically arranges them in a c
         Option C
     </label>
 </fieldset>
+```
+
+---
+
+## Styles
+
+### Theme
+
+Default radios use the following [theme](/styles/theme) variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `--color-field-surface` | Radio background |
+| `--color-field-surface-hover` | Radio background on hover |
+| `--color-field-inverse` | Radio icon color |
+| `--spacing-field-height` | Radio size |
+| `--transition` | Transition for interactive states |
+
+---
+
+### Customization
+
+Modify base radio styles with custom CSS for the `input[type="radio"]` selector.
+
+::: frame
+<style>
+input[type="radio"].custom {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 50%;
+
+    & .custom::after {
+        background-color: #1e40af;
+        border-radius: 50%;
+    }
+}
+    
+</style>
+
+<input type="radio" id="custom-1" class="custom" name="custom-preview" checked />
+<input type="radio" id="custom-2" class="custom" name="custom-preview" />
+:::
+
+```css copy
+input[type="radio"] {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 50%;
+
+    /* Notched */ 
+    &::after {
+        background-color: #1e40af;
+        border-radius: 50%;
+    }
+}
 ```

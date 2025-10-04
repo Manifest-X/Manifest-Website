@@ -1,10 +1,12 @@
 # Markdown
 
+Populate HTML from markdown content.
+
 ---
 
 ## Setup
 
-Markdown is supported by an Alpine plugin, available on its own or as part of Indux bundles.
+Markdown is supported by a plugin for Alpine JS, available on its own or as part of Indux bundles.
 
 <x-code-group copy>
 
@@ -12,8 +14,8 @@ Markdown is supported by an Alpine plugin, available on its own or as part of In
 <!-- Alpine -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-<!-- Indux markdown plugin -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.markdown.js"></script>
+<!-- Indux markdown plugin only -->
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.markdown.min.js"></script>
 ```
 
 ```html "Indux JS"
@@ -21,19 +23,19 @@ Markdown is supported by an Alpine plugin, available on its own or as part of In
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux JS -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.js"></script>
 ```
 
 ```html "Quickstart"
 <!-- Indux JS, Alpine, and Tailwind combined -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.quickstart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js"></script>
 ```
 
 </x-code-group>
 
 The markdown plugin uses <a href="https://marked.js.org/" target="_blank">marked.js</a>, which is automatically loaded from its CDN when an `x-markdown` directive is encountered in the current view. Parsed markdown content is cached to avoid re-processing if unchanged.
 
-All headings generated from markdown content (`<h1>` to `<h6>`elements) will have IDs automatically generated for optional anchor linking.
+All headings generated from markdown content (`<h1>` to `<h6>`elements) will have IDs automatically generated for anchor linking.
 
 ---
 
@@ -104,7 +106,7 @@ Load markdown content from external `.md` files by providing a file path like `x
 
 ### From Data Source
 
-A file path can be referenced from within a [data source](/plugins/data-sources).
+The markdown file's path can also be populated from a [data source](/plugins/data-sources).
 
 ::: frame col p-10
 <span class="h3">Burn Book</span>
@@ -138,7 +140,7 @@ She is a fugly slut!!
 
 </x-code-group>
 
-This approach is ideal for blogs, documentation, or any content managed through collections where you store markdown file paths rather than large text blocks. To make loading contingent on a URL route (e.g. `.../blog/burn-book`), use the `route()` function:
+This approach is ideal for blogs, articles, or any content managed through data sources that can leverage markdown files rather than large text blocks. It's also possible to make loading contingent on a URL route (e.g. `.../blog/burn-book`), use the `route()` function:
 
 <x-code-group copy>
 
@@ -159,7 +161,7 @@ This approach is ideal for blogs, documentation, or any content managed through 
 
 </x-code-group>
 
-The `route('path')` function searches the collection for an item where an arbitrary property like `path` matches any segment of the current URL. When found, it returns that item, allowing access to its properties (like `article`). This enables route-specific content loading without manual URL parsing, and is how this very Indux doc is rendered.
+The `route('path')` function searches the data source for an item where an arbitrary property like `path` matches any segment of the current URL. When found, it returns that item, allowing access to its other properties like `article`. This enables route-specific content loading without manual URL parsing, and is how this very Indux article is rendered.
 
 ---
 
@@ -296,7 +298,7 @@ A callout can also be a visual frame when fashioned as `::: frame`.
 :::
 ```
 
-If a `::: frame` callout is directly followed by a code block or group, they are styled to appear flush as a connected block. This is useful when previewing a rendered code example, as seen throughout these docs.
+If a `::: frame` callout is directly followed by a code block or group, they are styled to appear flush as a connected block. This is useful when previewing a rendered code example, like the ones seen throughout these Indux articles.
 
 ::: frame
 <div class="text-4xl p-2 bg-surface-3 border border-line" x-icon="mdi:emoticon-dead"></div>
@@ -314,12 +316,12 @@ If a `::: frame` callout is directly followed by a code block or group, they are
 &#96;&#96;&#96;
 ```
 
-The `preview` class provides frame styles, which can be modified with custom CSS:
+The `frame` class provides frame styles, which can be modified with custom CSS:
 
 ```css copy
 .prose aside.frame {
   background: var(--bg-surface-2);
-  border-radius: 0
+  border-radius: 0;
 }
 ```
 
@@ -327,7 +329,7 @@ The `preview` class provides frame styles, which can be modified with custom CSS
 
 ### Code Blocks
 
-If the project includes [code block](/elements/code-blocks) support, markdown automatically converts <code>```</code> markers to Indux `<x-code>` elements, with syntax highlighting support.
+If the project includes [code block](/elements/code) support, markdown automatically converts <code>```</code> markers to Indux `<x-code>` elements, with syntax highlighting support.
 
 ::: frame
 <x-code language="javascript" name="Example">function greet(name) {

@@ -4,7 +4,7 @@
 
 ## Setup
 
-Tooltips are supported by an Alpine plugin, available on its own or as part of Indux bundles.
+Tooltips are supported by a plugin for Alpine JS, available on its own or as part of Indux bundles.
 
 <x-code-group copy>
 
@@ -13,7 +13,7 @@ Tooltips are supported by an Alpine plugin, available on its own or as part of I
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux tooltips plugin -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.tooltips.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.tooltips.min.js"></script>
 ```
 
 ```html "Indux JS"
@@ -21,12 +21,12 @@ Tooltips are supported by an Alpine plugin, available on its own or as part of I
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux JS -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.js"></script>
 ```
 
 ```html "Quickstart"
 <!-- Indux JS, Alpine, and Tailwind combined -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.quickstart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js"></script>
 ```
 
 </x-code-group>
@@ -36,16 +36,12 @@ Tooltip styles are included in Indux CSS, or as standalone stylesheets.
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.tooltip.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.tooltip.css" />
 ```
 
 </x-code-group>
@@ -176,18 +172,18 @@ Tooltips can display dynamic content using Alpine.js expressions.
 Tooltips can retrieve content from [data sources](/plugins/data-sources) using the `$x` syntax.
 
 ::: frame
-<button x-tooltip="$x.example.tooltip">Collection Tooltip</button>
+<button x-tooltip="$x.example.tooltip">Data Source Tooltip</button>
 :::
 
 <x-code-group copy>
 
 ```html "HTML"
-<button x-tooltip="$x.example.tooltip">Collection Tooltip</button>
+<button x-tooltip="$x.example.tooltip">Data Source Tooltip</button>
 ```
 
 ```json "example.json"
 {
-    "tooltip": "This content comes from a collection"
+    "tooltip": "This content comes from a data source"
 }
 ```
 
@@ -217,12 +213,14 @@ Although tooltips are popovers, they can coexist in buttons that trigger other p
 :::
 
 ::: brand icon="lucide:info"
-Avoid mixing `x-dropdown.hover` and `x-tooltip` on the same trigger button, since they both try to appear on the hover state and conflict.
+Avoid mixing `x-dropdown.hover` and `x-tooltip` on the same trigger button, since they both use the hover state.
 :::
 
 ---
 
-## Theme
+## Styles
+
+### Theme
 
 Default tooltips use the following [theme](/styles/theme) variables:
 
@@ -234,11 +232,9 @@ Default tooltips use the following [theme](/styles/theme) variables:
 
 ---
 
-## Styles
-
 ### Delay
 
-Tooltips appear after a default 500ms hover delay, and disappear immediately when the mouse leaves the trigger element. They're automatically dismissed when the trigger is clicked or pressed. Change the delay with custom CSS that overwrites the `--tooltip-hover-delay` value:
+Tooltips appear after a default 500ms hover delay, and disappear immediately when the mouse leaves the trigger element. They're automatically dismissed when the trigger is clicked or pressed. Change the duration with custom CSS that overwrites the `--tooltip-hover-delay` value:
 
 ```css copy
 :root {
@@ -250,7 +246,7 @@ Tooltips appear after a default 500ms hover delay, and disappear immediately whe
 
 ### Customization
 
-Tooltip elements are generated on page load. Style them with custom CSS modifying the `.tooltip` class.
+Modify styles with custom CSS for the `.tooltip` classes.
 
 ```css copy
 .tooltip { 

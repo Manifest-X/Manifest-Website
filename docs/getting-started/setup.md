@@ -1,6 +1,6 @@
 # Setup
 
-Bring Indux into your project by CDN or copied from <a href="https://github.com/andrewmatlock/Indux" target="_blank">GitHub</a>.
+Get Indux with CDN links or copied from <a href="https://github.com/andrewmatlock/Indux" target="_blank">GitHub</a>.
 
 ---
 
@@ -11,33 +11,33 @@ Indux consists of Alpine plugin scripts and CSS stylesheets, available individua
 ---
 
 ## Scripts
-Indux scripts are plugins that extend [Alpine JS](https://alpinejs.dev) v3 and above.
+Indux scripts are plugins that extend <a href="https://alpinejs.dev" target="_blank">Alpine JS</a> v3 and above.
 
 Load the script tags once in the index head (or anywhere in the body), in any order, using one of three approaches:
 
 <x-code-group copy>
 
-```html "Quickstart"
+```html "Quickstart (420kb)"
 <!-- Indux (all plugins), Alpine JS, and Tailwind CSS bundled together -->
-<script defer src="https://cdn.jsdelivr.net/npm/indux/dist/indux.alpine.tailwind.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js"></script>
 ```
 
-```html "All Plugins"
+```html "All Plugins (120kb)"
 <!-- Alpine JS -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux (all plugins) -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.js"></script>
 ```
 
-```html "Individual Plugins"
+```html "Individual Plugins (<10kb)"
 <!-- Alpine JS -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux (individual plugins) -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.components.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.icons.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.themes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.components.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.icons.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.themes.min.js"></script>
 ...
 ```
 
@@ -45,8 +45,6 @@ Load the script tags once in the index head (or anywhere in the body), in any or
 
 ::: brand icon="lucide:info"
 Any script tag loading Alpine JS must include `defer` to function.
-
-All-Inclusive contains a local copy of Tailwind's Play CDN script, modified to support custom utility classes at runtime.
 :::
 
 ---
@@ -58,17 +56,26 @@ Add the desired Indux CSS stylesheets to the `<head>` of your HTML file. Like sc
 
 ```html "All Styles"
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css">
+  <!-- Other tags -->
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css">
+
+  <!-- Other tags -->
 </head>
 ```
 
 ```html "Individual Styles"
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.reset.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.buttons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.utilities.css">
-    ...
+  <!-- Other tags -->
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.buttons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.utilities.css">
+
+  <!-- Other tags -->
 </head>
 ```
 

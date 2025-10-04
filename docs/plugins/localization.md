@@ -6,7 +6,7 @@ Localize your project for different languages and regions.
 
 ## Setup
 
-Localization is supported by an Alpine plugin, available on its own or as part of Indux bundles.
+Localization is supported by a plugin for Alpine JS, available on its own or as part of Indux bundles.
 
 <x-code-group copy>
 
@@ -15,7 +15,7 @@ Localization is supported by an Alpine plugin, available on its own or as part o
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux localization plugin only -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.localization.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.localization.js"></script>
 ```
 
 ```html "Indux JS"
@@ -23,12 +23,12 @@ Localization is supported by an Alpine plugin, available on its own or as part o
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux JS -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.js"></script>
 ```
 
 ```html "Quickstart"
 <!-- Indux JS, Alpine, and Tailwind combined -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.quickstart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.js"></script>
 ```
 
 </x-code-group>
@@ -43,15 +43,15 @@ Localization requires the Indux [router](/plugins/router) and [data sources](/pl
 
 ## Localized Data Sources
 
-Localization works with [data sources](/plugins/data-sources) to provide locale-specific content. Create separate files for each language you want to support.
+Localization works with [data sources](/plugins/data-sources) to provide locale-specific content. Create separate data source files for each language you want to support.
 
-### Create Localized Files
+### Create Locale Files
 
-Create language-specific JSON or YAML files for your content. Use 2-letter language codes followed by a period to prefix the filenames:
+Create language-specific JSON or YAML files for your content, named and located however you like:
 
 <x-code-group copy>
 
-```yaml "en.features.yaml"
+```yaml "features.en.yaml"
 features:
   - name: "Fast Performance"
     description: "Lightning fast loading times"
@@ -61,7 +61,7 @@ features:
     description: "Works on all devices"
 ```
 
-```yaml "fr.features.yaml"
+```yaml "features.fr.yaml"
 features:
   - name: "Performance Rapide"
     description: "Temps de chargement ultra rapides"
@@ -71,7 +71,7 @@ features:
     description: "Fonctionne sur tous les appareils"
 ```
 
-```yaml "ar.features.yaml"
+```yaml "features.ar.yaml"
 features:
   - name: "أداء سريع"
     description: "أوقات تحميل سريعة كالبرق"
@@ -81,7 +81,7 @@ features:
     description: "يعمل على جميع الأجهزة"
 ```
 
-```yaml "zh.features.yaml"
+```yaml "features.zh.yaml"
 features:
   - name: "快速性能"
     description: "闪电般的加载速度"
@@ -93,11 +93,11 @@ features:
 
 </x-code-group>
 
-Each file should have the same object/array heirarchy and keys. Only the values are unique to the target locale. If a reference key is missing from a file, the plugin will default to using the default locale.
+Each file should have the same object/array heirarchy and keys. Only the values are unique to the target locale. If a reference key is missing from a file, the default locale is used.
 
 ---
 
-### Register Localized Sources
+### Register Locale Files
 
 1. Register your localized sources in the project's `manifest.json` config file.
 2. Set the default locale in `index.html` using `lang` attribute in the `<html>` tag.
@@ -109,10 +109,10 @@ Each file should have the same object/array heirarchy and keys. Only the values 
   "data": {
     "pricing": "/data/pricing.json",
     "features": {
-      "en": "/data/en.features.yaml",
-      "fr": "/data/fr.features.yaml",
-      "ar": "/data/ar.features.yaml",
-      "zh": "/data/zh.features.yaml"
+      "en": "/data/features.en.yaml",
+      "fr": "/data/features.fr.yaml",
+      "ar": "/data/features.ar.yaml",
+      "zh": "/data/features.zh.yaml"
     }
   }
 }
@@ -134,41 +134,37 @@ Each file should have the same object/array heirarchy and keys. Only the values 
 
 Unlike non-localized data sources (like `pricing` above), localized sources (like `features`) declare each locale by their language code.
 
-**Language Detection & SEO:**
+---
+
+## Language Detection
+
 The plugin automatically detects the initial language using this priority order:
 
-1. **URL path** - `/fr/about` (first path segment) - **Highest priority for direct links**
-2. **HTML lang attribute** - `<html lang="fr">` - **Fallback for non-localized URLs**
-3. **localStorage** - Previously saved preference from UI toggles
-4. **Browser language** - `navigator.language`
-5. **Default fallback** - First available locale
-
-**SEO Behavior:**
-- **Direct links:** URL path takes priority (e.g., `/fr/about` → French content)
-- **Page refresh:** URL path still takes priority over HTML `lang` attribute
-- **Non-localized URLs:** Falls back to HTML `lang` attribute or `en` (English)
-- **User switches language:** Updates DOM `lang`, saves preference, and updates URL
+1. **URL path:** If a first path segment matches a language code in `manifest.json` (e.g. `/fr/about`), it gets highest priority for direct linking.
+2. **UI toggles:** The user preference saved to local storage and persisting between sessions.
+3. **HTML lang attribute:** `<html lang="fr">` is the DOM's source of truth for the current locale, persisting between sessions and modifiable only by 1 or 2.
+4. **Browser language:** The `navigator.language` value.
+5. **Fallback:** First available locale from `manifest.json`.
 
 ---
 
-### Translating
+## Translating
 
-Indux has no build steps and is not a translation engine. To translate your content we recommend using AI programming tools like Cursor or Copilot to quickly and autonomously generate new locale data sources or update existing ones.
+Indux has no build steps and is not a translation engine. To translate your content we recommend using AI programming tools like Cursor or Copilot to autonomously update your localized files in any language.
 
 ---
 
 ## Display Content
 
-Like regular [data sources](/plugins/data-sources#display-content), localized data sources are accessed using the $x magic method with dot notation. The structure follows this pattern:
+Like regular [data sources](/plugins/data-sources#display-content), localized data sources are accessed using the `$x` magic method with dot notation. The structure follows this pattern:
 
-`$x.sourceName.property[index].subProperty[index]`
+`$x.sourceName.property.subProperty`
 
 **Structure breakdown:**
 - `$x` - Magic method prefix
 - `sourceName` - Data source name from `manifest.json` (e.g. `features`)
 - `property` - Object property or array name
 - `subProperty` - Nested property (optional at any level)
-- `[index]` - Array index (optional)
 
 ::: frame col
 <div class="row gap-2">

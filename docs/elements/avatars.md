@@ -9,16 +9,12 @@ Avatar styles are included in Indux CSS, or a standalone stylesheet.
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.avatar.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.avatar.css" />
 ```
 
 </x-code-group>
@@ -61,7 +57,7 @@ The `avatar` class allows an element to display an icon, text, or a profile pic.
 </div>
 ```
 
-To display text or icon by default while supporting an optional profile pic, use nested `span` and `img` tags. If an image is present it will render overtop the text or icon. Add a `figure` tag for a coloured status indicator.
+To display text or an icon by default while supporting an optional profile pic, use nested `<span>` and `<img>` tags. If an image is present it will render overtop the text or icon. Add a `<figure>` tag for a coloured status indicator.
 
 ---
 
@@ -131,7 +127,7 @@ The `avatar-wide` container class displays a nested avatar alongside additional 
 </button>
 ```
 
-Within the `avatar-wide` container, all elements besides `avatar` rely on custom styles.
+Within the `avatar-wide` container, all elements besides `avatar` are completely custom.
 
 ---
 
@@ -276,7 +272,9 @@ Grouped avatars are given a bunching effect with negative margins.
 
 ---
 
-## Theme
+## Styles
+
+### Theme
 
 Default avatars use the following [theme](/styles/theme) variables:
 
@@ -291,7 +289,7 @@ Default avatars use the following [theme](/styles/theme) variables:
 
 ---
 
-## Styles
+### Customization
 
 Modify avatar styles with custom CSS.
 

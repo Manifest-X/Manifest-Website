@@ -9,16 +9,12 @@ Divider styles are included in Indux CSS, or the standalone divider stylesheet.
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.divider.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.divider.css" />
 ```
 
 </x-code-group>
@@ -34,7 +30,7 @@ Dividers in Indux are horizontal or vertical dividing lines, which can optionall
 For a basic horizontal line, use the `<hr>` element.
 
 ::: frame
-<hr>
+<hr class="w-full">
 :::
 
 ```html copy
@@ -78,7 +74,7 @@ Dividers accept utility classes for different layouts and positioning.
 
 ### Alignment
 
-The `start` and `end` classes will align content to one side or the other, depending on the view's text direction.
+The `start` and `end` classes will align content to one side or the other depending on text direction.
 
 ::: frame col gap-4
 <div class="divider start">Start Aligned</div>
@@ -125,7 +121,9 @@ The `vertical` class flips the axis, and can be stacked with alignment classes. 
 
 ---
 
-## Theme
+## Styles
+
+### Theme
 
 Default dividers use the following [theme](/styles/theme) variables:
 
@@ -134,3 +132,53 @@ Default dividers use the following [theme](/styles/theme) variables:
 | `--color-line` | Line color (fallback: semi-transparent gray) |
 | `--color-content-neutral` | Text color for divider labels |
 | `--spacing-field-padding` | Spacing between lines and content |
+
+---
+
+### Customization
+
+Modify base divider styles with custom CSS for the `.divider` selector.
+
+::: frame
+<style>
+.divider.custom {
+    color: #ff6b6b;
+
+    &::before,
+    &::after {
+        background-color: #ff6b6b;
+        height: 2px;
+    }
+
+    &.vertical {
+        &::before,
+        &::after {
+            width: 2px;
+        }
+    }
+}
+</style>
+
+<div class="divider custom">Custom Divider</div>
+:::
+
+```css copy
+.divider {
+    color: #ff6b6b;
+
+    /* Lines */
+    &::before,
+    &::after {
+        background-color: #ff6b6b;
+        height: 2px;
+    }
+
+    &.vertical {
+        &::before,
+        &::after {
+            width: 2px;
+        }
+    }
+}
+```
+

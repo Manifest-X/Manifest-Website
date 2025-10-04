@@ -675,6 +675,9 @@ ${H}`)
           // Pre-define pseudo classes
           this.pseudoClasses = ['hover', 'focus', 'active', 'disabled', 'dark'];
 
+          // Cache for discovered custom utility classes
+          this.customUtilities = new Map();
+
           // Pre-define utility generators
           this.utilityGenerators = {
               'color-': (suffix, value) => {
@@ -931,6 +934,8 @@ ${H}`)
               'forced-colors': '@media (forced-colors: active)',
               'rtl': '&:where(:dir(rtl), [dir="rtl"], [dir="rtl"] *)',
               'ltr': '&:where(:dir(ltr), [dir="ltr"], [dir="ltr"] *)',
+              '[dir=rtl]': '[dir="rtl"] &',
+              '[dir=ltr]': '[dir="ltr"] &',
               'pointer-fine': '@media (pointer: fine)',
               'pointer-coarse': '@media (pointer: coarse)',
               'pointer-none': '@media (pointer: none)',
@@ -1281,7 +1286,6 @@ ${H}`)
               // Set a timeout to prevent infinite waiting
               setTimeout(() => {
                   clearInterval(checkInterval);
-                  console.warn('[TailwindCompiler] Tailwind not found after 5 seconds, proceeding anyway');
                   resolve();
               }, 5000);
           });
@@ -1489,16 +1493,22 @@ ${H}`)
                   const htmlContent = document.documentElement.outerHTML;
                   this.extractClassesFromHTML(htmlContent, staticClasses);
 
-                  // 2. Scan component files that are likely to be loaded
-                  const componentUrls = [
-                      '/components/navigation/header.html',
-                      '/components/navigation/logo.html',
-                      '/components/navigation/doc-footer.html'
-                  ];
+                  // 2. Scan component files from manifest
+                  const registry = window.InduxComponentsRegistry;
+                  const componentUrls = [];
+                  
+                  if (registry && registry.manifest) {
+                      // Get all component paths from manifest
+                      const allComponents = [
+                          ...(registry.manifest.preloadedComponents || []),
+                          ...(registry.manifest.components || [])
+                      ];
+                      componentUrls.push(...allComponents);
+                  }
 
                   const componentPromises = componentUrls.map(async (url) => {
                       try {
-                          const response = await fetch(url);
+                          const response = await fetch('/' + url);
                           if (response.ok) {
                               const html = await response.text();
                               this.extractClassesFromHTML(html, staticClasses);
@@ -1790,6 +1800,77 @@ ${H}`)
           return variables;
       }
 
+      extractCustomUtilities(cssText) {
+          const utilities = new Map();
+
+          // Extract custom utility classes from CSS
+          // This regex finds .class-name { ... } patterns in @layer utilities or standalone
+          const utilityRegex = /(?:@layer\s+utilities\s*{[^}]*}|^)(?:[^{}]*?)(?:^|\s)(\.[\w-]+)\s*{([^}]+)}/gm;
+
+          let match;
+          while ((match = utilityRegex.exec(cssText)) !== null) {
+              const className = match[1].substring(1); // Remove the leading dot
+              const cssRules = match[2].trim();
+              
+              // Skip if it's a Tailwind-generated class (starts with common prefixes)
+              if (this.isTailwindGeneratedClass(className)) {
+                  continue;
+              }
+
+              // Store the utility class and its CSS (combine if already exists)
+              if (utilities.has(className)) {
+                  const existingRules = utilities.get(className);
+                  utilities.set(className, `${existingRules}; ${cssRules}`);
+              } else {
+                  utilities.set(className, cssRules);
+              }
+          }
+
+          // Also look for :where() selectors which are common in Indux utilities
+          // Handle both single class and multiple class selectors
+          const whereRegex = /:where\(([^)]+)\)\s*{([^}]+)}/g;
+          while ((match = whereRegex.exec(cssText)) !== null) {
+              const selectorContent = match[1];
+              const cssRules = match[2].trim();
+              
+              // Extract individual class names from the selector
+              const classMatches = selectorContent.match(/\.([\w-]+)/g);
+              if (classMatches) {
+                  for (const classMatch of classMatches) {
+                      const className = classMatch.substring(1); // Remove the leading dot
+                      
+                      if (!this.isTailwindGeneratedClass(className)) {
+                          // Combine CSS rules if the class already exists
+                          if (utilities.has(className)) {
+                              const existingRules = utilities.get(className);
+                              utilities.set(className, `${existingRules}; ${cssRules}`);
+                          } else {
+                              utilities.set(className, cssRules);
+                          }
+                      }
+                  }
+              }
+          }
+
+          return utilities;
+      }
+
+      isTailwindGeneratedClass(className) {
+          // Check if this looks like a Tailwind-generated class
+          const tailwindPatterns = [
+              /^[a-z]+-\d+$/, // spacing, sizing classes like p-4, w-10
+              /^[a-z]+-\[/, // arbitrary values like w-[100px]
+              /^(text|bg|border|ring|shadow|opacity|scale|rotate|translate|skew|origin|transform|transition|duration|delay|ease|animate|backdrop|blur|brightness|contrast|drop-shadow|grayscale|hue-rotate|invert|saturate|sepia|filter|backdrop-)/, // common Tailwind prefixes
+              /^(sm|md|lg|xl|2xl):/, // responsive prefixes
+              /^(hover|focus|active|disabled|group-hover|group-focus|peer-hover|peer-focus):/, // state prefixes
+              /^(dark|light):/, // theme prefixes
+              /^!/, // important modifier
+              /^\[/, // arbitrary selectors
+          ];
+
+          return tailwindPatterns.some(pattern => pattern.test(className));
+      }
+
       parseClassName(className) {
           // Check cache first
           if (this.classCache.has(className)) {
@@ -1862,6 +1943,135 @@ ${H}`)
           // Cache the result
           this.classCache.set(className, result);
           return result;
+      }
+
+      generateCustomUtilities(usedData) {
+          try {
+              const utilities = [];
+              const generatedRules = new Set();
+              const { classes: usedClasses } = usedData;
+
+
+              if (this.customUtilities.size === 0) {
+                  return '';
+              }
+
+              // Helper to escape special characters in class names
+              const escapeClassName = (className) => {
+                  return className.replace(/[^a-zA-Z0-9-]/g, '\\$&');
+              };
+
+              // Helper to generate a single utility with its variants
+              const generateUtility = (baseClass, css) => {
+                  // Find all variants of this base class that are actually used
+                  const usedVariants = usedClasses
+                      .filter(cls => {
+                          const parts = cls.split(':');
+                          const basePart = parts[parts.length - 1];
+                          const isMatch = basePart === baseClass || (basePart.startsWith('!') && basePart.slice(1) === baseClass);
+                          return isMatch;
+                      });
+
+                  // Skip generating base utility - it already exists in the CSS
+                  // Only generate variants and important versions
+                  
+                  // Generate important version if used
+                  if (usedClasses.includes('!' + baseClass)) {
+                      const importantCss = css.includes(';') ? 
+                          css.replace(/;/g, ' !important;') : 
+                          css + ' !important';
+                      const rule = `.${escapeClassName('!' + baseClass)} { ${importantCss} }`;
+                      if (!generatedRules.has(rule)) {
+                          utilities.push(rule);
+                          generatedRules.add(rule);
+                      }
+                  }
+
+                  // Generate each variant as a separate class
+                  for (const variantClass of usedVariants) {
+                      if (variantClass === baseClass) continue;
+
+                      const parsed = this.parseClassName(variantClass);
+
+                      // Check if this is an important variant
+                      const isImportant = parsed.important;
+                      const cssContent = isImportant ? 
+                          (css.includes(';') ? css.replace(/;/g, ' !important;') : css + ' !important') : 
+                          css;
+
+                      // Build selector by applying variants
+                      let selector = `.${escapeClassName(variantClass)}`;
+                      let hasMediaQuery = false;
+                      let mediaQueryRule = '';
+
+                      for (const variant of parsed.variants) {
+                          if (variant.isArbitrary) {
+                              // Handle arbitrary selectors like [&_figure] or [&_fieldset:has(legend):not(.whatever)]
+                              let arbitrarySelector = variant.selector;
+                              
+                              // Replace underscores with spaces, but preserve them inside parentheses
+                              arbitrarySelector = arbitrarySelector.replace(/_/g, ' ');
+                              
+                              selector = { baseClass: selector, arbitrarySelector };
+                          } else if (variant.selector.startsWith(':')) {
+                              // For pseudo-classes, append to selector
+                              selector = `${selector}${variant.selector}`;
+                          } else if (variant.selector.startsWith('@')) {
+                              // For media queries, wrap the whole rule
+                              hasMediaQuery = true;
+                              mediaQueryRule = variant.selector;
+                          } else if (variant.selector.includes('&')) {
+                              // For contextual selectors (like dark mode)
+                              selector = variant.selector.replace('&', selector);
+                          }
+                      }
+
+                      // Generate the final rule
+                      let rule;
+                      if (typeof selector === 'object' && selector.arbitrarySelector) {
+                          // Handle arbitrary selectors with nested CSS
+                          rule = `${selector.baseClass} {\n    ${selector.arbitrarySelector} {\n        ${cssContent}\n    }\n}`;
+                      } else {
+                          // Regular selector
+                          rule = `${selector} { ${cssContent} }`;
+                      }
+                      
+                      const finalRule = hasMediaQuery ? 
+                          `${mediaQueryRule} { ${rule} }` : 
+                          rule;
+
+
+                      if (!generatedRules.has(finalRule)) {
+                          utilities.push(finalRule);
+                          generatedRules.add(finalRule);
+                      }
+                  }
+              };
+
+              // Generate utilities for each custom class that's actually used
+              for (const [className, css] of this.customUtilities.entries()) {
+                  // Check if this specific utility class is actually used (including variants and important)
+                  const isUsed = usedClasses.some(cls => {
+                      // Parse the class to extract the base utility name
+                      const parsed = this.parseClassName(cls);
+                      const baseClass = parsed.baseClass;
+                      
+                      // Check both normal and important versions
+                      return baseClass === className || 
+                             baseClass === '!' + className ||
+                             (baseClass.startsWith('!') && baseClass.slice(1) === className);
+                  });
+
+                  if (isUsed) {
+                      generateUtility(className, css);
+                  }
+              }
+
+              return utilities.join('\n');
+          } catch (error) {
+              console.error('Error generating custom utilities:', error);
+              return '';
+          }
       }
 
       generateUtilitiesFromVars(cssText, usedData) {
@@ -2056,6 +2266,12 @@ ${H}`)
                   // Fetch CSS content once for initial compilation
                   const themeCss = await this.fetchThemeContent();
                   if (themeCss) {
+                      // Extract and cache custom utilities
+                  const discoveredCustomUtilities = this.extractCustomUtilities(themeCss);
+                      for (const [name, value] of discoveredCustomUtilities.entries()) {
+                          this.customUtilities.set(name, value);
+                      }
+
                       const variables = this.extractThemeVariables(themeCss);
                       for (const [name, value] of variables.entries()) {
                           this.currentThemeVars.set(name, value);
@@ -2076,9 +2292,13 @@ ${H}`)
                           }
                       }
                       
-                      const utilities = this.generateUtilitiesFromVars(themeCss, staticUsedData);
-                      if (utilities) {
-                          const finalCss = `@layer utilities {\n${utilities}\n}`;
+                      // Generate both variable-based and custom utilities
+                      const varUtilities = this.generateUtilitiesFromVars(themeCss, staticUsedData);
+                      const customUtilitiesGenerated = this.generateCustomUtilities(staticUsedData);
+                      
+                      const allUtilities = [varUtilities, customUtilitiesGenerated].filter(Boolean).join('\n\n');
+                      if (allUtilities) {
+                          const finalCss = `@layer utilities {\n${allUtilities}\n}`;
                           this.styleElement.textContent = finalCss;
                           this.lastClassesHash = staticUsedData.classes.sort().join(',');
                       }
@@ -2089,7 +2309,7 @@ ${H}`)
                   return;
               }
 
-              // For subsequent compilations, only check for new dynamic classes
+              // For subsequent compilations, check for new dynamic classes
               const usedData = this.getUsedClasses();
               const dynamicClasses = Array.from(this.dynamicClassCache);
               
@@ -2097,37 +2317,43 @@ ${H}`)
               const dynamicClassesHash = dynamicClasses.sort().join(',');
               
               // Check if dynamic classes have actually changed
-              if (dynamicClassesHash === this.lastClassesHash && this.hasInitialized) {
-                  // No new dynamic classes, skip compilation
-                  this.isCompiling = false;
-                  return;
-              }
-
-              // Only fetch CSS if we have new dynamic classes
-              if (dynamicClasses.length > 0) {
-              const themeCss = await this.fetchThemeContent();
+              if (dynamicClassesHash !== this.lastClassesHash || !this.hasInitialized) {
+                  // Fetch CSS content for dynamic compilation
+                  const themeCss = await this.fetchThemeContent();
                   if (!themeCss) {
                       this.isCompiling = false;
                       return;
                   }
 
-                  // Check for variable changes
-              const variables = this.extractThemeVariables(themeCss);
-                  let hasVariableChanges = false;
-              for (const [name, value] of variables.entries()) {
-                  const currentValue = this.currentThemeVars.get(name);
-                  if (currentValue !== value) {
-                          hasVariableChanges = true;
-                      this.currentThemeVars.set(name, value);
+                  // Update custom utilities cache if needed
+                  const discoveredCustomUtilities = this.extractCustomUtilities(themeCss);
+                  for (const [name, value] of discoveredCustomUtilities.entries()) {
+                      this.customUtilities.set(name, value);
                   }
-              }
+
+                  // Check for variable changes
+                  const variables = this.extractThemeVariables(themeCss);
+                  let hasVariableChanges = false;
+                  for (const [name, value] of variables.entries()) {
+                      const currentValue = this.currentThemeVars.get(name);
+                      if (currentValue !== value) {
+                          hasVariableChanges = true;
+                          this.currentThemeVars.set(name, value);
+                      }
+                  }
 
                   // Generate utilities for all classes (static + dynamic) if needed
                   if (hasVariableChanges || dynamicClassesHash !== this.lastClassesHash) {
-                  const utilities = this.generateUtilitiesFromVars(themeCss, usedData);
-                      if (utilities) {
-                  const finalCss = `@layer utilities {\n${utilities}\n}`;
-                  this.styleElement.textContent = finalCss;
+                      
+                      // Generate both variable-based and custom utilities
+                      const varUtilities = this.generateUtilitiesFromVars(themeCss, usedData);
+                      const customUtilitiesGenerated = this.generateCustomUtilities(usedData);
+                      
+                      
+                      const allUtilities = [varUtilities, customUtilitiesGenerated].filter(Boolean).join('\n\n');
+                      if (allUtilities) {
+                          const finalCss = `@layer utilities {\n${allUtilities}\n}`;
+                          this.styleElement.textContent = finalCss;
                           this.lastClassesHash = dynamicClassesHash;
                       }
                   }
@@ -2154,525 +2380,582 @@ ${H}`)
       }
   });
 
+  var indux_components = {};
+
   /* Indux Components */
 
-  // Components registry
-  window.InduxComponentsRegistry = {
-      manifest: null,
-      registered: new Set(),
-      preloaded: [],
-      initialize() {
-          // Load manifest.json synchronously
-          try {
-              const req = new XMLHttpRequest();
-              req.open('GET', '/manifest.json?t=' + Date.now(), false);
-              req.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-              req.setRequestHeader('Pragma', 'no-cache');
-              req.setRequestHeader('Expires', '0');
-              req.send(null);
-              if (req.status === 200) {
-                  this.manifest = JSON.parse(req.responseText);
-                  // Register all components from manifest
-                  const allComponents = [
-                      ...(this.manifest?.preloadedComponents || []),
-                      ...(this.manifest?.components || [])
-                  ];
-                  allComponents.forEach(path => {
-                      const name = path.split('/').pop().replace('.html', '');
-                      this.registered.add(name);
-                  });
-                  this.preloaded = (this.manifest?.preloadedComponents || []).map(path => path.split('/').pop().replace('.html', ''));
-              } else {
-                  console.warn('[Indux] Failed to load manifest.json (HTTP', req.status + ')');
-              }
-          } catch (e) {
-              console.warn('[Indux] Failed to load manifest.json:', e.message);
-          }
-      }
-  }; 
+  var hasRequiredIndux_components;
 
-  // Components loader
-  window.InduxComponentsLoader = {
-      cache: {},
-      initialize() {
-          this.cache = {};
-          // Preload components listed in registry.preloaded
-          const registry = window.InduxComponentsRegistry;
-          if (registry && Array.isArray(registry.preloaded)) {
-              registry.preloaded.forEach(name => {
-                  this.loadComponent(name).then(() => {
-                      // Preloaded component
-                  });
-              });
-          }
-      },
-      async loadComponent(name) {
-          if (this.cache[name]) {
-              return this.cache[name];
-          }
-          const registry = window.InduxComponentsRegistry;
-          if (!registry || !registry.manifest) {
-              console.warn('[Indux] Manifest not loaded, cannot load component:', name);
-              return null;
-          }
-          const path = (registry.manifest.preloadedComponents || []).concat(registry.manifest.components || [])
-              .find(p => p.split('/').pop().replace('.html', '') === name);
-          if (!path) {
-              console.warn('[Indux] Component', name, 'not found in manifest.');
-              return null;
-          }
-          try {
-              const response = await fetch('/' + path);
-              if (!response.ok) {
-                  console.warn('[Indux] HTML file not found for component', name, 'at path:', path, '(HTTP', response.status + ')');
-                  return null;
-              }
-              const content = await response.text();
-              this.cache[name] = content;
-              return content;
-          } catch (error) {
-              console.warn('[Indux] Failed to load component', name, 'from', path + ':', error.message);
-              return null;
-          }
-      }
-  }; 
+  function requireIndux_components () {
+  	if (hasRequiredIndux_components) return indux_components;
+  	hasRequiredIndux_components = 1;
+  	// Components registry
+  	window.InduxComponentsRegistry = {
+  	    manifest: null,
+  	    registered: new Set(),
+  	    preloaded: [],
+  	    initialize() {
+  	        // Load manifest.json synchronously
+  	        try {
+  	            const req = new XMLHttpRequest();
+  	            req.open('GET', '/manifest.json?t=' + Date.now(), false);
+  	            req.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  	            req.setRequestHeader('Pragma', 'no-cache');
+  	            req.setRequestHeader('Expires', '0');
+  	            req.send(null);
+  	            if (req.status === 200) {
+  	                this.manifest = JSON.parse(req.responseText);
+  	                // Register all components from manifest
+  	                const allComponents = [
+  	                    ...(this.manifest?.preloadedComponents || []),
+  	                    ...(this.manifest?.components || [])
+  	                ];
+  	                allComponents.forEach(path => {
+  	                    const name = path.split('/').pop().replace('.html', '');
+  	                    this.registered.add(name);
+  	                });
+  	                this.preloaded = (this.manifest?.preloadedComponents || []).map(path => path.split('/').pop().replace('.html', ''));
+  	            } else {
+  	                console.warn('[Indux] Failed to load manifest.json (HTTP', req.status + ')');
+  	            }
+  	        } catch (e) {
+  	            console.warn('[Indux] Failed to load manifest.json:', e.message);
+  	        }
+  	    }
+  	}; 
 
-  // Components processor
-  window.InduxComponentsProcessor = {
-      async processComponent(element, instanceId) {
-          const name = element.tagName.toLowerCase().replace('x-', '');
-          const registry = window.InduxComponentsRegistry;
-          const loader = window.InduxComponentsLoader;
-          if (!registry || !loader) {
-              return;
-          }
-          if (!registry.registered.has(name)) {
-              return;
-          }
-          if (element.hasAttribute('data-pre-rendered') || element.hasAttribute('data-processed')) {
-              return;
-          }
-          const content = await loader.loadComponent(name);
-          if (!content) {
-              element.replaceWith(document.createComment(` Failed to load component: ${name} `));
-              return;
-          }
-          const container = document.createElement('div');
-          container.innerHTML = content.trim();
-          const topLevelElements = Array.from(container.children);
-          if (topLevelElements.length === 0) {
-              element.replaceWith(document.createComment(` Empty component: ${name} `));
-              return;
-          }
-          // Collect properties from placeholder attributes
-          const props = {};
-          Array.from(element.attributes).forEach(attr => {
-              if (attr.name !== name && attr.name !== 'class' && !attr.name.startsWith('data-')) {
-                  // Store both original case and lowercase for flexibility
-                  props[attr.name] = attr.value;
-                  props[attr.name.toLowerCase()] = attr.value;
-              }
-          });
-          // Process $modify usage in all elements
-          const processElementProps = (el) => {
-              Array.from(el.attributes).forEach(attr => {
-                  const value = attr.value.trim();
-                  if (value.includes('$modify(')) {
-                      const propMatch = value.match(/\$modify\(['"]([^'"]+)['"]\)/);
-                      if (propMatch) {
-                          const propName = propMatch[1].toLowerCase();
-                          const propValue = props[propName] || '';
-                          if (attr.name === 'class') {
-                              const existingClasses = el.getAttribute('class') || '';
-                              const newClasses = existingClasses
-                                  .replace(new RegExp(`\$modify\(['"]${propName}['"]\)`, 'i'), propValue)
-                                  .split(' ')
-                                  .filter(Boolean)
-                                  .join(' ');
-                              el.setAttribute('class', newClasses);
-                          } else if (attr.name === 'x-icon') {
-                              // x-icon should get the raw value, not wrapped for Alpine evaluation
-                              el.setAttribute(attr.name, propValue);
-                          } else if (attr.name === 'x-show' || attr.name === 'x-if') {
-                              // x-show and x-if expect boolean expressions, convert string to boolean check
-                              if (value !== `$modify('${propName}')`) {
-                                  const newValue = value.replace(
-                                      /\$modify\(['"]([^'"]+)['"]\)/g,
-                                      (_, name) => {
-                                          const val = props[name.toLowerCase()] || '';
-                                          // Convert to boolean check - true if value exists and is not empty
-                                          return val ? 'true' : 'false';
-                                      }
-                                  );
-                                  el.setAttribute(attr.name, newValue);
-                              } else {
-                                  // Simple replacement - check if prop exists and is not empty
-                                  const booleanValue = propValue && propValue.trim() !== '' ? 'true' : 'false';
-                                  el.setAttribute(attr.name, booleanValue);
-                              }
-                          } else if (
-                              attr.name.startsWith('x-') ||
-                              attr.name.startsWith(':') ||
-                              attr.name.startsWith('@') ||
-                              attr.name.startsWith('x-bind:') ||
-                              attr.name.startsWith('x-on:')
-                          ) {
-                              // For Alpine directives, properly quote string values
-                              if (value !== `$modify('${propName}')`) {
-                                  // Handle mixed content with multiple $modify() calls
-                                  const newValue = value.replace(
-                                      /\$modify\(['"]([^'"]+)['"]\)/g,
-                                      (_, name) => {
-                                          const val = props[name.toLowerCase()] || '';
-                                          // For expressions with fallbacks (||), use null for empty/whitespace values
-                                          if (!val || val.trim() === '' || /^[\r\n\t\s]+$/.test(val)) {
-                                              return value.includes('||') ? 'null' : "''";
-                                          }
-                                          // If value starts with $, it's an Alpine expression - don't quote
-                                          if (val.startsWith('$')) {
-                                              return val;
-                                          }
-                                          // Always quote string values to ensure they're treated as strings, not variables
-                                          return `'${val.replace(/'/g, "\\'").replace(/\r/g, '\\r').replace(/\n/g, '\\n').replace(/\t/g, '\\t')}'`;
-                                      }
-                                  );
-                                  el.setAttribute(attr.name, newValue);
-                              } else {
-                                  // Simple $modify() replacement
-                                  if (!propValue || propValue.trim() === '' || /^[\r\n\t\s]+$/.test(propValue)) {
-                                      // For empty/whitespace values, remove the attribute
-                                      el.removeAttribute(attr.name);
-                                  } else {
-                                      // If value starts with $, it's an Alpine expression - don't quote
-                                      if (propValue.startsWith('$')) {
-                                          el.setAttribute(attr.name, propValue);
-                                      } else {
-                                          // Always quote string values and escape special characters
-                                          const quotedValue = `'${propValue.replace(/'/g, "\\'").replace(/\r/g, '\\r').replace(/\n/g, '\\n').replace(/\t/g, '\\t')}'`;
-                                          el.setAttribute(attr.name, quotedValue);
-                                      }
-                                  }
-                              }
-                          } else {
-                              el.setAttribute(attr.name, propValue);
-                          }
-                      }
-                  }
-              });
-              Array.from(el.children).forEach(processElementProps);
-          };
-          topLevelElements.forEach(processElementProps);
-          // Apply attributes from placeholder to root elements
-          topLevelElements.forEach(rootElement => {
-              Array.from(element.attributes).forEach(attr => {
-                  if (attr.name === 'class') {
-                      const existingClass = rootElement.getAttribute('class') || '';
-                      const newClasses = `${existingClass} ${attr.value}`.trim();
-                      rootElement.setAttribute('class', newClasses);
-                  } else if (attr.name.startsWith('x-') || attr.name.startsWith(':') || attr.name.startsWith('@')) {
-                      rootElement.setAttribute(attr.name, attr.value);
-                  } else if (attr.name !== name && !attr.name.startsWith('data-')) {
-                      rootElement.setAttribute(attr.name, attr.value);
-                  }
-                  // Preserve important data attributes including data-order
-                  else if (attr.name === 'data-order' || attr.name === 'x-route' || attr.name === 'data-head') {
-                      rootElement.setAttribute(attr.name, attr.value);
-                  }
-              });
-              // Set data-component=instanceId if provided
-              if (instanceId) {
-                  rootElement.setAttribute('data-component', instanceId);
-              }
-          });
-          // After rendering, copy all attributes from the original placeholder to the first top-level element
-          if (topLevelElements.length > 0) {
-              const firstRoot = topLevelElements[0];
-              Array.from(element.attributes).forEach(attr => {
-                  // Preserve important attributes including data-order, x-route, and other routing/data attributes
-                  const preserveAttributes = [
-                      'data-order', 'x-route', 'data-component', 'data-head',
-                      'x-route-*', 'data-route-*'
-                  ];
-                  const shouldPreserve = preserveAttributes.some(preserveAttr =>
-                      attr.name === preserveAttr || attr.name.startsWith(preserveAttr.replace('*', ''))
-                  );
+  	// Components loader
+  	window.InduxComponentsLoader = {
+  	    cache: {},
+  	    initialize() {
+  	        this.cache = {};
+  	        // Preload components listed in registry.preloaded
+  	        const registry = window.InduxComponentsRegistry;
+  	        if (registry && Array.isArray(registry.preloaded)) {
+  	            registry.preloaded.forEach(name => {
+  	                this.loadComponent(name).then(() => {
+  	                    // Preloaded component
+  	                });
+  	            });
+  	        }
+  	    },
+  	    async loadComponent(name) {
+  	        if (this.cache[name]) {
+  	            return this.cache[name];
+  	        }
+  	        const registry = window.InduxComponentsRegistry;
+  	        if (!registry || !registry.manifest) {
+  	            console.warn('[Indux] Manifest not loaded, cannot load component:', name);
+  	            return null;
+  	        }
+  	        const path = (registry.manifest.preloadedComponents || []).concat(registry.manifest.components || [])
+  	            .find(p => p.split('/').pop().replace('.html', '') === name);
+  	        if (!path) {
+  	            console.warn('[Indux] Component', name, 'not found in manifest.');
+  	            return null;
+  	        }
+  	        try {
+  	            const response = await fetch('/' + path);
+  	            if (!response.ok) {
+  	                console.warn('[Indux] HTML file not found for component', name, 'at path:', path, '(HTTP', response.status + ')');
+  	                return null;
+  	            }
+  	            const content = await response.text();
+  	            this.cache[name] = content;
+  	            return content;
+  	        } catch (error) {
+  	            console.warn('[Indux] Failed to load component', name, 'from', path + ':', error.message);
+  	            return null;
+  	        }
+  	    }
+  	}; 
 
-                  if (!['data-original-placeholder', 'data-pre-rendered', 'data-processed'].includes(attr.name) || shouldPreserve) {
-                      firstRoot.setAttribute(attr.name, attr.value);
-                  }
-              });
-          }
-          const parent = element.parentElement;
-          if (!parent || !document.contains(element)) {
-              return;
-          }
-          // Replace the placeholder element with the component content
-          const fragment = document.createDocumentFragment();
-          topLevelElements.forEach(el => fragment.appendChild(el));
-          parent.replaceChild(fragment, element);
-      },
-      initialize() {
-      }
-  }; 
+  	// Components processor
+  	window.InduxComponentsProcessor = {
+  	    async processComponent(element, instanceId) {
+  	        const name = element.tagName.toLowerCase().replace('x-', '');
+  	        const registry = window.InduxComponentsRegistry;
+  	        const loader = window.InduxComponentsLoader;
+  	        if (!registry || !loader) {
+  	            return;
+  	        }
+  	        if (!registry.registered.has(name)) {
+  	            return;
+  	        }
+  	        if (element.hasAttribute('data-pre-rendered') || element.hasAttribute('data-processed')) {
+  	            return;
+  	        }
+  	        const content = await loader.loadComponent(name);
+  	        if (!content) {
+  	            element.replaceWith(document.createComment(` Failed to load component: ${name} `));
+  	            return;
+  	        }
+  	        const container = document.createElement('div');
+  	        container.innerHTML = content.trim();
+  	        const topLevelElements = Array.from(container.children);
+  	        if (topLevelElements.length === 0) {
+  	            element.replaceWith(document.createComment(` Empty component: ${name} `));
+  	            return;
+  	        }
 
-  // Components swapping
-  (function () {
-      let componentInstanceCounters = {};
-      const swappedInstances = new Set();
-      const instanceRouteMap = new Map();
-      const placeholderMap = new Map();
+  	        // Extract and prepare scripts for execution
+  	        const scripts = [];
+  	        const processScripts = (el) => {
+  	            if (el.tagName.toLowerCase() === 'script') {
+  	                scripts.push({
+  	                    content: el.textContent,
+  	                    type: el.getAttribute('type') || 'text/javascript',
+  	                    src: el.getAttribute('src'),
+  	                    async: el.hasAttribute('async'),
+  	                    defer: el.hasAttribute('defer')
+  	                });
+  	                // Remove script from DOM to avoid duplication
+  	                el.remove();
+  	            } else {
+  	                Array.from(el.children).forEach(processScripts);
+  	            }
+  	        };
+  	        topLevelElements.forEach(processScripts);
+  	        // Collect properties from placeholder attributes
+  	        const props = {};
+  	        Array.from(element.attributes).forEach(attr => {
+  	            if (attr.name !== name && attr.name !== 'class' && !attr.name.startsWith('data-')) {
+  	                // Store both original case and lowercase for flexibility
+  	                props[attr.name] = attr.value;
+  	                props[attr.name.toLowerCase()] = attr.value;
+  	            }
+  	        });
+  	        // Process $modify usage in all elements
+  	        const processElementProps = (el) => {
+  	            Array.from(el.attributes).forEach(attr => {
+  	                const value = attr.value.trim();
+  	                if (value.includes('$modify(')) {
+  	                    const propMatch = value.match(/\$modify\(['"]([^'"]+)['"]\)/);
+  	                    if (propMatch) {
+  	                        const propName = propMatch[1].toLowerCase();
+  	                        const propValue = props[propName] || '';
+  	                        if (attr.name === 'class') {
+  	                            const existingClasses = el.getAttribute('class') || '';
+  	                            const newClasses = existingClasses
+  	                                .replace(new RegExp(`\$modify\(['"]${propName}['"]\)`, 'i'), propValue)
+  	                                .split(' ')
+  	                                .filter(Boolean)
+  	                                .join(' ');
+  	                            el.setAttribute('class', newClasses);
+  	                        } else if (attr.name === 'x-icon') {
+  	                            // x-icon should get the raw value, not wrapped for Alpine evaluation
+  	                            el.setAttribute(attr.name, propValue);
+  	                        } else if (attr.name === 'x-show' || attr.name === 'x-if') {
+  	                            // x-show and x-if expect boolean expressions, convert string to boolean check
+  	                            if (value !== `$modify('${propName}')`) {
+  	                                const newValue = value.replace(
+  	                                    /\$modify\(['"]([^'"]+)['"]\)/g,
+  	                                    (_, name) => {
+  	                                        const val = props[name.toLowerCase()] || '';
+  	                                        // Convert to boolean check - true if value exists and is not empty
+  	                                        return val ? 'true' : 'false';
+  	                                    }
+  	                                );
+  	                                el.setAttribute(attr.name, newValue);
+  	                            } else {
+  	                                // Simple replacement - check if prop exists and is not empty
+  	                                const booleanValue = propValue && propValue.trim() !== '' ? 'true' : 'false';
+  	                                el.setAttribute(attr.name, booleanValue);
+  	                            }
+  	                        } else if (
+  	                            attr.name.startsWith('x-') ||
+  	                            attr.name.startsWith(':') ||
+  	                            attr.name.startsWith('@') ||
+  	                            attr.name.startsWith('x-bind:') ||
+  	                            attr.name.startsWith('x-on:')
+  	                        ) {
+  	                            // For Alpine directives, properly quote string values
+  	                            if (value !== `$modify('${propName}')`) {
+  	                                // Handle mixed content with multiple $modify() calls
+  	                                const newValue = value.replace(
+  	                                    /\$modify\(['"]([^'"]+)['"]\)/g,
+  	                                    (_, name) => {
+  	                                        const val = props[name.toLowerCase()] || '';
+  	                                        // For expressions with fallbacks (||), use null for empty/whitespace values
+  	                                        if (!val || val.trim() === '' || /^[\r\n\t\s]+$/.test(val)) {
+  	                                            return value.includes('||') ? 'null' : "''";
+  	                                        }
+  	                                        // If value starts with $, it's an Alpine expression - don't quote
+  	                                        if (val.startsWith('$')) {
+  	                                            return val;
+  	                                        }
+  	                                        // Always quote string values to ensure they're treated as strings, not variables
+  	                                        return `'${val.replace(/'/g, "\\'").replace(/\r/g, '\\r').replace(/\n/g, '\\n').replace(/\t/g, '\\t')}'`;
+  	                                    }
+  	                                );
+  	                                el.setAttribute(attr.name, newValue);
+  	                            } else {
+  	                                // Simple $modify() replacement
+  	                                if (!propValue || propValue.trim() === '' || /^[\r\n\t\s]+$/.test(propValue)) {
+  	                                    // For empty/whitespace values, remove the attribute
+  	                                    el.removeAttribute(attr.name);
+  	                                } else {
+  	                                    // If value starts with $, it's an Alpine expression - don't quote
+  	                                    if (propValue.startsWith('$')) {
+  	                                        el.setAttribute(attr.name, propValue);
+  	                                    } else {
+  	                                        // Always quote string values and escape special characters
+  	                                        const quotedValue = `'${propValue.replace(/'/g, "\\'").replace(/\r/g, '\\r').replace(/\n/g, '\\n').replace(/\t/g, '\\t')}'`;
+  	                                        el.setAttribute(attr.name, quotedValue);
+  	                                    }
+  	                                }
+  	                            }
+  	                        } else {
+  	                            el.setAttribute(attr.name, propValue);
+  	                        }
+  	                    }
+  	                }
+  	            });
+  	            Array.from(el.children).forEach(processElementProps);
+  	        };
+  	        topLevelElements.forEach(processElementProps);
+  	        // Apply attributes from placeholder to root elements
+  	        topLevelElements.forEach(rootElement => {
+  	            Array.from(element.attributes).forEach(attr => {
+  	                if (attr.name === 'class') {
+  	                    const existingClass = rootElement.getAttribute('class') || '';
+  	                    const newClasses = `${existingClass} ${attr.value}`.trim();
+  	                    rootElement.setAttribute('class', newClasses);
+  	                } else if (attr.name.startsWith('x-') || attr.name.startsWith(':') || attr.name.startsWith('@')) {
+  	                    rootElement.setAttribute(attr.name, attr.value);
+  	                } else if (attr.name !== name && !attr.name.startsWith('data-')) {
+  	                    rootElement.setAttribute(attr.name, attr.value);
+  	                }
+  	                // Preserve important data attributes including data-order
+  	                else if (attr.name === 'data-order' || attr.name === 'x-route' || attr.name === 'data-head') {
+  	                    rootElement.setAttribute(attr.name, attr.value);
+  	                }
+  	            });
+  	            // Set data-component=instanceId if provided
+  	            if (instanceId) {
+  	                rootElement.setAttribute('data-component', instanceId);
+  	            }
+  	        });
+  	        // After rendering, copy all attributes from the original placeholder to the first top-level element
+  	        if (topLevelElements.length > 0) {
+  	            const firstRoot = topLevelElements[0];
+  	            Array.from(element.attributes).forEach(attr => {
+  	                // Preserve important attributes including data-order, x-route, and other routing/data attributes
+  	                const preserveAttributes = [
+  	                    'data-order', 'x-route', 'data-component', 'data-head',
+  	                    'x-route-*', 'data-route-*'
+  	                ];
+  	                const shouldPreserve = preserveAttributes.some(preserveAttr =>
+  	                    attr.name === preserveAttr || attr.name.startsWith(preserveAttr.replace('*', ''))
+  	                );
 
-      function getComponentInstanceId(name) {
-          if (!componentInstanceCounters[name]) componentInstanceCounters[name] = 1;
-          else componentInstanceCounters[name]++;
-          return `${name}-${componentInstanceCounters[name]}`;
-      }
+  	                if (!['data-original-placeholder', 'data-pre-rendered', 'data-processed'].includes(attr.name) || shouldPreserve) {
+  	                    firstRoot.setAttribute(attr.name, attr.value);
+  	                }
+  	            });
+  	        }
+  	        const parent = element.parentElement;
+  	        if (!parent || !document.contains(element)) {
+  	            return;
+  	        }
+  	        // Replace the placeholder element with the component content
+  	        const fragment = document.createDocumentFragment();
+  	        topLevelElements.forEach(el => fragment.appendChild(el));
+  	        parent.replaceChild(fragment, element);
 
-      function logSiblings(parent, context) {
-          if (!parent) return;
-          Array.from(parent.children).map(el => `${el.tagName}[data-component=${el.getAttribute('data-component') || ''}]`).join(', ');
-      }
+  	        // Execute scripts after component is rendered
+  	        if (scripts.length > 0) {
+  	            // Use a small delay to ensure DOM is updated
+  	            setTimeout(() => {
+  	                scripts.forEach(script => {
+  	                    if (script.src) {
+  	                        // External script - create and append to head
+  	                        const scriptEl = document.createElement('script');
+  	                        scriptEl.src = script.src;
+  	                        scriptEl.type = script.type;
+  	                        if (script.async) scriptEl.async = true;
+  	                        if (script.defer) scriptEl.defer = true;
+  	                        document.head.appendChild(scriptEl);
+  	                    } else if (script.content) {
+  	                        // Inline script - execute directly
+  	                        try {
+  	                            // Create a function to execute the script in the global scope
+  	                            const executeScript = new Function(script.content);
+  	                            executeScript();
+  	                        } catch (error) {
+  	                            console.error(`[Indux] Error executing script in component ${name}:`, error);
+  	                        }
+  	                    }
+  	                });
+  	            }, 0);
+  	        }
+  	    },
+  	    initialize() {
+  	    }
+  	}; 
 
-      window.InduxComponentsSwapping = {
-          // Swap in source code for a placeholder
-          async swapIn(placeholder) {
-              if (placeholder.hasAttribute('data-swapped')) return;
-              const processor = window.InduxComponentsProcessor;
-              if (!processor) return;
-              const name = placeholder.tagName.toLowerCase().replace('x-', '');
-              let instanceId = placeholder.getAttribute('data-component');
-              if (!instanceId) {
-                  instanceId = getComponentInstanceId(name);
-                  placeholder.setAttribute('data-component', instanceId);
-              }
-              // Save placeholder for reversion in the map
-              if (!placeholderMap.has(instanceId)) {
-                  const clone = placeholder.cloneNode(true);
-                  clone.setAttribute('data-original-placeholder', '');
-                  clone.setAttribute('data-component', instanceId);
-                  placeholderMap.set(instanceId, clone);
-              }
-              // Log before swap
-              logSiblings(placeholder.parentNode);
-              // Process and swap in source code, passing instanceId
-              await processor.processComponent(placeholder, instanceId);
-              swappedInstances.add(instanceId);
-              // Track the route for this instance
-              const xRoute = placeholder.getAttribute('x-route');
-              instanceRouteMap.set(instanceId, xRoute);
-              // Log after swap
-              logSiblings(placeholder.parentNode || document.body);
-          },
-          // Revert to placeholder
-          revert(instanceId) {
-              if (!swappedInstances.has(instanceId)) return;
-              // Remove all elements with data-component=instanceId
-              const rendered = Array.from(document.querySelectorAll(`[data-component="${instanceId}"]`));
-              if (rendered.length === 0) return;
-              const first = rendered[0];
-              const parent = first.parentNode;
-              // Retrieve the original placeholder from the map
-              const placeholder = placeholderMap.get(instanceId);
-              // Log before revert
-              logSiblings(parent);
-              // Remove all rendered elements
-              rendered.forEach(el => {
-                  el.remove();
-              });
-              // Restore the placeholder at the correct position if not present
-              if (placeholder && parent && !parent.contains(placeholder)) {
-                  const targetPosition = parseInt(placeholder.getAttribute('data-order')) || 0;
-                  let inserted = false;
+  	// Components swapping
+  	(function () {
+  	    let componentInstanceCounters = {};
+  	    const swappedInstances = new Set();
+  	    const instanceRouteMap = new Map();
+  	    const placeholderMap = new Map();
 
-                  // Find the correct position based on data-order
-                  for (let i = 0; i < parent.children.length; i++) {
-                      const child = parent.children[i];
-                      const childPosition = parseInt(child.getAttribute('data-order')) || 0;
+  	    function getComponentInstanceId(name) {
+  	        if (!componentInstanceCounters[name]) componentInstanceCounters[name] = 1;
+  	        else componentInstanceCounters[name]++;
+  	        return `${name}-${componentInstanceCounters[name]}`;
+  	    }
 
-                      if (targetPosition < childPosition) {
-                          parent.insertBefore(placeholder, child);
-                          inserted = true;
-                          break;
-                      }
-                  }
+  	    function logSiblings(parent, context) {
+  	        if (!parent) return;
+  	        Array.from(parent.children).map(el => `${el.tagName}[data-component=${el.getAttribute('data-component') || ''}]`).join(', ');
+  	    }
 
-                  // If not inserted (should be at the end), append to parent
-                  if (!inserted) {
-                      parent.appendChild(placeholder);
-                  }
+  	    window.InduxComponentsSwapping = {
+  	        // Swap in source code for a placeholder
+  	        async swapIn(placeholder) {
+  	            if (placeholder.hasAttribute('data-swapped')) return;
+  	            const processor = window.InduxComponentsProcessor;
+  	            if (!processor) return;
+  	            const name = placeholder.tagName.toLowerCase().replace('x-', '');
+  	            let instanceId = placeholder.getAttribute('data-component');
+  	            if (!instanceId) {
+  	                instanceId = getComponentInstanceId(name);
+  	                placeholder.setAttribute('data-component', instanceId);
+  	            }
+  	            // Save placeholder for reversion in the map
+  	            if (!placeholderMap.has(instanceId)) {
+  	                const clone = placeholder.cloneNode(true);
+  	                clone.setAttribute('data-original-placeholder', '');
+  	                clone.setAttribute('data-component', instanceId);
+  	                placeholderMap.set(instanceId, clone);
+  	            }
+  	            // Log before swap
+  	            logSiblings(placeholder.parentNode);
+  	            // Process and swap in source code, passing instanceId
+  	            await processor.processComponent(placeholder, instanceId);
+  	            swappedInstances.add(instanceId);
+  	            // Track the route for this instance
+  	            const xRoute = placeholder.getAttribute('x-route');
+  	            instanceRouteMap.set(instanceId, xRoute);
+  	            // Log after swap
+  	            logSiblings(placeholder.parentNode || document.body);
+  	        },
+  	        // Revert to placeholder
+  	        revert(instanceId) {
+  	            if (!swappedInstances.has(instanceId)) return;
+  	            // Remove all elements with data-component=instanceId
+  	            const rendered = Array.from(document.querySelectorAll(`[data-component="${instanceId}"]`));
+  	            if (rendered.length === 0) return;
+  	            const first = rendered[0];
+  	            const parent = first.parentNode;
+  	            // Retrieve the original placeholder from the map
+  	            const placeholder = placeholderMap.get(instanceId);
+  	            // Log before revert
+  	            logSiblings(parent);
+  	            // Remove all rendered elements
+  	            rendered.forEach(el => {
+  	                el.remove();
+  	            });
+  	            // Restore the placeholder at the correct position if not present
+  	            if (placeholder && parent && !parent.contains(placeholder)) {
+  	                const targetPosition = parseInt(placeholder.getAttribute('data-order')) || 0;
+  	                let inserted = false;
 
-              }
-              swappedInstances.delete(instanceId);
-              instanceRouteMap.delete(instanceId);
-              placeholderMap.delete(instanceId);
-              // Log after revert
-              logSiblings(parent);
-          },
-          // Main swapping logic
-          async processAll() {
-              componentInstanceCounters = {};
-              const registry = window.InduxComponentsRegistry;
-              if (!registry) return;
-              const routing = window.InduxRouting;
-              const placeholders = Array.from(document.querySelectorAll('*')).filter(el =>
-                  el.tagName.toLowerCase().startsWith('x-') &&
-                  !el.hasAttribute('data-pre-rendered') &&
-                  !el.hasAttribute('data-processed')
-              );
-              // First pass: revert any swapped-in instances that no longer match
-              if (routing) {
-                  const currentPath = window.location.pathname;
-                  const normalizedPath = currentPath === '/' ? '/' : currentPath.replace(/^\/+|\/+$/g, '');
-                  for (const instanceId of Array.from(swappedInstances)) {
-                      const xRoute = instanceRouteMap.get(instanceId);
-                      const matches = !xRoute || window.InduxRouting.matchesCondition(normalizedPath, xRoute);
-                      if (!matches) {
-                          this.revert(instanceId);
-                      }
-                  }
-              }
-              // Second pass: swap in any placeholders that match
-              for (const placeholder of placeholders) {
-                  const name = placeholder.tagName.toLowerCase().replace('x-', '');
-                  let instanceId = placeholder.getAttribute('data-component');
-                  if (!instanceId) {
-                      instanceId = getComponentInstanceId(name);
-                      placeholder.setAttribute('data-component', instanceId);
-                  }
-                  const xRoute = placeholder.getAttribute('x-route');
-                  if (!routing) {
-                      // No routing: always swap in
-                      await this.swapIn(placeholder);
-                  } else {
-                      // Routing present: check route
-                      const currentPath = window.location.pathname;
-                      const normalizedPath = currentPath === '/' ? '/' : currentPath.replace(/^\/+|\/+$/g, '');
-                      const matches = !xRoute || window.InduxRouting.matchesCondition(normalizedPath, xRoute);
-                      if (matches) {
-                          await this.swapIn(placeholder);
-                      }
-                  }
-              }
-          },
-          initialize() {
-              // On init, process all
-              this.processAll().then(() => {
-                  // Dispatch event when components are fully processed
-                  window.dispatchEvent(new CustomEvent('indux:components-processed'));
-              });
-              // If routing is present, listen for route changes
-              if (window.InduxRouting) {
-                  window.addEventListener('indux:route-change', () => {
-                      this.processAll().then(() => {
-                          // Dispatch event when components are fully processed after route change
-                          window.dispatchEvent(new CustomEvent('indux:components-processed'));
-                      });
-                  });
-              }
-          }
-      };
-  })(); 
+  	                // Find the correct position based on data-order
+  	                for (let i = 0; i < parent.children.length; i++) {
+  	                    const child = parent.children[i];
+  	                    const childPosition = parseInt(child.getAttribute('data-order')) || 0;
 
-  // Components mutation observer
-  window.InduxComponentsMutation = {
-      async processAllPlaceholders() {
-          const processor = window.InduxComponentsProcessor;
-          const routing = window.InduxRouting;
-          if (!processor) return;
-          const placeholders = Array.from(document.querySelectorAll('*')).filter(el =>
-              el.tagName.toLowerCase().startsWith('x-') &&
-              !el.hasAttribute('data-pre-rendered') &&
-              !el.hasAttribute('data-processed')
-          );
-          for (const el of placeholders) {
-              if (routing) {
-                  // Only process if route matches
-                  const xRoute = el.getAttribute('x-route');
-                  const currentPath = window.location.pathname;
-                  const normalizedPath = currentPath === '/' ? '/' : currentPath.replace(/^\/+|\/+$/g, '');
-                  const matches = !xRoute || window.InduxRouting.matchesCondition(normalizedPath, xRoute);
-                  if (!matches) continue;
-              }
-              await processor.processComponent(el);
-          }
-      },
-      initialize() {
-          const processor = window.InduxComponentsProcessor;
-          const routing = window.InduxRouting;
-          if (!processor) return;
-          // Initial scan
-          this.processAllPlaceholders();
-          // Mutation observer for new placeholders
-          const observer = new MutationObserver(async mutations => {
-              for (const mutation of mutations) {
-                  for (const node of mutation.addedNodes) {
-                      if (node.nodeType === 1 && node.tagName.toLowerCase().startsWith('x-')) {
-                          if (!node.hasAttribute('data-pre-rendered') && !node.hasAttribute('data-processed')) {
-                              if (routing) {
-                                  const xRoute = node.getAttribute('x-route');
-                                  const currentPath = window.location.pathname;
-                                  const normalizedPath = currentPath === '/' ? '/' : currentPath.replace(/^\/+|\/+$/g, '');
-                                  const matches = !xRoute || window.InduxRouting.matchesCondition(normalizedPath, xRoute);
-                                  if (!matches) continue;
-                              }
-                              await processor.processComponent(node);
-                          }
-                      }
-                      // Also check for any <x-*> descendants
-                      if (node.nodeType === 1) {
-                          const descendants = Array.from(node.querySelectorAll('*')).filter(el =>
-                              el.tagName.toLowerCase().startsWith('x-') &&
-                              !el.hasAttribute('data-pre-rendered') &&
-                              !el.hasAttribute('data-processed')
-                          );
-                          for (const el of descendants) {
-                              if (routing) {
-                                  const xRoute = el.getAttribute('x-route');
-                                  const currentPath = window.location.pathname;
-                                  const normalizedPath = currentPath === '/' ? '/' : currentPath.replace(/^\/+|\/+$/g, '');
-                                  const matches = !xRoute || window.InduxRouting.matchesCondition(normalizedPath, xRoute);
-                                  if (!matches) continue;
-                              }
-                              await processor.processComponent(el);
-                          }
-                      }
-                  }
-              }
-          });
+  	                    if (targetPosition < childPosition) {
+  	                        parent.insertBefore(placeholder, child);
+  	                        inserted = true;
+  	                        break;
+  	                    }
+  	                }
 
-          // Ensure document.body exists before observing
-          if (document.body) {
-              observer.observe(document.body, { childList: true, subtree: true });
-          } else {
-              // Wait for body to be available
-              document.addEventListener('DOMContentLoaded', () => {
-                  observer.observe(document.body, { childList: true, subtree: true });
-              });
-          }
-      }
-  }; 
+  	                // If not inserted (should be at the end), append to parent
+  	                if (!inserted) {
+  	                    parent.appendChild(placeholder);
+  	                }
 
-  // Main initialization for Indux Components
-  function initializeComponents() {
-      if (window.InduxComponentsRegistry) window.InduxComponentsRegistry.initialize();
-      if (window.InduxComponentsLoader) window.InduxComponentsLoader.initialize();
-      if (window.InduxComponentsProcessor) window.InduxComponentsProcessor.initialize();
-      if (window.InduxComponentsSwapping) window.InduxComponentsSwapping.initialize();
-      if (window.InduxComponentsMutation) window.InduxComponentsMutation.initialize();
-      if (window.InduxComponentsUtils) window.InduxComponentsUtils.initialize?.();
-      window.__induxComponentsInitialized = true;
-      window.dispatchEvent(new CustomEvent('indux:components-ready'));
+  	            }
+  	            swappedInstances.delete(instanceId);
+  	            instanceRouteMap.delete(instanceId);
+  	            placeholderMap.delete(instanceId);
+  	            // Log after revert
+  	            logSiblings(parent);
+  	        },
+  	        // Main swapping logic
+  	        async processAll() {
+  	            componentInstanceCounters = {};
+  	            const registry = window.InduxComponentsRegistry;
+  	            if (!registry) return;
+  	            const routing = window.InduxRouting;
+  	            const placeholders = Array.from(document.querySelectorAll('*')).filter(el =>
+  	                el.tagName.toLowerCase().startsWith('x-') &&
+  	                !el.hasAttribute('data-pre-rendered') &&
+  	                !el.hasAttribute('data-processed')
+  	            );
+  	            // First pass: revert any swapped-in instances that no longer match
+  	            if (routing) {
+  	                const currentPath = window.location.pathname;
+  	                const normalizedPath = currentPath === '/' ? '/' : currentPath.replace(/^\/+|\/+$/g, '');
+  	                for (const instanceId of Array.from(swappedInstances)) {
+  	                    const xRoute = instanceRouteMap.get(instanceId);
+  	                    const matches = !xRoute || window.InduxRouting.matchesCondition(normalizedPath, xRoute);
+  	                    if (!matches) {
+  	                        this.revert(instanceId);
+  	                    }
+  	                }
+  	            }
+  	            // Second pass: swap in any placeholders that match
+  	            for (const placeholder of placeholders) {
+  	                const name = placeholder.tagName.toLowerCase().replace('x-', '');
+  	                let instanceId = placeholder.getAttribute('data-component');
+  	                if (!instanceId) {
+  	                    instanceId = getComponentInstanceId(name);
+  	                    placeholder.setAttribute('data-component', instanceId);
+  	                }
+  	                const xRoute = placeholder.getAttribute('x-route');
+  	                if (!routing) {
+  	                    // No routing: always swap in
+  	                    await this.swapIn(placeholder);
+  	                } else {
+  	                    // Routing present: check route
+  	                    const currentPath = window.location.pathname;
+  	                    const normalizedPath = currentPath === '/' ? '/' : currentPath.replace(/^\/+|\/+$/g, '');
+  	                    const matches = !xRoute || window.InduxRouting.matchesCondition(normalizedPath, xRoute);
+  	                    if (matches) {
+  	                        await this.swapIn(placeholder);
+  	                    }
+  	                }
+  	            }
+  	        },
+  	        initialize() {
+  	            // On init, process all
+  	            this.processAll().then(() => {
+  	                // Dispatch event when components are fully processed
+  	                window.dispatchEvent(new CustomEvent('indux:components-processed'));
+  	            });
+  	            // If routing is present, listen for route changes
+  	            if (window.InduxRouting) {
+  	                window.addEventListener('indux:route-change', () => {
+  	                    this.processAll().then(() => {
+  	                        // Dispatch event when components are fully processed after route change
+  	                        window.dispatchEvent(new CustomEvent('indux:components-processed'));
+  	                    });
+  	                });
+  	            }
+  	        }
+  	    };
+  	})(); 
+
+  	// Components mutation observer
+  	window.InduxComponentsMutation = {
+  	    async processAllPlaceholders() {
+  	        const processor = window.InduxComponentsProcessor;
+  	        const routing = window.InduxRouting;
+  	        if (!processor) return;
+  	        const placeholders = Array.from(document.querySelectorAll('*')).filter(el =>
+  	            el.tagName.toLowerCase().startsWith('x-') &&
+  	            !el.hasAttribute('data-pre-rendered') &&
+  	            !el.hasAttribute('data-processed')
+  	        );
+  	        for (const el of placeholders) {
+  	            if (routing) {
+  	                // Only process if route matches
+  	                const xRoute = el.getAttribute('x-route');
+  	                const currentPath = window.location.pathname;
+  	                const normalizedPath = currentPath === '/' ? '/' : currentPath.replace(/^\/+|\/+$/g, '');
+  	                const matches = !xRoute || window.InduxRouting.matchesCondition(normalizedPath, xRoute);
+  	                if (!matches) continue;
+  	            }
+  	            await processor.processComponent(el);
+  	        }
+  	    },
+  	    initialize() {
+  	        const processor = window.InduxComponentsProcessor;
+  	        const routing = window.InduxRouting;
+  	        if (!processor) return;
+  	        // Initial scan
+  	        this.processAllPlaceholders();
+  	        // Mutation observer for new placeholders
+  	        const observer = new MutationObserver(async mutations => {
+  	            for (const mutation of mutations) {
+  	                for (const node of mutation.addedNodes) {
+  	                    if (node.nodeType === 1 && node.tagName.toLowerCase().startsWith('x-')) {
+  	                        if (!node.hasAttribute('data-pre-rendered') && !node.hasAttribute('data-processed')) {
+  	                            if (routing) {
+  	                                const xRoute = node.getAttribute('x-route');
+  	                                const currentPath = window.location.pathname;
+  	                                const normalizedPath = currentPath === '/' ? '/' : currentPath.replace(/^\/+|\/+$/g, '');
+  	                                const matches = !xRoute || window.InduxRouting.matchesCondition(normalizedPath, xRoute);
+  	                                if (!matches) continue;
+  	                            }
+  	                            await processor.processComponent(node);
+  	                        }
+  	                    }
+  	                    // Also check for any <x-*> descendants
+  	                    if (node.nodeType === 1) {
+  	                        const descendants = Array.from(node.querySelectorAll('*')).filter(el =>
+  	                            el.tagName.toLowerCase().startsWith('x-') &&
+  	                            !el.hasAttribute('data-pre-rendered') &&
+  	                            !el.hasAttribute('data-processed')
+  	                        );
+  	                        for (const el of descendants) {
+  	                            if (routing) {
+  	                                const xRoute = el.getAttribute('x-route');
+  	                                const currentPath = window.location.pathname;
+  	                                const normalizedPath = currentPath === '/' ? '/' : currentPath.replace(/^\/+|\/+$/g, '');
+  	                                const matches = !xRoute || window.InduxRouting.matchesCondition(normalizedPath, xRoute);
+  	                                if (!matches) continue;
+  	                            }
+  	                            await processor.processComponent(el);
+  	                        }
+  	                    }
+  	                }
+  	            }
+  	        });
+
+  	        // Ensure document.body exists before observing
+  	        if (document.body) {
+  	            observer.observe(document.body, { childList: true, subtree: true });
+  	        } else {
+  	            // Wait for body to be available
+  	            document.addEventListener('DOMContentLoaded', () => {
+  	                observer.observe(document.body, { childList: true, subtree: true });
+  	            });
+  	        }
+  	    }
+  	}; 
+
+  	// Main initialization for Indux Components
+  	function initializeComponents() {
+  	    if (window.InduxComponentsRegistry) window.InduxComponentsRegistry.initialize();
+  	    if (window.InduxComponentsLoader) window.InduxComponentsLoader.initialize();
+  	    if (window.InduxComponentsProcessor) window.InduxComponentsProcessor.initialize();
+  	    if (window.InduxComponentsSwapping) window.InduxComponentsSwapping.initialize();
+  	    if (window.InduxComponentsMutation) window.InduxComponentsMutation.initialize();
+  	    if (window.InduxComponentsUtils) window.InduxComponentsUtils.initialize?.();
+  	    window.__induxComponentsInitialized = true;
+  	    window.dispatchEvent(new CustomEvent('indux:components-ready'));
+  	}
+
+  	if (document.readyState === 'loading') {
+  	    document.addEventListener('DOMContentLoaded', initializeComponents);
+  	} else {
+  	    initializeComponents();
+  	}
+
+  	window.InduxComponents = {
+  	    initialize: initializeComponents
+  	};
+  	return indux_components;
   }
 
-  if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initializeComponents);
-  } else {
-      initializeComponents();
-  }
-
-  window.InduxComponents = {
-      initialize: initializeComponents
-  };
+  requireIndux_components();
 
   /* Indux Code */
 
@@ -4061,34 +4344,38 @@ ${H}`)
 
       // Create proxy for route-specific lookups
       function createRouteProxy(dataSourceData, pathKey, dataSourceName) {
+          // First check if we have a valid route
+          let foundItem = null;
+          try {
+              const store = Alpine.store('data');
+              const currentPath = store?._currentUrl || window.location.pathname;
+              let pathSegments = currentPath.split('/').filter(segment => segment);
+              
+              // Filter out language codes from path segments for route matching
+              const localeStore = Alpine.store('locale');
+              if (localeStore && localeStore.available && pathSegments.length > 0) {
+                  const firstSegment = pathSegments[0];
+                  if (localeStore.available.includes(firstSegment)) {
+                      pathSegments = pathSegments.slice(1);
+                  }
+              }
+              
+              if (dataSourceData && typeof dataSourceData === 'object') {
+                  foundItem = findItemByPath(dataSourceData, pathKey, pathSegments);
+              }
+          } catch (error) {
+              // Error finding route
+          }
+          
+          // If no route found, return null to make the expression falsy
+          if (!foundItem) {
+              return null;
+          }
+          
+          // Return a proxy for the found item
           return new Proxy({}, {
               get(target, prop) {
                   try {
-                      // Get current URL from store (reactive)
-                      const store = Alpine.store('data');
-                      const currentPath = store?._currentUrl || window.location.pathname;
-                      let pathSegments = currentPath.split('/').filter(segment => segment);
-                      
-                      // Filter out language codes from path segments for route matching
-                      // Language codes are typically 2-3 characters or extended codes like 'az-Arab'
-                      const localeStore = Alpine.store('locale');
-                      if (localeStore && localeStore.available && pathSegments.length > 0) {
-                          const firstSegment = pathSegments[0];
-                          // Check if first segment is a language code
-                          if (localeStore.available.includes(firstSegment)) {
-                              // Remove the language code from path segments
-                              pathSegments = pathSegments.slice(1);
-                          }
-                      }
-                      
-                      // If dataSource data is not loaded yet, return empty string for string properties
-                      if (!dataSourceData || typeof dataSourceData !== 'object') {
-                          return typeof prop === 'string' ? '' : undefined;
-                      }
-                      
-                      // Search through dataSource data recursively
-                      const foundItem = findItemByPath(dataSourceData, pathKey, pathSegments);
-                      
                       if (foundItem && prop in foundItem) {
                           return foundItem[prop];
                       }
@@ -4099,11 +4386,9 @@ ${H}`)
                           return groupItem?.group || '';
                       }
                       
-                      // Return empty string for string properties to prevent expression display
-                      return typeof prop === 'string' ? '' : undefined;
+                      return undefined;
                   } catch (error) {
-                      // Return empty string for string properties, undefined otherwise
-                      return typeof prop === 'string' ? '' : undefined;
+                      return undefined;
                   }
               }
           });
@@ -4151,6 +4436,10 @@ ${H}`)
 
       // Recursively search for items with matching path
       function findItemByPath(data, pathKey, pathSegments) {
+          if (!pathSegments || pathSegments.length === 0) {
+              return null;
+          }
+          
           if (Array.isArray(data)) {
               for (const item of data) {
                   if (typeof item === 'object' && item !== null) {
@@ -4961,16 +5250,16 @@ ${H}`)
               return pathParts[0];
           }
 
-          // 2. Check HTML lang attribute
-          const htmlLang = document.documentElement.lang;
-          if (htmlLang && isValidLanguageCode(htmlLang) && availableLocales.includes(htmlLang)) {
-              return htmlLang;
-          }
-
-          // 3. Check localStorage
+          // 2. Check localStorage (user preference from UI toggles)
           const storedLang = safeStorage.get('lang');
           if (storedLang && isValidLanguageCode(storedLang) && availableLocales.includes(storedLang)) {
               return storedLang;
+          }
+
+          // 3. Check HTML lang attribute
+          const htmlLang = document.documentElement.lang;
+          if (htmlLang && isValidLanguageCode(htmlLang) && availableLocales.includes(htmlLang)) {
+              return htmlLang;
           }
 
           // 4. Check browser language
@@ -5363,6 +5652,21 @@ ${H}`)
   	    });
   	}
 
+  	// Post-process HTML to enable checkboxes by removing disabled attribute
+  	function enableCheckboxes(html) {
+  	    // Create a temporary DOM element to parse the HTML
+  	    const temp = document.createElement('div');
+  	    temp.innerHTML = html;
+  	    
+  	    // Find all checkbox inputs and remove disabled attribute
+  	    const checkboxes = temp.querySelectorAll('input[type="checkbox"]');
+  	    checkboxes.forEach(checkbox => {
+  	        checkbox.removeAttribute('disabled');
+  	    });
+  	    
+  	    return temp.innerHTML;
+  	}
+
 
 
 
@@ -5516,7 +5820,10 @@ ${H}`)
   	                // Load marked.js and parse markdown
   	                const marked = await loadMarkedJS();
   	                const processedMarkdown = renderXCodeGroup(markdownSource);
-  	                const html = marked.parse(processedMarkdown);
+  	                let html = marked.parse(processedMarkdown);
+
+  	                // Post-process HTML to enable checkboxes (remove disabled attribute)
+  	                html = enableCheckboxes(html);
 
   	                // Only update if content has changed and isn't empty
   	                if (element.innerHTML !== html && html.trim() !== '') {
@@ -5582,7 +5889,14 @@ ${H}`)
   	        }
 
   	        // Handle expressions (file paths, inline strings, content references)
-  	        const getMarkdownContent = evaluateLater(expression);
+  	        // Check if this is a simple string literal that needs to be quoted
+  	        let processedExpression = expression;
+  	        if (!expression.includes('+') && !expression.includes('`') && !expression.includes('${') && 
+  	            !expression.startsWith('$') && !expression.startsWith("'") && !expression.startsWith('"')) {
+  	            // Wrap simple string literals in quotes to prevent Alpine from treating them as expressions
+  	            processedExpression = `'${expression.replace(/'/g, "\\'")}'`;
+  	        }
+  	        const getMarkdownContent = evaluateLater(processedExpression);
 
   	        effect(() => {
   	            getMarkdownContent(async (pathOrContent) => {
@@ -5609,12 +5923,20 @@ ${H}`)
   	                // If it's a file path, fetch the content
   	                if (isFilePath) {
   	                    try {
-  	                        const response = await fetch(pathOrContent);
+  	                        // Ensure the path is absolute from project root
+  	                        let resolvedPath = pathOrContent;
+  	                        
+  	                        // If it's a relative path (doesn't start with /), make it absolute from root
+  	                        if (!pathOrContent.startsWith('/')) {
+  	                            resolvedPath = '/' + pathOrContent;
+  	                        }
+  	                        
+  	                        const response = await fetch(resolvedPath);
   	                        if (response.ok) {
   	                            markdownContent = await response.text();
   	                        } else {
-  	                            console.warn(`[Indux] Failed to fetch markdown file: ${pathOrContent}`);
-  	                            markdownContent = `# Error Loading Content\n\nCould not load: ${pathOrContent}`;
+  	                            console.warn(`[Indux] Failed to fetch markdown file: ${resolvedPath}`);
+  	                            markdownContent = `# Error Loading Content\n\nCould not load: ${resolvedPath}`;
   	                        }
   	                    } catch (error) {
   	                        console.error(`[Indux] Error fetching markdown file: ${pathOrContent}`, error);
@@ -5630,7 +5952,10 @@ ${H}`)
   	                }
 
   	                const marked = await loadMarkedJS();
-  	                const html = marked.parse(markdownContent);
+  	                let html = marked.parse(markdownContent);
+  	                
+  	                // Post-process HTML to enable checkboxes (remove disabled attribute)
+  	                html = enableCheckboxes(html);
   	                
   	                // Create temporary container
   	                const temp = document.createElement('div');
@@ -5693,7 +6018,10 @@ ${H}`)
   	                    // Load marked.js and parse markdown
   	                    const marked = await loadMarkedJS();
   	                    const processedMarkdown = renderXCodeGroup(newContent);
-  	                    const html = marked.parse(processedMarkdown);
+  	                    let html = marked.parse(processedMarkdown);
+  	                    
+  	                    // Post-process HTML to enable checkboxes (remove disabled attribute)
+  	                    html = html.replace(/<input type="checkbox"([^>]*?)disabled([^>]*?)>/g, '<input type="checkbox"$1$2>');
   	                    
   	                    // Create temporary container
   	                    const temp = document.createElement('div');
@@ -6184,27 +6512,57 @@ ${H}`)
       initialize: initializeRouting,
       // Route matching utility
       matchesCondition: (path, condition) => {
-          const normalizedPath = path.replace(/^\/+|\/+$/g, '') || '/';
+          // Normalize path consistently - keep '/' as '/' for home route
+          const normalizedPath = path === '/' ? '/' : path.replace(/^\/+|\/+$/g, '') || '/';
+
+          // Get localization codes from manifest
+          const localizationCodes = [];
+          try {
+              const manifest = window.InduxComponentsRegistry?.manifest || window.manifest;
+              if (manifest && manifest.data) {
+                  Object.values(manifest.data).forEach(dataSource => {
+                      if (typeof dataSource === 'object' && dataSource !== null) {
+                          Object.keys(dataSource).forEach(key => {
+                              if (key.match(/^[a-z]{2}(-[A-Z]{2})?$/)) {
+                                  localizationCodes.push(key);
+                              }
+                          });
+                      }
+                  });
+              }
+          } catch (e) {
+              // Ignore errors if manifest is not available
+          }
+
+          // Check if path starts with a localization code
+          let pathToCheck = normalizedPath;
+          if (localizationCodes.length > 0) {
+              const pathSegments = normalizedPath.split('/').filter(segment => segment);
+              if (pathSegments.length > 0 && localizationCodes.includes(pathSegments[0])) {
+                  // Remove the localization code and check the remaining path
+                  pathToCheck = pathSegments.slice(1).join('/') || '/';
+              }
+          }
 
           // Handle wildcards
           if (condition.includes('*')) {
               if (condition === '*') return true;
               const wildcardPattern = condition.replace('*', '');
               const normalizedPattern = wildcardPattern.replace(/^\/+|\/+$/g, '');
-              return normalizedPath.startsWith(normalizedPattern + '/');
+              return pathToCheck.startsWith(normalizedPattern + '/');
           }
 
           // Handle exact paths (starting with /)
           if (condition.startsWith('/')) {
               if (condition === '/') {
-                  return normalizedPath === '/' || normalizedPath === '';
+                  return pathToCheck === '/' || pathToCheck === '';
               }
               const routePath = condition.replace(/^\//, '');
-              return normalizedPath === routePath || normalizedPath.startsWith(routePath + '/');
+              return pathToCheck === routePath || pathToCheck.startsWith(routePath + '/');
           }
 
           // Handle substring matching (default behavior)
-          return normalizedPath.includes(condition);
+          return pathToCheck.includes(condition);
       }
   };
 
@@ -6293,6 +6651,41 @@ ${H}`)
 
       currentRoute = newRoute;
 
+      // Handle scrolling based on whether this is an anchor link or route change
+      if (!window.location.hash) {
+          // This is a route change - scroll to top
+          // Use a small delay to ensure content has loaded
+          setTimeout(() => {
+              // Scroll main page to top
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              
+              // Find and scroll scrollable containers to top
+              // Use a generic approach that works with any CSS framework
+              // Only check elements that are likely to be scrollable containers
+              const potentialContainers = document.querySelectorAll('div, main, section, article, aside, nav, header, footer, .prose');
+              potentialContainers.forEach(element => {
+                  const computedStyle = window.getComputedStyle(element);
+                  const isScrollable = (
+                      computedStyle.overflowY === 'auto' || 
+                      computedStyle.overflowY === 'scroll' ||
+                      computedStyle.overflow === 'auto' || 
+                      computedStyle.overflow === 'scroll'
+                  ) && element.scrollHeight > element.clientHeight;
+                  
+                  if (isScrollable) {
+                      element.scrollTop = 0;
+                  }
+              });
+          }, 50);
+      } else {
+          // This is an anchor link - let the browser handle the scroll naturally
+          // Use a small delay to ensure content has loaded, then let browser scroll to anchor
+          setTimeout(() => {
+              // The browser will automatically scroll to the anchor
+              // We just need to ensure the content is loaded first
+          }, 50);
+      }
+
       // Emit route change event
       window.dispatchEvent(new CustomEvent('indux:route-change', {
           detail: {
@@ -6311,14 +6704,56 @@ ${H}`)
           if (!link) return;
 
           const href = link.getAttribute('href');
-          if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
-
-          // Check if it's a relative link
+          if (!href || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+          
+          // Handle pure anchor links normally - don't intercept them
+          if (href.startsWith('#')) return;
+          
+          // Check if it's an external link FIRST (before any other processing)
+          let isExternalLink = false;
           try {
               const url = new URL(href, window.location.origin);
-              if (url.origin !== window.location.origin) return; // External link
+              if (url.origin !== window.location.origin) {
+                  isExternalLink = true; // External link
+              }
           } catch (e) {
               // Invalid URL, treat as relative
+          }
+
+          // If it's an external link, don't intercept it
+          if (isExternalLink) {
+              return;
+          }
+          
+          // Handle links with both route and anchor (e.g., /page#section)
+          if (href.includes('#')) {
+              const [path, hash] = href.split('#');
+              
+              event.preventDefault();
+              event.stopPropagation();
+              event.stopImmediatePropagation();
+
+              // Set flag to prevent recursive calls
+              isInternalNavigation = true;
+
+              // Update URL without page reload
+              history.pushState(null, '', href);
+
+              // Handle route change (but don't scroll to top since there's an anchor)
+              handleRouteChange();
+
+              // Reset flag
+              isInternalNavigation = false;
+              
+              // After route change, scroll to the anchor
+              setTimeout(() => {
+                  const targetElement = document.getElementById(hash);
+                  if (targetElement) {
+                      targetElement.scrollIntoView({ behavior: 'smooth' });
+                  }
+              }, 100);
+              
+              return;
           }
 
           event.preventDefault();
@@ -6379,6 +6814,72 @@ ${H}`)
 
       const routeElements = document.querySelectorAll('[x-route]');
 
+      // First pass: collect all defined routes (excluding !* and other negative conditions)
+      const definedRoutes = [];
+      routeElements.forEach(element => {
+          const routeCondition = element.getAttribute('x-route');
+          if (!routeCondition) return;
+
+          const conditions = routeCondition.split(',').map(cond => cond.trim());
+          conditions.forEach(cond => {
+              // Only collect positive conditions and wildcards (not negative ones)
+              if (!cond.startsWith('!') && cond !== '!*') {
+                  definedRoutes.push(cond);
+              }
+          });
+      });
+
+      // Extract localization codes from manifest.json data sources
+      const localizationCodes = [];
+      try {
+          // Check if manifest is available and has data sources
+          const manifest = window.InduxComponentsRegistry?.manifest || window.manifest;
+          if (manifest && manifest.data) {
+              Object.values(manifest.data).forEach(dataSource => {
+                  if (typeof dataSource === 'object' && dataSource !== null) {
+                      Object.keys(dataSource).forEach(key => {
+                          // Check if this looks like a localization key (common language codes)
+                          if (key.match(/^[a-z]{2}(-[A-Z]{2})?$/)) {
+                              localizationCodes.push(key);
+                          }
+                      });
+                  }
+              });
+          }
+      } catch (e) {
+          // Ignore errors if manifest is not available
+      }
+
+      // Check if current route is defined by any route
+      let isRouteDefined = definedRoutes.some(route => 
+          window.InduxRouting.matchesCondition(normalizedPath, route)
+      );
+
+      // Also check if the route starts with a localization code
+      if (!isRouteDefined && localizationCodes.length > 0) {
+          const pathSegments = normalizedPath.split('/').filter(segment => segment);
+          if (pathSegments.length > 0) {
+              const firstSegment = pathSegments[0];
+              if (localizationCodes.includes(firstSegment)) {
+                  // This is a localized route - check if the remaining path is defined
+                  const remainingPath = pathSegments.slice(1).join('/');
+                  
+                  // If no remaining path, treat as root route
+                  if (remainingPath === '') {
+                      isRouteDefined = definedRoutes.some(route => 
+                          window.InduxRouting.matchesCondition('/', route) || 
+                          window.InduxRouting.matchesCondition('', route)
+                      );
+                  } else {
+                      // Check if the remaining path matches any defined route
+                      isRouteDefined = definedRoutes.some(route => 
+                          window.InduxRouting.matchesCondition(remainingPath, route)
+                      );
+                  }
+              }
+          }
+      }
+
       routeElements.forEach(element => {
           const routeCondition = element.getAttribute('x-route');
           if (!routeCondition) return;
@@ -6389,6 +6890,19 @@ ${H}`)
           const negativeConditions = conditions
               .filter(cond => cond.startsWith('!'))
               .map(cond => cond.slice(1));
+
+          // Special handling for !* (undefined routes)
+          if (conditions.includes('!*')) {
+              const shouldShow = !isRouteDefined;
+              if (shouldShow) {
+                  element.removeAttribute('hidden');
+                  element.style.display = '';
+              } else {
+                  element.setAttribute('hidden', '');
+                  element.style.display = 'none';
+              }
+              return;
+          }
 
           // Check conditions
           const hasNegativeMatch = negativeConditions.some(cond =>
@@ -6403,8 +6917,10 @@ ${H}`)
           // Show/hide element
           if (shouldShow) {
               element.removeAttribute('hidden');
+              element.style.display = '';
           } else {
               element.setAttribute('hidden', '');
+              element.style.display = 'none';
           }
       });
   }
@@ -6419,6 +6935,13 @@ ${H}`)
       // Listen for route changes
       window.addEventListener('indux:route-change', (event) => {
           processRouteVisibility(event.detail.normalizedPath);
+      });
+
+      // Listen for component processing to ensure visibility is applied after components load
+      window.addEventListener('indux:components-processed', () => {
+          const currentPath = window.location.pathname;
+          const normalizedPath = currentPath === '/' ? '/' : currentPath.replace(/^\/|\/$/g, '');
+          processRouteVisibility(normalizedPath);
       });
   }
 
@@ -6701,6 +7224,349 @@ ${H}`)
       initialize: initializeHeadContent,
       processElementHeadContent,
       processAllHeadContent
+  }; 
+
+  // Router anchors
+
+  // Anchors functionality
+  function initializeAnchors() {
+      
+      // Register anchors directive  
+      Alpine.directive('anchors', (el, { expression, modifiers }, { effect, evaluateLater, Alpine }) => {
+
+          
+          try {
+              // Parse pipeline syntax: 'scope | targets'
+              const parseExpression = (expr) => {
+                  if (!expr || expr.trim() === '') {
+                      return { scope: '', targets: 'h1, h2, h3, h4, h5, h6' };
+                  }
+                  
+                  if (expr.includes('|')) {
+                      const parts = expr.split('|').map(p => p.trim());
+                      return {
+                          scope: parts[0] || '',
+                          targets: parts[1] || 'h1, h2, h3, h4, h5, h6'
+                      };
+                  } else {
+                      return { scope: '', targets: expr };
+                  }
+              };
+              
+              // Extract anchors function
+              const extractAnchors = (expr) => {
+                  const parsed = parseExpression(expr);
+                  
+                  let containers = [];
+                  if (!parsed.scope) {
+                      containers = [document.body];
+                  } else {
+                      containers = Array.from(document.querySelectorAll(parsed.scope));
+                  }
+                  
+                  let elements = [];
+                  const targets = parsed.targets.split(',').map(t => t.trim());
+                  
+                  containers.forEach(container => {
+                      // Query all targets at once, then filter and sort by DOM order
+                      const allMatches = [];
+                      targets.forEach(target => {
+                          const matches = container.querySelectorAll(target);
+                          allMatches.push(...Array.from(matches));
+                      });
+                      
+                      // Remove duplicates and sort by DOM order
+                      const uniqueMatches = [...new Set(allMatches)];
+                      uniqueMatches.sort((a, b) => {
+                          const position = a.compareDocumentPosition(b);
+                          if (position & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
+                          if (position & Node.DOCUMENT_POSITION_PRECEDING) return 1;
+                          return 0;
+                      });
+                      
+                      elements.push(...uniqueMatches);
+                  });
+                  
+                  return elements.map((element, index) => {
+                      // Generate simple ID
+                      let id = element.id;
+                      if (!id) {
+                          id = element.textContent.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
+                          if (id) element.id = id;
+                      }
+
+                      // Selected state will be managed by intersection observer
+
+                      return {
+                          id: id,
+                          text: element.textContent,
+                          link: `#${id}`,
+                          tag: element.tagName.toLowerCase(),
+                          class: element.className.split(' ')[0] || '',
+                          classes: Array.from(element.classList),
+                          index: index,
+                          element: element,
+
+                      };
+                  });
+              };
+              
+              // Track rendered elements to prevent duplicates
+              let renderedElements = [];
+              
+              // Update Alpine data with anchors
+              const updateAnchors = (anchors) => {
+                  // Remove existing rendered elements if they exist
+                  renderedElements.forEach(element => {
+                      if (element.parentElement) {
+                          element.remove();
+                      }
+                  });
+                  renderedElements = [];
+                  
+                  // Set Alpine reactive property for anchor count
+                  Alpine.store('anchors', { count: anchors.length });
+                  
+                  // Render using the template element's structure and classes
+                  if (anchors.length > 0) {
+                      // Find the container div inside the template
+                      const templateContent = el.content || el;
+                      const containerTemplate = templateContent.querySelector('div') || el.querySelector('div');
+                      
+                      if (containerTemplate) {
+                          // Clone the container div from the template
+                          const containerElement = containerTemplate.cloneNode(false); // Don't clone children
+                          
+                          // Remove Alpine directives from the container
+                          containerElement.removeAttribute('x-show');
+                          
+                          anchors.forEach(anchor => {
+                              // Find the <a> element inside the template
+                              const anchorTemplate = templateContent.querySelector('a') || el.querySelector('a');
+                              
+                              if (anchorTemplate) {
+                                  // Clone the <a> element from inside the template
+                                  const linkElement = anchorTemplate.cloneNode(true);
+                                  
+                                  // Remove Alpine directives
+                                  linkElement.removeAttribute('x-text');
+                                  linkElement.removeAttribute(':href');
+                                  
+                                  // Set the actual href and text content
+                                  linkElement.href = anchor.link;
+                                  linkElement.textContent = anchor.text;
+                                  
+                                  // Evaluate :class binding if present
+                                  if (linkElement.hasAttribute(':class')) {
+                                      const classBinding = linkElement.getAttribute(':class');
+                                      linkElement.removeAttribute(':class');
+                                      
+                                      try {
+                                          // Create a simple evaluator for class bindings
+                                          const evaluateClassBinding = (binding, anchor) => {
+                                              // Replace anchor.property references with actual values
+                                              let evaluated = binding
+                                                  .replace(/anchor\.tag/g, `'${anchor.tag}'`)
+                                                  .replace(/anchor\.selected/g, anchor.selected ? 'true' : 'false')
+                                                  .replace(/anchor\.index/g, anchor.index)
+                                                  .replace(/anchor\.id/g, `'${anchor.id}'`)
+                                                  .replace(/anchor\.text/g, `'${anchor.text.replace(/'/g, "\\'")}'`)
+                                                  .replace(/anchor\.link/g, `'${anchor.link}'`)
+                                                  .replace(/anchor\.class/g, `'${anchor.class}'`);
+                                              
+                                              // Simple object evaluation for class bindings
+                                              if (evaluated.includes('{') && evaluated.includes('}')) {
+                                                  // Extract the object part
+                                                  const objectMatch = evaluated.match(/\{([^}]+)\}/);
+                                                  if (objectMatch) {
+                                                      const objectContent = objectMatch[1];
+                                                      const classPairs = objectContent.split(',').map(pair => pair.trim());
+                                                      
+                                                      classPairs.forEach(pair => {
+                                                          const [className, condition] = pair.split(':').map(s => s.trim());
+                                                          if (condition && eval(condition)) {
+                                                              linkElement.classList.add(className.replace(/['"]/g, ''));
+                                                          }
+                                                      });
+                                                  }
+                                              }
+                                          };
+                                          
+                                          evaluateClassBinding(classBinding, anchor);
+                                      } catch (error) {
+                                          console.warn('[Indux Anchors] Could not evaluate class binding:', classBinding, error);
+                                      }
+                                  }
+                                  
+                                  containerElement.appendChild(linkElement);
+                              }
+                          });
+                          
+                          // Insert the container before the template element
+                          el.parentElement.insertBefore(containerElement, el);
+                          renderedElements.push(containerElement);
+                      } else {
+                          // Fallback: insert links directly if no container found
+                          anchors.forEach(anchor => {
+                              const templateContent = el.content || el;
+                              const anchorTemplate = templateContent.querySelector('a') || el.querySelector('a');
+                              
+                              if (anchorTemplate) {
+                                  const linkElement = anchorTemplate.cloneNode(true);
+                                  linkElement.removeAttribute('x-text');
+                                  linkElement.removeAttribute(':href');
+                                  linkElement.href = anchor.link;
+                                  linkElement.textContent = anchor.text;
+                                  
+                                  // Evaluate :class binding if present
+                                  if (linkElement.hasAttribute(':class')) {
+                                      const classBinding = linkElement.getAttribute(':class');
+                                      linkElement.removeAttribute(':class');
+                                      
+                                      try {
+                                          // Create a simple evaluator for class bindings
+                                          const evaluateClassBinding = (binding, anchor) => {
+                                              // Replace anchor.property references with actual values
+                                              let evaluated = binding
+                                                  .replace(/anchor\.tag/g, `'${anchor.tag}'`)
+                                                  .replace(/anchor\.selected/g, anchor.selected ? 'true' : 'false')
+                                                  .replace(/anchor\.index/g, anchor.index)
+                                                  .replace(/anchor\.id/g, `'${anchor.id}'`)
+                                                  .replace(/anchor\.text/g, `'${anchor.text.replace(/'/g, "\\'")}'`)
+                                                  .replace(/anchor\.link/g, `'${anchor.link}'`)
+                                                  .replace(/anchor\.class/g, `'${anchor.class}'`);
+                                              
+                                              // Simple object evaluation for class bindings
+                                              if (evaluated.includes('{') && evaluated.includes('}')) {
+                                                  // Extract the object part
+                                                  const objectMatch = evaluated.match(/\{([^}]+)\}/);
+                                                  if (objectMatch) {
+                                                      const objectContent = objectMatch[1];
+                                                      const classPairs = objectContent.split(',').map(pair => pair.trim());
+                                                      
+                                                      classPairs.forEach(pair => {
+                                                          const [className, condition] = pair.split(':').map(s => s.trim());
+                                                          if (condition && eval(condition)) {
+                                                              linkElement.classList.add(className.replace(/['"]/g, ''));
+                                                          }
+                                                      });
+                                                  }
+                                              }
+                                          };
+                                          
+                                          evaluateClassBinding(classBinding, anchor);
+                                      } catch (error) {
+                                          console.warn('[Indux Anchors] Could not evaluate class binding:', classBinding, error);
+                                      }
+                                  }
+                                  
+                                  el.parentElement.insertBefore(linkElement, el);
+                                  renderedElements.push(linkElement);
+                              }
+                          });
+                      }
+                      
+                      el.style.display = 'none'; // Hide template
+                  } else {
+                      // No anchors - ensure template is visible and elements are cleared
+                      el.style.display = '';
+                  }
+              };
+              
+              // Try extraction and update data
+              const tryExtraction = () => {
+                  const anchors = extractAnchors(expression);
+                  updateAnchors(anchors);
+                  return anchors;
+              };
+              
+              // Try extraction with progressive delays and content detection
+              const attemptExtraction = (attempt = 1, maxAttempts = 10) => {
+                  const anchors = extractAnchors(expression);
+                  
+                  if (anchors.length > 0) {
+                      updateAnchors(anchors);
+                      return true;
+                  } else if (attempt < maxAttempts) {
+                      setTimeout(() => {
+                          attemptExtraction(attempt + 1, maxAttempts);
+                      }, attempt * 200); // Progressive delay: 200ms, 400ms, 600ms, etc.
+                  } else {
+                      // No anchors found after all attempts, update store to clear previous state
+                      updateAnchors([]);
+                  }
+                  return false;
+              };
+              
+              // Store refresh function on element for route changes
+              el._x_anchorRefresh = () => {
+                  attemptExtraction();
+              };
+              
+              // Start extraction attempts
+              attemptExtraction();
+              
+              
+          } catch (error) {
+              console.error('[Indux Anchors] Error in directive:', error);
+          }
+      });
+  }
+
+  // Initialize anchors when Alpine is ready
+  document.addEventListener('alpine:init', () => {
+
+      try {
+          initializeAnchors();
+
+      } catch (error) {
+          console.error('[Indux Anchors] Failed to initialize:', error);
+      }
+  });
+
+  // Refresh anchors when route changes
+  window.addEventListener('indux:route-change', () => {
+      // Immediately clear the store to hide the h5 element
+      Alpine.store('anchors', { count: 0 });
+      
+      // Wait longer for content to load after route change
+      setTimeout(() => {
+          const anchorElements = document.querySelectorAll('[x-anchors]');
+          anchorElements.forEach(el => {
+              const expression = el.getAttribute('x-anchors');
+              if (expression && el._x_anchorRefresh) {
+                  el._x_anchorRefresh();
+              }
+          });
+      }, 200);
+  });
+
+  // Refresh anchors when hash changes (for active state updates)
+  window.addEventListener('hashchange', () => {
+      const anchorElements = document.querySelectorAll('[x-anchors]');
+      anchorElements.forEach(el => {
+          if (el._x_anchorRefresh) {
+              el._x_anchorRefresh();
+          }
+      });
+  });
+
+  // Also refresh anchors when components are processed
+  window.addEventListener('indux:components-processed', () => {
+      setTimeout(() => {
+          const anchorElements = document.querySelectorAll('[x-anchors]');
+          anchorElements.forEach(el => {
+              const expression = el.getAttribute('x-anchors');
+              if (expression && el._x_anchorRefresh) {
+                  el._x_anchorRefresh();
+              }
+          });
+      }, 100);
+  }); 
+
+  // Export anchors interface
+  window.InduxRoutingAnchors = {
+      initialize: initializeAnchors
   };
 
   /* Indux Slides */

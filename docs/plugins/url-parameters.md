@@ -1,10 +1,12 @@
 # URL Parameters
 
+Use URL paths to display content.
+
 ---
 
 ## Setup
 
-URL parameters are supported by an Alpine plugin, available on its own or as part of Indux bundles.
+URL parameters are supported by a plugin for Alpine JS, available on its own or as part of Indux bundles.
 
 <x-code-group copy>
 
@@ -13,7 +15,7 @@ URL parameters are supported by an Alpine plugin, available on its own or as par
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux URL parameters plugin only -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.url.params.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.url.paremeters.min.js"></script>
 ```
 
 ```html "Indux JS"
@@ -21,23 +23,19 @@ URL parameters are supported by an Alpine plugin, available on its own or as par
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux JS -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.js"></script>
 ```
 
 ```html "Quickstart"
 <!-- Indux JS, Alpine, and Tailwind combined -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.quickstart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js"></script>
 ```
 
 </x-code-group>
 
-The URL parameters plugin provides a reactive `$url` magic method for storing application state in the URL with common chain characters like `?`, `#`, and `&`. This preserves user interactions like search queries, filters, and view preferences, and the generated URLs can be further shared or bookmarked.
+The plugin provides a reactive `$url` magic method for storing application state in the URL with common chain characters like `?`, `#`, and `&`. This preserves user interactions like search queries, filters, and view preferences, and the generated URLs can be further shared or bookmarked.
 
 Parameter updates are debounced by 300ms to prevent excessive URL changes during rapid user input. They persist across page reloads and are reactive to browser back/forward navigation.
-
-::: brand icon="lucide:info"
-URL parameters work seamlessly with the Indux [router](/plugins/router) for complete navigation and state management.
-:::
 
 ---
 
@@ -52,7 +50,7 @@ URL parameters use the `$url` magic method with a simple dot notation pattern:
 
 Parameter names can be anything (`search`, `filter`, `view`, `user`, etc).
 
-Alpine's <a href="https://alpinejs.dev/directives/model" target="_blank">x-model</a> directive is used to bind with buttons, inputs, etc, e.g. `x-model="$url.paramName.value"`
+Alpine's <a href="https://alpinejs.dev/directives/model" target="_blank">x-model</a> directive is used to bind with form elements, e.g. `x-model="$url.paramName.value"`.
 
 ---
 
@@ -156,7 +154,7 @@ Remove a parameter entirely from the URL.
 
 ## Data Sources
 
-Content from a [collection](/plugins/content-collections) can be the subject of a URL parameter.
+Content from a [data source](/plugins/data-sources) can be the subject of a URL parameter.
 
 ::: frame col
 <!-- Filter -->
@@ -177,7 +175,7 @@ Content from a [collection](/plugins/content-collections) can be the subject of 
 
 <x-code-group copy>
 
-```html
+```html "HTML"
 <!-- Filter -->
 <select x-model="$url.category.value">
     <option value="">All Categories</option>

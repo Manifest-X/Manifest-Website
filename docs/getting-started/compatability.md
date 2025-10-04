@@ -13,8 +13,8 @@ The latest version of Indux is designed to be used with:
 
 ## Browsers
 
-The latest version of Indux is designed for and tested on the latest stable versions of Chrome, Firefox, Edge, and Safari. It does not support any version of IE.
+The latest version of Indux is designed for and tested on the latest stable versions of Chrome, Firefox, Edge, and Safari.
 
-Indux only utilizes native language features that have been declared web-standard, but note that older browser versions—or divergent browser like Firefox—may lack support for more modern HTML and CSS capbilities, such as HTML's `popover` attribute for various menus and tooltips.
+Indux only uses native language features that have been declared web-standard, but note that older browser versions—or divergent browser like Firefox—may lack support for more modern HTML and CSS capbilities, such as HTML's `popover` attribute for menus and tooltips. Polyfill scripts can be used to mimic support for these abilities in older browsers.
 
-Check [Can I Use?](https://caniuse.com) for specific browser feature support.
+Check <a href="https://caniuse.com" target="_blank">Can I Use?</a> for specific browser feature support.

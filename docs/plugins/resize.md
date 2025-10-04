@@ -1,10 +1,12 @@
 # Resize
 
+Make any HTML element resizable with drag handles.
+
 ---
 
 ## Setup
 
-Resize functionality is supported by an Alpine plugin, available on its own or as part of Indux bundles.
+Resize functionality is supported by a plugin for Alpine JS, available on its own or as part of Indux bundles.
 
 <x-code-group copy>
 
@@ -12,8 +14,8 @@ Resize functionality is supported by an Alpine plugin, available on its own or a
 <!-- Alpine -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-<!-- Indux resize plugin -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.resize.js"></script>
+<!-- Indux resize plugin only -->
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.resize.min.js"></script>
 ```
 
 ```html "Indux JS"
@@ -21,12 +23,12 @@ Resize functionality is supported by an Alpine plugin, available on its own or a
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux JS -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.js"></script>
 ```
 
 ```html "Quickstart"
 <!-- Indux JS, Alpine, and Tailwind combined -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.quickstart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js"></script>
 ```
 
 </x-code-group>
@@ -36,28 +38,18 @@ Resizable element styles are included in Indux CSS, or as standalone stylesheets
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css">
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.resize.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.resize.css">
 ```
 
 </x-code-group>
 
 
-This plugin adds drag-to-resize functionality to any element using an `x-resize` directive. Elements can be resized horizontally, vertically, or both with customizable constraints, snap points, and persistence.
-
-::: brand icon="lucide:info"
-**Performance Optimized**: The plugin uses lazy initialization and caching to prevent performance issues on pages with many resize elements. Initialization is deferred using `requestAnimationFrame` to avoid blocking page load. DOM structure is optimized with CSS pseudo-elements for visual feedback.
-
-**Semantic Compatible**: Uses `<span>` elements for handles to maintain HTML validity across different parent element types.
-:::
+This plugin adds drag-to-resize functionality to any element using an `x-resize` directive. Elements can be resized horizontally, vertically, or both with customizable constraints, snap points, and persistence. Resizability is initialized with lazy loading and caching to prevent performance issues on pages with many resize elements.
 
 ---
 
@@ -77,7 +69,7 @@ Use the `x-resize` directive on any element to make it resizable:
 </div>
 ```
 
-The element will automatically be resizable from all edges and corners. Size constraints are applied with min/max width and height styles.
+The element will automatically be resizable from all edges and corners. Size constraints can be applied with min/max width and height styles.
 
 ---
 
@@ -134,9 +126,9 @@ Resize behavior is customized with properties inside the `x-resize` attribute.
 ```
 
 This example has:
-- End and bottom-end handles (right edge in LTR contexts).
-- Snap points of 300px, 50%, and 35rem, which get snapped too when resizing is within 50px of them.
-- Snap-to-close threshold of 200px width
+- End and bottom-end handles.
+- Snap points of 300px, 50%, and 35rem, which get snapped to when resizing is within a 50px distance of them.
+- Snap-to-close threshold of 200px width.
 - `sidebar` Alpine variable to toggle the sidebar with a button.
 - Persistence of width on page refresh.
 - Min and max size styles to constrain resizing.
@@ -149,14 +141,14 @@ This example has:
 
 ## Multi-Panel Layout
 
-Sibling elements of a resizable panel will be affected depending on its own styles. Give static siblings `flex: 1` (`flex-1` in Tailwind) to allow it to grow or shrink as required the resizing around it.
+Sibling elements of a resizable panel will be affected depending on its own styles. Give static siblings `flex: 1` (`flex-1` in Tailwind) to allow it to grow or shrink as required by the resized elements around it.
 
 ::: frame
 <div class="row w-full max-w-full h-32">
     <div x-resize="{
         handles: ['end']
     }" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border border-line">
-        Left panel
+        First panel
     </div>
     <div class="main-content flex-1 p-4 bg-surface-2 border-y border-line">
         Main content
@@ -164,7 +156,7 @@ Sibling elements of a resizable panel will be affected depending on its own styl
     <div x-resize="{
         handles: ['start']
     }" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border border-line">
-        Right panel
+        Second panel
     </div>
 </div>
 :::
@@ -172,7 +164,7 @@ Sibling elements of a resizable panel will be affected depending on its own styl
 ```html copy
 <div class="row w-full max-w-full h-32">
 
-    <!-- Resizeable left panel -->
+    <!-- Resizeable first panel -->
     <div x-resize="{
         handles: ['end']
     }" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border border-line">
@@ -184,7 +176,7 @@ Sibling elements of a resizable panel will be affected depending on its own styl
         Main content
     </div>
 
-    <!-- Resizable end panel -->
+    <!-- Resizable last panel -->
     <div x-resize="{
         handles: ['start']
     }" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border border-line">

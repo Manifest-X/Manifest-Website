@@ -6,15 +6,32 @@ Apply light, dark, and system themes.
 
 ## Setup
 
-Add an [Indux script](/getting-started/setup) to your project, or use the standalone themes plugin:
+Color themes are supported by a plugin for Alpine JS, available on its own or as part of Indux bundles.
 
-```html "<head> or <body>" copy
+<x-code-group copy>
+
+```html "Standalone"
 <!-- Alpine -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-<!-- Indux themes plugin -->
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.themes.js"></script>
+<!-- Indux theme plugin only -->
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.themes.min.js"></script>
 ```
+
+```html "Indux JS"
+<!-- Alpine -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- Indux JS -->
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.js"></script>
+```
+
+```html "Quickstart"
+<!-- Indux JS, Alpine, and Tailwind combined -->
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js"></script>
+```
+
+</x-code-group>
 
 ---
 
@@ -28,7 +45,7 @@ The light theme is the default color mode, picking up all variable and static co
 
 ```css "Variable"
 :root {
-    --color-page: var(--color-50);
+    --color-page: #efefef;
 }
 
 .card {
@@ -44,6 +61,8 @@ The light theme is the default color mode, picking up all variable and static co
 
 </x-code-group>
 
+See [theme](/styles/theme) styles for Indux's suggested color variables.
+
 ---
 
 ### Dark
@@ -53,28 +72,31 @@ Use the `.dark` class to override light/default color values. The plugin operate
 <x-code-group>
 
 ```css "Variable"
+/* Light theme */
 :root {
-    --color-page: var(--color-50);
+    --color-page: #efefef;
 }
 
+/* Dark theme */
 .dark {
-    --color-page: var(--color-950);
+    --color-page: #000000;
 }
 
-/* .dark variaable value applies in dark mode  */
+/* Card will adjust background for current theme */
 .card {
     background-color: var(--color-page);
 }
 ```
 
 ```css "Static"
+/* Light theme element */
 .card {
-    background-color: white;
+    background-color: #eee;
 }
 
-/* .dark override applies in dark mode */
+/* Dark theme element */
 .dark .card {
-    background-color: black;
+    background-color: #222;
 }
 ```
 
@@ -90,13 +112,11 @@ Using Tailwind, dark colors can also be set in HTML using the `dark:` variant on
 
 ### System
 
-The system theme follows the user's system preference for light or dark mode, including automatic switching at dusk and dawn. No additional configuration is required.
+The system theme follows the user's system preference for light or dark mode, including automatic switching at dawn and dusk. No additional configuration is required.
 
 ---
 
-## Usage
-
-### UI Toggles
+## UI Toggles
 
 Allow users to toggle color themes with the `x-theme` directive, using the following values:
 - `'light'` sets to light theme
@@ -104,23 +124,63 @@ Allow users to toggle color themes with the `x-theme` directive, using the follo
 - `'system'` sets to system theme
 - `'toggle'` toggles between light and dark themes
 
+### Buttons
+
 ::: frame
 <button x-theme="'light'"><span x-icon="lucide:sun"></span><span>Light</span></button>
 <button x-theme="'dark'"><span x-icon="lucide:moon"></span><span>Dark</span></button>
 <button x-theme="'system'"><span x-icon="lucide:sun-moon"></span><span>System</span></button>
-<button x-theme="'toggle'" x-icon="$theme.current === 'light' ? 'ph:moon' : 'ph:sun'" aria-label="Toggle Theme"></button>
 :::
 
 ```html copy
 <button x-theme="'light'"><span x-icon="lucide:sun"></span><span>Light</span></button>
 <button x-theme="'dark'"><span x-icon="lucide:moon"></span><span>Dark</span></button>
 <button x-theme="'system'"><span x-icon="lucide:sun-moon"></span><span>System</span></button>
-<button x-theme="'toggle'" x-icon="$theme.current === 'light' ? 'ph:moon' : 'ph:sun'" aria-label="Toggle Theme"></button>
 ```
+
+See [buttons](/elements/buttons) for details on the element.
 
 ---
 
-### Current Theme
+### Toggle
+
+::: frame
+<button x-theme="'toggle'" x-icon="$theme.current === 'light' ? 'ph:moon' : 'ph:sun'" aria-label="Toggle Theme"></button>
+:::
+
+```html copy
+<button x-theme="'toggle'" x-icon="$theme.current === 'light' ? 'ph:moon' : 'ph:sun'" aria-label="Toggle Theme"></button>
+```
+
+See [icons](/elements/icons) for details on conditional icons.
+
+---
+
+### Dropdown
+
+::: frame
+<button x-dropdown.bottom="color-theme-preview" aria-label="Color Theme Menu" x-icon="$theme.current === 'light' ? 'lucide:sun' : $theme.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'"></button>
+<menu popover id="color-theme-preview" class="min-w-0">
+    <li x-theme="'light'" :disabled="$theme.current === 'light'" x-icon="lucide:sun" aria-label="Light"></li>
+    <li x-theme="'dark'" :disabled="$theme.current === 'dark'" x-icon="lucide:moon" aria-label="Dark"></li>
+    <li x-theme="'system'" :disabled="$theme.current === 'system'" x-icon="lucide:sun-moon" aria-label="System"></li>
+</menu>
+:::
+
+```html copy
+<button x-dropdown.bottom="color-theme" aria-label="Color Theme Menu" x-icon="$theme.current === 'light' ? 'lucide:sun' : $theme.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'"></button>
+<menu popover id="color-theme" disabled="min-w-0">
+    <li x-theme="'light'" :disabled="$theme.current === 'light'" x-icon="lucide:sun" aria-label="Light"></li>
+    <li x-theme="'dark'" :disabled="$theme.current === 'dark'" x-icon="lucide:moon" aria-label="Dark"></li>
+    <li x-theme="'system'" :disabled="$theme.current === 'system'" x-icon="lucide:sun-moon" aria-label="System"></li>
+</menu>
+```
+
+See [dropdowns](/elements/dropdowns) for details on the menu element.
+
+---
+
+## Current Theme
 
 Display the current theme's title with `x-text="$theme.current"`:
 

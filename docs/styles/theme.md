@@ -5,10 +5,10 @@ Easy and scalable global style management.
 
 ## Overview
 
-Indux centralizes project theme management with a curated set of CSS variables, sometimes referred to as design tokens. These variables are referenced throughout Indux's base HTML styles, common utility classes, and can be compiled as custom utilities—establishing your project's attractive and consistent visual identity with minimal code.
+Indux centralizes project theme management with a curated set of CSS variables, sometimes referred to as design tokens. These variables are referenced throughout Indux's base HTML styles, utility classes, and can be compiled as custom utilities—establishing your project's attractive and consistent visual identity with minimal code.
 
 ::: brand icon="lucide:info"
-Most Indux stylesheets reference the theme's CSS variables. If a variable is removed, affected styles will use a static fallback value.
+Many Indux styles reference default theme variables. If a variable is removed, affected styles use a static fallback value.
 :::
 
 ---
@@ -20,16 +20,16 @@ The theme is available in the full Indux CSS library, or as a standalone stylesh
 <x-code-group copy>
 
 ```html "Indux CSS"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css">
 ```
 
 ```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css">
 
 <!-- Examples of standalone styles with theme references -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.buttons.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.utilities.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.typography.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.buttons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.utilities.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.typography.css">
 ```
 
 </x-code-group>
@@ -44,15 +44,16 @@ Certain variable names use namespace prefixes like `--color-` to automatically g
 
 ### Color Palette
 
-In the default theme, all other color variables in both light and dark themes (except primaries, accents, and overlays) make reference to the color palette as a single source of truth. Consider grabbing [alternate palettes](https://tailwindcss.com/docs/colors) or [generating your own](https://uicolors.app/generate).
+In the default theme, a color palette of variables is referenced by most other variables as a single source of truth. Consider grabbing <a href="https://tailwindcss.com/docs/colors" target="_blank" rel="noopener">alternate palettes</a> or <a href="https://uicolors.app/generate" target="_blank" rel="noopener">generating your own</a>.
 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
 | `--color-50` to<br/> `--color-950` | Base color scale from lightest to darkest | `bg-color-500`<br/>`text-color-700`<br/>`border-color-300` |
 
+---
 
 ### Theme Colors
-See [color themes](/plugins/color-themes) for more information on setting up light and dark themes. Use a `.dark { ... }` rule to override default light colors with their dark equivalents.
+See [color themes](/plugins/color-themes) for more information on setting up light and dark themes. Light/default color variables are established in a `:root`, while equivalent dark variable values go in a standalone  `.dark` style.
 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
@@ -69,8 +70,10 @@ See [color themes](/plugins/color-themes) for more information on setting up lig
 | `--color-popover-surface` | Modal and dropdown background | `bg-popover-surface` |
 | `--color-line` | Border and divider color | `border-line` |
 
+---
+
 ### Semantic Colors
-These semantic colors are easily applied to text, backgrounds, and certain form elements using the Indux [utility](/styles/utilities) classes `primary`, `accent`, and `negative`.
+These semantic colors are easily applied to text, backgrounds, and certain form elements using the Indux [utility](/styles/utilities) classes `brand`, `accent`, `positive`, and `negative`.
 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
@@ -82,16 +85,24 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 | `--color-accent-surface-hover` | Accent hover state background | `hover:bg-accent-hover` |
 | `--color-accent-inverse` | Content color on accent backgrounds | `text-accent-inverse` |
 | `--color-accent-content` | Accent text color | `text-accent-content` |
+| `--color-positive-surface` | Positive background color | `bg-positive`<br/>`border-positive` |
+| `--color-positive-surface-hover` | Positive hover state background | `hover:bg-positive-hover` |
+| `--color-positive-inverse` | Content color on positive backgrounds | `text-positive-inverse` |
+| `--color-positive-content` | Positive text color | `text-positive-content` |
 | `--color-negative-surface` | Negative background color | `bg-negative`<br/>`border-negative` |
 | `--color-negative-surface-hover` | Negative hover state background | `hover:bg-negative-hover` |
 | `--color-negative-inverse` | Content color on negative backgrounds | `text-negative-inverse` |
 | `--color-negative-content` | Negative text color | `text-negative-content` |
+
+---
 
 ### Overlay Colors
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
 | `--color-overlay-dark` | Dark overlay for banners | `bg-overlay-dark` |
 | `--color-overlay-light` | Light overlay for banners | `bg-overlay-light` |
+
+---
 
 ### Spacing & Sizing
 | Variable | Purpose | Ex. Tailwind Utilities |
@@ -102,10 +113,14 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 | `--spacing-field-height` | Form field height | `h-field-height` |
 | `--spacing-popover-offset` | Dropdown & tooltip positioning offset | `mt-dropdown-offset` |
 
+---
+
 ### Effects
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
 | `--transition` | Default form element transition timing | — |
+
+---
 
 ### Fonts
 | Variable | Purpose | Ex. Tailwind Utilities |
@@ -225,7 +240,7 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 Theme variables can be compiled into Tailwind-style custom utility classes using Indux's utilities script. To enable this, add an [Indux sript bundle](/getting-started/setup) to your project, or use the standalone utilities plugin:
 
 ```html "indux.utilities.js" copy
-<script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.utilities.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.utilities.js"></script>
 ```
 
 Unlike other plugins, this script does not require Alpine JS to operate.
@@ -234,7 +249,7 @@ Unlike other plugins, this script does not require Alpine JS to operate.
 
 ### Application
 
-Any declared CSS variables throughout your project can be compiled into utility classes, provided they use Tailwind [namespace](https://tailwindcss.com/docs/theme#theme-variable-namespaces) prefixes like `--color-` or `--spacing-`. For example:
+Any declared CSS variables throughout your project can be compiled into utility classes, provided they use Tailwind <a href="https://tailwindcss.com/docs/theme#theme-variable-namespaces" target="_blank" rel="noopener">namespace</a> prefixes like `--color-` or `--spacing-`. For example:
 
 ```css
 :root {
@@ -256,7 +271,7 @@ The runtime compiler is highly optimized for performance. Running concurrent to 
 
 ### Tailwind Integration
 
-The utility plugin operates independently, but follows Tailwind naming patterns and is designed to pair well with [Play CDN](https://tailwindcss.com/docs/installation/play-cdn), a client-side version of Tailwind.
+The utility plugin operates independently, but follows Tailwind naming patterns and is designed to pair well with <a href="https://tailwindcss.com/docs/theme#theme-variable-namespaces" target="_blank" rel="noopener">Play CDN</a>, a client-side version of Tailwind.
 
 While it's not advertised for production use, Play CDN aligns with Indux's ethos of being plug-and-play with no build steps, and has a typically nelgible impact on performance.
 
@@ -265,18 +280,18 @@ Add Play CDN to your project using Indux's quickstart script (bundled with all I
 <x-code-group>
 
 ```html "Quickstart" copy
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.alpine.tailwind.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js">
 ```
 
-```html "Tailwind Play CDN + Custom Utilities" copy
+```html "Tailwind Play CDN + Indux Utilities plugin" copy
 <head>
-    ...
+
     <!-- Tailwind Play CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <!-- Generate custom utility classes from CSS variables -->
-    <script src="https://cdn.jsdelivr.net/npm/indux/dist/indux.utilities.js"></script>
-    ...
+    <!-- Indux utilities plugin to generate custom classes from CSS variables -->
+    <script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.utilities.min.js"></script>
+
 </head>
 ```
 
@@ -285,7 +300,7 @@ Add Play CDN to your project using Indux's quickstart script (bundled with all I
 The all inclusive script's embedded Play CDN has been modified to remove Tailwind's Preflight styles in favour of Indux's [reset](/styles/reset) styles. It also removes a console warning about using Play CDN in production.
 
 ::: brand icon="lucide:info"
-Projects with Tailwind v4+ [directly installed](https://tailwindcss.com/docs/installation/using-vite) will already compile theme variables from [@theme](https://tailwindcss.com/docs/theme) declarations during the build step.
+Projects with Tailwind v4+ <a href="https://tailwindcss.com/docs/installation/using-vite" target="_blank" rel="noopener">directly installed</a> will already compile theme variables from <a href="https://tailwindcss.com/docs/theme" target="_blank" rel="noopener">@theme</a> declarations during the build step.<br><br>
 
 In this scenario, Indux's all inclusive script or the standalone `indux.utilities.js` are redundant and should not be used. Be sure to update your theme's `:root { ... }` declarations to `@theme { ... }` for compatibility.
 :::

@@ -4,21 +4,17 @@
 
 ## Setup
 
-Badge styles are included in Indux CSS, or the standalone typography stylesheet.
+Badge styles are included in Indux CSS, or the standalone [typography](/elements/typography) stylesheet.
 
 <x-code-group copy>
 
 ```html "Indux CSS"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
 ```
 
 ```html "Standalone"
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.theme.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/indux/dist/indux.typography.css" />
-</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.typography.css" />
 ```
 
 </x-code-group>
@@ -141,7 +137,9 @@ Any number of icons and text can be nested in any order. Place icons in `<span>`
 
 ---
 
-## Theme
+## Styles
+
+### Theme
 
 Default badges use the following [theme](/styles/theme) variables:
 
@@ -150,3 +148,27 @@ Default badges use the following [theme](/styles/theme) variables:
 | `--color-content-stark` | High contrast text color |
 | `--spacing` | Padding and margin factor in various elements |
 | `--radius` | Border radius for `<pre>` corners |
+
+---
+
+### Customization
+
+Modify base badge styles with custom CSS for the `<mark>` selector.
+
+::: frame
+<style>
+mark.custom {
+    color: blue;
+    background: lightblue;
+}
+</style>
+
+<mark class="custom">Custom Badge</mark>
+:::
+
+```css copy
+mark {
+    color: blue;
+    background: lightblue;
+}
+```
