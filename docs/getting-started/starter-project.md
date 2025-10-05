@@ -9,10 +9,10 @@ Kickstart new websites and apps with a turnkey template.
 Install the starter project locally with the `npx` command:
 
 ```bash copy
-npx @indux/starter my-project
+npx @indux/starter MyProject
 ```
 
-"my-project" is the modifiable root directory name—name it after your project.
+"MyProject" is the modifiable root directory name—name it after your project.
 
 ### Running Locally
 
@@ -55,6 +55,8 @@ project-name/
 │   └── indux.css             # Project theme + Indux framework styles
 ├── scripts/                  # JavaScript files
 │   └── indux.quickstart.js   # Indux framework + Alpine + Tailwind
+├── _redirects                # SPA routing support for modern static hosts
+├── .htaccess                 # SPA routing support for Apache-based hosts
 ├── favicon.ico               # Browser tab icon
 ├── index.html                # Rendering entry point / main page
 ├── LICENSE.md                # MIT License
