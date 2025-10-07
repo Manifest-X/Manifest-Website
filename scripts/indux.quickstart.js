@@ -692,6 +692,8 @@ ${H}`)
                   addUtility('text', 'color', value);
                   addUtility('bg', 'background-color', value);
                   addUtility('border', 'border-color', value);
+                  addUtility('outline', 'outline-color', value);
+                  addUtility('ring', 'box-shadow', `0 0 0 1px ${value}`);
                   addUtility('fill', 'fill', value);
                   addUtility('stroke', 'stroke', value);
 
@@ -2219,10 +2221,13 @@ ${H}`)
                               const baseClass = parsed.baseClass;
                               
                               // Check if this class has an opacity modifier and matches our base class
-                              if (baseClass.includes('/') && baseClass.startsWith(className + '/')) {
-                                  const opacity = baseClass.split('/')[1];
-                                  // Validate that the opacity is a number between 0-100
-                                  return !isNaN(opacity) && opacity >= 0 && opacity <= 100;
+                              if (baseClass.includes('/')) {
+                                  const baseWithoutOpacity = baseClass.split('/')[0];
+                                  if (baseWithoutOpacity === className) {
+                                      const opacity = baseClass.split('/')[1];
+                                      // Validate that the opacity is a number between 0-100
+                                      return !isNaN(opacity) && opacity >= 0 && opacity <= 100;
+                                  }
                               }
                               return false;
                           });
