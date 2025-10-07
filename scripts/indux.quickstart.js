@@ -7596,10 +7596,30 @@ ${H}`)
       // Update route when route changes
       const updateRoute = () => {
           const currentRoute = window.InduxRoutingNavigation?.getCurrentRoute() || window.location.pathname;
-          const normalizedPath = currentRoute === '/' ? '' : currentRoute.replace(/^\/|\/$/g, '');
+          
+          // Strip localization codes and other injected segments to get the logical route
+          let logicalRoute = currentRoute;
+          
+          // Check if there's a localization code at the start of the path
+          const pathParts = currentRoute.split('/').filter(Boolean);
+          if (pathParts.length > 0) {
+              // Check if first segment is a language code (2-5 characters, alphanumeric with hyphens/underscores)
+              const firstSegment = pathParts[0];
+              if (/^[a-zA-Z0-9_-]{2,5}$/.test(firstSegment)) {
+                  // This might be a language code, check if it's in the available locales
+                  const store = Alpine.store('locale');
+                  if (store && store.available && store.available.includes(firstSegment)) {
+                      // Remove the language code from the path
+                      logicalRoute = '/' + pathParts.slice(1).join('/');
+                      if (logicalRoute === '/') logicalRoute = '/';
+                  }
+              }
+          }
+          
+          const normalizedPath = logicalRoute === '/' ? '' : logicalRoute.replace(/^\/|\/$/g, '');
           const segments = normalizedPath ? normalizedPath.split('/').filter(segment => segment) : [];
           
-          route.current = currentRoute;
+          route.current = logicalRoute;
           route.segments = segments;
           route.params = {};
       };

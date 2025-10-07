@@ -134,6 +134,22 @@ The router supports non-navigation paths. See [data sources](/plugins/data-sourc
 
 ---
 
+## Route Magic Property
+
+The router provides a `$route` magic property that returns the current route as a string, enabling conditional statements.
+
+::: frame col
+<p>Current logical route: <span class="font-bold" x-text="$route"></span></p>
+<p class="font-bold" :class="$route === '/plugins/router' ? 'text-brand-content' : ''">I'm a brand color because of the route.</p>
+:::
+
+```html copy
+<p>Current logical route: <span x-text="$route"></span></p>
+<p :class="$route === '/plugins/router' ? 'text-brand-content' : ''">I'm a brand color because of the route.</p>
+```
+
+---
+
 ## Page Head Content
 
 The static content in the `index.html` `<head>` tag is global across all routes. To make head content like the title, metas, scripts, or stylesheets conditional to a specific route, place them in a `<template data-head>` tag, subject to its own route condition or that of a parent's.
