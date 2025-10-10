@@ -4317,6 +4317,27 @@ ${H}`)
 
                   // Return empty string for most properties to prevent expression display
                   if (typeof key === 'string') {
+                      // For known array properties, return a special proxy with route() function
+                      // This prevents infinite recursion while providing route() functionality
+                      if (key === 'legal' || key === 'docs' || key === 'features' || key === 'items') {
+                          return new Proxy({}, {
+                              get(target, prop) {
+                                  if (prop === 'route') {
+                                      return function(pathKey) {
+                                          // Return a safe fallback proxy that returns empty strings
+                                          return new Proxy({}, {
+                                              get() { return ''; }
+                                          });
+                                      };
+                                  }
+                                  if (prop === 'length') return 0;
+                                  if (typeof prop === 'string' && !isNaN(Number(prop))) {
+                                      return createLoadingProxy();
+                                  }
+                                  return '';
+                              }
+                          });
+                      }
                       return '';
                   }
 
@@ -4603,6 +4624,32 @@ ${H}`)
                                   if (Array.isArray(nestedValue)) {
                                       return new Proxy(nestedValue, {
                                           get(target, nestedKey) {
+                                              // Handle special keys
+                                              if (nestedKey === Symbol.iterator || nestedKey === 'then' || nestedKey === 'catch' || nestedKey === 'finally') {
+                                                  return undefined;
+                                              }
+
+                                              // Handle route() function for route-specific lookups on arrays
+                                              if (nestedKey === 'route') {
+                                                  return function(pathKey) {
+                                                      // Only create route proxy if we have valid data
+                                                      if (target && typeof target === 'object') {
+                                                          // Get data source name from the first item's contentType metadata
+                                                          return createRouteProxy(
+                                                              target, 
+                                                              pathKey, 
+                                                              (Array.isArray(target) && target.length > 0 && target[0] && target[0].contentType) 
+                                                                  ? target[0].contentType 
+                                                                  : undefined
+                                                          );
+                                                      }
+                                                      // Return a safe fallback proxy
+                                                      return new Proxy({}, {
+                                                          get() { return undefined; }
+                                                      });
+                                                  };
+                                              }
+
                                               if (nestedKey === 'length') {
                                                   return target.length;
                                               }
@@ -4625,17 +4672,69 @@ ${H}`)
                                   }
                                   // Only create proxy for objects, return primitives directly
                                   if (typeof nestedValue === 'object' && nestedValue !== null) {
-                                      return new Proxy(nestedValue, {
-                                          get(target, nestedKey) {
-                                              // Handle toPrimitive for text content
-                                              if (nestedKey === Symbol.toPrimitive) {
-                                                  return function () {
-                                                      return target[nestedKey] || '';
-                                                  };
+                                      if (Array.isArray(nestedValue)) {
+                                          // Handle nested arrays with route() function
+                                          return new Proxy(nestedValue, {
+                                              get(target, nestedKey) {
+                                                  // Handle special keys
+                                                  if (nestedKey === Symbol.iterator || nestedKey === 'then' || nestedKey === 'catch' || nestedKey === 'finally') {
+                                                      return undefined;
+                                                  }
+
+                                                  // Handle route() function for route-specific lookups on nested arrays
+                                                  if (nestedKey === 'route') {
+                                                      return function(pathKey) {
+                                                          // Only create route proxy if we have valid data
+                                                          if (target && typeof target === 'object') {
+                                                              // Get data source name from the first item's contentType metadata
+                                                              return createRouteProxy(
+                                                                  target, 
+                                                                  pathKey, 
+                                                                  (Array.isArray(target) && target.length > 0 && target[0] && target[0].contentType) 
+                                                                      ? target[0].contentType 
+                                                                      : undefined
+                                                              );
+                                                          }
+                                                          // Return a safe fallback proxy
+                                                          return new Proxy({}, {
+                                                              get() { return undefined; }
+                                                          });
+                                                      };
+                                                  }
+
+                                                  if (nestedKey === 'length') {
+                                                      return target.length;
+                                                  }
+                                                  if (typeof nestedKey === 'string' && !isNaN(Number(nestedKey))) {
+                                                      const index = Number(nestedKey);
+                                                      if (index >= 0 && index < target.length) {
+                                                          return createArrayItemProxy(target[index]);
+                                                      }
+                                                      return createLoadingProxy();
+                                                  }
+                                                  // Add essential array methods
+                                                  if (nestedKey === 'filter' || nestedKey === 'map' || nestedKey === 'find' || 
+                                                      nestedKey === 'findIndex' || nestedKey === 'some' || nestedKey === 'every' ||
+                                                      nestedKey === 'reduce' || nestedKey === 'forEach' || nestedKey === 'slice') {
+                                                      return target[nestedKey].bind(target);
+                                                  }
+                                                  return createLoadingProxy();
                                               }
-                                              return target[nestedKey];
-                                          }
-                                      });
+                                          });
+                                      } else {
+                                          // Handle nested objects
+                                          return new Proxy(nestedValue, {
+                                              get(target, nestedKey) {
+                                                  // Handle toPrimitive for text content
+                                                  if (nestedKey === Symbol.toPrimitive) {
+                                                      return function () {
+                                                          return target[nestedKey] || '';
+                                                      };
+                                                  }
+                                                  return target[nestedKey];
+                                              }
+                                          });
+                                      }
                                   }
                                   // Return primitive values directly (strings, numbers, booleans)
                                   return nestedValue;
@@ -4752,22 +4851,75 @@ ${H}`)
                       // Original behavior for static dropdowns
                       menu = document.getElementById(dropdownId);
                       if (!menu) {
+                          // Check if this might be a component-based dropdown
+                          if (window.InduxComponentsRegistry && window.InduxComponentsLoader) {
+                              // Try to find the menu in components
+                              const componentName = dropdownId; // Assume the dropdownId is the component name
+                              const registry = window.InduxComponentsRegistry;
+                              
+                              if (registry.registered.has(componentName)) {
+                                  // Component exists, wait for it to be loaded
+                                  const waitForComponent = async () => {
+                                      const loader = window.InduxComponentsLoader;
+                                      const content = await loader.loadComponent(componentName);
+                                      if (content) {
+                                          // Create a temporary container to parse the component
+                                          const tempDiv = document.createElement('div');
+                                          tempDiv.innerHTML = content.trim();
+                                          const menuElement = tempDiv.querySelector(`#${dropdownId}`);
+                                          
+                                          if (menuElement) {
+                                              // Clone the menu and append to body
+                                              menu = menuElement.cloneNode(true);
+                                              menu.setAttribute('id', dropdownId);
+                                              document.body.appendChild(menu);
+                                              el.setAttribute('popovertarget', dropdownId);
+                                              
+                                              // Initialize Alpine on the menu
+                                              Alpine.initTree(menu);
+                                              
+                                              // Set up the dropdown after menu is ready
+                                              setupDropdown();
+                                          } else {
+                                              console.warn(`[Indux] Menu with id "${dropdownId}" not found in component "${componentName}"`);
+                                          }
+                                      } else {
+                                          console.warn(`[Indux] Failed to load component "${componentName}" for dropdown`);
+                                      }
+                                  };
+                                  
+                                  // Wait for components to be ready, then try to load
+                                  if (window.__induxComponentsInitialized) {
+                                      waitForComponent();
+                                  } else {
+                                      window.addEventListener('indux:components-ready', waitForComponent);
+                                  }
+                                  return; // Exit early, setup will happen in waitForComponent
+                              }
+                          }
+                          
                           console.warn(`[Indux] Dropdown menu with id "${dropdownId}" not found`);
                           return;
                       }
                       el.setAttribute('popovertarget', dropdownId);
                   }
 
-                  // Set up popover
-                  menu.setAttribute('popover', '');
+                  // Set up the dropdown
+                  setupDropdown();
 
-                  // Set up anchor positioning
-                  const anchorName = `--dropdown-${anchorCode}`;
-                  el.style.setProperty('anchor-name', anchorName);
-                  menu.style.setProperty('position-anchor', anchorName);
+                  function setupDropdown() {
+                      if (!menu) return;
+                      
+                      // Set up popover
+                      menu.setAttribute('popover', '');
 
-                  // Set up hover functionality after menu is ready
-                  if (modifiers.includes('hover')) {
+                      // Set up anchor positioning
+                      const anchorName = `--dropdown-${anchorCode}`;
+                      el.style.setProperty('anchor-name', anchorName);
+                      menu.style.setProperty('position-anchor', anchorName);
+
+                      // Set up hover functionality after menu is ready
+                      if (modifiers.includes('hover')) {
                       const handleShowPopover = () => {
                           if (menu && !menu.matches(':popover-open')) {
                               clearTimeout(hoverTimeout);
@@ -4909,6 +5061,7 @@ ${H}`)
                       // Setup listeners after a brief delay to ensure menu is rendered
                       setTimeout(setupMenuItemListeners, 10);
                   }
+                  } // End of setupDropdown function
               });
           });
       });

@@ -14,6 +14,8 @@ npx @indux/starter MyProject
 
 "MyProject" is the modifiable root directory name—name it after your project.
 
+Alternatively, download the template directory from <a href="https://github.com/andrewmatlock/Indux/tree/master/templates/starter" target="_blank">GitHub</a>.
+
 ### Running Locally
 
 The project includes a built-in SPA router requiring a local server to run. See the project README for local server suggestions.
