@@ -6,7 +6,7 @@ Maintain visual consistency with common utility classes.
 
 ## Setup
 
-Utilities are available in the full Indux CSS library, or through standalone stylesheets.
+Utilities are available in the full Indux CSS library, or through a standalone stylesheet. Both reference [theme](/styles/theme) variables.
 
 <x-code-group copy>
 

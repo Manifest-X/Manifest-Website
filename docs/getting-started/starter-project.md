@@ -54,7 +54,8 @@ project-name/
 │   ├── 512x512.png           # Large icon variant
 ├── styles/                   # CSS stylesheets
 │   ├── custom.css            # Place for custom styles
-│   └── indux.css             # Project theme + Indux framework styles
+│   └── indux.css             # Indux framework styles
+│   └── indux.theme.css       # Project theme variables
 ├── scripts/                  # JavaScript files
 │   └── indux.quickstart.js   # Indux framework + Alpine + Tailwind
 ├── _redirects                # SPA routing support for modern static hosts

@@ -1,6 +1,6 @@
 /*  Indux JS - Quickstart
 /*  By Andrew Matlock under MIT license
-/*  https://github.com/andrewmatlock/Indux
+/*  https://indux.build
 /*
 /*  Contains all Indux plugins bundled with:
 /*  - Alpine JS (alpinejs.dev)
@@ -11,6 +11,8 @@
 /*  - highlight.js (https://highlightjs.org)
 /*  - js-yaml (https://nodeca.github.io/js-yaml)
 /*  - Marked JS (https://marked.js.org)
+/*
+/*  Some plugins use Indux CSS styles.
 */
 
 
@@ -5090,7 +5092,7 @@ ${H}`)
   // Also listen for alpine:init as a backup
   document.addEventListener('alpine:init', initializeDropdownPlugin);
 
-  // Handle modal interactions - close dropdowns when modals open
+  // Handle dialog interactions - close dropdowns when dialogs open
   document.addEventListener('click', (event) => {
       const button = event.target.closest('button[popovertarget]');
       if (!button) return;
@@ -5099,7 +5101,7 @@ ${H}`)
       const target = document.getElementById(targetId);
       
       if (target && target.tagName === 'DIALOG' && target.hasAttribute('popover')) {
-          // Close dropdowns BEFORE the modal opens to avoid conflicts
+          // Close dropdowns BEFORE the dialog opens to avoid conflicts
           const openDropdowns = document.querySelectorAll('menu[popover]:popover-open');
           
           openDropdowns.forEach(dropdown => {
@@ -6527,6 +6529,7 @@ ${H}`)
 
                   // Handle snap-close behavior for width
                   if (pixelConstraints.closeX !== null) {
+                      // Close when element becomes smaller than threshold (dragging toward inside)
                       if (newWidth <= pixelConstraints.closeX) {
                           el.classList.add('resizable-closing');
                           currentSnap = 'closing';
@@ -6538,8 +6541,9 @@ ${H}`)
                       }
                   }
 
-                  // Handle snap-close behavior for height (always check, regardless of handle direction)
+                  // Handle snap-close behavior for height
                   if (pixelConstraints.closeY !== null) {
+                      // Close when element becomes smaller than threshold (dragging toward inside)
                       if (newHeight <= pixelConstraints.closeY) {
                           el.classList.add('resizable-closing');
                           currentSnap = 'closing';
@@ -8655,7 +8659,19 @@ ${H}`)
   	        delayValue = computedStyle.getPropertyValue('--tooltip-hover-delay').trim();
   	    }
   	    
-  	    return delayValue ? parseInt(delayValue) : 500; // Default to 500ms if not set
+  	    if (!delayValue) {
+  	        return 500; // Default to 500ms if not set
+  	    }
+  	    
+  	    // Parse CSS time value (supports s, ms, etc.)
+  	    if (delayValue.endsWith('s')) {
+  	        return parseFloat(delayValue) * 1000; // Convert seconds to milliseconds
+  	    } else if (delayValue.endsWith('ms')) {
+  	        return parseFloat(delayValue); // Already in milliseconds
+  	    } else {
+  	        // If no unit, assume milliseconds
+  	        return parseInt(delayValue);
+  	    }
   	}
 
   	function initializeTooltipPlugin() {

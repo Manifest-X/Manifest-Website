@@ -15,11 +15,12 @@ Many Indux styles reference default theme variables. If a variable is removed, a
 
 ## Setup
 
-The theme is available in the full Indux CSS library, or as a standalone stylesheet for use with specific elements or utilities.
+The theme is a CSS stylesheet, to be used alongside the full Indux CSS library or with standalone elements or utilities. A CDN link is available with Indux's default theme for quick tests.
 
 <x-code-group copy>
 
 ```html "Indux CSS"
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css">
 ```
 
@@ -34,6 +35,12 @@ The theme is available in the full Indux CSS library, or as a standalone stylesh
 
 </x-code-group>
 
+For actual projects the theme should be modified as a single source of truth for all styles. Download a local, customizable version from <a href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" target="_blank">jsDelivr</a> or <a href="https://github.com/andrewmatlock/Indux/blob/master/src/styles/core/indux.theme.css" target="_blank">GitHub</a>. Then the file path becomes something like:
+
+```html copy
+<link rel="stylesheet" href="/styles/indux.theme.css">
+```
+
 ---
 
 ## Theme Variables
@@ -44,7 +51,7 @@ Certain variable names use namespace prefixes like `--color-` to automatically g
 
 ### Color Palette
 
-In the default theme, a color palette of variables is referenced by most other variables as a single source of truth. Consider grabbing <a href="https://tailwindcss.com/docs/colors" target="_blank" rel="noopener">alternate palettes</a> or <a href="https://uicolors.app/generate" target="_blank" rel="noopener">generating your own</a>.
+In the default theme, a color palette of variables is referenced by most other purpose-specific color variables. Consider grabbing <a href="https://tailwindcss.com/docs/colors" target="_blank" rel="noopener">alternate palettes</a> or <a href="https://uicolors.app/generate" target="_blank" rel="noopener">generating your own</a>.
 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
@@ -67,7 +74,7 @@ See [color themes](/plugins/color-themes) for more information on setting up lig
 | `--color-field-surface` | Background color for interactive elements | `bg-field-surface` |
 | `--color-field-surface-hover` | Hover state background for interactive elements | `hover:bg-field-surface-hover` |
 | `--color-field-inverse` | Content color for interactive elements | `text-field-inverse` |
-| `--color-popover-surface` | Modal and dropdown background | `bg-popover-surface` |
+| `--color-popover-surface` | Dialog and dropdown background | `bg-popover-surface` |
 | `--color-line` | Border and divider color | `border-line` |
 
 ---
@@ -96,22 +103,17 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 
 ---
 
-### Overlay Colors
-| Variable | Purpose | Ex. Tailwind Utilities |
-|----------|---------|-------------------|
-| `--color-overlay-dark` | Dark overlay for banners | `bg-overlay-dark` |
-| `--color-overlay-light` | Light overlay for banners | `bg-overlay-light` |
-
----
-
 ### Spacing & Sizing
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
 | `--radius` | Default border radius | — |
 | `--spacing` | Base spacing unit | `p-1` `m-1` `gap-1` |
+| `--spacing-content-width` | Maximum content width in [utility](/styles/utilities) styles | `max-w-content-width` |
 | `--spacing-field-padding` | Form field padding | `p-field-padding` |
 | `--spacing-field-height` | Form field height | `h-field-height` |
 | `--spacing-popover-offset` | Dropdown & tooltip positioning offset | `mt-dropdown-offset` |
+| `--spacing-resize-handle` | [Resize](/plugin/resize) handle width | `w-resize-handle` |
+| `--spacing-viewport-padding` | Viewport padding for responsive design  in [utility](/styles/utilities) styles | `px-viewport-padding` |
 
 ---
 
@@ -119,6 +121,7 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
 | `--transition` | Default form element transition timing | — |
+| `--tooltip-hover-delay` | [Tooltip](/styles/tooltips) hover delay timing | — |
 
 ---
 
@@ -129,11 +132,21 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 
 ---
 
+### Icons
+| Variable | Purpose | Ex. Tailwind Utilities |
+|----------|---------|-------------------|
+| `--icon-accordion` | [Accordion](/styles/accordions) expand/collapse icon | — |
+| `--icon-checkbox` | [Checkbox](/styles/checkboxes) checked state icon | — |
+| `--icon-toast-dismiss` | [Toast](/styles/toasts) notification dismiss icon | — |
+
+---
+
 ## Default Values
 
 ```css "indux.theme.css" copy numbers
 :root,
 ::selection {
+    
     /* Default palette */
     --color-50: oklch(100% 0 0);
     --color-100: oklch(98.17% 0.0005 95.87);
@@ -164,31 +177,40 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
     --color-brand-surface-hover: #f19b46;
     --color-brand-inverse: #763518;
     --color-brand-content: #de6618;
-    --color-accent-surface: var(--color-900);
-    --color-accent-surface-hover: var(--color-700);
-    --color-accent-inverse: var(--color-page);
-    --color-accent-content: var(--color-content-stark);
+    --color-accent-surface: #ffccd3;
+    --color-accent-surface-hover: #ffa1ad;
+    --color-accent-inverse: #a50036;
+    --color-accent-content: #ff637e;
+    --color-positive-surface: #16a34a;
+    --color-positive-surface-hover: #166534;
+    --color-positive-inverse: white;
+    --color-positive-content: var(--color-positive-surface);
     --color-negative-surface: #ef4444;
     --color-negative-surface-hover: #dc2626;
     --color-negative-inverse: white;
     --color-negative-content: var(--color-negative-surface);
 
-    /* Overlays */
-    --color-overlay-dark: oklch(50% 0 0);
-    --color-overlay-light: oklch(50% 0 100);
-
     /* Sizes */
     --radius: 0.5rem;
     --spacing: 0.25rem;
+    --spacing-content-width: 68.75rem;
     --spacing-field-padding: calc(var(--spacing) * 2.5);
     --spacing-field-height: calc(var(--spacing) * 9);
     --spacing-popover-offset: calc(var(--spacing) * 2);
+    --spacing-resize-handle: 1rem;
+    --spacing-viewport-padding: 5vw;
 
     /* Effects */
-    --transition: all 0.1s ease-in-out;
+    --transition: all .05s ease-in-out;
+    --tooltip-hover-delay: 1s;
 
     /* Fonts */
     --font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Icons */
+    --icon-accordion: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 256 256'%3E%3Cpath fill='%23000' d='m184.49 136.49l-80 80a12 12 0 0 1-17-17L159 128L87.51 56.49a12 12 0 1 1 17-17l80 80a12 12 0 0 1-.02 17'/%3E%3C/svg%3E");
+    --icon-checkbox: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='currentColor' d='m0 11l2-2l5 5L18 3l2 2L7 18z'/%3E%3C/svg%3E");
+    --icon-toast-dismiss: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E");
 }
 
 /* Dark theme overrides */
@@ -204,8 +226,7 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
     --color-content-neutral: var(--color-400);
     --color-content-subtle: var(--color-500);
     --color-brand-content: #f6c07b;
-    --color-accent-surface: var(--color-50);
-    --color-accent-surface-hover: var(--color-100);
+    --color-accent-content: #ffa1ad;
 }
 
 @layer base {

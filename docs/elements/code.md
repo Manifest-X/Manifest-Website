@@ -31,20 +31,11 @@ Code blocks are supported by a plugin for Alpine JS, available on its own or as 
 
 </x-code-group>
 
-Code block styles are included in Indux CSS, or as standalone stylesheets.
+Code block styles are provided in a standalone stylesheet, which references [theme](/styles/theme) variables.
 
-<x-code-group copy>
-
-```html "Indux CSS"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
-```
-
-```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
+```html copy
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.code.css" />
 ```
-
-</x-code-group>
 
 ---
 
@@ -193,7 +184,7 @@ Default code blocks use the following [theme](/styles/theme) variables:
 | `--spacing-field-padding` | Content padding |
 | `--radius` | Border radius |
 
-Additional text color variables like `--color-code-keyword` for syntax highlighting are found with code block styles.
+Additional text color variables like `--color-code-keyword` for syntax highlighting are found within `indux.code.css`.
 
 ---
 

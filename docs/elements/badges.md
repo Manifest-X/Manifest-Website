@@ -4,7 +4,7 @@
 
 ## Setup
 
-Badge styles are included in Indux CSS, or the standalone [typography](/elements/typography) stylesheet.
+Badge styles are included in Indux CSS or the standalone [typography](/elements/typography) stylesheet. Both reference [theme](/styles/theme) variables.
 
 <x-code-group copy>
 
@@ -13,7 +13,6 @@ Badge styles are included in Indux CSS, or the standalone [typography](/elements
 ```
 
 ```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.typography.css" />
 ```
 

@@ -33,7 +33,7 @@ Resize functionality is supported by a plugin for Alpine JS, available on its ow
 
 </x-code-group>
 
-Resizable element styles are included in Indux CSS, or as standalone stylesheets.
+Resizable element styles are included in Indux CSS or as a standalone stylesheet, both referencing [theme](/styles/theme) variables.
 
 <x-code-group copy>
 
@@ -42,7 +42,6 @@ Resizable element styles are included in Indux CSS, or as standalone stylesheets
 ```
 
 ```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.resize.css">
 ```
 
@@ -86,9 +85,9 @@ Resize behavior is customized with properties inside the `x-resize` attribute.
 | **`snapDistance`** | Number/String | `null` | Distance threshold for snapping (both axes) |
 | **`snapDistanceX`** | Number/String | `null` | Distance threshold for width snapping |
 | **`snapDistanceY`** | Number/String | `null` | Distance threshold for height snapping |
-| **`snapCloseX`** | Number/String | `null` | Width threshold for auto-close (requires `toggle`) |
-| **`snapCloseY`** | Number/String | `null` | Height threshold for auto-close (requires `toggle`) |
-| **`toggle`** | String | `null` | An Alpine `x-data` variable to toggle visibility |
+| **`snapCloseX`** | Number/String | `null` | Width threshold for auto-close (requires `toggle`) - closes when dragging toward inside |
+| **`snapCloseY`** | Number/String | `null` | Height threshold for auto-close (requires `toggle`) - closes when dragging toward inside |
+| **`toggle`** | String | `null` | An Alpine boolean variable to toggle visibility of the draggable element using `x-show` |
 | **`saveWidth`** | String | `null` | localStorage key to persist width |
 | **`saveHeight`** | String | `null` | localStorage key to persist height |
 
@@ -141,47 +140,65 @@ This example has:
 
 ## Multi-Panel Layout
 
-Sibling elements of a resizable panel will be affected depending on its own styles. Give static siblings `flex: 1` (`flex-1` in Tailwind) to allow it to grow or shrink as required by the resized elements around it.
+Sibling elements of a resizable panel will be affected depending on its own styles. Give static siblings `flex: 1` (`flex-1` in Tailwind) to allow it to grow or shrink as required by the resized elements around it. This example demonstrates snap-to-close functionality that triggers when dragging toward the inside of the element, with toggle buttons for both panels.
 
 ::: frame
-<div class="row w-full max-w-full h-32">
+<div class="row w-full max-w-full border border-line" x-data="{ firstPanel: true, secondPanel: true }">
     <div x-resize="{
-        handles: ['end']
-    }" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border border-line">
+        handles: ['end'],
+        snapCloseX: 120,
+        toggle: 'firstPanel'
+    }" x-show="firstPanel" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border-e border-line">
         First panel
     </div>
-    <div class="main-content flex-1 p-4 bg-surface-2 border-y border-line">
-        Main content
+    <div class="main-content flex-1 p-4 bg-surface-2">
+        <div class="col gap-2">
+            <span>Main content</span>
+            <button @click="firstPanel = !firstPanel">Toggle First</button>
+            <button @click="secondPanel = !secondPanel">Toggle Second</button>
+        </div>
     </div>
     <div x-resize="{
-        handles: ['start']
-    }" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border border-line">
+        handles: ['start'],
+        snapCloseX: 120,
+        toggle: 'secondPanel'
+    }" x-show="secondPanel" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border-s border-line">
         Second panel
     </div>
 </div>
 :::
 
-```html copy
-<div class="row w-full max-w-full h-32">
+```html numbers copy
+<!-- Alpine boolean variables declared for panel visibility -->
+<div class="row w-full max-w-full border border-line" x-data="{ firstPanel: true, secondPanel: true }">
 
-    <!-- Resizeable first panel -->
+    <!-- First panel, resizable and toggleable -->
     <div x-resize="{
-        handles: ['end']
-    }" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border border-line">
-        Start panel
+        handles: ['end'],
+        snapCloseX: 120,
+        toggle: 'firstPanel'
+    }" x-show="firstPanel" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border-e border-line">
+        First panel
     </div>
 
-    <!-- Static main content -->
-    <div class="main-content flex-1 p-4 bg-surface-2 border-y border-line">
-        Main content
+    <!-- Main static content -->
+    <div class="main-content flex-1 p-4 bg-surface-2">
+        <div class="col gap-2">
+            <span>Main content</span>
+            <button @click="firstPanel = !firstPanel">Toggle First</button>
+            <button @click="secondPanel = !secondPanel">Toggle Second</button>
+        </div>
     </div>
 
-    <!-- Resizable last panel -->
+    <!-- Second panel, resizable and toggleable -->
     <div x-resize="{
-        handles: ['start']
-    }" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border border-line">
-        End panel
+        handles: ['start'],
+        snapCloseX: 120,
+        toggle: 'secondPanel'
+    }" x-show="secondPanel" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border-s border-line">
+        Second panel
     </div>
+    
 </div>
 ```
 

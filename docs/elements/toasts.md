@@ -31,7 +31,7 @@ Toasts are supported by a plugin for Alpine JS, available on its own or as part 
 
 </x-code-group>
 
-Toast styles are included in Indux CSS, or as standalone stylesheets.
+Toast styles are included in Indux CSS or as a standalone stylesheet, both referencing [theme](/styles/theme) variables.
 
 <x-code-group copy>
 
@@ -40,7 +40,6 @@ Toast styles are included in Indux CSS, or as standalone stylesheets.
 ```
 
 ```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.toast.css" />
 ```
 

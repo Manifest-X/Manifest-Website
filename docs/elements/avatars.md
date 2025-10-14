@@ -4,7 +4,7 @@
 
 ## Setup
 
-Avatar styles are included in Indux CSS, or a standalone stylesheet.
+Avatar styles are included in Indux CSS or a standalone stylesheet, both referencing [theme](/styles/theme) variables.
 
 <x-code-group copy>
 
@@ -13,7 +13,6 @@ Avatar styles are included in Indux CSS, or a standalone stylesheet.
 ```
 
 ```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.avatar.css" />
 ```
 
@@ -63,7 +62,7 @@ To display text or an icon by default while supporting an optional profile pic, 
 
 ## Interactive
 
-Buttons accept the `avatar` class and can be used to trigger an action like opening a [dropdown](/elements/dropdowns) or [modal](/elements/modals).
+Buttons accept the `avatar` class and can be used to trigger an action like opening a [dropdown](/elements/dropdowns) or [dialog](/elements/dialogs).
 
 ::: frame
 <button class="avatar" x-icon="lucide:user"></button>
@@ -88,6 +87,60 @@ Buttons accept the `avatar` class and can be used to trigger an action like open
     <img src="/assets/examples/user.jpg">
 </button>
 ```
+
+---
+
+### Picture Upload
+
+To create an avatar button that facilitates a profile pic upload, use an input of `type="file"` within a label wrapper.
+
+::: frame justify-start
+<label role="button" class="avatar lg group overflow-visible" x-data="{ imageUrl: '' }">
+    <input type="file" accept="image/*" x-ref="fileInput" @change="
+        const file = $event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => imageUrl = e.target.result;
+            reader.readAsDataURL(file);
+        }
+    " />
+    <span x-show="!imageUrl" class="absolute z-2 opacity-0 group-hover:opacity-100 transition" x-icon="lucide:upload"></span>
+    <span x-show="!imageUrl" class="opacity-100 group-hover:opacity-0 transition">W</span>
+    <img :src="imageUrl" x-show="imageUrl">
+    <button x-show="imageUrl" class="sm absolute -top-2.5 -end-2.5 z-3 rounded-full shadow opacity-0 group-hover:opacity-100 hover:opacity-100" aria-label="Remove pic" x-icon="lucide:x" @click.stop="imageUrl = ''; $refs.fileInput.value = ''"></button>
+</label>
+:::
+
+```html numbers copy
+<!-- Upload image button -->
+<label role="button" class="avatar lg group overflow-visible" x-data="{ imageUrl: '' }">
+
+    <!-- Hidden input -->
+    <input type="file" accept="image/*" x-ref="fileInput" @change="
+        const file = $event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => imageUrl = e.target.result;
+            reader.readAsDataURL(file);
+        }
+    " />
+
+    <!-- Icon on initial hover -->
+    <span x-show="!imageUrl" class="absolute z-2 opacity-0 group-hover:opacity-100 transition" x-icon="lucide:upload"></span>
+
+    <!-- User's initial -->
+    <span x-show="!imageUrl" class="opacity-100 group-hover:opacity-0 transition">W</span>
+
+    <!-- Profile pic -->
+    <img :src="imageUrl" x-show="imageUrl">
+
+    <!-- Remove button -->
+    <button x-show="imageUrl" class="sm absolute -top-2.5 -end-2.5 z-3 rounded-full shadow opacity-0 group-hover:opacity-100 hover:opacity-100" aria-label="Remove pic" x-icon="lucide:x" @click.stop="imageUrl = ''; $refs.fileInput.value = ''"></button>
+
+</label>
+```
+
+In this example, Alpine is used to temporarily upload an image. The image can be overwritten with a new upload or removed. The spans, remove button, and Tailwind styles are arbitrary, shown here for visual demonstration purposes.
 
 ---
 

@@ -4,7 +4,7 @@
 
 ## Setup
 
-Divider styles are included in Indux CSS, or the standalone divider stylesheet.
+Divider styles are included in Indux CSS or a standalone stylesheet, both referencing [theme](/styles/theme) variables.
 
 <x-code-group copy>
 
@@ -13,7 +13,6 @@ Divider styles are included in Indux CSS, or the standalone divider stylesheet.
 ```
 
 ```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.divider.css" />
 ```
 

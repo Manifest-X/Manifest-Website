@@ -1,6 +1,6 @@
 # Setup
 
-Get Indux with CDN links or copied from <a href="https://github.com/andrewmatlock/Indux" target="_blank">GitHub</a>.
+Get Indux with CDN links or copied from <a href="https://github.com/andrewmatlock/Indux/tree/master/src" target="_blank">GitHub</a>.
 
 ---
 
@@ -59,6 +59,7 @@ Add the desired Indux CSS stylesheets to the `<head>` of your HTML file. Like sc
   <!-- Other tags -->
 
   <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css">
 
   <!-- Other tags -->
@@ -84,3 +85,31 @@ Add the desired Indux CSS stylesheets to the `<head>` of your HTML file. Like sc
 ::: brand icon="lucide:info"
 Individual stylesheets typically reference `indux.theme.css` for global CSS variables, using static fallback values in its absence.
 :::
+
+---
+
+## Command Line
+
+Indux also provides `npx` commands to manage local files.
+
+### Individual File Updates
+
+Download or update specific core Indux files:
+
+```bash copy
+npx @indux/indux.js
+npx @indux/indux.quickstart.js
+npx @indux/indux.css
+npx @indux/indux.theme.css
+npx @indux/indux.code.css
+```
+
+---
+
+### Bulk Update
+
+Scan your project directory and update all existing Indux files (except `indux.theme.css`, which is typically customized):
+
+```bash copy
+npx @indux/update
+```

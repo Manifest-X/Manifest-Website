@@ -4,7 +4,7 @@
 
 ## Setup
 
-Textareas styles are included in Indux CSS, or the standalone [inputs](/elements/inputs) stylesheet.
+Textareas styles are included in Indux CSS or the standalone [inputs](/elements/inputs) stylesheet. Both reference [theme](/styles/theme) variables.
 
 <x-code-group copy>
 

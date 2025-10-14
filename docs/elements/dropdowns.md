@@ -31,7 +31,7 @@ Dropdowns are supported by a plugin for Alpine JS, available on its own or as pa
 
 </x-code-group>
 
-Dropdown styles are included in Indux CSS, or as standalone stylesheets.
+Dropdown styles are included in Indux CSS or a standalone stylesheet, both referencing [theme](/styles/theme) variables.
 
 <x-code-group copy>
 
@@ -40,7 +40,6 @@ Dropdown styles are included in Indux CSS, or as standalone stylesheets.
 ```
 
 ```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.dropdown.css" />
 ```
 
@@ -56,7 +55,7 @@ For OS dropdowns, see [selects](/elements/selects).
 
 ## Default
 
-Dropdowns are supported in pure HTML using the `<menu>` element as a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API" target="_blank">popover</a>. The `<button>` that opens the modal requires the `x-dropdown` attribute, matching the menu ID.
+Dropdowns are supported in pure HTML using the `<menu>` element as a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API" target="_blank">popover</a>. The `<button>` that opens the dialog requires the `x-dropdown` attribute, matching the menu ID.
 
 ::: frame
 <button x-dropdown="basic-menu-preview">Open Menu</button>
@@ -505,7 +504,7 @@ Modify base dropdown styles with custom CSS for the `menu[popover]` selector.
 
 ::: frame
 <style>
-menu[popover] {
+menu[popover].custom {
     background-color: #f0f8ff;
     border: 2px solid #3b82f6;
     border-radius: 12px;

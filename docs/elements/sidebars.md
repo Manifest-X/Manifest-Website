@@ -4,7 +4,7 @@
 
 ## Setup
 
-Sidebar styles are included in Indux CSS, or as standalone stylesheets.
+Sidebar styles are included in Indux CSS or as a standalone stylesheet, both referencing [theme](/styles/theme) variables.
 
 <x-code-group copy>
 
@@ -13,7 +13,6 @@ Sidebar styles are included in Indux CSS, or as standalone stylesheets.
 ```
 
 ```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.sidebar.css" />
 ```
 

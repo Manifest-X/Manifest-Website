@@ -31,7 +31,7 @@ Tooltips are supported by a plugin for Alpine JS, available on its own or as par
 
 </x-code-group>
 
-Tooltip styles are included in Indux CSS, or as standalone stylesheets.
+Tooltip styles are included in Indux CSS or as a standalone stylesheet, both referencing [theme](/styles/theme) variables.
 
 <x-code-group copy>
 
@@ -40,7 +40,6 @@ Tooltip styles are included in Indux CSS, or as standalone stylesheets.
 ```
 
 ```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.tooltip.css" />
 ```
 
@@ -193,7 +192,7 @@ Tooltips can retrieve content from [data sources](/plugins/data-sources) using t
 
 ## Other Popovers
 
-Although tooltips are popovers, they can coexist in buttons that trigger other popovers—like Indux's [dropdowns](/elements/dropdowns) and [modals](/elements/modals), or your custom popovers.
+Although tooltips are popovers, they can coexist in buttons that trigger other popovers—like Indux's [dropdowns](/elements/dropdowns) and [dialogs](/elements/dialogs), or your custom popovers.
 
 ::: frame
 <button x-tooltip="Tooltip" x-dropdown="dropdown">Dropdown</button>
@@ -203,9 +202,9 @@ Although tooltips are popovers, they can coexist in buttons that trigger other p
     <li>Item 3</li>
 </menu>
 
-<button x-tooltip="Tooltip" popovertarget="modal">Modal</button>
-<dialog popover id="modal">
-    <header>Modal</header>
+<button x-tooltip="Tooltip" popovertarget="dialog">Dialog</button>
+<dialog popover id="dialog">
+    <header>Dialog</header>
 </dialog>
 
 <button x-tooltip="Tooltip" popovertarget="custom">Custom Popover</button>
