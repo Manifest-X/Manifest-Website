@@ -97,11 +97,11 @@ Indux also provides `npx` commands to manage local files.
 Download or update specific core Indux files:
 
 ```bash copy
-npx @indux/indux.js
-npx @indux/indux.quickstart.js
-npx @indux/indux.css
-npx @indux/indux.theme.css
-npx @indux/indux.code.css
+npx @indux/add js
+npx @indux/add quickstart
+npx @indux/add css
+npx @indux/add theme
+npx @indux/add code
 ```
 
 ---
@@ -111,5 +111,5 @@ npx @indux/indux.code.css
 Scan your project directory and update all existing Indux files (except `indux.theme.css`, which is typically customized):
 
 ```bash copy
-npx @indux/update
+npx @indux/add update
 ```

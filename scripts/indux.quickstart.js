@@ -8663,14 +8663,30 @@ ${H}`)
   	        return 500; // Default to 500ms if not set
   	    }
   	    
-  	    // Parse CSS time value (supports s, ms, etc.)
+  	    // Parse CSS time value (supports various time units)
+  	    const timeValue = parseFloat(delayValue);
+  	    
   	    if (delayValue.endsWith('s')) {
-  	        return parseFloat(delayValue) * 1000; // Convert seconds to milliseconds
+  	        return timeValue * 1000; // Convert seconds to milliseconds
   	    } else if (delayValue.endsWith('ms')) {
-  	        return parseFloat(delayValue); // Already in milliseconds
+  	        return timeValue; // Already in milliseconds
+  	    } else if (delayValue.endsWith('m')) {
+  	        return timeValue * 60 * 1000; // Convert minutes to milliseconds
+  	    } else if (delayValue.endsWith('h')) {
+  	        return timeValue * 60 * 60 * 1000; // Convert hours to milliseconds
+  	    } else if (delayValue.endsWith('min')) {
+  	        return timeValue * 60 * 1000; // Convert minutes to milliseconds
+  	    } else if (delayValue.endsWith('sec')) {
+  	        return timeValue * 1000; // Convert seconds to milliseconds
+  	    } else if (delayValue.endsWith('second')) {
+  	        return timeValue * 1000; // Convert seconds to milliseconds
+  	    } else if (delayValue.endsWith('minute')) {
+  	        return timeValue * 60 * 1000; // Convert minutes to milliseconds
+  	    } else if (delayValue.endsWith('hour')) {
+  	        return timeValue * 60 * 60 * 1000; // Convert hours to milliseconds
   	    } else {
-  	        // If no unit, assume milliseconds
-  	        return parseInt(delayValue);
+  	        // If no unit, assume milliseconds (backward compatibility)
+  	        return timeValue;
   	    }
   	}
 
