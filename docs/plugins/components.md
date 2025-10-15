@@ -172,6 +172,10 @@ Components are applied with `<x-filename>` tags, where `filename` is the actual 
 
 See the [router](/plugins/router) plugin for more information on conditional rendering with the `x-route` attribute.
 
+::: brand icon="lucide:info"
+Component placeholder tags like `<x-about x-route="about">` will assign the route to all top-level elements in the component, overwriting their own routes if present.
+:::
+
 ---
 
 ## Customizing Instances

@@ -82,6 +82,23 @@ Indux routing should be used independent of other routing systems or frameworks.
 
 If an element in `index.html` has no `x-route` attribute or value, it will render on all routes. Use `/` for rendering only at the base domain route.
 
+Routing accounts for URL content that does not affect the path:
+- **Localization codes**: `/fr/features` matches `features` (after stripping the language code)
+- **URL parameters**: `features?filter=active` matches `features` (query parameters are ignored)
+- **Anchors**: `features#section` matches `features` (hash fragments are ignored)
+
+---
+
+### Exact Routes
+
+Use `=route` to match only the exact route, excluding any subpaths.
+
+```html
+<div x-route="=about">...</div>
+```
+
+This is useful when you want to show content only on a specific route without it appearing on subroutes.
+
 ---
 
 ### Wildcard Routes
