@@ -204,11 +204,11 @@ The checkbox icon is an encoded SVG in the checkbox style's `--icon-checkbox` va
 
 ### Customization
 
-Modify base checkbox styles with custom CSS for the `input[type="checkbox"]` selector.
+Modify base checkbox styles with custom CSS for the `input[type=checkbox]` selector.
 
 ::: frame
 <style>
-input[type="checkbox"].custom {
+input[type=checkbox].custom {
     color: white;
     background-color: aqua;
     border-radius: 0;
@@ -219,7 +219,7 @@ input[type="checkbox"].custom {
 :::
 
 ```css copy
-input[type="checkbox"] {
+input[type=checkbox] {
     color: white;
     background-color: aqua;
     border-radius: 0;

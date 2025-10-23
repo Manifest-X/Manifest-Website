@@ -247,7 +247,7 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 
     /* Focus state */
     :where(:focus-visible),
-    :where(label:has(input, button, [role="button"], [type="button"], select, textarea):focus-within) {
+    :where(label:has(input, button, [role=button], [type=button], select, textarea):focus-within) {
         outline: none;
         box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-content-stark) 35%, transparent);
     }

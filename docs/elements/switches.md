@@ -179,29 +179,29 @@ Default switches use the following [theme](/styles/theme) variables:
 
 ### Customization
 
-Modify base switch styles with custom CSS for the `input[role="switch"]` selector.
+Modify base switch styles with custom CSS for the `input[role=switch]` selector.
 
 ::: frame
 <style>
-input[role="switch"].custom {
+input[role=switch].custom {
     background-color: #f0f8ff;
     border: 2px solid #3b82f6;
     border-radius: 20px;
 }
 
 /* Marker */
-input[role="switch"].custom::before {
+input[role=switch].custom::before {
     background-color: #1e40af;
     box-shadow: 0 2px 4px rgba(30, 64, 175, 0.3);
 }
 
 /* Background when checked */
-input[role="switch"].custom:checked {
+input[role=switch].custom:checked {
     background-color: #3b82f6;
 }
 
 /* Marker when checked */
-input[role="switch"].custom:checked::before {
+input[role=switch].custom:checked::before {
     background-color: white;
     left: calc(100% - 1.5rem + 0.125rem);
 }
@@ -211,7 +211,7 @@ input[role="switch"].custom:checked::before {
 :::
 
 ```css copy
-input[role="switch"] {
+input[role=switch] {
     background-color: #f0f8ff;
     border: 2px solid #3b82f6;
     border-radius: 20px;

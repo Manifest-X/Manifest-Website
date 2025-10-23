@@ -25,7 +25,7 @@
         <!-- Left Side -->
         <div class="row gap-4 max-w-full">
 
-          <!-- Search Button -->
+          <!-- Mobile Sidebar Button -->
           <button class="ghost" popovertarget="mobile-navigation" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
 
            <!-- Breadcrumbs-->
@@ -96,7 +96,7 @@
         </h5>
 
         <template x-anchors=".prose | h2, h3">
-          <div class="col gap-1.5" x-show="$store.anchors?.count > 0"></div>
+          <div class="col gap-1.5" x-show="$store.anchors?.count > 0">
             <a :href="anchor.link" 
               class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" 
               :class="{

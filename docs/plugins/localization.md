@@ -311,7 +311,7 @@ The plugin automatically detects and handles right-to-left languages like Arabic
 </template>
 ```
 
-If a RTL language is detected as the current locale, the plugin automatically adds `dir="rtl"` to the `<html>` tag, reversing the inline flow of page content. Dectable RTL languages are:
+If a RTL language is detected as the current locale, the plugin automatically adds `dir=rtl` to the `<html>` tag, reversing the inline flow of page content. Dectable RTL languages are:
 
 **Arabic Script**
 - Arabic (`ar`)

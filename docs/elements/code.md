@@ -221,7 +221,7 @@ x-code-group.custom, x-code.custom, [x-code].custom {
       font-weight: bold;
 
     /* Tab buttons */
-    & button[role="tab"] {
+    & button[role=tab] {
     
       /* Selected tab */
       &.selected {
@@ -272,7 +272,7 @@ x-code-group, x-code, [x-code] {
       font-weight: bold;
 
     /* Tab buttons */
-    & button[role="tab"] {
+    & button[role=tab] {
     
       /* Selected tab */
       &.selected {

@@ -195,11 +195,11 @@ Default radios use the following [theme](/styles/theme) variables:
 
 ### Customization
 
-Modify base radio styles with custom CSS for the `input[type="radio"]` selector.
+Modify base radio styles with custom CSS for the `input[type=radio]` selector.
 
 ::: frame
 <style>
-input[type="radio"].custom {
+input[type=radio].custom {
     background-color: #f0f8ff;
     border: 2px solid #3b82f6;
     border-radius: 50%;
@@ -217,7 +217,7 @@ input[type="radio"].custom {
 :::
 
 ```css copy
-input[type="radio"] {
+input[type=radio] {
     background-color: #f0f8ff;
     border: 2px solid #3b82f6;
     border-radius: 50%;

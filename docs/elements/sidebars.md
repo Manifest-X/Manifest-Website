@@ -133,7 +133,7 @@ aside[popover] {
     }
 
     /* RTL support - slide from left in RTL context */
-    [dir="rtl"] & {
+    [dir=rtl] & {
         @starting-style {
             transform: translateX(-100%);
         }
