@@ -36,7 +36,7 @@ Toast styles are included in Indux CSS or as a standalone stylesheet, both refer
 <x-code-group copy>
 
 ```html "Indux CSS"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.css" />
 ```
 
 ```html "Standalone"

@@ -9,7 +9,7 @@ Inputs styles are included in Indux CSS or a standalone stylesheet, both referen
 <x-code-group copy>
 
 ```html "Indux CSS"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.css" />
 ```
 
 ```html "Standalone"

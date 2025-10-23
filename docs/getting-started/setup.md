@@ -60,7 +60,7 @@ Add the desired Indux CSS stylesheets to the `<head>` of your HTML file. Like sc
 
   <!-- Styles -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.css">
 
   <!-- Other tags -->
 </head>

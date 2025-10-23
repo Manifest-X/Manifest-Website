@@ -11,7 +11,7 @@ Utilities are available in the full Indux CSS library, or through a standalone s
 <x-code-group copy>
 
 ```html "Indux CSS"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.css">
 ```
 
 ```html "Standalone"

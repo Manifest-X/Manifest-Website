@@ -21,7 +21,7 @@ The theme is a CSS stylesheet, to be used alongside the full Indux CSS library o
 
 ```html "Indux CSS"
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.theme.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.css">
 ```
 
 ```html "Standalone"

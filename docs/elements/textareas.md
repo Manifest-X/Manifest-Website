@@ -9,7 +9,7 @@ Textareas styles are included in Indux CSS or the standalone [inputs](/elements/
 <x-code-group copy>
 
 ```html "Indux CSS"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.css" />
 ```
 
 ```html "Standalone"

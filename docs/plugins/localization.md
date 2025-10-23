@@ -23,12 +23,12 @@ Localization is supported by a plugin for Alpine JS, available on its own or as 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Indux JS -->
-<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.min.js"></script>
 ```
 
 ```html "Quickstart"
 <!-- Indux JS, Alpine, and Tailwind combined -->
-<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js"></script>
 ```
 
 </x-code-group>
