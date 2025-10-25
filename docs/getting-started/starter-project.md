@@ -53,11 +53,7 @@ project-name/
 │   ├── 192x192.png           # Small icon variant
 │   ├── 512x512.png           # Large icon variant
 ├── styles/                   # CSS stylesheets
-│   ├── custom.css            # Place for custom styles
-│   └── indux.css             # Indux framework styles
 │   └── indux.theme.css       # Project theme variables
-├── scripts/                  # JavaScript files
-│   └── indux.quickstart.js   # Indux framework + Alpine + Tailwind
 ├── _redirects                # SPA routing support for modern static hosts
 ├── .htaccess                 # SPA routing support for Apache-based hosts
 ├── favicon.ico               # Browser tab icon
@@ -80,7 +76,7 @@ The only mandatory files required for operation are `index.html`, `indux.quickst
 
 This main HTML file serves as the router's single-page application (SPA) entry point. It includes:
 
-- **Head tags** for resource loading, SEO, and web app configuration.
+- **Head tags** for Indux framework loading (from CDN), SEO, and web app configuration.
 - **Component placeholders** (`<x-header>`, `<x-footer>`) of [HTML templates](/plugins/components).
 - **Routing views** (`x-route="..."`) for [URL-specific content](/plugins/router).
 - **Dynamic references** (`x-text="$x.content.page1"`) to localized [data source](/plugins/data-sources) values.

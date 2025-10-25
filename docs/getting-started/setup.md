@@ -17,12 +17,12 @@ Load the script tags once in the index head (or anywhere in the body), in any or
 
 <x-code-group copy>
 
-```html "Quickstart (420kb)"
+```html "Quickstart (437kb)"
 <!-- Indux (all plugins), Alpine JS, and Tailwind CSS bundled together -->
 <script defer src="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.quickstart.min.js"></script>
 ```
 
-```html "All Plugins (120kb)"
+```html "All Plugins (143kb)"
 <!-- Alpine JS -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
@@ -54,7 +54,7 @@ Add the desired Indux CSS stylesheets to the `<head>` of your HTML file. Like sc
 
 <x-code-group copy>
 
-```html "All Styles"
+```html "All Styles (47kb)"
 <head>
   <!-- Other tags -->
 
@@ -66,7 +66,7 @@ Add the desired Indux CSS stylesheets to the `<head>` of your HTML file. Like sc
 </head>
 ```
 
-```html "Individual Styles"
+```html "Individual Styles (<10kb)"
 <head>
   <!-- Other tags -->
 

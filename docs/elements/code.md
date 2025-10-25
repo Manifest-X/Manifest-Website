@@ -34,7 +34,7 @@ Code blocks are supported by a plugin for Alpine JS, available on its own or as 
 Code block styles are provided in a standalone stylesheet, which references [theme](/styles/theme) variables.
 
 ```html copy
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.code.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@indux/indux@latest/dist/indux.code.min.css" />
 ```
 
 ---

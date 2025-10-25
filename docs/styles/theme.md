@@ -286,7 +286,7 @@ Any declared CSS variables throughout your project can be compiled into utility 
 .border-brand { border-color: red; }
 ```
 
-The runtime compiler is highly optimized for performance. Running concurrent to other page load events, it only generates styles for classes used in the current DOM view, and leverages caching to avoid redundant work. As a result, updating of its generated `<style>` tag in the head is nearly instantaneous, with average execution times under 10ms.
+The runtime compiler is highly optimized for performance. Running concurrent to other page load events, it only generates styles for classes used in the current DOM view, and leverages caching to avoid redundant work. For performance optimization, any non-Indux stylesheets served over CDN are ignored. As a result, updating of its generated `<style>` tag in the head is nearly instantaneous, with average execution times under 10ms.
 
 ---
 
