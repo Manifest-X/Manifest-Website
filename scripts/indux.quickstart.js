@@ -1303,7 +1303,8 @@ ${H}`)
               Array.from(document.styleSheets).some(sheet =>
                   sheet.href && (
                       sheet.href.includes('tailwind') ||
-                      sheet.href.includes('tailwindcss')
+                      sheet.href.includes('tailwindcss') ||
+                      sheet.href.includes('indux')
                   )
               ) ||
               // Check for Tailwind classes in document
@@ -1311,7 +1312,9 @@ ${H}`)
               // Check for Tailwind in window object
               window.tailwind ||
               // Check for Tailwind in document head
-              document.head.innerHTML.includes('tailwind')
+              document.head.innerHTML.includes('tailwind') ||
+              // Check for Indux CSS files
+              document.head.innerHTML.includes('indux')
           );
       }
 
@@ -1397,22 +1400,25 @@ ${H}`)
               // Process each stylesheet
               for (const sheet of stylesheets) {
                   try {
-                      // Only process local files (exclude CDNs and external resources)
-                      if (sheet.href && 
-                          sheet.href.startsWith(window.location.origin) &&
-                          !sheet.href.includes('cdn.') &&
-                          !sheet.href.includes('jsdelivr') &&
-                          !sheet.href.includes('unpkg') &&
-                          !sheet.href.includes('cdnjs')) {
+                      // Process local files and @indux CDN files
+                      if (sheet.href && (
+                          sheet.href.startsWith(window.location.origin) ||
+                          sheet.href.includes('@indux') ||
+                          (sheet.href.includes('jsdelivr') && sheet.href.includes('@indux')) ||
+                          (sheet.href.includes('unpkg') && sheet.href.includes('@indux'))
+                      )) {
                           this.cssFiles.add(sheet.href);
                       }
 
-                      // Get all @import rules (only local ones)
+                      // Get all @import rules (local and @indux CDN)
                       const rules = Array.from(sheet.cssRules || []);
                       for (const rule of rules) {
-                          if (rule.type === CSSRule.IMPORT_RULE &&
-                              rule.href.startsWith(window.location.origin) &&
-                              !rule.href.includes('cdn.')) {
+                          if (rule.type === CSSRule.IMPORT_RULE && rule.href && (
+                              rule.href.startsWith(window.location.origin) ||
+                              rule.href.includes('@indux') ||
+                              (rule.href.includes('jsdelivr') && rule.href.includes('@indux')) ||
+                              (rule.href.includes('unpkg') && rule.href.includes('@indux'))
+                          )) {
                               this.cssFiles.add(rule.href);
                           }
                       }
@@ -1697,9 +1703,15 @@ ${H}`)
                           const cached = this.cssContentCache.get(cacheKey);
                           const now = Date.now();
                           
-                          // For static compilation phase, cache for longer (30 seconds)
-                          // For dynamic compilation phase, cache for shorter (5 seconds)
-                          const cacheTime = this.hasScannedStatic ? 5000 : 30000;
+                          // Different cache times based on file source
+                          let cacheTime;
+                          if (source.includes('@indux') || source.includes('jsdelivr') || source.includes('unpkg')) {
+                              // CDN files: cache longer (5 minutes for static, 1 minute for dynamic)
+                              cacheTime = this.hasScannedStatic ? 60000 : 300000;
+                          } else {
+                              // Local files: shorter cache (5 seconds for dynamic, 30 seconds for static)
+                              cacheTime = this.hasScannedStatic ? 5000 : 30000;
+                          }
                           
                           if (cached && (now - cached.timestamp) < cacheTime) {
                               content = cached.content;
