@@ -63,7 +63,7 @@
         <div class="x-3xl max-w-full mx-auto">
 
           <!-- Eyebrow Group Name -->
-          <h5 x-show="$x.docs.route('path')" class="mb-2.5 text-brand-content" x-text="$x.docs.route('path')?.group || 'No group'"></h5>
+          <span class="h5" x-show="$x.docs.route('path')" class="mb-2.5 text-brand-content" x-text="$x.docs.route('path')?.group || 'No group'"></span>
 
           <!-- Markdown Document for Route -->
           <div x-show="$x.docs.route('path')" class="prose [&_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="$x.docs.route('path')?.doc"></div>
@@ -90,10 +90,10 @@
       <!-- Anchor Links -->
       <div class="hidden lg:col gap-2.5 w-64 max-h-[calc(100vh-69px)] mt-[69px] pt-8 pb-64 pl-10 overflow-y-auto no-scrollbar">
 
-        <h5 class="mb-2" x-show="$store.anchors?.count > 0">
+        <span class="h5 mb-2" x-show="$store.anchors?.count > 0">
           <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
           <span>On this page</span>
-        </h5>
+        </span>
 
         <template x-anchors=".prose | h2, h3">
           <div class="col gap-1.5" x-show="$store.anchors?.count > 0">
