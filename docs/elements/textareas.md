@@ -132,6 +132,46 @@ If a resize drag handle is applied and interacted with, the manually-set height 
 
 ---
 
+## Labels
+
+::: brand icon="lucide:info"
+These styles are included in `indux.css`. If using standlone stylesheets, `indux.form.css` is required.
+:::
+
+Placing the textarea and text inside a `<label>` automatically stacks them with spacing.
+
+::: frame
+<label>
+    Message
+    <textarea placeholder="Enter your message"></textarea>
+</label>
+:::
+
+```html copy
+<label>
+    Message
+    <textarea placeholder="Enter your message"></textarea>
+</label>
+```
+
+To horizontally inline the label text with the textarea, place the text in a `<data>` element. This is used as a CSS hook with no semantic impact.
+
+::: frame
+<label>
+    <data>Message</data>
+    <textarea placeholder="Enter your message"></textarea>
+</label>
+:::
+
+```html copy
+<label>
+    <data>Message</data>
+    <textarea placeholder="Enter your message"></textarea>
+</label>
+```
+
+---
+
 ## Styles
 
 ### Theme

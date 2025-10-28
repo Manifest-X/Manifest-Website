@@ -63,7 +63,7 @@
         <div class="x-3xl max-w-full mx-auto">
 
           <!-- Eyebrow Group Name -->
-          <span class="h5" x-show="$x.docs.route('path')" class="mb-2.5 text-brand-content" x-text="$x.docs.route('path')?.group || 'No group'"></span>
+          <span class="h5 text-brand-content" x-show="$x.docs.route('path')" class="mb-2.5 text-brand-content" x-text="$x.docs.route('path')?.group || 'No group'"></span>
 
           <!-- Markdown Document for Route -->
           <div x-show="$x.docs.route('path')" class="prose [&_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="$x.docs.route('path')?.doc"></div>

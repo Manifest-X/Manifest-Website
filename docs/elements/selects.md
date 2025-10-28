@@ -190,11 +190,65 @@ Selects accept Indux [utility](/styles/utilities) classes, which can be stacked 
 
 ---
 
-## Groups
+## Form Layouts
 
 ::: brand icon="lucide:info"
 These styles are included in `indux.css`. If using standlone stylesheets, `indux.form.css` is required.
 :::
+
+### Labels
+
+Placing the select and text inside a `<label>` automatically stacks them with spacing.
+
+::: frame
+<label>
+    Category
+    <select>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+</label>
+:::
+
+```html copy
+<label>
+    Category
+    <select>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+</label>
+```
+
+To horizontally inline the label text with the select, place the text in a `<data>` element. This is used as a CSS hook with no semantic impact.
+
+::: frame
+<label>
+    <data>Category</data>
+    <select>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+</label>
+:::
+
+```html copy
+<label>
+    <data>Category</data>
+    <select>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+</label>
+```
+
+---
+
+### Groups
 
 Horizontally group buttons, inputs, or selects together with a `role="group"` attribute added to the parent container.
 

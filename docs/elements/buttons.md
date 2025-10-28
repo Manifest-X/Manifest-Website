@@ -202,11 +202,49 @@ Indux hides the `type="file"` input since its lack modern style control. To visu
 
 ---
 
-## Groups
+## Form Layouts
 
 ::: brand icon="lucide:info"
 These styles are included in `indux.css`. If using standlone stylesheets, `indux.form.css` is required.
 :::
+
+### Labels
+
+Placing the button and text inside a `<label>` automatically stacks them with spacing.
+
+::: frame
+<label>
+    Action
+    <button>Submit</button>
+</label>
+:::
+
+```html copy
+<label>
+    Action
+    <button>Submit</button>
+</label>
+```
+
+To horizontally inline the label text with the button, place the text in a `<data>` element. This is used as a CSS hook with no semantic impact.
+
+::: frame
+<label>
+    <data>Action</data>
+    <button>Submit</button>
+</label>
+:::
+
+```html copy
+<label>
+    <data>Action</data>
+    <button>Submit</button>
+</label>
+```
+
+---
+
+### Groups
 
 Horizontally group buttons, inputs, or selects together with a `role="group"` attribute added to the parent container.
 

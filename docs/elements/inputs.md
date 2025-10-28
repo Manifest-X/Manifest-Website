@@ -141,11 +141,49 @@ Inputs of `type="file"` work on their own, or can be placed in a label to facili
 
 ---
 
-## Groups
+## Form Layouts
 
 ::: brand icon="lucide:info"
 These styles are included in `indux.css`. If using standlone stylesheets, `indux.form.css` is required.
 :::
+
+### Labels
+
+Placing the input and text inside a `<label>` automatically stacks them with spacing.
+
+::: frame
+<label>
+    Email
+    <input placeholder="Enter your email" />
+</label>
+:::
+
+```html copy
+<label>
+    Email
+    <input placeholder="Enter your email" />
+</label>
+```
+
+To horizontally inline the label text with the input, place the text in a `<data>` element. This is used as a CSS hook with no semantic impact.
+
+::: frame
+<label>
+    <data>Email</data>
+    <input placeholder="Enter your email" />
+</label>
+:::
+
+```html copy
+<label>
+    <data>Email</data>
+    <input placeholder="Enter your email" />
+</label>
+```
+
+---
+
+### Groups
 
 Horizontally group inputs, buttons, or selects together with a `role="group"` attribute on the parent container.
 
