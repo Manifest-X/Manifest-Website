@@ -48,11 +48,11 @@ Sidebars are supported in pure HTML using the `<aside>` element as a <a href="ht
 
 ## Positioning
 
-By default, sidebars slide in from the inline-end (right in LTR, left in RTL). Add the `start` class to make the sidebar originate from the inline-start (left in LTR, right in RTL).
+By default, sidebars slide in from the inline-end (right in LTR, left in RTL). Add the `appear-start` class to make the sidebar originate from the inline-start (left in LTR, right in RTL).
 
 ::: frame
 <button popovertarget="sidebar-start-preview">Open Start Sidebar</button>
-<aside popover id="sidebar-start-preview" class="col gap-4 p-4 border-e border-line">
+<aside popover id="sidebar-start-preview" class="appear-start col gap-4 p-4 border-e border-line">
     <span class="h4">Start Sidebar</span>
     <p>This sidebar slides in from the left in LTR screens.</p>
 </aside>
@@ -61,7 +61,7 @@ By default, sidebars slide in from the inline-end (right in LTR, left in RTL). A
 ```html copy
 <button popovertarget="sidebar-start">Open Start Sidebar</button>
 
-<aside popover id="sidebar-start" class="col gap-4 p-4 border-e border-line">
+<aside popover id="sidebar-start" class="appear-start col gap-4 p-4 border-e border-line">
     <h4>Start Sidebar</h4>
     <p>This sidebar slides in from the left in LTR screens.</p>
 </aside>
