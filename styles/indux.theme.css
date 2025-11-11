@@ -111,4 +111,11 @@
         outline: none;
         box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-content-stark) 35%, transparent);
     }
+
+    /* Disabled state */
+    :where([disabled], :disabled, [aria-disabled=true], .disabled) {
+        opacity: .5;
+        cursor: default;
+        pointer-events: none
+    }
 }
