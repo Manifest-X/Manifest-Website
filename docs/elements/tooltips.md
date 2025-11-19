@@ -164,6 +164,34 @@ Tooltips can display dynamic content using Alpine.js expressions.
 </div>
 ```
 
+Note that tooltips with loop variables from `x-for` use template literals or string concatenation to ensure the expression is recognized as dynamic.
+
+::: frame
+<template x-for="item in $x.example.tooltipList">
+    <span class="h4" x-tooltip="`${item.tooltip}`" x-text="item.name"></span>
+</template>
+:::
+
+<x-code-group copy>
+
+```html "HTML"
+<template x-for="item in $x.content.list">
+    <h4 x-tooltip="`${item.tooltip}`" x-text="item.name"></h4>
+</template>
+```
+
+```yaml "content.yaml"
+list:
+    - name: "Mercury"
+      tooltip: "The hottest planet"
+    - name: "Venus"
+      tooltip: "The second hottest planet"
+    - name: "Earth"
+      tooltip: "The planet with the hottest parties"
+```
+
+</x-code-group>
+
 ---
 
 ## Data Sources
