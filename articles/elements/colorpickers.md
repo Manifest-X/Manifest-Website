@@ -116,15 +116,17 @@ To use a picker's value elsewhere, read it with the `$colorpicker(id)` magic met
 ::: frame
 <div class="row-wrap items-center gap-4" x-data>
     <button id="brand" x-colorpicker.swatch value="#3b82f6"></button>
-    <h1 :style="`color: ${$colorpicker('brand')}`">Brand Color</h1>
-    <span x-text="$colorpicker('brand')"></span>
+    <div class="col">
+        <span class="h3" :style="`color: ${$colorpicker('brand')}`">Brand Color</span>
+        <span x-text="$colorpicker('brand')"></span>
+    </span>
 </div>
 :::
 
 ```html copy
 <div class="row-wrap items-center gap-4" x-data>
     <button id="brand" x-colorpicker.swatch value="#3b82f6"></button>
-    <h1 :style="`color: ${$colorpicker('brand')}`">Brand Color</h1>
+    <span class="h3" :style="`color: ${$colorpicker('brand')}`">Brand Color</span>
     <span x-text="$colorpicker('brand')"></span>
 </div>
 ```
@@ -226,7 +228,9 @@ Each panel can be individually customized:
 The solid panel offers a 2D saturation/lightness canvas, a hue slider, an alpha slider, a format selector (`HEX`, `RGB`, `HSL`, `OKLCH`), <a href="https://developer.mozilla.org/docs/Web/API/EyeDropper" target="_blank" rel="noopener">eye dropper</a>, and direct value inputs.
 
 ::: frame
-<button x-colorpicker.swatch="['solid']"></button>
+<div x-colorpicker class="bg-page dark:bg-surface-3 border border-line">
+    <div x-colorpicker.solid></div>
+</div>
 :::
 
 Build a custom solid panel by wrapping any container in `x-colorpicker.solid` and adding the directives below. Each binds a specific control or display surface to the picker's solid-color state.
@@ -271,7 +275,9 @@ Build a custom solid panel by wrapping any container in `x-colorpicker.solid` an
 The gradient panel supports linear, radial, and conic gradients with arbitrary numbers of layers and stops.
 
 ::: frame
-<button x-colorpicker.swatch="['gradient']"></button>
+<div x-colorpicker class="bg-page dark:bg-surface-3 border border-line">
+    <div x-colorpicker.gradient></div>
+</div>
 :::
 
 Each gradient has one or more **layers**, and each layer has two or more **stops**. The panel uses two nested templates: one for the layer container and one for each layer's UI. The plugin clones `layer-options` once per layer, exposing per-layer scope variables to your bindings.
@@ -361,7 +367,9 @@ Stops support drag-to-reposition along the bar, click to open the stop's own sol
 The library panel is where preset palettes live. There are three sources, each rendered as its own group: Recent (most-recent picks), Default Palettes (Tailwind / iOS), and your Custom Palettes.
 
 ::: frame
-<button x-colorpicker.swatch="['library']"></button>
+<div x-colorpicker class="bg-page dark:bg-surface-3 border border-line">
+    <div x-colorpicker.library></div>
+</div>
 :::
 
 Build a custom library layout with a single root `x-colorpicker.library` container plus optional inner templates. The plugin clones the templates once per group / palette / swatch so you can fully control the visual structure while keeping the data-driven behavior.
