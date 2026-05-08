@@ -81,8 +81,19 @@ Set a default color with the swatch's `value` attribute — the same attribute a
 
 For two-way reactive binding, use `x-model` instead. When both are present, `x-model` wins.
 
+::: frame
+<div class="row-wrap items-center gap-1" x-data="{ color: '#22c55e' }">
+    <button x-colorpicker.swatch x-model="color" class="me-4"></button>
+    <button @click="color = '#22c55e'">Green</button>
+    <button @click="color = '#3b82f6'" >Blue</button>
+</div>
+:::
 ```html copy
-<button x-colorpicker.swatch x-model="color" x-data="{ color: '#ff0000' }"></button>
+<div x-data="{ color: '#22c55e' }">
+    <button x-colorpicker.swatch x-model="color"></button>
+    <button @click="color = '#22c55e'">Green</button>
+    <button @click="color = '#3b82f6'">Blue</button>
+</div>
 ```
 
 #### Form Participation
@@ -103,24 +114,26 @@ Add a `name` attribute to make a swatch submit with a `<form>`, just like any ot
 To use a picker's value elsewhere, read it with the `$colorpicker(id)` magic method.
 
 ::: frame
-<button id="brand" x-colorpicker.swatch></button>
-
-<span class="h1" :style="`color: ${$colorpicker('brand')}`">Brand Color</span>
-<span x-text="${$colorpicker('brand')"></span>
+<div class="row-wrap items-center gap-4" x-data>
+    <button id="brand" x-colorpicker.swatch value="#3b82f6"></button>
+    <h1 :style="`color: ${$colorpicker('brand')}`">Brand Color</h1>
+    <span x-text="$colorpicker('brand')"></span>
+</div>
 :::
 
 ```html copy
-<button id="brand" x-colorpicker.swatch></button>
-
-<h1 :style="`color: ${$colorpicker('brand')}`">Brand Color</h1>
-<span x-text="${$colorpicker('brand')"></span>
+<div class="row-wrap items-center gap-4" x-data>
+    <button id="brand" x-colorpicker.swatch value="#3b82f6"></button>
+    <h1 :style="`color: ${$colorpicker('brand')}`">Brand Color</h1>
+    <span x-text="$colorpicker('brand')"></span>
+</div>
 ```
 
 ---
 
 ## Menu
 
-The color picker menu offers solid and gradient editing, four color spaces with alpha (Hex, RGB, HSL, OKLCH), custom and recent palettes, and a screen eyedropper. Manifest resolves a swatch's menu in this order:
+The color picker menu offers solid and gradient editing, four color spaces with alpha (Hex, RGB, HSL, OKLCH), custom and recent palettes, and a screen eyedropper. Manifest produces a swatch's menu in this order:
 
 1. **Inline picker** — a live element on the page whose `id` matches the swatch's value.
 2. **Default template** — a single `<template x-colorpicker>` (see [Default Override](#default-override)).
@@ -131,7 +144,7 @@ The wrapper element of an inline picker determines its presentation: `<menu popo
 ::: frame
 <button x-colorpicker.swatch="dropdown-picker"></button>
 <button x-colorpicker.swatch="dialog-picker"></button>
-<button x-colorpicker.swatch="inline-picker"></button>
+<div x-colorpicker.swatch="inline-picker" class="pointer-events-none"></div>
 <menu id="dropdown-picker" popover x-colorpicker></menu>
 <dialog id="dialog-picker" popover x-colorpicker></dialog>
 <div id="inline-picker" x-colorpicker></div>
@@ -147,11 +160,9 @@ The wrapper element of an inline picker determines its presentation: `<menu popo
 <dialog id="dialog-picker" popover x-colorpicker></dialog>
 
 <!-- Inline -->
-<button x-colorpicker.swatch="inline-picker"></button>
+<div x-colorpicker.swatch="inline-picker" class="pointer-events-none"></div>
 <div id="inline-picker" x-colorpicker></div>
 ```
-
-A picker with no children renders the plugin's fallback UI. Add child directives like `x-colorpicker.solid` to customize specific panels (see [Panels](#panels)).
 
 ---
 
@@ -160,6 +171,8 @@ A picker with no children renders the plugin's fallback UI. Add child directives
 By default, the picker menu shows three tabs: Solid, Gradient, and Library. You can hide tabs you don't need, change their order, or replace the entire menu with custom HTML.
 
 Limit which panels appear by passing them as a value in a bare swatch or a modified `x-colorpicker` attribute in a picker menu.
+
+<x-code-group>
 
 ```html "Bare swatches" copy
 <!-- Solids only -->
@@ -182,9 +195,11 @@ Limit which panels appear by passing them as a value in a bare swatch or a modif
 </menu>
 ```
 
+</x-code-group>
+
 When only one panel is allowed, the tab bar is hidden automatically.
 
-### Default Override
+### Customization
 
 To replace the fallback menu page-wide, declare a single `<template x-colorpicker>` (no `id`, no value) anywhere in your markup. Every bare swatch on the page that would otherwise auto-create the plugin's default menu instead clones from your template — preserving its wrapper element (`<menu>`, `<dialog>`, or `<div>`) and any attributes you put on it.
 
@@ -203,108 +218,239 @@ To replace the fallback menu page-wide, declare a single `<template x-colorpicke
 
 To componentize the default across multiple pages or routes, wrap the template in a Manifest [HTML component](/docs/elements/components) and drop it into your layout.
 
-::: brand icon="lucide:info"
-Inline pickers (`<menu id="X" popover x-colorpicker>`) and panel-filtering on swatches (`x-colorpicker.swatch="['solid']"`) always take precedence over the page default — the default fills in only for bare swatches with no other source.
+Each panel can be individually customized:
+
+<details>
+<summary>Solids</summary>
+
+The solid panel offers a 2D saturation/lightness canvas, a hue slider, an alpha slider, a format selector (`HEX`, `RGB`, `HSL`, `OKLCH`), <a href="https://developer.mozilla.org/docs/Web/API/EyeDropper" target="_blank" rel="noopener">eye dropper</a>, and direct value inputs.
+
+::: frame
+<button x-colorpicker.swatch="['solid']"></button>
 :::
+
+Build a custom solid panel by wrapping any container in `x-colorpicker.solid` and adding the directives below. Each binds a specific control or display surface to the picker's solid-color state.
+
+| Directive                                                | Description                                                                 |
+| -------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `<div x-colorpicker.solid>`                              | Wraps the solid panel. Children below are wired to the picker's state.      |
+| `<canvas x-colorpicker.set-canvas>`                      | The 2D saturation/value plane. Pointer drag updates S and V.                |
+| `<input type="range" x-colorpicker.set-hue>`             | Hue slider (0–360). Background gradient is applied by the plugin.           |
+| `<input type="range" x-colorpicker.set-alpha>`           | Alpha slider (0–100). Checkered backdrop applied by the plugin.             |
+| `<input type="text" x-colorpicker.set-color-value>`      | Free-form input — accepts any CSS color in the active format.               |
+| `<input type="number" x-colorpicker.set-alpha-value>`    | Numeric alpha input (0–100). Mirrors the alpha slider.                      |
+| `<button x-colorpicker.set-color-space>`                 | Reactive **label** — its text content reflects the active format. Pair with a dropdown of choice elements (below) to make a format selector. |
+| `<li x-colorpicker.set-color-space="hex\|rgb\|hsl\|oklch">` | Choice element. Click sets the format to its value; the element is auto-flagged `.active` when its value matches the current format. |
+| `<button x-colorpicker.grab-color>`                      | Opens the browser's [`EyeDropper`](https://developer.mozilla.org/docs/Web/API/EyeDropper) and applies the sampled color. Hidden automatically in unsupported browsers. |
+
+```html copy
+<div x-colorpicker.solid>
+    <canvas x-colorpicker.set-canvas></canvas>
+    <input type="range" min="0" max="360" x-colorpicker.set-hue>
+    <input type="range" min="0" max="100" x-colorpicker.set-alpha>
+    <button x-dropdown="format-menu" x-colorpicker.set-color-space></button>
+    <menu popover id="format-menu">
+        <li x-colorpicker.set-color-space="hex">Hex</li>
+        <li x-colorpicker.set-color-space="rgb">RGB</li>
+        <li x-colorpicker.set-color-space="hsl">HSL</li>
+        <li x-colorpicker.set-color-space="oklch">OKLCH</li>
+    </menu>
+    <input type="text" x-colorpicker.set-color-value>
+    <input type="number" min="0" max="100" x-colorpicker.set-alpha-value>
+    <button x-colorpicker.grab-color aria-label="Grab color"></button>
+</div>
 ```
 
-See the source of `manifest.colorpicker.js` for the full set of available directives if you're authoring a custom menu.
+</details>
 
----
+<hr>
 
-## Solids
+<details>
+<summary>Gradients</summary>
 
-The Solid panel offers a 2D saturation/lightness canvas, a hue slider, an alpha slider, a format selector (`HEX`, `RGB`, `HSL`, `OKLCH`), and direct value inputs.
-
-::: frame
-<button x-colorpicker="['solid']" class="size-8 rounded-md ring-1 ring-black/10"></button>
-:::
-
-The current solid color is exposed at `$colorpicker(id).hex` and `$colorpicker(id).css`. Format toggling does not change the underlying value — only the visual representation in the inputs.
-
----
-
-## Gradients
-
-The Gradient panel supports linear, radial, and conic gradients with arbitrary numbers of layers and stops.
+The gradient panel supports linear, radial, and conic gradients with arbitrary numbers of layers and stops.
 
 ::: frame
-<button x-colorpicker="['gradient']" class="size-8 rounded-md ring-1 ring-black/10"></button>
+<button x-colorpicker.swatch="['gradient']"></button>
 :::
 
-Each gradient has one or more **layers**, and each layer has two or more **stops**. The plugin exposes the following scope variables inside the gradient panel template, which custom menus can read:
+Each gradient has one or more **layers**, and each layer has two or more **stops**. The panel uses two nested templates: one for the layer container and one for each layer's UI. The plugin clones `layer-options` once per layer, exposing per-layer scope variables to your bindings.
+
+| Directive                                                            | Description                                                  |
+| -------------------------------------------------------------------- | ------------------------------------------------------------ |
+| `<div x-colorpicker.gradient>`                                       | Wraps the gradient panel.                                    |
+| `<div x-colorpicker.gradient-layers>`                                | Container that the plugin populates with one cloned layer-options instance per layer, in stack order. |
+| `<template x-colorpicker.layer-options>`                             | Per-layer markup. Cloned into `gradient-layers` for each layer. |
+| `<div x-colorpicker.layer-stops-bar>`                                | Visual stops bar per layer. Shows draggable stop handles, supports right-click context menus, and double-click on the bar adds a stop at that position. |
+| `<input type="number" x-colorpicker.set-angle>`                      | Numeric angle input for the layer (degrees, drag to scrub).  |
+| `<li x-colorpicker.set-gradient-type="linear\|radial\|conic">`       | Click sets the active layer's gradient type to the given value. The element is auto-flagged `.active` when its value matches. |
+| `<button x-colorpicker.add-layer>`                                   | Append a new layer to the top of the stack.                  |
+| `<li x-colorpicker.add-layer-above>` / `<li x-colorpicker.add-layer-below>` | Insert a new layer relative to the current layer.   |
+| `<li x-colorpicker.duplicate-layer>`                                 | Clone the current layer.                                     |
+| `<li x-colorpicker.remove-layer>`                                    | Delete the current layer. Disabled when only one remains.    |
+| `<li x-colorpicker.flip-layer>`                                      | Reverse the stop order.                                      |
+| `<li x-colorpicker.rotate-layer>`                                    | Rotate the layer's angle by 90°.                             |
+| `<li x-colorpicker.move-layer-up>` / `<li x-colorpicker.move-layer-down>` | Reorder the layer in the stack.                         |
+| `<li x-colorpicker.duplicate-stop>`                                  | Clone the active stop. Typically placed in the stop's right-click context menu. |
+| `<li x-colorpicker.delete-stop>`                                     | Delete the active stop. Disabled when only two remain.       |
+| `<textarea x-colorpicker.set-gradient-value>`                        | Raw CSS-gradient input. Accepts any valid `linear-gradient(...)` / `radial-gradient(...)` / `conic-gradient(...)` and parses it back into layers/stops on commit. |
+
+Inside the cloned `layer-options` markup, these reactive variables are available for `x-bind`, `:disabled`, `x-text`, etc.:
 
 | Variable      | Description                                  |
 | ------------- | -------------------------------------------- |
 | `layerType`   | `'linear'`, `'radial'`, or `'conic'`         |
-| `layerIndex`  | Zero-based index of the active layer         |
+| `layerIndex`  | Zero-based index of this layer in the stack  |
 | `layerCount`  | Total number of layers                       |
 
-Layer-management directives (used by the default menu, available to custom menus):
+Stops support drag-to-reposition along the bar, click to open the stop's own solid panel, and right-click for the per-stop context menu (containing duplicate, delete, and the swatch library).
 
-| Directive             | Action                                          |
-| --------------------- | ----------------------------------------------- |
-| `set-gradient-type`   | Switch the active layer to `linear`/`radial`/`conic` |
-| `rotate-layer`        | Rotate the active layer's angle                 |
-| `flip-layer`          | Reverse the stop order                          |
-| `add-layer-above`     | Insert a new layer above the active one         |
-| `add-layer-below`     | Insert a new layer below                        |
-| `duplicate-layer`     | Clone the active layer                          |
-| `move-layer-up`       | Reorder the active layer up the stack           |
-| `move-layer-down`     | Reorder the active layer down the stack         |
-| `remove-layer`        | Delete the active layer (disabled if only one) |
+```html copy
+<!-- Custom gradient panel -->
+<div x-colorpicker.gradient>
 
-Stops support **right-click context menus** for duplication and deletion, and dragging to reposition along the gradient.
+    <!-- Add new layer -->
+    <button x-colorpicker.add-layer>Add layer</button>
 
-The full gradient as a CSS string is available at `$colorpicker(id).css`, ready to drop into `background:` or `background-image:`.
+    <!-- Gradient layers -->
+    <div x-colorpicker.gradient-layers></div>
 
----
+    <!-- Template for each layer -->
+    <template x-colorpicker.layer-options>
+        <div>
 
-## Library
+            <!-- Layer options menu -->
+            <button x-dropdown="layer-options-menu>
+                <span x-text="layerType"></span>
+            </button>
+            <menu popover id="layer-options-menu>
+                <li x-colorpicker.set-gradient-type="linear">Linear</li>
+                <li x-colorpicker.set-gradient-type="radial">Radial</li>
+                <li x-colorpicker.set-gradient-type="conic">Conic</li>
+                <hr>
+                <li x-colorpicker.move-layer-up :disabled="layerIndex === 0">Move Layer Up</li>
+                <li x-colorpicker.move-layer-down :disabled="layerIndex === layerCount - 1">Move Layer Down</li>
+                <hr>
+                <li x-colorpicker.remove-layer :disabled="layerCount === 1">Remove Layer</li>
+            </menu>
 
-The Library panel is where preset palettes live. There are three sources, each shown as its own group.
+            <!-- Layer angle -->
+            <input type="number" min="0" max="360" x-colorpicker.set-angle>
 
-### Recent Palette
+            <!-- Layr stops bar -->
+            <div x-colorpicker.layer-stops-bar></div>
 
-The plugin tracks the most recently committed colors per swatch and surfaces them at the top of the Library panel. Selecting a swatch from Recent restores both solid colors and full gradients exactly as they were committed.
+            <!-- Per-stop accordion -->
+            <div x-colorpicker.solid></div>
 
-A color enters Recent only when the picker menu closes — adjusting the canvas does not pollute the list.
+        </div>
+    </template>
 
-::: brand icon="lucide:info"
-Recent is per-swatch and persists in `localStorage`. To clear it programmatically, see [State & Magic Methods](#state-magic-methods).
-:::
-
-### Default Palettes
-
-Two default palettes are bundled: **Tailwind** (the full Tailwind CSS color scale) and **iOS** (Apple's system colors). Both appear in the Library panel automatically.
-
-To override either palette with your own colors, define `_tailwind` or `_ios` in your colorpicker data file (see [Custom Palettes](#custom-palettes) below for the file location and shape). To **opt out** of a default palette entirely, assign it an empty object:
-
-```yaml
-_tailwind: {}
-_ios: {}
+    <!-- Gradient CSS input (all layers) -->
+    <textarea x-colorpicker.set-gradient-value></textarea>
+</div>
 ```
 
-Either palette can be replaced or hidden independently — opting out of Tailwind does not affect iOS, and vice versa.
+</details>
 
-### Custom Palettes
+<hr>
 
-To add your own palettes, point the manifest's `colorpicker` key at a data source — typically a YAML file in `data/`.
+<details>
+<summary>Library</summary>
 
-**`manifest.json`**
+The library panel is where preset palettes live. There are three sources, each rendered as its own group: Recent (most-recent picks), Default Palettes (Tailwind / iOS), and your Custom Palettes.
 
-```json copy
+::: frame
+<button x-colorpicker.swatch="['library']"></button>
+:::
+
+Build a custom library layout with a single root `x-colorpicker.library` container plus optional inner templates. The plugin clones the templates once per group / palette / swatch so you can fully control the visual structure while keeping the data-driven behavior.
+
+| Directive                                              | Description                                                                  |
+| ------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| `<div x-colorpicker.library>`                          | The library container. With no children, the plugin renders its default layout. With children, your markup is used verbatim. |
+| `<template x-colorpicker.library-group>`               | Cloned once per palette group. Inside, `x-text="group._name"` (or the group's key) is the group label. |
+| `<template x-colorpicker.library-palette>`             | Cloned once per palette inside a group.                                      |
+| `<template x-colorpicker.library-swatch>`              | Cloned once per color in a palette. Wire the click using `x-colorpicker.apply-color`. |
+| `<template x-colorpicker.library-recent-swatch>`       | Cloned once per Recent entry. Use `x-colorpicker.apply-color` for click and `x-colorpicker.remove-recent` for the per-swatch context menu. |
+| `<button x-colorpicker.apply-color>`                   | When clicked, applies the swatch's current background as the picker's color (or the active stop's color in gradient context). |
+| `<li x-colorpicker.remove-recent>`                     | Removes the right-clicked Recent swatch from the list. Typically used inside a stop-style context menu. |
+
+Inside a library template, each clone exposes scope variables you can bind against (group name, palette key, swatch name, color value), and the plugin auto-flags swatches whose color matches the picker's current value with an `.active` class — so styling the selected swatch is just a CSS rule.
+
+```html copy
+<!-- Custom library panel -->
+<div x-colorpicker.library>
+
+    <!-- Template for each library group (e.g. Recent, Tailwind, iOS, each custom group) -->
+    <template x-colorpicker.library-group>
+        <section>
+            <h4 x-text="group._name || groupKey"></h4>
+
+            <!-- Template for each palette within a group -->
+            <template x-colorpicker.library-palette>
+                <div class="palette">
+
+                    <!-- Template for each swatch in a palette -->
+                    <template x-colorpicker.library-swatch>
+                        <button x-colorpicker.apply-color :style="`background: ${color}`" :title="name"></button>
+                    </template>
+
+                </div>
+            </template>
+
+        </section>
+    </template>
+
+    <!-- Template for each recent swatch -->
+    <template x-colorpicker.library-recent-swatch>
+        <button x-colorpicker.apply-color x-dropdown.context="recent-menu" :style="`background: ${color}`"></button>
+    </template>
+
+    <!-- Recent swatch context menu -->
+    <menu popover id="recent-menu">
+        <li x-colorpicker.remove-recent>Remove from recent</li>
+    </menu>
+</div>
+```
+
+#### Recent Palette
+
+The plugin tracks the most recently committed colors per swatch and surfaces them for the library. Selecting a swatch from Recent restores both solid colors and full gradients exactly as they were committed. A color enters the recent palette only when the picker popover menu closes (or is focused out of for inline menus).
+
+Recent is per-swatch and persists in `localStorage`, which can be cleared programmatically, see [magic methods](#state-magic-methods).
+
+#### Default & Custom Palettes
+
+Two default palettes are bundled and appear in the library automatically: Tailwind (the full Tailwind CSS color scale) and iOS (Apple's system colors). To overwrite either one or add custom palettes, declare one or more [local data](/docs/core-plugins/local-data) files flagged with a `colorpicker` key.
+
+<x-code-group>
+
+```json "manifest.json" copy
 {
     "data": {
-        "brand-colors": "/data/brand-colors.yaml"
-    },
-    "colorpicker": "brand-colors"
+        "colors": {
+            "colorpicker": "/data/colors.yaml"
+        }
+    }
 }
 ```
 
-**`data/brand-colors.yaml`**
+```yaml "colors.yaml" copy
+# Replace the bundled Tailwind palette with a locked subset
+_tailwind:
+    _group: Brand    # optional — overrides the group heading ("Tailwind" by default)
+    blue:    "#3b82f6"
+    indigo:  "#6366f1"
+    violet:  "#8b5cf6"
 
-```yaml copy
+# Replace iOS with custom system colors
+_ios:
+    red:    "#ff3b30"
+    green:  "#34c759"
+    blue:   "#007aff"
+
+# Custom groups
 Primary:
     _name: Primary Brand
     blue: "#3b82f6"
@@ -318,35 +464,31 @@ Accent:
     emerald: "#10b981"
 ```
 
-Top-level keys become palette groups. Each group is a flat map of `name: color`. The reserved `_name` key sets the displayed group label (otherwise the key itself is used). Colors can be any valid CSS color string — including gradients.
+</x-code-group>
 
-You can ship multiple palettes — every top-level group becomes its own collapsible section in the Library panel, in the order you define them.
+The contents of `_tailwind` or `_ios` will overwrite their respective default content. Any other top-level keys become custom palette groups. Each group is a flat map of `name: color`. The reserved `_name` key sets the displayed group label (otherwise the key itself is used). Colors can be any valid CSS color string, including gradients.
+
+</details>
 
 ---
 
-## Localization
+### Text & Localization
 
-Color picker strings — palette names, group labels, tab titles, tooltips on layer/stop actions, the eyedropper button — can all be translated by providing a per-locale data source.
+Default text in the color picker UI can be overwritten using a [local data](/docs/core-plugins/local-data) source flagged with a `colorpicker` key, and containing the following `_ui` object syntax.
 
-In `manifest.json`, replace the single colorpicker file with a locale map:
+<x-code-group copy>
 
-```json copy
+```json "manifest.json"
 {
     "data": {
-        "brand-colors": {
-            "en": "/data/brand-colors.en.yaml",
-            "fr": "/data/brand-colors.fr.yaml"
+        "colors": {
+            "colorpicker": "/data/colors.yaml"
         }
-    },
-    "colorpicker": "brand-colors"
+    }
 }
 ```
 
-The plugin reads from the file matching the active locale (set via the [Localization plugin](/docs/core-plugins/localization)).
-
-In addition to your custom palettes, each locale file can define a reserved `_ui` block to translate the picker's built-in strings:
-
-```yaml copy
+```yaml "colors.yaml"
 _ui:
     tabs:
         solid: Solid
@@ -371,112 +513,199 @@ _ui:
         delete: Delete stop
     recent:
         remove: Remove from recent
+```
 
-# Palettes
+</x-code-group>
+
+Text can be localized by chaining values with `$x` references to [locale](/docs/core-plugins/local-data) files.
+
+<x-code-group>
+
+```json "manifest.json" copy
+{
+    "data": {
+        "colors": {
+            "colorpicker": "data/colors.yaml"
+        }
+        "translations": {
+            "en": "data/translations.en.yaml"
+            "fr": "data/translations.fr.yaml"
+        }
+    }
+}
+```
+
+```yaml "colors.yaml"
+_ui:
+    tabs:
+        solid: $x.translations.colors.solid
+        gradient: $x.translations.colors.gradient
+        library: $x.translations.colors.library
+
 Primary:
-    _name: Primary
+    _name: $x.translations.colors.primary
     blue: "#3b82f6"
 ```
 
-Any string you omit from `_ui` falls back to the plugin's English default, so partial translations are safe.
+```yaml "translations.fr.yaml"
+color:
+    solid: Plein
+    gradient: Dégradé
+    library: Bibliothèque
+    primary: Marque principale
+```
 
-::: brand icon="lucide:info"
-For palette **color names** (the labels under each swatch), translation works the same way — define the same color keys in each locale file with translated labels.
+</x-code-group>
+
+Alternatively, use dedicate locale files mapped under `colorpicker`:
+
+<x-code-group>
+
+```json "manifest.json" copy
+{
+    "data": {
+        "colors": {
+            "colorpicker": {
+                "en": "/data/colors.en.yaml",
+                "fr": "/data/colors.fr.yaml"
+            }
+        }
+    }
+}
+```
+
+```yaml "colors.fr.yaml"
+_ui:
+    tabs:
+        solid: Plein
+        gradient: Dégradé
+        library: Bibliothèque
+
+Primary:
+    _name: Marque principale
+    blue: "#3b82f6"
+```
+
+</x-code-group>
+
+---
+
+## Magic Method
+
+Use the `$colorpicker(id)` magic method to read or change a picker's value from anywhere on the page. Used on its own it returns the current color as a CSS string — solid color or full gradient — so it drops straight into `:style`, `x-text`, or any template literal.
+
+::: frame
+<div class="row-wrap items-center gap-4">
+    <button id="hero" x-colorpicker.swatch value="#3b82f6"></button>
+    <span class="h3" :style="`color: ${$colorpicker('hero')}`">Brand Color</span>
+    <span x-text="$colorpicker('hero')"></span>
+</div>
 :::
 
----
-
-## Grab Color
-
-The Solid panel includes an eyedropper button that activates the browser's [`EyeDropper API`](https://developer.mozilla.org/docs/Web/API/EyeDropper) to sample any pixel on screen. The button is shown automatically in browsers that support it and hidden everywhere else.
-
-No configuration is required. The sampled color is set as the picker's current color and committed to Recent on close.
-
----
-
-## State & Magic Methods
-
-The `$colorpicker(id)` magic method returns a reactive object describing the picker with that `id`.
-
-| Property      | Type      | Description                                            |
-| ------------- | --------- | ------------------------------------------------------ |
-| `.hex`        | `string`  | Current solid color as hex (e.g. `'#3b82f6'`)          |
-| `.css`        | `string`  | Ready-to-use CSS color or gradient string              |
-| `.formatted`  | `string`  | Current value in the active format (HEX/RGB/HSL/OKLCH) |
-| `.mode`       | `string`  | `'solid'` or `'gradient'`                              |
-| `.layers`     | `array`   | Gradient layer descriptors (when `mode === 'gradient'`)|
-| `.format`     | `string`  | Active format identifier                               |
-
-Helpers (no `id` argument):
-
-| Helper                          | Description                                      |
-| ------------------------------- | ------------------------------------------------ |
-| `$colorpicker.tailwind`         | The bundled Tailwind palette object              |
-| `$colorpicker.ios`              | The bundled iOS palette object                   |
-| `$colorpicker.presets`          | All custom palettes from your colorpicker source |
-| `$colorpicker.recent(id)`       | The Recent list for a given swatch               |
-
-Programmatic API — call these on `$colorpicker(id)`:
-
-| Method                    | Description                                  |
-| ------------------------- | -------------------------------------------- |
-| `.set(value)`             | Set the picker's value (hex, CSS, gradient)  |
-| `.setMode('solid'\|'gradient')` | Switch panels                          |
-| `.clearRecent()`          | Empty the Recent list for this swatch        |
-
 ```html copy
-<button id="hero" x-colorpicker></button>
-
-<!-- Read -->
-<div :style="`background: ${$colorpicker('hero').css}`"></div>
-
-<!-- Write -->
-<button @click="$colorpicker('hero').set('#10b981')">
-    Reset to brand green
-</button>
+<button id="hero" x-colorpicker.swatch value="#3b82f6"></button>
+<h3 :style="`color: ${$colorpicker('hero')}`">Brand Color</h3>
+<span x-text="$colorpicker('hero')"></span>
 ```
+
+For a different format or specific picker state, read the named property:
+
+| Property                                                | Returns                                                                 |
+| ------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `$colorpicker(id)`                                      | Current CSS value — solid color or full gradient string.                |
+| `$colorpicker(id).hex`                                  | Current solid color as 6-digit hex (e.g. `'#3b82f6'`).                  |
+| `$colorpicker(id).formatted`                            | Current value in the active format (Hex / RGB / HSL / OKLCH).           |
+| `$colorpicker(id).format`                               | Active format identifier — `'hex'`, `'rgb'`, `'hsl'`, or `'oklch'`.     |
+| `$colorpicker(id).pickerMode`                           | `'solid'` or `'gradient'`.                                              |
+| `$colorpicker(id).layers`                               | Gradient layer descriptors (gradient mode).                             |
+| `$colorpicker(id).activeLayer` / `.activeStop`          | The currently selected layer or stop.                                   |
+
+To change a picker's value programmatically, call the corresponding action:
+
+| Action                                                          | Effect                                                |
+| --------------------------------------------------------------- | ----------------------------------------------------- |
+| `$colorpicker(id).applyColor(value)`                            | Set the picker to a new color or gradient.            |
+| `$colorpicker(id).setColorSpace('hex'\|'rgb'\|'hsl'\|'oklch')`  | Switch the active format.                             |
+| `$colorpicker(id).setHue(deg)`                                  | Set the hue (0–360).                                  |
+| `$colorpicker(id).setAlpha(value)`                              | Set the alpha (0–1).                                  |
+| `$colorpicker(id).grabColor()`                                  | Open the screen eyedropper.                           |
+| `$colorpicker(id).addLayer()`                                   | Append a new gradient layer.                          |
+| `$colorpicker(id).duplicateLayer(i)` / `.removeLayer(i)` / `.flipLayer(i)` / `.rotateLayer(i)` | Per-layer operations.  |
+| `$colorpicker(id).addStop(layerIndex, position)` / `.duplicateStop(li, si)` / `.deleteStop(li, si)` | Per-stop operations. |
+
+Without an id, `$colorpicker` exposes a few helpers for working with palettes:
+
+| Helper                  | Returns                                                  |
+| ----------------------- | -------------------------------------------------------- |
+| `$colorpicker.tailwind` | The bundled Tailwind palette.                            |
+| `$colorpicker.ios`      | The bundled iOS palette.                                 |
+| `$colorpicker.presets`  | All custom palettes from your registered color sources.  |
+| `$colorpicker.recent`   | The current Recent list, most-recent first.              |
 
 ---
 
 ## Styles
 
-### Theme Variables
+### Theme
 
-The picker uses Manifest's standard theme tokens for surface, border, and accent colors, so it inherits your light/dark theme automatically. The most relevant tokens:
+The default picker uses the following [theme](/docs/styles/theme) variables:
 
-| Variable                      | Purpose                                |
-| ----------------------------- | -------------------------------------- |
-| `--mnfst-color-surface`       | Menu background                        |
-| `--mnfst-color-border`        | Borders, sliders, swatch ring          |
-| `--mnfst-color-accent`        | Active tab, selected swatch outline    |
-| `--mnfst-radius`              | Menu and swatch corner radius          |
+| Variable                  | Purpose                                                          |
+| ------------------------- | ---------------------------------------------------------------- |
+| `--color-popover-surface` | Menu background                                                  |
+| `--color-content-neutral` | Muted UI text (degree symbol, secondary labels)                  |
+| `--color-field-surface`   | Input field backgrounds inside the menu                          |
+| `--color-line`            | Borders and dividers                                             |
+| `--radius`                | Menu, swatch, and field corner radius                            |
+| `--spacing-field-height`  | Swatch size (matches input height)                               |
+| `--transition`            | Hover, focus, and active state transitions                       |
 
-Override these globally or in a scoped wrapper to retheme the picker without touching its markup.
+The plugin sets two of its own variables on each swatch element to drive the live color preview:
 
-### Custom CSS
+| Variable                | Purpose                                                            |
+| ----------------------- | ------------------------------------------------------------------ |
+| `--color-picker-swatch` | Swatch background (and border, derived from this color via `oklch`) |
+| `--color-picker-alpha`  | Alpha-slider tint behind the checkered alpha pattern                |
 
-Class hooks for scoped styling:
+---
 
-| Class                           | Element                                |
-| ------------------------------- | -------------------------------------- |
-| `.mnfst-colorpicker`            | The swatch element                     |
-| `.mnfst-colorpicker-menu`       | The popover/inline menu container      |
-| `.mnfst-colorpicker-tab`        | Tab button                             |
-| `.mnfst-colorpicker-canvas`     | Saturation/lightness canvas            |
-| `.mnfst-colorpicker-slider`     | Hue and alpha sliders                  |
-| `.mnfst-colorpicker-swatch`     | Library/Recent swatch tile             |
-| `.mnfst-colorpicker-swatch.active` | Currently selected library swatch   |
-| `.mnfst-colorpicker-stop`       | Gradient stop handle                   |
-| `.mnfst-colorpicker-layer`      | Gradient layer row                     |
+### Tailwind CSS
+
+If using Tailwind, individual swatches and menus can be customized with utility classes.
+
+::: frame
+<button x-colorpicker.swatch="custom-tw-picker" class="size-14 max-w-none rounded-full" value="#3b82f6"></button>
+<menu id="custom-tw-picker" popover x-colorpicker class="w-100 max-w-none max-h-none"></menu>
+:::
+
+```html copy
+<button x-colorpicker.swatch="custom-tw-picker" class="size-14 max-w-none rounded-full" value="#3b82f6"></button>
+<menu id="custom-tw-picker" popover x-colorpicker class="w-100 max-w-none max-h-none"></menu>
+```
+
+---
+
+### Customization
+
+Modify base picker styles with custom CSS targeting the `[x-colorpicker]` and `[x-colorpicker.swatch]` selectors. Each panel and control has its own selector — `[x-colorpicker.solid]`, `[x-colorpicker.gradient]`, `[x-colorpicker.library]`, `[x-colorpicker.set-canvas]`, `[x-colorpicker.set-hue]`, `[x-colorpicker.set-alpha]`, and so on.
 
 ```css copy
-/* Make the menu wider */
-.mnfst-colorpicker-menu {
-    width: 360px;
+/* Square swatches with a thicker ring */
+[x-colorpicker\.swatch] {
+    border-radius: 0;
+    border-width: 2px;
 }
 
-/* Square swatches */
-.mnfst-colorpicker-swatch {
-    border-radius: 0;
+/* Wider menu with extra padding */
+[x-colorpicker] {
+    min-width: 22rem;
+    max-width: 22rem;
+}
+
+/* Recolor the saturation reticle */
+[x-colorpicker\.solid] .color-reticle {
+    border-color: #facc15;
 }
 ```
+
+The internal layout classes (`.canvas-wrapper`, `.color-reticle`, `.tabs-wrapper`, `.library-group`, `.library-palette`, `.layer-options`, `.gradient-layer`) are stable hooks for finer-grained styling. Library swatches that match the picker's current color carry an `.active` class for highlighting the selected entry.

@@ -104,7 +104,7 @@ The prerendering build process makes all HTML/Alpine content static. To preserve
 
 </x-code-group>
 
-Interactive directives like `x-theme`, `x-model`, `@click`, and `:class` are automatically handled by the hydration system and generally do not need `data-hydrate`.
+Interactive directives like `x-colors`, `x-model`, `@click`, and `:class` are automatically handled by the hydration system and generally do not need `data-hydrate`.
 
 ---
 

@@ -36,5 +36,5 @@ All data collected are stored on third party services and are subject to the ser
 
 ## Questions​
 
-If you have any questions about this Privacy Policy or our practices, please contact us via <a href="https://github.com/andrewmatlock/Manifest" target="_blank">GitHub</a>.
+If you have any questions about this Privacy Policy or our practices, please contact us via <a href="https://github.com/Manifest-X/Manifest" target="_blank">GitHub</a>.
 

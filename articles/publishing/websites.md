@@ -38,6 +38,7 @@ By default, output is generated in a `/website` folder which includes:
 - `og:locale`/`og:locale:alternate` for localized builds when Open Graph tags exist.
 - Compiled Tailwind CSS (when `data-tailwind` is used).
 - `sitemap.xml` and `robots.txt` files.
+- `.prettierignore`, `.gitattributes`, `.editorconfig`, and `.vscode/settings.json` to help preserve whitespace in code blocks.
 
 ---
 
@@ -104,7 +105,7 @@ The prerendering build process makes all HTML/Alpine content static. To preserve
 
 </x-code-group>
 
-Interactive directives like `x-theme`, `x-model`, `@click`, and `:class` are automatically handled by the hydration system and generally do not need `data-hydrate`.
+Interactive directives like `x-colors`, `x-model`, `@click`, and `:class` are automatically handled by the hydration system and generally do not need `data-hydrate`.
 
 ---
 

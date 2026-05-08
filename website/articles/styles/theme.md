@@ -39,7 +39,7 @@ Apply the theme alongside `manifest.css` or standalone sheets. The default versi
 
 </x-code-group>
 
-Modify the theme by saving it as a local file from <a href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css" target="_blank">jsDelivr</a> or <a href="https://github.com/andrewmatlock/Manifest/tree/master/lib/manifest.theme.css" target="_blank">GitHub</a>, or copy it here:
+Modify the theme by saving it as a local file from <a href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css" target="_blank">jsDelivr</a> or <a href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css" target="_blank">GitHub</a>, or copy it here:
 
 ```css "manifest.theme.css" copy numbers
 :root,

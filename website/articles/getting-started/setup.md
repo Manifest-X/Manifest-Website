@@ -1,6 +1,6 @@
 # Setup
 
-Get Manifest with CDN links or copied from <a href="https://github.com/andrewmatlock/Manifest/tree/master/lib" target="_blank">GitHub</a>.
+Get Manifest with CDN links or copied from <a href="https://github.com/Manifest-X/Manifest/tree/master/lib" target="_blank">GitHub</a>.
 
 ---
 
@@ -121,7 +121,7 @@ Scripts load the latest version from CDN by default. Load a specified version by
 ## Styles
 Stylesheets are divided by UI category, available individually or bundled in `manifest.css`.
 
-A separate `manifest.theme.css` can be <a target="_blank" href="https://github.com/andrewmatlock/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification. It maintains CSS variables referenced by the other sheets if present, centralizing your project's visual identity. See [theme](/docs/styles/theme) for more.
+A separate `manifest.theme.css` can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification. It maintains CSS variables referenced by the other sheets if present, centralizing your project's visual identity. See [theme](/docs/styles/theme) for more.
 
 Add the desired Manifest CSS files to the HTML head (within `index.html` if [routing](/docs/core-plugins/router)). 
 

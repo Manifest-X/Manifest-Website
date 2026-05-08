@@ -14,7 +14,7 @@ npx mnfst-starter MyProject
 
 "MyProject" is the modifiable root directory title — name it after your project.
 
-Alternatively, download the template directory from <a href="https://github.com/andrewmatlock/Manifest/tree/master/templates/starter" target="_blank">GitHub</a>.
+Alternatively, download the template directory from <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/starter" target="_blank">GitHub</a>.
 
 ---
 

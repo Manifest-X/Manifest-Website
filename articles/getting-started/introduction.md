@@ -49,5 +49,5 @@ Manifest was created by <a href="https://andrewmatlock.com" target="_blank">Andr
 ---
 
 ::: brand icon="lucide:info"
-Manifest went public in 2026 and will benefit from your feedback. We invite your ideas, suggestions, and collaboration on <a href="https://github.com/andrewmatlock/Manifest" target="_blank">GitHub</a>.
+Manifest went public in 2026 and will benefit from your feedback. We invite your ideas, suggestions, and collaboration on <a href="https://github.com/Manifest-X/Manifest" target="_blank">GitHub</a>.
 :::

@@ -114,17 +114,19 @@ Add a `name` attribute to make a swatch submit with a `<form>`, just like any ot
 To use a picker's value elsewhere, read it with the `$colorpicker(id)` magic method.
 
 ::: frame
-<div class="row-wrap items-center gap-4">
+<div class="row-wrap items-center gap-4" x-data>
     <button id="brand" x-colorpicker.swatch value="#3b82f6"></button>
-    <span class="h3" :style="`color: ${$colorpicker('brand')}`">Brand Color</span>
+    <h1 :style="`color: ${$colorpicker('brand')}`">Brand Color</h1>
     <span x-text="$colorpicker('brand')"></span>
 </div>
 :::
 
 ```html copy
-<button id="brand" x-colorpicker.swatch value="#3b82f6"></button>
-<h3 :style="`color: ${$colorpicker('brand')}`">Brand Color</h3>
-<span x-text="$colorpicker('brand')"></span>
+<div class="row-wrap items-center gap-4" x-data>
+    <button id="brand" x-colorpicker.swatch value="#3b82f6"></button>
+    <h1 :style="`color: ${$colorpicker('brand')}`">Brand Color</h1>
+    <span x-text="$colorpicker('brand')"></span>
+</div>
 ```
 
 ---
@@ -472,9 +474,19 @@ The contents of `_tailwind` or `_ios` will overwrite their respective default co
 
 ### Text & Localization
 
-Default text in the color picker UI can be overwritten under the `_ui` key.
+Default text in the color picker UI can be overwritten using a [local data](/docs/core-plugins/local-data) source flagged with a `colorpicker` key, and containing the following `_ui` object syntax.
 
 <x-code-group copy>
+
+```json "manifest.json"
+{
+    "data": {
+        "colors": {
+            "colorpicker": "/data/colors.yaml"
+        }
+    }
+}
+```
 
 ```yaml "colors.yaml"
 _ui:
@@ -503,16 +515,6 @@ _ui:
         remove: Remove from recent
 ```
 
-```json "manifest.json"
-{
-    "data": {
-        "colors": {
-            "colorpicker": "/data/colors.yaml"
-        }
-    }
-}
-```
-
 </x-code-group>
 
 Text can be localized by chaining values with `$x` references to [locale](/docs/core-plugins/local-data) files.
@@ -536,25 +538,21 @@ Text can be localized by chaining values with `$x` references to [locale](/docs/
 ```yaml "colors.yaml"
 _ui:
     tabs:
-        solid: $locale.colorpicker.solid
-        gradient: $locale.colorpicker.gradient
-        library: $locale.colorpicker.library
+        solid: $x.translations.colors.solid
+        gradient: $x.translations.colors.gradient
+        library: $x.translations.colors.library
 
 Primary:
-    _name: $locale.colorpicker.primary
+    _name: $x.translations.colors.primary
     blue: "#3b82f6"
 ```
 
 ```yaml "translations.fr.yaml"
-_ui:
-    tabs:
-        solid: Plein
-        gradient: Dégradé
-        library: Bibliothèque
-
-Primary:
-    _name: Marque principale
-    blue: "#3b82f6"
+color:
+    solid: Plein
+    gradient: Dégradé
+    library: Bibliothèque
+    primary: Marque principale
 ```
 
 </x-code-group>
@@ -676,13 +674,13 @@ The plugin sets two of its own variables on each swatch element to drive the liv
 If using Tailwind, individual swatches and menus can be customized with utility classes.
 
 ::: frame
-<button x-colorpicker.swatch="custom-tw-picker" class="!w-12 !h-12 !rounded-full" value="#3b82f6"></button>
-<menu id="custom-tw-picker" popover x-colorpicker class="!w-80"></menu>
+<button x-colorpicker.swatch="custom-tw-picker" class="size-14 max-w-none rounded-full" value="#3b82f6"></button>
+<menu id="custom-tw-picker" popover x-colorpicker class="w-100 max-w-none max-h-none"></menu>
 :::
 
 ```html copy
-<button x-colorpicker.swatch="custom-tw-picker" class="!w-12 !h-12 !rounded-full" value="#3b82f6"></button>
-<menu id="custom-tw-picker" popover x-colorpicker class="!w-80"></menu>
+<button x-colorpicker.swatch="custom-tw-picker" class="size-14 max-w-none rounded-full" value="#3b82f6"></button>
+<menu id="custom-tw-picker" popover x-colorpicker class="w-100 max-w-none max-h-none"></menu>
 ```
 
 ---

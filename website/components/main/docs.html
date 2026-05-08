@@ -9,10 +9,14 @@
           <h5 class="mb-2.5 pl-2.5 text-content-subtle" x-text="group.group"></h5>
           <div class="col">
             <template x-for="(item, index) in group.items" :key="item.path || index">
-              <a x-show="item.name" :href="'/docs/' + group.group.toLowerCase().replace(' ', '-') + '/' + item.path" role="button" class="ghost justify-start w-full text-content-neutral" :class="[
-                    $x.docs.$route('path') && $x.docs.$route('path').path === item.path ? 'selected brand !text-content-stark pointer-events-none' : '',
-                    item.indent ? 'ps-10 text-content-subtle' : ''
-                  ]">
+              <a x-show="item.name" :href="'/docs/' + group.group.toLowerCase().replace(' ', '-') + '/' + item.path" role="button" :class="[
+                  $x.docs.$route('path') && $x.docs.$route('path').path === item.path
+                    ? 'bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none'
+                    : 'ghost text-content-neutral',
+                  'justify-start w-full',
+                  item.indent ? 'ps-10 text-content-subtle' : ''
+                ]">
+
                 <span x-icon="item.icon" x-show="item.icon"></span>
                 <span x-text="item.name"></span>
               </a>
@@ -88,7 +92,7 @@
       <footer class="mt-20">
         <hr>
         <div class="row-wrap justify-between items-center gap-4 pt-4">
-          <a href="https://github.com/andrewmatlock/Manifest" target="_blank" role="button" class="transparent" aria-label="GitHub" x-icon="simple-icons:github"></a>
+          <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="transparent" aria-label="GitHub" x-icon="simple-icons:github"></a>
           <p class="text-sm text-subtle">Powered by Manifest</p>
         </div>
       </footer>
