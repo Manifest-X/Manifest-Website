@@ -123,7 +123,7 @@ x-effect="(async () => {
     <div class="col">
         <!-- Create -->
         <div class="row-wrap gap-2 mb-2">
-            <input type="text" placeholder="Project name" x-model="newName" :disabled="!$auth.currentTeam" class="flex-1" />
+            <input type="text" placeholder="Project name" aria-label="Project name" x-model="newName" :disabled="!$auth.currentTeam" class="flex-1" />
             <button @click="$x.projects.$create({ name: newName, type: 'demo' }).then(() => { newName = ''; })" :disabled="!newName || !$auth.currentTeam || $x.projects.$error">
                 Create
             </button>
@@ -138,8 +138,8 @@ x-effect="(async () => {
                     @blur="$x.projects.$update(project.$id, { name: $event.target.value })" 
                     class="ghost flex-1"
                 />
-                <button class="sm" @click="$x.projects.$duplicate(project.$id, { files: 'same' })" x-icon="lucide:copy" title="Duplicate"></button>
-                <button class="sm" @click="$x.projects.$delete(project.$id)" x-icon="lucide:trash"></button>
+                <button class="sm" @click="$x.projects.$duplicate(project.$id, { files: 'same' })" x-icon="lucide:copy" aria-label="Duplicate" title="Duplicate"></button>
+                <button class="sm" @click="$x.projects.$delete(project.$id)" x-icon="lucide:trash" aria-label="Delete" title="Delete"></button>
             </div>
         </template>
         <small x-show="!$x.projects || $x.projects.length === 0" class="text-muted">No projects yet</small>
@@ -153,7 +153,7 @@ x-effect="(async () => {
 ```html "All"
 <div x-data="{ newName: '' }">
     <!-- Create -->
-    <input type="text" placeholder="Project name" x-model="newName" />
+    <input type="text" placeholder="Project name" aria-label="Project name" x-model="newName" />
     <button @click="$x.projects.$create({ name: newName, type: 'demo' }).then(() => { newName = ''; })" :disabled="!newName || $x.projects.$error">
         Create
     </button>
@@ -166,8 +166,8 @@ x-effect="(async () => {
                 :value="project.name" 
                 @blur="$x.projects.$update(project.$id, { name: $event.target.value })"
             />
-            <button @click="$x.projects.$duplicate(project.$id, { files: 'same' })" x-icon="lucide:copy"></button>
-            <button @click="$x.projects.$delete(project.$id)" x-icon="lucide:trash"></button>
+            <button @click="$x.projects.$duplicate(project.$id, { files: 'same' })" x-icon="lucide:copy" aria-label="Duplicate"></button>
+            <button @click="$x.projects.$delete(project.$id)" x-icon="lucide:trash" aria-label="Delete"></button>
         </div>
     </template>
 </div>
@@ -195,7 +195,7 @@ x-effect="(async () => {
 
 ```html "Create" copy
 <!-- Basic create -->
-<input type="text" placeholder="Project name" x-model="newName" />
+<input type="text" placeholder="Project name" aria-label="Project name" x-model="newName" />
 <button @click="$x.projects.$create({ name: newName }).then(() => { newName = ''; })">
     Create Project
 </button>

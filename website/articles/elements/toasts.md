@@ -12,7 +12,7 @@ Toast functionality is included in `manifest.js` with all core plugins, or it ca
 
 ```html "Manifest CSS / JS"
 <!-- Manifest CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
 
 <!-- Manifest JS -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
@@ -20,11 +20,11 @@ Toast functionality is included in `manifest.js` with all core plugins, or it ca
 
 ```html "Standalone"
 <!-- Toast styles only -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.toast.css" />
 
-<!-- Manifest JS: toast plugin only -->
+<!-- Manifest JS: toasts plugin only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugin="toasts"></script>
+  data-plugins="toasts"></script>
 ```
 
 </x-code-group>

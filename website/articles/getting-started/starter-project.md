@@ -97,4 +97,4 @@ This main HTML file serves as the router's single-page application (SPA) entry p
 
 This <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest" target="_blank">web application manifest</a> allows browsers to identify and export the website as an app to mobile and desktop devices. As a progressive web apps (PWA), your project is often more portable, scalable, and popular than traditional native apps, and can be packaged for app store distribution.
 
-This project also uses the manifest to register its [components](/docs/core-plugins/components) and [localized](/docs/core-plugins/localiation) content, and to define `author` and `email` fields referenced by the Privacy Policy.
+This project also uses the manifest to register its [components](/docs/core-plugins/components) and [localized](/docs/core-plugins/localization) content, and to define `author` and `email` fields referenced by the Privacy Policy.

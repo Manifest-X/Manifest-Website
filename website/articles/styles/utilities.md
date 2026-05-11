@@ -176,6 +176,7 @@ These classes are used to modify form elements like buttons and inputs. See the 
 |--------------|-----------|---------------------|
 | `brand` | Color | Brand color (surface & inverse) |
 | `accent` | Color | Accent color (surface & inverse) |
+| `positive` | Color | Positive color (surface & inverse) |
 | `negative` | Color | Negative color (surface & inverse) |
 | `ghost` | Appearance | Transparent background until hovered or pressed |
 | `hug` | Appearance | Sizes to its content, best with transparency |
@@ -188,6 +189,7 @@ These classes are used to modify form elements like buttons and inputs. See the 
 ::: frame row-wrap
 <button class="brand">Brand</button>
 <button class="accent">Accent</button>
+<button class="positive">Positive</button>
 <button class="negative">Negative</button>
 <button class="ghost">Ghost</button>
 <button class="hug transparent">Hug</button>
@@ -208,6 +210,7 @@ Color utilities also modify text directly or from a parent container. Utility cl
 |--------------|-----------|---------------------|
 | `brand` | Color | Brand color (content) |
 | `accent` | Color | Accent color (content) |
+| `positive` | Color | Positive color (content) |
 | `negative` | Color | Negative color (content) |
 | `h1` | Appearance | Heading 1 styles |
 | `h2` | Appearance | Heading 2 styles |
@@ -222,6 +225,7 @@ Color utilities also modify text directly or from a parent container. Utility cl
 ::: frame flex flex-col gap-3
 <div class="brand h3">Brand text</div>
 <div class="accent h3">Accent text</div>
+<div class="positive h3">Positive text</div>
 <div class="negative h3">Negative text</div>
 <div class="h1">Heading 1 style</div>
 <div class="h2">Heading 2 style</div>

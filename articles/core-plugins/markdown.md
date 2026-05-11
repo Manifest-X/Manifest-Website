@@ -280,13 +280,13 @@ Callouts are `<aside>` elements within a `prose` parent. Modify their appearance
 A callout can also be a visual frame when fashioned as `::: frame`.
 
 ::: frame
-<img src="/assets/examples/poochie.webp">
+<img src="/assets/examples/poochie.webp" alt="Poochie the dog">
 :::
 <div></div>
 
 ```html copy
 ::: frame
-<img src="/assets/examples/poochie.webp">
+<img src="/assets/examples/poochie.webp" alt="Poochie the dog">
 :::
 ```
 

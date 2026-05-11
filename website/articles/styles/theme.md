@@ -88,6 +88,9 @@ Modify the theme by saving it as a local file from <a href="https://cdn.jsdelivr
     --color-negative-inverse: white;
     --color-negative-content: var(--color-negative-surface);
 
+    /* Fonts */
+    --font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
     /* Sizes */
     --radius: 0.5rem;
     --spacing: 0.25rem;
@@ -100,10 +103,9 @@ Modify the theme by saving it as a local file from <a href="https://cdn.jsdelivr
 
     /* Effects */
     --transition: all .05s ease-in-out;
-    --tooltip-hover-delay: 1s;
-
-    /* Fonts */
-    --font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --tooltip-hover-delay: .5s;
+    --view-transition-duration: 200ms;
+    --view-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
 
     /* Icons */
     --icon-accordion: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 256 256'%3E%3Cpath fill='%23000' d='m184.49 136.49l-80 80a12 12 0 0 1-17-17L159 128L87.51 56.49a12 12 0 1 1 17-17l80 80a12 12 0 0 1-.02 17'/%3E%3C/svg%3E");
@@ -125,6 +127,12 @@ Modify the theme by saving it as a local file from <a href="https://cdn.jsdelivr
     --color-content-subtle: var(--color-500);
     --color-brand-content: #f6c07b;
     --color-accent-content: #ffa1ad;
+
+    /* Popover form elements */
+    :where([popover]) {
+        --color-field-surface: color-mix(in oklch, var(--color-600) 60%, var(--color-700));
+        --color-field-surface-hover: color-mix(in oklch, var(--color-600) 80%, var(--color-700));
+    }
 }
 
 @layer base {
@@ -140,12 +148,11 @@ Modify the theme by saving it as a local file from <a href="https://cdn.jsdelivr
 
     /* Text selection */
     ::selection {
-        background-color: color-mix(in oklch, var(--color-surface-1) 92%, var(--color-content-stark))
+        background-color: color-mix(in oklch, var(--color-content-stark) 90%, transparent);
     }
 
     /* Focus state */
-    :where(:focus-visible),
-    :where(label:has(input, button, [role=button], [type=button], select, textarea):focus-within) {
+    :where(:focus-visible, label:has(input[type=search], input[type=file]):focus-within) {
         outline: none;
         box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-content-stark) 35%, transparent);
     }
@@ -171,7 +178,7 @@ In the default theme, a color palette of variables is referenced by most other p
 ---
 
 ### Theme Colors
-See [color themes](/docs/core-plugins/color-themes) for more information on setting up light and dark themes. Light/default color variables are established in a `:root`, while equivalent dark variable values go in a standalone  `.dark` style.
+See [color modes](/docs/styles/color-modes) for more information on setting up light and dark themes. Light/default color variables are established in a `:root`, while equivalent dark variable values go in a standalone  `.dark` style.
 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
@@ -223,7 +230,7 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 | `--spacing-field-padding` | Form field padding | `p-field-padding` |
 | `--spacing-field-height` | Form field height | `h-field-height` |
 | `--spacing-popover-offset` | Dropdown & tooltip positioning offset | `mt-dropdown-offset` |
-| `--spacing-resize-handle` | [Resize](/plugin/resize) handle width | `w-resize-handle` |
+| `--spacing-resize-handle` | [Resize](/core-plugins/resize) handle width | `w-resize-handle` |
 | `--spacing-viewport-padding` | Viewport padding for responsive design  in [utility](/docs/styles/utilities) styles | `px-viewport-padding` |
 
 ---
@@ -232,7 +239,9 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
 | `--transition` | Default form element transition timing | — |
-| `--tooltip-hover-delay` | [Tooltip](/docs/styles/tooltips) hover delay timing | — |
+| `--tooltip-hover-delay` | [Tooltip](/docs/elements/tooltips) hover delay timing | — |
+| `--view-transition-duration` | [Page transition](/docs/publishing/websites) duration for prerendered MPAs | — |
+| `--view-transition-easing` | [Page transition](/docs/publishing/websites) easing for prerendered MPAs | — |
 
 ---
 
@@ -246,9 +255,9 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 ### Icons
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
-| `--icon-accordion` | [Accordion](/docs/styles/accordions) expand/collapse icon | — |
-| `--icon-checkbox` | [Checkbox](/docs/styles/checkboxes) checked state icon | — |
-| `--icon-toast-dismiss` | [Toast](/docs/styles/toasts) notification dismiss icon | — |
+| `--icon-accordion` | [Accordion](/docs/elements/accordions) expand/collapse icon | — |
+| `--icon-checkbox` | [Checkbox](/docs/elements/checkboxes) checked state icon | — |
+| `--icon-toast-dismiss` | [Toast](/docs/elements/toasts) notification dismiss icon | — |
 
 ---
 

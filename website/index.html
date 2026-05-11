@@ -14,8 +14,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Web -->
-  <title>Manifest</title>
-  <meta name="description" content="Supercharge HTML for rapid, feature-rich website and web app development.">
+  <title>Level-up HTML — Manifest</title>
+  <meta name="description" content="Manifest extends HTML for rapid, feature-rich website and web app development, without the overhead of complex frameworks and dependencies.">
   <meta name="author" content="Andrew Matlock">
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
@@ -23,7 +23,7 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="/manifest.json">
 
@@ -35,20 +35,19 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
   <link rel="stylesheet" href="/manifest.theme.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.69/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.min.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.69/lib/manifest.min.js" data-version="0.5.69"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js" data-version="latest"></script>
 
-<link rel="stylesheet" href="/prerender.tailwind.css">
-<link rel="canonical" href="https://manifestjs.org/">
+<meta property="og:title" content="Level-up HTML — Manifest"><meta property="og:description" content="Manifest extends HTML for rapid, feature-rich website and web app development, without the overhead of complex frameworks and dependencies."><meta property="og:type" content="website"><meta property="og:url" content="https://manifestx.dev/"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/index.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Level-up HTML — Manifest"><meta property="twitter:description" content="Manifest extends HTML for rapid, feature-rich website and web app development, without the overhead of complex frameworks and dependencies."><meta property="twitter:image" content="/og/index.png"><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
 <meta name="manifest:prerendered" content="1">
 <meta name="manifest:router-base-depth" content="0">
-<link rel="stylesheet" href="/prerender.utilities.css">
 </head>
 
 <body class="col min-h-screen" x-data="{ 
@@ -111,15 +110,15 @@
             <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="ghost" aria-label="GitHub" x-icon="meteor-icons:github"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="meteor-icons:github" class="iconify iconify--meteor-icons"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22v-3q0-2 1-3A7 6.5 0 0 1 5 5Q4 3 5 1q3 0 4 2q3.5-1 7 0q1-2 4-2q1 2 0 4a7 6.5 0 0 1-5 11q1 1 1 3v3m-7-3c-4 1-4-2-7-3"></path></svg></a>
 
             <!-- Color Theme Menu -->
-            <button class="ghost" x-dropdown.bottom="color-theme" aria-label="Color Theme Menu" x-icon="$colors.current === 'light' ? 'lucide:sun' : $colors.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'" popovertarget="color-theme" style="anchor-name: --dropdown-aobb3jqwv"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></button>
-            <menu popover="" id="color-theme" class="min-w-0" style="position-anchor: --dropdown-aobb3jqwv">
-                <li x-colors="'light'" :class="{ 'brand pointer-events-none': $colors.current === 'light' }" x-icon="lucide:sun" data-icon-processed="true" data-hydrate-id="h0"><span x-icon="lucide:sun"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></g></svg></span></li>
-                <li x-colors="'dark'" :class="{ 'brand pointer-events-none': $colors.current === 'dark' }" x-icon="lucide:moon" data-icon-processed="true" data-hydrate-id="h1"><span x-icon="lucide:moon"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span></li>
-                <li x-colors="'system'" :class="{ 'brand pointer-events-none': $colors.current === 'system' }" x-icon="lucide:sun-moon" class="brand pointer-events-none" data-icon-processed="true" data-hydrate-id="h2"><span x-icon="lucide:sun-moon"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></span></li>
+            <button class="ghost" x-dropdown.bottom="color-theme" aria-label="Color Theme Menu" x-icon="$colors.current === 'light' ? 'lucide:sun' : $colors.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'" popovertarget="color-theme" aria-haspopup="menu" aria-controls="color-theme" aria-expanded="false" style="anchor-name: --dropdown-yib05pd1d"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></button>
+            <menu popover="" id="color-theme" class="min-w-0" role="menu" style="position-anchor: --dropdown-yib05pd1d">
+                <li x-colors="'light'" :class="{ 'brand pointer-events-none': $colors.current === 'light' }" x-icon="lucide:sun" data-icon-processed="true" role="menuitem" data-hydrate-id="h0"><span x-icon="lucide:sun"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></g></svg></span></li>
+                <li x-colors="'dark'" :class="{ 'brand pointer-events-none': $colors.current === 'dark' }" x-icon="lucide:moon" data-icon-processed="true" role="menuitem" data-hydrate-id="h1"><span x-icon="lucide:moon"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span></li>
+                <li x-colors="'system'" :class="{ 'brand pointer-events-none': $colors.current === 'system' }" x-icon="lucide:sun-moon" class="brand pointer-events-none" data-icon-processed="true" role="menuitem" data-hydrate-id="h2"><span x-icon="lucide:sun-moon"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></span></li>
                 <hr>
-                <li @click="setDirection('auto')" :class="{ 'brand pointer-events-none': currentDirection === 'auto' }" x-icon="lucide:align-justify" aria-label="Auto Text Direction" class="brand pointer-events-none" data-icon-processed="true" data-hydrate-id="h3"><span x-icon="lucide:align-justify"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:align-justify" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h18M3 18h18M3 6h18"></path></svg></span></li>
-                <li @click="setDirection('ltr')" :class="{ 'brand pointer-events-none': currentDirection === 'ltr' }" x-icon="lucide:align-left" aria-label="Left to Right Text Direction" data-icon-processed="true" data-hydrate-id="h4"><span x-icon="lucide:align-left"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:align-left" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m14 6H3M21 6H3"></path></svg></span></li>
-                <li @click="setDirection('rtl')" :class="{ 'brand pointer-events-none': currentDirection === 'rtl' }" x-icon="lucide:align-right" aria-label="Right to Left Text Direction" data-icon-processed="true" data-hydrate-id="h5"><span x-icon="lucide:align-right"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:align-right" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12H9m12 6H7M21 6H3"></path></svg></span></li>
+                <li @click="setDirection('auto')" :class="{ 'brand pointer-events-none': currentDirection === 'auto' }" x-icon="lucide:align-justify" aria-label="Auto Text Direction" class="brand pointer-events-none" data-icon-processed="true" role="menuitem" data-hydrate-id="h3"><span x-icon="lucide:align-justify"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:align-justify" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h18M3 18h18M3 6h18"></path></svg></span></li>
+                <li @click="setDirection('ltr')" :class="{ 'brand pointer-events-none': currentDirection === 'ltr' }" x-icon="lucide:align-left" aria-label="Left to Right Text Direction" data-icon-processed="true" role="menuitem" data-hydrate-id="h4"><span x-icon="lucide:align-left"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:align-left" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m14 6H3M21 6H3"></path></svg></span></li>
+                <li @click="setDirection('rtl')" :class="{ 'brand pointer-events-none': currentDirection === 'rtl' }" x-icon="lucide:align-right" aria-label="Right to Left Text Direction" data-icon-processed="true" role="menuitem" data-hydrate-id="h5"><span x-icon="lucide:align-right"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:align-right" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12H9m12 6H7M21 6H3"></path></svg></span></li>
             </menu>
 
         </div>
@@ -211,18 +210,47 @@
             <a href="https://github.com/Manifest-X/Manifest" target="_blank" class="ghost" role="button"><span x-icon="simple-icons:github"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="simple-icons:github" class="iconify iconify--simple-icons"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg></span> GitHub</a>
         </small>
     </nav>
+
+    <!-- Documentation index for AI crawlers — visually + screen-reader hidden,
+       but present in the prerendered DOM so AEO crawlers (GPTBot, ClaudeBot,
+       PerplexityBot, etc.) can discover every doc article from the landing
+       page.  data-static bakes the $x.docs-driven list into static HTML at
+       prerender time; tabindex="-1" prevents keyboard focus. -->
+    <nav x-route="/" data-static="" aria-hidden="true" aria-label="Documentation index" style="visibility: hidden; position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; pointer-events: none">
+        <h2>Documentation</h2>
+        <div>
+                <h3>Getting Started</h3>
+                <a tabindex="-1" href="/docs/getting-started/introduction">Introduction</a><a tabindex="-1" href="/docs/getting-started/setup">Setup</a><a tabindex="-1" href="/docs/getting-started/starter-project">Starter Project</a><a tabindex="-1" href="/docs/getting-started/compatability">Compatability</a><a tabindex="-1" href="/docs/getting-started/accessibility">Accessibility</a><a tabindex="-1" href="/docs/getting-started/testing">Testing</a><a tabindex="-1" href="/docs/getting-started/reference">Reference</a>
+            </div><div>
+                <h3>Core Plugins</h3>
+                <a tabindex="-1" href="/docs/core-plugins/components">Components</a><a tabindex="-1" href="/docs/core-plugins/local-data">Local Data</a><a tabindex="-1" href="/docs/core-plugins/localization">Localization</a><a tabindex="-1" href="/docs/core-plugins/markdown">Markdown</a><a tabindex="-1" href="/docs/core-plugins/resize">Resize</a><a tabindex="-1" href="/docs/core-plugins/router">Router</a><a tabindex="-1" href="/docs/core-plugins/url-parameters">URL Parameters</a>
+            </div><div>
+                <h3>Appwrite Plugins</h3>
+                <a tabindex="-1" href="/docs/appwrite-plugins/appwrite-setup">Appwrite Setup</a><a tabindex="-1" href="/docs/appwrite-plugins/auth">Auth</a><a tabindex="-1" href="/docs/appwrite-plugins/users">Users</a><a tabindex="-1" href="/docs/appwrite-plugins/teams">Teams</a><a tabindex="-1" href="/docs/appwrite-plugins/cloud-data">Cloud Data</a><a tabindex="-1" href="/docs/appwrite-plugins/databases">Databases</a><a tabindex="-1" href="/docs/appwrite-plugins/storage">Storage</a>
+            </div><div>
+                <h3>Publishing</h3>
+                <a tabindex="-1" href="/docs/publishing/websites">Websites</a>
+            </div><div>
+                <h3>Styles</h3>
+                <a tabindex="-1" href="/docs/styles/reset">Reset</a><a tabindex="-1" href="/docs/styles/theme">Theme</a><a tabindex="-1" href="/docs/styles/color-modes">Color Modes</a><a tabindex="-1" href="/docs/styles/utilities">Utilities</a>
+            </div><div>
+                <h3>Elements</h3>
+                <a tabindex="-1" href="/docs/elements/accordions">Accordions</a><a tabindex="-1" href="/docs/elements/avatars">Avatars</a><a tabindex="-1" href="/docs/elements/badges">Badges</a><a tabindex="-1" href="/docs/elements/buttons">Buttons</a><a tabindex="-1" href="/docs/elements/checkboxes">Checkboxes</a><a tabindex="-1" href="/docs/elements/code">Code Blocks</a><a tabindex="-1" href="/docs/elements/color-pickers">Color Pickers</a><a tabindex="-1" href="/docs/elements/dialogs">Dialogs</a><a tabindex="-1" href="/docs/elements/dividers">Dividers</a><a tabindex="-1" href="/docs/elements/dropdowns">Dropdowns</a><a tabindex="-1" href="/docs/elements/forms">Forms</a><a tabindex="-1" href="/docs/elements/icons">Icons</a><a tabindex="-1" href="/docs/elements/inputs">Inputs</a><a tabindex="-1" href="/docs/elements/radios">Radios</a><a tabindex="-1" href="/docs/elements/ranges">Ranges</a><a tabindex="-1" href="/docs/elements/selects">Selects</a><a tabindex="-1" href="/docs/elements/sidebars">Sidebars</a><a tabindex="-1" href="/docs/elements/svgs">SVGs</a><a tabindex="-1" href="/docs/elements/switches">Switches</a><a tabindex="-1" href="/docs/elements/tables">Tables</a><a tabindex="-1" href="/docs/elements/tabs">Tabs</a><a tabindex="-1" href="/docs/elements/textareas">Textareas</a><a tabindex="-1" href="/docs/elements/toasts">Toasts</a><a tabindex="-1" href="/docs/elements/tooltips">Tooltips</a><a tabindex="-1" href="/docs/elements/typography">Typography</a>
+            </div><div>
+                <h3>Resources</h3>
+                <a tabindex="-1" href="/docs/resources/license">MIT License</a><a tabindex="-1" href="/docs/resources/privacy">Privacy Policy</a>
+            </div>
+    </nav>
+
 </footer>
 
   <!-- Documentation pages -->
   
 
   <!-- Theme Editor page -->
-  <!-- <x-theme x-route="/theme-editor" data-pre-rendered="1"></x-theme> -->
-
-  <!-- Search dialog -->
-  <!-- <x-search data-pre-rendered="1"></x-search> -->
+  <!-- <x-colors x-route="/theme-editor" data-pre-rendered="1"></x-colors> -->
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"data-icon-processed":null}},{"id":"h1","attrs":{"data-icon-processed":null}},{"id":"h2","attrs":{"class":null,"data-icon-processed":null}},{"id":"h3","attrs":{"class":null,"data-icon-processed":null}},{"id":"h4","attrs":{"data-icon-processed":null}},{"id":"h5","attrs":{"data-icon-processed":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"data-icon-processed":null,"role":null}},{"id":"h1","attrs":{"data-icon-processed":null,"role":null}},{"id":"h2","attrs":{"class":null,"data-icon-processed":null,"role":null}},{"id":"h3","attrs":{"class":null,"data-icon-processed":null,"role":null}},{"id":"h4","attrs":{"data-icon-processed":null,"role":null}},{"id":"h5","attrs":{"data-icon-processed":null,"role":null}}]</script>
 </body></html>

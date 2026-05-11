@@ -106,14 +106,14 @@ Inputs of `type="search"` work on their own, or can be placed in a label to faci
 ::: frame
 <label role="button">
     <span x-icon="lucide:search"></span>
-    <input type="search" placeholder="Search" />
+    <input type="search" placeholder="Search" aria-label="Search" />
 </label>
 :::
 
 ```html copy
 <label role="button">
     <span x-icon="lucide:search"></span>
-    <input type="search" placeholder="Search" />
+    <input type="search" placeholder="Search" aria-label="Search" />
 </label>
 ```
 

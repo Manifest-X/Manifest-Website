@@ -130,9 +130,9 @@ x-effect="(async () => {
                     <figcaption class="text-sm font-semibold" x-text="file.name || 'Unnamed file'"></figcaption>
                     <small class="text-muted" x-text="file.$formattedSize"></small>
                 </div>
-                <button class="sm" @click="$x.assets.$openUrl(file.$id)" x-icon="lucide:external-link" title="View"></button>
-                <button class="sm" @click="$x.assets.$duplicate(file.$id)" x-icon="lucide:copy" title="Duplicate"></button>
-                <button class="sm" @click="if (confirm('Delete ' + file.name + '?')) { $x.assets.$delete(file.$id); }" x-icon="lucide:trash" title="Delete"></button>
+                <button class="sm" @click="$x.assets.$openUrl(file.$id)" x-icon="lucide:external-link" aria-label="View" title="View"></button>
+                <button class="sm" @click="$x.assets.$duplicate(file.$id)" x-icon="lucide:copy" aria-label="Duplicate" title="Duplicate"></button>
+                <button class="sm" @click="if (confirm('Delete ' + file.name + '?')) { $x.assets.$delete(file.$id); }" x-icon="lucide:trash" aria-label="Delete" title="Delete"></button>
             </div>
         </template>
         <small x-show="!$x.assets || $x.assets.length === 0" class="text-muted">No files yet</small>
@@ -155,9 +155,9 @@ x-effect="(async () => {
     <template x-for="file in $x.assets" :key="file.$id">
         <div class="row gap-2 items-center">
             <span x-text="file.name"></span>
-            <button @click="$x.assets.$openUrl(file.$id)" x-icon="lucide:external-link"></button>
-            <button @click="$x.assets.$duplicate(file.$id)" x-icon="lucide:copy"></button>
-            <button @click="$x.assets.$delete(file.$id)" x-icon="lucide:trash"></button>
+            <button @click="$x.assets.$openUrl(file.$id)" x-icon="lucide:external-link" aria-label="View"></button>
+            <button @click="$x.assets.$duplicate(file.$id)" x-icon="lucide:copy" aria-label="Duplicate"></button>
+            <button @click="$x.assets.$delete(file.$id)" x-icon="lucide:trash" aria-label="Delete"></button>
         </div>
     </template>
 </div>

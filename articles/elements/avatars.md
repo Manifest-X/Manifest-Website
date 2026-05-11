@@ -28,8 +28,8 @@ The `avatar` class allows an element to display an icon, text, or a profile pic.
 <div class="avatar" x-icon="lucide:user"></div>
 <div class="avatar">W</div>
 <div class="avatar bg-[url(/assets/examples/user.jpg)]"></div>
-<div class="avatar"><span>W</span><img src="/assets/examples/user.jpg"></div>
-<div class="avatar"><figure></figure><span>W</span><img src="/assets/examples/user.jpg"></div>
+<div class="avatar"><span>W</span><img src="/assets/examples/user.jpg" alt=""></div>
+<div class="avatar"><figure></figure><span>W</span><img src="/assets/examples/user.jpg" alt=""></div>
 :::
 
 ```html copy
@@ -45,14 +45,14 @@ The `avatar` class allows an element to display an icon, text, or a profile pic.
 <!-- Initials and/or profile image -->
 <div class="avatar">
     <span>W</span>
-    <img src="/assets/examples/user.jpg">
+    <img src="/assets/examples/user.jpg" alt="">
 </div>
 
 <!-- With status indicator -->
 <div class="avatar">
     <figure></figure>
     <span>W</span>
-    <img src="/assets/examples/user.jpg">
+    <img src="/assets/examples/user.jpg" alt="">
 </div>
 ```
 
@@ -65,15 +65,15 @@ To display text or an icon by default while supporting an optional profile pic, 
 Buttons accept the `avatar` class and can be used to trigger an action like opening a [dropdown](/docs/elements/dropdowns) or [dialog](/docs/elements/dialogs).
 
 ::: frame
-<button class="avatar" x-icon="lucide:user"></button>
+<button class="avatar" x-icon="lucide:user" aria-label="User menu"></button>
 <button class="avatar">W</button>
 <button class="avatar bg-[url(/assets/examples/user.jpg)]"></button>
-<button class="avatar"><span>W</span><img src="/assets/examples/user.jpg"></button>
+<button class="avatar"><span>W</span><img src="/assets/examples/user.jpg" alt=""></button>
 :::
 
 ```html copy
 <!-- Icon -->
-<button class="avatar" x-icon="lucide:user"></button>
+<button class="avatar" x-icon="lucide:user" aria-label="User menu"></button>
 
 <!-- Initial -->
 <button class="avatar">W</button>
@@ -84,7 +84,7 @@ Buttons accept the `avatar` class and can be used to trigger an action like open
 <!-- Initials and/or profile image -->
 <button class="avatar">
     <span>W</span>
-    <img src="/assets/examples/user.jpg">
+    <img src="/assets/examples/user.jpg" alt="">
 </button>
 ```
 
@@ -106,7 +106,7 @@ To create an avatar button that facilitates a profile pic upload, use an input o
     " />
     <span x-show="!imageUrl" class="absolute z-2 opacity-0 group-hover:opacity-100 transition" x-icon="lucide:upload"></span>
     <span x-show="!imageUrl" class="opacity-100 group-hover:opacity-0 transition">W</span>
-    <img :src="imageUrl" x-show="imageUrl">
+    <img :src="imageUrl" x-show="imageUrl" alt="Profile picture">
     <button x-show="imageUrl" class="sm absolute -top-2.5 -end-2.5 z-3 rounded-full shadow opacity-0 group-hover:opacity-100 hover:opacity-100" aria-label="Remove pic" x-icon="lucide:x" @click.stop="imageUrl = ''; $refs.fileInput.value = ''"></button>
 </label>
 :::
@@ -132,7 +132,7 @@ To create an avatar button that facilitates a profile pic upload, use an input o
     <span x-show="!imageUrl" class="opacity-100 group-hover:opacity-0 transition">W</span>
 
     <!-- Profile pic -->
-    <img :src="imageUrl" x-show="imageUrl">
+    <img :src="imageUrl" x-show="imageUrl" alt="Profile picture">
 
     <!-- Remove button -->
     <button x-show="imageUrl" class="sm absolute -top-2.5 -end-2.5 z-3 rounded-full shadow opacity-0 group-hover:opacity-100 hover:opacity-100" aria-label="Remove pic" x-icon="lucide:x" @click.stop="imageUrl = ''; $refs.fileInput.value = ''"></button>

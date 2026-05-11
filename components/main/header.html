@@ -41,11 +41,11 @@
             <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="ghost" aria-label="GitHub" x-icon="meteor-icons:github"></a>
 
             <!-- Color Theme Menu -->
-            <button class="ghost" x-dropdown.bottom="color-theme" aria-label="Color Theme Menu" x-icon="$colors.current === 'light' ? 'lucide:sun' : $colors.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'"></button>
+            <button class="ghost" x-dropdown.bottom="color-theme" aria-label="Color Theme Menu" x-icon="$color.current === 'light' ? 'lucide:sun' : $color.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'"></button>
             <menu popover id="color-theme" class="min-w-0">
-                <li x-colors="'light'" :class="{ 'brand pointer-events-none': $colors.current === 'light' }" x-icon="lucide:sun"></li>
-                <li x-colors="'dark'" :class="{ 'brand pointer-events-none': $colors.current === 'dark' }" x-icon="lucide:moon"></li>
-                <li x-colors="'system'" :class="{ 'brand pointer-events-none': $colors.current === 'system' }" x-icon="lucide:sun-moon"></li>
+                <li x-color="'light'" :class="{ 'brand pointer-events-none': $color.current === 'light' }" x-icon="lucide:sun"></li>
+                <li x-color="'dark'" :class="{ 'brand pointer-events-none': $color.current === 'dark' }" x-icon="lucide:moon"></li>
+                <li x-color="'system'" :class="{ 'brand pointer-events-none': $color.current === 'system' }" x-icon="lucide:sun-moon"></li>
                 <hr>
                 <li @click="setDirection('auto')" :class="{ 'brand pointer-events-none': currentDirection === 'auto' }" x-icon="lucide:align-justify" aria-label="Auto Text Direction"></li>
                 <li @click="setDirection('ltr')" :class="{ 'brand pointer-events-none': currentDirection === 'ltr' }" x-icon="lucide:align-left" aria-label="Left to Right Text Direction"></li>

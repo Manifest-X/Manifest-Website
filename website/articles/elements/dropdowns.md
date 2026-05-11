@@ -12,7 +12,7 @@ Dropdown functionality is included in `manifest.js` with all core plugins, or it
 
 ```html "Manifest CSS / JS"
 <!-- Manifest CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
 
 <!-- Manifest JS -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
@@ -20,11 +20,11 @@ Dropdown functionality is included in `manifest.js` with all core plugins, or it
 
 ```html "Standalone"
 <!-- Dropdown styles only -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.dropdown.css" />
 
-<!-- Manifest JS: dropdown plugin only -->
+<!-- Manifest JS: dropdowns plugin only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugin="dropdown"></script>
+  data-plugins="dropdowns"></script>
 ```
 
 </x-code-group>

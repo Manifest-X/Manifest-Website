@@ -136,14 +136,14 @@ Buttons accept Manifest [utility](/docs/styles/utilities) classes, which can be 
 
 ### Solo Icon
 
-Buttons containing a single [icon](/docs/elements/icons) are automatically squared.
+Buttons containing a single [icon](/docs/elements/icons) are automatically squared. Add `aria-label` so screen readers can announce what the button does — icons alone have no accessible name.
 
 ::: frame
-<button x-icon="ph:house"></button>
+<button x-icon="ph:house" aria-label="Home"></button>
 :::
 
 ```html copy
-<button x-icon="ph:house"></button>
+<button x-icon="ph:house" aria-label="Home"></button>
 ```
 
 ---

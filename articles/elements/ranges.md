@@ -38,7 +38,7 @@ Ranges accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 
 ### Colors
 
-::: frame
+::: frame row-wrap
 <input type="range" class="brand" min="0" max="100" value="50" />
 <input type="range" class="accent" min="0" max="100" value="50" />
 <input type="range" class="positive" min="0" max="100" value="50" />
@@ -113,7 +113,7 @@ Use a `<datalist>` element to add tick marks with option labels to your range in
 ## Labels
 
 ::: brand icon="lucide:info"
-These styles are included in `manifest.css`, or the standalone `manifest.form.css`.
+Label styles are included in `manifest.css`, or the standalone [form](/docs/elements/forms) stylesheet.
 :::
 
 Placing the range and text inside a `<label>` automatically stacks them with spacing.

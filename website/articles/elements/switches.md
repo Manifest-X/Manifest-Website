@@ -4,7 +4,7 @@
 
 ## Setup
 
-Switches styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Switch styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
 
 <x-code-group copy>
 

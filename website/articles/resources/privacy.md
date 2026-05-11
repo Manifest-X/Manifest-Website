@@ -1,10 +1,10 @@
 # Privacy Policy
 
-Updated September 25, 2025
+Updated May 1, 2026
 
 ---
 
-This Privacy Policy describes the Manifest framework ("Manifest") practices for handling your information in connection with this website (https://manifestjs.org) and our open source-related websites ("websites") and any content, related documentation, information and services (e.g. tutorials, tools to support the developer workflow, access to resources, etc.) made available to you on this website (collectively, the "Services"). This Privacy Policy describes the personal information we process to support our Services.
+This Privacy Policy describes the Manifest framework ("Manifest") practices for handling your information in connection with this website (https://manifestx.dev) and our open source-related websites ("websites") and any content, related documentation, information and services (e.g. tutorials, tools to support the developer workflow, access to resources, etc.) made available to you on this website (collectively, the "Services"). This Privacy Policy describes the personal information we process to support our Services.
 
 For clarity, this Privacy Policy does not apply to any:
 

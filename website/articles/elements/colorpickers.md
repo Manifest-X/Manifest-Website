@@ -20,13 +20,13 @@ Color picker functionality is included in `manifest.js` with all core plugins, o
 
 ```html "Standalone"
 <!-- Color picker styles only, with dropdown and tooltip dependencies -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.colorpicker.min.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.dropdown.min.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.tooltip.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.colorpicker.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.dropdown.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.tooltip.css" />
 
-<!-- Manifest JS: color picker plugin only, with dropdown and tooltip dependencies -->
+<!-- Manifest JS: colorpicker plugin only, with dropdowns and tooltips dependencies -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugin="colorpicker,dropdown,tooltip"></script>
+  data-plugins="colorpicker,dropdowns,tooltips"></script>
 ```
 
 </x-code-group>
@@ -218,7 +218,7 @@ To replace the fallback menu page-wide, declare a single `<template x-colorpicke
 <button x-colorpicker.swatch></button>
 ```
 
-To componentize the default across multiple pages or routes, wrap the template in a Manifest [HTML component](/docs/elements/components) and drop it into your layout.
+To componentize the default across multiple pages or routes, wrap the template in a Manifest [HTML component](/docs/core-plugins/components) and drop it into your layout.
 
 Each panel can be individually customized:
 

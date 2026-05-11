@@ -213,7 +213,7 @@ This example demonstrates unified search using `$search` for key searches and `$
 }">
     <!-- Filters -->
     <div class="row gap-4 items-center">
-        <input type="text" placeholder="Search products..." x-model="$url.search.value">
+        <input type="text" placeholder="Search products..." aria-label="Search products" x-model="$url.search.value">
         <select x-model="$url.category.value" class="flex-shrink-0">
             <option value="">All Categories</option>
             <option value="laptops">Laptops</option>
@@ -253,7 +253,7 @@ This example demonstrates unified search using `$search` for key searches and `$
 }">
 
     <!-- Filters -->
-    <input type="text" placeholder="Search products..." x-model="$url.search.value">
+    <input type="text" placeholder="Search products..." aria-label="Search products" x-model="$url.search.value">
     <select x-model="$url.category.value">
         <option value="">All Categories</option>
         <option value="laptops">Laptops</option>

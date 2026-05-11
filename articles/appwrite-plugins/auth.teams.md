@@ -53,7 +53,7 @@ Every user can generate custom teams, view all teams, and manage them with the r
 
 <!-- Create team -->
 <div class="row-wrap gap-2">
-    <input type="text" class="flex-1" placeholder="Team name" x-model="$auth.newTeamName" :disabled="$auth.isCreatingTeam()" />
+    <input type="text" class="flex-1" placeholder="Team name" aria-label="Team name" x-model="$auth.newTeamName" :disabled="$auth.isCreatingTeam()" />
     <button @click="$auth.createTeamFromName()" :disabled="!$auth.newTeamName || $auth.isCreatingTeam()">Create Team</button>
 </div>
 
@@ -73,7 +73,7 @@ Every user can generate custom teams, view all teams, and manage them with the r
     <details class="pb-4 border-b border-line" x-data="{ loaded: false, editingTeamName: team.name }" x-effect="editingTeamName = team.name" @toggle="if ($event.target.open && !loaded) { $auth.currentTeam = team; $auth.viewTeam(team); loaded = true; }">
         <!-- Team name input / expand button -->
         <summary>
-            <input type="text" placeholder="Insert name" class="ghost hug w-fit hover:px-2 hover:py-1" onclick="this.select()" x-model="editingTeamName" :disabled="!$auth.isTeamRenamable(team) || $auth.isUpdatingTeam(team.$id)" @blur="if (editingTeamName !== team.name && editingTeamName.trim()) { $auth.updateTeamName(team.$id, editingTeamName.trim()); }" @keydown.enter="$event.target.blur()" />
+            <input type="text" placeholder="Insert name" aria-label="Team name" class="ghost hug w-fit hover:px-2 hover:py-1" onclick="this.select()" x-model="editingTeamName" :disabled="!$auth.isTeamRenamable(team) || $auth.isUpdatingTeam(team.$id)" @blur="if (editingTeamName !== team.name && editingTeamName.trim()) { $auth.updateTeamName(team.$id, editingTeamName.trim()); }" @keydown.enter="$event.target.blur()" />
         </summary>
         <!-- Team content -->
         <div class="relative col gap-4">
@@ -93,7 +93,7 @@ Every user can generate custom teams, view all teams, and manage them with the r
 
 ```html "Create Team"
 <!-- Team name input -->
-<input type="text" placeholder="Team name" x-model="$auth.newTeamName" :disabled="$auth.isCreatingTeam()" />
+<input type="text" placeholder="Team name" aria-label="Team name" x-model="$auth.newTeamName" :disabled="$auth.isCreatingTeam()" />
 
 <!-- Create button -->
 <button @click="$auth.createTeamFromName()" :disabled="!$auth.newTeamName || $auth.isCreatingTeam()">Create Team</button>
@@ -116,7 +116,7 @@ Every user can generate custom teams, view all teams, and manage them with the r
         <small>Modified: <b x-text="$auth.teamUpdatedAt(team)"></b></small>
 
         <!-- Rename team -->
-        <input type="text" placeholder="Insert name" class="transparent hug w-fit rounded-none no-focus" onclick="this.select()" x-model="editingTeamName" :disabled="!$auth.isTeamRenamable(team) || $auth.isUpdatingTeam(team.$id)" @blur="if (editingTeamName !== team.name && editingTeamName.trim()) { $auth.updateTeamName(team.$id, editingTeamName.trim()); }" @keydown.enter="$event.target.blur()" />
+        <input type="text" placeholder="Insert name" aria-label="Team name" class="transparent hug w-fit rounded-none no-focus" onclick="this.select()" x-model="editingTeamName" :disabled="!$auth.isTeamRenamable(team) || $auth.isUpdatingTeam(team.$id)" @blur="if (editingTeamName !== team.name && editingTeamName.trim()) { $auth.updateTeamName(team.$id, editingTeamName.trim()); }" @keydown.enter="$event.target.blur()" />
 
         <!-- Delete team (enabled if user has the deleteTeam permission) -->
         <button class="sm" @click="$auth.deleteTeam(team.$id)" :disabled="$auth.isActionDisabled('deleteTeam') || !$auth.isTeamDeletable(team) || $auth.isDeletingTeam(team.$id)" aria-label="Delete team">Delete</button>
@@ -195,7 +195,7 @@ The `creatorRole` is the role assigned to the team creator. It must reference a 
             <template x-for="(permissions, roleName) in $auth.allTeamRoles(team)" :key="roleName">
             <div class="relative row gap-2 items-center max-w-full" x-data="{ editingRoleName: roleName, customPermInput: '' }" x-effect="editingRoleName = roleName">
                 <!-- Role name input -->
-                <input type="text" class="transparent hug flex-1" x-model="editingRoleName" @blur="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (editingRoleName !== roleName && editingRoleName.trim()) { $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.newRoleName = editingRoleName.trim(); } $auth.saveEditingRole(); }" @keydown.enter="$event.target.blur()" :disabled="$auth.isActionDisabled('manageRoles') || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" />
+                <input type="text" class="transparent hug flex-1" aria-label="Role name" x-model="editingRoleName" @blur="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (editingRoleName !== roleName && editingRoleName.trim()) { $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.newRoleName = editingRoleName.trim(); } $auth.saveEditingRole(); }" @keydown.enter="$event.target.blur()" :disabled="$auth.isActionDisabled('manageRoles') || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" />
                 <!-- Permissions dropdown button -->
                 <button class="sm flex-1" x-dropdown="`permissions-menu-${team.$id}-${roleName}`" :disabled="$auth.isActionDisabled('manageRoles') || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" > <span x-text="(permissions && permissions.length > 0) ? permissions.join(', ') : 'No permissions'"></span> <i class="trailing" x-icon="lucide:chevron-down"></i> </button>
                 <!-- Permissions dropdown -->
@@ -206,7 +206,7 @@ The `creatorRole` is the role assigned to the team creator. It must reference a 
                         <span x-text="permission"></span>
                     </label>
                     </template>
-                    <input type="text" placeholder="Custom permission" aria-label="Custom permission" x-model="customPermInput" @keydown.enter.prevent="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (customPermInput.trim()) { const updated = permissions ? [...permissions] : []; if (!updated.includes(customPermInput.trim())) { updated.push(customPermInput.trim()); $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.permissions = updated; } setTimeout(() => { if ($auth.editingRole && $auth.editingRole.teamId === team.$id && $auth.editingRole.oldRoleName === roleName) { $auth.saveEditingRole(); } }, 300); customPermInput = ''; } }" :disabled="$auth.isActionDisabled('manageRoles') || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" />
+                    <input type="text" placeholder="Custom permission" aria-label="Custom permission" aria-label="Custom permission" x-model="customPermInput" @keydown.enter.prevent="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (customPermInput.trim()) { const updated = permissions ? [...permissions] : []; if (!updated.includes(customPermInput.trim())) { updated.push(customPermInput.trim()); $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.permissions = updated; } setTimeout(() => { if ($auth.editingRole && $auth.editingRole.teamId === team.$id && $auth.editingRole.oldRoleName === roleName) { $auth.saveEditingRole(); } }, 300); customPermInput = ''; } }" :disabled="$auth.isActionDisabled('manageRoles') || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" />
                 </menu>
                 <!-- Delete button -->
                 <button class="sm" @click="$auth.deleteUserRole(team.$id, roleName)" :disabled="$auth.isActionDisabled('manageRoles') || !$auth.isRoleDeletable(team.$id, roleName) || $auth.isDeletingRole(team.$id, roleName)" aria-label="Delete role" x-icon="lucide:trash" ></button>
@@ -214,7 +214,7 @@ The `creatorRole` is the role assigned to the team creator. It must reference a 
             </template>
             <!-- Create Role -->
             <div class="row-wrap gap-2 mb-2" x-data="{ customPermInput: '' }">
-            <input type="text" placeholder="New role name" class="w-full" x-model="$auth.newRoleName" :disabled="$auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()" />
+            <input type="text" placeholder="New role name" aria-label="Role name" class="w-full" x-model="$auth.newRoleName" :disabled="$auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()" />
             <button class="flex-1" x-dropdown="`permissions-menu-${team.$id}`" :disabled="$auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()">
                 <span x-text="($auth.newRolePermissions && $auth.newRolePermissions.length > 0) ? $auth.newRolePermissions.join(', ') : 'Permissions'"></span>
                 <i class="trailing" x-icon="lucide:chevron-down"></i>
@@ -227,7 +227,7 @@ The `creatorRole` is the role assigned to the team creator. It must reference a 
                     <span x-text="permission"></span>
                 </label>
                 </template>
-                <input type="text" placeholder="Custom permission" aria-label="Custom permission" x-model="customPermInput" @keydown.enter.prevent="$auth.addCustomPermissions(customPermInput); customPermInput = ''" :disabled="$auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()" />
+                <input type="text" placeholder="Custom permission" aria-label="Custom permission" aria-label="Custom permission" x-model="customPermInput" @keydown.enter.prevent="$auth.addCustomPermissions(customPermInput); customPermInput = ''" :disabled="$auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()" />
             </menu>
             <!-- Create button -->
             <button @click="$auth.createRoleFromInputs(team.$id)" :disabled="!$auth.newRoleName || $auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()" class="w-fit">Create</button>
@@ -241,7 +241,7 @@ The `creatorRole` is the role assigned to the team creator. It must reference a 
 
 ```html "Create Custom Role"
 <!-- Role name input -->
-<input type="text" placeholder="Role name" x-model="$auth.newRoleName" :disabled="!$auth.canManageRoles() || $auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()" />
+<input type="text" placeholder="Role name" aria-label="Role name" x-model="$auth.newRoleName" :disabled="!$auth.canManageRoles() || $auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()" />
 <!-- Permissions dropdown button -->
 <button x-dropdown="`permissions-menu-${$auth.currentTeam?.$id || 'default'}`" :disabled="!$auth.canManageRoles() || $auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()" x-text="($auth.newRolePermissions && $auth.newRolePermissions.length > 0) ? $auth.newRolePermissions.join(', ') : 'Permissions'"></button>
 <!-- Permissions dropdown -->
@@ -252,7 +252,7 @@ The `creatorRole` is the role assigned to the team creator. It must reference a 
             <span x-text="permission"></span>
         </label>
     </template>
-    <input type="text" placeholder="Custom permission" @keydown.enter.prevent="$auth.addCustomPermissions($event.target.value); $event.target.value = ''" :disabled="$auth.isCreatingRole()" />
+    <input type="text" placeholder="Custom permission" aria-label="Custom permission" @keydown.enter.prevent="$auth.addCustomPermissions($event.target.value); $event.target.value = ''" :disabled="$auth.isCreatingRole()" />
 </menu>
 <!-- Create button -->
 <button @click="$auth.createRoleFromInputs($auth.currentTeam?.$id)" :disabled="!$auth.newRoleName || !$auth.canManageRoles() || $auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()">Create</button>
@@ -269,7 +269,7 @@ The `creatorRole` is the role assigned to the team creator. It must reference a 
         <small x-text="(permissions && permissions.length > 0) ? permissions.join(', ') : 'No permissions'">Permissions</small>
 
         <!-- Role name input (enabled if user has canManageRoles permission) -->
-        <input type="text" x-model="editingRoleName" @blur="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (editingRoleName !== roleName && editingRoleName.trim()) { $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.newRoleName = editingRoleName.trim(); } $auth.saveEditingRole(); }" @keydown.enter="$event.target.blur()" :disabled="!$auth.canManageRoles() || $auth.isRolePermanentSync(team.$id, roleName) || $auth.isActionDisabled('manageRoles') || $auth.isUpdatingRole(team.$id, roleName)" />
+        <input type="text" aria-label="Role name" x-model="editingRoleName" @blur="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (editingRoleName !== roleName && editingRoleName.trim()) { $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.newRoleName = editingRoleName.trim(); } $auth.saveEditingRole(); }" @keydown.enter="$event.target.blur()" :disabled="!$auth.canManageRoles() || $auth.isRolePermanentSync(team.$id, roleName) || $auth.isActionDisabled('manageRoles') || $auth.isUpdatingRole(team.$id, roleName)" />
 
         <!-- Permissions dropdown (enabled if user has canManageRoles permission) -->
         <button x-dropdown="`permissions-menu-${team.$id}-${roleName}`" :disabled="!$auth.canManageRoles() || $auth.isRolePermanentSync(team.$id, roleName) || $auth.isActionDisabled('manageRoles') || $auth.isUpdatingRole(team.$id, roleName)" x-text="(permissions && permissions.length > 0) ? permissions.join(', ') : 'No permissions'"></button>
@@ -282,7 +282,7 @@ The `creatorRole` is the role assigned to the team creator. It must reference a 
                 </label>
             </template>
             <!-- Custom permissions input -->
-            <input type="text" placeholder="Custom permission" x-model="customPermInput" @keydown.enter.prevent="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (customPermInput.trim()) { const updated = permissions ? [...permissions] : []; if (!updated.includes(customPermInput.trim())) { updated.push(customPermInput.trim()); $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.permissions = updated; } setTimeout(() => { if ($auth.editingRole && $auth.editingRole.teamId === team.$id && $auth.editingRole.oldRoleName === roleName) { $auth.saveEditingRole(); } }, 300); customPermInput = ''; } }" :disabled="!$auth.canManageRoles() || $auth.isRolePermanentSync(team.$id, roleName) || $auth.isUpdatingRole(team.$id, roleName)" />
+            <input type="text" placeholder="Custom permission" aria-label="Custom permission" x-model="customPermInput" @keydown.enter.prevent="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (customPermInput.trim()) { const updated = permissions ? [...permissions] : []; if (!updated.includes(customPermInput.trim())) { updated.push(customPermInput.trim()); $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.permissions = updated; } setTimeout(() => { if ($auth.editingRole && $auth.editingRole.teamId === team.$id && $auth.editingRole.oldRoleName === roleName) { $auth.saveEditingRole(); } }, 300); customPermInput = ''; } }" :disabled="!$auth.canManageRoles() || $auth.isRolePermanentSync(team.$id, roleName) || $auth.isUpdatingRole(team.$id, roleName)" />
         </menu>
 
         <!-- Delete role button (enabled if user has canManageRoles permission) -->
@@ -370,7 +370,7 @@ In your Appwrite project under <b>Auth</b> > <b>Settings</b>, ensure <b>Team inv
             </template>
             <!-- Invite Member -->
             <div class="row-wrap gap-2 mb-2">
-                <input type="email" placeholder="Email to invite" class="w-full" x-model="$auth.inviteEmail" :disabled="$auth.isActionDisabled('inviteMembers') || $auth.isInvitingMember()" required />
+                <input type="email" placeholder="Email to invite" aria-label="Email to invite" class="w-full" x-model="$auth.inviteEmail" :disabled="$auth.isActionDisabled('inviteMembers') || $auth.isInvitingMember()" required />
                 <button class="flex-1" x-dropdown="`invite-roles-menu-${team.$id}`" :disabled="$auth.isActionDisabled('inviteMembers') || $auth.isInvitingMember()">
                     <span x-text="($auth.inviteRoles && $auth.inviteRoles.length > 0) ? $auth.inviteRoles.join(', ') : 'Roles'"></span>
                     <i class="trailing" x-icon="lucide:chevron-down"></i>
@@ -395,7 +395,7 @@ In your Appwrite project under <b>Auth</b> > <b>Settings</b>, ensure <b>Team inv
 
 ```html "Invite Members"
 <!-- Email input -->
-<input type="email" placeholder="Email" x-model="$auth.inviteEmail" :disabled="$auth.isActionDisabled('inviteMembers')" required />
+<input type="email" placeholder="Email" aria-label="Email to invite" x-model="$auth.inviteEmail" :disabled="$auth.isActionDisabled('inviteMembers')" required />
 
 <!-- Assign role(s) dropdown -->
 <button x-dropdown="`invite-role-menu-${team.$id}`" :disabled="$auth.isActionDisabled('inviteMembers')" x-text="($auth.inviteRoles && $auth.inviteRoles.length > 0) ? $auth.inviteRoles[0] : 'Select role'"></button>

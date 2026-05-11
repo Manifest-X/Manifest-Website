@@ -114,7 +114,7 @@ The layout containers have default styles for padding, and the header will sprea
 
 ## Nesting
 
-Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/core-plugins/dropdowns) are also popovers that can control dialogs and exist within them.
+Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/elements/dropdowns) are also popovers that can control dialogs and exist within them.
 
 ::: frame
 <button popovertarget="dialog-first">Open First Dialog</button>

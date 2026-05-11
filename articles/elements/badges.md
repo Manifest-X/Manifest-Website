@@ -108,7 +108,7 @@ Badges accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 
 ### Solo Icon
 
-Badges containing a single [icon](/docs/core-plugins/icons) are automatically squared.
+Badges containing a single [icon](/docs/elements/icons) are automatically squared.
 
 ::: frame
 <mark x-icon="lucide:heart"></mark>

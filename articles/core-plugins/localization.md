@@ -268,10 +268,10 @@ If a language code is detected as a slug anywhere in the URL path, that locale i
 
 ::: frame col
 <div class="row-wrap gap-4">
-  <a href="/en/plugins/localization">English</a>
-  <a href="/fr/plugins/localization">Français</a>
-  <a href="/zh/plugins/localization">中文</a>
-  <a href="/ar/plugins/localization">العربية</a>
+  <a href="/en/core-plugins/localization">English</a>
+  <a href="/fr/core-plugins/localization">Français</a>
+  <a href="/zh/core-plugins/localization">中文</a>
+  <a href="/ar/core-plugins/localization">العربية</a>
 </div>
 <template x-for="feature in $x.features.content">
   <div class="col">
@@ -283,10 +283,10 @@ If a language code is detected as a slug anywhere in the URL path, that locale i
 
 ```html numbers copy
 <!-- Links -->
-<a href="/en/plugins/localization">English</a>
-<a href="/fr/plugins/localization">Français</a>
-<a href="/zh/plugins/localization">中文</a>
-<a href="/ar/plugins/localization">العربية</a>
+<a href="/en/core-plugins/localization">English</a>
+<a href="/fr/core-plugins/localization">Français</a>
+<a href="/zh/core-plugins/localization">中文</a>
+<a href="/ar/core-plugins/localization">العربية</a>
 
 <!-- Content -->
 <template x-for="feature in $x.features.content">

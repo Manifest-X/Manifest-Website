@@ -45,7 +45,7 @@ In `manifest.json`, use the auth `methods` array to define your project's sign-i
 | Method | Description |
 |--------|-------------|
 | `guest-auto` | Automatically creates anonymous guest sessions for all visitors |
-| `guest-manual` | Allows users to manually create guest sessions via `$auth.createGuest()` |
+| `guest-manual` | Allows users to manually create guest sessions via `$auth.requestGuest()` |
 | `magic` | Enables passwordless login via magic URLs sent to email |
 | `oauth` | Enables OAuth sign-in with providers like Google, GitHub, etc. |
 
@@ -107,7 +107,7 @@ Magic URLs provide passwordless authentication via email. Users enter their emai
 ::: frame col
 <!-- Form -->
 <div class="row-wrap gap-2">
-    <input class="flex-1 max-w-full" type="email" pattern=".*@.*\..*" required autocomplete="on" placeholder="Input email" class="peer" @keyup.enter="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress" />
+    <input class="flex-1 max-w-full" type="email" pattern=".*@.*\..*" required autocomplete="on" placeholder="Input email" aria-label="Email" class="peer" @keyup.enter="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress" />
     <button class="peer-invalid:disabled" @click="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress">Send Magic URL</button>
     <button @click="$auth.logout()" :disabled="!$auth.isAuthenticated || $auth.inProgress" class="!w-fit">Logout</button>
 </div>
@@ -136,7 +136,7 @@ Magic URLs provide passwordless authentication via email. Users enter their emai
 
 ```html "HTML" copy
 <!-- Form -->
-<input type="email" pattern=".*@.*\..*" required autocomplete="on" placeholder="Input email" class="peer" @keyup.enter="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress" />
+<input type="email" pattern=".*@.*\..*" required autocomplete="on" placeholder="Input email" aria-label="Email" class="peer" @keyup.enter="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress" />
 <button class="peer-invalid:disabled" @click="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress">Send Magic URL</button>
 <button @click="$auth.logout()" :disabled="!$auth.isAuthenticated || $auth.inProgress" class="!w-fit">Logout</button>
 
@@ -234,7 +234,7 @@ Sign-in methods can be stacked to provide optionality to users.
     <button @click="$auth.loginOAuth('github')" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress"><i x-icon="simple-icons:github"></i> <span>Sign in with GitHub</span></button>
     <div class="divider my-8">OR</div>
     <!-- Magic URL Form -->
-    <input type="email" pattern=".*@.*\..*" required autocomplete="on" placeholder="Input email" class="peer" @keyup.enter="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress"/>
+    <input type="email" pattern=".*@.*\..*" required autocomplete="on" placeholder="Input email" aria-label="Email" class="peer" @keyup.enter="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress"/>
         <button class="peer-invalid:disabled" @click="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress">Send Magic URL</button>
     <div class="divider my-8">OR</div>
     <!-- Guest Button -->
@@ -273,7 +273,7 @@ Sign-in methods can be stacked to provide optionality to users.
 <div class="divider my-8">OR</div>
 
 <!-- Magic URL Form -->
-<input class="peer" type="email" pattern=".*@.*\..*" required autocomplete="on" placeholder="Input email" @keyup.enter="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress" />
+<input class="peer" type="email" pattern=".*@.*\..*" required autocomplete="on" placeholder="Input email" aria-label="Email" @keyup.enter="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress" />
 <button class="peer-invalid:disabled" @click="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress">Send Magic URL</button>
 
 <div class="divider my-8">OR</div>

@@ -65,7 +65,7 @@ Typography styles are included in Manifest CSS or a standalone stylesheet, both 
 <blockquote>Blockquote. Lorem ipsum dolar sit amet.</blockquote>
 ```
 
-See [code blocks](/docs/core-plugins/code) for use of the `<pre>` element.
+See [code blocks](/docs/elements/code) for use of the `<pre>` element.
 
 ---
 
@@ -127,7 +127,7 @@ List styles are carefully styled to keep markers aligned with content above and 
 
 ### Icon Markers
 
-List markers can be overwritten with inline [icons](/docs/core-plugins/icons) using the `x-icon` attribute. The generated SVG is placed directly before any text content.
+List markers can be overwritten with inline [icons](/docs/elements/icons) using the `x-icon` attribute. The generated SVG is placed directly before any text content.
 
 ::: frame
 <ul>
@@ -336,7 +336,6 @@ Default text elements use the following [theme](/docs/styles/theme) variables:
 | `--radius` | Border radius for inline code and kbd elements |
 | `--transition` | Transition duration for link hover states |
 | `--font-sans` | Sans-serif font stack applied to all elements by default |
-| `--font-mono` | Monospace font stack for code elements |
 
 ---
 
@@ -344,7 +343,7 @@ Default text elements use the following [theme](/docs/styles/theme) variables:
 
 The global font and text color is set in the [theme](/docs/styles/theme), with the default value being the user's system UI font or fallbacks. To apply a different font to individual text elements, use custom CSS to modify its `font-family` property (like in the Customization example below).
 
-`<pre>` and `<code>` elements have a specialty font set by separate [code styles](/docs/core-plugins/code#styles), and otherwise use the user's system monospace font or other fallbacks.
+`<pre>` and `<code>` elements have a specialty font set by separate [code styles](/docs/elements/code#styles), and otherwise use the user's system monospace font or other fallbacks.
 
 ---
 

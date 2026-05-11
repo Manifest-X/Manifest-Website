@@ -37,7 +37,8 @@ By default, output is generated in a `/website` folder which includes:
 - Canonical and hreflang links added to each page.
 - `og:locale`/`og:locale:alternate` for localized builds when Open Graph tags exist.
 - Compiled Tailwind CSS (when `data-tailwind` is used).
-- `sitemap.xml` and `robots.txt` files.
+- `sitemap.xml`, `robots.txt`, `llms.txt`, and `llms-full.txt` files for crawler discovery.
+- Per-route `og:image` PNG snapshots under `/og/`, plus injected OpenGraph, Twitter Card, and JSON-LD meta tags for rich social previews and structured-data search results.
 - `.prettierignore`, `.gitattributes`, `.editorconfig`, and `.vscode/settings.json` to help preserve whitespace in code blocks.
 
 ---
@@ -83,6 +84,66 @@ Use `manifest.json` to optionally customize the MPA build. The `live_url` top-le
 
 ---
 
+### SEO & AEO
+
+The prerender automatically fills in head meta, OpenGraph / Twitter Cards, JSON-LD structured data, OG image snapshots, and llms.txt — no configuration required. Layered precedence (highest first): each layer only fills slots not already taken by higher layers.
+
+| # | Source | Notes |
+|---|--------|-------|
+| 1 | `<template data-head>` per-route | Co-located with the route component. Most intentional. Already supports `$x.*` bindings. |
+| 2 | `<head>` in `index.html` | Site-wide author intent. |
+| 3 | `manifest.json` `prerender.meta` | Per-route Alpine expressions evaluated in the live page. |
+| 4 | `manifest.json` `prerender.meta.fallback` | Static strings used when expressions evaluate empty. |
+| 5 | Smart defaults from rendered DOM | `<h1>` for title, first `<p>` for description, OG image snapshot, etc. |
+| 6 | `manifest.json` PWA fields | `name` / `description` / `author` / `icons` as last-resort fallback. |
+
+`<title>` and `<meta name="description">` slots are also considered "open" if empty OR if their value matches `manifest.json`'s `name` / `description` (the placeholder rule), so the static `<title>Site</title>` in `index.html` doesn't block route-specific smart-default titles.
+
+#### Configuration
+
+```json "manifest.json" copy
+{
+  "prerender": {
+    "meta": {
+      "title":       "$x.docs.$route('path').name + ' — ' + $x.site.name",
+      "description": "$x.docs.$route('path').description",
+      "image":       "$x.docs.$route('path').image",
+      "ogType":      "'article'",
+      "imageSnapshots": true,
+      "defaults": true,
+      "fallback": {
+        "title":       "Manifest",
+        "description": "Supercharge HTML for rapid, feature-rich website and web app development.",
+        "image":       "/assets/og-default.png"
+      }
+    },
+    "structuredData": {
+      "WebSite":        true,
+      "Article":        true,
+      "BreadcrumbList": true
+    }
+  }
+}
+```
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `meta.title` / `meta.description` / `meta.image` / `meta.ogType` / `meta.author` | Alpine expression | — | Per-route values evaluated in the live page context. Use `$x.*` to access any data source. Strings are treated as JS expressions, so wrap literals in quotes (e.g. `"'article'"`). |
+| `meta.fallback.*` | string | — | Static fallback used when the corresponding expression returns null/empty. |
+| `meta.imageSnapshots` | boolean | `true` | Auto-snapshot each page (1200×630 PNG saved under `/og/`) and use as `og:image`. Set `false` to skip snapshots and rely on existing image sources only. |
+| `meta.defaults` | boolean | `true` | Smart defaults derived from the rendered DOM (h1, first p, etc.). Set `false` for fully explicit control. |
+| `structuredData.<Type>` | object \| `true` \| `false` | — | Inject JSON-LD `<script>` blocks. Pass `true` for auto-fill from page content (`WebSite`, `Article`, `BreadcrumbList`), an object for explicit field values, or `false` to suppress. |
+
+#### llms.txt
+
+The renderer writes `/llms.txt` (curated index) and `/llms-full.txt` (concatenated full content) per the <a href="https://llmstxt.org" target="_blank">llmstxt.org</a> convention. LLM crawlers prefer this structured plaintext over scraping rendered HTML. Pages are grouped into sections by their first URL segment.
+
+#### Sitemap `<lastmod>`
+
+Each route's `<lastmod>` is derived from the source markdown file's mtime when discoverable (`articles/<path>.md` or `articles/<path-without-section-prefix>.md`), falling back to the prerendered HTML mtime. This keeps the sitemap honest about content freshness across rebuilds.
+
+---
+
 ### Hydration
 
 The prerendering build process makes all HTML/Alpine content static. To preserve dynamic functionality on a specific element, apply the `data-hydrate` attribute. The prerender will restore that element's source code at runtime so Alpine can initialize it normally.
@@ -105,7 +166,7 @@ The prerendering build process makes all HTML/Alpine content static. To preserve
 
 </x-code-group>
 
-Interactive directives like `x-colors`, `x-model`, `@click`, and `:class` are automatically handled by the hydration system and generally do not need `data-hydrate`.
+Interactive directives like `x-color`, `x-model`, `@click`, and `:class` are automatically handled by the hydration system and generally do not need `data-hydrate`.
 
 ---
 
@@ -123,7 +184,19 @@ The renderer will then enumerate every `path:` entry in the matching data source
 
 ### Page Transitions
 
-Manifest enables <a href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API" target="_blank">cross-document view transitions</a> by default for prerendered MPAs. Page navigations automatically crossfade in supporting browsers, with no JavaScript or author setup required. Browsers without support fall back to a normal navigation.
+Manifest enables <a href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API" target="_blank">view transitions</a> for both SPA route changes and prerendered MPA navigations. Pages crossfade automatically in supporting browsers; browsers without support fall back to instant navigation.
+
+For **MPA** (prerendered) navigations, transitions are always on — the browser handles them natively in parallel with page load.
+
+For **SPA** route changes, the framework picks a default based on page size, with explicit override:
+
+| Mode | When |
+|---|---|
+| `<html data-view-transitions>` | Force on, regardless of page size |
+| `<html data-no-view-transitions>` | Force off |
+| (neither) | Auto: on under ~3,000 DOM elements, off above |
+
+The auto threshold exists because the View Transitions API rasterizes the full viewport for both the "before" and "after" snapshots; on heavy pages this can add 500ms+ of perceived navigation latency. Use force-on if the visual transition is worth the cost on a busy page; use force-off to keep things instant on a light one.
 
 Tune the default duration and easing via CSS custom properties:
 
@@ -134,7 +207,7 @@ Tune the default duration and easing via CSS custom properties:
 }
 ```
 
-Opt specific elements out of the transition by adding `data-no-view-transition` (or set `view-transition-name: none` in CSS). Live/embedded content like `<iframe>`, `<video>`, and `<canvas>` are excluded by default to prevent flicker mid-transition.
+Opt specific elements out of the transition by adding `data-no-view-transition` (singular) or setting `view-transition-name: none` in CSS. Live/embedded content like `<iframe>`, `<video>`, and `<canvas>` are excluded by default to prevent flicker mid-transition.
 
 ```html copy
 <div data-no-view-transition>
@@ -159,3 +232,21 @@ Respects `prefers-reduced-motion` automatically through Manifest's existing redu
 ### Publishing
 
 To deploy an MPA on a host environment, set the root directory to the prerendered output directory (i.e. `./website`).
+
+---
+
+## Pre-deploy Check
+
+Run the project linter before publishing to catch regressions — typo'd component tags, dead data sources, syntax errors in Alpine expressions, console errors, a11y violations, and broken internal links:
+
+```bash copy
+npx mnfst-test
+```
+
+Pass a path to target a different directory:
+
+```bash copy
+npx mnfst-test ./website
+```
+
+Exits non-zero on any errors, suitable for CI gating. See [Testing](/docs/getting-started/testing) for full details.

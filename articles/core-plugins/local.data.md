@@ -141,7 +141,7 @@ For an endpoint with no auth or transformation, register the URL string directly
 }
 ```
 
-For headers, query params, or response shaping, use an object witha git-ignored `.env` variable references as needed:
+For headers, query params, or response shaping, use an object with git-ignored `.env` variable references as needed:
 
 <x-code-group>
 
@@ -301,7 +301,13 @@ Use Alpine's <a href="https://alpinejs.dev/directives/for" target="_blank">x-for
 
 The `<template>` tag (which can only have one child element) creates a loop through the data source array. Use `x-for="item in $x.sourceName"` where `item` is an arbitrary name for the current loop item.
 
-**Prerender (SEO):** Static lists are kept in prerendered HTML for crawlers. The prerender script collapses lists it infers are dynamic (search/query, URL params, auth, or getter names like `filteredTeam`), or you can force collapse with `data-prerender="dynamic"` on the `<template>`. Use `data-hydrate` on any wrapper to preserve that subtree as-is during prerender transforms, so Alpine hydrates it at runtime.
+**Prerender (SEO):** Static lists are kept in prerendered HTML for crawlers. The prerender script collapses lists it infers are dynamic (search/query, URL params, auth, or getter names like `filteredTeam`), or you can force collapse with `data-prerender="dynamic"` on the `<template>`.
+
+`<template x-for>` iterating data-source values (e.g. `group in $x.docs`) defaults to client-side rendering — the baked clones are stripped and Alpine re-renders the list at runtime — so locale switches and other reactive updates work without producing duplicates. To freeze that list into the static HTML for SEO instead, add `data-static` to the `<template>` or any ancestor. Manifest will keep the baked clones, remove the template so Alpine has nothing left to iterate, and strip per-item loop bindings (the resolved values are already in the DOM). Element-level bindings that reference global state (e.g. `:class` using `$x.foo.$route('path')`) remain live; only the iteration is frozen.
+
+`data-static` extends to other prerender-time templates too — anything that emits its rendered output as DOM siblings, such as `<template x-anchors>` for table-of-contents links. Without `data-static`, the runtime plugin re-runs and produces a duplicate render alongside the baked one. Wrapping the template in `[data-static]` removes the source `<template>` after prerender, so the runtime plugin sees nothing to render and the baked output stands alone.
+
+Use `data-hydrate` on any wrapper to preserve a subtree as-is during prerender transforms — bindings stay attached and Alpine hydrates them at runtime.
 
 ---
 
@@ -404,7 +410,7 @@ Both `$search` and `$query` operate **client-side** (in the browser) for local d
 - **`$search(term, ...attributes)`**: Real-time text filtering across specified attributes. Returns filtered array immediately.
 - **`$query(queries)`**: Advanced filtering, sorting, and pagination using query arrays. Processes data in browser.
 
-For cloud-hosted data with backend filtering, see [Appwrite databases](/docs/appwrite-plugins/cloud.data.databases).
+For cloud-hosted data with backend filtering, see [Appwrite databases](/docs/appwrite-plugins/databases).
 
 #### Query Syntax
 
@@ -547,35 +553,35 @@ Data sources support all standard JavaScript array methods for filtering, mappin
 
 #### Other Methods
 
-Data sources support all standard JavaScript array methods:
+Data sources support standard JavaScript array methods:
 
-**Transformation:**
-- `map()` - Transform each item
-- `filter()` - Filter items by condition
-- `reduce()` - Reduce to a single value
-- `slice()` - Extract a portion of the array
+**Transformation (return new array / value):**
+- `map()` — transform each item
+- `filter()` — filter items by condition
+- `reduce()` / `reduceRight()` — reduce to a single value
+- `slice()` — extract a portion of the array
+- `concat()` — combine with another array
+- `flat()` / `flatMap()` — flatten nested arrays
+- `sort()` / `reverse()` — return ordered copies
+- `join()` — convert to string
 
 **Search:**
-- `find()` - Find first matching item
-- `findIndex()` - Find index of first matching item
-- `includes()` - Check if array includes value
-- `indexOf()` - Find index of value
+- `find()` / `findIndex()` — locate the first matching item / its index
+- `includes()` — check whether the array includes a value
+- `indexOf()` / `lastIndexOf()` — find the index of a value
 
 **Iteration:**
-- `forEach()` - Execute function for each item
+- `forEach()` — execute a function for each item
 
 **Testing:**
-- `some()` - Check if any item matches
-- `every()` - Check if all items match
+- `some()` / `every()` — check whether any / all items match
 
-**Modification:**
-- `push()` - Add item to end
-- `pop()` - Remove item from end
-- `shift()` - Remove item from start
-- `unshift()` - Add item to start
-- `splice()` - Add/remove items at index
-- `concat()` - Combine arrays
-- `join()` - Join items into string
+**Modification (in-memory only):**
+- `push()` / `pop()` / `shift()` / `unshift()` / `splice()`
+
+::: brand icon="lucide:info"
+Mutation methods on local data sources update the in-memory store and trigger reactivity, but **do not persist** — values reset to the file's contents on page reload. For persistence, use [Appwrite databases](/docs/appwrite-plugins/databases).
+:::
 
 ---
 
@@ -601,3 +607,25 @@ Data sources expose state properties for UI reactivity:
 ```
 
 These properties are reactive and update automatically as data loads or errors occur.
+
+---
+
+## Safe Async
+
+The `$try` magic wraps an async callback in try/catch and optionally routes the error message to a named property on the current `x-data` scope. Useful when calling cloud-data mutations or any other async operation that can fail.
+
+```html copy
+<div x-data="{ saveError: null }">
+    <button @click="$try(() => $x.products.$create({ name: 'New' }), 'saveError')">
+        Save
+    </button>
+    <small x-show="saveError" x-text="saveError" class="text-error"></small>
+</div>
+```
+
+| Argument | Description |
+|---|---|
+| `fn` | Async callback to await. The callback's result is returned on success |
+| `errorVar` *(optional)* | Name of a property on the current `x-data` scope. On error, the error message is written there; on success it's cleared to `null` |
+
+On error, `$try` returns `undefined` instead of throwing.

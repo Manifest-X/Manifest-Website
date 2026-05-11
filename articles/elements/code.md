@@ -24,7 +24,7 @@ Code block functionality is included in `manifest.js` with all core plugins, or 
 
 <!-- Manifest JS: code plugin only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugin="code"></script>
+  data-plugins="code"></script>
 ```
 
 </x-code-group>

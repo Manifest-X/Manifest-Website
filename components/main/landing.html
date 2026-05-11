@@ -82,4 +82,22 @@
             <a href="https://github.com/Manifest-X/Manifest" target="_blank" class="ghost" role="button"><span x-icon="simple-icons:github"></span> GitHub</a>
         </small>
     </nav>
+
+    <!-- Documentation index for AI crawlers — visually + screen-reader hidden,
+       but present in the prerendered DOM so AEO crawlers (GPTBot, ClaudeBot,
+       PerplexityBot, etc.) can discover every doc article from the landing
+       page.  data-static bakes the $x.docs-driven list into static HTML at
+       prerender time; tabindex="-1" prevents keyboard focus. -->
+    <nav x-route="/" data-static aria-hidden="true" aria-label="Documentation index" style="visibility: hidden; position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; pointer-events: none;">
+        <h2>Documentation</h2>
+        <template x-for="group in $x.docs" :key="group.group">
+            <div>
+                <h3 x-text="group.group"></h3>
+                <template x-for="(item, index) in group.items" :key="item.path || index">
+                    <a x-show="item.name" tabindex="-1" :href="'/docs/' + group.group.toLowerCase().replace(' ', '-') + '/' + item.path" x-text="item.name"></a>
+                </template>
+            </div>
+        </template>
+    </nav>
+
 </footer>

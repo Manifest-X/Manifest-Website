@@ -12,7 +12,7 @@ Tooltip functionality is included in `manifest.js` with all core plugins, or it 
 
 ```html "Manifest CSS / JS"
 <!-- Manifest CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
 
 <!-- Manifest JS -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
@@ -20,11 +20,11 @@ Tooltip functionality is included in `manifest.js` with all core plugins, or it 
 
 ```html "Standalone"
 <!-- Tooltip styles only -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.tooltip.css" />
 
-<!-- Manifest JS: tooltip plugin only -->
+<!-- Manifest JS: tooltips plugin only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugin="dropdown"></script>
+  data-plugins="tooltips"></script>
 ```
 
 </x-code-group>
