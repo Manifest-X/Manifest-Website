@@ -1,5 +1,7 @@
 # Icons
 
+Inline SVG icons from Iconify via the `x-icon` directive.
+
 ---
 
 ## Setup

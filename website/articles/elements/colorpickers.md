@@ -1,5 +1,7 @@
 # Color Pickers
 
+Visual color selection with hex, RGB, and HSL inputs.
+
 ---
 
 ## Setup

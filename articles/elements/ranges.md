@@ -1,5 +1,7 @@
 # Ranges
 
+Sliders for numeric input with optional steps.
+
 ---
 
 ## Setup

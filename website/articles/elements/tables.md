@@ -1,5 +1,7 @@
 # Tables
 
+Structured layouts for tabular data with grid and striped variants.
+
 ---
 
 ## Setup

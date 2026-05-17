@@ -1,5 +1,7 @@
 # Sidebars
 
+Collapsible navigation panels anchored to a viewport edge.
+
 ---
 
 ## Setup

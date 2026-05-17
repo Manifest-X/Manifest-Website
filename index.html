@@ -2,16 +2,6 @@
 <html lang="en">
 
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0264JWNS7L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-0264JWNS7L');
-  </script>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -29,25 +19,23 @@
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="/manifest.json">
 
-  <!-- OpenGraph -->
-
   <!-- Styles -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
   <link rel="stylesheet" href="/manifest.theme.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.80/lib/manifest.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.min.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js" data-tailwind data-version="latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.80/lib/manifest.min.js" data-tailwind data-version="0.5.80"></script>
 
 </head>
 
-<body class="col min-h-screen" x-data="{ 
-  init() { 
+<body class="page" x-data="{
+  init() {
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
@@ -55,14 +43,24 @@
 
   <x-header></x-header>
 
-  <!-- Landing page -->
-  <x-landing x-route="/"></x-landing>
+  <main class="pt-[69px]">
 
-  <!-- Documentation pages -->
-  <x-docs x-route="/docs, /docs/*"></x-docs>
+    <!-- Home page -->
+    <x-home x-route="/"></x-home>
 
-  <!-- Theme Editor page -->
-  <!-- <x-colors x-route="/theme-editor"></x-colors> -->
+    <!-- Manifest AI product page -->
+    <!-- <x-manifest-ai x-route="/manifest-ai"></x-manifest-ai> -->
+
+    <!-- Documentation pages -->
+    <x-docs x-route="/docs, /docs/*"></x-docs>
+
+    <!-- Theme Editor page -->
+    <x-theme x-route="/theme-editor"></x-theme>
+
+  </main>
+
+  <!-- Footer (visible on every route) -->
+  <x-footer></x-footer>
 
 </body>
 

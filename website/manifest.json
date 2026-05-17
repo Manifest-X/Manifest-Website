@@ -6,7 +6,17 @@
     "prerender": {
         "locales": [
             "en"
-        ]
+        ],
+        "meta": {
+            "fallback": {
+                "image": "/icons/512x512.png"
+            }
+        },
+        "structuredData": {
+            "WebSite": true,
+            "Article": true,
+            "BreadcrumbList": true
+        }
     },
     "start_url": "/",
     "scope": "/",
@@ -41,13 +51,17 @@
     ],
     "preloadedComponents": [
         "components/main/landing.html",
+        "components/main/manifest-ai.html",
         "components/main/docs.html",
         "components/main/header.html",
+        "components/main/footer.html",
         "components/main/logo.html",
         "components/main/theme.html"
     ],
     "data": {
         "docs": "/data/docs.yaml",
+        "faq": "/data/faq.yaml",
+        "comparisons": "/data/comparisons.yaml",
         "example": "/data/example.json",
         "features": {
             "ar": "/data/ar.locale.yaml",

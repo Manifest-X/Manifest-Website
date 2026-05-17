@@ -1,5 +1,7 @@
 # Textareas
 
+Multi-line text fields with auto-resize and validation.
+
 ---
 
 ## Setup

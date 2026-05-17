@@ -1,5 +1,7 @@
 # Avatars
 
+User profile images with status indicators and fallbacks.
+
 ---
 
 ## Setup

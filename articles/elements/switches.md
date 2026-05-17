@@ -1,5 +1,7 @@
 # Switches
 
+Binary toggle controls with on/off states.
+
 ---
 
 ## Setup

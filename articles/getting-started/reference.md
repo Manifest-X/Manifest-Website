@@ -11,6 +11,7 @@ Manifest's CLI commands, directives, magic properties, data-source operators, an
 | `npx mnfst-starter <name>` | Scaffold a new Manifest project | [Starter Project](/docs/getting-started/starter-project) |
 | `npx mnfst-run` | Zero-dep dev server with live reload | [Setup](/docs/getting-started/setup#run-a-project) |
 | `npx mnfst-render` | Prerender the SPA into a static MPA | [Websites](/docs/publishing/websites) |
+| `npx mnfst-export` | Batch / CI exports — PDF, image, CSV, JSON, RSS | [Export](/docs/core-plugins/export#batch-and-ci-exports) |
 | `npx mnfst-types` | Generate TypeScript ambient types from `manifest.json` | [Setup](/docs/getting-started/setup#typescript) |
 | `npx mnfst-test` | Project linter + component-test harness | [Testing](/docs/getting-started/testing) |
 
@@ -40,15 +41,20 @@ The `manifest.js` script tag accepts `data-*` attributes to control plugin loadi
 | `data-tailwind` | (off) | Boolean — load Manifest's Tailwind v4 build |
 | `data-plugin-base` | CDN | Base URL/path for plugin scripts (for self-hosted deployments) |
 
-### View Transitions
+---
+
+### Routing & View Transitions
 
 Attributes for managing crossfades between routes:
 
 | Attribute | On | Description |
 |---|---|---|
+| `data-no-prefetch` | `<a>` element | Opt this link out of hover-based component prefetching |
 | `data-view-transitions` | `<html>` | Force-on SPA view transitions, regardless of page size |
 | `data-no-view-transitions` | `<html>` | Force-off SPA view transitions |
 | `data-no-view-transition` | any element | Exclude this element from SPA/MPA view transition snapshots (sets `view-transition-name: none`) |
+
+---
 
 ### Rendering
 
@@ -90,6 +96,8 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-id` | Generate stable IDs for a11y (paired with `$id`) |
 | `x-modelable` | Expose an Alpine state value via `x-model` from outside |
 
+---
+
 ### Manifest
 
 | Directive | Plugin | Description |
@@ -99,6 +107,7 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-colorpicker` | [color pickers](/docs/elements/color-pickers) | Colorpicker menu element |
 | `x-color` | [color modes](/docs/styles/color-modes) | Switches color mode on click |
 | `x-dropdown` | [dropdowns](/docs/elements/dropdowns) | Dropdown menu element |
+| `x-export` | [export](/docs/core-plugins/export) | Download page / region / data source as PDF, image, CSV, or JSON |
 | `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/core-plugins/local-data) | Bind file uploads |
 | `x-icon` | [icons](/docs/elements/icons) | Render an icon by name |
 | `x-markdown` | [markdown](/docs/core-plugins/markdown) | Render markdown content from a source |
@@ -108,6 +117,7 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-tab`, `x-tabpanel` | [tabs](/docs/elements/tabs) | Tab elements |
 | `x-toast` | [toasts](/docs/elements/toasts) | Dispatches toast popover |
 | `x-tooltip` | [tooltips](/docs/elements/tooltips) | Applies tooltip to element |
+| `x-virtual` | [virtual](/docs/core-plugins/virtual) | Render only visible rows of a long list (wraps an `x-for` template) |
 
 #### Route Patterns
 
@@ -142,6 +152,8 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 | `$id` | Generate a stable ID (paired with `x-id`) |
 | `$data` | Reach across `x-data` boundaries to access data |
 
+---
+
 ### Manifest
 
 | Magic | Plugin | Description |
@@ -170,6 +182,8 @@ Each `$x.<source>` returns an object or array. Standard JS array methods apply w
 | `$error` | `Error \| string \| null` | Last error, or null |
 | `$ready` | boolean | True after initial load completes |
 
+---
+
 ### Filtering
 
 | Method | Description |
@@ -177,6 +191,8 @@ Each `$x.<source>` returns an object or array. Standard JS array methods apply w
 | `$search(term, ...fields)` | Substring match across the listed fields |
 | `$query([...exprs])` | Filter using query expressions. Local sources: synchronous filter. Appwrite sources: server-side, returns `Promise` |
 | `$route(path?)` | Look up a single row whose `id` matches the current route param |
+
+---
 
 ### Mutations
 
@@ -189,6 +205,8 @@ Available on cloud data sources (Appwrite tables) and bucket sources where appli
 | `$delete(idOrArray)` | Delete one or many entries by id. Returns the deleted entry / entries |
 | `$duplicate(id, options?)` | Copy an entry / file. Table options: `newRowId`, `files` (`'duplicate'` \| `'same'` \| `'none'`), plus field overrides. Bucket options: `newName`, `newFileId` |
 
+---
+
 ### Pagination
 
 Available on cloud data sources.
@@ -198,6 +216,8 @@ Available on cloud data sources.
 | `$firstPage(limit)` | Cursor-based first page. Returns `{ items, cursor, total, hasMore }` |
 | `$nextPage(cursor, limit)` | Cursor-based next page. Same shape as `$firstPage` |
 | `$page(pageNumber, limit)` | Offset-based specific page. Returns `{ items, page, total, totalPages, hasMore }` |
+
+---
 
 ### Files
 
@@ -214,6 +234,8 @@ Available on bucket (storage) sources.
 
 `$preview` options include `width`, `height`, `quality`, `output`, `gravity`, `borderWidth`, `borderColor`, `borderRadius`, `opacity`, `rotation`, and `background`.
 
+---
+
 ### Row Properties
 
 Manifest-added properties exposed on every row returned by `$x.<source>`. Coexist with the source's own column values.
@@ -228,6 +250,8 @@ Manifest-added properties exposed on every row returned by `$x.<source>`. Coexis
 | `$url` | string | file rows | View URL for the file |
 | `$isImage` | boolean | file rows | `true` if the file is an image |
 | `$thumbnailUrl` | string | file rows | Thumbnail URL (images only) |
+
+---
 
 ### Queries
 
@@ -296,6 +320,8 @@ document.addEventListener('alpine:init', () => {
 </div>
 ```
 
+---
+
 ### Global (Alpine Stores)
 
 Shared across all components. Define once, read anywhere via `$store.name`.
@@ -317,6 +343,8 @@ document.addEventListener('alpine:init', () => {
 
 Stores live for the page's lifetime. They reset on full reload — no built-in persistence; pair with `localStorage` or Alpine's `persist` plugin if you need it.
 
+---
+
 ### Server / Persistent
 
 Use `$x.<source>` for anything that lives in a file or backend. The data layer handles loading state, querying, and (for Appwrite) mutations.
@@ -328,6 +356,8 @@ Use `$x.<source>` for anything that lives in a file or backend. The data layer h
     </template>
 </div>
 ```
+
+---
 
 ### Derived State
 
@@ -348,6 +378,8 @@ Three options, in increasing decoupling:
 ```
 
 Avoid `x-effect` unless you need imperative side-effects with reactive deps that can't be expressed inline.
+
+---
 
 ### Cross-Component Communication
 

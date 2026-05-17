@@ -1,5 +1,7 @@
 # SVGs
 
+Inline vector graphics with reactive styling.
+
 ---
 
 ## Setup

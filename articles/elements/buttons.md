@@ -1,5 +1,7 @@
 # Buttons
 
+Interactive elements that trigger actions.
+
 ---
 
 ## Setup

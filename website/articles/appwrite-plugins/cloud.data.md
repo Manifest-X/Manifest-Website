@@ -1,6 +1,6 @@
 # Cloud Data
 
-Access Appwrite databases and storage buckets using the same `$x` magic method pattern as [local data](/docs/core-plugins/local-data) sources.
+Access Appwrite databases and storage with the same `$x` API as [local data](/docs/core-plugins/local-data).
 
 ---
 

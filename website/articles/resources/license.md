@@ -1,5 +1,7 @@
 # MIT License
 
+Open-source MIT License covering all Manifest framework code.
+
 ---
 
 Copyright &copy; 2026 Andrew Matlock

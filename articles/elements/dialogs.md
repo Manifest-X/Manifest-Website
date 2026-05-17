@@ -1,5 +1,7 @@
 # Dialogs
 
+Modal and non-modal overlays for focused interactions.
+
 ---
 
 ## Setup

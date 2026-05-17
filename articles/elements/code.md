@@ -1,5 +1,7 @@
 # Code Blocks
 
+Syntax-highlighted code with copy buttons and language tabs.
+
 ---
 
 ## Setup

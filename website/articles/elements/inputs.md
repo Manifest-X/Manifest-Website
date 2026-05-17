@@ -1,5 +1,7 @@
 # Inputs
 
+Single-line text fields with validation states.
+
 ---
 
 ## Setup

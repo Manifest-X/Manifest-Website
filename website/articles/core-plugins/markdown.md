@@ -1,6 +1,6 @@
 # Markdown
 
-Populate HTML from markdown content.
+Render markdown files into HTML with syntax highlighting and frontmatter.
 
 ---
 

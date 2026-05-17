@@ -1,5 +1,7 @@
 # Toasts
 
+Transient notifications anchored to the viewport.
+
 ---
 
 ## Setup

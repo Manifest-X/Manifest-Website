@@ -1,5 +1,7 @@
 # Dividers
 
+Horizontal and vertical lines for visual separation.
+
 ---
 
 ## Setup

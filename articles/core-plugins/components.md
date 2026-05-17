@@ -1,6 +1,6 @@
 # Components
 
-Leverage HTML templates across your project.
+Reusable HTML templates with route-bound rendering.
 
 ---
 
@@ -323,3 +323,32 @@ Instances can also receive their content from a [data source](/docs/core-plugins
 ```
 
 </x-code-group>
+
+---
+
+## Embedding in Other Sites
+
+A Manifest component can be embedded in any HTML page — a WordPress site, a Shopify storefront, a static landing page, an app built in another framework. Host the component files on a CDN or your own server, declare them in a `manifest.json` (the same file that describes a full Manifest project — its `components` and `data` fields are additive to the PWA manifest spec, so a host site's existing manifest stays valid), then load Manifest's script and drop the component tag.
+
+```html "any-host-page.html" copy
+<!-- The host's existing manifest.json with Manifest-framework fields added -->
+<link rel="manifest" href="/manifest.json">
+
+<!-- Load only the plugins this component needs -->
+<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
+    data-plugins="components,icons,utilities"></script>
+
+<!-- Drop the component anywhere on the page -->
+<x-pricing></x-pricing>
+```
+
+```json "manifest.json" copy
+{
+    "name": "Host Site",
+    "components": [
+        "https://your-cdn.example.com/components/pricing.html"
+    ]
+}
+```
+
+Component HTML files must be served with permissive CORS headers so the host page can fetch them. The host's existing styles continue to work; Manifest's CSS can be omitted entirely if the component uses only the host's design system, or included via a `<link rel="stylesheet">` to apply Manifest's element styles.

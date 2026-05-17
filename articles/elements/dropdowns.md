@@ -1,5 +1,7 @@
 # Dropdowns
 
+Anchored menus for actions and selections.
+
 ---
 
 ## Setup

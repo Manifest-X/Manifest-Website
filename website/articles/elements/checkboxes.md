@@ -1,5 +1,7 @@
 # Checkboxes
 
+Form controls for selecting one or more options.
+
 ---
 
 ## Setup

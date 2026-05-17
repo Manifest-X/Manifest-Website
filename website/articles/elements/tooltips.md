@@ -1,5 +1,7 @@
 # Tooltips
 
+Hover and focus hints for inline annotations.
+
 ---
 
 ## Setup

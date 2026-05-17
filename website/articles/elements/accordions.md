@@ -1,5 +1,7 @@
 # Accordions
 
+Collapsible content panels that expand on demand.
+
 ---
 
 ## Setup

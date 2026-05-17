@@ -1,5 +1,7 @@
 # Tabs
 
+Sectioned content with switchable panels.
+
 ---
 
 ## Setup

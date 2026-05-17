@@ -1,0 +1,59 @@
+- name: "React"
+  slug: "react"
+  pitch: "React powers complex single-page applications with a vast component ecosystem. Manifest takes a different path: HTML stays the source of truth, with reactivity layered in via Alpine."
+  rows:
+    - row: ["Build step required", "Yes (Vite, Next.js, etc.)", "No"]
+    - row: ["Runtime size", "~40 KB+ (React + ReactDOM)", "~30 KB (Alpine + Manifest core)"]
+    - row: ["Component model", "JSX + JavaScript classes/functions", "HTML files in a folder"]
+    - row: ["State management", "Hooks, Context, Redux, Zustand…", "$x magic method + Alpine x-data"]
+    - row: ["Static rendering", "Next.js / Remix required", "Built-in via npx mnfst-render"]
+    - row: ["Learning curve", "Steep (JSX, hooks, rules of hooks)", "Shallow (HTML + Alpine directives)"]
+  verdict: "Pick React for large SPAs with a dedicated frontend team. Pick Manifest when you want production sites and apps without committing to a build pipeline."
+
+- name: "Vue"
+  slug: "vue"
+  pitch: "Vue and Manifest share an HTML-first philosophy. Vue's .vue single-file components require a build step; Manifest's HTML components don't."
+  rows:
+    - row: ["Build step required", "Yes (Vite)", "No"]
+    - row: ["Component format", ".vue single-file (template + script + style)", ".html file"]
+    - row: ["Reactivity", "ref(), reactive(), computed()", "$x magic + Alpine x-data"]
+    - row: ["Routing", "vue-router (separate dependency)", "x-route attribute (built in)"]
+    - row: ["Static rendering", "Nuxt.js / VitePress", "Built-in via npx mnfst-render"]
+    - row: ["Ecosystem size", "Very large", "Growing; compatible with Alpine plugins"]
+  verdict: "Vue is excellent if you're already invested in its tooling. Manifest is the right pick when you want Vue-style reactivity without the .vue file format and build step."
+
+- name: "HTMX"
+  slug: "htmx"
+  pitch: "HTMX leans on the server to render HTML fragments over the wire. Manifest is fully client-side reactive with built-in data sources — pick based on where your data lives."
+  rows:
+    - row: ["Primary model", "Server-rendered HTML fragments", "Client-side reactive HTML"]
+    - row: ["Backend coupling", "Tight (server emits HTML)", "Loose (any data source)"]
+    - row: ["Components", "No (uses partials)", "Yes (<x-name> resolved from files)"]
+    - row: ["Local data sources", "Server-side only", "YAML, JSON, CSV, API, Appwrite"]
+    - row: ["AI editor integration", "None", "Manifest AI (MCP server)"]
+    - row: ["Static rendering", "Not the focus", "Built-in"]
+  verdict: "Use HTMX when your backend renders the HTML. Use Manifest when you want a client-driven site with optional cloud data."
+
+- name: "Astro"
+  slug: "astro"
+  pitch: "Astro and Manifest both prerender. Astro's strength is its multi-framework component story; Manifest's is shipping with no build step."
+  rows:
+    - row: ["Build step required", "Yes (Node + Astro CLI)", "No"]
+    - row: ["Component model", ".astro files + React/Vue/Svelte islands", ".html files + Alpine reactivity"]
+    - row: ["Static output", "Yes (HTML + hydrated islands)", "Yes (static MPA + client hydration)"]
+    - row: ["Runtime requirement", "Node.js during dev/build", "Browser only"]
+    - row: ["Hosting", "Static host (after build)", "Static host (no build needed)"]
+    - row: ["Image optimization", "Built-in", "Manual + auto OG snapshots"]
+  verdict: "Pick Astro for component-island flexibility across frameworks. Pick Manifest when one consistent HTML-first approach is enough and you want zero build time."
+
+- name: "Alpine.js"
+  slug: "alpine"
+  pitch: "Manifest is built on Alpine — it's not a replacement, it's a superset. Alpine gives you reactivity in HTML; Manifest adds the rest of a framework around it."
+  rows:
+    - row: ["Reactivity (x-data, x-text, etc.)", "Yes", "Yes (uses Alpine directly)"]
+    - row: ["Components", "Manual", "Built in (<x-name>)"]
+    - row: ["Routing", "Plugin", "Built in (x-route)"]
+    - row: ["Data sources", "Manual fetch", "Built in ($x.* from yaml/json/csv/api)"]
+    - row: ["Static rendering", "Not provided", "Built in (npx mnfst-render)"]
+    - row: ["AI editor integration", "None", "Manifest AI"]
+  verdict: "Use Alpine alone for sprinkles of reactivity on existing pages. Use Manifest when you want components, routing, data, and prerendering on top of Alpine's foundation."

@@ -6,7 +6,17 @@
     "prerender": {
         "locales": [
             "en"
-        ]
+        ],
+        "meta": {
+            "fallback": {
+                "image": "/icons/512x512.png"
+            }
+        },
+        "structuredData": {
+            "WebSite": true,
+            "Article": true,
+            "BreadcrumbList": true
+        }
     },
     "start_url": "/",
     "scope": "/",
@@ -26,28 +36,34 @@
         }
     ],
     "components": [
-        "components/main/theme-controls.html",
-        "components/main/theme-preview.html",
-        "components/main/appwrite.html",
-        "components/examples/disclaimer.html",
-        "components/examples/header-basic.html",
-        "components/examples/header-nested.html",
-        "components/examples/header-modified.html",
-        "components/examples/appwrite-test.html",
-        "components/examples/appwrite-projects.html",
-        "components/examples/appwrite-storage.html",
-        "components/examples/appwrite-teams.html",
-        "components/examples/appwrite-users.html"
+        "components/theme.html",
+        "components/theme-editor.html",
+        "components/theme-controls.html",
+        "components/theme-preview.html",
+        "components/appwrite.html",
+        "assets/example-components/disclaimer.html",
+        "assets/example-components/header-basic.html",
+        "assets/example-components/header-nested.html",
+        "assets/example-components/header-modified.html",
+        "assets/example-components/appwrite-test.html",
+        "assets/example-components/appwrite-projects.html",
+        "assets/example-components/appwrite-storage.html",
+        "assets/example-components/appwrite-teams.html",
+        "assets/example-components/appwrite-users.html"
     ],
     "preloadedComponents": [
-        "components/main/landing.html",
-        "components/main/docs.html",
-        "components/main/header.html",
-        "components/main/logo.html",
-        "components/main/theme.html"
+        "components/home.html",
+        "components/manifest-ai.html",
+        "components/docs.html",
+        "components/header.html",
+        "components/footer.html",
+        "components/logo.html",
+        "components/theme.html"
     ],
     "data": {
         "docs": "/data/docs.yaml",
+        "faq": "/data/faq.yaml",
+        "comparisons": "/data/comparisons.yaml",
         "example": "/data/example.json",
         "features": {
             "ar": "/data/ar.locale.yaml",

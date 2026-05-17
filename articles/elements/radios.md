@@ -1,5 +1,7 @@
 # Radios
 
+Form controls for selecting one option from a group.
+
 ---
 
 ## Setup

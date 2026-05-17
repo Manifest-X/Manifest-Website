@@ -1,103 +1,388 @@
 <main class="grow col">
 
-    <!-- Hero -->
-    <section class="grow grid grid-cols-12 mt-[69px]">
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  HERO                                                                   -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="grid grid-cols-12 mt-[69px]">
 
-        <div class="col-span-10 col-start-2 col center gap-4 grow px-viewport-padding py-20 text-center border-x border-line pattern-texture">
+    <div class="col-span-10 col-start-2 col center gap-6 grow px-viewport-padding pt-28 pb-32 text-center border-x border-line pattern-texture">
 
-            <!-- Logo Icon -->
-            <svg class="h-10 text-brand-content" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M126.3 417.864C114.845 417.864 105.207 414.743 97.3839 408.501C89.5612 402.259 85.6499 393.256 85.6499 381.492V308.389C85.6499 297.826 81.7385 289.903 73.9159 284.621C66.3726 279.1 56.734 276.339 45 276.339V235.646C56.734 235.646 66.3726 233.005 73.9159 227.723C81.7385 222.201 85.6499 214.159 85.6499 203.595V130.852C85.6499 119.089 89.5612 110.086 97.3839 103.844C105.207 97.6016 114.845 94.4806 126.3 94.4806H142.877V131.933H143.063V209.357C143.063 215.119 141.805 220.641 139.291 225.923C137.056 230.964 133.983 235.526 130.071 239.607C126.16 243.688 121.55 247.169 116.242 250.05C110.934 252.691 105.346 254.492 99.4792 255.452V256.892C105.346 257.853 110.934 259.773 116.242 262.654C121.55 265.295 126.16 268.656 130.071 272.738C133.983 276.819 137.056 281.5 139.291 286.782C141.805 291.824 143.063 297.225 143.063 302.987V380.412H171.978V417.864H126.3Z" fill="currentColor" />
-                <path d="M203.468 241.393V94.1362L295.424 326.717H296.77L388.725 94.1362H467V417.776H406.668V198.876H404.65L317.404 417.776H274.79L203.468 241.393Z" fill="currentColor" />
-            </svg>
+      <!-- Eyebrow -->
+      <a href="/manifest-ai" class="row items-center gap-2 px-3 py-1 rounded-full bg-page border border-line text-sm text-content-neutral hover:text-content-stark hover:border-content-subtle transition-colors w-fit">
+        <mark class="brand sm">New</mark>
+        <span>Manifest AI brings framework-aware code generation to your AI editor</span>
+        <span x-icon="lucide:arrow-right" class="text-content-subtle"></span>
+      </a>
 
-            <!-- Hero Text -->
-            <h1>Level-up HTML</h1>
-            <p class="w-[45rem] max-w-full text-xl text-content-neutral">Manifest extends HTML for rapid, feature-rich
-                website and web app development, without the overhead of complex frameworks and dependencies.</p>
-            <div class="row-wrap gap-2"><mark>Built on Alpine JS</mark><mark>Compatible with Tailwind CSS</mark></div>
-            <p class="mt-4 font-mono font-semibold text-accent-content">Drop a star and leave feedback on <a href="https://github.com/Manifest-X/Manifest" target="_blank" class="accent">GitHub</a></p>
+      <!-- Logo Icon -->
+      <svg class="h-12 text-brand-content mt-4" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M126.3 417.864C114.845 417.864 105.207 414.743 97.3839 408.501C89.5612 402.259 85.6499 393.256 85.6499 381.492V308.389C85.6499 297.826 81.7385 289.903 73.9159 284.621C66.3726 279.1 56.734 276.339 45 276.339V235.646C56.734 235.646 66.3726 233.005 73.9159 227.723C81.7385 222.201 85.6499 214.159 85.6499 203.595V130.852C85.6499 119.089 89.5612 110.086 97.3839 103.844C105.207 97.6016 114.845 94.4806 126.3 94.4806H142.877V131.933H143.063V209.357C143.063 215.119 141.805 220.641 139.291 225.923C137.056 230.964 133.983 235.526 130.071 239.607C126.16 243.688 121.55 247.169 116.242 250.05C110.934 252.691 105.346 254.492 99.4792 255.452V256.892C105.346 257.853 110.934 259.773 116.242 262.654C121.55 265.295 126.16 268.656 130.071 272.738C133.983 276.819 137.056 281.5 139.291 286.782C141.805 291.824 143.063 297.225 143.063 302.987V380.412H171.978V417.864H126.3Z" fill="currentColor" />
+        <path d="M203.468 241.393V94.1362L295.424 326.717H296.77L388.725 94.1362H467V417.776H406.668V198.876H404.65L317.404 417.776H274.79L203.468 241.393Z" fill="currentColor" />
+      </svg>
 
+      <!-- Headline -->
+      <h1 class="!text-5xl md:!text-6xl !leading-tight !font-bold max-w-4xl">The website &amp; application framework that thinks like you do.</h1>
+
+      <!-- Subhead -->
+      <p class="w-[44rem] max-w-full text-xl text-content-neutral !leading-relaxed">Build production sites and apps in HTML &mdash; no build pipeline, no framework lock-in. Manifest hydrates with Alpine, styles with your theme, prerenders for search and AI crawlers, and plugs natively into Claude Code, Cursor, and other AI editors.</p>
+
+      <!-- CTAs -->
+      <div class="row-wrap center gap-3 mt-4">
+        <a href="/docs/getting-started/setup" role="button" class="brand lg">
+          <span x-icon="lucide:rocket"></span>
+          Get started
+        </a>
+        <a href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" role="button" class="lg">
+          <span x-icon="meteor-icons:github"></span>
+          Star on GitHub
+        </a>
+        <a href="/manifest-ai" role="button" class="ghost lg">
+          <span x-icon="lucide:sparkles"></span>
+          Manifest AI
+        </a>
+      </div>
+
+      <!-- Trust strip -->
+      <div class="row-wrap center gap-x-6 gap-y-2 mt-8 text-sm text-content-subtle">
+        <span class="row items-center gap-2"><span x-icon="lucide:check" class="text-positive-content"></span>MIT licensed</span>
+        <span class="row items-center gap-2"><span x-icon="lucide:check" class="text-positive-content"></span>No build step</span>
+        <span class="row items-center gap-2"><span x-icon="lucide:check" class="text-positive-content"></span>Static-MPA ready</span>
+        <span class="row items-center gap-2"><span x-icon="lucide:check" class="text-positive-content"></span>AI-editor native</span>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  MANIFEST AI (LEAD WITH THE DIFFERENTIATOR)                             -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="grid grid-cols-12 border-t border-line">
+
+    <div class="col-span-10 col-start-2 col gap-12 px-viewport-padding py-24 border-x border-line">
+
+      <div class="col gap-4 max-w-3xl">
+        <small class="text-accent-content font-mono uppercase tracking-wider">Manifest AI</small>
+        <h2 class="!text-4xl md:!text-5xl !leading-tight !font-bold">Your AI editor, fluent in Manifest.</h2>
+        <p class="text-lg text-content-neutral !leading-relaxed">AI coding tools like Claude Code, Cursor, and Windsurf are brilliant &mdash; but they don't natively know Manifest. They guess at framework idioms, mix React patterns into HTML files, and need you to keep correcting their assumptions. Manifest AI fixes that.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <div class="col gap-3 p-6 rounded-lg border border-line bg-page">
+          <div class="row items-center gap-2">
+            <span x-icon="lucide:x" class="text-negative-content"></span>
+            <strong class="text-content-stark">Without Manifest AI</strong>
+          </div>
+          <p class="text-sm text-content-neutral">You ask your AI to build a contact form. It hallucinates a React component, uses JSX inside your <code>.html</code> file, and adds <code>useState</code> imports that don't belong. Half an hour of corrections later, you have working HTML.</p>
         </div>
 
-    </section>
-
-    <!-- Features -->
-    <section class="grow grid grid-cols-12 border-t border-line">
-
-        <div class="col-span-10 col-start-2 grid grid-cols-3 font-mono text-center text-brand-content border-x border-line [&_div]:flex [&_div]:justify-center [&_div]:items-center [&_div]:p-4">
-            <div>
-                <span>Skip the build steps</span>
-            </div>
-            <div class="border-x border-line">
-                <span>Use only what you need</span>
-            </div>
-            <div>
-                <span>Stack with other frameworks</span>
-            </div>
+        <div class="col gap-3 p-6 rounded-lg border bg-brand-surface/20" style="border-color: var(--color-brand-line);">
+          <div class="row items-center gap-2">
+            <span x-icon="lucide:check" class="text-positive-content"></span>
+            <strong class="text-content-stark">With Manifest AI</strong>
+          </div>
+          <p class="text-sm text-content-neutral">You ask the same AI. It returns a clean <code>&lt;x-form&gt;</code> with the right directives, wired to a YAML data source, and route-bound correctly. Drop it into your project and it works. First try.</p>
         </div>
 
-    </section>
+      </div>
 
-    <!-- Links -->
-    <section class="grow grid grid-cols-12 border-t border-line">
+      <div class="row-wrap items-center justify-between gap-6 p-6 rounded-lg bg-brand-surface/30 border border-line">
+        <div class="col gap-1">
+          <strong class="text-content-stark">Free for solo developers. Pro for teams.</strong>
+          <small class="text-content-neutral">Community tier ships with full framework grammar. Pro adds team workspaces, project-aware context, priority support, and premium components.</small>
+        </div>
+        <a href="/manifest-ai" role="button" class="brand">
+          Learn more
+          <span x-icon="lucide:arrow-right"></span>
+        </a>
+      </div>
 
-        <div class="col-span-10 col-start-2 p-viewport-padding border-x border-line pattern-texture">
-            <div class="grow row-wrap justify-between p-10 bg-surface-1">
-                <div class="col gap-4 p-4">
-                    <small class="text-sm text-content-subtle font-mono">Features</small>
-                    <ul>
-                        <li x-icon="lucide:panels-top-left">Components</li>
-                        <li x-icon="lucide:database">Data Sources</li>
-                        <li x-icon="lucide:languages">Localization</li>
-                        <li x-icon="lucide:route">Routing</li>
-                    </ul>
-                    <small class="mt-4 text-sm text-content-subtle font-mono">UX/UI</small>
-                    <ul>
-                        <li x-icon="lucide:paint-bucket">Global Theme</li>
-                        <li x-icon="lucide:palette">Color Modes</li>
-                        <li x-icon="lucide:swatch-book">Utility Styles</li>
-                        <li x-icon="lucide:square-mouse-pointer">20+ Elements</li>
-                    </ul>
-                    <small class="mt-4 text-sm text-content-subtle font-mono">...and more</small>
-                </div>
-                <div class="w-[700px] max-w-full col gap-4 p-4 font-mono">
-                    <a href="/docs/getting-started/introduction" class="brand lg w-full h-full !min-h-20" role="button"><span x-icon="lucide:book-open"></span> Get Started</a>
-                    <a href="https://github.com/Manifest-X/Manifest" target="_blank" class="lg w-full h-full !min-h-20" role="button"><span x-icon="simple-icons:github"></span>
-                        GitHub</a>
-                </div>
-            </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  WHY MANIFEST                                                           -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="grid grid-cols-12 border-t border-line bg-brand-surface/10">
+
+    <div class="col-span-10 col-start-2 grid grid-cols-1 md:grid-cols-2 gap-12 px-viewport-padding py-24 border-x border-line">
+
+      <div class="col gap-4">
+        <small class="text-accent-content font-mono uppercase tracking-wider">Why Manifest</small>
+        <h2 class="!text-4xl !leading-tight !font-bold">HTML, restored as a first-class development surface.</h2>
+        <p class="text-content-neutral !leading-relaxed">For a decade, the web platform has been buried under build pipelines. Every new project starts with thousands of dependencies, a bundler config you have to learn, and a months-long ramp before you ship a single line of HTML.</p>
+        <p class="text-content-neutral !leading-relaxed">Manifest is the framework for people who'd rather just write HTML. Routing, reactivity, components, data binding, localization, prerendering, AI-editor integration &mdash; all built in, all available the moment your browser parses a single <code>&lt;script&gt;</code> tag.</p>
+        <p class="text-content-neutral !leading-relaxed font-semibold text-content-stark">No node_modules. No vite.config.js. No "why isn't hydration working" tickets.</p>
+      </div>
+
+      <div class="col gap-3">
+        <small class="text-content-subtle font-mono">A counter, two ways</small>
+
+        <div class="col gap-2">
+          <small class="text-negative-content font-mono">React (with build step)</small>
+          <pre class="!my-0 text-xs"><code>import { useState } from 'react'
+
+export default function Counter() {
+  const [n, setN] = useState(0)
+  return (
+    &lt;button onClick={() =&gt; setN(n + 1)}&gt;
+      Clicked {n} times
+    &lt;/button&gt;
+  )
+}</code></pre>
         </div>
 
-    </section>
+        <div class="col gap-2 mt-2">
+          <small class="text-positive-content font-mono">Manifest (no build)</small>
+          <pre class="!my-0 text-xs"><code>&lt;button x-data="{ n: 0 }" @click="n++"&gt;
+  Clicked &lt;span x-text="n"&gt;0&lt;/span&gt; times
+&lt;/button&gt;</code></pre>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  CORE CAPABILITIES                                                      -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="grid grid-cols-12 border-t border-line">
+
+    <div class="col-span-10 col-start-2 col gap-12 px-viewport-padding py-24 border-x border-line">
+
+      <div class="col gap-4 max-w-3xl">
+        <small class="text-accent-content font-mono uppercase tracking-wider">Capabilities</small>
+        <h2 class="!text-4xl md:!text-5xl !leading-tight !font-bold">Everything a website needs. Nothing it doesn't.</h2>
+        <p class="text-lg text-content-neutral !leading-relaxed">Manifest ships as a single script tag and unlocks the patterns you'd otherwise reach for a full framework to get. Each capability has thoughtful defaults and gets out of your way.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-line">
+
+        <a href="/docs/core-plugins/components" class="col gap-3 p-6 bg-page hover:bg-brand-surface/15 transition-colors group">
+          <span x-icon="lucide:layout-grid" class="text-brand-content text-2xl"></span>
+          <h3 class="!text-xl !font-semibold group-hover:text-brand-content transition-colors">Components without imports</h3>
+          <p class="text-sm text-content-neutral !leading-relaxed">Drop in <code>&lt;x-header&gt;</code> and Manifest resolves it from your project's <code>components/</code> folder. No bundler config, no import statements, no JSX.</p>
+        </a>
+
+        <a href="/docs/core-plugins/local-data" class="col gap-3 p-6 bg-page hover:bg-brand-surface/15 transition-colors group">
+          <span x-icon="lucide:database" class="text-brand-content text-2xl"></span>
+          <h3 class="!text-xl !font-semibold group-hover:text-brand-content transition-colors">Reactive data with <code>$x</code></h3>
+          <p class="text-sm text-content-neutral !leading-relaxed">Register YAML, JSON, CSV, or HTTP sources in <code>manifest.json</code>. Access them anywhere with <code>$x.sourceName</code>. Search, query, and routing magic methods come free.</p>
+        </a>
+
+        <a href="/docs/publishing/websites" class="col gap-3 p-6 bg-page hover:bg-brand-surface/15 transition-colors group">
+          <span x-icon="lucide:globe" class="text-brand-content text-2xl"></span>
+          <h3 class="!text-xl !font-semibold group-hover:text-brand-content transition-colors">Static rendering for SEO + AEO</h3>
+          <p class="text-sm text-content-neutral !leading-relaxed">Run <code>npx mnfst-render</code> to compile every route to a crawlable HTML file with auto-generated meta tags, OG image snapshots, JSON-LD, and <code>llms.txt</code> for AI crawlers.</p>
+        </a>
+
+        <a href="/docs/core-plugins/localization" class="col gap-3 p-6 bg-page hover:bg-brand-surface/15 transition-colors group">
+          <span x-icon="lucide:languages" class="text-brand-content text-2xl"></span>
+          <h3 class="!text-xl !font-semibold group-hover:text-brand-content transition-colors">Localization, built in</h3>
+          <p class="text-sm text-content-neutral !leading-relaxed">CSV locale columns or per-language YAML files. Manifest routes locale-prefixed URLs, sets <code>lang</code> and <code>dir</code>, and prerenders one HTML per locale with proper hreflang.</p>
+        </a>
+
+        <a href="/docs/core-plugins/markdown" class="col gap-3 p-6 bg-page hover:bg-brand-surface/15 transition-colors group">
+          <span x-icon="lucide:square-m" class="text-brand-content text-2xl"></span>
+          <h3 class="!text-xl !font-semibold group-hover:text-brand-content transition-colors">Markdown to HTML</h3>
+          <p class="text-sm text-content-neutral !leading-relaxed">Drop <code>.md</code> files anywhere and render with <code>&lt;x-markdown&gt;</code>. Syntax-highlighted code, frontmatter, automatic heading anchors &mdash; no plugins to configure.</p>
+        </a>
+
+        <a href="/docs/styles/theme" class="col gap-3 p-6 bg-page hover:bg-brand-surface/15 transition-colors group">
+          <span x-icon="lucide:palette" class="text-brand-content text-2xl"></span>
+          <h3 class="!text-xl !font-semibold group-hover:text-brand-content transition-colors">Themeable, Tailwind-compatible</h3>
+          <p class="text-sm text-content-neutral !leading-relaxed">Manifest's CSS custom-property theme works on its own, or drop in Tailwind for utility-first styling. Both coexist; prerender compiles Tailwind to static CSS automatically.</p>
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  COMPARISONS (tabbed; data-driven from comparisons.yaml)                -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="grid grid-cols-12 border-t border-line bg-brand-surface/10">
+
+    <div class="col-span-10 col-start-2 col gap-12 px-viewport-padding py-24 border-x border-line">
+
+      <div class="col gap-4 max-w-3xl">
+        <small class="text-accent-content font-mono uppercase tracking-wider">Comparisons</small>
+        <h2 class="!text-4xl md:!text-5xl !leading-tight !font-bold">How Manifest compares.</h2>
+        <p class="text-lg text-content-neutral !leading-relaxed">Manifest sits at an unusual point in the framework landscape &mdash; HTML-first like HTMX, reactive like Vue, prerendered like Astro, all with no build step. Here's how it stacks up against each:</p>
+      </div>
+
+      <div data-static class="col gap-6">
+        <div class="row-wrap gap-2">
+          <template x-for="(c, i) in $x.comparisons" :key="c.slug">
+            <button :x-tab="c.slug" :class="i === 0 ? 'brand' : ''" x-text="'vs ' + c.name"></button>
+          </template>
+        </div>
+
+        <template x-for="c in $x.comparisons" :key="c.slug">
+          <div :id="c.slug" x-tabpanel class="col gap-6">
+            <p class="text-content-neutral !leading-relaxed text-lg" x-text="c.pitch"></p>
+
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr>
+                    <th class="text-left">Aspect</th>
+                    <th class="text-left" x-text="c.name"></th>
+                    <th class="text-left text-brand-content">Manifest</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template x-for="r in c.rows" :key="r.row[0]">
+                    <tr>
+                      <td class="font-medium" x-text="r.row[0]"></td>
+                      <td class="text-content-neutral" x-text="r.row[1]"></td>
+                      <td class="text-content-stark" x-text="r.row[2]"></td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="row items-start gap-3 p-4 rounded-lg bg-page border border-line">
+              <span x-icon="lucide:lightbulb" class="text-accent-content mt-1"></span>
+              <p class="text-sm text-content-neutral !leading-relaxed" x-text="c.verdict"></p>
+            </div>
+          </div>
+        </template>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  PRODUCTION-READY                                                       -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="grid grid-cols-12 border-t border-line">
+
+    <div class="col-span-10 col-start-2 col gap-12 px-viewport-padding py-24 border-x border-line">
+
+      <div class="col gap-4 max-w-3xl">
+        <small class="text-accent-content font-mono uppercase tracking-wider">Production</small>
+        <h2 class="!text-4xl md:!text-5xl !leading-tight !font-bold">Built for production from day one.</h2>
+        <p class="text-lg text-content-neutral !leading-relaxed">Manifest is what's running this site. Every capability below is in active use, not a roadmap promise. The framework was hardened on real-world traffic, not benchmark demos.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-line">
+
+        <div class="col gap-2 p-6 bg-page">
+          <strong class="row items-center gap-2 text-content-stark"><span x-icon="lucide:search" class="text-brand-content"></span>SEO-optimized prerender</strong>
+          <small class="text-content-neutral !leading-relaxed">Per-page meta, OpenGraph, Twitter Cards, and JSON-LD structured data. Auto-snapshot OG images at 1200&times;630. Smart defaults extract titles and descriptions from page content &mdash; no config required.</small>
+        </div>
+
+        <div class="col gap-2 p-6 bg-page">
+          <strong class="row items-center gap-2 text-content-stark"><span x-icon="lucide:bot" class="text-brand-content"></span>AI crawler ready (AEO)</strong>
+          <small class="text-content-neutral !leading-relaxed">Generated <code>llms.txt</code> and <code>llms-full.txt</code> let GPTBot, ClaudeBot, PerplexityBot, and other AI crawlers find and summarize your content in plaintext.</small>
+        </div>
+
+        <div class="col gap-2 p-6 bg-page">
+          <strong class="row items-center gap-2 text-content-stark"><span x-icon="lucide:globe-2" class="text-brand-content"></span>Multi-locale routing</strong>
+          <small class="text-content-neutral !leading-relaxed">Generate locale-prefixed routes with proper hreflang alternates, <code>lang</code>/<code>dir</code> attributes, and translated content from a single source.</small>
+        </div>
+
+        <div class="col gap-2 p-6 bg-page">
+          <strong class="row items-center gap-2 text-content-stark"><span x-icon="lucide:gauge" class="text-brand-content"></span>Static-MPA performance</strong>
+          <small class="text-content-neutral !leading-relaxed">Every route deploys as static HTML &mdash; no SPA hydration overhead, no JavaScript blocking first paint. Core Web Vitals stay green by default.</small>
+        </div>
+
+        <div class="col gap-2 p-6 bg-page">
+          <strong class="row items-center gap-2 text-content-stark"><span x-icon="lucide:shield-check" class="text-brand-content"></span>Appwrite-powered backend</strong>
+          <small class="text-content-neutral !leading-relaxed">Optional first-class integration for authentication, databases, storage, and realtime &mdash; without writing backend code.</small>
+        </div>
+
+        <div class="col gap-2 p-6 bg-page">
+          <strong class="row items-center gap-2 text-content-stark"><span x-icon="lucide:zap" class="text-brand-content"></span>Snapshot caching</strong>
+          <small class="text-content-neutral !leading-relaxed">Content-hash cache skips re-snapshotting unchanged routes on rebuild &mdash; meaningful at sites with hundreds of pages across multiple locales.</small>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  GET STARTED                                                            -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="grid grid-cols-12 border-t border-line bg-brand-surface/10">
+
+    <div class="col-span-10 col-start-2 col gap-12 px-viewport-padding py-24 border-x border-line">
+
+      <div class="col gap-4 max-w-3xl mx-auto text-center">
+        <small class="text-accent-content font-mono uppercase tracking-wider">Get started</small>
+        <h2 class="!text-4xl md:!text-5xl !leading-tight !font-bold">From zero to running in one HTML file.</h2>
+        <p class="text-lg text-content-neutral !leading-relaxed">Open a text editor. Paste the snippet below into <code>index.html</code>. Open it in a browser. That's the entire setup.</p>
+      </div>
+
+      <pre class="w-3xl max-w-full mx-auto text-sm"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt;My Manifest site&lt;/title&gt;
+  &lt;link rel="manifest" href="/manifest.json"&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello, Manifest&lt;/h1&gt;
+  &lt;button x-data="{ n: 0 }" @click="n++" x-text="n"&gt;0&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+      <div class="row-wrap center gap-3">
+        <a href="/docs/getting-started/setup" role="button" class="brand lg">
+          Read the docs
+          <span x-icon="lucide:arrow-right"></span>
+        </a>
+        <a href="/docs/getting-started/starter-project" role="button" class="lg">
+          <span x-icon="lucide:package"></span>
+          Clone the starter
+        </a>
+        <a href="/manifest-ai" role="button" class="ghost lg">
+          <span x-icon="lucide:sparkles"></span>
+          Install Manifest AI
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  FAQ (data-driven from faq.yaml, baked for AEO)                         -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="grid grid-cols-12 border-t border-line">
+
+    <div class="col-span-10 col-start-2 col gap-12 px-viewport-padding py-24 border-x border-line">
+
+      <div class="col gap-4 max-w-3xl">
+        <small class="text-accent-content font-mono uppercase tracking-wider">FAQ</small>
+        <h2 class="!text-4xl md:!text-5xl !leading-tight !font-bold">Frequently asked questions.</h2>
+        <p class="text-lg text-content-neutral !leading-relaxed">For developers, for non-developers, and for everyone in between. If your question isn't here, the <a href="/docs/getting-started/introduction">docs</a> or the <a href="https://github.com/Manifest-X/Manifest/discussions" target="_blank" rel="noopener">GitHub discussions</a> probably have it.</p>
+      </div>
+
+      <div data-static class="col gap-3 max-w-3xl">
+        <template x-for="item in $x.faq" :key="item.question">
+          <details class="group p-5 rounded-lg border border-line bg-page hover:border-content-subtle transition-colors">
+            <summary class="row items-start justify-between gap-4 cursor-pointer list-none">
+              <strong class="text-content-stark !leading-snug" x-text="item.question"></strong>
+              <span x-icon="lucide:plus" class="text-content-subtle group-open:rotate-45 transition-transform shrink-0"></span>
+            </summary>
+            <p class="text-content-neutral !leading-relaxed mt-3" x-text="item.answer"></p>
+          </details>
+        </template>
+      </div>
+
+    </div>
+
+  </section>
 
 </main>
-
-<footer class="grid grid-cols-12 mt-auto border-t border-line">
-    <nav class="col-span-10 col-start-2 row-wrap justify-center md:justify-between items-center gap-4 px-viewport-padding p-10 text-center border-x border-line">
-        <small>By <a href="https://andrewmatlock.com" target="_blank">Andrew Matlock</a></small>
-        <small class="row-wrap center gap-4">
-            <a href="/resources/license" class="ghost" role="button">MIT License</a>
-            <a href="/resources/privacy" class="ghost" role="button">Privacy</a>
-            <a href="https://github.com/Manifest-X/Manifest" target="_blank" class="ghost" role="button"><span x-icon="simple-icons:github"></span> GitHub</a>
-        </small>
-    </nav>
-
-    <!-- Documentation index for AI crawlers — visually + screen-reader hidden,
-       but present in the prerendered DOM so AEO crawlers (GPTBot, ClaudeBot,
-       PerplexityBot, etc.) can discover every doc article from the landing
-       page.  data-static bakes the $x.docs-driven list into static HTML at
-       prerender time; tabindex="-1" prevents keyboard focus. -->
-    <nav x-route="/" data-static aria-hidden="true" aria-label="Documentation index" style="visibility: hidden; position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; pointer-events: none;">
-        <h2>Documentation</h2>
-        <template x-for="group in $x.docs" :key="group.group">
-            <div>
-                <h3 x-text="group.group"></h3>
-                <template x-for="(item, index) in group.items" :key="item.path || index">
-                    <a x-show="item.name" tabindex="-1" :href="'/docs/' + group.group.toLowerCase().replace(' ', '-') + '/' + item.path" x-text="item.name"></a>
-                </template>
-            </div>
-        </template>
-    </nav>
-
-</footer>

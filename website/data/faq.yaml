@@ -1,0 +1,44 @@
+- question: "What is Manifest?"
+  answer: "Manifest is a framework that extends HTML for building production websites and web applications. It bakes routing, components, reactive data, localization, markdown, and static prerendering directly into HTML — no build pipeline, no bundlers, no framework lock-in. Drop in a single <script> tag and start building."
+
+- question: "Who is Manifest for?"
+  answer: "Developers who want to ship the web platform, not abstract over it. Manifest is equally suited to marketing sites, documentation, dashboards, blogs, internal tools, and full applications. With Manifest AI, it also works well for non-developers who build with AI coding assistants."
+
+- question: "Do I need to know React, Vue, or another framework first?"
+  answer: "No. Manifest is HTML-first. If you can write HTML, you can build with Manifest. Familiarity with Alpine.js helps, since Manifest is built on it — but it isn't required to get started."
+
+- question: "Is Manifest free?"
+  answer: "Yes. Manifest is open source under the MIT license. The framework itself is free for any use, commercial or otherwise. Manifest AI has a free tier with community support, and a paid Pro tier for teams who want premium features like project-aware context, team workspaces, and priority support."
+
+- question: "Do I need a build step?"
+  answer: "No. Manifest runs in the browser the moment your <script> tag loads. There's no node_modules, no bundler config, no compile step. The optional prerender CLI (npx mnfst-render) produces a static MPA for SEO and AI crawlers, but it's not required during development."
+
+- question: "Is Manifest production-ready?"
+  answer: "Yes. Manifest is used in production on websites including the official documentation site (manifestx.dev). It ships with first-class SEO and AEO support, multi-locale routing, Appwrite integration for backend services, and a tested prerender pipeline with content-hash caching."
+
+- question: "How does Manifest compare to other frameworks?"
+  answer: "Manifest combines the simplicity of HTMX (HTML-first, no build) with the reactivity of React or Vue (components, data binding) and the static-output benefits of Astro (SEO-baked HTML). Unlike all of those, it requires no build step and no framework runtime ramp-up — see the comparison section above for side-by-side examples."
+
+- question: "Can I use Manifest with Tailwind CSS?"
+  answer: "Yes. Manifest's theme system uses CSS custom properties and works alongside Tailwind utilities. Add the `data-tailwind` attribute to the Manifest script tag and prerendering compiles your Tailwind utilities automatically. Both styling approaches coexist without conflict."
+
+- question: "Does Manifest support TypeScript?"
+  answer: "Manifest itself is plain HTML and JavaScript — no TypeScript required. If you prefer TypeScript for your project's logic, it works fine alongside Manifest. The framework doesn't require you to opt into any specific tooling."
+
+- question: "What is Manifest AI?"
+  answer: "Manifest AI is an integration that connects your AI coding editor (Claude Code, Cursor, Windsurf, or any MCP-compatible tool) directly to Manifest's framework knowledge. Your editor learns Manifest's components, directives, data patterns, and prerender behavior — so it generates correct Manifest code instead of guessing at framework idioms."
+
+- question: "Is Manifest AI a chatbot like ChatGPT or Claude?"
+  answer: "No. Manifest AI doesn't replace your existing AI tools — it enhances them. You keep using Claude, ChatGPT, Cursor, or whichever editor you prefer. Manifest AI is the bridge that gives them deep, accurate understanding of Manifest's framework so the code they generate works on the first try."
+
+- question: "How do I prerender my Manifest site for SEO?"
+  answer: "Run `npx mnfst-render` from your project root. The CLI compiles every route to a static HTML file with auto-generated meta tags, OpenGraph and Twitter card metadata, JSON-LD structured data, OG image snapshots, llms.txt for AI crawlers, and a sitemap. No additional configuration required."
+
+- question: "How does Manifest handle multilingual sites?"
+  answer: "Add locale columns to a CSV file or use per-language YAML/JSON files. Manifest routes locale-prefixed URLs automatically (/fr/about, /zh/about), sets the document's lang and dir attributes, and prerenders one HTML file per locale with proper hreflang alternates."
+
+- question: "Can I deploy Manifest sites to any host?"
+  answer: "Yes. Manifest produces static HTML, CSS, and JavaScript files. Deploy to any static host — Netlify, Vercel, Cloudflare Pages, GitHub Pages, S3, or your own server. No Node.js runtime is required in production."
+
+- question: "Where do I get help?"
+  answer: "Start with the documentation at manifestx.dev/docs. For community support, check GitHub Discussions and our Discord server. Paid Manifest AI subscribers get priority email support and direct access to the team."

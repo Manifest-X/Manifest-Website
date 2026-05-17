@@ -147,6 +147,17 @@ The router supports non-navigation paths. See [data](/docs/core-plugins/local-da
 
 ---
 
+## Component Prefetching
+
+Components are fetched lazily by default — only the components needed for the current route are downloaded. The router accelerates this with two automatic optimizations:
+
+- **Parallel batch on route change.** When the route changes, every `<x-*>` tag inside the matching `[x-route]` subtree starts loading at the same time, instead of one-by-one as each tag is encountered. Total wait drops from the sum of fetch times to the slowest single fetch.
+- **Hover prefetch.** When the user's pointer enters an internal `<a href>`, the router derives the target route, scans its `[x-route]` subtree for components, and starts fetching them. By the time the user clicks, the components are warm in cache and the navigation feels instant.
+
+Each component is fetched at most once per page, and repeat encounters reuse the cache. To opt a specific link out of hover prefetching, give it the `data-no-prefetch` attribute (the router will still navigate normally, just without warming the components in advance).
+
+---
+
 ## Route Magic Property
 
 The router provides a `$route` magic property that returns the current route as a string, enabling conditional statements.

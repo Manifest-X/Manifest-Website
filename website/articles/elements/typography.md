@@ -1,5 +1,7 @@
 # Typography
 
+Heading, paragraph, and inline text styling.
+
 ---
 
 ## Setup

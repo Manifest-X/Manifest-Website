@@ -1,5 +1,5 @@
 # Local Data
-Locally store dynamic content.
+Load YAML, JSON, or CSV files as reactive data sources.
 
 ---
 

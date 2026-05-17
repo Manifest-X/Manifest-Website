@@ -1,5 +1,7 @@
 # Selects
 
+OS-native dropdown lists for choosing options.
+
 ---
 
 ## Setup

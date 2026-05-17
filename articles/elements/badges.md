@@ -1,5 +1,7 @@
 # Badges
 
+Compact labels for status, counts, and tags.
+
 ---
 
 ## Setup

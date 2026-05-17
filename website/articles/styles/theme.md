@@ -1,5 +1,5 @@
 # Theme
-Easy and scalable global style management.
+Global colors, spacing, typography, and more via CSS custom properties.
 
 ---
 
