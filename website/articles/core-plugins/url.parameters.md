@@ -6,7 +6,7 @@ Display content with modified URL strings.
 
 ## Overview
 
-URL parameters provides a reactive `$url` magic method for storing application state in the URL with common chain characters like `?`, `#`, and `&`. This preserves user interactions like search queries, filters, and view preferences, and the generated URLs can be further shared or bookmarked.
+URL parameters provide a reactive `$url` magic method for storing application state in the URL with common URL characters like `?` and `&`. This preserves user interactions like search queries, filters, and view preferences, and the generated URLs can be further shared or bookmarked.
 
 Parameter updates are debounced to prevent excessive URL changes during rapid user input. They persist across page reloads and are reactive to browser back/forward navigation.
 
@@ -14,9 +14,9 @@ Parameter updates are debounced to prevent excessive URL changes during rapid us
 
 ## Setup
 
-URL paramters are included in `manifest.js` with all core plugins, or can be selectively loaded.
+URL parameters are included in `manifest.js` with all core plugins, or can be selectively loaded.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "All Plugins (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
@@ -27,7 +27,7 @@ URL paramters are included in `manifest.js` with all core plugins, or can be sel
     data-plugins="url-parameters"></script>
 ```
 
-</x-code-group>
+</div>
 
 ---
 
@@ -54,16 +54,7 @@ The `$url` magic method provides several operations for managing parameters.
 
 Replace or set a parameter value.
 
-::: frame
-<div x-data class="col gap-4">
-    <p>Color: <strong x-text="$url.color.value || 'None'"></strong></p>
-    <div class="row gap-2">
-        <button @click="$url.color.set('red')">Red</button>
-        <button @click="$url.color.set('blue')">Blue</button>
-        <button @click="$url.color.set('green')">Green</button>
-    </div>
-</div>
-:::
+<div x-code-group>
 
 ```html copy
 <div x-data>
@@ -74,22 +65,26 @@ Replace or set a parameter value.
 </div>
 ```
 
+::: frame
+<div x-data class="col gap-4 text-base">
+    <div class="row gap-2">
+        <button @click="$url.color.set('red')">Red</button>
+        <button @click="$url.color.set('blue')">Blue</button>
+        <button @click="$url.color.set('green')">Green</button>
+    </div>
+    <p>Color: <strong x-text="$url.color.value || 'None'"></strong></p>
+</div>
+:::
+
+</div>
+
 ---
 
 ### Add
 
 Handle multiple values stored as comma-separated parameters in the URL.
 
-::: frame col
-<p>Tags: <strong x-text="$url.tags.value && Array.isArray($url.tags.value) ? $url.tags.value.join(', ') : ($url.tags.value || 'None')"></strong></p>
-<div class="row gap-2">
-    <button @click="$url.tags.add('javascript')">Add JavaScript</button>
-    <button @click="$url.tags.add('css')">Add CSS</button>
-    <button @click="$url.tags.add('html')">Add HTML</button>
-    <button @click="$url.tags.remove('javascript')">Remove JS</button>
-    <button @click="$url.tags.clear()">Clear All</button>
-</div>
-:::
+<div x-code-group>
 
 ```html copy
 <p>Tags: <span x-text="$url.tags.value ? $url.tags.value.join(', ') : 'None'"></span></p>
@@ -98,21 +93,26 @@ Handle multiple values stored as comma-separated parameters in the URL.
 <button @click="$url.tags.clear()">Clear All</button>
 ```
 
+::: frame col gap-4 text-base
+<div class="row gap-2">
+    <button @click="$url.tags.add('javascript')">Add JavaScript</button>
+    <button @click="$url.tags.add('css')">Add CSS</button>
+    <button @click="$url.tags.add('html')">Add HTML</button>
+    <button @click="$url.tags.remove('javascript')">Remove JS</button>
+    <button @click="$url.tags.clear()">Clear All</button>
+</div>
+<p>Tags: <strong x-text="$url.tags.value && Array.isArray($url.tags.value) ? $url.tags.value.join(', ') : ($url.tags.value || 'None')"></strong></p>
+:::
+
+</div>
+
 ---
 
 ### Remove
 
 Remove specific values from parameters.
 
-::: frame col gap-4!
-<p>Categories: <strong x-text="$url.categories.value && Array.isArray($url.categories.value) ? $url.categories.value.join(', ') : ($url.categories.value || 'None')"></strong></p>
-<div class="row gap-2">
-    <button @click="$url.categories.add('frontend')">Add Frontend</button>
-    <button @click="$url.categories.add('backend')">Add Backend</button>
-    <button @click="$url.categories.remove('frontend')">Remove Frontend</button>
-    <button @click="$url.categories.remove('backend')">Remove Backend</button>
-</div>
-:::
+<div x-code-group>
 
 ```html copy
 <p>Categories: <span x-text="$url.categories.value ? $url.categories.value.join(', ') : 'None'"></span></p>
@@ -120,20 +120,25 @@ Remove specific values from parameters.
 <button @click="$url.categories.remove('frontend')">Remove Frontend</button>
 ```
 
+::: frame col gap-4 text-base
+<div class="row gap-2">
+    <button @click="$url.categories.add('frontend')">Add Frontend</button>
+    <button @click="$url.categories.add('backend')">Add Backend</button>
+    <button @click="$url.categories.remove('frontend')">Remove Frontend</button>
+    <button @click="$url.categories.remove('backend')">Remove Backend</button>
+</div>
+<p>Categories: <strong x-text="$url.categories.value && Array.isArray($url.categories.value) ? $url.categories.value.join(', ') : ($url.categories.value || 'None')"></strong></p>
+:::
+
+</div>
+
 ---
 
 ### Clear
 
 Remove a parameter entirely from the URL.
 
-::: frame col
-<p>Faction: <strong x-text="$url.faction.value || 'Default'"></strong></p>
-<div class="row gap-2">
-    <button @click="$url.faction.set('elves')">Elves</button>
-    <button @click="$url.faction.set('orcs')">Orcs</button>
-    <button @click="$url.faction.clear()">Clear</button>
-</div>
-:::
+<div x-code-group>
 
 ```html copy
 <p>Faction: <span x-text="$url.faction.value || 'Default'"></span></p>
@@ -142,30 +147,24 @@ Remove a parameter entirely from the URL.
 <button @click="$url.faction.clear()">Clear</button>
 ```
 
+::: frame col gap-4 text-base
+<div class="row gap-2">
+    <button @click="$url.faction.set('elves')">Elves</button>
+    <button @click="$url.faction.set('orcs')">Orcs</button>
+    <button @click="$url.faction.clear()">Clear</button>
+</div>
+<p>Faction: <strong x-text="$url.faction.value || 'Default'"></strong></p>
+:::
+
+</div>
+
 ---
 
 ## Data Sources
 
 Content from a [data source](/docs/core-plugins/local-data) can be the subject of a URL parameter.
 
-::: frame col
-<!-- Filter -->
-<select x-model="$url.category.value" class="flex-shrink-0">
-    <option value="">All Categories</option>
-    <option value="laptops">Laptops</option>
-    <option value="phones">Phones</option>
-    <option value="tablets">Tablets</option>
-</select>
-
-<!-- Results -->
-<div class="row-wrap gap-4">
-<template x-for="product in ($x.example.products || []).filter(p => !$url.category.value || p.category === $url.category.value )" :key="product.name">
-    <small x-text="product.name" class="flex-shrink-0"></small>
-</template>
-</div>
-:::
-
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "HTML"
 <!-- Filter -->
@@ -194,7 +193,24 @@ Content from a [data source](/docs/core-plugins/local-data) can be the subject o
 }
 ```
 
-</x-code-group>
+::: frame col gap-4
+<!-- Filter -->
+<select x-model="$url.category.value" class="flex-shrink-0">
+    <option value="">All Categories</option>
+    <option value="laptops">Laptops</option>
+    <option value="phones">Phones</option>
+    <option value="tablets">Tablets</option>
+</select>
+
+<!-- Results -->
+<div class="row-wrap gap-4">
+<template x-for="product in ($x.example.products || []).filter(p => !$url.category.value || p.category === $url.category.value )" :key="product.name">
+    <small x-text="product.name" class="flex-shrink-0"></small>
+</template>
+</div>
+:::
+
+</div>
 
 ---
 
@@ -202,47 +218,9 @@ Content from a [data source](/docs/core-plugins/local-data) can be the subject o
 
 This example demonstrates unified search using `$search` for key searches and `$query` for filtering. Both methods work together:
 
-::: frame col !gap-0
-<div x-data="{
-    get filteredProducts() {
-        return ($x.example.products || []).$search($url.search.value, 'name').$query([
-            ...($url.category.value ? [['equal', 'category', $url.category.value]] : []),
-            ...($url.brand.value ? [['equal', 'brand', $url.brand.value]] : [])
-        ]);
-    }
-}">
-    <!-- Filters -->
-    <div class="row gap-4 items-center">
-        <input type="text" placeholder="Search products..." aria-label="Search products" x-model="$url.search.value">
-        <select x-model="$url.category.value" class="flex-shrink-0">
-            <option value="">All Categories</option>
-            <option value="laptops">Laptops</option>
-            <option value="phones">Phones</option>
-            <option value="tablets">Tablets</option>
-        </select>
-        <select x-model="$url.brand.value" class="flex-shrink-0">
-            <option value="">All Brands</option>
-            <option value="apple">Apple</option>
-            <option value="dell">Dell</option>
-            <option value="samsung">Samsung</option>
-            <option value="microsoft">Microsoft</option>
-        </select>
-        <button @click="$url.search.clear(); $url.category.clear(); $url.brand.clear()" class="flex-shrink-0">Clear All</button>
-    </div>
+<div x-code-group copy>
 
-    <!-- Count -->
-    <small class="ml-auto mt-4 mb-2"><span x-text="filteredProducts.length"></span> results</small>
-
-    <!-- Results -->
-    <template x-for="product in filteredProducts" :key="product.name">
-        <span class="row justify-between py-2 border-t border-line" x-text="product.name"></span>
-    </template>
-</div>
-:::
-
-<x-code-group copy>
-
-```html "HTML"
+```html "HTML" collapse="10"
 <div x-data="{
     get filteredProducts() {
         return ($x.example.products || []).$search($url.search.value, 'name').$query([
@@ -293,4 +271,42 @@ This example demonstrates unified search using `$search` for key searches and `$
 }
 ```
 
-</x-code-group>
+::: frame
+<div class="col" x-data="{
+    get filteredProducts() {
+        return ($x.example.products || []).$search($url.search.value, 'name').$query([
+            ...($url.category.value ? [['equal', 'category', $url.category.value]] : []),
+            ...($url.brand.value ? [['equal', 'brand', $url.brand.value]] : [])
+        ]);
+    }
+}">
+    <!-- Filters -->
+    <div class="row gap-2 items-center">
+        <input type="text" placeholder="Search products..." aria-label="Search products" x-model="$url.search.value">
+        <select x-model="$url.category.value" class="flex-shrink-0">
+            <option value="">All Categories</option>
+            <option value="laptops">Laptops</option>
+            <option value="phones">Phones</option>
+            <option value="tablets">Tablets</option>
+        </select>
+        <select x-model="$url.brand.value" class="flex-shrink-0">
+            <option value="">All Brands</option>
+            <option value="apple">Apple</option>
+            <option value="dell">Dell</option>
+            <option value="samsung">Samsung</option>
+            <option value="microsoft">Microsoft</option>
+        </select>
+        <button @click="$url.search.clear(); $url.category.clear(); $url.brand.clear()" class="flex-shrink-0">Clear All</button>
+    </div>
+
+    <!-- Count -->
+    <small class="ml-auto my-4"><span x-text="filteredProducts.length"></span> results</small>
+
+    <!-- Results -->
+    <template x-for="product in filteredProducts" :key="product.name">
+        <span class="row justify-between py-2 border-t border-line" x-text="product.name"></span>
+    </template>
+</div>
+:::
+
+</div>

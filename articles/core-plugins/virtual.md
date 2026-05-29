@@ -13,7 +13,7 @@ Each row is measured as it renders, so taller rows (multi-line text, embedded me
 Virtualization is a *rendering* optimization, not a data-fetching one. The full data array stays in memory, and only its DOM representation is windowed. For server-side pagination see [databases](/docs/appwrite-plugins/databases#pagination-methods).
 
 ::: brand icon="lucide:info"
-**SEO/AEO**: virtualized content is rendered client-side at scroll time, so it isn't visible to search engines or AI crawlers by default. Virtualization is best applied to interactive data like dashboard content, where discoverability isn't the goal.
+**SEO & AEO** (Answer Engine Optimization): virtualized content is rendered client-side at scroll time, so it isn't visible to search engines or AI crawlers by default. Virtualization is best applied to interactive data like dashboard content, where discoverability isn't the goal.
 :::
 
 ---
@@ -22,7 +22,7 @@ Virtualization is a *rendering* optimization, not a data-fetching one. The full 
 
 Virtual is included in `manifest.js` with all core plugins, or can be selectively loaded.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "All Plugins (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
@@ -33,13 +33,28 @@ Virtual is included in `manifest.js` with all core plugins, or can be selectivel
     data-plugins="virtual"></script>
 ```
 
-</x-code-group>
+</div>
 
 ---
 
 ## Basic Usage
 
 Wrap an `x-for` template in a scrolling container marked with `x-virtual`. The container needs a bounded height like a pixel value, percentage, viewport unit, or flex layout in order to support a scroll viewport.
+
+<div x-code-group>
+
+```html copy
+<div x-data="{ team: /* 500 entries */ }">
+    <div x-virtual style="height: 300px; overflow: auto">
+        <template x-for="member in team" :key="member.id">
+            <div>
+                <p x-text="member.name"></p>
+                <small x-text="member.role"></small>
+            </div>
+        </template>
+    </div>
+</div>
+```
 
 ::: frame
 <div x-data="{ team: Array.from({length: 500}, (_, i) => ({ id: i, name: ['Sirius','Vega','Polaris','Betelgeuse','Rigel','Arcturus'][i % 6] + ' ' + (i + 1), role: ['Senior Engineer','Product Manager','Designer','Researcher','QA Lead','Tech Writer'][i % 6] })) }" class="w-full">
@@ -54,18 +69,7 @@ Wrap an `x-for` template in a scrolling container marked with `x-virtual`. The c
 </div>
 :::
 
-```html copy
-<div x-data="{ team: /* 500 entries */ }">
-    <div x-virtual style="height: 300px; overflow: auto">
-        <template x-for="member in team" :key="member.id">
-            <div>
-                <p x-text="member.name"></p>
-                <small x-text="member.role"></small>
-            </div>
-        </template>
-    </div>
 </div>
-```
 
 Five hundred rows are in the array, but only the visible window is rendered as you scroll. The plugin sets `overflow: auto` and `position: relative` on the container automatically if they aren't already set.
 
@@ -104,6 +108,22 @@ The plugin subscribes to the source expression through Alpine, so any reactive c
 
 This makes virtualization a natural pair with `$search` and `$query`. Combine a search input with `$x.<source>.$search()` and the virtual list re-renders against the filtered results without rebuilding the whole DOM:
 
+<div x-code-group>
+
+```html copy
+<div x-data="{ term: '' }">
+    <input type="text" placeholder="Filter products..." aria-label="Filter products" x-model="term">
+    <div x-virtual style="height: 600px; overflow: auto">
+        <template x-for="product in $x.products.$search(term, 'name')" :key="product.id">
+            <div>
+                <p x-text="product.name"></p>
+                <small x-text="'$' + product.price"></small>
+            </div>
+        </template>
+    </div>
+</div>
+```
+
 ::: frame
 <div x-data="{
     term: '',
@@ -131,25 +151,27 @@ This makes virtualization a natural pair with `$search` and `$query`. Combine a 
 </div>
 :::
 
-```html copy
-<div x-data="{ term: '' }">
-    <input type="text" placeholder="Filter products..." aria-label="Filter products" x-model="term">
-    <div x-virtual style="height: 600px; overflow: auto">
-        <template x-for="product in $x.products.$search(term, 'name')" :key="product.id">
-            <div>
-                <p x-text="product.name"></p>
-                <small x-text="'$' + product.price"></small>
-            </div>
-        </template>
-    </div>
 </div>
-```
 
 ---
 
 ## Mixed-Height Rows
 
 Rows with variable content like multi-line descriptions, embedded images, or expanded details will work without any extra configuration. Each row is measured on first render and the scroll offsets adjust to its actual height. There is no fixed-height requirement.
+
+<div x-code-group>
+
+```html copy
+<div x-virtual style="height: 600px; overflow: auto">
+    <template x-for="log in $x.logs" :key="log.id">
+        <div>
+            <span x-text="log.time"></span>
+            <span x-text="log.level"></span>
+            <span x-text="log.message"></span>
+        </div>
+    </template>
+</div>
+```
 
 ::: frame
 <div x-data="{ logs: Array.from({length: 1000}, (_, i) => ({
@@ -172,16 +194,6 @@ Rows with variable content like multi-line descriptions, embedded images, or exp
 </div>
 :::
 
-```html copy
-<div x-virtual style="height: 600px; overflow: auto">
-    <template x-for="log in $x.logs" :key="log.id">
-        <div>
-            <span x-text="log.time"></span>
-            <span x-text="log.level"></span>
-            <span x-text="log.message"></span>
-        </div>
-    </template>
 </div>
-```
 
 In this example, short and tall log lines coexist correctly. The scroll position stays accurate, the scrollbar reflects real total height, and rows snap to their measured offsets the first time each one becomes visible.

@@ -97,51 +97,7 @@ All interactive examples below require you to be logged into a dummy account via
 
 Storage buckets work identically to local data sources and database tables. Access files using the `$x` magic method and perform all CRUD operations:
 
-::: frame col
-<!-- Manage files -->
-<div x-data="{ 
-    permanentTeam: null
-}"
-x-effect="(async () => {
-    if (permanentTeam || !$auth.teams || $auth.teams.length === 0) return;
-    for (const team of $auth.teams) {
-        if (await $auth.isTeamImmutable(team.$id)) {
-            permanentTeam = team;
-            $auth.currentTeam = team;
-            $auth.viewTeam(team);
-            break;
-        }
-    }
-})()">
-    
-    <div class="col">
-        <!-- Upload -->
-        <div class="row-wrap gap-2 mb-2">
-            <label role="button" class="flex-1">
-                <input type="file" @change="if ($event.target.files.length > 0) { $x.assets.$create($event.target.files[0]).then(() => { $event.target.value = ''; }).catch(err => alert('Upload failed: ' + err.message)); }" accept="*/*" />
-                <span>Choose File</span>
-            </label>
-        </div>
-        
-        <!-- List with actions -->
-        <template x-for="file in $x.assets" :key="file.$id">
-            <div class="row gap-2 py-1 items-center border-t border-line">
-                <div class="flex-1 col gap-1">
-                    <figcaption class="text-sm font-semibold" x-text="file.name || 'Unnamed file'"></figcaption>
-                    <small class="text-muted" x-text="file.$formattedSize"></small>
-                </div>
-                <button class="sm" @click="$x.assets.$openUrl(file.$id)" x-icon="lucide:external-link" aria-label="View" title="View"></button>
-                <button class="sm" @click="$x.assets.$duplicate(file.$id)" x-icon="lucide:copy" aria-label="Duplicate" title="Duplicate"></button>
-                <button class="sm" @click="if (confirm('Delete ' + file.name + '?')) { $x.assets.$delete(file.$id); }" x-icon="lucide:trash" aria-label="Delete" title="Delete"></button>
-            </div>
-        </template>
-        <small x-show="!$x.assets || $x.assets.length === 0" class="text-muted">No files yet</small>
-    </div>
-</div>
-<small x-show="!$auth.teams || $auth.teams.length === 0" class="text-muted">No teams available</small>
-:::
-
-<x-code-group numbers copy>
+<div x-code-group numbers copy>
 
 ```html "All"
 <div>
@@ -273,7 +229,51 @@ x-effect="(async () => {
 </button>
 ```
 
-</x-code-group>
+::: frame col text-base
+<!-- Manage files -->
+<div x-data="{ 
+    permanentTeam: null
+}"
+x-effect="(async () => {
+    if (permanentTeam || !$auth.teams || $auth.teams.length === 0) return;
+    for (const team of $auth.teams) {
+        if (await $auth.isTeamImmutable(team.$id)) {
+            permanentTeam = team;
+            $auth.currentTeam = team;
+            $auth.viewTeam(team);
+            break;
+        }
+    }
+})()">
+    
+    <div class="col">
+        <!-- Upload -->
+        <div class="row-wrap gap-2 mb-2">
+            <label role="button" class="flex-1">
+                <input type="file" @change="if ($event.target.files.length > 0) { $x.assets.$create($event.target.files[0]).then(() => { $event.target.value = ''; }).catch(err => alert('Upload failed: ' + err.message)); }" accept="*/*" />
+                <span>Choose File</span>
+            </label>
+        </div>
+        
+        <!-- List with actions -->
+        <template x-for="file in $x.assets" :key="file.$id">
+            <div class="row gap-2 py-1 items-center border-t border-line">
+                <div class="flex-1 col gap-1">
+                    <figcaption class="text-sm font-semibold" x-text="file.name || 'Unnamed file'"></figcaption>
+                    <small class="text-muted" x-text="file.$formattedSize"></small>
+                </div>
+                <button class="sm" @click="$x.assets.$openUrl(file.$id)" x-icon="lucide:external-link" aria-label="View" title="View"></button>
+                <button class="sm" @click="$x.assets.$duplicate(file.$id)" x-icon="lucide:copy" aria-label="Duplicate" title="Duplicate"></button>
+                <button class="sm" @click="if (confirm('Delete ' + file.name + '?')) { $x.assets.$delete(file.$id); }" x-icon="lucide:trash" aria-label="Delete" title="Delete"></button>
+            </div>
+        </template>
+        <small x-show="!$x.assets || $x.assets.length === 0" class="text-muted">No files yet</small>
+    </div>
+</div>
+<small x-show="!$auth.teams || $auth.teams.length === 0" class="text-muted">No teams available</small>
+:::
+
+</div>
 
 Storage buckets automatically sync changes in realtime across all active sessions. When one user uploads or deletes a file, all other users see the change immediately without page refresh.
 
@@ -281,7 +281,7 @@ Storage buckets automatically sync changes in realtime across all active session
 
 | Method | Parameters | Description |
 |--------|------------|-------------|
-| `$create(file, fileId?, permissions?, onProgress?)` | `file` (File object), `fileId` (string, optional), `permissions` (array, optional), `onProgress` (function, optional) | Upload a new file. Returns uploaded file. If `scope` is configured, permissions are automatically set based on user/team |
+| `$create(file, fileId?, permissions?, onProgress \| options?)` | `file` (File object), `fileId` (string, optional), `permissions` (array, optional). The 4th argument is either an `onProgress` callback function **or** an options object `{ entryId, table, fileIdsColumn? }` for linking the file to another table's entry. | Upload a new file. Returns uploaded file. If `scope` is configured, permissions are automatically set based on user/team |
 | `$duplicate(fileId, options?)` | `fileId` (string or object with `$id`), `options` (object, optional) | Duplicate a file. Options: `newName`, `newFileId`. Returns duplicated file. If `newName` is not provided, the file name will be "{originalName} copy" |
 | `$delete(fileIdOrArray)` | `fileIdOrArray` (string, object with `$id`, or array) | Delete file(s). Returns deleted file(s) |
 | `$url(fileId, token?)` | `fileId` (string or object with `$id`), `token` (string, optional) | Get file view URL. Returns URL string |
@@ -409,7 +409,7 @@ Check data source loading state, errors, and readiness:
 
 ### CRUD Methods
 
-<x-code-group>
+<div x-code-group>
 
 ```html "$create" copy
 <!-- Upload single file -->
@@ -467,13 +467,13 @@ Check data source loading state, errors, and readiness:
 </button>
 ```
 
-</x-code-group>
+</div>
 
 ---
 
 ### View & Download Methods
 
-<x-code-group>
+<div x-code-group>
 
 ```html "$url" copy
 <!-- Get view URL -->
@@ -537,18 +537,9 @@ Check data source loading state, errors, and readiness:
 </button>
 ```
 
-</x-code-group>
+</div>
 
-**View & Download Methods:**
-
-| Method | Parameters | Description |
-|--------|------------|-------------|
-| `$url(fileId, token?)` | `fileId` (string or object with `$id`), `token` (string, optional) | Get file view URL. Returns URL string |
-| `$download(fileId, token?)` | `fileId` (string or object with `$id`), `token` (string, optional) | Get file download URL. Returns URL string |
-| `$preview(fileId, options?, token?)` | `fileId` (string or object with `$id`), `options` (object, optional), `token` (string, optional) | Get file preview URL (images only). Options: width, height, quality, output, etc. Returns preview URL string |
-| `$openUrl(fileId, token?)` | `fileId` (string or object with `$id`), `token` (string, optional) | Open file view URL in new tab |
-| `$openDownload(fileId, filename?, token?)` | `fileId` (string or object with `$id`), `filename` (string, optional), `token` (string, optional) | Open file download URL in new tab |
-| `$openPreview(fileId, options?, token?)` | `fileId` (string or object with `$id`), `options` (object, optional), `token` (string, optional) | Open file preview URL in new tab |
+See the **Method details** table near the top of this article for the full signatures of `$url`, `$download`, `$preview`, and their `$open*` variants.
 
 ---
 

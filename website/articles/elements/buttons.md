@@ -6,9 +6,9 @@ Interactive elements that trigger actions.
 
 ## Setup
 
-Buttons styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Button styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS"
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
@@ -18,32 +18,30 @@ Buttons styles are included in Manifest CSS or a standalone stylesheet, both ref
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.button.css" />
 ```
 
-</x-code-group>
+</div>
 
 ---
 
 ## Default
 
-::: frame
-<button>Button</button>
-:::
+<div x-code-group>
 
 ```html copy
 <button>Button</button>
 ```
 
-The buttons appearance is determined by these top-level factors:
-- **Sizing:** Buttons horizontally size to their content unless overriden, with the minimum size being a square.
+::: frame
+<button>Button</button>
+:::
+
+</div>
+
+The button's appearance is determined by these top-level factors:
+- **Sizing:** Buttons horizontally size to their content unless overridden, with the minimum size being a square.
 - **Content alignment:** Buttons use `display: inline-flex` with centered content by default. Flexbox properties like Tailwind's `justify-start` modify content alignment.
 - **Truncation:** To truncate overflowing text with ellipsis, place it in an internal `<span>`.
 
-::: frame
-<button>!</button>
-<button class="flex-1 justify-start">Starting Alignment</button>
-<button class="flex-1">
-    <span> Truncated lorem ipsum dolar sit amet</span>
-</button>
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Fit to content, or square -->
@@ -54,9 +52,19 @@ The buttons appearance is determined by these top-level factors:
 
 <!-- Truncate text -->
 <button class="flex-1">
-    <span> Truncated lorem ipsum dolar sit amet</span>
+    <span>Truncated lorem ipsum dolor sit amet</span>
 </button>
 ```
+
+::: frame row-wrap gap-2
+<button>!</button>
+<button class="flex-1 justify-start">Starting Alignment</button>
+<button class="flex-1">
+    <span>Truncated lorem ipsum dolor sit amet</span>
+</button>
+:::
+
+</div>
 
 ---
 
@@ -65,12 +73,8 @@ The buttons appearance is determined by these top-level factors:
 Buttons accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
-::: frame
-<button class="brand">Brand</button>
-<button class="accent">Accent</button>
-<button class="positive">Positive</button>
-<button class="negative">Negative</button>
-:::
+
+<div x-code-group>
 
 ```html copy
 <!-- Brand variant -->
@@ -86,14 +90,20 @@ Buttons accept Manifest [utility](/docs/styles/utilities) classes, which can be 
 <button class="negative">Negative</button>
 ```
 
+::: frame row-wrap gap-2
+<button class="brand">Brand</button>
+<button class="accent">Accent</button>
+<button class="positive">Positive</button>
+<button class="negative">Negative</button>
+:::
+
+</div>
+
 ---
 
 ### Size
 
-::: frame
-<button class="sm">Small</button>
-<button class="lg">Large</button>
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Small variant -->
@@ -103,17 +113,18 @@ Buttons accept Manifest [utility](/docs/styles/utilities) classes, which can be 
 <button class="lg">Large</button>
 ```
 
+::: frame row-wrap gap-2
+<button class="sm">Small</button>
+<button class="lg">Large</button>
+:::
+
+</div>
+
 ---
 
 ### Appearance
 
-::: frame items-center
-<button class="ghost">Ghost</button>
-<button class="outlined">Outlined</button>
-<button class="selected">Selected</button>
-<button class="transparent">Transparent</button>
-<button class="hug transparent">Hug</button>
-:::
+<div x-code-group>
 
 ```html copy
 <!-- No background until hover -->
@@ -122,15 +133,21 @@ Buttons accept Manifest [utility](/docs/styles/utilities) classes, which can be 
 <!-- Border included -->
 <button class="outlined">Outlined</button>
 
-<!-- Currently selected state -->
-<button class="selected">Selected</button>
-
 <!-- No background at all -->
 <button class="transparent">Transparent</button>
 
 <!-- No padding for minimal target area, best paired with transparency -->
 <button class="hug transparent">Hug</button>
 ```
+
+::: frame row-wrap items-center gap-2
+<button class="ghost">Ghost</button>
+<button class="outlined">Outlined</button>
+<button class="transparent">Transparent</button>
+<button class="hug transparent">Hug</button>
+:::
+
+</div>
 
 ---
 
@@ -140,13 +157,17 @@ Buttons accept Manifest [utility](/docs/styles/utilities) classes, which can be 
 
 Buttons containing a single [icon](/docs/elements/icons) are automatically squared. Add `aria-label` so screen readers can announce what the button does — icons alone have no accessible name.
 
-::: frame
-<button x-icon="ph:house" aria-label="Home"></button>
-:::
+<div x-code-group>
 
 ```html copy
 <button x-icon="ph:house" aria-label="Home"></button>
 ```
+
+::: frame
+<button x-icon="ph:house" aria-label="Home"></button>
+:::
+
+</div>
 
 ---
 
@@ -154,15 +175,19 @@ Buttons containing a single [icon](/docs/elements/icons) are automatically squar
 
 Any number of icons and text can be nested in any order. Place icons in `<span>` tags and any sibling elements will auto-space.
 
-::: frame
-<button><span x-icon="ph:house"></span> Home</button>
-<button><span x-icon="ph:house"></span><span>Home</span></button>
-:::
+<div x-code-group>
 
 ```html copy
 <button><span x-icon="ph:house"></span> Home</button>
 <button><span x-icon="ph:house"></span><span>Home</span></button>
 ```
+
+::: frame row-wrap gap-2
+<button><span x-icon="ph:house"></span> Home</button>
+<button><span x-icon="ph:house"></span><span>Home</span></button>
+:::
+
+</div>
 
 ---
 
@@ -170,29 +195,27 @@ Any number of icons and text can be nested in any order. Place icons in `<span>`
 
 For button links, use `<a role="button">`. Modifier classes above can also be applied.
 
-::: frame
-<a role="button" href="#">Learn more</a>
-<a role="button" href="#" class="brand">Try now</a>
-:::
+<div x-code-group>
 
 ```html copy
 <a role="button" href="#">Learn more</a>
 <a role="button" href="#" class="brand">Try now</a>
 ```
+
+::: frame row-wrap gap-2
+<a role="button" href="#">Learn more</a>
+<a role="button" href="#" class="brand">Try now</a>
+:::
+
+</div>
 
 ---
 
 ## File Uploads
 
-Manifest hides the `type="file"` input since its lack modern style control. To visualize it as a button, place it inside a label with `role="button"` alongside any icons or text.
+Manifest hides the `type="file"` input since it lacks modern style control. To visualize it as a button, place it inside a label with `role="button"` alongside any icons or text.
 
-::: frame justify-start
-<label role="button">
-    <input type="file" />
-    <span x-icon="lucide:upload"></span>
-    Upload
-</label>
-:::
+<div x-code-group>
 
 ```html copy
 <label role="button">
@@ -201,6 +224,16 @@ Manifest hides the `type="file"` input since its lack modern style control. To v
     Upload
 </label>
 ```
+
+::: frame row-wrap gap-2 justify-start
+<label role="button">
+    <input type="file" />
+    <span x-icon="lucide:upload"></span>
+    Upload
+</label>
+:::
+
+</div>
 
 ---
 
@@ -214,12 +247,7 @@ These styles are included in `manifest.css`, or the standalone `manifest.form.cs
 
 Placing the button and text inside a `<label>` automatically stacks them with spacing.
 
-::: frame
-<label>
-    Action
-    <button>Submit</button>
-</label>
-:::
+<div x-code-group>
 
 ```html copy
 <label>
@@ -227,15 +255,19 @@ Placing the button and text inside a `<label>` automatically stacks them with sp
     <button>Submit</button>
 </label>
 ```
+
+::: frame
+<label>
+    Action
+    <button>Submit</button>
+</label>
+:::
+
+</div>
 
 To horizontally inline the label text with the button, place the text in a `<data>` element. This is used as a CSS hook with no semantic impact.
 
-::: frame
-<label>
-    <data>Action</data>
-    <button>Submit</button>
-</label>
-:::
+<div x-code-group>
 
 ```html copy
 <label>
@@ -243,6 +275,15 @@ To horizontally inline the label text with the button, place the text in a `<dat
     <button>Submit</button>
 </label>
 ```
+
+::: frame
+<label>
+    <data>Action</data>
+    <button>Submit</button>
+</label>
+:::
+
+</div>
 
 ---
 
@@ -250,12 +291,7 @@ To horizontally inline the label text with the button, place the text in a `<dat
 
 Horizontally group buttons, inputs, or selects together with a `role="group"` attribute added to the parent container.
 
-::: frame
-<div role="group">
-    <input placeholder="Insert email"/>
-    <button class="brand">Signup</button>
-</div>
-:::
+<div x-code-group>
 
 ```html copy
 <div role="group">
@@ -263,6 +299,15 @@ Horizontally group buttons, inputs, or selects together with a `role="group"` at
     <button class="brand">Signup</button>
 </div>
 ```
+
+::: frame
+<div role="group">
+    <input placeholder="Insert email"/>
+    <button class="brand">Signup</button>
+</div>
+:::
+
+</div>
 
 When these elements are grouped, only the outer elements' outer corners retain their border radii for a seamless appearance.
 
@@ -276,19 +321,30 @@ Default buttons use the following [theme](/docs/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
-| `--color-field-surface` | Button background color |
-| `--color-field-surface-hover` | Button hover/active background color |
-| `--color-field-inverse` | Button text color |
-| `--spacing-field-height` | Button height and min-width |
-| `--spacing-field-padding` | Horizontal padding for button content |
-| `--radius` | Border radius for button corners |
-| `--transition` | Transition for interactive states |
+| `--color-field-surface`{copy} | Button background color |
+| `--color-field-surface-hover`{copy} | Button hover/active background color |
+| `--color-field-inverse`{copy} | Button text color |
+| `--spacing-field-height`{copy} | Button height and min-width |
+| `--spacing-field-padding`{copy} | Horizontal padding for button content |
+| `--radius`{copy} | Border radius for button corners |
+| `--transition`{copy} | Transition for interactive states |
 
 ---
 
 ### Customization
 
 Modify base button styles with custom CSS for the `button` selector.
+
+<div x-code-group>
+
+```css copy
+button {
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 100px;
+}
+```
 
 ::: frame
 <style>
@@ -303,11 +359,4 @@ button.custom {
 <button class="custom">Custom Button</button>
 :::
 
-```css copy
-button {
-    color: white;
-    background-color: black;
-    border: 1px solid white;
-    border-radius: 100px;
-}
-```
+</div>

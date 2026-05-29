@@ -1,0 +1,64 @@
+<figure class="relative aspect-video w-full bg-surface-3 rounded-lg overflow-hidden m-0" x-data="heroEditor" aria-labelledby="hero-demo-caption">
+    <figcaption id="hero-demo-caption" class="sr-only">
+        Live Manifest editor — edit the HTML, theme variables, or component on the left and watch the preview update on the right.
+    </figcaption>
+
+    <!-- Scoped stylesheet from manifest.theme.css — all rules apply only under [data-preview] -->
+    <style x-html="themeStyleSheet"></style>
+
+    <!-- Layout wrapper: absolutely sized to the figure so the panel percentage heights below resolve against an explicit (inset-derived) container instead of the aspect-ratio+padding combo, which Safari miscomputes (children spill into the padding). -->
+    <div class="absolute inset-0 row justify-center items-end px-10 pt-10 lg:px-20 lg:pt-20">
+
+    <!-- Code editor -->
+    <div class="hidden md:col w-1/2 h-7/8 bg-page dark:bg-surface-2 rounded-ss-lg shadow-xl overflow-hidden" role="region" aria-label="Code editor">
+
+        <!-- Tabs header -->
+        <div class="shrink-0 row gap-2 p-2 border-b border-line overflow-x-auto">
+            <template x-for="[key, file] in Object.entries(files)" :key="key">
+                <button class="sm ghost shrink-0 hover:text-field-inverse" :class="tab === key ? 'text-content-stark' : 'text-content-subtle'" @click="tab = key" x-text="file.label"></button>
+            </template>
+        </div>
+
+        <!-- File body -->
+        <div class="w-full max-w-full max-h-[calc(100%-41px)] font-mono text-xs leading-relaxed overflow-auto no-scrollbar">
+
+            <div class="min-w-full w-fit min-h-full h-fit ps-4 pt-4 pb-10 pe-20 overflow-auto no-scrollbar">
+
+                <!-- Lead-in comment (read-only but full-opacity) — sits above the prefix so it isn't dimmed alongside the uneditable bracketing tags -->
+                <div x-show="files[tab].lead" class="whitespace-pre" x-html="hl(files[tab].lead, files[tab].lang)"></div>
+
+                <!-- Read-only prefix -->
+                <div x-show="files[tab].prefix" class="whitespace-pre disabled" x-html="hl(files[tab].prefix, files[tab].lang)"></div>
+
+                <!-- Editable body (CodeJar) -->
+                <div x-show="!files[tab].readOnly" x-ref="editor" class="text-content-stark whitespace-pre no-focus" style="caret-color: var(--color-content-stark);" spellcheck="false"></div>
+
+                <!-- Read-only body -->
+                <div x-show="files[tab].readOnly" class="whitespace-pre" x-html="hl(files[tab].body, files[tab].lang)"></div>
+
+                <!-- Read-only suffix -->
+                <div x-show="files[tab].suffix" class="whitespace-pre disabled" x-html="hl(files[tab].suffix, files[tab].lang)"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Preview -->
+    <div class="col grow w-full md:w-1/2 h-full bg-page dark:bg-surface-2 rounded-t-lg shadow-xl overflow-hidden" role="region" aria-label="Live preview">
+
+        <!-- Header -->
+        <div class="row gap-1 px-3 py-2 border-b border-line [&_span]:size-2 [&_span]:bg-surface-2 [&_span]:rounded-full" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Page -->
+        <div class="page grow bg-page overflow-auto no-scrollbar" data-preview x-ref="preview" :dir="locale === 'ar' ? 'rtl' : 'ltr'" :class="darkMode && 'dark'"></div>
+    </div>
+
+    </div>
+
+</figure>

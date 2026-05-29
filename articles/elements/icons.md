@@ -8,7 +8,7 @@ Inline SVG icons from Iconify via the `x-icon` directive.
 
 Icons are included in `manifest.js` with all core plugins, or can be selectively loaded.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "All Plugins (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
@@ -19,7 +19,7 @@ Icons are included in `manifest.js` with all core plugins, or can be selectively
     data-plugins="icons"></script>
 ```
 
-</x-code-group>
+</div>
 
 Manifest makes icons easy, providing access to over 200,000 open source icons from every major library, courtesy of <a href="https://iconify.design/" target="_blank" rel="noopener">Iconify</a>. Iconify's lightweight script is bundled into the above Manifest scripts.
 
@@ -28,15 +28,19 @@ Manifest makes icons easy, providing access to over 200,000 open source icons fr
 ## Usage
 
 
-Icons are inserted into any HTML element with the `x-icon` attributes.
+Icons are inserted into any HTML element with the `x-icon` attribute.
+
+<div x-code-group>
+
+```html copy
+<i x-icon="lucide:house"></i>
+```
 
 ::: frame
 <i class="h1" x-data x-icon="lucide:house"></i>
 :::
 
-```html copy
-<i x-icon="lucide:house"></i>
-```
+</div>
 
 
 Browse the <a href="https://icon-sets.iconify.design/" target="_blank" rel="noopener">Iconify library</a> for available icon values like the `lucide:house` example above. The letters before the colon are the icon library code (e.g. `lucide`), and the string after is the individual icon name (e.g. `house`). If an icon doesn't render, double check the value.
@@ -47,15 +51,19 @@ Browse the <a href="https://icon-sets.iconify.design/" target="_blank" rel="noop
 
 When an icon renders, a child SVG is generated at runtime within the parent element. This overwrites any other children of the parent element. To preserve children, place the `x-icon` attribute in its own child element like a `<span>` or `<i>` tag.
 
-::: frame col !gap-6
-<div class="h3"><span x-icon="lucide:house"></span> Lorem ipsum</div>
-<button><span x-icon="lucide:house"></span> Home</button>
-:::
+<div x-code-group>
 
 ```html copy
 <h3><i x-icon="lucide:house"></i> Lorem ipsum.</h3>
 <button><span x-icon="lucide:house"></span> Home</button>
 ```
+
+::: frame col !gap-6 text-base
+<div class="h3"><span x-icon="lucide:house"></span> Lorem ipsum</div>
+<button><span x-icon="lucide:house"></span> Home</button>
+:::
+
+</div>
 
 ---
 
@@ -63,11 +71,7 @@ When an icon renders, a child SVG is generated at runtime within the parent elem
 
 Icons can be switched dynamically with Alpine expressions. Click the example button to swap icons.
 
-::: frame
-<div x-data="{ icon: 'lucide:house' }">
-    <button @click="icon = icon === 'lucide:house' ? 'lucide:building' : 'lucide:house'" aria-label="Toggle" x-icon="icon"></button>
-</div>
-:::
+<div x-code-group>
 
 ```html copy
 <div x-data="{ icon: 'lucide:house' }">
@@ -75,17 +79,21 @@ Icons can be switched dynamically with Alpine expressions. Click the example but
 </div>
 ```
 
+::: frame
+<div x-data="{ icon: 'lucide:house' }">
+    <button @click="icon = icon === 'lucide:house' ? 'lucide:building' : 'lucide:house'" aria-label="Toggle" x-icon="icon"></button>
+</div>
+:::
+
+</div>
+
 ---
 
 ### Collection Icons
 
 `x-icon` can get its value from a [data source](/docs/core-plugins/local-data).
 
-::: frame
-<span class="h1" x-icon="$x.example.icon"></span>
-:::
-
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "HTML"
 <span x-icon="$x.example.icon"></span>
@@ -97,7 +105,11 @@ Icons can be switched dynamically with Alpine expressions. Click the example but
 }
 ```
 
-</x-code-group>
+::: frame
+<span class="h1" x-icon="$x.example.icon"></span>
+:::
+
+</div>
 
 ---
 

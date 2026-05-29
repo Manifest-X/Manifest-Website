@@ -10,7 +10,7 @@ Toast styles are included in Manifest CSS or a standalone stylesheet, both refer
 
 Toast functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS / JS"
 <!-- Manifest CSS -->
@@ -29,7 +29,7 @@ Toast functionality is included in `manifest.js` with all core plugins, or it ca
   data-plugins="toasts"></script>
 ```
 
-</x-code-group>
+</div>
 
 ---
 
@@ -37,13 +37,17 @@ Toast functionality is included in `manifest.js` with all core plugins, or it ca
 
 Toasts can be triggered from any element using the `x-toast` directive, with its value being the content. They automatically disappear after 3 seconds, though the timer will pause on hover. Toasts will stack if multiple are triggered concurrently.
 
-::: frame
-<button x-toast="This is a basic toast notification">Show Toast</button>
-:::
+<div x-code-group>
 
 ```html copy
 <button x-toast="This is a basic toast notification">Show Toast</button>
 ```
+
+::: frame
+<button x-toast="This is a basic toast notification">Show Toast</button>
+:::
+
+</div>
 
 ---
 
@@ -53,13 +57,7 @@ Toasts can be triggered from any element using the `x-toast` directive, with its
 
 Color modifiers provide unique visual context.
 
-::: frame
-<button x-toast="Default toast notification">Default</button>
-<button x-toast.brand="Brand toast notification">Brand</button>
-<button x-toast.accent="Accent toast notification">Accent</button>
-<button x-toast.positive="Operation completed successfully">Positive</button>
-<button x-toast.negative="Something went wrong">Negative</button>
-:::
+<div x-code-group>
 
 ```html copy
 <button x-toast="Default toast notification">Default</button>
@@ -68,6 +66,16 @@ Color modifiers provide unique visual context.
 <button x-toast.positive="Operation completed successfully">Positive</button>
 <button x-toast.negative="Something went wrong">Negative</button>
 ```
+
+::: frame row-wrap gap-4
+<button x-toast="Default toast notification">Default</button>
+<button x-toast.brand="Brand toast notification">Brand</button>
+<button x-toast.accent="Accent toast notification">Accent</button>
+<button x-toast.positive="Operation completed successfully">Positive</button>
+<button x-toast.negative="Something went wrong">Negative</button>
+:::
+
+</div>
 
 ---
 
@@ -75,17 +83,21 @@ Color modifiers provide unique visual context.
 
 A number sets how long the toast remains visible in milliseconds.
 
-::: frame
-<button x-toast.1000="Dismisses after 1 second">1 Second</button>
-<button x-toast="Default 3 seconds">Default</button>
-<button x-toast.5000="Dismisses after 5 seconds">5 Seconds</button>
-:::
+<div x-code-group>
 
 ```html copy
 <button x-toast.1000="Dismisses after 1 second">1 Second</button>
 <button x-toast="Default 3 seconds">Default</button>
 <button x-toast.5000="Dismisses after 5 seconds">5 Seconds</button>
 ```
+
+::: frame row-wrap gap-4
+<button x-toast.1000="Dismisses after 1 second">1 Second</button>
+<button x-toast="Default 3 seconds">Default</button>
+<button x-toast.5000="Dismisses after 5 seconds">5 Seconds</button>
+:::
+
+</div>
 
 ---
 
@@ -93,35 +105,43 @@ A number sets how long the toast remains visible in milliseconds.
 
 The dismiss modifier enables manual closing.
 
-::: frame
-<button x-toast.dismiss="Can be manually dismissed">Dismissible</button>
-<button x-toast.positive.dismiss="Positive with dismiss button">Positive Dismissible</button>
-<button x-toast.negative.dismiss="Negative with dismiss button">Negative Dismissible</button>
-:::
+<div x-code-group>
 
 ```html copy
 <button x-toast.dismiss="Can be manually dismissed">Dismissible</button>
 <button x-toast.positive.dismiss="Positive with dismiss button">Positive Dismissible</button>
 <button x-toast.negative.dismiss="Negative with dismiss button">Negative Dismissible</button>
 ```
+
+::: frame row-wrap gap-4
+<button x-toast.dismiss="Can be manually dismissed">Dismissible</button>
+<button x-toast.positive.dismiss="Positive with dismiss button">Positive Dismissible</button>
+<button x-toast.negative.dismiss="Negative with dismiss button">Negative Dismissible</button>
+:::
+
+</div>
 
 ---
 
 ### Fixed
 
-The fixed modifier prevents the default auto-dismiss behaviour and adds the dismiss button by default.
+The fixed modifier prevents the default auto-dismiss behavior and adds the dismiss button by default.
 
-::: frame
-<button x-toast.fixed="Stays until manually closed">Fixed</button>
-<button x-toast.positive.fixed="Fixed positive notification">Fixed Positive</button>
-<button x-toast.negative.fixed="Fixed negative notification">Fixed Negative</button>
-:::
+<div x-code-group>
 
 ```html copy
 <button x-toast.fixed="Stays until manually closed">Fixed</button>
 <button x-toast.positive.fixed="Fixed positive notification">Fixed Positive</button>
 <button x-toast.negative.fixed="Fixed negative notification">Fixed Negative</button>
 ```
+
+::: frame row-wrap gap-4
+<button x-toast.fixed="Stays until manually closed">Fixed</button>
+<button x-toast.positive.fixed="Fixed positive notification">Fixed Positive</button>
+<button x-toast.negative.fixed="Fixed negative notification">Fixed Negative</button>
+:::
+
+</div>
 
 ---
 
@@ -129,15 +149,19 @@ The fixed modifier prevents the default auto-dismiss behaviour and adds the dism
 
 Combine different modifiers for complex toast behaviors.
 
-::: frame
-<button x-toast.negative.dismiss.2000="Negative toast with 2s duration and dismiss button">Negative + Dismiss + 2s</button>
-<button x-toast.positive.fixed="Positive toast that stays until dismissed">Positive + Fixed</button>
-:::
+<div x-code-group>
 
 ```html copy
 <button x-toast.negative.dismiss.2000="Negative toast with 2s duration and dismiss button">Negative + Dismiss + 2s</button>
 <button x-toast.positive.fixed="Positive toast that stays until dismissed">Positive + Fixed</button>
 ```
+
+::: frame row-wrap gap-4
+<button x-toast.negative.dismiss.2000="Negative toast with 2s duration and dismiss button">Negative + Dismiss + 2s</button>
+<button x-toast.positive.fixed="Positive toast that stays until dismissed">Positive + Fixed</button>
+:::
+
+</div>
 
 ---
 
@@ -145,13 +169,7 @@ Combine different modifiers for complex toast behaviors.
 
 Use the `$toast` magic method for programmatic toast creation.
 
-::: frame row-wrap
-<button @click="$toast('Programmatic toast')">Basic Magic</button>
-<button @click="$toast.brand('Brand via magic method')">Brand Magic</button>
-<button @click="$toast.positive('Positive via magic method')">Positive Magic</button>
-<button @click="$toast.negative('Negative via magic method')">Negative Magic</button>
-<button @click="$toast.negative.fixed('Fixed negative toast')">Fixed Negative Magic</button>
-:::
+<div x-code-group>
 
 ```html copy
 <button @click="$toast('Programmatic toast')">Basic Magic</button>
@@ -160,6 +178,16 @@ Use the `$toast` magic method for programmatic toast creation.
 <button @click="$toast.negative('Negative via magic method')">Negative Magic</button>
 <button @click="$toast.negative.fixed('Fixed negative toast')">Fixed Negative Magic</button>
 ```
+
+::: frame row-wrap gap-4
+<button @click="$toast('Programmatic toast')">Basic Magic</button>
+<button @click="$toast.brand('Brand via magic method')">Brand Magic</button>
+<button @click="$toast.positive('Positive via magic method')">Positive Magic</button>
+<button @click="$toast.negative('Negative via magic method')">Negative Magic</button>
+<button @click="$toast.negative.fixed('Fixed negative toast')">Fixed Negative Magic</button>
+:::
+
+</div>
 
 ---
 
@@ -167,13 +195,17 @@ Use the `$toast` magic method for programmatic toast creation.
 
 Rich content supports HTML including [icons](/docs/elements/icons) for enhanced formatting.
 
-::: frame
-<button x-toast.fixed="<span x-icon='lucide:info'></span>Hello <b>bold</b> and <em>italic</em> world">Rich Content</button>
-:::
+<div x-code-group>
 
 ```html copy
 <button x-toast="<span x-icon='lucide:info'></span>Hello <b>bold</b> and <em>italic</em> world">Rich Content</button>
 ```
+
+::: frame
+<button x-toast.fixed="<span x-icon='lucide:info'></span>Hello <b>bold</b> and <em>italic</em> world">Rich Content</button>
+:::
+
+</div>
 
 ---
 
@@ -181,15 +213,7 @@ Rich content supports HTML including [icons](/docs/elements/icons) for enhanced 
 
 Toast content can include dynamic expressions and variables.
 
-::: frame
-<button x-data="{ count: 0 }" @click="count++; $toast(`Button clicked ${count} times`)">
-    Dynamic Count (<span x-text="count"></span>)
-</button>
-
-<button x-toast="`Current time: ${new Date().toLocaleTimeString()}`">
-    Current Time
-</button>
-:::
+<div x-code-group>
 
 ```html copy
 <button x-data="{ count: 0 }" @click="count++; $toast(`Button clicked ${count} times`)">
@@ -198,9 +222,20 @@ Toast content can include dynamic expressions and variables.
 
 <button x-toast="`Current time: ${new Date().toLocaleTimeString()}`">
     Current Time
-</button>on>
-</div>
+</button>
 ```
+
+::: frame row-wrap gap-4
+<button x-data="{ count: 0 }" @click="count++; $toast(`Button clicked ${count} times`)">
+    Dynamic Count (<span x-text="count"></span>)
+</button>
+
+<button x-toast="`Current time: ${new Date().toLocaleTimeString()}`">
+    Current Time
+</button>
+:::
+
+</div>
 
 ---
 
@@ -208,11 +243,7 @@ Toast content can include dynamic expressions and variables.
 
 Toasts can retrieve content from [data sources](/docs/core-plugins/local-data) using the `$x` syntax.
 
-::: frame
-<button x-toast="$x.example.toast">Data Source Toast</button>
-:::
-
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "HTML"
 <button x-toast="$x.example.toast">Data Source Toast</button>
@@ -224,7 +255,11 @@ Toasts can retrieve content from [data sources](/docs/core-plugins/local-data) u
 }
 ```
 
-</x-code-group>
+::: frame
+<button x-toast="$x.example.toast">Data Source Toast</button>
+:::
+
+</div>
 
 ---
 
@@ -236,10 +271,10 @@ Default toasts use the following [theme](/docs/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|----------|
-| `--color-popover-surface` | Default toast background color |
-| `--color-content-stark` | Default toast text color |
-| `--spacing` | Base spacing unit for gaps and padding |
-| `--radius` | Border radius for toast corners |
+| `--color-popover-surface`{copy} | Default toast background color |
+| `--color-content-stark`{copy} | Default toast text color |
+| `--spacing`{copy} | Base spacing unit for gaps and padding |
+| `--radius`{copy} | Border radius for toast corners |
 
 ---
 

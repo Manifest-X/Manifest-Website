@@ -4,11 +4,17 @@ Apply light, dark, and system color modes.
 
 ---
 
+## Overview
+
+Manifest applies color modes by toggling a `dark` class on the `<html>` tag. Any CSS variables or styles scoped under `.dark` override their light defaults. Users can switch modes through your UI with the `x-color` directive, or follow their operating system's preference.
+
+---
+
 ## Setup
 
 Color modes are included in `manifest.js` with all core plugins, or can be selectively loaded.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "All Plugins (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
@@ -19,7 +25,7 @@ Color modes are included in `manifest.js` with all core plugins, or can be selec
     data-plugins="color"></script>
 ```
 
-</x-code-group>
+</div>
 
 ---
 
@@ -29,7 +35,7 @@ Color modes are included in `manifest.js` with all core plugins, or can be selec
 
 The light mode is the default, picking up all variable and static colors not in a `.dark` declaration.
 
-<x-code-group>
+<div x-code-group>
 
 ```css "Variable"
 :root {
@@ -47,7 +53,7 @@ The light mode is the default, picking up all variable and static colors not in 
 }
 ```
 
-</x-code-group>
+</div>
 
 See [theme](/docs/styles/theme) styles for Manifest's suggested color variables.
 
@@ -57,7 +63,7 @@ See [theme](/docs/styles/theme) styles for Manifest's suggested color variables.
 
 Use the `.dark` class to override light/default color values. The plugin operates by adding or removing the `dark` class in the `<html>` tag.
 
-<x-code-group>
+<div x-code-group>
 
 ```css "Variable"
 /* Light mode */
@@ -88,7 +94,7 @@ Use the `.dark` class to override light/default color values. The plugin operate
 }
 ```
 
-</x-code-group>
+</div>
 
 Using Tailwind, dark colors can also be set in HTML using the `dark:` variant on color utility classes.
 
@@ -100,7 +106,7 @@ Using Tailwind, dark colors can also be set in HTML using the `dark:` variant on
 
 ### System
 
-The system mode follows the user's system preference for light or dark mode, including automatic switching at dawn and dusk. No additional configuration is required.
+The system mode follows the user's operating system preference for light or dark mode, updating live if they change it. No additional configuration is required.
 
 ---
 
@@ -114,7 +120,9 @@ Allow users to toggle color modes with the `x-color` directive, using the follow
 
 ### Buttons
 
-::: frame
+<div x-code-group>
+
+::: frame row-wrap gap-2
 <button x-color="'light'"><span x-icon="lucide:sun"></span><span>Light</span></button>
 <button x-color="'dark'"><span x-icon="lucide:moon"></span><span>Dark</span></button>
 <button x-color="'system'"><span x-icon="lucide:sun-moon"></span><span>System</span></button>
@@ -125,6 +133,8 @@ Allow users to toggle color modes with the `x-color` directive, using the follow
 <button x-color="'dark'"><span x-icon="lucide:moon"></span><span>Dark</span></button>
 <button x-color="'system'"><span x-icon="lucide:sun-moon"></span><span>System</span></button>
 ```
+
+</div>
 
 See [buttons](/docs/elements/buttons) for details on the element.
 
@@ -132,6 +142,8 @@ See [buttons](/docs/elements/buttons) for details on the element.
 
 ### Toggle
 
+<div x-code-group>
+
 ::: frame
 <button x-color="'toggle'" x-icon="$color.current === 'light' ? 'ph:moon' : 'ph:sun'" aria-label="Toggle Color Mode"></button>
 :::
@@ -140,11 +152,15 @@ See [buttons](/docs/elements/buttons) for details on the element.
 <button x-color="'toggle'" x-icon="$color.current === 'light' ? 'ph:moon' : 'ph:sun'" aria-label="Toggle Color Mode"></button>
 ```
 
+</div>
+
 See [icons](/docs/elements/icons) for details on conditional icons.
 
 ---
 
 ### Dropdown
+
+<div x-code-group>
 
 ::: frame
 <button x-dropdown.bottom="color-mode-preview" aria-label="Color Mode Menu" x-icon="$color.current === 'light' ? 'lucide:sun' : $color.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'"></button>
@@ -157,12 +173,14 @@ See [icons](/docs/elements/icons) for details on conditional icons.
 
 ```html copy
 <button x-dropdown.bottom="color-mode" aria-label="Color Mode Menu" x-icon="$color.current === 'light' ? 'lucide:sun' : $color.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'"></button>
-<menu popover id="color-mode" disabled="min-w-0">
+<menu popover id="color-mode" class="min-w-0">
     <li x-color="'light'" :disabled="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light"></li>
     <li x-color="'dark'" :disabled="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark"></li>
     <li x-color="'system'" :disabled="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="System"></li>
 </menu>
 ```
+
+</div>
 
 See [dropdowns](/docs/elements/dropdowns) for details on the menu element.
 
@@ -172,10 +190,14 @@ See [dropdowns](/docs/elements/dropdowns) for details on the menu element.
 
 Display the current mode's title with `x-text="$color.current"`:
 
-::: frame
-    <p>Join the <strong x-text="$color.current"></strong> side</p>
-:::
+<div x-code-group>
 
 ```html copy
 <p>Join the <strong x-text="$color.current"></strong> side</p>
 ```
+
+::: frame text-base
+    <p>Join the <strong x-text="$color.current"></strong> side</p>
+:::
+
+</div>

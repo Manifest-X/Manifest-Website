@@ -39,15 +39,57 @@ If your app requires default teams be created automatically for all users, confi
 }
 ```
 
-Default teams are defining by their name within array objects:
+Default teams are defined by their name within array objects:
 - `permanent`: Permanent teams cannot be deleted by the user, such as a default personal workspace.
 - `template`: Template teams can be deleted and reapplied by the user, such as demo workspaces.
 
 The user is the owner and only initial member of each default team. Depending on their role and permissions, the team can be modified and other members invited.
 
-Every user can generate custom teams, view all teams, and manage them with the respective permissions.
+Every user can generate custom teams, view all teams, and manage them with the respective permissions. Existing teams can also be duplicated, optionally cloning their members and roles to spin up a new workspace from a known configuration.
 
-::: frame col
+<div x-code-group numbers copy collapse="10">
+
+```html "Create Team"
+<!-- Team name input -->
+<input type="text" placeholder="Team name" aria-label="Team name" x-model="$auth.newTeamName" :disabled="$auth.isCreatingTeam()" />
+
+<!-- Create button -->
+<button @click="$auth.createTeamFromName()" :disabled="!$auth.newTeamName || $auth.isCreatingTeam()">Create Team</button>
+
+<!-- Add back deleted template teams -->
+<template x-for="teamName in $auth.deletedTemplateTeams" :key="teamName">
+    <button @click="$auth.reapplyTemplateTeam(teamName)" :disabled="$auth.isCreatingTeam()">Create <b x-text="teamName"></b> Team</button>
+</template>
+```
+
+```html "List & Manage Teams"
+<!-- List teams -->
+<template x-for="team in $auth.teams" :key="team.$id">
+    <div>
+
+        <!-- Team details -->
+        <p x-text="team.name">Team name</p>
+        <small>ID: <b x-text="team.$id"></b></small>
+        <small>Created: <b x-text="$auth.teamCreatedAt(team)"></b></small>
+        <small>Modified: <b x-text="$auth.teamUpdatedAt(team)"></b></small>
+
+        <!-- Rename team -->
+        <input type="text" placeholder="Insert name" aria-label="Team name" class="transparent hug w-fit rounded-none no-focus" onclick="this.select()" x-model="editingTeamName" :disabled="!$auth.isTeamRenamable(team) || $auth.isUpdatingTeam(team.$id)" @blur="if (editingTeamName !== team.name && editingTeamName.trim()) { $auth.updateTeamName(team.$id, editingTeamName.trim()); }" @keydown.enter="$event.target.blur()" />
+
+        <!-- Delete team (enabled if user has the deleteTeam permission) -->
+        <button class="sm" @click="$auth.deleteTeam(team.$id)" :disabled="$auth.isActionDisabled('deleteTeam') || !$auth.isTeamDeletable(team) || $auth.isDeletingTeam(team.$id)" aria-label="Delete team">Delete</button>
+
+        <!-- Duplicate team -->
+        <button @click="$auth.duplicateTeam(team.$id, { newName: team.name + ' copy' })">Duplicate</button>
+        
+        <!-- Duplicate with members and roles -->
+        <button @click="$auth.duplicateTeam(team.$id, { copyMembers: true, copyRoles: true })">Duplicate with Members</button>
+
+    </div>
+</template>
+```
+
+::: frame col gap-4 text-base
 <!-- Not signed in -->
 <small x-show="!$auth.isAuthenticated">You're not signed-in. Use one of the interactive examples above to sign in.</small>
 
@@ -85,53 +127,12 @@ Every user can generate custom teams, view all teams, and manage them with the r
             </div>
             <!-- Delete team -->
             <button class="sm" @click="$auth.deleteTeam(team.$id)" :disabled="$auth.isActionDisabled('deleteTeam') || !$auth.isTeamDeletable(team) || $auth.isDeletingTeam(team.$id)" aria-label="Delete team">Delete</button>
+        </div>
     </details>
 </template>
 :::
 
-<x-code-group numbers copy>
-
-```html "Create Team"
-<!-- Team name input -->
-<input type="text" placeholder="Team name" aria-label="Team name" x-model="$auth.newTeamName" :disabled="$auth.isCreatingTeam()" />
-
-<!-- Create button -->
-<button @click="$auth.createTeamFromName()" :disabled="!$auth.newTeamName || $auth.isCreatingTeam()">Create Team</button>
-
-<!-- Add back deleted template teams -->
-<template x-for="teamName in $auth.deletedTemplateTeams" :key="teamName">
-    <button @click="$auth.reapplyTemplateTeam(teamName)" :disabled="$auth.isCreatingTeam()">Create <b x-text="teamName"></b> Team</button>
-</template>
-```
-
-```html "List & Manage Teams"
-<!-- List teams -->
-<template x-for="team in $auth.teams" :key="team.$id">
-    <div>
-
-        <!-- Team details -->
-        <p x-text="$auth.team.name">Team name</p>
-        <small>ID: <b x-text="team.$id"></b></small>
-        <small>Created: <b x-text="$auth.teamCreatedAt(team)"></b></small>
-        <small>Modified: <b x-text="$auth.teamUpdatedAt(team)"></b></small>
-
-        <!-- Rename team -->
-        <input type="text" placeholder="Insert name" aria-label="Team name" class="transparent hug w-fit rounded-none no-focus" onclick="this.select()" x-model="editingTeamName" :disabled="!$auth.isTeamRenamable(team) || $auth.isUpdatingTeam(team.$id)" @blur="if (editingTeamName !== team.name && editingTeamName.trim()) { $auth.updateTeamName(team.$id, editingTeamName.trim()); }" @keydown.enter="$event.target.blur()" />
-
-        <!-- Delete team (enabled if user has the deleteTeam permission) -->
-        <button class="sm" @click="$auth.deleteTeam(team.$id)" :disabled="$auth.isActionDisabled('deleteTeam') || !$auth.isTeamDeletable(team) || $auth.isDeletingTeam(team.$id)" aria-label="Delete team">Delete</button>
-
-        <!-- Duplicate team -->
-        <button @click="$auth.duplicateTeam(team.$id, { newName: team.name + ' copy' })">Duplicate</button>
-        
-        <!-- Duplicate with members and roles -->
-        <button @click="$auth.duplicateTeam(team.$id, { copyMembers: true, copyRoles: true })">Duplicate with Members</button>
-
-    </div>
-</template>
-```
-
-</x-code-group>
+</div>
 
 ---
 
@@ -164,80 +165,25 @@ Like default teams, default roles are established by their name in one of two ob
 
 | Role Type | Description |
 |-----------|-------------|
-| `permanent` | Permanent roles cannot be modified or deleted by anyone |
-| `template` | Template roles can be modified and deleted by users with the `manageRoles` permission |
+| `permanent`{copy} | Permanent roles cannot be modified or deleted by anyone |
+| `template`{copy} | Template roles can be modified and deleted by users with the `manageRoles`{copy} permission |
 
 Each role can have permissions. Appwrite offers these default options:
 
 | Permission | Description |
 |-----------|-------------|
-| `inviteMembers` | Invite new members to the team |
-| `updateMembers` | Edit other members' roles |
-| `removeMembers` | Remove members from the team |
-| `manageRoles` | Create, rename, set permissions, and delete custom roles |
-| `renameTeam` | Change the team name |
-| `deleteTeam` | Delete the team |
+| `inviteMembers`{copy} | Invite new members to the team |
+| `updateMembers`{copy} | Edit other members' roles |
+| `removeMembers`{copy} | Remove members from the team |
+| `manageRoles`{copy} | Create, rename, set permissions, and delete custom roles |
+| `renameTeam`{copy} | Change the team name |
+| `deleteTeam`{copy} | Delete the team |
 
-Custom permissions can be added to the array with unique names, such as `manageBilling`. These can be used in your frontend Alpine directives like `x-show="$auth.hasTeamPermission('manageBilling')`. Users can also generate custom permissions if you expose the inputs to do so.
+Custom permissions can be added to the array with unique names, such as `manageBilling`. These can be used in your frontend Alpine directives like `x-show="$auth.hasTeamPermission('manageBilling')"`. Users can also generate custom permissions if you expose the inputs to do so.
 
-The `creatorRole` is the role assigned to the team creator. It must reference a role defined in the `permanent` or `template` roles. if the `creatorRole` property is absent or does not reference a defined role, the creator is assigned all default permissions.
+The `creatorRole` is the role assigned to the team creator. It must reference a role defined in the `permanent` or `template` roles. If the `creatorRole` property is absent or does not reference a defined role, the creator is assigned all default permissions.
 
-::: frame col
-<!-- Team list -->
-<template x-for="team in $auth.teams" :key="team.$id">
-    <!-- Team accordion-->
-    <details class="pb-4 border-b border-line" x-data="{ loaded: false, editingTeamName: team.name }" x-effect="editingTeamName = team.name" @toggle="if ($event.target.open && !loaded) { $auth.currentTeam = team; $auth.viewTeam(team); loaded = true; }">
-        <!-- Team name / expand button -->
-        <summary x-text="team.name">Team name</summary>
-        <!-- Roles & Permissions -->
-        <div class="col gap-4">
-            <!-- List -->
-            <template x-for="(permissions, roleName) in $auth.allTeamRoles(team)" :key="roleName">
-            <div class="relative row gap-2 items-center max-w-full" x-data="{ editingRoleName: roleName, customPermInput: '' }" x-effect="editingRoleName = roleName">
-                <!-- Role name input -->
-                <input type="text" class="transparent hug flex-1" aria-label="Role name" x-model="editingRoleName" @blur="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (editingRoleName !== roleName && editingRoleName.trim()) { $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.newRoleName = editingRoleName.trim(); } $auth.saveEditingRole(); }" @keydown.enter="$event.target.blur()" :disabled="$auth.isActionDisabled('manageRoles') || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" />
-                <!-- Permissions dropdown button -->
-                <button class="sm flex-1" x-dropdown="`permissions-menu-${team.$id}-${roleName}`" :disabled="$auth.isActionDisabled('manageRoles') || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" > <span x-text="(permissions && permissions.length > 0) ? permissions.join(', ') : 'No permissions'"></span> <i class="trailing" x-icon="lucide:chevron-down"></i> </button>
-                <!-- Permissions dropdown -->
-                <menu popover :id="`permissions-menu-${team.$id}-${roleName}`">
-                    <template x-for="permission in $auth.allAvailablePermissions || []" :key="permission">
-                    <label>
-                        <input type="checkbox" :checked="permissions && permissions.includes(permission)" @change="if ($auth.isUpdatingRole(team.$id, roleName)) return; const updated = permissions ? [...permissions] : []; if ($event.target.checked) { if (!updated.includes(permission)) updated.push(permission); } else { const idx = updated.indexOf(permission); if (idx > -1) updated.splice(idx, 1); } $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.permissions = updated; } setTimeout(() => { if ($auth.editingRole && $auth.editingRole.teamId === team.$id && $auth.editingRole.oldRoleName === roleName) { $auth.saveEditingRole(); } }, 300);" :disabled="!$auth.canManageRoles() || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" />
-                        <span x-text="permission"></span>
-                    </label>
-                    </template>
-                    <input type="text" placeholder="Custom permission" aria-label="Custom permission" aria-label="Custom permission" x-model="customPermInput" @keydown.enter.prevent="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (customPermInput.trim()) { const updated = permissions ? [...permissions] : []; if (!updated.includes(customPermInput.trim())) { updated.push(customPermInput.trim()); $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.permissions = updated; } setTimeout(() => { if ($auth.editingRole && $auth.editingRole.teamId === team.$id && $auth.editingRole.oldRoleName === roleName) { $auth.saveEditingRole(); } }, 300); customPermInput = ''; } }" :disabled="$auth.isActionDisabled('manageRoles') || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" />
-                </menu>
-                <!-- Delete button -->
-                <button class="sm" @click="$auth.deleteUserRole(team.$id, roleName)" :disabled="$auth.isActionDisabled('manageRoles') || !$auth.isRoleDeletable(team.$id, roleName) || $auth.isDeletingRole(team.$id, roleName)" aria-label="Delete role" x-icon="lucide:trash" ></button>
-            </div>
-            </template>
-            <!-- Create Role -->
-            <div class="row-wrap gap-2 mb-2" x-data="{ customPermInput: '' }">
-            <input type="text" placeholder="New role name" aria-label="Role name" class="w-full" x-model="$auth.newRoleName" :disabled="$auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()" />
-            <button class="flex-1" x-dropdown="`permissions-menu-${team.$id}`" :disabled="$auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()">
-                <span x-text="($auth.newRolePermissions && $auth.newRolePermissions.length > 0) ? $auth.newRolePermissions.join(', ') : 'Permissions'"></span>
-                <i class="trailing" x-icon="lucide:chevron-down"></i>
-            </button>
-            <!-- Permissions dropdown-->
-            <menu popover :id="`permissions-menu-${team.$id}`">
-                <template x-for="permission in $auth.allAvailablePermissions || []" :key="permission">
-                <label>
-                    <input type="checkbox" :checked="$auth.isPermissionSelected(permission)" @change="$auth.togglePermission(permission)" :disabled="!$auth.canManageRoles()" />
-                    <span x-text="permission"></span>
-                </label>
-                </template>
-                <input type="text" placeholder="Custom permission" aria-label="Custom permission" aria-label="Custom permission" x-model="customPermInput" @keydown.enter.prevent="$auth.addCustomPermissions(customPermInput); customPermInput = ''" :disabled="$auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()" />
-            </menu>
-            <!-- Create button -->
-            <button @click="$auth.createRoleFromInputs(team.$id)" :disabled="!$auth.newRoleName || $auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()" class="w-fit">Create</button>
-            </div>
-        </div>
-    </details>
-</template>
-:::
-
-<x-code-group numbers copy>
+<div x-code-group numbers copy  collapse="10">
 
 ```html "Create Custom Role"
 <!-- Role name input -->
@@ -292,7 +238,62 @@ The `creatorRole` is the role assigned to the team creator. It must reference a 
 </template>
 ```
 
-</x-code-group>
+::: frame col gap-4 text-base
+<!-- Team list -->
+<template x-for="team in $auth.teams" :key="team.$id">
+    <!-- Team accordion-->
+    <details class="pb-4 border-b border-line" x-data="{ loaded: false, editingTeamName: team.name }" x-effect="editingTeamName = team.name" @toggle="if ($event.target.open && !loaded) { $auth.currentTeam = team; $auth.viewTeam(team); loaded = true; }">
+        <!-- Team name / expand button -->
+        <summary x-text="team.name">Team name</summary>
+        <!-- Roles & Permissions -->
+        <div class="col gap-4">
+            <!-- List -->
+            <template x-for="(permissions, roleName) in $auth.allTeamRoles(team)" :key="roleName">
+            <div class="relative row gap-2 items-center max-w-full" x-data="{ editingRoleName: roleName, customPermInput: '' }" x-effect="editingRoleName = roleName">
+                <!-- Role name input -->
+                <input type="text" class="transparent hug flex-1" aria-label="Role name" x-model="editingRoleName" @blur="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (editingRoleName !== roleName && editingRoleName.trim()) { $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.newRoleName = editingRoleName.trim(); } $auth.saveEditingRole(); }" @keydown.enter="$event.target.blur()" :disabled="$auth.isActionDisabled('manageRoles') || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" />
+                <!-- Permissions dropdown button -->
+                <button class="sm flex-1" x-dropdown="`permissions-menu-${team.$id}-${roleName}`" :disabled="$auth.isActionDisabled('manageRoles') || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" > <span x-text="(permissions && permissions.length > 0) ? permissions.join(', ') : 'No permissions'"></span> <i class="trailing" x-icon="lucide:chevron-down"></i> </button>
+                <!-- Permissions dropdown -->
+                <menu popover :id="`permissions-menu-${team.$id}-${roleName}`">
+                    <template x-for="permission in $auth.allAvailablePermissions || []" :key="permission">
+                    <label>
+                        <input type="checkbox" :checked="permissions && permissions.includes(permission)" @change="if ($auth.isUpdatingRole(team.$id, roleName)) return; const updated = permissions ? [...permissions] : []; if ($event.target.checked) { if (!updated.includes(permission)) updated.push(permission); } else { const idx = updated.indexOf(permission); if (idx > -1) updated.splice(idx, 1); } $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.permissions = updated; } setTimeout(() => { if ($auth.editingRole && $auth.editingRole.teamId === team.$id && $auth.editingRole.oldRoleName === roleName) { $auth.saveEditingRole(); } }, 300);" :disabled="!$auth.canManageRoles() || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" />
+                        <span x-text="permission"></span>
+                    </label>
+                    </template>
+                    <input type="text" placeholder="Custom permission" aria-label="Custom permission" x-model="customPermInput" @keydown.enter.prevent="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (customPermInput.trim()) { const updated = permissions ? [...permissions] : []; if (!updated.includes(customPermInput.trim())) { updated.push(customPermInput.trim()); $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.permissions = updated; } setTimeout(() => { if ($auth.editingRole && $auth.editingRole.teamId === team.$id && $auth.editingRole.oldRoleName === roleName) { $auth.saveEditingRole(); } }, 300); customPermInput = ''; } }" :disabled="$auth.isActionDisabled('manageRoles') || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" />
+                </menu>
+                <!-- Delete button -->
+                <button class="sm" @click="$auth.deleteUserRole(team.$id, roleName)" :disabled="$auth.isActionDisabled('manageRoles') || !$auth.isRoleDeletable(team.$id, roleName) || $auth.isDeletingRole(team.$id, roleName)" aria-label="Delete role" x-icon="lucide:trash" ></button>
+            </div>
+            </template>
+            <!-- Create Role -->
+            <div class="row-wrap gap-2 mb-2" x-data="{ customPermInput: '' }">
+            <input type="text" placeholder="New role name" aria-label="Role name" class="w-full" x-model="$auth.newRoleName" :disabled="$auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()" />
+            <button class="flex-1" x-dropdown="`permissions-menu-${team.$id}`" :disabled="$auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()">
+                <span x-text="($auth.newRolePermissions && $auth.newRolePermissions.length > 0) ? $auth.newRolePermissions.join(', ') : 'Permissions'"></span>
+                <i class="trailing" x-icon="lucide:chevron-down"></i>
+            </button>
+            <!-- Permissions dropdown-->
+            <menu popover :id="`permissions-menu-${team.$id}`">
+                <template x-for="permission in $auth.allAvailablePermissions || []" :key="permission">
+                <label>
+                    <input type="checkbox" :checked="$auth.isPermissionSelected(permission)" @change="$auth.togglePermission(permission)" :disabled="!$auth.canManageRoles()" />
+                    <span x-text="permission"></span>
+                </label>
+                </template>
+                <input type="text" placeholder="Custom permission" aria-label="Custom permission" x-model="customPermInput" @keydown.enter.prevent="$auth.addCustomPermissions(customPermInput); customPermInput = ''" :disabled="$auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()" />
+            </menu>
+            <!-- Create button -->
+            <button @click="$auth.createRoleFromInputs(team.$id)" :disabled="!$auth.newRoleName || $auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()" class="w-fit">Create</button>
+            </div>
+        </div>
+    </details>
+</template>
+:::
+
+</div>
 
 ---
 
@@ -302,7 +303,65 @@ Team members can be invited, updated, and removed, subject to the respective use
 
 In your Appwrite project under <b>Auth</b> > <b>Settings</b>, ensure <b>Team invites</b> is toggled on. Invitation emails can be customized under <b>Auth</b> > <b>Settings</b> > <b>Invite user</b>.
 
-::: frame col
+<div x-code-group numbers copy  collapse="10">
+
+```html "Invite Members"
+<!-- Email input -->
+<input type="email" placeholder="Email" aria-label="Email to invite" x-model="$auth.inviteEmail" :disabled="$auth.isActionDisabled('inviteMembers')" required />
+
+<!-- Assign role(s) dropdown -->
+<button x-dropdown="`invite-role-menu-${team.$id}`" :disabled="$auth.isActionDisabled('inviteMembers')" x-text="($auth.inviteRoles && $auth.inviteRoles.length > 0) ? $auth.inviteRoles[0] : 'Select role'"></button>
+<menu popover :id="`invite-role-menu-${team.$id}`">
+    <!-- List roles -->
+    <template x-for="(permissions, roleName) in $auth.allTeamRoles(team)" :key="roleName">
+        <label>
+            <input type="radio" :name="`invite-role-${team.$id}`" :value="roleName" :checked="($auth.inviteRoles && $auth.inviteRoles.length > 0 && $auth.inviteRoles[0] === roleName)" @change="$auth.inviteRoles = [roleName]" :disabled="!$auth.canInviteMembers()" />
+            <span x-text="roleName">Role name</span>
+        </label>
+    </template>
+</menu>
+
+<!-- Send invite email button -->
+<button @click="$auth.inviteToCurrentTeam()" :disabled="!$auth.inviteEmail || $auth.isActionDisabled('inviteMembers')">Invite</button>
+```
+
+```html "List & Manage Members"
+<!-- List members -->
+<template x-for="membership in $auth.currentTeamMemberships" :key="membership.$id">
+    <div>
+
+        <!-- Member name -->
+        <p x-text="$auth.getMemberDisplayName(membership)">Name</p>
+
+        <!-- Member email -->
+        <p x-text="$auth.getMemberEmail(membership)">Email</p>
+
+        <!-- Member role -->
+        <p x-text="(membership.displayRoles && membership.displayRoles.length > 0) ? membership.displayRoles.join(', ') : 'No roles'">Role</p>
+        
+        <!-- Role dropdown (enabled for users with updateMembers permission) -->
+        <button x-dropdown="`member-role-menu-${team.$id}-${membership.$id}`" :disabled="(membership.userId !== $auth.user?.$id && ($auth.isActionDisabled('updateMembers') || !$auth.canUpdateMembers())) || $auth.isUpdatingMember(membership.$id)" x-show="membership.userId === $auth.user?.$id || $auth.canUpdateMembers()" x-text="(membership.displayRoles && membership.displayRoles.length > 0) ? membership.displayRoles[0] : 'No role'"></button>
+        <menu popover :id="`member-role-menu-${team.$id}-${membership.$id}`">
+            <!-- List roles -->
+            <template x-for="(permissions, roleName) in $auth.allTeamRoles(team)" :key="roleName">
+                <label>
+                    <input type="radio" :name="`member-role-${team.$id}-${membership.$id}`" :value="roleName" :checked="(membership.displayRoles && membership.displayRoles.length > 0 && membership.displayRoles[0] === roleName)" @change="$auth.updateMembership(team.$id, membership.$id, [roleName])" :disabled="$auth.isUpdatingMember(membership.$id) || (membership.userId !== $auth.user?.$id && $auth.isActionDisabled('updateMembers'))" />
+                    <span x-text="roleName">Role name</span>
+                </label>
+            </template>
+        </menu>
+        
+        <!-- Delete button (enabled for users with removeMembers permission) -->
+        <button @click="$auth.deleteMember(team.$id, membership.$id)" :disabled="$auth.isActionDisabled('removeMembers') || $auth.isDeletingMember(membership.$id)" x-show="membership.userId !== $auth.user?.$id && $auth.canRemoveMembers()">Remove</button>
+        
+        <!-- Leave button (for current user) -->
+        <button @click="$auth.leaveTeam(team.$id, membership.$id)" :disabled="$auth.isDeletingMember(membership.$id)" x-show="membership.userId === $auth.user?.$id">Leave</button>
+
+    </div>
+</template>
+```
+
+::: frame col gap-4 text-base
 <!-- Team list -->
 <template x-for="team in $auth.teams" :key="team.$id"> 
     <!-- Team accordion-->
@@ -391,65 +450,7 @@ In your Appwrite project under <b>Auth</b> > <b>Settings</b>, ensure <b>Team inv
 </template>
 :::
 
-<x-code-group numbers copy>
-
-```html "Invite Members"
-<!-- Email input -->
-<input type="email" placeholder="Email" aria-label="Email to invite" x-model="$auth.inviteEmail" :disabled="$auth.isActionDisabled('inviteMembers')" required />
-
-<!-- Assign role(s) dropdown -->
-<button x-dropdown="`invite-role-menu-${team.$id}`" :disabled="$auth.isActionDisabled('inviteMembers')" x-text="($auth.inviteRoles && $auth.inviteRoles.length > 0) ? $auth.inviteRoles[0] : 'Select role'"></button>
-<menu popover :id="`invite-role-menu-${team.$id}`">
-    <!-- List roles -->
-    <template x-for="(permissions, roleName) in $auth.allTeamRoles(team)" :key="roleName">
-        <label>
-            <input type="radio" :name="`invite-role-${team.$id}`" :value="roleName" :checked="($auth.inviteRoles && $auth.inviteRoles.length > 0 && $auth.inviteRoles[0] === roleName)" @change="$auth.inviteRoles = [roleName]" :disabled="!$auth.canInviteMembers()" />
-            <span x-text="roleName">Role name</span>
-        </label>
-    </template>
-</menu>
-
-<!-- Send invite email button -->
-<button @click="$auth.inviteToCurrentTeam()" :disabled="!$auth.inviteEmail || $auth.isActionDisabled('inviteMembers')">Invite</button>
-```
-
-```html "List & Manage Members"
-<!-- List members -->
-<template x-for="membership in $auth.currentTeamMemberships" :key="membership.$id">
-    <div>
-
-        <!-- Member name -->
-        <p x-text="$auth.getMemberDisplayName(membership)">Name</p>
-
-        <!-- Member email -->
-        <p x-text="$auth.getMemberEmail(membership)">Email</p>
-
-        <!-- Member role -->
-        <p x-text="(membership.displayRoles && membership.displayRoles.length > 0) ? membership.displayRoles.join(', ') : 'No roles'">Role</p>
-        
-        <!-- Role dropdown (enabled for users with updateMembers permission) -->
-        <button x-dropdown="`member-role-menu-${team.$id}-${membership.$id}`" :disabled="(membership.userId !== $auth.user?.$id && ($auth.isActionDisabled('updateMembers') || !$auth.canUpdateMembers())) || $auth.isUpdatingMember(membership.$id)" x-show="membership.userId === $auth.user?.$id || $auth.canUpdateMembers()" x-text="(membership.displayRoles && membership.displayRoles.length > 0) ? membership.displayRoles[0] : 'No role'"</button>
-        <menu popover :id="`member-role-menu-${team.$id}-${membership.$id}`">
-            <!-- List roles -->
-            <template x-for="(permissions, roleName) in $auth.allTeamRoles(team)" :key="roleName">
-                <label>
-                    <input type="radio" :name="`member-role-${team.$id}-${membership.$id}`" :value="roleName" :checked="(membership.displayRoles && membership.displayRoles.length > 0 && membership.displayRoles[0] === roleName)" @change="$auth.updateMembership(team.$id, membership.$id, [roleName])" :disabled="$auth.isUpdatingMember(membership.$id) || (membership.userId !== $auth.user?.$id && $auth.isActionDisabled('updateMembers'))" />
-                    <span x-text="roleName">Role name</span>
-                </label>
-            </template>
-        </menu>
-        
-        <!-- Delete button (enabled for users with removeMembers permission) -->
-        <button @click="$auth.deleteMember(team.$id, membership.$id)" :disabled="$auth.isActionDisabled('removeMembers') || $auth.isDeletingMember(membership.$id)" x-show="membership.userId !== $auth.user?.$id && $auth.canRemoveMembers()">Remove</button>
-        
-        <!-- Leave button (for current user) -->
-        <button @click="$auth.leaveTeam(team.$id, membership.$id)" :disabled="$auth.isDeletingMember(membership.$id)" x-show="membership.userId === $auth.user?.$id">Leave</button>
-
-    </div>
-</template>
-```
-
-</x-code-group>
+</div>
 
 ---
 
@@ -461,10 +462,10 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `$auth.teams` | array | Array of all user's teams |
-| `$auth.currentTeam` | object \| null | Currently selected team |
-| `$auth.currentTeamMemberships` | array | Members of the current team |
-| `$auth.deletedTemplateTeams` | array | Array of deleted template team names (can be reapplied) |
+| `$auth.teams`{copy} | array | Array of all user's teams |
+| `$auth.currentTeam`{copy} | object \| null | Currently selected team |
+| `$auth.currentTeamMemberships`{copy} | array | Members of the current team |
+| `$auth.deletedTemplateTeams`{copy} | array | Array of deleted template team names (can be reapplied) |
 
 ---
 
@@ -474,25 +475,25 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `$auth.newTeamName` | string | Input for creating teams |
-| `$auth.updateTeamNameInput` | string | Input for renaming teams |
+| `$auth.newTeamName`{copy} | string | Input for creating teams |
+| `$auth.updateTeamNameInput`{copy} | string | Input for renaming teams |
 
 #### Member Inputs
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `$auth.inviteEmail` | string | Input for member invitations |
-| `$auth.inviteRoles` | array | Array of selected roles for invitations |
+| `$auth.inviteEmail`{copy} | string | Input for member invitations |
+| `$auth.inviteRoles`{copy} | array | Array of selected roles for invitations |
 
 #### Role Inputs
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `$auth.newRoleName` | string | Input for creating roles |
-| `$auth.newRolePermissions` | array | Array of selected permissions for roles |
-| `$auth.allAvailablePermissions` | array | Cached list of all available permissions |
-| `$auth.editingRole` | object \| null | Current role being edited |
-| `$auth.editingMember` | object \| null | Current member being edited |
+| `$auth.newRoleName`{copy} | string | Input for creating roles |
+| `$auth.newRolePermissions`{copy} | array | Array of selected permissions for roles |
+| `$auth.allAvailablePermissions`{copy} | array | Cached list of all available permissions |
+| `$auth.editingRole`{copy} | object \| null | Current role being edited |
+| `$auth.editingMember`{copy} | object \| null | Current member being edited |
 
 ---
 
@@ -500,12 +501,12 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 
 | Method | Parameters | Description |
 |--------|------------|-------------|
-| `$auth.createTeamFromName()` | None | Create a team using `newTeamName` property |
-| `$auth.viewTeam(...)` | `team` (object) | Load team details and memberships |
-| `$auth.updateCurrentTeamName()` | None | Update current team name using `updateTeamNameInput` property |
-| `$auth.deleteTeam(...)` | `teamId` (string) | Delete a team |
-| `$auth.duplicateTeam(...)` | `teamId` (string), `options` (object, optional) | Duplicate a team. Options: `newName`, `copyMembers`, `copyRoles`. Returns `{ success: boolean, team?: object, error?: string }`. Defaults: `copyMembers: false`, `copyRoles: false`, `newName: '{originalName} copy'` |
-| `$auth.reapplyTemplateTeam(...)` | `teamName` (string) | Reapply a deleted template team |
+| `$auth.createTeamFromName()`{copy} | None | Create a team using `newTeamName` property |
+| `$auth.viewTeam(...)`{copy} | `team` (object) | Load team details and memberships |
+| `$auth.updateCurrentTeamName()`{copy} | None | Update current team name using `updateTeamNameInput` property |
+| `$auth.deleteTeam(...)`{copy} | `teamId` (string) | Delete a team |
+| `$auth.duplicateTeam(...)`{copy} | `teamId` (string), `options` (object, optional) | Duplicate a team. Options: `newName`, `copyMembers`, `copyRoles`. Returns `{ success: boolean, team?: object, error?: string }`. Defaults: `copyMembers: false`, `copyRoles: false`, `newName: '{originalName} copy'` |
+| `$auth.reapplyTemplateTeam(...)`{copy} | `teamName` (string) | Reapply a deleted template team |
 
 ---
 
@@ -513,12 +514,12 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 
 | Method | Parameters | Description |
 |--------|------------|-------------|
-| `$auth.inviteToCurrentTeam()` | None | Invite member using `inviteEmail` and `inviteRoles` properties |
-| `$auth.startEditingMember(...)` | `teamId` (string), `membershipId` (string), `currentRoles` (array) | Start editing a member |
-| `$auth.saveEditingMember()` | None | Save member edits |
-| `$auth.cancelEditingMember()` | None | Cancel member editing |
-| `$auth.deleteMember(...)` | `teamId` (string), `membershipId` (string) | Remove a member from team |
-| `$auth.leaveTeam(...)` | `teamId` (string), `membershipId` (string) | Leave a team (user removes themselves) |
+| `$auth.inviteToCurrentTeam()`{copy} | None | Invite member using `inviteEmail` and `inviteRoles` properties |
+| `$auth.startEditingMember(...)`{copy} | `teamId` (string), `membershipId` (string), `currentRoles` (array) | Start editing a member |
+| `$auth.saveEditingMember()`{copy} | None | Save member edits |
+| `$auth.cancelEditingMember()`{copy} | None | Cancel member editing |
+| `$auth.deleteMember(...)`{copy} | `teamId` (string), `membershipId` (string) | Remove a member from team |
+| `$auth.leaveTeam(...)`{copy} | `teamId` (string), `membershipId` (string) | Leave a team (user removes themselves) |
 
 ---
 
@@ -526,11 +527,11 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 
 | Method | Parameters | Description |
 |--------|------------|-------------|
-| `$auth.createRoleFromInputs(...)` | `teamId` (string) | Create a role using `newRoleName` and `newRolePermissions` properties |
-| `$auth.startEditingRole(...)` | `teamId` (string), `roleName` (string) | Start editing a role |
-| `$auth.saveEditingRole()` | None | Save role edits |
-| `$auth.cancelEditingRole()` | None | Cancel role editing |
-| `$auth.deleteUserRole(...)` | `teamId` (string), `roleName` (string) | Delete a role |
+| `$auth.createRoleFromInputs(...)`{copy} | `teamId` (string) | Create a role using `newRoleName` and `newRolePermissions` properties |
+| `$auth.startEditingRole(...)`{copy} | `teamId` (string), `roleName` (string) | Start editing a role |
+| `$auth.saveEditingRole()`{copy} | None | Save role edits |
+| `$auth.cancelEditingRole()`{copy} | None | Cancel role editing |
+| `$auth.deleteUserRole(...)`{copy} | `teamId` (string), `roleName` (string) | Delete a role |
 
 ---
 
@@ -538,18 +539,18 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 
 | Method | Parameters | Description |
 |--------|------------|-------------|
-| `$auth.hasTeamPermission(...)` | `permission` (string) | Check if user has a team permission (async) |
-| `$auth.hasTeamPermissionSync(...)` | `permission` (string) | Check if user has a team permission (synchronous) |
-| `$auth.hasRole(...)` | `roleName` (string) | Check if user has a specific role |
-| `$auth.getUserRole()` | None | Get user's primary role (async) |
-| `$auth.getUserRoles()` | None | Get all user's roles (async) |
-| `$auth.getCurrentTeamRoles()` | None | Get current user's roles in current team |
-| `$auth.isCurrentTeamOwner()` | None | Check if user is owner of current team |
-| `$auth.canManageRoles()` | None | Check if user can manage roles |
-| `$auth.canInviteMembers()` | None | Check if user can invite members |
-| `$auth.canUpdateMembers()` | None | Check if user can update members |
-| `$auth.canRemoveMembers()` | None | Check if user can remove members |
-| `$auth.isActionDisabled(...)` | `permission` (string) | Check if an action is disabled (combines `inProgress` and permission check) |
+| `$auth.hasTeamPermission(...)`{copy} | `permission` (string) | Check if user has a team permission (async) |
+| `$auth.hasTeamPermissionSync(...)`{copy} | `permission` (string) | Check if user has a team permission (synchronous) |
+| `$auth.hasRole(...)`{copy} | `roleName` (string) | Check if user has a specific role |
+| `$auth.getUserRole()`{copy} | None | Get user's primary role (async) |
+| `$auth.getUserRoles()`{copy} | None | Get all user's roles (async) |
+| `$auth.getCurrentTeamRoles()`{copy} | None | Get current user's roles in current team |
+| `$auth.isCurrentTeamOwner()`{copy} | None | Check if user is owner of current team |
+| `$auth.canManageRoles()`{copy} | None | Check if user can manage roles |
+| `$auth.canInviteMembers()`{copy} | None | Check if user can invite members |
+| `$auth.canUpdateMembers()`{copy} | None | Check if user can update members |
+| `$auth.canRemoveMembers()`{copy} | None | Check if user can remove members |
+| `$auth.isActionDisabled(...)`{copy} | `permission` (string) | Check if an action is disabled (combines `inProgress` and permission check) |
 
 ---
 
@@ -557,16 +558,17 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 
 | Method | Parameters | Description |
 |--------|------------|-------------|
-| `$auth.isTeamDeletable(...)` | `team` (object) | Check if a team can be deleted |
-| `$auth.isTeamRenamable(...)` | `team` (object) | Check if a team can be renamed |
-| `$auth.teamCreatedAt(...)` | `team` (object) | Formatted creation date |
-| `$auth.teamUpdatedAt(...)` | `team` (object) | Formatted update date |
-| `$auth.allTeamRoles(...)` | `team` (object, optional) | Get all roles for a team |
-| `$auth.getMemberDisplayName(...)` | `membership` (object) | Get member display name |
-| `$auth.getMemberEmail(...)` | `membership` (object) | Get member email |
-| `$auth.isRoleBeingEdited(...)` | `teamId` (string), `roleName` (string) | Check if a role is being edited |
-| `$auth.isRoleDeletable(...)` | `teamId` (string), `roleName` (string) | Check if a role can be deleted |
-| `$auth.isRolePermanentSync(...)` | `teamId` (string), `roleName` (string) | Check if a role is permanent (synchronous) |
+| `$auth.isTeamDeletable(...)`{copy} | `team` (object) | Check if a team can be deleted |
+| `$auth.isTeamRenamable(...)`{copy} | `team` (object) | Check if a team can be renamed |
+| `$auth.isTeamImmutable(...)`{copy} | `teamId` (string), async | Resolves `true` if the team is configured as `permanent` (cannot be deleted or renamed) |
+| `$auth.teamCreatedAt(...)`{copy} | `team` (object) | Formatted creation date |
+| `$auth.teamUpdatedAt(...)`{copy} | `team` (object) | Formatted update date |
+| `$auth.allTeamRoles(...)`{copy} | `team` (object, optional) | Get all roles for a team |
+| `$auth.getMemberDisplayName(...)`{copy} | `membership` (object) | Get member display name |
+| `$auth.getMemberEmail(...)`{copy} | `membership` (object) | Get member email |
+| `$auth.isRoleBeingEdited(...)`{copy} | `teamId` (string), `roleName` (string) | Check if a role is being edited |
+| `$auth.isRoleDeletable(...)`{copy} | `teamId` (string), `roleName` (string) | Check if a role can be deleted |
+| `$auth.isRolePermanentSync(...)`{copy} | `teamId` (string), `roleName` (string) | Check if a role is permanent (synchronous) |
 
 ---
 
@@ -576,28 +578,28 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 
 | Method | Parameters | Description |
 |--------|------------|-------------|
-| `$auth.isUpdatingTeam(...)` | `teamId` (string) | Check if a specific team is being updated. Returns `true` only for the team being updated, allowing other teams to remain interactive |
-| `$auth.isDeletingTeam(...)` | `teamId` (string) | Check if a specific team is being deleted. Returns `true` only for the team being deleted |
-| `$auth.isCreatingTeam()` | None | Check if a team is being created. Returns `true` when creating a new team |
-| `$auth.isAnyTeamOperationInProgress()` | None | Check if any team operation is in progress. Useful for disabling general UI elements during any team operation |
+| `$auth.isUpdatingTeam(...)`{copy} | `teamId` (string) | Check if a specific team is being updated. Returns `true` only for the team being updated, allowing other teams to remain interactive |
+| `$auth.isDeletingTeam(...)`{copy} | `teamId` (string) | Check if a specific team is being deleted. Returns `true` only for the team being deleted |
+| `$auth.isCreatingTeam()`{copy} | None | Check if a team is being created. Returns `true` when creating a new team |
+| `$auth.isAnyTeamOperationInProgress()`{copy} | None | Check if any team operation is in progress. Useful for disabling general UI elements during any team operation |
 
 #### Member Operations
 
 | Method | Parameters | Description |
 |--------|------------|-------------|
-| `$auth.isUpdatingMember(...)` | `membershipId` (string) | Check if a specific member is being updated. Returns `true` only for the member being updated |
-| `$auth.isDeletingMember(...)` | `membershipId` (string) | Check if a specific member is being deleted. Returns `true` only for the member being deleted |
-| `$auth.isInvitingMember()` | None | Check if a member invitation is in progress. Returns `true` when inviting a member |
-| `$auth.isAnyMemberOperationInProgress()` | None | Check if any member operation is in progress |
+| `$auth.isUpdatingMember(...)`{copy} | `membershipId` (string) | Check if a specific member is being updated. Returns `true` only for the member being updated |
+| `$auth.isDeletingMember(...)`{copy} | `membershipId` (string) | Check if a specific member is being deleted. Returns `true` only for the member being deleted |
+| `$auth.isInvitingMember()`{copy} | None | Check if a member invitation is in progress. Returns `true` when inviting a member |
+| `$auth.isAnyMemberOperationInProgress()`{copy} | None | Check if any member operation is in progress |
 
 #### Role Operations
 
 | Method | Parameters | Description |
 |--------|------------|-------------|
-| `$auth.isUpdatingRole(...)` | `teamId` (string), `roleName` (string) | Check if a specific role is being updated. Returns `true` only for the role being updated |
-| `$auth.isDeletingRole(...)` | `teamId` (string), `roleName` (string) | Check if a specific role is being deleted. Returns `true` only for the role being deleted |
-| `$auth.isCreatingRole()` | None | Check if a role is being created. Returns `true` when creating a new role |
-| `$auth.isAnyRoleOperationInProgress()` | None | Check if any role operation is in progress |
+| `$auth.isUpdatingRole(...)`{copy} | `teamId` (string), `roleName` (string) | Check if a specific role is being updated. Returns `true` only for the role being updated |
+| `$auth.isDeletingRole(...)`{copy} | `teamId` (string), `roleName` (string) | Check if a specific role is being deleted. Returns `true` only for the role being deleted |
+| `$auth.isCreatingRole()`{copy} | None | Check if a role is being created. Returns `true` when creating a new role |
+| `$auth.isAnyRoleOperationInProgress()`{copy} | None | Check if any role operation is in progress |
 
 ---
 

@@ -8,7 +8,7 @@ Compact labels for status, counts, and tags.
 
 Badge styles are included in Manifest CSS or the standalone [typography](/docs/elements/typography) stylesheet. Both reference [theme](/docs/styles/theme) variables.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS"
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
@@ -18,21 +18,25 @@ Badge styles are included in Manifest CSS or the standalone [typography](/docs/e
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.typography.css" />
 ```
 
-</x-code-group>
+</div>
 
 ---
 
 ## Default
 
-Badges use the `<mark>` tag for styling without a class required.
+Apply the `badge` class to any text element.
 
-::: frame
-<mark>Badge</mark>
-:::
+<div x-code-group>
 
 ```html copy
-<mark>Badge</mark>
+<span class="badge">Badge</span>
 ```
+
+::: frame text-base
+<span class="badge">Badge</span>
+:::
+
+</div>
 
 ---
 
@@ -41,68 +45,80 @@ Badges use the `<mark>` tag for styling without a class required.
 Badges accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
-::: frame
-<mark class="brand">Primary</mark>
-<mark class="accent">Accent</mark>
-<mark class="positive">Positive</mark>
-<mark class="negative">Negative</mark>
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Brand variant -->
-<mark class="brand">Primary</mark>
+<span class="badge brand">Brand</span>
 
 <!-- Accent variant -->
-<mark class="accent">Accent</mark>
+<span class="badge accent">Accent</span>
 
 <!-- Positive variant -->
-<mark class="positive">Positive</mark>
+<span class="badge positive">Positive</span>
 
 <!-- Negative variant -->
-<mark class="negative">Negative</mark>
+<span class="badge negative">Negative</span>
 ```
+
+::: frame text-base
+<span class="badge brand">Brand</span>
+<span class="badge accent">Accent</span>
+<span class="badge positive">Positive</span>
+<span class="badge negative">Negative</span>
+:::
+
+</div>
 
 ---
 
 ### Size
 
-::: frame
-<mark class="sm">Small</mark>
-<mark class="lg">Large</mark>
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Small variant -->
-<mark class="sm">Small</mark>
+<span class="badge sm">Small</span>
 
 <!-- Large variant -->
-<mark class="lg">Large</mark>
+<span class="badge lg">Large</span>
 ```
+
+::: frame text-base
+<span class="badge sm">Small</span>
+<span class="badge lg">Large</span>
+:::
+
+</div>
 
 ---
 
 ### Appearance
 
-::: frame items-center
-<mark class="ghost">Ghost</mark>
-<mark class="outlined">Outlined</mark>
-<mark class="transparent">Transparent</mark>
-<mark class="hug transparent">Hug</mark>
-:::
+<div x-code-group>
 
 ```html copy
 <!-- No background until hover -->
-<mark class="ghost">Ghost</mark>
+<span class="badge ghost">Ghost</span>
 
 <!-- Border included -->
-<mark class="outlined">Outlined</mark>
+<span class="badge outlined">Outlined</span>
 
 <!-- No background at all -->
-<mark class="transparent">Transparent</mark>
+<span class="badge transparent">Transparent</span>
 
 <!-- No padding for minimal target area, best paired with transparency -->
-<mark class="hug transparent">Hug</mark>
+<span class="badge hug transparent">Hug</span>
 ```
+
+::: frame items-center text-base
+<span class="badge ghost">Ghost</span>
+<span class="badge outlined">Outlined</span>
+<span class="badge transparent">Transparent</span>
+<span class="badge hug transparent">Hug</span>
+:::
+
+</div>
 
 ---
 
@@ -112,13 +128,17 @@ Badges accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 
 Badges containing a single [icon](/docs/elements/icons) are automatically squared.
 
-::: frame
-<mark x-icon="lucide:heart"></mark>
-:::
+<div x-code-group>
 
 ```html copy
-<mark x-icon="lucide:heart"></mark>
+<span class="badge" x-icon="lucide:heart"></span>
 ```
+
+::: frame
+<span class="badge" x-icon="lucide:heart"></span>
+:::
+
+</div>
 
 ---
 
@@ -126,15 +146,19 @@ Badges containing a single [icon](/docs/elements/icons) are automatically square
 
 Any number of icons and text can be nested in any order. Place icons in `<span>` tags, and any sibling elements will auto-space.
 
-::: frame
-<mark><span x-icon="lucide:heart"></span> 79</mark>
-<mark><span x-icon="lucide:thumbs-down"></span><span>21</span></mark>
-:::
+<div x-code-group>
 
 ```html copy
-<mark><span x-icon="lucide:heart"></span> 79</mark>
-<mark><span x-icon="lucide:thumb-down"></span><span>21</span></mark>
+<span class="badge"><span x-icon="lucide:heart"></span> 79</span>
+<span class="badge"><span x-icon="lucide:thumbs-down"></span><span>21</span></span>
 ```
+
+::: frame text-base
+<span class="badge"><span x-icon="lucide:heart"></span> 79</span>
+<span class="badge"><span x-icon="lucide:thumbs-down"></span><span>21</span></span>
+:::
+
+</div>
 
 ---
 
@@ -146,30 +170,34 @@ Default badges use the following [theme](/docs/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
-| `--color-content-stark` | High contrast text color |
-| `--spacing` | Padding and margin factor in various elements |
-| `--radius` | Border radius for `<pre>` corners |
+| `--color-content-stark`{copy} | High contrast text color |
+| `--spacing`{copy} | Padding and margin factor in various elements |
+| `--radius`{copy} | Border radius for badge corners |
 
 ---
 
 ### Customization
 
-Modify base badge styles with custom CSS for the `<mark>` selector.
+Modify base styles with custom CSS for the `badge` class.
 
-::: frame
+<div x-code-group>
+
+```css copy
+.badge {
+    color: blue;
+    background: lightblue;
+}
+```
+
+::: frame text-base
 <style>
-mark.custom {
+.badge.custom {
     color: blue;
     background: lightblue;
 }
 </style>
 
-<mark class="custom">Custom Badge</mark>
+<span class="badge custom">Custom Badge</span>
 :::
 
-```css copy
-mark {
-    color: blue;
-    background: lightblue;
-}
-```
+</div>

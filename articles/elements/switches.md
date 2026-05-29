@@ -8,7 +8,7 @@ Binary toggle controls with on/off states.
 
 Switch styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS"
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
@@ -18,19 +18,23 @@ Switch styles are included in Manifest CSS or a standalone stylesheet, both refe
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.switch.css" />
 ```
 
-</x-code-group>
+</div>
 
 ---
 
 ## Default
 
-::: frame
-<input type="checkbox" role="switch" />
-:::
+<div x-code-group>
 
 ```html copy
 <input type="checkbox" role="switch" />
 ```
+
+::: frame
+<input type="checkbox" role="switch" />
+:::
+
+</div>
 
 ---
 
@@ -40,12 +44,7 @@ Switches accept Manifest [utility](/docs/styles/utilities) classes, which can be
 
 ### Colors
 
-::: frame
-<input type="checkbox" role="switch" class="brand" checked />
-<input type="checkbox" role="switch" class="accent" checked />
-<input type="checkbox" role="switch" class="positive" />
-<input type="checkbox" role="switch" class="negative" checked />
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Brand variant -->
@@ -61,14 +60,20 @@ Switches accept Manifest [utility](/docs/styles/utilities) classes, which can be
 <input type="checkbox" role="switch" class="negative" />
 ```
 
+::: frame row-wrap gap-4
+<input type="checkbox" role="switch" class="brand" checked />
+<input type="checkbox" role="switch" class="accent" checked />
+<input type="checkbox" role="switch" class="positive" />
+<input type="checkbox" role="switch" class="negative" checked />
+:::
+
+</div>
+
 ---
 
 ### Size
 
-::: frame
-<input type="checkbox" role="switch" class="sm" checked />
-<input type="checkbox" role="switch" class="lg" checked />
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Small variant -->
@@ -78,17 +83,18 @@ Switches accept Manifest [utility](/docs/styles/utilities) classes, which can be
 <input type="checkbox" role="switch" class="lg" />
 ```
 
+::: frame row-wrap gap-4
+<input type="checkbox" role="switch" class="sm" checked />
+<input type="checkbox" role="switch" class="lg" checked />
+:::
+
+</div>
+
 ---
 
 ### Appearance
 
-::: frame
-<input type="checkbox" role="switch" class="outlined" checked />
-<input type="checkbox" role="switch" class="outlined brand" />
-<input type="checkbox" role="switch" class="outlined accent" />
-<input type="checkbox" role="switch" class="outlined positive" />
-<input type="checkbox" role="switch" class="outlined negative" />
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Border variant -->
@@ -100,6 +106,16 @@ Switches accept Manifest [utility](/docs/styles/utilities) classes, which can be
 <input type="checkbox" role="switch" class="outlined positive" />
 <input type="checkbox" role="switch" class="outlined negative" />
 ```
+
+::: frame row-wrap gap-4
+<input type="checkbox" role="switch" class="outlined" checked />
+<input type="checkbox" role="switch" class="outlined brand" />
+<input type="checkbox" role="switch" class="outlined accent" />
+<input type="checkbox" role="switch" class="outlined positive" />
+<input type="checkbox" role="switch" class="outlined negative" />
+:::
+
+</div>
 
 ---
 
@@ -114,12 +130,7 @@ These styles are included in `manifest.css`, or the standalone `manifest.form.cs
 Placing the switch and text inside a `<label>` automatically arranges them in a row.
 
 
-::: frame
-<label>
-    <input type="checkbox" role="switch" checked />
-    Enable notifications
-</label>
-:::
+<div x-code-group>
 
 ```html copy
 <label>
@@ -128,11 +139,35 @@ Placing the switch and text inside a `<label>` automatically arranges them in a 
 </label>
 ```
 
+::: frame
+<label>
+    <input type="checkbox" role="switch" checked />
+    Enable notifications
+</label>
+:::
+
+</div>
+
 ---
 
 ### Groups
 
 Placing labelled switches inside a `<fieldset>` automatically arranges them in a column with a gap.
+
+<div x-code-group>
+
+```html copy
+<fieldset>
+    <label>
+        <input type="checkbox" role="switch" />
+        Option A
+    </label>
+    <label>
+        <input type="checkbox" role="switch" />
+        Option B
+    </label>
+</fieldset>
+```
 
 ::: frame
 <fieldset>
@@ -147,18 +182,7 @@ Placing labelled switches inside a `<fieldset>` automatically arranges them in a
 </fieldset>
 :::
 
-```html copy
-<fieldset>
-    <label>
-        <input type="checkbox" role="switch" />
-        Option A
-    </label>
-    <label>
-        <input type="checkbox" role="switch" />
-        Option B
-    </label>
-</fieldset>
-```
+</div>
 
 ---
 
@@ -170,12 +194,12 @@ Default switches use the following [theme](/docs/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
-| `--color-field-surface` | Switch background |
-| `--color-field-surface-hover` | Switch background on hover |
-| `--color-field-inverse` | Marker color |
-| `--spacing-field-height` | Switch size |
-| `--radius` | Border radius for switch corners |
-| `--transition` | Transition for interactive states |
+| `--color-field-surface`{copy} | Switch background |
+| `--color-field-surface-hover`{copy} | Switch background on hover |
+| `--color-field-inverse`{copy} | Marker color |
+| `--spacing-field-height`{copy} | Switch size |
+| `--radius`{copy} | Border radius for switch corners |
+| `--transition`{copy} | Transition for interactive states |
 
 ---
 
@@ -183,7 +207,34 @@ Default switches use the following [theme](/docs/styles/theme) variables:
 
 Modify base switch styles with custom CSS for the `input[role=switch]` selector.
 
-::: frame
+<div x-code-group>
+
+```css copy
+input[role=switch] {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 20px;
+
+    /* Marker */
+    &::before {
+        background-color: #1e40af;
+        box-shadow: 0 2px 4px rgba(30, 64, 175, 0.3);
+    }
+
+    /* Background when checked */
+    &:checked {
+        background-color: #3b82f6;
+    }
+
+    /* Marker when checked */
+    &:checked::before {
+        background-color: white;
+        left: calc(100% - 1.5rem + 0.125rem);
+    }
+}
+```
+
+::: frame row-wrap gap-4
 <style>
 input[role=switch].custom {
     background-color: #f0f8ff;
@@ -212,27 +263,4 @@ input[role=switch].custom:checked::before {
 <input type="checkbox" role="switch" class="custom" checked />
 :::
 
-```css copy
-input[role=switch] {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
-    border-radius: 20px;
-
-    /* Marker */
-    &::before {
-        background-color: #1e40af;
-        box-shadow: 0 2px 4px rgba(30, 64, 175, 0.3);
-    }
-
-    /* Background when checked */
-    &:checked {
-        background-color: #3b82f6;
-    }
-
-    /* Marker when checked */
-    &:checked::before {
-        background-color: white;
-        left: calc(100% - 1.5rem + 0.125rem);
-    }
-}
-```
+</div>

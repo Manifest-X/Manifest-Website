@@ -8,9 +8,9 @@ Access Appwrite databases and storage with the same `$x` API as [local data](/do
 
 Complete the [Appwrite setup](/docs/appwrite-plugins/appwrite-setup) steps to connect your Appwrite and Manifest projects.
 
-Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json` is also required for Appwrite credentials and register database tables or storage buckets.
+Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json` is also required for Appwrite credentials and to register database tables or storage buckets.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "All Plugins (default)"
 <!-- Meta -->
@@ -31,7 +31,7 @@ Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json`
     data-plugins="appwrite-data"></script>
 ```
 
-</x-code-group>
+</div>
 
 ::: brand icon="lucide:info"
 If the Manifest script uses selective loading but omits the core `data` plugin (with its `$x` magic method), it will be auto loaded to enable Appwrite database and storage operations in the frontend.
@@ -49,6 +49,22 @@ Appwrite's cloud data sources work identically to local data sources in the fron
 - **Permission-Aware**: Respects Appwrite permissions and scopes
 - **CRUD Operations**: Create, read, update, and delete using intuitive methods
 - **Team Scoping**: Automatically scope queries by team, user, or role
+
+---
+
+## Rendering Untrusted Content
+
+Cloud data is the case where Manifest's default-permissive rendering deserves a second thought: the values in an Appwrite table can be written by your end users (reviews, comments, bios, uploaded SVGs, etc.), not just by you.
+
+For those cases, prefer the safe variants when rendering into HTML or SVG sinks:
+
+| Source | Default render | Safe opt-in |
+|---|---|---|
+| User-submitted markdown | `<div x-markdown="$x.comments.body">` | `<div x-markdown.safe="$x.comments.body">` |
+| User-uploaded SVG | `<span x-svg="$x.profile.avatar">` | `<span x-svg.safe="$x.profile.avatar">` |
+| Plain text in toasts/tooltips | `$toast($x.errors.message)` | Escape at source, or render via `x-text` |
+
+`x-text`, attribute bindings (`:href`, `:src`, `:alt`), and the standard Alpine `x-show` / `x-if` always treat values as data — they're safe by default. The `.safe` opt-ins exist for the HTML/SVG sinks where the default has to be permissive so authors can render their own rich content.
 
 ---
 

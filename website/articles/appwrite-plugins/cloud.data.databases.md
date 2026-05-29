@@ -18,7 +18,7 @@ The database must have at least one table.
 <img src="/assets/examples/appwrite.table.webp" alt="Appwrite database table"/>
 :::
 
-Add columns to the table matching your data structure. Appwrite automatically applies `$id`, `$createdAt`, and `$updatedAt` columns to every table. In the example above, we've established a table that will store ficticious "projects".
+Add columns to the table matching your data structure. Appwrite automatically applies `$id`, `$createdAt`, and `$updatedAt` columns to every table. In the example above, we've established a table that will store fictitious "projects".
 
 ::: brand icon="lucide:info"
 In a table's **Settings** tab, ensure any permissions required by your frontend user experience (**Create**, **Read**, **Update**, **Delete**) are checked.
@@ -93,7 +93,7 @@ Scope queries are always prepended to user queries, ensuring scope restrictions 
 When using `["user", "team"]` scope, projects are shown for the current user OR the current team. If no team is selected (`$auth.currentTeam`), only user-scoped projects will display. Use `"teams"` (plural) instead of `"team"` (singular) to query all teams the user belongs to, not just the current team.
 
 ::: brand icon="lucide:info"
-All interactive examples below require you to be logged into an dummy account via the [users](/docs/appwrite-plugins/users) article. The data entries you generate below use the `team` scope.
+All interactive examples below require you to be logged into a dummy account via the [users](/docs/appwrite-plugins/users) article. The data entries you generate below use the `team` scope.
 :::
 
 ---
@@ -102,53 +102,7 @@ All interactive examples below require you to be logged into an dummy account vi
 
 Database tables work identically to local data sources. Access entries using the `$x` magic method and perform all CRUD operations:
 
-::: frame col
-<!-- Manage projects for permanent team -->
-<div x-data="{ 
-    permanentTeam: null,
-    newName: ''
-}"
-x-effect="(async () => {
-    if (permanentTeam || !$auth.teams || $auth.teams.length === 0) return;
-    for (const team of $auth.teams) {
-        if (await $auth.isTeamImmutable(team.$id)) {
-            permanentTeam = team;
-            $auth.currentTeam = team;
-            $auth.viewTeam(team);
-            break;
-        }
-    }
-})()">
-    
-    <div class="col">
-        <!-- Create -->
-        <div class="row-wrap gap-2 mb-2">
-            <input type="text" placeholder="Project name" aria-label="Project name" x-model="newName" :disabled="!$auth.currentTeam" class="flex-1" />
-            <button @click="$x.projects.$create({ name: newName, type: 'demo' }).then(() => { newName = ''; })" :disabled="!newName || !$auth.currentTeam || $x.projects.$error">
-                Create
-            </button>
-        </div>
-        
-        <!-- List with inline edit, duplicate, and delete -->
-        <template x-for="project in $x.projects" :key="project.$id">
-            <div class="row gap-2 py-1 items-center border-t border-line">
-                <input 
-                    type="text" 
-                    :value="project.name" 
-                    @blur="$x.projects.$update(project.$id, { name: $event.target.value })" 
-                    class="ghost flex-1"
-                />
-                <button class="sm" @click="$x.projects.$duplicate(project.$id, { files: 'same' })" x-icon="lucide:copy" aria-label="Duplicate" title="Duplicate"></button>
-                <button class="sm" @click="$x.projects.$delete(project.$id)" x-icon="lucide:trash" aria-label="Delete" title="Delete"></button>
-            </div>
-        </template>
-        <small x-show="!$x.projects || $x.projects.length === 0" class="text-muted">No projects yet</small>
-    </div>
-</div>
-<small x-show="!$auth.teams || $auth.teams.length === 0" class="text-muted">No teams available</small>
-:::
-
-<x-code-group numbers copy>
+<div x-code-group numbers copy>
 
 ```html "All"
 <div x-data="{ newName: '' }">
@@ -201,7 +155,7 @@ x-effect="(async () => {
 </button>
 
 <!-- With explicit ID -->
-<button @click="$x.projects.$create('custom-id', { name: 'My Project' })">
+<button @click="$x.projects.$create({ name: 'My Project' }, 'custom-id')">
     Create with Custom ID
 </button>
 ```
@@ -265,7 +219,53 @@ x-effect="(async () => {
 </button>
 ```
 
-</x-code-group>
+::: frame col text-base
+<!-- Manage projects for permanent team -->
+<div x-data="{ 
+    permanentTeam: null,
+    newName: ''
+}"
+x-effect="(async () => {
+    if (permanentTeam || !$auth.teams || $auth.teams.length === 0) return;
+    for (const team of $auth.teams) {
+        if (await $auth.isTeamImmutable(team.$id)) {
+            permanentTeam = team;
+            $auth.currentTeam = team;
+            $auth.viewTeam(team);
+            break;
+        }
+    }
+})()">
+    
+    <div class="col">
+        <!-- Create -->
+        <div class="row-wrap gap-2 mb-2">
+            <input type="text" placeholder="Project name" aria-label="Project name" x-model="newName" :disabled="!$auth.currentTeam" class="flex-1" />
+            <button @click="$x.projects.$create({ name: newName, type: 'demo' }).then(() => { newName = ''; })" :disabled="!newName || !$auth.currentTeam || $x.projects.$error">
+                Create
+            </button>
+        </div>
+        
+        <!-- List with inline edit, duplicate, and delete -->
+        <template x-for="project in $x.projects" :key="project.$id">
+            <div class="row gap-2 py-1 items-center border-t border-line">
+                <input 
+                    type="text" 
+                    :value="project.name" 
+                    @blur="$x.projects.$update(project.$id, { name: $event.target.value })" 
+                    class="ghost flex-1"
+                />
+                <button class="sm" @click="$x.projects.$duplicate(project.$id, { files: 'same' })" x-icon="lucide:copy" aria-label="Duplicate" title="Duplicate"></button>
+                <button class="sm" @click="$x.projects.$delete(project.$id)" x-icon="lucide:trash" aria-label="Delete" title="Delete"></button>
+            </div>
+        </template>
+        <small x-show="!$x.projects || $x.projects.length === 0" class="text-muted">No projects yet</small>
+    </div>
+</div>
+<small x-show="!$auth.teams || $auth.teams.length === 0" class="text-muted">No teams available</small>
+:::
+
+</div>
 
 Database tables automatically sync changes in realtime across all active sessions. When one user creates, updates, or deletes an entry, all other users see the change immediately without page refresh.
 
@@ -284,42 +284,7 @@ Database tables automatically sync changes in realtime across all active session
 
 Use `$query` to search, filter, and sort entries:
 
-::: frame col
-<div x-data="{ searchTerm: '', sortBy: 'newest' }" class="col">
-
-    <div class="row-wrap gap-2 mb-2">
-
-        <!-- Search Input -->
-        <input 
-            type="text" 
-            placeholder="Search projects..." 
-            x-model="searchTerm"
-            class="grow w-fit"
-        />
-        
-        <!-- Sort Buttons -->
-        <button @click="sortBy = 'newest'; $x.projects.$query([['orderDesc', '$createdAt']])">
-            Sort by Newest
-        </button>
-        <button @click="sortBy = 'name'; $x.projects.$query([['orderAsc', 'name']])">
-            Sort by Name
-        </button>
-        <button @click="sortBy = 'all'; searchTerm = ''; $x.projects.$query([])">
-            Reset
-        </button>
-    </div>
-    
-    <!-- Results List -->
-    <div class="col">
-        <template x-for="project in $x.projects.$search(searchTerm, 'name')" :key="project.$id">
-            <div class="p-2 border-t border-line" x-text="project.name"></div>
-        </template>
-        <small x-show="!$x.projects || $x.projects.$search(searchTerm, 'name').length === 0" class="text-muted">No projects found</small>
-    </div>
-</div>
-:::
-
-<x-code-group>
+<div x-code-group>
 
 ```html "All" copy
 <div x-data="{ searchTerm: '', sortBy: 'newest' }" class="col gap-4">
@@ -378,7 +343,42 @@ Use `$query` to search, filter, and sort entries:
 </button>
 ```
 
-</x-code-group>
+::: frame col text-base
+<div x-data="{ searchTerm: '', sortBy: 'newest' }" class="col">
+
+    <div class="row-wrap gap-2 mb-2">
+
+        <!-- Search Input -->
+        <input 
+            type="text" 
+            placeholder="Search projects..." 
+            x-model="searchTerm"
+            class="grow w-fit"
+        />
+        
+        <!-- Sort Buttons -->
+        <button @click="sortBy = 'newest'; $x.projects.$query([['orderDesc', '$createdAt']])">
+            Sort by Newest
+        </button>
+        <button @click="sortBy = 'name'; $x.projects.$query([['orderAsc', 'name']])">
+            Sort by Name
+        </button>
+        <button @click="sortBy = 'all'; searchTerm = ''; $x.projects.$query([])">
+            Reset
+        </button>
+    </div>
+    
+    <!-- Results List -->
+    <div class="col">
+        <template x-for="project in $x.projects.$search(searchTerm, 'name')" :key="project.$id">
+            <div class="p-2 border-t border-line" x-text="project.name"></div>
+        </template>
+        <small x-show="!$x.projects || $x.projects.$search(searchTerm, 'name').length === 0" class="text-muted">No projects found</small>
+    </div>
+</div>
+:::
+
+</div>
 
 ### Query Syntax
 
@@ -401,8 +401,8 @@ These are Appwrite query methods. Each query is an array with the format `['meth
 | | `startsWith` | `['startsWith', 'attribute', 'value']` | `['startsWith', 'name', 'prefix']` |
 | | `endsWith` | `['endsWith', 'attribute', 'value']` | `['endsWith', 'name', 'suffix']` |
 | | `search` | `['search', 'attribute', 'value']` | `['search', 'name', 'keyword']` (requires fulltext index) |
-| **Sorting** | `orderAsc` | `['orderAsc', 'attribute']` | `['orderAsc', '$createdAt']` (column must be indexed) |
-| | `orderDesc` | `['orderDesc', 'attribute']` | `['orderDesc', '$updatedAt']` (column must be indexed) |
+| **Sorting** | `orderAsc` | `['orderAsc', 'attribute']` | `['orderAsc', '$createdAt']` |
+| | `orderDesc` | `['orderDesc', 'attribute']` | `['orderDesc', '$updatedAt']` |
 | | `orderRandom` | `['orderRandom']` | `['orderRandom']` |
 | **Pagination** | `limit` | `['limit', number]` | `['limit', 10]` |
 | | `offset` | `['offset', number]` | `['offset', 20]` |
@@ -427,7 +427,7 @@ These are Appwrite query methods. Each query is an array with the format `['meth
 ['endsWith', 'name', 'suffix']                   // name ends with 'suffix'
 ['search', 'name', 'keyword']                     // Full-text search (requires fulltext index)
 
-// Sorting (column must be indexed)
+// Sorting
 ['orderAsc', '$createdAt']                       // Sort ascending by createdAt
 ['orderDesc', '$updatedAt']                      // Sort descending by updatedAt
 ['orderRandom']                                  // Random order
@@ -452,7 +452,7 @@ See [Appwrite's query documentation](https://appwrite.io/docs/products/databases
 
 Define reusable queries in `manifest.json` and reference them in HTML:
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```json "manifest.json"
 {
@@ -476,7 +476,7 @@ Define reusable queries in `manifest.json` and reference them in HTML:
 </button>
 ```
 
-</x-code-group>
+</div>
 
 ---
 
@@ -613,7 +613,7 @@ Check data source loading state, errors, and readiness:
 
 ### CRUD Methods
 
-<x-code-group>
+<div x-code-group>
 
 ```html "$create" copy
 <!-- Create single entry -->
@@ -622,7 +622,7 @@ Check data source loading state, errors, and readiness:
 </button>
 
 <!-- Create with custom ID -->
-<button @click="$x.projects.$create('custom-id', { name: 'Project' })">
+<button @click="$x.projects.$create({ name: 'Project' }, 'custom-id')">
     Create with ID
 </button>
 ```
@@ -677,13 +677,13 @@ Check data source loading state, errors, and readiness:
 </button>
 ```
 
-</x-code-group>
+</div>
 
 ---
 
 ### Query & Search Methods
 
-<x-code-group>
+<div x-code-group>
 
 ```html "$query" copy
 <!-- Query with filters and sorting -->
@@ -708,7 +708,7 @@ Check data source loading state, errors, and readiness:
 </template>
 ```
 
-</x-code-group>
+</div>
 
 **Query & Search Methods:**
 
@@ -721,7 +721,7 @@ Check data source loading state, errors, and readiness:
 
 ### Pagination Methods
 
-<x-code-group>
+<div x-code-group>
 
 ```html "$firstPage" copy
 <!-- Get first page (cursor-based) -->
@@ -757,7 +757,7 @@ Check data source loading state, errors, and readiness:
 </button>
 ```
 
-</x-code-group>
+</div>
 
 **Pagination Methods:**
 

@@ -8,7 +8,7 @@ Collapsible navigation panels anchored to a viewport edge.
 
 Sidebar styles are included in Manifest CSS or as a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS"
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
@@ -18,7 +18,7 @@ Sidebar styles are included in Manifest CSS or as a standalone stylesheet, both 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.sidebar.css" />
 ```
 
-</x-code-group>
+</div>
 
 ::: brand icon="lucide:info"
 Browser versions from 2023 and earlier require a polyfill script like <a href="https://github.com/oddbird/popover-polyfill" target="_blank">OddBird</a> to mimic HTML popover behaviour.
@@ -28,23 +28,27 @@ Browser versions from 2023 and earlier require a polyfill script like <a href="h
 
 ## Default
 
-Sidebars use the `<aside>` element as a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API" target="_blank">popover</a>. The `<button>` that opens the sidebar requires the `popovertarget="ID"` attribute, matching the aside ID.
+Sidebars use the `<nav>` element as a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API" target="_blank">popover</a>. The `<button>` that opens the sidebar requires the `popovertarget="ID"` attribute, matching the nav ID.
 
-::: frame
-<button popovertarget="sidebar-default-preview">Open Sidebar</button>
-<aside popover id="sidebar-default-preview" class="col gap-4 p-4 border-s border-line">
-    <span class="h4">Sidebar</span>
-    <p>This sidebar slides in from the right by default.</p>
-</aside>
-:::
+<div x-code-group>
 
 ```html copy
 <button popovertarget="sidebar-default">Open Sidebar</button>
-<aside popover id="sidebar-default" class="col gap-4 p-4 border-s border-line">
+<nav popover id="sidebar-default" class="col gap-4 p-4 border-s border-line">
     <h4>Sidebar</h4>
     <p>This sidebar slides in from the right by default.</p>
-</aside>
+</nav>
 ```
+
+::: frame text-base
+<button popovertarget="sidebar-default-preview">Open Sidebar</button>
+<nav popover id="sidebar-default-preview" class="col gap-4 p-4 border-s border-line">
+    <span class="h4">Sidebar</span>
+    <p>This sidebar slides in from the right by default.</p>
+</nav>
+:::
+
+</div>
 
 ---
 
@@ -52,22 +56,26 @@ Sidebars use the `<aside>` element as a <a href="https://developer.mozilla.org/e
 
 By default, sidebars slide in from the inline-end (right in LTR, left in RTL). Add the `appear-start` class to make the sidebar originate from the inline-start (left in LTR, right in RTL).
 
-::: frame
-<button popovertarget="sidebar-start-preview">Open Start Sidebar</button>
-<aside popover id="sidebar-start-preview" class="appear-start col gap-4 p-4 border-e border-line">
-    <span class="h4">Start Sidebar</span>
-    <p>This sidebar slides in from the left in LTR screens.</p>
-</aside>
-:::
+<div x-code-group>
 
 ```html copy
 <button popovertarget="sidebar-start">Open Start Sidebar</button>
 
-<aside popover id="sidebar-start" class="appear-start col gap-4 p-4 border-e border-line">
+<nav popover id="sidebar-start" class="appear-start col gap-4 p-4 border-e border-line">
     <h4>Start Sidebar</h4>
     <p>This sidebar slides in from the left in LTR screens.</p>
-</aside>
+</nav>
 ```
+
+::: frame text-base
+<button popovertarget="sidebar-start-preview">Open Start Sidebar</button>
+<nav popover id="sidebar-start-preview" class="appear-start col gap-4 p-4 border-e border-line">
+    <span class="h4">Start Sidebar</span>
+    <p>This sidebar slides in from the left in LTR screens.</p>
+</nav>
+:::
+
+</div>
 
 ---
 
@@ -79,9 +87,9 @@ Default sidebars use the following [theme](/docs/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|----------|
-| `--color-popover-surface` | Sidebar background color |
-| `--spacing` | Sidebar padding and gaps |
-| `--spacing-content-width` | Maximum content width |
+| `--color-popover-surface`{copy} | Sidebar background color |
+| `--spacing`{copy} | Sidebar padding and gaps |
+| `--spacing-content-width`{copy} | Maximum content width |
 
 ---
 
@@ -89,25 +97,29 @@ Default sidebars use the following [theme](/docs/styles/theme) variables:
 
 If using Tailwind, individual sidebars can be customized with utility classes.
 
-::: frame
-<button popovertarget="sidebar-tailwind-preview">Custom Sidebar</button>
-<aside popover id="sidebar-tailwind-preview" class="w-100 bg-surface-2/80 border-s border-line rounded-s-2xl backdrop-blur">
-    <div class="col gap-4 p-4">
-        <h4>Tailwind Sidebar</h4>
-        <p>This sidebar uses Tailwind utility classes with theme-aware colors.</p>
-    </div>
-</aside>
-:::
+<div x-code-group>
 
 ```html copy
 <button popovertarget="sidebar">Custom Sidebar</button>
-<aside popover id="sidebar" class="w-100 bg-surface-2/80 border-s border-line rounded-s-2xl backdrop-blur">
+<nav popover id="sidebar" class="w-100 bg-surface-2/80 border-s border-line rounded-s-2xl backdrop-blur">
     <div class="col gap-4 p-4">
         <h4>Tailwind Sidebar</h4>
         <p>This sidebar uses Tailwind utility classes with theme-aware colors.</p>
     </div>
-</aside>
+</nav>
 ```
+
+::: frame text-base
+<button popovertarget="sidebar-tailwind-preview">Custom Sidebar</button>
+<nav popover id="sidebar-tailwind-preview" class="w-100 bg-surface-2/80 border-s border-line rounded-s-2xl backdrop-blur">
+    <div class="col gap-4 p-4">
+        <h4>Tailwind Sidebar</h4>
+        <p>This sidebar uses Tailwind utility classes with theme-aware colors.</p>
+    </div>
+</nav>
+:::
+
+</div>
 
 ---
 
@@ -116,7 +128,7 @@ If using Tailwind, individual sidebars can be customized with utility classes.
 Sidebars use custom transform animations for sliding effects. Opacity and scale are set to overwrite defaults in [reset styles](/docs/styles/reset).
 
 ```css
-aside[popover] {
+nav[popover] {
     transition: opacity .15s ease-in, transform .15s ease-in, display .15s ease-in;
     transition-behavior: allow-discrete;
 
@@ -168,11 +180,32 @@ Remember to update `transition` with any new properties.
 
 ### Customization
 
-Modify base sidebar styles with custom CSS for the `aside[popover]` selector.
+Modify base sidebar styles with custom CSS for the `nav[popover]` selector.
 
-::: frame
+<div x-code-group>
+
+```css copy
+nav[popover] {
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+    width: 400px;
+    padding: 1rem;
+    background-color: color-mix(in oklch, var(--color-surface-2) 90%, transparent);
+    backdrop-filter: blur(4px);
+    border-start-start-radius: 1rem;
+    border-end-start-radius: 1rem;
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
+
+    &::backdrop {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+}
+```
+
+::: frame text-base
 <style>
-aside[popover].custom {
+nav[popover].custom {
     display: flex;
     flex-flow: column;
     gap: 1rem;
@@ -191,27 +224,10 @@ aside[popover].custom {
 </style>
 
 <button popovertarget="sidebar-custom-preview">Custom Sidebar</button>
-<aside popover id="sidebar-custom-preview" class="custom">
+<nav popover id="sidebar-custom-preview" class="custom">
     <h4>Custom Sidebar</h4>
     <p>This sidebar has custom styling with CSS variables and backdrop color.</p>
-</aside>
+</nav>
 :::
 
-```css copy
-aside[popover] {
-    display: flex;
-    flex-flow: column;
-    gap: 1rem;
-    width: 400px;
-    padding: 1rem;
-    background-color: color-mix(in oklch, var(--color-surface-2) 90%, transparent);
-    backdrop-filter: blur(4px);
-    border-start-start-radius: 1rem;
-    border-end-start-radius: 1rem;
-    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
-
-    &::backdrop {
-        background-color: rgba(0, 0, 0, 0.2);
-    }
-}
-```
+</div>

@@ -4,68 +4,59 @@
 /*  Modify values to customize your project theme
 */
 
+@import "tailwindcss";
+
 :root,
 ::selection {
 
-    /* Default palette */
-    --color-50: oklch(100% 0 0);
-    --color-100: oklch(98.17% 0.0005 95.87);
-    --color-200: oklch(96.27% 0.0026 252.34);
-    --color-300: oklch(91.79% 0.0029 264.26);
-    --color-400: oklch(89.24% 0.0024 12.48);
-    --color-500: oklch(67.4% 0.0318 251.27);
-    --color-600: oklch(48.26% 0.0365 255.09);
-    --color-700: oklch(28.7% 0.030787 270.1);
-    --color-800: oklch(20.7% 0.026326 268.7);
-    --color-900: oklch(16.6% 0.026 267);
-    --color-950: oklch(3.89% 0.0181 262.25);
-
-    /* Light theme */
-    --color-page: var(--color-50);
-    --color-surface-1: var(--color-100);
-    --color-surface-2: var(--color-200);
-    --color-surface-3: var(--color-300);
-    --color-content-stark: var(--color-900);
-    --color-content-neutral: var(--color-600);
-    --color-content-subtle: var(--color-500);
-    --color-field-surface: var(--color-300);
-    --color-field-surface-hover: var(--color-400);
+    /* Light mode */
+    --color-page: var(--color-neutral-50);
+    --color-surface-1: var(--color-neutral-100);
+    --color-surface-2: var(--color-neutral-200);
+    --color-surface-3: var(--color-neutral-300);
+    --color-content-stark: var(--color-neutral-900);
+    --color-content-neutral: var(--color-neutral-600);
+    --color-content-subtle: var(--color-neutral-500);
+    --color-field-surface: var(--color-neutral-300);
+    --color-field-surface-hover: var(--color-neutral-400);
     --color-field-inverse: var(--color-content-stark);
     --color-popover-surface: var(--color-page);
-    --color-line: color-mix(in oklch, var(--color-content-stark) 11%, transparent);
-    --color-brand-surface: #f6c07b;
-    --color-brand-surface-hover: #f19b46;
-    --color-brand-inverse: #763518;
-    --color-brand-content: #de6618;
-    --color-accent-surface: #ffccd3;
-    --color-accent-surface-hover: #ffa1ad;
-    --color-accent-inverse: #a50036;
-    --color-accent-content: #ff637e;
-    --color-positive-surface: #16a34a;
-    --color-positive-surface-hover: #166534;
-    --color-positive-inverse: white;
-    --color-positive-content: var(--color-positive-surface);
-    --color-negative-surface: #ef4444;
-    --color-negative-surface-hover: #dc2626;
-    --color-negative-inverse: white;
-    --color-negative-content: var(--color-negative-surface);
+    --color-line: color-mix(var(--color-content-stark) 11%, transparent);
+    --color-brand-surface: var(--color-yellow-300);
+    --color-brand-surface-hover: var(--color-yellow-400);
+    --color-brand-inverse: var(--color-yellow-700);
+    --color-brand-content: var(--color-yellow-600);
+    --color-accent-surface: var(--color-neutral-900);
+    --color-accent-surface-hover: var(--color-neutral-700);
+    --color-accent-inverse: var(--color-neutral-50);
+    --color-accent-content: var(--color-neutral-900);
+    --color-positive-surface: var(--color-green-300);
+    --color-positive-surface-hover: var(--color-green-400);
+    --color-positive-inverse: var(--color-green-800);
+    --color-positive-content: var(--color-green-600);
+    --color-negative-surface: var(--color-red-300);
+    --color-negative-surface-hover: var(--color-red-400);
+    --color-negative-inverse: var(--color-red-800);
+    --color-negative-content: var(--color-red-600);
+
+    /* Fonts */
+    --font-sans: Manrope, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
     /* Sizes */
     --radius: 0.5rem;
     --spacing: 0.25rem;
-    --spacing-content-width: 68.75rem;
+    --spacing-content-width: 74rem;
     --spacing-field-padding: calc(var(--spacing) * 2.5);
     --spacing-field-height: calc(var(--spacing) * 9);
     --spacing-popover-offset: calc(var(--spacing) * 2);
     --spacing-resize-handle: 1rem;
-    --spacing-viewport-padding: 5vw;
+    --spacing-viewport-padding: 2rem;
 
     /* Effects */
     --transition: all .05s ease-in-out;
     --tooltip-hover-delay: .5s;
-
-    /* Fonts */
-    --font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --view-transition-duration: 200ms;
+    --view-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
 
     /* Icons */
     --icon-accordion: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 256 256'%3E%3Cpath fill='%23000' d='m184.49 136.49l-80 80a12 12 0 0 1-17-17L159 128L87.51 56.49a12 12 0 1 1 17-17l80 80a12 12 0 0 1-.02 17'/%3E%3C/svg%3E");
@@ -73,20 +64,48 @@
     --icon-toast-dismiss: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E");
 }
 
-/* Dark theme overrides */
+/* Dark mode overrides */
 .dark {
-    --color-page: var(--color-950);
-    --color-surface-1: var(--color-900);
-    --color-surface-2: var(--color-800);
-    --color-surface-3: var(--color-700);
-    --color-field-surface: var(--color-700);
-    --color-field-surface-hover: var(--color-600);
-    --color-popover-surface: var(--color-700);
-    --color-content-stark: var(--color-50);
-    --color-content-neutral: var(--color-400);
-    --color-content-subtle: var(--color-500);
-    --color-brand-content: #f6c07b;
-    --color-accent-content: #ffa1ad;
+    --color-page: var(--color-neutral-950);
+    --color-surface-1: var(--color-neutral-900);
+    --color-surface-2: var(--color-neutral-800);
+    --color-surface-3: var(--color-neutral-700);
+    --color-field-surface: var(--color-neutral-700);
+    --color-field-surface-hover: var(--color-neutral-600);
+    --color-popover-surface: var(--color-neutral-800);
+    --color-content-stark: var(--color-neutral-50);
+    --color-content-neutral: var(--color-neutral-400);
+    --color-content-subtle: var(--color-neutral-500);
+    --color-brand-surface: var(--color-yellow-400);
+    --color-brand-surface-hover: var(--color-yellow-500);
+    --color-brand-inverse: var(--color-yellow-800);
+    --color-brand-content: var(--color-yellow-500);
+    --color-accent-surface: var(--color-neutral-50);
+    --color-accent-surface-hover: var(--color-neutral-200);
+    --color-accent-inverse: var(--color-neutral-900);
+    --color-accent-content: var(--color-neutral-50);
+    --color-positive-surface: var(--color-green-400);
+    --color-positive-surface-hover: var(--color-green-500);
+    --color-positive-inverse: var(--color-green-900);
+    --color-positive-content: var(--color-green-500);
+    --color-negative-surface: var(--color-red-400);
+    --color-negative-surface-hover: var(--color-red-500);
+    --color-negative-inverse: var(--color-red-900);
+    --color-negative-content: var(--color-red-500);
+}
+
+@font-face {
+    font-family: 'Manrope';
+    src: url('/assets/fonts/Manrope.woff2') format('woff2-variations');
+    font-display: swap;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'IBMPlexMono';
+    src: url('/assets/fonts/IBMPlexMono.woff2') format('woff2-variations');
+    font-display: swap;
+    font-style: normal
 }
 
 @layer base {
@@ -120,8 +139,14 @@
     }
 }
 
-/* Custom */
+/* CUSTOM */
 
+/* Large */
+.lg {
+    font-size: initial
+}
+
+/* Theme editor */
 .theme-button-wrapper {
     display: flex;
     gap: 1px;
@@ -137,26 +162,21 @@
     }
 }
 
-.theme-text-wrapper {
+.theme-example-wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: calc(var(--spacing) * 4, 1rem);
     width: 100%;
+    max-width: 100%;
 
-    &>div:first-of-type {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-between;
-        align-items: center;
-        gap: calc(var(--spacing) * 4, 1rem);
-        width: 100%;
-        max-width: 100%;
-
-        &>button {
-            opacity: 0
-        }
+    &>button {
+        opacity: 0
     }
 
-    &:hover>div:first-of-type button {
+    &:hover>button {
         opacity: 100%
     }
 
@@ -166,348 +186,80 @@
         resize: none;
         field-sizing: content
     }
+
+    .theme-example-wrapper .blockquote {
+        margin: 0
+    }
+
+}
+
+/* X pattern */
+.pattern {
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        pointer-events: none;
+        background: none;
+    }
+
+    /* Diagonal line: top-left to bottom-right */
+    &::before {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-top: 0;
+        border-left: 0;
+        background: linear-gradient(to bottom right,
+                transparent calc(50% - 1px),
+                color-mix(in oklch, var(--color-surface-1), transparent),
+                transparent calc(50% + 2px));
+    }
+
+    /* Diagonal line: top-right to bottom-left */
+    &::after {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom left,
+                transparent calc(50% - 1px),
+                color-mix(in oklch, var(--color-surface-1), transparent),
+                transparent calc(50% + 2px));
+    }
 }
 
 
-/* Manifest Typography */
 
-@layer base {
+/*** TO DELETE AFTER ***/
 
-    /* All text elements */
-    :where(a, abbr, address, blockquote, code, del, figcaption, h1, h2, h3, h4, h5, h6, ins, label:not(.avatar, :has([type=file], [type=search])), legend, p, small, cite, q):not(.unstyle),
-    .h1,
-    .h2,
-    .h3,
-    .h4,
-    .h5,
-    .h6,
-    .paragraph,
-    .small,
-    .caption,
-    .label {
-        color: var(--color-content-stark);
+:where(ul):not(.unstyle) {
+    padding-inline-start: 1.75ch;
 
-        /* Support inline icons */
-        &:where(:has([x-icon])) {
-            display: inline-flex;
-            align-items: center;
-
-            /* Inline icon spacing */
-            & [x-icon] {
-                margin-inline-end: 0.5ch;
-            }
-        }
-
-        /* Inline span alignment */
-        & span {
-            vertical-align: inherit
-        }
+    &:has(input[type=checkbox]) {
+        padding-inline-start: 0
     }
 
-    /* Headings */
-    :where(h1, h2, h3, h4, h5, h6):not(.unstyle),
-    .h1,
-    .h2,
-    .h3,
-    .h4,
-    .h5,
-    .h6 {
-        font-weight: bolder;
-        word-wrap: break-word
-    }
+    /* Offset items so markers align inside the element frame  */
+    & li {
+        padding-inline-start: 1ch;
 
-    :where(h1, h2, h3, h4):not(.unstyle),
-    .h1,
-    .h2,
-    .h3,
-    .h4 {
-        font-weight: 700;
-    }
-
-    :where(h1, h2, h3):not(.unstyle),
-    .h1,
-    .h2,
-    .h3 {
-        letter-spacing: -0.025em
-    }
-
-    :where(h1):not(.unstyle),
-    .h1 {
-        font-size: 3rem !important;
-        line-height: 1.25
-    }
-
-    :where(h2):not(.unstyle),
-    .h2 {
-        font-size: 2.25rem !important;
-    }
-
-    :where(h3):not(.unstyle),
-    .h3 {
-        font-size: 1.75rem !important;
-        line-height: 1.4
-    }
-
-    :where(h4):not(.unstyle),
-    .h4 {
-        font-size: 1.25rem !important;
-    }
-
-    :where(h5):not(.unstyle),
-    .h5 {
-        font-weight: 600;
-        font-size: .875rem;
-        line-height: 1rem;
-        color: var(--color-content-neutral, oklch(16.6% 0.026 267))
-    }
-
-    :where(h6):not(.unstyle),
-    .h6 {
-        font-weight: 600;
-        font-size: 0.8125rem;
-        line-height: 1.4;
-        text-transform: uppercase;
-        color: var(--color-brand-content, oklch(16.6% 0.026 267));
-    }
-
-    /* Paragraphs */
-    :where(p):not(.unstyle),
-    .paragraph {
-        line-height: 1.6;
-    }
-
-    /* Links */
-    :where(a:not([role=button]), button.link):not(.unstyle) {
-        text-decoration: underline;
-        text-underline-offset: 2px;
-        cursor: pointer;
-        transition: var(--transition, all .05s ease-in-out);
-
-        &:hover {
-            color: var(--color-content-neutral, oklch(48.26% 0.0365 255.09))
-        }
-
-        &:active {
-            color: var(--color-content-neutral, oklch(48.26% 0.0365 255.09))
-        }
-    }
-
-    /* Blockquotes */
-    :where(blockquote):not(.unstyle) {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        margin: calc(var(--spacing, 0.25rem) * 4) 0;
-        padding: 0 calc(var(--spacing, 0.25rem) * 4);
-        color: var(--color-content-stark, oklch(16.6% 0.026 267));
-        border-inline-start: 0.25rem solid color-mix(in oklch, var(--color-content-stark, oklch(16.6% 0.026 267)) 25%, transparent);
-        border-inline-end: none;
-
-        & * {
-            color: inherit
-        }
-    }
-
-    /* Inline code */
-    :where(code):not(.unstyle) {
-        display: inline-block;
-        width: fit-content;
-        height: fit-content;
-        padding: 0.1ch 0.5ch;
-        font-size: 82.5%;
-        word-wrap: break-word;
-        color: var(--color-content-neutral, oklch(48.26% 0.0365 255.09));
-        background-color: color-mix(in oklch, var(--color-content-neutral, oklch(48.26% 0.0365 255.09)) 10%, transparent);
-        border: 1px solid color-mix(in oklch, var(--color-content-subtle, oklch(67.4% 0.0318 251.27)) 10%, transparent);
-        border-radius: var(--radius, 0.5rem)
-    }
-
-    /* Captions */
-    :where(figcaption):not(.unstyle),
-    .caption {
-        font-size: 0.8125rem;
-        color: var(--color-content-neutral, oklch(48.26% 0.0365 255.09));
-
-        & a {
-            font-weight: inherit;
-            color: inherit
-        }
-    }
-
-    :where(figure figcaption):not(.unstyle) {
-        margin: calc(var(--spacing, 0.25rem) * 2) auto;
-        text-align: center
-    }
-
-    /* Small text */
-    :where(small):not(.unstyle),
-    .small {
-        font-size: 0.875rem;
-        color: var(--color-content-neutral, oklch(48.26% 0.0365 255.09))
-    }
-
-    /* Icons */
-    :where([x-icon]) {
-        display: inline-flex;
-        width: fit-content
-    }
-
-    /* Inserted text */
-    :where(ins):not(.unstyle) {
-        text-decoration: none
-    }
-
-    /* Keyboard text */
-    :where(kbd):not(.unstyle),
-    .kbd {
-        display: inline-block;
-        vertical-align: baseline;
-        width: fit-content;
-        min-width: 1.4rem;
-        padding: 0.3rem;
-        font-family: inherit;
-        font-size: 75%;
-        font-weight: 600;
-        line-height: 1;
-        text-align: center;
-        color: var(--color-content-neutral, oklch(48.26% 0.0365 255.09));
-        background-color: color-mix(in oklch, var(--color-content-neutral, oklch(48.26% 0.0365 255.09)) 10%, transparent);
-        border-radius: calc(var(--radius, 0.5rem) / 1.5);
-
+        /* Space out items */
         &:not(:last-of-type) {
-            margin-inline-end: 1px
-        }
-    }
-
-    /* RTL keyboard overrides */
-    [dir=rtl] :where(kbd:not(:last-of-type), .kbd:not(:last-of-type)) {
-        margin-inline-start: 1px;
-        margin-inline-end: 0
-    }
-
-    /* Labels */
-    :where(label):not(.unstyle),
-    .label {
-        width: -moz-fit-content;
-        width: fit-content;
-        user-select: none
-    }
-
-    /* Legends */
-    :where(legend):not(.unstyle),
-    .legend {
-        display: block;
-        max-width: 100%;
-        white-space: normal
-    }
-
-    /* Badges */
-    :where(mark):not(.unstyle),
-    .badge {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.25rem;
-        width: fit-content;
-        height: fit-content;
-        padding: var(--spacing, 0.25rem) calc(var(--spacing, 0.25rem) * 1.5);
-        font-weight: 500;
-        font-size: 0.75rem;
-        line-height: 1;
-        color: var(--color-field-inverse, oklch(16.6% 0.026 267));
-        background-color: var(--color-field-surface, oklch(91.79% 0.0029 264.26));
-        border-radius: 100px;
-
-        /* Solo icons */
-        &:has(svg:only-child) {
-            padding: var(--spacing, 0.25rem) calc(var(--spacing, 0.25rem) * 1);
-        }
-    }
-
-    /* Lists */
-    :where(ol):not(nav ol):not(menu ol):not(.unstyle) {
-        list-style-type: decimal;
-    }
-
-    :where(ul):not(nav ul):not(menu ul):not(.unstyle) {
-        list-style-type: disc;
-    }
-
-    :where(ol):not(nav ol):not(menu ol):not(.unstyle),
-    :where(ul):not(nav ul):not(menu ul):not(.unstyle) {
-
-        &:not(:has(input[type=checkbox])) {
-            padding-inline-start: 1.75ch;
+            margin-bottom: 1.25ch
         }
 
-        /* Offset items so markers align inside the element frame  */
-        & li {
-            padding-inline-start: 1ch;
-
-            /* Space out items */
-            &:not(:last-of-type) {
-                margin-bottom: 1.25ch
-            }
-
-            /* Allow icons to replace markers */
-            &:has([x-icon]) {
-                position: relative;
-                display: inherit;
-                list-style: none;
-
-                & [x-icon] {
-                    position: absolute;
-                    top: 0.45ch;
-                    left: -1.75ch
-                }
-            }
-
-            /* Checklist items */
-            &:has(input[type=checkbox]) {
-                position: relative;
-                display: inherit;
-                list-style: none;
-
-                & input[type=checkbox] {
-                    position: absolute;
-                    top: 0.45ch;
-                    left: -1ch
-                }
-            }
+        /* Inline links */
+        & a:not(.unstyle),
+        & .link {
+            text-decoration: underline;
+            text-underline-offset: 2px
         }
-    }
-
-    /* RTL list overrides */
-    [dir=rtl] :where(ol):not(nav ol):not(menu ol):not(.unstyle),
-    [dir=rtl] :where(ul):not(nav ul):not(menu ul):not(.unstyle) {
-        & li:has([x-icon]) {
-            & [x-icon] {
-                left: auto;
-                right: -1.75ch
-            }
-        }
-
-        & li:has(input[type=checkbox]) {
-            & input[type=checkbox] {
-                left: auto;
-                right: -1.25ch
-            }
-        }
-    }
-
-    /* Nested list spacing */
-    :where(ol, ul):not(nav ol):not(menu ol):not(.unstyle) ul,
-    :where(ol, ul):not(nav ul):not(menu ul):not(.unstyle) ol {
-        margin-top: 1ch;
-        padding-inline-start: 2.75ch;
-
-        &+li {
-            margin-top: 1.5ch
-        }
-    }
-
-    /* Spans */
-    :where(span):not(.unstyle) {
-        vertical-align: middle
     }
 }

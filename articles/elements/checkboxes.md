@@ -6,9 +6,9 @@ Form controls for selecting one or more options.
 
 ## Setup
 
-Checkboxes styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Checkbox styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS"
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
@@ -21,20 +21,24 @@ Checkboxes styles are included in Manifest CSS or a standalone stylesheet, both 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.form.css" />
 ```
 
-</x-code-group>
+</div>
 
 ---
 
 ## Default
 
-::: frame
-<input type="checkbox" checked />
-<input type="checkbox" />
-:::
+<div x-code-group>
 
 ```html copy
 <input type="checkbox" />
 ```
+
+::: frame row-wrap gap-2
+<input type="checkbox" checked />
+<input type="checkbox" />
+:::
+
+</div>
 
 ---
 
@@ -44,12 +48,7 @@ Checkboxes accept Manifest [utility](/docs/styles/utilities) classes, which can 
 
 ### Colors
 
-::: frame
-<input type="checkbox" class="brand" checked />
-<input type="checkbox" class="accent" checked />
-<input type="checkbox" class="positive" checked />
-<input type="checkbox" class="negative" checked />
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Brand variant -->
@@ -65,14 +64,20 @@ Checkboxes accept Manifest [utility](/docs/styles/utilities) classes, which can 
 <input type="checkbox" class="negative" checked />
 ```
 
+::: frame row-wrap gap-2
+<input type="checkbox" class="brand" checked />
+<input type="checkbox" class="accent" checked />
+<input type="checkbox" class="positive" checked />
+<input type="checkbox" class="negative" checked />
+:::
+
+</div>
+
 ---
 
 ### Size
 
-::: frame
-<input class="sm" type="checkbox" checked />
-<input class="lg" type="checkbox" checked />
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Small variant -->
@@ -82,17 +87,18 @@ Checkboxes accept Manifest [utility](/docs/styles/utilities) classes, which can 
 <input class="lg" type="checkbox" checked />
 ```
 
+::: frame row-wrap gap-2
+<input class="sm" type="checkbox" checked />
+<input class="lg" type="checkbox" checked />
+:::
+
+</div>
+
 ---
 
 ### Outlined
 
-::: frame
-<input class="outlined" type="checkbox" checked />
-<input class="outlined brand" type="checkbox" checked />
-<input class="outlined accent" type="checkbox" checked />
-<input class="outlined positive" type="checkbox" checked />
-<input class="outlined negative" type="checkbox" checked />
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Border variant -->
@@ -104,6 +110,16 @@ Checkboxes accept Manifest [utility](/docs/styles/utilities) classes, which can 
 <input class="outlined positive" type="checkbox" checked />
 <input class="outlined negative" type="checkbox" checked />
 ```
+
+::: frame row-wrap gap-2
+<input class="outlined" type="checkbox" checked />
+<input class="outlined brand" type="checkbox" checked />
+<input class="outlined accent" type="checkbox" checked />
+<input class="outlined positive" type="checkbox" checked />
+<input class="outlined negative" type="checkbox" checked />
+:::
+
+</div>
 
 ---
 
@@ -117,12 +133,7 @@ These styles are included in `manifest.css`, or the standalone `manifest.form.cs
 
 Placing the checkbox and text inside a `<label>` automatically arranges them in a row.
 
-::: frame
-<label>
-    <input type="checkbox" />
-    Lorem ipsum
-</label>
-:::
+<div x-code-group>
 
 ```html copy
 <label>
@@ -130,6 +141,15 @@ Placing the checkbox and text inside a `<label>` automatically arranges them in 
     Lorem ipsum
 </label>
 ```
+
+::: frame text-base
+<label>
+    <input type="checkbox" />
+    Lorem ipsum
+</label>
+:::
+
+</div>
 
 ---
 
@@ -137,22 +157,7 @@ Placing the checkbox and text inside a `<label>` automatically arranges them in 
 
 Placing labelled checkboxes inside a `<fieldset>` automatically arranges them in a column with gaps.
 
-::: frame
-<fieldset>
-    <label>
-        <input type="checkbox" />
-        Lorem ipsum
-    </label>
-    <label>
-        <input type="checkbox" />
-        Dolar sit amet
-    </label>
-    <label>
-        <input type="checkbox" />
-        Consectetur adipiscing elit
-    </label>
-</fieldset>
-:::
+<div x-code-group>
 
 ```html copy
 <fieldset>
@@ -162,7 +167,7 @@ Placing labelled checkboxes inside a `<fieldset>` automatically arranges them in
     </label>
     <label>
         <input type="checkbox" />
-        Dolar sit amet
+        Dolor sit amet
     </label>
     <label>
         <input type="checkbox" />
@@ -170,6 +175,25 @@ Placing labelled checkboxes inside a `<fieldset>` automatically arranges them in
     </label>
 </fieldset>
 ```
+
+::: frame
+<fieldset>
+    <label>
+        <input type="checkbox" />
+        Lorem ipsum
+    </label>
+    <label>
+        <input type="checkbox" />
+        Dolor sit amet
+    </label>
+    <label>
+        <input type="checkbox" />
+        Consectetur adipiscing elit
+    </label>
+</fieldset>
+:::
+
+</div>
 
 ---
 
@@ -181,11 +205,11 @@ Default checkboxes use the following [theme](/docs/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
-| `--spacing-field-height` | Checkbox size |
-| `--color-field-surface` | Checkbox background |
-| `--color-field-surface-hover` | Checkbox background on hover |
-| `--color-field-inverse` | Checkmark icon color |
-| `--transition` | Transition for interactive states |
+| `--spacing-field-height`{copy} | Checkbox size |
+| `--color-field-surface`{copy} | Checkbox background |
+| `--color-field-surface-hover`{copy} | Checkbox background on hover |
+| `--color-field-inverse`{copy} | Checkmark icon color |
+| `--transition`{copy} | Transition for interactive states |
 
 ---
 
@@ -208,6 +232,16 @@ The checkbox icon is an encoded SVG in the checkbox style's `--icon-checkbox` va
 
 Modify base checkbox styles with custom CSS for the `input[type=checkbox]` selector.
 
+<div x-code-group>
+
+```css copy
+input[type=checkbox] {
+    color: white;
+    background-color: aqua;
+    border-radius: 0;
+}
+```
+
 ::: frame
 <style>
 input[type=checkbox].custom {
@@ -220,10 +254,4 @@ input[type=checkbox].custom {
 <input type="checkbox" class="custom" checked />
 :::
 
-```css copy
-input[type=checkbox] {
-    color: white;
-    background-color: aqua;
-    border-radius: 0;
-}
-```
+</div>

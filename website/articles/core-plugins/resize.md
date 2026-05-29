@@ -14,7 +14,7 @@ Resize adds drag-to-resize functionality to any element using an `x-resize` dire
 
 Resize is included in `manifest.js` with all core plugins, or can be selectively loaded.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "All Plugins (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
@@ -25,11 +25,11 @@ Resize is included in `manifest.js` with all core plugins, or can be selectively
     data-plugins="resize"></script>
 ```
 
-</x-code-group>
+</div>
 
 Resizable element styles are included in Manifest CSS or as a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS"
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
@@ -39,7 +39,7 @@ Resizable element styles are included in Manifest CSS or as a standalone stylesh
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.resize.css">
 ```
 
-</x-code-group>
+</div>
 
 ---
 
@@ -47,17 +47,21 @@ Resizable element styles are included in Manifest CSS or as a standalone stylesh
 
 Use the `x-resize` directive on any element to make it resizable:
 
+<div x-code-group>
+
+```html copy
+<div x-resize class="w-64 h-32 p-4 bg-surface-3 overflow-hidden">
+    <p>Drag any edge or corner to resize</p>
+</div>
+```
+
 ::: frame
-<div x-resize class="w-64 h-32 bg-surface-3">
-    <p class="max-w-full max-h-full p-4 overflow-hidden">Drag any edge or corner to resize</p>
+<div x-resize class="w-64 h-32 p-4 bg-surface-3 overflow-hidden">
+    <p>Drag any edge or corner to resize</p>
 </div>
 :::
 
-```html copy
-<div x-resize class="w-64 h-32 bg-surface-3">
-    <p class="max-w-full max-h-full p-4 overflow-hidden">Drag any edge or corner to resize</p>
 </div>
-```
 
 The element will automatically be resizable from all edges and corners. Size constraints can be applied with min/max width and height styles.
 
@@ -82,6 +86,24 @@ Resize behavior is customized with properties inside the `x-resize` attribute.
 | **`saveWidth`** | String | `null` | localStorage key to persist width |
 | **`saveHeight`** | String | `null` | localStorage key to persist height |
 
+<div x-code-group>
+
+```html copy
+<div x-data="{ 'sidebar': true }">
+    <button @click="sidebar = !sidebar">Toggle Sidebar</button>
+    <div x-resize="{
+        handles: ['end', 'bottom-end'],
+        snapPoints: [300, '50%', '35rem'],
+        snapDistance: 50,
+        snapCloseX: 200,
+        toggle: 'sidebar',
+        saveWidth: 'sidebar-width'
+    }" x-show="sidebar" class="max-w-[35rem] min-h-[85px] w-64 h-32 p-4 bg-surface-3">
+        Sidebar
+    </div>
+</div>
+```
+
 ::: frame
 <div x-data="{ 'sidebar': true }" class="col gap-4">
     <button @click="sidebar = !sidebar">Toggle Sidebar</button>
@@ -99,21 +121,7 @@ Resize behavior is customized with properties inside the `x-resize` attribute.
 </div>
 :::
 
-```html copy
-<div x-data="{ 'sidebar': true }">
-    <button @click="sidebar = !sidebar">Toggle Sidebar</button>
-    <div x-resize="{
-        handles: ['end', 'bottom-end'],
-        snapPoints: [300, '50%', '35rem'],
-        snapDistance: 50,
-        snapCloseX: 200,
-        toggle: 'sidebar',
-        saveWidth: 'sidebar-width'
-    }" x-show="sidebar" class="max-w-[35rem] min-h-[85px] w-64 h-32 p-4 bg-surface-3">
-        Sidebar
-    </div>
 </div>
-```
 
 This example has:
 - End and bottom-end handles.
@@ -133,33 +141,9 @@ This example has:
 
 Sibling elements of a resizable panel will be affected depending on its own styles. Give static siblings `flex: 1` (`flex-1` in Tailwind) to allow it to grow or shrink as required by the resized elements around it. This example demonstrates snap-to-close functionality that triggers when dragging toward the inside of the element, with toggle buttons for both panels.
 
-::: frame
-<div class="row w-full max-w-full border border-line" x-data="{ firstPanel: true, secondPanel: true }">
-    <div x-resize="{
-        handles: ['end'],
-        snapCloseX: 120,
-        toggle: 'firstPanel'
-    }" x-show="firstPanel" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border-e border-line">
-        First panel
-    </div>
-    <div class="main-content flex-1 p-4 bg-surface-2">
-        <div class="col gap-2">
-            <span>Main content</span>
-            <button @click="firstPanel = !firstPanel">Toggle First</button>
-            <button @click="secondPanel = !secondPanel">Toggle Second</button>
-        </div>
-    </div>
-    <div x-resize="{
-        handles: ['start'],
-        snapCloseX: 120,
-        toggle: 'secondPanel'
-    }" x-show="secondPanel" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border-s border-line">
-        Second panel
-    </div>
-</div>
-:::
+<div x-code-group>
 
-```html numbers copy
+```html lines copy collapse="10"
 <!-- Alpine boolean variables declared for panel visibility -->
 <div class="row w-full max-w-full border border-line" x-data="{ firstPanel: true, secondPanel: true }">
 
@@ -193,6 +177,34 @@ Sibling elements of a resizable panel will be affected depending on its own styl
 </div>
 ```
 
+::: frame
+<div class="row w-full max-w-full border border-line" x-data="{ firstPanel: true, secondPanel: true }">
+    <div x-resize="{
+        handles: ['end'],
+        snapCloseX: 120,
+        toggle: 'firstPanel'
+    }" x-show="firstPanel" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border-e border-line">
+        First panel
+    </div>
+    <div class="main-content flex-1 p-4 bg-surface-2">
+        <div class="col gap-2">
+            <span>Main content</span>
+            <button @click="firstPanel = !firstPanel">Toggle First</button>
+            <button @click="secondPanel = !secondPanel">Toggle Second</button>
+        </div>
+    </div>
+    <div x-resize="{
+        handles: ['start'],
+        snapCloseX: 120,
+        toggle: 'secondPanel'
+    }" x-show="secondPanel" class="w-32 min-w-[8rem] max-w-[20rem] p-4 bg-surface-3 border-s border-line">
+        Second panel
+    </div>
+</div>
+:::
+
+</div>
+
 ---
 
 ## Theme
@@ -201,8 +213,8 @@ Default resize handles use the following [theme](/docs/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
-| `--color-line` | Handle hover/active background color |
-| `--radius` | Border radius for handle visual feedback |
+| `--color-line`{copy} | Handle hover/active background color |
+| `--radius`{copy} | Border radius for handle visual feedback |
 
 Additionally, a `--spacing-resize-handle` variable is declared within resize styles to size the handles.
 
@@ -211,6 +223,52 @@ Additionally, a `--spacing-resize-handle` variable is declared within resize sty
 ## Styles
 
 Modify resize handle styles with custom CSS.
+
+<div x-code-group>
+
+```css copy
+/* Resize handle size */
+:root { --spacing-resize-handle: 2rem; }
+
+/* Modifying the visual handle's size, border radius, and background color */
+/* .resize-handle is the mouseover area */
+.resize-handle {
+
+    /* ::before is the visual handle */
+    &::before {
+        width: 10px;
+        height: 10px;
+        border-radius: 0;
+    }
+
+    &:hover::before {
+        background-color: blue;
+    }
+}
+
+/* Modifying cursors and preserving visual edge handles */
+.resize-handle-top,
+.resize-handle-bottom {
+    width: 100%;
+    cursor: row-resize;
+
+    &::before {
+        width: 100%;
+    }
+}
+
+.resize-handle-left,
+.resize-handle-right,
+.resize-handle-start,
+.resize-handle-end {
+    height: 100%;
+    cursor: col-resize;
+
+    &::before {
+        height: 100%;
+    }
+}
+```
 
 ::: frame
 <style>
@@ -257,46 +315,4 @@ Modify resize handle styles with custom CSS.
 <div x-resize class="w-64 h-32 p-4 bg-surface-3 resize-handles-custom">Custom handles</div>
 :::
 
-```css copy
-/* Resize handle size */
-:root { --spacing-resize-handle: 2rem; }
-
-/* Modifying the visual handle's size, border radius, and background color */
-/* .resize-handle is the mouseover area */
-.resize-handle {
-
-    /* ::before is the visual handle */
-    &::before {
-        width: 10px;
-        height: 10px;
-        border-radius: 0;
-    }
-
-    &:hover::before {
-        background-color: blue;
-    }
-}
-
-/* Modifying cursors and preserving visual edge handles */
-.resize-handle-top,
-.resize-handle-bottom {
-    width: 100%;
-    cursor: row-resize;
-
-    &::before {
-        width: 100%;
-    }
-}
-
-.resize-handle-left,
-.resize-handle-right,
-.resize-handle-start,
-.resize-handle-end {
-    height: 100%;
-    cursor: col-resize;
-
-    &::before {
-        height: 100%;
-    }
-}
-```
+</div>

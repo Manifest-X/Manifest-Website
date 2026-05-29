@@ -17,7 +17,7 @@ Local files are maintained client-side and should not contain sensitive data. Se
 
 Data support is included in `manifest.js` with all core plugins, or can be selectively loaded. `manifest.json` is required to register data sources.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "All Plugins (default)"
 <!-- Meta -->
@@ -36,7 +36,7 @@ Data support is included in `manifest.js` with all core plugins, or can be selec
     data-plugins="data"></script>
 ```
 
-</x-code-group>
+</div>
 
 ---
 
@@ -44,13 +44,13 @@ Data support is included in `manifest.js` with all core plugins, or can be selec
 
 Create CSV, JSON, or YAML files anywhere in your project directory. Each format works identically—choose based on preference.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```csv "contact.csv (key-value)"
 key,value
 headquarters.name,Empire Headquarters
 headquarters.location,Death Star
-contact.email,command@empire.gov
+contact.email,forcechoke69@aol.com
 contact.phone,+1-555-0100
 ```
 
@@ -84,7 +84,7 @@ id,name,role,image
     image: /assets/examples/piett.webp
 ```
 
-</x-code-group>
+</div>
 
 Local files can use any structure - arrays, objects, or nested combinations. See [localization](/docs/core-plugins/localization) for details on language-specific data sources.
 
@@ -143,7 +143,7 @@ For an endpoint with no auth or transformation, register the URL string directly
 
 For headers, query params, or response shaping, use an object with git-ignored `.env` variable references as needed:
 
-<x-code-group>
+<div x-code-group>
 
 ```json "manifest.json" copy
 {
@@ -166,11 +166,11 @@ For headers, query params, or response shaping, use an object with git-ignored `
 ```
 
 ```env ".env" copy
-API_BASE_URL=https://api.example.com/weather
+API_BASE_URL=https://api.example.com
 API_TOKEN=sk_1234567890abcdef
 ```
 
-</x-code-group>
+</div>
 
 | Property | Required | Default | Description |
 |----------|----------|---------|-------------|
@@ -191,7 +191,7 @@ Data sources are accessed in HTML using our `$x` magic method with dot notation.
 `$x.sourceName.property.subProperty`
 
 **Structure breakdown:**
-- `$x` - Magic method prefix (named `$x` to mirror Alpine's `x-` directive namespace, keeping the data layer visually consistent with the rest of the framework)
+- `$x` - Magic method prefix
 - `sourceName` - Data source name from `manifest.json` (e.g., `team`, `features`, `pricing`)
 - `property` - Object property or array name
 - `subProperty` - Nested property (optional at any level)
@@ -199,7 +199,7 @@ Data sources are accessed in HTML using our `$x` magic method with dot notation.
 **Examples:**
 - `$x.team` - Access the `team` data source
 - `$x.team.managers` - Access the `managers` array or object
-- `$x.team.managers[0].name` - Display the first manager's name (using a JS index counter)
+- `$x.team.managers[0].name` - Display the first manager's name
 - `$x.team.filter(p => p.role === 'Junior Vice President')` - Filter team members by role
 
 ---
@@ -208,7 +208,7 @@ Data sources are accessed in HTML using our `$x` magic method with dot notation.
 
 Use Alpine's <a href="https://alpinejs.dev/directives/text" target="_blank">x-text</a> to display text from data sources:
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "HTML"
 <h4 x-text="$x.team.managers[0].name"></h4>
@@ -228,7 +228,12 @@ Use Alpine's <a href="https://alpinejs.dev/directives/text" target="_blank">x-te
 }
 ```
 
-</x-code-group>
+::: frame
+<h4 x-text="$x.example.team[0].name"></h4>
+<p x-text="$x.example.team[0].role"></p>
+:::
+
+</div>
 
 ---
 
@@ -236,7 +241,7 @@ Use Alpine's <a href="https://alpinejs.dev/directives/text" target="_blank">x-te
 
 Use Alpine's <a href="https://alpinejs.dev/directives/html" target="_blank">x-html</a> for content that includes HTML tags:
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "HTML"
 <div x-html="$x.team.managers[0].content"></div>
@@ -248,7 +253,7 @@ Use Alpine's <a href="https://alpinejs.dev/directives/html" target="_blank">x-ht
         {
             "name": "Darth Vader",
             "role": "Lord",
-            "image": "/assets/examples/vader.webp"
+            "image": "/assets/examples/vader.webp",
             "content": "<p>Dark Lord of the Sith with <strong>unlimited power</strong>.</p>"
         },
         ...
@@ -256,7 +261,11 @@ Use Alpine's <a href="https://alpinejs.dev/directives/html" target="_blank">x-ht
 }
 ```
 
-</x-code-group>
+::: frame
+<div x-html="'<p>Dark Lord of the Sith with <strong>unlimited power</strong>.</p>'"></div>
+:::
+
+</div>
 
 ---
 
@@ -264,16 +273,39 @@ Use Alpine's <a href="https://alpinejs.dev/directives/html" target="_blank">x-ht
 
 Use Alpine's <a href="https://alpinejs.dev/directives/bind" target="_blank">x-bind</a> to bind data to HTML attributes:
 
-```html copy
+<div x-code-group copy>
+
+```html "HTML"
 <img :src="$x.team.managers[0].image" :alt="$x.team.managers[0].name">
 <a :href="$x.headquarters.contact.email">Contact</a>
 ```
+
+::: frame col gap-1 items-start
+<img :src="$x.example.team[0].image" :alt="$x.example.team[0].name" class="w-20 h-20 object-cover rounded">
+<a :href="$x.example.team[0].contact" x-text="$x.example.team[0].contact"></a>
+:::
+
+</div>
 
 ---
 
 ### Lists
 
 Use Alpine's <a href="https://alpinejs.dev/directives/for" target="_blank">x-for</a> in a template to iterate through data arrays:
+
+<div x-code-group>
+
+```html copy
+<template x-for="person in $x.team.managers" :key="person.name">
+    <div class="card">
+        <img :src="person.image" :alt="person.name">
+        <div>
+            <p x-text="person.name"></p>
+            <small x-text="person.role"></small>
+        </div>
+    </div>
+</template>
+```
 
 ::: frame row-wrap gap-6
 <template x-for="person in $x.example.team" :key="person.name">
@@ -287,17 +319,7 @@ Use Alpine's <a href="https://alpinejs.dev/directives/for" target="_blank">x-for
 </template>
 :::
 
-```html copy
-<template x-for="person in $x.team.managers" :key="person.name">
-    <div class="card">
-        <img :src="person.image" :alt="person.name">
-        <div>
-            <p x-text="person.name"></p>
-            <small x-text="person.role"></small>
-        </div>
-    </div>
-</template>
-```
+</div>
 
 The `<template>` tag (which can only have one child element) creates a loop through the data source array. Use `x-for="item in $x.sourceName"` where `item` is an arbitrary name for the current loop item.
 
@@ -314,6 +336,45 @@ Use `data-hydrate` on any wrapper to preserve a subtree as-is during prerender t
 ### Search & Query
 
 Use `$search` for real-time text filtering and `$query` for advanced filtering, sorting, and pagination. Both methods work client-side on data already loaded in the browser.
+
+<div x-code-group lines copy collapse="10">
+
+```html copy
+<div x-data="{ 
+    searchTerm: '', 
+    sortBy: 'name',
+    get filteredTeam() {
+        if (!$x.team) return [];
+        let results = this.searchTerm 
+            ? $x.team.$search(this.searchTerm, 'name', 'role')
+            : $x.team;
+        return this.sortBy !== 'all' 
+            ? $x.team.$query([['orderAsc', this.sortBy]])
+            : results;
+    }
+}">
+    <!-- Search Input -->
+    <input 
+        type="text" 
+        placeholder="Search team members..." 
+        x-model="searchTerm"
+    />
+    
+    <!-- Sort Buttons -->
+    <button @click="sortBy = 'name'"> Sort by Name </button>
+    <button @click="sortBy = 'role'"> Sort by Role </button>
+    <button @click="sortBy = 'all'; searchTerm = ''"> Reset </button>
+    
+    <!-- Results List -->
+    <template x-for="person in filteredTeam" :key="person.name">
+        <div>
+            <p x-text="person.name"></p>
+            <small x-text="person.role"></small>
+        </div>
+    </template>
+    <small x-show="searchTerm && filteredTeam.length === 0">No team members found</small>
+</div>
+```
 
 ::: frame col
 <div x-data="{ 
@@ -368,42 +429,7 @@ Use `$search` for real-time text filtering and `$query` for advanced filtering, 
 </div>
 :::
 
-```html copy
-<div x-data="{ 
-    searchTerm: '', 
-    sortBy: 'name',
-    get filteredTeam() {
-        if (!$x.team) return [];
-        let results = this.searchTerm 
-            ? $x.team.$search(this.searchTerm, 'name', 'role')
-            : $x.team;
-        return this.sortBy !== 'all' 
-            ? $x.team.$query([['orderAsc', this.sortBy]])
-            : results;
-    }
-}">
-    <!-- Search Input -->
-    <input 
-        type="text" 
-        placeholder="Search team members..." 
-        x-model="searchTerm"
-    />
-    
-    <!-- Sort Buttons -->
-    <button @click="sortBy = 'name'"> Sort by Name </button>
-    <button @click="sortBy = 'role'"> Sort by Role </button>
-    <button @click="sortBy = 'all'; searchTerm = ''"> Reset </button>
-    
-    <!-- Results List -->
-    <template x-for="person in filteredTeam" :key="person.name">
-        <div>
-            <p x-text="person.name"></p>
-            <small x-text="person.role"></small>
-        </div>
-    </template>
-    <small x-show="searchTerm && filteredTeam.length === 0">No team members found</small>
 </div>
-```
 
 Both `$search` and `$query` operate **client-side** (in the browser) for local data sources:
 
@@ -416,7 +442,7 @@ For cloud-hosted data with backend filtering, see [Appwrite databases](/docs/app
 
 Each query is an array with the format `['method', 'attribute', 'value']`. Use these patterns:
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```javascript "Patterns" copy
 // Comparison operators
@@ -469,7 +495,7 @@ Each query is an array with the format `['method', 'attribute', 'value']`. Use t
 ])">Top 5 Vader Matches</button>
 ```
 
-</x-code-group>
+</div>
 
 ---
 
@@ -477,7 +503,7 @@ Each query is an array with the format `['method', 'attribute', 'value']`. Use t
 
 Use the `$route()` function to find content based on the current URL path like **/team/darth-vader**:
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "HTML"
 <h1 x-text="$x.team.managers.$route('path').name"></h1>
@@ -503,7 +529,12 @@ Use the `$route()` function to find content based on the current URL path like *
 }
 ```
 
-</x-code-group>
+::: frame
+<h1 x-text="$x.example.team[0].name"></h1>
+<p x-text="$x.example.team[0].role"></p>
+:::
+
+</div>
 
 The `$route('path')` function searches the collection for an item where the specified property (e.g., `path`) matches any segment of the current URL path. When found, it returns a reactive proxy to that item, allowing access to its properties.
 
@@ -522,32 +553,60 @@ Data sources support all standard JavaScript array methods for filtering, mappin
 
 #### Filter
 
-```html copy
+<div x-code-group copy>
+
+::: frame col items-start
+<template x-for="person in $x.example.team.filter(p => p.role === 'Sith Lord')" :key="person.name">
+    <div x-text="person.name"></div>
+</template>
+:::
+
+```html "HTML"
 <!-- Show only team members with "Lord" role -->
 <template x-for="person in $x.team.managers.filter(p => p.role === 'Lord')" :key="person.name">
     <div x-text="person.name"></div>
 </template>
 ```
 
+</div>
+
 ---
 
 #### Map
 
-```html copy
+<div x-code-group copy>
+
+```html "HTML"
 <!-- Transform team data to display names only -->
 <template x-for="name in $x.team.managers.map(p => p.name)" :key="name">
     <div x-text="name"></div>
 </template>
 ```
 
+::: frame col items-start
+<template x-for="name in $x.example.team.map(p => p.name)" :key="name">
+    <div x-text="name"></div>
+</template>
+:::
+
+</div>
+
 ---
 
 #### Find
 
-```html copy
+<div x-code-group copy>
+
+```html "HTML"
 <!-- Find specific team member -->
 <div x-text="$x.team.managers.find(p => p.role === 'Lord')?.name || 'Not found'"></div>
 ```
+
+::: frame
+<div x-text="$x.example.team.find(p => p.role === 'Sith Lord')?.name || 'Not found'"></div>
+:::
+
+</div>
 
 ---
 

@@ -8,7 +8,7 @@ Sliders for numeric input with optional steps.
 
 Range styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS"
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
@@ -18,19 +18,23 @@ Range styles are included in Manifest CSS or a standalone stylesheet, both refer
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.range.css" />
 ```
 
-</x-code-group>
+</div>
 
 ---
 
 ## Default
 
-::: frame
-<input type="range" min="0" max="100" value="50" />
-:::
+<div x-code-group>
 
 ```html copy
 <input type="range" min="0" max="100" value="50" />
 ```
+
+::: frame
+<input type="range" min="0" max="100" value="50" />
+:::
+
+</div>
 
 ---
 
@@ -40,12 +44,7 @@ Ranges accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 
 ### Colors
 
-::: frame row-wrap
-<input type="range" class="brand" min="0" max="100" value="50" />
-<input type="range" class="accent" min="0" max="100" value="50" />
-<input type="range" class="positive" min="0" max="100" value="50" />
-<input type="range" class="negative" min="0" max="100" value="50" />
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Brand variant -->
@@ -61,14 +60,20 @@ Ranges accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 <input type="range" class="negative" min="0" max="100" value="50" />
 ```
 
+::: frame row-wrap gap-4
+<input type="range" class="brand" min="0" max="100" value="50" />
+<input type="range" class="accent" min="0" max="100" value="50" />
+<input type="range" class="positive" min="0" max="100" value="50" />
+<input type="range" class="negative" min="0" max="100" value="50" />
+:::
+
+</div>
+
 ---
 
 ### Size
 
-::: frame
-<input type="range" class="sm" min="0" max="100" value="50" />
-<input type="range" class="lg" min="0" max="100" value="50" />
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Small variant -->
@@ -78,11 +83,33 @@ Ranges accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 <input type="range" class="lg" min="0" max="100" value="50" />
 ```
 
+::: frame row-wrap gap-4
+<input type="range" class="sm" min="0" max="100" value="50" />
+<input type="range" class="lg" min="0" max="100" value="50" />
+:::
+
+</div>
+
 ---
 
 ## Markers
 
 Use a `<datalist>` element to add tick marks with option labels to your range input.
+
+<div x-code-group>
+
+```html lines copy
+<label>
+    <input type="range" min="0" max="100" step="25" value="50" list="volume-ticks" />
+    <datalist id="volume-ticks">
+        <option value="0" label="0"></option>
+        <option value="25" label="25"></option>
+        <option value="50" label="50"></option>
+        <option value="75" label="75"></option>
+        <option value="100" label="100"></option>
+    </datalist>
+</label>
+```
 
 ::: frame
 <label>
@@ -97,18 +124,7 @@ Use a `<datalist>` element to add tick marks with option labels to your range in
 </label>
 :::
 
-```html numbers copy
-<label>
-    <input type="range" min="0" max="100" step="25" value="50" list="volume-ticks" />
-    <datalist id="volume-ticks">
-        <option value="0" label="0"></option>
-        <option value="25" label="25"></option>
-        <option value="50" label="50"></option>
-        <option value="75" label="75"></option>
-        <option value="100" label="100"></option>
-    </datalist>
-</label>
-```
+</div>
 
 ---
 
@@ -120,12 +136,7 @@ Label styles are included in `manifest.css`, or the standalone [form](/docs/elem
 
 Placing the range and text inside a `<label>` automatically stacks them with spacing.
 
-::: frame
-<label>
-    Volume
-    <input type="range" min="0" max="100" value="50" />
-</label>
-:::
+<div x-code-group>
 
 ```html copy
 <label>
@@ -133,15 +144,19 @@ Placing the range and text inside a `<label>` automatically stacks them with spa
     <input type="range" min="0" max="100" value="50" />
 </label>
 ```
+
+::: frame
+<label>
+    Volume
+    <input type="range" min="0" max="100" value="50" />
+</label>
+:::
+
+</div>
 
 To horizontally inline the label text with the range, place the text in a `<data>` element. This is used as a CSS hook with no semantic impact.
 
-::: frame
-<label>
-    <data>Volume</data>
-    <input type="range" min="0" max="100" value="50" />
-</label>
-:::
+<div x-code-group>
 
 ```html copy
 <label>
@@ -149,6 +164,15 @@ To horizontally inline the label text with the range, place the text in a `<data
     <input type="range" min="0" max="100" value="50" />
 </label>
 ```
+
+::: frame
+<label>
+    <data>Volume</data>
+    <input type="range" min="0" max="100" value="50" />
+</label>
+:::
+
+</div>
 
 ---
 
@@ -160,19 +184,33 @@ Default ranges use the following [theme](/docs/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
-| `--color-field-surface` | Track background color |
-| `--color-field-surface-hover` | Track hover background color |
-| `--color-field-inverse` | Thumb color |
-| `--spacing-field-height` | Thumb size |
-| `--spacing` | Track height |
-| `--radius` | Border radius for track corners |
-| `--transition` | Transition for interactive states |
+| `--color-field-surface`{copy} | Track background color |
+| `--color-field-surface-hover`{copy} | Track hover background color |
+| `--color-field-inverse`{copy} | Thumb color |
+| `--spacing-field-height`{copy} | Thumb size |
+| `--spacing`{copy} | Track height |
+| `--radius`{copy} | Border radius for track corners |
+| `--transition`{copy} | Transition for interactive states |
 
 ---
 
 ### Customization
 
 Modify base range styles with custom CSS for the `input[type=range]` selector.
+
+<div x-code-group>
+
+```css copy
+input[type=range] {
+    --color-field-surface: #f0f8ff;
+    --color-field-surface-hover: #dbeafe;
+
+    &::-webkit-slider-thumb {
+        background-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+}
+```
 
 ::: frame
 <style>
@@ -190,14 +228,4 @@ Modify base range styles with custom CSS for the `input[type=range]` selector.
 <input type="range" class="custom" min="0" max="100" value="50" />
 :::
 
-```css copy
-input[type=range] {
-    --color-field-surface: #f0f8ff;
-    --color-field-surface-hover: #dbeafe;
-
-    &::-webkit-slider-thumb {
-        background-color: #3b82f6;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
-}
-```
+</div>

@@ -20,7 +20,7 @@ If applied, this router should be used independent of other routing systems or f
 
 The router is included in `manifest.js` with all core plugins, or can be selectively loaded.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "All Plugins (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
@@ -31,7 +31,7 @@ The router is included in `manifest.js` with all core plugins, or can be selecti
     data-plugins="router"></script>
 ```
 
-</x-code-group>
+</div>
 
 ---
 
@@ -39,7 +39,7 @@ The router is included in `manifest.js` with all core plugins, or can be selecti
 
 `index.html` is the entrypoint for rendering, where high-level elements, layout structures, and components can be applied. Within `index.html` or any component HTML file, use the `x-route` attribute to make any element conditional on a URL path.
 
-<x-code-group>
+<div x-code-group>
 
 ```html "index.html"
 <!DOCTYPE html>
@@ -72,7 +72,7 @@ The router is included in `manifest.js` with all core plugins, or can be selecti
 <div>We're all about the Benjamins</div>
 ```
 
-</x-code-group>
+</div>
 
 If an element in `index.html` has no `x-route` attribute or value, it will render on all routes. Use `/` for rendering only at the base domain route.
 
@@ -129,7 +129,7 @@ A leading `!` in front of a value will hide the element from that route.
 
 ---
 
-### Undefined Routes
+### Catch-all (404) Routes
 
 Use `!*` to show an element on a route that is not defined by any other `x-route` in the project. This is useful for displaying 404 content if the user goes to a bad link. Note that a bare wildcard `*` appears on all routes, defined or not.
 
@@ -162,15 +162,19 @@ Each component is fetched at most once per page, and repeat encounters reuse the
 
 The router provides a `$route` magic property that returns the current route as a string, enabling conditional statements.
 
-::: frame col
-<p>Current logical route: <span class="font-bold" x-text="$route"></span></p>
-<p class="font-bold" :class="$route === '/core-plugins/router' ? 'text-brand-content' : ''">I'm a brand color because of the route.</p>
-:::
+<div x-code-group>
 
 ```html copy
 <p>Current logical route: <span x-text="$route"></span></p>
-<p :class="$route === '/core-plugins/router' ? 'text-brand-content' : ''">I'm a brand color because of the route.</p>
+<p :class="$route === '/docs/core-plugins/router' ? 'text-brand-content' : ''">I'm a brand color because of the route.</p>
 ```
+
+::: frame col text-base
+<p>Current logical route: <span class="font-bold" x-text="$route"></span></p>
+<p class="font-bold" :class="$route === '/docs/core-plugins/router' ? 'text-brand-content' : ''">I'm a brand color because of the route.</p>
+:::
+
+</div>
 
 ---
 
@@ -178,7 +182,7 @@ The router provides a `$route` magic property that returns the current route as 
 
 The static content in the `index.html` `<head>` tag is global across all routes. To make head content like the title, metas, scripts, or stylesheets conditional to a specific route, place them in a `<template data-head>` tag, subject to its own route condition or that of a parent's.
 
-<x-code-group>
+<div x-code-group>
 
 ```html "index.html"
 <!DOCTYPE html>
@@ -219,7 +223,11 @@ The static content in the `index.html` `<head>` tag is global across all routes.
 
 ...
 ```
-</x-code-group>
+</div>
+
+::: brand icon="lucide:info"
+`<script>` content inside `<template data-head>` is moved to the document head and executed — that's how the per-route head injection works. Treat anything inside these script bodies as the same trust level as a script in `index.html`: never compose the script source from data-source values or URL parameters.
+:::
 
 ---
 

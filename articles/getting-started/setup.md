@@ -12,7 +12,7 @@ Manifest consists of:
 - `manifest.json` for central management of your project.
 - `manifest.*.css` stylesheets for your project's UX/UI.
 
-The script and stylesheets are modular, designed to work alone or together to best suit your project. A project using all Manifest features would be setup like:
+These files are modular, designed to work alone or together to best suit your project. A project using all Manifest features would be set up like:
 
 ```html "<head>" copy
 <!-- Meta -->
@@ -35,12 +35,12 @@ Outside this framework, `manifest.json` is a <a href="https://en.wikipedia.org/w
 
 We leverage this file as a place to declare HTML components and local or cloud data sources. It can also be used as a data source itself to render content.
 
-```json "manifest.json" numbers copy
+```json "manifest.json" copy collapse="10"
 {
 	// Web standard content
 	"name": "My Project",
   	"short_name": "Project name",
-	"description": "Lorem ipsum dolar sit amet.",
+	"description": "Lorem ipsum dolor sit amet.",
   	"start_url": "/",
   	"scope": "/",
   	"display": "standalone",
@@ -77,7 +77,7 @@ If your project is not a downloadable web app, and does not include HTML compone
 
 `manifest.js` dynamically loads <a href="https://alpinejs.dev" target="_blank">Alpine JS</a> and our plugins to make your project functional. Add the `<script>` tag anywhere in the HTML head or body (within `index.html` if [routing](/docs/core-plugins/router)).
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "All Plugins (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
@@ -85,23 +85,23 @@ If your project is not a downloadable web app, and does not include HTML compone
 
 ```html "Select Plugins"
 <!-- Load only specified plugins -->
-<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js" 
-		  data-plugins="components,router,utilities"></script>
+<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
+	data-plugins="components,router,utilities"></script>
 ```
 
 ```html "Omit Plugins"
-<!-- Load all core plugins except ommitted ones -->
-<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js" 
-		  data-omit="markdown,resize"></script>
+<!-- Load all core plugins except omitted ones -->
+<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
+	data-omit="markdown,resize"></script>
 ```
 
 ```html "Include Tailwind CSS"
 <!-- Include Tailwind CSS -->
-<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js" 
-		  data-tailwind></script>
+<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
+	data-tailwind></script>
 ```
 
-</x-code-group>
+</div>
 
 The script loads:
 
@@ -125,7 +125,7 @@ A separate `manifest.theme.css` can be <a target="_blank" href="https://github.c
 
 Add the desired Manifest CSS files to the HTML head (within `index.html` if [routing](/docs/core-plugins/router)). 
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Bundled (47kb)"
   <link rel="stylesheet" href="/manifest.theme.css">
@@ -139,7 +139,7 @@ Add the desired Manifest CSS files to the HTML head (within `index.html` if [rou
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.utilities.css">
 ```
 
-</x-code-group>
+</div>
 
 ---
 
@@ -149,15 +149,15 @@ Manifest provides a handful of handy `npx` commands to assist with project devel
 
 | Command | Purpose | Reference |
 |---------|---------|-----------|
-| `npx mnfst-starter <name>` | Scaffold a new Manifest project | [Starter Project](/docs/getting-started/starter-project) |
-| `npx mnfst-run` | Zero-dependency dev server with live reload | [Setup](#run-a-project) |
-| `npx mnfst-render` | Prerender the SPA into a static MPA | [Websites](/docs/publishing/websites) |
-| `npx mnfst-types` | Generate TypeScript ambient types from `manifest.json` | [Setup](#typescript) |
-| `npx mnfst-test` | Project linter + component-test harness | [Testing](/docs/getting-started/testing) |
+| `npx mnfst-starter <name>`{copy} | Scaffold a new Manifest project | [Starter Project](/docs/getting-started/starter-project) |
+| `npx mnfst-run`{copy} | Zero-dependency dev server with live reload | [Setup](#run-a-project) |
+| `npx mnfst-render`{copy} | Prerender the SPA into a static MPA | [Websites](/docs/publishing/websites) |
+| `npx mnfst-types`{copy} | Generate TypeScript ambient types from `manifest.json` | [TypeScript](/docs/resources/typescript) |
+| `npx mnfst-test`{copy} | Project linter + component-test harness | [Testing](/docs/publishing/testing) |
 
 ### Run a Project
 
-Enter `npx mnfst-run` to fire up a local server of the project. Sub-directories can be targeted with a path like `npx mnfst-run website` for `/website`.
+Enter `npx mnfst-run`{copy} to fire up a local server of the project. Sub-directories can be targeted with a path like `npx mnfst-run website`{copy} for `/website`.
 
 ```bash copy
 npx mnfst-run
@@ -169,50 +169,3 @@ The server provides the following conveniences:
 - **Auto reload** — refreshes when content edits are made to `html`, `css`, `json`, `yaml`, `csv`, or `md` files.
 - **Auto close** — kills the server instance if all its browser tabs are closed.
 - **No duplication** — on launch, provides an existing localhost URL if the project is already running on the device.
-
----
-
-### Typescript
-
-Get intellisense for editors and AI agents for `$x`, `$route`, and Manifest's other magic globals without adding a build step.
-
-The optional `mnfst-types` CLI generates a single `manifest.d.ts` in the project root that declares the framework's globals and adds project-specific types for every data source registered in `manifest.json` — inferred from the actual CSV / JSON / YAML files or integrated Appwrite database configuration. Project files stay `.js` and `.html` — VS Code, Cursor, and AI tooling pick the declarations up automatically.
-
-Run from the project root (next to `manifest.json`):
-
-```bash copy
-npx mnfst-types
-```
-
-Re-run whenever a data source is added or its shape changes.
-
-#### CLI options
-
-```
-npx mnfst-types [options]
-
-  --manifest <path>   Path to manifest.json (default: ./manifest.json)
-  --out <path>        Output .d.ts path (default: ./manifest.d.ts)
-  --init              Also write a baseline jsconfig.json (only if missing)
-  -h, --help          Show usage
-```
-
-`--init` is for projects that want JSDoc errors surfaced as squiggles in `.js` files. Without it, the declarations still power autocomplete and inline type info.
-
-#### manifest.json autocomplete
-
-For autocomplete and validation in `manifest.json` itself, add a `$schema` reference at the top of the file. The starter project includes this line by default:
-
-```json "manifest.json" copy
-{
-    "$schema": "https://manifestx.dev/manifest.schema.json",
-    "name": "My Project",
-    "data": { ... }
-}
-```
-
-VS Code and most JSON-aware editors fetch and apply the schema automatically.
-
-#### Regeneration
-
-The generated `manifest.d.ts` has a static portion (magic globals, source-state operators, base types — same for every project) and a project augmentation block bracketed by `// AUGMENTATION:start` and `// AUGMENTATION:end`. Re-running the CLI overwrites the augmentation block; the static portion is also refreshed so it stays in sync with the installed framework version.

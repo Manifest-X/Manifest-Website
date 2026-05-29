@@ -3,9 +3,20 @@ Publish Manifest projects live to the web.
 
 ---
 
-## Default (SPA)
+## Overview
 
-Manifest projects function as a single page application (SPA) by default, using JavaScript for routing. To deploy live on a host environment:
+Once your project is ready, you have two choices for how it runs in users' browsers:
+
+- **Single-page app (SPA)** is the default. Your `index.html` loads once, and JavaScript swaps content as users navigate. Fast, lightweight, and great for app-like experiences. The catch is that search engines and AI crawlers see only the empty shell on first load, since they don't always run the JavaScript that fills it in.
+- **Multi-page app (MPA)** is the prerendered version. A build step generates one `index.html` per route in advance, so every page is a complete, crawlable HTML document. Best for marketing sites, blogs, and documentation that need to rank in search.
+
+Both deploy as static files to any web host.
+
+---
+
+## SPA (default)
+
+Manifest projects work as a single-page app by default. No build step required. To deploy:
 
 - Deploy the project root directory
 - Set the root to `./` if applicable
@@ -15,16 +26,20 @@ The [starter project](/docs/getting-started/starter-project) includes a `_redire
 
 ---
 
-## Optimized (MPA)
+## MPA (prerendered)
 
-Search engines and AI crawlers will execute limited or no JavaScript when indexing websites, effectively rendering SPAs invisible. To adapt, Manifest provides a CLI build script to generate a multi-page application (MPA), where every route is represented by a static, crawlable `index.html`.
+Search engines and AI crawlers run little to no JavaScript when indexing websites, leaving SPAs largely invisible to them. The render solves this by visiting every route in your project with a real browser and saving the resulting HTML to disk, so each page exists as a complete static file that crawlers can read directly.
 
-### Prerendering
-
-The CLI build script prerenders your SPA into an MPA. From the project root run:
+To render an MPA, from the project root run:
 
 ```bash copy
 npx mnfst-render
+```
+
+Routes with sub-pages driven by data (e.g. a page template component for blog articles) need a wildcard `*` to be discovered by the rendering process. Use comma-separated conditions to match both the route and its dynamic paths:
+
+```html "index.html" copy
+<x-blog x-route="/blog, /blog/*"></x-blog>
 ```
 
 By default, output is generated in a `/website` folder which includes:
@@ -43,14 +58,20 @@ By default, output is generated in a `/website` folder which includes:
 
 ---
 
+### SEO & AEO
+
+The render automatically generates page titles, descriptions, social-share images, structured data, `sitemap.xml`, `robots.txt`, and the `llms.txt` family for AI crawlers. No configuration is needed for most sites. See [SEO & AEO](/docs/publishing/seo-aeo) for what's generated, when to customize it, and how.
+
+---
+
 ### Configuration
 
-Use `manifest.json` to optionally customize the MPA build. The `live_url` top-level key sets the domain used in `sitemap.xml`, `robots.txt`, and canonical link tags.
+Render settings can be configured in `manifest.json`. Most projects don't need to set anything here, with defaults supporting the majority of sites. Customize the MPA build by adding a `render` block to `manifest.json`. Additionally, the top-level `live_url` property sets the domain used in `sitemap.xml`, `robots.txt`, and canonical link tags.
 
 ```json "manifest.json" copy
 {
   "live_url": "https://example.com",
-  "prerender": {
+  "render": {
     "output": "website",
     "routerBase": "",
     "locales": ["en", "fr", "zh"],
@@ -70,125 +91,59 @@ Use `manifest.json` to optionally customize the MPA build. The `live_url` top-le
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `output` | `string` | `"website"` | Output folder name relative to the project root. |
-| `routerBase` | `string` | `""` | Base path baked into asset references in prerendered HTML. Leave empty when the output is deployed as the site root. |
-| `locales` | `string[]` | auto-discovered | Locale codes to build (e.g. `["en", "fr", "zh"]`). When omitted, locales are inferred from your data source keys or CSV column headers. Set to `["en"]` (your default locale only) to skip locale folder generation when only specific pages use translated example data. |
-| `paths` | `string[]` | `[]` | Additional paths to render beyond those auto-discovered from `x-route` attributes (e.g. `["legal/privacy"]`). Each entry is expanded to all locale variants. |
-| `localeRouteExclude` | `string[]` | `[]` | Route prefixes that should not receive locale variants (e.g. `["legal"]` keeps `/legal/terms` as-is without generating `/fr/legal/terms`). |
-| `redirects` | `object[]` | `[]` | Redirect rules written to the output. Each entry is `{ "from": "/old", "to": "/new", "status": 301 }`. |
-| `wait` | `number` | auto | Milliseconds to wait for a page to finish rendering before snapshot. When omitted the renderer waits for a `manifest:render-ready` signal from the data plugin. |
-| `concurrency` | `number` | `2` | Number of pages rendered in parallel. Increase for faster builds on high-core machines; decrease if memory is constrained. |
-| `retries` | `number` | `2` | Number of retry attempts for pages that fail to render. |
-| `browserRecycleEvery` | `number` | `50` | Recycle the browser after this many pages to prevent memory buildup on large sites. |
-| `tailwindInput` | `string` | — | Path to a custom Tailwind CSS entry file relative to the project root. Tailwind compilation is otherwise auto-detected via the `data-tailwind` attribute on the manifest script tag. |
-
----
-
-### SEO & AEO
-
-The prerender automatically fills in head meta, OpenGraph / Twitter Cards, JSON-LD structured data, OG image snapshots, and llms.txt — no configuration required. Layered precedence (highest first): each layer only fills slots not already taken by higher layers.
-
-| # | Source | Notes |
-|---|--------|-------|
-| 1 | `<template data-head>` per-route | Co-located with the route component. Most intentional. Already supports `$x.*` bindings. |
-| 2 | `<head>` in `index.html` | Site-wide author intent. |
-| 3 | `manifest.json` `prerender.meta` | Per-route Alpine expressions evaluated in the live page. |
-| 4 | `manifest.json` `prerender.meta.fallback` | Static strings used when expressions evaluate empty. |
-| 5 | Smart defaults from rendered DOM | `<h1>` for title, first `<p>` for description, OG image snapshot, etc. |
-| 6 | `manifest.json` PWA fields | `name` / `description` / `author` / `icons` as last-resort fallback. |
-
-`<title>` and `<meta name="description">` slots are also considered "open" if empty OR if their value matches `manifest.json`'s `name` / `description` (the placeholder rule), so the static `<title>Site</title>` in `index.html` doesn't block route-specific smart-default titles.
-
-#### Configuration
-
-```json "manifest.json" copy
-{
-  "prerender": {
-    "meta": {
-      "title":       "$x.docs.$route('path').name + ' — ' + $x.site.name",
-      "description": "$x.docs.$route('path').description",
-      "image":       "$x.docs.$route('path').image",
-      "ogType":      "'article'",
-      "imageSnapshots": true,
-      "defaults": true,
-      "fallback": {
-        "title":       "Manifest",
-        "description": "Supercharge HTML for rapid, feature-rich website and web app development.",
-        "image":       "/assets/og-default.png"
-      }
-    },
-    "structuredData": {
-      "WebSite":        true,
-      "Article":        true,
-      "BreadcrumbList": true
-    }
-  }
-}
-```
-
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `meta.title` / `meta.description` / `meta.image` / `meta.ogType` / `meta.author` | Alpine expression | — | Per-route values evaluated in the live page context. Use `$x.*` to access any data source. Strings are treated as JS expressions, so wrap literals in quotes (e.g. `"'article'"`). |
-| `meta.fallback.*` | string | — | Static fallback used when the corresponding expression returns null/empty. |
-| `meta.imageSnapshots` | boolean | `true` | Auto-snapshot each page (1200×630 PNG saved under `/og/`) and use as `og:image`. Set `false` to skip snapshots and rely on existing image sources only. |
-| `meta.defaults` | boolean | `true` | Smart defaults derived from the rendered DOM (h1, first p, etc.). Set `false` for fully explicit control. |
-| `structuredData.<Type>` | object \| `true` \| `false` | — | Inject JSON-LD `<script>` blocks. Pass `true` for auto-fill from page content (`WebSite`, `Article`, `BreadcrumbList`), an object for explicit field values, or `false` to suppress. |
-
-#### llms.txt
-
-The renderer writes `/llms.txt` (curated index) and `/llms-full.txt` (concatenated full content) per the <a href="https://llmstxt.org" target="_blank">llmstxt.org</a> convention. LLM crawlers prefer this structured plaintext over scraping rendered HTML. Pages are grouped into sections by their first URL segment.
-
-#### Sitemap `<lastmod>`
-
-Each route's `<lastmod>` is derived from the source markdown file's mtime when discoverable (`articles/<path>.md` or `articles/<path-without-section-prefix>.md`), falling back to the prerendered HTML mtime. This keeps the sitemap honest about content freshness across rebuilds.
+| `output`{copy} | `string` | `"website"` | Output folder name relative to the project root. |
+| `routerBase`{copy} | `string` | `""` | Base path baked into asset references in prerendered HTML. Leave empty when the output is deployed as the site root. |
+| `locales`{copy} | `string[]` | auto-discovered | Locale codes to build (e.g. `["en", "fr", "zh"]`). When omitted, locales are inferred from your data source keys or CSV column headers. |
+| `paths`{copy} | `string[]` | `[]` | Additional paths to render beyond those auto-discovered from `x-route` attributes (e.g. `["legal/privacy"]`). Each entry is expanded to all locale variants. |
+| `localeRouteExclude`{copy} | `string[]` | `[]` | Route prefixes that should not receive locale variants (e.g. `["legal"]` keeps `/legal/terms` as-is without generating `/fr/legal/terms`). |
+| `redirects`{copy} | `object[]` | `[]` | Redirect rules written to the output. Each entry is `{ "from": "/old", "to": "/new", "status": 301 }` |
+| `wait`{copy} | `number` | auto | Milliseconds to wait for a page to finish rendering before snapshot. When omitted the renderer waits for a `manifest:render-ready` signal from the data plugin. |
+| `concurrency`{copy} | `number` | `2` | Number of pages rendered in parallel. Increase for faster builds on high-core machines; decrease if memory is constrained. |
+| `retries`{copy} | `number` | `2` | Number of retry attempts for pages that fail to render. |
+| `browserRecycleEvery`{copy} | `number` | `50` | Recycle the browser after this many pages to prevent memory buildup on large sites. |
+| `tailwindInput`{copy} | `string` | — | Path to a custom Tailwind CSS entry file relative to the project root. Tailwind compilation is otherwise auto-detected via the `data-tailwind` attribute on the manifest script tag. |
 
 ---
 
 ### Hydration
 
-The prerendering build process makes all HTML/Alpine content static. To preserve dynamic functionality on a specific element, apply the `data-hydrate` attribute. The prerender will restore that element's source code at runtime so Alpine can initialize it normally.
+"Hydration" means restoring dynamic behavior to a page that started out as static HTML. The prerender bakes Alpine's rendered output into HTML, which is great for crawlers but loses the JavaScript-driven interactivity. To keep specific elements interactive after prerender, apply the `data-hydrate` attribute. The prerender will preserve that element's source code at runtime so Alpine can re-initialize it normally.
 
-<x-code-group>
+<div x-code-group>
 
-```html "Hydrated"
-/* Maintains source code & dynamic functionality */
+```html "Hydrated (source preserved)"
+<!-- data-hydrate keeps the source as-is so Alpine binds it at runtime -->
 <div x-data="{ counter: 0 }" data-hydrate>
   <button @click="counter++" x-text="counter"></button>
 </div>
 ```
 
-```html "Default/Static"
-/* Uses static value from prerendered snapshot */
+```html "Default (prerendered snapshot)"
+<!-- Without data-hydrate, the prerender bakes the rendered DOM into HTML.
+     The x-text value is inlined and Alpine doesn't re-bind at runtime. -->
 <div x-data="{ counter: 0 }">
   <button @click="counter++">0</button>
 </div>
 ```
 
-</x-code-group>
+</div>
 
 Interactive directives like `x-color`, `x-model`, `@click`, and `:class` are automatically handled by the hydration system and generally do not need `data-hydrate`.
 
 ---
 
-### Dynamic Routes
+### Publishing
 
-Routes with sub-pages driven by data (e.g. a `<x-docs>` component that resolves articles from a YAML file) need a wildcard `*` to be discovered by the prerender. Use comma-separated conditions to match both the prefix and its children:
-
-```html "index.html" copy
-<x-docs x-route="/docs, /docs/*"></x-docs>
-```
-
-The renderer will then enumerate every `path:` entry in the matching data source under `/docs/`, producing a static page per article.
+To deploy an MPA on a host environment, set the root directory to the prerendered output directory (i.e. `./website`).
 
 ---
 
-### Page Transitions
+## Page Transitions
 
 Manifest enables <a href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API" target="_blank">view transitions</a> for both SPA route changes and prerendered MPA navigations. Pages crossfade automatically in supporting browsers; browsers without support fall back to instant navigation.
 
-For **MPA** (prerendered) navigations, transitions are always on — the browser handles them natively in parallel with page load.
-
-For **SPA** route changes, the framework picks a default based on page size, with explicit override:
+- For **MPA** (prerendered) navigations, transitions are always on and the browser handles them natively in parallel with page load.
+- For **SPA** route changes, the framework picks a default based on page size, with explicit override:
 
 | Mode | When |
 |---|---|
@@ -226,27 +181,3 @@ Authors who want elements to morph between pages (e.g. a hero image shared betwe
 ::: brand icon="lucide:info"
 Respects `prefers-reduced-motion` automatically through Manifest's existing reduced-motion reset.
 :::
-
----
-
-### Publishing
-
-To deploy an MPA on a host environment, set the root directory to the prerendered output directory (i.e. `./website`).
-
----
-
-## Pre-deploy Check
-
-Run the project linter before publishing to catch regressions — typo'd component tags, dead data sources, syntax errors in Alpine expressions, console errors, a11y violations, and broken internal links:
-
-```bash copy
-npx mnfst-test
-```
-
-Pass a path to target a different directory:
-
-```bash copy
-npx mnfst-test ./website
-```
-
-Exits non-zero on any errors, suitable for CI gating. See [Testing](/docs/getting-started/testing) for full details.

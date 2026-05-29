@@ -48,9 +48,9 @@ Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json`
 
 Appwrite plugins can be loaded in two ways: explicitly via the `data-plugins` attribute, or automatically when Appwrite credentials are declared in `manifest.json`. When auto-detected, only the relevant Appwrite plugins are loaded based on the credentials and data sources present. The supporting core data plugin will also be loaded whether or not it's declared.
 
-<x-code-group>
+<div x-code-group>
 
-```html "Auto Detection" copy
+```html "All Plugins (default)" copy
 <!-- Meta -->
 <link rel="manifest" href="/manifest.json">
 
@@ -66,20 +66,20 @@ Appwrite plugins can be loaded in two ways: explicitly via the `data-plugins` at
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="appwrite-auth,appwrite-data,appwrite-presence"></script>
+    data-plugins="appwrite-auth,appwrite-data"></script>
 ```
 
-</x-code-group>
+</div>
 
 ---
 
 ### manifest.json
 
-The Project ID and API Endpoint are public and safe to commit client-side — Appwrite enforces project-level access via its own permissions. The Dev Key is sensitive (it bypasses rate limits) and must not be committed. Reference it via `${APPWRITE_DEV_KEY}` and put the value in a gitignored `.env` file. This pattern is also supported for the Project ID and API Endpoint if desired.
+Add the Appwrite project credentials detailed [above](#credentials) to `manifest.json` under an `appwrite` property. These are inherited by any other objects in the manifest that reference Appwrite, like database or storage sources.
 
-Add the Appwrite project credentials detailed [above](#credentials) to `manifest.json`, under an `appwrite` property. These credentials are used by any other objects in the manifest that reference Appwrite, like database or storage sources.
+The Project ID and API Endpoint are public and safe to commit — Appwrite enforces access via its own project-level permissions. The Dev Key is sensitive (it bypasses rate limits) and must not be committed. Reference it via `${APPWRITE_DEV_KEY}` and put the value in a gitignored `.env` file. The same `${VAR}` syntax is also supported for the Project ID and API Endpoint if you prefer to keep them out of source.
 
-<x-code-group>
+<div x-code-group>
 
 ```json "manifest.json" copy
 {
@@ -95,7 +95,15 @@ Add the Appwrite project credentials detailed [above](#credentials) to `manifest
 APPWRITE_DEV_KEY=your-appwrite-dev-key
 ```
 
-</x-code-group>
+</div>
+
+::: brand icon="lucide:info"
+**How `${VAR}` resolution works.** The framework substitutes `${VAR}` placeholders in `manifest.json` against `window.env` at runtime. The `npx mnfst-run`{copy} dev server reads your project's `.env` at startup and injects a `window.env = {…}` block into served HTML automatically — so the substitution just works in local development. If you serve the project with your own local server (Python's `http.server`, `live-server`, `serve`, etc.), it won't inject `window.env` for you; you'll need to add a `<script>window.env = {…}</script>` block to `index.html` before the `manifest.min.js` tag, or your placeholders will reach the plugin unresolved and the auth/data plugins will refuse to initialize.
+:::
+
+::: brand icon="lucide:info"
+**Production deployments.** Static hosts (Netlify, Vercel, Cloudflare Pages, GitHub Pages, S3, etc.) serve `manifest.json` verbatim — no runtime substitution. The Dev Key should not ship to production in the first place: it's strictly a development-time convenience for bypassing Appwrite's rate limits, and Appwrite enforces real auth through project-level permissions for live users. For any other `${VAR}` values you actually need in production, either hardcode them directly in `manifest.json` (acceptable for public values like Project ID and API Endpoint), bake them into the prerendered HTML at build time, or use your host's env-var injection feature.
+:::
 
 Alternatively, credentials can be added directly into specific [database](/docs/appwrite-plugins/databases) or [storage](/docs/appwrite-plugins/storage) sources, declared within the `data` object.
 

@@ -10,7 +10,7 @@ Dropdown styles are included in Manifest CSS or a standalone stylesheet, both re
 
 Dropdown functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS / JS"
 <!-- Manifest CSS -->
@@ -29,10 +29,10 @@ Dropdown functionality is included in `manifest.js` with all core plugins, or it
   data-plugins="dropdowns"></script>
 ```
 
-</x-code-group>
+</div>
 
 ::: brand icon="lucide:info"
-Older browser versions require polyfills like Oddbird's <a href="https://github.com/oddbird/popover-polyfill" target="_blank">popover</a> and <a href="https://github.com/oddbird/popover-polyfill" target="_blank">position-area</a> scripts, which mimic the HTML and CSS abilities required for dropdowns.
+Older browser versions require polyfills like OddBird's <a href="https://github.com/oddbird/popover-polyfill" target="_blank">popover</a> and <a href="https://github.com/oddbird/css-anchor-positioning" target="_blank">CSS anchor positioning</a> scripts, which mimic the HTML and CSS abilities required for dropdowns.
 :::
 
 For OS dropdowns, see [selects](/docs/elements/selects).
@@ -41,17 +41,9 @@ For OS dropdowns, see [selects](/docs/elements/selects).
 
 ## Default
 
-Dropdowns use the `<menu>` element as a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API" target="_blank">popover</a>. The `<button>` that opens the dialog requires the `x-dropdown` attribute, matching the menu ID.
+Dropdowns use the `<menu>` element as a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API" target="_blank">popover</a>. The `<button>` that opens the dropdown requires the `x-dropdown` attribute, matching the menu ID.
 
-::: frame
-<button x-dropdown="basic-menu-preview">Open Menu</button>
-
-<menu popover id="basic-menu-preview">
-    <li>Item 1</li>
-    <li>Item 2</li>
-    <li>Item 3</li>
-</menu>
-:::
+<div x-code-group>
 
 ```html copy
 <button x-dropdown="basic-menu">Open Menu</button>
@@ -63,21 +55,25 @@ Dropdowns use the `<menu>` element as a <a href="https://developer.mozilla.org/e
 </menu>
 ```
 
+::: frame text-base
+<button x-dropdown="basic-menu-preview">Open Menu</button>
+
+<menu popover id="basic-menu-preview">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+</menu>
+:::
+
+</div>
+
 ---
 
 ## Hover
 
 Add the `hover` modifier to `x-dropdown` for mouseover dropdowns:
 
-::: frame
-<button x-dropdown.hover="hover-menu-preview">Hover Me</button>
-
-<menu popover id="hover-menu-preview">
-    <li>Item 1</li>
-    <li>Item 2</li>
-    <li>Item 3</li>
-</menu>
-:::
+<div x-code-group>
 
 ```html copy
 <button x-dropdown.hover="hover-menu">Hover Me</button>
@@ -88,6 +84,18 @@ Add the `hover` modifier to `x-dropdown` for mouseover dropdowns:
     <li>Item 3</li>
 </menu>
 ```
+
+::: frame text-base
+<button x-dropdown.hover="hover-menu-preview">Hover Me</button>
+
+<menu popover id="hover-menu-preview">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+</menu>
+:::
+
+</div>
 
 Hover dropdowns include a small delay to prevent accidental auto-close if the mouse briefly leaves the trigger or menu area.
 
@@ -101,15 +109,7 @@ Avoid mixing `x-dropdown.hover` and `x-tooltip` on the same button, since they b
 
 Add the `context` modifier to `x-dropdown` for right-click dropdowns. The menu appears at the cursor position, replacing the browser's native context menu on the trigger element.
 
-::: frame
-<div x-dropdown.context="context-menu-preview" style="padding: 2rem; border: 1px dashed var(--color-line, #ccc); border-radius: var(--radius, 0.5rem); text-align: center; color: var(--color-content-subtle);">Right-click this area</div>
-
-<menu popover id="context-menu-preview">
-    <li>Cut</li>
-    <li>Copy</li>
-    <li>Paste</li>
-</menu>
-:::
+<div x-code-group>
 
 ```html copy
 <div x-dropdown.context="context-menu">Right-click this area</div>
@@ -121,6 +121,18 @@ Add the `context` modifier to `x-dropdown` for right-click dropdowns. The menu a
 </menu>
 ```
 
+::: frame text-base
+<div x-dropdown.context="context-menu-preview" style="padding: 2rem; border: 1px dashed var(--color-line, #ccc); border-radius: var(--radius, 0.5rem); text-align: center; color: var(--color-content-subtle);">Right-click this area</div>
+
+<menu popover id="context-menu-preview">
+    <li>Cut</li>
+    <li>Copy</li>
+    <li>Paste</li>
+</menu>
+:::
+
+</div>
+
 The trigger element does not need to be a `<button>` since the menu is opened programmatically on right-click rather than via the `popovertarget` attribute's click-to-toggle behavior. The menu still uses the Popover API for rendering and stacking.
 
 ---
@@ -129,28 +141,9 @@ The trigger element does not need to be a `<button>` since the menu is opened pr
 
 Create multi-level navigation menus with nested dropdowns.
 
-::: frame
-<button x-dropdown="nested-menu-preview">Main Menu</button>
+<div x-code-group>
 
-<menu popover id="nested-menu-preview">
-    <li>Item 1</li>
-    <li>Item 2</li>
-    <button x-dropdown="submenu-1-preview"><span>Submenu</span><span x-icon="lucide:chevron-right" class="trailing"></span></button>
-    <menu popover id="submenu-1-preview">
-        <li>Item 1</li>
-        <li>Item 2</li>
-        <button x-dropdown.hover="submenu-2-preview"><span>Hover Submenu</span><span x-icon="lucide:chevron-right" class="trailing"></span></button>
-        <menu popover id="submenu-2-preview">
-            <li>Item 1</li>
-            <li>Item 2</li>
-            <li>Item 3</li>
-        </menu>
-    </menu>
-    <li>Item 4</li>
-</menu>
-:::
-
-```html copy
+```html copy collapse="10"
 <button x-dropdown="nested-menu">Main Menu</button>
 
 <!-- Main Menu -->
@@ -177,6 +170,29 @@ Create multi-level navigation menus with nested dropdowns.
 </menu>
 ```
 
+::: frame text-base
+<button x-dropdown="nested-menu-preview">Main Menu</button>
+
+<menu popover id="nested-menu-preview">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <button x-dropdown="submenu-1-preview"><span>Submenu</span><span x-icon="lucide:chevron-right" class="trailing"></span></button>
+    <menu popover id="submenu-1-preview">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <button x-dropdown.hover="submenu-2-preview"><span>Hover Submenu</span><span x-icon="lucide:chevron-right" class="trailing"></span></button>
+        <menu popover id="submenu-2-preview">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </menu>
+    </menu>
+    <li>Item 4</li>
+</menu>
+:::
+
+</div>
+
 Nested dropdowns automatically position themselves to avoid overlapping and maintain proper navigation flow.
 
 ---
@@ -185,7 +201,24 @@ Nested dropdowns automatically position themselves to avoid overlapping and main
 
 Menus have utility classes like `top` and `bottom` to position them in relation to their trigger buttons. If no class is set, menus default to `bottom-start`, or `end-start` if nested.
 
-::: frame
+<div x-code-group>
+
+```html "Examples"
+<!-- Top -->
+<menu popover id="..." class="top">...</menu>
+
+<!-- Bottom with start alignment -->
+<menu popover id="..." class="bottom-start">...</menu>
+
+<!-- Start with top alignment -->
+<menu popover id="..." class="start-top">...</menu>
+
+<!-- Top start corner (either version works) -->
+<menu popover id="..." class="top-start-corner">...</menu>
+<menu popover id="..." class="start-top-corner">...</menu>
+```
+
+::: frame text-base
 <div class="col gap-4">
     <!-- Basic Directions -->
     <div>
@@ -302,20 +335,7 @@ Menus have utility classes like `top` and `bottom` to position them in relation 
 </div>
 :::
 
-```html "Examples"
-<!-- Top -->
-<menu popover id="..." class="top">...</menu>
-
-<!-- Bottom with start alignment -->
-<menu popover id="..." class="bottom-start">...</menu>
-
-<!-- Start with top alignment -->
-<menu popover id="..." class="start-top">...</menu>
-
-<!-- Top start corner (either version works) -->
-<menu popover id="..." class="top-start-corner">...</menu>
-<menu popover id="..." class="start-top-corner">...</menu>
-```
+</div>
 
 Regardless of a set class, dropdowns overflowing the viewport will attempt to stay onscreen with default fallback positions.
 
@@ -325,19 +345,9 @@ Regardless of a set class, dropdowns overflowing the viewport will attempt to st
 
 HTML IDs must identify single elements on a page, and generating multiple dropdowns in a <a href="https://alpinejs.dev/essentials/templating#looping-elements" target="_blank">template loop</a> requires each dropdown be assigned a unique ID. These can be generated with Alpine using template literals like `${i}`.
 
-::: frame
-<template x-for="i in 3" :key="i">
-    <div>
-        <button x-dropdown="`template-menu-preview-${i}`" x-text="`Menu ${i}`"></button>
-        <menu popover :id="`template-menu-preview-${i}`">
-            <li>Item 1</li>
-            <li>Item 2</li>
-        </menu>
-    </div>
-</template>
-:::
+<div x-code-group>
 
-```html numbers copy
+```html lines copy
 <template x-for="i in 3" :key="i">
 
     <!-- Multiple elements need to be wrapped in a container, since template tags only recognize their first child. -->
@@ -357,13 +367,82 @@ HTML IDs must identify single elements on a page, and generating multiple dropdo
 </template>
 ```
 
+::: frame row-wrap gap-4
+<template x-for="i in 3" :key="i">
+    <div>
+        <button x-dropdown="`template-menu-preview-${i}`" x-text="`Menu ${i}`"></button>
+        <menu popover :id="`template-menu-preview-${i}`">
+            <li>Item 1</li>
+            <li>Item 2</li>
+        </menu>
+    </div>
+</template>
+:::
+
+</div>
+
 ---
 
 ## Content
 
 Use `<li>` elements for generic options in a dropdown, with Alpine's `@click` directive giving them utility. A variety of other elements support additional dropdown content needs.
 
-::: frame
+<div x-code-group>
+
+```html lines copy collapse="10"
+<button x-dropdown="content-menu"><span>Dropdown</span><span x-icon="lucide:chevron-down" class="trailing"></span></button>
+
+<menu popover id="content-menu" class="w-60 max-h-160">
+
+    <small>List Items</small>
+    <li @click="alert('Hello world')">Do Something</li>
+    <li><span x-icon="lucide:house"></span><span>Icon</span></li>
+    <li><span>Trailing</span><kbd class="trailing">⌘</kbd><kbd>D</kbd></li>
+    <li class="brand">Brand</li>
+    <li class="accent">Accent</li>
+    <li class="negative">Negative</li>
+
+    <hr>
+
+    <small>Links</small>
+    <a href="#"><span x-icon="lucide:home"></span>Home</a>
+    <a href="#"><span x-icon="lucide:settings"></span><span>Settings</span><span x-icon="lucide:external-link" class="trailing"></span></a>
+
+    <hr>
+
+    <small>Buttons</small>
+    <button><span x-icon="lucide:copy"></span><span>Copy</span></button>
+    <button><span x-icon="lucide:edit"></span><span>Edit</span></button>
+
+    <hr>
+
+    <small>Checkboxes</small>
+    <label><input type="checkbox" /><span>Lorem ipsum dolor sit amet</span></label>
+    <label><input type="checkbox" /><span>Consectetur adipiscing elit</span></label>
+
+    <hr>
+
+    <small>Radios</small>
+    <label><input type="radio" id="option-a" name="group-preview" checked /><span>Option A</span></label>
+    <label><input type="radio" id="option-b" name="group-preview" /><span>Option B</span></label>
+    <label><input type="radio" id="option-c" name="group-preview" /><span>Option C</span></label>
+
+    <hr>
+
+    <small>Switches</small>
+    <label for="switch1">Switch 1<input id="switch1" role="switch" type="checkbox" checked /></label>
+    <label for="switch2">Switch 2<input id="switch2" role="switch" type="checkbox"/></label>
+
+    <hr>
+
+    <small>Text Inputs</small>
+    <input placeholder="Text input" />
+    <textarea placeholder="Textarea"></textarea>
+
+</menu>
+```
+
+::: frame text-base
 <button x-dropdown="content-menu"><span>Dropdown</span><span x-icon="lucide:chevron-down" class="trailing"></span></button>
 
 <menu popover id="content-menu" class="w-60 max-h-160">
@@ -385,7 +464,7 @@ Use `<li>` elements for generic options in a dropdown, with Alpine's `@click` di
     <button><span x-icon="lucide:edit"></span><span>Edit</span></button>
     <hr>
     <small>Checkboxes</small>
-    <label><input type="checkbox" /><span>Lorem ipsum dolar sit amet</span></label>
+    <label><input type="checkbox" /><span>Lorem ipsum dolor sit amet</span></label>
     <label><input type="checkbox" /><span>Consectetur adipiscing elit</span></label>
     <hr>
     <small>Radios</small>
@@ -394,8 +473,8 @@ Use `<li>` elements for generic options in a dropdown, with Alpine's `@click` di
     <label><input type="radio" id="option-c" name="group-preview" /><span>Option C</span></label>
     <hr>
     <small>Switches</small>
-    <label for="switch">Switch 1<input id="switch" role="switch" type="checkbox" checked /></label>
-    <label for="switch">Switch 2<input id="switch" role="switch" type="checkbox"/></label>
+    <label for="switch1">Switch 1<input id="switch1" role="switch" type="checkbox" checked /></label>
+    <label for="switch2">Switch 2<input id="switch2" role="switch" type="checkbox"/></label>
     <hr>
     <small>Text Inputs</small>
     <input placeholder="Text input" />
@@ -403,60 +482,9 @@ Use `<li>` elements for generic options in a dropdown, with Alpine's `@click` di
 </menu>
 :::
 
-```html numbers copy
-<button x-dropdown="content-menu"><span>Dropdown</span><span x-icon="lucide:chevron-down" class="trailing"></span></button>
+</div>
 
-<menu popover id="content-menu" class="w-60 max-h-160">
-
-    <small>List Items</small>
-    <li @click="alert('Hello world')">Do Something</li>
-    <li><span x-icon="lucide:house"></span><span>Icon</span></li>
-    <li><span>Trailing</span><kbd class="trailing">⌘</kbd><kbd>D</kbd></li>
-    <li class="brand">Brand</li>
-    <li class="accent">Accent</li>
-    <li class="negative">Negative</li>
-
-    <hr>
-
-    <small>Links</small>
-    <a href="#"><span x-icon="lucide:home"></span>Home</a>
-    <a href="#"><span x-icon="lucide:settings"></span><span>Settings</span><span x-icon="lucide:external-link" class="trailing"></span></a>
-
-    <hr>
-
-    <small>Buttons</small>
-    <button><span x-icon="lucide:copy"></span><span>Copy</span></button>
-    <button><span x-icon="lucide:edit"></span><span>Edit</span></button>
-
-    <hr>
-
-    <small>Checkboxes</small>
-    <label><input type="checkbox" /><span>Lorem ipsum dolar sit amet</span></label>
-    <label><input type="checkbox" /><span>Consectetur adipiscing elit</span></label>
-
-    <hr>
-
-    <small>Radios</small>
-    <label><input type="radio" id="option-a" name="group-preview" checked /><span>Option A</span></label>
-    <label><input type="radio" id="option-b" name="group-preview" /><span>Option B</span></label>
-    <label><input type="radio" id="option-c" name="group-preview" /><span>Option C</span></label>
-
-    <hr>
-
-    <small>Switches</small>
-    <label for="switch">Switch 1<input id="switch" role="switch" type="checkbox" checked /></label>
-    <label for="switch">Switch 2<input id="switch" role="switch" type="checkbox"/></label>
-
-    <hr>
-
-    <small>Text Inputs</small>
-    <input placeholder="Text input" />
-    <textarea placeholder="Textarea"></textarea>
-
-</menu>
-```
-
-Use the following elements as direct chilren of a dropdown `<menu>`:
+Use the following elements as direct children of a dropdown `<menu>`:
 
 - `<small>` - Group titles
 - `<hr>` - Dividers
@@ -479,12 +507,12 @@ Default dropdowns use the following [theme](/docs/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|----------|
-| `--color-popover-surface` | Menu background color |
-| `--color-content-stark` | Menu text color |
-| `--color-field-surface` | Hover background color |
-| `--color-content-neutral` | Section title color |
-| `--color-line` | Divider color |
-| `--spacing-popover-offset` | Offset from trigger element |
+| `--color-popover-surface`{copy} | Menu background color |
+| `--color-content-stark`{copy} | Menu text color |
+| `--color-field-surface`{copy} | Hover background color |
+| `--color-content-neutral`{copy} | Section title color |
+| `--color-line`{copy} | Divider color |
+| `--spacing-popover-offset`{copy} | Offset from trigger element |
 
 ---
 
@@ -492,23 +520,27 @@ Default dropdowns use the following [theme](/docs/styles/theme) variables:
 
 If using Tailwind, individual menus can be customized with utility classes. Menus taller than a max height will vertically scroll.
 
-::: frame
-<button x-dropdown="menu-wide-preview"">Offset & Widen</button>
+<div x-code-group>
+
+```html copy
+<button x-dropdown="menu-wide-preview">Offset & Widen</button>
 <menu popover id="menu-wide-preview" class="w-100 !m-6">
-    <li>Lorem ipsum dolar sit amet</li>
+    <li>Lorem ipsum dolor sit amet</li>
+    <li>Consectetur adipiscing elit</li>
+    <li>Sed do eiusmod tempor incididunt</li>
+</menu>
+```
+
+::: frame text-base
+<button x-dropdown="menu-wide-preview">Offset & Widen</button>
+<menu popover id="menu-wide-preview" class="w-100 !m-6">
+    <li>Lorem ipsum dolor sit amet</li>
     <li>Consectetur adipiscing elit</li>
     <li>Sed do eiusmod tempor incididunt</li>
 </menu>
 :::
 
-```html copy
-<button x-dropdown="menu-wide-preview"">Offset & Widen</button>
-<menu popover id="menu-wide-preview" class="w-100 !m-6">
-    <li>Lorem ipsum dolar sit amet</li>
-    <li>Consectetur adipiscing elit</li>
-    <li>Sed do eiusmod tempor incididunt</li>
-</menu>
-```
+</div>
 
 ---
 
@@ -516,7 +548,28 @@ If using Tailwind, individual menus can be customized with utility classes. Menu
 
 Modify base dropdown styles with custom CSS for the `menu[popover]` selector.
 
-::: frame
+<div x-code-group>
+
+```css copy
+menu[popover] {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+
+    /* Any relevant options */
+    & :where(li, a, button, label) {
+        color: #1e40af;
+        border-radius: 8px;
+
+        &:hover {
+            background-color: #dbeafe;
+        }
+    }
+}
+```
+
+::: frame text-base
 <style>
 menu[popover].custom {
     background-color: #f0f8ff;
@@ -543,22 +596,5 @@ menu[popover].custom {
 </menu>
 :::
 
-```css copy
-menu[popover] {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-
-    /* Any relevant options */
-    & :where(li, a, button, label) {
-        color: #1e40af;
-        border-radius: 8px;
-
-        &:hover {
-            background-color: #dbeafe;
-        }
-    }
-}
-```
+</div>
 

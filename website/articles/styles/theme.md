@@ -5,7 +5,7 @@ Global colors, spacing, typography, and more via CSS custom properties.
 
 ## Overview
 
-Manifest centralizes project theme management with a curated set of CSS variables, sometimes referred to as design tokens. These variables are referenced throughout Manifest's base HTML styles, utility classes, and can be compiled as custom utility classes—establishing your project's attractive and consistent visual identity with minimal code.
+Manifest centralizes project theme management with a curated set of CSS variables, sometimes referred to as design tokens. These variables are referenced throughout Manifest's base HTML styles, utility classes, and can be compiled as custom utility classes—establishing your project's consistent visual identity with minimal code.
 
 ::: brand icon="lucide:info"
 Many Manifest styles reference the theme. If the theme file or a variable within is unavailable, affected styles use a static fallback value.
@@ -17,7 +17,7 @@ Many Manifest styles reference the theme. If the theme file or a variable within
 
 Apply the theme alongside `manifest.css` or standalone sheets. The default version is available through CDN for previewing:
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS"
 <!-- Theme -->
@@ -31,70 +31,60 @@ Apply the theme alongside `manifest.css` or standalone sheets. The default versi
 <!-- Theme -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css">
 
+<!-- Tailwind color palette (red, orange, yellow, … as `--color-<name>-<shade>` variables) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.colors.css">
+
 <!-- Examples of standalone styles with theme references -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.buttons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.button.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.utilities.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.typography.css">
 ```
 
-</x-code-group>
+</div>
 
 Modify the theme by saving it as a local file from <a href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css" target="_blank">jsDelivr</a> or <a href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css" target="_blank">GitHub</a>, or copy it here:
 
-```css "manifest.theme.css" copy numbers
+```css "manifest.theme.css" copy lines collapse="10"
 :root,
 ::selection {
-    
-    /* Default palette */
-    --color-50: oklch(100% 0 0);
-    --color-100: oklch(98.17% 0.0005 95.87);
-    --color-200: oklch(96.27% 0.0026 252.34);
-    --color-300: oklch(91.79% 0.0029 264.26);
-    --color-400: oklch(89.24% 0.0024 12.48);
-    --color-500: oklch(67.4% 0.0318 251.27);
-    --color-600: oklch(48.26% 0.0365 255.09);
-    --color-700: oklch(28.7% 0.030787 270.1);
-    --color-800: oklch(20.7% 0.026326 268.7);
-    --color-900: oklch(16.6% 0.026 267);
-    --color-950: oklch(3.89% 0.0181 262.25);
 
-    /* Light theme */
-    --color-page: var(--color-50);
-    --color-surface-1: var(--color-100);
-    --color-surface-2: var(--color-200);
-    --color-surface-3: var(--color-300);
-    --color-content-stark: var(--color-900);
-    --color-content-neutral: var(--color-600);
-    --color-content-subtle: var(--color-500);
-    --color-field-surface: var(--color-300);
-    --color-field-surface-hover: var(--color-400);
+    /* Light mode */
+    --color-page: var(--color-neutral-50);
+    --color-surface-1: var(--color-neutral-100);
+    --color-surface-2: var(--color-neutral-200);
+    --color-surface-3: var(--color-neutral-300);
+    --color-content-stark: var(--color-neutral-900);
+    --color-content-neutral: var(--color-neutral-600);
+    --color-content-subtle: var(--color-neutral-500);
+    --color-field-surface: var(--color-neutral-300);
+    --color-field-surface-hover: var(--color-neutral-400);
     --color-field-inverse: var(--color-content-stark);
     --color-popover-surface: var(--color-page);
-    --color-line: color-mix(in oklch, var(--color-content-stark) 11%, transparent);
-    --color-brand-surface: #f6c07b;
-    --color-brand-surface-hover: #f19b46;
-    --color-brand-inverse: #763518;
-    --color-brand-content: #de6618;
-    --color-accent-surface: #ffccd3;
-    --color-accent-surface-hover: #ffa1ad;
-    --color-accent-inverse: #a50036;
-    --color-accent-content: #ff637e;
-    --color-positive-surface: #16a34a;
-    --color-positive-surface-hover: #166534;
-    --color-positive-inverse: white;
-    --color-positive-content: var(--color-positive-surface);
-    --color-negative-surface: #ef4444;
-    --color-negative-surface-hover: #dc2626;
-    --color-negative-inverse: white;
-    --color-negative-content: var(--color-negative-surface);
+    --color-line: color-mix(var(--color-content-stark) 11%, transparent);
+    --color-brand-surface: var(--color-yellow-300);
+    --color-brand-surface-hover: var(--color-yellow-400);
+    --color-brand-inverse: var(--color-yellow-700);
+    --color-brand-content: var(--color-yellow-600);
+    --color-accent-surface: var(--color-neutral-900);
+    --color-accent-surface-hover: var(--color-neutral-700);
+    --color-accent-inverse: var(--color-neutral-50);
+    --color-accent-content: var(--color-neutral-900);
+    --color-positive-surface: var(--color-green-300);
+    --color-positive-surface-hover: var(--color-green-400);
+    --color-positive-inverse: var(--color-green-800);
+    --color-positive-content: var(--color-green-600);
+    --color-negative-surface: var(--color-red-300);
+    --color-negative-surface-hover: var(--color-red-400);
+    --color-negative-inverse: var(--color-red-800);
+    --color-negative-content: var(--color-red-600);
 
     /* Fonts */
-    --font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
     /* Sizes */
     --radius: 0.5rem;
     --spacing: 0.25rem;
-    --spacing-content-width: 68.75rem;
+    --spacing-content-width: 74rem;
     --spacing-field-padding: calc(var(--spacing) * 2.5);
     --spacing-field-height: calc(var(--spacing) * 9);
     --spacing-popover-offset: calc(var(--spacing) * 2);
@@ -113,26 +103,41 @@ Modify the theme by saving it as a local file from <a href="https://cdn.jsdelivr
     --icon-toast-dismiss: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E");
 }
 
-/* Dark theme overrides */
+/* Dark mode overrides */
 .dark {
-    --color-page: var(--color-950);
-    --color-surface-1: var(--color-900);
-    --color-surface-2: var(--color-800);
-    --color-surface-3: var(--color-700);
-    --color-field-surface: var(--color-700);
-    --color-field-surface-hover: var(--color-600);
-    --color-popover-surface: var(--color-700);
-    --color-content-stark: var(--color-50);
-    --color-content-neutral: var(--color-400);
-    --color-content-subtle: var(--color-500);
-    --color-brand-content: #f6c07b;
-    --color-accent-content: #ffa1ad;
+    --color-page: var(--color-neutral-950);
+    --color-surface-1: var(--color-neutral-900);
+    --color-surface-2: var(--color-neutral-800);
+    --color-surface-3: var(--color-neutral-700);
+    --color-field-surface: var(--color-neutral-700);
+    --color-field-surface-hover: var(--color-neutral-600);
+    --color-popover-surface: var(--color-neutral-800);
+    --color-content-stark: var(--color-neutral-50);
+    --color-content-neutral: var(--color-neutral-400);
+    --color-content-subtle: var(--color-neutral-500);
+    --color-brand-surface: var(--color-yellow-400);
+    --color-brand-surface-hover: var(--color-yellow-500);
+    --color-brand-inverse: var(--color-yellow-800);
+    --color-brand-content: var(--color-yellow-500);
+    --color-accent-surface: var(--color-neutral-50);
+    --color-accent-surface-hover: var(--color-neutral-200);
+    --color-accent-inverse: var(--color-neutral-900);
+    --color-accent-content: var(--color-neutral-50);
+    --color-positive-surface: var(--color-green-400);
+    --color-positive-surface-hover: var(--color-green-500);
+    --color-positive-inverse: var(--color-green-900);
+    --color-positive-content: var(--color-green-500);
+    --color-negative-surface: var(--color-red-400);
+    --color-negative-surface-hover: var(--color-red-500);
+    --color-negative-inverse: var(--color-red-900);
+    --color-negative-content: var(--color-red-500);
+}
 
-    /* Popover form elements */
-    :where([popover]) {
-        --color-field-surface: color-mix(in oklch, var(--color-600) 60%, var(--color-700));
-        --color-field-surface-hover: color-mix(in oklch, var(--color-600) 80%, var(--color-700));
-    }
+@font-face {
+    font-family: 'Inter';
+    src: url('/assets/fonts/Inter.woff2') format('woff2');
+    font-weight: 400 500 600 700;
+    font-display: swap
 }
 
 @layer base {
@@ -148,13 +153,13 @@ Modify the theme by saving it as a local file from <a href="https://cdn.jsdelivr
 
     /* Text selection */
     ::selection {
-        background-color: color-mix(in oklch, var(--color-content-stark) 90%, transparent);
+        background-color: color-mix(currentColor 25%, transparent)
     }
 
     /* Focus state */
     :where(:focus-visible, label:has(input[type=search], input[type=file]):focus-within) {
         outline: none;
-        box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-content-stark) 35%, transparent);
+        box-shadow: 0 0 0 2px color-mix(var(--color-content-stark) 30%, transparent)
     }
 }
 ```
@@ -169,11 +174,14 @@ Certain variable names use namespace prefixes like `--color-` to automatically g
 
 ### Color Palette
 
-In the default theme, a color palette of variables is referenced by most other purpose-specific color variables. Consider grabbing <a href="https://tailwindcss.com/docs/colors" target="_blank" rel="noopener">alternate palettes</a> or <a href="https://uicolors.app/generate" target="_blank" rel="noopener">generating your own</a>.
+In the default theme, all purpose-specific color variables reference downstream variables from the <a href="https://tailwindcss.com/docs/colors" target="_blank" rel="noopener">Tailwind palettes</a>, bundled into `manifest.min.css`. Reference any Tailwind color in your own CSS (e.g. `--color-neutral-500`) without re-declaring values. The default theme makes use of the following palettes:
 
-| Variable | Purpose | Ex. Tailwind Utilities |
-|----------|---------|-------------------|
-| `--color-50` to<br/> `--color-950` | Base color scale from lightest to darkest | `bg-color-500`<br/>`text-color-700`<br/>`border-color-300` |
+- `neutral` for content, surfaces, and accent colors.
+- `yellow` for brand colors.
+- `green` for positive colors.
+- `red` for negative colors.
+
+The fastest way to customize your theme is to find and replace these default color names with any others in the Tailwind palette. Alternatively, consider <a href="https://uicolors.app/generate" target="_blank" rel="noopener">generating your own</a> palettes.
 
 ---
 
@@ -182,18 +190,18 @@ See [color modes](/docs/styles/color-modes) for more information on setting up l
 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
-| `--color-page` | Page background color | `bg-page`<br/>`text-page` |
-| `--color-surface-1` | Initial surface background | `bg-surface-1` |
-| `--color-surface-2` | Next surface background | `bg-surface-2` |
-| `--color-surface-3` | Last surface background | `bg-surface-3` |
-| `--color-content-stark` | High contrast text color | `text-content-stark` |
-| `--color-content-neutral` | Medium contrast text color | `text-neutral` |
-| `--color-content-subtle` | Low contrast text color | `text-content-subtle` |
-| `--color-field-surface` | Background color for interactive elements | `bg-field-surface` |
-| `--color-field-surface-hover` | Hover state background for interactive elements | `hover:bg-field-surface-hover` |
-| `--color-field-inverse` | Content color for interactive elements | `text-field-inverse` |
-| `--color-popover-surface` | Dialog and dropdown background | `bg-popover-surface` |
-| `--color-line` | Border and divider color | `border-line` |
+| `--color-page`{copy} | Page background color | `bg-page`<br/>`text-page` |
+| `--color-surface-1`{copy} | Initial surface background | `bg-surface-1` |
+| `--color-surface-2`{copy} | Next surface background | `bg-surface-2` |
+| `--color-surface-3`{copy} | Last surface background | `bg-surface-3` |
+| `--color-content-stark`{copy} | High contrast text color | `text-content-stark` |
+| `--color-content-neutral`{copy} | Medium contrast text color | `text-content-neutral` |
+| `--color-content-subtle`{copy} | Low contrast text color | `text-content-subtle` |
+| `--color-field-surface`{copy} | Background color for interactive elements | `bg-field-surface` |
+| `--color-field-surface-hover`{copy} | Hover state background for interactive elements | `hover:bg-field-surface-hover` |
+| `--color-field-inverse`{copy} | Content color for interactive elements | `text-field-inverse` |
+| `--color-popover-surface`{copy} | Dialog and dropdown background | `bg-popover-surface` |
+| `--color-line`{copy} | Border and divider color | `border-line` |
 
 ---
 
@@ -202,62 +210,62 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
-| `--color-brand-surface` | Brand background color | `bg-brand`<br/>`border-brand` |
-| `--color-brand-surface-hover` | Brand hover state background | `hover:bg-brand-surface-hover` |
-| `--color-brand-inverse` | Content color on brand backgrounds | `text-brand-inverse` |
-| `--color-brand-content` | Brand text color | `text-brand-content` |
-| `--color-accent-surface` | Accent background color | `bg-accent`<br/>`border-accent` |
-| `--color-accent-surface-hover` | Accent hover state background | `hover:bg-accent-hover` |
-| `--color-accent-inverse` | Content color on accent backgrounds | `text-accent-inverse` |
-| `--color-accent-content` | Accent text color | `text-accent-content` |
-| `--color-positive-surface` | Positive background color | `bg-positive`<br/>`border-positive` |
-| `--color-positive-surface-hover` | Positive hover state background | `hover:bg-positive-hover` |
-| `--color-positive-inverse` | Content color on positive backgrounds | `text-positive-inverse` |
-| `--color-positive-content` | Positive text color | `text-positive-content` |
-| `--color-negative-surface` | Negative background color | `bg-negative`<br/>`border-negative` |
-| `--color-negative-surface-hover` | Negative hover state background | `hover:bg-negative-hover` |
-| `--color-negative-inverse` | Content color on negative backgrounds | `text-negative-inverse` |
-| `--color-negative-content` | Negative text color | `text-negative-content` |
+| `--color-brand-surface`{copy} | Brand background color | `bg-brand`<br/>`border-brand` |
+| `--color-brand-surface-hover`{copy} | Brand hover state background | `hover:bg-brand-surface-hover` |
+| `--color-brand-inverse`{copy} | Content color on brand backgrounds | `text-brand-inverse` |
+| `--color-brand-content`{copy} | Brand text color | `text-brand-content` |
+| `--color-accent-surface`{copy} | Accent background color | `bg-accent`<br/>`border-accent` |
+| `--color-accent-surface-hover`{copy} | Accent hover state background | `hover:bg-accent-hover` |
+| `--color-accent-inverse`{copy} | Content color on accent backgrounds | `text-accent-inverse` |
+| `--color-accent-content`{copy} | Accent text color | `text-accent-content` |
+| `--color-positive-surface`{copy} | Positive background color | `bg-positive`<br/>`border-positive` |
+| `--color-positive-surface-hover`{copy} | Positive hover state background | `hover:bg-positive-hover` |
+| `--color-positive-inverse`{copy} | Content color on positive backgrounds | `text-positive-inverse` |
+| `--color-positive-content`{copy} | Positive text color | `text-positive-content` |
+| `--color-negative-surface`{copy} | Negative background color | `bg-negative`<br/>`border-negative` |
+| `--color-negative-surface-hover`{copy} | Negative hover state background | `hover:bg-negative-hover` |
+| `--color-negative-inverse`{copy} | Content color on negative backgrounds | `text-negative-inverse` |
+| `--color-negative-content`{copy} | Negative text color | `text-negative-content` |
 
 ---
 
 ### Spacing & Sizing
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
-| `--radius` | Default border radius | — |
-| `--spacing` | Base spacing unit | `p-1` `m-1` `gap-1` |
-| `--spacing-content-width` | Maximum content width in [utility](/docs/styles/utilities) styles | `max-w-content-width` |
-| `--spacing-field-padding` | Form field padding | `p-field-padding` |
-| `--spacing-field-height` | Form field height | `h-field-height` |
-| `--spacing-popover-offset` | Dropdown & tooltip positioning offset | `mt-dropdown-offset` |
-| `--spacing-resize-handle` | [Resize](/core-plugins/resize) handle width | `w-resize-handle` |
-| `--spacing-viewport-padding` | Viewport padding for responsive design  in [utility](/docs/styles/utilities) styles | `px-viewport-padding` |
+| `--radius`{copy} | Default border radius | — |
+| `--spacing`{copy} | Base spacing unit | `p-1` `m-1` `gap-1` |
+| `--spacing-content-width`{copy} | Maximum content width in [utility](/docs/styles/utilities) styles | `max-w-content-width` |
+| `--spacing-field-padding`{copy} | Form field padding | `p-field-padding` |
+| `--spacing-field-height`{copy} | Form field height | `h-field-height` |
+| `--spacing-popover-offset`{copy} | Dropdown & tooltip positioning offset | `mt-dropdown-offset` |
+| `--spacing-resize-handle`{copy} | [Resize](/docs/core-plugins/resize) handle width | `w-resize-handle` |
+| `--spacing-viewport-padding`{copy} | Viewport padding for responsive design  in [utility](/docs/styles/utilities) styles | `px-viewport-padding` |
 
 ---
 
 ### Effects
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
-| `--transition` | Default form element transition timing | — |
-| `--tooltip-hover-delay` | [Tooltip](/docs/elements/tooltips) hover delay timing | — |
-| `--view-transition-duration` | [Page transition](/docs/publishing/websites) duration for prerendered MPAs | — |
-| `--view-transition-easing` | [Page transition](/docs/publishing/websites) easing for prerendered MPAs | — |
+| `--transition`{copy} | Default form element transition timing | — |
+| `--tooltip-hover-delay`{copy} | [Tooltip](/docs/elements/tooltips) hover delay timing | — |
+| `--view-transition-duration`{copy} | [Page transition](/docs/publishing/websites) duration for prerendered MPAs | — |
+| `--view-transition-easing`{copy} | [Page transition](/docs/publishing/websites) easing for prerendered MPAs | — |
 
 ---
 
 ### Fonts
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
-| `--font-sans` | Default sans-serif font stack | `font-sans` |
+| `--font-sans`{copy} | Default sans-serif font stack | `font-sans` |
 
 ---
 
 ### Icons
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
-| `--icon-accordion` | [Accordion](/docs/elements/accordions) expand/collapse icon | — |
-| `--icon-checkbox` | [Checkbox](/docs/elements/checkboxes) checked state icon | — |
-| `--icon-toast-dismiss` | [Toast](/docs/elements/toasts) notification dismiss icon | — |
+| `--icon-accordion`{copy} | [Accordion](/docs/elements/accordions) expand/collapse icon | — |
+| `--icon-checkbox`{copy} | [Checkbox](/docs/elements/checkboxes) checked state icon | — |
+| `--icon-toast-dismiss`{copy} | [Toast](/docs/elements/toasts) notification dismiss icon | — |
 
 ---
 
@@ -265,7 +273,7 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 
 Theme variables can be compiled into Tailwind-style custom utility classes using Manifest's utilities plugin. It's included in `manifest.js` with all core plugins, or can be selectively loaded.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "All Plugins (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
@@ -276,7 +284,7 @@ Theme variables can be compiled into Tailwind-style custom utility classes using
     data-plugins="utilities"></script>
 ```
 
-</x-code-group>
+</div>
 
 
 ### Application
@@ -307,11 +315,11 @@ For performance optimization, any non-Manifest stylesheets served over CDN are i
 
 The utility plugin operates independently, but follows Tailwind naming patterns and is designed to pair well with <a href="https://tailwindcss.com/docs/installation/play-cdn" target="_blank" rel="noopener">Play CDN</a>, a client-side version of Tailwind.
 
-While it's not advertised for production use, Play CDN aligns with Manifest's ethos of being plug-and-play with no build steps, and has a typically nelgible performance impact.
+While it's not advertised for production use, Play CDN aligns with Manifest's ethos of being plug-and-play with no build steps, and has a typically negligible performance impact.
 
-`manifest.js` can load a modifed version of Play CDN that removes Tailwind's Preflight styles in favour of our [reset](/docs/styles/reset) styles. It also removes a console warning about using Play CDN in production. Add the `data-tailwind` attribute to access it.
+`manifest.js` can load a modified version of Play CDN that removes Tailwind's Preflight styles in favor of our [reset](/docs/styles/reset) styles. It also removes a console warning about using Play CDN in production. Add the `data-tailwind` attribute to access it.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "With Manifest"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
@@ -326,6 +334,6 @@ While it's not advertised for production use, Play CDN aligns with Manifest's et
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
-</x-code-group>
+</div>
 
 Alternatively, Tailwind can be <a href="https://tailwindcss.com/docs/installation/using-vite" target="_blank" rel="noopener">directly installed</a>. It uses a build step to compile CSS variables (from `@theme { ... }` rules) into CSS utility classes, making Manifest's utility plugin redundant.

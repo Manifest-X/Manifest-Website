@@ -6,9 +6,9 @@ OS-native dropdown lists for choosing options.
 
 ## Setup
 
-Selects styles are included in Manifest CSS or the standalone [buttons](/docs/elements/buttons) stylesheet. Both reference [theme](/docs/styles/theme) variables.
+Select styles are included in Manifest CSS or the standalone [buttons](/docs/elements/buttons) stylesheet. Both reference [theme](/docs/styles/theme) variables.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS"
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
@@ -18,19 +18,13 @@ Selects styles are included in Manifest CSS or the standalone [buttons](/docs/el
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.button.css" />
 ```
 
-</x-code-group>
+</div>
 
 ---
 
 ## Default
 
-::: frame
-<select>
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-</select>
-:::
+<div x-code-group>
 
 ```html copy
 <select>
@@ -40,6 +34,16 @@ Selects styles are included in Manifest CSS or the standalone [buttons](/docs/el
 </select>
 ```
 
+::: frame
+<select>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+</select>
+:::
+
+</div>
+
 ---
 
 ## Utilities
@@ -47,28 +51,7 @@ Selects styles are included in Manifest CSS or the standalone [buttons](/docs/el
 Selects accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
-::: frame
-<select class="brand">
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-</select>
-<select class="accent">
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-</select>
-<select class="positive">
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-</select>
-<select class="negative">
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-</select>
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Brand variant -->
@@ -100,22 +83,36 @@ Selects accept Manifest [utility](/docs/styles/utilities) classes, which can be 
 </select>
 ```
 
----
-
-### Size
-
-::: frame
-<select class="sm">
+::: frame row-wrap gap-4
+<select class="brand">
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
     <option value="3">Option 3</option>
 </select>
-<select class="lg">
+<select class="accent">
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+</select>
+<select class="positive">
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+</select>
+<select class="negative">
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
     <option value="3">Option 3</option>
 </select>
 :::
+
+</div>
+
+---
+
+### Size
+
+<div x-code-group>
 
 ```html copy
 <!-- Small variant -->
@@ -133,32 +130,26 @@ Selects accept Manifest [utility](/docs/styles/utilities) classes, which can be 
 </select>
 ```
 
----
-
-### Appearance
-
-::: frame items-center
-<select class="ghost">
+::: frame row-wrap gap-4
+<select class="sm">
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
     <option value="3">Option 3</option>
 </select>
-<select class="outlined">
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-</select>
-<select class="transparent">
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-</select>
-<select class="hug transparent">
+<select class="lg">
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
     <option value="3">Option 3</option>
 </select>
 :::
+
+</div>
+
+---
+
+### Appearance
+
+<div x-code-group>
 
 ```html copy
 <!-- No background until hover -->
@@ -190,6 +181,31 @@ Selects accept Manifest [utility](/docs/styles/utilities) classes, which can be 
 </select>
 ```
 
+::: frame row-wrap gap-4 items-center
+<select class="ghost">
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+</select>
+<select class="outlined">
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+</select>
+<select class="transparent">
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+</select>
+<select class="hug transparent">
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+</select>
+:::
+
+</div>
+
 ---
 
 ## Form Layouts
@@ -202,16 +218,7 @@ These styles are included in `manifest.css`, or the standalone `manifest.form.cs
 
 Placing the select and text inside a `<label>` automatically stacks them with spacing.
 
-::: frame
-<label>
-    Category
-    <select>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-    </select>
-</label>
-:::
+<div x-code-group>
 
 ```html copy
 <label>
@@ -223,19 +230,23 @@ Placing the select and text inside a `<label>` automatically stacks them with sp
     </select>
 </label>
 ```
+
+::: frame
+<label>
+    Category
+    <select>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+</label>
+:::
+
+</div>
 
 To horizontally inline the label text with the select, place the text in a `<data>` element. This is used as a CSS hook with no semantic impact.
 
-::: frame
-<label>
-    <data>Category</data>
-    <select>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-    </select>
-</label>
-:::
+<div x-code-group>
 
 ```html copy
 <label>
@@ -247,6 +258,19 @@ To horizontally inline the label text with the select, place the text in a `<dat
     </select>
 </label>
 ```
+
+::: frame
+<label>
+    <data>Category</data>
+    <select>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+</label>
+:::
+
+</div>
 
 ---
 
@@ -254,16 +278,7 @@ To horizontally inline the label text with the select, place the text in a `<dat
 
 Horizontally group buttons, inputs, or selects together with a `role="group"` attribute added to the parent container.
 
-::: frame
-<div role="group">
-    <select>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-    </select>
-    <button class="brand">Confirm</button>
-</div>
-:::
+<div x-code-group>
 
 ```html copy
 <div role="group">
@@ -276,11 +291,24 @@ Horizontally group buttons, inputs, or selects together with a `role="group"` at
 </div>
 ```
 
+::: frame
+<div role="group">
+    <select>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+    <button class="brand">Confirm</button>
+</div>
+:::
+
+</div>
+
 When these elements are grouped, only the outer elements' outer corners retain their border radii for a seamless appearance.
 
 ---
 
-## Style
+## Styles
 
 ### Theme
 
@@ -288,19 +316,38 @@ Default selects use the following [theme](/docs/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
-| `--color-field-surface` | Select background color |
-| `--color-field-surface-hover` | Select hover/active background color |
-| `--color-field-inverse` | Select text color |
-| `--spacing-field-height` | Select height and min-width |
-| `--spacing-field-padding` | Horizontal padding for select content |
-| `--radius` | Border radius for select corners |
-| `--transition` | Transition for interactive states |
+| `--color-field-surface`{copy} | Select background color |
+| `--color-field-surface-hover`{copy} | Select hover/active background color |
+| `--color-field-inverse`{copy} | Select text color |
+| `--spacing-field-height`{copy} | Select height and min-width |
+| `--spacing-field-padding`{copy} | Horizontal padding for select content |
+| `--radius`{copy} | Border radius for select corners |
+| `--transition`{copy} | Transition for interactive states |
 
 ---
 
 ### Customization
 
 Modify base select styles with custom CSS for the `select` selector.
+
+<div x-code-group>
+
+```css copy
+select {
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 100px;
+
+    /* Icon */
+    &::picker-icon {
+        content: "›";
+        transform: scaleY(1);
+        font-size: 20px;
+        line-height: 0.7;
+    }
+}
+```
 
 ::: frame
 <style>
@@ -326,19 +373,4 @@ select.custom {
 </select>
 :::
 
-```css copy
-select {
-    color: white;
-    background-color: black;
-    border: 1px solid white;
-    border-radius: 100px;
-
-    /* Icon */
-    &::picker-icon {
-        content: "›";
-        transform: scaleY(1);
-        font-size: 20px;
-        line-height: 0.7;
-    }
-}
-```
+</div>

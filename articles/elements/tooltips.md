@@ -10,7 +10,7 @@ Tooltip styles are included in Manifest CSS or a standalone stylesheet, both ref
 
 Tooltip functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS / JS"
 <!-- Manifest CSS -->
@@ -29,7 +29,7 @@ Tooltip functionality is included in `manifest.js` with all core plugins, or it 
   data-plugins="tooltips"></script>
 ```
 
-</x-code-group>
+</div>
 
 ---
 
@@ -37,19 +37,40 @@ Tooltip functionality is included in `manifest.js` with all core plugins, or it 
 
 Apply tooltips to any element with the `x-tooltip` attribute.
 
-::: frame
-<button x-tooltip="Hello world">Hover me</button>
-:::
+<div x-code-group>
 
 ```html copy
 <button x-tooltip="Hello world">Hover me</button>
 ```
+
+::: frame
+<button x-tooltip="Hello world">Hover me</button>
+:::
+
+</div>
 
 ---
 
 ## Positioning
 
 Tooltips have utility modifiers like `top` and `bottom` to position them in relation to their trigger element. If no modifier is set, tooltips default to `bottom` (centered below).
+
+<div x-code-group>
+
+```html "Examples" copy
+<!-- Top -->
+<button x-tooltip.top="Top tooltip">top</button>
+
+<!-- Bottom with start alignment -->
+<button x-tooltip.bottom.start="Bottom start tooltip">bottom-start</button>
+
+<!-- Start with top alignment -->
+<button x-tooltip.start.top="Start top tooltip">start-top</button>
+
+<!-- Top start corner (either version works) -->
+<button x-tooltip.top.start.corner="Top start corner tooltip">top-start-corner</button>
+<button x-tooltip.start.top.corner="Start top corner tooltip">start-top-corner</button>
+```
 
 ::: frame
 <div class="col gap-4">
@@ -99,20 +120,7 @@ Tooltips have utility modifiers like `top` and `bottom` to position them in rela
 </div>
 :::
 
-```html "Examples" copy
-<!-- Top -->
-<button x-tooltip.top="Top tooltip">top</button>
-
-<!-- Bottom with start alignment -->
-<button x-tooltip.bottom.start="Bottom start tooltip">bottom-start</button>
-
-<!-- Start with top alignment -->
-<button x-tooltip.start.top="Start top tooltip">start-top</button>
-
-<!-- Top start corner (either version works) -->
-<button x-tooltip.top.start.corner="Top start corner tooltip">top-start-corner</button>
-<button x-tooltip.start.top.corner="Start top corner tooltip">start-top-corner</button>
-```
+</div>
 
 Regardless of a set modifier, tooltips overflowing the viewport will attempt to stay onscreen with default fallback positions.
 
@@ -122,13 +130,17 @@ Regardless of a set modifier, tooltips overflowing the viewport will attempt to 
 
 Tooltip content supports HTML including [icons](/docs/elements/icons) for enhanced formatting.
 
-::: frame
-<button x-tooltip="<span x-icon='lucide:info'></span>Hello <b>bold</b> and <em>italic</em> world">Rich Content</button>
-:::
+<div x-code-group>
 
 ```html copy
 <button x-tooltip="<span x-icon='lucide:info'></span>Hello <b>bold</b> and <em>italic</em> world">Rich Content</button>
 ```
+
+::: frame
+<button x-tooltip="<span x-icon='lucide:info'></span>Hello <b>bold</b> and <em>italic</em> world">Rich Content</button>
+:::
+
+</div>
 
 ---
 
@@ -136,12 +148,7 @@ Tooltip content supports HTML including [icons](/docs/elements/icons) for enhanc
 
 Tooltips can display dynamic content using Alpine.js expressions.
 
-::: frame
-<div x-data="{ message: 'dynamic content', count: 42 }">
-    <button x-tooltip="'Current count: ' + count">Count Tooltip</button>
-    <button x-tooltip="`Template: ${message}`" @click="count++">Template Literal</button>
-</div>
-:::
+<div x-code-group>
 
 ```html copy
 <div x-data="{ message: 'dynamic content', count: 42 }">
@@ -150,24 +157,27 @@ Tooltips can display dynamic content using Alpine.js expressions.
 </div>
 ```
 
-Note that tooltips with loop variables from `x-for` use template literals or string concatenation to ensure the expression is recognized as dynamic.
-
 ::: frame
-<template x-for="item in $x.example.tooltipList">
-    <span class="h4" x-tooltip="`${item.tooltip}`" x-text="item.name"></span>
-</template>
+<div x-data="{ message: 'dynamic content', count: 42 }" class="row-wrap gap-4">
+    <button x-tooltip="'Current count: ' + count">Count Tooltip</button>
+    <button x-tooltip="`Template: ${message}`" @click="count++">Template Literal</button>
+</div>
 :::
 
-<x-code-group copy>
+</div>
+
+Note that tooltips with loop variables from `x-for` use template literals or string concatenation to ensure the expression is recognized as dynamic.
+
+<div x-code-group copy>
 
 ```html "HTML"
-<template x-for="item in $x.content.list">
+<template x-for="item in $x.example.tooltipList">
     <h4 x-tooltip="`${item.tooltip}`" x-text="item.name"></h4>
 </template>
 ```
 
-```yaml "content.yaml"
-list:
+```yaml "example.yaml"
+tooltipList:
     - name: "Mercury"
       tooltip: "The hottest planet"
     - name: "Venus"
@@ -176,7 +186,13 @@ list:
       tooltip: "The planet with the hottest parties"
 ```
 
-</x-code-group>
+::: frame row-wrap gap-4
+<template x-for="item in $x.example.tooltipList">
+    <span class="h4" x-tooltip="`${item.tooltip}`" x-text="item.name"></span>
+</template>
+:::
+
+</div>
 
 ---
 
@@ -184,11 +200,7 @@ list:
 
 Tooltips can retrieve content from [data sources](/docs/core-plugins/local-data) using the `$x` syntax.
 
-::: frame
-<button x-tooltip="$x.example.tooltip">Data Source Tooltip</button>
-:::
-
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "HTML"
 <button x-tooltip="$x.example.tooltip">Data Source Tooltip</button>
@@ -200,7 +212,11 @@ Tooltips can retrieve content from [data sources](/docs/core-plugins/local-data)
 }
 ```
 
-</x-code-group>
+::: frame
+<button x-tooltip="$x.example.tooltip">Data Source Tooltip</button>
+:::
+
+</div>
 
 ---
 
@@ -208,14 +224,7 @@ Tooltips can retrieve content from [data sources](/docs/core-plugins/local-data)
 
 Although tooltips are popovers, they can coexist in buttons that trigger other popovers—like Manifest's [dropdowns](/docs/elements/dropdowns) and [dialogs](/docs/elements/dialogs), or your custom popovers.
 
-::: frame
-<button x-tooltip="Tooltip" x-dropdown="dropdown">Dropdown</button>
-<menu popover id="dropdown" class="bottom-start">
-    <li>Item 1</li>
-    <li>Item 2</li>
-    <li>Item 3</li>
-</menu>
-
+::: frame row-wrap gap-4
 <button x-tooltip="Tooltip" popovertarget="dialog">Dialog</button>
 <dialog popover id="dialog">
     <header>Dialog</header>
@@ -239,9 +248,9 @@ Default tooltips use the following [theme](/docs/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|----------|
-| `--color-popover-surface` | Tooltip background color |
-| `--color-content-stark` | Tooltip text color |
-| `--spacing-popover-offset` | Distance from trigger element |
+| `--color-popover-surface`{copy} | Tooltip background color |
+| `--color-content-stark`{copy} | Tooltip text color |
+| `--spacing-popover-offset`{copy} | Distance from trigger element |
 
 ---
 

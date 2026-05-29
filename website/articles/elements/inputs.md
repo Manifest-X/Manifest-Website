@@ -6,9 +6,9 @@ Single-line text fields with validation states.
 
 ## Setup
 
-Inputs styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Input styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS"
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
@@ -18,19 +18,23 @@ Inputs styles are included in Manifest CSS or a standalone stylesheet, both refe
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.input.css" />
 ```
 
-</x-code-group>
+</div>
 
 ---
 
 ## Default
 
-::: frame
-<input placeholder="Type here" />
-:::
+<div x-code-group>
 
 ```html copy
 <input placeholder="Type here" />
 ```
+
+::: frame
+<input placeholder="Type here" />
+:::
+
+</div>
 
 ---
 
@@ -40,12 +44,7 @@ Inputs accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 
 ### Colors
 
-::: frame
-<input class="brand" placeholder="Brand" />
-<input class="accent" placeholder="Accent" />
-<input class="positive" placeholder="Positive" />
-<input class="negative" placeholder="Negative" />
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Brand variant -->
@@ -61,14 +60,20 @@ Inputs accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 <input class="negative" placeholder="Negative" />
 ```
 
+::: frame col gap-4
+<input class="brand" placeholder="Brand" />
+<input class="accent" placeholder="Accent" />
+<input class="positive" placeholder="Positive" />
+<input class="negative" placeholder="Negative" />
+:::
+
+</div>
+
 ---
 
 ### Size
 
-::: frame
-<input class="sm" placeholder="Small" />
-<input class="lg" placeholder="Large" />
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Small variant -->
@@ -78,15 +83,18 @@ Inputs accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 <input class="lg" placeholder="Large" />
 ```
 
+::: frame col gap-4
+<input class="sm" placeholder="Small" />
+<input class="lg" placeholder="Large" />
+:::
+
+</div>
+
 ---
 
 ### Appearance
 
-::: frame
-<input class="ghost" placeholder="Ghost" />
-<input class="outlined" placeholder="Outlined" />
-<input class="transparent" placeholder="Transparent" />
-:::
+<div x-code-group>
 
 ```html copy
 <!-- No background until hover -->
@@ -99,18 +107,21 @@ Inputs accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 <input class="transparent" placeholder="Transparent" />
 ```
 
+::: frame col gap-4
+<input class="ghost" placeholder="Ghost" />
+<input class="outlined" placeholder="Outlined" />
+<input class="transparent" placeholder="Transparent" />
+:::
+
+</div>
+
 ---
 
 ## Search
 
-Inputs of `type="search"` work on their own, or can be placed in a label to faciliate a search icon.
+Inputs of `type="search"` work on their own, or can be placed in a label to facilitate a search icon.
 
-::: frame
-<label role="button">
-    <span x-icon="lucide:search"></span>
-    <input type="search" placeholder="Search" aria-label="Search" />
-</label>
-:::
+<div x-code-group>
 
 ```html copy
 <label role="button">
@@ -119,11 +130,30 @@ Inputs of `type="search"` work on their own, or can be placed in a label to faci
 </label>
 ```
 
+::: frame
+<label role="button">
+    <span x-icon="lucide:search"></span>
+    <input type="search" placeholder="Search" aria-label="Search" />
+</label>
+:::
+
+</div>
+
 ---
 
 ## File Uploads
 
-Inputs of `type="file"` work on their own, or can be placed in a label to faciliate an upload icon.
+Inputs of `type="file"` work on their own, or can be placed in a label to facilitate an upload icon.
+
+<div x-code-group>
+
+```html copy
+<label role="button">
+    <input type="file" />
+    <span x-icon="lucide:upload"></span>
+    Upload
+</label>
+```
 
 ::: frame justify-start
 <label role="button">
@@ -133,13 +163,7 @@ Inputs of `type="file"` work on their own, or can be placed in a label to facili
 </label>
 :::
 
-```html copy
-<label role="button">
-    <input type="file" />
-    <span x-icon="lucide:upload"></span>
-    Upload
-</label>
-```
+</div>
 
 ---
 
@@ -153,12 +177,7 @@ These styles are included in `manifest.css`, or the standalone `manifest.form.cs
 
 Placing the input and text inside a `<label>` automatically stacks them with spacing.
 
-::: frame
-<label>
-    Email
-    <input placeholder="Enter your email" />
-</label>
-:::
+<div x-code-group>
 
 ```html copy
 <label>
@@ -166,15 +185,19 @@ Placing the input and text inside a `<label>` automatically stacks them with spa
     <input placeholder="Enter your email" />
 </label>
 ```
+
+::: frame text-base
+<label>
+    Email
+    <input placeholder="Enter your email" />
+</label>
+:::
+
+</div>
 
 To horizontally inline the label text with the input, place the text in a `<data>` element. This is used as a CSS hook with no semantic impact.
 
-::: frame
-<label>
-    <data>Email</data>
-    <input placeholder="Enter your email" />
-</label>
-:::
+<div x-code-group>
 
 ```html copy
 <label>
@@ -182,6 +205,15 @@ To horizontally inline the label text with the input, place the text in a `<data
     <input placeholder="Enter your email" />
 </label>
 ```
+
+::: frame text-base
+<label>
+    <data>Email</data>
+    <input placeholder="Enter your email" />
+</label>
+:::
+
+</div>
 
 ---
 
@@ -189,12 +221,7 @@ To horizontally inline the label text with the input, place the text in a `<data
 
 Horizontally group inputs, buttons, or selects together with a `role="group"` attribute on the parent container.
 
-::: frame
-<div role="group">
-    <input placeholder="Insert email" />
-    <button class="brand">Signup</button>
-</div>
-:::
+<div x-code-group>
 
 ```html copy
 <div role="group">
@@ -203,7 +230,37 @@ Horizontally group inputs, buttons, or selects together with a `role="group"` at
 </div>
 ```
 
+::: frame
+<div role="group">
+    <input placeholder="Insert email" />
+    <button class="brand">Signup</button>
+</div>
+:::
+
+</div>
+
 When these elements are grouped, only the outer elements' outer corners retain their border radii for a seamless appearance.
+
+---
+
+## Validation
+
+Inputs support native HTML5 validation through attributes like `required`, `pattern`, `minlength`, `maxlength`, `min`, `max`, and `type="email"` / `type="url"`. Style the invalid and valid states with Tailwind pseudo-class variants.
+
+<div x-code-group>
+
+```html copy
+<input type="email" required
+    class="user-invalid:border-negative-surface user-valid:border-positive-surface" />
+```
+
+::: frame
+<input type="email" required placeholder="you@example.com" class="user-invalid:border-negative-surface user-valid:border-positive-surface" />
+:::
+
+</div>
+
+Prefer `user-invalid:` and `user-valid:` over the unprefixed `invalid:` and `valid:`. They wait until the user has actually engaged with the field, avoiding the awkward "everything is red on page load" effect. See [forms](/docs/elements/forms#validation) for the full variant reference and inline-message patterns.
 
 ---
 
@@ -215,19 +272,39 @@ Default inputs use the following [theme](/docs/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
-| `--color-field-surface` | Input background color |
-| `--color-field-surface-hover` | Input hover/active background color |
-| `--color-field-inverse` | Text and selection highlight color |
-| `--spacing-field-height` | Input height |
-| `--spacing-field-padding` | Horizontal padding for input content |
-| `--radius` | Border radius for input corners |
-| `--transition` | Transition for interactive states |
+| `--color-field-surface`{copy} | Input background color |
+| `--color-field-surface-hover`{copy} | Input hover/active background color |
+| `--color-field-inverse`{copy} | Text and selection highlight color |
+| `--spacing-field-height`{copy} | Input height |
+| `--spacing-field-padding`{copy} | Horizontal padding for input content |
+| `--radius`{copy} | Border radius for input corners |
+| `--transition`{copy} | Transition for interactive states |
 
 ---
 
 ### Customization
 
 Modify base input styles with custom CSS for the `input` selector.
+
+<div x-code-group>
+
+```css copy
+input {
+    background-color: #f0f8ff;
+    border: 2px solid #3b82f6;
+    border-radius: 8px;
+    color: #1e40af;
+
+    &::placeholder {
+        color: #60a5fa;
+    }
+
+    &:focus-visible {
+        border-color: #1d4ed8;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+}
+```
 
 ::: frame
 <style>
@@ -251,21 +328,5 @@ input.custom:focus-visible {
 <input class="custom" placeholder="Custom Input" />
 :::
 
-```css copy
-input {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
-    border-radius: 8px;
-    color: #1e40af;
-
-    &::placeholder {
-        color: #60a5fa;
-    }
-
-    &:focus-visible {
-        border-color: #1d4ed8;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
-}
-```
+</div>
 

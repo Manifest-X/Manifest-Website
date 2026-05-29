@@ -1,0 +1,365 @@
+<main class="grow col">
+
+  <!-- Details disclosure-icon rotation (Manifest doesn't ship group-open). -->
+  <style>
+    .summary-toggle {
+      transition: transform 200ms ease;
+    }
+
+    details[open]>summary .summary-toggle {
+      transform: rotate(45deg);
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary {
+      list-style: none;
+    }
+  </style>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  HERO — outcome-first                                                   -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="grid grid-cols-12 mt-[69px]">
+
+    <div class="col-span-10 col-start-2 col center gap-6 px-viewport-padding pt-24 pb-20 text-center border-x border-line pattern-texture">
+
+      <div class="row items-center gap-2 px-3 py-1 rounded-full bg-page border border-line text-sm text-content-neutral w-fit">
+        <span x-icon="lucide:sparkles" class="text-brand-content"></span>
+        <span>Manifest AI</span>
+      </div>
+
+      <h1 class="!text-5xl md:!text-6xl !leading-tight !font-bold max-w-4xl">Your AI builds Manifest sites that actually work.</h1>
+
+      <p class="text-xl text-content-neutral max-w-2xl">Connect your AI editor to Manifest. Get correct components, correct directives, correct data wiring &mdash; on the first try.</p>
+
+      <div class="row-wrap center gap-3 mt-2">
+        <a href="#install" role="button" class="brand lg">
+          Install
+          <span x-icon="lucide:arrow-right"></span>
+        </a>
+        <a href="#pricing" role="button" class="lg">See pricing</a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  ANIMATED DEMO — prompt → code → preview                                -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="grid grid-cols-12 border-t border-line">
+
+    <div class="col-span-10 col-start-2 col gap-10 px-viewport-padding py-24 border-x border-line">
+
+      <div class="col gap-3 max-w-3xl">
+        <small class="text-accent-content font-mono uppercase tracking-wider">In action</small>
+        <h2 class="!text-4xl md:!text-5xl !leading-tight !font-bold">Ask. Get correct Manifest.</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto w-full" x-data="{
+             step: 0,
+             prompts: [
+               {
+                 user: 'Add a pricing card with a brand-style CTA',
+                 ai: '&lt;article class=\'col gap-3 p-6 rounded-lg border border-line\'&gt;\n  &lt;strong&gt;Pro&lt;/strong&gt;\n  &lt;span class=\'text-3xl\'&gt;$19&lt;/span&gt;\n  &lt;a role=\'button\' class=\'brand\'&gt;\n    Upgrade\n  &lt;/a&gt;\n&lt;/article&gt;',
+                 preview: 'pricing'
+               },
+               {
+                 user: 'Build me a contact form bound to a data source',
+                 ai: '&lt;form x-data=\'{ name: \\\'\\\', email: \\\'\\\' }\'\n      @submit.prevent=\'\\$x.leads.\\$create({ name, email })\'&gt;\n  &lt;input x-model=\'name\' placeholder=\'Name\'&gt;\n  &lt;input x-model=\'email\' placeholder=\'Email\'&gt;\n  &lt;button type=\'submit\'&gt;Send&lt;/button&gt;\n&lt;/form&gt;',
+                 preview: 'form'
+               },
+               {
+                 user: 'Show a docs nav grouped by section from docs.yaml',
+                 ai: '&lt;nav data-static&gt;\n  &lt;template x-for=\'g in \\$x.docs\' :key=\'g.group\'&gt;\n    &lt;div&gt;\n      &lt;h5 x-text=\'g.group\'&gt;&lt;/h5&gt;\n      &lt;template x-for=\'i in g.items\'&gt;\n        &lt;a :href=\'i.path\' x-text=\'i.name\'&gt;&lt;/a&gt;\n      &lt;/template&gt;\n    &lt;/div&gt;\n  &lt;/template&gt;\n&lt;/nav&gt;',
+                 preview: 'nav'
+               }
+             ],
+             init() {
+               setInterval(() => { this.step = (this.step + 1) % 3 }, 6000);
+             }
+           }">
+
+        <div class="col gap-3 p-5 rounded-lg bg-page border border-line h-[400px]">
+          <div class="row items-center justify-between pb-3 border-b border-line">
+            <div class="row items-center gap-2">
+              <span x-icon="lucide:sparkles" class="text-brand-content"></span>
+              <small class="text-content-stark font-mono">claude code &middot; with manifest-ai</small>
+            </div>
+            <div class="row gap-1">
+              <template x-for="(p, i) in prompts" :key="i">
+                <span class="w-1.5 h-1.5 rounded-full transition-colors duration-300" :class="i === step ? 'bg-brand-content' : 'bg-line'"></span>
+              </template>
+            </div>
+          </div>
+
+          <div class="row items-start gap-2">
+            <span class="row center w-6 h-6 rounded-full bg-accent-surface text-accent-content shrink-0 text-xs font-semibold">You</span>
+            <p class="text-sm text-content-stark !leading-relaxed transition-opacity duration-500" :key="step" x-text="prompts[step].user"></p>
+          </div>
+
+          <div class="row items-start gap-2">
+            <span class="row center w-6 h-6 rounded-full bg-brand-surface text-brand-content shrink-0 text-xs font-semibold">AI</span>
+            <pre class="!my-0 !bg-transparent !border-0 !p-0 text-[11px] leading-relaxed flex-1 transition-opacity duration-500" :key="'c'+step"><code x-text="prompts[step].ai.replaceAll('\\$', '$')"></code></pre>
+          </div>
+        </div>
+
+        <div class="col gap-3 h-[400px]">
+          <div class="row items-center gap-2 px-1">
+            <span x-icon="lucide:eye" class="text-content-subtle"></span>
+            <small class="text-content-subtle font-mono">live preview</small>
+          </div>
+          <div class="col grow p-6 rounded-lg bg-page border border-line overflow-hidden">
+
+            <div class="col center grow gap-3" x-show="prompts[step].preview === 'pricing'" x-transition:enter.duration.500ms>
+              <article class="col gap-3 p-6 rounded-lg border border-line w-fit min-w-[200px] text-center">
+                <strong class="text-content-stark">Pro</strong>
+                <span class="text-3xl font-bold">$19</span>
+                <a role="button" class="brand">Upgrade</a>
+              </article>
+            </div>
+
+            <div class="col center grow gap-3" x-show="prompts[step].preview === 'form'" x-transition:enter.duration.500ms>
+              <form class="col gap-2 w-full max-w-xs">
+                <input placeholder="Name" disabled>
+                <input placeholder="Email" disabled>
+                <button type="button" class="brand">Send</button>
+              </form>
+            </div>
+
+            <div class="col gap-4 grow text-xs" x-show="prompts[step].preview === 'nav'" x-transition:enter.duration.500ms>
+              <div class="col gap-1">
+                <h5 class="text-content-subtle !text-[10px] !m-0">Getting Started</h5>
+                <a class="text-content-neutral !no-underline">Introduction</a>
+                <a class="text-content-neutral !no-underline">Setup</a>
+                <a class="text-brand-content !no-underline">Starter project</a>
+              </div>
+              <div class="col gap-1">
+                <h5 class="text-content-subtle !text-[10px] !m-0">Core Plugins</h5>
+                <a class="text-content-neutral !no-underline">Components</a>
+                <a class="text-content-neutral !no-underline">Local data</a>
+                <a class="text-content-neutral !no-underline">Router</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  WHAT YOU GET — typography, no card grid                                -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="grid grid-cols-12 border-t border-line bg-brand-surface/10">
+
+    <div class="col-span-10 col-start-2 grid grid-cols-1 md:grid-cols-3 gap-10 px-viewport-padding py-24 border-x border-line">
+
+      <div class="col gap-3 md:col-span-3">
+        <small class="text-accent-content font-mono uppercase tracking-wider">What you get</small>
+        <h2 class="!text-4xl md:!text-5xl !leading-tight !font-bold">Three things, every time.</h2>
+      </div>
+
+      <div class="col gap-2">
+        <strong class="text-content-stark text-lg">Correct code on first try.</strong>
+        <p class="text-content-neutral !leading-relaxed">No more correcting React patterns leaking into your HTML. Your AI uses the right directives, the right components, the right syntax.</p>
+      </div>
+
+      <div class="col gap-2">
+        <strong class="text-content-stark text-lg">Components that fit your project.</strong>
+        <p class="text-content-neutral !leading-relaxed">Your AI reads your <code>manifest.json</code> and your existing components, then writes code that matches your patterns &mdash; not a generic template.</p>
+      </div>
+
+      <div class="col gap-2">
+        <strong class="text-content-stark text-lg">Works with the AI you already use.</strong>
+        <p class="text-content-neutral !leading-relaxed">Claude Code, Cursor, Windsurf, or any MCP-compatible tool. No new subscription, no new chat interface.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  INSTALL                                                                -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section id="install" class="grid grid-cols-12 border-t border-line">
+
+    <div class="col-span-10 col-start-2 col gap-10 px-viewport-padding py-24 border-x border-line">
+
+      <div class="col gap-3 max-w-3xl">
+        <small class="text-accent-content font-mono uppercase tracking-wider">Install</small>
+        <h2 class="!text-4xl md:!text-5xl !leading-tight !font-bold">Two minutes. One command.</h2>
+      </div>
+
+      <div data-static class="col gap-5">
+        <div class="row-wrap gap-2">
+          <button x-tab="claude-code" class="brand">Claude Code</button>
+          <button x-tab="cursor">Cursor</button>
+          <button x-tab="windsurf">Windsurf</button>
+          <button x-tab="other">Other MCP editors</button>
+        </div>
+
+        <div id="claude-code" x-tabpanel class="col gap-3">
+          <pre class="text-sm"><code>npx mnfst-ai install --editor=claude-code</code></pre>
+        </div>
+
+        <div id="cursor" x-tabpanel class="col gap-3">
+          <pre class="text-sm"><code>npx mnfst-ai install --editor=cursor</code></pre>
+        </div>
+
+        <div id="windsurf" x-tabpanel class="col gap-3">
+          <pre class="text-sm"><code>npx mnfst-ai install --editor=windsurf</code></pre>
+        </div>
+
+        <div id="other" x-tabpanel class="col gap-3">
+          <p class="text-sm text-content-neutral">Manifest AI works with any MCP-compatible client. Add to your config:</p>
+          <pre class="text-sm"><code>{
+              "mcpServers": {
+              "manifest-ai": {
+              "command": "npx",
+              "args": ["-y", "mnfst-ai"]
+              }
+              }
+              }</code></pre>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  PRICING                                                                -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section id="pricing" class="grid grid-cols-12 border-t border-line bg-brand-surface/10">
+
+    <div class="col-span-10 col-start-2 col gap-10 px-viewport-padding py-24 border-x border-line">
+
+      <div class="col gap-3 max-w-3xl mx-auto text-center">
+        <small class="text-accent-content font-mono uppercase tracking-wider">Pricing</small>
+        <h2 class="!text-4xl md:!text-5xl !leading-tight !font-bold">Free for solo. Pro for teams.</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto w-full">
+
+        <div class="col gap-5 p-8 rounded-lg bg-page border border-line">
+          <div class="col gap-1">
+            <small class="font-mono uppercase tracking-wider text-content-subtle">Community</small>
+            <strong class="text-3xl text-content-stark">Free</strong>
+          </div>
+          <ul class="col gap-2 text-sm text-content-neutral">
+            <li class="row items-start gap-2"><span x-icon="lucide:check" class="text-positive-content mt-0.5"></span>Full framework grammar</li>
+            <li class="row items-start gap-2"><span x-icon="lucide:check" class="text-positive-content mt-0.5"></span>Project-aware completions</li>
+            <li class="row items-start gap-2"><span x-icon="lucide:check" class="text-positive-content mt-0.5"></span>Component generation</li>
+            <li class="row items-start gap-2"><span x-icon="lucide:check" class="text-positive-content mt-0.5"></span>Community support</li>
+          </ul>
+          <a href="#install" role="button" class="mt-auto">Get started</a>
+        </div>
+
+        <div class="col gap-5 p-8 rounded-lg bg-page border-2" style="border-color: var(--color-brand-content);">
+          <div class="col gap-1">
+            <small class="font-mono uppercase tracking-wider text-brand-content">Pro</small>
+            <div class="row items-baseline gap-1">
+              <strong class="text-3xl text-content-stark">$19</strong>
+              <small class="text-content-neutral">/ user / month</small>
+            </div>
+          </div>
+          <ul class="col gap-2 text-sm text-content-neutral">
+            <li class="row items-start gap-2"><span x-icon="lucide:check" class="text-positive-content mt-0.5"></span>Everything in Community</li>
+            <li class="row items-start gap-2"><span x-icon="lucide:check" class="text-positive-content mt-0.5"></span>Team workspaces</li>
+            <li class="row items-start gap-2"><span x-icon="lucide:check" class="text-positive-content mt-0.5"></span>Premium component library</li>
+            <li class="row items-start gap-2"><span x-icon="lucide:check" class="text-positive-content mt-0.5"></span>Priority support</li>
+          </ul>
+          <a href="#install" role="button" class="brand mt-auto">Upgrade to Pro</a>
+        </div>
+
+      </div>
+
+      <p class="text-center text-sm text-content-subtle">Need enterprise, SSO, or volume licensing? <a href="mailto:hello@manifestx.dev" class="accent">Get in touch</a>.</p>
+
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  FAQ                                                                    -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="grid grid-cols-12 border-t border-line">
+
+    <div class="col-span-10 col-start-2 col gap-10 px-viewport-padding py-24 border-x border-line">
+
+      <div class="col gap-3 max-w-3xl">
+        <small class="text-accent-content font-mono uppercase tracking-wider">FAQ</small>
+        <h2 class="!text-4xl md:!text-5xl !leading-tight !font-bold">Quick questions.</h2>
+      </div>
+
+      <div class="col gap-3 max-w-3xl">
+
+        <details class="group p-5 rounded-lg border border-line bg-page hover:border-content-subtle transition-colors">
+          <summary class="row items-start justify-between gap-4 cursor-pointer list-none">
+            <strong class="text-content-stark">Is this a new AI?</strong>
+            <span x-icon="lucide:plus" class="summary-toggle text-content-subtle shrink-0"></span>
+          </summary>
+          <p class="text-content-neutral !leading-relaxed mt-3 text-sm">No. You keep using Claude, ChatGPT, Cursor, or whichever AI you already pay for. Manifest AI just makes those tools fluent in Manifest.</p>
+        </details>
+
+        <details class="group p-5 rounded-lg border border-line bg-page hover:border-content-subtle transition-colors">
+          <summary class="row items-start justify-between gap-4 cursor-pointer list-none">
+            <strong class="text-content-stark">Does it send my code anywhere?</strong>
+            <span x-icon="lucide:plus" class="summary-toggle text-content-subtle shrink-0"></span>
+          </summary>
+          <p class="text-content-neutral !leading-relaxed mt-3 text-sm">Community tier runs entirely locally &mdash; your code never leaves your machine. Pro tier uses optional cloud features for team workspaces; you choose what gets shared.</p>
+        </details>
+
+        <details class="group p-5 rounded-lg border border-line bg-page hover:border-content-subtle transition-colors">
+          <summary class="row items-start justify-between gap-4 cursor-pointer list-none">
+            <strong class="text-content-stark">Can I cancel anytime?</strong>
+            <span x-icon="lucide:plus" class="summary-toggle text-content-subtle shrink-0"></span>
+          </summary>
+          <p class="text-content-neutral !leading-relaxed mt-3 text-sm">Yes. Pro is month-to-month. Cancel and you keep access through the end of the billing period, then drop back to Community with no data loss.</p>
+        </details>
+
+        <details class="group p-5 rounded-lg border border-line bg-page hover:border-content-subtle transition-colors">
+          <summary class="row items-start justify-between gap-4 cursor-pointer list-none">
+            <strong class="text-content-stark">Is it open source?</strong>
+            <span x-icon="lucide:plus" class="summary-toggle text-content-subtle shrink-0"></span>
+          </summary>
+          <p class="text-content-neutral !leading-relaxed mt-3 text-sm">The Manifest framework is MIT-licensed. The Community-tier integration is open. Pro-tier components and team infrastructure are proprietary &mdash; that's what funds the open-source framework.</p>
+        </details>
+
+        <details class="group p-5 rounded-lg border border-line bg-page hover:border-content-subtle transition-colors">
+          <summary class="row items-start justify-between gap-4 cursor-pointer list-none">
+            <strong class="text-content-stark">What's MCP?</strong>
+            <span x-icon="lucide:plus" class="summary-toggle text-content-subtle shrink-0"></span>
+          </summary>
+          <p class="text-content-neutral !leading-relaxed mt-3 text-sm">Model Context Protocol &mdash; an open standard that lets AI tools fetch external context on demand. Manifest AI runs as an MCP server, so any MCP-compatible editor can use it. You don't need to know how it works to use it.</p>
+        </details>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!--  FINAL CTA                                                              -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="grid grid-cols-12 border-t border-line bg-brand-surface/10">
+
+    <div class="col-span-10 col-start-2 col center gap-6 px-viewport-padding py-20 text-center border-x border-line">
+      <h2 class="!text-4xl md:!text-5xl !leading-tight !font-bold">Ready to ship faster?</h2>
+      <a href="#install" role="button" class="brand lg">
+        Install Manifest AI
+        <span x-icon="lucide:arrow-right"></span>
+      </a>
+    </div>
+
+  </section>
+
+</main>

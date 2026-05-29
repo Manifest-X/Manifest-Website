@@ -14,7 +14,7 @@ The localization plugin provides automatic language detection, URL-based locale 
 
 Localization is included in `manifest.js` with all core plugins, or can be selectively loaded. `manifest.json` is required to register translation files as data sources.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "All Plugins (default)"
 <!-- Meta -->
@@ -33,7 +33,7 @@ Localization is included in `manifest.js` with all core plugins, or can be selec
     data-plugins="router,data,localization"></script>
 ```
 
-</x-code-group>
+</div>
 
 ::: brand icon="lucide:info"
 Localization requires the Manifest [router](/docs/core-plugins/router) and [data](/docs/core-plugins/local-data) plugins to operate.
@@ -50,9 +50,9 @@ You can organize your translations using JSON, YAML, or CSV files. Choose the fo
 
 CSV files offer flexible organization options for translations. You can store all languages and topics in a single CSV file, or across multiple.
 
-<x-code-group copy>
+<div x-code-group copy>
 
-```csv "translations.csv (all)"
+```csv "features.csv (all)"
 key,en,fr,ar,zh
 features.title,Features,Caractéristiques,الميزات,功能
 features.performance.name,Fast Performance,Performance Rapide,أداء سريع,快速性能
@@ -63,21 +63,21 @@ features.responsive.name,Responsive,Responsive,متجاوب,响应式
 features.responsive.description,Works on all devices,Fonctionne sur tous les appareils,يعمل على جميع الأجهزة,适用于所有设备
 ```
 
-```csv "translations-euro.csv"
+```csv "features-euro.csv"
 key,en,fr,de,es,it
 features.title,Features,Caractéristiques,Funktionen,Características,Funzionalità
 features.performance.name,Fast Performance,Performance Rapide,Schnelle Leistung,Rendimiento Rápido,Prestazioni Veloci
 features.performance.description,Lightning fast loading times,Temps de chargement ultra rapides,Blitzschnelle Ladezeiten,Tiempos de carga ultrarrápidos,Tempi di caricamento fulminei
 ```
 
-```csv "translations-asian.csv"
+```csv "features-asian.csv"
 key,zh,ja,ko
 features.title,功能,機能,기능
 features.performance.name,快速性能,高速パフォーマンス,빠른 성능
 features.performance.description,闪电般的加载速度,稲妻のように速い読み込み時間,번개처럼 빠른 로딩 시간
 ```
 
-</x-code-group>
+</div>
 
 The first column (`key`) contains dot-notation paths to nested values. Subsequent columns are locale codes (`en`, `fr`, `ar`, `zh`, etc.). The plugin automatically detects available locales from the CSV header.
 
@@ -89,7 +89,7 @@ Each CSV file can contain one or more language columns.
 
 Create language-specific JSON or YAML files for your content, named and located however you like:
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```yaml "features.en.yaml"
 features:
@@ -131,7 +131,7 @@ features:
     description: "适用于所有设备"
 ```
 
-</x-code-group>
+</div>
 
 Each file should have the same object/array hierarchy and keys. Only the values are unique to the target locale. If a reference key is missing from a file, the default locale is used.
 
@@ -143,31 +143,29 @@ Each file should have the same object/array hierarchy and keys. Only the values 
 2. Set the default locale in `index.html` using `lang` attribute in the `<html>` tag.
 
 
-<x-code-group numbers copy>
+<div x-code-group lines copy>
 
-```json "manifest.json"
+```json "manifest.json (CSV)"
 {
   "data": {
-
-    // CSV file(s)
-    "translations": {
-      
-      // Single
-      "locales": "/data/translations.csv"
-
-      // OR multiple
+    "features": {
       "locales": [
-        "/data/translations-euro.csv",
-        "/data/translations-asian.csv",
+        "/translations-euro.csv",
+        "/translations-asian.csv"
       ]
     }
+  }
+}
+```
 
-    // JSON and/or YAML
+```json "manifest.json (JSON & YAML)"
+{
+  "data": {
     "features": {
-      "en": "/data/features.en.json",
-      "fr": "/data/features.fr.json",
-      "ar": "/data/features.ar.yaml",
-      "zh": "/data/features.zh.yaml"
+      "en": "/features.en.yaml",
+      "fr": "/features.fr.yaml",
+      "ar": "/features.ar.yaml",
+      "zh": "/features.zh.yaml"
     }
   }
 }
@@ -185,15 +183,19 @@ Each file should have the same object/array hierarchy and keys. Only the values 
 </html>
 ```
 
-</x-code-group>
+</div>
 
 #### CSV
 
-CSV files (like `translations`) containing multiple languages are registered using the `locales` key, which point to a CSV file (or multiple files in an array). The locales are determined by the language codes in the CSV headers.
+CSV files containing multiple languages are registered using the `locales` key, which point to a CSV file (or multiple files in an array). The locales are determined by the language codes in the CSV headers.
 
 #### JSON & YAML
 
-JSON and YAML (like `features`) declare each locale in an object using their language code as a nested key, like `en` or `fr`.
+JSON and YAML declare each locale in an object using their language code as a nested key, like `en` or `fr`.
+
+::: brand icon="lucide:info"
+Always set `<html lang="…">` to your project's default language. The plugin treats this attribute as the **declared default** — the locale a fresh visitor lands on when no URL prefix, stored preference, or matching browser language is in play, and the locale `$locale.reset()` returns to. If `<html lang>` is missing or doesn't match an available locale, the plugin falls through to the browser language, then to the first locale it discovers while scanning `manifest.json` (which is iteration-order dependent and not a reliable default).
+:::
 
 ---
 
@@ -220,36 +222,14 @@ Manifest has no build steps and is not a translation engine. To translate your c
 Like regular [local data](/docs/core-plugins/local-data#display-content), localizations are accessed using the `$x` magic method with dot notation. The structure follows this pattern:
 
 `$x.sourceName.property.subProperty`
+- `$x` — magic method prefix
+- `sourceName` — data source name from `manifest.json` (e.g. `features`)
+- `property` — object property or array name
+- `subProperty` — nested property (optional at any level)
 
-**Structure breakdown:**
-- `$x` - Magic method prefix
-- `sourceName` - Data source name from `manifest.json` (e.g. `features`)
-- `property` - Object property or array name
-- `subProperty` - Nested property (optional at any level)
+<div x-code-group copy>
 
-::: frame col
-<div class="row gap-2">
-  <button @click="$locale.set('en')">English</button>
-  <button @click="$locale.set('fr')">Français</button>
-  <button @click="$locale.set('zh')">中文</button>
-  <button @click="$locale.set('ar')">العربية</button>
-</div>
-<template x-for="feature in $x.features.content">
-  <div class="col" :class="{ 'opacity-50': $store.data._localeChanging }">
-    <span class="h4" x-text="feature.name"></span>
-    <span x-text="feature.description"></span>
-  </div>
-</template>
-:::
-
-```html numbers copy
-<!-- Toggles -->
-<button @click="$locale.set('en')">English</button>
-<button @click="$locale.set('fr')">Français</button>
-<button @click="$locale.set('zh')">中文</button>
-<button @click="$locale.set('ar')">العربية</button>
-
-<!-- Content -->
+```html "HTML"
 <template x-for="feature in $x.features.content">
   <div class="col">
     <h4 x-text="feature.name"></h4>
@@ -257,6 +237,44 @@ Like regular [local data](/docs/core-plugins/local-data#display-content), locali
   </div>
 </template>
 ```
+
+```csv "features.csv"
+key,en,fr,ar,zh
+features.title,Features,Caractéristiques,الميزات,功能
+features.performance.name,Fast Performance,Performance Rapide,أداء سريع,快速性能
+features.performance.description,Lightning fast loading times,Temps de chargement ultra rapides,أوقات تحميل سريعة كالبرق,闪电般的加载速度
+features.ease.name,Easy to Use,Facile à Utiliser,سهل الاستخدام,易于使用
+features.ease.description,Simple and intuitive interface,Interface simple et intuitive,واجهة بسيطة وبديهية,简单直观的界面
+features.responsive.name,Responsive,Responsive,متجاوب,响应式
+features.responsive.description,Works on all devices,Fonctionne sur tous les appareils,يعمل على جميع الأجهزة,适用于所有设备
+```
+
+```json "manifest.json"
+{
+  "data": {
+    "features": {
+      "locales": [ "/features.csv" ]
+    }
+  }
+}
+```
+
+::: frame col gap-4
+<div class="row gap-2">
+  <button @click="$locale.set('en')">English</button>
+  <button @click="$locale.set('fr')">Français</button>
+  <button @click="$locale.set('zh')">中文</button>
+  <button @click="$locale.set('ar')">العربية</button>
+</div>
+<template x-for="feature in $x['feature-examples'].content">
+  <div class="col" :class="{ 'opacity-50': $store.data._localeChanging }">
+    <span class="h4" x-text="feature.name"></span>
+    <span x-text="feature.description"></span>
+  </div>
+</template>
+:::
+
+</div>
 
 See [local data](/docs/core-plugins/local-data#display-content) for specifics on how to inject content as text, HTML, or attribute values like links and images.
 
@@ -266,14 +284,26 @@ See [local data](/docs/core-plugins/local-data#display-content) for specifics on
 
 If a language code is detected as a slug anywhere in the URL path, that locale is automatically displayed.
 
-::: frame col
+<div x-code-group>
+
+```html lines copy
+<!-- Links -->
+<a href="/en/docs/core-plugins/localization">English</a>
+<a href="/fr/docs/core-plugins/localization">Français</a>
+<a href="/zh/docs/core-plugins/localization">中文</a>
+<a href="/ar/docs/core-plugins/localization">العربية</a>
+<button class="link" @click="$locale.reset()">Base URL</button>
+```
+
+::: frame col gap-4 text-base [&_a]:underline
 <div class="row-wrap gap-4">
-  <a href="/en/core-plugins/localization">English</a>
-  <a href="/fr/core-plugins/localization">Français</a>
-  <a href="/zh/core-plugins/localization">中文</a>
-  <a href="/ar/core-plugins/localization">العربية</a>
+  <a href="/en/docs/core-plugins/localization#url-paths">English</a>
+  <a href="/fr/docs/core-plugins/localization#url-paths">Français</a>
+  <a href="/zh/docs/core-plugins/localization#url-paths">中文</a>
+  <a href="/ar/docs/core-plugins/localization#url-paths">العربية</a>
+  <button class="link underline" @click="$locale.reset()">Base URL</button>
 </div>
-<template x-for="feature in $x.features.content">
+<template x-for="feature in $x['feature-examples'].content">
   <div class="col">
     <span class="h4" x-text="feature.name"></span>
     <span x-text="feature.description"></span>
@@ -281,21 +311,7 @@ If a language code is detected as a slug anywhere in the URL path, that locale i
 </template>
 :::
 
-```html numbers copy
-<!-- Links -->
-<a href="/en/core-plugins/localization">English</a>
-<a href="/fr/core-plugins/localization">Français</a>
-<a href="/zh/core-plugins/localization">中文</a>
-<a href="/ar/core-plugins/localization">العربية</a>
-
-<!-- Content -->
-<template x-for="feature in $x.features.content">
-  <div class="col">
-    <h4 x-text="feature.name"></h4>
-    <p x-text="feature.description"></p>
-  </div>
-</template>
-```
+</div>
 
 ---
 
@@ -304,22 +320,30 @@ If a language code is detected as a slug anywhere in the URL path, that locale i
 Allow users to toggle locales with Alpine's `@click` directive, using the `$locale` magic method:
 - `$locale.set('...')` sets the specified locale by its language code, e.g. `fr` for French
 - `$locale.toggle()` toggles through all locales in the order set in `manifest.json`
+- `$locale.reset()` restores the project's default locale — clears the stored UI preference, re-applies the original `<html lang>` (or browser language, or first available), updates `$locale.current` reactively, and strips any leading locale segment from the URL
 
-::: frame
+<div x-code-group>
+
+```html lines copy
 <button @click="$locale.set('en')">English</button>
 <button @click="$locale.set('fr')">Français</button>
 <button @click="$locale.set('ar')">العربية</button>
 <button @click="$locale.set('zh')">中文</button>
 <button @click="$locale.toggle()">Toggle</button>
+<button @click="$locale.reset()">Reset</button>
+```
+
+::: frame text-base
+<button @click="$locale.set('en')">English</button>
+<button @click="$locale.set('fr')">Français</button>
+<button @click="$locale.set('ar')">العربية</button>
+<button @click="$locale.set('zh')">中文</button>
+<button @click="$locale.toggle()">Toggle</button>
+<button @click="$locale.reset()">Reset</button>
+<p class="mt-4">Current: <span x-text="$locale.current"></span></p>
 :::
 
-```html numbers copy
-<button @click="$locale.set('en')">English</button>
-<button @click="$locale.set('fr')">Français</button>
-<button @click="$locale.set('ar')">العربية</button>
-<button @click="$locale.set('zh')">中文</button>
-<button @click="$locale.toggle()">Toggle</button>
-```
+</div>
 
 ---
 
@@ -327,12 +351,35 @@ Allow users to toggle locales with Alpine's `@click` directive, using the `$loca
 
 Display the current locale's language code with `x-text="$locale.current"`:
 
-::: frame
-<p>Current: <span x-text="$locale.current"></span></p>
-:::
+<div x-code-group>
 
 ```html copy
 <p>Current: <span x-text="$locale.current"></span></p>
+```
+
+::: frame text-base
+<p>Current: <span x-text="$locale.current"></span></p>
+:::
+
+</div>
+
+---
+
+## Reset Locale
+
+Resetting the locale undoes the user's selection and returns the project to whatever a fresh first-visit would resolve to. It performs three steps:
+
+1. **Clears the stored preference.** Any `localStorage` value written by a previous `$locale.set()` or `$locale.toggle()` is removed, so the next page load starts from a clean slate.
+2. **Reverts to default locale.** Switches to the default, determined in order of precedence by: the `<html lang>` value (the developer's declared default), the browser language, or the first available locale in `manifest.json`.
+3. **Strips the URL locale slug.** If the current URL (or a passed-in href) starts with `/fr/`, `/ar/`, etc., that segment is removed before navigating, since leaving it in place would cause the next page load to redetect into the just-cleared locale.
+
+
+```html copy
+<!-- Reset on same page -->
+<button @click="$locale.reset()">Reset Locale</button>
+
+<!-- Reset while navigating -->
+<a href="/destination" @click.prevent="$locale.reset('/destination')">Destination</a>
 ```
 
 ---
@@ -341,21 +388,9 @@ Display the current locale's language code with `x-text="$locale.current"`:
 
 The plugin automatically detects and handles right-to-left languages like Arabic, Hebrew, and Persian:
 
-::: frame col
-<div class="row gap-2">
-  <button @click="$locale.set('en')">English (LTR)</button>
-  <button @click="$locale.set('ar')">العربية (RTL)</button>
-</div>
-<p>Direction: <strong x-text="$locale.direction"></strong></p>
-<template x-for="feature in $x.features.content">
-  <div class="col">
-    <h4 x-text="feature.name"></h4>
-    <p x-text="feature.description"></p>
-  </div>
-</template>
-:::
+<div x-code-group>
 
-```html numbers copy
+```html lines copy
 <!-- Toggles -->
 <button @click="$locale.set('en')">English (LTR)</button>
 <button @click="$locale.set('ar')">العربية (RTL)</button>
@@ -372,7 +407,23 @@ The plugin automatically detects and handles right-to-left languages like Arabic
 </template>
 ```
 
-If an RTL language is detected as the current locale, the plugin automatically adds `dir=rtl` to the `<html>` tag, reversing the inline flow of page content. Dectable RTL languages are:
+::: frame col gap-4 text-base
+<div class="row gap-2">
+  <button @click="$locale.set('en')">English (LTR)</button>
+  <button @click="$locale.set('ar')">العربية (RTL)</button>
+</div>
+<p>Direction: <strong x-text="$locale.direction"></strong></p>
+<template x-for="feature in $x['feature-examples'].content">
+  <div class="col">
+    <h4 x-text="feature.name"></h4>
+    <p x-text="feature.description"></p>
+  </div>
+</template>
+:::
+
+</div>
+
+If an RTL language is detected as the current locale, the plugin automatically adds `dir=rtl` to the `<html>` tag, reversing the inline flow of page content. Detectable RTL languages are:
 
 **Arabic Script**
 - Arabic (`ar`)
@@ -413,4 +464,3 @@ If an RTL language is detected as the current locale, the plugin automatically a
 - Old Persian (`peo`)
 - Middle Persian/Pahlavi (`pal`)
 - Avestan (`avst`)
-- Manding (`man`)

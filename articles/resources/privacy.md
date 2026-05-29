@@ -56,7 +56,7 @@ We process your Personal Information only where we have a lawful basis under app
 
 ## Cookies and local storage
 
-We use cookies and browser local storage for authentication, session management, preferences, and anonymised analytics. Strictly necessary entries support authentication and sessions and cannot be disabled without breaking core functionality. Optional cookies, such as analytics, are set only with your consent where required by law. You can manage cookies in your browser settings.
+We use cookies and browser local storage for authentication, session management, preferences, and anonymized analytics. Strictly necessary entries support authentication and sessions and cannot be disabled without breaking core functionality. Optional cookies, such as analytics, are set only with your consent where required by law. You can manage cookies in your browser settings.
 
 ---
 
@@ -86,7 +86,7 @@ We retain your Personal Information for as long as your account is active or as 
 
 Subject to the privacy law applicable to you, you have the right to (i) access the Personal Information we hold about you; (ii) request correction of inaccurate or incomplete information; (iii) request deletion or erasure of your Personal Information; (iv) restrict, or object to, certain processing; (v) withdraw consent where processing is based on consent; (vi) receive your Personal Information in a portable, commonly used, machine-readable format and, where technically feasible, have it transmitted to another controller; (vii) limit the use and disclosure of Sensitive Personal Information; (viii) opt out of the sale or sharing of Personal Information; (ix) not be discriminated against for exercising these rights; and (x) lodge a complaint with a competent supervisory authority.
 
-To exercise any right you believe you hold, or to request account deletion, contact us at [team@manifestx.dev](mailto:team@manifestx.dev). Requests are handled free of charge and within one month, except where applicable law permits longer. You may designate an authorised agent, subject to verification of your identity and the agent's authority.
+To exercise any right you believe you hold, or to request account deletion, contact us at [team@manifestx.dev](mailto:team@manifestx.dev). Requests are handled free of charge and within one month, except where applicable law permits longer. You may designate an authorized agent, subject to verification of your identity and the agent's authority.
 
 ---
 
@@ -94,7 +94,7 @@ To exercise any right you believe you hold, or to request account deletion, cont
 
 This Policy is intended to satisfy the substantive requirements of applicable privacy laws globally, including the General Data Protection Regulation, the UK GDPR, the California Consumer Privacy Act as amended by the California Privacy Rights Act, the Personal Information Protection and Electronic Documents Act, and equivalent state, provincial, and national legislation.
 
-**Categories of Personal Information collected.** In the preceding twelve (12) months, we have collected only the categories of Personal Information described in this Policy: identifiers (such as your email address) and internet or other electronic network activity information (such as anonymised browsing data).
+**Categories of Personal Information collected.** In the preceding twelve (12) months, we have collected only the categories of Personal Information described in this Policy: identifiers (such as your email address) and internet or other electronic network activity information (such as anonymized browsing data).
 
 **No sale or sharing.** We do not sell or share Personal Information as those terms are defined under any applicable privacy law, and have not done so in the preceding twelve (12) months. We do not knowingly process the Personal Information of children, and we do not collect or process Sensitive Personal Information to infer characteristics about you.
 

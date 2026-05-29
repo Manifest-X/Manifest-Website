@@ -1,1 +1,1 @@
-Lorem ipsum, dolar sit amet.
+Lorem ipsum, dolor sit amet.

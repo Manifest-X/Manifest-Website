@@ -8,7 +8,7 @@ Collapsible content panels that expand on demand.
 
 Accordion styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS"
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
@@ -18,18 +18,13 @@ Accordion styles are included in Manifest CSS or a standalone stylesheet, both r
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.accordion.css" />
 ```
 
-</x-code-group>
+</div>
 
 ---
 
 ## Default
 
-::: frame h-30
-<details>
-    <summary>Accordion Item</summary>
-    <p>This is the accordion content that can be expanded and collapsed by clicking the summary.</p>
-</details>
-:::
+<div x-code-group>
 
 ```html copy
 <details>
@@ -37,6 +32,15 @@ Accordion styles are included in Manifest CSS or a standalone stylesheet, both r
     <p>This is the accordion content that can be expanded and collapsed by clicking the summary.</p>
 </details>
 ```
+
+::: frame h-fit text-base
+<details>
+    <summary>Accordion Item</summary>
+    <p>This is the accordion content that can be expanded and collapsed by clicking the summary.</p>
+</details>
+:::
+
+</div>
 
 Accordions use the native HTML `<details>` element with custom styling. The `<summary>` acts as the clickable header, and any elements below it are shown/hidden when toggled.
 
@@ -46,7 +50,24 @@ Accordions use the native HTML `<details>` element with custom styling. The `<su
 
 Multiple accordions can be stacked one after the other. To make them part of the same series where only one can be open at a time, add `name` attributes with matching values.
 
-::: frame col h-46
+<div x-code-group>
+
+```html copy
+<details name="faq">
+    <summary>First Item</summary>
+    <p>Content for the first accordion item.</p>
+</details>
+<details name="faq">
+    <summary>Second Item</summary>
+    <p>Content for the second accordion item.</p>
+</details>
+<details name="faq">
+    <summary>Third Item</summary>
+    <p>Content for the third accordion item.</p>
+</details>
+```
+
+::: frame col h-fit text-base
 <details name="faq">
     <summary>First Item</summary>
     <p>Content for the first accordion item.</p>
@@ -61,20 +82,7 @@ Multiple accordions can be stacked one after the other. To make them part of the
 </details>
 :::
 
-```html copy numbers
-<details name="faq">
-    <summary>First Item</summary>
-    <p>Content for the first accordion item.</p>
-</details>
-<details name="faq">
-    <summary>Second Item</summary>
-    <p>Content for the second accordion item.</p>
-</details>
-<details name="faq">
-    <summary>Third Item</summary>
-    <p>Content for the third accordion item.</p>
-</details>
-```
+</div>
 
 ---
 
@@ -82,7 +90,20 @@ Multiple accordions can be stacked one after the other. To make them part of the
 
 Add the `open` attribute to accordions that should be open on page load.
 
-::: frame col h-46
+<div x-code-group>
+
+```html copy
+<details open>
+    <summary>Pre-opened Item</summary>
+    <p>This accordion item starts in the open state.</p>
+</details>
+<details>
+    <summary>Closed Item</summary>
+    <p>This accordion item starts closed.</p>
+</details>
+```
+
+::: frame col h-fit text-base
 <details open>
     <summary>Pre-opened Item</summary>
     <p>This accordion item starts in the open state.</p>
@@ -93,16 +114,7 @@ Add the `open` attribute to accordions that should be open on page load.
 </details>
 :::
 
-```html copy numbers
-<details open>
-    <summary>Pre-opened Item</summary>
-    <p>This accordion item starts in the open state.</p>
-</details>
-<details>
-    <summary>Closed Item</summary>
-    <p>This accordion item starts closed.</p>
-</details>
-```
+</div>
 
 ---
 
@@ -114,12 +126,12 @@ Default accordions use the following [theme](/docs/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
-| `--color-content-stark` | Summary text color |
-| `--color-field-surface` | Icon background color |
-| `--color-field-inverse` | Icon color |
-| `--spacing-field-padding` | Content padding |
-| `--spacing` | Summary margin when open |
-| `--transition` | Transition for interactive states |
+| `--color-content-stark`{copy} | Summary text color |
+| `--color-field-surface`{copy} | Icon background color |
+| `--color-field-inverse`{copy} | Icon color |
+| `--spacing-field-padding`{copy} | Content padding |
+| `--spacing`{copy} | Summary margin when open |
+| `--transition`{copy} | Transition for interactive states |
 
 ---
 
@@ -143,7 +155,27 @@ The accordion icon is an encoded SVG in the accordion style's `--icon-accordion`
 
 Modify base accordion styles with custom CSS for the `<details>` selector.
 
-::: frame
+<div x-code-group>
+
+```css copy
+details.custom {
+    padding: 2px;
+    background-color: var(--color-surface-3);
+    
+    & summary {
+        padding: 0 1rem;
+        font-weight: regular;
+    }
+
+    & summary + * {
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: var(--color-page);
+    }
+}
+```
+
+::: frame text-base
 <style>
 details.custom {
     padding: 2px;
@@ -168,20 +200,4 @@ details.custom {
 </details>
 :::
 
-```css copy
-details.custom {
-    padding: 2px;
-    background-color: var(--color-surface-3);
-    
-    & summary {
-        padding: 0 1rem;
-        font-weight: regular;
-    }
-
-    & summary + * {
-        margin-top: 1rem;
-        padding: 1rem;
-        background-color: var(--color-page);
-    }
-}
-```
+</div>

@@ -8,7 +8,7 @@ Structured input layouts with built-in validation.
 
 Form styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS"
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
@@ -18,7 +18,7 @@ Form styles are included in Manifest CSS or a standalone stylesheet, both refere
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.form.css" />
 ```
 
-</x-code-group>
+</div>
 
 ---
 
@@ -26,38 +26,31 @@ Form styles are included in Manifest CSS or a standalone stylesheet, both refere
 
 The `<form>` element arranges its contents in a column with gaps.
 
-::: frame
-<form>
-    <label for="input1">Input 1</label>
-    <input id="input1" placeholder="Insert" />
-    <label for="input2">Input 1</label>
-    <input id="input2" placeholder="Insert" />
-</form>
-:::
+<div x-code-group>
 
 ```html
 <form>
     <label for="input1">Input 1</label>
     <input id="input1" placeholder="Insert" />
-    <label for="input2">Input 1</label>
+    <label for="input2">Input 2</label>
     <input id="input2" placeholder="Insert" />
 </form>
 ```
+
+::: frame text-base
+<form>
+    <label for="input1">Input 1</label>
+    <input id="input1" placeholder="Insert" />
+    <label for="input2">Input 2</label>
+    <input id="input2" placeholder="Insert" />
+</form>
+:::
+
+</div>
 
 Place form elements inside a label for enhanced default styling, and to reduce code required. Label text can be standalone or in a `<span>`.
 
-::: frame
-<form>
-    <label>
-        Input 1
-        <input placeholder="Insert" />
-    </label>
-    <label>
-        <span>Input 2</span>
-        <input placeholder="Insert" />
-    </label>
-</form>
-:::
+<div x-code-group>
 
 ```html
 <form>
@@ -72,73 +65,26 @@ Place form elements inside a label for enhanced default styling, and to reduce c
 </form>
 ```
 
-This works for all types of form elements.
-
-::: frame
+::: frame text-base
 <form>
     <label>
-        Button label
-        <button>Button</button>
+        Input 1
+        <input placeholder="Insert" />
     </label>
     <label>
-        Text input label
-        <input placeholder="Input" />
+        <span>Input 2</span>
+        <input placeholder="Insert" />
     </label>
-    <div>
-        <label for="search">Search input label</label>
-        <label>
-            <i x-icon="lucide:search"></i>
-            <input id="search" type="search" />
-        </label>
-    </div>
-    <div>
-        <label for="file">File input label</label>
-        <label>
-            <i x-icon="lucide:upload"></i>
-            Upload
-            <input id="file" type="file" />
-        </label>
-    </div>
-    <label>
-        Select label
-        <select>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-        </select>
-    </label>
-    <label>
-        Textarea label
-        <textarea placeholder="Insert"></textarea>
-    </label>
-    <label>
-        <input type="checkbox" role="switch" />
-        Switch label
-    </label>
-    <fieldset>
-        <label>
-            <input type="checkbox" />
-            Checkbox label
-        </label>
-        <label>
-            <input type="checkbox" />
-            Checkbox label
-        </label>
-    </fieldset>
-    <fieldset>
-        <label>
-            <input type="radio" name="radio-set" />
-            Radio label
-        </label>
-        <label>
-            <input type="radio" name="radio-set" />
-            Radio label
-        </label>
-    </fieldset>
 </form>
 :::
 
-```html numbers copy
+</div>
+
+This works for all types of form elements.
+
+<div x-code-group>
+
+```html lines copy collapse="10"
 <form>
     <label>
         Button label
@@ -207,39 +153,33 @@ This works for all types of form elements.
 </form>
 ```
 
----
-
-## Inline Labels
-
-To horizontally inline the label text with its form element, place the text in a `<data>` element, which Manifest uses as a CSS hook. `<data>` elements are semantically neutral, equivalent to a `<span>`.
-
-::: frame
+::: frame text-base
 <form>
     <label>
-        <data>Button label</data>
+        Button label
         <button>Button</button>
     </label>
     <label>
-        <data>Text input label</data>
+        Text input label
         <input placeholder="Input" />
     </label>
-    <label>
-        <data>Search input label</data>
-        <div class="label">
+    <div>
+        <label for="search">Search input label</label>
+        <label>
             <i x-icon="lucide:search"></i>
             <input id="search" type="search" />
-        </div>
-    </label>
-    <label>
-        <data>File input label</data>
-        <div class="label">
+        </label>
+    </div>
+    <div>
+        <label for="file">File input label</label>
+        <label>
             <i x-icon="lucide:upload"></i>
             Upload
             <input id="file" type="file" />
-        </div>
-    </label>
+        </label>
+    </div>
     <label>
-        <data>Select label</data>
+        Select label
         <select>
             <option value="1">Option 1</option>
             <option value="2">Option 2</option>
@@ -247,37 +187,47 @@ To horizontally inline the label text with its form element, place the text in a
         </select>
     </label>
     <label>
-        <data>Textarea label</data>
+        Textarea label
         <textarea placeholder="Insert"></textarea>
     </label>
     <label>
-        <data>Switch label</data>
         <input type="checkbox" role="switch" />
+        Switch label
     </label>
     <fieldset>
         <label>
-            <data>Checkbox label</data>
             <input type="checkbox" />
+            Checkbox label
         </label>
         <label>
-            <data>Checkbox label</data>
             <input type="checkbox" />
+            Checkbox label
         </label>
     </fieldset>
     <fieldset>
         <label>
-            <data>Radio label</data>
             <input type="radio" name="radio-set" />
+            Radio label
         </label>
         <label>
-            <data>Radio label</data>
             <input type="radio" name="radio-set" />
+            Radio label
         </label>
     </fieldset>
 </form>
 :::
 
-```html numbers copy
+</div>
+
+---
+
+## Inline Labels
+
+To horizontally inline the label text with its form element, place the text in a `<data>` element, which Manifest uses as a CSS hook. `<data>` elements are semantically neutral, equivalent to a `<span>`.
+
+<div x-code-group>
+
+```html lines copy collapse="10"
 <form>
     <label>
         <data>Button label</data>
@@ -344,25 +294,79 @@ To horizontally inline the label text with its form element, place the text in a
 </form>
 ```
 
+::: frame text-base
+<form>
+    <label>
+        <data>Button label</data>
+        <button>Button</button>
+    </label>
+    <label>
+        <data>Text input label</data>
+        <input placeholder="Input" />
+    </label>
+    <label>
+        <data>Search input label</data>
+        <div class="label">
+            <i x-icon="lucide:search"></i>
+            <input id="search" type="search" />
+        </div>
+    </label>
+    <label>
+        <data>File input label</data>
+        <div class="label">
+            <i x-icon="lucide:upload"></i>
+            Upload
+            <input id="file" type="file" />
+        </div>
+    </label>
+    <label>
+        <data>Select label</data>
+        <select>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </label>
+    <label>
+        <data>Textarea label</data>
+        <textarea placeholder="Insert"></textarea>
+    </label>
+    <label>
+        <data>Switch label</data>
+        <input type="checkbox" role="switch" />
+    </label>
+    <fieldset>
+        <label>
+            <data>Checkbox label</data>
+            <input type="checkbox" />
+        </label>
+        <label>
+            <data>Checkbox label</data>
+            <input type="checkbox" />
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            <data>Radio label</data>
+            <input type="radio" name="radio-set" />
+        </label>
+        <label>
+            <data>Radio label</data>
+            <input type="radio" name="radio-set" />
+        </label>
+    </fieldset>
+</form>
+:::
+
+</div>
+
 ---
 
 ## Fieldset Legends
 
 Add a `<legend>` element to a `<fieldset>` with checkboxes or radios, to create a bordered container with a small title.
 
-::: frame
-<fieldset>
-<legend>Preferences</legend>
-<label>
-    <input type="checkbox" />
-    <data>Email notifications</data>
-</label>
-<label>
-    <input type="checkbox" />
-    <data>SMS notifications</data>
-</label>
-</fieldset>
-:::
+<div x-code-group>
 
 ```html copy
 <fieldset>
@@ -378,25 +382,31 @@ Add a `<legend>` element to a `<fieldset>` with checkboxes or radios, to create 
 </fieldset>
 ```
 
+::: frame text-base
+<fieldset>
+<legend>Preferences</legend>
+<label>
+    <input type="checkbox" />
+    <data>Email notifications</data>
+</label>
+<label>
+    <input type="checkbox" />
+    <data>SMS notifications</data>
+</label>
+</fieldset>
+:::
+
+</div>
+
 ---
 
 ## Group Wrappers
 
 Buttons, inputs, and selects can be arranged horizontally flush inside a wrapper with the `role="group"` attribute. Elements are connected seamlessly with shared borders.
 
-::: frame
-<div role="group">
-    <select>
-        <option>Category</option>
-        <option>Technology</option>
-        <option>Design</option>
-    </select>
-    <input placeholder="Filter" />
-    <button>Apply</button>
-</div>
-:::
+<div x-code-group>
 
-```html numbers copy
+```html lines copy
 <div role="group">
     <select>
         <option>Category</option>
@@ -408,7 +418,35 @@ Buttons, inputs, and selects can be arranged horizontally flush inside a wrapper
 </div>
 ```
 
+::: frame
+<div role="group">
+    <select>
+        <option>Category</option>
+        <option>Technology</option>
+        <option>Design</option>
+    </select>
+    <input placeholder="Filter" />
+    <button>Apply</button>
+</div>
+:::
+
+</div>
+
 The `even` utility class makes all form elements an equal width.
+
+<div x-code-group>
+
+```html lines copy
+<div role="group" class="even">
+    <select>
+        <option>Category</option>
+        <option>Technology</option>
+        <option>Design</option>
+    </select>
+    <input placeholder="Filter" />
+    <button>Apply</button>
+</div>
+```
 
 ::: frame
 <div role="group" class="even">
@@ -422,14 +460,93 @@ The `even` utility class makes all form elements an equal width.
 </div>
 :::
 
-```html numbers copy
-<div role="group" class="even">
-    <select>
-        <option>Category</option>
-        <option>Technology</option>
-        <option>Design</option>
-    </select>
-    <input placeholder="Filter" />
-    <button>Apply</button>
 </div>
+
+---
+
+## Validation
+
+Native HTML5 attributes like `required`, `type="email"`, `pattern`, `minlength`, and `maxlength` trigger the browser's built-in form validation on submit. Custom CSS or Tailwind pseudo-class variants can be used to style valid and invalid states without Javascript. Block the form's own validation messages with `novalidate`.
+
+<div x-code-group>
+
+```html copy
+<form class="group">
+    <label>
+        Email
+        <input type="email" required
+            class="user-invalid:negative user-valid:positive" />
+    </label>
+    <label>
+        Subject
+        <input type="text" required minlength="8"
+            class="user-invalid:negative user-valid:positive" />
+    </label>
+    <button class="group-invalid:disabled accent">Submit</button>
+</form>
+```
+
+::: frame
+<form class="group">
+    <label>
+        Email
+        <input type="email" required
+            class="user-invalid:negative user-valid:positive" />
+    </label>
+    <label>
+        Subject
+        <input type="text" required minlength="8"
+            class="user-invalid:negative user-valid:positive" />
+    </label>
+    <button class="group-invalid:disabled accent">Submit</button>
+</form>
+:::
+
+</div>
+
+Common Tailwind variants:
+
+| Variant | Triggers when |
+|---|---|
+| `invalid:`{copy} | The field's value fails its native validation rules |
+| `valid:`{copy} | The field's value passes its native validation rules |
+| `user-invalid:`{copy} | Same as `invalid:`{copy} but only after the user has interacted with the field |
+| `user-valid:`{copy} | Same as `valid:`{copy} but only after the user has interacted with the field |
+| `peer-invalid:`{copy} | A `.peer` sibling fails its native validation rules |
+| `peer-user-invalid:`{copy} | A `.peer` sibling fails validation only after user interaction |
+| `group-invalid:`{copy} | A `.group` parent contains one or more invalid fields |
+| `group-user-invalid:`{copy} | A `.group` parent contains one or more user-invalid fields (after user interaction) |
+| `required:`{copy} | The field has the `required` attribute |
+| `placeholder-shown:`{copy} | The field is empty and showing its placeholder |
+| `focus:`{copy} | The field is currently focused |
+
+`user-invalid:` and `user-valid:` are better suited than the unprefixed `invalid:` and `valid:` for most cases. They wait until the user has actually engaged with the field, avoiding the awkward "everything is red on page load" effect.
+
+---
+
+## Styles
+
+Forms inherit styling from their child elements ([buttons](/docs/elements/buttons), [inputs](/docs/elements/inputs), [selects](/docs/elements/selects)) and reference [theme](/docs/styles/theme) variables. The form, fieldset, label, and group elements layer in a small amount of layout structure on top.
+
+| Selector | Purpose |
+|---|---|
+| `form` | Default column layout with vertical gaps between children |
+| `fieldset` | Bordered grouping with column layout |
+| `legend` | Fieldset title styling |
+| `label` | Stacks a label above its form control |
+| `label > data` | Inlines the label text horizontally with the control |
+| `[role="group"]` | Horizontal row of form elements with shared borders |
+| `[role="group"].even` | Equal-width siblings inside a group |
+
+### Customization
+
+Target any of the selectors above with custom CSS.
+
+```css copy
+form {
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+}
 ```

@@ -10,7 +10,7 @@ Complete the [Appwrite setup](/docs/appwrite-plugins/appwrite-setup) steps to co
 
 Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json` is also required for Appwrite credentials and configuring auth details.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "All Plugins (default)"
 <!-- Meta -->
@@ -31,7 +31,7 @@ Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json`
     data-plugins="appwrite-auth"></script>
 ```
 
-</x-code-group>
+</div>
 
 ---
 

@@ -1,22 +1,29 @@
 # Introduction
 
-Supercharge HTML for rapid, feature-rich website and web app development.
+A website and app framework built directly into HTML. No bundler, no build step, no boilerplate.
 
 ---
 
 ## What is Manifest?
 
-Manifest is a frontend framework inspired and complimented by <a href="https://alpinejs.dev" target="_blank">Alpine JS</a> and <a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a>, bringing client-side functionality and style directly into HTML.
+Manifest lets you build complete websites and apps — from marketing pages to enterprise platforms — in plain HTML enhanced with a small set of attributes. Drop in two lines and you're set:
 
-Manifest is comprised of Alpine plugins and CSS stylesheets, each offering modern features that can be used alone or together, and alongside other frameworks or libraries.
+```html "<head>" copy
+<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js" data-tailwind></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
+```
+
+That's the whole install. No compile step, no `node_modules`, no dev server required. Manifest pairs with — or replaces — frameworks like React, Vue, and HTMX.
+
+It's built for developers, designers who code, and AI coding assistants that want a modern web stack without complex tooling.
 
 ---
 
 ## Why Manifest?
 
-HTML is the scaffolding of the digital world. It's more written than any human language, and read billions of times a day without being seen. But after 30+ years of evolution, it still lacks native support for much of what modern websites and apps demand—forcing developers to patch it with layers of frameworks that ultimately compile back into HTML.
+HTML is read more times each day than any human language is spoken — and written by machines at staggering scale. Yet after 30+ years of evolution, it still lacks native support for much of what modern websites and apps demand, forcing developers to patch it with layers of frameworks that ultimately compile *back into* HTML.
 
-**Manifest brings the developer experience home to HTML** (plus a few thoughtfully chosen content formats), making modern web development faster, lighter, and more enjoyable—without sacrificing flexibility or power. Its design philosophies include:
+**Manifest brings the developer experience home to HTML**, making modern web development faster, lighter, and more enjoyable — without sacrificing flexibility or power. Its design philosophies:
 
 - Plug and play, no mandatory build steps.
 - Style and function with less code.
@@ -26,28 +33,18 @@ HTML is the scaffolding of the digital world. It's more written than any human l
 
 ---
 
-## Core Features
-- Alpine JS plugins for essential features like routing, HTML components, color modes, localization, icons, and more.
-- CSS stylesheets for normalization, pre-styled HTML elements, utility classes, and global theme management. Fully compatible with Tailwind v4+.
-- a11y, i18n, SEO, GEO, AEO, and web app-ready.
-- Centralized project configuration in `manifest.json`.
+## What's included
 
----
-
-## Acknowledgements
-
-Manifest was created by <a href="https://andrewmatlock.com" target="_blank">Andrew Matlock</a> with the vision to simplify and expedite website and app development for developers and AI. Special thanks goes to these supporting frameworks and libraries:
-
-- <a href="https://alpinejs.dev" target="_blank">Alpine JS</a> - Underlying reactive frontend framework
-- <a href="https://appwrite.io" target="_blank">Appwrite</a> - Backend infrastructure service
-- <a href="https://iconify.design" target="_blank">Iconify</a> - Icon libraries collection
-- <a href="https://nodeca.github.io/js-yaml" target="_blank">js-yaml</a> - YAML parser
-- <a href="https://highlightjs.org" target="_blank">highlight.js</a> - Code syntax highlighter
-- <a href="https://marked.js.org" target="_blank">Marked JS</a> - Markdown parser
-- <a href="https://tailwindcss.com" target="_blank">Tailwind CSS</a> - Utility-first CSS framework
+- **Pure HTML.** A script tag and a stylesheet — that's the install.
+- **Universal data.** One reactive syntax for files, APIs, and cloud databases.
+- **HTML components.** Reusable files with route bindings on any element.
+- **Style system.** Theme variables, utility classes, dark mode, and a CSS reset.
+- **Translation-ready.** Locale-keyed strings, right-to-left support.
+- **SEO & AI-ready.** One command renders a site optimized for search engines and LLM crawlers.
+- **Accessibility, forms, dropdowns, toasts, tooltips, 200,000+ icons** — and plenty more, all included, none required.
 
 ---
 
 ::: brand icon="lucide:info"
-Manifest went public in 2026 and will benefit from your feedback. We invite your ideas, suggestions, and collaboration on <a href="https://github.com/Manifest-X/Manifest" target="_blank">GitHub</a>.
+Manifest went public in 2026. Ideas, bug reports, and pull requests are welcome on <a href="https://github.com/Manifest-X/Manifest" target="_blank">GitHub</a>. Full credits live in the [Acknowledgements](/docs/resources/acknowledgements) article.
 :::

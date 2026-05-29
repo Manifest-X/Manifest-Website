@@ -8,7 +8,7 @@ User profile images with status indicators and fallbacks.
 
 Avatar styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
 
-<x-code-group copy>
+<div x-code-group copy>
 
 ```html "Manifest CSS"
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
@@ -18,7 +18,7 @@ Avatar styles are included in Manifest CSS or a standalone stylesheet, both refe
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.avatar.css" />
 ```
 
-</x-code-group>
+</div>
 
 ---
 
@@ -26,13 +26,7 @@ Avatar styles are included in Manifest CSS or a standalone stylesheet, both refe
 
 The `avatar` class allows an element to display an icon, text, or a profile pic.
 
-::: frame
-<div class="avatar" x-icon="lucide:user"></div>
-<div class="avatar">W</div>
-<div class="avatar bg-[url(/assets/examples/user.jpg)]"></div>
-<div class="avatar"><span>W</span><img src="/assets/examples/user.jpg" alt=""></div>
-<div class="avatar"><figure></figure><span>W</span><img src="/assets/examples/user.jpg" alt=""></div>
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Icon -->
@@ -58,6 +52,16 @@ The `avatar` class allows an element to display an icon, text, or a profile pic.
 </div>
 ```
 
+::: frame row-wrap gap-2
+<div class="avatar" x-icon="lucide:user"></div>
+<div class="avatar">W</div>
+<div class="avatar bg-[url(/assets/examples/user.jpg)]"></div>
+<div class="avatar"><span>W</span><img src="/assets/examples/user.jpg" alt=""></div>
+<div class="avatar"><figure></figure><span>W</span><img src="/assets/examples/user.jpg" alt=""></div>
+:::
+
+</div>
+
 To display text or an icon by default while supporting an optional profile pic, use nested `<span>` and `<img>` tags. If an image is present it will render overtop the text or icon. Add a `<figure>` tag for a coloured status indicator.
 
 ---
@@ -66,12 +70,7 @@ To display text or an icon by default while supporting an optional profile pic, 
 
 Buttons accept the `avatar` class and can be used to trigger an action like opening a [dropdown](/docs/elements/dropdowns) or [dialog](/docs/elements/dialogs).
 
-::: frame
-<button class="avatar" x-icon="lucide:user" aria-label="User menu"></button>
-<button class="avatar">W</button>
-<button class="avatar bg-[url(/assets/examples/user.jpg)]"></button>
-<button class="avatar"><span>W</span><img src="/assets/examples/user.jpg" alt=""></button>
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Icon -->
@@ -90,30 +89,24 @@ Buttons accept the `avatar` class and can be used to trigger an action like open
 </button>
 ```
 
+::: frame row-wrap gap-2
+<button class="avatar" x-icon="lucide:user" aria-label="User menu"></button>
+<button class="avatar">W</button>
+<button class="avatar bg-[url(/assets/examples/user.jpg)]"></button>
+<button class="avatar"><span>W</span><img src="/assets/examples/user.jpg" alt=""></button>
+:::
+
+</div>
+
 ---
 
 ### Picture Upload
 
 To create an avatar button that facilitates a profile pic upload, use an input of `type="file"` within a label wrapper.
 
-::: frame justify-start
-<label role="button" class="avatar lg group overflow-visible" x-data="{ imageUrl: '' }">
-    <input type="file" accept="image/*" x-ref="fileInput" @change="
-        const file = $event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => imageUrl = e.target.result;
-            reader.readAsDataURL(file);
-        }
-    " />
-    <span x-show="!imageUrl" class="absolute z-2 opacity-0 group-hover:opacity-100 transition" x-icon="lucide:upload"></span>
-    <span x-show="!imageUrl" class="opacity-100 group-hover:opacity-0 transition">W</span>
-    <img :src="imageUrl" x-show="imageUrl" alt="Profile picture">
-    <button x-show="imageUrl" class="sm absolute -top-2.5 -end-2.5 z-3 rounded-full shadow opacity-0 group-hover:opacity-100 hover:opacity-100" aria-label="Remove pic" x-icon="lucide:x" @click.stop="imageUrl = ''; $refs.fileInput.value = ''"></button>
-</label>
-:::
+<div x-code-group>
 
-```html numbers copy
+```html lines copy
 <!-- Upload image button -->
 <label role="button" class="avatar lg group overflow-visible" x-data="{ imageUrl: '' }">
 
@@ -142,6 +135,25 @@ To create an avatar button that facilitates a profile pic upload, use an input o
 </label>
 ```
 
+::: frame justify-start 
+<label role="button" class="avatar lg group overflow-visible" x-data="{ imageUrl: '' }">
+    <input type="file" accept="image/*" x-ref="fileInput" @change="
+        const file = $event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => imageUrl = e.target.result;
+            reader.readAsDataURL(file);
+        }
+    " />
+    <span x-show="!imageUrl" class="absolute z-2 opacity-0 group-hover:opacity-100 transition" x-icon="lucide:upload"></span>
+    <span x-show="!imageUrl" class="opacity-100 group-hover:opacity-0 transition">W</span>
+    <img :src="imageUrl" x-show="imageUrl" alt="Profile picture">
+    <button x-show="imageUrl" class="sm absolute -top-2.5 -end-2.5 z-3 rounded-full shadow opacity-0 group-hover:opacity-100 hover:opacity-100" aria-label="Remove pic" x-icon="lucide:x" @click.stop="imageUrl = ''; $refs.fileInput.value = ''"></button>
+</label>
+:::
+
+</div>
+
 In this example, Alpine is used to temporarily upload an image. The image can be overwritten with a new upload or removed. The spans, remove button, and Tailwind styles are arbitrary, shown here for visual demonstration purposes.
 
 ---
@@ -150,20 +162,7 @@ In this example, Alpine is used to temporarily upload an image. The image can be
 
 The `avatar-wide` container class displays a nested avatar alongside additional content.
 
-::: frame
-<div class="avatar-wide">
-    <div class="avatar">W</div>
-    <span>wesley@acme.com</span>
-</div>
-
-<button class="avatar-wide ghost">
-    <span class="avatar">W</span>
-    <div class="col items-start">
-        <span class="text-sm text-content-neutral font-semibold">wesley@acme.com</span>
-        <span class="text-xs text-content-subtle -mt-0.5">Superadmin</span>
-    </div>
-</button>
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Static wide avatar -->
@@ -182,6 +181,23 @@ The `avatar-wide` container class displays a nested avatar alongside additional 
 </button>
 ```
 
+::: frame col gap-2 text-base
+<div class="avatar-wide">
+    <div class="avatar">W</div>
+    <span>wesley@acme.com</span>
+</div>
+
+<button class="avatar-wide ghost">
+    <span class="avatar">W</span>
+    <div class="col items-start">
+        <span class="text-sm text-content-neutral font-semibold">wesley@acme.com</span>
+        <span class="text-xs text-content-subtle -mt-0.5">Superadmin</span>
+    </div>
+</button>
+:::
+
+</div>
+
 Within the `avatar-wide` container, all elements besides `avatar` are completely custom.
 
 ---
@@ -191,12 +207,7 @@ Within the `avatar-wide` container, all elements besides `avatar` are completely
 Avatars accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
-::: frame
-<div class="avatar brand">W</div>
-<div class="avatar accent">W</div>
-<div class="avatar positive">W</div>
-<div class="avatar negative">W</div>
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Brand variant -->
@@ -211,64 +222,73 @@ Avatars accept Manifest [utility](/docs/styles/utilities) classes, which can be 
 <!-- Negative variant -->
 <div class="avatar negative">W</div>
 ```
+
+::: frame row-wrap gap-2
+<div class="avatar brand">W</div>
+<div class="avatar accent">W</div>
+<div class="avatar positive">W</div>
+<div class="avatar negative">W</div>
+:::
+
+</div>
 
 #### Status Indicators
 
 Color classes also modify the status indicators.
 
-::: frame
-<div class="avatar">
-    <span>W</span>
-    <figure class="positive"></figure>
-</div>
-<div class="avatar">
-    <span>W</span>
-    <figure class="negative"></figure>
-</div>
-<div class="avatar">
-    <span>W</span>
-    <figure class="brand"></figure>
-</div>
-<div class="avatar">
-    <span>W</span>
-    <figure class="accent"></figure>
-</div>
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Brand variant -->
 <div class="avatar">
     <span>W</span>
-    <figure class="positive"></figure>
+    <figure class="brand"></figure>
 </div>
 
 <!-- Accent variant -->
 <div class="avatar">
     <span>W</span>
-    <figure class="negative"></figure>
+    <figure class="accent"></figure>
 </div>
 
 <!-- Positive variant -->
 <div class="avatar">
     <span>W</span>
-    <figure class="brand"></figure>
+    <figure class="positive"></figure>
 </div>
 
 <!-- Negative variant -->
 <div class="avatar">
     <span>W</span>
-    <figure class="accent"></figure>
+    <figure class="negative"></figure>
 </div>
 ```
+
+::: frame row-wrap gap-2
+<div class="avatar">
+    <span>W</span>
+    <figure class="brand"></figure>
+</div>
+<div class="avatar">
+    <span>W</span>
+    <figure class="accent"></figure>
+</div>
+<div class="avatar">
+    <span>W</span>
+    <figure class="positive"></figure>
+</div>
+<div class="avatar">
+    <span>W</span>
+    <figure class="negative"></figure>
+</div>
+:::
+
+</div>
 
 ---
 
 ### Size
-::: frame
-<div class="avatar sm">W</div>
-<div class="avatar">W</div>
-<div class="avatar lg">W</div>
-:::
+<div x-code-group>
 
 ```html copy
 <!-- Small variant -->
@@ -281,14 +301,18 @@ Color classes also modify the status indicators.
 <div class="avatar lg">W</div>
 ```
 
+::: frame row-wrap gap-2
+<div class="avatar sm">W</div>
+<div class="avatar">W</div>
+<div class="avatar lg">W</div>
+:::
+
+</div>
+
 ---
 
 ### Appearance
-::: frame
-<button class="avatar ghost">W</button>
-<button class="avatar outlined">W</button>
-<button class="avatar transparent">W</button>
-:::
+<div x-code-group>
 
 ```html copy
 <!-- No background until hover -->
@@ -301,19 +325,21 @@ Color classes also modify the status indicators.
 <button class="avatar transparent">W</button>
 ```
 
+::: frame row-wrap gap-2
+<button class="avatar ghost">W</button>
+<button class="avatar outlined">W</button>
+<button class="avatar transparent">W</button>
+:::
+
+</div>
+
 ---
 
 ## Groups
 
 Group avatars together horizontally with a `role="group"` attribute added to the parent container.
 
-::: frame !bg-page
-<div role="group">
-    <div class="avatar">X</div>
-    <div class="avatar">Y</div>
-    <div class="avatar">Z</div>
-</div>
-:::
+<div x-code-group>
 
 ```html copy
 <div role="group">
@@ -322,6 +348,16 @@ Group avatars together horizontally with a `role="group"` attribute added to the
     <div class="avatar">Z</div>
 </div>
 ```
+
+::: frame
+<div role="group">
+    <div class="avatar">X</div>
+    <div class="avatar">Y</div>
+    <div class="avatar">Z</div>
+</div>
+:::
+
+</div>
 
 Grouped avatars are given a bunching effect with negative margins.
 
@@ -335,18 +371,28 @@ Default avatars use the following [theme](/docs/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
-| `--color-field-surface` | Avatar background color |
-| `--color-field-surface-hover` | Button avatar hover/active background color |
-| `--color-field-inverse` | Avatar text color |
-| `--spacing-field-height` | Avatar width and height |
-| `--radius` | Border radius for avatar corners |
-| `--transition` | Transition for interactive states |
+| `--color-field-surface`{copy} | Avatar background color |
+| `--color-field-surface-hover`{copy} | Button avatar hover/active background color |
+| `--color-field-inverse`{copy} | Avatar text color |
+| `--spacing-field-height`{copy} | Avatar width and height |
+| `--radius`{copy} | Border radius for avatar corners |
+| `--transition`{copy} | Transition for interactive states |
 
 ---
 
 ### Customization
 
 Modify avatar styles with custom CSS.
+
+<div x-code-group>
+
+```css copy
+.avatar {
+    border-radius: 50%;
+    outline: 1px solid blue;
+    outline-offset: 1px;
+}
+```
 
 ::: frame
 <style>
@@ -359,10 +405,4 @@ Modify avatar styles with custom CSS.
 <button class="avatar avatar-custom">W</button>
 :::
 
-```css copy
-.avatar {
-    border-radius: 50%;
-    outline: 1px solid blue;
-    outline-offset: 1px;
-}
-```
+</div>
