@@ -3,50 +3,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Web -->
-  <title>Manifest — The website &amp; app framework that thinks like you do.</title>
+  <!--
+    Web — title and description match manifest.json's `name` / `description`,
+    so the renderer treats them as PLACEHOLDERS (per publishing/seo-aeo.md):
+    every rendered route gets a smart-defaulted title from its own <h1> and
+    description from its first <p>. Don't hardcode a longer tagline here —
+    that would block per-route defaults across the entire site.
+    Canonical, Open Graph, Twitter Card, and JSON-LD blocks are auto-emitted
+    per route by `npx mnfst-render` (driven by render.meta + render.structuredData
+    in manifest.json), so they're not declared statically here.
+  -->
+  <title>The website &amp; app framework
+        that thinks like you do. — Manifest</title>
   <meta name="description" content="Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required.">
   <meta name="author" content="Andrew Matlock">
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
-  <link rel="canonical" href="https://manifestx.dev/">
   <link rel="icon" href="../favicon.ico" sizes="any">
 
   <!-- Preconnect to Google Fonts CDN for faster font loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Manifest">
-  <meta property="og:title" content="Manifest — The website &amp; app framework that thinks like you do.">
-  <meta property="og:description" content="Supercharge HTML for rapid, feature-rich website and web app development.">
-  <meta property="og:url" content="https://manifestx.dev/">
-  <meta property="og:image" content="https://manifestx.dev/assets/icons/512x512.png">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Manifest — The website &amp; app framework that thinks like you do.">
-  <meta name="twitter:description" content="Supercharge HTML for rapid, feature-rich website and web app development.">
-  <meta name="twitter:image" content="https://manifestx.dev/assets/icons/512x512.png">
-
-  <!-- Structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Manifest",
-    "description": "Supercharge HTML for rapid, feature-rich website and web app development.",
-    "url": "https://manifestx.dev/",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "author": { "@type": "Person", "name": "Andrew Matlock", "url": "https://andrewmatlock.com" },
-    "license": "https://manifestx.dev/docs/resources/license",
-    "codeRepository": "https://github.com/Manifest-X/Manifest"
-  }
-  </script>
 
   <!-- Web App & Manifest -->
   <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
@@ -68,7 +46,9 @@
   <script src="../scripts/hero-editor.js" defer=""></script>
   <script src="../scripts/console-message.js" defer=""></script>
 
-<link rel="stylesheet" href="/prerender.tailwind.css">
+<meta property="og:title" content="The website &amp; app framework
+        that thinks like you do. — Manifest"><meta property="og:description" content="Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required."><meta property="og:type" content="website"><meta property="og:url" content="https://manifestx.dev/fr"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/fr.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="The website &amp; app framework
+        that thinks like you do. — Manifest"><meta property="twitter:description" content="Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required."><meta property="twitter:image" content="/og/fr.png"><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/fr">
   <link rel="alternate" hreflang="x-default" href="https://manifestx.dev">
   <link rel="alternate" hreflang="en" href="https://manifestx.dev/en">
@@ -559,8 +539,8 @@
     <strong>Universal Exports</strong>
 
       <!-- Locales -->
-      <button class="sm ghost ms-auto" x-dropdown="locale-menu" x-icon="lucide:globe" aria-label="Language" popovertarget="locale-menu" aria-haspopup="menu" aria-controls="locale-menu" aria-expanded="false" style="anchor-name: --dropdown-1adcavrnt" data-hydrate-id="h3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:globe" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20a14.5 14.5 0 0 0 0-20M2 12h20"></path></g></svg></button>
-      <menu popover="" id="locale-menu" class="min-w-0" role="menu" style="position-anchor: --dropdown-1adcavrnt">
+      <button class="sm ghost ms-auto" x-dropdown="locale-menu" x-icon="lucide:globe" aria-label="Language" popovertarget="locale-menu" aria-haspopup="menu" aria-controls="locale-menu" aria-expanded="false" style="anchor-name: --dropdown-99c7pkbll" data-hydrate-id="h3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:globe" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20a14.5 14.5 0 0 0 0-20M2 12h20"></path></g></svg></button>
+      <menu popover="" id="locale-menu" class="min-w-0" role="menu" style="position-anchor: --dropdown-99c7pkbll">
         <li @click="locale = 'en'" :disabled="locale === 'en'" disabled="disabled" role="menuitem" data-hydrate-id="h4">English</li>
         <li @click="locale = 'es'" :disabled="locale === 'es'" role="menuitem" data-hydrate-id="h5">Español</li>
         <li @click="locale = 'zh'" :disabled="locale === 'zh'" role="menuitem" data-hydrate-id="h6">中文</li>

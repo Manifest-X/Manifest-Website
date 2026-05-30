@@ -3,50 +3,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Web -->
-  <title>Manifest — The website &amp; app framework that thinks like you do.</title>
+  <!--
+    Web — title and description match manifest.json's `name` / `description`,
+    so the renderer treats them as PLACEHOLDERS (per publishing/seo-aeo.md):
+    every rendered route gets a smart-defaulted title from its own <h1> and
+    description from its first <p>. Don't hardcode a longer tagline here —
+    that would block per-route defaults across the entire site.
+    Canonical, Open Graph, Twitter Card, and JSON-LD blocks are auto-emitted
+    per route by `npx mnfst-render` (driven by render.meta + render.structuredData
+    in manifest.json), so they're not declared statically here.
+  -->
+  <title>Manifest</title>
   <meta name="description" content="Supercharge HTML for rapid, feature-rich website and web app development.">
   <meta name="author" content="Andrew Matlock">
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
-  <link rel="canonical" href="https://manifestx.dev/">
   <link rel="icon" href="/favicon.ico" sizes="any">
 
   <!-- Preconnect to Google Fonts CDN for faster font loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Manifest">
-  <meta property="og:title" content="Manifest — The website &amp; app framework that thinks like you do.">
-  <meta property="og:description" content="Supercharge HTML for rapid, feature-rich website and web app development.">
-  <meta property="og:url" content="https://manifestx.dev/">
-  <meta property="og:image" content="https://manifestx.dev/assets/icons/512x512.png">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Manifest — The website &amp; app framework that thinks like you do.">
-  <meta name="twitter:description" content="Supercharge HTML for rapid, feature-rich website and web app development.">
-  <meta name="twitter:image" content="https://manifestx.dev/assets/icons/512x512.png">
-
-  <!-- Structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Manifest",
-    "description": "Supercharge HTML for rapid, feature-rich website and web app development.",
-    "url": "https://manifestx.dev/",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "author": { "@type": "Person", "name": "Andrew Matlock", "url": "https://andrewmatlock.com" },
-    "license": "https://manifestx.dev/docs/resources/license",
-    "codeRepository": "https://github.com/Manifest-X/Manifest"
-  }
-  </script>
 
   <!-- Web App & Manifest -->
   <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
@@ -68,7 +45,7 @@
   <script src="/scripts/hero-editor.js" defer=""></script>
   <script src="/scripts/console-message.js" defer=""></script>
 
-<link rel="stylesheet" href="/prerender.tailwind.css">
+<meta property="og:title" content="Manifest"><meta property="og:description" content="Supercharge HTML for rapid, feature-rich website and web app development."><meta property="og:type" content="website"><meta property="og:url" content="https://manifestx.dev/"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/assets/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Manifest"><meta property="twitter:description" content="Supercharge HTML for rapid, feature-rich website and web app development."><meta property="twitter:image" content="/assets/icons/512x512.png"><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/">
   <link rel="alternate" hreflang="x-default" href="https://manifestx.dev">
   <link rel="alternate" hreflang="en" href="https://manifestx.dev/en">

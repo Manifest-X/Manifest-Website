@@ -3,50 +3,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Web -->
-  <title>Manifest — The website &amp; app framework that thinks like you do.</title>
+  <!--
+    Web — title and description match manifest.json's `name` / `description`,
+    so the renderer treats them as PLACEHOLDERS (per publishing/seo-aeo.md):
+    every rendered route gets a smart-defaulted title from its own <h1> and
+    description from its first <p>. Don't hardcode a longer tagline here —
+    that would block per-route defaults across the entire site.
+    Canonical, Open Graph, Twitter Card, and JSON-LD blocks are auto-emitted
+    per route by `npx mnfst-render` (driven by render.meta + render.structuredData
+    in manifest.json), so they're not declared statically here.
+  -->
+  <title>Reset — Manifest</title>
   <meta name="description" content="Normalize styles for consistent rendering across browsers.">
   <meta name="author" content="Andrew Matlock">
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
-  <link rel="canonical" href="https://manifestx.dev/">
   <link rel="icon" href="../../../../favicon.ico" sizes="any">
 
   <!-- Preconnect to Google Fonts CDN for faster font loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Manifest">
-  <meta property="og:title" content="Manifest — The website &amp; app framework that thinks like you do.">
-  <meta property="og:description" content="Supercharge HTML for rapid, feature-rich website and web app development.">
-  <meta property="og:url" content="https://manifestx.dev/">
-  <meta property="og:image" content="https://manifestx.dev/assets/icons/512x512.png">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Manifest — The website &amp; app framework that thinks like you do.">
-  <meta name="twitter:description" content="Supercharge HTML for rapid, feature-rich website and web app development.">
-  <meta name="twitter:image" content="https://manifestx.dev/assets/icons/512x512.png">
-
-  <!-- Structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Manifest",
-    "description": "Supercharge HTML for rapid, feature-rich website and web app development.",
-    "url": "https://manifestx.dev/",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "author": { "@type": "Person", "name": "Andrew Matlock", "url": "https://andrewmatlock.com" },
-    "license": "https://manifestx.dev/docs/resources/license",
-    "codeRepository": "https://github.com/Manifest-X/Manifest"
-  }
-  </script>
 
   <!-- Web App & Manifest -->
   <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
@@ -68,7 +45,7 @@
   <script src="../../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../../scripts/console-message.js" defer=""></script>
 
-<link rel="stylesheet" href="/prerender.tailwind.css">
+<meta property="og:title" content="Reset — Manifest"><meta property="og:description" content="Normalize styles for consistent rendering across browsers."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/styles/reset"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-styles-reset.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Reset — Manifest"><meta property="twitter:description" content="Normalize styles for consistent rendering across browsers."><meta property="twitter:image" content="/og/docs-styles-reset.png"><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/styles/reset">
   <link rel="alternate" hreflang="x-default" href="https://manifestx.dev/docs/styles/reset">
   <link rel="alternate" hreflang="en" href="https://manifestx.dev/en/docs/styles/reset">
@@ -671,10 +648,14 @@
     <div class="col max-w-full mx-auto">
 
       <!-- Eyebrow Group Name -->
-      <span class="h6 mb-3" x-show="$x.docs.$route('path')" x-text="$x.docs.$route('path')?.group || 'No group'">Styles</span>
+      <template x-if="$x.docs.$route('path')">
+        <span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'"></span>
+      </template><span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'">Styles</span>
 
       <!-- Markdown Document for Route -->
-      <div x-show="$x.docs.$route('path')" class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1"><h1 id="reset">Reset</h1><p>Normalize styles for consistent rendering across browsers.</p>
+      <template x-if="$x.docs.$route('path')">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="$x.docs.$route('path')?.doc"></div>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1"><h1 id="reset">Reset</h1><p>Normalize styles for consistent rendering across browsers.</p>
 <hr>
 <h2 id="overview">Overview</h2><p>Manifest provides a modern CSS reset and normalization library that ensures consistent rendering across browsers. It's based on <a href="https://necolas.github.io/normalize.css/" target="_blank" rel="noopener">Normalize.css</a> and <a href="https://tailwindcss.com/docs/preflight" target="_blank" rel="noopener">Tailwind's Preflight</a>, with additional optimizations for modern web development.</p>
 <hr>
@@ -700,11 +681,13 @@
 
     </div>
 
-    <!-- Default Content -->
-    <div x-show="!$x.docs.$route('path')" class="w-3xl max-w-full mx-auto text-center prose" style="display: none">
-      <h1>Article does not exist</h1>
-      <p>There is no documentation at this path.</p>
-    </div>
+    <!-- Default Content — `x-if` (not `x-show`) so the fallback is REMOVED from the DOM on valid routes, instead of just `display:none`. Otherwise every prerendered article page ships the "Article does not exist" text alongside its real content, which crawlers/AI scrapers see as duplicate/contradictory content. -->
+    <template x-if="!$x.docs.$route('path')">
+      <div class="w-3xl max-w-full mx-auto text-center prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
 
     <!-- Article Footer -->
     <footer class="mt-20">

@@ -3,50 +3,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Web -->
-  <title>Manifest — The website &amp; app framework that thinks like you do.</title>
+  <!--
+    Web — title and description match manifest.json's `name` / `description`,
+    so the renderer treats them as PLACEHOLDERS (per publishing/seo-aeo.md):
+    every rendered route gets a smart-defaulted title from its own <h1> and
+    description from its first <p>. Don't hardcode a longer tagline here —
+    that would block per-route defaults across the entire site.
+    Canonical, Open Graph, Twitter Card, and JSON-LD blocks are auto-emitted
+    per route by `npx mnfst-render` (driven by render.meta + render.structuredData
+    in manifest.json), so they're not declared statically here.
+  -->
+  <title>Local Data — Manifest</title>
   <meta name="description" content="Load YAML, JSON, or CSV files as reactive data sources.">
   <meta name="author" content="Andrew Matlock">
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
-  <link rel="canonical" href="https://manifestx.dev/">
   <link rel="icon" href="../../../../favicon.ico" sizes="any">
 
   <!-- Preconnect to Google Fonts CDN for faster font loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Manifest">
-  <meta property="og:title" content="Manifest — The website &amp; app framework that thinks like you do.">
-  <meta property="og:description" content="Supercharge HTML for rapid, feature-rich website and web app development.">
-  <meta property="og:url" content="https://manifestx.dev/">
-  <meta property="og:image" content="https://manifestx.dev/assets/icons/512x512.png">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Manifest — The website &amp; app framework that thinks like you do.">
-  <meta name="twitter:description" content="Supercharge HTML for rapid, feature-rich website and web app development.">
-  <meta name="twitter:image" content="https://manifestx.dev/assets/icons/512x512.png">
-
-  <!-- Structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Manifest",
-    "description": "Supercharge HTML for rapid, feature-rich website and web app development.",
-    "url": "https://manifestx.dev/",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "author": { "@type": "Person", "name": "Andrew Matlock", "url": "https://andrewmatlock.com" },
-    "license": "https://manifestx.dev/docs/resources/license",
-    "codeRepository": "https://github.com/Manifest-X/Manifest"
-  }
-  </script>
 
   <!-- Web App & Manifest -->
   <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
@@ -68,7 +45,7 @@
   <script src="../../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../../scripts/console-message.js" defer=""></script>
 
-<link rel="stylesheet" href="/prerender.tailwind.css">
+<meta property="og:title" content="Local Data — Manifest"><meta property="og:description" content="Load YAML, JSON, or CSV files as reactive data sources."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/local-data"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-core-plugins-local-data.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Local Data — Manifest"><meta property="twitter:description" content="Load YAML, JSON, or CSV files as reactive data sources."><meta property="twitter:image" content="/og/docs-core-plugins-local-data.png"><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/en/docs/core-plugins/local-data">
   <link rel="alternate" hreflang="x-default" href="https://manifestx.dev/docs/core-plugins/local-data">
   <link rel="alternate" hreflang="en" href="https://manifestx.dev/en/docs/core-plugins/local-data">
@@ -671,10 +648,14 @@
     <div class="col max-w-full mx-auto">
 
       <!-- Eyebrow Group Name -->
-      <span class="h6 mb-3" x-show="$x.docs.$route('path')" x-text="$x.docs.$route('path')?.group || 'No group'">Core Plugins</span>
+      <template x-if="$x.docs.$route('path')">
+        <span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'"></span>
+      </template><span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'">Core Plugins</span>
 
       <!-- Markdown Document for Route -->
-      <div x-show="$x.docs.$route('path')" class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1"><h1 id="local-data">Local Data</h1><p>Load YAML, JSON, or CSV files as reactive data sources.</p>
+      <template x-if="$x.docs.$route('path')">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="$x.docs.$route('path')?.doc"></div>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1"><h1 id="local-data">Local Data</h1><p>Load YAML, JSON, or CSV files as reactive data sources.</p>
 <hr>
 <h2 id="overview">Overview</h2><p>Local data consists of CSV, JSON, or YAML files in your project directory. Their content can be used to organize and populate UI content. Files are loaded on-demand and cached in memory until the page reloads.</p>
 <aside class="brand"><span x-icon="lucide:info"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:info" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4m0-4h.01"></path></g></svg></span><p>Local files are maintained client-side and should not contain sensitive data. See <a href="/en/docs/appwrite-plugins/cloud-data">cloud data</a> for a securely hosted equivalent.</p>
@@ -1212,11 +1193,13 @@ contact.phone,+<span class="hljs-number">1</span>-<span class="hljs-number">555<
 
     </div>
 
-    <!-- Default Content -->
-    <div x-show="!$x.docs.$route('path')" class="w-3xl max-w-full mx-auto text-center prose" style="display: none">
-      <h1>Article does not exist</h1>
-      <p>There is no documentation at this path.</p>
-    </div>
+    <!-- Default Content — `x-if` (not `x-show`) so the fallback is REMOVED from the DOM on valid routes, instead of just `display:none`. Otherwise every prerendered article page ships the "Article does not exist" text alongside its real content, which crawlers/AI scrapers see as duplicate/contradictory content. -->
+    <template x-if="!$x.docs.$route('path')">
+      <div class="w-3xl max-w-full mx-auto text-center prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
 
     <!-- Article Footer -->
     <footer class="mt-20">
@@ -1250,7 +1233,7 @@ contact.phone,+<span class="hljs-number">1</span>-<span class="hljs-number">555<
   <!-- Anchor Links -->
   <div data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
 
-    <small class="mb-2" x-show="$store.anchors?.count &gt; 0" style="display: none">
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
       <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:align-left" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m14 6H3M21 6H3"></path></svg></span>
       <span>On this page</span>
     </small>

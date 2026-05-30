@@ -31,18 +31,24 @@
     <div class="col max-w-full mx-auto">
 
       <!-- Eyebrow Group Name -->
-      <span class="h6 mb-3" x-show="$x.docs.$route('path')" x-text="$x.docs.$route('path')?.group || 'No group'"></span>
+      <template x-if="$x.docs.$route('path')">
+        <span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'"></span>
+      </template>
 
       <!-- Markdown Document for Route -->
-      <div x-show="$x.docs.$route('path')" class="prose [&_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="$x.docs.$route('path')?.doc"></div>
+      <template x-if="$x.docs.$route('path')">
+        <div class="prose [&_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="$x.docs.$route('path')?.doc"></div>
+      </template>
 
     </div>
 
-    <!-- Default Content -->
-    <div x-show="!$x.docs.$route('path')" class="w-3xl max-w-full mx-auto text-center prose">
-      <h1>Article does not exist</h1>
-      <p>There is no documentation at this path.</p>
-    </div>
+    <!-- Default Content — `x-if` (not `x-show`) so the fallback is REMOVED from the DOM on valid routes, instead of just `display:none`. Otherwise every prerendered article page ships the "Article does not exist" text alongside its real content, which crawlers/AI scrapers see as duplicate/contradictory content. -->
+    <template x-if="!$x.docs.$route('path')">
+      <div class="w-3xl max-w-full mx-auto text-center prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
 
     <!-- Article Footer -->
     <footer class="mt-20">
