@@ -5,16 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!--
-    Web — title and description match manifest.json's `name` / `description`,
-    so the renderer treats them as PLACEHOLDERS (per publishing/seo-aeo.md):
-    every rendered route gets a smart-defaulted title from its own <h1> and
-    description from its first <p>. Don't hardcode a longer tagline here —
-    that would block per-route defaults across the entire site.
-    Canonical, Open Graph, Twitter Card, and JSON-LD blocks are auto-emitted
-    per route by `npx mnfst-render` (driven by render.meta + render.structuredData
-    in manifest.json), so they're not declared statically here.
-  -->
   <title>Manifest</title>
   <meta name="description" content="Supercharge HTML for rapid, feature-rich website and web app development.">
   <meta name="author" content="Andrew Matlock">
@@ -23,9 +13,10 @@
   <meta name="google" content="notranslate">
   <link rel="icon" href="/favicon.ico" sizes="any">
 
-  <!-- Preconnect to Google Fonts CDN for faster font loading -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Preload Manrope (referenced by manifest.theme.css's @font-face) so the
+       UI font is fetched in parallel with HTML parsing instead of after the
+       CSS resolves — avoids the late-swap layout shift PageSpeed measured. -->
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/Manrope.woff2" crossorigin>
 
   <!-- Web App & Manifest -->
   <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
@@ -37,13 +28,15 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.code.min.css">
   <link rel="stylesheet" href="/manifest.theme.css">
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.min.js" data-tailwind data-version="0.5.115"></script>
+  <!-- Appwrite is only used inside docs/dashboard routes; defer so it doesn't block
+       the homepage's main thread (PageSpeed flagged 24.8 KiB of unused JS here). -->
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.js" data-tailwind data-version="0.5.117"></script>
   <script src="/scripts/hero-editor.js" defer></script>
   <script src="/scripts/console-message.js" defer></script>
 
@@ -64,7 +57,7 @@
     <x-home x-route="/"></x-home>
 
     <!-- Documentation pages -->
-    <x-docs x-route="/docs, /docs/*"></x-docs>
+    <x-docs x-route="/docs/*"></x-docs>
 
   </main>
 

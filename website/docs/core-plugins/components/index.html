@@ -1,18 +1,9 @@
-<html lang="ar" data-no-view-transitions="" dir="auto"><head>
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" dir="auto"><head>
   <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!--
-    Web — title and description match manifest.json's `name` / `description`,
-    so the renderer treats them as PLACEHOLDERS (per publishing/seo-aeo.md):
-    every rendered route gets a smart-defaulted title from its own <h1> and
-    description from its first <p>. Don't hardcode a longer tagline here —
-    that would block per-route defaults across the entire site.
-    Canonical, Open Graph, Twitter Card, and JSON-LD blocks are auto-emitted
-    per route by `npx mnfst-render` (driven by render.meta + render.structuredData
-    in manifest.json), so they're not declared statically here.
-  -->
   <title>Components — Manifest</title>
   <meta name="description" content="Reusable HTML templates with route-bound rendering.">
   <meta name="author" content="Andrew Matlock">
@@ -21,9 +12,10 @@
   <meta name="google" content="notranslate">
   <link rel="icon" href="../../../favicon.ico" sizes="any">
 
-  <!-- Preconnect to Google Fonts CDN for faster font loading -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <!-- Preload Manrope (referenced by manifest.theme.css's @font-face) so the
+       UI font is fetched in parallel with HTML parsing instead of after the
+       CSS resolves — avoids the late-swap layout shift PageSpeed measured. -->
+  <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
   <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
@@ -35,32 +27,28 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.min.js" data-version="0.5.115"></script>
+  <!-- Appwrite is only used inside docs/dashboard routes; defer so it doesn't block
+       the homepage's main thread (PageSpeed flagged 24.8 KiB of unused JS here). -->
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.js" data-version="0.5.117"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
 
-<script data-route-head="div-2lnrk3s7p">
+<script data-route-head="div-g9d239qa3">
         console.log('🔄 Component article script loaded');
-    </script><script data-route-head="div-00osrj7dq">
+    </script><script data-route-head="div-7jcgkr2my">
         console.log('🔄 Component article script loaded');
-    </script><meta property="og:title" content="Components — Manifest"><meta property="og:description" content="Reusable HTML templates with route-bound rendering."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/components"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-core-plugins-components.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Components — Manifest"><meta property="twitter:description" content="Reusable HTML templates with route-bound rendering."><meta property="twitter:image" content="/og/docs-core-plugins-components.png"><link rel="stylesheet" href="/prerender.tailwind.css">
+    </script><script data-route-head="div-yxwckdc0t">
+        console.log('🔄 Component article script loaded');
+    </script><meta property="og:title" content="Components — Manifest"><meta property="og:description" content="Reusable HTML templates with route-bound rendering."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/components"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Components — Manifest"><meta property="twitter:description" content="Reusable HTML templates with route-bound rendering."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Components — Manifest","description":"Reusable HTML templates with route-bound rendering.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/core-plugins/components"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Components","item":"https://manifestx.dev/docs/core-plugins/components"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/core-plugins/components">
-  <link rel="alternate" hreflang="x-default" href="https://manifestx.dev/docs/core-plugins/components">
-  <link rel="alternate" hreflang="en" href="https://manifestx.dev/en/docs/core-plugins/components">
-  <link rel="alternate" hreflang="fr" href="https://manifestx.dev/fr/docs/core-plugins/components">
-  <link rel="alternate" hreflang="zh" href="https://manifestx.dev/zh/docs/core-plugins/components">
-<meta property="og:locale" content="ar">
-  <meta property="og:locale:alternate" content="en">
-  <meta property="og:locale:alternate" content="fr">
-  <meta property="og:locale:alternate" content="zh">
 <meta name="manifest:router-base" content="">
-<meta name="manifest:prerender-locales" content="ar,en,fr,zh">
+<meta name="manifest:prerender-locales" content="en">
 <meta name="manifest:prerendered" content="1">
 <meta name="manifest:router-base-depth" content="3">
 <link rel="stylesheet" href="/prerender.utilities.css">
@@ -88,7 +76,7 @@
             </a>
 
             <!-- Docs Breadcrumbs-->
-            <small class="hidden sm:flex md:hidden truncate" x-route="/docs">
+            <small class="hidden sm:flex md:hidden truncate" x-route="/docs/*">
                 <span x-text="$x.docs.$route('path')?.group || 'No group'">Core Plugins</span>
                 <span class="mx-1.5" x-icon="lucide:chevron-right"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-right" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18l6-6l-6-6"></path></svg></span>
                 <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'">Components</span>
@@ -353,7 +341,7 @@
     
 
     <!-- Documentation pages -->
-    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs, /docs/*">
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*" data-component="docs-1">
 
   <!-- Desktop Navigation-->
   <div data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar">
@@ -654,12 +642,12 @@
       <!-- Eyebrow Group Name -->
       <template x-if="$x.docs.$route('path')">
         <span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'"></span>
-      </template><span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'">Core Plugins</span>
+      </template><span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'" data-mnfst-prerender-clone="1">Core Plugins</span>
 
       <!-- Markdown Document for Route -->
       <template x-if="$x.docs.$route('path')">
         <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="$x.docs.$route('path')?.doc"></div>
-      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1"><h1 id="components">Components</h1><p>Reusable HTML templates with route-bound rendering.</p>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="components">Components</h1><p>Reusable HTML templates with route-bound rendering.</p>
 <hr>
 <h2 id="overview">Overview</h2><p>Components in Manifest are HTML files representing pages, sections, or other UI templates that can be reused throughout a project. Optimized for performance, components are resolved and rendered in milliseconds at browser runtime, eliminating the need for server-side rendering.</p>
 <aside class="brand"><span x-icon="lucide:info"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:info" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4m0-4h.01"></path></g></svg></span><p>See the <a href="/docs/core-plugins/router">router</a> plugin for details on navigation, which can be used to show and hide components based on URL paths.</p>
@@ -740,9 +728,9 @@
 <hr>
 <h3 id="page-head-content">Page Head Content</h3><p>Components can include head content in a <code>&lt;template data-head&gt;</code> tag, which gets appended to the head of any <a href="/docs/core-plugins/router">route</a> that includes the component, and removed when the component is no longer rendered.</p>
 <pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">data-head</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
-        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'🔄 Component article script loaded'</span>);
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>
+        console.log('🔄 Component article script loaded');
+    <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p>Check the console for this page and you should see the above log.</p>
 <template data-head="">
@@ -984,7 +972,7 @@
   <!-- Anchor Links -->
   <div data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
 
-    <small class="mb-2" x-show="$store.anchors?.count &gt; 0" style="display: none">
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
       <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:align-left" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m14 6H3M21 6H3"></path></svg></span>
       <span>On this page</span>
     </small>
@@ -1002,5 +990,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"row items-center gap-2 w-full p-4 bg-stone-400 dark:bg-stone-800 text-stone-50"}},{"id":"h3","attrs":{"class":"row items-center gap-2 w-full p-4 bg-stone-400 dark:bg-stone-800 text-stone-50"}},{"id":"h4","attrs":{"class":"sm rounded-s-full"}},{"id":"h5","attrs":{"class":"sm ghost rounded-e-full"}},{"id":"h6","attrs":{"dir":null}},{"id":"h7","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h8","attrs":{"role":null}},{"id":"h9","attrs":{"role":null}},{"id":"h10","attrs":{"role":null}},{"id":"h11","attrs":{"role":null}},{"id":"h12","attrs":{"class":"sm rounded-e-full"}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"row items-center gap-2 w-full p-4 bg-stone-400 dark:bg-stone-800 text-stone-50"}},{"id":"h3","attrs":{"class":"row items-center gap-2 w-full p-4 bg-stone-400 dark:bg-stone-800 text-stone-50"}},{"id":"h4","attrs":{"class":"sm rounded-s-full"}},{"id":"h5","attrs":{"class":"sm ghost rounded-e-full"}}]</script>
 </body></html>

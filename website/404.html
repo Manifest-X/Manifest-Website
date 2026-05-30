@@ -1,18 +1,9 @@
-<html lang="ar" data-no-view-transitions="" dir="auto"><head>
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" dir="auto"><head>
   <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!--
-    Web — title and description match manifest.json's `name` / `description`,
-    so the renderer treats them as PLACEHOLDERS (per publishing/seo-aeo.md):
-    every rendered route gets a smart-defaulted title from its own <h1> and
-    description from its first <p>. Don't hardcode a longer tagline here —
-    that would block per-route defaults across the entire site.
-    Canonical, Open Graph, Twitter Card, and JSON-LD blocks are auto-emitted
-    per route by `npx mnfst-render` (driven by render.meta + render.structuredData
-    in manifest.json), so they're not declared statically here.
-  -->
   <title>Manifest</title>
   <meta name="description" content="Supercharge HTML for rapid, feature-rich website and web app development.">
   <meta name="author" content="Andrew Matlock">
@@ -21,9 +12,10 @@
   <meta name="google" content="notranslate">
   <link rel="icon" href="/favicon.ico" sizes="any">
 
-  <!-- Preconnect to Google Fonts CDN for faster font loading -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <!-- Preload Manrope (referenced by manifest.theme.css's @font-face) so the
+       UI font is fetched in parallel with HTML parsing instead of after the
+       CSS resolves — avoids the late-swap layout shift PageSpeed measured. -->
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
   <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
@@ -35,28 +27,22 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.code.min.css">
   <link rel="stylesheet" href="/manifest.theme.css">
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.min.js" data-version="0.5.115"></script>
+  <!-- Appwrite is only used inside docs/dashboard routes; defer so it doesn't block
+       the homepage's main thread (PageSpeed flagged 24.8 KiB of unused JS here). -->
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.js" data-version="0.5.117"></script>
   <script src="/scripts/hero-editor.js" defer=""></script>
   <script src="/scripts/console-message.js" defer=""></script>
 
-<meta property="og:title" content="Manifest"><meta property="og:description" content="Supercharge HTML for rapid, feature-rich website and web app development."><meta property="og:type" content="website"><meta property="og:url" content="https://manifestx.dev/"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/assets/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Manifest"><meta property="twitter:description" content="Supercharge HTML for rapid, feature-rich website and web app development."><meta property="twitter:image" content="/assets/icons/512x512.png"><link rel="stylesheet" href="/prerender.tailwind.css">
+<meta property="og:title" content="Manifest"><meta property="og:description" content="Supercharge HTML for rapid, feature-rich website and web app development."><meta property="og:type" content="website"><meta property="og:url" content="https://manifestx.dev/"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Manifest"><meta property="twitter:description" content="Supercharge HTML for rapid, feature-rich website and web app development."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Manifest","description":"Supercharge HTML for rapid, feature-rich website and web app development.","image":"/icons/512x512.png","url":"https://manifestx.dev/"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"__prerender_404__","item":"https://manifestx.dev/__prerender_404__"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/">
-  <link rel="alternate" hreflang="x-default" href="https://manifestx.dev">
-  <link rel="alternate" hreflang="en" href="https://manifestx.dev/en">
-  <link rel="alternate" hreflang="fr" href="https://manifestx.dev/fr">
-  <link rel="alternate" hreflang="zh" href="https://manifestx.dev/zh">
-<meta property="og:locale" content="ar">
-  <meta property="og:locale:alternate" content="en">
-  <meta property="og:locale:alternate" content="fr">
-  <meta property="og:locale:alternate" content="zh">
 <meta name="manifest:router-base" content="">
-<meta name="manifest:prerender-locales" content="ar,en,fr,zh">
+<meta name="manifest:prerender-locales" content="en">
 <meta name="manifest:prerendered" content="1">
 <meta name="manifest:router-base-depth" content="0">
 <link rel="stylesheet" href="/prerender.utilities.css">
@@ -354,5 +340,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full"}},{"id":"h3","attrs":{"class":"sm ghost rounded-e-full"}},{"id":"h4","attrs":{"dir":null}},{"id":"h5","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"role":null}},{"id":"h9","attrs":{"role":null}},{"id":"h10","attrs":{"class":"sm rounded-e-full"}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}}]</script>
 </body></html>

@@ -1,18 +1,9 @@
-<html lang="ar" data-no-view-transitions="" dir="auto"><head>
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" dir="auto"><head>
   <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!--
-    Web — title and description match manifest.json's `name` / `description`,
-    so the renderer treats them as PLACEHOLDERS (per publishing/seo-aeo.md):
-    every rendered route gets a smart-defaulted title from its own <h1> and
-    description from its first <p>. Don't hardcode a longer tagline here —
-    that would block per-route defaults across the entire site.
-    Canonical, Open Graph, Twitter Card, and JSON-LD blocks are auto-emitted
-    per route by `npx mnfst-render` (driven by render.meta + render.structuredData
-    in manifest.json), so they're not declared statically here.
-  -->
   <title>The website &amp; app framework
         that thinks like you do. — Manifest</title>
   <meta name="description" content="Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required.">
@@ -22,9 +13,10 @@
   <meta name="google" content="notranslate">
   <link rel="icon" href="/favicon.ico" sizes="any">
 
-  <!-- Preconnect to Google Fonts CDN for faster font loading -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <!-- Preload Manrope (referenced by manifest.theme.css's @font-face) so the
+       UI font is fetched in parallel with HTML parsing instead of after the
+       CSS resolves — avoids the late-swap layout shift PageSpeed measured. -->
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
   <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
@@ -36,30 +28,24 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.code.min.css">
   <link rel="stylesheet" href="/manifest.theme.css">
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.min.js" data-version="0.5.115"></script>
+  <!-- Appwrite is only used inside docs/dashboard routes; defer so it doesn't block
+       the homepage's main thread (PageSpeed flagged 24.8 KiB of unused JS here). -->
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.js" data-version="0.5.117"></script>
   <script src="/scripts/hero-editor.js" defer=""></script>
   <script src="/scripts/console-message.js" defer=""></script>
 
 <meta property="og:title" content="The website &amp; app framework
-        that thinks like you do. — Manifest"><meta property="og:description" content="Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required."><meta property="og:type" content="website"><meta property="og:url" content="https://manifestx.dev/"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/index.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="The website &amp; app framework
-        that thinks like you do. — Manifest"><meta property="twitter:description" content="Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required."><meta property="twitter:image" content="/og/index.png"><link rel="stylesheet" href="/prerender.tailwind.css">
+        that thinks like you do. — Manifest"><meta property="og:description" content="Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required."><meta property="og:type" content="website"><meta property="og:url" content="https://manifestx.dev/"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="The website &amp; app framework
+        that thinks like you do. — Manifest"><meta property="twitter:description" content="Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The website & app framework\n        that thinks like you do. — Manifest","description":"Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required.","image":"/icons/512x512.png","url":"https://manifestx.dev/"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/">
-  <link rel="alternate" hreflang="x-default" href="https://manifestx.dev">
-  <link rel="alternate" hreflang="en" href="https://manifestx.dev/en">
-  <link rel="alternate" hreflang="fr" href="https://manifestx.dev/fr">
-  <link rel="alternate" hreflang="zh" href="https://manifestx.dev/zh">
-<meta property="og:locale" content="ar">
-  <meta property="og:locale:alternate" content="en">
-  <meta property="og:locale:alternate" content="fr">
-  <meta property="og:locale:alternate" content="zh">
 <meta name="manifest:router-base" content="">
-<meta name="manifest:prerender-locales" content="ar,en,fr,zh">
+<meta name="manifest:prerender-locales" content="en">
 <meta name="manifest:prerendered" content="1">
 <meta name="manifest:router-base-depth" content="0">
 <link rel="stylesheet" href="/prerender.utilities.css">
@@ -72,7 +58,7 @@
   }
 }" class="bg-surface-1">
 
-  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-order="0" data-component="header-1">
+  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="0">
 
     <!-- Content Area -->
     <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4 w-content-width" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
@@ -429,8 +415,8 @@
         <!-- Tabs header -->
         <div class="shrink-0 row gap-2 p-2 border-b border-line overflow-x-auto">
             <template x-for="[key, file] in Object.entries(files)" :key="key">
-                <button class="sm ghost shrink-0 hover:text-field-inverse" :class="tab === key ? 'text-content-stark' : 'text-content-subtle'" @click="tab = key" x-text="file.label"></button>
-            </template><button class="sm ghost shrink-0 hover:text-field-inverse text-content-stark" :class="tab === key ? 'text-content-stark' : 'text-content-subtle'" @click="tab = key" x-text="file.label">index.html</button><button class="sm ghost shrink-0 hover:text-field-inverse text-content-subtle" :class="tab === key ? 'text-content-stark' : 'text-content-subtle'" @click="tab = key" x-text="file.label">header.html</button><button class="sm ghost shrink-0 hover:text-field-inverse text-content-subtle" :class="tab === key ? 'text-content-stark' : 'text-content-subtle'" @click="tab = key" x-text="file.label">manifest.theme.css</button><button class="sm ghost shrink-0 hover:text-field-inverse text-content-subtle" :class="tab === key ? 'text-content-stark' : 'text-content-subtle'" @click="tab = key" x-text="file.label">products.en.yaml</button>
+                <button class="sm ghost shrink-0 hover:text-field-inverse" :class="tab === key ? 'text-content-stark' : 'text-content-subtle'" @click="tab = key" x-text="file?.label || ''"></button>
+            </template><button class="sm ghost shrink-0 hover:text-field-inverse text-content-stark" data-mnfst-prerender-clone="1">index.html</button><button class="sm ghost shrink-0 hover:text-field-inverse text-content-subtle" data-mnfst-prerender-clone="1">header.html</button><button class="sm ghost shrink-0 hover:text-field-inverse text-content-subtle" data-mnfst-prerender-clone="1">manifest.theme.css</button><button class="sm ghost shrink-0 hover:text-field-inverse text-content-subtle" data-mnfst-prerender-clone="1">products.en.yaml</button>
         </div>
 
         <!-- File body -->
@@ -457,7 +443,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row gap-2 items-center"</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">strong</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!searchOpen"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"grow"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.t.greeting[$locale]"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"searchOpen"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"search"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"sm no-focus"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"search"</span> <span class="hljs-attr">:placeholder</span>=<span class="hljs-string">"$x.t.search[$locale]"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"sm ghost"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"searchOpen = !searchOpen; searchOpen ? $nextTick(() =&gt; $el.parentElement.querySelector('input').focus()) : (search = '')"</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"searchOpen ? 'lucide:x' : 'lucide:search'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"sm ghost"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"searchOpen = !searchOpen; searchOpen ? $nextTick(() =&gt; $el.parentElement.querySelector('input').focus()) : (search = '')"</span> <span class="hljs-attr">:aria-label</span>=<span class="hljs-string">"searchOpen ? 'Close search' : 'Open search'"</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"searchOpen ? 'lucide:x' : 'lucide:search'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
     <span class="hljs-comment">&lt;!-- Products --&gt;</span>
@@ -487,7 +473,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row gap-2 items-center"</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">strong</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!searchOpen"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"grow"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.t.greeting[$locale]"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"searchOpen"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"search"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"sm no-focus"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"search"</span> <span class="hljs-attr">:placeholder</span>=<span class="hljs-string">"$x.t.search[$locale]"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"sm ghost"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"searchOpen = !searchOpen; searchOpen ? $nextTick(() =&gt; $el.parentElement.querySelector('input').focus()) : (search = '')"</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"searchOpen ? 'lucide:x' : 'lucide:search'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"sm ghost"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"searchOpen = !searchOpen; searchOpen ? $nextTick(() =&gt; $el.parentElement.querySelector('input').focus()) : (search = '')"</span> <span class="hljs-attr">:aria-label</span>=<span class="hljs-string">"searchOpen ? 'Close search' : 'Open search'"</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"searchOpen ? 'lucide:x' : 'lucide:search'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
     <span class="hljs-comment">&lt;!-- Products --&gt;</span>
@@ -539,8 +525,8 @@
     <strong>Universal Exports</strong>
 
       <!-- Locales -->
-      <button class="sm ghost ms-auto" x-dropdown="locale-menu" x-icon="lucide:globe" aria-label="Language" popovertarget="locale-menu" aria-haspopup="menu" aria-controls="locale-menu" aria-expanded="false" style="anchor-name: --dropdown-7aozdutvp" data-hydrate-id="h3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:globe" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20a14.5 14.5 0 0 0 0-20M2 12h20"></path></g></svg></button>
-      <menu popover="" id="locale-menu" class="min-w-0" role="menu" style="position-anchor: --dropdown-7aozdutvp">
+      <button class="sm ghost ms-auto" x-dropdown="locale-menu" x-icon="lucide:globe" aria-label="Language" popovertarget="locale-menu" aria-haspopup="menu" aria-controls="locale-menu" aria-expanded="false" style="anchor-name: --dropdown-w8rzxddx7" data-hydrate-id="h3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:globe" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20a14.5 14.5 0 0 0 0-20M2 12h20"></path></g></svg></button>
+      <menu popover="" id="locale-menu" class="min-w-0" role="menu" style="position-anchor: --dropdown-w8rzxddx7">
         <li @click="locale = 'en'" :disabled="locale === 'en'" disabled="disabled" role="menuitem" data-hydrate-id="h4">English</li>
         <li @click="locale = 'es'" :disabled="locale === 'es'" role="menuitem" data-hydrate-id="h5">Español</li>
         <li @click="locale = 'zh'" :disabled="locale === 'zh'" role="menuitem" data-hydrate-id="h6">中文</li>
@@ -563,7 +549,7 @@
     <div class="row gap-2 items-center">
       <strong x-show="!searchOpen" class="grow" x-text="x.t.greeting[locale]">Welcome back, James</strong>
       <input x-show="searchOpen" type="search" class="sm no-focus" x-model="search" :placeholder="x.t.search[locale]" style="display: none">
-      <button class="sm ghost" @click="searchOpen = !searchOpen; searchOpen ? $nextTick(() =&gt; $el.parentElement.querySelector('input').focus()) : (search = '')" x-icon="searchOpen ? 'lucide:x' : 'lucide:search'"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:search" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></g></svg></button>
+      <button class="sm ghost" @click="searchOpen = !searchOpen; searchOpen ? $nextTick(() =&gt; $el.parentElement.querySelector('input').focus()) : (search = '')" :aria-label="searchOpen ? 'Close search' : 'Open search'" x-icon="searchOpen ? 'lucide:x' : 'lucide:search'" aria-label="Open search"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:search" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></g></svg></button>
     </div>
 
     <!-- Products -->
@@ -697,7 +683,7 @@
       <!-- Card -->
       <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
         <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/Playcom.webp" alt="Screenshot of the Playcom website homepage" width="1440" height="900" loading="lazy">
+          <img class="rounded-lg" src="/assets/showcase/Playcom.webp" alt="Screenshot of the Playcom website homepage" width="600" height="375" loading="lazy">
         </div>
         <a href="https://playcom.ai" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
           <span>Playcom</span>
@@ -706,7 +692,7 @@
 
       <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
         <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/Ortus.webp" alt="Screenshot of the Ortus Advisors website homepage" width="1440" height="900" loading="lazy">
+          <img class="rounded-lg" src="/assets/showcase/Ortus.webp" alt="Screenshot of the Ortus Advisors website homepage" width="600" height="375" loading="lazy">
         </div>
         <a href="https://ortusadvisors.com" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
           <span>Ortus Advisors</span>
@@ -715,7 +701,7 @@
 
       <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
         <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/AndrewMatlock.webp" alt="Screenshot of Andrew Matlock's personal website homepage" width="1440" height="900" loading="lazy">
+          <img class="rounded-lg" src="/assets/showcase/AndrewMatlock.webp" alt="Screenshot of Andrew Matlock's personal website homepage" width="600" height="375" loading="lazy">
         </div>
         <a href="https://andrewmatlock.com" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
           <span>Andrew Matlock</span>
@@ -964,7 +950,7 @@
   </main>
 
   <!-- Footer (visible on every route) -->
-  <footer class="px-viewport-padding pt-20 pb-10 bg-surface-2" style="view-transition-name: site-footer" x-route="/" data-order="2" data-component="footer-1">
+  <footer class="px-viewport-padding pt-20 pb-10 bg-surface-2" style="view-transition-name: site-footer" x-route="/" data-order="2">
 
   <!-- Content -->
   <nav class="col gap-4 w-content-width max-w-full mx-auto">

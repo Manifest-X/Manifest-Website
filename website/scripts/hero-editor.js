@@ -312,7 +312,7 @@ document.addEventListener('alpine:init', () => {
           '    <div class="row gap-2 items-center">\n' +
           '      <strong x-show="!searchOpen" class="grow" x-text="$x.t.greeting[$locale]"></strong>\n' +
           '      <input x-show="searchOpen" type="search" class="sm no-focus" x-model="search" :placeholder="$x.t.search[$locale]">\n' +
-          '      <button class="sm ghost" @click="searchOpen = !searchOpen; searchOpen ? $nextTick(() => $el.parentElement.querySelector(\'input\').focus()) : (search = \'\')" x-icon="searchOpen ? \'lucide:x\' : \'lucide:search\'"></button>\n' +
+          '      <button class="sm ghost" @click="searchOpen = !searchOpen; searchOpen ? $nextTick(() => $el.parentElement.querySelector(\'input\').focus()) : (search = \'\')" :aria-label="searchOpen ? \'Close search\' : \'Open search\'" x-icon="searchOpen ? \'lucide:x\' : \'lucide:search\'"></button>\n' +
           '    </div>\n' +
           '\n' +
           '    <!-- Products -->\n' +

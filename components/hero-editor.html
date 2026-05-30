@@ -15,7 +15,7 @@
         <!-- Tabs header -->
         <div class="shrink-0 row gap-2 p-2 border-b border-line overflow-x-auto">
             <template x-for="[key, file] in Object.entries(files)" :key="key">
-                <button class="sm ghost shrink-0 hover:text-field-inverse" :class="tab === key ? 'text-content-stark' : 'text-content-subtle'" @click="tab = key" x-text="file.label"></button>
+                <button class="sm ghost shrink-0 hover:text-field-inverse" :class="tab === key ? 'text-content-stark' : 'text-content-subtle'" @click="tab = key" x-text="file?.label || ''"></button>
             </template>
         </div>
 

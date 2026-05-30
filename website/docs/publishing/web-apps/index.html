@@ -1,18 +1,9 @@
-<html lang="ar" data-no-view-transitions="" dir="auto"><head>
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" dir="auto"><head>
   <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!--
-    Web — title and description match manifest.json's `name` / `description`,
-    so the renderer treats them as PLACEHOLDERS (per publishing/seo-aeo.md):
-    every rendered route gets a smart-defaulted title from its own <h1> and
-    description from its first <p>. Don't hardcode a longer tagline here —
-    that would block per-route defaults across the entire site.
-    Canonical, Open Graph, Twitter Card, and JSON-LD blocks are auto-emitted
-    per route by `npx mnfst-render` (driven by render.meta + render.structuredData
-    in manifest.json), so they're not declared statically here.
-  -->
   <title>Web Apps — Manifest</title>
   <meta name="description" content="Turn a Manifest project into an installable progressive web app (PWA).">
   <meta name="author" content="Andrew Matlock">
@@ -21,9 +12,10 @@
   <meta name="google" content="notranslate">
   <link rel="icon" href="../../../favicon.ico" sizes="any">
 
-  <!-- Preconnect to Google Fonts CDN for faster font loading -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <!-- Preload Manrope (referenced by manifest.theme.css's @font-face) so the
+       UI font is fetched in parallel with HTML parsing instead of after the
+       CSS resolves — avoids the late-swap layout shift PageSpeed measured. -->
+  <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
   <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
@@ -35,28 +27,22 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.115/lib/manifest.min.js" data-version="0.5.115"></script>
+  <!-- Appwrite is only used inside docs/dashboard routes; defer so it doesn't block
+       the homepage's main thread (PageSpeed flagged 24.8 KiB of unused JS here). -->
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.js" data-version="0.5.117"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
 
-<meta property="og:title" content="Web Apps — Manifest"><meta property="og:description" content="Turn a Manifest project into an installable progressive web app (PWA)."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/publishing/web-apps"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-publishing-web-apps.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Web Apps — Manifest"><meta property="twitter:description" content="Turn a Manifest project into an installable progressive web app (PWA)."><meta property="twitter:image" content="/og/docs-publishing-web-apps.png"><link rel="stylesheet" href="/prerender.tailwind.css">
+<meta property="og:title" content="Web Apps — Manifest"><meta property="og:description" content="Turn a Manifest project into an installable progressive web app (PWA)."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/publishing/web-apps"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Web Apps — Manifest"><meta property="twitter:description" content="Turn a Manifest project into an installable progressive web app (PWA)."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Web Apps — Manifest","description":"Turn a Manifest project into an installable progressive web app (PWA).","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/publishing/web-apps"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Publishing","item":"https://manifestx.dev/docs/publishing"},{"@type":"ListItem","position":4,"name":"Web Apps","item":"https://manifestx.dev/docs/publishing/web-apps"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/publishing/web-apps">
-  <link rel="alternate" hreflang="x-default" href="https://manifestx.dev/docs/publishing/web-apps">
-  <link rel="alternate" hreflang="en" href="https://manifestx.dev/en/docs/publishing/web-apps">
-  <link rel="alternate" hreflang="fr" href="https://manifestx.dev/fr/docs/publishing/web-apps">
-  <link rel="alternate" hreflang="zh" href="https://manifestx.dev/zh/docs/publishing/web-apps">
-<meta property="og:locale" content="ar">
-  <meta property="og:locale:alternate" content="en">
-  <meta property="og:locale:alternate" content="fr">
-  <meta property="og:locale:alternate" content="zh">
 <meta name="manifest:router-base" content="">
-<meta name="manifest:prerender-locales" content="ar,en,fr,zh">
+<meta name="manifest:prerender-locales" content="en">
 <meta name="manifest:prerendered" content="1">
 <meta name="manifest:router-base-depth" content="3">
 <link rel="stylesheet" href="/prerender.utilities.css">
@@ -84,7 +70,7 @@
             </a>
 
             <!-- Docs Breadcrumbs-->
-            <small class="hidden sm:flex md:hidden truncate" x-route="/docs">
+            <small class="hidden sm:flex md:hidden truncate" x-route="/docs/*">
                 <span x-text="$x.docs.$route('path')?.group || 'No group'">Publishing</span>
                 <span class="mx-1.5" x-icon="lucide:chevron-right"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-right" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18l6-6l-6-6"></path></svg></span>
                 <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'">Web Apps</span>
@@ -349,7 +335,7 @@
     
 
     <!-- Documentation pages -->
-    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs, /docs/*">
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*" data-component="docs-1">
 
   <!-- Desktop Navigation-->
   <div data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar">
@@ -650,12 +636,12 @@
       <!-- Eyebrow Group Name -->
       <template x-if="$x.docs.$route('path')">
         <span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'"></span>
-      </template><span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'">Publishing</span>
+      </template><span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'" data-mnfst-prerender-clone="1">Publishing</span>
 
       <!-- Markdown Document for Route -->
       <template x-if="$x.docs.$route('path')">
         <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="$x.docs.$route('path')?.doc"></div>
-      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1"><h1 id="web-apps">Web Apps</h1><p>Turn a Manifest project into an installable progressive web app (PWA).</p>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="web-apps">Web Apps</h1><p>Turn a Manifest project into an installable progressive web app (PWA).</p>
 <hr>
 <h2 id="overview">Overview</h2><p>A progressive web app is a website that can be installed and run like a native desktop or mobile app. Once installed, it launches from the home screen or app dock, opens in its own window without browser chrome, and behaves like any other installed application.</p>
 <p>Manifest projects qualify as PWAs the moment <code>manifest.json</code> declares the right web-app fields. Browsers detect the file at the root of your site and offer users an install prompt automatically, with no separate build step, bundler, or app store required.</p>
@@ -744,11 +730,11 @@
 <hr>
 <h2 id="offline-support">Offline Support</h2><p>A service worker is a small JavaScript file the browser runs in the background, separate from any open page. It can intercept network requests, cache responses, and serve them even when the user has no connection. Service workers are what let installed PWAs keep working offline.</p>
 <p>Manifest doesn't ship one by default. Every Manifest site works without it, and most don't need offline support. To enable offline use, add a <code>service-worker.js</code> file at your project root and register it from a <code>&lt;script&gt;</code> tag in <code>index.html</code>:</p>
-<pre x-code="html" name="index.html" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="index.html" role="region"><header><div>index.html</div></header><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
-    <span class="hljs-keyword">if</span> (<span class="hljs-string">'serviceWorker'</span> <span class="hljs-keyword">in</span> navigator) {
-        navigator.<span class="hljs-property">serviceWorker</span>.<span class="hljs-title function_">register</span>(<span class="hljs-string">'/service-worker.js'</span>);
+<pre x-code="html" name="index.html" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="index.html" role="region"><header><div>index.html</div></header><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js');
     }
-</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p>The registration script can sit anywhere in the document (head or body). It runs once on each page load and tells the browser where to find the worker file. The browser then keeps the worker alive in the background, independent of any open tab.</p>
 <p>Authoring the worker itself is project-specific. Tools like <a href="https://developer.chrome.com/docs/workbox" target="_blank">Workbox</a> generate one from a small config, or you can write one by hand. See MDN's <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers" target="_blank">Service Worker guide</a> for the API.</p>
 <hr>
@@ -797,7 +783,7 @@
   <!-- Anchor Links -->
   <div data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
 
-    <small class="mb-2" x-show="$store.anchors?.count &gt; 0" style="display: none">
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
       <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:align-left" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m14 6H3M21 6H3"></path></svg></span>
       <span>On this page</span>
     </small>
@@ -815,5 +801,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full"}},{"id":"h3","attrs":{"class":"sm ghost rounded-e-full"}},{"id":"h4","attrs":{"dir":null}},{"id":"h5","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"role":null}},{"id":"h9","attrs":{"role":null}},{"id":"h10","attrs":{"class":"sm rounded-e-full"}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full"}},{"id":"h3","attrs":{"class":"sm ghost rounded-e-full"}}]</script>
 </body></html>

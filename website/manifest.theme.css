@@ -4,8 +4,6 @@
 /*  Modify values to customize your project theme
 */
 
-@import "tailwindcss";
-
 :root,
 ::selection {
 
@@ -15,8 +13,8 @@
     --color-surface-2: var(--color-neutral-200);
     --color-surface-3: var(--color-neutral-300);
     --color-content-stark: var(--color-neutral-900);
-    --color-content-neutral: var(--color-neutral-600);
-    --color-content-subtle: var(--color-neutral-500);
+    --color-content-neutral: var(--color-neutral-700);
+    --color-content-subtle: var(--color-neutral-600);
     --color-field-surface: var(--color-neutral-300);
     --color-field-surface-hover: var(--color-neutral-400);
     --color-field-inverse: var(--color-content-stark);
@@ -97,13 +95,6 @@
 @font-face {
     font-family: 'Manrope';
     src: url('/assets/fonts/Manrope.woff2') format('woff2-variations');
-    font-display: swap;
-    font-style: normal
-}
-
-@font-face {
-    font-family: 'IBMPlexMono';
-    src: url('/assets/fonts/IBMPlexMono.woff2') format('woff2-variations');
     font-display: swap;
     font-style: normal
 }
@@ -232,34 +223,5 @@
                 transparent calc(50% - 1px),
                 color-mix(in oklch, var(--color-surface-1), transparent),
                 transparent calc(50% + 2px));
-    }
-}
-
-
-
-/*** TO DELETE AFTER ***/
-
-:where(ul):not(.unstyle) {
-    padding-inline-start: 1.75ch;
-
-    &:has(input[type=checkbox]) {
-        padding-inline-start: 0
-    }
-
-    /* Offset items so markers align inside the element frame  */
-    & li {
-        padding-inline-start: 1ch;
-
-        /* Space out items */
-        &:not(:last-of-type) {
-            margin-bottom: 1.25ch
-        }
-
-        /* Inline links */
-        & a:not(.unstyle),
-        & .link {
-            text-decoration: underline;
-            text-underline-offset: 2px
-        }
     }
 }

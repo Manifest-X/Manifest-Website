@@ -13,7 +13,7 @@
             </a>
 
             <!-- Docs Breadcrumbs-->
-            <small class="hidden sm:flex md:hidden truncate" x-route="/docs">
+            <small class="hidden sm:flex md:hidden truncate" x-route="/docs/*">
                 <span x-text="$x.docs.$route('path')?.group || 'No group'"></span>
                 <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
                 <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'"></span>
