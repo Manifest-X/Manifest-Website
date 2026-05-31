@@ -11,10 +11,6 @@
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
   <link rel="icon" href="../../../favicon.ico" sizes="any">
-
-  <!-- Preload Manrope (referenced by manifest.theme.css's @font-face) so the
-       UI font is fetched in parallel with HTML parsing instead of after the
-       CSS resolves — avoids the late-swap layout shift PageSpeed measured. -->
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
@@ -27,15 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
-  <!-- Appwrite is only used inside docs/dashboard routes; defer so it doesn't block
-       the homepage's main thread (PageSpeed flagged 24.8 KiB of unused JS here). -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.js" data-version="0.5.117"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.js" data-version="0.5.118"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
 
@@ -880,47 +874,47 @@
 <p>Additionally, a <code>--spacing-resize-handle</code> variable is declared within resize styles to size the handles.</p>
 <hr>
 <h2 id="styles">Styles</h2><p>Modify resize handle styles with custom CSS.</p>
-<div x-code-group="" data-group-processed="yes">
+<pre x-code-group="" data-group-processed="yes" role="region">
 
-<pre x-code="css" copy=""><code>/* Resize handle size */
-:root { --spacing-resize-handle: 2rem; }
+<pre x-code="css" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-comment">/* Resize handle size */</span>
+<span class="hljs-selector-pseudo">:root</span> { <span class="hljs-attr">--spacing-resize-handle</span>: <span class="hljs-number">2rem</span>; }
 
-/* Modifying the visual handle's size, border radius, and background color */
-/* .resize-handle is the mouseover area */
-.resize-handle {
+<span class="hljs-comment">/* Modifying the visual handle's size, border radius, and background color */</span>
+<span class="hljs-comment">/* .resize-handle is the mouseover area */</span>
+<span class="hljs-selector-class">.resize-handle</span> {
 
-    /* ::before is the visual handle */
-    &amp;::before {
-        width: 10px;
-        height: 10px;
-        border-radius: 0;
+    <span class="hljs-comment">/* ::before is the visual handle */</span>
+    &amp;<span class="hljs-selector-pseudo">::before</span> {
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">10px</span>;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">10px</span>;
+        <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span>;
     }
 
-    &amp;:hover::before {
-        background-color: blue;
-    }
-}
-
-/* Modifying cursors and preserving visual edge handles */
-.resize-handle-top,
-.resize-handle-bottom {
-    width: 100%;
-    cursor: row-resize;
-
-    &amp;::before {
-        width: 100%;
+    &amp;<span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">::before</span> {
+        <span class="hljs-attribute">background-color</span>: blue;
     }
 }
 
-.resize-handle-left,
-.resize-handle-right,
-.resize-handle-start,
-.resize-handle-end {
-    height: 100%;
-    cursor: col-resize;
+<span class="hljs-comment">/* Modifying cursors and preserving visual edge handles */</span>
+<span class="hljs-selector-class">.resize-handle-top</span>,
+<span class="hljs-selector-class">.resize-handle-bottom</span> {
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">cursor</span>: row-resize;
 
-    &amp;::before {
-        height: 100%;
+    &amp;<span class="hljs-selector-pseudo">::before</span> {
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+    }
+}
+
+<span class="hljs-selector-class">.resize-handle-left</span>,
+<span class="hljs-selector-class">.resize-handle-right</span>,
+<span class="hljs-selector-class">.resize-handle-start</span>,
+<span class="hljs-selector-class">.resize-handle-end</span> {
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">cursor</span>: col-resize;
+
+    &amp;<span class="hljs-selector-pseudo">::before</span> {
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
     }
 }</code></pre>
 <aside class="frame"><style>
@@ -965,7 +959,7 @@
     }
 </style>
 <div x-resize="" class="w-64 h-32 p-4 bg-surface-3 resize-handles-custom">Custom handles</div></aside>
-</div></div>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre></div>
 
     </div>
 

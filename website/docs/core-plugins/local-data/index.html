@@ -11,10 +11,6 @@
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
   <link rel="icon" href="../../../favicon.ico" sizes="any">
-
-  <!-- Preload Manrope (referenced by manifest.theme.css's @font-face) so the
-       UI font is fetched in parallel with HTML parsing instead of after the
-       CSS resolves — avoids the late-swap layout shift PageSpeed measured. -->
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
@@ -27,15 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
-  <!-- Appwrite is only used inside docs/dashboard routes; defer so it doesn't block
-       the homepage's main thread (PageSpeed flagged 24.8 KiB of unused JS here). -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.js" data-version="0.5.117"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.js" data-version="0.5.118"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
 
@@ -665,35 +659,35 @@
 
 <hr>
 <h2 id="create-local-data">Create Local Data</h2><p>Create CSV, JSON, or YAML files anywhere in your project directory. Each format works identically—choose based on preference.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="contact.csv-(key-value)-tab-0" aria-selected="true" tabindex="0">contact.csv (key-value)</button><button type="button" role="tab" id="team.csv-(tabular)-tab-1" aria-selected="false" tabindex="-1">team.csv (tabular)</button><button type="button" role="tab" id="team.json-tab-2" aria-selected="false" tabindex="-1">team.json</button><button type="button" role="tab" id="team.yaml-tab-3" aria-selected="false" tabindex="-1">team.yaml</button></div></header>
+<div x-code-group="" copy="" data-group-processed="yes">
 
-<pre x-code="csv" name="contact.csv (key-value)" data-code-block-built="yes" aria-label="contact.csv (key-value)" role="tabpanel" data-code-processed="yes" id="contact.csv-(key-value)-panel-0" aria-labelledby="contact.csv-(key-value)-tab-0"><code data-highlighted="yes" class="hljs language-undefined">key,value
+<pre x-code="csv" name="contact.csv (key-value)"><code>key,value
 headquarters.name,Empire Headquarters
 headquarters.location,Death Star
 contact.email,forcechoke69@aol.com
 contact.phone,+1-555-0100</code></pre>
-<pre x-code="csv" name="team.csv (tabular)" data-code-block-built="yes" aria-label="team.csv (tabular)" role="tabpanel" data-code-processed="yes" id="team.csv-(tabular)-panel-1" aria-labelledby="team.csv-(tabular)-tab-1" style="display: none"><code data-highlighted="yes" class="hljs language-javascript">id,name,role,image
-<span class="hljs-number">1</span>,<span class="hljs-title class_">Darth</span> <span class="hljs-title class_">Vader</span>,<span class="hljs-title class_">Lord</span>,<span class="hljs-regexp">/assets/</span>examples/vader.<span class="hljs-property">webp</span>
-<span class="hljs-number">2</span>,<span class="hljs-title class_">Admiral</span> <span class="hljs-title class_">Piett</span>,<span class="hljs-title class_">Fleet</span> <span class="hljs-title class_">Commander</span>,<span class="hljs-regexp">/assets/</span>examples/piett.<span class="hljs-property">webp</span></code></pre>
-<pre x-code="json" name="team.json" data-code-block-built="yes" aria-label="team.json" role="tabpanel" data-code-processed="yes" id="team.json-panel-2" aria-labelledby="team.json-tab-2" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">[</span>
-    <span class="hljs-punctuation">{</span>
-        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Darth Vader"</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Lord"</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"image"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/assets/examples/vader.webp"</span>
-    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-punctuation">{</span>
-        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Admiral Piett"</span><span class="hljs-punctuation">,</span> 
-        <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Fleet Commander"</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"image"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/assets/examples/piett.webp"</span>
-    <span class="hljs-punctuation">}</span>
-<span class="hljs-punctuation">]</span></code></pre>
-<pre x-code="yaml" name="team.yaml" data-code-block-built="yes" aria-label="team.yaml" role="tabpanel" data-code-processed="yes" id="team.yaml-panel-3" aria-labelledby="team.yaml-tab-3" style="display: none"><code class="hljs language-yaml" data-highlighted="yes"><span class="hljs-bullet">-</span>   <span class="hljs-attr">name:</span> <span class="hljs-string">Darth</span> <span class="hljs-string">Vader</span>
-    <span class="hljs-attr">role:</span> <span class="hljs-string">Lord</span>
-    <span class="hljs-attr">image:</span> <span class="hljs-string">/assets/examples/vader.webp</span>
-<span class="hljs-bullet">-</span>   <span class="hljs-attr">name:</span> <span class="hljs-string">Admiral</span> <span class="hljs-string">Piett</span>
-    <span class="hljs-attr">role:</span> <span class="hljs-string">Fleet</span> <span class="hljs-string">Commander</span>
-    <span class="hljs-attr">image:</span> <span class="hljs-string">/assets/examples/piett.webp</span></code></pre>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<pre x-code="csv" name="team.csv (tabular)"><code>id,name,role,image
+1,Darth Vader,Lord,/assets/examples/vader.webp
+2,Admiral Piett,Fleet Commander,/assets/examples/piett.webp</code></pre>
+<pre x-code="json" name="team.json"><code>[
+    {
+        "name": "Darth Vader",
+        "role": "Lord",
+        "image": "/assets/examples/vader.webp"
+    },
+    {
+        "name": "Admiral Piett", 
+        "role": "Fleet Commander",
+        "image": "/assets/examples/piett.webp"
+    }
+]</code></pre>
+<pre x-code="yaml" name="team.yaml"><code>-   name: Darth Vader
+    role: Lord
+    image: /assets/examples/vader.webp
+-   name: Admiral Piett
+    role: Fleet Commander
+    image: /assets/examples/piett.webp</code></pre>
+</div>
 
 <p>Local files can use any structure - arrays, objects, or nested combinations. See <a href="/docs/core-plugins/localization">localization</a> for details on language-specific data sources.</p>
 <aside class="brand"><span x-icon="lucide:info"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:info" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4m0-4h.01"></path></g></svg></span><p>Syntax errors will prevent usability. Use validators like <a href="https://jsonlint.com/" target="_blank">JSON Lint</a> or <a href="https://yamlchecker.com/" target="_blank">YAML Checker</a> to check your files.</p>
@@ -731,28 +725,28 @@ contact.phone,+1-555-0100</code></pre>
     <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p>For headers, query params, or response shaping, use an object with git-ignored <code>.env</code> variable references as needed:</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id=".env-tab-1" aria-selected="false" tabindex="-1">.env</button></div></header>
+<div x-code-group="" data-group-processed="yes">
 
-<pre x-code="json" name="manifest.json" copy="" data-code-block-built="yes" aria-label="manifest.json" role="tabpanel" data-code-processed="yes" id="manifest.json-panel-0" aria-labelledby="manifest.json-tab-0"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-        <span class="hljs-attr">"products"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-            <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"${API_BASE_URL}/products"</span><span class="hljs-punctuation">,</span>
-            <span class="hljs-attr">"headers"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-                <span class="hljs-attr">"Authorization"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Bearer ${API_TOKEN}"</span><span class="hljs-punctuation">,</span>
-                <span class="hljs-attr">"Content-Type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"application/json"</span>
-            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-            <span class="hljs-attr">"params"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-                <span class="hljs-attr">"limit"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">50</span><span class="hljs-punctuation">,</span>
-                <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"active"</span>
-            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-            <span class="hljs-attr">"transform"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"data.products"</span><span class="hljs-punctuation">,</span>
-            <span class="hljs-attr">"defaultValue"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span>
-        <span class="hljs-punctuation">}</span>
-    <span class="hljs-punctuation">}</span>
-<span class="hljs-punctuation">}</span></code></pre>
-<pre x-code="env" name=".env" copy="" data-code-block-built="yes" aria-label=".env" role="tabpanel" data-code-processed="yes" id=".env-panel-1" aria-labelledby=".env-tab-1" style="display: none"><code data-highlighted="yes" class="hljs language-undefined">API_BASE_URL=https://api.example.com
+<pre x-code="json" name="manifest.json" copy=""><code>{
+    "data": {
+        "products": {
+            "url": "${API_BASE_URL}/products",
+            "headers": {
+                "Authorization": "Bearer ${API_TOKEN}",
+                "Content-Type": "application/json"
+            },
+            "params": {
+                "limit": 50,
+                "status": "active"
+            },
+            "transform": "data.products",
+            "defaultValue": []
+        }
+    }
+}</code></pre>
+<pre x-code="env" name=".env" copy=""><code>API_BASE_URL=https://api.example.com
 API_TOKEN=sk_1234567890abcdef</code></pre>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+</div>
 
 <table>
 <thead>
@@ -982,54 +976,54 @@ API_TOKEN=sk_1234567890abcdef</code></pre>
 </ul>
 <p>For cloud-hosted data with backend filtering, see <a href="/docs/appwrite-plugins/databases">Appwrite databases</a>.</p>
 <h4 id="query-syntax">Query Syntax</h4><p>Each query is an array with the format <code>['method', 'attribute', 'value']</code>. Use these patterns:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="patterns-tab-0" aria-selected="true" tabindex="0">Patterns</button><button type="button" role="tab" id="example-tab-1" aria-selected="false" tabindex="-1">Example</button></div></header>
+<div x-code-group="" copy="" data-group-processed="yes">
 
-<pre x-code="javascript" name="Patterns" copy="" data-code-block-built="yes" aria-label="Patterns" role="tabpanel" data-code-processed="yes" id="patterns-panel-0" aria-labelledby="patterns-tab-0"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-comment">// Comparison operators</span>
-[<span class="hljs-string">'equal'</span>, <span class="hljs-string">'role'</span>, <span class="hljs-string">'Lord'</span>]                    <span class="hljs-comment">// role equals 'Lord'</span>
-[<span class="hljs-string">'notEqual'</span>, <span class="hljs-string">'role'</span>, <span class="hljs-string">'Commander'</span>]            <span class="hljs-comment">// role does not equal 'Commander'</span>
-[<span class="hljs-string">'greaterThan'</span>, <span class="hljs-string">'priority'</span>, <span class="hljs-number">5</span>]              <span class="hljs-comment">// priority greater than 5</span>
-[<span class="hljs-string">'greaterThanOrEqual'</span>, <span class="hljs-string">'priority'</span>, <span class="hljs-number">5</span>]       <span class="hljs-comment">// priority greater than or equal to 5</span>
-[<span class="hljs-string">'lessThan'</span>, <span class="hljs-string">'priority'</span>, <span class="hljs-number">10</span>]                <span class="hljs-comment">// priority less than 10</span>
-[<span class="hljs-string">'lessThanOrEqual'</span>, <span class="hljs-string">'priority'</span>, <span class="hljs-number">10</span>]        <span class="hljs-comment">// priority less than or equal to 10</span>
-[<span class="hljs-string">'between'</span>, <span class="hljs-string">'priority'</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>]              <span class="hljs-comment">// priority between 5 and 10 (inclusive)</span>
+<pre x-code="javascript" name="Patterns" copy=""><code>// Comparison operators
+['equal', 'role', 'Lord']                    // role equals 'Lord'
+['notEqual', 'role', 'Commander']            // role does not equal 'Commander'
+['greaterThan', 'priority', 5]              // priority greater than 5
+['greaterThanOrEqual', 'priority', 5]       // priority greater than or equal to 5
+['lessThan', 'priority', 10]                // priority less than 10
+['lessThanOrEqual', 'priority', 10]        // priority less than or equal to 10
+['between', 'priority', 5, 10]              // priority between 5 and 10 (inclusive)
 
-<span class="hljs-comment">// Null checks</span>
-[<span class="hljs-string">'isNull'</span>, <span class="hljs-string">'deletedAt'</span>]                     <span class="hljs-comment">// deletedAt is null</span>
-[<span class="hljs-string">'isNotNull'</span>, <span class="hljs-string">'email'</span>]                       <span class="hljs-comment">// email is not null</span>
+// Null checks
+['isNull', 'deletedAt']                     // deletedAt is null
+['isNotNull', 'email']                       // email is not null
 
-<span class="hljs-comment">// String operations</span>
-[<span class="hljs-string">'contains'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'Vader'</span>]               <span class="hljs-comment">// name contains 'Vader' (case-insensitive)</span>
-[<span class="hljs-string">'startsWith'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'Darth'</span>]             <span class="hljs-comment">// name starts with 'Darth' (case-insensitive)</span>
-[<span class="hljs-string">'endsWith'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'Vader'</span>]               <span class="hljs-comment">// name ends with 'Vader' (case-insensitive)</span>
+// String operations
+['contains', 'name', 'Vader']               // name contains 'Vader' (case-insensitive)
+['startsWith', 'name', 'Darth']             // name starts with 'Darth' (case-insensitive)
+['endsWith', 'name', 'Vader']               // name ends with 'Vader' (case-insensitive)
 
-<span class="hljs-comment">// Sorting</span>
-[<span class="hljs-string">'orderAsc'</span>, <span class="hljs-string">'name'</span>]                        <span class="hljs-comment">// Sort ascending by name</span>
-[<span class="hljs-string">'orderDesc'</span>, <span class="hljs-string">'name'</span>]                       <span class="hljs-comment">// Sort descending by name</span>
-[<span class="hljs-string">'orderRandom'</span>]                             <span class="hljs-comment">// Random order</span>
+// Sorting
+['orderAsc', 'name']                        // Sort ascending by name
+['orderDesc', 'name']                       // Sort descending by name
+['orderRandom']                             // Random order
 
-<span class="hljs-comment">// Pagination</span>
-[<span class="hljs-string">'limit'</span>, <span class="hljs-number">10</span>]                               <span class="hljs-comment">// Return maximum 10 results</span>
-[<span class="hljs-string">'offset'</span>, <span class="hljs-number">20</span>]                              <span class="hljs-comment">// Skip first 20 results</span>
+// Pagination
+['limit', 10]                               // Return maximum 10 results
+['offset', 20]                              // Skip first 20 results
 
-<span class="hljs-comment">// Combine multiple queries (all applied together)</span>
+// Combine multiple queries (all applied together)
 [
-    [<span class="hljs-string">'equal'</span>, <span class="hljs-string">'role'</span>, <span class="hljs-string">'Lord'</span>],
-    [<span class="hljs-string">'orderAsc'</span>, <span class="hljs-string">'name'</span>],
-    [<span class="hljs-string">'limit'</span>, <span class="hljs-number">5</span>]
+    ['equal', 'role', 'Lord'],
+    ['orderAsc', 'name'],
+    ['limit', 5]
 ]</code></pre>
-<pre x-code="html" name="Example" data-code-block-built="yes" aria-label="Example" role="tabpanel" data-code-processed="yes" id="example-panel-1" aria-labelledby="example-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Filter, sort, limit: processes data in browser (client-side) --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.team.$query([
+<pre x-code="html" name="Example"><code>&lt;!-- Filter, sort, limit: processes data in browser (client-side) --&gt;
+&lt;button @click="$x.team.$query([
     ['equal', 'role', 'Lord'],
     ['orderAsc', 'name']
-])"</span>&gt;</span>Show Lords Only<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+])"&gt;Show Lords Only&lt;/button&gt;
 
-<span class="hljs-comment">&lt;!-- Multiple filters --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.team.$query([
+&lt;!-- Multiple filters --&gt;
+&lt;button @click="$x.team.$query([
     ['contains', 'name', 'Vader'],
     ['orderDesc', 'name'],
     ['limit', 5]
-])"</span>&gt;</span>Top 5 Vader Matches<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+])"&gt;Top 5 Vader Matches&lt;/button&gt;</code></pre>
+</div>
 
 <hr>
 <h3 id="route-specific">Route-Specific</h3><p>Use the <code>$route()</code> function to find content based on the current URL path like <strong>/team/darth-vader</strong>:</p>

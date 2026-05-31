@@ -11,10 +11,6 @@
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
   <link rel="icon" href="../../../favicon.ico" sizes="any">
-
-  <!-- Preload Manrope (referenced by manifest.theme.css's @font-face) so the
-       UI font is fetched in parallel with HTML parsing instead of after the
-       CSS resolves — avoids the late-swap layout shift PageSpeed measured. -->
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
@@ -27,15 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
-  <!-- Appwrite is only used inside docs/dashboard routes; defer so it doesn't block
-       the homepage's main thread (PageSpeed flagged 24.8 KiB of unused JS here). -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.js" data-version="0.5.117"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.js" data-version="0.5.118"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
 
@@ -742,7 +736,7 @@
 <p>Authors retain responsibility for content-level criteria like heading hierarchy, image alt text, link discernibility, custom theme contrast ratios, and form label association.</p>
 <hr>
 <h2 id="automated-testing">Automated Testing</h2><p>Run Manifest's project linter to catch accessibility violations alongside other regressions:</p>
-<pre x-code="bash" copy="" data-code-processed="yes"><code>npx mnfst-test</code></pre>
+<pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npx mnfst-test</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p>The runtime pass injects <a href="https://github.com/dequelabs/axe-core" target="_blank">axe-core</a> against a headless render of your project and reports each failure with severity, the offending element, and (for color-contrast issues) the theme CSS variable driving the bad color. See <a href="/docs/publishing/testing">testing</a> for full details.</p>
 <hr>
 <h2 id="manual-checklist">Manual Checklist</h2><p>Automated tools catch about a third of accessibility issues. Always test your applications against the rest:</p>

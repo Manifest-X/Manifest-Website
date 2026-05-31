@@ -11,10 +11,6 @@
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
   <link rel="icon" href="../../../favicon.ico" sizes="any">
-
-  <!-- Preload Manrope (referenced by manifest.theme.css's @font-face) so the
-       UI font is fetched in parallel with HTML parsing instead of after the
-       CSS resolves — avoids the late-swap layout shift PageSpeed measured. -->
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
@@ -27,15 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
-  <!-- Appwrite is only used inside docs/dashboard routes; defer so it doesn't block
-       the homepage's main thread (PageSpeed flagged 24.8 KiB of unused JS here). -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.js" data-version="0.5.117"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.js" data-version="0.5.118"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
 
@@ -690,37 +684,37 @@ features.performance.description,闪电般的加载速度,稲妻のように速�
 <p>Each CSV file can contain one or more language columns.</p>
 <hr>
 <h3 id="json-yaml">JSON &amp; YAML</h3><p>Create language-specific JSON or YAML files for your content, named and located however you like:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="features.en.yaml-tab-0" aria-selected="true" tabindex="0">features.en.yaml</button><button type="button" role="tab" id="features.fr.yaml-tab-1" aria-selected="false" tabindex="-1">features.fr.yaml</button><button type="button" role="tab" id="features.ar.yaml-tab-2" aria-selected="false" tabindex="-1">features.ar.yaml</button><button type="button" role="tab" id="features.zh.yaml-tab-3" aria-selected="false" tabindex="-1">features.zh.yaml</button></div></header>
+<div x-code-group="" copy="" data-group-processed="yes">
 
-<pre x-code="yaml" name="features.en.yaml" data-code-block-built="yes" aria-label="features.en.yaml" role="tabpanel" data-code-processed="yes" id="features.en.yaml-panel-0" aria-labelledby="features.en.yaml-tab-0"><code class="hljs language-yaml" data-highlighted="yes"><span class="hljs-attr">features:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"Fast Performance"</span>
-    <span class="hljs-attr">description:</span> <span class="hljs-string">"Lightning fast loading times"</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"Easy to Use"</span>
-    <span class="hljs-attr">description:</span> <span class="hljs-string">"Simple and intuitive interface"</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"Responsive"</span>
-    <span class="hljs-attr">description:</span> <span class="hljs-string">"Works on all devices"</span></code></pre>
-<pre x-code="yaml" name="features.fr.yaml" data-code-block-built="yes" aria-label="features.fr.yaml" role="tabpanel" data-code-processed="yes" id="features.fr.yaml-panel-1" aria-labelledby="features.fr.yaml-tab-1" style="display: none"><code class="hljs language-yaml" data-highlighted="yes"><span class="hljs-attr">features:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"Performance Rapide"</span>
-    <span class="hljs-attr">description:</span> <span class="hljs-string">"Temps de chargement ultra rapides"</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"Facile à Utiliser"</span>
-    <span class="hljs-attr">description:</span> <span class="hljs-string">"Interface simple et intuitive"</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"Responsive"</span>
-    <span class="hljs-attr">description:</span> <span class="hljs-string">"Fonctionne sur tous les appareils"</span></code></pre>
-<pre x-code="yaml" name="features.ar.yaml" data-code-block-built="yes" aria-label="features.ar.yaml" role="tabpanel" data-code-processed="yes" id="features.ar.yaml-panel-2" aria-labelledby="features.ar.yaml-tab-2" style="display: none"><code class="hljs language-yaml" data-highlighted="yes"><span class="hljs-attr">features:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"أداء سريع"</span>
-    <span class="hljs-attr">description:</span> <span class="hljs-string">"أوقات تحميل سريعة كالبرق"</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"سهل الاستخدام"</span>
-    <span class="hljs-attr">description:</span> <span class="hljs-string">"واجهة بسيطة وبديهية"</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"متجاوب"</span>
-    <span class="hljs-attr">description:</span> <span class="hljs-string">"يعمل على جميع الأجهزة"</span></code></pre>
-<pre x-code="yaml" name="features.zh.yaml" data-code-block-built="yes" aria-label="features.zh.yaml" role="tabpanel" data-code-processed="yes" id="features.zh.yaml-panel-3" aria-labelledby="features.zh.yaml-tab-3" style="display: none"><code class="hljs language-yaml" data-highlighted="yes"><span class="hljs-attr">features:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"快速性能"</span>
-    <span class="hljs-attr">description:</span> <span class="hljs-string">"闪电般的加载速度"</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"易于使用"</span>
-    <span class="hljs-attr">description:</span> <span class="hljs-string">"简单直观的界面"</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"响应式"</span>
-    <span class="hljs-attr">description:</span> <span class="hljs-string">"适用于所有设备"</span></code></pre>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<pre x-code="yaml" name="features.en.yaml"><code>features:
+  - name: "Fast Performance"
+    description: "Lightning fast loading times"
+  - name: "Easy to Use"
+    description: "Simple and intuitive interface"
+  - name: "Responsive"
+    description: "Works on all devices"</code></pre>
+<pre x-code="yaml" name="features.fr.yaml"><code>features:
+  - name: "Performance Rapide"
+    description: "Temps de chargement ultra rapides"
+  - name: "Facile à Utiliser"
+    description: "Interface simple et intuitive"
+  - name: "Responsive"
+    description: "Fonctionne sur tous les appareils"</code></pre>
+<pre x-code="yaml" name="features.ar.yaml"><code>features:
+  - name: "أداء سريع"
+    description: "أوقات تحميل سريعة كالبرق"
+  - name: "سهل الاستخدام"
+    description: "واجهة بسيطة وبديهية"
+  - name: "متجاوب"
+    description: "يعمل على جميع الأجهزة"</code></pre>
+<pre x-code="yaml" name="features.zh.yaml"><code>features:
+  - name: "快速性能"
+    description: "闪电般的加载速度"
+  - name: "易于使用"
+    description: "简单直观的界面"
+  - name: "响应式"
+    description: "适用于所有设备"</code></pre>
+</div>
 
 <p>Each file should have the same object/array hierarchy and keys. Only the values are unique to the target locale. If a reference key is missing from a file, the default locale is used.</p>
 <hr>

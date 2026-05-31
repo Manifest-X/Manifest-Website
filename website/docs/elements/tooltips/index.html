@@ -11,10 +11,6 @@
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
   <link rel="icon" href="../../../favicon.ico" sizes="any">
-
-  <!-- Preload Manrope (referenced by manifest.theme.css's @font-face) so the
-       UI font is fetched in parallel with HTML parsing instead of after the
-       CSS resolves — avoids the late-swap layout shift PageSpeed measured. -->
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
@@ -27,15 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
-  <!-- Appwrite is only used inside docs/dashboard routes; defer so it doesn't block
-       the homepage's main thread (PageSpeed flagged 24.8 KiB of unused JS here). -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.js" data-version="0.5.117"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.js" data-version="0.5.118"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
 
@@ -755,22 +749,22 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>Note that tooltips with loop variables from <code>x-for</code> use template literals or string concatenation to ensure the expression is recognized as dynamic.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="example.yaml-tab-1" aria-selected="false" tabindex="-1">example.yaml</button></div></header>
+<div x-code-group="" copy="" data-group-processed="yes">
 
-<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"item in $x.example.tooltipList"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">h4</span> <span class="hljs-attr">x-tooltip</span>=<span class="hljs-string">"`${item.tooltip}`"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"item.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
-<pre x-code="yaml" name="example.yaml" data-code-block-built="yes" aria-label="example.yaml" role="tabpanel" data-code-processed="yes" id="example.yaml-panel-1" aria-labelledby="example.yaml-tab-1" style="display: none"><code class="hljs language-yaml" data-highlighted="yes"><span class="hljs-attr">tooltipList:</span>
-    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"Mercury"</span>
-      <span class="hljs-attr">tooltip:</span> <span class="hljs-string">"The hottest planet"</span>
-    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"Venus"</span>
-      <span class="hljs-attr">tooltip:</span> <span class="hljs-string">"The second hottest planet"</span>
-    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"Earth"</span>
-      <span class="hljs-attr">tooltip:</span> <span class="hljs-string">"The planet with the hottest parties"</span></code></pre>
+<pre x-code="html" name="HTML"><code>&lt;template x-for="item in $x.example.tooltipList"&gt;
+    &lt;h4 x-tooltip="`${item.tooltip}`" x-text="item.name"&gt;&lt;/h4&gt;
+&lt;/template&gt;</code></pre>
+<pre x-code="yaml" name="example.yaml"><code>tooltipList:
+    - name: "Mercury"
+      tooltip: "The hottest planet"
+    - name: "Venus"
+      tooltip: "The second hottest planet"
+    - name: "Earth"
+      tooltip: "The planet with the hottest parties"</code></pre>
 <aside class="frame row-wrap gap-4"><template x-for="item in $x.example.tooltipList">
     <span class="h4" x-tooltip="`${item.tooltip}`" x-text="item.name"></span>
 </template></aside>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+</div>
 
 <hr>
 <h2 id="data-sources">Data Sources</h2><p>Tooltips can retrieve content from <a href="/docs/core-plugins/local-data">data sources</a> using the <code>$x</code> syntax.</p>

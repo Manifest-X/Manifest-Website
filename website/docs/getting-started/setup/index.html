@@ -11,10 +11,6 @@
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
   <link rel="icon" href="../../../favicon.ico" sizes="any">
-
-  <!-- Preload Manrope (referenced by manifest.theme.css's @font-face) so the
-       UI font is fetched in parallel with HTML parsing instead of after the
-       CSS resolves — avoids the late-swap layout shift PageSpeed measured. -->
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
@@ -27,15 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
-  <!-- Appwrite is only used inside docs/dashboard routes; defer so it doesn't block
-       the homepage's main thread (PageSpeed flagged 24.8 KiB of unused JS here). -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.js" data-version="0.5.117"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.js" data-version="0.5.118"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
 
@@ -55,7 +49,7 @@
   }
 }" class="bg-surface-1">
 
-  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="0">
+  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-order="0" data-component="header-1">
 
     <!-- Content Area -->
     <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
@@ -335,7 +329,7 @@
     
 
     <!-- Documentation pages -->
-    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*">
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*" data-component="docs-1">
 
   <!-- Desktop Navigation-->
   <div data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar">
@@ -650,65 +644,65 @@
 <li><code>manifest.*.css</code> stylesheets for your project's UX/UI.</li>
 </ul>
 <p>These files are modular, designed to work alone or together to best suit your project. A project using all Manifest features would be set up like:</p>
-<pre x-code="html" name="&lt;head&gt;" copy=""><code>&lt;!-- Meta --&gt;
-&lt;link rel="manifest" href="../../../manifest.json"&gt;
+<pre x-code="html" name="&lt;head&gt;" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="&lt;head&gt;" role="region"><header><div>&lt;head&gt;</div></header><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
 
-&lt;!-- Scripts --&gt;
-&lt;script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"&gt;&lt;/script&gt;
+<span class="hljs-comment">&lt;!-- Scripts --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
-&lt;!-- Styles --&gt;
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"&gt;
-&lt;link rel="stylesheet" href="../../../manifest.theme.css"&gt;</code></pre>
+<span class="hljs-comment">&lt;!-- Styles --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.theme.css"</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <hr>
 <h2 id="manifest-json">manifest.json</h2><p>Outside this framework, <code>manifest.json</code> is a <a href="https://en.wikipedia.org/wiki/Progressive_web_app#Manifest" target="_blank">common file</a> for web applications to centrally store project-level metadata. It's stored in the root for automatic browser detection.</p>
 <p>We leverage this file as a place to declare HTML components and local or cloud data sources. It can also be used as a data source itself to render content.</p>
-<pre x-code="json" name="manifest.json" copy="" collapse="10"><code>{
-	// Web standard content
-	"name": "My Project",
-  	"short_name": "Project name",
-	"description": "Lorem ipsum dolor sit amet.",
-  	"start_url": "/",
-  	"scope": "/",
-  	"display": "standalone",
-  	"orientation": "any",
-  	"background_color": "#FFFFFF",
-  	"icons": [
-		{ "src": "/icons/192x192.png", "sizes": "192x192", "type": "image/png" },
-		{ "src": "/icons/512x512.png", "sizes": "512x512", "type": "image/png" }
-	],
+<pre x-code="json" name="manifest.json" copy="" collapse="10" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region" data-collapsed="" style="--collapse-lines: 10"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+	<span class="hljs-comment">// Web standard content</span>
+	<span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"My Project"</span><span class="hljs-punctuation">,</span>
+  	<span class="hljs-attr">"short_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Project name"</span><span class="hljs-punctuation">,</span>
+	<span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Lorem ipsum dolor sit amet."</span><span class="hljs-punctuation">,</span>
+  	<span class="hljs-attr">"start_url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/"</span><span class="hljs-punctuation">,</span>
+  	<span class="hljs-attr">"scope"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/"</span><span class="hljs-punctuation">,</span>
+  	<span class="hljs-attr">"display"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"standalone"</span><span class="hljs-punctuation">,</span>
+  	<span class="hljs-attr">"orientation"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"any"</span><span class="hljs-punctuation">,</span>
+  	<span class="hljs-attr">"background_color"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"#FFFFFF"</span><span class="hljs-punctuation">,</span>
+  	<span class="hljs-attr">"icons"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+		<span class="hljs-punctuation">{</span> <span class="hljs-attr">"src"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/icons/192x192.png"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"sizes"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"192x192"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"image/png"</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+		<span class="hljs-punctuation">{</span> <span class="hljs-attr">"src"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/icons/512x512.png"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"sizes"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"512x512"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"image/png"</span> <span class="hljs-punctuation">}</span>
+	<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
 
-	// Declarations for Manifest plugins
-  	"components": [
-		"components/home.html",
-		"components/about.html"
-  	],
-  	"preloadedComponents": [
-		"components/footer.html",
-		"components/header.html",
-		"components/logo.html"
-  	],
-  	"data": {
-		"i18n": {
-			"locales": "/translations.csv"
-		}
-  	}
-}</code></pre>
+	<span class="hljs-comment">// Declarations for Manifest plugins</span>
+  	<span class="hljs-attr">"components"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+		<span class="hljs-string">"components/home.html"</span><span class="hljs-punctuation">,</span>
+		<span class="hljs-string">"components/about.html"</span>
+  	<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  	<span class="hljs-attr">"preloadedComponents"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+		<span class="hljs-string">"components/footer.html"</span><span class="hljs-punctuation">,</span>
+		<span class="hljs-string">"components/header.html"</span><span class="hljs-punctuation">,</span>
+		<span class="hljs-string">"components/logo.html"</span>
+  	<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  	<span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+		<span class="hljs-attr">"i18n"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+			<span class="hljs-attr">"locales"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/translations.csv"</span>
+		<span class="hljs-punctuation">}</span>
+  	<span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button><button class="expand" type="button" aria-expanded="false" aria-label="Show 21 more lines">+21</button></pre>
 <p>If your project is not a downloadable web app, and does not include HTML components or data sources, <code>manifest.json</code> can be omitted.</p>
 <hr>
 <h2 id="script">Script</h2><p><code>manifest.js</code> dynamically loads <a href="https://alpinejs.dev" target="_blank">Alpine JS</a> and our plugins to make your project functional. Add the <code>&lt;script&gt;</code> tag anywhere in the HTML head or body (within <code>index.html</code> if <a href="/docs/core-plugins/router">routing</a>).</p>
-<div x-code-group="" copy="">
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="select-plugins-tab-1" aria-selected="false" tabindex="-1">Select Plugins</button><button type="button" role="tab" id="omit-plugins-tab-2" aria-selected="false" tabindex="-1">Omit Plugins</button><button type="button" role="tab" id="include-tailwind-css-tab-3" aria-selected="false" tabindex="-1">Include Tailwind CSS</button></div></header>
 
-<pre x-code="html" name="All Plugins (default)"><code>&lt;script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"&gt;&lt;/script&gt;</code></pre>
-<pre x-code="html" name="Select Plugins"><code>&lt;!-- Load only specified plugins --&gt;
-&lt;script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-	data-plugins="components,router,utilities"&gt;&lt;/script&gt;</code></pre>
-<pre x-code="html" name="Omit Plugins"><code>&lt;!-- Load all core plugins except omitted ones --&gt;
-&lt;script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-	data-omit="markdown,resize"&gt;&lt;/script&gt;</code></pre>
-<pre x-code="html" name="Include Tailwind CSS"><code>&lt;!-- Include Tailwind CSS --&gt;
-&lt;script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-&gt;&lt;/script&gt;</code></pre>
-</div>
+<pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre x-code="html" name="Select Plugins" data-code-block-built="yes" aria-label="Select Plugins" role="tabpanel" data-code-processed="yes" id="select-plugins-panel-1" aria-labelledby="select-plugins-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Load only specified plugins --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+	<span class="hljs-attr">data-plugins</span>=<span class="hljs-string">"components,router,utilities"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre x-code="html" name="Omit Plugins" data-code-block-built="yes" aria-label="Omit Plugins" role="tabpanel" data-code-processed="yes" id="omit-plugins-panel-2" aria-labelledby="omit-plugins-tab-2" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Load all core plugins except omitted ones --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+	<span class="hljs-attr">data-omit</span>=<span class="hljs-string">"markdown,resize"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre x-code="html" name="Include Tailwind CSS" data-code-block-built="yes" aria-label="Include Tailwind CSS" role="tabpanel" data-code-processed="yes" id="include-tailwind-css-panel-3" aria-labelledby="include-tailwind-css-tab-3" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Include Tailwind CSS --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+	<span class="hljs-attr">data-tailwind</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>The script loads:</p>
 <ul>
@@ -717,21 +711,21 @@
 <li><strong>Tailwind CSS</strong> (modified production version from our CDN) <em>if</em> the <code>data-tailwind</code> attribute is added.</li>
 </ul>
 <p>Scripts load the latest version from CDN by default. Load a specified version by referencing it in the URL and with a <code>data-version</code> attribute for plugins:</p>
-<pre x-code="html" copy=""><code>&lt;script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.17/lib/manifest.min.js"
-	data-version="0.5.17"&gt;&lt;/script&gt;</code></pre>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@0.5.17/lib/manifest.min.js"</span>
+	<span class="hljs-attr">data-version</span>=<span class="hljs-string">"0.5.17"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <hr>
 <h2 id="styles">Styles</h2><p>Stylesheets are divided by UI category, available individually or bundled in <code>manifest.css</code>.</p>
 <p>A separate <code>manifest.theme.css</code> can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification. It maintains CSS variables referenced by the other sheets if present, centralizing your project's visual identity. See <a href="/docs/styles/theme">theme</a> for more.</p>
 <p>Add the desired Manifest CSS files to the HTML head (within <code>index.html</code> if <a href="/docs/core-plugins/router">routing</a>). </p>
-<div x-code-group="" copy="">
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="bundled-(47kb)-tab-0" aria-selected="true" tabindex="0">Bundled (47kb)</button><button type="button" role="tab" id="individual-(&lt;10kb)-tab-1" aria-selected="false" tabindex="-1">Individual (&lt;10kb)</button></div></header>
 
-<pre x-code="html" name="Bundled (47kb)"><code>  &lt;link rel="stylesheet" href="../../../manifest.theme.css"&gt;
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"&gt;</code></pre>
-<pre x-code="html" name="Individual (&lt;10kb)"><code>  &lt;link rel="stylesheet" href="../../../manifest.theme.css"&gt;
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.reset.css"&gt;
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.buttons.css"&gt;
-  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.utilities.css"&gt;</code></pre>
-</div>
+<pre x-code="html" name="Bundled (47kb)" data-code-block-built="yes" aria-label="Bundled (47kb)" role="tabpanel" data-code-processed="yes" id="bundled-(47kb)-panel-0" aria-labelledby="bundled-(47kb)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.theme.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span>&gt;</span></code></pre>
+<pre x-code="html" name="Individual (&lt;10kb)" data-code-block-built="yes" aria-label="Individual (&lt;10kb)" role="tabpanel" data-code-processed="yes" id="individual-(&lt;10kb)-panel-1" aria-labelledby="individual-(&lt;10kb)-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.theme.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.reset.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.buttons.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.utilities.css"</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <hr>
 <h2 id="cli-commands">CLI Commands</h2><p>Manifest provides a handful of handy <code>npx</code> commands to assist with project development:</p>
@@ -744,33 +738,33 @@
 </tr>
 </thead>
 <tbody><tr>
-<td><code copy="">npx mnfst-starter &lt;name&gt;</code></td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-starter &lt;name&gt;</code></td>
 <td>Scaffold a new Manifest project</td>
 <td><a href="/docs/getting-started/starter-project">Starter Project</a></td>
 </tr>
 <tr>
-<td><code copy="">npx mnfst-run</code></td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-run</code></td>
 <td>Zero-dependency dev server with live reload</td>
 <td><a href="#run-a-project">Setup</a></td>
 </tr>
 <tr>
-<td><code copy="">npx mnfst-render</code></td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-render</code></td>
 <td>Prerender the SPA into a static MPA</td>
 <td><a href="/docs/publishing/websites">Websites</a></td>
 </tr>
 <tr>
-<td><code copy="">npx mnfst-types</code></td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-types</code></td>
 <td>Generate TypeScript ambient types from <code>manifest.json</code></td>
 <td><a href="/docs/resources/typescript">TypeScript</a></td>
 </tr>
 <tr>
-<td><code copy="">npx mnfst-test</code></td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-test</code></td>
 <td>Project linter + component-test harness</td>
 <td><a href="/docs/publishing/testing">Testing</a></td>
 </tr>
 </tbody></table>
-<h3 id="run-a-project">Run a Project</h3><p>Enter <code copy="">npx mnfst-run</code> to fire up a local server of the project. Sub-directories can be targeted with a path like <code copy="">npx mnfst-run website</code> for <code>/website</code>.</p>
-<pre x-code="bash" copy=""><code>npx mnfst-run</code></pre>
+<h3 id="run-a-project">Run a Project</h3><p>Enter <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-run</code> to fire up a local server of the project. Sub-directories can be targeted with a path like <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-run website</code> for <code>/website</code>.</p>
+<pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npx mnfst-run</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p>The server provides the following conveniences:</p>
 <ul>
 <li><strong>Auto launch</strong> — launches a new browser tab when started.</li>
@@ -822,12 +816,12 @@
   <!-- Anchor Links -->
   <div data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
 
-    <small class="mb-2" x-show="$store.anchors?.count &gt; 0" style="display: none">
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
       <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:align-left" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m14 6H3M21 6H3"></path></svg></span>
       <span>On this page</span>
     </small>
 
-    
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#manifest-json">manifest.json</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#script">Script</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#cli-commands">CLI Commands</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#run-a-project">Run a Project</a></div>
 
   </div>
 
@@ -840,5 +834,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full"}},{"id":"h3","attrs":{"class":"sm ghost rounded-e-full"}},{"id":"h4","attrs":{"dir":null}},{"id":"h5","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"role":null}},{"id":"h9","attrs":{"role":null}},{"id":"h10","attrs":{"class":"sm rounded-e-full"}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full"}},{"id":"h3","attrs":{"class":"sm ghost rounded-e-full"}}]</script>
 </body></html>

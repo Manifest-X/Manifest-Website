@@ -11,10 +11,6 @@
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
   <link rel="icon" href="../../../favicon.ico" sizes="any">
-
-  <!-- Preload Manrope (referenced by manifest.theme.css's @font-face) so the
-       UI font is fetched in parallel with HTML parsing instead of after the
-       CSS resolves — avoids the late-swap layout shift PageSpeed measured. -->
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
@@ -27,15 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
-  <!-- Appwrite is only used inside docs/dashboard routes; defer so it doesn't block
-       the homepage's main thread (PageSpeed flagged 24.8 KiB of unused JS here). -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.117/lib/manifest.min.js" data-version="0.5.117"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.js" data-version="0.5.118"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
 
@@ -55,7 +49,7 @@
   }
 }" class="bg-surface-1">
 
-  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-order="0" data-component="header-1">
+  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="0">
 
     <!-- Content Area -->
     <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
@@ -644,43 +638,43 @@
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="forms">Forms</h1><p>Structured input layouts with built-in validation.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Form styles are included in Manifest CSS or a standalone stylesheet, both referencing <a href="/docs/styles/theme">theme</a> variables.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+<div x-code-group="" copy="">
 
-<pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span> /&gt;</span></code></pre>
-<pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.form.css"</span> /&gt;</span></code></pre>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<pre x-code="html" name="Manifest CSS"><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" /&gt;</code></pre>
+<pre x-code="html" name="Standalone"><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.form.css" /&gt;</code></pre>
+</div>
 
 <hr>
 <h2 id="default">Default</h2><p>The <code>&lt;form&gt;</code> element arranges its contents in a column with gaps.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<div x-code-group="">
 
-<pre x-code="html" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">form</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"input1"</span>&gt;</span>Input 1<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"input1"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Insert"</span> /&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"input2"</span>&gt;</span>Input 2<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"input2"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Insert"</span> /&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code></pre>
+<pre x-code="html"><code>&lt;form&gt;
+    &lt;label for="input1"&gt;Input 1&lt;/label&gt;
+    &lt;input id="input1" placeholder="Insert" /&gt;
+    &lt;label for="input2"&gt;Input 2&lt;/label&gt;
+    &lt;input id="input2" placeholder="Insert" /&gt;
+&lt;/form&gt;</code></pre>
 <aside class="frame text-base"><form>
     <label for="input1">Input 1</label>
     <input id="input1" placeholder="Insert">
     <label for="input2">Input 2</label>
     <input id="input2" placeholder="Insert">
 </form></aside>
-</pre>
+</div>
 
 <p>Place form elements inside a label for enhanced default styling, and to reduce code required. Label text can be standalone or in a <code>&lt;span&gt;</code>.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<div x-code-group="">
 
-<pre x-code="html" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">form</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+<pre x-code="html"><code>&lt;form&gt;
+    &lt;label&gt;
         Input 1
-        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Insert"</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Input 2<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Insert"</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code></pre>
+        &lt;input placeholder="Insert" /&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;span&gt;Input 2&lt;/span&gt;
+        &lt;input placeholder="Insert" /&gt;
+    &lt;/label&gt;
+&lt;/form&gt;</code></pre>
 <aside class="frame text-base"><form>
     <label>
         Input 1
@@ -691,77 +685,77 @@
         <input placeholder="Insert">
     </label>
 </form></aside>
-</pre>
+</div>
 
 <p>This works for all types of form elements.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<div x-code-group="">
 
-<pre x-code="html" lines="" copy="" collapse="10" data-code-block-built="yes" role="region" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span><span>40</span><span>41</span><span>42</span><span>43</span><span>44</span><span>45</span><span>46</span><span>47</span><span>48</span><span>49</span><span>50</span><span>51</span><span>52</span><span>53</span><span>54</span><span>55</span><span>56</span><span>57</span><span>58</span><span>59</span><span>60</span><span>61</span><span>62</span><span>63</span><span>64</span><span>65</span><span>66</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">form</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+<pre x-code="html" lines="" copy="" collapse="10"><code>&lt;form&gt;
+    &lt;label&gt;
         Button label
-        <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>Button<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+        &lt;button&gt;Button&lt;/button&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
         Text input label
-        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Input"</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+        &lt;input placeholder="Input" /&gt;
+    &lt;/label&gt;
 
-    <span class="hljs-comment">&lt;!-- Search and file inputs require an external label for text, and can be visually grouped in a fieldset wrapper --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">fieldset</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"search"</span>&gt;</span>Search input label<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:search"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"search"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"search"</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">fieldset</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">fieldset</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"file"</span>&gt;</span>File input label<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:upload"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+    &lt;!-- Search and file inputs require an external label for text, and can be visually grouped in a fieldset wrapper --&gt;
+    &lt;fieldset&gt;
+        &lt;label for="search"&gt;Search input label&lt;/label&gt;
+        &lt;label&gt;
+            &lt;i x-icon="lucide:search"&gt;&lt;/i&gt;
+            &lt;input id="search" type="search" /&gt;
+        &lt;/label&gt;
+    &lt;/fieldset&gt;
+    &lt;fieldset&gt;
+        &lt;label for="file"&gt;File input label&lt;/label&gt;
+        &lt;label&gt;
+            &lt;i x-icon="lucide:upload"&gt;&lt;/i&gt;
             Upload
-            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"file"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"file"</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">fieldset</span>&gt;</span>
+            &lt;input id="file" type="file" /&gt;
+        &lt;/label&gt;
+    &lt;/fieldset&gt;
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+    &lt;label&gt;
         Select label
-        <span class="hljs-tag">&lt;<span class="hljs-name">select</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"1"</span>&gt;</span>Option 1<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"2"</span>&gt;</span>Option 2<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"3"</span>&gt;</span>Option 3<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+        &lt;select&gt;
+            &lt;option value="1"&gt;Option 1&lt;/option&gt;
+            &lt;option value="2"&gt;Option 2&lt;/option&gt;
+            &lt;option value="3"&gt;Option 3&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
         Textarea label
-        <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Insert"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"switch"</span> /&gt;</span>
+        &lt;textarea placeholder="Insert"&gt;&lt;/textarea&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" role="switch" /&gt;
         Switch label
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    &lt;/label&gt;
 
-    <span class="hljs-comment">&lt;!-- Visually group checkbox and radio sets with a fieldset wrapper --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">fieldset</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> /&gt;</span>
+    &lt;!-- Visually group checkbox and radio sets with a fieldset wrapper --&gt;
+    &lt;fieldset&gt;
+        &lt;label&gt;
+            &lt;input type="checkbox" /&gt;
             Checkbox label
-        <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> /&gt;</span>
+        &lt;/label&gt;
+        &lt;label&gt;
+            &lt;input type="checkbox" /&gt;
             Checkbox label
-        <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">fieldset</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">fieldset</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"radio"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"radio-set"</span> /&gt;</span>
+        &lt;/label&gt;
+    &lt;/fieldset&gt;
+    &lt;fieldset&gt;
+        &lt;label&gt;
+            &lt;input type="radio" name="radio-set" /&gt;
             Radio label
-        <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"radio"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"radio-set"</span> /&gt;</span>
+        &lt;/label&gt;
+        &lt;label&gt;
+            &lt;input type="radio" name="radio-set" /&gt;
             Radio label
-        <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">fieldset</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code><button class="expand" type="button" aria-expanded="false" aria-label="Show 56 more lines">+56</button></pre>
+        &lt;/label&gt;
+    &lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
 <aside class="frame text-base"><form>
     <label>
         Button label
@@ -823,76 +817,76 @@
         </label>
     </fieldset>
 </form></aside>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+</div>
 
 <hr>
 <h2 id="inline-labels">Inline Labels</h2><p>To horizontally inline the label text with its form element, place the text in a <code>&lt;data&gt;</code> element, which Manifest uses as a CSS hook. <code>&lt;data&gt;</code> elements are semantically neutral, equivalent to a <code>&lt;span&gt;</code>.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<div x-code-group="">
 
-<pre x-code="html" lines="" copy="" collapse="10" data-code-block-built="yes" role="region" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span><span>40</span><span>41</span><span>42</span><span>43</span><span>44</span><span>45</span><span>46</span><span>47</span><span>48</span><span>49</span><span>50</span><span>51</span><span>52</span><span>53</span><span>54</span><span>55</span><span>56</span><span>57</span><span>58</span><span>59</span><span>60</span><span>61</span><span>62</span><span>63</span><span>64</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">form</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>Button label<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>Button<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>Text input label<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Input"</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<pre x-code="html" lines="" copy="" collapse="10"><code>&lt;form&gt;
+    &lt;label&gt;
+        &lt;data&gt;Button label&lt;/data&gt;
+        &lt;button&gt;Button&lt;/button&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;data&gt;Text input label&lt;/data&gt;
+        &lt;input placeholder="Input" /&gt;
+    &lt;/label&gt;
 
-    <span class="hljs-comment">&lt;!-- For search and file inputs, use a div with the `label` utility class for the inner wrapper — this avoids &lt;label&gt; element nesting --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>Search input label<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"label"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:search"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"search"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"search"</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>File input label<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"label"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:upload"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+    &lt;!-- For search and file inputs, use a div with the `label` utility class for the inner wrapper — this avoids &lt;label&gt; element nesting --&gt;
+    &lt;label&gt;
+        &lt;data&gt;Search input label&lt;/data&gt;
+        &lt;div class="label"&gt;
+            &lt;i x-icon="lucide:search"&gt;&lt;/i&gt;
+            &lt;input id="search" type="search" /&gt;
+        &lt;/div&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;data&gt;File input label&lt;/data&gt;
+        &lt;div class="label"&gt;
+            &lt;i x-icon="lucide:upload"&gt;&lt;/i&gt;
             Upload
-            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"file"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"file"</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+            &lt;input id="file" type="file" /&gt;
+        &lt;/div&gt;
+    &lt;/label&gt;
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>Select label<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">select</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"1"</span>&gt;</span>Option 1<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"2"</span>&gt;</span>Option 2<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"3"</span>&gt;</span>Option 3<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>Textarea label<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Insert"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>Switch label<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"switch"</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">fieldset</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>Checkbox label<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>Checkbox label<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">fieldset</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">fieldset</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>Radio label<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"radio"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"radio-set"</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>Radio label<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"radio"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"radio-set"</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">fieldset</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code><button class="expand" type="button" aria-expanded="false" aria-label="Show 54 more lines">+54</button></pre>
+    &lt;label&gt;
+        &lt;data&gt;Select label&lt;/data&gt;
+        &lt;select&gt;
+            &lt;option value="1"&gt;Option 1&lt;/option&gt;
+            &lt;option value="2"&gt;Option 2&lt;/option&gt;
+            &lt;option value="3"&gt;Option 3&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;data&gt;Textarea label&lt;/data&gt;
+        &lt;textarea placeholder="Insert"&gt;&lt;/textarea&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;data&gt;Switch label&lt;/data&gt;
+        &lt;input type="checkbox" role="switch" /&gt;
+    &lt;/label&gt;
+    &lt;fieldset&gt;
+        &lt;label&gt;
+            &lt;data&gt;Checkbox label&lt;/data&gt;
+            &lt;input type="checkbox" /&gt;
+        &lt;/label&gt;
+        &lt;label&gt;
+            &lt;data&gt;Checkbox label&lt;/data&gt;
+            &lt;input type="checkbox" /&gt;
+        &lt;/label&gt;
+    &lt;/fieldset&gt;
+    &lt;fieldset&gt;
+        &lt;label&gt;
+            &lt;data&gt;Radio label&lt;/data&gt;
+            &lt;input type="radio" name="radio-set" /&gt;
+        &lt;/label&gt;
+        &lt;label&gt;
+            &lt;data&gt;Radio label&lt;/data&gt;
+            &lt;input type="radio" name="radio-set" /&gt;
+        &lt;/label&gt;
+    &lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
 <aside class="frame text-base"><form>
     <label>
         <data>Button label</data>
@@ -954,23 +948,23 @@
         </label>
     </fieldset>
 </form></aside>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+</div>
 
 <hr>
 <h2 id="fieldset-legends">Fieldset Legends</h2><p>Add a <code>&lt;legend&gt;</code> element to a <code>&lt;fieldset&gt;</code> with checkboxes or radios, to create a bordered container with a small title.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<div x-code-group="">
 
-<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">fieldset</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">legend</span>&gt;</span>Preferences<span class="hljs-tag">&lt;/<span class="hljs-name">legend</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>Email notifications<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>SMS notifications<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">fieldset</span>&gt;</span></code></pre>
+<pre x-code="html" copy=""><code>&lt;fieldset&gt;
+    &lt;legend&gt;Preferences&lt;/legend&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" /&gt;
+        &lt;data&gt;Email notifications&lt;/data&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" /&gt;
+        &lt;data&gt;SMS notifications&lt;/data&gt;
+    &lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
 <aside class="frame text-base"><fieldset>
 <legend>Preferences</legend>
 <label>
@@ -982,21 +976,21 @@
     <data>SMS notifications</data>
 </label>
 </fieldset></aside>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+</div>
 
 <hr>
 <h2 id="group-wrappers">Group Wrappers</h2><p>Buttons, inputs, and selects can be arranged horizontally flush inside a wrapper with the <code>role="group"</code> attribute. Elements are connected seamlessly with shared borders.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<div x-code-group="">
 
-<pre x-code="html" lines="" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"group"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">select</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Category<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Technology<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Design<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Filter"</span> /&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>Apply<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<pre x-code="html" lines="" copy=""><code>&lt;div role="group"&gt;
+    &lt;select&gt;
+        &lt;option&gt;Category&lt;/option&gt;
+        &lt;option&gt;Technology&lt;/option&gt;
+        &lt;option&gt;Design&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;input placeholder="Filter" /&gt;
+    &lt;button&gt;Apply&lt;/button&gt;
+&lt;/div&gt;</code></pre>
 <aside class="frame"><div role="group">
     <select>
         <option>Category</option>
@@ -1006,20 +1000,20 @@
     <input placeholder="Filter">
     <button>Apply</button>
 </div></aside>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+</div>
 
 <p>The <code>even</code> utility class makes all form elements an equal width.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<div x-code-group="">
 
-<pre x-code="html" lines="" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"group"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"even"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">select</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Category<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Technology<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Design<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Filter"</span> /&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>Apply<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<pre x-code="html" lines="" copy=""><code>&lt;div role="group" class="even"&gt;
+    &lt;select&gt;
+        &lt;option&gt;Category&lt;/option&gt;
+        &lt;option&gt;Technology&lt;/option&gt;
+        &lt;option&gt;Design&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;input placeholder="Filter" /&gt;
+    &lt;button&gt;Apply&lt;/button&gt;
+&lt;/div&gt;</code></pre>
 <aside class="frame"><div role="group" class="even">
     <select>
         <option>Category</option>
@@ -1029,25 +1023,25 @@
     <input placeholder="Filter">
     <button>Apply</button>
 </div></aside>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+</div>
 
 <hr>
 <h2 id="validation">Validation</h2><p>Native HTML5 attributes like <code>required</code>, <code>type="email"</code>, <code>pattern</code>, <code>minlength</code>, and <code>maxlength</code> trigger the browser's built-in form validation on submit. Custom CSS or Tailwind pseudo-class variants can be used to style valid and invalid states without Javascript. Block the form's own validation messages with <code>novalidate</code>.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<div x-code-group="">
 
-<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"group"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+<pre x-code="html" copy=""><code>&lt;form class="group"&gt;
+    &lt;label&gt;
         Email
-        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span> <span class="hljs-attr">required</span>
-            <span class="hljs-attr">class</span>=<span class="hljs-string">"user-invalid:negative user-valid:positive"</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+        &lt;input type="email" required
+            class="user-invalid:negative user-valid:positive" /&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
         Subject
-        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">required</span> <span class="hljs-attr">minlength</span>=<span class="hljs-string">"8"</span>
-            <span class="hljs-attr">class</span>=<span class="hljs-string">"user-invalid:negative user-valid:positive"</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"group-invalid:disabled accent"</span>&gt;</span>Submit<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code></pre>
+        &lt;input type="text" required minlength="8"
+            class="user-invalid:negative user-valid:positive" /&gt;
+    &lt;/label&gt;
+    &lt;button class="group-invalid:disabled accent"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
 <aside class="frame"><form class="group">
     <label>
         Email
@@ -1059,7 +1053,7 @@
     </label>
     <button class="group-invalid:disabled accent">Submit</button>
 </form></aside>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+</div>
 
 <p>Common Tailwind variants:</p>
 <table>
@@ -1070,47 +1064,47 @@
 </tr>
 </thead>
 <tbody><tr>
-<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">invalid:</code></td>
+<td><code copy="">invalid:</code></td>
 <td>The field's value fails its native validation rules</td>
 </tr>
 <tr>
-<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">valid:</code></td>
+<td><code copy="">valid:</code></td>
 <td>The field's value passes its native validation rules</td>
 </tr>
 <tr>
-<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">user-invalid:</code></td>
-<td>Same as <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">invalid:</code> but only after the user has interacted with the field</td>
+<td><code copy="">user-invalid:</code></td>
+<td>Same as <code copy="">invalid:</code> but only after the user has interacted with the field</td>
 </tr>
 <tr>
-<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">user-valid:</code></td>
-<td>Same as <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">valid:</code> but only after the user has interacted with the field</td>
+<td><code copy="">user-valid:</code></td>
+<td>Same as <code copy="">valid:</code> but only after the user has interacted with the field</td>
 </tr>
 <tr>
-<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">peer-invalid:</code></td>
+<td><code copy="">peer-invalid:</code></td>
 <td>A <code>.peer</code> sibling fails its native validation rules</td>
 </tr>
 <tr>
-<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">peer-user-invalid:</code></td>
+<td><code copy="">peer-user-invalid:</code></td>
 <td>A <code>.peer</code> sibling fails validation only after user interaction</td>
 </tr>
 <tr>
-<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">group-invalid:</code></td>
+<td><code copy="">group-invalid:</code></td>
 <td>A <code>.group</code> parent contains one or more invalid fields</td>
 </tr>
 <tr>
-<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">group-user-invalid:</code></td>
+<td><code copy="">group-user-invalid:</code></td>
 <td>A <code>.group</code> parent contains one or more user-invalid fields (after user interaction)</td>
 </tr>
 <tr>
-<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">required:</code></td>
+<td><code copy="">required:</code></td>
 <td>The field has the <code>required</code> attribute</td>
 </tr>
 <tr>
-<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">placeholder-shown:</code></td>
+<td><code copy="">placeholder-shown:</code></td>
 <td>The field is empty and showing its placeholder</td>
 </tr>
 <tr>
-<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">focus:</code></td>
+<td><code copy="">focus:</code></td>
 <td>The field is currently focused</td>
 </tr>
 </tbody></table>
@@ -1154,12 +1148,12 @@
 </tr>
 </tbody></table>
 <h3 id="customization">Customization</h3><p>Target any of the selectors above with custom CSS.</p>
-<pre x-code="css" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-tag">form</span> {
-    <span class="hljs-attribute">gap</span>: <span class="hljs-number">1rem</span>;
-    <span class="hljs-attribute">padding</span>: <span class="hljs-number">1rem</span>;
-    <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--color-surface-<span class="hljs-number">2</span>);
-    <span class="hljs-attribute">border-radius</span>: <span class="hljs-built_in">var</span>(--radius);
-}</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<pre x-code="css" copy=""><code>form {
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+}</code></pre>
 </div>
 
     </div>
@@ -1204,12 +1198,12 @@
   <!-- Anchor Links -->
   <div data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
 
-    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0" style="display: none">
       <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:align-left" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m14 6H3M21 6H3"></path></svg></span>
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#default">Default</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#inline-labels">Inline Labels</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#fieldset-legends">Fieldset Legends</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#group-wrappers">Group Wrappers</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#validation">Validation</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#customization">Customization</a></div>
+    
 
   </div>
 
@@ -1222,5 +1216,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full"}},{"id":"h3","attrs":{"class":"sm ghost rounded-e-full"}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full"}},{"id":"h3","attrs":{"class":"sm ghost rounded-e-full"}},{"id":"h4","attrs":{"dir":null}},{"id":"h5","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"role":null}},{"id":"h9","attrs":{"role":null}},{"id":"h10","attrs":{"class":"sm rounded-e-full"}}]</script>
 </body></html>
