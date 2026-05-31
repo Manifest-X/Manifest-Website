@@ -18,7 +18,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -681,40 +681,40 @@
 
 <hr>
 <h2 id="file-content">File Content</h2><p>Load markdown content from external <code>.md</code> files by providing a file path like <code>x-markdown="/assets/menu.md"</code>.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="menu.md-tab-1" aria-selected="false" tabindex="-1">menu.md</button></div></header>
+<div x-code-group="" data-group-processed="yes">
 
-<pre x-code="html" name="HTML" copy="" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-markdown</span>=<span class="hljs-string">"'/assets/menu.md'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<pre x-code="markdown" name="menu.md" data-code-block-built="yes" aria-label="menu.md" role="tabpanel" data-code-processed="yes" id="menu.md-panel-1" aria-labelledby="menu.md-tab-1" style="display: none"><code class="hljs language-markdown" data-highlighted="yes"><span class="hljs-section">### Menù del Giornaliero</span>
-<span class="hljs-bullet">-</span> Vitello alla Milanese
-<span class="hljs-bullet">-</span> Lasagna alla Bolognese Bianca
-<span class="hljs-bullet">-</span> Grilled Cheese n' Taters</code></pre>
+<pre x-code="html" name="HTML" copy=""><code>&lt;div x-markdown="'/assets/menu.md'"&gt;&lt;/div&gt;</code></pre>
+<pre x-code="markdown" name="menu.md"><code>### Menù del Giornaliero
+- Vitello alla Milanese
+- Lasagna alla Bolognese Bianca
+- Grilled Cheese n' Taters</code></pre>
 <aside class="frame col text-base"><span class="h4 mb-3">Menù del Giornaliero</span>
 <ul>
   <li>Vitello alla Milanese</li>
   <li>Lasagna alla Bolognese Bianca</li>
   <li>Grilled Cheese n' Taters</li>
 </ul></aside>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+</div>
 
 <h3 id="from-data-source">From Data Source</h3><p>The markdown file's path can also be populated from a <a href="/docs/core-plugins/local-data">data source</a>.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="blog.json-tab-1" aria-selected="false" tabindex="-1">blog.json</button><button type="button" role="tab" id="burn-book.md-tab-2" aria-selected="false" tabindex="-1">burn-book.md</button></div></header>
+<div x-code-group="" copy="" data-group-processed="yes">
 
-<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.blog.title"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">small</span>&gt;</span>By <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.blog.author"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"prose"</span> <span class="hljs-attr">x-markdown</span>=<span class="hljs-string">"$x.blog.article"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<pre x-code="json" name="blog.json" data-code-block-built="yes" aria-label="blog.json" role="tabpanel" data-code-processed="yes" id="blog.json-panel-1" aria-labelledby="blog.json-tab-1" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Burn Book"</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"author"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Regina George"</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"article"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/content/burn-book.md"</span>
-<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<pre x-code="html" name="HTML"><code>&lt;h3 x-text="$x.blog.title"&gt;&lt;/h3&gt;
+&lt;small&gt;By &lt;span x-text="$x.blog.author"&gt;&lt;/span&gt;&lt;/small&gt;
+&lt;div class="prose" x-markdown="$x.blog.article"&gt;&lt;/div&gt;</code></pre>
+<pre x-code="json" name="blog.json"><code>{
+  "title": "Burn Book",
+  "author": "Regina George",
+  "article": "/content/burn-book.md"
+},
 ...</code></pre>
-<pre x-code="markdown" name="burn-book.md" data-code-block-built="yes" aria-label="burn-book.md" role="tabpanel" data-code-processed="yes" id="burn-book.md-panel-2" aria-labelledby="burn-book.md-tab-2" style="display: none"><code class="hljs language-markdown" data-highlighted="yes">This girl is the nastiest skank bitch I've ever met.
+<pre x-code="markdown" name="burn-book.md"><code>This girl is the nastiest skank bitch I've ever met.
 Do not trust her.
 She is a fugly slut!!</code></pre>
 <aside class="frame col text-base"><span class="h3 mb-3">Burn Book</span>
 <small>By Regina George</small>
 <p>This girl is the nastiest skank bitch I've ever met.<br>Do not trust her.<br>She is a fugly slut!!</p></aside>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+</div>
 
 <p>This approach is ideal for blogs, articles, or any content managed through data sources that can leverage markdown files rather than large text blocks. It's also possible to make loading contingent on a URL route (e.g. <code>.../blog/burn-book</code>), use the <code>$route()</code> function:</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="blog.json-tab-1" aria-selected="false" tabindex="-1">blog.json</button></div></header>
@@ -733,74 +733,74 @@ She is a fugly slut!!</code></pre>
 <hr>
 <h2 id="markdown-syntax">Markdown Syntax</h2><p>See this <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Markdown Guide</a> for supported syntax in addition to HTML. Manifest also provides additional support for components, callouts, previews, and code blocks.</p>
 <h3 id="components">Components</h3><p>A <a href="/docs/core-plugins/components">component tag</a> placed in a markdown file will render the component in position.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="markdown-tab-0" aria-selected="true" tabindex="0">Markdown</button><button type="button" role="tab" id="disclaimer.html-tab-1" aria-selected="false" tabindex="-1">disclaimer.html</button></div></header>
+<div x-code-group="" data-group-processed="yes">
 
-<pre x-code="markdown" name="Markdown" data-code-block-built="yes" aria-label="Markdown" role="tabpanel" data-code-processed="yes" id="markdown-panel-0" aria-labelledby="markdown-tab-0"><code class="hljs language-markdown" data-highlighted="yes">Kaffee: I WANT THE TRUTH!
+<pre x-code="markdown" name="Markdown"><code>Kaffee: I WANT THE TRUTH!
 Col. Jessup: YOU CAN'T HANDLE THE TRUTH!
-<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">x-disclaimer</span>&gt;</span></span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">x-disclaimer</span>&gt;</span></span></code></pre>
-<pre x-code="html" name="disclaimer.html" data-code-block-built="yes" aria-label="disclaimer.html" role="tabpanel" data-code-processed="yes" id="disclaimer.html-panel-1" aria-labelledby="disclaimer.html-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">figcaption</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:info"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+&lt;x-disclaimer&gt;&lt;/x-disclaimer&gt;</code></pre>
+<pre x-code="html" name="disclaimer.html"><code>&lt;figcaption&gt;
+  &lt;span x-icon="lucide:info"&gt;&lt;/span&gt;
   This is not legal advice.
-<span class="hljs-tag">&lt;/<span class="hljs-name">figcaption</span>&gt;</span></code></pre>
+&lt;/figcaption&gt;</code></pre>
 <aside class="frame col text-base"><p>Kaffee: I WANT THE TRUTH!</p>
 <p>Col. Jessup: YOU CAN'T HANDLE THE TRUTH!</p>
 <figcaption><span x-icon="lucide:info"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:info" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4m0-4h.01"></path></g></svg></span>This is not legal advice.</figcaption></aside>
-</pre>
+</div>
 
 <hr>
 <h3 id="callouts">Callouts</h3><p>Callouts highlight specific text in a long form article. They require <a href="/docs/styles/utilities">utility</a> styles and a parent element with the <code>prose</code> class applied.</p>
 <p>Use <code>:::</code> markers to open and close the callout within markdown. Text added to the opening marker's line are treated as CSS classes, useful for adding styles like Manifest utility colors. A leading <a href="/docs/elements/icons">icon</a> can also be added with <code>icon="..."</code> anywhere in the same line.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="default-tab-0" aria-selected="true" tabindex="0">Default</button><button type="button" role="tab" id="brand-tab-1" aria-selected="false" tabindex="-1">Brand</button><button type="button" role="tab" id="accent-tab-2" aria-selected="false" tabindex="-1">Accent</button><button type="button" role="tab" id="positive-tab-3" aria-selected="false" tabindex="-1">Positive</button><button type="button" role="tab" id="negative-tab-4" aria-selected="false" tabindex="-1">Negative</button></div></header>
+<div x-code-group="" copy="" data-group-processed="yes">
 
-<pre x-code="markdown" name="Default" data-code-block-built="yes" aria-label="Default" role="tabpanel" data-code-processed="yes" id="default-panel-0" aria-labelledby="default-tab-0"><code class="hljs language-markdown" data-highlighted="yes">:::
+<pre x-code="markdown" name="Default"><code>:::
 Default callout
 :::</code></pre>
-<pre x-code="markdown" name="Brand" data-code-block-built="yes" aria-label="Brand" role="tabpanel" data-code-processed="yes" id="brand-panel-1" aria-labelledby="brand-tab-1" style="display: none"><code class="hljs language-markdown" data-highlighted="yes">::: brand
-<span class="hljs-strong">**Brand callout**</span>
+<pre x-code="markdown" name="Brand"><code>::: brand
+**Brand callout**
 Callouts accept markdown syntax inside.
 :::</code></pre>
-<pre x-code="markdown" name="Accent" data-code-block-built="yes" aria-label="Accent" role="tabpanel" data-code-processed="yes" id="accent-panel-2" aria-labelledby="accent-tab-2" style="display: none"><code class="hljs language-markdown" data-highlighted="yes">::: accent icon="lucide:info"
-<span class="hljs-strong">**Accent callout**</span>
-A leading icon can be added with <span class="hljs-code">`icon="..."`</span> in the opening marker.
+<pre x-code="markdown" name="Accent"><code>::: accent icon="lucide:info"
+**Accent callout**
+A leading icon can be added with `icon="..."` in the opening marker.
 :::</code></pre>
-<pre x-code="markdown" name="Positive" data-code-block-built="yes" aria-label="Positive" role="tabpanel" data-code-processed="yes" id="positive-panel-3" aria-labelledby="positive-tab-3" style="display: none"><code class="hljs language-markdown" data-highlighted="yes">::: positive icon="lucide:circle-check"
-<span class="hljs-strong">**Positive callout**</span>
+<pre x-code="markdown" name="Positive"><code>::: positive icon="lucide:circle-check"
+**Positive callout**
 It rubs the lotion on its skin or else it gets the hose again.
 :::</code></pre>
-<pre x-code="markdown" name="Negative" data-code-block-built="yes" aria-label="Negative" role="tabpanel" data-code-processed="yes" id="negative-panel-4" aria-labelledby="negative-tab-4" style="display: none"><code class="hljs language-markdown" data-highlighted="yes">::: negative icon="lucide:shield-alert"
-<span class="hljs-strong">**Negative callout**</span>
+<pre x-code="markdown" name="Negative"><code>::: negative icon="lucide:shield-alert"
+**Negative callout**
 It's a trap!
 :::</code></pre>
-<aside class="frame col gap-2 text-base for=" name="Default" id="default-panel-5" role="tabpanel" aria-labelledby="default-tab-0"><aside>Default callout</aside></aside>
-<aside class="frame col gap-2 text-base for=" name="Brand" id="brand-panel-6" role="tabpanel" aria-labelledby="brand-tab-1" style="display: none"><aside class="brand"><b>Brand callout</b><br>Callouts accept markdown syntax inside.</aside></aside>
-<aside class="frame col gap-2 text-base for=" name="Accent" id="accent-panel-7" role="tabpanel" aria-labelledby="accent-tab-2" style="display: none"><aside class="accent row gap-4 [&amp;_svg]:pt-1 [&amp;_svg]:text-[1.25rem]">
+<aside class="frame col gap-2 text-base for=" name="Default"><aside>Default callout</aside></aside>
+<aside class="frame col gap-2 text-base for=" name="Brand"><aside class="brand"><b>Brand callout</b><br>Callouts accept markdown syntax inside.</aside></aside>
+<aside class="frame col gap-2 text-base for=" name="Accent"><aside class="accent row gap-4 [&amp;_svg]:pt-1 [&amp;_svg]:text-[1.25rem]">
   <span x-icon="lucide:info"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:info" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4m0-4h.01"></path></g></svg></span>
   <div>
     <b>Accent callout</b><br>
     <p>A leading icon can be added with <code>icon="..."</code> in the opening marker.</p>
   </div>
 </aside></aside>
-<aside class="frame col gap-2 text-base for=" name="Positive" id="positive-panel-8" role="tabpanel" aria-labelledby="positive-tab-3" style="display: none"><aside class="positive row gap-4 [&amp;_svg]:pt-1 [&amp;_svg]:text-[1.25rem]">
+<aside class="frame col gap-2 text-base for=" name="Positive"><aside class="positive row gap-4 [&amp;_svg]:pt-1 [&amp;_svg]:text-[1.25rem]">
   <span x-icon="lucide:circle-check"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-check" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="m9 12l2 2l4-4"></path></g></svg></span>
   <div>
     <b>Positive callout</b><br>
     <p>It rubs the lotion on its skin or else it gets the hose again.</p>
   </div>
 </aside></aside>
-<aside class="frame col gap-2 text-base for=" name="Negative" id="negative-panel-9" role="tabpanel" aria-labelledby="negative-tab-4" style="display: none"><aside class="negative row gap-4 [&amp;_svg]:pt-1 [&amp;_svg]:text-[1.25rem]">
-  <span x-icon="lucide:shield-alert"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:shield-alert" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1zm-8-5v4m0 4h.01"></path></svg></span>
+<aside class="frame col gap-2 text-base for=" name="Negative"><aside class="negative row gap-4 [&amp;_svg]:pt-1 [&amp;_svg]:text-[1.25rem]">
+  <span x-icon="lucide:shield-alert"><span class="iconify" data-icon="lucide:shield-alert"></span></span>
   <div>
     <b>Negative callout</b><br>
     <p>It's a trap!</p>
   </div>
 </aside></aside>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+</div>
 
 <p>Callouts are <code>&lt;aside&gt;</code> elements within a <code>prose</code> parent. Modify their appearance with custom CSS:</p>
-<pre x-code="css" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-class">.prose</span> <span class="hljs-selector-tag">aside</span> {
-  <span class="hljs-attribute">background</span>: yellow;
-  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span>
-}</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<pre x-code="css" copy="" data-code-processed="yes"><code>.prose aside {
+  background: yellow;
+  border-radius: 0
+}</code></pre>
 <hr>
 <h3 id="frames">Frames</h3><p>A callout can also be a visual frame when fashioned as <code>::: frame</code>.</p>
 <pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes">::: frame
@@ -808,18 +808,18 @@ It's a trap!
 :::</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <aside class="frame"><img src="../../../assets/examples/poochie.webp" alt="Poochie the dog"></aside>
 <p>The <code>frame</code> class within a <code>prose</code> container provides frame styles, which can be modified with custom CSS:</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<div x-code-group="" data-group-processed="yes">
 
-<pre x-code="css" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-class">.prose</span> <span class="hljs-selector-tag">aside</span><span class="hljs-selector-class">.frame</span> {
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">1rem</span>;
-  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--bg-surface-<span class="hljs-number">1</span>);
-  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span>;
+<pre x-code="css" copy=""><code>.prose aside.frame {
+  padding: 1rem;
+  background: var(--bg-surface-1);
+  border-radius: 0;
 }</code></pre>
 <aside class="frame p-4"><div class="p-4 text-base bg-surface-1 rounded-none">
-  <div class="p-2 text-4xl bg-surface-2 border-1 border-line" x-icon="mdi:emoticon-dead"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="mdi:emoticon-dead" class="iconify iconify--mdi"><path fill="currentColor" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10M6.76 8.82l1.06-1.06l1.06 1.06l1.06-1.06L11 8.82L9.94 9.88L11 10.94L9.94 12l-1.06-1.06L7.82 12l-1.06-1.06l1.06-1.06zm.13 8.68C7.69 15.46 9.67 14 12 14s4.31 1.46 5.11 3.5zm10.35-6.56L16.18 12l-1.06-1.06L14.06 12L13 10.94l1.06-1.06L13 8.82l1.06-1.06l1.06 1.06l1.06-1.06l1.06 1.06l-1.06 1.06z"></path></svg></div>
+  <div class="p-2 text-4xl bg-surface-2 border-1 border-line" x-icon="mdi:emoticon-dead"><span class="iconify" data-icon="mdi:emoticon-dead"></span></div>
   <blockquote>"What's in the box?!"</blockquote>
 </div></aside>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+</div>
 
 <hr>
 <h3 id="code-blocks">Code Blocks</h3><p>If the project includes <a href="/docs/elements/code">code block</a> support, markdown automatically converts <code>```</code> markers to Manifest <code>&lt;pre x-code&gt;</code> elements, with syntax highlighting support.</p>

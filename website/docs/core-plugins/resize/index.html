@@ -18,7 +18,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -880,47 +880,47 @@
 <p>Additionally, a <code>--spacing-resize-handle</code> variable is declared within resize styles to size the handles.</p>
 <hr>
 <h2 id="styles">Styles</h2><p>Modify resize handle styles with custom CSS.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<div x-code-group="" data-group-processed="yes">
 
-<pre x-code="css" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-comment">/* Resize handle size */</span>
-<span class="hljs-selector-pseudo">:root</span> { <span class="hljs-attr">--spacing-resize-handle</span>: <span class="hljs-number">2rem</span>; }
+<pre x-code="css" copy=""><code>/* Resize handle size */
+:root { --spacing-resize-handle: 2rem; }
 
-<span class="hljs-comment">/* Modifying the visual handle's size, border radius, and background color */</span>
-<span class="hljs-comment">/* .resize-handle is the mouseover area */</span>
-<span class="hljs-selector-class">.resize-handle</span> {
+/* Modifying the visual handle's size, border radius, and background color */
+/* .resize-handle is the mouseover area */
+.resize-handle {
 
-    <span class="hljs-comment">/* ::before is the visual handle */</span>
-    &amp;<span class="hljs-selector-pseudo">::before</span> {
-        <span class="hljs-attribute">width</span>: <span class="hljs-number">10px</span>;
-        <span class="hljs-attribute">height</span>: <span class="hljs-number">10px</span>;
-        <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span>;
+    /* ::before is the visual handle */
+    &amp;::before {
+        width: 10px;
+        height: 10px;
+        border-radius: 0;
     }
 
-    &amp;<span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">::before</span> {
-        <span class="hljs-attribute">background-color</span>: blue;
-    }
-}
-
-<span class="hljs-comment">/* Modifying cursors and preserving visual edge handles */</span>
-<span class="hljs-selector-class">.resize-handle-top</span>,
-<span class="hljs-selector-class">.resize-handle-bottom</span> {
-    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
-    <span class="hljs-attribute">cursor</span>: row-resize;
-
-    &amp;<span class="hljs-selector-pseudo">::before</span> {
-        <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+    &amp;:hover::before {
+        background-color: blue;
     }
 }
 
-<span class="hljs-selector-class">.resize-handle-left</span>,
-<span class="hljs-selector-class">.resize-handle-right</span>,
-<span class="hljs-selector-class">.resize-handle-start</span>,
-<span class="hljs-selector-class">.resize-handle-end</span> {
-    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
-    <span class="hljs-attribute">cursor</span>: col-resize;
+/* Modifying cursors and preserving visual edge handles */
+.resize-handle-top,
+.resize-handle-bottom {
+    width: 100%;
+    cursor: row-resize;
 
-    &amp;<span class="hljs-selector-pseudo">::before</span> {
-        <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+    &amp;::before {
+        width: 100%;
+    }
+}
+
+.resize-handle-left,
+.resize-handle-right,
+.resize-handle-start,
+.resize-handle-end {
+    height: 100%;
+    cursor: col-resize;
+
+    &amp;::before {
+        height: 100%;
     }
 }</code></pre>
 <aside class="frame"><style>
@@ -965,7 +965,7 @@
     }
 </style>
 <div x-resize="" class="w-64 h-32 p-4 bg-surface-3 resize-handles-custom">Custom handles</div></aside>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre></div>
+</div></div>
 
     </div>
 

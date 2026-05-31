@@ -47,7 +47,7 @@
             <h3 class="h4"><span x-icon="feature.icon"></span><span x-text="feature.name"></span></h3>
             <p class="text-content-neutral" x-text="feature.description"></p>
           </div>
-          <a :href="feature.link" class="brand gap-1 hover:gap-1.5 no-underline">
+          <a :href="feature.link" :aria-label="'Read more about ' + feature.name" class="brand gap-1 hover:gap-1.5 no-underline">
             <span>Read more</span>
             <span x-icon="lucide:arrow-right"></span></a>
 

@@ -1,133 +1,132 @@
 {
-    "name": "Manifest",
-    "short_name": "Manifest",
-    "description": "Supercharge HTML for rapid, feature-rich website and web app development.",
-    "live_url": "https://manifestx.dev",
-    "render": {
-        "locales": [
-            "en"
-        ],
-        "meta": {
-            "fallback": {
-                "image": "/icons/512x512.png"
-            }
-        },
-        "structuredData": {
-            "WebSite": true,
-            "Article": true,
-            "BreadcrumbList": true
-        }
+  "name": "Manifest",
+  "short_name": "Manifest",
+  "description": "Supercharge HTML for rapid, feature-rich website and web app development.",
+  "live_url": "https://manifestx.dev",
+  "render": {
+    "locales": [
+      "en"
+    ],
+    "meta": {
+      "fallback": {
+        "image": "/icons/512x512.png"
+      }
     },
-    "start_url": "/",
-    "scope": "/",
-    "display": "browser",
-    "background_color": "#FFFFFF",
-    "theme_color": "#FFFFFF",
-    "icons": [
-        {
-            "src": "/assets/icons/192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/assets/icons/512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ],
-    "components": [
-        "components/theme.html",
-        "components/theme-editor.html",
-        "components/theme-controls.html",
-        "components/theme-preview.html",
-        "components/appwrite.html",
-        "assets/example-components/disclaimer.html",
-        "assets/example-components/header-basic.html",
-        "assets/example-components/header-nested.html",
-        "assets/example-components/header-modified.html",
-        "assets/example-components/appwrite-test.html",
-        "assets/example-components/appwrite-projects.html",
-        "assets/example-components/appwrite-storage.html",
-        "assets/example-components/appwrite-teams.html",
-        "assets/example-components/appwrite-users.html"
-    ],
-    "preloadedComponents": [
-        "components/home.html",
-        "components/hero-editor.html",
-        "components/manifest-ai.html",
-        "components/docs.html",
-        "components/header.html",
-        "components/footer.html"
-    ],
-    "data": {
-        "docs": "/data/docs.yaml",
-        "faq": "/data/faq.yaml",
-        "features": "/data/features.yaml",
-        "comparisons": "/data/comparisons.yaml",
-        "example": "/data/example.json",
-        "feature-examples": {
-            "ar": "/data/ar.locale.yaml",
-            "en": "/data/en.locale.yaml",
-            "fr": "/data/fr.locale.yaml",
-            "zh": "/data/zh.locale.yaml"
-        },
-        "projects": {
-            "appwriteTableId": "projects",
-            "appwriteDatabaseId": "69272017000296721b73",
-            "scope": [
-                "user",
-                "teams"
-            ],
-            "storage": {
-                "assets": "fileIds"
-            }
-        },
-        "assets": {
-            "appwriteBucketId": "69285cd300373b8ddb7f"
-        },
-        "presence": {
-            "appwriteTableId": "presence",
-            "appwriteDatabaseId": "69272017000296721b73"
-        }
-    },
-    "appwrite": {
-        "projectId": "68cfcc610014415b6f9a",
-        "endpoint": "https://fra.cloud.appwrite.io/v1",
-        "devKey": "${APPWRITE_DEV_KEY}",
-        "auth": {
-            "methods": [
-                "guest-manual",
-                "magic",
-                "oauth"
-            ],
-            "teams": {
-                "permanent": [
-                    "Permanent Workspace"
-                ],
-                "template": [
-                    "Template Workspace",
-                    "Dream Team"
-                ]
-            },
-            "roles": {
-                "permanent": {
-                    "Admin": [
-                        "inviteMembers",
-                        "updateMembers",
-                        "removeMembers",
-                        "manageRoles",
-                        "renameTeam",
-                        "deleteTeam"
-                    ]
-                },
-                "template": {
-                    "Editor": [
-                        "inviteMembers"
-                    ],
-                    "Viewer": []
-                }
-            },
-            "creatorRole": "Admin"
-        }
+    "structuredData": {
+      "WebSite": true,
+      "Article": true,
+      "BreadcrumbList": true
     }
+  },
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
+  "icons": [
+    {
+      "src": "/assets/icons/192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icons/512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "components": [
+    "components/theme.html",
+    "components/theme-editor.html",
+    "components/theme-controls.html",
+    "components/theme-preview.html",
+    "components/appwrite.html",
+    "assets/example-components/disclaimer.html",
+    "assets/example-components/header-basic.html",
+    "assets/example-components/header-nested.html",
+    "assets/example-components/header-modified.html",
+    "assets/example-components/appwrite-test.html",
+    "assets/example-components/appwrite-projects.html",
+    "assets/example-components/appwrite-storage.html",
+    "assets/example-components/appwrite-teams.html",
+    "assets/example-components/appwrite-users.html"
+  ],
+  "preloadedComponents": [
+    "components/home.html",
+    "components/hero-editor.html",
+    "components/manifest-ai.html",
+    "components/docs.html",
+    "components/header.html",
+    "components/footer.html"
+  ],
+  "data": {
+    "docs": "/data/docs.yaml",
+    "faq": "/data/faq.yaml",
+    "features": "/data/features.yaml",
+    "comparisons": "/data/comparisons.yaml",
+    "example": "/data/example.json",
+    "feature-examples": {
+      "ar": "/data/ar.locale.yaml",
+      "en": "/data/en.locale.yaml",
+      "fr": "/data/fr.locale.yaml",
+      "zh": "/data/zh.locale.yaml"
+    },
+    "projects": {
+      "appwriteTableId": "projects",
+      "appwriteDatabaseId": "69272017000296721b73",
+      "scope": [
+        "user",
+        "teams"
+      ],
+      "storage": {
+        "assets": "fileIds"
+      }
+    },
+    "assets": {
+      "appwriteBucketId": "69285cd300373b8ddb7f"
+    },
+    "presence": {
+      "appwriteTableId": "presence",
+      "appwriteDatabaseId": "69272017000296721b73"
+    }
+  },
+  "appwrite": {
+    "projectId": "68cfcc610014415b6f9a",
+    "endpoint": "https://fra.cloud.appwrite.io/v1",
+    "auth": {
+      "methods": [
+        "guest-manual",
+        "magic",
+        "oauth"
+      ],
+      "teams": {
+        "permanent": [
+          "Permanent Workspace"
+        ],
+        "template": [
+          "Template Workspace",
+          "Dream Team"
+        ]
+      },
+      "roles": {
+        "permanent": {
+          "Admin": [
+            "inviteMembers",
+            "updateMembers",
+            "removeMembers",
+            "manageRoles",
+            "renameTeam",
+            "deleteTeam"
+          ]
+        },
+        "template": {
+          "Editor": [
+            "inviteMembers"
+          ],
+          "Viewer": []
+        }
+      },
+      "creatorRole": "Admin"
+    }
+  }
 }

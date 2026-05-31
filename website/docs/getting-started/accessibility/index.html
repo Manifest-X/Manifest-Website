@@ -18,7 +18,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -742,7 +742,7 @@
 <p>Authors retain responsibility for content-level criteria like heading hierarchy, image alt text, link discernibility, custom theme contrast ratios, and form label association.</p>
 <hr>
 <h2 id="automated-testing">Automated Testing</h2><p>Run Manifest's project linter to catch accessibility violations alongside other regressions:</p>
-<pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npx mnfst-test</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<pre x-code="bash" copy="" data-code-processed="yes"><code>npx mnfst-test</code></pre>
 <p>The runtime pass injects <a href="https://github.com/dequelabs/axe-core" target="_blank">axe-core</a> against a headless render of your project and reports each failure with severity, the offending element, and (for color-contrast issues) the theme CSS variable driving the bad color. See <a href="/docs/publishing/testing">testing</a> for full details.</p>
 <hr>
 <h2 id="manual-checklist">Manual Checklist</h2><p>Automated tools catch about a third of accessibility issues. Always test your applications against the rest:</p>
