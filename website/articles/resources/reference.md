@@ -103,9 +103,11 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | Directive | Plugin | Description |
 |---|---|---|
 | `x-anchors`{copy} | [router](/docs/core-plugins/router) | Anchor links list |
+| `x-chart`{copy} | [charts](/docs/elements/charts) | SVG chart from a config object or `<data>` series |
 | `x-code`{copy}, `<div x-code-group>` | [code](/docs/elements/code) | Code blocks with syntax highlights |
 | `x-colorpicker`{copy} | [color pickers](/docs/elements/color-pickers) | Colorpicker menu element |
 | `x-color`{copy} | [color modes](/docs/styles/color-modes) | Switches color mode on click |
+| `x-date`{copy} | [date pickers](/docs/elements/date-pickers) | Date, range, and time picker field or calendar |
 | `x-dropdown`{copy} | [dropdowns](/docs/elements/dropdowns) | Dropdown menu element |
 | `x-export`{copy} | [export](/docs/core-plugins/export) | Download page / region / data source as PDF, image, CSV, or JSON |
 | `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/core-plugins/local-data) | Bind file uploads |
@@ -159,10 +161,13 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 | Magic | Plugin | Description |
 |---|---|---|
 | `$auth`{copy} | appwrite-auth | Current user, login methods, team management |
+| `$chart(id)`{copy} | charts | Read a chart's type/series, `update(cfg)`, `redraw()` |
 | `$colorpicker`{copy} | colorpicker | Open and configure a color picker UI |
 | `$color`{copy} | color modes | Read/write the current color mode. `$color.current` returns `'light'`, `'dark'`, or `'system'`; assign to switch |
+| `$date(id)`{copy} | datepicker | Read or set a picker's value, time, range, and open state |
 | `$locale`{copy} | localization | Current locale, available locales, `set(code)` |
 | `$route(pattern)`{copy} | router | True when current route matches the pattern |
+| `$status`{copy} | status | Health of named services (e.g. `$status.api.state`, `$status.overall`) |
 | `$toast`{copy} | toasts | Show a toast |
 | `$try(fn, errorVar?)`{copy} | data | `await` an async callback; on error returns `undefined` instead of throwing. If `errorVar` names a property on the current `x-data` scope, the error message is written there on failure and cleared to `null` on success |
 | `$url`{copy} | url-parameters | Read/write URL query parameters reactively |

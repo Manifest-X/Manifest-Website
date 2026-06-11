@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" dir="auto"><head>
+  <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Payments — Manifest</title>
+  <meta name="description" content="Integrate payment providers with your project.">
+  <meta name="author" content="Andrew Matlock">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="google" content="notranslate">
+  <link rel="icon" href="../../../favicon.ico" sizes="any">
+  <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
+
+  <!-- Web App & Manifest -->
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../../../manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&amp;family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=Lexend+Exa&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
+  </noscript>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.122/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.122/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="../../../manifest.theme.css">
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.122/lib/manifest.min.js" data-version="0.5.122"></script>
+  <script src="../../../scripts/hero-editor.js" defer=""></script>
+  <script src="../../../scripts/console-message.js" defer=""></script>
+
+  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
+       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
+       manifest.json and simulates popup purchases — no real charges, and
+       redirect clicks report their destination instead of navigating.
+       Inert until the pinned mnfst version ships the payments plugin. -->
+  <script>
+    (function () {
+      let credits = 42, plan = 'pro';
+      const realFetch = window.fetch.bind(window);
+      window.fetch = async (url, opts) => {
+        const u = String(url);
+        if (u.indexOf('https://fn.test/pay') === 0) {
+          const body = JSON.parse(opts.body);
+          if (body.context && body.context.preferMode === 'overlay') {
+            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
+          }
+          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
+        }
+        if (u.indexOf('https://fn.test/state') === 0) {
+          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
+        }
+        return realFetch(url, opts);
+      };
+      document.addEventListener('alpine:init', () => {
+        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
+        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
+        window.ManifestPaymentsAdapters.register('mockpay', {
+          supportsOverlay: true,
+          async open({ params }) {
+            if (params && params.ref === 'credits-1000') credits += 1000;
+            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
+            return { status: 'complete' };
+          }
+        });
+      });
+    })();
+  </script>
+
+  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
+       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
+  <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
+
+<meta property="og:title" content="Payments — Manifest"><meta property="og:description" content="Integrate payment providers with your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/payments"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Payments — Manifest"><meta property="twitter:description" content="Integrate payment providers with your project."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Payments — Manifest","description":"Integrate payment providers with your project.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/core-plugins/payments"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Payments","item":"https://manifestx.dev/docs/core-plugins/payments"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/core-plugins/payments">
+<meta name="manifest:router-base" content="">
+<meta name="manifest:prerender-locales" content="en">
+<meta name="manifest:prerendered" content="1">
+<meta name="manifest:router-base-depth" content="3">
+<link rel="stylesheet" href="/prerender.utilities.css">
+</head>
+
+<body x-data="{
+  init() {
+    const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
+    document.documentElement.setAttribute('dir', savedDirection);
+  }
+}" class="bg-surface-1">
+
+  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-order="0" data-component="header-1">
+
+    <!-- Content Area -->
+    <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+
+        <!-- Start -->
+        <div class="row items-center gap-3">
+
+            <!-- Logo -->
+            <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
+                <span class="hidden md:flex">{Manifest}</span>
+                <span class="md:hidden">{M}</span>
+            </a>
+
+            <!-- Docs Breadcrumbs-->
+            <small class="hidden sm:flex md:hidden truncate" x-route="/docs/*">
+                <span x-text="$x.docs.$route('path')?.group || 'No group'">Core Plugins</span>
+                <span class="mx-1.5" x-icon="lucide:chevron-right"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-right" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18l6-6l-6-6"></path></svg></span>
+                <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'">Payments</span>
+            </small>
+
+        </div>
+
+        <!-- Middle -->
+        
+        <div x-route="!/"></div>
+
+        <!-- End -->
+        <div class="row justify-end items-center gap-2">
+
+            <!-- CTAs -->
+            <!-- <a href="#" class="text-sm no-underline">Sign-in</a> -->
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" class="sm transparent outlined rounded-full"><span x-icon="meteor-icons:github"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="meteor-icons:github" class="iconify iconify--meteor-icons"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22v-3q0-2 1-3A7 6.5 0 0 1 5 5Q4 3 5 1q3 0 4 2q3.5-1 7 0q1-2 4-2q1 2 0 4a7 6.5 0 0 1-5 11q1 1 1 3v3m-7-3c-4 1-4-2-7-3"></path></svg></span><span>GitHub</span></a>
+            <a role="button" href="/docs/getting-started/introduction" class="sm accent rounded-full">Docs</a>
+
+            <!-- Mobile Sidebar Button -->
+            <button class="ghost flex md:hidden" popovertarget="mobile-navigation" x-icon="lucide:menu" aria-label="Mobile Navigation"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:menu" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"></path></svg></button>
+
+        </div>
+
+    </nav>
+
+    <!-- Mobile Navigation Sidebar -->
+    <nav data-static="" popover="" id="mobile-navigation" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 shadow-xl overflow-y-auto no-scrollbar">
+        <div class="col gap-6 py-4">
+                <small class="pl-2.5 text-content-subtle">Getting Started</small>
+                <div class="col">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/introduction">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:book-open" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7v14m-9-3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4a4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3a3 3 0 0 0-3-3z"></path></svg></span>
+                            <span>Introduction</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/setup">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:terminal" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19h8M4 17l6-6l-6-6"></path></svg></span>
+                            <span>Setup</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/starter-project">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:package" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73zm1 .27V12"></path><path d="M3.29 7L12 12l8.71-5M7.5 4.27l9 5.15"></path></g></svg></span>
+                            <span>Starter Project</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/compatibility">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:globe-lock" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M15.686 15A14.5 14.5 0 0 1 12 22a14.5 14.5 0 0 1 0-20a10 10 0 1 0 9.542 13M2 12h8.5M20 6V4a2 2 0 1 0-4 0v2"></path><rect width="8" height="5" x="14" y="6" rx="1"></rect></g></svg></span>
+                            <span>Compatibility</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:eye" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M2.062 12.348a1 1 0 0 1 0-.696a10.75 10.75 0 0 1 19.876 0a1 1 0 0 1 0 .696a10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></g></svg></span>
+                            <span>Accessibility</span>
+                        </a>
+                </div>
+                <hr>
+            </div><div class="col gap-6 py-4">
+                <small class="pl-2.5 text-content-subtle">Core Plugins</small>
+                <div class="col">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:panels-top-left" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18M9 21V9"></path></g></svg></span>
+                            <span>Components</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:download" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 15V3m9 12v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10l5 5l5-5"></path></g></svg></span>
+                            <span>Export</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/local-data">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:list-tree" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 5h13m-8 7h8m-8 7h8M3 10a2 2 0 0 0 2 2h3"></path><path d="M3 5v12a2 2 0 0 0 2 2h3"></path></g></svg></span>
+                            <span>Local Data</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/localization">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:languages" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 8l6 6m-7 0l6-6l2-3M2 5h12M7 2h1m14 20l-5-10l-5 10m2-4h6"></path></svg></span>
+                            <span>Localization</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/markdown">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:square-m" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 16V8.5a.5.5 0 0 1 .9-.3l2.7 3.599a.5.5 0 0 0 .8 0l2.7-3.6a.5.5 0 0 1 .9.3V16"></path><rect width="18" height="18" x="3" y="3" rx="2"></rect></g></svg></span>
+                            <span>Markdown</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/core-plugins/payments">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:credit-card" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"></rect><path d="M2 10h20"></path></g></svg></span>
+                            <span>Payments</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:panel-right-open" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M15 3v18m-5-6l-3-3l3-3"></path></g></svg></span>
+                            <span>Resize</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:route" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path><circle cx="18" cy="5" r="3"></circle></g></svg></span>
+                            <span>Router</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:ampersand" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h3m-1.5 0a8 8 0 0 1-8 8A4.5 4.5 0 0 1 5 15.5c0-6 8-4 8-8.5a3 3 0 1 0-6 0c0 3 2.5 8.5 12 13"></path></svg></span>
+                            <span>URL Parameters</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/virtual">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:list-chevrons-up-down" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h8m-8 7h8m-8 7h8m4-11l3-3l3 3m-6 8l3 3l3-3"></path></svg></span>
+                            <span>Virtual</span>
+                        </a>
+                </div>
+                <hr>
+            </div><div class="col gap-6 py-4">
+                <small class="pl-2.5 text-content-subtle">Appwrite Plugins</small>
+                <div class="col">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/appwrite-setup">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="simple-icons:appwrite" class="iconify iconify--simple-icons"><path fill="currentColor" d="M24 17.291v5.29H10.557A10.58 10.58 0 0 1 0 12.715v-1.43c.048-.735.174-1.463.374-2.171C1.63 4.673 5.713 1.419 10.557 1.419s8.927 3.254 10.183 7.695h-5.749a5.28 5.28 0 0 0-4.434-2.404a5.28 5.28 0 0 0-4.434 2.404A5.23 5.23 0 0 0 5.267 12a5.27 5.27 0 0 0 1.66 3.848a5.27 5.27 0 0 0 3.63 1.443zm0-6.734v5.291h-9.813A5.28 5.28 0 0 0 15.848 12c0-.5-.07-.984-.199-1.443z"></path></svg></span>
+                            <span>Appwrite Setup</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/auth">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:users" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.128a4 4 0 0 1 0 7.744M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></g></svg></span>
+                            <span>Auth</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/users">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span>Users</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/teams">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span>Teams</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/cloud-data">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:database" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14a9 3 0 0 0 18 0V5"></path><path d="M3 12a9 3 0 0 0 18 0"></path></g></svg></span>
+                            <span>Cloud Data</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/databases">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span>Databases</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/storage">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span>Storage</span>
+                        </a>
+                </div>
+                <hr>
+            </div><div class="col gap-6 py-4">
+                <small class="pl-2.5 text-content-subtle">Publishing</small>
+                <div class="col">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/testing">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-check" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="m9 12l2 2l4-4"></path></g></svg></span>
+                            <span>Testing</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/websites">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:globe" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20a14.5 14.5 0 0 0 0-20M2 12h20"></path></g></svg></span>
+                            <span>Websites</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/seo-aeo">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span>SEO &amp; AEO</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/web-apps">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:app-window" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="M10 4v4M2 8h20M6 4v4"></path></g></svg></span>
+                            <span>Web Apps</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:monitor-smartphone" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8m-2 4v-3.96v3.15M7 19h5"></path><rect width="6" height="10" x="16" y="12" rx="2"></rect></g></svg></span>
+                            <span>Native Apps</span>
+                        </a>
+                </div>
+                <hr>
+            </div><div class="col gap-6 py-4">
+                <small class="pl-2.5 text-content-subtle">Styles</small>
+                <div class="col">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/reset">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:scale" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3v18m7-13l3 8a5 5 0 0 1-6 0zV7"></path><path d="M3 7h1a17 17 0 0 0 8-2a17 17 0 0 0 8 2h1M5 8l3 8a5 5 0 0 1-6 0zV7m2 14h10"></path></g></svg></span>
+                            <span>Reset</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/theme">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:paint-bucket" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 7L6 2m12.992 10H2.041m19.104 6.38A3.34 3.34 0 0 1 20 16.5a3.3 3.3 0 0 1-1.145 1.88c-.575.46-.855 1.02-.855 1.595A2 2 0 0 0 20 22a2 2 0 0 0 2-2.025c0-.58-.285-1.13-.855-1.595M8.5 4.5l2.148-2.148a1.205 1.205 0 0 1 1.704 0l7.296 7.296a1.205 1.205 0 0 1 0 1.704l-7.592 7.592a3.615 3.615 0 0 1-5.112 0l-3.888-3.888a3.615 3.615 0 0 1 0-5.112L5.67 7.33"></path></svg></span>
+                            <span>Theme</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/color-modes">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></span>
+                            <span>Color Modes</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/utilities">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:swatch-book" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M11 17a4 4 0 0 1-8 0V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Z"></path><path d="M16.7 13H19a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H7m0-4h.01"></path><path d="m11 8l2.3-2.3a2.4 2.4 0 0 1 3.404.004L18.6 7.6a2.4 2.4 0 0 1 .026 3.434L9.9 19.8"></path></g></svg></span>
+                            <span>Utilities</span>
+                        </a>
+                </div>
+                <hr>
+            </div><div class="col gap-6 py-4">
+                <small class="pl-2.5 text-content-subtle">Elements</small>
+                <div class="col">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/accordions">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:list-collapse" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5h11m-11 7h11m-11 7h11M3 10l3-3l-3-3m0 16l3-3l-3-3"></path></svg></span>
+                            <span>Accordions</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/avatars">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-user-round" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M17.925 20.056a6 6 0 0 0-11.851.001"></path><circle cx="12" cy="11" r="4"></circle><circle cx="12" cy="12" r="10"></circle></g></svg></span>
+                            <span>Avatars</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/badges">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-star" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"></path></g></svg></span>
+                            <span>Badges</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/buttons">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:square-mouse-pointer" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z"></path><path d="M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"></path></g></svg></span>
+                            <span>Buttons</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/charts">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chart-line" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="m19 9l-5 5l-4-4l-3 3"></path></g></svg></span>
+                            <span>Charts</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/checkboxes">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:square-check" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="m9 12l2 2l4-4"></path></g></svg></span>
+                            <span>Checkboxes</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/code">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:code" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 18l6-6l-6-6M8 6l-6 6l6 6"></path></svg></span>
+                            <span>Code</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/color-pickers">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:palette" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 22a1 1 0 0 1 0-20a10 9 0 0 1 10 9a5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle></g></svg></span>
+                            <span>Color Pickers</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/date-pickers">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:calendar" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 2v4m8-4v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></g></svg></span>
+                            <span>Date Pickers</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dialogs">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:panel-top-dashed" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M14 9h1m4 0h2M3 9h2m4 0h1"></path></g></svg></span>
+                            <span>Dialogs</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dividers">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:minus" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14"></path></svg></span>
+                            <span>Dividers</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dropdowns">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-down" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"></path></svg></span>
+                            <span>Dropdowns</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/forms">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:rows-3" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M21 9H3m18 6H3"></path></g></svg></span>
+                            <span>Forms</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/icons">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:smile" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2s4-2 4-2M9 9h.01M15 9h.01"></path></g></svg></span>
+                            <span>Icons</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/inputs">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:text-cursor-input" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h-1a2 2 0 0 1-2-2a2 2 0 0 1-2 2H6m7-12h7a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-7m-8 0H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h1m1-4h1a2 2 0 0 1 2 2a2 2 0 0 1 2-2h1M9 6v12"></path></svg></span>
+                            <span>Inputs</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/radios">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-dot" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="1"></circle></g></svg></span>
+                            <span>Radios</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/ranges">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sliders-horizontal" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5H3m9 14H3M14 3v4m2 10v4m5-9h-9m9 7h-5m5-14h-7m-6 5v4m0-2H3"></path></svg></span>
+                            <span>Ranges</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/selects">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:menu" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"></path></svg></span>
+                            <span>Selects</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/sidebars">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sidebar" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path></g></svg></span>
+                            <span>Sidebars</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/svgs">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:shapes" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z"></path><rect width="7" height="7" x="3" y="14" rx="1"></rect><circle cx="17.5" cy="17.5" r="3.5"></circle></g></svg></span>
+                            <span>SVGs</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/switches">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:toggle-right" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="15" cy="12" r="3"></circle><rect width="20" height="14" x="2" y="5" rx="7"></rect></g></svg></span>
+                            <span>Switches</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tables">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:table" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3v18"></path><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18M3 15h18"></path></g></svg></span>
+                            <span>Tables</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tabs">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:app-window-mac" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="M6 8h.01M10 8h.01M14 8h.01"></path></g></svg></span>
+                            <span>Tabs</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/textareas">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:text-cursor" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 22h-1a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h1M7 22h1a4 4 0 0 0 4-4M7 2h1a4 4 0 0 1 4 4"></path></svg></span>
+                            <span>Textareas</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/toasts">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:arrow-big-up-dash" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 16a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h3.293a.707.707 0 0 0 .5-1.207l-6.939-6.939a1.207 1.207 0 0 0-1.708 0l-6.94 6.94a.707.707 0 0 0 .5 1.206H8a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1zm-5 4h6"></path></svg></span>
+                            <span>Toasts</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tooltips">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-help" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3m.08 4h.01"></path></g></svg></span>
+                            <span>Tooltips</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/typography">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:type" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2M9 20h6"></path></svg></span>
+                            <span>Typography</span>
+                        </a>
+                </div>
+                <hr>
+            </div><div class="col gap-6 py-4">
+                <small class="pl-2.5 text-content-subtle">Resources</small>
+                <div class="col">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/reference">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:book-marked" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 2v8l3-3l3 3V2"></path><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"></path></g></svg></span>
+                            <span>Reference</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/typescript">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="hugeicons:typescript-01" class="iconify iconify--hugeicons"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"><path d="M2.5 12c0-4.478 0-6.717 1.391-8.109c1.391-1.39 3.63-1.39 8.109-1.39c4.478 0 6.718 0 8.109 1.39c1.391 1.392 1.391 3.63 1.391 8.11c0 4.478 0 6.717-1.391 8.108S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12Z"></path><path stroke-linecap="round" d="M18 12h-1.8a1.2 1.2 0 0 0-1.2 1.2v.6a1.2 1.2 0 0 0 1.2 1.2h.6a1.2 1.2 0 0 1 1.2 1.2v.6a1.2 1.2 0 0 1-1.2 1.2H15m-6.5-6h2m2 0h-2m0 0v6"></path></g></svg></span>
+                            <span>TypeScript</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/security">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:lock" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></g></svg></span>
+                            <span>Security</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/license">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:file-check" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5M9 15l2 2l4-4"></path></g></svg></span>
+                            <span>MIT License</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/privacy">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:shield-check" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12l2 2l4-4"></path></g></svg></span>
+                            <span>Privacy Policy</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/acknowledgements">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:heart-handshake" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.414 14.414C21 12.828 22 11.5 22 9.5a5.5 5.5 0 0 0-9.591-3.676a.6.6 0 0 1-.818.001A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.535 5.362a2 2 0 0 0 2.879.052a2.12 2.12 0 0 0-.004-3a2.124 2.124 0 1 0 3-3a2.124 2.124 0 0 0 3.004 0a2 2 0 0 0 0-2.828l-1.881-1.882a2.41 2.41 0 0 0-3.409 0l-1.71 1.71a2 2 0 0 1-2.828 0a2 2 0 0 1 0-2.828l2.823-2.762"></path></svg></span>
+                            <span>Acknowledgements</span>
+                        </a>
+                </div>
+                <hr>
+            </div>
+    </nav>
+
+</header>
+
+  <main class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="1" data-hydrate-id="h1">
+
+    <!-- Home page -->
+    
+
+    <!-- Documentation pages -->
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*" data-component="docs-1">
+
+  <!-- Desktop Navigation-->
+  <div data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar">
+    <div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Getting Started</small>
+        <div class="col">
+          <a role="button" href="/docs/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:book-open" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7v14m-9-3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4a4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3a3 3 0 0 0-3-3z"></path></svg></span>
+              <span>Introduction</span>
+            </a><a role="button" href="/docs/getting-started/setup" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:terminal" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19h8M4 17l6-6l-6-6"></path></svg></span>
+              <span>Setup</span>
+            </a><a role="button" href="/docs/getting-started/starter-project" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:package" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73zm1 .27V12"></path><path d="M3.29 7L12 12l8.71-5M7.5 4.27l9 5.15"></path></g></svg></span>
+              <span>Starter Project</span>
+            </a><a role="button" href="/docs/getting-started/compatibility" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:globe-lock" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M15.686 15A14.5 14.5 0 0 1 12 22a14.5 14.5 0 0 1 0-20a10 10 0 1 0 9.542 13M2 12h8.5M20 6V4a2 2 0 1 0-4 0v2"></path><rect width="8" height="5" x="14" y="6" rx="1"></rect></g></svg></span>
+              <span>Compatibility</span>
+            </a><a role="button" href="/docs/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:eye" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M2.062 12.348a1 1 0 0 1 0-.696a10.75 10.75 0 0 1 19.876 0a1 1 0 0 1 0 .696a10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></g></svg></span>
+              <span>Accessibility</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Core Plugins</small>
+        <div class="col">
+          <a role="button" href="/docs/core-plugins/components" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:panels-top-left" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18M9 21V9"></path></g></svg></span>
+              <span>Components</span>
+            </a><a role="button" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:download" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 15V3m9 12v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10l5 5l5-5"></path></g></svg></span>
+              <span>Export</span>
+            </a><a role="button" href="/docs/core-plugins/local-data" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:list-tree" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 5h13m-8 7h8m-8 7h8M3 10a2 2 0 0 0 2 2h3"></path><path d="M3 5v12a2 2 0 0 0 2 2h3"></path></g></svg></span>
+              <span>Local Data</span>
+            </a><a role="button" href="/docs/core-plugins/localization" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:languages" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 8l6 6m-7 0l6-6l2-3M2 5h12M7 2h1m14 20l-5-10l-5 10m2-4h6"></path></svg></span>
+              <span>Localization</span>
+            </a><a role="button" href="/docs/core-plugins/markdown" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:square-m" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 16V8.5a.5.5 0 0 1 .9-.3l2.7 3.599a.5.5 0 0 0 .8 0l2.7-3.6a.5.5 0 0 1 .9.3V16"></path><rect width="18" height="18" x="3" y="3" rx="2"></rect></g></svg></span>
+              <span>Markdown</span>
+            </a><a role="button" href="/docs/core-plugins/payments" class="bg-brand-surface/50 text-brand-inverse dark:bg-brand-surface/15 dark:text-brand-content pointer-events-none justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:credit-card" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"></rect><path d="M2 10h20"></path></g></svg></span>
+              <span>Payments</span>
+            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:panel-right-open" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M15 3v18m-5-6l-3-3l3-3"></path></g></svg></span>
+              <span>Resize</span>
+            </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:route" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path><circle cx="18" cy="5" r="3"></circle></g></svg></span>
+              <span>Router</span>
+            </a><a role="button" href="/docs/core-plugins/url-parameters" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:ampersand" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h3m-1.5 0a8 8 0 0 1-8 8A4.5 4.5 0 0 1 5 15.5c0-6 8-4 8-8.5a3 3 0 1 0-6 0c0 3 2.5 8.5 12 13"></path></svg></span>
+              <span>URL Parameters</span>
+            </a><a role="button" href="/docs/core-plugins/virtual" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:list-chevrons-up-down" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h8m-8 7h8m-8 7h8m4-11l3-3l3 3m-6 8l3 3l3-3"></path></svg></span>
+              <span>Virtual</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Appwrite Plugins</small>
+        <div class="col">
+          <a role="button" href="/docs/appwrite-plugins/appwrite-setup" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="simple-icons:appwrite" class="iconify iconify--simple-icons"><path fill="currentColor" d="M24 17.291v5.29H10.557A10.58 10.58 0 0 1 0 12.715v-1.43c.048-.735.174-1.463.374-2.171C1.63 4.673 5.713 1.419 10.557 1.419s8.927 3.254 10.183 7.695h-5.749a5.28 5.28 0 0 0-4.434-2.404a5.28 5.28 0 0 0-4.434 2.404A5.23 5.23 0 0 0 5.267 12a5.27 5.27 0 0 0 1.66 3.848a5.27 5.27 0 0 0 3.63 1.443zm0-6.734v5.291h-9.813A5.28 5.28 0 0 0 15.848 12c0-.5-.07-.984-.199-1.443z"></path></svg></span>
+              <span>Appwrite Setup</span>
+            </a><a role="button" href="/docs/appwrite-plugins/auth" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:users" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.128a4 4 0 0 1 0 7.744M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></g></svg></span>
+              <span>Auth</span>
+            </a><a role="button" href="/docs/appwrite-plugins/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span>Users</span>
+            </a><a role="button" href="/docs/appwrite-plugins/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span>Teams</span>
+            </a><a role="button" href="/docs/appwrite-plugins/cloud-data" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:database" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14a9 3 0 0 0 18 0V5"></path><path d="M3 12a9 3 0 0 0 18 0"></path></g></svg></span>
+              <span>Cloud Data</span>
+            </a><a role="button" href="/docs/appwrite-plugins/databases" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span>Databases</span>
+            </a><a role="button" href="/docs/appwrite-plugins/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span>Storage</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Publishing</small>
+        <div class="col">
+          <a role="button" href="/docs/publishing/testing" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-check" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="m9 12l2 2l4-4"></path></g></svg></span>
+              <span>Testing</span>
+            </a><a role="button" href="/docs/publishing/websites" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:globe" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20a14.5 14.5 0 0 0 0-20M2 12h20"></path></g></svg></span>
+              <span>Websites</span>
+            </a><a role="button" href="/docs/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span>SEO &amp; AEO</span>
+            </a><a role="button" href="/docs/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:app-window" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="M10 4v4M2 8h20M6 4v4"></path></g></svg></span>
+              <span>Web Apps</span>
+            </a><a role="button" href="/docs/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:monitor-smartphone" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8m-2 4v-3.96v3.15M7 19h5"></path><rect width="6" height="10" x="16" y="12" rx="2"></rect></g></svg></span>
+              <span>Native Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Styles</small>
+        <div class="col">
+          <a role="button" href="/docs/styles/reset" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:scale" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3v18m7-13l3 8a5 5 0 0 1-6 0zV7"></path><path d="M3 7h1a17 17 0 0 0 8-2a17 17 0 0 0 8 2h1M5 8l3 8a5 5 0 0 1-6 0zV7m2 14h10"></path></g></svg></span>
+              <span>Reset</span>
+            </a><a role="button" href="/docs/styles/theme" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:paint-bucket" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 7L6 2m12.992 10H2.041m19.104 6.38A3.34 3.34 0 0 1 20 16.5a3.3 3.3 0 0 1-1.145 1.88c-.575.46-.855 1.02-.855 1.595A2 2 0 0 0 20 22a2 2 0 0 0 2-2.025c0-.58-.285-1.13-.855-1.595M8.5 4.5l2.148-2.148a1.205 1.205 0 0 1 1.704 0l7.296 7.296a1.205 1.205 0 0 1 0 1.704l-7.592 7.592a3.615 3.615 0 0 1-5.112 0l-3.888-3.888a3.615 3.615 0 0 1 0-5.112L5.67 7.33"></path></svg></span>
+              <span>Theme</span>
+            </a><a role="button" href="/docs/styles/color-modes" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></span>
+              <span>Color Modes</span>
+            </a><a role="button" href="/docs/styles/utilities" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:swatch-book" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M11 17a4 4 0 0 1-8 0V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Z"></path><path d="M16.7 13H19a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H7m0-4h.01"></path><path d="m11 8l2.3-2.3a2.4 2.4 0 0 1 3.404.004L18.6 7.6a2.4 2.4 0 0 1 .026 3.434L9.9 19.8"></path></g></svg></span>
+              <span>Utilities</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Elements</small>
+        <div class="col">
+          <a role="button" href="/docs/elements/accordions" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:list-collapse" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5h11m-11 7h11m-11 7h11M3 10l3-3l-3-3m0 16l3-3l-3-3"></path></svg></span>
+              <span>Accordions</span>
+            </a><a role="button" href="/docs/elements/avatars" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-user-round" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M17.925 20.056a6 6 0 0 0-11.851.001"></path><circle cx="12" cy="11" r="4"></circle><circle cx="12" cy="12" r="10"></circle></g></svg></span>
+              <span>Avatars</span>
+            </a><a role="button" href="/docs/elements/badges" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-star" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"></path></g></svg></span>
+              <span>Badges</span>
+            </a><a role="button" href="/docs/elements/buttons" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:square-mouse-pointer" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z"></path><path d="M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"></path></g></svg></span>
+              <span>Buttons</span>
+            </a><a role="button" href="/docs/elements/charts" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chart-line" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="m19 9l-5 5l-4-4l-3 3"></path></g></svg></span>
+              <span>Charts</span>
+            </a><a role="button" href="/docs/elements/checkboxes" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:square-check" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="m9 12l2 2l4-4"></path></g></svg></span>
+              <span>Checkboxes</span>
+            </a><a role="button" href="/docs/elements/code" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:code" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 18l6-6l-6-6M8 6l-6 6l6 6"></path></svg></span>
+              <span>Code</span>
+            </a><a role="button" href="/docs/elements/color-pickers" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:palette" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 22a1 1 0 0 1 0-20a10 9 0 0 1 10 9a5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle></g></svg></span>
+              <span>Color Pickers</span>
+            </a><a role="button" href="/docs/elements/date-pickers" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:calendar" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 2v4m8-4v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></g></svg></span>
+              <span>Date Pickers</span>
+            </a><a role="button" href="/docs/elements/dialogs" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:panel-top-dashed" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M14 9h1m4 0h2M3 9h2m4 0h1"></path></g></svg></span>
+              <span>Dialogs</span>
+            </a><a role="button" href="/docs/elements/dividers" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:minus" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14"></path></svg></span>
+              <span>Dividers</span>
+            </a><a role="button" href="/docs/elements/dropdowns" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-down" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"></path></svg></span>
+              <span>Dropdowns</span>
+            </a><a role="button" href="/docs/elements/forms" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:rows-3" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M21 9H3m18 6H3"></path></g></svg></span>
+              <span>Forms</span>
+            </a><a role="button" href="/docs/elements/icons" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:smile" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2s4-2 4-2M9 9h.01M15 9h.01"></path></g></svg></span>
+              <span>Icons</span>
+            </a><a role="button" href="/docs/elements/inputs" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:text-cursor-input" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h-1a2 2 0 0 1-2-2a2 2 0 0 1-2 2H6m7-12h7a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-7m-8 0H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h1m1-4h1a2 2 0 0 1 2 2a2 2 0 0 1 2-2h1M9 6v12"></path></svg></span>
+              <span>Inputs</span>
+            </a><a role="button" href="/docs/elements/radios" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-dot" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="1"></circle></g></svg></span>
+              <span>Radios</span>
+            </a><a role="button" href="/docs/elements/ranges" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sliders-horizontal" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5H3m9 14H3M14 3v4m2 10v4m5-9h-9m9 7h-5m5-14h-7m-6 5v4m0-2H3"></path></svg></span>
+              <span>Ranges</span>
+            </a><a role="button" href="/docs/elements/selects" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:menu" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"></path></svg></span>
+              <span>Selects</span>
+            </a><a role="button" href="/docs/elements/sidebars" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sidebar" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path></g></svg></span>
+              <span>Sidebars</span>
+            </a><a role="button" href="/docs/elements/svgs" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:shapes" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z"></path><rect width="7" height="7" x="3" y="14" rx="1"></rect><circle cx="17.5" cy="17.5" r="3.5"></circle></g></svg></span>
+              <span>SVGs</span>
+            </a><a role="button" href="/docs/elements/switches" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:toggle-right" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="15" cy="12" r="3"></circle><rect width="20" height="14" x="2" y="5" rx="7"></rect></g></svg></span>
+              <span>Switches</span>
+            </a><a role="button" href="/docs/elements/tables" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:table" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3v18"></path><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18M3 15h18"></path></g></svg></span>
+              <span>Tables</span>
+            </a><a role="button" href="/docs/elements/tabs" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:app-window-mac" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="M6 8h.01M10 8h.01M14 8h.01"></path></g></svg></span>
+              <span>Tabs</span>
+            </a><a role="button" href="/docs/elements/textareas" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:text-cursor" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 22h-1a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h1M7 22h1a4 4 0 0 0 4-4M7 2h1a4 4 0 0 1 4 4"></path></svg></span>
+              <span>Textareas</span>
+            </a><a role="button" href="/docs/elements/toasts" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:arrow-big-up-dash" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 16a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h3.293a.707.707 0 0 0 .5-1.207l-6.939-6.939a1.207 1.207 0 0 0-1.708 0l-6.94 6.94a.707.707 0 0 0 .5 1.206H8a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1zm-5 4h6"></path></svg></span>
+              <span>Toasts</span>
+            </a><a role="button" href="/docs/elements/tooltips" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-help" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3m.08 4h.01"></path></g></svg></span>
+              <span>Tooltips</span>
+            </a><a role="button" href="/docs/elements/typography" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:type" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2M9 20h6"></path></svg></span>
+              <span>Typography</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Resources</small>
+        <div class="col">
+          <a role="button" href="/docs/resources/reference" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:book-marked" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 2v8l3-3l3 3V2"></path><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"></path></g></svg></span>
+              <span>Reference</span>
+            </a><a role="button" href="/docs/resources/typescript" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="hugeicons:typescript-01" class="iconify iconify--hugeicons"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"><path d="M2.5 12c0-4.478 0-6.717 1.391-8.109c1.391-1.39 3.63-1.39 8.109-1.39c4.478 0 6.718 0 8.109 1.39c1.391 1.392 1.391 3.63 1.391 8.11c0 4.478 0 6.717-1.391 8.108S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12Z"></path><path stroke-linecap="round" d="M18 12h-1.8a1.2 1.2 0 0 0-1.2 1.2v.6a1.2 1.2 0 0 0 1.2 1.2h.6a1.2 1.2 0 0 1 1.2 1.2v.6a1.2 1.2 0 0 1-1.2 1.2H15m-6.5-6h2m2 0h-2m0 0v6"></path></g></svg></span>
+              <span>TypeScript</span>
+            </a><a role="button" href="/docs/resources/security" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:lock" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></g></svg></span>
+              <span>Security</span>
+            </a><a role="button" href="/docs/resources/license" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:file-check" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5M9 15l2 2l4-4"></path></g></svg></span>
+              <span>MIT License</span>
+            </a><a role="button" href="/docs/resources/privacy" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:shield-check" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12l2 2l4-4"></path></g></svg></span>
+              <span>Privacy Policy</span>
+            </a><a role="button" href="/docs/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:heart-handshake" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.414 14.414C21 12.828 22 11.5 22 9.5a5.5 5.5 0 0 0-9.591-3.676a.6.6 0 0 1-.818.001A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.535 5.362a2 2 0 0 0 2.879.052a2.12 2.12 0 0 0-.004-3a2.124 2.124 0 1 0 3-3a2.124 2.124 0 0 0 3.004 0a2 2 0 0 0 0-2.828l-1.881-1.882a2.41 2.41 0 0 0-3.409 0l-1.71 1.71a2 2 0 0 1-2.828 0a2 2 0 0 1 0-2.828l2.823-2.762"></path></svg></span>
+              <span>Acknowledgements</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div>
+  </div>
+
+  <!-- Articles -->
+  <div class="col justify-between max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+
+    <div class="col max-w-full mx-auto">
+
+      <!-- Eyebrow Group Name -->
+      <template x-if="$x.docs.$route('path')">
+        <span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'"></span>
+      </template><span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'" data-mnfst-prerender-clone="1">Core Plugins</span>
+
+      <!-- Markdown Document for Route -->
+      <template x-if="$x.docs.$route('path')">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="$x.docs.$route('path')?.doc"></div>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="payments">Payments</h1><p>Integrate payment providers with your project.</p>
+<hr>
+<h2 id="overview">Overview</h2><p>The payments plugin connects your project to any payment provider, which are processors like <a href="https://stripe.com" target="_blank" rel="noopener">Stripe</a> or <a href="https://www.revolut.com/business/merchant-accounts/" target="_blank" rel="noopener">Revolut</a>, and merchants of record like <a href="https://www.paddle.com" target="_blank" rel="noopener">Paddle</a> or <a href="https://www.lemonsqueezy.com" target="_blank" rel="noopener">Lemon Squeezy</a> that also handle sales tax for you. Buyers check out on the provider's secure page or in a popup over yours, and your project never sees card numbers or secret keys.</p>
+<p>There are two ways to use it. <strong>Payment links</strong> simply send buyers to a checkout or donation page you already have, with no backend needed. <strong>Full checkout</strong> adds a small <a href="#payment-function">payment function</a> so you can sell by product name, confirm payments reliably, and unlock features the moment someone pays.</p>
+<hr>
+<h2 id="setup">Setup</h2><p>The payments plugin is included in <code>manifest.js</code> with all core plugins, or can be selectively loaded. It activates when <code>manifest.json</code> contains a <code>payments</code> block, or whenever it's declared in <code>data-plugins</code>.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+
+<pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Scripts --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre x-code="html" name="Selective" data-code-block-built="yes" aria-label="Selective" role="tabpanel" data-code-processed="yes" id="selective-panel-1" aria-labelledby="selective-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Scripts --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+    <span class="hljs-attr">data-plugins</span>=<span class="hljs-string">"payments"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="payment-links">Payment Links</h2><p>The simplest checkout is a link. Most providers let you create a hosted payment page in their dashboard — a Stripe payment link, a Revolut payment link, a Patreon or Buy Me a Coffee page — and <code>x-pay</code> sends the buyer straight to it. Alternatively, just use regular <code>&lt;a href="..."&gt;</code> links.</p>
+<pre x-code="html" name="HTML" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="HTML" role="region"><header><div>HTML</div></header><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-pay</span>=<span class="hljs-string">"'https://buy.stripe.com/your-link'"</span>&gt;</span>Buy now<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">x-pay</span>=<span class="hljs-string">"'https://patreon.com/yourpage'"</span>&gt;</span>Become a patron<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">x-pay</span>=<span class="hljs-string">"'https://buymeacoffee.com/yourpage'"</span>&gt;</span>Buy me a coffee<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>This needs no configuration and no backend; any absolute URL just navigates. It suits donations, tips, community memberships, and one-off products where the provider's dashboard tells you who paid.</p>
+<hr>
+<h2 id="full-checkouts">Full Checkouts</h2><p>Full checkouts allow your project to communicate with the payment solution.</p>
+<h3 id="configuration">Configuration</h3><p>Register the payment provider in <code>manifest.json</code> under a <code>payments</code> block, pointing at your payment function.</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"payments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"provider"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"revolut"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"endpoint"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://your-function-url"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"state"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://your-function-url/state"</span> <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">provider</code></td>
+<td>–</td>
+<td>Your payment provider. Built in: <code>stripe</code>, <code>paypal</code>, <code>square</code>, <code>braintree</code>, <code>adyen</code>, <code>mollie</code>, <code>revolut</code>, <code>paddle</code>, <code>lemonsqueezy</code>, <code>polar</code>, <code>razorpay</code> — or any name you register a <a href="#providers">custom adapter</a> for. Five of these support popup checkouts; the rest use the provider's hosted page.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">endpoint</code></td>
+<td>–</td>
+<td>Your payment function's URL. Creates checkouts and confirms payments.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">mode</code></td>
+<td><code>"redirect"</code></td>
+<td>Preferred checkout style: <code>redirect</code> (provider's page) or <code>overlay</code> (popup).</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">publicKey</code></td>
+<td>–</td>
+<td>A publishable key, if your provider's popup needs one. Safe to commit.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">state.url</code></td>
+<td>–</td>
+<td>Where to read payment state for <code>$pay.state</code>. Appwrite projects can use <a href="/docs/appwrite-plugins/databases">databases</a> and <code>$x</code> instead.</td>
+</tr>
+</tbody></table>
+<aside class="brand"><span x-icon="lucide:info"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:info" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4m0-4h.01"></path></g></svg></span><p>Your provider's <b>secret key</b> never goes in <code>manifest.json</code>, HTML, or anywhere else a browser can see. It lives only in the payment function's environment variables.</p>
+</aside>
+<hr>
+<h2 id="start-a-checkout">Start a Checkout</h2><p>Add <code>x-pay</code> to any element with a product reference, with the value being a transaction name like <code>pro-upgrade</code> or <code>credits-1000</code> that you define in your payment function (alongside its real price). Clicking it opens the provider's checkout UI. The frame below runs against a demo provider — no real charges; popup purchases grant credits instantly, and redirect buttons report their destination instead of leaving the page.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="function-tab-1" aria-selected="false" tabindex="-1">Function</button><button type="button" role="tab" id="manifest.json-tab-2" aria-selected="false" tabindex="-1">manifest.json</button></div></header>
+
+<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-pay</span>=<span class="hljs-string">"'pro-upgrade'"</span>&gt;</span>Upgrade to Pro<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-pay.overlay</span>=<span class="hljs-string">"'credits-1000'"</span>&gt;</span>Buy 1,000 credits<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"outlined"</span> <span class="hljs-attr">x-pay.portal</span>&gt;</span>Manage billing<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    Plan: <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$pay.state?.plan ?? '—'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> ·
+    Credits: <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$pay.state?.credits ?? '—'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.last?.url"</span>&gt;</span>Would open: <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$pay.last?.url"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span></code></pre>
+<pre x-code="js" name="Function" data-code-block-built="yes" aria-label="Function" role="tabpanel" data-code-processed="yes" id="function-panel-1" aria-labelledby="function-tab-1" style="display: none"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-comment">// The refs your buttons use, defined server-side with their REAL prices.</span>
+<span class="hljs-comment">// (See Payment Function below for the full main.js snippet)</span>
+
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PRODUCTS</span> = {
+    <span class="hljs-string">'pro-upgrade'</span>:  { <span class="hljs-attr">price</span>: { <span class="hljs-attr">amount</span>: <span class="hljs-number">4900</span>, <span class="hljs-attr">currency</span>: <span class="hljs-string">'USD'</span> }, <span class="hljs-attr">grant</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">'plan'</span>, <span class="hljs-attr">plan</span>: <span class="hljs-string">'pro'</span>, <span class="hljs-attr">credits</span>: <span class="hljs-number">1000</span> } },
+    <span class="hljs-string">'credits-1000'</span>: { <span class="hljs-attr">price</span>: { <span class="hljs-attr">amount</span>: <span class="hljs-number">500</span>, <span class="hljs-attr">currency</span>: <span class="hljs-string">'USD'</span> }, <span class="hljs-attr">grant</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">'credits'</span>, <span class="hljs-attr">amount</span>: <span class="hljs-number">1000</span> } }
+}
+
+<span class="hljs-comment">// POST { ref, context } → look up the price, create the provider checkout</span>
+<span class="hljs-keyword">const</span> { ref, context } = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(req.<span class="hljs-property">bodyRaw</span>)
+<span class="hljs-keyword">const</span> product = <span class="hljs-variable constant_">PRODUCTS</span>[ref]
+<span class="hljs-keyword">if</span> (!product) <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">'unknown ref'</span> }, <span class="hljs-number">400</span>)
+
+<span class="hljs-keyword">const</span> order = <span class="hljs-keyword">await</span> <span class="hljs-title function_">createProviderOrder</span>(product.<span class="hljs-property">price</span>, {
+    <span class="hljs-attr">workspace_id</span>: context?.<span class="hljs-property">workspaceId</span>, ref
+})
+<span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'redirect'</span>, <span class="hljs-attr">url</span>: order.<span class="hljs-property">checkout_url</span> })</code></pre>
+<pre x-code="json" name="manifest.json" data-code-block-built="yes" aria-label="manifest.json" role="tabpanel" data-code-processed="yes" id="manifest.json-panel-2" aria-labelledby="manifest.json-tab-2" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"payments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"provider"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"revolut"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"endpoint"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://your-function-url"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"state"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://your-function-url/state"</span> <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+<aside class="frame col gap-3"><div class="row-wrap gap-2">
+    <button x-pay="'pro-upgrade'">Upgrade to Pro</button>
+    <button x-pay.overlay="'credits-1000'">Buy 1,000 credits</button>
+    <button class="outlined" x-pay.portal="">Manage billing</button>
+</div>
+<p>
+    Plan: <b x-text="$pay.state?.plan ?? '—'">pro</b> ·
+    Credits: <b x-text="$pay.state?.credits ?? '—'">42</b>
+</p>
+<small x-show="$pay.last?.url" style="display: none">Would open: <code x-text="$pay.last?.url"></code></small></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Because prices live in the function, nothing on the page can be tampered with — the browser only ever mentions the product by name. The same buttons work for any provider and either checkout style; switching is a configuration change, never an HTML change.</p>
+<table>
+<thead>
+<tr>
+<th>Modifier</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-pay.overlay</code></td>
+<td>Ask for a popup checkout over the current page.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-pay.redirect</code></td>
+<td>Ask for the provider's hosted checkout page.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-pay.portal</code></td>
+<td>Open the provider's billing portal instead of a checkout. Provider-dependent: Stripe, Paddle, Lemon Squeezy, and Polar host one; Revolut doesn't, and the template answers with a clear error.</td>
+</tr>
+</tbody></table>
+<p>Checkouts can also start from any Alpine expression using the <code>$pay</code> magic method, with an optional payload your function receives:</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="function-tab-1" aria-selected="false" tabindex="-1">Function</button></div></header>
+
+<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$pay('donate-25', { campaign: 'spring' })"</span>&gt;</span>Donate $25<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<pre x-code="js" name="Function" data-code-block-built="yes" aria-label="Function" role="tabpanel" data-code-processed="yes" id="function-panel-1" aria-labelledby="function-tab-1" style="display: none"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-comment">// The payload arrives alongside the ref — read it however you like.</span>
+<span class="hljs-keyword">const</span> { ref, payload, context } = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(req.<span class="hljs-property">bodyRaw</span>)
+
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PRODUCTS</span> = {
+    <span class="hljs-string">'donate-25'</span>: { <span class="hljs-attr">price</span>: { <span class="hljs-attr">amount</span>: <span class="hljs-number">2500</span>, <span class="hljs-attr">currency</span>: <span class="hljs-string">'USD'</span> }, <span class="hljs-attr">grant</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">'credits'</span>, <span class="hljs-attr">amount</span>: <span class="hljs-number">0</span> } }
+}
+<span class="hljs-keyword">const</span> product = <span class="hljs-variable constant_">PRODUCTS</span>[ref]
+
+<span class="hljs-keyword">const</span> order = <span class="hljs-keyword">await</span> <span class="hljs-title function_">createProviderOrder</span>(product.<span class="hljs-property">price</span>, {
+    <span class="hljs-attr">workspace_id</span>: context?.<span class="hljs-property">workspaceId</span>, ref,
+    <span class="hljs-attr">campaign</span>: payload?.<span class="hljs-property">campaign</span>
+})
+<span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'redirect'</span>, <span class="hljs-attr">url</span>: order.<span class="hljs-property">checkout_url</span> })</code></pre>
+<aside class="frame col gap-2"><button @click="$pay('donate-25', { campaign: 'spring' })">Donate $25</button>
+<small x-show="$pay.last?.url" style="display: none">Would open: <code x-text="$pay.last?.url"></code></small></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>If the signed-in user and active team are available from <a href="/docs/appwrite-plugins/auth">auth</a>, the plugin sends them along automatically — so your function knows which account to credit without extra wiring. The payload also suits quantities, coupon codes, or anything else your function wants at checkout time — it travels as-is.</p>
+<aside class="brand"><span x-icon="lucide:info"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:info" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4m0-4h.01"></path></g></svg></span><p>Full checkouts need a <b>signed-in buyer</b> — the grant is credited to their workspace, so the function refuses anonymous checkouts rather than taking money it can't assign. For anonymous purchases (donations, one-off sales), use <a href="#payment-links">payment links</a>. Buttons also handle themselves during a checkout: they disable while the flow opens (no double-charges from double-clicks), and failures surface automatically as a toast when the toasts plugin is loaded.</p>
+</aside>
+<hr>
+<h2 id="payment-state">Payment State</h2><p><code>$pay.state</code> holds whatever record your payment function returns — plan, credits, or anything you define. Read it like any reactive value to gate features or show balances. In the frame below, the demo account is on the <code>pro</code> plan with a low balance — both lines react to the record.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="function-tab-1" aria-selected="false" tabindex="-1">Function</button></div></header>
+
+<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.plan === 'pro'"</span>&gt;</span>Welcome, Pro member!<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.credits &lt; 50"</span>&gt;</span>
+    Running low — <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-pay</span>=<span class="hljs-string">"'credits-1000'"</span>&gt;</span>top up<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+<pre x-code="js" name="Function" data-code-block-built="yes" aria-label="Function" role="tabpanel" data-code-processed="yes" id="function-panel-1" aria-labelledby="function-tab-1" style="display: none"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-comment">// GET /state?workspace=… → whatever shape your pages want to read.</span>
+<span class="hljs-keyword">const</span> workspace = req.<span class="hljs-property">query</span>?.<span class="hljs-property">workspace</span>
+<span class="hljs-keyword">const</span> e = workspace ? <span class="hljs-keyword">await</span> <span class="hljs-title function_">getEntitlement</span>(workspace) : <span class="hljs-literal">null</span>
+<span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>(e ? { <span class="hljs-attr">plan</span>: e.<span class="hljs-property">plan</span>, <span class="hljs-attr">status</span>: e.<span class="hljs-property">status</span>, <span class="hljs-attr">credits</span>: e.<span class="hljs-property">credits</span> } : {})</code></pre>
+<aside class="frame col gap-2"><div x-show="$pay.state?.plan === 'pro'">Welcome, Pro member!</div>
+<p x-show="$pay.state?.credits &lt; 50" class="row gap-2 items-center">
+    Running low — <button x-pay="'credits-1000'">top up</button>
+</p>
+<small x-show="$pay.last?.url" style="display: none">Would open: <code x-text="$pay.last?.url"></code></small></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$pay(ref, payload?)</code></td>
+<td>method</td>
+<td>Start a checkout. Returns a Promise.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$pay.portal()</code></td>
+<td>method</td>
+<td>Open the billing portal.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$pay.refresh()</code></td>
+<td>method</td>
+<td>Re-fetch <code>$pay.state</code> from your function.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$pay.state</code></td>
+<td>reactive</td>
+<td>Your function's payment record — shaped however you like.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$pay.loading</code></td>
+<td>reactive</td>
+<td><code>true</code> while a checkout is opening.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$pay.error</code></td>
+<td>reactive</td>
+<td>The last error message, or <code>null</code>.</td>
+</tr>
+</tbody></table>
+<p>Appwrite-enabled projects can skip <code>state.url</code> and store the payment record in a <a href="/docs/appwrite-plugins/databases">database</a> instead. The function writes it, and your pages read it reactively through <code>$x</code> with realtime updates.</p>
+<hr>
+<h2 id="providers">Providers</h2><p>Two checkout styles are supported, and every provider gets at least one:</p>
+<ul>
+<li><strong>Redirect</strong> sends the buyer to the provider's hosted checkout page. Every provider with a hosted page works this way — including ones Manifest has never heard of.</li>
+<li><strong>Overlay</strong> opens the provider's own popup over your page, for providers that offer one.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Style</th>
+<th>Providers</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Overlay popup</td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">revolut</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">paddle</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">lemonsqueezy</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">polar</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">razorpay</code></td>
+</tr>
+<tr>
+<td>Redirect</td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">stripe</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">square</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">paypal</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">braintree</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">adyen</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">mollie</code>, and any provider with a hosted checkout</td>
+</tr>
+</tbody></table>
+<p>If a popup isn't available, the plugin automatically falls back to redirect so clickthroughs never dead-end. Popup SDKs load on demand from the provider's own CDN — sites with a strict Content Security Policy should allow that provider's domain in <code>script-src</code>. Providers outside the list can add popup support without touching the framework:</p>
+<pre x-code="html" name="Custom overlay" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="Custom overlay" role="region"><header><div>Custom overlay</div></header><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>
+    document.addEventListener('alpine:init', () =&gt; {
+        ManifestPaymentsAdapters.register('myprovider', {
+            supportsOverlay: true,
+            async open({ url, params, config }) {
+                // open the provider's SDK popup, resolve when done
+                return { status: 'complete' }
+            }
+        })
+    })
+<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h2 id="payment-function">Payment Function</h2><p>Real payments need one small piece of server code, because two things can never happen in a browser: creating a checkout with your secret key, and confirming that money actually arrived. The payment function does both.</p>
+<p>Your function answers three requests:</p>
+<table>
+<thead>
+<tr>
+<th>Request</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">POST /</code></td>
+<td>Turns a product reference into a checkout, using the real price from your product list.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">POST /webhook</code></td>
+<td>Receives the provider's signed payment confirmation and updates the buyer's record.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">GET /state</code></td>
+<td>Returns a payment record for <code>$pay.state</code>.</td>
+</tr>
+</tbody></table>
+<p>The webhook deserves a plain-language note: when someone finishes paying, the provider's servers send your function a cryptographically signed message. That message — not the buyer returning to your site — is what the template trusts before granting anything. It's the difference between "the buyer's browser says they paid" and "the provider says they paid."</p>
+<aside class="brand"><span x-icon="lucide:sparkles"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sparkles" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594zM20 2v4m2-2h-4"></path><circle cx="4" cy="20" r="2"></circle></g></svg></span><p><strong>Manifest AI can wire this up for you.</strong> Projects connected to <a href="https://manifestx.dev" target="_blank" rel="noopener">Manifest AI</a> can skip the function entirely: ask for payments, share your provider key and product list, and it provisions a managed payment function — webhook registration included — and hands back the <code>payments</code> block for <code>manifest.json</code>.</p>
+</aside>
+<h3 id="appwrite-template">Appwrite Template</h3><p>Appwrite-enabled projects can use an <a href="https://appwrite.io/docs/products/functions" target="_blank" rel="noopener">Appwrite Function</a>. The template function below is complete and ready to deploy — edit <code>PRODUCTS</code> to match what you sell, deploy it as an Appwrite Function (Node runtime, <code>node-appwrite</code> dependency), and set the environment variables. The full multi-file template with tests lives in the <a href="https://github.com/Manifest-X/Manifest/tree/main/templates/payments-function" target="_blank" rel="noopener">Manifest repository</a>.</p>
+<pre x-code-group="" lines="" collapse="10" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="main.js-tab-0" aria-selected="true" tabindex="0">main.js</button><button type="button" role="tab" id="environment-tab-1" aria-selected="false" tabindex="-1">Environment</button></div></header>
+
+<pre x-code="js" name="main.js" lines="" collapse="10" data-code-block-built="yes" aria-label="main.js" role="tabpanel" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes" id="main.js-panel-0" aria-labelledby="main.js-tab-0"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span><span>40</span><span>41</span><span>42</span><span>43</span><span>44</span><span>45</span><span>46</span><span>47</span><span>48</span><span>49</span><span>50</span><span>51</span><span>52</span><span>53</span><span>54</span><span>55</span><span>56</span><span>57</span><span>58</span><span>59</span><span>60</span><span>61</span><span>62</span><span>63</span><span>64</span><span>65</span><span>66</span><span>67</span><span>68</span><span>69</span><span>70</span><span>71</span><span>72</span><span>73</span><span>74</span><span>75</span><span>76</span><span>77</span><span>78</span><span>79</span><span>80</span><span>81</span><span>82</span><span>83</span><span>84</span><span>85</span><span>86</span><span>87</span><span>88</span><span>89</span><span>90</span><span>91</span><span>92</span><span>93</span><span>94</span><span>95</span><span>96</span><span>97</span><span>98</span><span>99</span><span>100</span><span>101</span><span>102</span><span>103</span><span>104</span><span>105</span><span>106</span><span>107</span><span>108</span><span>109</span><span>110</span><span>111</span><span>112</span><span>113</span><span>114</span><span>115</span><span>116</span><span>117</span><span>118</span><span>119</span><span>120</span><span>121</span><span>122</span><span>123</span><span>124</span><span>125</span><span>126</span><span>127</span><span>128</span><span>129</span><span>130</span><span>131</span><span>132</span><span>133</span><span>134</span><span>135</span><span>136</span><span>137</span><span>138</span><span>139</span><span>140</span><span>141</span><span>142</span><span>143</span><span>144</span><span>145</span><span>146</span><span>147</span><span>148</span></div><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Client</span>, <span class="hljs-title class_">Databases</span>, <span class="hljs-title class_">Query</span>, <span class="hljs-variable constant_">ID</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'node-appwrite'</span>
+<span class="hljs-keyword">import</span> crypto <span class="hljs-keyword">from</span> <span class="hljs-string">'node:crypto'</span>
+
+<span class="hljs-comment">// Your catalogue. Prices live HERE, server-side — the page only sends the ref.</span>
+<span class="hljs-comment">// Grant types: `credits` tops up a balance; `plan` is a one-time unlock that</span>
+<span class="hljs-comment">// can bundle credits. (True subscriptions need a provider with recurring</span>
+<span class="hljs-comment">// billing — an MoR like Paddle or Polar, or Stripe. Revolut orders are</span>
+<span class="hljs-comment">// one-time, so nothing here renews or expires.)</span>
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PRODUCTS</span> = {
+    <span class="hljs-string">'credits-1000'</span>: { <span class="hljs-attr">price</span>: { <span class="hljs-attr">amount</span>: <span class="hljs-number">500</span>, <span class="hljs-attr">currency</span>: <span class="hljs-string">'USD'</span> }, <span class="hljs-attr">grant</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">'credits'</span>, <span class="hljs-attr">amount</span>: <span class="hljs-number">1000</span> } },
+    <span class="hljs-string">'pro-upgrade'</span>:  { <span class="hljs-attr">price</span>: { <span class="hljs-attr">amount</span>: <span class="hljs-number">4900</span>, <span class="hljs-attr">currency</span>: <span class="hljs-string">'USD'</span> }, <span class="hljs-attr">grant</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">'plan'</span>, <span class="hljs-attr">plan</span>: <span class="hljs-string">'pro'</span>, <span class="hljs-attr">credits</span>: <span class="hljs-number">1000</span> } }
+}
+
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">REVOLUT_BASE</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">PAYMENTS_ENV</span> === <span class="hljs-string">'live'</span>
+    ? <span class="hljs-string">'https://merchant.revolut.com'</span> : <span class="hljs-string">'https://sandbox-merchant.revolut.com'</span>
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">HEADERS</span> = {
+    <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${process.env.REVOLUT_SECRET_KEY}</span>`</span>,
+    <span class="hljs-string">'Revolut-Api-Version'</span>: <span class="hljs-string">'2024-09-01'</span>,
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">db</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Client</span>()
+        .<span class="hljs-title function_">setEndpoint</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">APPWRITE_ENDPOINT</span>)
+        .<span class="hljs-title function_">setProject</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">APPWRITE_PROJECT</span>)
+        .<span class="hljs-title function_">setKey</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">APPWRITE_API_KEY</span>)
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Databases</span>(client)
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getEntitlement</span>(<span class="hljs-params">workspaceId</span>) {
+    <span class="hljs-keyword">const</span> r = <span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>().<span class="hljs-title function_">listDocuments</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">PAY_DATABASE_ID</span>, <span class="hljs-string">'entitlements'</span>,
+        [<span class="hljs-title class_">Query</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'workspace_id'</span>, workspaceId), <span class="hljs-title class_">Query</span>.<span class="hljs-title function_">limit</span>(<span class="hljs-number">1</span>)])
+    <span class="hljs-keyword">return</span> r.<span class="hljs-property">documents</span>[<span class="hljs-number">0</span>] || <span class="hljs-literal">null</span>
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">saveEntitlement</span>(<span class="hljs-params">workspaceId, data</span>) {
+    <span class="hljs-keyword">const</span> existing = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getEntitlement</span>(workspaceId)
+    <span class="hljs-keyword">if</span> (existing) <span class="hljs-keyword">return</span> <span class="hljs-title function_">db</span>().<span class="hljs-title function_">updateDocument</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">PAY_DATABASE_ID</span>, <span class="hljs-string">'entitlements'</span>, existing.<span class="hljs-property">$id</span>, data)
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">db</span>().<span class="hljs-title function_">createDocument</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">PAY_DATABASE_ID</span>, <span class="hljs-string">'entitlements'</span>, <span class="hljs-variable constant_">ID</span>.<span class="hljs-title function_">unique</span>(), { <span class="hljs-attr">workspace_id</span>: workspaceId, ...data })
+}
+
+<span class="hljs-comment">// Append-only audit trail. Doubles as the idempotency record: webhooks are</span>
+<span class="hljs-comment">// delivered at-least-once, so "was this order already granted?" is answered</span>
+<span class="hljs-comment">// by the ledger — a redelivered event must never grant twice.</span>
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">addLedger</span>(<span class="hljs-params">entry</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">db</span>().<span class="hljs-title function_">createDocument</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">PAY_DATABASE_ID</span>, <span class="hljs-string">'ledger'</span>, <span class="hljs-variable constant_">ID</span>.<span class="hljs-title function_">unique</span>(), entry)
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">hasLedger</span>(<span class="hljs-params">orderId, reason</span>) {
+    <span class="hljs-keyword">const</span> queries = [<span class="hljs-title class_">Query</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'order_id'</span>, orderId), <span class="hljs-title class_">Query</span>.<span class="hljs-title function_">limit</span>(<span class="hljs-number">1</span>)]
+    <span class="hljs-keyword">if</span> (reason) queries.<span class="hljs-title function_">unshift</span>(<span class="hljs-title class_">Query</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'reason'</span>, reason))
+    <span class="hljs-keyword">const</span> r = <span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>().<span class="hljs-title function_">listDocuments</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">PAY_DATABASE_ID</span>, <span class="hljs-string">'ledger'</span>, queries)
+    <span class="hljs-keyword">return</span> r.<span class="hljs-property">documents</span>.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>
+}
+
+<span class="hljs-comment">// Verify Revolut's signature: HMAC-SHA256 over `v1.{timestamp}.{body}`.</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">verifySignature</span>(<span class="hljs-params">rawBody, signature, timestamp</span>) {
+    <span class="hljs-keyword">if</span> (!signature || !timestamp) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">abs</span>(<span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>() - <span class="hljs-title class_">Number</span>(timestamp)) &gt; <span class="hljs-number">5</span> * <span class="hljs-number">60</span> * <span class="hljs-number">1000</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">const</span> expected = <span class="hljs-string">'v1='</span> + crypto.<span class="hljs-title function_">createHmac</span>(<span class="hljs-string">'sha256'</span>, process.<span class="hljs-property">env</span>.<span class="hljs-property">REVOLUT_WEBHOOK_SECRET</span>)
+        .<span class="hljs-title function_">update</span>(<span class="hljs-string">`v1.<span class="hljs-subst">${timestamp}</span>.<span class="hljs-subst">${rawBody}</span>`</span>).<span class="hljs-title function_">digest</span>(<span class="hljs-string">'hex'</span>)
+    <span class="hljs-keyword">return</span> signature.<span class="hljs-title function_">split</span>(<span class="hljs-regexp">/\s+/</span>).<span class="hljs-title function_">some</span>(<span class="hljs-function">(<span class="hljs-params">sig</span>) =&gt;</span>
+        sig.<span class="hljs-property">length</span> === expected.<span class="hljs-property">length</span> &amp;&amp; crypto.<span class="hljs-title function_">timingSafeEqual</span>(<span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(sig), <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(expected)))
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">async</span> ({ req, res, log }) =&gt; {
+    <span class="hljs-comment">// 1. The provider's signed confirmations. ORDER_COMPLETED grants the</span>
+    <span class="hljs-comment">//    workspace (once — the ledger dedupes redeliveries); DISPUTE_LOST</span>
+    <span class="hljs-comment">//    means a chargeback was lost, so the same grant is reversed.</span>
+    <span class="hljs-keyword">if</span> (req.<span class="hljs-property">method</span> === <span class="hljs-string">'POST'</span> &amp;&amp; req.<span class="hljs-property">path</span>.<span class="hljs-title function_">endsWith</span>(<span class="hljs-string">'/webhook'</span>)) {
+        <span class="hljs-keyword">const</span> ok = <span class="hljs-title function_">verifySignature</span>(req.<span class="hljs-property">bodyRaw</span>,
+            req.<span class="hljs-property">headers</span>[<span class="hljs-string">'revolut-signature'</span>], req.<span class="hljs-property">headers</span>[<span class="hljs-string">'revolut-request-timestamp'</span>])
+        <span class="hljs-keyword">if</span> (!ok) <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">ok</span>: <span class="hljs-literal">false</span> }, <span class="hljs-number">401</span>)
+
+        <span class="hljs-keyword">const</span> { event, order_id } = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(req.<span class="hljs-property">bodyRaw</span>)
+        <span class="hljs-keyword">if</span> (order_id &amp;&amp; (event === <span class="hljs-string">'ORDER_COMPLETED'</span> || event === <span class="hljs-string">'DISPUTE_LOST'</span>)) {
+            <span class="hljs-keyword">const</span> order = <span class="hljs-title function_">await</span> (<span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`<span class="hljs-subst">${REVOLUT_BASE}</span>/api/orders/<span class="hljs-subst">${order_id}</span>`</span>, { <span class="hljs-attr">headers</span>: <span class="hljs-variable constant_">HEADERS</span> })).<span class="hljs-title function_">json</span>()
+            <span class="hljs-keyword">const</span> { workspace_id, ref } = order.<span class="hljs-property">metadata</span> || {}
+            <span class="hljs-keyword">const</span> grant = <span class="hljs-variable constant_">PRODUCTS</span>[ref]?.<span class="hljs-property">grant</span>
+            <span class="hljs-keyword">if</span> (workspace_id &amp;&amp; grant) {
+                <span class="hljs-keyword">const</span> current = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getEntitlement</span>(workspace_id)
+                <span class="hljs-keyword">const</span> credits = current?.<span class="hljs-property">credits</span> || <span class="hljs-number">0</span>
+                <span class="hljs-keyword">const</span> amount = grant.<span class="hljs-property">amount</span> || grant.<span class="hljs-property">credits</span> || <span class="hljs-number">0</span>
+
+                <span class="hljs-keyword">if</span> (event === <span class="hljs-string">'ORDER_COMPLETED'</span> &amp;&amp; !(<span class="hljs-keyword">await</span> <span class="hljs-title function_">hasLedger</span>(order_id))) {
+                    <span class="hljs-keyword">await</span> <span class="hljs-title function_">saveEntitlement</span>(workspace_id, grant.<span class="hljs-property">type</span> === <span class="hljs-string">'credits'</span>
+                        ? { <span class="hljs-attr">credits</span>: credits + amount }
+                        : { <span class="hljs-attr">plan</span>: grant.<span class="hljs-property">plan</span>, <span class="hljs-attr">status</span>: <span class="hljs-string">'active'</span>, <span class="hljs-attr">credits</span>: credits + amount })
+                    <span class="hljs-keyword">await</span> <span class="hljs-title function_">addLedger</span>({ workspace_id, <span class="hljs-attr">delta</span>: amount, <span class="hljs-attr">reason</span>: grant.<span class="hljs-property">type</span> === <span class="hljs-string">'credits'</span> ? <span class="hljs-string">'topup'</span> : <span class="hljs-string">'grant'</span>, ref, order_id })
+                    <span class="hljs-title function_">log</span>(<span class="hljs-string">`granted <span class="hljs-subst">${ref}</span> to <span class="hljs-subst">${workspace_id}</span>`</span>)
+                }
+                <span class="hljs-keyword">if</span> (event === <span class="hljs-string">'DISPUTE_LOST'</span> &amp;&amp; (<span class="hljs-keyword">await</span> <span class="hljs-title function_">hasLedger</span>(order_id)) &amp;&amp; !(<span class="hljs-keyword">await</span> <span class="hljs-title function_">hasLedger</span>(order_id, <span class="hljs-string">'refund'</span>))) {
+                    <span class="hljs-keyword">await</span> <span class="hljs-title function_">saveEntitlement</span>(workspace_id, grant.<span class="hljs-property">type</span> === <span class="hljs-string">'credits'</span>
+                        ? { <span class="hljs-attr">credits</span>: <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">max</span>(<span class="hljs-number">0</span>, credits - amount) }
+                        : { <span class="hljs-attr">plan</span>: <span class="hljs-string">'free'</span>, <span class="hljs-attr">status</span>: <span class="hljs-string">'revoked'</span>, <span class="hljs-attr">credits</span>: <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">max</span>(<span class="hljs-number">0</span>, credits - amount) })
+                    <span class="hljs-keyword">await</span> <span class="hljs-title function_">addLedger</span>({ workspace_id, <span class="hljs-attr">delta</span>: -amount, <span class="hljs-attr">reason</span>: <span class="hljs-string">'refund'</span>, ref, order_id })
+                    <span class="hljs-title function_">log</span>(<span class="hljs-string">`revoked <span class="hljs-subst">${ref}</span> from <span class="hljs-subst">${workspace_id}</span>`</span>)
+                }
+            }
+        }
+        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">ok</span>: <span class="hljs-literal">true</span> })
+    }
+
+    <span class="hljs-comment">// 2. Burn credits (pay-as-you-go). Server-to-server only: YOUR backend</span>
+    <span class="hljs-comment">//    calls this with the shared key — never the browser, or buyers could</span>
+    <span class="hljs-comment">//    skip the spend.</span>
+    <span class="hljs-keyword">if</span> (req.<span class="hljs-property">method</span> === <span class="hljs-string">'POST'</span> &amp;&amp; req.<span class="hljs-property">path</span>.<span class="hljs-title function_">endsWith</span>(<span class="hljs-string">'/consume'</span>)) {
+        <span class="hljs-keyword">if</span> (req.<span class="hljs-property">headers</span>[<span class="hljs-string">'x-consume-key'</span>] !== process.<span class="hljs-property">env</span>.<span class="hljs-property">PAYMENTS_CONSUME_KEY</span>) {
+            <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">'unauthorized'</span> }, <span class="hljs-number">401</span>)
+        }
+        <span class="hljs-keyword">const</span> { workspace, amount, reason } = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(req.<span class="hljs-property">bodyRaw</span> || <span class="hljs-string">'{}'</span>)
+        <span class="hljs-keyword">const</span> e = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getEntitlement</span>(workspace)
+        <span class="hljs-keyword">if</span> (!e) <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">'unknown workspace'</span> }, <span class="hljs-number">404</span>)
+        <span class="hljs-keyword">if</span> ((e.<span class="hljs-property">credits</span> || <span class="hljs-number">0</span>) &lt; amount) <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">'insufficient credits'</span> }, <span class="hljs-number">402</span>)
+        <span class="hljs-keyword">await</span> <span class="hljs-title function_">saveEntitlement</span>(workspace, { <span class="hljs-attr">credits</span>: e.<span class="hljs-property">credits</span> - amount })
+        <span class="hljs-keyword">await</span> <span class="hljs-title function_">addLedger</span>({ <span class="hljs-attr">workspace_id</span>: workspace, <span class="hljs-attr">delta</span>: -amount, <span class="hljs-attr">reason</span>: reason || <span class="hljs-string">'usage'</span> })
+        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">ok</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">credits</span>: e.<span class="hljs-property">credits</span> - amount })
+    }
+
+    <span class="hljs-comment">// 3. Turn a product ref into a checkout (price looked up server-side).</span>
+    <span class="hljs-comment">//    Anonymous checkouts are refused: the grant needs a workspace to land</span>
+    <span class="hljs-comment">//    in, so taking the money without one would lose the purchase.</span>
+    <span class="hljs-keyword">if</span> (req.<span class="hljs-property">method</span> === <span class="hljs-string">'POST'</span>) {
+        <span class="hljs-keyword">const</span> { ref, context } = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(req.<span class="hljs-property">bodyRaw</span> || <span class="hljs-string">'{}'</span>)
+        <span class="hljs-keyword">if</span> (ref === <span class="hljs-string">'portal'</span>) <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">'portal not available: Revolut has no customer portal'</span> }, <span class="hljs-number">400</span>)
+        <span class="hljs-keyword">if</span> (!context?.<span class="hljs-property">workspaceId</span>) <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">'sign in required'</span> }, <span class="hljs-number">401</span>)
+        <span class="hljs-keyword">const</span> product = <span class="hljs-variable constant_">PRODUCTS</span>[ref]
+        <span class="hljs-keyword">if</span> (!product) <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">'unknown ref'</span> }, <span class="hljs-number">400</span>)
+        <span class="hljs-keyword">const</span> order = <span class="hljs-title function_">await</span> (<span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`<span class="hljs-subst">${REVOLUT_BASE}</span>/api/orders`</span>, {
+            <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>, <span class="hljs-attr">headers</span>: <span class="hljs-variable constant_">HEADERS</span>,
+            <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>({
+                <span class="hljs-attr">amount</span>: product.<span class="hljs-property">price</span>.<span class="hljs-property">amount</span>, <span class="hljs-attr">currency</span>: product.<span class="hljs-property">price</span>.<span class="hljs-property">currency</span>,
+                <span class="hljs-attr">redirect_url</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">PAYMENTS_SUCCESS_URL</span>,
+                <span class="hljs-attr">metadata</span>: { <span class="hljs-attr">workspace_id</span>: context.<span class="hljs-property">workspaceId</span>, ref }
+            })
+        })).<span class="hljs-title function_">json</span>()
+        <span class="hljs-keyword">if</span> (context?.<span class="hljs-property">preferMode</span> === <span class="hljs-string">'overlay'</span>) {
+            <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'overlay'</span>, <span class="hljs-attr">provider</span>: <span class="hljs-string">'revolut'</span>, <span class="hljs-attr">params</span>: { <span class="hljs-attr">token</span>: order.<span class="hljs-property">token</span> } })
+        }
+        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'redirect'</span>, <span class="hljs-attr">url</span>: order.<span class="hljs-property">checkout_url</span> })
+    }
+
+    <span class="hljs-comment">// 4. The payment record for $pay.state. Readable by workspace id (an</span>
+    <span class="hljs-comment">//    unguessable Appwrite team id) — treat its contents as non-secret.</span>
+    <span class="hljs-keyword">const</span> workspace = req.<span class="hljs-property">query</span>?.<span class="hljs-property">workspace</span>
+    <span class="hljs-keyword">const</span> e = workspace ? <span class="hljs-keyword">await</span> <span class="hljs-title function_">getEntitlement</span>(workspace) : <span class="hljs-literal">null</span>
+    <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>(e ? { <span class="hljs-attr">plan</span>: e.<span class="hljs-property">plan</span>, <span class="hljs-attr">status</span>: e.<span class="hljs-property">status</span>, <span class="hljs-attr">credits</span>: e.<span class="hljs-property">credits</span> } : {})
+}</code><button class="expand" type="button" aria-expanded="false" aria-label="Show 138 more lines">+138</button></pre>
+<pre x-code="env" name="Environment" lines="" collapse="10" data-code-block-built="yes" aria-label="Environment" role="tabpanel" data-code-processed="yes" id="environment-panel-1" aria-labelledby="environment-tab-1" style="display: none"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div><code data-highlighted="yes" class="hljs language-undefined">REVOLUT_SECRET_KEY=sk_…          # provider SECRET key (sandbox to start)
+REVOLUT_WEBHOOK_SECRET=…         # returned when you register the webhook
+PAYMENTS_ENV=sandbox             # sandbox | live
+PAYMENTS_SUCCESS_URL=https://yourapp.com/thanks?checkout=1
+PAYMENTS_CONSUME_KEY=…           # any long random string; guards POST /consume
+APPWRITE_ENDPOINT=…
+APPWRITE_PROJECT=…
+APPWRITE_API_KEY=…
+PAY_DATABASE_ID=…                # database with `entitlements` + `ledger` collections</code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>This example uses <a href="https://help.revolut.com/business/help/merchant-accounts/setting-up-a-merchant-account/what-is-a-merchant-account/" target="_blank" rel="noopener">Revolut Merchant</a>, verified end-to-end against its sandbox. The structure is the same for any provider — swap the two <code>fetch</code> calls and the signature check for your provider's equivalents, and the rest (products, grants, state) is untouched. On the page, every provider already works: popups for the five built-in adapters, hosted redirect for everything else.</p>
+<hr>
+<h2 id="returning-from-checkout">Returning from Checkout</h2><p>After a checkout redirect, the provider sends the buyer back to a success URL you choose. Add <code>checkout=1</code> to it — when the buyer lands, the plugin refreshes <code>$pay.state</code> against your function and tidies the URL.</p>
+<pre x-code="text" name="Success URL" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="Success URL" role="region"><header><div>Success URL</div></header><code data-highlighted="yes" class="hljs language-javascript"><span class="hljs-attr">https</span>:<span class="hljs-comment">//yourapp.com/thanks?checkout=1</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Popup checkouts stay on the page and refresh state automatically when the popup completes. Because the provider's confirmation can arrive a few seconds after the buyer does, the plugin re-checks state on a short backoff after the return — the page settles on the webhook-confirmed record without any author code, so what buyers see is what your function actually granted.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Fires when</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:pay:result</code></td>
+<td>A popup checkout completes or is cancelled.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:pay:return</code></td>
+<td>The buyer returns from a redirect checkout.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:pay:error</code></td>
+<td>A checkout could not be started.</td>
+</tr>
+</tbody></table>
+</div>
+
+    </div>
+
+    <!-- Default Content — `x-if` (not `x-show`) so the fallback is REMOVED from the DOM on valid routes, instead of just `display:none`. Otherwise every prerendered article page ships the "Article does not exist" text alongside its real content, which crawlers/AI scrapers see as duplicate/contradictory content. -->
+    <template x-if="!$x.docs.$route('path')">
+      <div class="w-3xl max-w-full mx-auto text-center prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
+
+    <!-- Article Footer -->
+    <footer class="mt-20">
+      <hr>
+      <div class="row-wrap justify-between items-center gap-4 pt-4">
+
+        <!-- Start -->
+        <figcaption class="text-content-subtle">© 2026 <a href="https://andrewmatlock.com" target="_blank" rel="noopener">Andrew
+            Matlock</a> • <a href="/docs/resources/license">MIT License</a>
+        </figcaption>
+
+        <!-- End -->
+        <div class="row-wrap gap-3">
+
+          <!-- GitHub-->
+          <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="simple-icons:github" class="iconify iconify--simple-icons"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg></a>
+
+          <!-- Color mode -->
+          <div role="group" class="outlined rounded-full">
+            <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" data-hydrate-id="h2"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></g></svg></button>
+            <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></button>
+            <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" data-hydrate-id="h3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></button>
+
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Anchor Links -->
+  <div data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
+
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+      <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:align-left" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m14 6H3M21 6H3"></path></svg></span>
+      <span>On this page</span>
+    </small>
+
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#payment-links">Payment Links</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#full-checkouts">Full Checkouts</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#configuration">Configuration</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#start-a-checkout">Start a Checkout</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#payment-state">Payment State</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#providers">Providers</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#payment-function">Payment Function</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#appwrite-template">Appwrite Template</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#returning-from-checkout">Returning from Checkout</a></div>
+
+  </div>
+
+</div>
+
+  </main>
+
+  <!-- Footer (visible on every route) -->
+  
+
+
+
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full"}},{"id":"h3","attrs":{"class":"sm ghost rounded-e-full"}}]</script>
+</body></html>

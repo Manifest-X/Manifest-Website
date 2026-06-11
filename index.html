@@ -24,15 +24,57 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.122/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.122/lib/manifest.code.min.css">
   <link rel="stylesheet" href="/manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.118/lib/manifest.min.js" data-tailwind data-version="0.5.118"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.122/lib/manifest.min.js" data-tailwind data-version="0.5.122"></script>
   <script src="/scripts/hero-editor.js" defer></script>
   <script src="/scripts/console-message.js" defer></script>
+
+  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
+       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
+       manifest.json and simulates popup purchases — no real charges, and
+       redirect clicks report their destination instead of navigating.
+       Inert until the pinned mnfst version ships the payments plugin. -->
+  <script>
+    (function () {
+      let credits = 42, plan = 'pro';
+      const realFetch = window.fetch.bind(window);
+      window.fetch = async (url, opts) => {
+        const u = String(url);
+        if (u.indexOf('https://fn.test/pay') === 0) {
+          const body = JSON.parse(opts.body);
+          if (body.context && body.context.preferMode === 'overlay') {
+            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
+          }
+          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
+        }
+        if (u.indexOf('https://fn.test/state') === 0) {
+          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
+        }
+        return realFetch(url, opts);
+      };
+      document.addEventListener('alpine:init', () => {
+        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
+        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
+        window.ManifestPaymentsAdapters.register('mockpay', {
+          supportsOverlay: true,
+          async open({ params }) {
+            if (params && params.ref === 'credits-1000') credits += 1000;
+            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
+            return { status: 'complete' };
+          }
+        });
+      });
+    })();
+  </script>
+
+  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
+       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"0aee08ae352b431ebdc403752ba2ac41"}'></script>
 
 </head>
 

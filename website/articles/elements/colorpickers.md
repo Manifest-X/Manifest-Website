@@ -512,119 +512,114 @@ The contents of `_tailwind` or `_ios` will overwrite their respective default co
 
 ### Text & Localization
 
-Default text in the color picker UI can be overwritten using a [local data](/docs/core-plugins/local-data) source flagged with a `colorpicker` key, and containing the following `_ui` object syntax.
+The default menu text is localizable. Add a top-level `_ui` block — namespaced under `colorpicker` — to any [local data](/docs/core-plugins/local-data) file your project loads. The framework merges every loaded source's `_ui` onto the built-in English defaults, so you only override the keys you want to change; anything omitted stays in English.
+
+Because `_ui` rides the normal data model, it isn't tied to the picker's palette source. Colocate it with your `colorpicker`-flagged palettes, or keep it in a shared file alongside other elements' overrides — wherever it's authored, it's picked up.
 
 <div x-code-group copy>
 
 ```json "manifest.json"
 {
     "data": {
-        "colors": {
-            "colorpicker": "/data/colors.yaml"
-        }
+        "ui": "/data/ui.yaml"
     }
 }
 ```
 
-```yaml "colors.yaml"
+```yaml "ui.yaml"
 _ui:
-    tabs:
-        solid: Solid
-        gradient: Gradient
-        library: Library
-    grabColor: Grab color from screen
-    gradientTypes:
-        linear: Linear
-        radial: Radial
-        conic: Conic
-    layerActions:
-        rotate: Rotate
-        flip: Flip
-        addAbove: Add layer above
-        addBelow: Add layer below
-        duplicate: Duplicate
-        moveUp: Move up
-        moveDown: Move down
-        remove: Remove layer
-    stopActions:
-        duplicate: Duplicate stop
-        delete: Delete stop
-    recent:
-        remove: Remove from recent
+    colorpicker:
+        tabs:
+            solid: Solid
+            gradient: Gradient
+            library: Library
+        grabColor: Grab color from screen
+        gradientTypes:
+            linear: Linear
+            radial: Radial
+            conic: Conic
+        layerActions:
+            rotate: Rotate
+            flip: Flip
+            addAbove: Add layer above
+            addBelow: Add layer below
+            duplicate: Duplicate
+            moveUp: Move up
+            moveDown: Move down
+            remove: Remove layer
+        stopActions:
+            duplicate: Duplicate stop
+            delete: Delete stop
+        recent:
+            remove: Remove from recent
 ```
 
 </div>
 
-Text can be localized by chaining values with `$x` references to [locale](/docs/core-plugins/local-data) files.
+#### Localization
+
+`_ui` localizes through the standard [local data](/docs/core-plugins/local-data) model — there's no picker-specific mechanism. Either chain values to a [locale](/docs/core-plugins/local-data) file with `$x` references…
 
 <div x-code-group>
 
 ```json "manifest.json" copy
 {
     "data": {
-        "colors": {
-            "colorpicker": "data/colors.yaml"
-        },
+        "ui": "/data/ui.yaml",
         "translations": {
-            "en": "data/translations.en.yaml",
-            "fr": "data/translations.fr.yaml"
+            "en": "/data/translations.en.yaml",
+            "fr": "/data/translations.fr.yaml"
         }
     }
 }
 ```
 
-```yaml "colors.yaml"
+```yaml "ui.yaml"
 _ui:
-    tabs:
-        solid: $x.translations.colors.solid
-        gradient: $x.translations.colors.gradient
-        library: $x.translations.colors.library
-
-Primary:
-    _name: $x.translations.colors.primary
-    blue: "#3b82f6"
+    colorpicker:
+        tabs:
+            solid: $x.translations.colorpicker.solid
+            gradient: $x.translations.colorpicker.gradient
+            library: $x.translations.colorpicker.library
 ```
 
 ```yaml "translations.fr.yaml"
-color:
+colorpicker:
     solid: Plein
     gradient: Dégradé
     library: Bibliothèque
-    primary: Marque principale
 ```
 
 </div>
 
-Alternatively, use dedicated locale files mapped under `colorpicker`:
+…or split the whole block across per-locale files using the standard locale-map form:
 
 <div x-code-group>
 
 ```json "manifest.json" copy
 {
     "data": {
-        "colors": {
-            "colorpicker": {
-                "en": "/data/colors.en.yaml",
-                "fr": "/data/colors.fr.yaml"
-            }
+        "ui": {
+            "en": "/data/ui.en.yaml",
+            "fr": "/data/ui.fr.yaml"
         }
     }
 }
 ```
 
-```yaml "colors.fr.yaml"
+```yaml "ui.fr.yaml"
 _ui:
-    tabs:
-        solid: Plein
-        gradient: Dégradé
-        library: Bibliothèque
-
-Primary:
-    _name: Marque principale
-    blue: "#3b82f6"
+    colorpicker:
+        tabs:
+            solid: Plein
+            gradient: Dégradé
+            library: Bibliothèque
+        grabColor: Pipette à l'écran
 ```
 
 </div>
+
+Because overrides are namespaced per element, one shared `_ui` block can localize other Manifest elements too (e.g. `_ui.date`, `_ui.status`) — a single file covers all built-in element chrome.
 
 ---
 
