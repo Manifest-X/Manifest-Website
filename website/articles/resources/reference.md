@@ -166,7 +166,7 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 | `$color`{copy} | color modes | Read/write the current color mode. `$color.current` returns `'light'`, `'dark'`, or `'system'`; assign to switch |
 | `$date(id)`{copy} | datepicker | Read or set a picker's value, time, range, and open state |
 | `$locale`{copy} | localization | Current locale, available locales, `set(code)` |
-| `$route(pattern)`{copy} | router | True when current route matches the pattern |
+| `$route`{copy} | router | Reactive string of the current logical route (e.g. `$route === '/'`); not a function |
 | `$status`{copy} | status | Health of named services (e.g. `$status.api.state`, `$status.overall`) |
 | `$toast`{copy} | toasts | Show a toast |
 | `$try(fn, errorVar?)`{copy} | data | `await` an async callback; on error returns `undefined` instead of throwing. If `errorVar` names a property on the current `x-data` scope, the error message is written there on failure and cleared to `null` on success |
