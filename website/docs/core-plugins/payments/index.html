@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -23,56 +23,15 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.js" data-version="0.5.123"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
-
-  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
-       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
-       manifest.json and simulates popup purchases — no real charges, and
-       redirect clicks report their destination instead of navigating.
-       Inert until the pinned mnfst version ships the payments plugin. -->
-  <script>
-    (function () {
-      let credits = 42, plan = 'pro';
-      const realFetch = window.fetch.bind(window);
-      window.fetch = async (url, opts) => {
-        const u = String(url);
-        if (u.indexOf('https://fn.test/pay') === 0) {
-          const body = JSON.parse(opts.body);
-          if (body.context && body.context.preferMode === 'overlay') {
-            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
-          }
-          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
-        }
-        if (u.indexOf('https://fn.test/state') === 0) {
-          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
-        }
-        return realFetch(url, opts);
-      };
-      document.addEventListener('alpine:init', () => {
-        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
-        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
-        window.ManifestPaymentsAdapters.register('mockpay', {
-          supportsOverlay: true,
-          async open({ params }) {
-            if (params && params.ref === 'credits-1000') credits += 1000;
-            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
-            return { status: 'complete' };
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
-       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
 <meta property="og:title" content="Payments — Manifest"><meta property="og:description" content="Integrate payment providers with your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/payments"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Payments — Manifest"><meta property="twitter:description" content="Integrate payment providers with your project."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Payments — Manifest","description":"Integrate payment providers with your project.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/core-plugins/payments"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Payments","item":"https://manifestx.dev/docs/core-plugins/payments"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
@@ -704,7 +663,7 @@
 <p>There are two ways to use it. <strong>Payment links</strong> simply send buyers to a checkout or donation page you already have, with no backend needed. <strong>Full checkout</strong> adds a small <a href="#payment-function">payment function</a> so you can sell by product name, confirm payments reliably, and unlock features the moment someone pays.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>The payments plugin is included in <code>manifest.js</code> with all core plugins, or can be selectively loaded. It activates when <code>manifest.json</code> contains a <code>payments</code> block, or whenever it's declared in <code>data-plugins</code>.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
@@ -774,7 +733,7 @@
 </aside>
 <hr>
 <h2 id="start-a-checkout">Start a Checkout</h2><p>Add <code>x-pay</code> to any element with a product reference, with the value being a transaction name like <code>pro-upgrade</code> or <code>credits-1000</code> that you define in your payment function (alongside its real price). Clicking it opens the provider's checkout UI. The frame below runs against a demo provider — no real charges; popup purchases grant credits instantly, and redirect buttons report their destination instead of leaving the page.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="function-tab-1" aria-selected="false" tabindex="-1">Function</button><button type="button" role="tab" id="manifest.json-tab-2" aria-selected="false" tabindex="-1">manifest.json</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="function-tab-1" aria-selected="false" tabindex="-1">Function</button><button type="button" role="tab" id="manifest.json-tab-2" aria-selected="false" tabindex="-1">manifest.json</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-pay</span>=<span class="hljs-string">"'pro-upgrade'"</span>&gt;</span>Upgrade to Pro<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-pay.overlay</span>=<span class="hljs-string">"'credits-1000'"</span>&gt;</span>Buy 1,000 credits<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -815,8 +774,8 @@
     <button class="outlined" x-pay.portal="">Manage billing</button>
 </div>
 <p>
-    Plan: <b x-text="$pay.state?.plan ?? '—'">pro</b> ·
-    Credits: <b x-text="$pay.state?.credits ?? '—'">42</b>
+    Plan: <b x-text="$pay.state?.plan ?? '—'">—</b> ·
+    Credits: <b x-text="$pay.state?.credits ?? '—'">—</b>
 </p>
 <small x-show="$pay.last?.url" style="display: none">Would open: <code x-text="$pay.last?.url"></code></small></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
@@ -843,7 +802,7 @@
 </tr>
 </tbody></table>
 <p>Checkouts can also start from any Alpine expression using the <code>$pay</code> magic method, with an optional payload your function receives:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="function-tab-1" aria-selected="false" tabindex="-1">Function</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="function-tab-1" aria-selected="false" tabindex="-1">Function</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$pay('donate-25', { campaign: 'spring' })"</span>&gt;</span>Donate $25<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
 <pre x-code="js" name="Function" data-code-block-built="yes" aria-label="Function" role="tabpanel" data-code-processed="yes" id="function-panel-1" aria-labelledby="function-tab-1" style="display: none"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-comment">// The payload arrives alongside the ref — read it however you like.</span>
@@ -868,7 +827,7 @@
 </aside>
 <hr>
 <h2 id="payment-state">Payment State</h2><p><code>$pay.state</code> holds whatever record your payment function returns — plan, credits, or anything you define. Read it like any reactive value to gate features or show balances. In the frame below, the demo account is on the <code>pro</code> plan with a low balance — both lines react to the record.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="function-tab-1" aria-selected="false" tabindex="-1">Function</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="function-tab-1" aria-selected="false" tabindex="-1">Function</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.plan === 'pro'"</span>&gt;</span>Welcome, Pro member!<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
@@ -879,8 +838,8 @@
 <span class="hljs-keyword">const</span> workspace = req.<span class="hljs-property">query</span>?.<span class="hljs-property">workspace</span>
 <span class="hljs-keyword">const</span> e = workspace ? <span class="hljs-keyword">await</span> <span class="hljs-title function_">getEntitlement</span>(workspace) : <span class="hljs-literal">null</span>
 <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>(e ? { <span class="hljs-attr">plan</span>: e.<span class="hljs-property">plan</span>, <span class="hljs-attr">status</span>: e.<span class="hljs-property">status</span>, <span class="hljs-attr">credits</span>: e.<span class="hljs-property">credits</span> } : {})</code></pre>
-<aside class="frame col gap-2"><div x-show="$pay.state?.plan === 'pro'">Welcome, Pro member!</div>
-<p x-show="$pay.state?.credits &lt; 50" class="row gap-2 items-center">
+<aside class="frame col gap-2"><div x-show="$pay.state?.plan === 'pro'" style="display: none">Welcome, Pro member!</div>
+<p x-show="$pay.state?.credits &lt; 50" class="row gap-2 items-center" style="display: none">
     Running low — <button x-pay="'credits-1000'">top up</button>
 </p>
 <small x-show="$pay.last?.url" style="display: none">Would open: <code x-text="$pay.last?.url"></code></small></aside>
@@ -987,7 +946,7 @@
 <aside class="brand"><span x-icon="lucide:sparkles"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sparkles" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594zM20 2v4m2-2h-4"></path><circle cx="4" cy="20" r="2"></circle></g></svg></span><p><strong>Manifest AI can wire this up for you.</strong> Projects connected to <a href="https://manifestx.dev" target="_blank" rel="noopener">Manifest AI</a> can skip the function entirely: ask for payments, share your provider key and product list, and it provisions a managed payment function — webhook registration included — and hands back the <code>payments</code> block for <code>manifest.json</code>.</p>
 </aside>
 <h3 id="appwrite-template">Appwrite Template</h3><p>Appwrite-enabled projects can use an <a href="https://appwrite.io/docs/products/functions" target="_blank" rel="noopener">Appwrite Function</a>. The template function below is complete and ready to deploy — edit <code>PRODUCTS</code> to match what you sell, deploy it as an Appwrite Function (Node runtime, <code>node-appwrite</code> dependency), and set the environment variables. The full multi-file template with tests lives in the <a href="https://github.com/Manifest-X/Manifest/tree/main/templates/payments-function" target="_blank" rel="noopener">Manifest repository</a>.</p>
-<pre x-code-group="" lines="" collapse="10" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="main.js-tab-0" aria-selected="true" tabindex="0">main.js</button><button type="button" role="tab" id="environment-tab-1" aria-selected="false" tabindex="-1">Environment</button></div></header>
+<pre x-code-group="" lines="" collapse="10" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="main.js-tab-0" aria-selected="true" tabindex="0">main.js</button><button type="button" role="tab" id="environment-tab-1" aria-selected="false" tabindex="-1">Environment</button></div></header>
 
 <pre x-code="js" name="main.js" lines="" collapse="10" data-code-block-built="yes" aria-label="main.js" role="tabpanel" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes" id="main.js-panel-0" aria-labelledby="main.js-tab-0"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span><span>40</span><span>41</span><span>42</span><span>43</span><span>44</span><span>45</span><span>46</span><span>47</span><span>48</span><span>49</span><span>50</span><span>51</span><span>52</span><span>53</span><span>54</span><span>55</span><span>56</span><span>57</span><span>58</span><span>59</span><span>60</span><span>61</span><span>62</span><span>63</span><span>64</span><span>65</span><span>66</span><span>67</span><span>68</span><span>69</span><span>70</span><span>71</span><span>72</span><span>73</span><span>74</span><span>75</span><span>76</span><span>77</span><span>78</span><span>79</span><span>80</span><span>81</span><span>82</span><span>83</span><span>84</span><span>85</span><span>86</span><span>87</span><span>88</span><span>89</span><span>90</span><span>91</span><span>92</span><span>93</span><span>94</span><span>95</span><span>96</span><span>97</span><span>98</span><span>99</span><span>100</span><span>101</span><span>102</span><span>103</span><span>104</span><span>105</span><span>106</span><span>107</span><span>108</span><span>109</span><span>110</span><span>111</span><span>112</span><span>113</span><span>114</span><span>115</span><span>116</span><span>117</span><span>118</span><span>119</span><span>120</span><span>121</span><span>122</span><span>123</span><span>124</span><span>125</span><span>126</span><span>127</span><span>128</span><span>129</span><span>130</span><span>131</span><span>132</span><span>133</span><span>134</span><span>135</span><span>136</span><span>137</span><span>138</span><span>139</span><span>140</span><span>141</span><span>142</span><span>143</span><span>144</span><span>145</span><span>146</span><span>147</span><span>148</span></div><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Client</span>, <span class="hljs-title class_">Databases</span>, <span class="hljs-title class_">Query</span>, <span class="hljs-variable constant_">ID</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'node-appwrite'</span>
 <span class="hljs-keyword">import</span> crypto <span class="hljs-keyword">from</span> <span class="hljs-string">'node:crypto'</span>

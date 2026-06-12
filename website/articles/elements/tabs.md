@@ -50,6 +50,8 @@ Create tab menus with `x-tab` selectable targets and `x-tabpanel` content areas,
 
 The plugin works by automatically creating an Alpine `x-data` value called `tabs`, which uses the `x-tab` values to show the selected panel and hide the others.
 
+Wrap the buttons in an element with `role="tablist"` to opt into the full accessibility pattern — the plugin then adds `role="tab"`, roving focus, and arrow-key navigation, and the wrapper picks up the [tab bar styling](/docs/elements/forms) with a sliding selected background.
+
 ---
 
 ## Shared Buttons
@@ -85,7 +87,7 @@ A tab button can show multiple panels simultaneously by using class names instea
 
 ## Multiple Tab Groups
 
-By default, `x-tabpanel` content is part of the same tab group on the page. For additional independent groups, give each group's content a shared value, e.g. `x-tabpanel="settings"`. This works the same as the `name` attribute for radio buttons.
+By default, `x-tabpanel` content is part of the same tab group on the page. For additional independent groups, give each group's content a shared value, e.g. `x-tabpanel="settings"`. This works the same as the `name` attribute for radio buttons. Keep the `x-tab` target names unique between groups — buttons match panels by `id` or `class` anywhere on the page, so groups reusing the same target names control each other.
 
 <div x-code-group>
 
@@ -93,21 +95,21 @@ By default, `x-tabpanel` content is part of the same tab group on the page. For 
 <div class="col gap-2">
     <small>Tab group A</small>
     <div class="row gap-2">
-        <button x-tab="first">First</button>
-        <button x-tab="second">Second</button>
+        <button x-tab="first-a">First</button>
+        <button x-tab="second-a">Second</button>
     </div>
-    <div class="first" x-tabpanel="a">A. First content</div>
-    <div class="second" x-tabpanel="a">A. Second content</div>
+    <div class="first-a" x-tabpanel="a">A. First content</div>
+    <div class="second-a" x-tabpanel="a">A. Second content</div>
 </div>
 
 <div class="col gap-2">
     <small>Tab group B</small>
     <div class="row gap-2">
-        <button x-tab="first">First</button>
-        <button x-tab="second">Second</button>
+        <button x-tab="first-b">First</button>
+        <button x-tab="second-b">Second</button>
     </div>
-    <div class="first" x-tabpanel="b">B. First content</div>
-    <div class="second" x-tabpanel="b">B. Second content</div>
+    <div class="first-b" x-tabpanel="b">B. First content</div>
+    <div class="second-b" x-tabpanel="b">B. Second content</div>
 </div>
 ```
 
@@ -130,6 +132,52 @@ By default, `x-tabpanel` content is part of the same tab group on the page. For 
     </div>
     <div class="first-b" x-tabpanel="group-b">B. First content</div>
     <div class="second-b" x-tabpanel="group-b">B. Second content</div>
+</div>
+:::
+
+</div>
+
+---
+
+## Groups
+
+Wrap tab buttons in a [group wrapper](/docs/elements/forms) to style the set as one control. `role="group"` connects the buttons flush with shared borders. `role="tablist"` makes a tab bar with a background that slides behind the selected tab, and opts into the full ARIA tabs pattern with arrow-key navigation.
+
+<div x-code-group>
+
+```html copy
+<div role="group">
+    <button x-tab="metrics">Metrics</button>
+    <button x-tab="reports">Reports</button>
+</div>
+<div class="metrics" x-tabpanel="grouped">Metrics content</div>
+<div class="reports" x-tabpanel="grouped">Reports content</div>
+
+<div role="tablist">
+    <button x-tab="daily">Daily</button>
+    <button x-tab="weekly">Weekly</button>
+</div>
+<div class="daily" x-tabpanel="bar">Daily content</div>
+<div class="weekly" x-tabpanel="bar">Weekly content</div>
+```
+
+::: frame row-wrap gap-12 items-center
+<div class="col gap-2">
+    <div role="group">
+        <button x-tab="metrics">Metrics</button>
+        <button x-tab="reports">Reports</button>
+    </div>
+    <div class="metrics" x-tabpanel="grouped">Metrics content</div>
+    <div class="reports" x-tabpanel="grouped">Reports content</div>
+</div>
+
+<div class="col gap-2">
+    <div role="tablist">
+        <button x-tab="daily">Daily</button>
+        <button x-tab="weekly">Weekly</button>
+    </div>
+    <div class="daily" x-tabpanel="bar">Daily content</div>
+    <div class="weekly" x-tabpanel="bar">Weekly content</div>
 </div>
 :::
 

@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -23,56 +23,15 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.js" data-version="0.5.123"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
-
-  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
-       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
-       manifest.json and simulates popup purchases — no real charges, and
-       redirect clicks report their destination instead of navigating.
-       Inert until the pinned mnfst version ships the payments plugin. -->
-  <script>
-    (function () {
-      let credits = 42, plan = 'pro';
-      const realFetch = window.fetch.bind(window);
-      window.fetch = async (url, opts) => {
-        const u = String(url);
-        if (u.indexOf('https://fn.test/pay') === 0) {
-          const body = JSON.parse(opts.body);
-          if (body.context && body.context.preferMode === 'overlay') {
-            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
-          }
-          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
-        }
-        if (u.indexOf('https://fn.test/state') === 0) {
-          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
-        }
-        return realFetch(url, opts);
-      };
-      document.addEventListener('alpine:init', () => {
-        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
-        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
-        window.ManifestPaymentsAdapters.register('mockpay', {
-          supportsOverlay: true,
-          async open({ params }) {
-            if (params && params.ref === 'credits-1000') credits += 1000;
-            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
-            return { status: 'complete' };
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
-       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
 <meta property="og:title" content="Accordions — Manifest"><meta property="og:description" content="Collapsible content panels that expand on demand."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/elements/accordions"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Accordions — Manifest"><meta property="twitter:description" content="Collapsible content panels that expand on demand."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Accordions — Manifest","description":"Collapsible content panels that expand on demand.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/elements/accordions"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Elements","item":"https://manifestx.dev/docs/elements"},{"@type":"ListItem","position":4,"name":"Accordions","item":"https://manifestx.dev/docs/elements/accordions"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
@@ -701,7 +660,7 @@
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="accordions">Accordions</h1><p>Collapsible content panels that expand on demand.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Accordion styles are included in Manifest CSS or a standalone stylesheet, both referencing <a href="/docs/styles/theme">theme</a> variables.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
 
 <pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span> /&gt;</span></code></pre>
 <pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.accordion.css"</span> /&gt;</span></code></pre>

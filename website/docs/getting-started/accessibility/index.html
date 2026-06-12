@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -23,56 +23,15 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.js" data-version="0.5.123"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
-
-  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
-       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
-       manifest.json and simulates popup purchases — no real charges, and
-       redirect clicks report their destination instead of navigating.
-       Inert until the pinned mnfst version ships the payments plugin. -->
-  <script>
-    (function () {
-      let credits = 42, plan = 'pro';
-      const realFetch = window.fetch.bind(window);
-      window.fetch = async (url, opts) => {
-        const u = String(url);
-        if (u.indexOf('https://fn.test/pay') === 0) {
-          const body = JSON.parse(opts.body);
-          if (body.context && body.context.preferMode === 'overlay') {
-            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
-          }
-          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
-        }
-        if (u.indexOf('https://fn.test/state') === 0) {
-          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
-        }
-        return realFetch(url, opts);
-      };
-      document.addEventListener('alpine:init', () => {
-        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
-        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
-        window.ManifestPaymentsAdapters.register('mockpay', {
-          supportsOverlay: true,
-          async open({ params }) {
-            if (params && params.ref === 'credits-1000') credits += 1000;
-            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
-            return { status: 'complete' };
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
-       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
 <meta property="og:title" content="Accessibility — Manifest"><meta property="og:description" content="Allow your project to support all audiences."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/getting-started/accessibility"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Accessibility — Manifest"><meta property="twitter:description" content="Allow your project to support all audiences."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Accessibility — Manifest","description":"Allow your project to support all audiences.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/getting-started/accessibility"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Getting Started","item":"https://manifestx.dev/docs/getting-started"},{"@type":"ListItem","position":4,"name":"Accessibility","item":"https://manifestx.dev/docs/getting-started/accessibility"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">

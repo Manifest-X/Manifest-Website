@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -23,56 +23,15 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.js" data-version="0.5.123"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
-
-  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
-       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
-       manifest.json and simulates popup purchases — no real charges, and
-       redirect clicks report their destination instead of navigating.
-       Inert until the pinned mnfst version ships the payments plugin. -->
-  <script>
-    (function () {
-      let credits = 42, plan = 'pro';
-      const realFetch = window.fetch.bind(window);
-      window.fetch = async (url, opts) => {
-        const u = String(url);
-        if (u.indexOf('https://fn.test/pay') === 0) {
-          const body = JSON.parse(opts.body);
-          if (body.context && body.context.preferMode === 'overlay') {
-            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
-          }
-          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
-        }
-        if (u.indexOf('https://fn.test/state') === 0) {
-          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
-        }
-        return realFetch(url, opts);
-      };
-      document.addEventListener('alpine:init', () => {
-        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
-        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
-        window.ManifestPaymentsAdapters.register('mockpay', {
-          supportsOverlay: true,
-          async open({ params }) {
-            if (params && params.ref === 'credits-1000') credits += 1000;
-            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
-            return { status: 'complete' };
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
-       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
 <meta property="og:title" content="Localization — Manifest"><meta property="og:description" content="Localize your project to different languages and regions."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/localization"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Localization — Manifest"><meta property="twitter:description" content="Localize your project to different languages and regions."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Localization — Manifest","description":"Localize your project to different languages and regions.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/core-plugins/localization"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Localization","item":"https://manifestx.dev/docs/core-plugins/localization"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
@@ -703,7 +662,7 @@
 <h2 id="overview">Overview</h2><p>The localization plugin provides automatic language detection, URL-based locale switching, and seamless integration with <a href="/docs/core-plugins/local-data">local data</a> for multilingual content.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Localization is included in <code>manifest.js</code> with all core plugins, or can be selectively loaded. <code>manifest.json</code> is required to register translation files as data sources.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
@@ -723,7 +682,7 @@
 <hr>
 <h2 id="create-locale-files">Create Locale Files</h2><p>You can organize your translations using JSON, YAML, or CSV files. Choose the format that best fits your workflow:</p>
 <h3 id="csv">CSV</h3><p>CSV files offer flexible organization options for translations. You can store all languages and topics in a single CSV file, or across multiple.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="features.csv-(all)-tab-0" aria-selected="true" tabindex="0">features.csv (all)</button><button type="button" role="tab" id="features-euro.csv-tab-1" aria-selected="false" tabindex="-1">features-euro.csv</button><button type="button" role="tab" id="features-asian.csv-tab-2" aria-selected="false" tabindex="-1">features-asian.csv</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="features.csv-(all)-tab-0" aria-selected="true" tabindex="0">features.csv (all)</button><button type="button" role="tab" id="features-euro.csv-tab-1" aria-selected="false" tabindex="-1">features-euro.csv</button><button type="button" role="tab" id="features-asian.csv-tab-2" aria-selected="false" tabindex="-1">features-asian.csv</button></div></header>
 
 <pre x-code="csv" name="features.csv (all)" data-code-block-built="yes" aria-label="features.csv (all)" role="tabpanel" data-code-processed="yes" id="features.csv-(all)-panel-0" aria-labelledby="features.csv-(all)-tab-0"><code data-highlighted="yes" class="hljs language-undefined">key,en,fr,ar,zh
 features.title,Features,Caractéristiques,الميزات,功能
@@ -747,7 +706,7 @@ features.performance.description,闪电般的加载速度,稲妻のように速�
 <p>Each CSV file can contain one or more language columns.</p>
 <hr>
 <h3 id="json-yaml">JSON &amp; YAML</h3><p>Create language-specific JSON or YAML files for your content, named and located however you like:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="features.en.yaml-tab-0" aria-selected="true" tabindex="0">features.en.yaml</button><button type="button" role="tab" id="features.fr.yaml-tab-1" aria-selected="false" tabindex="-1">features.fr.yaml</button><button type="button" role="tab" id="features.ar.yaml-tab-2" aria-selected="false" tabindex="-1">features.ar.yaml</button><button type="button" role="tab" id="features.zh.yaml-tab-3" aria-selected="false" tabindex="-1">features.zh.yaml</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="features.en.yaml-tab-0" aria-selected="true" tabindex="0">features.en.yaml</button><button type="button" role="tab" id="features.fr.yaml-tab-1" aria-selected="false" tabindex="-1">features.fr.yaml</button><button type="button" role="tab" id="features.ar.yaml-tab-2" aria-selected="false" tabindex="-1">features.ar.yaml</button><button type="button" role="tab" id="features.zh.yaml-tab-3" aria-selected="false" tabindex="-1">features.zh.yaml</button></div></header>
 
 <pre x-code="yaml" name="features.en.yaml" data-code-block-built="yes" aria-label="features.en.yaml" role="tabpanel" data-code-processed="yes" id="features.en.yaml-panel-0" aria-labelledby="features.en.yaml-tab-0"><code class="hljs language-yaml" data-highlighted="yes"><span class="hljs-attr">features:</span>
   <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"Fast Performance"</span>
@@ -785,7 +744,7 @@ features.performance.description,闪电般的加载速度,稲妻のように速�
 <li>Register your localized sources in the project's <code>manifest.json</code>.</li>
 <li>Set the default locale in <code>index.html</code> using <code>lang</code> attribute in the <code>&lt;html&gt;</code> tag.</li>
 </ol>
-<pre x-code-group="" lines="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-(csv)-tab-0" aria-selected="true" tabindex="0">manifest.json (CSV)</button><button type="button" role="tab" id="manifest.json-(json-&amp;-yaml)-tab-1" aria-selected="false" tabindex="-1">manifest.json (JSON &amp; YAML)</button><button type="button" role="tab" id="index.html-tab-2" aria-selected="false" tabindex="-1">index.html</button></div></header>
+<pre x-code-group="" lines="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-(csv)-tab-0" aria-selected="true" tabindex="0">manifest.json (CSV)</button><button type="button" role="tab" id="manifest.json-(json-&amp;-yaml)-tab-1" aria-selected="false" tabindex="-1">manifest.json (JSON &amp; YAML)</button><button type="button" role="tab" id="index.html-tab-2" aria-selected="false" tabindex="-1">index.html</button></div></header>
 
 <pre x-code="json" name="manifest.json (CSV)" lines="" data-code-block-built="yes" aria-label="manifest.json (CSV)" role="tabpanel" data-code-processed="yes" id="manifest.json-(csv)-panel-0" aria-labelledby="manifest.json-(csv)-tab-0"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
@@ -842,7 +801,7 @@ features.performance.description,闪电般的加载速度,稲妻のように速�
 <li><code>property</code> — object property or array name</li>
 <li><code>subProperty</code> — nested property (optional at any level)</li>
 </ul>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="features.csv-tab-1" aria-selected="false" tabindex="-1">features.csv</button><button type="button" role="tab" id="manifest.json-tab-2" aria-selected="false" tabindex="-1">manifest.json</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="features.csv-tab-1" aria-selected="false" tabindex="-1">features.csv</button><button type="button" role="tab" id="manifest.json-tab-2" aria-selected="false" tabindex="-1">manifest.json</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"feature in $x.features.content"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>&gt;</span>

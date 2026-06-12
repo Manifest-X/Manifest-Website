@@ -462,6 +462,32 @@ The `even` utility class makes all form elements an equal width.
 
 </div>
 
+A wrapper with `role="tablist"` instead becomes a tab bar. Mark the active button (or `<a role="button">`) with the `selected` class — or `aria-selected="true"` / `aria-current` — and a highlighted background slides behind the active item.
+
+<div x-code-group>
+
+```html lines copy
+<div role="tablist" x-data="{ tab: 1 }">
+    <button :class="tab === 1 && 'selected'" @click="tab = 1">Item 1</button>
+    <button :class="tab === 2 && 'selected'" @click="tab = 2">Item 2</button>
+    <button :class="tab === 3 && 'selected'" @click="tab = 3">Item 3</button>
+</div>
+```
+
+::: frame
+<div role="tablist" x-data="{ tab: 1 }">
+    <button :class="tab === 1 && 'selected'" @click="tab = 1">Item 1</button>
+    <button :class="tab === 2 && 'selected'" @click="tab = 2">Item 2</button>
+    <button :class="tab === 3 && 'selected'" @click="tab = 3">Item 3</button>
+</div>
+:::
+
+</div>
+
+[Tab](/docs/elements/tabs) buttons sync `aria-selected` automatically, so adding `role="tablist"` to a wrapper of `x-tab` buttons gets this styling with no further markup.
+
+Button [utility classes](/docs/elements/buttons#utilities) like `transparent`, `outlined`, `sm`, and `lg`, also apply at the wrapper level, styling the whole control as one.
+
 ---
 
 ## Validation
@@ -537,6 +563,7 @@ Forms inherit styling from their child elements ([buttons](/docs/elements/button
 | `label > data` | Inlines the label text horizontally with the control |
 | `[role="group"]` | Horizontal row of form elements with shared borders |
 | `[role="group"].even` | Equal-width siblings inside a group |
+| `[role="tablist"]` | Tab bar with a background that slides behind the `selected` item |
 
 ### Customization
 

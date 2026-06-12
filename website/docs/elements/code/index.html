@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -23,56 +23,15 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.js" data-version="0.5.123"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
-
-  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
-       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
-       manifest.json and simulates popup purchases — no real charges, and
-       redirect clicks report their destination instead of navigating.
-       Inert until the pinned mnfst version ships the payments plugin. -->
-  <script>
-    (function () {
-      let credits = 42, plan = 'pro';
-      const realFetch = window.fetch.bind(window);
-      window.fetch = async (url, opts) => {
-        const u = String(url);
-        if (u.indexOf('https://fn.test/pay') === 0) {
-          const body = JSON.parse(opts.body);
-          if (body.context && body.context.preferMode === 'overlay') {
-            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
-          }
-          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
-        }
-        if (u.indexOf('https://fn.test/state') === 0) {
-          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
-        }
-        return realFetch(url, opts);
-      };
-      document.addEventListener('alpine:init', () => {
-        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
-        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
-        window.ManifestPaymentsAdapters.register('mockpay', {
-          supportsOverlay: true,
-          async open({ params }) {
-            if (params && params.ref === 'credits-1000') credits += 1000;
-            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
-            return { status: 'complete' };
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
-       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
 <meta property="og:title" content="Code — Manifest"><meta property="og:description" content="Syntax-highlighted code elements using standard HTML, with numerous configurable options."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/elements/code"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Code — Manifest"><meta property="twitter:description" content="Syntax-highlighted code elements using standard HTML, with numerous configurable options."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Code — Manifest","description":"Syntax-highlighted code elements using standard HTML, with numerous configurable options.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/elements/code"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Elements","item":"https://manifestx.dev/docs/elements"},{"@type":"ListItem","position":4,"name":"Code","item":"https://manifestx.dev/docs/elements/code"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
@@ -702,7 +661,7 @@
 <hr>
 <h2 id="setup">Setup</h2><p>Code block styles ship as a separate stylesheet (independent of <code>manifest.css</code>) and reference <a href="/docs/styles/theme">theme</a> variables.</p>
 <p>Code block functionality is included in <code>manifest.js</code> with all core plugins, or it can be loaded selectively.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Code block styles --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.min.css"</span> /&gt;</span>
@@ -720,7 +679,7 @@
 <p>The plugin loads <a href="https://highlightjs.org">highlight.js</a> on demand the first time an element with an <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-code</code> attribute scrolls into view. The code snippet's language may be auto-detected, or can be explicitly set with a value like <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-code="html"</code> or <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-code="javascript"</code>.</p>
 <hr>
 <h2 id="inline-code">Inline Code</h2><p>Add an <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-code</code> attribute to <code>&lt;code&gt;</code>, <code>&lt;span&gt;</code>, or other inline elements for syntax highlighting. They can also be given click-to-copy functionality.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="markdown-tab-1" aria-selected="false" tabindex="-1">Markdown</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="markdown-tab-1" aria-selected="false" tabindex="-1">Markdown</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>If at first you don’t succeed, just <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">x-code</span>=<span class="hljs-string">"html"</span> <span class="hljs-attr">copy</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">del</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">del</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> and pretend it never happened.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
 <pre x-code="markdown" name="Markdown" data-code-block-built="yes" aria-label="Markdown" role="tabpanel" data-code-processed="yes" id="markdown-panel-1" aria-labelledby="markdown-tab-1" style="display: none"><code class="hljs language-markdown" data-highlighted="yes">If at first you don’t succeed, just <span class="hljs-code">`&lt;del&gt;&lt;/del&gt;`</span>{copy} and pretend it never happened.</code></pre>
@@ -758,7 +717,7 @@
 <hr>
 <h2 id="code-blocks">Code Blocks</h2><p>Add <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-code</code> to any block text element to apply syntax highlighting.</p>
 <p>Use a <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">&lt;pre x-code&gt;</code> element to visualize the same line breaks and indents as the written snippet. In markdown files, fenced code blocks (<code>```</code>) are automatically compiled to <code>&lt;pre x-code&gt;</code>, with every character of the body landing in the rendered output unchanged. See the <a href="/docs/core-plugins/markdown">markdown plugin</a> for the fence info-string syntax.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="markdown-tab-1" aria-selected="false" tabindex="-1">Markdown</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="markdown-tab-1" aria-selected="false" tabindex="-1">Markdown</button></div></header>
 
 <pre x-code="html" name="HTML" copy="" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-code</span>=<span class="hljs-string">"javascript"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Demo"</span> <span class="hljs-attr">lines</span> <span class="hljs-attr">copy</span>&gt;</span>
 function hello() {
@@ -818,7 +777,7 @@ function hello() {
 </tbody></table>
 <hr>
 <h3 id="collapse">Collapse</h3><p>Long blocks can be capped to a preview length with a toggle below. Use <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">collapse</code> without a value for a default 20 lines, or <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">collapse="#"</code> to set the threshold. Blocks shorter than the threshold render normally with no toggle.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="markdown-tab-1" aria-selected="false" tabindex="-1">Markdown</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="markdown-tab-1" aria-selected="false" tabindex="-1">Markdown</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-code</span>=<span class="hljs-string">"javascript"</span> <span class="hljs-attr">collapse</span>=<span class="hljs-string">"5"</span>&gt;</span>
 // …
@@ -851,11 +810,11 @@ function hello() {
 
 <p>The CodeJar instance is exposed on the element as <code>pre._codeJar</code>, and a <code>code:editor-ready</code> event fires once it's mounted. This lets you integrate the editor with Alpine state, custom commands, or external save logic.</p>
 <pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-code</span>=<span class="hljs-string">"javascript"</span> <span class="hljs-attr">edit</span> <span class="hljs-attr">x-ref</span>=<span class="hljs-string">"editor"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
-  <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">'[x-ref=editor]'</span>).<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'code:editor-ready'</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
-    e.<span class="hljs-property">detail</span>.<span class="hljs-property">editor</span>.<span class="hljs-title function_">onUpdate</span>(<span class="hljs-function"><span class="hljs-params">code</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'user typed:'</span>, code));
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>
+  document.querySelector('[x-ref=editor]').addEventListener('code:editor-ready', (e) =&gt; {
+    e.detail.editor.onUpdate(code =&gt; console.log('user typed:', code));
   });
-</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <hr>
 <h3 id="html-source">HTML Source</h3><p>When rendered HTML on the page is a snippet's source of truth, link a code block to it with <code>from="#id"</code>. The block reads the referenced element's <code>innerHTML</code> as its source, so you only write the example once.</p>
 <aside class="frame col gap-4"><pre x-code="html" from="#counter-demo" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ n: 0 }"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"n++"</span>&gt;</span>Clicked <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"n"</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> times<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
@@ -873,11 +832,11 @@ function hello() {
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p>In markdown, to render a demo and show its source in one go, add the <code>demo</code> modifier to the <a href="/docs/core-plugins/markdown#frames">frame</a> fence. The plugin emits both the live frame contents and a sibling <code>&lt;pre x-code="html" copy&gt;</code> showing the same source.</p>
 <pre x-code="markdown" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-markdown" data-highlighted="yes">::: frame demo
-<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"primary"</span>&gt;</span></span>Click me<span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+&lt;button class="primary"&gt;Click me&lt;/button&gt;
 :::</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <hr>
 <h2 id="tab-groups">Tab Groups</h2><p>Group multiple panels into a tabbed interface with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-code-group</code> on any wrapper element (<code>&lt;pre&gt;</code>, <code>&lt;div&gt;</code>, <code>&lt;section&gt;</code>, etc.). The plugin normalizes the wrapper to a <code>&lt;pre&gt;</code> at process time so the same CSS targets both standalone and grouped blocks. This tab group block is a rendered example of its own snippets:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="markdown-tab-1" aria-selected="false" tabindex="-1">Markdown</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="markdown-tab-1" aria-selected="false" tabindex="-1">Markdown</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-code-group</span> <span class="hljs-attr">copy</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-code</span>=<span class="hljs-string">"html"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"HTML"</span>&gt;</span>…<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
@@ -898,7 +857,7 @@ function hello() {
 
 <p>Direct children with a <code>name</code> attribute become tab panels. Children without <code>name</code> are always-visible ambient content.</p>
 <p>The <code>lines</code>, <code>copy</code>, <code>edit</code>, and <code>collapse</code> attributes can be set on the wrapper for panels that don't set them themselves. This avoids repeating the same feature across every tab:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="markdown-tab-1" aria-selected="false" tabindex="-1">Markdown</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="markdown-tab-1" aria-selected="false" tabindex="-1">Markdown</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-code-group</span> <span class="hljs-attr">lines</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-code</span>=<span class="hljs-string">"html"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"HTML"</span>&gt;</span>…<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>            <span class="hljs-comment">&lt;!-- inherits lines --&gt;</span>
@@ -923,7 +882,7 @@ function hello() {
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <h3 id="visual-tabs">Visual Tabs</h3><p>Similar to <a href="#html-source">HTML Source</a> above, content can be visualized within a code block using <code>&lt;aside class="frame"&gt;</code> as unique panels.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="markdown-tab-1" aria-selected="false" tabindex="-1">Markdown</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="markdown-tab-1" aria-selected="false" tabindex="-1">Markdown</button></div></header>
 
 <pre x-code="html" name="HTML" copy="" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-code-group</span>&gt;</span>
 

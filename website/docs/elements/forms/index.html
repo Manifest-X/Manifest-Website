@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -23,56 +23,15 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.js" data-version="0.5.123"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
-
-  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
-       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
-       manifest.json and simulates popup purchases — no real charges, and
-       redirect clicks report their destination instead of navigating.
-       Inert until the pinned mnfst version ships the payments plugin. -->
-  <script>
-    (function () {
-      let credits = 42, plan = 'pro';
-      const realFetch = window.fetch.bind(window);
-      window.fetch = async (url, opts) => {
-        const u = String(url);
-        if (u.indexOf('https://fn.test/pay') === 0) {
-          const body = JSON.parse(opts.body);
-          if (body.context && body.context.preferMode === 'overlay') {
-            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
-          }
-          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
-        }
-        if (u.indexOf('https://fn.test/state') === 0) {
-          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
-        }
-        return realFetch(url, opts);
-      };
-      document.addEventListener('alpine:init', () => {
-        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
-        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
-        window.ManifestPaymentsAdapters.register('mockpay', {
-          supportsOverlay: true,
-          async open({ params }) {
-            if (params && params.ref === 'credits-1000') credits += 1000;
-            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
-            return { status: 'complete' };
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
-       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
 <meta property="og:title" content="Forms — Manifest"><meta property="og:description" content="Structured input layouts with built-in validation."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/elements/forms"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Forms — Manifest"><meta property="twitter:description" content="Structured input layouts with built-in validation."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Forms — Manifest","description":"Structured input layouts with built-in validation.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/elements/forms"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Elements","item":"https://manifestx.dev/docs/elements"},{"@type":"ListItem","position":4,"name":"Forms","item":"https://manifestx.dev/docs/elements/forms"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
@@ -701,7 +660,7 @@
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="forms">Forms</h1><p>Structured input layouts with built-in validation.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Form styles are included in Manifest CSS or a standalone stylesheet, both referencing <a href="/docs/styles/theme">theme</a> variables.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
 
 <pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span> /&gt;</span></code></pre>
 <pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.form.css"</span> /&gt;</span></code></pre>
@@ -1088,6 +1047,23 @@
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
+<p>A wrapper with <code>role="tablist"</code> instead becomes a tab bar. Mark the active button (or <code>&lt;a role="button"&gt;</code>) with the <code>selected</code> class — or <code>aria-selected="true"</code> / <code>aria-current</code> — and a highlighted background slides behind the active item.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" lines="" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"tablist"</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ tab: 1 }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"tab === 1 &amp;&amp; 'selected'"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"tab = 1"</span>&gt;</span>Item 1<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"tab === 2 &amp;&amp; 'selected'"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"tab = 2"</span>&gt;</span>Item 2<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"tab === 3 &amp;&amp; 'selected'"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"tab = 3"</span>&gt;</span>Item 3<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div role="tablist" x-data="{ tab: 1 }">
+    <button :class="tab === 1 &amp;&amp; 'selected'" @click="tab = 1" class="selected" data-hydrate-id="h2">Item 1</button>
+    <button :class="tab === 2 &amp;&amp; 'selected'" @click="tab = 2" class="" data-hydrate-id="h3">Item 2</button>
+    <button :class="tab === 3 &amp;&amp; 'selected'" @click="tab = 3" class="" data-hydrate-id="h4">Item 3</button>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p><a href="/docs/elements/tabs">Tab</a> buttons sync <code>aria-selected</code> automatically, so adding <code>role="tablist"</code> to a wrapper of <code>x-tab</code> buttons gets this styling with no further markup.</p>
+<p>Button <a href="/docs/elements/buttons#utilities">utility classes</a> like <code>transparent</code>, <code>outlined</code>, <code>sm</code>, and <code>lg</code>, also apply at the wrapper level, styling the whole control as one.</p>
 <hr>
 <h2 id="validation">Validation</h2><p>Native HTML5 attributes like <code>required</code>, <code>type="email"</code>, <code>pattern</code>, <code>minlength</code>, and <code>maxlength</code> trigger the browser's built-in form validation on submit. Custom CSS or Tailwind pseudo-class variants can be used to style valid and invalid states without Javascript. Block the form's own validation messages with <code>novalidate</code>.</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
@@ -1209,6 +1185,10 @@
 <td><code>[role="group"].even</code></td>
 <td>Equal-width siblings inside a group</td>
 </tr>
+<tr>
+<td><code>[role="tablist"]</code></td>
+<td>Tab bar with a background that slides behind the <code>selected</code> item</td>
+</tr>
 </tbody></table>
 <h3 id="customization">Customization</h3><p>Target any of the selectors above with custom CSS.</p>
 <pre x-code="css" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-tag">form</span> {
@@ -1247,9 +1227,9 @@
 
           <!-- Color mode -->
           <div role="group" class="outlined rounded-full">
-            <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" data-hydrate-id="h2"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></g></svg></button>
+            <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" data-hydrate-id="h5"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></g></svg></button>
             <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></button>
-            <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" data-hydrate-id="h3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></button>
+            <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" data-hydrate-id="h6"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></button>
 
           </div>
         </div>
@@ -1279,5 +1259,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full"}},{"id":"h3","attrs":{"class":"sm ghost rounded-e-full"}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":null}},{"id":"h3","attrs":{"class":null}},{"id":"h4","attrs":{"class":null}},{"id":"h5","attrs":{"class":"sm rounded-s-full"}},{"id":"h6","attrs":{"class":"sm ghost rounded-e-full"}}]</script>
 </body></html>

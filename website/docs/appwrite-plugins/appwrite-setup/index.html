@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -23,56 +23,15 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.js" data-version="0.5.123"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
-
-  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
-       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
-       manifest.json and simulates popup purchases — no real charges, and
-       redirect clicks report their destination instead of navigating.
-       Inert until the pinned mnfst version ships the payments plugin. -->
-  <script>
-    (function () {
-      let credits = 42, plan = 'pro';
-      const realFetch = window.fetch.bind(window);
-      window.fetch = async (url, opts) => {
-        const u = String(url);
-        if (u.indexOf('https://fn.test/pay') === 0) {
-          const body = JSON.parse(opts.body);
-          if (body.context && body.context.preferMode === 'overlay') {
-            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
-          }
-          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
-        }
-        if (u.indexOf('https://fn.test/state') === 0) {
-          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
-        }
-        return realFetch(url, opts);
-      };
-      document.addEventListener('alpine:init', () => {
-        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
-        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
-        window.ManifestPaymentsAdapters.register('mockpay', {
-          supportsOverlay: true,
-          async open({ params }) {
-            if (params && params.ref === 'credits-1000') credits += 1000;
-            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
-            return { status: 'complete' };
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
-       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
 <meta property="og:title" content="Appwrite Setup — Manifest"><meta property="og:description" content="Use Appwrite to turn Manifest projects into production-ready applications."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/appwrite-plugins/appwrite-setup"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Appwrite Setup — Manifest"><meta property="twitter:description" content="Use Appwrite to turn Manifest projects into production-ready applications."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Appwrite Setup — Manifest","description":"Use Appwrite to turn Manifest projects into production-ready applications.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/appwrite-plugins/appwrite-setup"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Appwrite Plugins","item":"https://manifestx.dev/docs/appwrite-plugins"},{"@type":"ListItem","position":4,"name":"Appwrite Setup","item":"https://manifestx.dev/docs/appwrite-plugins/appwrite-setup"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
@@ -713,7 +672,7 @@
 <hr>
 <h2 id="manifest-setup">Manifest Setup</h2><h3 id="scripts">Scripts</h3><p>Add the Appwrite SDK and <code>manifest.js</code> scripts to the HTML head. <code>manifest.json</code> is also required to register Appwrite credentials and data sources.</p>
 <p>Appwrite plugins can be loaded in two ways: explicitly via the <code>data-plugins</code> attribute, or automatically when Appwrite credentials are declared in <code>manifest.json</code>. When auto-detected, only the relevant Appwrite plugins are loaded based on the credentials and data sources present. The supporting core data plugin will also be loaded whether or not it's declared.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" copy="" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
@@ -733,7 +692,7 @@
 <hr>
 <h3 id="manifest-json">manifest.json</h3><p>Add the Appwrite project credentials detailed <a href="#credentials">above</a> to <code>manifest.json</code> under an <code>appwrite</code> property. These are inherited by any other objects in the manifest that reference Appwrite, like database or storage sources.</p>
 <p>The Project ID and API Endpoint are public and safe to commit — Appwrite enforces access via its own project-level permissions. The Dev Key is sensitive (it bypasses rate limits) and must not be committed. Reference it via <code>${APPWRITE_DEV_KEY}</code> and put the value in a gitignored <code>.env</code> file. The same <code>${VAR}</code> syntax is also supported for the Project ID and API Endpoint if you prefer to keep them out of source.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id=".env-tab-1" aria-selected="false" tabindex="-1">.env</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id=".env-tab-1" aria-selected="false" tabindex="-1">.env</button></div></header>
 
 <pre x-code="json" name="manifest.json" copy="" data-code-block-built="yes" aria-label="manifest.json" role="tabpanel" data-code-processed="yes" id="manifest.json-panel-0" aria-labelledby="manifest.json-tab-0"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"appwrite"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>

@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -23,63 +23,22 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.js" data-version="0.5.123"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
-
-  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
-       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
-       manifest.json and simulates popup purchases — no real charges, and
-       redirect clicks report their destination instead of navigating.
-       Inert until the pinned mnfst version ships the payments plugin. -->
-  <script>
-    (function () {
-      let credits = 42, plan = 'pro';
-      const realFetch = window.fetch.bind(window);
-      window.fetch = async (url, opts) => {
-        const u = String(url);
-        if (u.indexOf('https://fn.test/pay') === 0) {
-          const body = JSON.parse(opts.body);
-          if (body.context && body.context.preferMode === 'overlay') {
-            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
-          }
-          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
-        }
-        if (u.indexOf('https://fn.test/state') === 0) {
-          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
-        }
-        return realFetch(url, opts);
-      };
-      document.addEventListener('alpine:init', () => {
-        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
-        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
-        window.ManifestPaymentsAdapters.register('mockpay', {
-          supportsOverlay: true,
-          async open({ params }) {
-            if (params && params.ref === 'credits-1000') credits += 1000;
-            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
-            return { status: 'complete' };
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
-       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
-<script data-route-head="div-tcx01a56m">
+<script data-route-head="div-f4jgkby3m">
         console.log('🔄 Component article script loaded');
-    </script><script data-route-head="div-sj9gjlnk2">
+    </script><script data-route-head="div-pjtak0l09">
         console.log('🔄 Component article script loaded');
-    </script><script data-route-head="div-uc7ehgk8v">
+    </script><script data-route-head="div-5s9plw13u">
         console.log('🔄 Component article script loaded');
     </script><meta property="og:title" content="Components — Manifest"><meta property="og:description" content="Reusable HTML templates with route-bound rendering."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/components"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Components — Manifest"><meta property="twitter:description" content="Reusable HTML templates with route-bound rendering."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Components — Manifest","description":"Reusable HTML templates with route-bound rendering.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/core-plugins/components"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Components","item":"https://manifestx.dev/docs/core-plugins/components"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/core-plugins/components">
@@ -711,7 +670,7 @@
 </aside>
 <hr>
 <h2 id="setup">Setup</h2><p>Components are included in <code>manifest.js</code> with all core plugins, or can be selectively loaded. <code>manifest.json</code> is required to register components.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
@@ -746,7 +705,7 @@
 <p>All components are rendered as a descendant of the <code>index.html</code> body, and cannot contain their own <code>&lt;body&gt;</code> tag.</p>
 <hr>
 <h3 id="nesting">Nesting</h3><p>Provided that a circular reference is not created, components can be recursively nested—such as a logo placed in a header component.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="header.html-tab-0" aria-selected="true" tabindex="0">header.html</button><button type="button" role="tab" id="logo.html-tab-1" aria-selected="false" tabindex="-1">logo.html</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="header.html-tab-0" aria-selected="true" tabindex="0">header.html</button><button type="button" role="tab" id="logo.html-tab-1" aria-selected="false" tabindex="-1">logo.html</button></div></header>
 
 <pre x-code="html" name="header.html" data-code-block-built="yes" aria-label="header.html" role="tabpanel" data-code-processed="yes" id="header.html-panel-0" aria-labelledby="header.html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">header</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row items-center gap-2 w-full p-4 bg-page border-b border-line"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">x-logo</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-logo</span>&gt;</span>
@@ -846,7 +805,7 @@
 <hr>
 <h2 id="customizing-instances">Customizing Instances</h2><p>In some scenarios it's useful to diverge an instance's content or styles from the source component, such as modifying the header for a special page.</p>
 <h3 id="isolate-the-instance">Isolate the Instance</h3><p>If the instance is used globally like the earlier header example, we'll need to create an isolated version that can be modified without affecting the others. The <a href="/docs/core-plugins/router">x-route</a> attribute can be used to show or hide instances based on the current route.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="index.html-tab-0" aria-selected="true" tabindex="0">index.html</button><button type="button" role="tab" id="special-page.html-tab-1" aria-selected="false" tabindex="-1">special-page.html</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="index.html-tab-0" aria-selected="true" tabindex="0">index.html</button><button type="button" role="tab" id="special-page.html-tab-1" aria-selected="false" tabindex="-1">special-page.html</button></div></header>
 
 <pre x-code="html" name="index.html" data-code-block-built="yes" aria-label="index.html" role="tabpanel" data-code-processed="yes" id="index.html-panel-0" aria-labelledby="index.html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
 
@@ -942,7 +901,7 @@
 </aside>
 <hr>
 <h3 id="injecting-dynamic-data">Injecting Dynamic Data</h3><p>Instances can also receive their content from a <a href="/docs/core-plugins/local-data">data source</a>. Simply make the custom attributes dynamic with a leading <code>:</code> and turn the value into a data source reference using <code>$x</code>. In this example, we're referencing an arbitrary <code>content.json</code> source:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="instance-tab-0" aria-selected="true" tabindex="0">Instance</button><button type="button" role="tab" id="content.json-tab-1" aria-selected="false" tabindex="-1">content.json</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="instance-tab-0" aria-selected="true" tabindex="0">Instance</button><button type="button" role="tab" id="content.json-tab-1" aria-selected="false" tabindex="-1">content.json</button></div></header>
 
 <pre x-code="html" name="Instance" data-code-block-built="yes" aria-label="Instance" role="tabpanel" data-code-processed="yes" id="instance-panel-0" aria-labelledby="instance-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">x-header</span>
     <span class="hljs-attr">:colors</span>=<span class="hljs-string">"$x.content.specialHeader.colors"</span>
@@ -965,7 +924,7 @@
 
 <hr>
 <h2 id="embedding-in-other-sites">Embedding in Other Sites</h2><p>A Manifest component can be embedded in any HTML like a WordPress site, Shopify storefront, static landing page, or an app built in another framework. Host the component files on a CDN or your own server, declare them in the project's <code>manifest.json</code>, then load Manifest's script and drop in the component tags.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="any-host-page.html-tab-0" aria-selected="true" tabindex="0">any-host-page.html</button><button type="button" role="tab" id="manifest.json-tab-1" aria-selected="false" tabindex="-1">manifest.json</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="any-host-page.html-tab-0" aria-selected="true" tabindex="0">any-host-page.html</button><button type="button" role="tab" id="manifest.json-tab-1" aria-selected="false" tabindex="-1">manifest.json</button></div></header>
 
 <pre x-code="html" name="any-host-page.html" copy="" data-code-block-built="yes" aria-label="any-host-page.html" role="tabpanel" data-code-processed="yes" id="any-host-page.html-panel-0" aria-labelledby="any-host-page.html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- manifest.json with Manifest-framework fields added --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>

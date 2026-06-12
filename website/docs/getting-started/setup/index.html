@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -23,56 +23,15 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.js" data-version="0.5.123"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
-
-  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
-       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
-       manifest.json and simulates popup purchases — no real charges, and
-       redirect clicks report their destination instead of navigating.
-       Inert until the pinned mnfst version ships the payments plugin. -->
-  <script>
-    (function () {
-      let credits = 42, plan = 'pro';
-      const realFetch = window.fetch.bind(window);
-      window.fetch = async (url, opts) => {
-        const u = String(url);
-        if (u.indexOf('https://fn.test/pay') === 0) {
-          const body = JSON.parse(opts.body);
-          if (body.context && body.context.preferMode === 'overlay') {
-            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
-          }
-          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
-        }
-        if (u.indexOf('https://fn.test/state') === 0) {
-          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
-        }
-        return realFetch(url, opts);
-      };
-      document.addEventListener('alpine:init', () => {
-        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
-        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
-        window.ManifestPaymentsAdapters.register('mockpay', {
-          supportsOverlay: true,
-          async open({ params }) {
-            if (params && params.ref === 'credits-1000') credits += 1000;
-            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
-            return { status: 'complete' };
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
-       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
 <meta property="og:title" content="Setup — Manifest"><meta property="og:description" content="Get Manifest with CDN links or copied from GitHub."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/getting-started/setup"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Setup — Manifest"><meta property="twitter:description" content="Get Manifest with CDN links or copied from GitHub."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Setup — Manifest","description":"Get Manifest with CDN links or copied from GitHub.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/getting-started/setup"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Getting Started","item":"https://manifestx.dev/docs/getting-started"},{"@type":"ListItem","position":4,"name":"Setup","item":"https://manifestx.dev/docs/getting-started/setup"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
@@ -753,7 +712,7 @@
 <p>If your project is not a downloadable web app, and does not include HTML components or data sources, <code>manifest.json</code> can be omitted.</p>
 <hr>
 <h2 id="script">Script</h2><p><code>manifest.js</code> dynamically loads <a href="https://alpinejs.dev" target="_blank">Alpine JS</a> and our plugins to make your project functional. Add the <code>&lt;script&gt;</code> tag anywhere in the HTML head or body (within <code>index.html</code> if <a href="/docs/core-plugins/router">routing</a>).</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="select-plugins-tab-1" aria-selected="false" tabindex="-1">Select Plugins</button><button type="button" role="tab" id="omit-plugins-tab-2" aria-selected="false" tabindex="-1">Omit Plugins</button><button type="button" role="tab" id="include-tailwind-css-tab-3" aria-selected="false" tabindex="-1">Include Tailwind CSS</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="select-plugins-tab-1" aria-selected="false" tabindex="-1">Select Plugins</button><button type="button" role="tab" id="omit-plugins-tab-2" aria-selected="false" tabindex="-1">Omit Plugins</button><button type="button" role="tab" id="include-tailwind-css-tab-3" aria-selected="false" tabindex="-1">Include Tailwind CSS</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 <pre x-code="html" name="Select Plugins" data-code-block-built="yes" aria-label="Select Plugins" role="tabpanel" data-code-processed="yes" id="select-plugins-panel-1" aria-labelledby="select-plugins-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Load only specified plugins --&gt;</span>
@@ -780,7 +739,7 @@
 <h2 id="styles">Styles</h2><p>Stylesheets are divided by UI category, available individually or bundled in <code>manifest.css</code>.</p>
 <p>A separate <code>manifest.theme.css</code> can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification. It maintains CSS variables referenced by the other sheets if present, centralizing your project's visual identity. See <a href="/docs/styles/theme">theme</a> for more.</p>
 <p>Add the desired Manifest CSS files to the HTML head (within <code>index.html</code> if <a href="/docs/core-plugins/router">routing</a>). </p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="bundled-(47kb)-tab-0" aria-selected="true" tabindex="0">Bundled (47kb)</button><button type="button" role="tab" id="individual-(&lt;10kb)-tab-1" aria-selected="false" tabindex="-1">Individual (&lt;10kb)</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="bundled-(47kb)-tab-0" aria-selected="true" tabindex="0">Bundled (47kb)</button><button type="button" role="tab" id="individual-(&lt;10kb)-tab-1" aria-selected="false" tabindex="-1">Individual (&lt;10kb)</button></div></header>
 
 <pre x-code="html" name="Bundled (47kb)" data-code-block-built="yes" aria-label="Bundled (47kb)" role="tabpanel" data-code-processed="yes" id="bundled-(47kb)-panel-0" aria-labelledby="bundled-(47kb)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.theme.css"</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span>&gt;</span></code></pre>

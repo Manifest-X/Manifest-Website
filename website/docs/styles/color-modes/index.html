@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -23,56 +23,15 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.js" data-version="0.5.123"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
-
-  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
-       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
-       manifest.json and simulates popup purchases — no real charges, and
-       redirect clicks report their destination instead of navigating.
-       Inert until the pinned mnfst version ships the payments plugin. -->
-  <script>
-    (function () {
-      let credits = 42, plan = 'pro';
-      const realFetch = window.fetch.bind(window);
-      window.fetch = async (url, opts) => {
-        const u = String(url);
-        if (u.indexOf('https://fn.test/pay') === 0) {
-          const body = JSON.parse(opts.body);
-          if (body.context && body.context.preferMode === 'overlay') {
-            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
-          }
-          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
-        }
-        if (u.indexOf('https://fn.test/state') === 0) {
-          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
-        }
-        return realFetch(url, opts);
-      };
-      document.addEventListener('alpine:init', () => {
-        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
-        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
-        window.ManifestPaymentsAdapters.register('mockpay', {
-          supportsOverlay: true,
-          async open({ params }) {
-            if (params && params.ref === 'credits-1000') credits += 1000;
-            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
-            return { status: 'complete' };
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
-       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
 <meta property="og:title" content="Color Modes — Manifest"><meta property="og:description" content="Apply light, dark, and system color modes."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/styles/color-modes"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Color Modes — Manifest"><meta property="twitter:description" content="Apply light, dark, and system color modes."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Color Modes — Manifest","description":"Apply light, dark, and system color modes.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/styles/color-modes"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Styles","item":"https://manifestx.dev/docs/styles"},{"@type":"ListItem","position":4,"name":"Color Modes","item":"https://manifestx.dev/docs/styles/color-modes"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
@@ -703,7 +662,7 @@
 <h2 id="overview">Overview</h2><p>Manifest applies color modes by toggling a <code>dark</code> class on the <code>&lt;html&gt;</code> tag. Any CSS variables or styles scoped under <code>.dark</code> override their light defaults. Users can switch modes through your UI with the <code>x-color</code> directive, or follow their operating system's preference.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Color modes are included in <code>manifest.js</code> with all core plugins, or can be selectively loaded.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 <pre x-code="html" name="Selective" data-code-block-built="yes" aria-label="Selective" role="tabpanel" data-code-processed="yes" id="selective-panel-1" aria-labelledby="selective-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
@@ -712,7 +671,7 @@
 
 <hr>
 <h2 id="modes">Modes</h2><h3 id="light-default">Light/Default</h3><p>The light mode is the default, picking up all variable and static colors not in a <code>.dark</code> declaration.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="variable-tab-0" aria-selected="true" tabindex="0">Variable</button><button type="button" role="tab" id="static-tab-1" aria-selected="false" tabindex="-1">Static</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="variable-tab-0" aria-selected="true" tabindex="0">Variable</button><button type="button" role="tab" id="static-tab-1" aria-selected="false" tabindex="-1">Static</button></div></header>
 
 <pre x-code="css" name="Variable" data-code-block-built="yes" aria-label="Variable" role="tabpanel" data-code-processed="yes" id="variable-panel-0" aria-labelledby="variable-tab-0"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-pseudo">:root</span> {
     <span class="hljs-attr">--color-page</span>: <span class="hljs-number">#efefef</span>;
@@ -729,7 +688,7 @@
 <p>See <a href="/docs/styles/theme">theme</a> styles for Manifest's suggested color variables.</p>
 <hr>
 <h3 id="dark">Dark</h3><p>Use the <code>.dark</code> class to override light/default color values. The plugin operates by adding or removing the <code>dark</code> class in the <code>&lt;html&gt;</code> tag.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="variable-tab-0" aria-selected="true" tabindex="0">Variable</button><button type="button" role="tab" id="static-tab-1" aria-selected="false" tabindex="-1">Static</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="variable-tab-0" aria-selected="true" tabindex="0">Variable</button><button type="button" role="tab" id="static-tab-1" aria-selected="false" tabindex="-1">Static</button></div></header>
 
 <pre x-code="css" name="Variable" data-code-block-built="yes" aria-label="Variable" role="tabpanel" data-code-processed="yes" id="variable-panel-0" aria-labelledby="variable-tab-0"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-comment">/* Light mode */</span>
 <span class="hljs-selector-pseudo">:root</span> {
@@ -790,8 +749,8 @@
 <hr>
 <h3 id="dropdown">Dropdown</h3><pre x-code-group="" data-group-processed="yes" role="region">
 
-<aside class="frame"><button x-dropdown.bottom="color-mode-preview" aria-label="Color Mode Menu" x-icon="$color.current === 'light' ? 'lucide:sun' : $color.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'" popovertarget="color-mode-preview" aria-haspopup="menu" aria-controls="color-mode-preview" aria-expanded="false" style="anchor-name: --dropdown-u85il02w7" data-hydrate-id="h2"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></button>
-<menu popover="" id="color-mode-preview" class="min-w-0" role="menu" style="position-anchor: --dropdown-u85il02w7">
+<aside class="frame"><button x-dropdown.bottom="color-mode-preview" aria-label="Color Mode Menu" x-icon="$color.current === 'light' ? 'lucide:sun' : $color.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'" popovertarget="color-mode-preview" aria-haspopup="menu" aria-controls="color-mode-preview" aria-expanded="false" style="anchor-name: --dropdown-txhdouirf" data-hydrate-id="h2"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></button>
+<menu popover="" id="color-mode-preview" class="min-w-0" role="menu" style="position-anchor: --dropdown-txhdouirf">
     <li x-color="'light'" :disabled="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light" data-icon-processed="true" role="menuitem" data-hydrate-id="h3"><span x-icon="lucide:sun"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></g></svg></span></li>
     <li x-color="'dark'" :disabled="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark" data-icon-processed="true" role="menuitem" data-hydrate-id="h4"><span x-icon="lucide:moon"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span></li>
     <li x-color="'system'" :disabled="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="System" disabled="disabled" data-icon-processed="true" role="menuitem" data-hydrate-id="h5"><span x-icon="lucide:sun-moon"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></span></li>

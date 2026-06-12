@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -23,56 +23,15 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.js" data-version="0.5.123"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
-
-  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
-       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
-       manifest.json and simulates popup purchases — no real charges, and
-       redirect clicks report their destination instead of navigating.
-       Inert until the pinned mnfst version ships the payments plugin. -->
-  <script>
-    (function () {
-      let credits = 42, plan = 'pro';
-      const realFetch = window.fetch.bind(window);
-      window.fetch = async (url, opts) => {
-        const u = String(url);
-        if (u.indexOf('https://fn.test/pay') === 0) {
-          const body = JSON.parse(opts.body);
-          if (body.context && body.context.preferMode === 'overlay') {
-            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
-          }
-          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
-        }
-        if (u.indexOf('https://fn.test/state') === 0) {
-          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
-        }
-        return realFetch(url, opts);
-      };
-      document.addEventListener('alpine:init', () => {
-        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
-        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
-        window.ManifestPaymentsAdapters.register('mockpay', {
-          supportsOverlay: true,
-          async open({ params }) {
-            if (params && params.ref === 'credits-1000') credits += 1000;
-            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
-            return { status: 'complete' };
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
-       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
 <meta property="og:title" content="Teams — Manifest"><meta property="og:description" content="Allow users to work together within your application."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/appwrite-plugins/teams"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Teams — Manifest"><meta property="twitter:description" content="Allow users to work together within your application."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Teams — Manifest","description":"Allow users to work together within your application.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/appwrite-plugins/teams"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Appwrite Plugins","item":"https://manifestx.dev/docs/appwrite-plugins"},{"@type":"ListItem","position":4,"name":"Teams","item":"https://manifestx.dev/docs/appwrite-plugins/teams"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
@@ -731,7 +690,7 @@
 </ul>
 <p>The user is the owner and only initial member of each default team. Depending on their role and permissions, the team can be modified and other members invited.</p>
 <p>Every user can generate custom teams, view all teams, and manage them with the respective permissions. Existing teams can also be duplicated, optionally cloning their members and roles to spin up a new workspace from a known configuration.</p>
-<pre x-code-group="" numbers="" copy="" collapse="10" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="create-team-tab-0" aria-selected="true" tabindex="0">Create Team</button><button type="button" role="tab" id="list-&amp;-manage-teams-tab-1" aria-selected="false" tabindex="-1">List &amp; Manage Teams</button></div></header>
+<pre x-code-group="" numbers="" copy="" collapse="10" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="create-team-tab-0" aria-selected="true" tabindex="0">Create Team</button><button type="button" role="tab" id="list-&amp;-manage-teams-tab-1" aria-selected="false" tabindex="-1">List &amp; Manage Teams</button></div></header>
 
 <pre x-code="html" name="Create Team" collapse="10" data-code-block-built="yes" aria-label="Create Team" role="tabpanel" data-code-processed="yes" id="create-team-panel-0" aria-labelledby="create-team-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Team name input --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Team name"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Team name"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"$auth.newTeamName"</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"$auth.isCreatingTeam()"</span> /&gt;</span>
@@ -881,7 +840,7 @@
 </tbody></table>
 <p>Custom permissions can be added to the array with unique names, such as <code>manageBilling</code>. These can be used in your frontend Alpine directives like <code>x-show="$auth.hasTeamPermission('manageBilling')"</code>. Users can also generate custom permissions if you expose the inputs to do so.</p>
 <p>The <code>creatorRole</code> is the role assigned to the team creator. It must reference a role defined in the <code>permanent</code> or <code>template</code> roles. If the <code>creatorRole</code> property is absent or does not reference a defined role, the creator is assigned all default permissions.</p>
-<pre x-code-group="" numbers="" copy="" collapse="10" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="create-custom-role-tab-0" aria-selected="true" tabindex="0">Create Custom Role</button><button type="button" role="tab" id="manage-roles-tab-1" aria-selected="false" tabindex="-1">Manage Roles</button></div></header>
+<pre x-code-group="" numbers="" copy="" collapse="10" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="create-custom-role-tab-0" aria-selected="true" tabindex="0">Create Custom Role</button><button type="button" role="tab" id="manage-roles-tab-1" aria-selected="false" tabindex="-1">Manage Roles</button></div></header>
 
 <pre x-code="html" name="Create Custom Role" collapse="10" data-code-block-built="yes" aria-label="Create Custom Role" role="tabpanel" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes" id="create-custom-role-panel-0" aria-labelledby="create-custom-role-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Role name input --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Role name"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Role name"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"$auth.newRoleName"</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"!$auth.canManageRoles() || $auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()"</span> /&gt;</span>
@@ -987,7 +946,7 @@
 <hr>
 <h2 id="members">Members</h2><p>Team members can be invited, updated, and removed, subject to the respective user permissions.</p>
 <p>In your Appwrite project under <b>Auth</b> &gt; <b>Settings</b>, ensure <b>Team invites</b> is toggled on. Invitation emails can be customized under <b>Auth</b> &gt; <b>Settings</b> &gt; <b>Invite user</b>.</p>
-<pre x-code-group="" numbers="" copy="" collapse="10" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="invite-members-tab-0" aria-selected="true" tabindex="0">Invite Members</button><button type="button" role="tab" id="list-&amp;-manage-members-tab-1" aria-selected="false" tabindex="-1">List &amp; Manage Members</button></div></header>
+<pre x-code-group="" numbers="" copy="" collapse="10" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="invite-members-tab-0" aria-selected="true" tabindex="0">Invite Members</button><button type="button" role="tab" id="list-&amp;-manage-members-tab-1" aria-selected="false" tabindex="-1">List &amp; Manage Members</button></div></header>
 
 <pre x-code="html" name="Invite Members" collapse="10" data-code-block-built="yes" aria-label="Invite Members" role="tabpanel" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes" id="invite-members-panel-0" aria-labelledby="invite-members-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Email input --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Email"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Email to invite"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"$auth.inviteEmail"</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"$auth.isActionDisabled('inviteMembers')"</span> <span class="hljs-attr">required</span> /&gt;</span>

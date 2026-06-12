@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -23,56 +23,15 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.js" data-version="0.5.123"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
-
-  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
-       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
-       manifest.json and simulates popup purchases — no real charges, and
-       redirect clicks report their destination instead of navigating.
-       Inert until the pinned mnfst version ships the payments plugin. -->
-  <script>
-    (function () {
-      let credits = 42, plan = 'pro';
-      const realFetch = window.fetch.bind(window);
-      window.fetch = async (url, opts) => {
-        const u = String(url);
-        if (u.indexOf('https://fn.test/pay') === 0) {
-          const body = JSON.parse(opts.body);
-          if (body.context && body.context.preferMode === 'overlay') {
-            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
-          }
-          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
-        }
-        if (u.indexOf('https://fn.test/state') === 0) {
-          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
-        }
-        return realFetch(url, opts);
-      };
-      document.addEventListener('alpine:init', () => {
-        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
-        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
-        window.ManifestPaymentsAdapters.register('mockpay', {
-          supportsOverlay: true,
-          async open({ params }) {
-            if (params && params.ref === 'credits-1000') credits += 1000;
-            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
-            return { status: 'complete' };
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
-       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
 <meta property="og:title" content="Local Data — Manifest"><meta property="og:description" content="Load YAML, JSON, or CSV files as reactive data sources."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/local-data"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Local Data — Manifest"><meta property="twitter:description" content="Load YAML, JSON, or CSV files as reactive data sources."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Local Data — Manifest","description":"Load YAML, JSON, or CSV files as reactive data sources.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/core-plugins/local-data"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Local Data","item":"https://manifestx.dev/docs/core-plugins/local-data"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
@@ -705,7 +664,7 @@
 </aside>
 <hr>
 <h2 id="setup">Setup</h2><p>Data support is included in <code>manifest.js</code> with all core plugins, or can be selectively loaded. <code>manifest.json</code> is required to register data sources.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
@@ -722,7 +681,7 @@
 
 <hr>
 <h2 id="create-local-data">Create Local Data</h2><p>Create CSV, JSON, or YAML files anywhere in your project directory. Each format works identically—choose based on preference.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="contact.csv-(key-value)-tab-0" aria-selected="true" tabindex="0">contact.csv (key-value)</button><button type="button" role="tab" id="team.csv-(tabular)-tab-1" aria-selected="false" tabindex="-1">team.csv (tabular)</button><button type="button" role="tab" id="team.json-tab-2" aria-selected="false" tabindex="-1">team.json</button><button type="button" role="tab" id="team.yaml-tab-3" aria-selected="false" tabindex="-1">team.yaml</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="contact.csv-(key-value)-tab-0" aria-selected="true" tabindex="0">contact.csv (key-value)</button><button type="button" role="tab" id="team.csv-(tabular)-tab-1" aria-selected="false" tabindex="-1">team.csv (tabular)</button><button type="button" role="tab" id="team.json-tab-2" aria-selected="false" tabindex="-1">team.json</button><button type="button" role="tab" id="team.yaml-tab-3" aria-selected="false" tabindex="-1">team.yaml</button></div></header>
 
 <pre x-code="csv" name="contact.csv (key-value)" data-code-block-built="yes" aria-label="contact.csv (key-value)" role="tabpanel" data-code-processed="yes" id="contact.csv-(key-value)-panel-0" aria-labelledby="contact.csv-(key-value)-tab-0"><code data-highlighted="yes" class="hljs language-undefined">key,value
 headquarters.name,Empire Headquarters
@@ -788,28 +747,28 @@ contact.phone,+1-555-0100</code></pre>
     <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p>For headers, query params, or response shaping, use an object with git-ignored <code>.env</code> variable references as needed:</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id=".env-tab-1" aria-selected="false" tabindex="-1">.env</button></div></header>
+<div x-code-group="" data-group-processed="yes">
 
-<pre x-code="json" name="manifest.json" copy="" data-code-block-built="yes" aria-label="manifest.json" role="tabpanel" data-code-processed="yes" id="manifest.json-panel-0" aria-labelledby="manifest.json-tab-0"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-        <span class="hljs-attr">"products"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-            <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"${API_BASE_URL}/products"</span><span class="hljs-punctuation">,</span>
-            <span class="hljs-attr">"headers"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-                <span class="hljs-attr">"Authorization"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Bearer ${API_TOKEN}"</span><span class="hljs-punctuation">,</span>
-                <span class="hljs-attr">"Content-Type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"application/json"</span>
-            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-            <span class="hljs-attr">"params"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-                <span class="hljs-attr">"limit"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">50</span><span class="hljs-punctuation">,</span>
-                <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"active"</span>
-            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-            <span class="hljs-attr">"transform"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"data.products"</span><span class="hljs-punctuation">,</span>
-            <span class="hljs-attr">"defaultValue"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span>
-        <span class="hljs-punctuation">}</span>
-    <span class="hljs-punctuation">}</span>
-<span class="hljs-punctuation">}</span></code></pre>
-<pre x-code="env" name=".env" copy="" data-code-block-built="yes" aria-label=".env" role="tabpanel" data-code-processed="yes" id=".env-panel-1" aria-labelledby=".env-tab-1" style="display: none"><code data-highlighted="yes" class="hljs language-javascript"><span class="hljs-variable constant_">API_BASE_URL</span>=<span class="hljs-attr">https</span>:<span class="hljs-comment">//api.example.com</span>
-<span class="hljs-variable constant_">API_TOKEN</span>=sk_1234567890abcdef</code></pre>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<pre x-code="json" name="manifest.json" copy=""><code>{
+    "data": {
+        "products": {
+            "url": "${API_BASE_URL}/products",
+            "headers": {
+                "Authorization": "Bearer ${API_TOKEN}",
+                "Content-Type": "application/json"
+            },
+            "params": {
+                "limit": 50,
+                "status": "active"
+            },
+            "transform": "data.products",
+            "defaultValue": []
+        }
+    }
+}</code></pre>
+<pre x-code="env" name=".env" copy=""><code>API_BASE_URL=https://api.example.com
+API_TOKEN=sk_1234567890abcdef</code></pre>
+</div>
 
 <table>
 <thead>
@@ -871,7 +830,7 @@ contact.phone,+1-555-0100</code></pre>
 </ul>
 <hr>
 <h3 id="text">Text</h3><p>Use Alpine's <a href="https://alpinejs.dev/directives/text" target="_blank">x-text</a> to display text from data sources:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="team.json-tab-1" aria-selected="false" tabindex="-1">team.json</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="team.json-tab-1" aria-selected="false" tabindex="-1">team.json</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">h4</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.team.managers[0].name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.team.managers[0].role"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
@@ -891,7 +850,7 @@ contact.phone,+1-555-0100</code></pre>
 
 <hr>
 <h3 id="html">HTML</h3><p>Use Alpine's <a href="https://alpinejs.dev/directives/html" target="_blank">x-html</a> for content that includes HTML tags:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="team.json-tab-1" aria-selected="false" tabindex="-1">team.json</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="team.json-tab-1" aria-selected="false" tabindex="-1">team.json</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-html</span>=<span class="hljs-string">"$x.team.managers[0].content"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <pre x-code="json" name="team.json" data-code-block-built="yes" aria-label="team.json" role="tabpanel" data-code-processed="yes" id="team.json-panel-1" aria-labelledby="team.json-tab-1" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
@@ -1039,7 +998,7 @@ contact.phone,+1-555-0100</code></pre>
 </ul>
 <p>For cloud-hosted data with backend filtering, see <a href="/docs/appwrite-plugins/databases">Appwrite databases</a>.</p>
 <h4 id="query-syntax">Query Syntax</h4><p>Each query is an array with the format <code>['method', 'attribute', 'value']</code>. Use these patterns:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="patterns-tab-0" aria-selected="true" tabindex="0">Patterns</button><button type="button" role="tab" id="example-tab-1" aria-selected="false" tabindex="-1">Example</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="patterns-tab-0" aria-selected="true" tabindex="0">Patterns</button><button type="button" role="tab" id="example-tab-1" aria-selected="false" tabindex="-1">Example</button></div></header>
 
 <pre x-code="javascript" name="Patterns" copy="" data-code-block-built="yes" aria-label="Patterns" role="tabpanel" data-code-processed="yes" id="patterns-panel-0" aria-labelledby="patterns-tab-0"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-comment">// Comparison operators</span>
 [<span class="hljs-string">'equal'</span>, <span class="hljs-string">'role'</span>, <span class="hljs-string">'Lord'</span>]                    <span class="hljs-comment">// role equals 'Lord'</span>
@@ -1090,7 +1049,7 @@ contact.phone,+1-555-0100</code></pre>
 
 <hr>
 <h3 id="route-specific">Route-Specific</h3><p>Use the <code>$route()</code> function to find content based on the current URL path like <strong>/team/darth-vader</strong>:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="team.json-tab-1" aria-selected="false" tabindex="-1">team.json</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="team.json-tab-1" aria-selected="false" tabindex="-1">team.json</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.team.managers.$route('path').name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.team.managers.$route('path').role"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>

@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -23,56 +23,15 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.123/lib/manifest.min.js" data-version="0.5.123"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
-
-  <!-- Payments docs demo provider ("mockpay"). Powers the live frames in
-       /docs/core-plugins/payments: stubs the fn.test endpoints declared in
-       manifest.json and simulates popup purchases — no real charges, and
-       redirect clicks report their destination instead of navigating.
-       Inert until the pinned mnfst version ships the payments plugin. -->
-  <script>
-    (function () {
-      let credits = 42, plan = 'pro';
-      const realFetch = window.fetch.bind(window);
-      window.fetch = async (url, opts) => {
-        const u = String(url);
-        if (u.indexOf('https://fn.test/pay') === 0) {
-          const body = JSON.parse(opts.body);
-          if (body.context && body.context.preferMode === 'overlay') {
-            return { ok: true, json: async () => ({ mode: 'overlay', provider: 'mockpay', params: { ref: body.ref } }) };
-          }
-          return { ok: true, json: async () => ({ mode: 'redirect', url: 'https://demo.checkout/' + body.ref }) };
-        }
-        if (u.indexOf('https://fn.test/state') === 0) {
-          return { ok: true, json: async () => ({ plan, status: 'active', credits }) };
-        }
-        return realFetch(url, opts);
-      };
-      document.addEventListener('alpine:init', () => {
-        if (!window.ManifestPayments || !window.ManifestPaymentsAdapters) return; // plugin not in this mnfst version yet
-        window.ManifestPayments.setNavigate((u) => console.info('[payments demo] would navigate to:', u));
-        window.ManifestPaymentsAdapters.register('mockpay', {
-          supportsOverlay: true,
-          async open({ params }) {
-            if (params && params.ref === 'credits-1000') credits += 1000;
-            if (params && params.ref === 'pro-upgrade') { plan = 'pro'; credits += 1000; }
-            return { status: 'complete' };
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- Cloudflare Web Analytics — lets us report manifestx.dev traffic (incl.
-       badge clickthroughs, attributed by referrer) alongside hosted-site stats. -->
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
 <meta property="og:title" content="Users — Manifest"><meta property="og:description" content="Enable guests and user accounts in your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/appwrite-plugins/users"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Users — Manifest"><meta property="twitter:description" content="Enable guests and user accounts in your project."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Users — Manifest","description":"Enable guests and user accounts in your project.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/appwrite-plugins/users"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Appwrite Plugins","item":"https://manifestx.dev/docs/appwrite-plugins"},{"@type":"ListItem","position":4,"name":"Users","item":"https://manifestx.dev/docs/appwrite-plugins/users"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
@@ -749,7 +708,7 @@
 </tbody></table>
 <hr>
 <h3 id="oauth">OAuth</h3><p>OAuth enables sign-in with third-party providers like Google, GitHub, and 35+ other services supported by and configured in Appwrite's <b>Auth</b> &gt; <b>Settings</b> page.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id="html-tab-1" aria-selected="false" tabindex="-1">HTML</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id="html-tab-1" aria-selected="false" tabindex="-1">HTML</button></div></header>
 
 <pre x-code="json" name="manifest.json" copy="" data-code-block-built="yes" aria-label="manifest.json" role="tabpanel" data-code-processed="yes" id="manifest.json-panel-0" aria-labelledby="manifest.json-tab-0"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"appwrite"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
@@ -784,7 +743,7 @@
 <p>The <code>$auth.loginOAuth('...')</code> method accepts provider names like <code>google</code>, <code>github</code>, and <code>discord</code>. When applicable, the user is redirected to the provider's sign-in page and gets returned when authenticated.</p>
 <hr>
 <h3 id="magic-urls">Magic URLs</h3><p>Magic URLs provide passwordless authentication via email. Users enter their email address and get emailed a sign-in link that's valid for one hour, which can be used once.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id="html-tab-1" aria-selected="false" tabindex="-1">HTML</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id="html-tab-1" aria-selected="false" tabindex="-1">HTML</button></div></header>
 
 <pre x-code="json" name="manifest.json" copy="" data-code-block-built="yes" aria-label="manifest.json" role="tabpanel" data-code-processed="yes" id="manifest.json-panel-0" aria-labelledby="manifest.json-tab-0"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"appwrite"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
@@ -841,7 +800,7 @@
 <br>
 
 <h4 id="manual-guest-sessions">Manual Guest Sessions</h4><p>When <code>guest-manual</code> is enabled, visitors must explicitly choose to continue as a guest.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id="html-tab-1" aria-selected="false" tabindex="-1">HTML</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id="html-tab-1" aria-selected="false" tabindex="-1">HTML</button></div></header>
 
 <pre x-code="json" name="manifest.json" copy="" data-code-block-built="yes" aria-label="manifest.json" role="tabpanel" data-code-processed="yes" id="manifest.json-panel-0" aria-labelledby="manifest.json-tab-0"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"appwrite"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
@@ -869,7 +828,7 @@
 
 <hr>
 <h2 id="combined-methods">Combined Methods</h2><p>Sign-in methods can be stacked to provide optionality to users.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id="html-tab-1" aria-selected="false" tabindex="-1">HTML</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id="html-tab-1" aria-selected="false" tabindex="-1">HTML</button></div></header>
 
 <pre x-code="json" name="manifest.json" copy="" data-code-block-built="yes" aria-label="manifest.json" role="tabpanel" data-code-processed="yes" id="manifest.json-panel-0" aria-labelledby="manifest.json-tab-0"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"appwrite"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
