@@ -30,6 +30,7 @@
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
   <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
+  <script src="../../../scripts/payments-demo.js"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
@@ -747,28 +748,28 @@ contact.phone,+1-555-0100</code></pre>
     <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p>For headers, query params, or response shaping, use an object with git-ignored <code>.env</code> variable references as needed:</p>
-<div x-code-group="" data-group-processed="yes">
+<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id=".env-tab-1" aria-selected="false" tabindex="-1">.env</button></div></header>
 
-<pre x-code="json" name="manifest.json" copy=""><code>{
-    "data": {
-        "products": {
-            "url": "${API_BASE_URL}/products",
-            "headers": {
-                "Authorization": "Bearer ${API_TOKEN}",
-                "Content-Type": "application/json"
-            },
-            "params": {
-                "limit": 50,
-                "status": "active"
-            },
-            "transform": "data.products",
-            "defaultValue": []
-        }
-    }
-}</code></pre>
-<pre x-code="env" name=".env" copy=""><code>API_BASE_URL=https://api.example.com
-API_TOKEN=sk_1234567890abcdef</code></pre>
-</div>
+<pre x-code="json" name="manifest.json" copy="" data-code-block-built="yes" aria-label="manifest.json" role="tabpanel" data-code-processed="yes" id="manifest.json-panel-0" aria-labelledby="manifest.json-tab-0"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"products"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"${API_BASE_URL}/products"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"headers"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"Authorization"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Bearer ${API_TOKEN}"</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"Content-Type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"application/json"</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"params"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"limit"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">50</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"active"</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"transform"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"data.products"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"defaultValue"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+<pre x-code="env" name=".env" copy="" data-code-block-built="yes" aria-label=".env" role="tabpanel" data-code-processed="yes" id=".env-panel-1" aria-labelledby=".env-tab-1" style="display: none"><code data-highlighted="yes" class="hljs language-javascript"><span class="hljs-variable constant_">API_BASE_URL</span>=<span class="hljs-attr">https</span>:<span class="hljs-comment">//api.example.com</span>
+<span class="hljs-variable constant_">API_TOKEN</span>=sk_1234567890abcdef</code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <table>
 <thead>

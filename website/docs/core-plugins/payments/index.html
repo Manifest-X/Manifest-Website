@@ -30,6 +30,7 @@
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
   <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
+  <script src="../../../scripts/payments-demo.js"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
@@ -774,8 +775,8 @@
     <button class="outlined" x-pay.portal="">Manage billing</button>
 </div>
 <p>
-    Plan: <b x-text="$pay.state?.plan ?? '—'">—</b> ·
-    Credits: <b x-text="$pay.state?.credits ?? '—'">—</b>
+    Plan: <b x-text="$pay.state?.plan ?? '—'">pro</b> ·
+    Credits: <b x-text="$pay.state?.credits ?? '—'">42</b>
 </p>
 <small x-show="$pay.last?.url" style="display: none">Would open: <code x-text="$pay.last?.url"></code></small></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
@@ -838,8 +839,8 @@
 <span class="hljs-keyword">const</span> workspace = req.<span class="hljs-property">query</span>?.<span class="hljs-property">workspace</span>
 <span class="hljs-keyword">const</span> e = workspace ? <span class="hljs-keyword">await</span> <span class="hljs-title function_">getEntitlement</span>(workspace) : <span class="hljs-literal">null</span>
 <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>(e ? { <span class="hljs-attr">plan</span>: e.<span class="hljs-property">plan</span>, <span class="hljs-attr">status</span>: e.<span class="hljs-property">status</span>, <span class="hljs-attr">credits</span>: e.<span class="hljs-property">credits</span> } : {})</code></pre>
-<aside class="frame col gap-2"><div x-show="$pay.state?.plan === 'pro'" style="display: none">Welcome, Pro member!</div>
-<p x-show="$pay.state?.credits &lt; 50" class="row gap-2 items-center" style="display: none">
+<aside class="frame col gap-2"><div x-show="$pay.state?.plan === 'pro'">Welcome, Pro member!</div>
+<p x-show="$pay.state?.credits &lt; 50" class="row gap-2 items-center">
     Running low — <button x-pay="'credits-1000'">top up</button>
 </p>
 <small x-show="$pay.last?.url" style="display: none">Would open: <code x-text="$pay.last?.url"></code></small></aside>

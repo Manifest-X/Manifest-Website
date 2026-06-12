@@ -30,6 +30,7 @@
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
   <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
+  <script src="../../../scripts/payments-demo.js"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
@@ -832,7 +833,7 @@ function hello() {
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p>In markdown, to render a demo and show its source in one go, add the <code>demo</code> modifier to the <a href="/docs/core-plugins/markdown#frames">frame</a> fence. The plugin emits both the live frame contents and a sibling <code>&lt;pre x-code="html" copy&gt;</code> showing the same source.</p>
 <pre x-code="markdown" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-markdown" data-highlighted="yes">::: frame demo
-&lt;button class="primary"&gt;Click me&lt;/button&gt;
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"primary"</span>&gt;</span></span>Click me<span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
 :::</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <hr>
 <h2 id="tab-groups">Tab Groups</h2><p>Group multiple panels into a tabbed interface with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-code-group</code> on any wrapper element (<code>&lt;pre&gt;</code>, <code>&lt;div&gt;</code>, <code>&lt;section&gt;</code>, etc.). The plugin normalizes the wrapper to a <code>&lt;pre&gt;</code> at process time so the same CSS targets both standalone and grouped blocks. This tab group block is a rendered example of its own snippets:</p>
