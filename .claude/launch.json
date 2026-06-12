@@ -6,6 +6,12 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["mnfst-run", "--no-open"],
       "port": 5050
+    },
+    {
+      "name": "prerendered-output",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4173", "--directory", "website"],
+      "port": 4173
     }
   ]
 }

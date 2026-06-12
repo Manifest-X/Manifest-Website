@@ -24,13 +24,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.125/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.125/lib/manifest.code.min.css">
   <link rel="stylesheet" href="/manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.124/lib/manifest.min.js" data-version="0.5.124"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.125/lib/manifest.min.js" data-version="0.5.125"></script>
   <script src="/scripts/payments-demo.js"></script>
   <script src="/scripts/hero-editor.js" defer=""></script>
   <script src="/scripts/console-message.js" defer=""></script>
@@ -530,8 +530,8 @@
     <strong>Universal Exports</strong>
 
       <!-- Locales -->
-      <button class="sm ghost ms-auto" x-dropdown="locale-menu" x-icon="lucide:globe" aria-label="Language" popovertarget="locale-menu" aria-haspopup="menu" aria-controls="locale-menu" aria-expanded="false" style="anchor-name: --dropdown-f6yxud17x" data-hydrate-id="h3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:globe" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20a14.5 14.5 0 0 0 0-20M2 12h20"></path></g></svg></button>
-      <menu popover="" id="locale-menu" class="min-w-0" role="menu" style="position-anchor: --dropdown-f6yxud17x">
+      <button class="sm ghost ms-auto" x-dropdown="locale-menu" x-icon="lucide:globe" aria-label="Language" popovertarget="locale-menu" aria-haspopup="menu" aria-controls="locale-menu" aria-expanded="false" style="anchor-name: --dropdown-dmtp3uv0x" data-hydrate-id="h3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:globe" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20a14.5 14.5 0 0 0 0-20M2 12h20"></path></g></svg></button>
+      <menu popover="" id="locale-menu" class="min-w-0" role="menu" style="position-anchor: --dropdown-dmtp3uv0x">
         <li @click="locale = 'en'" :disabled="locale === 'en'" disabled="disabled" role="menuitem" data-hydrate-id="h4">English</li>
         <li @click="locale = 'es'" :disabled="locale === 'es'" role="menuitem" data-hydrate-id="h5">Español</li>
         <li @click="locale = 'zh'" :disabled="locale === 'zh'" role="menuitem" data-hydrate-id="h6">中文</li>
@@ -955,7 +955,7 @@
   </main>
 
   <!-- Footer (visible on every route) -->
-  <footer class="px-viewport-padding pt-20 pb-10 bg-surface-2" style="view-transition-name: site-footer" x-route="/" data-order="2" data-component="footer-1">
+  <footer class="px-viewport-padding pt-20 pb-10 bg-surface-2" style="view-transition-name: site-footer" x-route="/" data-order="2">
 
   <!-- Content -->
   <nav class="col gap-4 w-content-width max-w-full mx-auto">
@@ -996,6 +996,7 @@
         <a href="/docs/core-plugins/local-data">Local data</a>
         <a href="/docs/core-plugins/localization">Localization</a>
         <a href="/docs/core-plugins/markdown">Markdown</a>
+        <a href="/docs/core-plugins/payments">Payments</a>
         <a href="/docs/core-plugins/resize">Resize</a>
         <a href="/docs/core-plugins/router">Router</a>
         <a href="/docs/core-plugins/url-parameters">URL parameters</a>
@@ -1023,19 +1024,21 @@
         <a href="/docs/styles/utilities">Utilities</a>
 
         <small class="mt-6">Elements</small>
-        <button x-dropdown="elements-menu" class="link text-sm" aria-label="Browse all HTML elements" aria-haspopup="menu" popovertarget="elements-menu" aria-controls="elements-menu" aria-expanded="false" style="anchor-name: --dropdown-cnfqngq5h" data-hydrate-id="h8">
+        <button x-dropdown="elements-menu" class="link text-sm" aria-label="Browse all HTML elements" aria-haspopup="menu" popovertarget="elements-menu" aria-controls="elements-menu" aria-expanded="false" style="anchor-name: --dropdown-90pbiti2c" data-hydrate-id="h8">
           <span>20+ HTML Elements</span>
           <span x-icon="lucide:chevron-down"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-down" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"></path></svg></span>
         </button>
-        <dialog popover="" id="elements-menu" class="col w-40 p-2 [&amp;_a]:justify-start [&amp;_a]:w-full [&amp;_a]:h-15 [&amp;_a]:ghost" role="menu" style="position-anchor: --dropdown-cnfqngq5h">
+        <dialog popover="" id="elements-menu" class="col w-40 p-2 [&amp;_a]:justify-start [&amp;_a]:w-full [&amp;_a]:h-15 [&amp;_a]:ghost" role="menu" style="position-anchor: --dropdown-90pbiti2c">
           <a role="button" href="/docs/elements/accordions"><span x-icon="lucide:list-collapse"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:list-collapse" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5h11m-11 7h11m-11 7h11M3 10l3-3l-3-3m0 16l3-3l-3-3"></path></svg></span><span>Accordions</span></a>
           <a role="button" href="/docs/elements/avatars"><span x-icon="lucide:circle-user-round"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-user-round" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M17.925 20.056a6 6 0 0 0-11.851.001"></path><circle cx="12" cy="11" r="4"></circle><circle cx="12" cy="12" r="10"></circle></g></svg></span><span>Avatars</span></a>
           <a role="button" href="/docs/elements/badges"><span x-icon="lucide:circle-star"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-star" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"></path></g></svg></span><span>Badges</span></a>
           <a role="button" href="/docs/elements/buttons"><span x-icon="lucide:square-mouse-pointer"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:square-mouse-pointer" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z"></path><path d="M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"></path></g></svg></span><span>Buttons</span></a>
+          <a role="button" href="/docs/elements/charts"><span x-icon="lucide:chart-line"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chart-line" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="m19 9l-5 5l-4-4l-3 3"></path></g></svg></span><span>Charts</span></a>
           <a role="button" href="/docs/elements/checkboxes"><span x-icon="lucide:square-check"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:square-check" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="m9 12l2 2l4-4"></path></g></svg></span><span>Checkboxes</span></a>
           <a role="button" href="/docs/elements/code"><span x-icon="lucide:code"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:code" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 18l6-6l-6-6M8 6l-6 6l6 6"></path></svg></span><span>Code Blocks</span></a>
           <a role="button" href="/docs/elements/color-pickers"><span x-icon="lucide:palette"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:palette" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 22a1 1 0 0 1 0-20a10 9 0 0 1 10 9a5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle></g></svg></span><span>Color
               Pickers</span></a>
+          <a role="button" href="/docs/elements/date-pickers"><span x-icon="lucide:calendar"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:calendar" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 2v4m8-4v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></g></svg></span><span>Date Pickers</span></a>
           <a role="button" href="/docs/elements/dialogs"><span x-icon="lucide:panel-top-dashed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:panel-top-dashed" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M14 9h1m4 0h2M3 9h2m4 0h1"></path></g></svg></span><span>Dialogs</span></a>
           <a role="button" href="/docs/elements/dividers"><span x-icon="lucide:minus"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:minus" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14"></path></svg></span><span>Dividers</span></a>
           <a role="button" href="/docs/elements/dropdowns"><span x-icon="lucide:chevron-down"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-down" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"></path></svg></span><span>Dropdowns</span></a>
