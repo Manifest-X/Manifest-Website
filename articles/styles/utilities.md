@@ -242,6 +242,89 @@ Color utilities also modify text directly or from a parent container. Utility cl
 
 ---
 
+## Visibility
+
+Show or hide elements by **viewport width**, **input device**, or **operating system**. Each condition is available two ways:
+
+- A semantic `*-only` class for the common "show here, hide elsewhere" case.
+- A matching variant (`touch:`, `mac:`, …) that applies any Manifest utility under that condition, exactly like `sm:` or `hover:` — e.g. `touch:lg`, `mac:brand`, `cursor:ghost`.
+
+### Viewport
+
+A `640px` boundary, independent of input or OS.
+
+| Class | Shows on | Tailwind Equivalent |
+|--------------|----------|-------------------|
+| `mobile-only`{copy} | Below `640px` | `sm:hidden` |
+| `desktop-only`{copy} | `640px` and up | `max-sm:hidden` |
+
+---
+
+### Input device
+
+Detected from the pointer itself, so it's correct **regardless of screen size** — a large high-res tablet is still "touch", a small desktop window is still "cursor".
+
+| Class | Variant | Shows on | Tailwind Equivalent |
+|--------------|-----------|----------|-------------------|
+| `touch-only`{copy} | `touch:`{copy} | Phones & touch tablets | `pointer-fine:hidden` |
+| `cursor-only`{copy} | `cursor:`{copy} | Mouse / trackpad devices | `pointer-coarse:hidden` |
+| `pointer-only`{copy} | `pointer:`{copy} | Any device with a precise pointer available (mouse, trackpad, or stylus) | `not-any-pointer-fine:hidden` |
+
+<div x-code-group copy>
+
+```html "HTML"
+<div class="touch-only">👆 Touch device</div>
+<div class="cursor-only">🖱️ Cursor device</div>
+<div class="pointer-only">Precise pointer available</div>
+```
+
+::: frame
+<div class="touch-only">👆 Touch device</div>
+<div class="cursor-only">🖱️ Cursor device</div>
+<div class="pointer-only">Precise pointer available</div>
+:::
+
+</div>
+
+To serve a desktop layout to tablets while excluding phones, use the viewport `desktop-only`. `pointer-only` is for when a mouse/trackpad/stylus is present, useful for hover-dependent affordances, but not the phone-vs-tablet split.
+
+---
+
+### Operating system
+
+CSS has no OS media feature, so Manifest detects the OS once on load and stamps it on the page as `html[data-os="macos|windows|linux|ios|android"]`; these classes and variants key off it.
+
+| Class | Variant | Shows on |
+|--------------|-----------|----------|
+| `mac-only`{copy} | `mac:`{copy} | macOS |
+| `windows-only`{copy} | `windows:`{copy} | Windows |
+| `linux-only`{copy} | `linux:`{copy} | Linux / ChromeOS |
+| `ios-only`{copy} | `ios:`{copy} | iOS / iPadOS |
+| `android-only`{copy} | `android:`{copy} | Android |
+| `apple-only`{copy} | `apple:`{copy} | macOS **or** iOS |
+
+To **omit** on one or two systems instead of listing all the others, use the `no-` form: `no-mac`{copy}, `no-windows`{copy}, `no-linux`{copy}, `no-ios`{copy}, `no-android`{copy}, `no-apple`{copy}.
+
+A common use is keyboard-shortcut hints — the frame below shows the right one for *your* device:
+
+<div x-code-group copy>
+
+```html "HTML"
+<kbd class="apple-only">⌘ K</kbd>
+<kbd class="no-apple">Ctrl K</kbd>
+```
+
+::: frame
+<kbd class="apple-only">⌘ K</kbd>
+<kbd class="no-apple">Ctrl K</kbd>
+:::
+
+</div>
+
+The `*-only` / `no-*` classes are for plain show/hide — combine them with other utilities as separate classes (e.g. `class="touch-only md:p-8"`). To apply a Manifest utility *under* a device or OS condition, use the variant form (`mac:brand`, `cursor:ghost`). Prefixing an `*-only` class (`sm:touch-only`) isn't supported.
+
+---
+
 ## Miscellaneous
 
 | Class | Description |
