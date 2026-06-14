@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-no-view-transitions="" dir="auto"><head>
+<html lang="en" data-no-view-transitions="" data-os="macos" dir="auto"><head>
   <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,13 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.125/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.125/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.130/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.130/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.125/lib/manifest.min.js" data-version="0.5.125"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.130/lib/manifest.min.js" data-version="0.5.130"></script>
   <script src="../../../scripts/payments-demo.js"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -1001,6 +1001,125 @@
 <div class="small">Small text style</div>
 <div class="caption">Caption style</div></aside>
 <hr>
+<h2 id="visibility">Visibility</h2><p>Show or hide elements by <strong>viewport width</strong>, <strong>input device</strong>, or <strong>operating system</strong>. Each condition is available two ways:</p>
+<ul>
+<li>A semantic <code>*-only</code> class for the common "show here, hide elsewhere" case.</li>
+<li>A matching variant (<code>touch:</code>, <code>mac:</code>, …) that applies any Manifest utility under that condition, exactly like <code>sm:</code> or <code>hover:</code> — e.g. <code>touch:lg</code>, <code>mac:brand</code>, <code>cursor:ghost</code>.</li>
+</ul>
+<h3 id="viewport">Viewport</h3><p>A <code>640px</code> boundary, independent of input or OS.</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Shows on</th>
+<th>Tailwind Equivalent</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">mobile-only</code></td>
+<td>Below <code>640px</code></td>
+<td><code>sm:hidden</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">desktop-only</code></td>
+<td><code>640px</code> and up</td>
+<td><code>max-sm:hidden</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="input-device">Input device</h3><p>Detected from the pointer itself, so it's correct <strong>regardless of screen size</strong> — a large high-res tablet is still "touch", a small desktop window is still "cursor".</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Variant</th>
+<th>Shows on</th>
+<th>Tailwind Equivalent</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">touch-only</code></td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">touch:</code></td>
+<td>Phones &amp; touch tablets</td>
+<td><code>pointer-fine:hidden</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">cursor-only</code></td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">cursor:</code></td>
+<td>Mouse / trackpad devices</td>
+<td><code>pointer-coarse:hidden</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">pointer-only</code></td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">pointer:</code></td>
+<td>Any device with a precise pointer available (mouse, trackpad, or stylus)</td>
+<td><code>not-any-pointer-fine:hidden</code></td>
+</tr>
+</tbody></table>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML"><header><div>HTML</div></header>
+
+<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"touch-only"</span>&gt;</span>👆 Touch device<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"cursor-only"</span>&gt;</span>🖱️ Cursor device<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"pointer-only"</span>&gt;</span>Precise pointer available<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div class="touch-only">👆 Touch device</div>
+<div class="cursor-only">🖱️ Cursor device</div>
+<div class="pointer-only">Precise pointer available</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>To serve a desktop layout to tablets while excluding phones, use the viewport <code>desktop-only</code>. <code>pointer-only</code> is for when a mouse/trackpad/stylus is present, useful for hover-dependent affordances, but not the phone-vs-tablet split.</p>
+<hr>
+<h3 id="operating-system">Operating system</h3><p>CSS has no OS media feature, so Manifest detects the OS once on load and stamps it on the page as <code>html[data-os="macos|windows|linux|ios|android"]</code>; these classes and variants key off it.</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Variant</th>
+<th>Shows on</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">mac-only</code></td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">mac:</code></td>
+<td>macOS</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">windows-only</code></td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">windows:</code></td>
+<td>Windows</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">linux-only</code></td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">linux:</code></td>
+<td>Linux / ChromeOS</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">ios-only</code></td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">ios:</code></td>
+<td>iOS / iPadOS</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">android-only</code></td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">android:</code></td>
+<td>Android</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">apple-only</code></td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">apple:</code></td>
+<td>macOS <strong>or</strong> iOS</td>
+</tr>
+</tbody></table>
+<p>To <strong>omit</strong> on one or two systems instead of listing all the others, use the <code>no-</code> form: <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">no-mac</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">no-windows</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">no-linux</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">no-ios</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">no-android</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">no-apple</code>.</p>
+<p>A common use is keyboard-shortcut hints — the frame below shows the right one for <em>your</em> device:</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML"><header><div>HTML</div></header>
+
+<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">kbd</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"apple-only"</span>&gt;</span>⌘ K<span class="hljs-tag">&lt;/<span class="hljs-name">kbd</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">kbd</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"no-apple"</span>&gt;</span>Ctrl K<span class="hljs-tag">&lt;/<span class="hljs-name">kbd</span>&gt;</span></code></pre>
+<aside class="frame"><kbd class="apple-only">⌘ K</kbd>
+<kbd class="no-apple">Ctrl K</kbd></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The <code>*-only</code> / <code>no-*</code> classes are for plain show/hide — combine them with other utilities as separate classes (e.g. <code>class="touch-only md:p-8"</code>). To apply a Manifest utility <em>under</em> a device or OS condition, use the variant form (<code>mac:brand</code>, <code>cursor:ghost</code>). Prefixing an <code>*-only</code> class (<code>sm:touch-only</code>) isn't supported.</p>
+<hr>
 <h2 id="miscellaneous">Miscellaneous</h2><table>
 <thead>
 <tr>
@@ -1079,9 +1198,9 @@
 
           <!-- Color mode -->
           <div role="group" class="outlined rounded-full">
-            <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" data-hydrate-id="h2"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></g></svg></button>
-            <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></button>
-            <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" data-hydrate-id="h3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></button>
+            <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h2"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></g></svg></button>
+            <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></button>
+            <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h4"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></button>
 
           </div>
         </div>
@@ -1098,7 +1217,7 @@
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#page-class">Page Class</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#layout-classes">Layout Classes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#form-elements">Form Elements</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#typography">Typography</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#miscellaneous">Miscellaneous</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#page-class">Page Class</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#layout-classes">Layout Classes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#form-elements">Form Elements</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#typography">Typography</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#visibility">Visibility</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#viewport">Viewport</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#input-device">Input device</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#operating-system">Operating system</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#miscellaneous">Miscellaneous</a></div>
 
   </div>
 
@@ -1111,5 +1230,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full"}},{"id":"h3","attrs":{"class":"sm ghost rounded-e-full"}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h3","attrs":{"type":null}},{"id":"h4","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
 </body></html>
