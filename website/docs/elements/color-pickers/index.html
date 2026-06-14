@@ -23,19 +23,27 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.130/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.130/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.132/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.132/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.130/lib/manifest.min.js" data-version="0.5.130"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.132/lib/manifest.min.js" data-version="0.5.132"></script>
   <script src="../../../scripts/payments-demo.js"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
-<meta property="og:title" content="Color Pickers — Manifest"><meta property="og:description" content="Visual color selection with Hex, RGB, HSL, and OKLCH inputs."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/elements/color-pickers"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Color Pickers — Manifest"><meta property="twitter:description" content="Visual color selection with Hex, RGB, HSL, and OKLCH inputs."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Color Pickers — Manifest","description":"Visual color selection with Hex, RGB, HSL, and OKLCH inputs.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/elements/color-pickers"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Elements","item":"https://manifestx.dev/docs/elements"},{"@type":"ListItem","position":4,"name":"Color Pickers","item":"https://manifestx.dev/docs/elements/color-pickers"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+@custom-variant cursor (@media (pointer: fine) and (hover: hover));
+@custom-variant pointer (@media (any-pointer: fine));
+@custom-variant mac (&:where([data-os="macos"] *));
+@custom-variant windows (&:where([data-os="windows"] *));
+@custom-variant linux (&:where([data-os="linux"] *));
+@custom-variant ios (&:where([data-os="ios"] *));
+@custom-variant android (&:where([data-os="android"] *));
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));</style><meta property="og:title" content="Color Pickers — Manifest"><meta property="og:description" content="Visual color selection with Hex, RGB, HSL, and OKLCH inputs."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/elements/color-pickers"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Color Pickers — Manifest"><meta property="twitter:description" content="Visual color selection with Hex, RGB, HSL, and OKLCH inputs."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Color Pickers — Manifest","description":"Visual color selection with Hex, RGB, HSL, and OKLCH inputs.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/elements/color-pickers"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Elements","item":"https://manifestx.dev/docs/elements"},{"@type":"ListItem","position":4,"name":"Color Pickers","item":"https://manifestx.dev/docs/elements/color-pickers"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/elements/color-pickers">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -695,14 +703,14 @@
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-colorpicker.swatch</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
-<aside class="frame"><button x-colorpicker.swatch="" x-dropdown="colorpicker-swatch-1" style="--color-picker-swatch: #000000; anchor-name: --dropdown-uxe9utdyc, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-uxe9utdyc" popovertarget="colorpicker-swatch-1" aria-haspopup="menu" aria-controls="colorpicker-swatch-1" aria-expanded="false" data-hydrate-id="h2"></button></aside>
+<aside class="frame"><button x-colorpicker.swatch="" x-dropdown="colorpicker-swatch-1" style="--color-picker-swatch: #000000; anchor-name: --dropdown-3sqm0fp47, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-3sqm0fp47" popovertarget="colorpicker-swatch-1" aria-haspopup="menu" aria-controls="colorpicker-swatch-1" aria-expanded="false" data-hydrate-id="h2"></button></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <h4 id="default-color">Default Color</h4><p>Set a default color with the swatch's <code>value</code> attribute — the same attribute a native <code>&lt;input type="color"&gt;</code> would carry. The value seeds the picker's initial state and the swatch's preview before any user interaction. Any valid CSS color or gradient is accepted.</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-colorpicker.swatch</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"#ff0000"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
-<aside class="frame"><button x-colorpicker.swatch="" value="#ff0000" x-dropdown="colorpicker-swatch-2" style="--color-picker-swatch: #ff0000; anchor-name: --dropdown-x8b4fczry, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-x8b4fczry" popovertarget="colorpicker-swatch-2" aria-haspopup="menu" aria-controls="colorpicker-swatch-2" aria-expanded="false" data-hydrate-id="h3"></button></aside>
+<aside class="frame"><button x-colorpicker.swatch="" value="#ff0000" x-dropdown="colorpicker-swatch-2" style="--color-picker-swatch: #ff0000; anchor-name: --dropdown-4cryasfrz, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-4cryasfrz" popovertarget="colorpicker-swatch-2" aria-haspopup="menu" aria-controls="colorpicker-swatch-2" aria-expanded="false" data-hydrate-id="h3"></button></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>For two-way reactive binding, use <code>x-model</code> instead. When both are present, <code>x-model</code> wins.</p>
@@ -714,7 +722,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"color = '#3b82f6'"</span>&gt;</span>Blue<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div class="row-wrap items-center gap-4" x-data="{ color: '#22c55e' }">
-    <button x-colorpicker.swatch="" x-model="color" value="#22c55e" data-cp-model-value="#22c55e" x-dropdown="colorpicker-swatch-3" style="--color-picker-swatch: #22c55e; anchor-name: --dropdown-wsjgdvk7y, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-wsjgdvk7y" popovertarget="colorpicker-swatch-3" aria-haspopup="menu" aria-controls="colorpicker-swatch-3" aria-expanded="false" data-hydrate-id="h4"></button>
+    <button x-colorpicker.swatch="" x-model="color" value="#22c55e" data-cp-model-value="#22c55e" x-dropdown="colorpicker-swatch-3" style="--color-picker-swatch: #22c55e; anchor-name: --dropdown-jku1rpjdu, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-jku1rpjdu" popovertarget="colorpicker-swatch-3" aria-haspopup="menu" aria-controls="colorpicker-swatch-3" aria-expanded="false" data-hydrate-id="h4"></button>
     <button @click="color = '#22c55e'">Green</button>
     <button @click="color = '#3b82f6'">Blue</button>
 </div></aside>
@@ -728,7 +736,7 @@
 <hr>
 <h3 id="applying-color">Applying Color</h3><p>To use a picker's value elsewhere, read it with the <code>$colorpicker(id)</code> magic method.</p>
 <aside class="frame text-base"><div class="row-wrap items-center gap-4" x-data="">
-    <button id="brand" x-colorpicker.swatch="" value="#3b82f6" x-dropdown="colorpicker-swatch-4" style="--color-picker-swatch: #3b82f6; anchor-name: --dropdown-iv0p82j7m, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-iv0p82j7m" popovertarget="colorpicker-swatch-4" aria-haspopup="menu" aria-controls="colorpicker-swatch-4" aria-expanded="false" data-hydrate-id="h5"></button>
+    <button id="brand" x-colorpicker.swatch="" value="#3b82f6" x-dropdown="colorpicker-swatch-4" style="--color-picker-swatch: #3b82f6; anchor-name: --dropdown-dr89vpk6n, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-dr89vpk6n" popovertarget="colorpicker-swatch-4" aria-haspopup="menu" aria-controls="colorpicker-swatch-4" aria-expanded="false" data-hydrate-id="h5"></button>
     <div class="col">
         <span class="h3" :style="`color: ${$colorpicker('brand')}`" style="color: #3b82f6">Brand Color</span>
         <span x-text="$colorpicker('brand')">#3b82f6</span>
@@ -761,8 +769,8 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"inline-picker"</span> <span class="hljs-attr">x-colorpicker</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame row-wrap gap-10"><div class="col gap-2">
 <p>Dropdown</p>
-<button x-colorpicker.swatch="dropdown-picker" x-dropdown="dropdown-picker" style="--color-picker-swatch: #000000; anchor-name: --dropdown-toji9tjmy, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-toji9tjmy" popovertarget="dropdown-picker" aria-haspopup="menu" aria-controls="dropdown-picker" aria-expanded="false" data-hydrate-id="h6"></button>
-<menu id="dropdown-picker" popover="" x-colorpicker="" role="menu" style="position-anchor: --dropdown-toji9tjmy"><div x-data="{ tab: 'solid' }">
+<button x-colorpicker.swatch="dropdown-picker" x-dropdown="dropdown-picker" style="--color-picker-swatch: #000000; anchor-name: --dropdown-2mnhrccsh, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-2mnhrccsh" popovertarget="dropdown-picker" aria-haspopup="menu" aria-controls="dropdown-picker" aria-expanded="false" data-hydrate-id="h6"></button>
+<menu id="dropdown-picker" popover="" x-colorpicker="" role="menu" style="position-anchor: --dropdown-2mnhrccsh"><div x-data="{ tab: 'solid' }">
 
             <div class="tabs-wrapper" data-cp-tabs="">
                 <button data-cp-tab="solid" data-cp-ui-label="tabs.solid" class="ghost sm selected" :class="tab === 'solid' &amp;&amp; 'selected'" @click="tab = 'solid'" x-tooltip="Solid" aria-label="Solid"><span x-icon="" class="color-icon-solid"></span></button>
@@ -781,8 +789,8 @@
                 <input type="range" x-colorpicker.set-hue="" class="hue" min="0" max="360" step="1">
                 <input type="range" x-colorpicker.set-alpha="" class="alpha" min="0" max="100" step="1" style="--color-picker-alpha: rgb(0,0,0)">
                 <div>
-                    <button x-dropdown="color-space-menu--cp-5-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-5-solid" style="anchor-name: --dropdown-lh96xmst9, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-lh96xmst9" aria-haspopup="menu" aria-controls="color-space-menu--cp-5-solid" aria-expanded="false" data-hydrate-id="h7">Hex</button>
-                    <menu popover="" id="color-space-menu--cp-5-solid" role="menu" style="position-anchor: --dropdown-lh96xmst9">
+                    <button x-dropdown="color-space-menu--cp-5-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-5-solid" style="anchor-name: --dropdown-1zvoe3jis, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-1zvoe3jis" aria-haspopup="menu" aria-controls="color-space-menu--cp-5-solid" aria-expanded="false" data-hydrate-id="h7">Hex</button>
+                    <menu popover="" id="color-space-menu--cp-5-solid" role="menu" style="position-anchor: --dropdown-1zvoe3jis">
                         <li x-colorpicker.set-color-space="hex" class="active" role="menuitem">Hex</li>
                         <li x-colorpicker.set-color-space="rgb" role="menuitem">RGB</li>
                         <li x-colorpicker.set-color-space="hsl" role="menuitem">HSL</li>
@@ -803,8 +811,8 @@
             <div x-colorpicker.gradient-layers=""><div data-cp-layer-clone="" data-gradient-type="linear" x-data="{ layerType: &quot;linear&quot;, layerIndex: 0, layerCount: 1 }">
             <div class="layer-options-wrapper">
                 <div class="layer-options-inputs">
-                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-5-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-5-layer-0" style="anchor-name: --dropdown-qnyjnl3ko, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-qnyjnl3ko" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-5-layer-0" aria-expanded="false" data-hydrate-id="h8"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h9"></span></button>
-                    <menu popover="" id="gradient-layer-options--cp-5-layer-0" role="menu" style="position-anchor: --dropdown-qnyjnl3ko">
+                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-5-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-5-layer-0" style="anchor-name: --dropdown-4dij6zwai, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-4dij6zwai" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-5-layer-0" aria-expanded="false" data-hydrate-id="h8"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h9"></span></button>
+                    <menu popover="" id="gradient-layer-options--cp-5-layer-0" role="menu" style="position-anchor: --dropdown-4dij6zwai">
                         <li x-colorpicker.set-gradient-type="linear" role="menuitem">
                             <span x-icon="" class="gradient-layer-icon-linear"></span><span data-cp-ui-text="gradientTypes.linear">Linear Gradient</span>
                         </li>
@@ -833,8 +841,8 @@
                         <span>°</span>
                     </div>
 
-                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-5-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-fp2p0lkhu, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-fp2p0lkhu"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
-                    <menu popover="manual" id="stop-context-menu--cp-5-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-fp2p0lkhu">
+                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-5-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-9wnuonk7q, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-9wnuonk7q"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
+                    <menu popover="manual" id="stop-context-menu--cp-5-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-9wnuonk7q">
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate" role="menuitem">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete" role="menuitem">Delete</li>
                         <hr>
@@ -3211,8 +3219,8 @@
                 <input type="range" x-colorpicker.set-hue="" class="hue" min="0" max="360" step="1">
                 <input type="range" x-colorpicker.set-alpha="" class="alpha" min="0" max="100" step="1" style="--color-picker-alpha: rgb(0,0,0)">
                 <div>
-                    <button x-dropdown="color-space-menu--cp-6-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-6-solid" style="anchor-name: --dropdown-2r4bgnqv4, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-2r4bgnqv4" aria-haspopup="menu" aria-controls="color-space-menu--cp-6-solid" aria-expanded="false" data-hydrate-id="h10">Hex</button>
-                    <menu popover="" id="color-space-menu--cp-6-solid" role="menu" style="position-anchor: --dropdown-2r4bgnqv4">
+                    <button x-dropdown="color-space-menu--cp-6-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-6-solid" style="anchor-name: --dropdown-ii6x85e92, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-ii6x85e92" aria-haspopup="menu" aria-controls="color-space-menu--cp-6-solid" aria-expanded="false" data-hydrate-id="h10">Hex</button>
+                    <menu popover="" id="color-space-menu--cp-6-solid" role="menu" style="position-anchor: --dropdown-ii6x85e92">
                         <li x-colorpicker.set-color-space="hex" class="active" role="menuitem">Hex</li>
                         <li x-colorpicker.set-color-space="rgb" role="menuitem">RGB</li>
                         <li x-colorpicker.set-color-space="hsl" role="menuitem">HSL</li>
@@ -3233,8 +3241,8 @@
             <div x-colorpicker.gradient-layers=""><div data-cp-layer-clone="" data-gradient-type="linear" x-data="{ layerType: &quot;linear&quot;, layerIndex: 0, layerCount: 1 }">
             <div class="layer-options-wrapper">
                 <div class="layer-options-inputs">
-                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-6-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-6-layer-0" style="anchor-name: --dropdown-62e84t9ar, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-62e84t9ar" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-6-layer-0" aria-expanded="false" data-hydrate-id="h11"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h12"></span></button>
-                    <menu popover="" id="gradient-layer-options--cp-6-layer-0" role="menu" style="position-anchor: --dropdown-62e84t9ar">
+                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-6-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-6-layer-0" style="anchor-name: --dropdown-xzz76t5ut, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-xzz76t5ut" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-6-layer-0" aria-expanded="false" data-hydrate-id="h11"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h12"></span></button>
+                    <menu popover="" id="gradient-layer-options--cp-6-layer-0" role="menu" style="position-anchor: --dropdown-xzz76t5ut">
                         <li x-colorpicker.set-gradient-type="linear" role="menuitem">
                             <span x-icon="" class="gradient-layer-icon-linear"></span><span data-cp-ui-text="gradientTypes.linear">Linear Gradient</span>
                         </li>
@@ -3263,8 +3271,8 @@
                         <span>°</span>
                     </div>
 
-                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-6-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-6za1me76p, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-6za1me76p"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
-                    <menu popover="manual" id="stop-context-menu--cp-6-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-6za1me76p">
+                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-6-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-wfaszc2p4, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-wfaszc2p4"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
+                    <menu popover="manual" id="stop-context-menu--cp-6-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-wfaszc2p4">
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete">Delete</li>
                         <hr>
@@ -5640,8 +5648,8 @@
                 <input type="range" x-colorpicker.set-hue="" class="hue" min="0" max="360" step="1">
                 <input type="range" x-colorpicker.set-alpha="" class="alpha" min="0" max="100" step="1" style="--color-picker-alpha: rgb(0,0,0)">
                 <div>
-                    <button x-dropdown="color-space-menu--cp-7-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-7-solid" style="anchor-name: --dropdown-4bvlgg57j, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-4bvlgg57j" aria-haspopup="menu" aria-controls="color-space-menu--cp-7-solid" aria-expanded="false" data-hydrate-id="h13">Hex</button>
-                    <menu popover="" id="color-space-menu--cp-7-solid" role="menu" style="position-anchor: --dropdown-4bvlgg57j">
+                    <button x-dropdown="color-space-menu--cp-7-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-7-solid" style="anchor-name: --dropdown-o2xkrficg, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-o2xkrficg" aria-haspopup="menu" aria-controls="color-space-menu--cp-7-solid" aria-expanded="false" data-hydrate-id="h13">Hex</button>
+                    <menu popover="" id="color-space-menu--cp-7-solid" role="menu" style="position-anchor: --dropdown-o2xkrficg">
                         <li x-colorpicker.set-color-space="hex" class="active" role="menuitem">Hex</li>
                         <li x-colorpicker.set-color-space="rgb" role="menuitem">RGB</li>
                         <li x-colorpicker.set-color-space="hsl" role="menuitem">HSL</li>
@@ -5662,8 +5670,8 @@
             <div x-colorpicker.gradient-layers=""><div data-cp-layer-clone="" data-gradient-type="linear" x-data="{ layerType: &quot;linear&quot;, layerIndex: 0, layerCount: 1 }">
             <div class="layer-options-wrapper">
                 <div class="layer-options-inputs">
-                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-7-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-7-layer-0" style="anchor-name: --dropdown-asg6a5bgw, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-asg6a5bgw" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-7-layer-0" aria-expanded="false" data-hydrate-id="h14"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h15"></span></button>
-                    <menu popover="" id="gradient-layer-options--cp-7-layer-0" role="menu" style="position-anchor: --dropdown-asg6a5bgw">
+                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-7-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-7-layer-0" style="anchor-name: --dropdown-kb0hm52oo, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-kb0hm52oo" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-7-layer-0" aria-expanded="false" data-hydrate-id="h14"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h15"></span></button>
+                    <menu popover="" id="gradient-layer-options--cp-7-layer-0" role="menu" style="position-anchor: --dropdown-kb0hm52oo">
                         <li x-colorpicker.set-gradient-type="linear" role="menuitem">
                             <span x-icon="" class="gradient-layer-icon-linear"></span><span data-cp-ui-text="gradientTypes.linear">Linear Gradient</span>
                         </li>
@@ -5692,8 +5700,8 @@
                         <span>°</span>
                     </div>
 
-                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-7-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-ujn94gb9p, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-ujn94gb9p"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
-                    <menu popover="manual" id="stop-context-menu--cp-7-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-ujn94gb9p">
+                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-7-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-t9mydfz7e, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-t9mydfz7e"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
+                    <menu popover="manual" id="stop-context-menu--cp-7-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-t9mydfz7e">
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete">Delete</li>
                         <hr>
@@ -8100,8 +8108,8 @@
                 <input type="range" x-colorpicker.set-hue="" class="hue" min="0" max="360" step="1">
                 <input type="range" x-colorpicker.set-alpha="" class="alpha" min="0" max="100" step="1" style="--color-picker-alpha: rgb(0,0,0)">
                 <div>
-                    <button x-dropdown="color-space-menu--cp-8-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-8-solid" style="anchor-name: --dropdown-p8o6ul351, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p8o6ul351" aria-haspopup="menu" aria-controls="color-space-menu--cp-8-solid" aria-expanded="false" data-hydrate-id="h16">Hex</button>
-                    <menu popover="" id="color-space-menu--cp-8-solid" role="menu" style="position-anchor: --dropdown-p8o6ul351">
+                    <button x-dropdown="color-space-menu--cp-8-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-8-solid" style="anchor-name: --dropdown-7nd41g3lw, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-7nd41g3lw" aria-haspopup="menu" aria-controls="color-space-menu--cp-8-solid" aria-expanded="false" data-hydrate-id="h16">Hex</button>
+                    <menu popover="" id="color-space-menu--cp-8-solid" role="menu" style="position-anchor: --dropdown-7nd41g3lw">
                         <li x-colorpicker.set-color-space="hex" class="active" role="menuitem">Hex</li>
                         <li x-colorpicker.set-color-space="rgb" role="menuitem">RGB</li>
                         <li x-colorpicker.set-color-space="hsl" role="menuitem">HSL</li>
@@ -8188,8 +8196,8 @@
             <div x-colorpicker.gradient-layers=""><div data-cp-layer-clone="" data-gradient-type="linear" x-data="{ layerType: &quot;linear&quot;, layerIndex: 0, layerCount: 1 }">
             <div class="layer-options-wrapper">
                 <div class="layer-options-inputs">
-                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-9-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-9-layer-0" style="anchor-name: --dropdown-aw3a0qdnb, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-aw3a0qdnb" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-9-layer-0" aria-expanded="false" data-hydrate-id="h17"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h18"></span></button>
-                    <menu popover="" id="gradient-layer-options--cp-9-layer-0" role="menu" style="position-anchor: --dropdown-aw3a0qdnb">
+                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-9-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-9-layer-0" style="anchor-name: --dropdown-uzdgnqxcd, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-uzdgnqxcd" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-9-layer-0" aria-expanded="false" data-hydrate-id="h17"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h18"></span></button>
+                    <menu popover="" id="gradient-layer-options--cp-9-layer-0" role="menu" style="position-anchor: --dropdown-uzdgnqxcd">
                         <li x-colorpicker.set-gradient-type="linear" role="menuitem">
                             <span x-icon="" class="gradient-layer-icon-linear"></span><span data-cp-ui-text="gradientTypes.linear">Linear Gradient</span>
                         </li>
@@ -8218,8 +8226,8 @@
                         <span>°</span>
                     </div>
 
-                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-9-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-o1xmczo3n, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-o1xmczo3n"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
-                    <menu popover="manual" id="stop-context-menu--cp-9-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-o1xmczo3n">
+                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-9-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-f4p15kvcj, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-f4p15kvcj"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
+                    <menu popover="manual" id="stop-context-menu--cp-9-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-f4p15kvcj">
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete">Delete</li>
                         <hr>
@@ -10829,7 +10837,7 @@ Accent:
 <hr>
 <h2 id="magic-method">Magic Method</h2><p>Use the <code>$colorpicker(id)</code> magic method to read or change a picker's value from anywhere on the page. Used on its own it returns the current color as a CSS string — solid color or full gradient — so it drops straight into <code>:style</code>, <code>x-text</code>, or any template literal.</p>
 <aside class="frame text-base"><div class="row-wrap items-center gap-4">
-    <button id="hero" x-colorpicker.swatch="" value="#3b82f6" x-dropdown="colorpicker-swatch-5" style="--color-picker-swatch: #3b82f6; anchor-name: --dropdown-e7mjij8uu, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-e7mjij8uu" popovertarget="colorpicker-swatch-5" aria-haspopup="menu" aria-controls="colorpicker-swatch-5" aria-expanded="false" data-hydrate-id="h19"></button>
+    <button id="hero" x-colorpicker.swatch="" value="#3b82f6" x-dropdown="colorpicker-swatch-5" style="--color-picker-swatch: #3b82f6; anchor-name: --dropdown-edqateghh, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-edqateghh" popovertarget="colorpicker-swatch-5" aria-haspopup="menu" aria-controls="colorpicker-swatch-5" aria-expanded="false" data-hydrate-id="h19"></button>
     <span class="h3" :style="`color: ${$colorpicker('hero')}`" style="color: #3b82f6">Brand Color</span>
     <span x-text="$colorpicker('hero')">#3b82f6</span>
 </div></aside>
@@ -11000,8 +11008,8 @@ Accent:
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-colorpicker.swatch</span>=<span class="hljs-string">"custom-tw-picker"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"size-14 max-w-none rounded-full"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"#3b82f6"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"custom-tw-picker"</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">x-colorpicker</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"w-100 max-w-none max-h-none"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-<aside class="frame"><button x-colorpicker.swatch="custom-tw-picker" class="size-14 max-w-none rounded-full" value="#3b82f6" x-dropdown="custom-tw-picker" style="--color-picker-swatch: #3b82f6; anchor-name: --dropdown-61zr7cec4, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-61zr7cec4" popovertarget="custom-tw-picker" aria-haspopup="menu" aria-controls="custom-tw-picker" aria-expanded="false" data-hydrate-id="h20"></button>
-<menu id="custom-tw-picker" popover="" x-colorpicker="" class="w-100 max-w-none max-h-none" role="menu" style="position-anchor: --dropdown-61zr7cec4"><div x-data="{ tab: 'solid' }">
+<aside class="frame"><button x-colorpicker.swatch="custom-tw-picker" class="size-14 max-w-none rounded-full" value="#3b82f6" x-dropdown="custom-tw-picker" style="--color-picker-swatch: #3b82f6; anchor-name: --dropdown-tyuxkh5qq, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-tyuxkh5qq" popovertarget="custom-tw-picker" aria-haspopup="menu" aria-controls="custom-tw-picker" aria-expanded="false" data-hydrate-id="h20"></button>
+<menu id="custom-tw-picker" popover="" x-colorpicker="" class="w-100 max-w-none max-h-none" role="menu" style="position-anchor: --dropdown-tyuxkh5qq"><div x-data="{ tab: 'solid' }">
 
             <div class="tabs-wrapper" data-cp-tabs="">
                 <button data-cp-tab="solid" data-cp-ui-label="tabs.solid" class="ghost sm selected" :class="tab === 'solid' &amp;&amp; 'selected'" @click="tab = 'solid'" x-tooltip="Solid" aria-label="Solid"><span x-icon="" class="color-icon-solid"></span></button>
@@ -11020,8 +11028,8 @@ Accent:
                 <input type="range" x-colorpicker.set-hue="" class="hue" min="0" max="360" step="1">
                 <input type="range" x-colorpicker.set-alpha="" class="alpha" min="0" max="100" step="1" style="--color-picker-alpha: rgb(59,130,246)">
                 <div>
-                    <button x-dropdown="color-space-menu--cp-12-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-12-solid" style="anchor-name: --dropdown-z7zcspwx8, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-z7zcspwx8" aria-haspopup="menu" aria-controls="color-space-menu--cp-12-solid" aria-expanded="false" data-hydrate-id="h21">Hex</button>
-                    <menu popover="" id="color-space-menu--cp-12-solid" role="menu" style="position-anchor: --dropdown-z7zcspwx8">
+                    <button x-dropdown="color-space-menu--cp-12-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-12-solid" style="anchor-name: --dropdown-hfxpyjmzz, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-hfxpyjmzz" aria-haspopup="menu" aria-controls="color-space-menu--cp-12-solid" aria-expanded="false" data-hydrate-id="h21">Hex</button>
+                    <menu popover="" id="color-space-menu--cp-12-solid" role="menu" style="position-anchor: --dropdown-hfxpyjmzz">
                         <li x-colorpicker.set-color-space="hex" class="active" role="menuitem">Hex</li>
                         <li x-colorpicker.set-color-space="rgb" role="menuitem">RGB</li>
                         <li x-colorpicker.set-color-space="hsl" role="menuitem">HSL</li>
@@ -11042,8 +11050,8 @@ Accent:
             <div x-colorpicker.gradient-layers=""><div data-cp-layer-clone="" data-gradient-type="linear" x-data="{ layerType: &quot;linear&quot;, layerIndex: 0, layerCount: 1 }">
             <div class="layer-options-wrapper">
                 <div class="layer-options-inputs">
-                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-12-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-12-layer-0" style="anchor-name: --dropdown-ejrqm5rpp, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-ejrqm5rpp" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-12-layer-0" aria-expanded="false" data-hydrate-id="h22"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h23"></span></button>
-                    <menu popover="" id="gradient-layer-options--cp-12-layer-0" role="menu" style="position-anchor: --dropdown-ejrqm5rpp">
+                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-12-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-12-layer-0" style="anchor-name: --dropdown-m7mvvhlvs, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-m7mvvhlvs" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-12-layer-0" aria-expanded="false" data-hydrate-id="h22"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h23"></span></button>
+                    <menu popover="" id="gradient-layer-options--cp-12-layer-0" role="menu" style="position-anchor: --dropdown-m7mvvhlvs">
                         <li x-colorpicker.set-gradient-type="linear" role="menuitem">
                             <span x-icon="" class="gradient-layer-icon-linear"></span><span data-cp-ui-text="gradientTypes.linear">Linear Gradient</span>
                         </li>
@@ -11072,8 +11080,8 @@ Accent:
                         <span>°</span>
                     </div>
 
-                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-12-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-2kd21e37v, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-2kd21e37v"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
-                    <menu popover="manual" id="stop-context-menu--cp-12-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-2kd21e37v">
+                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-12-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-xhdyhmt15, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-xhdyhmt15"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
+                    <menu popover="manual" id="stop-context-menu--cp-12-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-xhdyhmt15">
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate" role="menuitem">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete" role="menuitem">Delete</li>
                         <hr>
@@ -13510,7 +13518,7 @@ Accent:
 
 
 
-<menu popover="" x-colorpicker="" id="colorpicker-swatch-1" class="colorpicker dropdown-menu" role="menu" style="position-anchor: --dropdown-uxe9utdyc"><div x-data="{ tab: 'solid' }">
+<menu popover="" x-colorpicker="" id="colorpicker-swatch-1" class="colorpicker dropdown-menu" role="menu" style="position-anchor: --dropdown-3sqm0fp47"><div x-data="{ tab: 'solid' }">
 
             <div class="tabs-wrapper" data-cp-tabs="">
                 <button data-cp-tab="solid" data-cp-ui-label="tabs.solid" class="ghost sm selected" :class="tab === 'solid' &amp;&amp; 'selected'" @click="tab = 'solid'" x-tooltip="Solid" aria-label="Solid"><span x-icon="" class="color-icon-solid"></span></button>
@@ -13529,8 +13537,8 @@ Accent:
                 <input type="range" x-colorpicker.set-hue="" class="hue" min="0" max="360" step="1">
                 <input type="range" x-colorpicker.set-alpha="" class="alpha" min="0" max="100" step="1" style="--color-picker-alpha: rgb(0,0,0)">
                 <div>
-                    <button x-dropdown="color-space-menu--cp-1-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-1-solid" style="anchor-name: --dropdown-b0nrnlxvp, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-b0nrnlxvp" aria-haspopup="menu" aria-controls="color-space-menu--cp-1-solid" aria-expanded="false" data-hydrate-id="h27">Hex</button>
-                    <menu popover="" id="color-space-menu--cp-1-solid" role="menu" style="position-anchor: --dropdown-b0nrnlxvp">
+                    <button x-dropdown="color-space-menu--cp-1-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-1-solid" style="anchor-name: --dropdown-b80mcz9sc, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-b80mcz9sc" aria-haspopup="menu" aria-controls="color-space-menu--cp-1-solid" aria-expanded="false" data-hydrate-id="h27">Hex</button>
+                    <menu popover="" id="color-space-menu--cp-1-solid" role="menu" style="position-anchor: --dropdown-b80mcz9sc">
                         <li x-colorpicker.set-color-space="hex" class="active" role="menuitem">Hex</li>
                         <li x-colorpicker.set-color-space="rgb" role="menuitem">RGB</li>
                         <li x-colorpicker.set-color-space="hsl" role="menuitem">HSL</li>
@@ -13551,8 +13559,8 @@ Accent:
             <div x-colorpicker.gradient-layers=""><div data-cp-layer-clone="" data-gradient-type="linear" x-data="{ layerType: &quot;linear&quot;, layerIndex: 0, layerCount: 1 }">
             <div class="layer-options-wrapper">
                 <div class="layer-options-inputs">
-                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-1-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-1-layer-0" style="anchor-name: --dropdown-6fnpkfomg, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-6fnpkfomg" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-1-layer-0" aria-expanded="false" data-hydrate-id="h28"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h29"></span></button>
-                    <menu popover="" id="gradient-layer-options--cp-1-layer-0" role="menu" style="position-anchor: --dropdown-6fnpkfomg">
+                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-1-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-1-layer-0" style="anchor-name: --dropdown-w3whzv0yr, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-w3whzv0yr" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-1-layer-0" aria-expanded="false" data-hydrate-id="h28"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h29"></span></button>
+                    <menu popover="" id="gradient-layer-options--cp-1-layer-0" role="menu" style="position-anchor: --dropdown-w3whzv0yr">
                         <li x-colorpicker.set-gradient-type="linear" role="menuitem">
                             <span x-icon="" class="gradient-layer-icon-linear"></span><span data-cp-ui-text="gradientTypes.linear">Linear Gradient</span>
                         </li>
@@ -13581,8 +13589,8 @@ Accent:
                         <span>°</span>
                     </div>
 
-                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-1-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-qck4yprwl, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-qck4yprwl"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
-                    <menu popover="manual" id="stop-context-menu--cp-1-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-qck4yprwl">
+                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-1-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-9lt2c7zm2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-9lt2c7zm2"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
+                    <menu popover="manual" id="stop-context-menu--cp-1-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-9lt2c7zm2">
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate" role="menuitem">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete" role="menuitem">Delete</li>
                         <hr>
@@ -15935,7 +15943,7 @@ Accent:
         </div>
     
             </template>
-        </div></menu><menu popover="" x-colorpicker="" id="colorpicker-swatch-2" class="colorpicker dropdown-menu" role="menu" style="position-anchor: --dropdown-x8b4fczry"><div x-data="{ tab: 'solid' }">
+        </div></menu><menu popover="" x-colorpicker="" id="colorpicker-swatch-2" class="colorpicker dropdown-menu" role="menu" style="position-anchor: --dropdown-4cryasfrz"><div x-data="{ tab: 'solid' }">
 
             <div class="tabs-wrapper" data-cp-tabs="">
                 <button data-cp-tab="solid" data-cp-ui-label="tabs.solid" class="ghost sm selected" :class="tab === 'solid' &amp;&amp; 'selected'" @click="tab = 'solid'" x-tooltip="Solid" aria-label="Solid"><span x-icon="" class="color-icon-solid"></span></button>
@@ -15954,8 +15962,8 @@ Accent:
                 <input type="range" x-colorpicker.set-hue="" class="hue" min="0" max="360" step="1">
                 <input type="range" x-colorpicker.set-alpha="" class="alpha" min="0" max="100" step="1" style="--color-picker-alpha: rgb(255,0,0)">
                 <div>
-                    <button x-dropdown="color-space-menu--cp-2-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-2-solid" style="anchor-name: --dropdown-vsb37i3tk, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-vsb37i3tk" aria-haspopup="menu" aria-controls="color-space-menu--cp-2-solid" aria-expanded="false" data-hydrate-id="h30">Hex</button>
-                    <menu popover="" id="color-space-menu--cp-2-solid" role="menu" style="position-anchor: --dropdown-vsb37i3tk">
+                    <button x-dropdown="color-space-menu--cp-2-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-2-solid" style="anchor-name: --dropdown-jtlnyg3k7, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-jtlnyg3k7" aria-haspopup="menu" aria-controls="color-space-menu--cp-2-solid" aria-expanded="false" data-hydrate-id="h30">Hex</button>
+                    <menu popover="" id="color-space-menu--cp-2-solid" role="menu" style="position-anchor: --dropdown-jtlnyg3k7">
                         <li x-colorpicker.set-color-space="hex" class="active" role="menuitem">Hex</li>
                         <li x-colorpicker.set-color-space="rgb" role="menuitem">RGB</li>
                         <li x-colorpicker.set-color-space="hsl" role="menuitem">HSL</li>
@@ -15976,8 +15984,8 @@ Accent:
             <div x-colorpicker.gradient-layers=""><div data-cp-layer-clone="" data-gradient-type="linear" x-data="{ layerType: &quot;linear&quot;, layerIndex: 0, layerCount: 1 }">
             <div class="layer-options-wrapper">
                 <div class="layer-options-inputs">
-                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-2-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-2-layer-0" style="anchor-name: --dropdown-xpqt7hlah, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-xpqt7hlah" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-2-layer-0" aria-expanded="false" data-hydrate-id="h31"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h32"></span></button>
-                    <menu popover="" id="gradient-layer-options--cp-2-layer-0" role="menu" style="position-anchor: --dropdown-xpqt7hlah">
+                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-2-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-2-layer-0" style="anchor-name: --dropdown-sojce33ke, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-sojce33ke" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-2-layer-0" aria-expanded="false" data-hydrate-id="h31"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h32"></span></button>
+                    <menu popover="" id="gradient-layer-options--cp-2-layer-0" role="menu" style="position-anchor: --dropdown-sojce33ke">
                         <li x-colorpicker.set-gradient-type="linear" role="menuitem">
                             <span x-icon="" class="gradient-layer-icon-linear"></span><span data-cp-ui-text="gradientTypes.linear">Linear Gradient</span>
                         </li>
@@ -16006,8 +16014,8 @@ Accent:
                         <span>°</span>
                     </div>
 
-                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-2-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-desnusnbc, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-desnusnbc"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
-                    <menu popover="manual" id="stop-context-menu--cp-2-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-desnusnbc">
+                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-2-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-01yl0rdz4, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-01yl0rdz4"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
+                    <menu popover="manual" id="stop-context-menu--cp-2-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-01yl0rdz4">
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate" role="menuitem">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete" role="menuitem">Delete</li>
                         <hr>
@@ -18360,7 +18368,7 @@ Accent:
         </div>
     
             </template>
-        </div></menu><menu popover="" x-colorpicker="" id="colorpicker-swatch-3" class="colorpicker dropdown-menu" role="menu" style="position-anchor: --dropdown-wsjgdvk7y"><div x-data="{ tab: 'solid' }">
+        </div></menu><menu popover="" x-colorpicker="" id="colorpicker-swatch-3" class="colorpicker dropdown-menu" role="menu" style="position-anchor: --dropdown-jku1rpjdu"><div x-data="{ tab: 'solid' }">
 
             <div class="tabs-wrapper" data-cp-tabs="">
                 <button data-cp-tab="solid" data-cp-ui-label="tabs.solid" class="ghost sm selected" :class="tab === 'solid' &amp;&amp; 'selected'" @click="tab = 'solid'" x-tooltip="Solid" aria-label="Solid"><span x-icon="" class="color-icon-solid"></span></button>
@@ -18379,8 +18387,8 @@ Accent:
                 <input type="range" x-colorpicker.set-hue="" class="hue" min="0" max="360" step="1">
                 <input type="range" x-colorpicker.set-alpha="" class="alpha" min="0" max="100" step="1" style="--color-picker-alpha: rgb(34,197,94)">
                 <div>
-                    <button x-dropdown="color-space-menu--cp-3-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-3-solid" style="anchor-name: --dropdown-uxjt8qh16, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-uxjt8qh16" aria-haspopup="menu" aria-controls="color-space-menu--cp-3-solid" aria-expanded="false" data-hydrate-id="h33">Hex</button>
-                    <menu popover="" id="color-space-menu--cp-3-solid" role="menu" style="position-anchor: --dropdown-uxjt8qh16">
+                    <button x-dropdown="color-space-menu--cp-3-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-3-solid" style="anchor-name: --dropdown-ne3q1clon, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-ne3q1clon" aria-haspopup="menu" aria-controls="color-space-menu--cp-3-solid" aria-expanded="false" data-hydrate-id="h33">Hex</button>
+                    <menu popover="" id="color-space-menu--cp-3-solid" role="menu" style="position-anchor: --dropdown-ne3q1clon">
                         <li x-colorpicker.set-color-space="hex" class="active" role="menuitem">Hex</li>
                         <li x-colorpicker.set-color-space="rgb" role="menuitem">RGB</li>
                         <li x-colorpicker.set-color-space="hsl" role="menuitem">HSL</li>
@@ -18401,8 +18409,8 @@ Accent:
             <div x-colorpicker.gradient-layers=""><div data-cp-layer-clone="" data-gradient-type="linear" x-data="{ layerType: &quot;linear&quot;, layerIndex: 0, layerCount: 1 }">
             <div class="layer-options-wrapper">
                 <div class="layer-options-inputs">
-                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-3-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-3-layer-0" style="anchor-name: --dropdown-0jec20eu0, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-0jec20eu0" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-3-layer-0" aria-expanded="false" data-hydrate-id="h34"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h35"></span></button>
-                    <menu popover="" id="gradient-layer-options--cp-3-layer-0" role="menu" style="position-anchor: --dropdown-0jec20eu0">
+                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-3-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-3-layer-0" style="anchor-name: --dropdown-mjh6yec5j, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-mjh6yec5j" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-3-layer-0" aria-expanded="false" data-hydrate-id="h34"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h35"></span></button>
+                    <menu popover="" id="gradient-layer-options--cp-3-layer-0" role="menu" style="position-anchor: --dropdown-mjh6yec5j">
                         <li x-colorpicker.set-gradient-type="linear" role="menuitem">
                             <span x-icon="" class="gradient-layer-icon-linear"></span><span data-cp-ui-text="gradientTypes.linear">Linear Gradient</span>
                         </li>
@@ -18431,8 +18439,8 @@ Accent:
                         <span>°</span>
                     </div>
 
-                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-3-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-qehznv00l, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-qehznv00l"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
-                    <menu popover="manual" id="stop-context-menu--cp-3-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-qehznv00l">
+                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-3-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-tseu5kqvc, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-tseu5kqvc"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
+                    <menu popover="manual" id="stop-context-menu--cp-3-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-tseu5kqvc">
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate" role="menuitem">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete" role="menuitem">Delete</li>
                         <hr>
@@ -20785,7 +20793,7 @@ Accent:
         </div>
     
             </template>
-        </div></menu><menu popover="" x-colorpicker="" id="colorpicker-swatch-4" class="colorpicker dropdown-menu" role="menu" style="position-anchor: --dropdown-iv0p82j7m"><div x-data="{ tab: 'solid' }">
+        </div></menu><menu popover="" x-colorpicker="" id="colorpicker-swatch-4" class="colorpicker dropdown-menu" role="menu" style="position-anchor: --dropdown-dr89vpk6n"><div x-data="{ tab: 'solid' }">
 
             <div class="tabs-wrapper" data-cp-tabs="">
                 <button data-cp-tab="solid" data-cp-ui-label="tabs.solid" class="ghost sm selected" :class="tab === 'solid' &amp;&amp; 'selected'" @click="tab = 'solid'" x-tooltip="Solid" aria-label="Solid"><span x-icon="" class="color-icon-solid"></span></button>
@@ -20804,8 +20812,8 @@ Accent:
                 <input type="range" x-colorpicker.set-hue="" class="hue" min="0" max="360" step="1">
                 <input type="range" x-colorpicker.set-alpha="" class="alpha" min="0" max="100" step="1" style="--color-picker-alpha: rgb(59,130,246)">
                 <div>
-                    <button x-dropdown="color-space-menu--cp-4-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-4-solid" style="anchor-name: --dropdown-nsh7yg5ae, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-nsh7yg5ae" aria-haspopup="menu" aria-controls="color-space-menu--cp-4-solid" aria-expanded="false" data-hydrate-id="h36">Hex</button>
-                    <menu popover="" id="color-space-menu--cp-4-solid" role="menu" style="position-anchor: --dropdown-nsh7yg5ae">
+                    <button x-dropdown="color-space-menu--cp-4-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-4-solid" style="anchor-name: --dropdown-a8wdrq6zu, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-a8wdrq6zu" aria-haspopup="menu" aria-controls="color-space-menu--cp-4-solid" aria-expanded="false" data-hydrate-id="h36">Hex</button>
+                    <menu popover="" id="color-space-menu--cp-4-solid" role="menu" style="position-anchor: --dropdown-a8wdrq6zu">
                         <li x-colorpicker.set-color-space="hex" class="active" role="menuitem">Hex</li>
                         <li x-colorpicker.set-color-space="rgb" role="menuitem">RGB</li>
                         <li x-colorpicker.set-color-space="hsl" role="menuitem">HSL</li>
@@ -20826,8 +20834,8 @@ Accent:
             <div x-colorpicker.gradient-layers=""><div data-cp-layer-clone="" data-gradient-type="linear" x-data="{ layerType: &quot;linear&quot;, layerIndex: 0, layerCount: 1 }">
             <div class="layer-options-wrapper">
                 <div class="layer-options-inputs">
-                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-4-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-4-layer-0" style="anchor-name: --dropdown-wortbg6lf, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-wortbg6lf" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-4-layer-0" aria-expanded="false" data-hydrate-id="h37"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h38"></span></button>
-                    <menu popover="" id="gradient-layer-options--cp-4-layer-0" role="menu" style="position-anchor: --dropdown-wortbg6lf">
+                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-4-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-4-layer-0" style="anchor-name: --dropdown-jk5ee98b3, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-jk5ee98b3" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-4-layer-0" aria-expanded="false" data-hydrate-id="h37"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h38"></span></button>
+                    <menu popover="" id="gradient-layer-options--cp-4-layer-0" role="menu" style="position-anchor: --dropdown-jk5ee98b3">
                         <li x-colorpicker.set-gradient-type="linear" role="menuitem">
                             <span x-icon="" class="gradient-layer-icon-linear"></span><span data-cp-ui-text="gradientTypes.linear">Linear Gradient</span>
                         </li>
@@ -20856,8 +20864,8 @@ Accent:
                         <span>°</span>
                     </div>
 
-                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-4-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-9ya1ig13a, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-9ya1ig13a"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
-                    <menu popover="manual" id="stop-context-menu--cp-4-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-9ya1ig13a">
+                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-4-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-72ayb7dz4, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-72ayb7dz4"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
+                    <menu popover="manual" id="stop-context-menu--cp-4-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-72ayb7dz4">
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate" role="menuitem">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete" role="menuitem">Delete</li>
                         <hr>
@@ -23210,7 +23218,7 @@ Accent:
         </div>
     
             </template>
-        </div></menu><menu popover="" x-colorpicker="" id="colorpicker-swatch-5" class="colorpicker dropdown-menu" role="menu" style="position-anchor: --dropdown-e7mjij8uu"><div x-data="{ tab: 'solid' }">
+        </div></menu><menu popover="" x-colorpicker="" id="colorpicker-swatch-5" class="colorpicker dropdown-menu" role="menu" style="position-anchor: --dropdown-edqateghh"><div x-data="{ tab: 'solid' }">
 
             <div class="tabs-wrapper" data-cp-tabs="">
                 <button data-cp-tab="solid" data-cp-ui-label="tabs.solid" class="ghost sm selected" :class="tab === 'solid' &amp;&amp; 'selected'" @click="tab = 'solid'" x-tooltip="Solid" aria-label="Solid"><span x-icon="" class="color-icon-solid"></span></button>
@@ -23229,8 +23237,8 @@ Accent:
                 <input type="range" x-colorpicker.set-hue="" class="hue" min="0" max="360" step="1">
                 <input type="range" x-colorpicker.set-alpha="" class="alpha" min="0" max="100" step="1" style="--color-picker-alpha: rgb(59,130,246)">
                 <div>
-                    <button x-dropdown="color-space-menu--cp-11-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-11-solid" style="anchor-name: --dropdown-303xr9stu, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-303xr9stu" aria-haspopup="menu" aria-controls="color-space-menu--cp-11-solid" aria-expanded="false" data-hydrate-id="h39">Hex</button>
-                    <menu popover="" id="color-space-menu--cp-11-solid" role="menu" style="position-anchor: --dropdown-303xr9stu">
+                    <button x-dropdown="color-space-menu--cp-11-solid" x-colorpicker.set-color-space="" class="ghost sm" aria-label="Color space" value="hex" popovertarget="color-space-menu--cp-11-solid" style="anchor-name: --dropdown-2nta5o82a, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-2nta5o82a" aria-haspopup="menu" aria-controls="color-space-menu--cp-11-solid" aria-expanded="false" data-hydrate-id="h39">Hex</button>
+                    <menu popover="" id="color-space-menu--cp-11-solid" role="menu" style="position-anchor: --dropdown-2nta5o82a">
                         <li x-colorpicker.set-color-space="hex" class="active" role="menuitem">Hex</li>
                         <li x-colorpicker.set-color-space="rgb" role="menuitem">RGB</li>
                         <li x-colorpicker.set-color-space="hsl" role="menuitem">HSL</li>
@@ -23251,8 +23259,8 @@ Accent:
             <div x-colorpicker.gradient-layers=""><div data-cp-layer-clone="" data-gradient-type="linear" x-data="{ layerType: &quot;linear&quot;, layerIndex: 0, layerCount: 1 }">
             <div class="layer-options-wrapper">
                 <div class="layer-options-inputs">
-                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-11-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-11-layer-0" style="anchor-name: --dropdown-r8jiyfm7u, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-r8jiyfm7u" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-11-layer-0" aria-expanded="false" data-hydrate-id="h40"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h41"></span></button>
-                    <menu popover="" id="gradient-layer-options--cp-11-layer-0" role="menu" style="position-anchor: --dropdown-r8jiyfm7u">
+                    <button class="ghost sm" x-dropdown="gradient-layer-options--cp-11-layer-0" aria-label="Layer options" popovertarget="gradient-layer-options--cp-11-layer-0" style="anchor-name: --dropdown-bhj16nwex, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-bhj16nwex" aria-haspopup="menu" aria-controls="gradient-layer-options--cp-11-layer-0" aria-expanded="false" data-hydrate-id="h40"><span :class="'gradient-layer-icon-' + layerType" x-icon="" class="gradient-layer-icon-linear" data-hydrate-id="h41"></span></button>
+                    <menu popover="" id="gradient-layer-options--cp-11-layer-0" role="menu" style="position-anchor: --dropdown-bhj16nwex">
                         <li x-colorpicker.set-gradient-type="linear" role="menuitem">
                             <span x-icon="" class="gradient-layer-icon-linear"></span><span data-cp-ui-text="gradientTypes.linear">Linear Gradient</span>
                         </li>
@@ -23281,8 +23289,8 @@ Accent:
                         <span>°</span>
                     </div>
 
-                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-11-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-h1dl4loew, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-h1dl4loew"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
-                    <menu popover="manual" id="stop-context-menu--cp-11-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-h1dl4loew">
+                    <div x-colorpicker.layer-stops-bar="" class="gradient-layer" x-dropdown.context="stop-context-menu--cp-11-layer-0" style="background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(0, 0, 255) 100%); anchor-name: --dropdown-qtcos6teg, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-qtcos6teg"><div class="stop-handle" data-cp-stop-handle="" style="left: 0%; background-color: rgb(255, 0, 0)"></div><div class="stop-handle" data-cp-stop-handle="" style="left: 100%; background-color: rgb(0, 0, 255)"></div></div>
+                    <menu popover="manual" id="stop-context-menu--cp-11-layer-0" class="stop-context-menu" style="position-anchor: --dropdown-qtcos6teg">
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate" role="menuitem">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete" role="menuitem">Delete</li>
                         <hr>

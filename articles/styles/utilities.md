@@ -247,7 +247,7 @@ Color utilities also modify text directly or from a parent container. Utility cl
 Show or hide elements by **viewport width**, **input device**, or **operating system**. Each condition is available two ways:
 
 - A semantic `*-only` class for the common "show here, hide elsewhere" case.
-- A matching variant (`touch:`, `mac:`, …) that applies any Manifest utility under that condition, exactly like `sm:` or `hover:` — e.g. `touch:lg`, `mac:brand`, `cursor:ghost`.
+- A matching variant (`touch:`, `mac:`, …) that applies any utility — Manifest or Tailwind — under that condition, exactly like `sm:` or `hover:` — e.g. `touch:px-4`, `mac:brand`, `cursor:ghost`.
 
 ### Viewport
 
@@ -321,7 +321,7 @@ A common use is keyboard-shortcut hints — the frame below shows the right one 
 
 </div>
 
-The `*-only` / `no-*` classes are for plain show/hide — combine them with other utilities as separate classes (e.g. `class="touch-only md:p-8"`). To apply a Manifest utility *under* a device or OS condition, use the variant form (`mac:brand`, `cursor:ghost`). Prefixing an `*-only` class (`sm:touch-only`) isn't supported.
+The `*-only` / `no-*` classes are for plain show/hide — combine them with other utilities as separate classes (e.g. `class="touch-only md:p-8"`). To apply any utility *under* a device or OS condition, use the variant form (`touch:px-4`, `mac:brand`, `cursor:ghost`). Prefixing an `*-only` class (`sm:touch-only`) isn't supported.
 
 ---
 
