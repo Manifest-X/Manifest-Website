@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -23,13 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.132/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.132/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.135/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.135/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.132/lib/manifest.min.js" data-version="0.5.132"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.135/lib/manifest.min.js" data-version="0.5.135"></script>
   <script src="../../../scripts/payments-demo.js"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -802,7 +802,32 @@ features.performance.description,闪电般的加载速度,稲妻のように速�
 <hr>
 <h2 id="translating">Translating</h2><p>Manifest has no build steps and is not a translation engine. To translate your content we recommend using AI tools like Cursor to autonomously update your locale files in any language.</p>
 <hr>
-<h2 id="display-content">Display Content</h2><p>Like regular <a href="/docs/core-plugins/local-data#display-content">local data</a>, localizations are accessed using the <code>$x</code> magic method with dot notation. The structure follows this pattern:</p>
+<h2 id="url-paths">URL Paths</h2><p>If a language code is detected as a slug anywhere in the URL path, that locale is automatically displayed.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" lines="" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Links --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/en/docs/core-plugins/localization"</span>&gt;</span>English<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/fr/docs/core-plugins/localization"</span>&gt;</span>Français<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/zh/docs/core-plugins/localization"</span>&gt;</span>中文<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/ar/docs/core-plugins/localization"</span>&gt;</span>العربية<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"link"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$locale.reset()"</span>&gt;</span>Base URL<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<aside class="frame col gap-4 text-base [&amp;_a]:underline"><div class="row-wrap gap-4">
+  <a href="/en/docs/core-plugins/localization#url-paths">English</a>
+  <a href="/fr/docs/core-plugins/localization#url-paths">Français</a>
+  <a href="/zh/docs/core-plugins/localization#url-paths">中文</a>
+  <a href="/ar/docs/core-plugins/localization#url-paths">العربية</a>
+  <button class="link underline" @click="$locale.reset()">Base URL</button>
+</div>
+<template x-for="feature in $x['feature-examples'].content">
+  <div class="col">
+    <span class="h4" x-text="feature.name"></span>
+    <span x-text="feature.description"></span>
+  </div>
+</template></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="user-interface">User Interface</h2><h3 id="localized-content">Localized Content</h3><p>Like regular <a href="/docs/core-plugins/local-data#display-content">local data</a>, localizations are accessed using the <code>$x</code> magic method with dot notation. The structure follows this pattern:</p>
 <p><code>$x.sourceName.property.subProperty</code></p>
 <ul>
 <li><code>$x</code> — magic method prefix</li>
@@ -849,32 +874,17 @@ features.responsive.description,Works on all devices,Fonctionne sur tous les app
 
 <p>See <a href="/docs/core-plugins/local-data#display-content">local data</a> for specifics on how to inject content as text, HTML, or attribute values like links and images.</p>
 <hr>
-<h2 id="url-paths">URL Paths</h2><p>If a language code is detected as a slug anywhere in the URL path, that locale is automatically displayed.</p>
+<h3 id="current-locale">Current Locale</h3><p>Display the current locale's language code with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$locale.current</code>, or its native name (endonym) with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$locale.name</code>:</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
-<pre x-code="html" lines="" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Links --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/en/docs/core-plugins/localization"</span>&gt;</span>English<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/fr/docs/core-plugins/localization"</span>&gt;</span>Français<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/zh/docs/core-plugins/localization"</span>&gt;</span>中文<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/ar/docs/core-plugins/localization"</span>&gt;</span>العربية<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"link"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$locale.reset()"</span>&gt;</span>Base URL<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
-<aside class="frame col gap-4 text-base [&amp;_a]:underline"><div class="row-wrap gap-4">
-  <a href="/en/docs/core-plugins/localization#url-paths">English</a>
-  <a href="/fr/docs/core-plugins/localization#url-paths">Français</a>
-  <a href="/zh/docs/core-plugins/localization#url-paths">中文</a>
-  <a href="/ar/docs/core-plugins/localization#url-paths">العربية</a>
-  <button class="link underline" @click="$locale.reset()">Base URL</button>
-</div>
-<template x-for="feature in $x['feature-examples'].content">
-  <div class="col">
-    <span class="h4" x-text="feature.name"></span>
-    <span x-text="feature.description"></span>
-  </div>
-</template></aside>
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Code: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$locale.current"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Name: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$locale.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+<aside class="frame text-base"><p>Code: <span x-text="$locale.current">en</span></p>
+<p>Name: <span x-text="$locale.name">English</span></p></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <hr>
-<h2 id="ui-toggles">UI Toggles</h2><p>Allow users to toggle locales with Alpine's <code>@click</code> directive, using the <code>$locale</code> magic method:</p>
+<h3 id="locale-toggles">Locale Toggles</h3><p>Allow users to toggle locales with Alpine's <code>@click</code> directive, using the <code>$locale</code> magic method:</p>
 <ul>
 <li><code>$locale.set('...')</code> sets the specified locale by its language code, e.g. <code>fr</code> for French</li>
 <li><code>$locale.toggle()</code> toggles through all locales in the order set in <code>manifest.json</code></li>
@@ -898,15 +908,65 @@ features.responsive.description,Works on all devices,Fonctionne sur tous les app
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <hr>
-<h2 id="current-locale">Current Locale</h2><p>Display the current locale's language code with <code>x-text="$locale.current"</code>:</p>
+<h3 id="locale-lists">Locale Lists</h3><p>Sometimes it's useful to list the project's locales, such as for a locale switcher menu. This can be done with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$locale.list</code>, which returns one object per available locale, each carrying its <strong>native name</strong> (endonym), text direction, and active flag:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">code</code></td>
+<td>Language code, e.g. <code>fr</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">name</code></td>
+<td>Native language name, e.g. <code>français</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">direction</code></td>
+<td><code>ltr</code> or <code>rtl</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">current</code></td>
+<td><code>true</code> for the active locale</td>
+</tr>
+</tbody></table>
+<p>Native names come from the browser's baked-in <code>Intl.DisplayNames</code>. The list contains only the locales registered in <code>manifest.json</code>, in three orderings: <code>$locale.list</code> follows <code>manifest.json</code> order, with <code>.alphabetical</code> (by native name) and <code>.currentFirst</code> (active locale hoisted) as alternates.</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
-<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Current: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$locale.current"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
-<aside class="frame text-base"><p>Current: <span x-text="$locale.current">en</span></p></aside>
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-dropdown</span>=<span class="hljs-string">"locale-menu"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"capitalize"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$locale.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"locale-menu"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"l in $locale.list.alphabetical"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"l.code"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$locale.set(l.code)"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"capitalize"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"l.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"trailing"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"l.code"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
+<aside class="frame text-base"><button x-dropdown="locale-example-menu" class="capitalize" x-text="$locale.name" popovertarget="locale-example-menu" style="anchor-name: --dropdown-visk5jakw, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-visk5jakw" aria-haspopup="menu" aria-controls="locale-example-menu" aria-expanded="false" data-hydrate-id="h2">English</button>
+<menu popover="" id="locale-example-menu" role="menu" style="position-anchor: --dropdown-visk5jakw">
+  <li role="menuitem" data-hydrate-id="h3">
+      <span class="capitalize">English</span>
+      <span class="trailing">en</span>
+    </li><li role="menuitem" data-hydrate-id="h4">
+      <span class="capitalize">français</span>
+      <span class="trailing">fr</span>
+    </li><li role="menuitem" data-hydrate-id="h5">
+      <span class="capitalize">العربية</span>
+      <span class="trailing">ar</span>
+    </li><li role="menuitem" data-hydrate-id="h6">
+      <span class="capitalize">中文</span>
+      <span class="trailing">zh</span>
+    </li>
+</menu></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
+<p>Custom or unsupported codes fall back to the code itself. Native names follow native casing (e.g. French <code>français</code>), and CSS text transforms can be applied for different casing.</p>
 <hr>
-<h2 id="reset-locale">Reset Locale</h2><p>Resetting the locale undoes the user's selection and returns the project to whatever a fresh first-visit would resolve to. It performs three steps:</p>
+<h3 id="reset-locale">Reset Locale</h3><p>Resetting the locale undoes the user's selection and returns the project to whatever a fresh first-visit would resolve to. It performs three steps:</p>
 <ol>
 <li><strong>Clears the stored preference.</strong> Any <code>localStorage</code> value written by a previous <code>$locale.set()</code> or <code>$locale.toggle()</code> is removed, so the next page load starts from a clean slate.</li>
 <li><strong>Reverts to default locale.</strong> Switches to the default, determined in order of precedence by: the <code>&lt;html lang&gt;</code> value (the developer's declared default), the browser language, or the first available locale in <code>manifest.json</code>.</li>
@@ -918,7 +978,7 @@ features.responsive.description,Works on all devices,Fonctionne sur tous les app
 <span class="hljs-comment">&lt;!-- Reset while navigating --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/destination"</span> @<span class="hljs-attr">click.prevent</span>=<span class="hljs-string">"$locale.reset('/destination')"</span>&gt;</span>Destination<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <hr>
-<h2 id="rtl-support">RTL Support</h2><p>The plugin automatically detects and handles right-to-left languages like Arabic, Hebrew, and Persian:</p>
+<h3 id="rtl-support">RTL Support</h3><p>The plugin automatically detects and handles right-to-left languages like Arabic, Hebrew, and Persian:</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" lines="" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Toggles --&gt;</span>
@@ -1023,9 +1083,9 @@ features.responsive.description,Works on all devices,Fonctionne sur tous les app
 
           <!-- Color mode -->
           <div role="group" class="outlined rounded-full">
-            <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h2"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></g></svg></button>
-            <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></button>
-            <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h4"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></button>
+            <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h7"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></g></svg></button>
+            <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h8"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></button>
+            <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h9"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></button>
 
           </div>
         </div>
@@ -1042,7 +1102,7 @@ features.responsive.description,Works on all devices,Fonctionne sur tous les app
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#create-locale-files">Create Locale Files</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#csv">CSV</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#json-yaml">JSON &amp; YAML</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#register-locale-files">Register Locale Files</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#language-detection">Language Detection</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#translating">Translating</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#display-content">Display Content</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#url-paths">URL Paths</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#ui-toggles">UI Toggles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#current-locale">Current Locale</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#reset-locale">Reset Locale</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#rtl-support">RTL Support</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#create-locale-files">Create Locale Files</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#csv">CSV</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#json-yaml">JSON &amp; YAML</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#register-locale-files">Register Locale Files</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#language-detection">Language Detection</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#translating">Translating</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#url-paths">URL Paths</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#user-interface">User Interface</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#localized-content">Localized Content</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#current-locale">Current Locale</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#locale-toggles">Locale Toggles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#locale-lists">Locale Lists</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#reset-locale">Reset Locale</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#rtl-support">RTL Support</a></div>
 
   </div>
 
@@ -1055,5 +1115,5 @@ features.responsive.description,Works on all devices,Fonctionne sur tous les app
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h3","attrs":{"type":null}},{"id":"h4","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h3","attrs":{"role":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h8","attrs":{"type":null}},{"id":"h9","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
 </body></html>

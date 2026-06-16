@@ -217,7 +217,44 @@ Manifest has no build steps and is not a translation engine. To translate your c
 
 ---
 
-## Display Content
+## URL Paths
+
+If a language code is detected as a slug anywhere in the URL path, that locale is automatically displayed.
+
+<div x-code-group>
+
+```html lines copy
+<!-- Links -->
+<a href="/en/docs/core-plugins/localization">English</a>
+<a href="/fr/docs/core-plugins/localization">Français</a>
+<a href="/zh/docs/core-plugins/localization">中文</a>
+<a href="/ar/docs/core-plugins/localization">العربية</a>
+<button class="link" @click="$locale.reset()">Base URL</button>
+```
+
+::: frame col gap-4 text-base [&_a]:underline
+<div class="row-wrap gap-4">
+  <a href="/en/docs/core-plugins/localization#url-paths">English</a>
+  <a href="/fr/docs/core-plugins/localization#url-paths">Français</a>
+  <a href="/zh/docs/core-plugins/localization#url-paths">中文</a>
+  <a href="/ar/docs/core-plugins/localization#url-paths">العربية</a>
+  <button class="link underline" @click="$locale.reset()">Base URL</button>
+</div>
+<template x-for="feature in $x['feature-examples'].content">
+  <div class="col">
+    <span class="h4" x-text="feature.name"></span>
+    <span x-text="feature.description"></span>
+  </div>
+</template>
+:::
+
+</div>
+
+---
+
+## User Interface
+
+### Localized Content
 
 Like regular [local data](/docs/core-plugins/local-data#display-content), localizations are accessed using the `$x` magic method with dot notation. The structure follows this pattern:
 
@@ -280,42 +317,27 @@ See [local data](/docs/core-plugins/local-data#display-content) for specifics on
 
 ---
 
-## URL Paths
+### Current Locale
 
-If a language code is detected as a slug anywhere in the URL path, that locale is automatically displayed.
+Display the current locale's language code with `$locale.current`{copy}, or its native name (endonym) with `$locale.name`{copy}:
 
 <div x-code-group>
 
-```html lines copy
-<!-- Links -->
-<a href="/en/docs/core-plugins/localization">English</a>
-<a href="/fr/docs/core-plugins/localization">Français</a>
-<a href="/zh/docs/core-plugins/localization">中文</a>
-<a href="/ar/docs/core-plugins/localization">العربية</a>
-<button class="link" @click="$locale.reset()">Base URL</button>
+```html copy
+<p>Code: <span x-text="$locale.current"></span></p>
+<p>Name: <span x-text="$locale.name"></span></p>
 ```
 
-::: frame col gap-4 text-base [&_a]:underline
-<div class="row-wrap gap-4">
-  <a href="/en/docs/core-plugins/localization#url-paths">English</a>
-  <a href="/fr/docs/core-plugins/localization#url-paths">Français</a>
-  <a href="/zh/docs/core-plugins/localization#url-paths">中文</a>
-  <a href="/ar/docs/core-plugins/localization#url-paths">العربية</a>
-  <button class="link underline" @click="$locale.reset()">Base URL</button>
-</div>
-<template x-for="feature in $x['feature-examples'].content">
-  <div class="col">
-    <span class="h4" x-text="feature.name"></span>
-    <span x-text="feature.description"></span>
-  </div>
-</template>
+::: frame text-base
+<p>Code: <span x-text="$locale.current"></span></p>
+<p>Name: <span x-text="$locale.name"></span></p>
 :::
 
 </div>
 
 ---
 
-## UI Toggles
+### Locale Toggles
 
 Allow users to toggle locales with Alpine's `@click` directive, using the `$locale` magic method:
 - `$locale.set('...')` sets the specified locale by its language code, e.g. `fr` for French
@@ -347,25 +369,53 @@ Allow users to toggle locales with Alpine's `@click` directive, using the `$loca
 
 ---
 
-## Current Locale
+### Locale Lists
 
-Display the current locale's language code with `x-text="$locale.current"`:
+Sometimes it's useful to list the project's locales, such as for a locale switcher menu. This can be done with `$locale.list`{copy}, which returns one object per available locale, each carrying its **native name** (endonym), text direction, and active flag:
+
+| Property | Description |
+|---|---|
+| `code`{copy} | Language code, e.g. `fr` |
+| `name`{copy} | Native language name, e.g. `français` |
+| `direction`{copy} | `ltr` or `rtl` |
+| `current`{copy} | `true` for the active locale |
+
+Native names come from the browser's baked-in `Intl.DisplayNames`. The list contains only the locales registered in `manifest.json`, in three orderings: `$locale.list` follows `manifest.json` order, with `.alphabetical` (by native name) and `.currentFirst` (active locale hoisted) as alternates.
 
 <div x-code-group>
 
 ```html copy
-<p>Current: <span x-text="$locale.current"></span></p>
+<button x-dropdown="locale-menu" class="capitalize" x-text="$locale.name"></button>
+
+<menu popover id="locale-menu">
+  <template x-for="l in $locale.list.alphabetical" :key="l.code">
+    <li @click="$locale.set(l.code)">
+      <span class="capitalize" x-text="l.name"></span>
+      <span class="trailing" x-text="l.code"></span>
+    </li>
+  </template>
+</menu>
 ```
 
 ::: frame text-base
-<p>Current: <span x-text="$locale.current"></span></p>
+<button x-dropdown="locale-example-menu" class="capitalize" x-text="$locale.name"></button>
+<menu popover id="locale-example-menu">
+  <template x-for="l in $locale.list.alphabetical" :key="l.code">
+    <li @click="$locale.set(l.code)">
+      <span class="capitalize" x-text="l.name"></span>
+      <span class="trailing" x-text="l.code"></span>
+    </li>
+  </template>
+</menu>
 :::
 
 </div>
 
+Custom or unsupported codes fall back to the code itself. Native names follow native casing (e.g. French `français`), and CSS text transforms can be applied for different casing.
+
 ---
 
-## Reset Locale
+### Reset Locale
 
 Resetting the locale undoes the user's selection and returns the project to whatever a fresh first-visit would resolve to. It performs three steps:
 
@@ -384,7 +434,7 @@ Resetting the locale undoes the user's selection and returns the project to what
 
 ---
 
-## RTL Support
+### RTL Support
 
 The plugin automatically detects and handles right-to-left languages like Arabic, Hebrew, and Persian:
 
