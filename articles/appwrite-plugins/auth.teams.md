@@ -42,8 +42,13 @@ If your app requires default teams be created automatically for all users, confi
 Default teams are defined by their name within array objects:
 - `permanent`: Permanent teams cannot be deleted by the user, such as a default personal workspace.
 - `template`: Template teams can be deleted and reapplied by the user, such as demo workspaces.
+- `guests`: Set to `true` to also seed these default teams for guest (anonymous) sessions. Off by default, so guests start with no teams.
 
 The user is the owner and only initial member of each default team. Depending on their role and permissions, the team can be modified and other members invited.
+
+::: brand icon="lucide:info"
+Guests are full Appwrite sessions, so they can own teams. When `"guests": true`, a guest's default teams are created the moment their session starts. Pair this with [`guestUpgrade`](/docs/appwrite-plugins/users#guest-upgrade) so those teams carry over when the guest later signs in (via magic link or OAuth) — otherwise they're left behind on the discarded guest account.
+:::
 
 Every user can generate custom teams, view all teams, and manage them with the respective permissions. Existing teams can also be duplicated, optionally cloning their members and roles to spin up a new workspace from a known configuration.
 
