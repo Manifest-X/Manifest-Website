@@ -42,8 +42,13 @@ If your app requires default teams be created automatically for all users, confi
 Default teams are defined by their name within array objects:
 - `permanent`: Permanent teams cannot be deleted by the user, such as a default personal workspace.
 - `template`: Template teams can be deleted and reapplied by the user, such as demo workspaces.
+- `guests`: Set to `true` to also seed these default teams for guest (anonymous) sessions. Off by default, so guests start with no teams.
 
 The user is the owner and only initial member of each default team. Depending on their role and permissions, the team can be modified and other members invited.
+
+::: brand icon="lucide:info"
+Guests are full Appwrite sessions, so they can own teams. When `"guests": true`, a guest's default teams are created the moment their session starts. Pair this with [`guestUpgrade`](/docs/appwrite-plugins/users#guest-upgrade) so those teams carry over when the guest later signs in (via magic link or OAuth) — otherwise they're left behind on the discarded guest account.
+:::
 
 Every user can generate custom teams, view all teams, and manage them with the respective permissions. Existing teams can also be duplicated, optionally cloning their members and roles to spin up a new workspace from a known configuration.
 
@@ -181,7 +186,34 @@ Each role can have permissions. Appwrite offers these default options:
 
 Custom permissions can be added to the array with unique names, such as `manageBilling`. These can be used in your frontend Alpine directives like `x-show="$auth.hasTeamPermission('manageBilling')"`. Users can also generate custom permissions if you expose the inputs to do so.
 
-The `creatorRole` is the role assigned to the team creator. It must reference a role defined in the `permanent` or `template` roles. If the `creatorRole` property is absent or does not reference a defined role, the creator is assigned all default permissions.
+The `creatorRole` is the role assigned to the team creator. It must reference a role defined in the `permanent` or `template` roles. If the `creatorRole` property is absent or does not reference a defined role, the creator is assigned the first defined role.
+
+#### Owner-only creators
+
+Use `creatorRoles` (plural) for finer control over what the creator receives, assigned atomically as the team is created:
+
+| Value | Result |
+|-------|--------|
+| `[]`{copy} or `null`{copy} | **Owner-only** — the creator holds just Appwrite's intrinsic `owner` role, with no template role. Your `template`/`permanent` roles stay defined but unassigned, ready for invited members. |
+| `"Admin"`{copy} | Assigns that single role. |
+| `["Admin", "Editor"]`{copy} | Assigns multiple roles. |
+
+```json "manifest.json" copy
+{
+    "appwrite": {
+        "auth": {
+            "roles": {
+                "template": { "Admin": ["manageRoles", "inviteMembers"], "Editor": ["inviteMembers"] }
+            },
+            "creatorRoles": []
+        }
+    }
+}
+```
+
+`creatorRoles` takes precedence over `creatorRole`. When neither is set, the creator is assigned the first defined role.
+
+Owner-only is the safest choice for a creator who should have full, future-proof access: a member holding *no* custom role resolves to **all** permissions (including any you add later), so they can never be locked out. By contrast, assigning the creator a custom role scopes them to exactly that role's permissions — if you later edit that role down, the creator loses access too. Prefer `creatorRoles: []` for owners; reserve named roles for invited members.
 
 <div x-code-group numbers copy  collapse="10">
 
@@ -223,12 +255,12 @@ The `creatorRole` is the role assigned to the team creator. It must reference a 
             <!-- List permissions as checkboxes -->
             <template x-for="permission in $auth.allAvailablePermissions || []" :key="permission">
                 <label>
-                    <input type="checkbox" :checked="permissions && permissions.includes(permission)" @change="if ($auth.isUpdatingRole(team.$id, roleName)) return; const updated = permissions ? [...permissions] : []; if ($event.target.checked) { if (!updated.includes(permission)) updated.push(permission); } else { const idx = updated.indexOf(permission); if (idx > -1) updated.splice(idx, 1); } $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.permissions = updated; } setTimeout(() => { if ($auth.editingRole && $auth.editingRole.teamId === team.$id && $auth.editingRole.oldRoleName === roleName) { $auth.saveEditingRole(); } }, 300);" :disabled="!$auth.canManageRoles() || $auth.isRolePermanentSync(team.$id, roleName) || $auth.isUpdatingRole(team.$id, roleName)" />
+                    <input type="checkbox" :checked="permissions && permissions.includes(permission)" @change="if ($auth.isUpdatingRole(team.$id, roleName)) return; const updated = permissions ? [...permissions] : []; if ($event.target.checked) { if (!updated.includes(permission)) updated.push(permission); } else { const idx = updated.indexOf(permission); if (idx > -1) updated.splice(idx, 1); } $auth.updateRolePermissions(team.$id, roleName, updated);" :disabled="!$auth.canManageRoles() || $auth.isRolePermanentSync(team.$id, roleName) || $auth.isUpdatingRole(team.$id, roleName)" />
                     <span x-text="permission"></span>
                 </label>
             </template>
             <!-- Custom permissions input -->
-            <input type="text" placeholder="Custom permission" aria-label="Custom permission" x-model="customPermInput" @keydown.enter.prevent="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (customPermInput.trim()) { const updated = permissions ? [...permissions] : []; if (!updated.includes(customPermInput.trim())) { updated.push(customPermInput.trim()); $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.permissions = updated; } setTimeout(() => { if ($auth.editingRole && $auth.editingRole.teamId === team.$id && $auth.editingRole.oldRoleName === roleName) { $auth.saveEditingRole(); } }, 300); customPermInput = ''; } }" :disabled="!$auth.canManageRoles() || $auth.isRolePermanentSync(team.$id, roleName) || $auth.isUpdatingRole(team.$id, roleName)" />
+            <input type="text" placeholder="Custom permission" aria-label="Custom permission" x-model="customPermInput" @keydown.enter.prevent="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (customPermInput.trim()) { const updated = permissions ? [...permissions] : []; if (!updated.includes(customPermInput.trim())) { updated.push(customPermInput.trim()); $auth.updateRolePermissions(team.$id, roleName, updated); customPermInput = ''; } }" :disabled="!$auth.canManageRoles() || $auth.isRolePermanentSync(team.$id, roleName) || $auth.isUpdatingRole(team.$id, roleName)" />
         </menu>
 
         <!-- Delete role button (enabled if user has canManageRoles permission) -->
@@ -258,11 +290,11 @@ The `creatorRole` is the role assigned to the team creator. It must reference a 
                 <menu popover :id="`permissions-menu-${team.$id}-${roleName}`">
                     <template x-for="permission in $auth.allAvailablePermissions || []" :key="permission">
                     <label>
-                        <input type="checkbox" :checked="permissions && permissions.includes(permission)" @change="if ($auth.isUpdatingRole(team.$id, roleName)) return; const updated = permissions ? [...permissions] : []; if ($event.target.checked) { if (!updated.includes(permission)) updated.push(permission); } else { const idx = updated.indexOf(permission); if (idx > -1) updated.splice(idx, 1); } $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.permissions = updated; } setTimeout(() => { if ($auth.editingRole && $auth.editingRole.teamId === team.$id && $auth.editingRole.oldRoleName === roleName) { $auth.saveEditingRole(); } }, 300);" :disabled="!$auth.canManageRoles() || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" />
+                        <input type="checkbox" :checked="permissions && permissions.includes(permission)" @change="if ($auth.isUpdatingRole(team.$id, roleName)) return; const updated = permissions ? [...permissions] : []; if ($event.target.checked) { if (!updated.includes(permission)) updated.push(permission); } else { const idx = updated.indexOf(permission); if (idx > -1) updated.splice(idx, 1); } $auth.updateRolePermissions(team.$id, roleName, updated);" :disabled="!$auth.canManageRoles() || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" />
                         <span x-text="permission"></span>
                     </label>
                     </template>
-                    <input type="text" placeholder="Custom permission" aria-label="Custom permission" x-model="customPermInput" @keydown.enter.prevent="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (customPermInput.trim()) { const updated = permissions ? [...permissions] : []; if (!updated.includes(customPermInput.trim())) { updated.push(customPermInput.trim()); $auth.startEditingRole(team.$id, roleName); if ($auth.editingRole) { $auth.editingRole.permissions = updated; } setTimeout(() => { if ($auth.editingRole && $auth.editingRole.teamId === team.$id && $auth.editingRole.oldRoleName === roleName) { $auth.saveEditingRole(); } }, 300); customPermInput = ''; } }" :disabled="$auth.isActionDisabled('manageRoles') || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" />
+                    <input type="text" placeholder="Custom permission" aria-label="Custom permission" x-model="customPermInput" @keydown.enter.prevent="if ($auth.isUpdatingRole(team.$id, roleName)) return; if (customPermInput.trim()) { const updated = permissions ? [...permissions] : []; if (!updated.includes(customPermInput.trim())) { updated.push(customPermInput.trim()); $auth.updateRolePermissions(team.$id, roleName, updated); customPermInput = ''; } }" :disabled="$auth.isActionDisabled('manageRoles') || ($auth.isRolePermanentSync && $auth.isRolePermanentSync(team.$id, roleName)) || $auth.isUpdatingRole(team.$id, roleName)" />
                 </menu>
                 <!-- Delete button -->
                 <button class="sm" @click="$auth.deleteUserRole(team.$id, roleName)" :disabled="$auth.isActionDisabled('manageRoles') || !$auth.isRoleDeletable(team.$id, roleName) || $auth.isDeletingRole(team.$id, roleName)" aria-label="Delete role" x-icon="lucide:trash" ></button>
@@ -294,6 +326,10 @@ The `creatorRole` is the role assigned to the team creator. It must reference a 
 :::
 
 </div>
+
+::: brand icon="lucide:info"
+**Editing role permissions from JavaScript?** Use `await $auth.updateRolePermissions(teamId, roleName, ['records.read', ...])` — it persists straight to team prefs with a plain array and refreshes `$auth.allTeamRoles()`. Don't assign to `$auth.editingRole.permissions` programmatically: that object is reactive and is meant for `x-model`-bound inputs (as above). For a mid-edit flow, call `$auth.setEditingPermissions([...])` then `$auth.saveEditingRole()`.
+:::
 
 ---
 
@@ -528,7 +564,9 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 | Method | Parameters | Description |
 |--------|------------|-------------|
 | `$auth.createRoleFromInputs(...)`{copy} | `teamId` (string) | Create a role using `newRoleName` and `newRolePermissions` properties |
-| `$auth.startEditingRole(...)`{copy} | `teamId` (string), `roleName` (string) | Start editing a role |
+| `$auth.updateRolePermissions(...)`{copy} | `teamId` (string), `roleName` (string), `permissions` (array) | **Set a role's permissions directly** (reactive-safe). Persists to team prefs and refreshes `allTeamRoles()`. Preferred for programmatic edits. |
+| `$auth.startEditingRole(...)`{copy} | `teamId` (string), `roleName` (string) | Start editing a role (for `x-model`-bound UI) |
+| `$auth.setEditingPermissions(...)`{copy} | `permissions` (array) | Set the in-progress edit's permissions safely (use with `saveEditingRole()`) |
 | `$auth.saveEditingRole()`{copy} | None | Save role edits |
 | `$auth.cancelEditingRole()`{copy} | None | Cancel role editing |
 | `$auth.deleteUserRole(...)`{copy} | `teamId` (string), `roleName` (string) | Delete a role |

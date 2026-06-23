@@ -14,6 +14,7 @@ Your Appwrite project's Auth dashboard provides various options to customize the
 - OAuth2 Providers (Google, Apple, GitHub, Discord, and 35+ more)
 - Anonymous (guest sessions)
 - Magic URL
+- Email OTP (one-time passcode)
 
 See Appwrite's <a href="https://appwrite.io/docs/products/auth" target="_blank" rel="noopener">Auth docs</a> for all configuration details.
 
@@ -44,9 +45,10 @@ In `manifest.json`, use the auth `methods` array to define your project's sign-i
 
 | Method | Description |
 |--------|-------------|
-| `guest-auto`{copy} | Automatically creates anonymous guest sessions for all visitors |
+| `guest-auto`{copy} | Automatically creates anonymous guest sessions for all visitors (`guest`{copy} is an accepted synonym) |
 | `guest-manual`{copy} | Allows users to manually create guest sessions via `$auth.requestGuest()`{copy} |
 | `magic`{copy} | Enables passwordless login via magic URLs sent to email |
+| `otp`{copy} | Enables passwordless login via a one-time passcode sent to email |
 | `oauth`{copy} | Enables OAuth sign-in with providers like Google, GitHub, etc. |
 
 ---
@@ -159,9 +161,76 @@ Email content can be customized in Appwrite under <b>Auth</b> > <b>Templates</b>
 
 ---
 
+### Email OTP
+
+Email OTP provides passwordless authentication via a one-time passcode. Users enter their email address, receive a short code by email, then enter that code to sign in — all on the same page, with no redirect.
+
+<div x-code-group>
+
+```json "manifest.json" copy
+{
+    "appwrite": {
+        ...
+        "auth": {
+            "methods": ["otp"]
+        }
+    }
+}
+```
+
+```html "HTML" copy
+<!-- Step 1: request a code -->
+<input type="email" placeholder="Email" x-show="!$auth.otpSent" @keyup.enter="$auth.sendEmailOTP()" />
+<button x-show="!$auth.otpSent" @click="$auth.sendEmailOTP()">Email code</button>
+
+<!-- Step 2: enter the code -->
+<input name="otp" placeholder="Code" x-show="$auth.otpSent" @keyup.enter="$auth.submitOTP()" />
+<button x-show="$auth.otpSent" @click="$auth.submitOTP()">Verify</button>
+
+<p x-show="$auth.otpSent">Code sent — check your inbox.</p>
+```
+
+::: frame col gap-4 text-base
+<!-- Request a code -->
+<div class="row-wrap gap-2" x-show="!$auth.otpSent">
+    <input class="flex-1 max-w-full peer" type="email" pattern=".*@.*\..*" required autocomplete="on" placeholder="Input email" aria-label="Email" @keyup.enter="$auth.sendEmailOTP()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress" />
+    <button class="peer-invalid:disabled" @click="$auth.sendEmailOTP()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress">Email Code</button>
+</div>
+<!-- Enter the code -->
+<div class="row-wrap gap-2" x-show="$auth.otpSent">
+    <input class="flex-1 max-w-full" name="otp" inputmode="numeric" autocomplete="one-time-code" placeholder="Enter code" aria-label="One-time code" @keyup.enter="$auth.submitOTP()" :disabled="$auth.inProgress" />
+    <button @click="$auth.submitOTP()" :disabled="$auth.inProgress">Verify</button>
+</div>
+<button @click="$auth.logout()" :disabled="!$auth.isAuthenticated || $auth.inProgress" class="!w-fit">Logout</button>
+
+<!-- Status -->
+<p x-show="$auth.inProgress">Authorizing...</p>
+<p x-show="$auth.otpSent">Code sent. Check your inbox or spam.</p>
+<p x-show="$auth.otpExpired">Code was invalid or expired. Please try again.</p>
+<p x-show="$auth.isAuthenticated">You're signed-in using <b x-text="$auth.method || 'guest'"></b> as <b x-text="$auth.user?.email || 'a guest'"></b></p>
+<p x-show="!$auth.isAuthenticated">You're not signed-in.</p>
+<p x-show="$auth.error" x-text="$auth.error"></p>
+:::
+
+</div>
+
+`$auth.sendEmailOTP()` finds the email input the same way `sendMagicLink()` does (nearest input, form, or first on the page), or accepts a selector like `$auth.sendEmailOTP('#email-input')`.
+
+After a code is sent, `$auth.otpSent` becomes `true`; `$auth.submitOTP()` reads the code input (any `input[name="otp"]`, `autocomplete="one-time-code"`, or numeric input) and completes sign-in. Pass `{ phrase: true }` to `sendEmailOTP` to enable Appwrite's anti-phishing security phrase, then display `$auth.otpPhrase` alongside the code field.
+
+Email content and code length can be customized in Appwrite under <b>Auth</b> > <b>Templates</b> > <b>OTP</b>.
+
+::: brand icon="lucide:info"
+Unlike OAuth and magic links, email OTP cannot convert a guest's account in place. This is an Appwrite limitation, so an OTP sign-in always creates a fresh account. You can still carry a guest's teams over to that new account with [Guest Team Carryover](#guest-team-carryover-otp).
+:::
+
+---
+
 ### Guest Sessions
 
-Guest sessions allow visitors to browse your app without creating an account, with each session registered in the Appwrite userbase (including repeat visits from the same user). With Manifest, guest sessions can begin automatically or by a user action. If a guest subsequently signs in using OAuth or a Magic URL, Appwrite converts the guest session into a real profile and preserves any user data.
+Guest sessions allow visitors to browse your app without creating an account, with each session registered in the Appwrite userbase (including repeat visits from the same user). With Manifest, guest sessions can begin automatically or by a user action.
+
+By default, when a guest signs in, a fresh account is created and the guest session is discarded. To instead **preserve** the guest's account and data when they sign in, enable [Guest Upgrade](#guest-upgrade).
 
 <br>
 
@@ -220,6 +289,55 @@ When `guest-manual` is enabled, visitors must explicitly choose to continue as a
 :::
 
 </div>
+
+<br>
+
+#### Guest Upgrade
+
+By default a guest who signs in gets a brand-new account, and anything tied to the guest session (such as guest-created [teams](/docs/appwrite-plugins/teams)) is left behind. Set `guestUpgrade` to `true` to instead convert the guest's existing account in place, preserving its data and team memberships.
+
+```json "manifest.json" copy
+{
+    "appwrite": {
+        ...
+        "auth": {
+            "methods": ["guest-manual", "magic", "oauth"],
+            "guestUpgrade": true
+        }
+    }
+}
+```
+
+No markup changes are needed — `$auth.sendMagicLink()` and `$auth.loginOAuth()` handle the upgrade automatically when a guest signs in. `guestUpgrade` defaults to the value of `teams.guests`, so enabling guest teams turns it on for you.
+
+::: brand icon="lucide:info"
+Guest upgrade only works with OAuth and magic links, while email OTP sign-in always creates a fresh account.
+:::
+
+<br>
+
+#### Guest Team Carryover (OTP)
+
+Because email OTP can't convert a guest in place, `guestUpgrade` can't preserve a guest's teams for OTP sign-ins. `guestMigration` covers this case: it carries the guest's teams over to the new account by reassigning team membership. It's the OTP-friendly counterpart to `guestUpgrade`.
+
+Reassigning team ownership between accounts is privileged — it needs a server API key, so it has to run on a server, not in the browser. To make that turnkey, Manifest provides a ready-to-deploy <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/guest-migration-function" target="_blank" rel="noopener">guest-migration function template</a>. Deploy it to your Appwrite project and point the plugin at it:
+
+```json "manifest.json" copy
+{
+    "appwrite": {
+        ...
+        "auth": {
+            "methods": ["guest-manual", "otp"],
+            "teams": { "permanent": ["Workspace"], "guests": true },
+            "guestMigration": { "functionId": "<your function id>" }
+        }
+    }
+}
+```
+
+No markup changes — after a guest verifies an OTP code, the plugin transparently moves their teams to the new account. The same function also garbage-collects abandoned guests and their orphaned teams on a schedule.
+
+The template is one ready-made implementation; the plugin just calls a function that speaks a small `prepare`/`commit` contract, so you can swap the function's internals for your own backend logic if you ever need to. Its <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/guest-migration-function#readme" target="_blank" rel="noopener">README</a> walks through deploying it.
 
 ---
 

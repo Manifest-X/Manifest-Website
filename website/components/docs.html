@@ -9,7 +9,7 @@
           <template x-for="(item, index) in group.items" :key="item.path || index">
             <a x-show="item.name" :href="'/docs/' + group.group.toLowerCase().replaceAll(' ', '-') + '/' + item.path" role="button" :class="[
                   $x.docs.$route('path') && $x.docs.$route('path').path === item.path
-                    ? 'bg-brand-surface/50 text-brand-inverse dark:bg-brand-surface/15 dark:text-brand-content  pointer-events-none'
+                    ? 'text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15  pointer-events-none'
                     : 'ghost text-content-neutral',
                   'justify-start w-full',
                   item.indent ? 'text-content-subtle' : ''
