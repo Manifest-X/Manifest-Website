@@ -295,6 +295,34 @@ Cap the number of selections with the `max`{copy} option. Once the limit is reac
 
 ---
 
+### Locked Values
+
+Mark a value as locked to keep it in the field but block its removal — its × is hidden and the chip ignores delete while still showing as selected. Flag an option with `data-locked`{copy}, or pass a `locked`{copy} list in the directive. Below, **SSL** is always included so its chip has no remove button, while the other features can be cleared.
+
+<div x-code-group>
+
+```html copy
+<input x-combobox.multiple.chips="features" x-model="plan" placeholder="Add features">
+<datalist id="features">
+    <option data-locked>SSL</option>
+    <option>Backups</option>
+    <option>Analytics</option>
+</datalist>
+```
+
+::: frame
+<div x-data="{ plan: ['SSL', 'Backups'] }" style="max-width: 30rem;">
+<input x-combobox.multiple.chips="cb-plan-lock" x-model="plan" placeholder="Add features">
+<datalist id="cb-plan-lock"><option data-locked>SSL</option><option>Backups</option><option>Analytics</option><option>Priority support</option></datalist>
+</div>
+:::
+
+</div>
+
+The `locked`{copy} list is reactive too: pass `locked: <expression>`{copy} in the config object to lock or unlock values as state changes.
+
+---
+
 ### Remote Suggestions
 
 Add `.async`{copy} to fetch options as the user types instead of filtering a fixed list. On each keystroke the field sends a `combobox-filter`{copy} event carrying the typed `value`{copy} and a `setOptions`{copy} callback. Call `setOptions`{copy} with your results to fill the list.
@@ -337,6 +365,35 @@ tags=research
 ```
 
 </div>
+
+---
+
+## Dynamic Data
+
+Bind a field to state with `x-model`{copy} and it stays in sync both ways. The field renders one chip per value on load and re-renders whenever the bound value changes — so the same combobox both composes a new selection and edits an existing record (switch which record is selected and the chips follow). Adding or removing chips writes straight back to the bound value.
+
+The bound value can be an array or a comma-separated string; the field keeps whatever shape it started with. Any reactive source works, including [local](/docs/core-plugins/local-data) and [cloud](/docs/appwrite-plugins/cloud-data) data through `$x`{copy}.
+
+<div x-code-group>
+
+```html copy
+<div x-data="{ member: { roles: ['Design', 'Research'] } }">
+    <input x-combobox.multiple.chips="roles" x-model="member.roles" placeholder="Roles">
+</div>
+```
+
+::: frame
+<div x-data="{ roles: ['Design', 'Research'] }" style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 30rem;">
+<input x-combobox.multiple.chips="cb-roles-bind" x-model="roles" placeholder="Roles">
+<datalist id="cb-roles-bind"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist>
+<button type="button" class="hug sm" @click="roles = ['Writing', 'Testing']">Load a different record</button>
+<code x-text="'roles = ' + JSON.stringify(roles)"></code>
+</div>
+:::
+
+</div>
+
+When the list carries separate values and labels — a [dropdown menu](#dropdown-menu) with `data-value`{copy}/`data-label`{copy} — the chip shows the label while the bound value holds the token. Pick "Owner" and `roles` stores `owner`, keeping value mapping clean for editing.
 
 ---
 

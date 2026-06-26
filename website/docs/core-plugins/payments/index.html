@@ -924,17 +924,17 @@
 </tr>
 </tbody></table>
 <p>If a popup isn't available, the plugin automatically falls back to redirect so clickthroughs never dead-end. Popup SDKs load on demand from the provider's own CDN — sites with a strict Content Security Policy should allow that provider's domain in <code>script-src</code>. Providers outside the list can add popup support without touching the framework:</p>
-<pre x-code="html" name="Custom overlay" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="Custom overlay" role="region"><header><div>Custom overlay</div></header><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>
-    document.addEventListener('alpine:init', () =&gt; {
-        ManifestPaymentsAdapters.register('myprovider', {
-            supportsOverlay: true,
-            async open({ url, params, config }) {
-                // open the provider's SDK popup, resolve when done
-                return { status: 'complete' }
+<pre x-code="html" name="Custom overlay" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="Custom overlay" role="region"><header><div>Custom overlay</div></header><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'alpine:init'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title class_">ManifestPaymentsAdapters</span>.<span class="hljs-title function_">register</span>(<span class="hljs-string">'myprovider'</span>, {
+            <span class="hljs-attr">supportsOverlay</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-keyword">async</span> <span class="hljs-title function_">open</span>(<span class="hljs-params">{ url, params, config }</span>) {
+                <span class="hljs-comment">// open the provider's SDK popup, resolve when done</span>
+                <span class="hljs-keyword">return</span> { <span class="hljs-attr">status</span>: <span class="hljs-string">'complete'</span> }
             }
         })
     })
-<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <hr>
 <h2 id="payment-function">Payment Function</h2><p>Real payments need one small piece of server code, because two things can never happen in a browser: creating a checkout with your secret key, and confirming that money actually arrived. The payment function does both.</p>
 <p>Your function answers three requests:</p>

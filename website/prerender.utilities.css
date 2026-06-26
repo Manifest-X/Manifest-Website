@@ -17,9 +17,9 @@
 
 .text-content-stark { color: var(--color-content-stark) }
 
-.hover\:text-content-stark:hover { color: var(--color-content-stark) }
+.\!text-content-stark { color: var(--color-content-stark) !important }
 
-.\[\&amp\;\_th\]\:text-content-starkamp; th { color: var(--color-content-stark) }
+.hover\:text-content-stark:hover { color: var(--color-content-stark) }
 
 .\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
 
@@ -48,13 +48,9 @@
 
 .bg-surface-2 { background-color: var(--color-surface-2) }
 
-.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
-
-.\[\&amp\;\_span\]\:bg-surface-2amp; span { background-color: var(--color-surface-2) }
-
-.\[\&amp\;\_figure\]\:bg-surface-2amp; figure { background-color: var(--color-surface-2) }
-
 .\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
 
 .\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
 
@@ -75,6 +71,14 @@
 .bg-brand-surface { background-color: var(--color-brand-surface) }
 
 .bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
+
+.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
+
+.dark .dark\:bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
+
+.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
+
+.bg-brand-surface\/50 { background-color: color-mix(in oklch, var(--color-brand-surface) 50%, transparent) }
 
 .bg-brand-surface-hover { background-color: var(--color-brand-surface-hover) }
 
@@ -148,19 +152,19 @@ flex-flow:row nowrap
 flex-flow:row nowrap
 } }
 
-@media (min-width: 768px) { .md\:col {
-display:flex
-} }
-
 @media (min-width: 1280px) { .xl\:col {
 display:flex
 } }
 
 @media (min-width: 768px) { .md\:col {
+display:flex
+} }
+
+@media (min-width: 1280px) { .xl\:col {
 flex-flow:column nowrap
 } }
 
-@media (min-width: 1280px) { .xl\:col {
+@media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
 }
@@ -181,8 +185,6 @@ flex-flow:column nowrap
 .bg-field-inverse { background-color: var(--color-field-inverse) }
 
 .text-content-stark { color: var(--color-content-stark) }
-
-.\!text-content-stark { color: var(--color-content-stark) !important }
 
 .hover\:text-content-stark:hover { color: var(--color-content-stark) }
 
@@ -242,14 +244,6 @@ flex-flow:column nowrap
 .bg-brand-surface { background-color: var(--color-brand-surface) }
 
 .bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
-
-.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
-
-.dark .dark\:bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
-
-.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
-
-.bg-brand-surface\/50 { background-color: color-mix(in oklch, var(--color-brand-surface) 50%, transparent) }
 
 .bg-brand-surface-hover { background-color: var(--color-brand-surface-hover) }
 
@@ -656,8 +650,6 @@ flex-flow:column nowrap
 .\!text-content-stark { color: var(--color-content-stark) !important }
 
 .text-content-neutral { color: var(--color-content-neutral) }
-
-.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
 
 .text-content-subtle { color: var(--color-content-subtle) }
 
@@ -1110,19 +1102,19 @@ flex-flow:row nowrap
 flex-flow:row nowrap
 } }
 
-@media (min-width: 1280px) { .xl\:col {
-display:flex
-} }
-
 @media (min-width: 768px) { .md\:col {
 display:flex
 } }
 
 @media (min-width: 1280px) { .xl\:col {
+display:flex
+} }
+
+@media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
 
-@media (min-width: 768px) { .md\:col {
+@media (min-width: 1280px) { .xl\:col {
 flex-flow:column nowrap
 } }
 }
@@ -1133,8 +1125,6 @@ flex-flow:column nowrap
 .\!text-content-stark { color: var(--color-content-stark) !important }
 
 .text-content-neutral { color: var(--color-content-neutral) }
-
-.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
 
 .text-content-subtle { color: var(--color-content-subtle) }
 
@@ -1326,15 +1316,7 @@ flex-flow:column nowrap
 
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
-.\[\&\_tr\:hover\]\:bg-surface-1 tr:hover { background-color: var(--color-surface-1) }
-
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
-
-.bg-surface-2 { background-color: var(--color-surface-2) }
-
-.bg-surface-3 { background-color: var(--color-surface-3) }
-
-.border-line { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -1345,6 +1327,10 @@ flex-flow:column nowrap
 .bg-brand-surface\/50 { background-color: color-mix(in oklch, var(--color-brand-surface) 50%, transparent) }
 
 .text-brand-content { color: var(--color-brand-content) }
+
+.user-valid\:border-positive-surface:user-valid { border-color: var(--color-positive-surface) }
+
+.user-invalid\:border-negative-surface:user-invalid { border-color: var(--color-negative-surface) }
 
 .px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
 
