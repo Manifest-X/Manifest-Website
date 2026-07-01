@@ -162,6 +162,7 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 |---|---|---|
 | `$auth`{copy} | appwrite-auth | Current user, login methods, team management |
 | `$chart(id)`{copy} | charts | Read a chart's type/series, `update(cfg)`, `redraw()` |
+| `$chat`{copy} | chat | Open conversations: `$chat.open(id, { adapter })` returns a reactive handle with `messages`, `send()`, and more |
 | `$colorpicker`{copy} | colorpicker | Open and configure a color picker UI |
 | `$color`{copy} | color modes | Read/write the current color mode. `$color.current` returns `'light'`, `'dark'`, or `'system'`; assign to switch |
 | `$date(id)`{copy} | datepicker | Read or set a picker's value, time, range, and open state |
