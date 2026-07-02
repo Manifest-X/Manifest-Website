@@ -317,6 +317,81 @@ A reply whose parent isn't loaded still renders (flagged as an orphan) instead o
 
 ---
 
+## Comments & Cloud Chats
+
+Conversations between real visitors need a real backend. The built-in `appwrite` adapter stores messages as rows in your project's <a href="https://appwrite.io" target="_blank" rel="noopener">Appwrite</a> database — new messages arrive over realtime, and identity comes from [auth](/docs/appwrite-plugins/auth). Visitors get a guest session on their first message, so commenting needs no signup.
+
+Configure it in the same `chat` block that activates the plugin:
+
+```json "manifest.json" copy
+{
+    "chat": {
+        "appwriteDatabaseId": "your-database-id",
+        "appwriteTableId": "chat_messages",
+        "ttlHours": 24
+    }
+}
+```
+
+| Property | Default | Description |
+|---|---|---|
+| `appwriteDatabaseId`{copy} | – | The database holding the messages table. |
+| `appwriteTableId`{copy} | `"chat_messages"` | A table with columns `conversationId` (indexed), `text`, `authorId`, `authorName`, and optional `authorColor`, `replyTo`. Permissions: read `any`, create `users` + `guests`. |
+| `ttlHours`{copy} | – | Optional: only load messages younger than this, making conversations ephemeral. Pair with the <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/chat-prune-function" target="_blank" rel="noopener">prune function</a> to physically delete the rest on a schedule. |
+
+The frame below is this page's real comment thread — comments come from other readers, live, and disappear after 24 hours:
+
+<div x-code-group copy>
+
+```html "HTML"
+<div x-data="{ c: $chat.open('website-comments', { adapter: 'appwrite' }), draft: '' }">
+
+    <div class="col gap-1">
+        <template x-for="m in c.messages" :key="m.id">
+            <p>
+                <b :style="`color:${m.author?.color}`" x-text="m.author?.displayName"></b>
+                <span x-text="m.body.text"></span>
+            </p>
+        </template>
+        <small x-show="!c.messages.length">No comments in the last 24 hours — leave the first.</small>
+    </div>
+
+    <form class="row gap-2" @submit.prevent="if (draft.trim()) { c.send({ text: draft }); draft = '' }">
+        <input type="text" x-model="draft" placeholder="Leave an anonymous comment…">
+        <button>Comment</button>
+    </form>
+
+</div>
+```
+
+::: frame
+<div x-data="{ c: $chat.open('website-comments', { adapter: 'appwrite' }), draft: '' }" class="col gap-3">
+    <div class="col gap-1">
+        <template x-for="m in c.messages" :key="m.id">
+            <p class="m-0">
+                <b :style="`color:${m.author?.color}`" x-text="m.author?.displayName"></b>
+                <span x-text="m.body.text"></span>
+            </p>
+        </template>
+        <small x-show="!c.messages.length">No comments in the last 24 hours — leave the first.</small>
+    </div>
+    <form class="row gap-2" @submit.prevent="if (draft.trim()) { c.send({ text: draft }); draft = '' }">
+        <input type="text" x-model="draft" placeholder="Leave an anonymous comment…" style="flex:1">
+        <button>Comment</button>
+    </form>
+</div>
+:::
+
+</div>
+
+The same adapter serves support threads, project discussions, and small group chats — anywhere the conversation is part of your app's data. Because messages are ordinary rows, everything else in the Appwrite toolbox applies: permissions, the console, your own functions.
+
+::: brand icon="lucide:info"
+**Where Appwrite chat fits.** Comments, support inboxes, and small groups are a natural fit — modest write volumes sit comfortably in Appwrite's free tier, with realtime included. A high-volume messaging product (thousands of concurrent conversations, high message rates) deserves purpose-built infrastructure instead — connect it with a [custom adapter](#custom-adapters), which is exactly how large platforms use this plugin.
+:::
+
+---
+
 ## Reference
 
 The `$chat` magic:
