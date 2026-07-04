@@ -141,6 +141,36 @@ Inputs of `type="search"` work on their own, or can be placed in a label to faci
 
 ---
 
+## Copy
+
+Pair an input with a copy button by placing both in a label, marking the button with `command="--copy"`. The button stays hidden until the field is hovered or focused. Copying is wired with a little Alpine — a `copied` class on the button swaps its icon to a confirmation check.
+
+<div x-code-group>
+
+```html copy
+<label x-data="{ copied: false }">
+    <input x-ref="code" value="MNFST-20" aria-label="Coupon code" />
+    <button type="button" command="--copy" aria-label="Copy to clipboard" :class="{ copied }"
+        @click="navigator.clipboard.writeText($refs.code.value)
+            .then(() => { copied = true; setTimeout(() => copied = false, 1500) })"></button>
+</label>
+```
+
+::: frame
+<label x-data="{ copied: false }">
+    <input x-ref="code" value="MNFST-20" aria-label="Coupon code" />
+    <button type="button" command="--copy" aria-label="Copy to clipboard" :class="{ copied }"
+        @click="navigator.clipboard.writeText($refs.code.value)
+            .then(() => { copied = true; setTimeout(() => copied = false, 1500) })"></button>
+</label>
+:::
+
+</div>
+
+This works with any text-like input type (`text`, `email`, `tel`, `number`, `url`). The `command` attribute is native HTML — custom `--` commands have no default behavior, making it a clean styling hook. Override the button icons with the `--icon-field-copy`{copy} and `--icon-field-copied`{copy} variables.
+
+---
+
 ## File Uploads
 
 Inputs of `type="file"` work on their own, or can be placed in a label to facilitate an upload icon.
