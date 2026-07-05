@@ -167,7 +167,7 @@ Pair an input with a copy button by placing both in a label, marking the button 
 
 </div>
 
-This works with any text-like input type (`text`, `email`, `tel`, `number`, `url`). The `command` attribute is native HTML — custom `--` commands have no default behavior, making it a clean styling hook. The `x-tooltip` is optional — it labels the button on hover, steps aside for the confirmation flash on click, and returns on the next hover. Without the tooltip plugin, toggle a `copied` class on the button instead to swap its icon to a check in place. Override the icons with the `--icon-field-copy`{copy} and `--icon-field-copied`{copy} variables.
+This works with any text-like input type (`text`, `email`, `tel`, `number`, `url`). The `command` attribute is native HTML — custom `--` commands have no default behavior, making it a clean styling hook. The `x-tooltip` is optional — it labels the button on hover, steps aside for the confirmation flash on click, and returns on the next hover. The confirmation is whatever you pass to `showTransient` — swap the icon span for a plain string like `'Copied!'` or any other HTML. Without the tooltip plugin, toggle a `copied` class on the button instead to swap its icon to a check in place. Override the icons with the `--icon-field-copy`{copy} and `--icon-field-copied`{copy} variables.
 
 ---
 
