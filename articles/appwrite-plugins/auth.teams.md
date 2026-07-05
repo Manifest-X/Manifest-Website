@@ -186,6 +186,10 @@ Each role can have permissions. Appwrite offers these default options:
 
 Custom permissions can be added to the array with unique names, such as `manageBilling`. These can be used in your frontend Alpine directives like `x-show="$auth.hasTeamPermission('manageBilling')"`. Users can also generate custom permissions if you expose the inputs to do so.
 
+Role names are display names and may contain spaces or any characters (for example `Live Agent`). The plugin stores an internal, storage-safe token on each membership and translates it back to the display name wherever roles are returned, so there are no naming restrictions to worry about.
+
+A member's stored tokens can intentionally differ from the roles you requested: role names are stored in slug form, and a role whose permissions include owner-level capabilities (such as `manageRoles` or `deleteTeam`) is normalized to also carry Appwrite's `owner` token. This is by design, not a failed write — `inviteMember` and `updateMembership` return `normalized: true` (alongside `requestedRoles` and `normalizedRoles`) whenever such a transform was applied.
+
 The `creatorRole` is the role assigned to the team creator. It must reference a role defined in the `permanent` or `template` roles. If the `creatorRole` property is absent or does not reference a defined role, the creator is assigned the first defined role.
 
 #### Owner-only creators

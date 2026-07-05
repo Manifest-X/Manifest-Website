@@ -23,13 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.157/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.157/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.163/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.163/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.157/lib/manifest.min.js" data-version="0.5.157"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.163/lib/manifest.min.js" data-version="0.5.163"></script>
   <script src="../../../scripts/payments-demo.js"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -705,14 +705,14 @@
     series: [{ name: 'Visitors', data: [30, 80, 45, 90, 60, 120] }],
     height: 200
 }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-chart="{ type: 'line', labels: ['Jan','Feb','Mar','Apr','May','Jun'], series: [{ name: 'Visitors', data: [30, 80, 45, 90, 60, 120] }], height: 200 }" style="max-width: 420px; min-height: 200px" class="chart"></div></aside>
+<aside class="frame"><div x-chart="{ type: 'line', labels: ['Jan','Feb','Mar','Apr','May','Jun'], series: [{ name: 'Visitors', data: [30, 80, 45, 90, 60, 120] }], height: 200 }" class="max-w-full chart" style="min-height: 200px"></div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>Lines interpolate smoothly by default. Set <code>curve</code> to change it: <code>'linear'</code> for straight segments, <code>'step'</code> for tiers, <code>'natural'</code> for splines.</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-chart</span>=<span class="hljs-string">"{ type: 'line', curve: 'step', ... }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-chart="{ type: 'line', curve: 'step', labels: ['Jan','Feb','Mar','Apr','May','Jun'], series: [{ name: 'Tier', data: [1, 1, 2, 2, 3, 3] }], height: 180 }" style="max-width: 420px; min-height: 180px" class="chart"></div></aside>
+<aside class="frame"><div x-chart="{ type: 'line', curve: 'step', labels: ['Jan','Feb','Mar','Apr','May','Jun'], series: [{ name: 'Tier', data: [1, 1, 2, 2, 3, 3] }], height: 180 }" class="max-w-full chart" style="min-height: 180px"></div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <h3 id="area">Area</h3><p>Area charts are line charts with a translucent fill. Add <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">stacked: true</code> to pile series on top of each other.</p>
@@ -728,7 +728,7 @@
     ],
     height: 200
 }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-chart="{ type: 'area', stacked: true, labels: ['Q1','Q2','Q3','Q4'], series: [{ name: 'Organic', data: [40, 55, 60, 80] }, { name: 'Paid', data: [20, 30, 25, 45] }], height: 200 }" style="max-width: 420px; min-height: 200px" class="chart"></div></aside>
+<aside class="frame"><div x-chart="{ type: 'area', stacked: true, labels: ['Q1','Q2','Q3','Q4'], series: [{ name: 'Organic', data: [40, 55, 60, 80] }, { name: 'Paid', data: [20, 30, 25, 45] }], height: 200 }" class="max-w-full chart" style="min-height: 200px"></div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <h3 id="bar">Bar</h3><p>Multiple series render as grouped bars; <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">stacked: true</code> stacks them instead.</p>
@@ -745,7 +745,7 @@
     ],
     height: 200
 }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-chart="{ type: 'bar', stacked: true, dataLabels: true, labels: ['Jan','Feb','Mar'], series: [{ name: 'Revenue', data: [120, 200, 150] }, { name: 'Costs', data: [80, 110, 95] }], height: 200 }" style="max-width: 420px; min-height: 200px" class="chart"></div></aside>
+<aside class="frame"><div x-chart="{ type: 'bar', stacked: true, dataLabels: true, labels: ['Jan','Feb','Mar'], series: [{ name: 'Revenue', data: [120, 200, 150] }, { name: 'Costs', data: [80, 110, 95] }], height: 200 }" class="max-w-full chart" style="min-height: 200px"></div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <h3 id="pie-donut">Pie &amp; Donut</h3><p>Pie charts take a single series whose values become slices, colored from the theme palette in order. <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">type: 'donut'</code> hollows the center. Data also accepts <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">[{ label, value }]</code> rows.</p>
@@ -757,8 +757,8 @@
     series: [{ data: [55, 35, 10] }],
     height: 220
 }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame row-wrap gap-10"><div x-chart="{ type: 'pie', dataLabels: true, labels: ['Direct','Search','Social','Referral'], series: [{ data: [38, 27, 21, 14] }], height: 220 }" style="max-width: 300px; min-height: 220px" class="chart"></div>
-<div x-chart="{ type: 'donut', labels: ['Mobile','Desktop','Tablet'], series: [{ data: [55, 35, 10] }], height: 220 }" style="max-width: 300px; min-height: 220px" class="chart"></div></aside>
+<aside class="frame grid sm:grid-cols-2 gap-8"><div x-chart="{ type: 'pie', dataLabels: true, labels: ['Direct','Search','Social','Referral'], series: [{ data: [38, 27, 21, 14] }], height: 220 }" class="max-w-full chart" style="min-height: 220px"></div>
+<div x-chart="{ type: 'donut', labels: ['Mobile','Desktop','Tablet'], series: [{ data: [55, 35, 10] }], height: 220 }" class="max-w-full chart" style="min-height: 220px"></div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <h3 id="scatter">Scatter</h3><pre x-code-group="" data-group-processed="yes" role="region">
@@ -769,7 +769,7 @@
     series: [{ name: 'Sample', data: [12, 30, 18, 44, 25, 50, 33, 60] }],
     height: 200
 }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-chart="{ type: 'scatter', labels: [1,2,3,4,5,6,7,8], series: [{ name: 'Sample', data: [12, 30, 18, 44, 25, 50, 33, 60] }], height: 200 }" style="max-width: 420px; min-height: 200px" class="chart"></div></aside>
+<aside class="frame"><div x-chart="{ type: 'scatter', labels: [1,2,3,4,5,6,7,8], series: [{ name: 'Sample', data: [12, 30, 18, 44, 25, 50, 33, 60] }], height: 200 }" class="max-w-full chart" style="min-height: 200px"></div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <h3 id="combo">Combo</h3><p><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">type: 'combo'</code> mixes renderers in one plot — give each series its own <code>type</code> (<code>bar</code>, <code>line</code>, or <code>area</code>). Series without one default to bars.</p>
@@ -784,7 +784,7 @@
     ],
     height: 200
 }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-chart="{ type: 'combo', labels: ['Jan','Feb','Mar','Apr','May','Jun'], series: [{ name: 'Revenue', type: 'bar', data: [120, 200, 150, 280, 230, 320] }, { name: 'Margin %', type: 'line', data: [20, 35, 28, 44, 40, 52] }], height: 200 }" style="max-width: 420px; min-height: 200px" class="chart"></div></aside>
+<aside class="frame"><div x-chart="{ type: 'combo', labels: ['Jan','Feb','Mar','Apr','May','Jun'], series: [{ name: 'Revenue', type: 'bar', data: [120, 200, 150, 280, 230, 320] }, { name: 'Margin %', type: 'line', data: [20, 35, 28, 44, 40, 52] }], height: 200 }" class="max-w-full chart" style="min-height: 200px"></div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <h3 id="candlestick">Candlestick</h3><p><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">type: 'candlestick'</code> (or <code>'ohlc'</code>) plots open–high–low–close rows, as <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">{ o, h, l, c }</code> objects (long names <code>open</code>/<code>high</code>/<code>low</code>/<code>close</code> also work) or <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">[o, h, l, c]</code> arrays. Rising candles use the theme's positive color, falling ones the negative.</p>
@@ -802,21 +802,21 @@
     ] }],
     height: 200
 }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-chart="{ type: 'candlestick', labels: ['Mon','Tue','Wed','Thu','Fri'], series: [{ data: [ { o: 30, h: 38, l: 28, c: 36 }, { o: 36, h: 40, l: 33, c: 34 }, { o: 34, h: 35, l: 26, c: 28 }, { o: 28, h: 33, l: 27, c: 32 }, { o: 32, h: 44, l: 31, c: 42 } ] }], height: 200 }" style="max-width: 420px; min-height: 200px" class="chart"></div></aside>
+<aside class="frame"><div x-chart="{ type: 'candlestick', labels: ['Mon','Tue','Wed','Thu','Fri'], series: [{ data: [ { o: 30, h: 38, l: 28, c: 36 }, { o: 36, h: 40, l: 33, c: 34 }, { o: 34, h: 35, l: 26, c: 28 }, { o: 28, h: 33, l: 27, c: 32 }, { o: 32, h: 44, l: 31, c: 42 } ] }], height: 200 }" class="max-w-full chart" style="min-height: 200px"></div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <h3 id="gauge">Gauge</h3><p><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">type: 'gauge'</code> plots a single value on a 180° dial — a compact KPI readout. Give it a <code>value</code> (or a one-number <code>series</code>/<code>data</code>); <code>unit</code> suffixes the centered readout.</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-chart</span>=<span class="hljs-string">"{ type: 'gauge', value: 73, unit: '%', height: 180 }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame row-wrap gap-10"><div x-chart="{ type: 'gauge', value: 73, unit: '%', height: 180 }" style="max-width: 280px; min-height: 180px" class="chart"></div></aside>
+<aside class="frame row-wrap gap-10"><div x-chart="{ type: 'gauge', value: 73, unit: '%', height: 180 }" class="max-w-full chart" style="min-height: 180px"></div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>The dial runs 0–100 by default. Set <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">min: &lt;n&gt;</code> and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">max: &lt;n&gt;</code> to rescale it — the end labels and the value fill follow the new range.</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-chart</span>=<span class="hljs-string">"{ type: 'gauge', value: 6.2, min: 0, max: 10, height: 180 }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame row-wrap gap-10"><div x-chart="{ type: 'gauge', value: 6.2, min: 0, max: 10, height: 180 }" style="max-width: 280px; min-height: 180px" class="chart"></div></aside>
+<aside class="frame row-wrap gap-10"><div x-chart="{ type: 'gauge', value: 6.2, min: 0, max: 10, height: 180 }" class="max-w-full chart" style="min-height: 180px"></div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>Pass <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">zones</code> to paint threshold bands behind the value arc — an array of <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">{ to, color }</code> segments, each running from the previous <code>to</code> (or <code>min</code>) up to its own. Useful for good/warning/critical ranges.</p>
@@ -833,7 +833,7 @@
     ],
     height: 180
 }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame row-wrap gap-10"><div x-chart="{ type: 'gauge', value: 88, unit: '%', height: 180, zones: [ { to: 50, color: 'var(--color-negative-content)' }, { to: 80, color: 'var(--color-brand-content)' }, { to: 100, color: 'var(--color-positive-content)' } ] }" style="max-width: 280px; min-height: 180px" class="chart"></div></aside>
+<aside class="frame row-wrap gap-10"><div x-chart="{ type: 'gauge', value: 88, unit: '%', height: 180, zones: [ { to: 50, color: 'var(--color-negative-content)' }, { to: 80, color: 'var(--color-brand-content)' }, { to: 100, color: 'var(--color-positive-content)' } ] }" class="max-w-full chart" style="min-height: 180px"></div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <h3 id="heatmap">Heatmap</h3><p><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">type: 'heatmap'</code> renders a matrix of tiles, where each series is a <strong>row</strong>, each datum a <strong>column</strong> aligned to <code>labels</code>, and the series <code>name</code> is the row label. Tile color interpolates across the value range using the heatmap ramp.</p>
@@ -849,16 +849,165 @@
     ],
     height: 200
 }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-chart="{ type: 'heatmap', labels: ['12a','4a','8a','12p','4p','8p'], series: [ { name: 'Mon', data: [2, 1, 8, 14, 18, 9] }, { name: 'Tue', data: [3, 1, 10, 16, 20, 11] }, { name: 'Wed', data: [1, 0, 7, 13, 22, 14] }, { name: 'Thu', data: [4, 2, 12, 19, 25, 16] }, { name: 'Fri', data: [5, 3, 14, 21, 28, 24] } ], height: 220 }" style="max-width: 460px; min-height: 220px" class="chart"></div></aside>
+<aside class="frame"><div x-chart="{ type: 'heatmap', labels: ['12a','4a','8a','12p','4p','8p'], series: [ { name: 'Mon', data: [2, 1, 8, 14, 18, 9] }, { name: 'Tue', data: [3, 1, 10, 16, 20, 11] }, { name: 'Wed', data: [1, 0, 7, 13, 22, 14] }, { name: 'Thu', data: [4, 2, 12, 19, 25, 16] }, { name: 'Fri', data: [5, 3, 14, 21, 28, 24] } ], height: 220 }" class="max-w-full chart" style="min-height: 220px"></div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>Set <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">dataLabels: true</code> to print each value in its tile, and <code>gap</code> to change the tile gutter (px, default <code>1</code>; use <code>0</code> for a seamless field).</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-chart</span>=<span class="hljs-string">"{ type: 'heatmap', dataLabels: true, gap: 0, ... }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame row-wrap gap-10"><div x-chart="{ type: 'heatmap', dataLabels: true, labels: ['Q1','Q2','Q3','Q4'], series: [ { name: 'North', data: [12, 19, 24, 31] }, { name: 'South', data: [8, 14, 11, 22] }, { name: 'West', data: [20, 25, 28, 40] } ], height: 180 }" style="max-width: 460px; min-height: 180px" class="chart"></div></aside>
+<aside class="frame row-wrap gap-10"><div x-chart="{ type: 'heatmap', dataLabels: true, labels: ['Q1','Q2','Q3','Q4'], series: [ { name: 'North', data: [12, 19, 24, 31] }, { name: 'South', data: [8, 14, 11, 22] }, { name: 'West', data: [20, 25, 28, 40] } ], height: 180 }" class="max-w-full chart" style="min-height: 180px"></div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
+<h3 id="gantt">Gantt</h3><p><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">type: 'gantt'</code> (alias <code>timeline</code>) lays out horizontal segments along a shared axis. Each series is a <strong>track</strong> (row); its <code>data</code> is an array of <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">{ from, to, status?, color? }</code> segments. A single track is a status strip; multiple tracks are swimlanes — a Gantt chart. Height derives from the track count, so there's no <code>height</code> to set.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-chart</span>=<span class="hljs-string">"{
+    type: 'gantt',
+    colors: { Online: 'var(--color-positive-content)', Away: 'var(--color-brand-content)', Offline: 'var(--color-surface-3)' },
+    series: [
+        { name: 'Bo-Chen', data: [
+            { from: '2026-06-25T00:00', to: '2026-06-25T17:00', status: 'Online' },
+            { from: '2026-06-25T17:00', to: '2026-06-25T21:00', status: 'Offline' } ] },
+        { name: 'Ele', data: [
+            { from: '2026-06-25T00:00', to: '2026-06-25T13:00', status: 'Offline' },
+            { from: '2026-06-25T13:00', to: '2026-06-25T17:20', status: 'Online' },
+            { from: '2026-06-25T17:20', to: '2026-06-25T21:00', status: 'Offline' } ] }
+    ]
+}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-chart="{ type: 'gantt', min: '2026-06-25T00:00', max: '2026-06-25T21:00', colors: { Online: 'var(--color-positive-content)', Away: 'var(--color-brand-content)', Offline: 'var(--color-surface-3)' }, series: [ { name: 'Bo-Chen', data: [ { from: '2026-06-25T00:00', to: '2026-06-25T17:00', status: 'Online' }, { from: '2026-06-25T17:00', to: '2026-06-25T21:00', status: 'Offline' } ] }, { name: 'Ele', data: [ { from: '2026-06-25T00:00', to: '2026-06-25T04:10', status: 'Offline' }, { from: '2026-06-25T04:10', to: '2026-06-25T04:25', status: 'Online' }, { from: '2026-06-25T04:25', to: '2026-06-25T13:00', status: 'Offline' }, { from: '2026-06-25T13:00', to: '2026-06-25T17:20', status: 'Online' }, { from: '2026-06-25T17:20', to: '2026-06-25T21:00', status: 'Offline' } ] }, { name: 'Hakan', data: [ { from: '2026-06-25T00:00', to: '2026-06-25T03:00', status: 'Online' }, { from: '2026-06-25T03:00', to: '2026-06-25T03:20', status: 'Away' }, { from: '2026-06-25T03:20', to: '2026-06-25T13:30', status: 'Offline' }, { from: '2026-06-25T13:30', to: '2026-06-25T17:00', status: 'Online' } ] } ] }" class="max-w-full chart" style="min-height: 240px"></div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>A segment with no <code>to</code> is a <strong>point</strong> (a milestone or event), drawn as a marker tick. <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">markers: [{ at, label }]</code> adds vertical reference lines (e.g. a "now" line), <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">dataLabels: true</code> prints each segment's label inside its bar, and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">rowHeight</code> (px) sets the lane height.</p>
+<h4 id="axis">Axis</h4><p>The axis adapts to the segment values — no <code>type</code>-of-axis flag needed:</p>
+<table>
+<thead>
+<tr>
+<th><code>from</code> / <code>to</code> values</th>
+<th>Axis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Numbers (<code>0</code>, <code>26.2</code>)</td>
+<td><strong>Numeric</strong> — a linear scale. <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">unit</code> suffixes the ticks (<code>' mi'</code>, <code>'%'</code>); <code>min</code>/<code>max</code> pin the range.</td>
+</tr>
+<tr>
+<td>Dates / ISO strings</td>
+<td><strong>Time</strong> — a time scale, ticks formatted to the locale and span. <code>min</code>/<code>max</code> pin the window.</td>
+</tr>
+<tr>
+<td>Other strings (<code>'Plan'</code>, <code>'GA'</code>)</td>
+<td><strong>Category</strong> — an ordinal scale over <code>labels</code> (or the distinct values); segments span <em>between</em> named stages.</td>
+</tr>
+</tbody></table>
+<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="numeric-tab-0" aria-selected="true" tabindex="0">Numeric</button><button type="button" role="tab" id="category-tab-1" aria-selected="false" tabindex="-1">Category</button></div></header>
+
+<pre x-code="html" name="Numeric" copy="" data-code-block-built="yes" aria-label="Numeric" role="tabpanel" data-code-processed="yes" id="numeric-panel-0" aria-labelledby="numeric-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-chart</span>=<span class="hljs-string">"{ type: 'gantt', unit: ' mi', min: 0, max: 26.2,
+    series: [{ name: 'Pace', data: [
+        { from: 0, to: 8, status: 'Easy' },
+        { from: 8, to: 18, status: 'Tempo' },
+        { from: 18, to: 26.2, status: 'Hard' } ] }]
+}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<pre x-code="html" name="Category" copy="" data-code-block-built="yes" aria-label="Category" role="tabpanel" data-code-processed="yes" id="category-panel-1" aria-labelledby="category-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-chart</span>=<span class="hljs-string">"{ type: 'gantt', labels: ['Plan','Build','Beta','GA','Sunset'],
+    series: [
+        { name: 'Core', data: [{ from: 'Plan', to: 'GA', status: 'On track' }] },
+        { name: 'Mobile', data: [{ from: 'Build', to: 'Beta', status: 'At risk' }] } ]
+}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-chart="{ type: 'gantt', unit: ' mi', min: 0, max: 26.2, colors: { Easy: 'var(--color-positive-content)', Tempo: 'var(--color-brand-content)', Hard: 'var(--color-negative-content)' }, series: [{ name: 'Pace', data: [ { from: 0, to: 8, status: 'Easy' }, { from: 8, to: 18, status: 'Tempo' }, { from: 18, to: 23, status: 'Hard' }, { from: 23, to: 26.2, status: 'Easy' } ] }] }" class="max-w-full chart" style="min-height: 240px"></div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h4 id="coloring">Coloring</h4><p>Every chart resolves a segment's (or series', or slice's) color through the same cascade — the <strong>default</strong> is the theme palette, and an author override is any CSS color value:</p>
+<ol>
+<li>A per-segment <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">color</code> (or per-series <code>color</code>) — wins outright.</li>
+<li>For Gantt charts, the config <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">colors</code> map (<code>status</code> → color) — so the same status is one color across every track, with one legend entry.</li>
+<li>Otherwise the <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-chart-N</code> <strong>palette</strong>, assigned in first-seen order.</li>
+</ol>
+<p>Whatever you supply for <code>color</code> is passed straight to the SVG <code>fill</code>, so <strong>any</strong> CSS <code>&lt;color&gt;</code> or <code>var()</code> works — a fixed value, a chart palette variable, a <a href="/docs/styles/theme">theme</a> token, or your own custom property:</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-chart</span>=<span class="hljs-string">"{ type: 'gantt', series: [{ name: 'Build', data: [
+    { from: 0, to: 3, status: 'Spec',   color: '#f59e0b' },                  // fixed hex
+    { from: 3, to: 6, status: 'Code',   color: 'var(--color-chart-3)' },     // chart palette var
+    { from: 6, to: 8, status: 'Review', color: 'var(--color-brand-content)' }, // theme token
+    { from: 8, to: 9, status: 'Ship',   color: 'var(--my-brand)' }           // custom property
+] }] }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Leave <code>color</code> and <code>colors</code> unset and the palette colors the tracks for you.</p>
+<h3 id="map">Map</h3><p><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">type: 'map'</code> draws a world choropleth — countries shaded by value — plus optional location bubbles. Geometry and reference data (country shapes, ISO codes, continent membership) lazy-load from a CDN the first time a map scrolls into view.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-chart</span>=<span class="hljs-string">"{
+    type: 'map',
+    data: { US: 320, CN: 410, IN: 380, BR: 140, 'United Kingdom': 240, DE: 260, ZA: 60 }
+}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-chart="{ type: 'map', data: { US: 320, CA: 70, BR: 140, FR: 210, DE: 260, 'United Kingdom': 240, CN: 410, IN: 380, JP: 190, AU: 90, ZA: 60, NG: 110, RU: 130, MX: 95 } }" class="max-w-full chart" style="min-height: 240px"></div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h4 id="keying">Keying</h4><p>Each entry maps a <strong>region</strong> to a value — pass an object (<code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">{ region: value }</code>) or an array of <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">[region, value]</code> / <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">{ id, value }</code> rows. A region key resolves, in order, as:</p>
+<table>
+<thead>
+<tr>
+<th>Key form</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ISO alpha-2</td>
+<td><code>'US'</code>, <code>'JP'</code></td>
+</tr>
+<tr>
+<td>ISO alpha-3</td>
+<td><code>'USA'</code>, <code>'JPN'</code></td>
+</tr>
+<tr>
+<td>ISO numeric</td>
+<td><code>840</code>, <code>392</code></td>
+</tr>
+<tr>
+<td>Country name</td>
+<td><code>'United Kingdom'</code>, <code>'Brazil'</code></td>
+</tr>
+<tr>
+<td>Continent</td>
+<td><code>'Europe'</code>, <code>'North America'</code> — fills every member country</td>
+</tr>
+</tbody></table>
+<p>A continent key expands to all its countries, so you can shade whole regions in one line.</p>
+<h4 id="sequential-categorical">Sequential &amp; categorical</h4><p>The scale follows the value type. <strong>Numeric</strong> values shade along the heatmap ramp (low → high) with a gradient legend; <strong>string</strong> values are treated as categories, each taking a palette color with a swatch legend. Regions with no data fall back to a neutral surface fill.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" aria-label="Categorical — by continent"><header><div>Categorical — by continent</div></header>
+
+<pre x-code="html" name="Categorical — by continent" copy="" data-code-block-built="yes" aria-label="Categorical — by continent" role="region" data-code-processed="yes" id="categorical-—-by-continent-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-chart</span>=<span class="hljs-string">"{
+    type: 'map',
+    data: { Europe: 'EMEA', Africa: 'EMEA', Asia: 'APAC', Oceania: 'APAC',
+        'North America': 'Americas', 'South America': 'Americas' }
+}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-chart="{ type: 'map', data: { Africa: 'EMEA', Europe: 'EMEA', Asia: 'APAC', Oceania: 'APAC', 'North America': 'Americas', 'South America': 'Americas' } }" class="max-w-full chart" style="min-height: 240px"></div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h4 id="points">Points</h4><p><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">points</code> overlays location bubbles, each <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">{ lat, lng, value?, label?, color? }</code>. Numeric <code>value</code>s scale the radius (a proportional-symbol map); without them each point is a fixed dot. Points layer over a choropleth or stand alone on a blank map.</p>
+<p>To reference a place by <strong>name</strong> instead of coordinates, supply a <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">places</code> gazetteer (<code>{ name: [lat, lng] }</code>) — a point's <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">name</code> then resolves its position from it (a place can be anything — a city, office, venue, sensor). Unlike country names, there's no place dataset to lazy-load (comprehensive ones run to tens of MB), so you define just the handful you plot. The <code>name</code> doubles as the point's label unless you set <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">label</code>.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-chart</span>=<span class="hljs-string">"{
+    type: 'map',
+    places: { Tokyo: [35.69, 139.69], London: [51.5, -0.13], 'New York': [40.71, -74.01] },
+    points: [
+        { name: 'Tokyo', value: 95 },
+        { name: 'London', value: 71 },
+        { name: 'New York', value: 84 }
+    ]
+}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-chart="{ type: 'map', places: { 'New York': [40.71, -74.01], London: [51.5, -0.13], Tokyo: [35.69, 139.69], 'São Paulo': [-23.55, -46.63], Lagos: [6.45, 3.39], Sydney: [-33.87, 151.21], Mumbai: [19.08, 72.88], Paris: [48.85, 2.35], Singapore: [1.29, 103.85] }, points: [ { name: 'New York', value: 84 }, { name: 'London', value: 71 }, { name: 'Tokyo', value: 95 }, { name: 'São Paulo', value: 52 }, { name: 'Lagos', value: 38 }, { name: 'Sydney', value: 44 }, { name: 'Mumbai', value: 67 }, { name: 'Paris', value: 60 }, { name: 'Singapore', value: 55 } ] }" class="max-w-full chart" style="min-height: 240px"></div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Because the whole config is a live Alpine expression, any field — including <code>name</code> — accepts a <code>$x</code> binding (<code>{ name: $x.site.label, value: $x.site.users }</code>), so points can come straight from <a href="/docs/core-plugins/local-data">data</a>. Point names are author text and aren't auto-translated (only region labels are); to localize them, bind to a locale-aware source.</p>
+<h4 id="localization">Localization</h4><p>Geographic labels translate automatically to ~30 languages, following the current <a href="/docs/core-plugins/localization">locale</a>. The translations are lazy-loaded on demand from the <a href="https://www.npmjs.com/package/i18n-iso-countries"><code>i18n-iso-countries</code></a> dataset (via jsDelivr) — only the active locale is fetched, and only when a map is shown. English is the default.</p>
+<p>Override or extend any name through the <code>_ui.map</code> block, exactly like the <a href="/docs/elements/colorpickers">color</a> and <a href="/docs/elements/datepickers">date</a> pickers:</p>
+<pre x-code="js" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-comment">// in a locale data source</span>
+<span class="hljs-attr">_ui</span>: {
+    <span class="hljs-attr">map</span>: {
+        <span class="hljs-attr">regions</span>: { <span class="hljs-attr">US</span>: <span class="hljs-string">'É.-U.'</span>, <span class="hljs-attr">GB</span>: <span class="hljs-string">'R.-U.'</span> },   <span class="hljs-comment">// per-region name overrides</span>
+        <span class="hljs-attr">cities</span>:  { <span class="hljs-title class_">Paris</span>: [<span class="hljs-number">48.85</span>, <span class="hljs-number">2.35</span>] }        <span class="hljs-comment">// place gazetteer</span>
+    }
+}</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p><code>_ui.map.regions</code> keys by ISO code, numeric id, or English name; <code>_ui.map.cities</code> is an alternative to the inline <code>places</code> map.</p>
 <hr>
 <h2 id="configuration">Configuration</h2><table>
 <thead>
@@ -871,22 +1020,22 @@
 <tbody><tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">type</code></td>
 <td>string</td>
-<td><code>line</code>, <code>area</code>, <code>bar</code>, <code>pie</code>, <code>donut</code>, <code>scatter</code>, <code>combo</code>, <code>candlestick</code>, <code>gauge</code>, <code>heatmap</code>. Default <code>line</code>.</td>
+<td><code>line</code>, <code>area</code>, <code>bar</code>, <code>pie</code>, <code>donut</code>, <code>scatter</code>, <code>combo</code>, <code>candlestick</code>, <code>gauge</code>, <code>heatmap</code>, <code>gantt</code> (alias <code>timeline</code>), <code>map</code>. Default <code>line</code>.</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">labels</code></td>
 <td>array</td>
-<td>X-axis categories, slice labels, or heatmap columns.</td>
+<td>X-axis categories, slice labels, heatmap columns, or a Gantt's category-axis stages.</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">series</code></td>
 <td>array</td>
-<td><code>{ name, data, color?, type? }</code> per series. <code>color</code> overrides the palette; <code>type</code> applies in combo charts; in a heatmap each series is a row and <code>name</code> is its label.</td>
+<td><code>{ name, data, color?, type? }</code> per series. <code>color</code> overrides the palette; <code>type</code> applies in combo charts; in a heatmap each series is a row; in a Gantt each series is a track and its <code>data</code> is <code>{ from, to, status?, color? }</code> segments.</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data</code></td>
-<td>array</td>
-<td>Shorthand for a single unnamed series.</td>
+<td>array | object</td>
+<td>Shorthand for a single unnamed series; for a map, the region values as <code>{ region: value }</code> or <code>[region, value]</code> rows.</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">height</code></td>
@@ -935,13 +1084,13 @@
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">min</code> / <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">max</code></td>
-<td>number</td>
-<td>Gauge range. Default <code>0</code> / <code>100</code>.</td>
+<td>number | string</td>
+<td>Gauge range (default <code>0</code> / <code>100</code>); or a Gantt's fixed axis window (numeric or time).</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">unit</code></td>
 <td>string</td>
-<td>Gauge — suffix on the centered readout (e.g. <code>'%'</code>).</td>
+<td>Suffix on the gauge readout or a Gantt's numeric ticks (e.g. <code>'%'</code>, <code>' mi'</code>).</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">zones</code></td>
@@ -952,6 +1101,31 @@
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">gap</code></td>
 <td>number</td>
 <td>Heatmap — tile gutter in px. Default <code>1</code>; <code>0</code> for a seamless field.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">rowHeight</code></td>
+<td>number</td>
+<td>Gantt — lane height in px. Default <code>28</code>.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">colors</code></td>
+<td>object</td>
+<td>Gantt — a <code>status</code> → color map, shared across tracks.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">markers</code></td>
+<td>array</td>
+<td>Gantt — vertical reference lines: <code>{ at, label?, color? }</code>.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">points</code></td>
+<td>array</td>
+<td>Map — location bubbles: <code>{ lat, lng, value?, label?, color? }</code> or a <code>name</code> resolved via <code>places</code>.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">places</code></td>
+<td>object</td>
+<td>Map — <code>name</code> → <code>[lat, lng]</code> gazetteer for positioning named <code>points</code>.</td>
 </tr>
 </tbody></table>
 <h3 id="declarative-series">Declarative Series</h3><p>For content-first authoring, set the type as a modifier and declare each series as a <code>&lt;data&gt;</code> child — handy when values come from <a href="/docs/core-plugins/local-data">local data</a> bindings.</p>
@@ -1089,6 +1263,18 @@
 <td>Heatmap tiles (fill driven by the <code>--heat</code> percentage)</td>
 </tr>
 <tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">rect.gantt-segment</code> / <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">rect.gantt-point</code></td>
+<td>Gantt spans and point markers</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">path.map-region</code></td>
+<td>Map countries (fill driven by <code>--color-chart-color</code>)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">circle.map-point</code></td>
+<td>Map location bubbles</td>
+</tr>
+<tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">circle</code></td>
 <td>Line points and scatter dots (<code>.scatter</code>)</td>
 </tr>
@@ -1099,6 +1285,10 @@
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">path.gauge-track</code> / <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">path.gauge-value</code></td>
 <td>Gauge track and value arc</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">line.gantt-marker</code> / <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">text.gantt-track</code></td>
+<td>Gantt reference lines and track labels</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">text.value</code></td>
@@ -1180,7 +1370,7 @@
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#chart-types">Chart Types</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#line">Line</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#area">Area</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#bar">Bar</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#pie-donut">Pie &amp; Donut</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#scatter">Scatter</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#combo">Combo</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#candlestick">Candlestick</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#gauge">Gauge</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#heatmap">Heatmap</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#configuration">Configuration</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#declarative-series">Declarative Series</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#dynamic-data">Dynamic Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#magic-method">Magic Method</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#theme">Theme</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#tailwind-css">Tailwind CSS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#customization">Customization</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#chart-types">Chart Types</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#line">Line</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#area">Area</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#bar">Bar</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#pie-donut">Pie &amp; Donut</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#scatter">Scatter</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#combo">Combo</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#candlestick">Candlestick</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#gauge">Gauge</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#heatmap">Heatmap</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#gantt">Gantt</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#map">Map</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#configuration">Configuration</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#declarative-series">Declarative Series</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#dynamic-data">Dynamic Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#magic-method">Magic Method</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#theme">Theme</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#tailwind-css">Tailwind CSS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#customization">Customization</a></div>
 
   </div>
 

@@ -140,7 +140,9 @@ A project's hosting can change as it grows — e.g. a solo user starts on **Mani
 ## Rules for Claude
 
 - **Before any UI work, design first and load the design skills.** For a page, section, layout, or reusable component, load `manifest-layout` + `manifest-styling` (and `manifest-component` if extracting) and decide the semantic structure *before* writing markup — don't improvise idioms from memory or lean on the condensed rules above. Enforce the styling cascade at authoring time, not at QA: idiom violations found after the user approves the look are too late. (The `ui-guard` hook nudges you, but the responsibility is yours regardless.)
-- **Never commit directly to the live branch.** Promote from staging via `/publish`.
+- **Work on the shared `staging` branch — do NOT create or switch branches.** Teammates and other Claude sessions edit the same files on `staging`, and the live preview serves that working tree. Do not `git checkout -b`, `git switch`, or make a feature branch **unless the user explicitly asks** — branching diverges sessions, breeds merge conflicts, and makes the preview suddenly drop other sessions' work. This **overrides** the generic "branch before committing" habit; committing straight to `staging` is correct.
+- **Stay in sync with other sessions.** Pull (`/sync`) at the start of work and again before committing; commit in **small** steps and **push immediately** so every session and the preview converge. Uncommitted changes you didn't make belong to another live session — never stash, `reset`, discard, or branch around them; build on top or leave them.
+- **Never commit directly to the live branch (`production`).** Promote from staging via `/publish`.
 - **Never force-push, never `--no-verify`, never skip git hooks.**
 - **Never commit anything that looks like a secret** (`.env`, `*.key`, `*.pem`, `credentials*`). Stop and warn the user if one is staged.
 - **Edit source files, not generated output in `/website/`.**

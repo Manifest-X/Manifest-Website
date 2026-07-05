@@ -559,6 +559,12 @@
   .h-80 {
     height: calc(var(--spacing) * 80);
   }
+  .h-96 {
+    height: calc(var(--spacing) * 96);
+  }
+  .h-\[300px\] {
+    height: 300px;
+  }
   .h-\[380px\] {
     height: 380px;
   }
@@ -567,6 +573,9 @@
   }
   .h-\[480px\] {
     height: 480px;
+  }
+  .h-\[600px\] {
+    height: 600px;
   }
   .h-fit {
     height: fit-content;
@@ -796,11 +805,17 @@
   .grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+  .grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
   .grid-cols-6 {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
   .grid-cols-12 {
     grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .grid-cols-\[8rem_1fr_7rem\] {
+    grid-template-columns: 8rem 1fr 7rem;
   }
   .flex-col {
     flex-direction: column;
@@ -810,6 +825,9 @@
   }
   .flex-wrap {
     flex-wrap: wrap;
+  }
+  .content-start {
+    align-content: flex-start;
   }
   .items-baseline {
     align-items: baseline;
@@ -1355,6 +1373,10 @@
   .italic {
     font-style: italic;
   }
+  .ordinal {
+    --tw-ordinal: ordinal;
+    font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+  }
   .\!no-underline {
     text-decoration-line: none !important;
   }
@@ -1873,6 +1895,26 @@
   syntax: "*";
   inherits: false;
 }
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false;
+}
 @property --tw-shadow {
   syntax: "*";
   inherits: false;
@@ -2052,6 +2094,11 @@
       --tw-leading: initial;
       --tw-font-weight: initial;
       --tw-tracking: initial;
+      --tw-ordinal: initial;
+      --tw-slashed-zero: initial;
+      --tw-numeric-figure: initial;
+      --tw-numeric-spacing: initial;
+      --tw-numeric-fraction: initial;
       --tw-shadow: 0 0 #0000;
       --tw-shadow-color: initial;
       --tw-shadow-alpha: 100%;

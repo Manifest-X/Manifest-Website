@@ -117,7 +117,9 @@ Inputs accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 
 ---
 
-## Search
+## Variants
+
+### Search
 
 Inputs of `type="search"` work on their own, or can be placed in a label to facilitate a search icon.
 
@@ -139,11 +141,13 @@ Inputs of `type="search"` work on their own, or can be placed in a label to faci
 
 </div>
 
+See the [local data](http://localhost:5070/docs/core-plugins/local-data#search-query) plugin for wiring up search functionality. 
+
 ---
 
-## Copy
+### Copy
 
-Pair an input with a copy button by placing both in a label, marking the button with `command="--copy"`. No wiring needed — clicking copies the field's value and flashes a confirmation [tooltip](/docs/elements/tooltips), just like copyable code blocks. The button stays hidden until the field is hovered or focused.
+Pair an input with a copy button by placing both in a label, and marking the button with `command="--copy"`. No wiring is required; clicking the button copies the field's value and flashes a confirmation [tooltip](/docs/elements/tooltips), just like copyable code blocks.
 
 <div x-code-group>
 
@@ -163,16 +167,16 @@ Pair an input with a copy button by placing both in a label, marking the button 
 
 </div>
 
-This works with any text-like input type (`text`, `email`, `tel`, `number`, `url`). The `--` prefix is native HTML syntax for custom button commands — it carries no default browser behavior, so Manifest uses it as the styling and behavior hook. Use `commandfor` with an input's `id` when the button sits outside the label.
+This works with any text-like input type (`text`, `email`, `tel`, `number`, `url`). The `--` prefix is native HTML syntax for custom button commands and carries no default browser behaviour, so Manifest uses it as the styling and behaviour hook. Use `commandfor` with an input's `id` when the button sits outside the label.
 
-Both tooltips are customizable: set the button's `value` to replace the check icon with text — bind it for localized or dynamic phrasing — and add an `x-tooltip` to label the button on hover. The hover label steps aside for the confirmation flash, then returns on the next hover.
+Both tooltips are customizable. Set the button's `value` to replace the confirmation icon with text, or bind it for localized or dynamic phrasing. Add an `x-tooltip` to label the button on hover. The hover label steps aside for the confirmation flash, then returns on the next hover.
 
 <div x-code-group>
 
 ```html copy
 <label>
     <input type="email" value="hello@manifestx.dev" aria-label="Email" />
-    <button command="--copy" :value="$x.strings.copied" x-tooltip.top.end="Copy email"
+    <button command="--copy" :value="$x.content.copied" x-tooltip.top.end="Copy email"
         aria-label="Copy to clipboard"></button>
 </label>
 ```
@@ -180,7 +184,7 @@ Both tooltips are customizable: set the button's `value` to replace the check ic
 ::: frame
 <label>
     <input type="email" value="hello@manifestx.dev" aria-label="Email" />
-    <button command="--copy" value="Copied!" x-tooltip.top.end="Copy email" aria-label="Copy to clipboard"></button>
+    <button command="--copy" value="Copied" x-tooltip.top.end="Copy email" aria-label="Copy to clipboard"></button>
 </label>
 :::
 
@@ -190,7 +194,7 @@ Override the button icons with the `--icon-field-copy`{copy} and `--icon-field-c
 
 ---
 
-## File Uploads
+### File Uploads
 
 Inputs of `type="file"` work on their own, or can be placed in a label to facilitate an upload icon.
 
