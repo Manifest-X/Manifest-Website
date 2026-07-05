@@ -143,31 +143,50 @@ Inputs of `type="search"` work on their own, or can be placed in a label to faci
 
 ## Copy
 
-Pair an input with a copy button by placing both in a label, marking the button with `command="--copy"`. The button stays hidden until the field is hovered or focused. Copying is wired with a little Alpine — on success, flash a confirmation icon [tooltip](/docs/core-plugins/tooltips), just like copyable code blocks.
+Pair an input with a copy button by placing both in a label, marking the button with `command="--copy"`. No wiring needed — clicking copies the field's value and flashes a confirmation [tooltip](/docs/elements/tooltips), just like copyable code blocks. The button stays hidden until the field is hovered or focused.
 
 <div x-code-group>
 
 ```html copy
-<label x-data>
-    <input x-ref="code" value="MNFST-20" aria-label="Coupon code" />
-    <button type="button" command="--copy" aria-label="Copy to clipboard" x-tooltip.top.end="Copy"
-        @click="navigator.clipboard.writeText($refs.code.value)
-            .then(() => ManifestTooltips.showTransient($el, '<span class=field-copied-icon></span>', 1500, ['top', 'end']))"></button>
+<label>
+    <input value="MNFST-20" aria-label="Coupon code" />
+    <button command="--copy" aria-label="Copy to clipboard"></button>
 </label>
 ```
 
 ::: frame
-<label x-data>
-    <input x-ref="code" value="MNFST-20" aria-label="Coupon code" />
-    <button type="button" command="--copy" aria-label="Copy to clipboard" x-tooltip.top.end="Copy"
-        @click="navigator.clipboard.writeText($refs.code.value)
-            .then(() => ManifestTooltips.showTransient($el, '<span class=field-copied-icon></span>', 1500, ['top', 'end']))"></button>
+<label>
+    <input value="MNFST-20" aria-label="Coupon code" />
+    <button command="--copy" aria-label="Copy to clipboard"></button>
 </label>
 :::
 
 </div>
 
-This works with any text-like input type (`text`, `email`, `tel`, `number`, `url`). The `command` attribute is native HTML — custom `--` commands have no default behavior, making it a clean styling hook. The `x-tooltip` is optional — it labels the button on hover, steps aside for the confirmation flash on click, and returns on the next hover. The confirmation is whatever you pass to `showTransient` — swap the icon span for a plain string like `'Copied!'` or any other HTML. Without the tooltip plugin, toggle a `copied` class on the button instead to swap its icon to a check in place. Override the icons with the `--icon-field-copy`{copy} and `--icon-field-copied`{copy} variables.
+This works with any text-like input type (`text`, `email`, `tel`, `number`, `url`). The `--` prefix is native HTML syntax for custom button commands — it carries no default browser behavior, so Manifest uses it as the styling and behavior hook. Use `commandfor` with an input's `id` when the button sits outside the label.
+
+Both tooltips are customizable: set the button's `value` to replace the check icon with text — bind it for localized or dynamic phrasing — and add an `x-tooltip` to label the button on hover. The hover label steps aside for the confirmation flash, then returns on the next hover.
+
+<div x-code-group>
+
+```html copy
+<label>
+    <input type="email" value="hello@manifestx.dev" aria-label="Email" />
+    <button command="--copy" :value="$x.strings.copied" x-tooltip.top.end="Copy email"
+        aria-label="Copy to clipboard"></button>
+</label>
+```
+
+::: frame
+<label>
+    <input type="email" value="hello@manifestx.dev" aria-label="Email" />
+    <button command="--copy" value="Copied!" x-tooltip.top.end="Copy email" aria-label="Copy to clipboard"></button>
+</label>
+:::
+
+</div>
+
+Override the button icons with the `--icon-field-copy`{copy} and `--icon-field-copied`{copy} variables.
 
 ---
 
