@@ -150,7 +150,7 @@ Pair an input with a copy button by placing both in a label, marking the button 
 ```html copy
 <label x-data>
     <input x-ref="code" value="MNFST-20" aria-label="Coupon code" />
-    <button type="button" command="--copy" aria-label="Copy to clipboard"
+    <button type="button" command="--copy" aria-label="Copy to clipboard" x-tooltip.top.end="Copy"
         @click="navigator.clipboard.writeText($refs.code.value)
             .then(() => ManifestTooltips.showTransient($el, '<span class=field-copied-icon></span>', 1500, ['top', 'end']))"></button>
 </label>
@@ -159,7 +159,7 @@ Pair an input with a copy button by placing both in a label, marking the button 
 ::: frame
 <label x-data>
     <input x-ref="code" value="MNFST-20" aria-label="Coupon code" />
-    <button type="button" command="--copy" aria-label="Copy to clipboard"
+    <button type="button" command="--copy" aria-label="Copy to clipboard" x-tooltip.top.end="Copy"
         @click="navigator.clipboard.writeText($refs.code.value)
             .then(() => ManifestTooltips.showTransient($el, '<span class=field-copied-icon></span>', 1500, ['top', 'end']))"></button>
 </label>
@@ -167,7 +167,7 @@ Pair an input with a copy button by placing both in a label, marking the button 
 
 </div>
 
-This works with any text-like input type (`text`, `email`, `tel`, `number`, `url`). The `command` attribute is native HTML — custom `--` commands have no default behavior, making it a clean styling hook. Without the tooltip plugin, toggle a `copied` class on the button instead to swap its icon to a check in place. Override the icons with the `--icon-field-copy`{copy} and `--icon-field-copied`{copy} variables.
+This works with any text-like input type (`text`, `email`, `tel`, `number`, `url`). The `command` attribute is native HTML — custom `--` commands have no default behavior, making it a clean styling hook. The `x-tooltip` is optional — it labels the button on hover, steps aside for the confirmation flash on click, and returns on the next hover. Without the tooltip plugin, toggle a `copied` class on the button instead to swap its icon to a check in place. Override the icons with the `--icon-field-copy`{copy} and `--icon-field-copied`{copy} variables.
 
 ---
 
