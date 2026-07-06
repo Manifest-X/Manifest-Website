@@ -60,6 +60,20 @@ Following the 2021–2024 *Epic v. Apple* rulings, US apps have some latitude to
 
 ---
 
+## Declare your privacy manifest
+
+Since 2024, Apple requires a **privacy manifest** (`PrivacyInfo.xcprivacy`) in the app bundle, and this catches teams off guard at submission — it's a compliance gate, not an optional nicety.
+
+- **Data collection.** Declare every category of data your app collects (email, purchases, identifiers, usage) and whether it's linked to the user or used for tracking. This must match your App Store privacy "nutrition label."
+- **Required-reason APIs.** A handful of common APIs (file timestamps, disk space, user defaults, system boot time) require a declared reason code. Native wrappers and third-party SDKs touch these.
+- **Third-party SDKs.** Capacitor and its plugins are covered SDKs — they ship their own privacy manifests, and the ones you add (push, camera, biometric) may declare data types you must reflect in your app's disclosures. Audit the plugins you include.
+
+::: brand icon="lucide:info"
+Apple emails a warning and can reject the build if a privacy manifest is missing or inconsistent with your data-collection disclosures. Sort this before your first upload, not after a rejection.
+:::
+
+---
+
 ## Never show a white screen
 
 An app that launches to a blank page or a browser error when offline reads as a broken web wrapper. A Capacitor app serves its shell from the local bundle, so the interface loads without a network — make sure an offline launch renders a branded state and a clear "you're offline" message rather than a spinner that never resolves or empty templates waiting on data that isn't coming.
@@ -95,6 +109,13 @@ Self-audit before you submit. Every box should be checked.
 - [ ] Physical goods use a normal processor (Apple Pay / card) — not forced through IAP
 - [ ] Digital goods and subscriptions use In-App Purchase, or are billed on the web outside the app
 - [ ] No third-party processor handles digital purchases inside the app
+
+**Privacy & compliance**
+
+- [ ] `PrivacyInfo.xcprivacy` present and lists every data category the app collects
+- [ ] Required-reason API codes declared for the app and its plugins
+- [ ] App Store privacy "nutrition label" matches the manifest and actual data use
+- [ ] Third-party SDK / Capacitor plugin privacy manifests audited
 
 **Submission**
 
