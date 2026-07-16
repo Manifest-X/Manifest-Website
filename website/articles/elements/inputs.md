@@ -117,7 +117,9 @@ Inputs accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 
 ---
 
-## Search
+## Variants
+
+### Search
 
 Inputs of `type="search"` work on their own, or can be placed in a label to facilitate a search icon.
 
@@ -139,9 +141,60 @@ Inputs of `type="search"` work on their own, or can be placed in a label to faci
 
 </div>
 
+See the [local data](http://localhost:5070/docs/core-plugins/local-data#search-query) plugin for wiring up search functionality. 
+
 ---
 
-## File Uploads
+### Copy
+
+Pair an input with a copy button by placing both in a label, and marking the button with `command="--copy"`. No wiring is required; clicking the button copies the field's value and flashes a confirmation [tooltip](/docs/elements/tooltips), just like copyable code blocks.
+
+<div x-code-group>
+
+```html copy
+<label>
+    <input value="MNFST-20" aria-label="Coupon code" />
+    <button command="--copy" aria-label="Copy to clipboard"></button>
+</label>
+```
+
+::: frame
+<label>
+    <input value="MNFST-20" aria-label="Coupon code" />
+    <button command="--copy" aria-label="Copy to clipboard"></button>
+</label>
+:::
+
+</div>
+
+This works with any text-like input type (`text`, `email`, `tel`, `number`, `url`). The `--` prefix is native HTML syntax for custom button commands and carries no default browser behaviour, so Manifest uses it as the styling and behaviour hook. Use `commandfor` with an input's `id` when the button sits outside the label.
+
+Both tooltips are customizable. Set the button's `value` to replace the confirmation icon with text, or bind it for localized or dynamic phrasing. Add an `x-tooltip` to label the button on hover. The hover label steps aside for the confirmation flash, then returns on the next hover.
+
+<div x-code-group>
+
+```html copy
+<label>
+    <input type="email" value="hello@manifestx.dev" aria-label="Email" />
+    <button command="--copy" :value="$x.content.copied" x-tooltip.top.end="Copy email"
+        aria-label="Copy to clipboard"></button>
+</label>
+```
+
+::: frame
+<label>
+    <input type="email" value="hello@manifestx.dev" aria-label="Email" />
+    <button command="--copy" value="Copied" x-tooltip.top.end="Copy email" aria-label="Copy to clipboard"></button>
+</label>
+:::
+
+</div>
+
+Override the button icons with the `--icon-field-copy`{copy} and `--icon-field-copied`{copy} variables.
+
+---
+
+### File Uploads
 
 Inputs of `type="file"` work on their own, or can be placed in a label to facilitate an upload icon.
 

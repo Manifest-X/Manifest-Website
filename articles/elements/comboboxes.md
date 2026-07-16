@@ -197,6 +197,8 @@ Add `.multiple.chips`{copy} to choose several. Chosen options drop out of the li
 
 For richer rows, author the list as a `<menu popover>`{copy} instead of a datalist, same as dropdown menus. Give each item a `data-value`{copy} for the value to store and a `data-label`{copy} for the chip text. Everything inside the item is free to hold extra content.
 
+The list the combobox shows is a rendered copy of your rows: bound content (an `x-for`{copy} swatch, `x-text`{copy}, `:style`{copy}) is captured as it looks and refreshed whenever your list changes, but the copies themselves aren't live Alpine elements — row interaction belongs to the combobox. Classes, `aria-*`{copy}, and `data-*`{copy} attributes on the `<menu>`{copy} element itself carry onto the list and stay in sync, including bound ones like `:aria-label`{copy}.
+
 <div x-code-group>
 
 ```html copy
@@ -350,6 +352,8 @@ Each result is `{ value, label }`{copy}, or a plain string when the two are the 
 
 Add a `name`{copy} attribute to submit with a `<form>`. A single text field submits its value directly. A field with chips, or any multiple field, submits one entry per value under that name, which arrives as a list on the server.
 
+The field fires a `change`{copy} event when a selection commits or a value is removed — and only then — so saving on `@change`{copy} is safe. Opening, focusing, filtering, and moving the highlight never commit anything, and pressing Enter only commits an option the user has navigated to or text they typed.
+
 <div x-code-group>
 
 ```html "Markup" copy
@@ -394,6 +398,8 @@ The bound value can be an array or a comma-separated string; the field keeps wha
 </div>
 
 When the list carries separate values and labels — a [dropdown menu](#dropdown-menu) with `data-value`{copy}/`data-label`{copy} — the chip shows the label while the bound value holds the token. Pick "Owner" and `roles` stores `owner`, keeping value mapping clean for editing.
+
+The bound value is only ever written on an explicit selection or removal. Loading, focusing, filtering, and abandoned typing leave it untouched, so persisting the model (or saving on `change`{copy}) is safe in an editor.
 
 ---
 

@@ -274,6 +274,7 @@ Pass an object as the directive's value for reactive configuration. All keys are
 | `disabled`{copy} | array \| function     | Unselectable dates — ISO strings, `{ from, to }` spans, or a `(date) => boolean` predicate.     |
 | `presets`{copy}  | array                 | Quick-pick chips shown in the footer (see below).                                               |
 | `now`{copy} / `clear`{copy} | boolean    | Set `false` to hide the Today/Now or Clear action. Both default `true`.                         |
+| `format`{copy}   | string \| object \| function | Trigger display style (see below). Display-only — the value stays ISO.                    |
 
 <div x-code-group>
 
@@ -312,6 +313,44 @@ Each preset is a labeled value matching the selection mode: `{ label, value }` f
     { label: 'Next week', start: '2026-06-15', end: '2026-06-21' },
     { label: 'One month', start: '2026-06-01', end: '2026-06-30' }
 ] }"></div>
+:::
+
+</div>
+
+### Format
+
+By default the field shows the date in the active locale's medium style (e.g. `Jun 15, 2026`). `format` restyles that trigger text — **only the display changes**; the value the model and any `<form>` receive stays ISO.
+
+| `format`                              | Shows                                                        |
+| ------------------------------------- | ----------------------------------------------------------- |
+| `'short'` / `'medium'` / `'long'` / `'full'`{copy} | Locale date styles — `6/15/26`, `Jun 15, 2026`, `June 15, 2026`, `Monday, June 15, 2026`. `'medium'` is the default. |
+| `Intl.DateTimeFormat` options object  | Full, still-localized control — e.g. `{ day: 'numeric', month: 'long', year: 'numeric' }`{copy}. |
+| `'iso'`{copy}                         | `2026-06-15`.                                                |
+| `'relative'`{copy}                    | Relative to today — `today`, `in 3 days`, `2 weeks ago`.    |
+| `(date) => string`{copy}              | Anything else — e.g. a fixed `MM/DD/YYYY` regardless of locale. |
+
+The string keywords also work as a plain `format`{copy} attribute; objects and functions go through the config object.
+
+<div x-code-group>
+
+```html copy
+<!-- keyword — attribute or config both work -->
+<input x-date value="2026-06-15" format="long">
+
+<!-- Intl options object -->
+<input x-date="{ format: { day: 'numeric', month: 'long', year: 'numeric' } }" value="2026-06-15">
+
+<!-- function — any custom, non-locale output -->
+<input x-date="{ format: (d) => `${d.getMonth()+1}/${d.getDate()}/${d.getFullYear()}` }" value="2026-06-15">
+```
+
+::: frame
+<div class="col gap-3">
+    <input x-date value="2026-06-15" format="long">
+    <input x-date value="2026-06-15" format="iso">
+    <input x-date value="2026-06-15" format="relative">
+    <input x-date="{ format: (d) => `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${d.getFullYear()}` }" value="2026-06-15">
+</div>
 :::
 
 </div>

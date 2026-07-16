@@ -319,7 +319,7 @@ Mark a value as locked to keep it in the field but block its removal — its × 
 
 </div>
 
-The `locked`{copy} list is reactive too: pass `locked: <expression>`{copy} in the config object to lock or unlock values as state changes.
+Locking is reactive. Bind an option's flag with `:data-locked="isRequired || null"`{copy} — Alpine adds the attribute when the value is truthy and removes it on `null` — and the chip locks or unlocks live as state changes (× hidden, delete ignored, still selected). The directive's `locked`{copy} list works the same way: pass `locked: <expression>`{copy} in the config object. So an Owner chip can lock only while it's the last owner, then unlock when another is added.
 
 ---
 

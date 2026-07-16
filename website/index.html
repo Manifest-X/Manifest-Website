@@ -24,13 +24,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.163/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@0.5.163/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.168/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.168/lib/manifest.code.min.css">
   <link rel="stylesheet" href="/manifest.theme.css">
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.163/lib/manifest.min.js" data-version="0.5.163"></script>
+  <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.168/lib/manifest.min.js" data-version="0.5.168"></script>
   <script src="/scripts/payments-demo.js"></script>
   <script src="/scripts/hero-editor.js" defer=""></script>
   <script src="/scripts/console-message.js" defer=""></script>
@@ -62,7 +62,7 @@
   }
 }" class="bg-surface-1">
 
-  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-order="0" data-component="header-1">
+  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="0">
 
     <!-- Content Area -->
     <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4 w-content-width" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
@@ -130,7 +130,10 @@
             </div><div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Core Plugins</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/chat">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:messages-square" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2zm4-1a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"></path></svg></span>
+                            <span>Chat</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:panels-top-left" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18M9 21V9"></path></g></svg></span>
                             <span>Components</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
@@ -154,6 +157,9 @@
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:route" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path><circle cx="18" cy="5" r="3"></circle></g></svg></span>
                             <span>Router</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:activity" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"></path></svg></span>
+                            <span>Status</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:ampersand" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h3m-1.5 0a8 8 0 0 1-8 8A4.5 4.5 0 0 1 5 15.5c0-6 8-4 8-8.5a3 3 0 1 0-6 0c0 3 2.5 8.5 12 13"></path></svg></span>
                             <span>URL Parameters</span>
@@ -187,6 +193,9 @@
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/storage">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
                             <span>Storage</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/presence">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:radio-tower" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9m2.9 2.8a6.14 6.14 0 0 0-.8 7.5"></path><circle cx="12" cy="9" r="2"></circle><path d="M16.2 4.8c2 2 2.26 5.11.8 7.47M19.1 1.9a9.96 9.96 0 0 1 0 14.1m-9.6 2h5M8 22l4-11l4 11"></path></g></svg></span>
+                            <span>Presence</span>
                         </a>
                 </div>
                 <hr>
@@ -541,8 +550,8 @@
     <strong>Universal Exports</strong>
 
       <!-- Locales -->
-      <button class="sm ghost ms-auto" x-dropdown="locale-menu" x-icon="lucide:globe" aria-label="Language" popovertarget="locale-menu" style="anchor-name: --dropdown-gbrky4s5h, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-gbrky4s5h" aria-haspopup="menu" aria-controls="locale-menu" aria-expanded="false" data-hydrate-id="h3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:globe" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20a14.5 14.5 0 0 0 0-20M2 12h20"></path></g></svg></button>
-      <menu popover="" id="locale-menu" class="min-w-0" role="menu" style="position-anchor: --dropdown-gbrky4s5h">
+      <button class="sm ghost ms-auto" x-dropdown="locale-menu" x-icon="lucide:globe" aria-label="Language" popovertarget="locale-menu" style="anchor-name: --dropdown-4b12mbji2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-4b12mbji2" aria-haspopup="menu" aria-controls="locale-menu" aria-expanded="false" data-hydrate-id="h3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:globe" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20a14.5 14.5 0 0 0 0-20M2 12h20"></path></g></svg></button>
+      <menu popover="" id="locale-menu" class="min-w-0" role="menu" style="position-anchor: --dropdown-4b12mbji2">
         <li @click="locale = 'en'" :disabled="locale === 'en'" disabled="disabled" role="menuitem" data-hydrate-id="h4">English</li>
         <li @click="locale = 'es'" :disabled="locale === 'es'" role="menuitem" data-hydrate-id="h5">Español</li>
         <li @click="locale = 'zh'" :disabled="locale === 'zh'" role="menuitem" data-hydrate-id="h6">中文</li>
@@ -1002,6 +1011,7 @@
       <!-- Core plugins -->
       <div class="col gap-3">
         <small>Core plugins</small>
+        <a href="/docs/core-plugins/chat">Chat</a>
         <a href="/docs/core-plugins/components">Components</a>
         <a href="/docs/core-plugins/export">Export</a>
         <a href="/docs/core-plugins/local-data">Local data</a>
@@ -1035,11 +1045,11 @@
         <a href="/docs/styles/utilities">Utilities</a>
 
         <small class="mt-6">Elements</small>
-        <button x-dropdown="elements-menu" class="link text-sm" aria-label="Browse all HTML elements" aria-haspopup="menu" popovertarget="elements-menu" style="anchor-name: --dropdown-rughs768x, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-rughs768x" aria-controls="elements-menu" aria-expanded="false" data-hydrate-id="h11">
+        <button x-dropdown="elements-menu" class="link text-sm" aria-label="Browse all HTML elements" aria-haspopup="menu" popovertarget="elements-menu" style="anchor-name: --dropdown-idi5aqfha, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-idi5aqfha" aria-controls="elements-menu" aria-expanded="false" data-hydrate-id="h11">
           <span>20+ HTML Elements</span>
           <span x-icon="lucide:chevron-down"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-down" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"></path></svg></span>
         </button>
-        <dialog popover="" id="elements-menu" class="col w-40 p-2 [&amp;_a]:justify-start [&amp;_a]:w-full [&amp;_a]:h-15 [&amp;_a]:ghost" role="menu" style="position-anchor: --dropdown-rughs768x">
+        <dialog popover="" id="elements-menu" class="col w-40 p-2 [&amp;_a]:justify-start [&amp;_a]:w-full [&amp;_a]:h-15 [&amp;_a]:ghost" role="menu" style="position-anchor: --dropdown-idi5aqfha">
           <a role="button" href="/docs/elements/accordions"><span x-icon="lucide:list-collapse"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:list-collapse" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5h11m-11 7h11m-11 7h11M3 10l3-3l-3-3m0 16l3-3l-3-3"></path></svg></span><span>Accordions</span></a>
           <a role="button" href="/docs/elements/avatars"><span x-icon="lucide:circle-user-round"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-user-round" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M17.925 20.056a6 6 0 0 0-11.851.001"></path><circle cx="12" cy="11" r="4"></circle><circle cx="12" cy="12" r="10"></circle></g></svg></span><span>Avatars</span></a>
           <a role="button" href="/docs/elements/badges"><span x-icon="lucide:circle-star"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:circle-star" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"></path></g></svg></span><span>Badges</span></a>
