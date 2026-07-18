@@ -82,7 +82,7 @@ Long `system` + `grounding` text is sent as a cacheable prompt. After the first 
 
 Open a conversation with the `claude` adapter and render it. `$chat.open` returns a reactive handle — loop over `messages`, bind an input, call `send`.
 
-The markup below covers the three things a chat UI wants: **your messages styled differently** (compare each message's author to `c.me` — here, yours get a brand bubble on the right), **markdown replies rendered** (Claude answers in markdown; the [markdown plugin](/docs/core-plugins/markdown) formats it once the reply finishes, while `x-text` shows the plain text as it streams), and a form that sends.
+The markup below covers the three things a chat UI wants: **your messages styled differently** (compare each message's author to `c.me` — here, yours get a brand bubble on the right), **markdown replies rendered** (Claude answers in markdown; `x-markdown="m.body.text"` formats it via the [markdown plugin](/docs/core-plugins/markdown) once the reply finishes, while `x-text` shows the plain text as it streams), and a form that sends. When rendering markdown from participants you don't control — comments, group chats — use `x-markdown.safe` to sanitize the parsed HTML.
 
 The frame is live — the demo plays the model's part so this page doesn't need an API key. With your `ai` block configured, the same markup talks to the real thing: change the adapter name from `demo` to `claude`.
 
@@ -98,7 +98,7 @@ The frame is live — the demo plays the model's part so this page doesn't need 
                         ? 'bg-brand-surface text-brand-content rounded-lg px-3 py-1'
                         : ''">
                     <span x-show="m.status === 'streaming'" x-text="m.body.text"></span>
-                    <div x-show="m.status !== 'streaming'" x-markdown="m.body.text + ''"></div>
+                    <div x-show="m.status !== 'streaming'" x-markdown="m.body.text"></div>
                 </div>
             </div>
         </template>
@@ -411,6 +411,7 @@ The handle returned by `$chat.open`:
 | `typing`{copy} | reactive | Participants typing right now. |
 | `status`{copy} | reactive | `idle` → `loading` → `ready`, or `error`. |
 | `live`{copy} | reactive | `false` while the connection is re-establishing. |
+| `version`{copy} | reactive | Integer that increments on every conversation update. Reading any list above already tracks it; read `version` itself when an effect needs an explicit dependency on "anything changed". Merged views expose it too. |
 | `can`{copy} | reactive | What this conversation supports: `can.send`, `can.react`, `can.edit`, … Hide affordances the adapter doesn't offer. |
 | `send(draft)`{copy} | method | Send a message: `{ text }`, or `{ body: { text, media }, replyTo }`. |
 | `react(id, emoji)`{copy} / `edit(id, body)`{copy} / `retract(id)`{copy} | method | Act on a message, where supported. |

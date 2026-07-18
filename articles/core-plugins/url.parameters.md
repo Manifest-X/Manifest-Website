@@ -8,7 +8,7 @@ Display content with modified URL strings.
 
 URL parameters provide a reactive `$url` magic method for storing application state in the URL with common URL characters like `?` and `&`. This preserves user interactions like search queries, filters, and view preferences, and the generated URLs can be further shared or bookmarked.
 
-Parameter updates are debounced to prevent excessive URL changes during rapid user input. They persist across page reloads and are reactive to browser back/forward navigation.
+Parameters are fully reactive: any binding that reads a parameter (`x-text`, `x-show`, `x-for`, etc) re-renders when it changes — whether from `.set()`, `.add()`, `.remove()`, browser back/forward, or [router](/docs/core-plugins/router) navigation. Mutations apply instantly; only the address bar update is debounced to prevent excessive history entries during rapid input. Parameters persist across page reloads.
 
 ---
 
@@ -38,9 +38,17 @@ URL parameters use the `$url` magic method with a simple dot notation pattern:
 - **Set/overwrite value**: `$url.paramName.set('value')`
 - **Add another value**: `$url.paramName.add('value')`
 - **Remove specific value**: `$url.paramName.remove('value')`
-- **Clear all values**: `$url.paramName.clear()`
+- **Clear all values**: `$url.paramName.remove()` or `$url.paramName.clear()`
 
 Parameter names can be anything (`search`, `filter`, `view`, `user`, etc).
+
+Reading a parameter offers three shapes:
+
+- **`.value`** — a string for single values, an array for comma-separated multiples
+- **`.first`** — always a single value, or `null` when unset
+- **`.all`** — always an array, empty when unset
+
+`.value` mirrors what's in the URL and is settable (for `x-model`), while `.first` and `.all` guarantee a stable shape regardless of how many values the parameter holds.
 
 Alpine's <a href="https://alpinejs.dev/directives/model" target="_blank">x-model</a> directive is used to bind with form elements, e.g. `x-model="$url.paramName.value"`.
 
@@ -110,7 +118,7 @@ Handle multiple values stored as comma-separated parameters in the URL.
 
 ### Remove
 
-Remove specific values from parameters.
+Remove specific values from parameters. Calling `.remove()` with no argument removes the parameter entirely, same as `.clear()`.
 
 <div x-code-group>
 
@@ -136,7 +144,7 @@ Remove specific values from parameters.
 
 ### Clear
 
-Remove a parameter entirely from the URL.
+Remove a parameter entirely from the URL with `.clear()` or a no-argument `.remove()`.
 
 <div x-code-group>
 
