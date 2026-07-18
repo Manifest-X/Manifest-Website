@@ -401,6 +401,7 @@ The `$chat` magic:
 | `$chat.open(id, options)`{copy} | method | Open a conversation. Returns a reactive handle. |
 | `$chat.merge(handles)`{copy} | method | Merge several conversations into one time-ordered read view. |
 | `$chat.adapter(name, factory)`{copy} | method | Register a custom adapter (see below). |
+| `$chat.version`{copy} | reactive | Shared integer that increments on every update across all conversations — readable before any handle exists. If a list expression looks its handle up through a key that may not be set yet (`threads[key]?.messages ?? []`), start it with `void $chat.version;` so the list still re-renders when the handle arrives and loads. |
 
 The handle returned by `$chat.open`:
 
