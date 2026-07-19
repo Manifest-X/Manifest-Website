@@ -10,6 +10,8 @@ The chat plugin turns conversations into something you can build with plain HTML
 
 Where the messages come from is pluggable. The built-in `claude` adapter connects a conversation to <a href="https://www.anthropic.com" target="_blank" rel="noopener">Anthropic's Claude</a> models with almost no setup — that's the fastest path to an AI assistant. Other adapters can connect the same markup to your own backend or messaging app integrations, so a conversation between people works identically to one with an AI.
 
+The plugin renders nothing itself — for ready-made conversation layouts (pinned logs, message bubbles, composers), see the [Chats](/docs/elements/chats) element styles. Each works without the other.
+
 ---
 
 ## Setup
