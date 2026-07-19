@@ -6,11 +6,13 @@ Add conversations with AI or people to your project.
 
 ## Overview
 
-The chat plugin turns conversations into something you can build with plain HTML. A conversation is a reactive object — its messages, participants, and typing indicators update live — and you render it however you like. An AI assistant, a support box, a group thread, a comment section or all supported with your custom markup.
+The chat plugin adds conversations to your project. A conversation is a reactive object: its messages, participants, and typing indicators update live, and you render them with your own markup. The same markup can power an AI assistant, a support box, a group thread, or a comment section.
 
-Where the messages come from is pluggable. The built-in `claude` adapter connects a conversation to <a href="https://www.anthropic.com" target="_blank" rel="noopener">Anthropic's Claude</a> models with almost no setup — that's the fastest path to an AI assistant. Other adapters can connect the same markup to your own backend or messaging app integrations, so a conversation between people works identically to one with an AI.
+Adapters decide where messages live. Built-in adapters cover AI models, an Appwrite backend, and an in-browser demo, and you can register your own. A conversation with an AI works the same as one between people.
 
-The plugin renders nothing itself — for ready-made conversation layouts (pinned logs, message bubbles, composers), see the [Chats](/docs/elements/chats) element styles. Each works without the other.
+::: brand icon="lucide:info"
+The plugin renders nothing itself. See the [chats](/docs/elements/chats) element styles for ready-made conversation layouts. Each works without the other.
+:::
 
 ---
 
@@ -64,7 +66,7 @@ Register the model in `manifest.json` under an `ai` block:
 |---|---|---|
 | `provider`{copy} | `"anthropic"` | The AI provider; more may be added in the future. |
 | `model`{copy} | `"claude-haiku-4-5"` | Any Claude model ID. Haiku is fast and inexpensive; larger models reason more deeply. |
-| `system`{copy} | – | Instructions that shape every reply — the assistant's role, tone, and boundaries. |
+| `system`{copy} | – | Instructions that shape every reply, like the assistant's role, tone, and boundaries. |
 | `grounding`{copy} | – | A URL or project file whose text is added to the instructions, so answers come from your content instead of the model's general knowledge. Loaded once at server start. |
 | `maxTokens`{copy} | `1024` | The maximum length of a single reply. |
 
@@ -74,19 +76,15 @@ Then put your API key in the project's `.env` file:
 ANTHROPIC_API_KEY=sk-ant-your-key-here
 ```
 
-::: brand icon="lucide:info"
-Long `system` + `grounding` text is sent as a cacheable prompt. After the first message, Anthropic serves it from cache at a fraction of the price. Grounding on a large document costs far less per message than it looks.
-:::
+Long `system` and `grounding` text is sent as a cacheable prompt. After the first message, Anthropic serves it from cache at a fraction of the price.
 
 ---
 
-### Talk to it
+### Markup
 
-Open a conversation with the `claude` adapter and render it. `$chat.open` returns a reactive handle — loop over `messages`, bind an input, call `send`.
+Open a conversation with `$chat.open` and render it. The call returns a reactive handle. Loop over its `messages`, bind a field to a draft, and call `send`.
 
-The markup below covers the three things a chat UI wants: **your messages styled differently** (compare each message's author to `c.me` — here, yours get a brand bubble on the right), **markdown replies rendered** (Claude answers in markdown; `x-markdown="m.body.text"` formats it via the [markdown plugin](/docs/core-plugins/markdown) once the reply finishes, while `x-text` shows the plain text as it streams), and a form that sends. When rendering markdown from participants you don't control — comments, group chats — use `x-markdown.safe` to sanitize the parsed HTML.
-
-The frame is live — the demo plays the model's part so this page doesn't need an API key. With your `ai` block configured, the same markup talks to the real thing: change the adapter name from `demo` to `claude`.
+Three details complete the UI. Style your own messages by comparing each message's author to the handle's `me`. Render finished replies with the [markdown](/docs/core-plugins/markdown) plugin, and show plain text with `x-text` while a reply streams. When the text comes from participants you don't control, use `x-markdown.safe` to sanitize it.
 
 <div x-code-group copy>
 
@@ -141,9 +139,9 @@ The frame is live — the demo plays the model's part so this page doesn't need 
 
 </div>
 
-The layout — the wrapper, the pinned `role="log"`, the `own` bubbles, the growing composer — comes entirely from the [Chats](/docs/elements/chats) element styles; the plugin only supplies the data.
+This frame uses the `demo` adapter, which plays the model's part so this page doesn't need an API key. With an `ai` block configured, change the adapter name to `claude` and the same markup talks to the real model. The layout comes from the [chats](/docs/elements/chats) element styles; the plugin only supplies the data.
 
-Replies stream in live — the message appears with `status: 'streaming'` and grows token by token until it's done. Conversation history is kept in the visitor's browser per conversation ID, so `$chat.open('support', …)` picks up where they left off after a reload.
+Replies stream in live. A reply appears with `status: 'streaming'` and grows until it's done. Conversation history is kept in the visitor's browser per conversation ID, so an open conversation picks up where it left off after a reload.
 
 | Option | Description |
 |---|---|
@@ -161,15 +159,13 @@ Image and PDF attachments ride along on `send`:
 
 ---
 
-## The Message Object
+## Message Objects
 
-A conversation is the same reactive object no matter which adapter feeds it, so markup written for one works with any other — the AI thread above and a conversation between people differ only in who the participants are.
-
-Each message carries everything a chat UI needs:
+Every adapter feeds the same reactive conversation object, so markup written for one adapter works with any other. Each message carries everything a chat UI needs:
 
 | Field | Description |
 |---|---|
-| `body.text`{copy} | The message text — raw, exactly as written. |
+| `body.text`{copy} | The message text, raw and exactly as written. |
 | `body.media`{copy} | Attachments, if any. |
 | `author`{copy} | Who sent it: `displayName`, `color`, and a `kind` of `human`, `agent` (an AI), `contact`, or `system`. |
 | `status`{copy} | `pending` → `streaming` → `sent` → `delivered` → `read`, plus `failed`, `edited`, `retracted`. |
@@ -177,7 +173,7 @@ Each message carries everything a chat UI needs:
 | `reactions`{copy} | Emoji reactions: `{ emoji, count, byMe }`. |
 | `ts`{copy} | The message timestamp. |
 
-The frame below renders a seeded email thread between a customer and a support agent, with each message's `kind`, `status`, and text laid out — a message inspector rather than a chat. Notice `kind` distinguishing the customer (`contact`) from the agent (`human`), and per-message delivery states.
+The frame below lays these fields out for a seeded support thread. Each row shows the author's `kind`, the text, and the delivery `status`. Notice `kind` distinguishing the customer (`contact`) from the agent (`human`).
 
 <div x-code-group copy>
 
@@ -209,15 +205,15 @@ The frame below renders a seeded email thread between a customer and a support a
 
 </div>
 
-Sends are optimistic — your message appears instantly as `pending` and settles when the backend confirms, so the UI never waits on the network. Failures mark the message `failed` instead of losing it. You can watch this in the AI frame above: your own message lands before the reply starts streaming.
+Sends are optimistic. Your message appears instantly as `pending` and settles when the backend confirms, so the UI never waits on the network. Failures mark the message `failed` instead of losing it.
 
 ---
 
 ## Groups & Reactions
 
-Conversations aren't limited to two sides. The handle exposes the participant list reactively, and reactions are one call — `react` toggles: once to add yours, again to remove it. AI assistants and people are just participants; a group can mix both.
+A conversation can hold any number of participants, human or AI. The handle exposes the participant list reactively. Reactions toggle with one call: `react` adds yours, and calling it again removes it.
 
-Everything in the frame is wired, not painted: invite Cy and the participant list updates, ask the assistant and its streamed reply adds it to the conversation.
+In the frame, invite Cy and the participant list updates. Ask the assistant and its reply streams into the conversation.
 
 <div x-code-group copy>
 
@@ -276,9 +272,9 @@ Everything in the frame is wired, not painted: invite Cy and the participant lis
 
 ## Threaded Replies
 
-Messages can reply to other messages via `replyTo`, and `tree()` projects the flat list into a nested one — so the same conversation renders as a chat, a forum, or a comment section. Nesting depth is a rendering choice, never a storage one: cap it with `maxDepth`, or don't.
+Messages can reply to other messages through `replyTo`. The `tree()` and `flatTree()` methods project the flat list into a nested one, so the same conversation renders as a chat, a forum, or a comment section. Nesting depth is a rendering choice: cap it with `maxDepth` or leave it unlimited.
 
-Replying is just `send` with a parent. In the frame, pick a message to reply to and watch yours nest under it.
+Replying is a `send` with a parent ID. Pick a message in the frame and your reply nests under it.
 
 <div x-code-group copy>
 
@@ -322,13 +318,15 @@ Replying is just `send` with a parent. In the frame, pick a message to reply to 
 
 </div>
 
-A reply whose parent isn't loaded still renders (flagged as an orphan) instead of disappearing — the last seeded message above is one.
+A reply whose parent isn't loaded still renders, flagged as an orphan, instead of disappearing. The last seeded message above is one.
 
 ---
 
-## Comments & Cloud Chats
+## Appwrite Adapter
 
-Conversations between real visitors need a real backend. The built-in `appwrite` adapter stores messages as rows in your project's <a href="https://appwrite.io" target="_blank" rel="noopener">Appwrite</a> database — new messages arrive over realtime, and identity comes from [auth](/docs/appwrite-plugins/auth). Visitors get a guest session on their first message, so commenting needs no signup.
+Conversations between real visitors need a real backend. Manifest integrates with <a href="https://appwrite.io" target="_blank" rel="noopener">Appwrite</a>, an open source backend platform, for [authentication](/docs/appwrite-plugins/auth), [databases](/docs/appwrite-plugins/databases), and more. See [Appwrite setup](/docs/appwrite-plugins/appwrite-setup) to connect a project.
+
+The built-in `appwrite` adapter stores messages as rows in your Appwrite database, and new messages arrive over its realtime connection. Identity comes from auth. Visitors get a guest session on their first message, so commenting needs no signup.
 
 Configure it in the same `chat` block that activates the plugin:
 
@@ -348,7 +346,7 @@ Configure it in the same `chat` block that activates the plugin:
 | `appwriteTableId`{copy} | `"chat_messages"` | A table with columns `conversationId` (indexed), `text`, `authorId`, `authorName`, and optional `authorColor`, `replyTo`. Permissions: read `any`, create `users` + `guests`. |
 | `ttlHours`{copy} | – | Optional: only load messages younger than this, making conversations ephemeral. Pair with the <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/chat-prune-function" target="_blank" rel="noopener">prune function</a> to physically delete the rest on a schedule. |
 
-The frame below is this page's real comment thread — comments come from other readers, live, and disappear after 24 hours:
+The frame below is this page's real comment thread. Comments come from other readers, live, and disappear after 24 hours:
 
 <div x-code-group copy>
 
@@ -393,49 +391,17 @@ The frame below is this page's real comment thread — comments come from other 
 
 </div>
 
-The same adapter serves support threads, project discussions, and small group chats — anywhere the conversation is part of your app's data. Because messages are ordinary rows, everything else in the Appwrite toolbox applies: permissions, the console, your own functions.
+The same adapter serves support threads, project discussions, and small group chats — anywhere the conversation is part of your app's data. Messages are ordinary rows, so the rest of the Appwrite toolbox applies: permissions, the console, your own functions.
 
 ::: brand icon="lucide:info"
-**Where Appwrite chat fits.** Comments, support inboxes, and small groups are a natural fit — modest write volumes sit comfortably in Appwrite's free tier, with realtime included. A high-volume messaging product (thousands of concurrent conversations, high message rates) deserves purpose-built infrastructure instead — connect it with a [custom adapter](#custom-adapters), which is exactly how large platforms use this plugin.
+**Where the Appwrite adapter fits.** Comments, support inboxes, and small groups are a natural fit. Modest write volumes sit comfortably in Appwrite's free tier, with realtime included. A high-volume messaging product deserves purpose-built infrastructure instead — connect it with a [custom adapter](#custom-adapters).
 :::
-
----
-
-## Reference
-
-The `$chat` magic:
-
-| Property | Type | Description |
-|---|---|---|
-| `$chat.open(id, options)`{copy} | method | Open a conversation. Returns a reactive handle. |
-| `$chat.merge(handles)`{copy} | method | Merge several conversations into one time-ordered read view. |
-| `$chat.adapter(name, factory)`{copy} | method | Register a custom adapter (see below). |
-| `$chat.version`{copy} | reactive | Shared integer that increments on every update across all conversations — readable before any handle exists. If a list expression looks its handle up through a key that may not be set yet (`threads[key]?.messages ?? []`), start it with `void $chat.version;` so the list still re-renders when the handle arrives and loads. |
-
-The handle returned by `$chat.open`:
-
-| Property | Type | Description |
-|---|---|---|
-| `messages`{copy} | reactive | The conversation, oldest first. |
-| `participants`{copy} | reactive | Who's in the conversation. |
-| `typing`{copy} | reactive | Participants typing right now. |
-| `status`{copy} | reactive | `idle` → `loading` → `ready`, or `error`. |
-| `live`{copy} | reactive | `false` while the connection is re-establishing. |
-| `version`{copy} | reactive | Integer that increments on every conversation update. Reading any list above already tracks it; read `version` itself when an effect needs an explicit dependency on "anything changed". Merged views expose it too. |
-| `can`{copy} | reactive | What this conversation supports: `can.send`, `can.react`, `can.edit`, … Hide affordances the adapter doesn't offer. |
-| `send(draft)`{copy} | method | Send a message: `{ text }`, or `{ body: { text, media }, replyTo }`. |
-| `react(id, emoji)`{copy} / `edit(id, body)`{copy} / `retract(id)`{copy} | method | Act on a message, where supported. |
-| `setTyping(on)`{copy} / `markRead(upToId)`{copy} | method | Report typing and read state. |
-| `loadOlder()`{copy} / `loadNewer()`{copy} | method | Page through history; `atStart`/`atEnd` flag the boundaries. |
-| `tree(options)`{copy} / `flatTree(options)`{copy} | method | Nested or flattened reply-tree projection; `{ maxDepth }` caps indentation. |
-| `addParticipant(p)`{copy} / `removeParticipant(id)`{copy} / `transfer(from, to)`{copy} | method | Change who's in the conversation, where supported. |
-| `close()`{copy} | method | Disconnect this handle. Call it when the UI unmounts. |
 
 ---
 
 ## Custom Adapters
 
-An adapter is where messages actually live — the plugin renders and drives the conversation, the adapter stores and transports it. The built-ins cover Claude (`claude`) and an in-browser sandbox (`demo`); connecting your own backend, an <a href="https://appwrite.io" target="_blank" rel="noopener">Appwrite</a> database, or a full messaging platform means registering one object:
+An adapter is where messages actually live. The plugin renders and drives the conversation; the adapter stores and transports it. Connect your own backend or messaging platform by registering one object:
 
 ```html "Custom adapter" copy
 <script>
@@ -460,8 +426,38 @@ An adapter is where messages actually live — the plugin renders and drives the
 </script>
 ```
 
-`identity`, `load`, and `subscribe` are required; everything else — `send`, `react`, `edit`, `setTyping`, and more — is optional, and the handle's `can` flags reflect exactly what you implemented. A read-only transcript is just an adapter with no `send`. The full adapter guide — streaming, paging, reconnection, and a copyable skeleton — lives in the <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/chat-adapter" target="_blank" rel="noopener">Manifest repository</a>.
+`identity`, `load`, and `subscribe` are required. Everything else — `send`, `react`, `edit`, `setTyping`, and more — is optional, and the handle's `can` flags reflect exactly what you implemented. A read-only transcript is just an adapter with no `send`. The full adapter guide, covering streaming, paging, reconnection, and a copyable skeleton, lives in the <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/chat-adapter" target="_blank" rel="noopener">Manifest repository</a>.
 
-::: brand icon="lucide:info"
-Chat visibility in the browser is cosmetic, like all client-side gating — real access control belongs to whatever backend the adapter talks to. And as with [payments](/docs/core-plugins/payments), secrets live server-side only: the adapter calls your API, and your API holds the keys.
-:::
+Chat visibility in the browser is cosmetic, like all client-side gating. Real access control belongs to whatever backend the adapter talks to. As with [payments](/docs/core-plugins/payments), secrets live server-side only: the adapter calls your API, and your API holds the keys.
+
+---
+
+## Reference
+
+The `$chat` magic:
+
+| Property | Type | Description |
+|---|---|---|
+| `$chat.open(id, options)`{copy} | method | Open a conversation. Returns a reactive handle. |
+| `$chat.merge(handles)`{copy} | method | Merge several conversations into one time-ordered read view. |
+| `$chat.adapter(name, factory)`{copy} | method | Register a custom adapter. |
+| `$chat.version`{copy} | reactive | Shared integer that increments on every update across all conversations, readable before any handle exists. If a list expression looks its handle up through a key that may not be set yet (`threads[key]?.messages ?? []`), start it with `void $chat.version;` so the list still re-renders when the handle arrives and loads. |
+
+The handle returned by `$chat.open`:
+
+| Property | Type | Description |
+|---|---|---|
+| `messages`{copy} | reactive | The conversation, oldest first. |
+| `participants`{copy} | reactive | Who's in the conversation. |
+| `typing`{copy} | reactive | Participants typing right now. |
+| `status`{copy} | reactive | `idle` → `loading` → `ready`, or `error`. |
+| `live`{copy} | reactive | `false` while the connection is re-establishing. |
+| `version`{copy} | reactive | Integer that increments on every conversation update. Reading any list above already tracks it; read `version` itself when an effect needs an explicit dependency on "anything changed". Merged views expose it too. |
+| `can`{copy} | reactive | What this conversation supports: `can.send`, `can.react`, `can.edit`, … Hide affordances the adapter doesn't offer. |
+| `send(draft)`{copy} | method | Send a message: `{ text }`, or `{ body: { text, media }, replyTo }`. |
+| `react(id, emoji)`{copy} / `edit(id, body)`{copy} / `retract(id)`{copy} | method | Act on a message, where supported. |
+| `setTyping(on)`{copy} / `markRead(upToId)`{copy} | method | Report typing and read state. |
+| `loadOlder()`{copy} / `loadNewer()`{copy} | method | Page through history; `atStart`/`atEnd` flag the boundaries. |
+| `tree(options)`{copy} / `flatTree(options)`{copy} | method | Nested or flattened reply-tree projection; `{ maxDepth }` caps indentation. |
+| `addParticipant(p)`{copy} / `removeParticipant(id)`{copy} / `transfer(from, to)`{copy} | method | Change who's in the conversation, where supported. |
+| `close()`{copy} | method | Disconnect this handle. Call it when the UI unmounts. |

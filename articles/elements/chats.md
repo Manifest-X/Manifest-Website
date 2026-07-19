@@ -1,14 +1,14 @@
 # Chats
 
-Conversation layouts — pinned logs, message bubbles, attachments, and composers.
+Conversation layouts with message bubbles, attachments, and input composers.
 
 ---
 
 ## Overview
 
-Chat styles turn semantic HTML into a full conversation surface: a message log that stays pinned to the newest message, bubbles for your own messages, media attachments, and a composer that grows as you type. The contract is two class names — `chat-wrapper` on the shell and `own` on your own messages — with everything inside targeted through native elements and attributes.
+Chat styles turn semantic HTML into a full conversation surface: a message log that stays pinned to the newest message, bubbles for your own messages, media attachments, and a composer that grows as you type. There are only two class names to learn. Add `chat-wrapper` to the container and `own` to your own messages, and everything else is styled through native elements and attributes.
 
-The styles are data-agnostic. They work with a static array, [data sources](/docs/core-plugins/local-data), your own backend, or the [Chat plugin](/docs/core-plugins/chat) — and the plugin renders nothing itself, so neither requires the other.
+The styles don't care where messages come from. They work with a static array, [local data](/docs/core-plugins/local-data), your own backend, or the [chat plugin](/docs/core-plugins/chat). The plugin renders nothing itself, so neither requires the other.
 
 ---
 
@@ -180,9 +180,11 @@ Media inside a message is styled by element: images and videos are capped to a c
 
 ## Composer
 
-The chat form is a wrapping row aligned to the reading column: the textarea flexes to fill it, grows with its content (`field-sizing: content`), and buttons sit at the row's end. Two named buttons carry the conventions — `type="submit"` sends, and `name="attach"` is the [form-control name](/docs/elements/forms) for the file picker trigger.
+The chat form is a wrapping row aligned to the reading column. A textarea inside it flexes to fill the row and grows with its content (`field-sizing: content`), while buttons sit at the row's end. Two named buttons carry the conventions: `type="submit"` sends, and `name="attach"` triggers the file picker (see [forms](/docs/elements/forms) for name-based buttons).
 
-Pending attachments live in an `<output>` element — the native element for the result of a user action, with the bonus that screen readers announce additions politely. Its children are anonymous items: an `<img>` renders as a square thumbnail, a `<span>` as a file chip, and each can carry a [remove button](/docs/elements/forms#remove-buttons).
+Pending attachments live in an `<output>` element, the native element for showing the result of a user action. Screen readers announce its additions politely. Its children can be any elements: an `<img>` renders as a square thumbnail, a `<span>` as a file chip, and each can carry a [remove button](/docs/elements/forms#remove-buttons).
+
+Placement is flexible. The strip and the buttons are styled anywhere inside `chat-wrapper`, so the strip can sit inside the form or just above it as a sibling. Only the textarea needs to be inside the form, which is what lays out the composer row. A send button placed elsewhere still submits if you point it at the form with a `form="form-id"` attribute.
 
 <div x-code-group>
 
