@@ -91,50 +91,57 @@ The frame is live — the demo plays the model's part so this page doesn't need 
 <div x-code-group copy>
 
 ```html "HTML"
-<div x-data="{ c: $chat.open('support', { adapter: 'claude' }), draft: '' }">
+<div class="chat-wrapper" x-data="{ c: $chat.open('support', { adapter: 'claude' }), draft: '' }">
 
-    <div class="col gap-2">
-        <template x-for="m in c.messages" :key="m.id">
-            <div class="col" :class="m.author?.id === c.me?.id ? 'items-end' : 'items-start'">
-                <div :class="m.author?.id === c.me?.id
-                        ? 'bg-brand-surface text-brand-content rounded-lg px-3 py-1'
-                        : ''">
+    <!-- Message log -->
+    <div role="log">
+        <div>
+            <template x-for="m in c.messages" :key="m.id">
+                <div :class="m.author?.id === c.me?.id && 'own'">
                     <span x-show="m.status === 'streaming'" x-text="m.body.text"></span>
                     <div x-show="m.status !== 'streaming'" x-markdown="m.body.text"></div>
                 </div>
-            </div>
-        </template>
+            </template>
+        </div>
     </div>
 
-    <form class="row gap-2" @submit.prevent="c.send({ text: draft }); draft = ''">
-        <input type="text" x-model="draft" placeholder="Ask anything…">
-        <button>Send</button>
+    <!-- Composer -->
+    <form class="bg-popover-surface border border-line/50 rounded-lg"
+        @submit.prevent="c.send({ text: draft }); draft = ''">
+        <textarea class="transparent no-focus" x-model="draft" placeholder="Ask anything…"
+            @keydown.enter="if (!$event.shiftKey) { $event.preventDefault(); $el.form.requestSubmit() }"></textarea>
+        <button type="submit" class="transparent" x-icon="lucide:corner-down-left" aria-label="Send"></button>
     </form>
 
 </div>
 ```
 
-::: frame
-<div x-data="{ c: $chat.open('dm-ai', { adapter: 'demo' }), draft: '' }" class="col gap-3">
-    <div class="col gap-2">
-        <template x-for="m in c.messages" :key="m.id">
-            <div class="col" :class="m.author?.id === c.me?.id ? 'items-end' : 'items-start'">
-                <div :class="m.author?.id === c.me?.id ? 'bg-brand-surface text-brand-content rounded-lg px-3 py-1' : ''">
-                    <span x-show="m.status === 'streaming'" x-text="m.body.text"></span>
-                    <div class="[&_p]:m-0" x-show="m.status !== 'streaming'" x-markdown="m.body.text + ''"></div>
-                </div>
+::: frame p-0
+<div class="col" x-data="{ c: $chat.open('dm-ai', { adapter: 'demo' }), draft: '' }">
+    <div class="chat-wrapper h-96">
+        <div role="log">
+            <div>
+                <template x-for="m in c.messages" :key="m.id">
+                    <div :class="m.author?.id === c.me?.id && 'own'">
+                        <span x-show="m.status === 'streaming'" x-text="m.body.text"></span>
+                        <div x-show="m.status !== 'streaming'" x-markdown="m.body.text"></div>
+                    </div>
+                </template>
             </div>
-        </template>
+        </div>
+        <form class="bg-popover-surface border border-line/50 rounded-lg" @submit.prevent="c.send({ text: draft }); draft = ''">
+            <textarea class="transparent no-focus" x-model="draft" placeholder="Ask anything…"
+                @keydown.enter="if (!$event.shiftKey) { $event.preventDefault(); $el.form.requestSubmit() }"></textarea>
+            <button type="submit" class="transparent" x-icon="lucide:corner-down-left" aria-label="Send"></button>
+        </form>
     </div>
-    <form class="row gap-2" @submit.prevent="c.send({ text: draft }); draft = ''">
-        <input type="text" x-model="draft" placeholder="Ask anything…">
-        <button>Send</button>
-        <button type="button" class="outlined" @click="$chat.sim.aiReply('dm-ai', 'Good question — **every** account starts with `5,000` free credits a month.')">Simulate reply</button>
-    </form>
+    <button type="button" class="outlined sm self-end m-3" @click="$chat.sim.aiReply('dm-ai', 'Good question — **every** account starts with `5,000` free credits a month.')">Simulate reply</button>
 </div>
 :::
 
 </div>
+
+The layout — the wrapper, the pinned `role="log"`, the `own` bubbles, the growing composer — comes entirely from the [Chats](/docs/elements/chats) element styles; the plugin only supplies the data.
 
 Replies stream in live — the message appears with `status: 'streaming'` and grows token by token until it's done. Conversation history is kept in the visitor's browser per conversation ID, so `$chat.open('support', …)` picks up where they left off after a reload.
 
