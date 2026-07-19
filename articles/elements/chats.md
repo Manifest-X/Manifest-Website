@@ -6,7 +6,7 @@ Conversation layouts with message bubbles, attachments, and input composers.
 
 ## Overview
 
-Chat styles turn semantic HTML into a full conversation surface: a message log that stays pinned to the newest message, bubbles for your own messages, media attachments, and a composer that grows as you type. There are only two class names to learn. Add `chat-wrapper` to the container and `own` to your own messages, and everything else is styled through native elements and attributes.
+Chat styles turn semantic HTML into a full conversation surface: a message log that stays pinned to the newest message, bubbles for your own messages, media attachments, and a composer that grows as you type. There are only two class names to learn. Add `chat-wrapper` to the container and `own` to the user's own messages, and everything else is styled through native elements and attributes.
 
 The styles don't care where messages come from. They work with a static array, [local data](/docs/core-plugins/local-data), your own backend, or the [chat plugin](/docs/core-plugins/chat). The plugin renders nothing itself, so neither requires the other.
 
@@ -61,7 +61,7 @@ The `chat-wrapper` class is a column shell that fills its container — give tha
     </div>
 
     <!-- Composer -->
-    <form class="bg-popover-surface border border-line/50 rounded-lg" @submit.prevent="send()">
+    <form class="bg-popover-surface border border-line focus-within:outlined rounded-lg" @submit.prevent="send()">
         <textarea class="transparent no-focus" placeholder="Message…" x-model="draft"
             @keydown.enter="if (!$event.shiftKey) { $event.preventDefault(); send() }"></textarea>
         <button type="submit" class="transparent" x-icon="lucide:corner-down-left" aria-label="Send"></button>
@@ -91,10 +91,10 @@ The `chat-wrapper` class is a column shell that fills its container — give tha
             </template>
         </div>
     </div>
-    <form class="bg-popover-surface border border-line/50 rounded-lg" @submit.prevent="send()">
+    <form class="bg-popover-surface border border-line focus-within:outlined rounded-lg" @submit.prevent="send()">
         <textarea class="transparent no-focus" placeholder="Message…" x-model="draft"
             @keydown.enter="if (!$event.shiftKey) { $event.preventDefault(); send() }"></textarea>
-        <button type="submit" class="transparent" x-icon="lucide:corner-down-left" aria-label="Send"></button>
+        <button type="submit" class="transparent me-1 mb-1" x-icon="lucide:corner-down-left" aria-label="Send"></button>
     </form>
 </div>
 :::
@@ -203,10 +203,8 @@ Placement is flexible. The strip and the buttons are styled anywhere inside `cha
     </output>
 
     <!-- File picker -->
-    <input type="file" multiple x-ref="picker" hidden
-        @change="add($event.target.files); $event.target.value = ''">
-    <button type="button" name="attach" class="transparent" x-icon="lucide:paperclip"
-        aria-label="Attach files" @click="$refs.picker.click()"></button>
+    <input type="file" multiple x-ref="picker" hidden @change="add($event.target.files); $event.target.value = ''">
+    <button type="button" name="attach" class="transparent" x-icon="lucide:paperclip" aria-label="Attach files" @click="$refs.picker.click()"></button>
 
     <!-- Draft -->
     <textarea class="transparent no-focus" placeholder="Message…" x-model="draft"></textarea>
@@ -228,7 +226,7 @@ Placement is flexible. The strip and the buttons are styled anywhere inside `cha
     },
     remove(i) { URL.revokeObjectURL(this.files[i].url); this.files.splice(i, 1); }
 }" style="height: auto">
-    <form class="bg-popover-surface border border-line/50 rounded-lg" @submit.prevent="draft = ''; files = []">
+    <form class="bg-popover-surface border border-line focus-within:outlined rounded-lg" @submit.prevent="draft = ''; files = []">
         <output x-show="files.length">
             <template x-for="(f, i) in files" :key="f.url">
                 <div>
@@ -239,9 +237,9 @@ Placement is flexible. The strip and the buttons are styled anywhere inside `cha
             </template>
         </output>
         <input type="file" multiple x-ref="picker" hidden @change="add($event.target.files); $event.target.value = ''">
-        <button type="button" name="attach" class="transparent" x-icon="lucide:paperclip" aria-label="Attach files" @click="$refs.picker.click()"></button>
+        <button type="button" name="attach" class="transparent ms-1 mb-1" x-icon="lucide:paperclip" aria-label="Attach files" @click="$refs.picker.click()"></button>
         <textarea class="transparent no-focus" placeholder="Attach some files…" x-model="draft"></textarea>
-        <button type="submit" class="transparent" x-icon="lucide:corner-down-left" aria-label="Send"></button>
+        <button type="submit" class="transparent me-1 mb-1" x-icon="lucide:corner-down-left" aria-label="Send"></button>
     </form>
 </div>
 :::

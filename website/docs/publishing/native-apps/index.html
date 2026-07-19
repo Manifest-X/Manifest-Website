@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-no-view-transitions="" data-os="macos" dir="auto"><head>
+<html lang="en" data-no-view-transitions="" data-online="true" data-os="macos" dir="auto"><head>
   <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,13 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.168/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.168/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.176/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.176/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.168/lib/manifest.min.js" data-version="0.5.168"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.176/lib/manifest.min.js" data-version="0.5.176"></script>
   <script src="../../../scripts/payments-demo.js"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -43,7 +43,12 @@
 @custom-variant linux (&:where([data-os="linux"] *));
 @custom-variant ios (&:where([data-os="ios"] *));
 @custom-variant android (&:where([data-os="android"] *));
-@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));</style><meta property="og:title" content="Native Apps — Manifest"><meta property="og:description" content="Package a Manifest project as a native app for app stores or direct download."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/publishing/native-apps"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-publishing-native-apps.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Native Apps — Manifest"><meta property="twitter:description" content="Package a Manifest project as a native app for app stores or direct download."><meta property="twitter:image" content="/og/docs-publishing-native-apps.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Native Apps — Manifest","description":"Package a Manifest project as a native app for app stores or direct download.","image":"/og/docs-publishing-native-apps.png","url":"https://manifestx.dev/docs/publishing/native-apps"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Publishing","item":"https://manifestx.dev/docs/publishing"},{"@type":"ListItem","position":4,"name":"Native Apps","item":"https://manifestx.dev/docs/publishing/native-apps"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));
+@custom-variant online (&:where([data-online="true"] *));
+@custom-variant offline (&:where([data-online="false"] *));
+@custom-variant standalone (&:where([data-standalone] *));
+@custom-variant native (&:where([data-native] *));
+@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Native Apps — Manifest"><meta property="og:description" content="Package a Manifest project as a native app for app stores or direct download."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/publishing/native-apps"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-publishing-native-apps.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Native Apps — Manifest"><meta property="twitter:description" content="Package a Manifest project as a native app for app stores or direct download."><meta property="twitter:image" content="/og/docs-publishing-native-apps.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Native Apps — Manifest","description":"Package a Manifest project as a native app for app stores or direct download.","image":"/og/docs-publishing-native-apps.png","url":"https://manifestx.dev/docs/publishing/native-apps"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Publishing","item":"https://manifestx.dev/docs/publishing"},{"@type":"ListItem","position":4,"name":"Native Apps","item":"https://manifestx.dev/docs/publishing/native-apps"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/publishing/native-apps">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -91,7 +96,7 @@
 
             <!-- CTAs -->
             <!-- <a href="#" class="text-sm no-underline">Sign-in</a> -->
-            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" class="sm transparent outlined rounded-full"><span x-icon="meteor-icons:github"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="meteor-icons:github" class="iconify iconify--meteor-icons"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22v-3q0-2 1-3A7 6.5 0 0 1 5 5Q4 3 5 1q3 0 4 2q3.5-1 7 0q1-2 4-2q1 2 0 4a7 6.5 0 0 1-5 11q1 1 1 3v3m-7-3c-4 1-4-2-7-3"></path></svg></span><span>GitHub</span></a>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" class="sm transparent outlined rounded-full"><span x-icon="meteor-icons:github"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="meteor-icons:github" class="iconify iconify--meteor-icons"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22v-3q0-2 1-3A7 6.5 0 0 1 5 5Q4 3 5 1q3 0 4 2q3-1 6 0q2-2 4-2q1 2 0 4a7 6.5 0 0 1-5 11q1 1 1 3v3M2 17c2 0 3 4 7 2"></path></svg></span><span>GitHub</span></a>
             <a role="button" href="/docs/getting-started/introduction" class="sm accent rounded-full">Docs</a>
 
             <!-- Mobile Sidebar Button -->
@@ -176,19 +181,19 @@
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:users" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.128a4 4 0 0 1 0 7.744M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></g></svg></span>
                             <span>Auth</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/users">
-                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
                             <span>Users</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/teams">
-                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
                             <span>Teams</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/cloud-data">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:database" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14a9 3 0 0 0 18 0V5"></path><path d="M3 12a9 3 0 0 0 18 0"></path></g></svg></span>
                             <span>Cloud Data</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/databases">
-                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
                             <span>Databases</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/storage">
-                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
                             <span>Storage</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/presence">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:radio-tower" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9m2.9 2.8a6.14 6.14 0 0 0-.8 7.5"></path><circle cx="12" cy="9" r="2"></circle><path d="M16.2 4.8c2 2 2.26 5.11.8 7.47M19.1 1.9a9.96 9.96 0 0 1 0 14.1m-9.6 2h5M8 22l4-11l4 11"></path></g></svg></span>
@@ -206,7 +211,7 @@
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:globe" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20a14.5 14.5 0 0 0 0-20M2 12h20"></path></g></svg></span>
                             <span>Websites</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/seo-aeo">
-                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
                             <span>SEO &amp; AEO</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/web-apps">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:app-window" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="M10 4v4M2 8h20M6 4v4"></path></g></svg></span>
@@ -214,6 +219,12 @@
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/publishing/native-apps">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:monitor-smartphone" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8m-2 4v-3.96v3.15M7 19h5"></path><rect width="6" height="10" x="16" y="12" rx="2"></rect></g></svg></span>
                             <span>Native Apps</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/app-store-readiness">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span>App Store Readiness</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-capabilities">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span>Native Capabilities</span>
                         </a>
                 </div>
                 <hr>
@@ -457,11 +468,11 @@
               <span>Auth</span>
             </a><a role="button" href="/docs/appwrite-plugins/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
-              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
               <span>Users</span>
             </a><a role="button" href="/docs/appwrite-plugins/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
-              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
               <span>Teams</span>
             </a><a role="button" href="/docs/appwrite-plugins/cloud-data" class="ghost text-content-neutral justify-start w-full">
 
@@ -469,11 +480,11 @@
               <span>Cloud Data</span>
             </a><a role="button" href="/docs/appwrite-plugins/databases" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
-              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
               <span>Databases</span>
             </a><a role="button" href="/docs/appwrite-plugins/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
-              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
               <span>Storage</span>
             </a><a role="button" href="/docs/appwrite-plugins/presence" class="ghost text-content-neutral justify-start w-full">
 
@@ -495,7 +506,7 @@
               <span>Websites</span>
             </a><a role="button" href="/docs/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
-              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
               <span>SEO &amp; AEO</span>
             </a><a role="button" href="/docs/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
 
@@ -505,6 +516,14 @@
 
               <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:monitor-smartphone" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8m-2 4v-3.96v3.15M7 19h5"></path><rect width="6" height="10" x="16" y="12" rx="2"></rect></g></svg></span>
               <span>Native Apps</span>
+            </a><a role="button" href="/docs/publishing/app-store-readiness" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span>App Store Readiness</span>
+            </a><a role="button" href="/docs/publishing/native-capabilities" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span>Native Capabilities</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -697,7 +716,41 @@
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="native-apps">Native Apps</h1><p>Package a Manifest project as a native app for app stores or direct download.</p>
 <hr>
 <h2 id="overview">Overview</h2><p>A Manifest <a href="/docs/publishing/web-apps">progressive web app</a> (PWA) can run as a native-feeling app on every modern operating system. On most platforms, users can <a href="/docs/publishing/web-apps#installation">install the PWA directly</a> from their browser with no packaging required. For app store presence and other distribution channels, the PWA needs to be wrapped in a native bundle and submitted through each platform's store. This article covers those native packaging paths.</p>
-<p>Standard PWA wrappers work with any Manifest project. The most common is <a href="https://www.pwabuilder.com" target="_blank">PWABuilder</a>, a free tool from Microsoft that takes your live URL and produces store-ready packages for iOS, Android, and Windows from one workflow.</p>
+<p>There are two ways to wrap a Manifest app, and the right one depends on the store:</p>
+<ul>
+<li><strong><a href="https://www.pwabuilder.com" target="_blank">PWABuilder</a></strong> — a free tool from Microsoft that takes your live URL and produces store-ready packages for iOS, Android, and Windows from one workflow. It's the fastest route and safe for Android, Windows, and direct distribution.</li>
+<li><strong><a href="https://capacitorjs.com" target="_blank">Capacitor</a></strong> — generates a real native project you own, with a bridge to native device APIs (biometrics, push, camera, haptics, and more). It's more setup, but on iOS it's effectively required to pass App Store review.</li>
+</ul>
+<aside class="brand"><span x-icon="lucide:info"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:info" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4m0-4h.01"></path></g></svg></span><p><strong>iOS is stricter than the other stores.</strong> Apple's <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2 (Minimum Functionality)</a> rejects apps that are just a repackaged website in a web view. Use <strong>Capacitor</strong> for the App Store, add genuine native capability, and self-audit against the <a href="/docs/publishing/app-store-readiness">App Store Readiness guide</a> before you submit.</p>
+</aside>
+<hr>
+<h2 id="packaging-paths">Packaging paths</h2><div class="overflow-x-auto">
+
+<table>
+<thead>
+<tr>
+<th><strong>Path</strong></th>
+<th><strong>Output</strong></th>
+<th><strong>Native APIs</strong></th>
+<th><strong>Best for</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>PWABuilder</strong></td>
+<td>Xcode / Android / MSIX wrapper</td>
+<td>Minimal</td>
+<td>Android, Windows, fastest route, direct download</td>
+</tr>
+<tr>
+<td><strong>Capacitor</strong></td>
+<td>Real native project you own</td>
+<td>Full bridge</td>
+<td>iOS App Store, apps that need device features</td>
+</tr>
+</tbody></table>
+</div>
+
+<p>Both render your Manifest UI, so your app code doesn't change between them. The difference is what surrounds it: PWABuilder drops your PWA into a stock web view, while Capacitor gives you a native project with a plugin bridge — which is what makes real native features (and iOS review) achievable. Capacitor's plugins are surfaced through Manifest's <a href="/docs/publishing/app-store-readiness">native capability plugins</a>, so you reach them with Alpine-friendly attributes instead of writing Swift.</p>
 <hr>
 <h2 id="apps-by-os">Apps by OS</h2><div class="[&amp;_tbody_&gt;_tr:first-child]:opacity-50 overflow-x-auto">
 
@@ -718,13 +771,13 @@
 </tr>
 <tr>
 <td><strong>iOS &amp; iPadOS</strong></td>
-<td>Xcode project</td>
+<td>Capacitor (PWABuilder risks 4.2)</td>
 <td>App Store ($99/yr)</td>
 <td>—</td>
 </tr>
 <tr>
 <td><strong>macOS</strong></td>
-<td>Xcode + Mac Catalyst</td>
+<td>Capacitor or Mac Catalyst</td>
 <td>Mac App Store ($99/yr)</td>
 <td>Yes</td>
 </tr>
@@ -757,8 +810,9 @@
 
 <hr>
 <h2 id="ios-ipados">iOS &amp; iPadOS</h2><ul>
-<li><strong>Packaging:</strong> <a href="https://www.pwabuilder.com" target="_blank">PWABuilder</a> generates an Xcode project that wraps the PWA in a WebKit view.</li>
+<li><strong>Packaging:</strong> Use <a href="https://capacitorjs.com" target="_blank">Capacitor</a> to generate a native Xcode project. A thin <a href="https://www.pwabuilder.com" target="_blank">PWABuilder</a> WebKit wrapper also builds, but risks rejection under Guideline 4.2 (see below).</li>
 <li><strong>App Store:</strong> Sign and upload through <a href="https://appstoreconnect.apple.com" target="_blank">App Store Connect</a> on a Mac. Requires an Apple Developer account ($99/yr). Beta distribution goes through TestFlight.</li>
+<li><strong>Review:</strong> Apple reviews iOS apps by hand and rejects "repackaged website" wrappers under <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2</a>. Ship genuine native capability (Face ID, push, haptics, share) and native feel (safe-area layout, no browser chrome), then work the <a href="/docs/publishing/app-store-readiness">App Store Readiness guide</a> and its 4.2 checklist before submitting.</li>
 <li><strong>Open Distribution:</strong> Limited. As of iOS 17.4, EU users can install from alternative app marketplaces. Elsewhere, the App Store is the only path.</li>
 </ul>
 <hr>
@@ -840,7 +894,7 @@
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#apps-by-os">Apps by OS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#ios-ipados">iOS &amp; iPadOS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#macos">macOS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#android">Android</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#windows">Windows</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#chromeos">ChromeOS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#linux">Linux</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#packaging-paths">Packaging paths</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#apps-by-os">Apps by OS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#ios-ipados">iOS &amp; iPadOS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#macos">macOS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#android">Android</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#windows">Windows</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#chromeos">ChromeOS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#linux">Linux</a></div>
 
   </div>
 

@@ -8,7 +8,7 @@ Add conversations with AI or people to your project.
 
 The chat plugin adds conversations to your project. A conversation is a reactive object: its messages, participants, and typing indicators update live, and you render them with your own markup. The same markup can power an AI assistant, a support box, a group thread, or a comment section.
 
-Adapters decide where messages live. Built-in adapters cover AI models, an Appwrite backend, and an in-browser demo, and you can register your own. A conversation with an AI works the same as one between people.
+Adapters decide where messages live. Built-in adapters cover AI models, an Appwrite backend, and an in-browser demo — or you can register your own. A conversation with an AI works the same as one between people.
 
 ::: brand icon="lucide:info"
 The plugin renders nothing itself. See the [chats](/docs/elements/chats) element styles for ready-made conversation layouts. Each works without the other.
@@ -104,7 +104,7 @@ Three details complete the UI. Style your own messages by comparing each message
     </div>
 
     <!-- Composer -->
-    <form class="bg-popover-surface border border-line/50 rounded-lg"
+    <form class="bg-popover-surface border border-line focus-within:outlined rounded-lg"
         @submit.prevent="c.send({ text: draft }); draft = ''">
         <textarea class="transparent no-focus" x-model="draft" placeholder="Ask anything…"
             @keydown.enter="if (!$event.shiftKey) { $event.preventDefault(); $el.form.requestSubmit() }"></textarea>
@@ -127,10 +127,10 @@ Three details complete the UI. Style your own messages by comparing each message
                 </template>
             </div>
         </div>
-        <form class="bg-popover-surface border border-line/50 rounded-lg" @submit.prevent="c.send({ text: draft }); draft = ''">
+        <form class="bg-popover-surface border border-line focus-within:outlined rounded-lg" @submit.prevent="c.send({ text: draft }); draft = ''">
             <textarea class="transparent no-focus" x-model="draft" placeholder="Ask anything…"
                 @keydown.enter="if (!$event.shiftKey) { $event.preventDefault(); $el.form.requestSubmit() }"></textarea>
-            <button type="submit" class="transparent" x-icon="lucide:corner-down-left" aria-label="Send"></button>
+            <button type="submit" class="transparent me-1 mb-1" x-icon="lucide:corner-down-left" aria-label="Send"></button>
         </form>
     </div>
     <button type="button" class="outlined sm self-end m-3" @click="$chat.sim.aiReply('dm-ai', 'Good question — **every** account starts with `5,000` free credits a month.')">Simulate reply</button>
@@ -239,9 +239,9 @@ In the frame, invite Cy and the participant list updates. Ask the assistant and 
     </div>
 
     <div class="row gap-2">
-        <button class="outlined" @click="g.addParticipant({ id: 'u_cy', kind: 'human', role: 'member', displayName: 'Cy', color: '#ea580c' })"
+        <button @click="g.addParticipant({ id: 'u_cy', kind: 'human', role: 'member', displayName: 'Cy', color: '#ea580c' })"
             :disabled="g.participants.some(p => p.id === 'u_cy')">Invite Cy</button>
-        <button class="outlined" @click="$chat.sim.aiReply('grp-1', 'On it — the v2 doc looks ready to ship.')">Ask the assistant</button>
+        <button @click="$chat.sim.aiReply('grp-1', 'On it — the v2 doc looks ready to ship.')">Ask the assistant</button>
     </div>
 
 </div>
@@ -260,8 +260,8 @@ In the frame, invite Cy and the participant list updates. Ask the assistant and 
         </template>
     </div>
     <div class="row gap-2">
-        <button class="outlined" @click="g.addParticipant({ id: 'u_cy', kind: 'human', role: 'member', displayName: 'Cy', color: '#ea580c' })" :disabled="g.participants.some(p => p.id === 'u_cy')">Invite Cy</button>
-        <button class="outlined" @click="$chat.sim.aiReply('grp-1', 'On it — the v2 doc looks ready to ship.')">Ask the assistant</button>
+        <button @click="g.addParticipant({ id: 'u_cy', kind: 'human', role: 'member', displayName: 'Cy', color: '#ea580c' })" :disabled="g.participants.some(p => p.id === 'u_cy')">Invite Cy</button>
+        <button @click="$chat.sim.aiReply('grp-1', 'On it — the v2 doc looks ready to ship.')">Ask the assistant</button>
     </div>
 </div>
 :::

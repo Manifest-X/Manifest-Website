@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-no-view-transitions="" data-os="macos" dir="auto"><head>
+<html lang="en" data-no-view-transitions="" data-online="true" data-os="macos" dir="auto"><head>
   <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,13 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.168/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.168/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.176/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.176/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.168/lib/manifest.min.js" data-version="0.5.168"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.176/lib/manifest.min.js" data-version="0.5.176"></script>
   <script src="../../../scripts/payments-demo.js"></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -43,7 +43,12 @@
 @custom-variant linux (&:where([data-os="linux"] *));
 @custom-variant ios (&:where([data-os="ios"] *));
 @custom-variant android (&:where([data-os="android"] *));
-@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));</style><meta property="og:title" content="Introduction — Manifest"><meta property="og:description" content="A website and app framework built directly into HTML. No bundler, no build step, no boilerplate."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/getting-started/introduction"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-getting-started-introduction.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Introduction — Manifest"><meta property="twitter:description" content="A website and app framework built directly into HTML. No bundler, no build step, no boilerplate."><meta property="twitter:image" content="/og/docs-getting-started-introduction.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Introduction — Manifest","description":"A website and app framework built directly into HTML. No bundler, no build step, no boilerplate.","image":"/og/docs-getting-started-introduction.png","url":"https://manifestx.dev/docs/getting-started/introduction"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Getting Started","item":"https://manifestx.dev/docs/getting-started"},{"@type":"ListItem","position":4,"name":"Introduction","item":"https://manifestx.dev/docs/getting-started/introduction"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));
+@custom-variant online (&:where([data-online="true"] *));
+@custom-variant offline (&:where([data-online="false"] *));
+@custom-variant standalone (&:where([data-standalone] *));
+@custom-variant native (&:where([data-native] *));
+@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Introduction — Manifest"><meta property="og:description" content="A website and app framework built directly into HTML. No bundler, no build step, no boilerplate."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/getting-started/introduction"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-getting-started-introduction.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Introduction — Manifest"><meta property="twitter:description" content="A website and app framework built directly into HTML. No bundler, no build step, no boilerplate."><meta property="twitter:image" content="/og/docs-getting-started-introduction.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Introduction — Manifest","description":"A website and app framework built directly into HTML. No bundler, no build step, no boilerplate.","image":"/og/docs-getting-started-introduction.png","url":"https://manifestx.dev/docs/getting-started/introduction"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Getting Started","item":"https://manifestx.dev/docs/getting-started"},{"@type":"ListItem","position":4,"name":"Introduction","item":"https://manifestx.dev/docs/getting-started/introduction"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/getting-started/introduction">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -59,7 +64,7 @@
   }
 }" class="bg-surface-1">
 
-  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="0">
+  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-order="0" data-component="header-1">
 
     <!-- Content Area -->
     <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
@@ -91,7 +96,7 @@
 
             <!-- CTAs -->
             <!-- <a href="#" class="text-sm no-underline">Sign-in</a> -->
-            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" class="sm transparent outlined rounded-full"><span x-icon="meteor-icons:github"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="meteor-icons:github" class="iconify iconify--meteor-icons"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22v-3q0-2 1-3A7 6.5 0 0 1 5 5Q4 3 5 1q3 0 4 2q3.5-1 7 0q1-2 4-2q1 2 0 4a7 6.5 0 0 1-5 11q1 1 1 3v3m-7-3c-4 1-4-2-7-3"></path></svg></span><span>GitHub</span></a>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" class="sm transparent outlined rounded-full"><span x-icon="meteor-icons:github"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="meteor-icons:github" class="iconify iconify--meteor-icons"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22v-3q0-2 1-3A7 6.5 0 0 1 5 5Q4 3 5 1q3 0 4 2q3-1 6 0q2-2 4-2q1 2 0 4a7 6.5 0 0 1-5 11q1 1 1 3v3M2 17c2 0 3 4 7 2"></path></svg></span><span>GitHub</span></a>
             <a role="button" href="/docs/getting-started/introduction" class="sm accent rounded-full">Docs</a>
 
             <!-- Mobile Sidebar Button -->
@@ -176,19 +181,19 @@
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:users" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.128a4 4 0 0 1 0 7.744M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></g></svg></span>
                             <span>Auth</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/users">
-                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
                             <span>Users</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/teams">
-                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
                             <span>Teams</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/cloud-data">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:database" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14a9 3 0 0 0 18 0V5"></path><path d="M3 12a9 3 0 0 0 18 0"></path></g></svg></span>
                             <span>Cloud Data</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/databases">
-                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
                             <span>Databases</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/storage">
-                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
                             <span>Storage</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/presence">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:radio-tower" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9m2.9 2.8a6.14 6.14 0 0 0-.8 7.5"></path><circle cx="12" cy="9" r="2"></circle><path d="M16.2 4.8c2 2 2.26 5.11.8 7.47M19.1 1.9a9.96 9.96 0 0 1 0 14.1m-9.6 2h5M8 22l4-11l4 11"></path></g></svg></span>
@@ -206,7 +211,7 @@
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:globe" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20a14.5 14.5 0 0 0 0-20M2 12h20"></path></g></svg></span>
                             <span>Websites</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/seo-aeo">
-                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
                             <span>SEO &amp; AEO</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/web-apps">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:app-window" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="M10 4v4M2 8h20M6 4v4"></path></g></svg></span>
@@ -214,6 +219,12 @@
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:monitor-smartphone" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8m-2 4v-3.96v3.15M7 19h5"></path><rect width="6" height="10" x="16" y="12" rx="2"></rect></g></svg></span>
                             <span>Native Apps</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/app-store-readiness">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span>App Store Readiness</span>
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-capabilities">
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+                            <span>Native Capabilities</span>
                         </a>
                 </div>
                 <hr>
@@ -360,7 +371,7 @@
     
 
     <!-- Documentation pages -->
-    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*">
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*" data-component="docs-1">
 
   <!-- Desktop Navigation-->
   <div data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar">
@@ -457,11 +468,11 @@
               <span>Auth</span>
             </a><a role="button" href="/docs/appwrite-plugins/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
-              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
               <span>Users</span>
             </a><a role="button" href="/docs/appwrite-plugins/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
-              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
               <span>Teams</span>
             </a><a role="button" href="/docs/appwrite-plugins/cloud-data" class="ghost text-content-neutral justify-start w-full">
 
@@ -469,11 +480,11 @@
               <span>Cloud Data</span>
             </a><a role="button" href="/docs/appwrite-plugins/databases" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
-              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
               <span>Databases</span>
             </a><a role="button" href="/docs/appwrite-plugins/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
-              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
               <span>Storage</span>
             </a><a role="button" href="/docs/appwrite-plugins/presence" class="ghost text-content-neutral justify-start w-full">
 
@@ -495,7 +506,7 @@
               <span>Websites</span>
             </a><a role="button" href="/docs/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
-              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12.1" cy="12.1" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
               <span>SEO &amp; AEO</span>
             </a><a role="button" href="/docs/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
 
@@ -505,6 +516,14 @@
 
               <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:monitor-smartphone" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8m-2 4v-3.96v3.15M7 19h5"></path><rect width="6" height="10" x="16" y="12" rx="2"></rect></g></svg></span>
               <span>Native Apps</span>
+            </a><a role="button" href="/docs/publishing/app-store-readiness" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span>App Store Readiness</span>
+            </a><a role="button" href="/docs/publishing/native-capabilities" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:dot" class="iconify iconify--lucide"><circle cx="12" cy="12" r="1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg></span>
+              <span>Native Capabilities</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -768,7 +787,7 @@
   <!-- Anchor Links -->
   <div data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
 
-    <small class="mb-2" x-show="$store.anchors?.count &gt; 0" style="display: none">
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
       <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:align-left" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m14 6H3M21 6H3"></path></svg></span>
       <span>On this page</span>
     </small>
@@ -786,5 +805,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h3","attrs":{"type":null}},{"id":"h4","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h5","attrs":{"dir":null}},{"id":"h6","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"role":null}},{"id":"h9","attrs":{"role":null}},{"id":"h10","attrs":{"role":null}},{"id":"h11","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h12","attrs":{"type":null}},{"id":"h13","attrs":{"type":null}},{"id":"h14","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h3","attrs":{"type":null}},{"id":"h4","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
 </body></html>
