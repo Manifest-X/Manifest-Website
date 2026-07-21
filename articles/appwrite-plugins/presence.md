@@ -22,7 +22,7 @@ Presence identifies people by their [auth](/docs/appwrite-plugins/auth) session 
 
 Complete the [Appwrite setup](/docs/appwrite-plugins/appwrite-setup) and [auth](/docs/appwrite-plugins/auth) steps to connect your project and give people a way in — a full sign-in, guest access, or both. Presence needs auth, since it identifies each person by their session.
 
-Add the Appwrite SDK and `manifest.js` scripts to the HTML head, then turn presence on by adding a `presence` block to your `appwrite` config in `manifest.json`. It loads automatically whenever that block is present (bringing auth along with it), or you can load it explicitly with `data-plugins`.
+Add the Appwrite SDK and `manifest.js` scripts to the HTML head, then turn presence on by adding a `presence` block to your `appwrite` config in `manifest.json`. It loads automatically whenever that block is present or `$presence` appears in your page's markup (bringing auth along with it), or you can load it explicitly with `data-plugins` (`"+appwrite-presences"` adds it alongside the defaults).
 
 <div x-code-group copy>
 

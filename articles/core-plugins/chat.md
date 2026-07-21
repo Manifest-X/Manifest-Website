@@ -18,7 +18,7 @@ The plugin renders nothing itself. See the [chats](/docs/elements/chats) element
 
 ## Setup
 
-The chat plugin is included in `manifest.js` with all core plugins. It activates when `manifest.json` contains an `ai` or `chat` entry — a config block, or `"chat": true` when there's nothing to configure — or when it's declared in `data-plugins`. The `+` prefix adds it alongside the default plugins.
+The chat plugin is included in `manifest.js` with all core plugins. It loads automatically when `$chat` appears in your page's markup, or when `manifest.json` contains an `ai` or `chat` entry (a config block, or `"chat": true`). It can also be declared in `data-plugins`, where the `+` prefix adds it alongside the default plugins.
 
 <div x-code-group copy>
 
@@ -40,6 +40,8 @@ The chat plugin is included in `manifest.js` with all core plugins. It activates
 ```
 
 </div>
+
+Markup detection covers `$chat` written in the page itself. If your only usage lives inside a lazily loaded [component](/docs/core-plugins/components), use one of the other two triggers.
 
 ---
 
