@@ -18,25 +18,25 @@ The plugin renders nothing itself. See the [chats](/docs/elements/chats) element
 
 ## Setup
 
-The chat plugin is included in `manifest.js` with all core plugins. It activates when `manifest.json` contains an `ai` (or `chat`) block, or whenever it's declared in `data-plugins`.
+The chat plugin is included in `manifest.js` with all core plugins. It activates when `manifest.json` contains an `ai` or `chat` entry — a config block, or `"chat": true` when there's nothing to configure — or when it's declared in `data-plugins`. The `+` prefix adds it alongside the default plugins.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
-<!-- Meta -->
+```html "Manifest Trigger (default)"
+<!-- Meta: manifest.json contains an "ai" or "chat" entry -->
 <link rel="manifest" href="/manifest.json">
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
-```html "Selective"
+```html "Declared"
 <!-- Meta -->
 <link rel="manifest" href="/manifest.json">
 
-<!-- Scripts -->
+<!-- Scripts: defaults plus chat -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="chat"></script>
+    data-plugins="+chat"></script>
 ```
 
 </div>
