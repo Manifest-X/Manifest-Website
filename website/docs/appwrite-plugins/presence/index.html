@@ -14,7 +14,7 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
@@ -112,7 +112,7 @@
                 <small class="pl-2.5 text-content-subtle">Getting Started</small>
                 <div class="col">
                     <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/introduction">
-                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:book-open" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7v14m-9-3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4a4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3a3 3 0 0 0-3-3z"></path></svg></span>
+                            <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:book-open" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v16m8.001-2A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2a5 5 0 0 1 4-2z"></path></svg></span>
                             <span>Introduction</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/setup">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:terminal" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19h8M4 17l6-6l-6-6"></path></svg></span>
@@ -383,7 +383,7 @@
         <div class="col">
           <a role="button" href="/docs/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
 
-              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:book-open" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7v14m-9-3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4a4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3a3 3 0 0 0-3-3z"></path></svg></span>
+              <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:book-open" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v16m8.001-2A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2a5 5 0 0 1 4-2z"></path></svg></span>
               <span>Introduction</span>
             </a><a role="button" href="/docs/getting-started/setup" class="ghost text-content-neutral justify-start w-full">
 
@@ -729,7 +729,7 @@
 </aside>
 <hr>
 <h2 id="setup">Setup</h2><p>Complete the <a href="/docs/appwrite-plugins/appwrite-setup">Appwrite setup</a> and <a href="/docs/appwrite-plugins/auth">auth</a> steps to connect your project and give people a way in — a full sign-in, guest access, or both. Presence needs auth, since it identifies each person by their session.</p>
-<p>Add the Appwrite SDK and <code>manifest.js</code> scripts to the HTML head, then turn presence on by adding a <code>presence</code> block to your <code>appwrite</code> config in <code>manifest.json</code>. It loads automatically whenever that block is present (bringing auth along with it), or you can load it explicitly with <code>data-plugins</code>.</p>
+<p>Add the Appwrite SDK and <code>manifest.js</code> scripts to the HTML head, then turn presence on by adding a <code>presence</code> block to your <code>appwrite</code> config in <code>manifest.json</code>. It loads automatically whenever that block is present or <code>$presence</code> appears in your page's markup (bringing auth along with it), or you can load it explicitly with <code>data-plugins</code> (<code>"+appwrite-presences"</code> adds it alongside the defaults).</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>

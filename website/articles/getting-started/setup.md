@@ -105,7 +105,7 @@ If your project is not a downloadable web app, and does not include HTML compone
 
 The script loads:
 
-- **Manifest Plugins** (latest versions) from our CDN. The optional `data-plugins` or `data-omit` attributes will include or omit comma-separated plugins—otherwise all are loaded by default.
+- **Manifest Plugins** (latest versions) from our CDN. The optional `data-plugins` or `data-omit` attributes will include or omit comma-separated plugins—otherwise all are loaded by default. Prefix a name with `+` to add it on top of the defaults (`data-plugins="+chat"`) instead of replacing them.
 - **Alpine JS** (latest version) from its CDN, unless it's been added separately to your project.
 - **Tailwind CSS** (modified production version from our CDN) *if* the `data-tailwind` attribute is added.
 
