@@ -173,6 +173,8 @@ A single field lets the user pick one option or type their own. Re-opening it sh
 
 </div>
 
+To store a different value than the option shows, use the native `value`{copy} and `label`{copy} attributes — `<option value="SE" label="Sweden">`{copy} keeps `SE`{copy} in the field while displaying "Sweden".
+
 Add `.multiple.chips`{copy} to choose several. Chosen options drop out of the list as they are picked.
 
 <div x-code-group>
@@ -198,6 +200,29 @@ Add `.multiple.chips`{copy} to choose several. Chosen options drop out of the li
 For richer rows, author the list as a `<menu popover>`{copy} instead of a datalist, same as dropdown menus. Give each item a `data-value`{copy} for the value to store and a `data-label`{copy} for the chip text. Everything inside the item is free to hold extra content.
 
 The list the combobox shows is a rendered copy of your rows: bound content (an `x-for`{copy} swatch, `x-text`{copy}, `:style`{copy}) is captured as it looks and refreshed whenever your list changes, but the copies themselves aren't live Alpine elements — row interaction belongs to the combobox. Classes, `aria-*`{copy}, and `data-*`{copy} attributes on the `<menu>`{copy} element itself carry onto the list and stay in sync, including bound ones like `:aria-label`{copy}.
+
+### Chip Content
+
+By default a chip shows the option's text label. Mark an element inside the option with `data-chip`{copy} and the chip shows that fragment instead — an icon, a swatch, a link. It stays in sync with your data, links navigate, and a `@click`{copy} on the fragment runs in your row's own scope when the chip content is clicked. The remove × is untouched.
+
+<div x-code-group>
+
+```html copy
+<input x-combobox.multiple.chips="tags" placeholder="Tags">
+<menu popover id="tags">
+    <template x-for="t in tags" :key="t.id">
+        <li :data-value="t.id" :data-label="t.name">
+            <span data-chip>
+                <span :style="`background: ${t.color}`" class="dot"></span>
+                <span x-text="t.name"></span>
+            </span>
+            <span class="small" x-text="t.description"></span>
+        </li>
+    </template>
+</menu>
+```
+
+</div>
 
 <div x-code-group>
 

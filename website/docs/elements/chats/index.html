@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Sidebars — Manifest</title>
-  <meta name="description" content="Collapsible navigation panels anchored to a viewport edge.">
+  <title>Chats — Manifest</title>
+  <meta name="description" content="Conversation layouts with message bubbles, attachments, and input composers.">
   <meta name="author" content="Andrew Matlock">
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
@@ -48,8 +48,8 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Sidebars — Manifest"><meta property="og:description" content="Collapsible navigation panels anchored to a viewport edge."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/elements/sidebars"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-elements-sidebars.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Sidebars — Manifest"><meta property="twitter:description" content="Collapsible navigation panels anchored to a viewport edge."><meta property="twitter:image" content="/og/docs-elements-sidebars.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Sidebars — Manifest","description":"Collapsible navigation panels anchored to a viewport edge.","image":"/og/docs-elements-sidebars.png","url":"https://manifestx.dev/docs/elements/sidebars"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Elements","item":"https://manifestx.dev/docs/elements"},{"@type":"ListItem","position":4,"name":"Sidebars","item":"https://manifestx.dev/docs/elements/sidebars"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
-<link rel="canonical" href="https://manifestx.dev/docs/elements/sidebars">
+@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Chats — Manifest"><meta property="og:description" content="Conversation layouts with message bubbles, attachments, and input composers."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/elements/chats"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-elements-chats.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Chats — Manifest"><meta property="twitter:description" content="Conversation layouts with message bubbles, attachments, and input composers."><meta property="twitter:image" content="/og/docs-elements-chats.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Chats — Manifest","description":"Conversation layouts with message bubbles, attachments, and input composers.","image":"/og/docs-elements-chats.png","url":"https://manifestx.dev/docs/elements/chats"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Elements","item":"https://manifestx.dev/docs/elements"},{"@type":"ListItem","position":4,"name":"Chats","item":"https://manifestx.dev/docs/elements/chats"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/elements/chats">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
 <meta name="manifest:prerendered" content="1">
@@ -82,7 +82,7 @@
             <small class="hidden sm:flex md:hidden truncate" x-route="/docs/*">
                 <span x-text="$x.docs.$route('path')?.group || 'No group'">Elements</span>
                 <span class="mx-1.5" x-icon="lucide:chevron-right"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-right" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18l6-6l-6-6"></path></svg></span>
-                <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'">Sidebars</span>
+                <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'">Chats</span>
             </small>
 
         </div>
@@ -264,7 +264,7 @@
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/charts">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chart-line" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="m19 9l-5 5l-4-4l-3 3"></path></g></svg></span>
                             <span>Charts</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/chats">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/elements/chats">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:messages-square" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2zm4-1a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"></path></svg></span>
                             <span>Chats</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/checkboxes">
@@ -309,7 +309,7 @@
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/selects">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:menu" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"></path></svg></span>
                             <span>Selects</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/elements/sidebars">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/sidebars">
                             <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sidebar" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path></g></svg></span>
                             <span>Sidebars</span>
                         </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/svgs">
@@ -575,7 +575,7 @@
 
               <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chart-line" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="m19 9l-5 5l-4-4l-3 3"></path></g></svg></span>
               <span>Charts</span>
-            </a><a role="button" href="/docs/elements/chats" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" href="/docs/elements/chats" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
 
               <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:messages-square" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2zm4-1a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"></path></svg></span>
               <span>Chats</span>
@@ -635,7 +635,7 @@
 
               <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:menu" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"></path></svg></span>
               <span>Selects</span>
-            </a><a role="button" href="/docs/elements/sidebars" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+            </a><a role="button" href="/docs/elements/sidebars" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sidebar" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path></g></svg></span>
               <span>Sidebars</span>
@@ -720,52 +720,182 @@
       <!-- Markdown Document for Route -->
       <template x-if="$x.docs.$route('path')">
         <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="$x.docs.$route('path')?.doc"></div>
-      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="sidebars">Sidebars</h1><p>Collapsible navigation panels anchored to a viewport edge.</p>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="chats">Chats</h1><p>Conversation layouts with message bubbles, attachments, and input composers.</p>
 <hr>
-<h2 id="setup">Setup</h2><p>Sidebar styles are included in Manifest CSS or as a standalone stylesheet, both referencing <a href="/docs/styles/theme">theme</a> variables.</p>
+<h2 id="overview">Overview</h2><p>Chat styles turn semantic HTML into a full conversation surface: a message log that stays pinned to the newest message, bubbles for your own messages, media attachments, and a composer that grows as you type. There are only two class names to learn. Add <code>chat-wrapper</code> to the container and <code>own</code> to the user's own messages, and everything else is styled through native elements and attributes.</p>
+<p>The styles don't care where messages come from. They work with a static array, <a href="/docs/core-plugins/local-data">local data</a>, your own backend, or the <a href="/docs/core-plugins/chat">chat plugin</a>. The plugin renders nothing itself, so neither requires the other.</p>
+<hr>
+<h2 id="setup">Setup</h2><p>Chat styles are included in Manifest CSS or a standalone stylesheet, both referencing <a href="/docs/styles/theme">theme</a> variables. Remove buttons in the composer come from <a href="/docs/elements/forms">form</a> styles.</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
 
 <pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span> /&gt;</span></code></pre>
-<pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.sidebar.css"</span> /&gt;</span></code></pre>
+<pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.chat.css"</span> /&gt;</span></code></pre>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
-<aside class="brand"><span x-icon="lucide:info"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:info" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4m0-4h.01"></path></g></svg></span><p>Browser versions from 2023 and earlier require a polyfill script like <a href="https://github.com/oddbird/popover-polyfill" target="_blank">OddBird</a> to mimic HTML popover behaviour.</p>
-</aside>
 <hr>
-<h2 id="default">Default</h2><p>Sidebars use the <code>&lt;nav&gt;</code> element as a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API" target="_blank">popover</a>. The <code>&lt;button&gt;</code> that opens the sidebar requires the <code>popovertarget="ID"</code> attribute, matching the nav ID.</p>
+<h2 id="default">Default</h2><p>The <code>chat-wrapper</code> class is a column shell that fills its container — give that container a bounded height, or the log has nothing to scroll inside. A conversation is three parts: a log, a message column, and a form.</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
-<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">popovertarget</span>=<span class="hljs-string">"sidebar-default"</span>&gt;</span>Open Sidebar<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">nav</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"sidebar-default"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-4 p-4 border-s border-line"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Sidebar<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>This sidebar slides in from the right by default.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span></code></pre>
-<aside class="frame text-base"><button popovertarget="sidebar-default-preview">Open Sidebar</button>
-<nav popover="" id="sidebar-default-preview" class="col gap-4 p-4 border-s border-line">
-    <span class="h4">Sidebar</span>
-    <p>This sidebar slides in from the right by default.</p>
-</nav></aside>
+<pre x-code="html" lines="" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"chat-wrapper"</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{
+    draft: '',
+    messages: [
+        { id: 1, own: false, text: 'The venue is booked for Friday 🎉' },
+        { id: 2, own: true, text: 'Amazing — I\'ll bring the projector.' },
+        { id: 3, own: false, text: 'Doors open at 7, come early if you can.' }
+    ],
+    send() {
+        if (!this.draft.trim()) return;
+        this.messages.push({ id: Date.now(), own: true, text: this.draft });
+        this.draft = '';
+    }
+}"</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Message log --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"log"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"m in messages"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"m.id"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"m.own &amp;&amp; 'own'"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.text"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Composer --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bg-popover-surface border border-line focus-within:outlined rounded-lg"</span> @<span class="hljs-attr">submit.prevent</span>=<span class="hljs-string">"send()"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"transparent no-focus"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Message…"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"draft"</span>
+            @<span class="hljs-attr">keydown.enter</span>=<span class="hljs-string">"if (!$event.shiftKey) { $event.preventDefault(); send() }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"transparent"</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:corner-down-left"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Send"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame h-112 p-0"><div class="chat-wrapper" x-data="{
+    draft: '',
+    messages: [
+        { id: 1, own: false, text: 'The venue is booked for Friday 🎉' },
+        { id: 2, own: true, text: 'Amazing — I\'ll bring the projector.' },
+        { id: 3, own: false, text: 'Doors open at 7, come early if you can.' }
+    ],
+    send() {
+        if (!this.draft.trim()) return;
+        this.messages.push({ id: Date.now(), own: true, text: this.draft });
+        this.draft = '';
+    }
+}">
+    <div role="log">
+        <div>
+            <div :class="m.own &amp;&amp; 'own'" class="">The venue is booked for Friday 🎉</div><div class="own">Amazing — I'll bring the projector.</div><div :class="m.own &amp;&amp; 'own'" class="">Doors open at 7, come early if you can.</div>
+        </div>
+    </div>
+    <form class="bg-popover-surface border border-line focus-within:outlined rounded-lg" @submit.prevent="send()">
+        <textarea class="transparent no-focus" placeholder="Message…" x-model="draft" @keydown.enter="if (!$event.shiftKey) { $event.preventDefault(); send() }"></textarea>
+        <button type="submit" class="transparent me-1 mb-1" x-icon="lucide:corner-down-left" aria-label="Send"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:corner-down-left" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 4v7a4 4 0 0 1-4 4H4"></path><path d="m9 10l-5 5l5 5"></path></g></svg></button>
+    </form>
+</div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
+<p>Send a few messages: the log stays pinned to the newest one, and multi-line drafts grow the composer without hiding it. The form's surface classes are yours to choose — the chat styles handle layout, not the field's look.</p>
 <hr>
-<h2 id="positioning">Positioning</h2><p>By default, sidebars slide in from the inline-end (right in LTR, left in RTL). Add the <code>appear-start</code> class to make the sidebar originate from the inline-start (left in LTR, right in RTL).</p>
+<h2 id="message-log">Message Log</h2><p><code>role="log"</code> is the correct ARIA role for a chat history — assistive tech announces new entries as they arrive — and the styles use the same attribute as their hook. The log is the scroll container; the <code>&lt;div&gt;</code> inside it is the message column, centered at the theme's content width.</p>
+<p>Pinning is pure CSS: the log lays out in reverse column order, which browsers natively keep anchored to the end. That means no scroll-to-bottom JavaScript, new messages never yank the view while someone is reading history, and a growing composer shrinks the log from the top — the latest message stays visible.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"log"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- messages --&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h2 id="messages">Messages</h2><p>Messages are plain elements inside the column — one <code>&lt;div&gt;</code> per message is typical. Paragraph spacing is tuned for rendered <a href="/docs/core-plugins/markdown">markdown</a>. Add the <code>own</code> class to the current user's messages: they become right-aligned, fit-content bubbles on a surface tint.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"m in messages"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"m.id"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"m.own &amp;&amp; 'own'"</span> <span class="hljs-attr">x-markdown.safe</span>=<span class="hljs-string">"m.text"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>With the <a href="/docs/core-plugins/chat">Chat plugin</a>, the condition compares the author to the conversation's identity:</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"m.author?.id === chat.me?.id &amp;&amp; 'own'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p><code>own</code> is a reserved name inside <code>chat-wrapper</code> — the styles are scoped to the log, so the class won't leak elsewhere, but avoid defining your own global <code>.own</code> rules that would fight it.</p>
+<hr>
+<h2 id="attachments">Attachments</h2><p>Media inside a message is styled by element: images and videos are capped to a comfortable reading size, audio players get a fixed width, and a link with the <code>download</code> attribute renders as a file chip.</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
-<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">popovertarget</span>=<span class="hljs-string">"sidebar-start"</span>&gt;</span>Open Start Sidebar<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-
-<span class="hljs-tag">&lt;<span class="hljs-name">nav</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"sidebar-start"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"appear-start col gap-4 p-4 border-e border-line"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Start Sidebar<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>This sidebar slides in from the left in LTR screens.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span></code></pre>
-<aside class="frame text-base"><button popovertarget="sidebar-start-preview">Open Start Sidebar</button>
-<nav popover="" id="sidebar-start-preview" class="appear-start col gap-4 p-4 border-e border-line">
-    <span class="h4">Start Sidebar</span>
-    <p>This sidebar slides in from the left in LTR screens.</p>
-</nav></aside>
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"own"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/assets/examples/user.jpg"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Profile photo"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/assets/examples/user.jpg"</span> <span class="hljs-attr">download</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:file"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span> photo.jpg
+    <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame h-80 p-0"><div class="chat-wrapper">
+    <div role="log">
+        <div>
+            <div>Here's the headshot for the badge:</div>
+            <div class="own">
+                <img src="../../../assets/examples/user.jpg" alt="Profile photo">
+                <a href="/assets/examples/user.jpg" download="">
+                    <i x-icon=""><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:file" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path></g></svg></i> photo.jpg
+                </a>
+            </div>
+        </div>
+    </div>
+</div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
+<p><code>&lt;video&gt;</code> and <code>&lt;audio&gt;</code> elements follow the same pattern — drop them inside the message and they're sized for the column.</p>
 <hr>
-<h2 id="styles">Styles</h2><h3 id="theme">Theme</h3><p>Default sidebars use the following <a href="/docs/styles/theme">theme</a> variables:</p>
+<h2 id="composer">Composer</h2><p>The chat form is a wrapping row aligned to the reading column. A textarea inside it flexes to fill the row and grows with its content (<code>field-sizing: content</code>), while buttons sit at the row's end. Two named buttons carry the conventions: <code>type="submit"</code> sends, and <code>name="attach"</code> triggers the file picker (see <a href="/docs/elements/forms">forms</a> for name-based buttons).</p>
+<p>Pending attachments live in an <code>&lt;output&gt;</code> element, the native element for showing the result of a user action. Screen readers announce its additions politely. Its children can be any elements: an <code>&lt;img&gt;</code> renders as a square thumbnail, a <code>&lt;span&gt;</code> as a file chip, and each can carry a <a href="/docs/elements/forms#remove-buttons">remove button</a>.</p>
+<p>Placement is flexible. The strip and the buttons are styled anywhere inside <code>chat-wrapper</code>, so the strip can sit inside the form or just above it as a sibling. Only the textarea needs to be inside the form, which is what lays out the composer row. A send button placed elsewhere still submits if you point it at the form with a <code>form="form-id"</code> attribute.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" lines="" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> @<span class="hljs-attr">submit.prevent</span>=<span class="hljs-string">"send()"</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Pending attachments --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">output</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"files.length"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"(f, i) in files"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"f.url"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"f.kind === 'image'"</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">"f.url"</span> <span class="hljs-attr">:alt</span>=<span class="hljs-string">"f.name"</span> @<span class="hljs-attr">error</span>=<span class="hljs-string">"f.kind = 'file'"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"f.kind !== 'image'"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:file"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"f.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"remove"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Remove attachment"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"remove(i)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">output</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- File picker --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"file"</span> <span class="hljs-attr">multiple</span> <span class="hljs-attr">x-ref</span>=<span class="hljs-string">"picker"</span> <span class="hljs-attr">hidden</span> @<span class="hljs-attr">change</span>=<span class="hljs-string">"add($event.target.files); $event.target.value = ''"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"attach"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"transparent"</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:paperclip"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Attach files"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$refs.picker.click()"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Draft --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"transparent no-focus"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Message…"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"draft"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Send --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"transparent"</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:corner-down-left"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Send"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code></pre>
+<aside class="frame p-0"><div class="chat-wrapper" x-data="{
+    draft: '', files: [],
+    add(list) {
+        for (const f of [...list]) {
+            const kind = /^image\/(png|jpe?g|gif|webp|avif|svg\+xml)$/.test(f.type) ? 'image' : 'file';
+            this.files.push({ url: URL.createObjectURL(f), name: f.name, kind });
+        }
+    },
+    remove(i) { URL.revokeObjectURL(this.files[i].url); this.files.splice(i, 1); }
+}" style="height: auto">
+    <form class="bg-popover-surface border border-line focus-within:outlined rounded-lg" @submit.prevent="draft = ''; files = []">
+        <output x-show="files.length" style="display: none">
+            <template x-for="(f, i) in files" :key="f.url">
+                <div>
+                    <img x-show="f.kind === 'image'" :src="f.url" :alt="f.name" @error="f.kind = 'file'">
+                    <span x-show="f.kind !== 'image'"><i x-icon="lucide:file"></i> <span x-text="f.name"></span></span>
+                    <button type="button" name="remove" aria-label="Remove attachment" @click="remove(i)"></button>
+                </div>
+            </template>
+        </output>
+        <input type="file" multiple="" x-ref="picker" hidden="" @change="add($event.target.files); $event.target.value = ''">
+        <button type="button" name="attach" class="transparent ms-1 mb-1" x-icon="lucide:paperclip" aria-label="Attach files" @click="$refs.picker.click()"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:paperclip" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 6l-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"></path></svg></button>
+        <textarea class="transparent no-focus" placeholder="Attach some files…" x-model="draft"></textarea>
+        <button type="submit" class="transparent me-1 mb-1" x-icon="lucide:corner-down-left" aria-label="Send"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:corner-down-left" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 4v7a4 4 0 0 1-4 4H4"></path><path d="m9 10l-5 5l5 5"></path></g></svg></button>
+    </form>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Only classify files as images when the browser can decode them (the demo's regex) and fall back on the <code>@error</code> event — otherwise an unsupported format like HEIC renders a broken thumbnail. If you're sending attachments to an AI model, the same check earns its keep twice: providers accept a similar short list of image formats.</p>
+<hr>
+<h2 id="styles">Styles</h2><h3 id="theme">Theme</h3><p>Chat layouts use the following <a href="/docs/styles/theme">theme</a> variables:</p>
 <table>
 <thead>
 <tr>
@@ -774,128 +904,99 @@
 </tr>
 </thead>
 <tbody><tr>
-<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-popover-surface</code></td>
-<td>Sidebar background color</td>
-</tr>
-<tr>
-<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--spacing</code></td>
-<td>Sidebar padding and gaps</td>
-</tr>
-<tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--spacing-content-width</code></td>
-<td>Maximum content width</td>
+<td>Reading-column and composer width</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-surface-2</code></td>
+<td>Own-message bubble and file chips</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--radius</code></td>
+<td>Bubbles, media, and chip corners</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--spacing-field-height</code></td>
+<td>Composer minimum height and thumbnail size</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--shadow</code></td>
+<td>Wrapper shadow</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--transition</code></td>
+<td>Interactive states</td>
 </tr>
 </tbody></table>
 <hr>
-<h3 id="tailwind-css">Tailwind CSS</h3><p>If using Tailwind, individual sidebars can be customized with utility classes.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
-
-<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">popovertarget</span>=<span class="hljs-string">"sidebar"</span>&gt;</span>Custom Sidebar<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">nav</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"sidebar"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"w-100 bg-surface-2/80 border-s border-line rounded-s-2xl backdrop-blur"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-4 p-4"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Tailwind Sidebar<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>This sidebar uses Tailwind utility classes with theme-aware colors.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span></code></pre>
-<aside class="frame text-base"><button popovertarget="sidebar-tailwind-preview">Custom Sidebar</button>
-<nav popover="" id="sidebar-tailwind-preview" class="w-100 bg-surface-2/80 border-s border-line rounded-s-2xl backdrop-blur">
-    <div class="col gap-4 p-4">
-        <h4>Tailwind Sidebar</h4>
-        <p>This sidebar uses Tailwind utility classes with theme-aware colors.</p>
-    </div>
-</nav></aside>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
-
+<h3 id="selectors">Selectors</h3><p>Everything inside the wrapper is addressed by element or attribute:</p>
+<table>
+<thead>
+<tr>
+<th>Selector</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.chat-wrapper</code></td>
+<td>Column shell; fills a bounded-height container</td>
+</tr>
+<tr>
+<td><code>[role="log"]</code></td>
+<td>Scrolling message log, natively pinned to the newest message</td>
+</tr>
+<tr>
+<td><code>[role="log"] &gt; div</code></td>
+<td>Centered message column</td>
+</tr>
+<tr>
+<td><code>.own</code></td>
+<td>The current user's messages, right-aligned bubbles</td>
+</tr>
+<tr>
+<td><code>img</code>, <code>video</code>, <code>audio</code></td>
+<td>In-message media sizing</td>
+</tr>
+<tr>
+<td><code>a[download]</code></td>
+<td>File chip</td>
+</tr>
+<tr>
+<td><code>form</code></td>
+<td>Composer row at reading width</td>
+</tr>
+<tr>
+<td><code>textarea</code></td>
+<td>Growing draft field</td>
+</tr>
+<tr>
+<td><code>output</code></td>
+<td>Pending-attachments strip</td>
+</tr>
+<tr>
+<td><code>button[name="attach"]</code></td>
+<td>File picker trigger</td>
+</tr>
+<tr>
+<td><code>button[name="remove"]</code></td>
+<td>Floating dismiss affordance, from <a href="/docs/elements/forms#remove-buttons">form</a> styles</td>
+</tr>
+</tbody></table>
 <hr>
-<h3 id="transitions">Transitions</h3><p>Sidebars use custom transform animations for sliding effects. Opacity and scale are set to overwrite defaults in <a href="/docs/styles/reset">reset styles</a>.</p>
-<pre x-code="css" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-tag">nav</span><span class="hljs-selector-attr">[popover]</span> {
-    <span class="hljs-attribute">transition</span>: opacity .<span class="hljs-number">15s</span> ease-in, transform .<span class="hljs-number">15s</span> ease-in, display .<span class="hljs-number">15s</span> ease-in;
-    <span class="hljs-attribute">transition-behavior</span>: allow-discrete;
+<h3 id="customization">Customization</h3><p>Target any of the selectors above with custom CSS.</p>
+<pre x-code="css" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-class">.chat-wrapper</span> {
+    <span class="hljs-attribute">box-shadow</span>: none;
 
-    <span class="hljs-comment">/* Opening state - slide in from inline-end */</span>
-    <span class="hljs-keyword">@starting-style</span> {
-        <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(<span class="hljs-number">100%</span>);
-        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
-        <span class="hljs-attribute">scale</span>: <span class="hljs-number">1</span>;
+    <span class="hljs-selector-attr">[role=<span class="hljs-string">"log"</span>]</span> &gt; <span class="hljs-selector-tag">div</span> {
+        <span class="hljs-attribute">gap</span>: <span class="hljs-number">1rem</span>;
     }
 
-    <span class="hljs-comment">/* Closing state - slide out to inline-end */</span>
-    &amp;<span class="hljs-selector-pseudo">:not</span>(:popover-open) {
-        <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(<span class="hljs-number">100%</span>);
-        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
-        <span class="hljs-attribute">scale</span>: <span class="hljs-number">1</span>;
+    <span class="hljs-selector-class">.own</span> {
+        <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--color-brand-surface);
+        <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--color-brand-content);
     }
-
-    <span class="hljs-comment">/* RTL support - slide from left in RTL context */</span>
-    <span class="hljs-selector-attr">[dir=rtl]</span> &amp; {
-        <span class="hljs-keyword">@starting-style</span> {
-            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(-<span class="hljs-number">100%</span>);
-        }
-
-        &amp;<span class="hljs-selector-pseudo">:not</span>(:popover-open) {
-            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(-<span class="hljs-number">100%</span>);
-        }
-    }
-
-    <span class="hljs-comment">/* Modifier class to originate sidebar from inline-start */</span>
-    &amp;<span class="hljs-selector-class">.start</span> {
-
-        <span class="hljs-keyword">@starting-style</span> {
-            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(-<span class="hljs-number">100%</span>);
-        }
-
-        &amp;<span class="hljs-selector-pseudo">:not</span>(:popover-open) {
-            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(-<span class="hljs-number">100%</span>);
-        }
-    }
-}</code></pre>
-<aside class="brand"><span x-icon="lucide:info"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:info" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4m0-4h.01"></path></g></svg></span><p>Modifying <code>display</code> properties can result in popovers not working properly.<br>Remember to update <code>transition</code> with any new properties.</p>
-</aside>
-<hr>
-<h3 id="customization">Customization</h3><p>Modify base sidebar styles with custom CSS for the <code>nav[popover]</code> selector.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
-
-<pre x-code="css" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-tag">nav</span><span class="hljs-selector-attr">[popover]</span> {
-    <span class="hljs-attribute">display</span>: flex;
-    <span class="hljs-attribute">flex-flow</span>: column;
-    <span class="hljs-attribute">gap</span>: <span class="hljs-number">1rem</span>;
-    <span class="hljs-attribute">width</span>: <span class="hljs-number">400px</span>;
-    <span class="hljs-attribute">padding</span>: <span class="hljs-number">1rem</span>;
-    <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">color-mix</span>(in oklch, <span class="hljs-built_in">var</span>(--color-surface-<span class="hljs-number">2</span>) <span class="hljs-number">90%</span>, transparent);
-    <span class="hljs-attribute">backdrop-filter</span>: <span class="hljs-built_in">blur</span>(<span class="hljs-number">4px</span>);
-    <span class="hljs-attribute">border-start-start-radius</span>: <span class="hljs-number">1rem</span>;
-    <span class="hljs-attribute">border-end-start-radius</span>: <span class="hljs-number">1rem</span>;
-    <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">2rem</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.1</span>);
-
-    &amp;<span class="hljs-selector-pseudo">::backdrop</span> {
-        <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.2</span>);
-    }
-}</code></pre>
-<aside class="frame text-base"><style>
-nav[popover].custom {
-    display: flex;
-    flex-flow: column;
-    gap: 1rem;
-    width: 400px;
-    padding: 1rem;
-    background-color: color-mix(in oklch, var(--color-surface-2) 90%, transparent);
-    backdrop-filter: blur(4px);
-    border-start-start-radius: 1rem;
-    border-end-start-radius: 1rem;
-    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
-
-    &::backdrop {
-        background-color: rgba(0, 0, 0, 0.2);
-    }
-}
-</style>
-
-<button popovertarget="sidebar-custom-preview">Custom Sidebar</button>
-<nav popover="" id="sidebar-custom-preview" class="custom">
-    <h4>Custom Sidebar</h4>
-    <p>This sidebar has custom styling with CSS variables and backdrop color.</p>
-</nav></aside>
-<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre></div>
+}</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+</div>
 
     </div>
 
@@ -944,7 +1045,7 @@ nav[popover].custom {
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#default">Default</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#positioning">Positioning</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#theme">Theme</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#tailwind-css">Tailwind CSS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#transitions">Transitions</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#customization">Customization</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#default">Default</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#message-log">Message Log</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#messages">Messages</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#attachments">Attachments</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#composer">Composer</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#theme">Theme</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#selectors">Selectors</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#customization">Customization</a></div>
 
   </div>
 

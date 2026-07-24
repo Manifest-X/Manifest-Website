@@ -51,7 +51,7 @@ Markdown can be written directly inside elements using the `x-markdown` directiv
 
 ## Dynamic Content
 
-Markdown content can use Alpine expressions for dynamic updates, including template literals with variables.
+Markdown content can use Alpine expressions for dynamic updates, including template literals with variables. Scope variables and member chains evaluate directly — `x-markdown="post.body"`, or `x-markdown="m.body.text"` inside an `x-for` — with no wrapping needed. An undefined step mid-chain (data still loading) renders nothing instead of throwing, and a single bare word evaluates when defined in scope, otherwise rendering as literal text.
 
 <div x-code-group>
 
@@ -78,7 +78,7 @@ Markdown content can use Alpine expressions for dynamic updates, including templ
 
 ## File Content
 
-Load markdown content from external `.md` files by providing a file path like `x-markdown="/assets/menu.md"`.
+Load markdown content from external `.md` files by providing a file path like `x-markdown="/assets/menu.md"`. A path must be a single whitespace-free token — a `.md`/`.markdown` file or a slash path — so dynamic prose containing slashes is never mistaken for a file.
 
 <div x-code-group>
 

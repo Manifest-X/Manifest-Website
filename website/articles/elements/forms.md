@@ -490,6 +490,43 @@ Button [utility classes](/docs/elements/buttons#utilities) like `transparent`, `
 
 ---
 
+## Remove Buttons
+
+A button named `remove` becomes a floating dismiss affordance for whatever contains it — a chip, an [avatar](/docs/elements/avatars), a pending [chat attachment](/docs/elements/chats#composer). The complete markup is one attribute pair; everything else is automatic.
+
+<div x-code-group>
+
+```html copy
+<span class="badge">
+    Design
+    <button type="button" name="remove" aria-label="Remove Design"></button>
+</span>
+```
+
+::: frame
+<div class="row-wrap items-center gap-3" x-data="{ all: ['Design', 'Engineering', 'Marketing'], tags: ['Design', 'Engineering', 'Marketing'] }">
+    <template x-for="tag in tags" :key="tag">
+        <span class="badge lg">
+            <span x-text="tag"></span>
+            <button type="button" name="remove" :aria-label="`Remove ${tag}`" @click="tags = tags.filter(t => t !== tag)"></button>
+        </span>
+    </template>
+    <button class="sm ghost" x-show="tags.length < all.length" @click="tags = [...all]">Reset</button>
+</div>
+:::
+
+</div>
+
+The parent element anchors the button automatically (it's given `position: relative`), the button floats over the parent's top end corner above neighbouring content, and it stays hidden until the parent is hovered or holds focus — all in CSS. The ✕ glyph comes from the theme's `--icon-dismiss` variable, so no icon markup is needed; the `aria-label` is required since the button has no visible text.
+
+A few notes:
+
+- The parent can be anything, anywhere — `name` is a native button attribute and carries no behavior outside a form.
+- In a server-rendered form, `<button type="submit" name="remove" value="42">` submits the pair as its payload — the styling hook and the delete request are the same attribute.
+- Touch devices have no hover: the button also reveals while anything inside the parent holds focus, but for touch-first UIs consider overriding `opacity` to keep it always visible.
+
+---
+
 ## Validation
 
 Native HTML5 attributes like `required`, `type="email"`, `pattern`, `minlength`, and `maxlength` trigger the browser's built-in form validation on submit. Custom CSS or Tailwind pseudo-class variants can be used to style valid and invalid states without Javascript. Block the form's own validation messages with `novalidate`.
@@ -564,6 +601,7 @@ Forms inherit styling from their child elements ([buttons](/docs/elements/button
 | `[role="group"]` | Horizontal row of form elements with shared borders |
 | `[role="group"].even` | Equal-width siblings inside a group |
 | `[role="tablist"]` | Tab bar with a background that slides behind the `selected` item |
+| `button[name="remove"]` | Floating dismiss affordance anchored to its parent element |
 
 ### Customization
 

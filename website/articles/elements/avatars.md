@@ -130,7 +130,7 @@ To create an avatar button that facilitates a profile pic upload, use an input o
     <img :src="imageUrl" x-show="imageUrl" alt="Profile picture">
 
     <!-- Remove button -->
-    <button x-show="imageUrl" class="sm absolute -top-2.5 -end-2.5 z-3 rounded-full shadow opacity-0 group-hover:opacity-100 hover:opacity-100" aria-label="Remove pic" x-icon="lucide:x" @click.stop="imageUrl = ''; $refs.fileInput.value = ''"></button>
+    <button x-show="imageUrl" type="button" name="remove" aria-label="Remove pic" @click.stop="imageUrl = ''; $refs.fileInput.value = ''"></button>
 
 </label>
 ```
@@ -148,13 +148,13 @@ To create an avatar button that facilitates a profile pic upload, use an input o
     <span x-show="!imageUrl" class="absolute z-2 opacity-0 group-hover:opacity-100 transition" x-icon="lucide:upload"></span>
     <span x-show="!imageUrl" class="opacity-100 group-hover:opacity-0 transition">W</span>
     <img :src="imageUrl" x-show="imageUrl" alt="Profile picture">
-    <button x-show="imageUrl" class="sm absolute -top-2.5 -end-2.5 z-3 rounded-full shadow opacity-0 group-hover:opacity-100 hover:opacity-100" aria-label="Remove pic" x-icon="lucide:x" @click.stop="imageUrl = ''; $refs.fileInput.value = ''"></button>
+    <button x-show="imageUrl" type="button" name="remove" aria-label="Remove pic" @click.stop="imageUrl = ''; $refs.fileInput.value = ''"></button>
 </label>
 :::
 
 </div>
 
-In this example, Alpine is used to temporarily upload an image. The image can be overwritten with a new upload or removed. The spans, remove button, and Tailwind styles are arbitrary, shown here for visual demonstration purposes.
+In this example, Alpine is used to temporarily upload an image. The image can be overwritten with a new upload or removed. The remove button is the standard [dismiss affordance](/docs/elements/forms#remove-buttons) — `name="remove"` handles its position, glyph, and hover reveal. The spans and their Tailwind styles are arbitrary, shown here for visual demonstration purposes.
 
 ---
 
