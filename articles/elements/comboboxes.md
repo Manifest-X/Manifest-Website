@@ -201,29 +201,6 @@ For richer rows, author the list as a `<menu popover>`{copy} instead of a datali
 
 The list the combobox shows is a rendered copy of your rows: bound content (an `x-for`{copy} swatch, `x-text`{copy}, `:style`{copy}) is captured as it looks and refreshed whenever your list changes, but the copies themselves aren't live Alpine elements — row interaction belongs to the combobox. Classes, `aria-*`{copy}, and `data-*`{copy} attributes on the `<menu>`{copy} element itself carry onto the list and stay in sync, including bound ones like `:aria-label`{copy}.
 
-### Chip Content
-
-By default a chip shows the option's text label. Mark an element inside the option with `data-chip`{copy} and the chip shows that fragment instead — an icon, a swatch, a link. It stays in sync with your data, links navigate, and a `@click`{copy} on the fragment runs in your row's own scope when the chip content is clicked. The remove × is untouched.
-
-<div x-code-group>
-
-```html copy
-<input x-combobox.multiple.chips="tags" placeholder="Tags">
-<menu popover id="tags">
-    <template x-for="t in tags" :key="t.id">
-        <li :data-value="t.id" :data-label="t.name">
-            <span data-chip>
-                <span :style="`background: ${t.color}`" class="dot"></span>
-                <span x-text="t.name"></span>
-            </span>
-            <span class="small" x-text="t.description"></span>
-        </li>
-    </template>
-</menu>
-```
-
-</div>
-
 <div x-code-group>
 
 ```html copy
@@ -242,6 +219,51 @@ By default a chip shows the option's text label. Mark an element inside the opti
     <li data-value="kim" data-label="Kim Park">Kim Park <span class="trailing">kim@acme.com</span></li>
     <li data-value="lee" data-label="Lee Nash">Lee Nash <span class="trailing">lee@acme.com</span></li>
 </menu>
+:::
+
+</div>
+
+### Chip Content
+
+A chip shows the option's label by default. To put something richer on it (a colored dot, an avatar, a status icon), mark that part of the option with `data-chip`{copy}. The marked fragment becomes the chip; the rest of the row shows only in the list. This lets a menu row stay detailed while its chip stays compact.
+
+The chip mirrors your data. When a bound value inside the marked fragment changes, like a tag's color or name, the chip updates to match.
+
+Content stays interactive. A link (`<a href>`{copy}) navigates, and an `@click`{copy} on the fragment runs against that row's own data, so a chip can act, not just display. The remove × is added for you and works on its own.
+
+Keep `data-label`{copy} set alongside it. That plain-text name is what the field stores for the value, what assistive tech announces, and what labels the remove button, so it stays meaningful whatever the chip shows.
+
+<div x-code-group>
+
+```html copy
+<input x-combobox.multiple.chips="tags" x-model="picked" placeholder="Add tags">
+<menu popover id="tags">
+    <template x-for="t in tagList" :key="t.id">
+        <li :data-value="t.id" :data-label="t.name">
+            <!-- Shown on the chip -->
+            <span data-chip>
+                <span :style="`background: ${t.color}`" class="dot"></span>
+                <span x-text="t.name"></span>
+            </span>
+            <!-- Menu row only -->
+            <span class="small trailing" x-text="t.id"></span>
+        </li>
+    </template>
+</menu>
+```
+
+::: frame
+<div x-data="{ picked: ['bug'], tagList: [{ id: 'bug', name: 'Bug', color: '#e5484d' }, { id: 'feature', name: 'Feature', color: '#30a46c' }, { id: 'docs', name: 'Docs', color: '#0091ff' }] }">
+<input x-combobox.multiple.chips="cb-tags" x-model="picked" placeholder="Add tags" style="max-width: 30rem;">
+<menu popover id="cb-tags">
+<template x-for="t in tagList" :key="t.id">
+<li :data-value="t.id" :data-label="t.name">
+<span data-chip class="row items-center gap-2"><span :style="`background: ${t.color}; width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block;`"></span><span x-text="t.name"></span></span>
+<span class="small trailing" x-text="t.id"></span>
+</li>
+</template>
+</menu>
+</div>
 :::
 
 </div>
