@@ -512,9 +512,11 @@ Comboboxes use the following [theme](/docs/styles/theme) variables.
 | `--color-field-surface`{copy} | Field background, and the highlighted option |
 | `--color-field-surface-hover`{copy} | Field hover background |
 | `--color-field-inverse`{copy} | Field text |
-| `--color-popover-surface`{copy} | Suggestion menu and chip background |
-| `--color-content-stark`{copy} | Chip text and focus ring |
+| `--color-popover-surface`{copy} | Suggestion menu, and the default chip background |
+| `--color-content-stark`{copy} | Default chip text and the focus ring |
 | `--color-content-neutral`{copy} | Chip remove icon and the "Add …" row |
+| `--combobox-chip-surface`{copy} | Set to recolor chip backgrounds (default: `--color-popover-surface`) |
+| `--combobox-chip-content`{copy} | Set to recolor chip text and remove icon (default: `--color-content-stark`) |
 | `--color-content-subtle`{copy} | Caret and empty-state text |
 | `--color-negative-surface`{copy} / `--color-negative-inverse`{copy} | Invalid chip |
 | `--radius`{copy} | Field, chip, and menu corners |
@@ -541,4 +543,21 @@ The markup is semantic, so the parts are plain selectors.
 .combobox-chip {
     border-radius: 100px;
 }
+```
+
+To recolor chips, set `--combobox-chip-surface`{copy} and `--combobox-chip-content`{copy} rather than overriding the colors directly. Because they inherit, set them on one field or everywhere. The defaults stay until you do, and the invalid state keeps its own colors.
+
+```css copy
+/* Brand-colored chips, everywhere */
+:root {
+    --combobox-chip-surface: var(--color-brand-surface);
+    --combobox-chip-content: var(--color-brand-content);
+}
+```
+
+```html copy
+<!-- Just this field -->
+<div style="--combobox-chip-surface: #1e3a8a; --combobox-chip-content: #dbeafe">
+    <input x-combobox.multiple.chips="tags" x-model="picked">
+</div>
 ```
