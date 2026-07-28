@@ -561,3 +561,15 @@ To recolor chips, set `--combobox-chip-surface`{copy} and `--combobox-chip-conte
     <input x-combobox.multiple.chips="tags" x-model="picked">
 </div>
 ```
+
+The same two variables also work **per option** — put them on an option's `<li>`{copy} (or its `[data-chip]`{copy} fragment) and only that chip takes the color. The whole chip is tinted — background, label, and remove button — so each selected tag can carry its own color with no scripting. Options without the variables keep the field default.
+
+```html copy
+<menu popover id="tags">
+    <li data-value="urgent" style="--combobox-chip-surface: #dc2626; --combobox-chip-content: #fff">Urgent</li>
+    <li data-value="review" style="--combobox-chip-surface: #0891b2; --combobox-chip-content: #fff">Review</li>
+    <li data-value="later">Later</li>
+</menu>
+```
+
+Bind the color with `:style`{copy} when it comes from your data (`:style="`--combobox-chip-surface: ${tag.color}`"`) — the chip re-tints whenever the value changes.
