@@ -201,6 +201,8 @@ For richer rows, author the list as a `<menu popover>`{copy} instead of a datali
 
 The list the combobox shows is a rendered copy of your rows: bound content (an `x-for`{copy} swatch, `x-text`{copy}, `:style`{copy}) is captured as it looks and refreshed whenever your list changes, but the copies themselves aren't live Alpine elements — row interaction belongs to the combobox. Classes, `aria-*`{copy}, and `data-*`{copy} attributes on the `<menu>`{copy} element itself carry onto the list and stay in sync, including bound ones like `:aria-label`{copy}.
 
+Your authored `<menu>`{copy} stays hidden — it's the source template, never the popup the user sees. The live listbox is a separate generated element; find it through the input's `aria-controls`{copy} (its `id`{copy}). When testing that the list opens, assert on that element, not on your `<menu id>`{copy}, which stays hidden by design.
+
 <div x-code-group>
 
 ```html copy
