@@ -163,6 +163,24 @@ Component paths and `<script>` tags inside component HTML execute as authored â€
 
 ---
 
+### Browser Caching
+
+Browsers can also cache component HTML between deploys. When `manifest.json` carries a version stamp, the loader appends it as `?v=` to component fetches so caches refresh exactly when needed:
+
+- Publishing through Manifest (`mnfst-publish`) stamps the uploaded `manifest.json` automatically with a `deployment` content hash of your component files. Unchanged components keep their caches across deploys, changed ones update immediately, and stamped fetches are served as long-lived immutable responses for fast repeat visits.
+- On other hosting, set an optional `version` field and update it when releasing component changes:
+
+```json "manifest.json" copy
+{
+    "version": "1.2.0",
+    ...
+}
+```
+
+Without a stamp, component fetches are unversioned and follow your server's cache headers.
+
+---
+
 ## Apply Instances
 
 Components are applied with `<x-filename>` tags, where `filename` is the actual name of the source file. Top-level components are placed in the `index.html` body:

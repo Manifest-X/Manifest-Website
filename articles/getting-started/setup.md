@@ -69,6 +69,8 @@ We leverage this file as a place to declare HTML components and local or cloud d
 }
 ```
 
+An optional `version` field acts as a release stamp that busts component caches on deploy — see [browser caching](/docs/core-plugins/components#browser-caching). Projects published through Manifest are stamped automatically.
+
 If your project is not a downloadable web app, and does not include HTML components or data sources, `manifest.json` can be omitted.
 
 ---
