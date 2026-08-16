@@ -67,10 +67,11 @@
         // The router swallows result clicks before element handlers run, so the
         // dialog closes on the route-change event rather than the click itself.
         closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
-        onToggle(e) {
+        async onToggle(e) {
             if (e.newState !== 'open') return;
-            this.build();
             this.$nextTick(() => { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() => { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
         },
         move(d) {
             const n = this.results().length;
@@ -98,7 +99,8 @@
         </div>
 
         <!-- Results -->
-        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4">
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
             <p x-show="loading && !ready" class="px-3 py-2 text-sm text-content-subtle">Indexing articles…</p>
             <p x-show="ready && q.trim() && !results().length" class="px-3 py-2 text-sm text-content-subtle">
                 No matches for “<span x-text="q.trim()"></span>”.
@@ -120,6 +122,7 @@
                     </a>
                 </div>
             </template>
+            <div class="h-2 shrink-0"></div>
         </div>
 
     </dialog>
