@@ -23,13 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.186/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.186/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.189/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.189/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.186/lib/manifest.min.js" data-version="0.5.186"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.189/lib/manifest.min.js" data-version="0.5.189"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -97,7 +97,7 @@
             <!-- CTAs -->
             <button popovertarget="docs-search" class="sm transparent outlined rounded-full" aria-label="Search docs">
                 <span x-icon="lucide:search"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:search" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></g></svg></span>
-                <kbd class="hidden md:inline text-xs text-content-subtle">⌘K</kbd>
+                <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
             </button>
             <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" class="sm transparent outlined rounded-full"><span x-icon="meteor-icons:github"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="meteor-icons:github" class="iconify iconify--meteor-icons"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22v-3q0-2 1-3A7 6.5 0 0 1 5 5Q4 3 5 1q3 0 4 2q3-1 6 0q2-2 4-2q1 2 0 4a7 6.5 0 0 1-5 11q1 1 1 3v3M2 17c2 0 3 4 7 2"></path></svg></span><span>GitHub</span></a>
             <a role="button" href="/docs/getting-started/introduction" class="sm accent rounded-full">Docs</a>
@@ -386,12 +386,13 @@
             for (const g of ($x.docs || [])) {
                 for (const it of (g.items || [])) {
                     if (!it.name || !it.doc) continue;
-                    const href = '/docs/' + g.group.toLowerCase().replaceAll(' ', '-') + '/' + it.path;
+                    const href = '/docs/' + g.slug + '/' + it.path;
                     jobs.push(fetch(it.doc)
                         .then(r =&gt; r.ok ? r.text() : '')
                         .catch(() =&gt; '')
                         .then(md =&gt; {
-                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '').trim();
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/&lt;[^&gt;]+&gt;/g, '').replace(/[*_`\[\]]/g, '').trim();
                             const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
                             const body = md
                                 .replace(/```[\s\S]*?```/g, ' ')
@@ -410,50 +411,38 @@
                 }
             }
             await Promise.all(jobs);
+            $x.$register('searchIndex', this.items);
             this.ready = true;
             this.loading = false;
         },
 
-        // Per-term best-field scoring; every term must match somewhere.
         results() {
             const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
             if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
-            const out = [];
-            for (const it of this.items) {
-                let score = 0;
-                const name = it.name.toLowerCase();
-                let ok = true;
-                for (const t of terms) {
-                    let s = 0;
-                    if (name.startsWith(t)) s = 120;
-                    else if (name.includes(t)) s = 100;
-                    else if (it.hhay.includes(t)) s = 40;
-                    else if (it.bhay.includes(t)) s = 15;
-                    if (!s) { ok = false; break; }
-                    score += s;
-                }
-                if (!ok) continue;
-                const t0 = terms[0];
-                let caption = it.desc;
-                const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
-                if (h) caption = h;
-                else if (!name.includes(t0)) {
-                    const i = it.bhay.indexOf(t0);
-                    if (i &gt; -1) caption = (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
-                }
-                out.push({ ...it, score, caption });
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
+            return ranked.slice(0, 20).map(it =&gt; ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i &gt; -1) return (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
             }
-            return out.sort((a, b) =&gt; b.score - a.score).slice(0, 20);
+            return it.desc;
         },
 
         openDialog() { document.getElementById('docs-search')?.showPopover(); },
         // The router swallows result clicks before element handlers run, so the
         // dialog closes on the route-change event rather than the click itself.
         closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
-        onToggle(e) {
+        async onToggle(e) {
             if (e.newState !== 'open') return;
-            this.build();
             this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() =&gt; { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
         },
         move(d) {
             const n = this.results().length;
@@ -464,34 +453,39 @@
         go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
     }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-order="1" data-component="search-1">
 
-    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-3 p-4 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
 
         <!-- Query -->
-        <label class="row items-center gap-2 w-full shrink-0">
-            <span x-icon="lucide:search" class="text-content-subtle shrink-0"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:search" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></g></svg></span>
-            <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
-        </label>
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:search" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></g></svg></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
 
         <!-- Results -->
-        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar -mx-1 px-1">
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
             <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
             <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
                 No matches for “<span x-text="q.trim()"></span>”.
             </p>
             <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
                 <div :data-active="i === active ? '' : null" @mouseenter="active = i">
-                    <a :href="r.href" role="button" :class="i === active ? 'selected brand !text-content-stark' : 'ghost text-content-neutral'" class="justify-start w-full h-auto py-2 no-underline">
-                        <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                    <a :href="r.href" role="button" :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'" class="ghost justify-start w-full h-auto py-2 no-underline">
                         <span class="col gap-0.5 min-w-0 grow text-left">
-                            <span class="row items-baseline gap-2">
-                                <span x-text="r.name"></span>
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <span class="text-content-subtle font-normal">·</span>
                                 <small class="text-content-subtle font-normal" x-text="r.group"></small>
                             </span>
-                            <small class="text-content-subtle font-normal truncate w-full" x-show="r.caption" x-text="r.caption"></small>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
                         </span>
                     </a>
                 </div>
             </template>
+            
         </div>
 
     </dialog>
@@ -506,7 +500,7 @@
     <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*">
 
   <!-- Desktop Navigation-->
-  <div data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar">
+  <div data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-data="" x-init="(async () =&gt; { for (let i = 0; i &lt; 30; i++) { const a = $el.querySelector('a.pointer-events-none'); if (a) { $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2); break } await new Promise(r =&gt; setTimeout(r, 100)) } })()">
     <div class="col gap-2">
         <small class="pl-2.5 text-content-subtle">Getting Started</small>
         <div class="col">

@@ -23,13 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.186/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.186/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.189/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.189/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.186/lib/manifest.min.js" data-version="0.5.186"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.189/lib/manifest.min.js" data-version="0.5.189"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -97,7 +97,7 @@
             <!-- CTAs -->
             <button popovertarget="docs-search" class="sm transparent outlined rounded-full" aria-label="Search docs">
                 <span x-icon="lucide:search"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:search" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></g></svg></span>
-                <kbd class="hidden md:inline text-xs text-content-subtle">⌘K</kbd>
+                <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
             </button>
             <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" class="sm transparent outlined rounded-full"><span x-icon="meteor-icons:github"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="meteor-icons:github" class="iconify iconify--meteor-icons"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22v-3q0-2 1-3A7 6.5 0 0 1 5 5Q4 3 5 1q3 0 4 2q3-1 6 0q2-2 4-2q1 2 0 4a7 6.5 0 0 1-5 11q1 1 1 3v3M2 17c2 0 3 4 7 2"></path></svg></span><span>GitHub</span></a>
             <a role="button" href="/docs/getting-started/introduction" class="sm accent rounded-full">Docs</a>
@@ -386,12 +386,13 @@
             for (const g of ($x.docs || [])) {
                 for (const it of (g.items || [])) {
                     if (!it.name || !it.doc) continue;
-                    const href = '/docs/' + g.group.toLowerCase().replaceAll(' ', '-') + '/' + it.path;
+                    const href = '/docs/' + g.slug + '/' + it.path;
                     jobs.push(fetch(it.doc)
                         .then(r =&gt; r.ok ? r.text() : '')
                         .catch(() =&gt; '')
                         .then(md =&gt; {
-                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '').trim();
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/&lt;[^&gt;]+&gt;/g, '').replace(/[*_`\[\]]/g, '').trim();
                             const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
                             const body = md
                                 .replace(/```[\s\S]*?```/g, ' ')
@@ -410,50 +411,38 @@
                 }
             }
             await Promise.all(jobs);
+            $x.$register('searchIndex', this.items);
             this.ready = true;
             this.loading = false;
         },
 
-        // Per-term best-field scoring; every term must match somewhere.
         results() {
             const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
             if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
-            const out = [];
-            for (const it of this.items) {
-                let score = 0;
-                const name = it.name.toLowerCase();
-                let ok = true;
-                for (const t of terms) {
-                    let s = 0;
-                    if (name.startsWith(t)) s = 120;
-                    else if (name.includes(t)) s = 100;
-                    else if (it.hhay.includes(t)) s = 40;
-                    else if (it.bhay.includes(t)) s = 15;
-                    if (!s) { ok = false; break; }
-                    score += s;
-                }
-                if (!ok) continue;
-                const t0 = terms[0];
-                let caption = it.desc;
-                const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
-                if (h) caption = h;
-                else if (!name.includes(t0)) {
-                    const i = it.bhay.indexOf(t0);
-                    if (i &gt; -1) caption = (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
-                }
-                out.push({ ...it, score, caption });
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
+            return ranked.slice(0, 20).map(it =&gt; ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i &gt; -1) return (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
             }
-            return out.sort((a, b) =&gt; b.score - a.score).slice(0, 20);
+            return it.desc;
         },
 
         openDialog() { document.getElementById('docs-search')?.showPopover(); },
         // The router swallows result clicks before element handlers run, so the
         // dialog closes on the route-change event rather than the click itself.
         closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
-        onToggle(e) {
+        async onToggle(e) {
             if (e.newState !== 'open') return;
-            this.build();
             this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() =&gt; { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
         },
         move(d) {
             const n = this.results().length;
@@ -464,34 +453,39 @@
         go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
     }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-order="1" data-component="search-1">
 
-    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-3 p-4 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
 
         <!-- Query -->
-        <label class="row items-center gap-2 w-full shrink-0">
-            <span x-icon="lucide:search" class="text-content-subtle shrink-0"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:search" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></g></svg></span>
-            <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
-        </label>
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:search" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></g></svg></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
 
         <!-- Results -->
-        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar -mx-1 px-1">
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
             <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
             <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
                 No matches for “<span x-text="q.trim()"></span>”.
             </p>
             <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
                 <div :data-active="i === active ? '' : null" @mouseenter="active = i">
-                    <a :href="r.href" role="button" :class="i === active ? 'selected brand !text-content-stark' : 'ghost text-content-neutral'" class="justify-start w-full h-auto py-2 no-underline">
-                        <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                    <a :href="r.href" role="button" :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'" class="ghost justify-start w-full h-auto py-2 no-underline">
                         <span class="col gap-0.5 min-w-0 grow text-left">
-                            <span class="row items-baseline gap-2">
-                                <span x-text="r.name"></span>
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <span class="text-content-subtle font-normal">·</span>
                                 <small class="text-content-subtle font-normal" x-text="r.group"></small>
                             </span>
-                            <small class="text-content-subtle font-normal truncate w-full" x-show="r.caption" x-text="r.caption"></small>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
                         </span>
                     </a>
                 </div>
             </template>
+            
         </div>
 
     </dialog>
@@ -506,7 +500,7 @@
     <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*">
 
   <!-- Desktop Navigation-->
-  <div data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar">
+  <div data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-data="" x-init="(async () =&gt; { for (let i = 0; i &lt; 30; i++) { const a = $el.querySelector('a.pointer-events-none'); if (a) { $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2); break } await new Promise(r =&gt; setTimeout(r, 100)) } })()">
     <div class="col gap-2">
         <small class="pl-2.5 text-content-subtle">Getting Started</small>
         <div class="col">
@@ -877,7 +871,7 @@
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox</span>=<span class="hljs-string">"countries"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Country"</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 22rem; anchor-name: --combobox-lh8jrds"><input x-combobox="cb-countries-t" autocomplete="off" aria-controls="combobox-menu-1s8dt05" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Country"><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 22rem; anchor-name: --combobox-tebycp7"><input x-combobox="cb-countries-t" autocomplete="off" aria-controls="combobox-menu-cdbk4x7" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Country"><span role="status"></span></div>
 <datalist id="cb-countries-t" style="display: none !important"><option>Australia</option><option>Brazil</option><option>Canada</option><option>Denmark</option><option>France</option><option>Germany</option><option>Japan</option><option>Mexico</option><option>Spain</option><option>Sweden</option></datalist></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -885,7 +879,7 @@
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"skills"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Add skills"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-n8s4z8r"><textarea x-combobox.multiple.chips="cb-skills-t" autocomplete="off" aria-controls="combobox-menu-wai5l38" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Add skills"></textarea><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-m520qb8"><textarea x-combobox.multiple.chips="cb-skills-t" autocomplete="off" aria-controls="combobox-menu-ov01n2u" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Add skills"></textarea><span role="status"></span></div>
 <datalist id="cb-skills-t" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -898,7 +892,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Medium<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>High<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 16rem; anchor-name: --combobox-zl18rr5"><button x-combobox="cb-priority-t" autocomplete="off" aria-controls="combobox-menu-dcqrua0" aria-expanded="false" aria-haspopup="listbox">Select priority</button><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 16rem; anchor-name: --combobox-zjd19in"><button x-combobox="cb-priority-t" autocomplete="off" aria-controls="combobox-menu-ecnzx9u" aria-expanded="false" aria-haspopup="listbox">Select priority</button><span role="status"></span></div>
 <menu popover="" id="cb-priority-t" style="display: none !important"><li>Low</li><li>Medium</li><li>High</li><li>Urgent</li></menu></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -935,7 +929,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Brazil<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Canada<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">datalist</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 22rem; anchor-name: --combobox-jzcqc8n"><input x-combobox="cb-countries" autocomplete="off" aria-controls="combobox-menu-8u3ig2v" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Country"><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 22rem; anchor-name: --combobox-mljlvx9"><input x-combobox="cb-countries" autocomplete="off" aria-controls="combobox-menu-c6k13m5" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Country"><span role="status"></span></div>
 <datalist id="cb-countries" style="display: none !important"><option>Australia</option><option>Brazil</option><option>Canada</option><option>Denmark</option><option>France</option><option>Germany</option><option>Japan</option><option>Mexico</option><option>Spain</option><option>Sweden</option></datalist></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -949,7 +943,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Writing<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Research<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">datalist</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-plq0v5n"><input x-combobox.multiple.chips="cb-skills" autocomplete="off" aria-controls="combobox-menu-8b0suzt" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Skills"><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-aenacfk"><input x-combobox.multiple.chips="cb-skills" autocomplete="off" aria-controls="combobox-menu-hdmhp8e" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Skills"><span role="status"></span></div>
 <datalist id="cb-skills" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -963,7 +957,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">data-value</span>=<span class="hljs-string">"ana"</span> <span class="hljs-attr">data-label</span>=<span class="hljs-string">"Ana Ruiz"</span>&gt;</span>Ana Ruiz <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"trailing"</span>&gt;</span>ana@acme.com<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">data-value</span>=<span class="hljs-string">"sam"</span> <span class="hljs-attr">data-label</span>=<span class="hljs-string">"Sam Cole"</span>&gt;</span>Sam Cole <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"trailing"</span>&gt;</span>sam@acme.com<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-utg8ji9"><input x-combobox.multiple.chips="cb-people" autocomplete="off" aria-controls="combobox-menu-ofosi5n" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Assign people"><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-gncdpde"><input x-combobox.multiple.chips="cb-people" autocomplete="off" aria-controls="combobox-menu-yjbw8rb" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Assign people"><span role="status"></span></div>
 <menu popover="" id="cb-people" style="display: none !important">
     <li data-value="ana" data-label="Ana Ruiz">Ana Ruiz <span class="trailing">ana@acme.com</span></li>
     <li data-value="sam" data-label="Sam Cole">Sam Cole <span class="trailing">sam@acme.com</span></li>
@@ -993,7 +987,7 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ picked: ['bug'], tagList: [{ id: 'bug', name: 'Bug', color: '#e5484d' }, { id: 'feature', name: 'Feature', color: '#30a46c' }, { id: 'docs', name: 'Docs', color: '#0091ff' }] }">
-<div class="combobox" style="max-width: 30rem; anchor-name: --combobox-lzlh16f"><span class="combobox-chip" data-value="bug"><span><span data-chip="" class="row items-center gap-2"><span style="background: #e5484d; width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block"></span><span>Bug</span></span></span><button type="button" aria-label="Remove Bug">×</button></span><input x-combobox.multiple.chips="cb-tags" autocomplete="off" aria-controls="combobox-menu-du40gp4" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder=""><span role="status"></span></div>
+<div class="combobox" style="max-width: 30rem; anchor-name: --combobox-zdhrlsx"><span class="combobox-chip" data-value="bug"><span><span data-chip="" class="row items-center gap-2"><span style="background: #e5484d; width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block"></span><span>Bug</span></span></span><button type="button" aria-label="Remove Bug">×</button></span><input x-combobox.multiple.chips="cb-tags" autocomplete="off" aria-controls="combobox-menu-z01biwo" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder=""><span role="status"></span></div>
 <menu popover="" id="cb-tags" style="display: none !important">
 <li data-value="bug" data-label="Bug">
 <span data-chip="" class="row items-center gap-2"><span style="background: #e5484d; width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block"></span><span>Bug</span></span>
@@ -1075,7 +1069,7 @@
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips.create</span>=<span class="hljs-string">"skills"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Skills"</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-f7p1tq7"><input x-combobox.multiple.chips.create="cb-skills-create" autocomplete="off" aria-controls="combobox-menu-r6hrlc3" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Skills"><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-erj6m5u"><input x-combobox.multiple.chips.create="cb-skills-create" autocomplete="off" aria-controls="combobox-menu-6qjtbaj" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Skills"><span role="status"></span></div>
 <datalist id="cb-skills-create" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option></datalist></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -1085,7 +1079,7 @@
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"{ source: 'skills', max: 3 }"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Pick up to 3"</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-xbqkags"><input x-combobox.multiple.chips="{ source: 'cb-skills-max', max: 3 }" autocomplete="off" aria-controls="combobox-menu-ci8m2ec" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Pick up to 3"><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-40fge7k"><input x-combobox.multiple.chips="{ source: 'cb-skills-max', max: 3 }" autocomplete="off" aria-controls="combobox-menu-4quoxjj" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Pick up to 3"><span role="status"></span></div>
 <datalist id="cb-skills-max" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -1100,7 +1094,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Analytics<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">datalist</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ plan: ['SSL', 'Backups'] }" style="max-width: 30rem">
-<div class="combobox" style="anchor-name: --combobox-3t1mvow"><span class="combobox-chip" data-value="SSL" data-locked=""><span>SSL</span></span><span class="combobox-chip" data-value="Backups"><span>Backups</span><button type="button" aria-label="Remove Backups">×</button></span><input x-combobox.multiple.chips="cb-plan-lock" autocomplete="off" aria-controls="combobox-menu-tnmmj5u" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder=""><span role="status"></span></div>
+<div class="combobox" style="anchor-name: --combobox-s8i8v2n"><span class="combobox-chip" data-value="SSL" data-locked=""><span>SSL</span></span><span class="combobox-chip" data-value="Backups"><span>Backups</span><button type="button" aria-label="Remove Backups">×</button></span><input x-combobox.multiple.chips="cb-plan-lock" autocomplete="off" aria-controls="combobox-menu-xdfzzst" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder=""><span role="status"></span></div>
 <datalist id="cb-plan-lock" style="display: none !important"><option data-locked="">SSL</option><option>Backups</option><option>Analytics</option><option>Priority support</option></datalist>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
@@ -1115,7 +1109,7 @@
             .then(users =&gt; $event.detail.setOptions(users))
     "</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <aside class="frame"><div x-data="{ search(e) { const all = ['Ada Lovelace','Alan Turing','Grace Hopper','Katherine Johnson','Linus Torvalds','Margaret Hamilton']; const v = e.detail.value.toLowerCase(); clearTimeout(this._t); this._t = setTimeout(() =&gt; e.detail.setOptions(all.filter(n =&gt; n.toLowerCase().includes(v))), 400) } }">
-<div class="combobox" style="max-width: 26rem; anchor-name: --combobox-hyvwydq"><input x-combobox.async="{ min: 1 }" @combobox-filter="search($event)" autocomplete="off" aria-controls="combobox-menu-i5kmf2j" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Search users" data-hydrate-id="h2"><span role="status"></span></div>
+<div class="combobox" style="max-width: 26rem; anchor-name: --combobox-kltl6ge"><input x-combobox.async="{ min: 1 }" @combobox-filter="search($event)" autocomplete="off" aria-controls="combobox-menu-62rnn44" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Search users" data-hydrate-id="h2"><span role="status"></span></div>
 </div></aside>
 <p>Each result is <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">{ value, label }</code>, or a plain string when the two are the same. The field opens on focus, shows a brief loading state while it waits, and ignores out-of-date responses. Use <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">min</code> to set how many characters are needed before fetching, and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">debounce</code> to set the pause after typing.</p>
 <hr>
@@ -1140,7 +1134,7 @@ tags=research</code></pre>
     <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"roles"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"member.roles"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Roles"</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ roles: ['Design', 'Research'] }" style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 30rem">
-<div class="combobox" style="anchor-name: --combobox-ix73jh9"><span class="combobox-chip" data-value="Design"><span>Design</span><button type="button" aria-label="Remove Design">×</button></span><span class="combobox-chip" data-value="Research"><span>Research</span><button type="button" aria-label="Remove Research">×</button></span><input x-combobox.multiple.chips="cb-roles-bind" autocomplete="off" aria-controls="combobox-menu-wx8gpha" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder=""><span role="status"></span></div>
+<div class="combobox" style="anchor-name: --combobox-9nzni40"><span class="combobox-chip" data-value="Design"><span>Design</span><button type="button" aria-label="Remove Design">×</button></span><span class="combobox-chip" data-value="Research"><span>Research</span><button type="button" aria-label="Remove Research">×</button></span><input x-combobox.multiple.chips="cb-roles-bind" autocomplete="off" aria-controls="combobox-menu-082kqbg" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder=""><span role="status"></span></div>
 <datalist id="cb-roles-bind" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist>
 <button type="button" class="hug sm" @click="roles = ['Writing', 'Testing']">Load a different record</button>
 <code x-text="'roles = ' + JSON.stringify(roles)">roles = ["Design","Research"]</code>
@@ -1414,14 +1408,14 @@ tags=research</code></pre>
 
 
 
-<menu x-ignore="" popover="manual" id="combobox-menu-1s8dt05" role="listbox" style="position-anchor: --combobox-lh8jrds"><li id="combobox-menu-1s8dt05-opt-0" data-value="Australia" data-label="Australia" role="option" aria-selected="false">Australia</li><li id="combobox-menu-1s8dt05-opt-1" data-value="Brazil" data-label="Brazil" role="option" aria-selected="false">Brazil</li><li id="combobox-menu-1s8dt05-opt-2" data-value="Canada" data-label="Canada" role="option" aria-selected="false">Canada</li><li id="combobox-menu-1s8dt05-opt-3" data-value="Denmark" data-label="Denmark" role="option" aria-selected="false">Denmark</li><li id="combobox-menu-1s8dt05-opt-4" data-value="France" data-label="France" role="option" aria-selected="false">France</li><li id="combobox-menu-1s8dt05-opt-5" data-value="Germany" data-label="Germany" role="option" aria-selected="false">Germany</li><li id="combobox-menu-1s8dt05-opt-6" data-value="Japan" data-label="Japan" role="option" aria-selected="false">Japan</li><li id="combobox-menu-1s8dt05-opt-7" data-value="Mexico" data-label="Mexico" role="option" aria-selected="false">Mexico</li><li id="combobox-menu-1s8dt05-opt-8" data-value="Spain" data-label="Spain" role="option" aria-selected="false">Spain</li><li id="combobox-menu-1s8dt05-opt-9" data-value="Sweden" data-label="Sweden" role="option" aria-selected="false">Sweden</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-wai5l38" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-n8s4z8r"><li id="combobox-menu-wai5l38-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-wai5l38-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-wai5l38-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-wai5l38-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-wai5l38-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-dcqrua0" role="listbox" style="position-anchor: --combobox-zl18rr5"><li id="combobox-menu-dcqrua0-opt-0" data-value="Low" data-label="Low" role="option" aria-selected="false">Low</li><li id="combobox-menu-dcqrua0-opt-1" data-value="Medium" data-label="Medium" role="option" aria-selected="false">Medium</li><li id="combobox-menu-dcqrua0-opt-2" data-value="High" data-label="High" role="option" aria-selected="false">High</li><li id="combobox-menu-dcqrua0-opt-3" data-value="Urgent" data-label="Urgent" role="option" aria-selected="false">Urgent</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-8u3ig2v" role="listbox" style="position-anchor: --combobox-jzcqc8n"><li id="combobox-menu-8u3ig2v-opt-0" data-value="Australia" data-label="Australia" role="option" aria-selected="false">Australia</li><li id="combobox-menu-8u3ig2v-opt-1" data-value="Brazil" data-label="Brazil" role="option" aria-selected="false">Brazil</li><li id="combobox-menu-8u3ig2v-opt-2" data-value="Canada" data-label="Canada" role="option" aria-selected="false">Canada</li><li id="combobox-menu-8u3ig2v-opt-3" data-value="Denmark" data-label="Denmark" role="option" aria-selected="false">Denmark</li><li id="combobox-menu-8u3ig2v-opt-4" data-value="France" data-label="France" role="option" aria-selected="false">France</li><li id="combobox-menu-8u3ig2v-opt-5" data-value="Germany" data-label="Germany" role="option" aria-selected="false">Germany</li><li id="combobox-menu-8u3ig2v-opt-6" data-value="Japan" data-label="Japan" role="option" aria-selected="false">Japan</li><li id="combobox-menu-8u3ig2v-opt-7" data-value="Mexico" data-label="Mexico" role="option" aria-selected="false">Mexico</li><li id="combobox-menu-8u3ig2v-opt-8" data-value="Spain" data-label="Spain" role="option" aria-selected="false">Spain</li><li id="combobox-menu-8u3ig2v-opt-9" data-value="Sweden" data-label="Sweden" role="option" aria-selected="false">Sweden</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-8b0suzt" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-plq0v5n"><li id="combobox-menu-8b0suzt-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-8b0suzt-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-8b0suzt-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-8b0suzt-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-8b0suzt-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-ofosi5n" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-utg8ji9"><li data-value="ana" data-label="Ana Ruiz" id="combobox-menu-ofosi5n-opt-0" role="option" aria-selected="false">Ana Ruiz <span class="trailing">ana@acme.com</span></li><li data-value="sam" data-label="Sam Cole" id="combobox-menu-ofosi5n-opt-1" role="option" aria-selected="false">Sam Cole <span class="trailing">sam@acme.com</span></li><li data-value="kim" data-label="Kim Park" id="combobox-menu-ofosi5n-opt-2" role="option" aria-selected="false">Kim Park <span class="trailing">kim@acme.com</span></li><li data-value="lee" data-label="Lee Nash" id="combobox-menu-ofosi5n-opt-3" role="option" aria-selected="false">Lee Nash <span class="trailing">lee@acme.com</span></li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-du40gp4" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-lzlh16f"><li data-value="bug" data-label="Bug" id="combobox-menu-du40gp4-opt-0" role="option" aria-selected="true">
+<menu x-ignore="" popover="manual" id="combobox-menu-cdbk4x7" role="listbox" style="position-anchor: --combobox-tebycp7"><li id="combobox-menu-cdbk4x7-opt-0" data-value="Australia" data-label="Australia" role="option" aria-selected="false">Australia</li><li id="combobox-menu-cdbk4x7-opt-1" data-value="Brazil" data-label="Brazil" role="option" aria-selected="false">Brazil</li><li id="combobox-menu-cdbk4x7-opt-2" data-value="Canada" data-label="Canada" role="option" aria-selected="false">Canada</li><li id="combobox-menu-cdbk4x7-opt-3" data-value="Denmark" data-label="Denmark" role="option" aria-selected="false">Denmark</li><li id="combobox-menu-cdbk4x7-opt-4" data-value="France" data-label="France" role="option" aria-selected="false">France</li><li id="combobox-menu-cdbk4x7-opt-5" data-value="Germany" data-label="Germany" role="option" aria-selected="false">Germany</li><li id="combobox-menu-cdbk4x7-opt-6" data-value="Japan" data-label="Japan" role="option" aria-selected="false">Japan</li><li id="combobox-menu-cdbk4x7-opt-7" data-value="Mexico" data-label="Mexico" role="option" aria-selected="false">Mexico</li><li id="combobox-menu-cdbk4x7-opt-8" data-value="Spain" data-label="Spain" role="option" aria-selected="false">Spain</li><li id="combobox-menu-cdbk4x7-opt-9" data-value="Sweden" data-label="Sweden" role="option" aria-selected="false">Sweden</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-ov01n2u" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-m520qb8"><li id="combobox-menu-ov01n2u-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-ov01n2u-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-ov01n2u-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-ov01n2u-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-ov01n2u-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-ecnzx9u" role="listbox" style="position-anchor: --combobox-zjd19in"><li id="combobox-menu-ecnzx9u-opt-0" data-value="Low" data-label="Low" role="option" aria-selected="false">Low</li><li id="combobox-menu-ecnzx9u-opt-1" data-value="Medium" data-label="Medium" role="option" aria-selected="false">Medium</li><li id="combobox-menu-ecnzx9u-opt-2" data-value="High" data-label="High" role="option" aria-selected="false">High</li><li id="combobox-menu-ecnzx9u-opt-3" data-value="Urgent" data-label="Urgent" role="option" aria-selected="false">Urgent</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-c6k13m5" role="listbox" style="position-anchor: --combobox-mljlvx9"><li id="combobox-menu-c6k13m5-opt-0" data-value="Australia" data-label="Australia" role="option" aria-selected="false">Australia</li><li id="combobox-menu-c6k13m5-opt-1" data-value="Brazil" data-label="Brazil" role="option" aria-selected="false">Brazil</li><li id="combobox-menu-c6k13m5-opt-2" data-value="Canada" data-label="Canada" role="option" aria-selected="false">Canada</li><li id="combobox-menu-c6k13m5-opt-3" data-value="Denmark" data-label="Denmark" role="option" aria-selected="false">Denmark</li><li id="combobox-menu-c6k13m5-opt-4" data-value="France" data-label="France" role="option" aria-selected="false">France</li><li id="combobox-menu-c6k13m5-opt-5" data-value="Germany" data-label="Germany" role="option" aria-selected="false">Germany</li><li id="combobox-menu-c6k13m5-opt-6" data-value="Japan" data-label="Japan" role="option" aria-selected="false">Japan</li><li id="combobox-menu-c6k13m5-opt-7" data-value="Mexico" data-label="Mexico" role="option" aria-selected="false">Mexico</li><li id="combobox-menu-c6k13m5-opt-8" data-value="Spain" data-label="Spain" role="option" aria-selected="false">Spain</li><li id="combobox-menu-c6k13m5-opt-9" data-value="Sweden" data-label="Sweden" role="option" aria-selected="false">Sweden</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-hdmhp8e" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-aenacfk"><li id="combobox-menu-hdmhp8e-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-hdmhp8e-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-hdmhp8e-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-hdmhp8e-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-hdmhp8e-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-yjbw8rb" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-gncdpde"><li data-value="ana" data-label="Ana Ruiz" id="combobox-menu-yjbw8rb-opt-0" role="option" aria-selected="false">Ana Ruiz <span class="trailing">ana@acme.com</span></li><li data-value="sam" data-label="Sam Cole" id="combobox-menu-yjbw8rb-opt-1" role="option" aria-selected="false">Sam Cole <span class="trailing">sam@acme.com</span></li><li data-value="kim" data-label="Kim Park" id="combobox-menu-yjbw8rb-opt-2" role="option" aria-selected="false">Kim Park <span class="trailing">kim@acme.com</span></li><li data-value="lee" data-label="Lee Nash" id="combobox-menu-yjbw8rb-opt-3" role="option" aria-selected="false">Lee Nash <span class="trailing">lee@acme.com</span></li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-z01biwo" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-zdhrlsx"><li data-value="bug" data-label="Bug" id="combobox-menu-z01biwo-opt-0" role="option" aria-selected="true">
 <span data-chip="" class="row items-center gap-2"><span style="background: #e5484d; width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block"></span><span>Bug</span></span>
 <span class="small trailing">bug</span>
-</li><li data-value="feature" data-label="Feature" id="combobox-menu-du40gp4-opt-1" role="option" aria-selected="false">
+</li><li data-value="feature" data-label="Feature" id="combobox-menu-z01biwo-opt-1" role="option" aria-selected="false">
 <span data-chip="" class="row items-center gap-2"><span style="background: #30a46c; width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block"></span><span>Feature</span></span>
 <span class="small trailing">feature</span>
-</li><li data-value="docs" data-label="Docs" id="combobox-menu-du40gp4-opt-2" role="option" aria-selected="false">
+</li><li data-value="docs" data-label="Docs" id="combobox-menu-z01biwo-opt-2" role="option" aria-selected="false">
 <span data-chip="" class="row items-center gap-2"><span style="background: #0091ff; width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block"></span><span>Docs</span></span>
 <span class="small trailing">docs</span>
-</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-r6hrlc3" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-f7p1tq7"><li id="combobox-menu-r6hrlc3-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-r6hrlc3-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-r6hrlc3-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-r6hrlc3-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li class="combobox-create" role="option" hidden=""></li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-ci8m2ec" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-xbqkags"><li id="combobox-menu-ci8m2ec-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-ci8m2ec-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-ci8m2ec-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-ci8m2ec-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-ci8m2ec-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-tnmmj5u" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-3t1mvow"><li id="combobox-menu-tnmmj5u-opt-0" data-value="SSL" data-label="SSL" role="option" aria-selected="true">SSL</li><li id="combobox-menu-tnmmj5u-opt-1" data-value="Backups" data-label="Backups" role="option" aria-selected="true">Backups</li><li id="combobox-menu-tnmmj5u-opt-2" data-value="Analytics" data-label="Analytics" role="option" aria-selected="false">Analytics</li><li id="combobox-menu-tnmmj5u-opt-3" data-value="Priority support" data-label="Priority support" role="option" aria-selected="false">Priority support</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-i5kmf2j" role="listbox" style="position-anchor: --combobox-hyvwydq"><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-wx8gpha" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-ix73jh9"><li id="combobox-menu-wx8gpha-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="true">Design</li><li id="combobox-menu-wx8gpha-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-wx8gpha-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="true">Research</li><li id="combobox-menu-wx8gpha-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-wx8gpha-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"style":"max-width: 26rem;","autocomplete":null,"aria-controls":null,"aria-expanded":null,"role":null,"aria-autocomplete":null}},{"id":"h3","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h4","attrs":{"type":null}},{"id":"h5","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
+</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-6qjtbaj" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-erj6m5u"><li id="combobox-menu-6qjtbaj-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-6qjtbaj-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-6qjtbaj-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-6qjtbaj-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li class="combobox-create" role="option" hidden=""></li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-4quoxjj" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-40fge7k"><li id="combobox-menu-4quoxjj-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-4quoxjj-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-4quoxjj-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-4quoxjj-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-4quoxjj-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-xdfzzst" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-s8i8v2n"><li id="combobox-menu-xdfzzst-opt-0" data-value="SSL" data-label="SSL" role="option" aria-selected="true">SSL</li><li id="combobox-menu-xdfzzst-opt-1" data-value="Backups" data-label="Backups" role="option" aria-selected="true">Backups</li><li id="combobox-menu-xdfzzst-opt-2" data-value="Analytics" data-label="Analytics" role="option" aria-selected="false">Analytics</li><li id="combobox-menu-xdfzzst-opt-3" data-value="Priority support" data-label="Priority support" role="option" aria-selected="false">Priority support</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-62rnn44" role="listbox" style="position-anchor: --combobox-kltl6ge"><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-082kqbg" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-9nzni40"><li id="combobox-menu-082kqbg-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="true">Design</li><li id="combobox-menu-082kqbg-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-082kqbg-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="true">Research</li><li id="combobox-menu-082kqbg-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-082kqbg-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"style":"max-width: 26rem;","autocomplete":null,"aria-controls":null,"aria-expanded":null,"role":null,"aria-autocomplete":null}},{"id":"h3","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h4","attrs":{"type":null}},{"id":"h5","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
 </body></html>

@@ -1,13 +1,14 @@
 <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto">
 
   <!-- Desktop Navigation-->
-  <div data-static style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar">
+  <div data-static style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar"
+    x-data x-init="(async () => { for (let i = 0; i < 30; i++) { const a = $el.querySelector('a.pointer-events-none'); if (a) { $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2); break } await new Promise(r => setTimeout(r, 100)) } })()">
     <template x-for="group in $x.docs" :key="group.group">
       <div class="col gap-2">
         <small class="pl-2.5 text-content-subtle" x-text="group.group"></small>
         <div class="col">
           <template x-for="(item, index) in group.items" :key="item.path || index">
-            <a x-show="item.name" :href="'/docs/' + group.group.toLowerCase().replaceAll(' ', '-') + '/' + item.path" role="button" :class="[
+            <a x-show="item.name" :href="'/docs/' + group.slug + '/' + item.path" role="button" :class="[
                   $x.docs.$route('path') && $x.docs.$route('path').path === item.path
                     ? 'text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15  pointer-events-none'
                     : 'ghost text-content-neutral',

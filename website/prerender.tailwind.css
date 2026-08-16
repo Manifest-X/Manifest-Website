@@ -88,6 +88,7 @@
     --radius-lg: 0.5rem;
     --radius-2xl: 1rem;
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --blur-xl: 24px;
     --aspect-video: 16 / 9;
     --default-transition-duration: 150ms;
@@ -359,9 +360,6 @@
   .m-auto {
     margin: auto;
   }
-  .-mx-1 {
-    margin-inline: calc(var(--spacing) * -1);
-  }
   .mx-1\.5 {
     margin-inline: calc(var(--spacing) * 1.5);
   }
@@ -515,6 +513,9 @@
   .h-1\.5 {
     height: calc(var(--spacing) * 1.5);
   }
+  .h-2 {
+    height: calc(var(--spacing) * 2);
+  }
   .h-6 {
     height: calc(var(--spacing) * 6);
   }
@@ -580,9 +581,6 @@
   }
   .max-h-\[calc\(100vh-69px\)\] {
     max-height: calc(100vh - 69px);
-  }
-  .max-h-\[min\(28rem\,80vh\)\] {
-    max-height: min(28rem, 80vh);
   }
   .max-h-full {
     max-height: 100%;
@@ -1014,9 +1012,6 @@
   .bg-stone-600 {
     background-color: var(--color-stone-600);
   }
-  .bg-transparent {
-    background-color: transparent;
-  }
   .bg-yellow-400 {
     background-color: var(--color-yellow-400);
   }
@@ -1088,9 +1083,6 @@
   }
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
-  }
-  .py-3 {
-    padding-block: calc(var(--spacing) * 3);
   }
   .py-4 {
     padding-block: calc(var(--spacing) * 4);
@@ -1181,6 +1173,9 @@
   }
   .pl-2\.5 {
     padding-left: calc(var(--spacing) * 2.5);
+  }
+  .pl-6 {
+    padding-left: calc(var(--spacing) * 6);
   }
   .pl-10 {
     padding-left: calc(var(--spacing) * 10);
@@ -1409,13 +1404,16 @@
     --tw-duration: 500ms;
     transition-duration: 500ms;
   }
+  .ease-in-out {
+    --tw-ease: var(--ease-in-out);
+    transition-timing-function: var(--ease-in-out);
+  }
   .ease-out {
     --tw-ease: var(--ease-out);
     transition-timing-function: var(--ease-out);
   }
-  .outline-none {
-    --tw-outline-style: none;
-    outline-style: none;
+  .\[overflow-anchor\:none\] {
+    overflow-anchor: none;
   }
   .not-any-pointer-fine\:hidden {
     @media not (any-pointer: fine) {
@@ -1465,11 +1463,6 @@
   .max-sm\:hidden {
     @media (width < 40rem) {
       display: none;
-    }
-  }
-  .sm\:block {
-    @media (width >= 40rem) {
-      display: block;
     }
   }
   .sm\:flex {
