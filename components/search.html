@@ -40,44 +40,16 @@
                 }
             }
             await Promise.all(jobs);
-            // Dogfood the data plugin when the loaded mnfst has runtime sources
-            // (older CDN pins fall back to the local scorer below).
-            if (typeof $x.$register === 'function') {
-                $x.$register('searchIndex', this.items);
-                this.dogfood = true;
-            }
+            $x.$register('searchIndex', this.items);
             this.ready = true;
             this.loading = false;
         },
-        dogfood: false,
 
         results() {
             const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
             if (!terms.length) return this.items.map(it => ({ ...it, caption: it.desc }));
-            const ranked = this.dogfood
-                ? $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 })
-                : this.localRank(terms);
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
             return ranked.slice(0, 20).map(it => ({ ...it, caption: this.caption(it, terms[0]) }));
-        },
-
-        // Fallback ranking for mnfst builds without weighted $search.
-        localRank(terms) {
-            const out = [];
-            for (const it of this.items) {
-                let score = 0, ok = true;
-                const name = it.name.toLowerCase();
-                for (const t of terms) {
-                    let s = 0;
-                    if (name.startsWith(t)) s = 120;
-                    else if (name.includes(t)) s = 100;
-                    else if (it.hhay.includes(t)) s = 40;
-                    else if (it.bhay.includes(t)) s = 15;
-                    if (!s) { ok = false; break; }
-                    score += s;
-                }
-                if (ok) out.push([score, it]);
-            }
-            return out.sort((a, b) => b[0] - a[0]).map(e => e[1]);
         },
 
         // Matched heading, content excerpt, or the article description.
