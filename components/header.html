@@ -54,9 +54,9 @@
                 <small class="pl-2.5 text-content-subtle" x-text="group.group"></small>
                 <div class="col">
                     <template x-for="(item, index) in group.items" :key="item.path || index">
-                        <a x-show="item.name" role="button" popovertarget="mobile-navigation" popoveraction="hide" :href="'/docs/' + group.group.toLowerCase().replaceAll(' ', '-') + '/' + item.path" class="ghost justify-start w-full text-content-neutral" :class="[
+                        <a x-show="item.name" role="button" popovertarget="mobile-navigation" popoveraction="hide" :href="'/docs/' + group.slug + '/' + item.path" class="ghost justify-start w-full text-content-neutral" :class="[
                               $x.docs.$route('path') && $x.docs.$route('path').path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''
-                            ]" @click="window.dispatchEvent(new CustomEvent('manifest:route-change', { detail: { from: window.location.pathname, to: '/docs/' + group.group.toLowerCase().replaceAll(' ', '-') + '/' + item.path, normalizedPath: group.group.toLowerCase().replaceAll(' ', '-') + '/' + item.path } }))">
+                            ]" @click="window.dispatchEvent(new CustomEvent('manifest:route-change', { detail: { from: window.location.pathname, to: '/docs/' + group.slug + '/' + item.path, normalizedPath: group.slug + '/' + item.path } }))">
                             <span x-icon="item.icon"></span>
                             <span x-text="item.name"></span>
                         </a>

@@ -15,7 +15,7 @@
             for (const g of ($x.docs || [])) {
                 for (const it of (g.items || [])) {
                     if (!it.name || !it.doc) continue;
-                    const href = '/docs/' + g.group.toLowerCase().replaceAll(' ', '-') + '/' + it.path;
+                    const href = '/docs/' + g.slug + '/' + it.path;
                     jobs.push(fetch(it.doc)
                         .then(r => r.ok ? r.text() : '')
                         .catch(() => '')
@@ -113,7 +113,7 @@
                         <span class="col gap-0.5 min-w-0 grow text-left">
                             <span class="row items-center gap-2">
                                 <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
-                                <span x-text="r.name"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
                                 <span class="text-content-subtle font-normal">·</span>
                                 <small class="text-content-subtle font-normal" x-text="r.group"></small>
                             </span>

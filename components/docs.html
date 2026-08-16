@@ -8,7 +8,7 @@
         <small class="pl-2.5 text-content-subtle" x-text="group.group"></small>
         <div class="col">
           <template x-for="(item, index) in group.items" :key="item.path || index">
-            <a x-show="item.name" :href="'/docs/' + group.group.toLowerCase().replaceAll(' ', '-') + '/' + item.path" role="button" :class="[
+            <a x-show="item.name" :href="'/docs/' + group.slug + '/' + item.path" role="button" :class="[
                   $x.docs.$route('path') && $x.docs.$route('path').path === item.path
                     ? 'text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15  pointer-events-none'
                     : 'ghost text-content-neutral',
