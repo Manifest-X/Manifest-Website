@@ -195,6 +195,8 @@ Each `$x.<source>` returns an object or array. Standard JS array methods apply w
 | Method | Description |
 |---|---|
 | `$search(term, ...fields)`{copy} | Substring match across the listed fields |
+| `$search(term, { field: weight })`{copy} | Ranked search — every term must match; higher-weight fields rank first |
+| `$x.$register(name, data)`{copy} | Install or replace a runtime data source (array or object) |
 | `$query([...exprs])`{copy} | Filter using query expressions. Local sources: synchronous filter. Appwrite sources: server-side, returns `Promise` |
 | `$route(path?)`{copy} | Look up a single row whose `id` matches the current route param |
 

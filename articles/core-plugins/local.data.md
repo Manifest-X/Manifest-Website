@@ -438,6 +438,27 @@ Both `$search` and `$query` operate **client-side** (in the browser) for local d
 
 For cloud-hosted data with backend filtering, see [Appwrite databases](/docs/appwrite-plugins/databases).
 
+#### Weighted Search
+
+Pass an object of field weights instead of field names and `$search` returns **ranked** results. Each whitespace-separated term must match at least one field; items score by the best-matching field's weight per term, with prefix matches boosted. Higher scores rank first.
+
+```javascript copy
+// Title matches outrank body matches
+$x.articles.$search('toast', { title: 3, headings: 2, body: 1 })
+
+// Multiple terms all must match somewhere
+$x.articles.$search('cursor pagination', { title: 3, body: 1 })
+```
+
+#### Runtime Sources
+
+`$x.$register(name, data)` installs (or replaces) a data source at runtime — an array or object built in the browser, such as fetched content or a derived index. It behaves like any `manifest.json` source: reactive, with the same `$search` / `$query` / `$route` helpers.
+
+```javascript copy
+$x.$register('searchIndex', records)
+$x.searchIndex.$search(term, { title: 3, body: 1 })
+```
+
 #### Query Syntax
 
 Each query is an array with the format `['method', 'attribute', 'value']`. Use these patterns:

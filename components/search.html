@@ -20,7 +20,8 @@
                         .then(r => r.ok ? r.text() : '')
                         .catch(() => '')
                         .then(md => {
-                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '').trim();
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/<[^>]+>/g, '').replace(/[*_`\[\]]/g, '').trim();
                             const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m => m[1].trim());
                             const body = md
                                 .replace(/```[\s\S]*?```/g, ' ')
@@ -39,19 +40,32 @@
                 }
             }
             await Promise.all(jobs);
+            // Dogfood the data plugin when the loaded mnfst has runtime sources
+            // (older CDN pins fall back to the local scorer below).
+            if (typeof $x.$register === 'function') {
+                $x.$register('searchIndex', this.items);
+                this.dogfood = true;
+            }
             this.ready = true;
             this.loading = false;
         },
+        dogfood: false,
 
-        // Per-term best-field scoring; every term must match somewhere.
         results() {
             const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
             if (!terms.length) return this.items.map(it => ({ ...it, caption: it.desc }));
+            const ranked = this.dogfood
+                ? $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 })
+                : this.localRank(terms);
+            return ranked.slice(0, 20).map(it => ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Fallback ranking for mnfst builds without weighted $search.
+        localRank(terms) {
             const out = [];
             for (const it of this.items) {
-                let score = 0;
+                let score = 0, ok = true;
                 const name = it.name.toLowerCase();
-                let ok = true;
                 for (const t of terms) {
                     let s = 0;
                     if (name.startsWith(t)) s = 120;
@@ -61,18 +75,20 @@
                     if (!s) { ok = false; break; }
                     score += s;
                 }
-                if (!ok) continue;
-                const t0 = terms[0];
-                let caption = it.desc;
-                const h = it.headings.find(h => h.toLowerCase().includes(t0));
-                if (h) caption = h;
-                else if (!name.includes(t0)) {
-                    const i = it.bhay.indexOf(t0);
-                    if (i > -1) caption = (i > 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
-                }
-                out.push({ ...it, score, caption });
+                if (ok) out.push([score, it]);
             }
-            return out.sort((a, b) => b.score - a.score).slice(0, 20);
+            return out.sort((a, b) => b[0] - a[0]).map(e => e[1]);
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h => h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i > -1) return (i > 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
+            }
+            return it.desc;
         },
 
         openDialog() { document.getElementById('docs-search')?.showPopover(); },
@@ -99,16 +115,16 @@
 
     <dialog popover id="docs-search" @toggle="onToggle($event)"
         @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()"
-        class="col gap-3 p-4 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+        class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
 
         <!-- Query -->
-        <label class="row items-center gap-2 w-full shrink-0">
+        <label class="row items-center gap-2 w-full shrink-0 m-4 mb-3">
             <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
             <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
         </label>
 
         <!-- Results -->
-        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar -mx-1 px-1">
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-2">
             <p x-show="loading && !ready" class="px-3 py-2 text-sm text-content-subtle">Indexing articles…</p>
             <p x-show="ready && q.trim() && !results().length" class="px-3 py-2 text-sm text-content-subtle">
                 No matches for “<span x-text="q.trim()"></span>”.
@@ -116,15 +132,16 @@
             <template x-for="(r, i) in results()" :key="r.href">
                 <div :data-active="i === active ? '' : null" @mouseenter="active = i">
                     <a :href="r.href" role="button"
-                        :class="i === active ? 'selected brand !text-content-stark' : 'ghost text-content-neutral'"
-                        class="justify-start w-full h-auto py-2 no-underline">
-                        <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                        :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'"
+                        class="ghost justify-start w-full h-auto py-2 no-underline">
                         <span class="col gap-0.5 min-w-0 grow text-left">
-                            <span class="row items-baseline gap-2">
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
                                 <span x-text="r.name"></span>
+                                <span class="text-content-subtle font-normal">·</span>
                                 <small class="text-content-subtle font-normal" x-text="r.group"></small>
                             </span>
-                            <small class="text-content-subtle font-normal truncate w-full" x-show="r.caption" x-text="r.caption"></small>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
                         </span>
                     </a>
                 </div>
