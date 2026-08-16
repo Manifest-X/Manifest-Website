@@ -48,7 +48,7 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Starter Project — Manifest"><meta property="og:description" content="Kickstart new websites and apps with a turnkey template."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/getting-started/starter-project"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/icons/512x512.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Starter Project — Manifest"><meta property="twitter:description" content="Kickstart new websites and apps with a turnkey template."><meta property="twitter:image" content="/icons/512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Starter Project — Manifest","description":"Kickstart new websites and apps with a turnkey template.","image":"/icons/512x512.png","url":"https://manifestx.dev/docs/getting-started/starter-project"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Getting Started","item":"https://manifestx.dev/docs/getting-started"},{"@type":"ListItem","position":4,"name":"Starter Project","item":"https://manifestx.dev/docs/getting-started/starter-project"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Starter Project — Manifest"><meta property="og:description" content="Kickstart new websites and apps with a turnkey template."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/getting-started/starter-project"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-getting-started-starter-project.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Starter Project — Manifest"><meta property="twitter:description" content="Kickstart new websites and apps with a turnkey template."><meta property="twitter:image" content="/og/docs-getting-started-starter-project.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Starter Project — Manifest","description":"Kickstart new websites and apps with a turnkey template.","image":"/og/docs-getting-started-starter-project.png","url":"https://manifestx.dev/docs/getting-started/starter-project"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Getting Started","item":"https://manifestx.dev/docs/getting-started"},{"@type":"ListItem","position":4,"name":"Starter Project","item":"https://manifestx.dev/docs/getting-started/starter-project"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/getting-started/starter-project">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -95,7 +95,10 @@
         <div class="row justify-end items-center gap-2">
 
             <!-- CTAs -->
-            <!-- <a href="#" class="text-sm no-underline">Sign-in</a> -->
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full" aria-label="Search docs">
+                <span x-icon="lucide:search"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:search" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></g></svg></span>
+                <kbd class="hidden md:inline text-xs text-content-subtle">⌘K</kbd>
+            </button>
             <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" class="sm transparent outlined rounded-full"><span x-icon="meteor-icons:github"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="meteor-icons:github" class="iconify iconify--meteor-icons"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22v-3q0-2 1-3A7 6.5 0 0 1 5 5Q4 3 5 1q3 0 4 2q3-1 6 0q2-2 4-2q1 2 0 4a7 6.5 0 0 1-5 11q1 1 1 3v3M2 17c2 0 3 4 7 2"></path></svg></span><span>GitHub</span></a>
             <a role="button" href="/docs/getting-started/introduction" class="sm accent rounded-full">Docs</a>
 
@@ -367,14 +370,142 @@
     </nav>
 
 </header>
+  <div x-data="{
+        q: '',
+        items: [],
+        ready: false,
+        loading: false,
+        active: 0,
 
-  <main class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="1" data-hydrate-id="h1">
+        // Fetch every article's markdown once, on first open; index titles, headings, body text.
+        async build() {
+            if (this.ready || this.loading) return;
+            this.loading = true;
+            for (let i = 0; i &lt; 20 &amp;&amp; (!$x.docs || !$x.docs.length); i++) await new Promise(r =&gt; setTimeout(r, 100));
+            const jobs = [];
+            for (const g of ($x.docs || [])) {
+                for (const it of (g.items || [])) {
+                    if (!it.name || !it.doc) continue;
+                    const href = '/docs/' + g.group.toLowerCase().replaceAll(' ', '-') + '/' + it.path;
+                    jobs.push(fetch(it.doc)
+                        .then(r =&gt; r.ok ? r.text() : '')
+                        .catch(() =&gt; '')
+                        .then(md =&gt; {
+                            const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
+                            const body = md
+                                .replace(/```[\s\S]*?```/g, ' ')
+                                .replace(/:::[^\n]*/g, ' ')
+                                .replace(/&lt;[^&gt;]+&gt;/g, ' ')
+                                .replace(/[#&gt;*_`\[\]()|]/g, ' ')
+                                .replace(/-{2,}/g, ' ')
+                                .replace(/\s+/g, ' ');
+                            this.items.push({
+                                name: it.name, group: g.group, icon: it.icon, href,
+                                headings,
+                                hhay: headings.join(' · ').toLowerCase(),
+                                body, bhay: body.toLowerCase(),
+                            });
+                        }));
+                }
+            }
+            await Promise.all(jobs);
+            this.ready = true;
+            this.loading = false;
+        },
+
+        // Per-term best-field scoring; every term must match somewhere.
+        results() {
+            const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, snippet: '' }));
+            const out = [];
+            for (const it of this.items) {
+                let score = 0, snippet = '';
+                const name = it.name.toLowerCase();
+                let ok = true;
+                for (const t of terms) {
+                    let s = 0;
+                    if (name.startsWith(t)) s = 120;
+                    else if (name.includes(t)) s = 100;
+                    else if (it.hhay.includes(t)) s = 40;
+                    else if (it.bhay.includes(t)) s = 15;
+                    if (!s) { ok = false; break; }
+                    score += s;
+                }
+                if (!ok) continue;
+                const t0 = terms[0];
+                const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+                if (h) snippet = h;
+                else {
+                    const i = it.bhay.indexOf(t0);
+                    if (i &gt; -1) snippet = (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 60).trim() + '…';
+                }
+                out.push({ ...it, score, snippet });
+            }
+            return out.sort((a, b) =&gt; b.score - a.score).slice(0, 20);
+        },
+
+        openDialog() { document.getElementById('docs-search')?.showPopover(); },
+        // The router swallows result clicks before element handlers run, so the
+        // dialog closes on the route-change event rather than the click itself.
+        closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
+        onToggle(e) {
+            if (e.newState !== 'open') return;
+            this.build();
+            this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+        },
+        move(d) {
+            const n = this.results().length;
+            if (n) this.active = (this.active + d + n) % n;
+        },
+        go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-order="1" data-component="search-1">
+
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" class="col gap-0 p-0 w-[min(38rem,92vw)] max-h-[min(28rem,80vh)] overflow-hidden">
+
+        <!-- Query -->
+        <label class="row items-center gap-2 w-full px-4 py-3 border-b border-line">
+            <span x-icon="lucide:search" class="text-content-subtle shrink-0"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:search" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></g></svg></span>
+            <input x-ref="input" type="search" x-model="q" placeholder="Search docs" class="unstyle grow bg-transparent outline-none" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()">
+            <kbd class="hidden sm:block text-xs text-content-subtle">esc</kbd>
+        </label>
+
+        <!-- Results -->
+        <div x-ref="list" class="col grow overflow-y-auto p-2">
+            <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
+            <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
+                No matches for “<span x-text="q.trim()"></span>”.
+            </p>
+            <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i" :class="i === active ? 'bg-brand-surface/25 dark:bg-brand-surface/10 rounded-lg' : ''">
+                    <a :href="r.href" class="row items-center gap-3 px-3 py-2 no-underline text-content-neutral">
+                        <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                        <span class="col gap-0 min-w-0 grow">
+                            <span class="row items-baseline gap-2">
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <small class="text-content-subtle" x-text="r.group"></small>
+                            </span>
+                            <small class="text-content-subtle truncate" x-show="r.snippet" x-text="r.snippet"></small>
+                        </span>
+                    </a>
+                </div>
+            </template>
+        </div>
+
+        <!-- Hints -->
+        <small class="row gap-4 px-4 py-2 border-t border-line text-content-subtle">
+            <span>↑↓ navigate</span><span>↵ open</span><span>esc close</span>
+        </small>
+
+    </dialog>
+</div>
+
+  <main class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="2" data-hydrate-id="h1">
 
     <!-- Home page -->
     
 
     <!-- Documentation pages -->
-    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*" data-component="docs-1">
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*">
 
   <!-- Desktop Navigation-->
   <div data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar">
