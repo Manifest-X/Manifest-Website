@@ -377,7 +377,7 @@
         loading: false,
         active: 0,
 
-        // Fetch every article's markdown once, on first open; index titles, headings, body text.
+        // Fetch every article's markdown once, on first open; index title, description, headings, body.
         async build() {
             if (this.ready || this.loading) return;
             this.loading = true;
@@ -391,6 +391,7 @@
                         .then(r =&gt; r.ok ? r.text() : '')
                         .catch(() =&gt; '')
                         .then(md =&gt; {
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '').trim();
                             const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
                             const body = md
                                 .replace(/```[\s\S]*?```/g, ' ')
@@ -400,7 +401,7 @@
                                 .replace(/-{2,}/g, ' ')
                                 .replace(/\s+/g, ' ');
                             this.items.push({
-                                name: it.name, group: g.group, icon: it.icon, href,
+                                name: it.name, group: g.group, icon: it.icon, href, desc,
                                 headings,
                                 hhay: headings.join(' · ').toLowerCase(),
                                 body, bhay: body.toLowerCase(),
@@ -416,10 +417,10 @@
         // Per-term best-field scoring; every term must match somewhere.
         results() {
             const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
-            if (!terms.length) return this.items.map(it =&gt; ({ ...it, snippet: '' }));
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
             const out = [];
             for (const it of this.items) {
-                let score = 0, snippet = '';
+                let score = 0;
                 const name = it.name.toLowerCase();
                 let ok = true;
                 for (const t of terms) {
@@ -433,13 +434,14 @@
                 }
                 if (!ok) continue;
                 const t0 = terms[0];
+                let caption = it.desc;
                 const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
-                if (h) snippet = h;
-                else {
+                if (h) caption = h;
+                else if (!name.includes(t0)) {
                     const i = it.bhay.indexOf(t0);
-                    if (i &gt; -1) snippet = (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 60).trim() + '…';
+                    if (i &gt; -1) caption = (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
                 }
-                out.push({ ...it, score, snippet });
+                out.push({ ...it, score, caption });
             }
             return out.sort((a, b) =&gt; b.score - a.score).slice(0, 20);
         },
@@ -455,46 +457,42 @@
         },
         move(d) {
             const n = this.results().length;
-            if (n) this.active = (this.active + d + n) % n;
+            if (!n) return;
+            this.active = (this.active + d + n) % n;
+            this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
         },
         go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
     }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-order="1" data-component="search-1">
 
-    <dialog popover="" id="docs-search" @toggle="onToggle($event)" class="col gap-0 p-0 w-[min(38rem,92vw)] max-h-[min(28rem,80vh)] overflow-hidden">
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-3 p-4 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
 
         <!-- Query -->
-        <label class="row items-center gap-2 w-full px-4 py-3 border-b border-line">
+        <label class="row items-center gap-2 w-full shrink-0">
             <span x-icon="lucide:search" class="text-content-subtle shrink-0"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:search" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></g></svg></span>
-            <input x-ref="input" type="search" x-model="q" placeholder="Search docs" class="unstyle grow bg-transparent outline-none" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()">
-            <kbd class="hidden sm:block text-xs text-content-subtle">esc</kbd>
+            <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
         </label>
 
         <!-- Results -->
-        <div x-ref="list" class="col grow overflow-y-auto p-2">
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar -mx-1 px-1">
             <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
             <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
                 No matches for “<span x-text="q.trim()"></span>”.
             </p>
             <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
-                <div :data-active="i === active ? '' : null" @mouseenter="active = i" :class="i === active ? 'bg-brand-surface/25 dark:bg-brand-surface/10 rounded-lg' : ''">
-                    <a :href="r.href" class="row items-center gap-3 px-3 py-2 no-underline text-content-neutral">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i">
+                    <a :href="r.href" role="button" :class="i === active ? 'selected brand !text-content-stark' : 'ghost text-content-neutral'" class="justify-start w-full h-auto py-2 no-underline">
                         <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
-                        <span class="col gap-0 min-w-0 grow">
+                        <span class="col gap-0.5 min-w-0 grow text-left">
                             <span class="row items-baseline gap-2">
-                                <span class="text-content-stark" x-text="r.name"></span>
-                                <small class="text-content-subtle" x-text="r.group"></small>
+                                <span x-text="r.name"></span>
+                                <small class="text-content-subtle font-normal" x-text="r.group"></small>
                             </span>
-                            <small class="text-content-subtle truncate" x-show="r.snippet" x-text="r.snippet"></small>
+                            <small class="text-content-subtle font-normal truncate w-full" x-show="r.caption" x-text="r.caption"></small>
                         </span>
                     </a>
                 </div>
             </template>
         </div>
-
-        <!-- Hints -->
-        <small class="row gap-4 px-4 py-2 border-t border-line text-content-subtle">
-            <span>↑↓ navigate</span><span>↵ open</span><span>esc close</span>
-        </small>
 
     </dialog>
 </div>

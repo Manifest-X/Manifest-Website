@@ -377,7 +377,7 @@
         loading: false,
         active: 0,
 
-        // Fetch every article's markdown once, on first open; index titles, headings, body text.
+        // Fetch every article's markdown once, on first open; index title, description, headings, body.
         async build() {
             if (this.ready || this.loading) return;
             this.loading = true;
@@ -391,6 +391,7 @@
                         .then(r =&gt; r.ok ? r.text() : '')
                         .catch(() =&gt; '')
                         .then(md =&gt; {
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '').trim();
                             const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
                             const body = md
                                 .replace(/```[\s\S]*?```/g, ' ')
@@ -400,7 +401,7 @@
                                 .replace(/-{2,}/g, ' ')
                                 .replace(/\s+/g, ' ');
                             this.items.push({
-                                name: it.name, group: g.group, icon: it.icon, href,
+                                name: it.name, group: g.group, icon: it.icon, href, desc,
                                 headings,
                                 hhay: headings.join(' · ').toLowerCase(),
                                 body, bhay: body.toLowerCase(),
@@ -416,10 +417,10 @@
         // Per-term best-field scoring; every term must match somewhere.
         results() {
             const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
-            if (!terms.length) return this.items.map(it =&gt; ({ ...it, snippet: '' }));
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
             const out = [];
             for (const it of this.items) {
-                let score = 0, snippet = '';
+                let score = 0;
                 const name = it.name.toLowerCase();
                 let ok = true;
                 for (const t of terms) {
@@ -433,13 +434,14 @@
                 }
                 if (!ok) continue;
                 const t0 = terms[0];
+                let caption = it.desc;
                 const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
-                if (h) snippet = h;
-                else {
+                if (h) caption = h;
+                else if (!name.includes(t0)) {
                     const i = it.bhay.indexOf(t0);
-                    if (i &gt; -1) snippet = (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 60).trim() + '…';
+                    if (i &gt; -1) caption = (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
                 }
-                out.push({ ...it, score, snippet });
+                out.push({ ...it, score, caption });
             }
             return out.sort((a, b) =&gt; b.score - a.score).slice(0, 20);
         },
@@ -455,46 +457,42 @@
         },
         move(d) {
             const n = this.results().length;
-            if (n) this.active = (this.active + d + n) % n;
+            if (!n) return;
+            this.active = (this.active + d + n) % n;
+            this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
         },
         go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
     }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-order="1" data-component="search-1">
 
-    <dialog popover="" id="docs-search" @toggle="onToggle($event)" class="col gap-0 p-0 w-[min(38rem,92vw)] max-h-[min(28rem,80vh)] overflow-hidden">
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-3 p-4 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
 
         <!-- Query -->
-        <label class="row items-center gap-2 w-full px-4 py-3 border-b border-line">
+        <label class="row items-center gap-2 w-full shrink-0">
             <span x-icon="lucide:search" class="text-content-subtle shrink-0"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:search" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></g></svg></span>
-            <input x-ref="input" type="search" x-model="q" placeholder="Search docs" class="unstyle grow bg-transparent outline-none" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()">
-            <kbd class="hidden sm:block text-xs text-content-subtle">esc</kbd>
+            <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
         </label>
 
         <!-- Results -->
-        <div x-ref="list" class="col grow overflow-y-auto p-2">
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar -mx-1 px-1">
             <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
             <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
                 No matches for “<span x-text="q.trim()"></span>”.
             </p>
             <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
-                <div :data-active="i === active ? '' : null" @mouseenter="active = i" :class="i === active ? 'bg-brand-surface/25 dark:bg-brand-surface/10 rounded-lg' : ''">
-                    <a :href="r.href" class="row items-center gap-3 px-3 py-2 no-underline text-content-neutral">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i">
+                    <a :href="r.href" role="button" :class="i === active ? 'selected brand !text-content-stark' : 'ghost text-content-neutral'" class="justify-start w-full h-auto py-2 no-underline">
                         <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
-                        <span class="col gap-0 min-w-0 grow">
+                        <span class="col gap-0.5 min-w-0 grow text-left">
                             <span class="row items-baseline gap-2">
-                                <span class="text-content-stark" x-text="r.name"></span>
-                                <small class="text-content-subtle" x-text="r.group"></small>
+                                <span x-text="r.name"></span>
+                                <small class="text-content-subtle font-normal" x-text="r.group"></small>
                             </span>
-                            <small class="text-content-subtle truncate" x-show="r.snippet" x-text="r.snippet"></small>
+                            <small class="text-content-subtle font-normal truncate w-full" x-show="r.caption" x-text="r.caption"></small>
                         </span>
                     </a>
                 </div>
             </template>
         </div>
-
-        <!-- Hints -->
-        <small class="row gap-4 px-4 py-2 border-t border-line text-content-subtle">
-            <span>↑↓ navigate</span><span>↵ open</span><span>esc close</span>
-        </small>
 
     </dialog>
 </div>
@@ -884,9 +882,9 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Item 2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Item 3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-<aside class="frame text-base"><button x-dropdown="basic-menu-preview" popovertarget="basic-menu-preview" style="anchor-name: --dropdown-rl9tjbt2f, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-rl9tjbt2f" aria-haspopup="menu" aria-controls="basic-menu-preview" aria-expanded="false" data-hydrate-id="h2">Open Menu</button>
+<aside class="frame text-base"><button x-dropdown="basic-menu-preview" popovertarget="basic-menu-preview" style="anchor-name: --dropdown-5ys8ynlrr, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-5ys8ynlrr" aria-haspopup="menu" aria-controls="basic-menu-preview" aria-expanded="false" data-hydrate-id="h2">Open Menu</button>
 
-<menu popover="" id="basic-menu-preview" role="menu" style="position-anchor: --dropdown-rl9tjbt2f">
+<menu popover="" id="basic-menu-preview" role="menu" style="position-anchor: --dropdown-5ys8ynlrr">
     <li role="menuitem">Item 1</li>
     <li role="menuitem">Item 2</li>
     <li role="menuitem">Item 3</li>
@@ -904,9 +902,9 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Item 2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Item 3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-<aside class="frame text-base"><button x-dropdown.hover="hover-menu-preview" popovertarget="hover-menu-preview" style="anchor-name: --dropdown-4g8wkuu16, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-4g8wkuu16" aria-haspopup="menu" aria-controls="hover-menu-preview" aria-expanded="false">Hover Me</button>
+<aside class="frame text-base"><button x-dropdown.hover="hover-menu-preview" popovertarget="hover-menu-preview" style="anchor-name: --dropdown-0r3f5rebx, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-0r3f5rebx" aria-haspopup="menu" aria-controls="hover-menu-preview" aria-expanded="false">Hover Me</button>
 
-<menu popover="" id="hover-menu-preview" role="menu" style="position-anchor: --dropdown-4g8wkuu16">
+<menu popover="" id="hover-menu-preview" role="menu" style="position-anchor: --dropdown-0r3f5rebx">
     <li role="menuitem">Item 1</li>
     <li role="menuitem">Item 2</li>
     <li role="menuitem">Item 3</li>
@@ -927,9 +925,9 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Copy<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Paste<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-<aside class="frame text-base"><div x-dropdown.context="context-menu-preview" style="padding: 2rem; border: 1px dashed var(--color-line, #ccc); border-radius: var(--radius, 0.5rem); text-align: center; color: var(--color-content-subtle); anchor-name: --dropdown-uqjfd1qgg, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-uqjfd1qgg">Right-click this area</div>
+<aside class="frame text-base"><div x-dropdown.context="context-menu-preview" style="padding: 2rem; border: 1px dashed var(--color-line, #ccc); border-radius: var(--radius, 0.5rem); text-align: center; color: var(--color-content-subtle); anchor-name: --dropdown-rpai6yl95, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-rpai6yl95">Right-click this area</div>
 
-<menu popover="manual" id="context-menu-preview" style="position-anchor: --dropdown-uqjfd1qgg">
+<menu popover="manual" id="context-menu-preview" style="position-anchor: --dropdown-rpai6yl95">
     <li>Cut</li>
     <li>Copy</li>
     <li>Paste</li>
@@ -948,9 +946,9 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">close</span>&gt;</span>Settings<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Stays open<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-<aside class="frame text-base"><button x-dropdown="autoclose-menu-preview" popovertarget="autoclose-menu-preview" style="anchor-name: --dropdown-d15ipa50s, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-d15ipa50s" aria-haspopup="menu" aria-controls="autoclose-menu-preview" aria-expanded="false" data-hydrate-id="h3">Actions</button>
+<aside class="frame text-base"><button x-dropdown="autoclose-menu-preview" popovertarget="autoclose-menu-preview" style="anchor-name: --dropdown-rr5w7973c, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-rr5w7973c" aria-haspopup="menu" aria-controls="autoclose-menu-preview" aria-expanded="false" data-hydrate-id="h3">Actions</button>
 
-<menu popover="" id="autoclose-menu-preview" role="menu" style="position-anchor: --dropdown-d15ipa50s">
+<menu popover="" id="autoclose-menu-preview" role="menu" style="position-anchor: --dropdown-rr5w7973c">
     <li close="" role="menuitem">Duplicate</li>
     <a href="#" close="">Settings</a>
     <li role="menuitem">Stays open</li>
@@ -970,9 +968,9 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> /&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Stays open<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">keep-open</span>&gt;</span>Also stays open<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-<aside class="frame text-base"><button x-dropdown.close="autoclose-all-preview" popovertarget="autoclose-all-preview" style="anchor-name: --dropdown-6zhzzkz31, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-6zhzzkz31" aria-haspopup="menu" aria-controls="autoclose-all-preview" aria-expanded="false">Select One</button>
+<aside class="frame text-base"><button x-dropdown.close="autoclose-all-preview" popovertarget="autoclose-all-preview" style="anchor-name: --dropdown-anopsx1de, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-anopsx1de" aria-haspopup="menu" aria-controls="autoclose-all-preview" aria-expanded="false">Select One</button>
 
-<menu popover="" id="autoclose-all-preview" role="menu" style="position-anchor: --dropdown-6zhzzkz31">
+<menu popover="" id="autoclose-all-preview" role="menu" style="position-anchor: --dropdown-anopsx1de">
     <li role="menuitem">Rename</li>
     <li role="menuitem">Archive</li>
     <li role="menuitem">Delete</li>
@@ -1014,17 +1012,17 @@
 
     <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code><button class="expand" type="button" aria-expanded="false" aria-label="Show 14 more lines">+14</button></pre>
-<aside class="frame text-base"><button x-dropdown="nested-menu-preview" popovertarget="nested-menu-preview" style="anchor-name: --dropdown-kejr9i80v, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-kejr9i80v" aria-haspopup="menu" aria-controls="nested-menu-preview" aria-expanded="false" data-hydrate-id="h4">Main Menu</button>
+<aside class="frame text-base"><button x-dropdown="nested-menu-preview" popovertarget="nested-menu-preview" style="anchor-name: --dropdown-pm1hb82yj, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-pm1hb82yj" aria-haspopup="menu" aria-controls="nested-menu-preview" aria-expanded="false" data-hydrate-id="h4">Main Menu</button>
 
-<menu popover="" id="nested-menu-preview" role="menu" style="position-anchor: --dropdown-kejr9i80v">
+<menu popover="" id="nested-menu-preview" role="menu" style="position-anchor: --dropdown-pm1hb82yj">
     <li role="menuitem">Item 1</li>
     <li role="menuitem">Item 2</li>
-    <button x-dropdown="submenu-1-preview" popovertarget="submenu-1-preview" style="anchor-name: --dropdown-5n0cwwap9, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-5n0cwwap9" aria-haspopup="menu" aria-controls="submenu-1-preview" aria-expanded="false" data-hydrate-id="h5"><span>Submenu</span><span x-icon="lucide:chevron-right" class="trailing"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-right" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18l6-6l-6-6"></path></svg></span></button>
-    <menu popover="" id="submenu-1-preview" role="menu" style="position-anchor: --dropdown-5n0cwwap9">
+    <button x-dropdown="submenu-1-preview" popovertarget="submenu-1-preview" style="anchor-name: --dropdown-jkjshk0t9, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-jkjshk0t9" aria-haspopup="menu" aria-controls="submenu-1-preview" aria-expanded="false" data-hydrate-id="h5"><span>Submenu</span><span x-icon="lucide:chevron-right" class="trailing"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-right" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18l6-6l-6-6"></path></svg></span></button>
+    <menu popover="" id="submenu-1-preview" role="menu" style="position-anchor: --dropdown-jkjshk0t9">
         <li role="menuitem">Item 1</li>
         <li role="menuitem">Item 2</li>
-        <button x-dropdown.hover="submenu-2-preview" popovertarget="submenu-2-preview" style="anchor-name: --dropdown-x5t34r9a7, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-x5t34r9a7" aria-haspopup="menu" aria-controls="submenu-2-preview" aria-expanded="false"><span>Hover Submenu</span><span x-icon="lucide:chevron-right" class="trailing"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-right" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18l6-6l-6-6"></path></svg></span></button>
-        <menu popover="" id="submenu-2-preview" role="menu" style="position-anchor: --dropdown-x5t34r9a7">
+        <button x-dropdown.hover="submenu-2-preview" popovertarget="submenu-2-preview" style="anchor-name: --dropdown-kzennegev, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-kzennegev" aria-haspopup="menu" aria-controls="submenu-2-preview" aria-expanded="false"><span>Hover Submenu</span><span x-icon="lucide:chevron-right" class="trailing"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-right" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18l6-6l-6-6"></path></svg></span></button>
+        <menu popover="" id="submenu-2-preview" role="menu" style="position-anchor: --dropdown-kzennegev">
             <li role="menuitem">Item 1</li>
             <li role="menuitem">Item 2</li>
             <li role="menuitem">Item 3</li>
@@ -1056,28 +1054,28 @@
     <div>
         <small class="block mb-2">Basic</small>
         <div class="row-wrap gap-2">
-            <button x-dropdown="menu-top-preview" popovertarget="menu-top-preview" style="anchor-name: --dropdown-3blpcbx2f, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-3blpcbx2f" aria-haspopup="menu" aria-controls="menu-top-preview" aria-expanded="false" data-hydrate-id="h6">top</button>
-            <menu popover="" id="menu-top-preview" class="top" role="menu" style="position-anchor: --dropdown-3blpcbx2f">
+            <button x-dropdown="menu-top-preview" popovertarget="menu-top-preview" style="anchor-name: --dropdown-pdftj774s, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-pdftj774s" aria-haspopup="menu" aria-controls="menu-top-preview" aria-expanded="false" data-hydrate-id="h6">top</button>
+            <menu popover="" id="menu-top-preview" class="top" role="menu" style="position-anchor: --dropdown-pdftj774s">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-bottom-preview" popovertarget="menu-bottom-preview" style="anchor-name: --dropdown-8nsjzu364, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-8nsjzu364" aria-haspopup="menu" aria-controls="menu-bottom-preview" aria-expanded="false" data-hydrate-id="h7">bottom</button>
-            <menu popover="" id="menu-bottom-preview" class="bottom" role="menu" style="position-anchor: --dropdown-8nsjzu364">
+            <button x-dropdown="menu-bottom-preview" popovertarget="menu-bottom-preview" style="anchor-name: --dropdown-9bxxljjj8, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-9bxxljjj8" aria-haspopup="menu" aria-controls="menu-bottom-preview" aria-expanded="false" data-hydrate-id="h7">bottom</button>
+            <menu popover="" id="menu-bottom-preview" class="bottom" role="menu" style="position-anchor: --dropdown-9bxxljjj8">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-start-preview" popovertarget="menu-start-preview" style="anchor-name: --dropdown-lvw3stt2y, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-lvw3stt2y" aria-haspopup="menu" aria-controls="menu-start-preview" aria-expanded="false" data-hydrate-id="h8">start</button>
-            <menu popover="" id="menu-start-preview" class="start" role="menu" style="position-anchor: --dropdown-lvw3stt2y">
+            <button x-dropdown="menu-start-preview" popovertarget="menu-start-preview" style="anchor-name: --dropdown-qy37d4wzi, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-qy37d4wzi" aria-haspopup="menu" aria-controls="menu-start-preview" aria-expanded="false" data-hydrate-id="h8">start</button>
+            <menu popover="" id="menu-start-preview" class="start" role="menu" style="position-anchor: --dropdown-qy37d4wzi">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-end-preview" popovertarget="menu-end-preview" style="anchor-name: --dropdown-1z2iq0fm7, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-1z2iq0fm7" aria-haspopup="menu" aria-controls="menu-end-preview" aria-expanded="false" data-hydrate-id="h9">end</button>
-            <menu popover="" id="menu-end-preview" class="end" role="menu" style="position-anchor: --dropdown-1z2iq0fm7">
+            <button x-dropdown="menu-end-preview" popovertarget="menu-end-preview" style="anchor-name: --dropdown-vvvspqoma, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-vvvspqoma" aria-haspopup="menu" aria-controls="menu-end-preview" aria-expanded="false" data-hydrate-id="h9">end</button>
+            <menu popover="" id="menu-end-preview" class="end" role="menu" style="position-anchor: --dropdown-vvvspqoma">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-center-preview" popovertarget="menu-center-preview" style="anchor-name: --dropdown-ux5h983ax, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-ux5h983ax" aria-haspopup="menu" aria-controls="menu-center-preview" aria-expanded="false" data-hydrate-id="h10">center</button>
-            <menu popover="" id="menu-center-preview" class="center" role="menu" style="position-anchor: --dropdown-ux5h983ax">
+            <button x-dropdown="menu-center-preview" popovertarget="menu-center-preview" style="anchor-name: --dropdown-1sb987uir, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-1sb987uir" aria-haspopup="menu" aria-controls="menu-center-preview" aria-expanded="false" data-hydrate-id="h10">center</button>
+            <menu popover="" id="menu-center-preview" class="center" role="menu" style="position-anchor: --dropdown-1sb987uir">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
@@ -1088,23 +1086,23 @@
     <div>
         <small class="block mb-2">Top/Bottom alignment</small>
         <div class="row-wrap gap-2">
-            <button x-dropdown="menu-top-start-preview" popovertarget="menu-top-start-preview" style="anchor-name: --dropdown-76bsfjwol, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-76bsfjwol" aria-haspopup="menu" aria-controls="menu-top-start-preview" aria-expanded="false" data-hydrate-id="h11">top-start</button>
-            <menu popover="" id="menu-top-start-preview" class="top-start" role="menu" style="position-anchor: --dropdown-76bsfjwol">
+            <button x-dropdown="menu-top-start-preview" popovertarget="menu-top-start-preview" style="anchor-name: --dropdown-8e1rj49u2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-8e1rj49u2" aria-haspopup="menu" aria-controls="menu-top-start-preview" aria-expanded="false" data-hydrate-id="h11">top-start</button>
+            <menu popover="" id="menu-top-start-preview" class="top-start" role="menu" style="position-anchor: --dropdown-8e1rj49u2">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-top-end-preview" popovertarget="menu-top-end-preview" style="anchor-name: --dropdown-5jgltjegc, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-5jgltjegc" aria-haspopup="menu" aria-controls="menu-top-end-preview" aria-expanded="false" data-hydrate-id="h12">top-end</button>
-            <menu popover="" id="menu-top-end-preview" class="top-end" role="menu" style="position-anchor: --dropdown-5jgltjegc">
+            <button x-dropdown="menu-top-end-preview" popovertarget="menu-top-end-preview" style="anchor-name: --dropdown-eu98sar5d, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-eu98sar5d" aria-haspopup="menu" aria-controls="menu-top-end-preview" aria-expanded="false" data-hydrate-id="h12">top-end</button>
+            <menu popover="" id="menu-top-end-preview" class="top-end" role="menu" style="position-anchor: --dropdown-eu98sar5d">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-bottom-start-preview" popovertarget="menu-bottom-start-preview" style="anchor-name: --dropdown-ey1jnxk6k, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-ey1jnxk6k" aria-haspopup="menu" aria-controls="menu-bottom-start-preview" aria-expanded="false" data-hydrate-id="h13">bottom-start</button>
-            <menu popover="" id="menu-bottom-start-preview" class="bottom-start" role="menu" style="position-anchor: --dropdown-ey1jnxk6k">
+            <button x-dropdown="menu-bottom-start-preview" popovertarget="menu-bottom-start-preview" style="anchor-name: --dropdown-3nvr5rgxz, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-3nvr5rgxz" aria-haspopup="menu" aria-controls="menu-bottom-start-preview" aria-expanded="false" data-hydrate-id="h13">bottom-start</button>
+            <menu popover="" id="menu-bottom-start-preview" class="bottom-start" role="menu" style="position-anchor: --dropdown-3nvr5rgxz">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-bottom-end-preview" popovertarget="menu-bottom-end-preview" style="anchor-name: --dropdown-9szn6deax, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-9szn6deax" aria-haspopup="menu" aria-controls="menu-bottom-end-preview" aria-expanded="false" data-hydrate-id="h14">bottom-end</button>
-            <menu popover="" id="menu-bottom-end-preview" class="bottom-end" role="menu" style="position-anchor: --dropdown-9szn6deax">
+            <button x-dropdown="menu-bottom-end-preview" popovertarget="menu-bottom-end-preview" style="anchor-name: --dropdown-nangh1xpg, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-nangh1xpg" aria-haspopup="menu" aria-controls="menu-bottom-end-preview" aria-expanded="false" data-hydrate-id="h14">bottom-end</button>
+            <menu popover="" id="menu-bottom-end-preview" class="bottom-end" role="menu" style="position-anchor: --dropdown-nangh1xpg">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
@@ -1115,23 +1113,23 @@
     <div>
         <small class="block mb-2">Start/End alignment</small>
         <div class="row-wrap gap-2">
-            <button x-dropdown="menu-start-top-preview" popovertarget="menu-start-top-preview" style="anchor-name: --dropdown-ch8p66qaj, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-ch8p66qaj" aria-haspopup="menu" aria-controls="menu-start-top-preview" aria-expanded="false" data-hydrate-id="h15">start-top</button>
-            <menu popover="" id="menu-start-top-preview" class="start-top" role="menu" style="position-anchor: --dropdown-ch8p66qaj">
+            <button x-dropdown="menu-start-top-preview" popovertarget="menu-start-top-preview" style="anchor-name: --dropdown-nksardcc7, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-nksardcc7" aria-haspopup="menu" aria-controls="menu-start-top-preview" aria-expanded="false" data-hydrate-id="h15">start-top</button>
+            <menu popover="" id="menu-start-top-preview" class="start-top" role="menu" style="position-anchor: --dropdown-nksardcc7">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-start-bottom-preview" popovertarget="menu-start-bottom-preview" style="anchor-name: --dropdown-cm7oowyei, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-cm7oowyei" aria-haspopup="menu" aria-controls="menu-start-bottom-preview" aria-expanded="false" data-hydrate-id="h16">start-bottom</button>
-            <menu popover="" id="menu-start-bottom-preview" class="start-bottom" role="menu" style="position-anchor: --dropdown-cm7oowyei">
+            <button x-dropdown="menu-start-bottom-preview" popovertarget="menu-start-bottom-preview" style="anchor-name: --dropdown-thbv6rfmj, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-thbv6rfmj" aria-haspopup="menu" aria-controls="menu-start-bottom-preview" aria-expanded="false" data-hydrate-id="h16">start-bottom</button>
+            <menu popover="" id="menu-start-bottom-preview" class="start-bottom" role="menu" style="position-anchor: --dropdown-thbv6rfmj">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-end-top-preview" popovertarget="menu-end-top-preview" style="anchor-name: --dropdown-dnmsb4nkz, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-dnmsb4nkz" aria-haspopup="menu" aria-controls="menu-end-top-preview" aria-expanded="false" data-hydrate-id="h17">end-top</button>
-            <menu popover="" id="menu-end-top-preview" class="end-top" role="menu" style="position-anchor: --dropdown-dnmsb4nkz">
+            <button x-dropdown="menu-end-top-preview" popovertarget="menu-end-top-preview" style="anchor-name: --dropdown-qpb6pjxf2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-qpb6pjxf2" aria-haspopup="menu" aria-controls="menu-end-top-preview" aria-expanded="false" data-hydrate-id="h17">end-top</button>
+            <menu popover="" id="menu-end-top-preview" class="end-top" role="menu" style="position-anchor: --dropdown-qpb6pjxf2">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-end-bottom-preview" popovertarget="menu-end-bottom-preview" style="anchor-name: --dropdown-mkix4ggbl, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-mkix4ggbl" aria-haspopup="menu" aria-controls="menu-end-bottom-preview" aria-expanded="false" data-hydrate-id="h18">end-bottom</button>
-            <menu popover="" id="menu-end-bottom-preview" class="end-bottom" role="menu" style="position-anchor: --dropdown-mkix4ggbl">
+            <button x-dropdown="menu-end-bottom-preview" popovertarget="menu-end-bottom-preview" style="anchor-name: --dropdown-xjqzlqezo, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-xjqzlqezo" aria-haspopup="menu" aria-controls="menu-end-bottom-preview" aria-expanded="false" data-hydrate-id="h18">end-bottom</button>
+            <menu popover="" id="menu-end-bottom-preview" class="end-bottom" role="menu" style="position-anchor: --dropdown-xjqzlqezo">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
@@ -1142,23 +1140,23 @@
     <div>
         <small class="block mb-2">Corner alignment</small>
         <div class="row-wrap gap-2">
-            <button x-dropdown="menu-start-top-corner-preview" popovertarget="menu-start-top-corner-preview" style="anchor-name: --dropdown-1ub3v37r2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-1ub3v37r2" aria-haspopup="menu" aria-controls="menu-start-top-corner-preview" aria-expanded="false" data-hydrate-id="h19">top-start-corner</button>
-            <menu popover="" id="menu-start-top-corner-preview" class="start-top-corner" role="menu" style="position-anchor: --dropdown-1ub3v37r2">
+            <button x-dropdown="menu-start-top-corner-preview" popovertarget="menu-start-top-corner-preview" style="anchor-name: --dropdown-5w85lluct, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-5w85lluct" aria-haspopup="menu" aria-controls="menu-start-top-corner-preview" aria-expanded="false" data-hydrate-id="h19">top-start-corner</button>
+            <menu popover="" id="menu-start-top-corner-preview" class="start-top-corner" role="menu" style="position-anchor: --dropdown-5w85lluct">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-end-top-corner-preview" popovertarget="menu-end-top-corner-preview" style="anchor-name: --dropdown-lbq35vpex, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-lbq35vpex" aria-haspopup="menu" aria-controls="menu-end-top-corner-preview" aria-expanded="false" data-hydrate-id="h20">top-end-corner</button>
-            <menu popover="" id="menu-end-top-corner-preview" class="top-end-corner" role="menu" style="position-anchor: --dropdown-lbq35vpex">
+            <button x-dropdown="menu-end-top-corner-preview" popovertarget="menu-end-top-corner-preview" style="anchor-name: --dropdown-dcs96q0d0, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-dcs96q0d0" aria-haspopup="menu" aria-controls="menu-end-top-corner-preview" aria-expanded="false" data-hydrate-id="h20">top-end-corner</button>
+            <menu popover="" id="menu-end-top-corner-preview" class="top-end-corner" role="menu" style="position-anchor: --dropdown-dcs96q0d0">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-start-bottom-corner-preview" popovertarget="menu-start-bottom-corner-preview" style="anchor-name: --dropdown-1izoa5gih, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-1izoa5gih" aria-haspopup="menu" aria-controls="menu-start-bottom-corner-preview" aria-expanded="false" data-hydrate-id="h21">bottom-start-corner</button>
-            <menu popover="" id="menu-start-bottom-corner-preview" class="bottom-start-corner" role="menu" style="position-anchor: --dropdown-1izoa5gih">
+            <button x-dropdown="menu-start-bottom-corner-preview" popovertarget="menu-start-bottom-corner-preview" style="anchor-name: --dropdown-ua2zbtb36, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-ua2zbtb36" aria-haspopup="menu" aria-controls="menu-start-bottom-corner-preview" aria-expanded="false" data-hydrate-id="h21">bottom-start-corner</button>
+            <menu popover="" id="menu-start-bottom-corner-preview" class="bottom-start-corner" role="menu" style="position-anchor: --dropdown-ua2zbtb36">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-end-bottom-corner-preview" popovertarget="menu-end-bottom-corner-preview" style="anchor-name: --dropdown-zm9nmbj68, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-zm9nmbj68" aria-haspopup="menu" aria-controls="menu-end-bottom-corner-preview" aria-expanded="false" data-hydrate-id="h22">bottom-end-corner</button>
-            <menu popover="" id="menu-end-bottom-corner-preview" class="end-bottom-corner" role="menu" style="position-anchor: --dropdown-zm9nmbj68">
+            <button x-dropdown="menu-end-bottom-corner-preview" popovertarget="menu-end-bottom-corner-preview" style="anchor-name: --dropdown-q0u4ncedw, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-q0u4ncedw" aria-haspopup="menu" aria-controls="menu-end-bottom-corner-preview" aria-expanded="false" data-hydrate-id="h22">bottom-end-corner</button>
+            <menu popover="" id="menu-end-bottom-corner-preview" class="end-bottom-corner" role="menu" style="position-anchor: --dropdown-q0u4ncedw">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
@@ -1190,20 +1188,20 @@
 
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
 <aside class="frame row-wrap gap-4"><div>
-        <button x-dropdown="`template-menu-preview-${i}`" popovertarget="template-menu-preview-1" style="anchor-name: --dropdown-0pu4jkdey, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-0pu4jkdey" aria-haspopup="menu" aria-controls="template-menu-preview-1" aria-expanded="false" data-hydrate-id="h23">Menu 1</button>
-        <menu popover="" id="template-menu-preview-1" role="menu" style="position-anchor: --dropdown-0pu4jkdey">
+        <button x-dropdown="`template-menu-preview-${i}`" popovertarget="template-menu-preview-1" style="anchor-name: --dropdown-7ezvhwm6l, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-7ezvhwm6l" aria-haspopup="menu" aria-controls="template-menu-preview-1" aria-expanded="false" data-hydrate-id="h23">Menu 1</button>
+        <menu popover="" id="template-menu-preview-1" role="menu" style="position-anchor: --dropdown-7ezvhwm6l">
             <li role="menuitem">Item 1</li>
             <li role="menuitem">Item 2</li>
         </menu>
     </div><div>
-        <button x-dropdown="`template-menu-preview-${i}`" popovertarget="template-menu-preview-2" style="anchor-name: --dropdown-kswgrwjw7, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-kswgrwjw7" aria-haspopup="menu" aria-controls="template-menu-preview-2" aria-expanded="false" data-hydrate-id="h24">Menu 2</button>
-        <menu popover="" id="template-menu-preview-2" role="menu" style="position-anchor: --dropdown-kswgrwjw7">
+        <button x-dropdown="`template-menu-preview-${i}`" popovertarget="template-menu-preview-2" style="anchor-name: --dropdown-iw3fwayms, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-iw3fwayms" aria-haspopup="menu" aria-controls="template-menu-preview-2" aria-expanded="false" data-hydrate-id="h24">Menu 2</button>
+        <menu popover="" id="template-menu-preview-2" role="menu" style="position-anchor: --dropdown-iw3fwayms">
             <li role="menuitem">Item 1</li>
             <li role="menuitem">Item 2</li>
         </menu>
     </div><div>
-        <button x-dropdown="`template-menu-preview-${i}`" popovertarget="template-menu-preview-3" style="anchor-name: --dropdown-ekfs05tb6, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-ekfs05tb6" aria-haspopup="menu" aria-controls="template-menu-preview-3" aria-expanded="false" data-hydrate-id="h25">Menu 3</button>
-        <menu popover="" id="template-menu-preview-3" role="menu" style="position-anchor: --dropdown-ekfs05tb6">
+        <button x-dropdown="`template-menu-preview-${i}`" popovertarget="template-menu-preview-3" style="anchor-name: --dropdown-mwsmznmad, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-mwsmznmad" aria-haspopup="menu" aria-controls="template-menu-preview-3" aria-expanded="false" data-hydrate-id="h25">Menu 3</button>
+        <menu popover="" id="template-menu-preview-3" role="menu" style="position-anchor: --dropdown-mwsmznmad">
             <li role="menuitem">Item 1</li>
             <li role="menuitem">Item 2</li>
         </menu>
@@ -1264,9 +1262,9 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Textarea"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
 
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code><button class="expand" type="button" aria-expanded="false" aria-label="Show 40 more lines">+40</button></pre>
-<aside class="frame text-base"><button x-dropdown="content-menu" popovertarget="content-menu" style="anchor-name: --dropdown-m7qd8vj2s, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-m7qd8vj2s" aria-haspopup="menu" aria-controls="content-menu" aria-expanded="false" data-hydrate-id="h26"><span>Dropdown</span><span x-icon="lucide:chevron-down" class="trailing"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-down" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"></path></svg></span></button>
+<aside class="frame text-base"><button x-dropdown="content-menu" popovertarget="content-menu" style="anchor-name: --dropdown-5mcdlzzh2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-5mcdlzzh2" aria-haspopup="menu" aria-controls="content-menu" aria-expanded="false" data-hydrate-id="h26"><span>Dropdown</span><span x-icon="lucide:chevron-down" class="trailing"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:chevron-down" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"></path></svg></span></button>
 
-<menu popover="" id="content-menu" class="w-60 max-h-160" role="menu" style="position-anchor: --dropdown-m7qd8vj2s">
+<menu popover="" id="content-menu" class="w-60 max-h-160" role="menu" style="position-anchor: --dropdown-5mcdlzzh2">
     <small>List Items</small>
     <li @click="alert('Hello world')" role="menuitem" data-hydrate-id="h27">Do Something</li>
     <li role="menuitem"><span x-icon="lucide:house"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:house" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></g></svg></span><span>Icon</span></li>
@@ -1359,8 +1357,8 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Consectetur adipiscing elit<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Sed do eiusmod tempor incididunt<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-<aside class="frame text-base"><button x-dropdown="menu-wide-preview" popovertarget="menu-wide-preview" style="anchor-name: --dropdown-bz9wtvr96, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-bz9wtvr96" aria-haspopup="menu" aria-controls="menu-wide-preview" aria-expanded="false" data-hydrate-id="h28">Offset &amp; Widen</button>
-<menu popover="" id="menu-wide-preview" class="w-100 !m-6" role="menu" style="position-anchor: --dropdown-bz9wtvr96">
+<aside class="frame text-base"><button x-dropdown="menu-wide-preview" popovertarget="menu-wide-preview" style="anchor-name: --dropdown-sfrsnrl2i, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-sfrsnrl2i" aria-haspopup="menu" aria-controls="menu-wide-preview" aria-expanded="false" data-hydrate-id="h28">Offset &amp; Widen</button>
+<menu popover="" id="menu-wide-preview" class="w-100 !m-6" role="menu" style="position-anchor: --dropdown-sfrsnrl2i">
     <li role="menuitem">Lorem ipsum dolor sit amet</li>
     <li role="menuitem">Consectetur adipiscing elit</li>
     <li role="menuitem">Sed do eiusmod tempor incididunt</li>
@@ -1405,8 +1403,8 @@ menu[popover].custom {
 }
 </style>
 
-<button x-dropdown="custom-menu-preview" popovertarget="custom-menu-preview" style="anchor-name: --dropdown-ne2g9ga65, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-ne2g9ga65" aria-haspopup="menu" aria-controls="custom-menu-preview" aria-expanded="false" data-hydrate-id="h29">Custom Menu</button>
-<menu popover="" id="custom-menu-preview" class="custom" role="menu" style="position-anchor: --dropdown-ne2g9ga65">
+<button x-dropdown="custom-menu-preview" popovertarget="custom-menu-preview" style="anchor-name: --dropdown-hhgw2jod0, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-hhgw2jod0" aria-haspopup="menu" aria-controls="custom-menu-preview" aria-expanded="false" data-hydrate-id="h29">Custom Menu</button>
+<menu popover="" id="custom-menu-preview" class="custom" role="menu" style="position-anchor: --dropdown-hhgw2jod0">
     <li role="menuitem">Custom Item 1</li>
     <li role="menuitem">Custom Item 2</li>
     <li role="menuitem">Custom Item 3</li>
