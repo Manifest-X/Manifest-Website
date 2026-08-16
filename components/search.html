@@ -90,13 +90,15 @@
         class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
 
         <!-- Query -->
-        <label class="row items-center gap-2 w-full shrink-0 m-4 mb-3">
-            <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
-            <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
-        </label>
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
 
         <!-- Results -->
-        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-2">
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4">
             <p x-show="loading && !ready" class="px-3 py-2 text-sm text-content-subtle">Indexing articles…</p>
             <p x-show="ready && q.trim() && !results().length" class="px-3 py-2 text-sm text-content-subtle">
                 No matches for “<span x-text="q.trim()"></span>”.
