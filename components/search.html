@@ -1,0 +1,138 @@
+<!-- Docs search: Cmd/Ctrl-K dialog, filters all articles by title, headings, and content -->
+<div x-data="{
+        q: '',
+        items: [],
+        ready: false,
+        loading: false,
+        active: 0,
+
+        // Fetch every article's markdown once, on first open; index titles, headings, body text.
+        async build() {
+            if (this.ready || this.loading) return;
+            this.loading = true;
+            for (let i = 0; i < 20 && (!$x.docs || !$x.docs.length); i++) await new Promise(r => setTimeout(r, 100));
+            const jobs = [];
+            for (const g of ($x.docs || [])) {
+                for (const it of (g.items || [])) {
+                    if (!it.name || !it.doc) continue;
+                    const href = '/docs/' + g.group.toLowerCase().replaceAll(' ', '-') + '/' + it.path;
+                    jobs.push(fetch(it.doc)
+                        .then(r => r.ok ? r.text() : '')
+                        .catch(() => '')
+                        .then(md => {
+                            const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m => m[1].trim());
+                            const body = md
+                                .replace(/```[\s\S]*?```/g, ' ')
+                                .replace(/:::[^\n]*/g, ' ')
+                                .replace(/<[^>]+>/g, ' ')
+                                .replace(/[#>*_`\[\]()|]/g, ' ')
+                                .replace(/-{2,}/g, ' ')
+                                .replace(/\s+/g, ' ');
+                            this.items.push({
+                                name: it.name, group: g.group, icon: it.icon, href,
+                                headings,
+                                hhay: headings.join(' · ').toLowerCase(),
+                                body, bhay: body.toLowerCase(),
+                            });
+                        }));
+                }
+            }
+            await Promise.all(jobs);
+            this.ready = true;
+            this.loading = false;
+        },
+
+        // Per-term best-field scoring; every term must match somewhere.
+        results() {
+            const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (!terms.length) return this.items.map(it => ({ ...it, snippet: '' }));
+            const out = [];
+            for (const it of this.items) {
+                let score = 0, snippet = '';
+                const name = it.name.toLowerCase();
+                let ok = true;
+                for (const t of terms) {
+                    let s = 0;
+                    if (name.startsWith(t)) s = 120;
+                    else if (name.includes(t)) s = 100;
+                    else if (it.hhay.includes(t)) s = 40;
+                    else if (it.bhay.includes(t)) s = 15;
+                    if (!s) { ok = false; break; }
+                    score += s;
+                }
+                if (!ok) continue;
+                const t0 = terms[0];
+                const h = it.headings.find(h => h.toLowerCase().includes(t0));
+                if (h) snippet = h;
+                else {
+                    const i = it.bhay.indexOf(t0);
+                    if (i > -1) snippet = (i > 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 60).trim() + '…';
+                }
+                out.push({ ...it, score, snippet });
+            }
+            return out.sort((a, b) => b.score - a.score).slice(0, 20);
+        },
+
+        openDialog() { document.getElementById('docs-search')?.showPopover(); },
+        // The router swallows result clicks before element handlers run, so the
+        // dialog closes on the route-change event rather than the click itself.
+        closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
+        onToggle(e) {
+            if (e.newState !== 'open') return;
+            this.build();
+            this.$nextTick(() => { this.$refs.input.focus(); this.$refs.input.select(); });
+        },
+        move(d) {
+            const n = this.results().length;
+            if (n) this.active = (this.active + d + n) % n;
+        },
+        go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
+    }"
+    x-init="$watch('q', () => active = 0)"
+    @keydown.window.meta.k.prevent="openDialog()"
+    @keydown.window.ctrl.k.prevent="openDialog()"
+    @manifest:route-change.window="closeDialog()">
+
+    <dialog popover id="docs-search" @toggle="onToggle($event)"
+        class="col gap-0 p-0 w-[min(38rem,92vw)] max-h-[min(28rem,80vh)] overflow-hidden">
+
+        <!-- Query -->
+        <label class="row items-center gap-2 w-full px-4 py-3 border-b border-line">
+            <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
+            <input x-ref="input" type="search" x-model="q" placeholder="Search docs"
+                class="unstyle grow bg-transparent outline-none"
+                @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()">
+            <kbd class="hidden sm:block text-xs text-content-subtle">esc</kbd>
+        </label>
+
+        <!-- Results -->
+        <div x-ref="list" class="col grow overflow-y-auto p-2">
+            <p x-show="loading && !ready" class="px-3 py-2 text-sm text-content-subtle">Indexing articles…</p>
+            <p x-show="ready && q.trim() && !results().length" class="px-3 py-2 text-sm text-content-subtle">
+                No matches for “<span x-text="q.trim()"></span>”.
+            </p>
+            <template x-for="(r, i) in results()" :key="r.href">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i"
+                    :class="i === active ? 'bg-brand-surface/25 dark:bg-brand-surface/10 rounded-lg' : ''">
+                    <a :href="r.href"
+                        class="row items-center gap-3 px-3 py-2 no-underline text-content-neutral">
+                        <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                        <span class="col gap-0 min-w-0 grow">
+                            <span class="row items-baseline gap-2">
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <small class="text-content-subtle" x-text="r.group"></small>
+                            </span>
+                            <small class="text-content-subtle truncate" x-show="r.snippet" x-text="r.snippet"></small>
+                        </span>
+                    </a>
+                </div>
+            </template>
+        </div>
+
+        <!-- Hints -->
+        <small class="row gap-4 px-4 py-2 border-t border-line text-content-subtle">
+            <span>↑↓ navigate</span><span>↵ open</span><span>esc close</span>
+        </small>
+
+    </dialog>
+</div>
