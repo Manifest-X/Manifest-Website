@@ -201,6 +201,8 @@ For richer rows, author the list as a `<menu popover>`{copy} instead of a datali
 
 The list the combobox shows is a rendered copy of your rows: bound content (an `x-for`{copy} swatch, `x-text`{copy}, `:style`{copy}) is captured as it looks and refreshed whenever your list changes, but the copies themselves aren't live Alpine elements — row interaction belongs to the combobox. Classes, `aria-*`{copy}, and `data-*`{copy} attributes on the `<menu>`{copy} element itself carry onto the list and stay in sync, including bound ones like `:aria-label`{copy}.
 
+Your authored `<menu>`{copy} stays hidden — it's the source template, never the popup the user sees. The live listbox is a separate generated element; find it through the input's `aria-controls`{copy} (its `id`{copy}). When testing that the list opens, assert on that element, not on your `<menu id>`{copy}, which stays hidden by design.
+
 <div x-code-group>
 
 ```html copy
@@ -512,9 +514,11 @@ Comboboxes use the following [theme](/docs/styles/theme) variables.
 | `--color-field-surface`{copy} | Field background, and the highlighted option |
 | `--color-field-surface-hover`{copy} | Field hover background |
 | `--color-field-inverse`{copy} | Field text |
-| `--color-popover-surface`{copy} | Suggestion menu and chip background |
-| `--color-content-stark`{copy} | Chip text and focus ring |
+| `--color-popover-surface`{copy} | Suggestion menu, and the default chip background |
+| `--color-content-stark`{copy} | Default chip text and the focus ring |
 | `--color-content-neutral`{copy} | Chip remove icon and the "Add …" row |
+| `--combobox-chip-surface`{copy} | Set to recolor chip backgrounds (default: `--color-popover-surface`) |
+| `--combobox-chip-content`{copy} | Set to recolor chip text and remove icon (default: `--color-content-stark`) |
 | `--color-content-subtle`{copy} | Caret and empty-state text |
 | `--color-negative-surface`{copy} / `--color-negative-inverse`{copy} | Invalid chip |
 | `--radius`{copy} | Field, chip, and menu corners |
@@ -542,3 +546,32 @@ The markup is semantic, so the parts are plain selectors.
     border-radius: 100px;
 }
 ```
+
+To recolor chips, set `--combobox-chip-surface`{copy} and `--combobox-chip-content`{copy} rather than overriding the colors directly. Because they inherit, set them on one field or everywhere. The defaults stay until you do, and the invalid state keeps its own colors.
+
+```css copy
+/* Brand-colored chips, everywhere */
+:root {
+    --combobox-chip-surface: var(--color-brand-surface);
+    --combobox-chip-content: var(--color-brand-content);
+}
+```
+
+```html copy
+<!-- Just this field -->
+<div style="--combobox-chip-surface: #1e3a8a; --combobox-chip-content: #dbeafe">
+    <input x-combobox.multiple.chips="tags" x-model="picked">
+</div>
+```
+
+The same two variables also work **per option** — put them on an option's `<li>`{copy} (or its `[data-chip]`{copy} fragment) and only that chip takes the color. The whole chip is tinted — background, label, and remove button — so each selected tag can carry its own color with no scripting. Options without the variables keep the field default.
+
+```html copy
+<menu popover id="tags">
+    <li data-value="urgent" style="--combobox-chip-surface: #dc2626; --combobox-chip-content: #fff">Urgent</li>
+    <li data-value="review" style="--combobox-chip-surface: #0891b2; --combobox-chip-content: #fff">Review</li>
+    <li data-value="later">Later</li>
+</menu>
+```
+
+Bind the color with `:style`{copy} when it comes from your data (`:style="`--combobox-chip-surface: ${tag.color}`"`) — the chip re-tints whenever the value changes.

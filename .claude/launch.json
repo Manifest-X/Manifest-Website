@@ -2,17 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "manifest-website",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["mnfst-run", "--no-open", "--attach"],
-      "port": 5050,
-      "autoPort": true
-    },
-    {
-      "name": "prerendered-output",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4173", "--directory", "website"],
-      "port": 4173
+      "name": "website-src",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["../Manifest/packages/run/serve.mjs", ".", "--port", "5090"],
+      "port": 5090
     }
   ]
 }

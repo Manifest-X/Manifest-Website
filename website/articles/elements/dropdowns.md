@@ -137,6 +137,76 @@ The trigger element does not need to be a `<button>` since the menu is opened pr
 
 ---
 
+## Auto-Close
+
+Dropdowns stay open when an item is clicked, so menus built around checkboxes, switches and inputs keep working. Add the `close` attribute to an individual item to dismiss the menu when that item is activated:
+
+<div x-code-group>
+
+```html copy
+<button x-dropdown="autoclose-menu">Actions</button>
+
+<menu popover id="autoclose-menu">
+    <li close>Duplicate</li>
+    <a href="#" close>Settings</a>
+    <li>Stays open</li>
+</menu>
+```
+
+::: frame text-base
+<button x-dropdown="autoclose-menu-preview">Actions</button>
+
+<menu popover id="autoclose-menu-preview">
+    <li close>Duplicate</li>
+    <a href="#" close>Settings</a>
+    <li>Stays open</li>
+</menu>
+:::
+
+</div>
+
+Add the `close` modifier to `x-dropdown` when every item should dismiss the menu, as in a select-like list of choices:
+
+<div x-code-group>
+
+```html copy
+<button x-dropdown.close="autoclose-all">Select One</button>
+
+<menu popover id="autoclose-all">
+    <li>Rename</li>
+    <li>Archive</li>
+    <li>Delete</li>
+    <hr>
+    <label><input type="checkbox" /><span>Stays open</span></label>
+    <li keep-open>Also stays open</li>
+</menu>
+```
+
+::: frame text-base
+<button x-dropdown.close="autoclose-all-preview">Select One</button>
+
+<menu popover id="autoclose-all-preview">
+    <li>Rename</li>
+    <li>Archive</li>
+    <li>Delete</li>
+    <hr>
+    <label><input type="checkbox" /><span>Stays open</span></label>
+    <li keep-open>Also stays open</li>
+</menu>
+:::
+
+</div>
+
+Embedded controls are excluded from the `close` modifier, so a row that is — or contains — an input, textarea, select, switch, combobox, nested button or submenu trigger leaves the menu open. A `<button>` or `<a>` used as the row itself counts as an item and closes. Add `keep-open` to exclude any other row.
+
+Selecting an item inside a [nested](#nesting) menu closes its parent menus as well, and keyboard activation returns focus to the trigger.
+
+::: brand icon="lucide:info"
+Context menus dismiss on selection by nature, so the `close` modifier is implied for `x-dropdown.context` and does not need to be added. Their embedded controls are excluded in the same way.
+:::
+
+---
+
 ## Nesting
 
 Create multi-level navigation menus with nested dropdowns.

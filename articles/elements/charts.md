@@ -482,7 +482,7 @@ Because the whole config is a live Alpine expression, any field — including `n
 
 Geographic labels translate automatically to ~30 languages, following the current [locale](/docs/core-plugins/localization). The translations are lazy-loaded on demand from the [`i18n-iso-countries`](https://www.npmjs.com/package/i18n-iso-countries) dataset (via jsDelivr) — only the active locale is fetched, and only when a map is shown. English is the default.
 
-Override or extend any name through the `_ui.map` block, exactly like the [color](/docs/elements/colorpickers) and [date](/docs/elements/datepickers) pickers:
+Override or extend any name through the `_ui.map` block, exactly like the [color](/docs/elements/color-pickers) and [date](/docs/elements/date-pickers) pickers:
 
 ```js copy
 // in a locale data source
