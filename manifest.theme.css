@@ -225,3 +225,8 @@
                 transparent calc(50% + 2px));
     }
 }
+/* Static copy of the viewport-padding utility so first paint has gutters
+   before the runtime utility compiler runs (dev/SPA mode). */
+.px-viewport-padding {
+    padding-inline: var(--spacing-viewport-padding, 2rem);
+}
