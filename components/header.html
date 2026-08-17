@@ -48,15 +48,15 @@
     </nav>
 
     <!-- Mobile Navigation Sidebar -->
-    <nav aria-label="Documentation" data-static popover id="mobile-navigation" data-no-view-transition class="col w-64 h-full pt-8 pb-64 px-4 shadow-xl overflow-y-auto no-scrollbar">
+    <nav aria-label="Documentation" data-static popover id="mobile-navigation" data-no-view-transition x-data @manifest:route-change.window="$el.hidePopover()" class="col w-64 h-full pt-8 pb-64 px-4 shadow-xl overflow-y-auto no-scrollbar">
         <template x-for="group in $x.docs" :key="group.group">
             <div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle" x-text="group.group"></small>
                 <div class="col">
                     <template x-for="(item, index) in group.items" :key="item.path || index">
-                        <a x-show="item.name" role="button" popovertarget="mobile-navigation" popoveraction="hide" :href="'/docs/' + group.slug + '/' + item.path" :aria-current="$x.docs.$route('path') && $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="[
+                        <a x-show="item.name" role="button" :href="'/docs/' + group.slug + '/' + item.path" :aria-current="$x.docs.$route('path') && $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="[
                               $x.docs.$route('path') && $x.docs.$route('path').path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''
-                            ]" @click="window.dispatchEvent(new CustomEvent('manifest:route-change', { detail: { from: window.location.pathname, to: '/docs/' + group.slug + '/' + item.path, normalizedPath: group.slug + '/' + item.path } }))">
+                            ]">
                             <span x-icon="item.icon"></span>
                             <span x-text="item.name"></span>
                         </a>
