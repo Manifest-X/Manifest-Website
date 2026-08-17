@@ -23,13 +23,13 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.189/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.189/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.190/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.190/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.189/lib/manifest.min.js" data-version="0.5.189"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.190/lib/manifest.min.js" data-version="0.5.190"></script>
   <script src="../../scripts/payments-demo.js" defer=""></script>
   <script src="../../scripts/hero-editor.js" defer=""></script>
   <script src="../../scripts/console-message.js" defer=""></script>
@@ -48,7 +48,7 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Manifest"><meta property="og:description" content="Supercharge HTML for rapid, feature-rich website and web app development."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/getting-started"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-getting-started.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Manifest"><meta property="twitter:description" content="Supercharge HTML for rapid, feature-rich website and web app development."><meta property="twitter:image" content="/og/docs-getting-started.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Manifest","description":"Supercharge HTML for rapid, feature-rich website and web app development.","image":"/og/docs-getting-started.png","url":"https://manifestx.dev/docs/getting-started"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Getting Started","item":"https://manifestx.dev/docs/getting-started"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant web (&:where(html:not([data-native]) *));</style><style>@view-transition { navigation: none }</style><meta property="og:title" content="Manifest"><meta property="og:description" content="Supercharge HTML for rapid, feature-rich website and web app development."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/getting-started"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-getting-started.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Manifest"><meta property="twitter:description" content="Supercharge HTML for rapid, feature-rich website and web app development."><meta property="twitter:image" content="/og/docs-getting-started.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Manifest","description":"Supercharge HTML for rapid, feature-rich website and web app development.","image":"/og/docs-getting-started.png","url":"https://manifestx.dev/docs/getting-started"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Getting Started","item":"https://manifestx.dev/docs/getting-started"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/getting-started">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -62,7 +62,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="0">
 
@@ -451,7 +451,7 @@
             this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
         },
         go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
-    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="search-1" data-order="1" data-hydrate-id="h1">
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="search-1" data-order="1">
 
     <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
 
@@ -491,7 +491,7 @@
     </dialog>
 </div>
 
-  <main class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="2" data-hydrate-id="h2">
+  <main class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="2" data-hydrate-id="h1">
 
     <!-- Home page -->
     
@@ -873,9 +873,9 @@
 
           <!-- Color mode -->
           <div role="group" class="outlined rounded-full">
-            <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h9"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></g></svg></button>
-            <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h10"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></button>
-            <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h11"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></button>
+            <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h2"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun" class="iconify iconify--lucide"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></g></svg></button>
+            <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></button>
+            <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h4"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24" data-icon="lucide:sun-moon" class="iconify iconify--lucide"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m2.837 12.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4m7-3l-1.256 1.256M20 12h2"></path></svg></button>
 
           </div>
         </div>
@@ -905,5 +905,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"data-order":null}},{"id":"h3","attrs":{"dir":null}},{"id":"h4","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"role":null}},{"id":"h9","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h10","attrs":{"type":null}},{"id":"h11","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h12","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h13","attrs":{"type":null}},{"id":"h14","attrs":{"type":null}},{"id":"h15","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h3","attrs":{"type":null}},{"id":"h4","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
 </body></html>

@@ -23,19 +23,19 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
   </noscript>
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.189/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.189/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.190/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.190/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.189/lib/manifest.min.js" data-version="0.5.189"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.190/lib/manifest.min.js" data-version="0.5.190"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
-<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -62,9 +62,9 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
-  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-order="0" data-component="header-1">
+  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="0">
 
     <!-- Content Area -->
     <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
@@ -451,7 +451,7 @@
             this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
         },
         go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
-    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-order="1" data-component="search-1">
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="search-1" data-order="1">
 
     <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
 
@@ -497,7 +497,7 @@
     
 
     <!-- Documentation pages -->
-    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*">
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*" data-component="docs-1">
 
   <!-- Desktop Navigation-->
   <div data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-data="" x-init="(async () =&gt; { for (let i = 0; i &lt; 30; i++) { const a = $el.querySelector('a.pointer-events-none'); if (a) { $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2); break } await new Promise(r =&gt; setTimeout(r, 100)) } })()">
@@ -1023,7 +1023,7 @@
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate" role="menuitem">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete" role="menuitem">Delete</li>
                         <hr>
-                        <div x-colorpicker.library=""></div>
+                        <div x-colorpicker.library="" data-mnfst-generated=""></div>
                     </menu>
                 </div>
 
@@ -1085,7 +1085,7 @@
         </div>
     
             </div>
-            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" style="display: none"></div>
+            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" data-mnfst-generated="" style="display: none"></div>
 
             <template x-colorpicker.solid="">
                 
@@ -1255,7 +1255,7 @@
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete">Delete</li>
                         <hr>
-                        <div x-colorpicker.library=""></div>
+                        <div x-colorpicker.library="" data-mnfst-generated=""></div>
                     </menu>
                 </div>
 
@@ -1317,7 +1317,7 @@
         </div>
     
             </div>
-            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" style="display: none"></div>
+            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" data-mnfst-generated="" style="display: none"></div>
 
             <template x-colorpicker.solid="">
                 
@@ -1486,7 +1486,7 @@
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete">Delete</li>
                         <hr>
-                        <div x-colorpicker.library=""></div>
+                        <div x-colorpicker.library="" data-mnfst-generated=""></div>
                     </menu>
                 </div>
 
@@ -1548,7 +1548,7 @@
         </div>
     
             </div>
-            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" style="display: none"></div>
+            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" data-mnfst-generated="" style="display: none"></div>
 
             <template x-colorpicker.solid="">
                 
@@ -1814,7 +1814,7 @@
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete">Delete</li>
                         <hr>
-                        <div x-colorpicker.library=""></div>
+                        <div x-colorpicker.library="" data-mnfst-generated=""></div>
                     </menu>
                 </div>
 
@@ -2022,7 +2022,7 @@
 
 <p>The library panel is where preset palettes live. There are three sources, each rendered as its own group: Recent (most-recent picks), Default Palettes (Tailwind / iOS), and your Custom Palettes.</p>
 <aside class="frame"><div x-colorpicker="" class="bg-page dark:bg-surface-3 border border-line">
-    <div x-colorpicker.library=""></div>
+    <div x-colorpicker.library="" data-mnfst-generated=""></div>
 </div></aside>
 <p>Build a custom library layout with a single root <code>x-colorpicker.library</code> container plus optional inner templates. The plugin clones the templates once per group / palette / swatch so you can fully control the visual structure while keeping the data-driven behavior.</p>
 <table>
@@ -2470,7 +2470,7 @@ Accent:
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate" role="menuitem">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete" role="menuitem">Delete</li>
                         <hr>
-                        <div x-colorpicker.library=""></div>
+                        <div x-colorpicker.library="" data-mnfst-generated=""></div>
                     </menu>
                 </div>
 
@@ -2532,7 +2532,7 @@ Accent:
         </div>
     
             </div>
-            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" style="display: none"></div>
+            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" data-mnfst-generated="" style="display: none"></div>
 
             <template x-colorpicker.solid="">
                 
@@ -2781,7 +2781,7 @@ Accent:
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate" role="menuitem">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete" role="menuitem">Delete</li>
                         <hr>
-                        <div x-colorpicker.library=""></div>
+                        <div x-colorpicker.library="" data-mnfst-generated=""></div>
                     </menu>
                 </div>
 
@@ -2843,7 +2843,7 @@ Accent:
         </div>
     
             </div>
-            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" style="display: none"></div>
+            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" data-mnfst-generated="" style="display: none"></div>
 
             <template x-colorpicker.solid="">
                 
@@ -3008,7 +3008,7 @@ Accent:
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate" role="menuitem">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete" role="menuitem">Delete</li>
                         <hr>
-                        <div x-colorpicker.library=""></div>
+                        <div x-colorpicker.library="" data-mnfst-generated=""></div>
                     </menu>
                 </div>
 
@@ -3070,7 +3070,7 @@ Accent:
         </div>
     
             </div>
-            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" style="display: none"></div>
+            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" data-mnfst-generated="" style="display: none"></div>
 
             <template x-colorpicker.solid="">
                 
@@ -3235,7 +3235,7 @@ Accent:
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate" role="menuitem">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete" role="menuitem">Delete</li>
                         <hr>
-                        <div x-colorpicker.library=""></div>
+                        <div x-colorpicker.library="" data-mnfst-generated=""></div>
                     </menu>
                 </div>
 
@@ -3297,7 +3297,7 @@ Accent:
         </div>
     
             </div>
-            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" style="display: none"></div>
+            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" data-mnfst-generated="" style="display: none"></div>
 
             <template x-colorpicker.solid="">
                 
@@ -3462,7 +3462,7 @@ Accent:
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate" role="menuitem">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete" role="menuitem">Delete</li>
                         <hr>
-                        <div x-colorpicker.library=""></div>
+                        <div x-colorpicker.library="" data-mnfst-generated=""></div>
                     </menu>
                 </div>
 
@@ -3524,7 +3524,7 @@ Accent:
         </div>
     
             </div>
-            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" style="display: none"></div>
+            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" data-mnfst-generated="" style="display: none"></div>
 
             <template x-colorpicker.solid="">
                 
@@ -3689,7 +3689,7 @@ Accent:
                         <li x-colorpicker.duplicate-stop="" data-cp-ui-text="stopActions.duplicate" role="menuitem">Duplicate</li>
                         <li x-colorpicker.delete-stop="" class="negative" data-cp-ui-text="stopActions.delete" role="menuitem">Delete</li>
                         <hr>
-                        <div x-colorpicker.library=""></div>
+                        <div x-colorpicker.library="" data-mnfst-generated=""></div>
                     </menu>
                 </div>
 
@@ -3751,7 +3751,7 @@ Accent:
         </div>
     
             </div>
-            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" style="display: none"></div>
+            <div data-cp-panel="library" x-colorpicker.library="" x-show="tab === 'library'" data-mnfst-generated="" style="display: none"></div>
 
             <template x-colorpicker.solid="">
                 
