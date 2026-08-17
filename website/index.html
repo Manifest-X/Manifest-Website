@@ -60,7 +60,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1 mnfst-og-nudge">
+}" class="bg-surface-1">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -193,7 +193,7 @@
             this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
         },
         go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
-    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-hydrate-id="h1" data-component="docs-search-1" data-order="2">
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
 
     <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
 
@@ -496,7 +496,7 @@
         </div>
 </nav>
 
-  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1 bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1 bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h1">
 
     <!-- Home page -->
     <section id="home" class="col center gap-6 w-full py-24" x-route="/">
@@ -676,7 +676,7 @@
         </div>
 
         <!-- Page -->
-        <div class="page grow bg-page overflow-auto no-scrollbar" data-preview="" x-ref="preview" :dir="locale === 'ar' ? 'rtl' : 'ltr'" :class="darkMode &amp;&amp; 'dark'" dir="ltr" data-hydrate-id="h3">
+        <div class="page grow bg-page overflow-auto no-scrollbar" data-preview="" x-ref="preview" :dir="locale === 'ar' ? 'rtl' : 'ltr'" :class="darkMode &amp;&amp; 'dark'" dir="ltr" data-hydrate-id="h2">
   <!-- header.html component -->
   <!-- Compose interfaces from reusable HTML components -->
 
@@ -689,12 +689,12 @@
     <strong>Universal Exports</strong>
 
       <!-- Locales -->
-      <button class="sm ghost ms-auto" x-dropdown="locale-menu" x-icon="lucide:globe" aria-label="Language" popovertarget="locale-menu" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="locale-menu" aria-expanded="false" data-hydrate-id="h4"></button>
+      <button class="sm ghost ms-auto" x-dropdown="locale-menu" x-icon="lucide:globe" aria-label="Language" popovertarget="locale-menu" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="locale-menu" aria-expanded="false" data-hydrate-id="h3"></button>
       <menu popover="" id="locale-menu" class="min-w-0" role="menu" style="position-anchor: --dropdown-p1">
-        <li @click="locale = 'en'" :disabled="locale === 'en'" disabled="disabled" role="menuitem" data-hydrate-id="h5">English</li>
-        <li @click="locale = 'es'" :disabled="locale === 'es'" role="menuitem" data-hydrate-id="h6">Español</li>
-        <li @click="locale = 'zh'" :disabled="locale === 'zh'" role="menuitem" data-hydrate-id="h7">中文</li>
-        <li @click="locale = 'ar'" :disabled="locale === 'ar'" role="menuitem" data-hydrate-id="h8">العربية</li>
+        <li @click="locale = 'en'" :disabled="locale === 'en'" disabled="disabled" role="menuitem" data-hydrate-id="h4">English</li>
+        <li @click="locale = 'es'" :disabled="locale === 'es'" role="menuitem" data-hydrate-id="h5">Español</li>
+        <li @click="locale = 'zh'" :disabled="locale === 'zh'" role="menuitem" data-hydrate-id="h6">中文</li>
+        <li @click="locale = 'ar'" :disabled="locale === 'ar'" role="menuitem" data-hydrate-id="h7">العربية</li>
       </menu>
 
       <!-- Color modes -->
@@ -1184,9 +1184,9 @@
 
         <!-- Color mode -->
         <div role="group" class="border border-line rounded-full">
-          <button x-color="'light'" class="sm rounded-s-full" :class="{ 'accent pointer-events-none': $color.current === 'light' }" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h13"></button>
-          <button x-color="'dark'" class="sm" :class="{ 'accent pointer-events-none': $color.current === 'dark' }" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h14"></button>
-          <button x-color="'system'" class="sm rounded-e-full accent pointer-events-none" :class="{ 'accent pointer-events-none': $color.current === 'system' }" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h15"></button>
+          <button x-color="'light'" class="sm rounded-s-full" :class="{ 'accent pointer-events-none': $color.current === 'light' }" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h9"></button>
+          <button x-color="'dark'" class="sm" :class="{ 'accent pointer-events-none': $color.current === 'dark' }" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h10"></button>
+          <button x-color="'system'" class="sm rounded-e-full accent pointer-events-none" :class="{ 'accent pointer-events-none': $color.current === 'system' }" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h11"></button>
         </div>
 
         <!-- Locale -->
@@ -1206,5 +1206,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"pt-[69px] px-viewport-padding dark:bg-surface-1","data-order":null}},{"id":"h3","attrs":{"dir":null}},{"id":"h4","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"role":null}},{"id":"h9","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h10","attrs":{"type":null}},{"id":"h11","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h12","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h13","attrs":{"type":null}},{"id":"h14","attrs":{"type":null}},{"id":"h15","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"class":"pt-[69px] px-viewport-padding dark:bg-surface-1","data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h9","attrs":{"type":null}},{"id":"h10","attrs":{"type":null}},{"id":"h11","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
 </body></html>
