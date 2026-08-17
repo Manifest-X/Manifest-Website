@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1 mnfst-og-nudge">
+}" class="bg-surface-1">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -1015,10 +1015,10 @@
       <template x-if="$route.replace(/\/$/, '') === '/docs'">
         <div class="col gap-8">
           <div class="col gap-3 max-w-2xl">
-            <h1>Documentation</h1>
+            <h1>Docs</h1>
             <p class="text-content-neutral">Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference.</p>
           </div>
-          <div class="row-wrap gap-3">
+          <div class="grid gap-3 grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
             <template x-for="group in $x.docs" :key="group.group">
               <a :href="'/docs/' + group.slug" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
                 <span x-icon="group.items?.[0]?.icon" class="text-brand-content"></span>
@@ -1039,7 +1039,7 @@
             <h1 x-text="group?.group"></h1>
             <p class="text-content-neutral" x-text="group?.description"></p>
           </div>
-          <div class="row-wrap gap-3">
+          <div class="grid gap-3 grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
             <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
               <a :href="'/docs/' + group.slug + '/' + item.path" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
                 <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
@@ -1053,7 +1053,7 @@
             <h1 x-text="group?.group">Elements</h1>
             <p class="text-content-neutral" x-text="group?.description">Pre-styled HTML elements and interactive widgets.</p>
           </div>
-          <div class="row-wrap gap-3">
+          <div class="grid gap-3 grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
             <a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/accordions">
                 <span x-icon="lucide:list-collapse" class="text-brand-content"></span>
                 <span class="text-content-stark">Accordions</span>

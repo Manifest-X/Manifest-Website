@@ -44,11 +44,11 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><script data-route-head="div-e62qzeqz5">
+@custom-variant web (&:where(html:not([data-native]) *));</style><script data-route-head="div-imywrd2h5">
         console.log('🔄 Component article script loaded');
-    </script><script data-route-head="div-lffg68trm">
+    </script><script data-route-head="div-h6hkfw1c4">
         console.log('🔄 Component article script loaded');
-    </script><script data-route-head="div-h8myqyzi4">
+    </script><script data-route-head="div-7yzac8327">
         console.log('🔄 Component article script loaded');
     </script><meta property="og:title" content="Components — Manifest"><meta property="og:description" content="Reusable HTML templates with route-bound rendering."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/components"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-core-plugins-components.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Components — Manifest"><meta property="twitter:description" content="Reusable HTML templates with route-bound rendering."><meta property="twitter:image" content="/og/docs-core-plugins-components.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Components — Manifest","description":"Reusable HTML templates with route-bound rendering.","image":"/og/docs-core-plugins-components.png","url":"https://manifestx.dev/docs/core-plugins/components"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Components","item":"https://manifestx.dev/docs/core-plugins/components"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/core-plugins/components">
@@ -500,7 +500,7 @@
     
 
     <!-- Documentation pages -->
-    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="docs">
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="docs" data-component="docs-1">
 
   <!-- Desktop Navigation-->
   <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-data="" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
@@ -1144,10 +1144,10 @@
       <template x-if="$route.replace(/\/$/, '') === '/docs'">
         <div class="col gap-8">
           <div class="col gap-3 max-w-2xl">
-            <h1>Documentation</h1>
+            <h1>Docs</h1>
             <p class="text-content-neutral">Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference.</p>
           </div>
-          <div class="row-wrap gap-3">
+          <div class="grid gap-3 grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
             <template x-for="group in $x.docs" :key="group.group">
               <a :href="'/docs/' + group.slug" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
                 <span x-icon="group.items?.[0]?.icon" class="text-brand-content"></span>
@@ -1168,7 +1168,7 @@
             <h1 x-text="group?.group"></h1>
             <p class="text-content-neutral" x-text="group?.description"></p>
           </div>
-          <div class="row-wrap gap-3">
+          <div class="grid gap-3 grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
             <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
               <a :href="'/docs/' + group.slug + '/' + item.path" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
                 <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
@@ -1182,7 +1182,7 @@
             <h1 x-text="group?.group">Core Plugins</h1>
             <p class="text-content-neutral" x-text="group?.description">The built-in plugins that power data, routing, components, and more.</p>
           </div>
-          <div class="row-wrap gap-3">
+          <div class="grid gap-3 grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
             <a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/core-plugins/chat">
                 <span x-icon="lucide:message-square" class="text-brand-content"></span>
                 <span class="text-content-stark">Chat</span>
