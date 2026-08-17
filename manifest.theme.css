@@ -230,3 +230,39 @@
 .px-viewport-padding {
     padding-inline: var(--spacing-viewport-padding, 2rem);
 }
+
+/* Static copies of the docs shell's layout utilities. Variants of semantic
+   classes are runtime-compiled and can land ~1s after the markup, collapsing
+   the shell to a column until they do. */
+@media (min-width: 40rem) {
+    .sm\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 48rem) {
+    .md\:row {
+        flex-direction: row;
+    }
+
+    .md\:block {
+        display: block;
+    }
+
+    .md\:max-w-\[calc\(100\%-17rem\)\] {
+        max-width: calc(100% - 17rem);
+    }
+}
+
+@media (min-width: 64rem) {
+    .lg\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 80rem) {
+    .xl\:col {
+        display: flex;
+        flex-direction: column;
+    }
+}
