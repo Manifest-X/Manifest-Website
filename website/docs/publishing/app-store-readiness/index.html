@@ -494,7 +494,7 @@
     
 
     <!-- Documentation pages -->
-    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="docs">
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="docs" data-component="docs-1">
 
   <!-- Desktop Navigation-->
   <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-data="" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
@@ -828,9 +828,9 @@
   </nav>
 
   <!-- Articles -->
-  <div class="col grow min-w-0 max-w-full md:max-w-[calc(100%-17rem)] pt-12 pb-[30vh]">
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
 
-    <div class="col grow w-full max-w-full">
+    <div class="col grow w-full max-w-full mx-auto">
 
       <!-- Eyebrow Group Name -->
       <template x-if="$x.docs.$route('path')?.name">
@@ -936,12 +936,12 @@
 
       <!-- Docs home -->
       <template x-if="$route.replace(/\/$/, '') === '/docs'">
-        <div class="col gap-8">
-          <div class="col gap-3 max-w-2xl">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
             <h1>Docs</h1>
             <p class="text-content-neutral">Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference.</p>
           </div>
-          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <template x-for="group in $x.docs" :key="group.group">
               <a :href="'/docs/' + group.slug" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
                 <span x-icon="group.items?.[0]?.icon" class="text-brand-content"></span>
@@ -957,12 +957,12 @@
 
       <!-- Group landing -->
       <template x-if="$x.docs.$route('slug')?.group">
-        <div class="col gap-8" x-data="{ get group() { return $x.docs.$route('slug') } }">
-          <div class="col gap-3 max-w-2xl">
+        <div class="col gap-8 w-2xl max-w-full" x-data="{ get group() { return $x.docs.$route('slug') } }">
+          <div class="col gap-3">
             <h1 x-text="group?.group"></h1>
             <p class="text-content-neutral" x-text="group?.description"></p>
           </div>
-          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
               <a :href="'/docs/' + group.slug + '/' + item.path" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
                 <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
@@ -971,12 +971,12 @@
             </template>
           </div>
         </div>
-      </template><div class="col gap-8" x-data="{ get group() { return $x.docs.$route('slug') } }" data-mnfst-prerender-clone="1">
-          <div class="col gap-3 max-w-2xl">
+      </template><div class="col gap-8 w-2xl max-w-full" x-data="{ get group() { return $x.docs.$route('slug') } }" data-mnfst-prerender-clone="1">
+          <div class="col gap-3">
             <h1 x-text="group?.group">Publishing</h1>
             <p class="text-content-neutral" x-text="group?.description">Preview, prerender, and publish your project to the web.</p>
           </div>
-          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/publishing/testing">
                 <span x-icon="lucide:circle-check" class="text-brand-content"></span>
                 <span class="text-content-stark">Testing</span>

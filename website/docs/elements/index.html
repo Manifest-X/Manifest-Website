@@ -26,6 +26,26 @@
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
   <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.191/lib/manifest.min.js" data-version="0.5.191"></script>
+  <script>
+    window.__diag = { marks: [] };
+    const __m = (k) => window.__diag.marks.push([k, Math.round(performance.now())]);
+    __m('head');
+    const __has = (sel) => { for (const sh of document.styleSheets) { try { for (const r of sh.cssRules) if (r.cssText && r.cssText.includes(sel)) return true; } catch { } } return false; };
+    addEventListener('DOMContentLoaded', () => __m('dcl'));
+    addEventListener('manifest:utilities-ready', () => __m('utilities-ready'));
+    addEventListener('manifest:render-ready', () => __m('render-ready'));
+    addEventListener('manifest:ready', () => __m('ready'));
+    (function poll() {
+      const d = window.__diag;
+      if (!d.mdRow && __has('md\\:row')) { d.mdRow = true; __m('md:row-compiled'); }
+      if (!d.tileCls && __has('lg\\:grid-cols-3')) { d.tileCls = true; __m('grid-cols-compiled'); }
+      const tile = document.querySelector('.grid a');
+      if (!d.tileStyled && tile && getComputedStyle(tile).borderTopWidth !== '0px') { d.tileStyled = true; __m('tiles-styled'); }
+      if (!d.tilePresent && tile) { d.tilePresent = true; __m('tiles-in-dom'); }
+      if (performance.now() < 15000) requestAnimationFrame(poll);
+    })();
+    addEventListener('load', () => { __m('load'); const p = performance.getEntriesByType('paint'); p.forEach(e => __m('paint:' + e.name + '@' + Math.round(e.startTime))); });
+  </script>
   <script src="../../scripts/payments-demo.js" defer=""></script>
   <script src="../../scripts/hero-editor.js" defer=""></script>
   <script src="../../scripts/console-message.js" defer=""></script>
@@ -828,9 +848,9 @@
   </nav>
 
   <!-- Articles -->
-  <div class="col grow min-w-0 max-w-full md:max-w-[calc(100%-17rem)] pt-12 pb-[30vh]">
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
 
-    <div class="col grow w-full max-w-full">
+    <div class="col grow w-full max-w-full mx-auto">
 
       <!-- Eyebrow Group Name -->
       <template x-if="$x.docs.$route('path')?.name">
@@ -844,12 +864,12 @@
 
       <!-- Docs home -->
       <template x-if="$route.replace(/\/$/, '') === '/docs'">
-        <div class="col gap-8">
-          <div class="col gap-3 max-w-2xl">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
             <h1>Docs</h1>
             <p class="text-content-neutral">Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference.</p>
           </div>
-          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <template x-for="group in $x.docs" :key="group.group">
               <a :href="'/docs/' + group.slug" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
                 <span x-icon="group.items?.[0]?.icon" class="text-brand-content"></span>
@@ -865,12 +885,12 @@
 
       <!-- Group landing -->
       <template x-if="$x.docs.$route('slug')?.group">
-        <div class="col gap-8" x-data="{ get group() { return $x.docs.$route('slug') } }">
-          <div class="col gap-3 max-w-2xl">
+        <div class="col gap-8 w-2xl max-w-full" x-data="{ get group() { return $x.docs.$route('slug') } }">
+          <div class="col gap-3">
             <h1 x-text="group?.group"></h1>
             <p class="text-content-neutral" x-text="group?.description"></p>
           </div>
-          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
               <a :href="'/docs/' + group.slug + '/' + item.path" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
                 <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
@@ -879,12 +899,12 @@
             </template>
           </div>
         </div>
-      </template><div class="col gap-8" x-data="{ get group() { return $x.docs.$route('slug') } }" data-mnfst-prerender-clone="1">
-          <div class="col gap-3 max-w-2xl">
+      </template><div class="col gap-8 w-2xl max-w-full" x-data="{ get group() { return $x.docs.$route('slug') } }" data-mnfst-prerender-clone="1">
+          <div class="col gap-3">
             <h1 x-text="group?.group">Elements</h1>
             <p class="text-content-neutral" x-text="group?.description">Pre-styled HTML elements and interactive widgets.</p>
           </div>
-          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/accordions">
                 <span x-icon="lucide:list-collapse" class="text-brand-content"></span>
                 <span class="text-content-stark">Accordions</span>

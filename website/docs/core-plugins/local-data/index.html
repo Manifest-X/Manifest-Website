@@ -828,9 +828,9 @@
   </nav>
 
   <!-- Articles -->
-  <div class="col grow min-w-0 max-w-full md:max-w-[calc(100%-17rem)] pt-12 pb-[30vh]">
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
 
-    <div class="col grow w-full max-w-full">
+    <div class="col grow w-full max-w-full mx-auto">
 
       <!-- Eyebrow Group Name -->
       <template x-if="$x.docs.$route('path')?.name">
@@ -871,9 +871,9 @@ headquarters.name,Empire Headquarters
 headquarters.location,Death Star
 contact.email,forcechoke69@aol.com
 contact.phone,+1-555-0100</code></pre>
-<pre x-code="csv" name="team.csv (tabular)" data-code-block-built="yes" aria-label="team.csv (tabular)" role="tabpanel" data-code-processed="yes" id="team.csv-(tabular)-panel-1" aria-labelledby="team.csv-(tabular)-tab-1" style="display: none"><code data-highlighted="yes" class="hljs language-undefined">id,name,role,image
-1,Darth Vader,Lord,/assets/examples/vader.webp
-2,Admiral Piett,Fleet Commander,/assets/examples/piett.webp</code></pre>
+<pre x-code="csv" name="team.csv (tabular)" data-code-block-built="yes" aria-label="team.csv (tabular)" role="tabpanel" data-code-processed="yes" id="team.csv-(tabular)-panel-1" aria-labelledby="team.csv-(tabular)-tab-1" style="display: none"><code data-highlighted="yes" class="hljs language-javascript">id,name,role,image
+<span class="hljs-number">1</span>,<span class="hljs-title class_">Darth</span> <span class="hljs-title class_">Vader</span>,<span class="hljs-title class_">Lord</span>,<span class="hljs-regexp">/assets/</span>examples/vader.<span class="hljs-property">webp</span>
+<span class="hljs-number">2</span>,<span class="hljs-title class_">Admiral</span> <span class="hljs-title class_">Piett</span>,<span class="hljs-title class_">Fleet</span> <span class="hljs-title class_">Commander</span>,<span class="hljs-regexp">/assets/</span>examples/piett.<span class="hljs-property">webp</span></code></pre>
 <pre x-code="json" name="team.json" data-code-block-built="yes" aria-label="team.json" role="tabpanel" data-code-processed="yes" id="team.json-panel-2" aria-labelledby="team.json-tab-2" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">[</span>
     <span class="hljs-punctuation">{</span>
         <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Darth Vader"</span><span class="hljs-punctuation">,</span>
@@ -1387,12 +1387,12 @@ $x.<span class="hljs-property">searchIndex</span>.$search(term, { <span class="h
 
       <!-- Docs home -->
       <template x-if="$route.replace(/\/$/, '') === '/docs'">
-        <div class="col gap-8">
-          <div class="col gap-3 max-w-2xl">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
             <h1>Docs</h1>
             <p class="text-content-neutral">Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference.</p>
           </div>
-          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <template x-for="group in $x.docs" :key="group.group">
               <a :href="'/docs/' + group.slug" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
                 <span x-icon="group.items?.[0]?.icon" class="text-brand-content"></span>
@@ -1408,12 +1408,12 @@ $x.<span class="hljs-property">searchIndex</span>.$search(term, { <span class="h
 
       <!-- Group landing -->
       <template x-if="$x.docs.$route('slug')?.group">
-        <div class="col gap-8" x-data="{ get group() { return $x.docs.$route('slug') } }">
-          <div class="col gap-3 max-w-2xl">
+        <div class="col gap-8 w-2xl max-w-full" x-data="{ get group() { return $x.docs.$route('slug') } }">
+          <div class="col gap-3">
             <h1 x-text="group?.group"></h1>
             <p class="text-content-neutral" x-text="group?.description"></p>
           </div>
-          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
               <a :href="'/docs/' + group.slug + '/' + item.path" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
                 <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
@@ -1422,12 +1422,12 @@ $x.<span class="hljs-property">searchIndex</span>.$search(term, { <span class="h
             </template>
           </div>
         </div>
-      </template><div class="col gap-8" x-data="{ get group() { return $x.docs.$route('slug') } }" data-mnfst-prerender-clone="1">
-          <div class="col gap-3 max-w-2xl">
+      </template><div class="col gap-8 w-2xl max-w-full" x-data="{ get group() { return $x.docs.$route('slug') } }" data-mnfst-prerender-clone="1">
+          <div class="col gap-3">
             <h1 x-text="group?.group">Core Plugins</h1>
             <p class="text-content-neutral" x-text="group?.description">The built-in plugins that power data, routing, components, and more.</p>
           </div>
-          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/core-plugins/chat">
                 <span x-icon="lucide:message-square" class="text-brand-content"></span>
                 <span class="text-content-stark">Chat</span>
