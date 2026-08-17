@@ -828,9 +828,9 @@
   </nav>
 
   <!-- Articles -->
-  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+  <div class="col grow min-w-0 max-w-full md:max-w-[calc(100%-17rem)] pt-12 pb-[30vh]">
 
-    <div class="col grow w-full max-w-full mx-auto">
+    <div class="col grow w-full max-w-full">
 
       <!-- Eyebrow Group Name -->
       <template x-if="$x.docs.$route('path')?.name">
@@ -974,11 +974,7 @@
                         <td x-text="user.name">Rigel 10</td>
                         <td x-text="user.email">user10@acme.io</td>
                         <td x-text="user.role">Researcher</td>
-                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" class="">
-                        <td x-text="user.name">Arcturus 11</td>
-                        <td x-text="user.email">user11@acme.io</td>
-                        <td x-text="user.role">QA</td>
-                    </tr><tr data-virtual-spacer="" aria-hidden="true" style="height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"><td colspan="3" style="padding: 0px; border: 0px; height: 41538px"></td></tr><template>
+                    </tr><tr data-virtual-spacer="" aria-hidden="true" style="height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"><td colspan="3" style="padding: 0px; border: 0px; height: 43471.1px"></td></tr><template>
                     <tr :class="user.id % 2 ? 'bg-surface-1' : ''">
                         <td x-text="user.name"></td>
                         <td x-text="user.email"></td>
@@ -1219,39 +1215,39 @@
 })) }" class="w-full">
     <div x-virtual="" class="border border-line rounded font-mono text-sm h-[300px] overflow-auto" style="overflow: auto">
         <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">01:31:40</span>
+                <span class="text-muted shrink-0" x-text="log.time">01:44:12</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">01:32:40</span>
+                <span class="text-muted shrink-0" x-text="log.time">01:45:12</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">01:33:40</span>
+                <span class="text-muted shrink-0" x-text="log.time">01:46:12</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">01:34:40</span>
+                <span class="text-muted shrink-0" x-text="log.time">01:47:12</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-warning" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">01:35:40</span>
+                <span class="text-muted shrink-0" x-text="log.time">01:48:12</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-error" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">error</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">01:36:40</span>
+                <span class="text-muted shrink-0" x-text="log.time">01:49:12</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">01:37:40</span>
+                <span class="text-muted shrink-0" x-text="log.time">01:50:12</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">01:38:40</span>
+                <span class="text-muted shrink-0" x-text="log.time">01:51:12</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">01:39:40</span>
+                <span class="text-muted shrink-0" x-text="log.time">01:52:12</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-warning" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
@@ -1343,7 +1339,7 @@
             <h1>Docs</h1>
             <p class="text-content-neutral">Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference.</p>
           </div>
-          <div class="grid gap-3 grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             <template x-for="group in $x.docs" :key="group.group">
               <a :href="'/docs/' + group.slug" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
                 <span x-icon="group.items?.[0]?.icon" class="text-brand-content"></span>
@@ -1364,7 +1360,7 @@
             <h1 x-text="group?.group"></h1>
             <p class="text-content-neutral" x-text="group?.description"></p>
           </div>
-          <div class="grid gap-3 grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
               <a :href="'/docs/' + group.slug + '/' + item.path" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
                 <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
@@ -1378,7 +1374,7 @@
             <h1 x-text="group?.group">Core Plugins</h1>
             <p class="text-content-neutral" x-text="group?.description">The built-in plugins that power data, routing, components, and more.</p>
           </div>
-          <div class="grid gap-3 grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             <a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/core-plugins/chat">
                 <span x-icon="lucide:message-square" class="text-brand-content"></span>
                 <span class="text-content-stark">Chat</span>
@@ -1423,7 +1419,7 @@
 
     <!-- Fallback — x-if so prerendered article pages don't ship it as duplicate content -->
     <template x-if="!$x.docs.$route('path')?.name &amp;&amp; !$x.docs.$route('slug')?.group &amp;&amp; $route.replace(/\/$/, '') !== '/docs'">
-      <div class="w-3xl max-w-full mx-auto text-center prose">
+      <div class="max-w-full prose">
         <h1>Article does not exist</h1>
         <p>There is no documentation at this path.</p>
       </div>
