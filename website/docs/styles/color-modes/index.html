@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.191/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.191/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.191/lib/manifest.min.js" data-version="0.5.191"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.js" data-version="0.5.194"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -190,7 +190,7 @@
             this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
         },
         go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
-    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-hydrate-id="h1" data-component="docs-search-1" data-order="2">
 
     <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
 
@@ -493,7 +493,7 @@
         </div>
 </nav>
 
-  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h1">
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
 
     <!-- Home page -->
     
@@ -509,7 +509,7 @@
     get group() { const g = $x[this.src].$route('slug'); return g?.group &amp;&amp; this.at(this.base + '/' + g.slug) ? g : null },
     href(group, item) { return this.base + '/' + group.slug + (item ? '/' + item.path : '') },
     at(path) { return $route.replace(/\/$/, '') === path },
-  }" x-route="docs" intro="Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference." data-component="docs-1">
+  }" x-route="docs" intro="Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference.">
 
   <!-- Desktop navigation -->
   <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
@@ -854,9 +854,9 @@
 </ul>
 <h3 id="buttons">Buttons</h3><pre x-code-group="" data-group-processed="yes" role="region">
 
-<aside class="frame row-wrap gap-2"><button x-color="'light'" type="button" data-hydrate-id="h8"><span x-icon="lucide:sun"></span><span>Light</span></button>
-<button x-color="'dark'" type="button" data-hydrate-id="h9"><span x-icon="lucide:moon"></span><span>Dark</span></button>
-<button x-color="'system'" type="button" data-hydrate-id="h10"><span x-icon="lucide:sun-moon"></span><span>System</span></button></aside>
+<aside class="frame row-wrap gap-2"><button x-color="'light'" type="button" data-hydrate-id="h9"><span x-icon="lucide:sun"></span><span>Light</span></button>
+<button x-color="'dark'" type="button" data-hydrate-id="h10"><span x-icon="lucide:moon"></span><span>Dark</span></button>
+<button x-color="'system'" type="button" data-hydrate-id="h11"><span x-icon="lucide:sun-moon"></span><span>System</span></button></aside>
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-color</span>=<span class="hljs-string">"'light'"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:sun"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Light<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-color</span>=<span class="hljs-string">"'dark'"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:moon"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Dark<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-color</span>=<span class="hljs-string">"'system'"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:sun-moon"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>System<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
@@ -866,7 +866,7 @@
 <hr>
 <h3 id="toggle">Toggle</h3><pre x-code-group="" data-group-processed="yes" role="region">
 
-<aside class="frame"><button x-color="'toggle'" x-icon="ph:sun" aria-label="Toggle Color Mode" type="button" data-hydrate-id="h11"></button></aside>
+<aside class="frame"><button x-color="'toggle'" x-icon="ph:sun" aria-label="Toggle Color Mode" type="button" data-hydrate-id="h12"></button></aside>
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-color</span>=<span class="hljs-string">"'toggle'"</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"$color.current === 'light' ? 'ph:moon' : 'ph:sun'"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Toggle Color Mode"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -874,11 +874,11 @@
 <hr>
 <h3 id="dropdown">Dropdown</h3><pre x-code-group="" data-group-processed="yes" role="region">
 
-<aside class="frame"><button x-dropdown.bottom="color-mode-preview" aria-label="Color Mode Menu" x-icon="lucide:sun-moon" popovertarget="color-mode-preview" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="color-mode-preview" aria-expanded="false" data-hydrate-id="h12"></button>
+<aside class="frame"><button x-dropdown.bottom="color-mode-preview" aria-label="Color Mode Menu" x-icon="lucide:sun-moon" popovertarget="color-mode-preview" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="color-mode-preview" aria-expanded="false" data-hydrate-id="h13"></button>
 <menu popover="" id="color-mode-preview" class="min-w-0" role="menu" style="position-anchor: --dropdown-p1">
-    <li x-color="'light'" :disabled="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light" data-icon-processed="true" role="menuitem" data-hydrate-id="h13"><span x-icon="lucide:sun"></span></li>
-    <li x-color="'dark'" :disabled="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark" data-icon-processed="true" role="menuitem" data-hydrate-id="h14"><span x-icon="lucide:moon"></span></li>
-    <li x-color="'system'" :disabled="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="System" disabled="disabled" data-icon-processed="true" role="menuitem" data-hydrate-id="h15"><span x-icon="lucide:sun-moon"></span></li>
+    <li x-color="'light'" :disabled="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light" data-icon-processed="true" role="menuitem" data-hydrate-id="h14"><span x-icon="lucide:sun"></span></li>
+    <li x-color="'dark'" :disabled="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark" data-icon-processed="true" role="menuitem" data-hydrate-id="h15"><span x-icon="lucide:moon"></span></li>
+    <li x-color="'system'" :disabled="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="System" disabled="disabled" data-icon-processed="true" role="menuitem" data-hydrate-id="h16"><span x-icon="lucide:sun-moon"></span></li>
 </menu></aside>
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-dropdown.bottom</span>=<span class="hljs-string">"color-mode"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Color Mode Menu"</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"$color.current === 'light' ? 'lucide:sun' : $color.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"color-mode"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"min-w-0"</span>&gt;</span>
@@ -960,9 +960,9 @@
       <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
 
       <div role="group" class="outlined rounded-full">
-        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h16"></button>
-        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h17"></button>
-        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h18"></button>
+        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h17"></button>
+        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h18"></button>
+        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h19"></button>
       </div>
     </div>
   </div>
@@ -991,5 +991,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"type":null}},{"id":"h9","attrs":{"type":null}},{"id":"h10","attrs":{"type":null}},{"id":"h11","attrs":{"type":null}},{"id":"h12","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h13","attrs":{"data-icon-processed":null,"role":null}},{"id":"h14","attrs":{"data-icon-processed":null,"role":null}},{"id":"h15","attrs":{"disabled":null,"data-icon-processed":null,"role":null}},{"id":"h16","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h17","attrs":{"type":null}},{"id":"h18","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h19","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h20","attrs":{"type":null}},{"id":"h21","attrs":{"type":null}},{"id":"h22","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"data-order":null}},{"id":"h3","attrs":{"dir":null}},{"id":"h4","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"role":null}},{"id":"h9","attrs":{"type":null}},{"id":"h10","attrs":{"type":null}},{"id":"h11","attrs":{"type":null}},{"id":"h12","attrs":{"type":null}},{"id":"h13","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h14","attrs":{"data-icon-processed":null,"role":null}},{"id":"h15","attrs":{"data-icon-processed":null,"role":null}},{"id":"h16","attrs":{"disabled":null,"data-icon-processed":null,"role":null}},{"id":"h17","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h18","attrs":{"type":null}},{"id":"h19","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h20","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h21","attrs":{"type":null}},{"id":"h22","attrs":{"type":null}},{"id":"h23","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
 </body></html>
