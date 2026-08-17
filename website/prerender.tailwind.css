@@ -774,6 +774,12 @@
   .list-none {
     list-style-type: none;
   }
+  .columns-1 {
+    columns: 1;
+  }
+  .break-inside-avoid {
+    break-inside: avoid;
+  }
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
@@ -1460,6 +1466,59 @@
       }
     }
   }
+  .focus\:not-sr-only {
+    &:focus {
+      position: static;
+      width: auto;
+      height: auto;
+      padding: 0;
+      margin: 0;
+      overflow: visible;
+      clip-path: none;
+      white-space: normal;
+    }
+  }
+  .focus\:fixed {
+    &:focus {
+      position: fixed;
+    }
+  }
+  .focus\:top-3 {
+    &:focus {
+      top: calc(var(--spacing) * 3);
+    }
+  }
+  .focus\:left-3 {
+    &:focus {
+      left: calc(var(--spacing) * 3);
+    }
+  }
+  .focus\:z-10 {
+    &:focus {
+      z-index: 10;
+    }
+  }
+  .focus\:rounded-full {
+    &:focus {
+      border-radius: calc(infinity * 1px);
+    }
+  }
+  .focus\:border {
+    &:focus {
+      border-style: var(--tw-border-style);
+      border-width: 1px;
+    }
+  }
+  .focus\:px-4 {
+    &:focus {
+      padding-inline: calc(var(--spacing) * 4);
+    }
+  }
+  .focus\:py-2 {
+    &:focus {
+      padding-block: calc(var(--spacing) * 2);
+    }
+  }
   .max-sm\:hidden {
     @media (width < 40rem) {
       display: none;
@@ -1473,6 +1532,11 @@
   .sm\:hidden {
     @media (width >= 40rem) {
       display: none;
+    }
+  }
+  .sm\:columns-3 {
+    @media (width >= 40rem) {
+      columns: 3;
     }
   }
   .sm\:grid-cols-2 {
@@ -1528,6 +1592,11 @@
   .md\:max-w-\[calc\(100\%-17rem\)\] {
     @media (width >= 48rem) {
       max-width: calc(100% - 17rem);
+    }
+  }
+  .md\:columns-5 {
+    @media (width >= 48rem) {
+      columns: 5;
     }
   }
   .md\:grid-cols-2 {
@@ -2081,6 +2150,8 @@
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
@@ -2106,112 +2177,7 @@
 
 .border-line { border-color: var(--color-line) }
 
-.border-line\/10 { border-color: color-mix(in oklch, var(--color-line) 10%, transparent) }
-
-.bg-brand-surface { background-color: var(--color-brand-surface) }
-
-.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
-
-.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
-
-.text-brand-content { color: var(--color-brand-content) }
-
-.bg-accent-surface { background-color: var(--color-accent-surface) }
-
-.text-accent-content { color: var(--color-accent-content) }
-
-.text-positive-content { color: var(--color-positive-content) }
-
-.w-content-width { width: var(--spacing-content-width) }
-
-.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
-
-.peer:invalid ~ .peer-invalid\:disabled {
-cursor:default;opacity:.5;pointer-events:none
-}
-
-.peer:invalid ~ .peer-invalid\:disabled {
-opacity: .5;
-        cursor: default;
-        pointer-events: none
-}
-
-.\[\&\_a\]\:ghost a {
-background-color:transparent;color:var(--color-content-neutral,oklch(43.9% 0 0));&:hover{background-color:color-mix(in oklch,var(--color-field-surface,oklch(37.1% 0 0)) 50%,transparent)}
-}
-
-@media (min-width: 768px) { .md\:row {
-display:flex
-} }
-
-@media (min-width: 768px) { .md\:row {
-flex-flow:row nowrap
-} }
-
-@media (min-width: 768px) { .md\:col {
-display:flex
-} }
-
-@media (min-width: 1280px) { .xl\:col {
-display:flex
-} }
-
-@media (min-width: 768px) { .md\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-}
-
-@layer utilities {
-.text-stone-50 { color: var(--color-stone-50) }
-
-.bg-stone-400 { background-color: var(--color-stone-400) }
-
-.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
-
-.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
-
-.text-content-stark { color: var(--color-content-stark) }
-
-.hover\:text-content-stark:hover { color: var(--color-content-stark) }
-
-.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
-
-.text-content-neutral { color: var(--color-content-neutral) }
-
-.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
-
-.text-content-subtle { color: var(--color-content-subtle) }
-
-.hover\:border-content-subtle:hover { border-color: var(--color-content-subtle) }
-
-.bg-page { background-color: var(--color-page) }
-
-.bg-surface-1 { background-color: var(--color-surface-1) }
-
-.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
-:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
-
-.bg-surface-2 { background-color: var(--color-surface-2) }
-
-.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
-
-.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
-
-.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
-
-.bg-surface-3 { background-color: var(--color-surface-3) }
-
-.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
-
-.border-surface-3 { border-color: var(--color-surface-3) }
-
-.border-line { border-color: var(--color-line) }
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .border-line\/10 { border-color: color-mix(in oklch, var(--color-line) 10%, transparent) }
 
@@ -2247,6 +2213,10 @@ opacity: .5;
         pointer-events: none
 }
 
+.\[\&amp\;\_a\]\:ghostamp; a {
+background-color:transparent;color:var(--color-content-neutral,oklch(43.9% 0 0));&:hover{background-color:color-mix(in oklch,var(--color-field-surface,oklch(37.1% 0 0)) 50%,transparent)}
+}
+
 .\[\&\_a\]\:ghost a {
 background-color:transparent;color:var(--color-content-neutral,oklch(43.9% 0 0));&:hover{background-color:color-mix(in oklch,var(--color-field-surface,oklch(37.1% 0 0)) 50%,transparent)}
 }
@@ -2259,19 +2229,19 @@ display:flex
 flex-flow:row nowrap
 } }
 
-@media (min-width: 1280px) { .xl\:col {
-display:flex
-} }
-
 @media (min-width: 768px) { .md\:col {
 display:flex
 } }
 
 @media (min-width: 1280px) { .xl\:col {
+display:flex
+} }
+
+@media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
 
-@media (min-width: 768px) { .md\:col {
+@media (min-width: 1280px) { .xl\:col {
 flex-flow:column nowrap
 } }
 }
@@ -2289,11 +2259,15 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -2333,11 +2307,15 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/50 { background-color: color-mix(in oklch, var(--color-brand-surface) 50%, transparent) }
 
@@ -2377,6 +2355,8 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
@@ -2386,6 +2366,8 @@ flex-flow:column nowrap
 .bg-popover-surface { background-color: var(--color-popover-surface) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -2461,6 +2443,8 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
@@ -2468,6 +2452,8 @@ flex-flow:column nowrap
 .bg-surface-2 { background-color: var(--color-surface-2) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -2513,11 +2499,15 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -2565,11 +2555,15 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -2612,6 +2606,8 @@ flex-flow:column nowrap
 .text-content-subtle { color: var(--color-content-subtle) }
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
+
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
 
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
@@ -2621,6 +2617,8 @@ flex-flow:column nowrap
 
 .border-line { border-color: var(--color-line) }
 
+.focus\:border-line:focus { border-color: var(--color-line) }
+
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
 .dark .dark\:bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
@@ -2662,6 +2660,8 @@ flex-flow:column nowrap
 .text-content-subtle { color: var(--color-content-subtle) }
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
+
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
 
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
@@ -2672,6 +2672,8 @@ flex-flow:column nowrap
 .bg-surface-3 { background-color: var(--color-surface-3) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -2723,11 +2725,15 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -2781,11 +2787,15 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -2829,11 +2839,15 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -2887,11 +2901,15 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -2937,8 +2955,6 @@ flex-flow:column nowrap
 
 .hover\:text-content-stark:hover { color: var(--color-content-stark) }
 
-.\[\&amp\;\_th\]\:text-content-starkamp; th { color: var(--color-content-stark) }
-
 .\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
 
 .text-content-neutral { color: var(--color-content-neutral) }
@@ -2953,6 +2969,8 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
@@ -2960,13 +2978,9 @@ flex-flow:column nowrap
 
 .bg-surface-2 { background-color: var(--color-surface-2) }
 
-.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
-
-.\[\&amp\;\_span\]\:bg-surface-2amp; span { background-color: var(--color-surface-2) }
-
-.\[\&amp\;\_figure\]\:bg-surface-2amp; figure { background-color: var(--color-surface-2) }
-
 .\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
 
 .\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
 
@@ -2977,6 +2991,8 @@ flex-flow:column nowrap
 .border-surface-3 { border-color: var(--color-surface-3) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .border-line\/10 { border-color: color-mix(in oklch, var(--color-line) 10%, transparent) }
 
@@ -3012,10 +3028,6 @@ opacity: .5;
         pointer-events: none
 }
 
-.\[\&amp\;\_a\]\:ghostamp; a {
-background-color:transparent;color:var(--color-content-neutral,oklch(43.9% 0 0));&:hover{background-color:color-mix(in oklch,var(--color-field-surface,oklch(37.1% 0 0)) 50%,transparent)}
-}
-
 .\[\&\_a\]\:ghost a {
 background-color:transparent;color:var(--color-content-neutral,oklch(43.9% 0 0));&:hover{background-color:color-mix(in oklch,var(--color-field-surface,oklch(37.1% 0 0)) 50%,transparent)}
 }
@@ -3028,19 +3040,19 @@ display:flex
 flex-flow:row nowrap
 } }
 
-@media (min-width: 768px) { .md\:col {
-display:flex
-} }
-
 @media (min-width: 1280px) { .xl\:col {
 display:flex
 } }
 
 @media (min-width: 768px) { .md\:col {
+display:flex
+} }
+
+@media (min-width: 1280px) { .xl\:col {
 flex-flow:column nowrap
 } }
 
-@media (min-width: 1280px) { .xl\:col {
+@media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
 }
@@ -3060,8 +3072,6 @@ flex-flow:column nowrap
 
 .hover\:text-content-stark:hover { color: var(--color-content-stark) }
 
-.\[\&amp\;\_th\]\:text-content-starkamp; th { color: var(--color-content-stark) }
-
 .\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
 
 .text-content-neutral { color: var(--color-content-neutral) }
@@ -3076,6 +3086,8 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
@@ -3083,15 +3095,11 @@ flex-flow:column nowrap
 
 .bg-surface-2 { background-color: var(--color-surface-2) }
 
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
 .dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
 
-.\[\&amp\;\_span\]\:bg-surface-2amp; span { background-color: var(--color-surface-2) }
-
-.\[\&amp\;\_figure\]\:bg-surface-2amp; figure { background-color: var(--color-surface-2) }
-
 .\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
-
-.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
 
 .bg-surface-3 { background-color: var(--color-surface-3) }
 
@@ -3104,6 +3112,8 @@ flex-flow:column nowrap
 .border-surface-3 { border-color: var(--color-surface-3) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .\[\&\_figure\]\:border-line figure { border-color: var(--color-line) }
 
@@ -3145,10 +3155,6 @@ opacity: .5;
         pointer-events: none
 }
 
-.\[\&amp\;\_a\]\:ghostamp; a {
-background-color:transparent;color:var(--color-content-neutral,oklch(43.9% 0 0));&:hover{background-color:color-mix(in oklch,var(--color-field-surface,oklch(37.1% 0 0)) 50%,transparent)}
-}
-
 .\[\&\_a\]\:ghost a {
 background-color:transparent;color:var(--color-content-neutral,oklch(43.9% 0 0));&:hover{background-color:color-mix(in oklch,var(--color-field-surface,oklch(37.1% 0 0)) 50%,transparent)}
 }
@@ -3161,19 +3167,19 @@ display:flex
 flex-flow:row nowrap
 } }
 
-@media (min-width: 768px) { .md\:col {
-display:flex
-} }
-
 @media (min-width: 1280px) { .xl\:col {
 display:flex
 } }
 
 @media (min-width: 768px) { .md\:col {
+display:flex
+} }
+
+@media (min-width: 1280px) { .xl\:col {
 flex-flow:column nowrap
 } }
 
-@media (min-width: 1280px) { .xl\:col {
+@media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
 }
@@ -3191,6 +3197,8 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
@@ -3198,6 +3206,8 @@ flex-flow:column nowrap
 .bg-popover-surface { background-color: var(--color-popover-surface) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -3255,6 +3265,8 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
@@ -3262,6 +3274,8 @@ flex-flow:column nowrap
 .dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -3305,11 +3319,15 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -3395,11 +3413,15 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -3447,6 +3469,8 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
@@ -3454,6 +3478,8 @@ flex-flow:column nowrap
 .bg-surface-2\/80 { background-color: color-mix(in oklch, var(--color-surface-2) 80%, transparent) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -3497,6 +3523,8 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .\[\&\_tr\:hover\]\:bg-surface-1 tr:hover { background-color: var(--color-surface-1) }
@@ -3508,6 +3536,8 @@ flex-flow:column nowrap
 .bg-surface-3 { background-color: var(--color-surface-3) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -3549,11 +3579,15 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
@@ -3593,11 +3627,15 @@ flex-flow:column nowrap
 
 .bg-surface-1 { background-color: var(--color-surface-1) }
 
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
 
 .px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
 

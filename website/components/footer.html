@@ -4,7 +4,7 @@
   <nav class="col gap-4 w-content-width max-w-full mx-auto">
 
     <!-- Top -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-8 pb-10 [&_a]:text-sm">
+    <div class="columns-1 sm:columns-3 md:columns-5 gap-8 pb-10 [&_a]:text-sm">
 
       <!-- Brand block -->
       <!-- <div class="col gap-4 col-span-1">
@@ -14,107 +14,42 @@
         <p class="w-60 max-w-full">The website & app framework that thinks like you do.</p>
       </div> -->
 
-      <!-- Getting Started -->
-      <div class="col gap-3">
-        <small>Getting started</small>
-        <a href="/docs/getting-started/introduction">Introduction</a>
-        <a href="/docs/getting-started/setup">Setup</a>
-        <a href="/docs/getting-started/starter-project">Starter project</a>
-        <a href="/docs/getting-started/compatibility">Compatibility</a>
-        <a href="/docs/getting-started/accessibility">Accessibility</a>
+      <!-- Docs columns -->
+      <template x-for="group in $x.docs" :key="group.group">
+        <div class="col gap-3 mb-8 break-inside-avoid">
+          <small x-text="group.group"></small>
 
-        <small class="mt-6">Publishing</small>
-        <a href="/docs/publishing/testing">Testing</a>
-        <a href="/docs/publishing/websites">Websites</a>
-        <a href="/docs/publishing/seo-aeo">SEO & AEO</a>
-        <a href="/docs/publishing/web-apps">Web Apps</a>
-        <a href="/docs/publishing/native-apps">Native Apps</a>
-      </div>
+          <!-- Group links -->
+          <template x-if="group.slug !== 'elements'">
+            <div class="col gap-3">
+              <template x-for="(item, index) in group.items" :key="item.path || index">
+                <a x-show="item.name" :href="'/docs/' + group.slug + '/' + item.path" :class="item.indent ? 'ps-3' : ''" x-text="item.name"></a>
+              </template>
+            </div>
+          </template>
 
-      <!-- Core plugins -->
-      <div class="col gap-3">
-        <small>Core plugins</small>
-        <a href="/docs/core-plugins/chat">Chat</a>
-        <a href="/docs/core-plugins/components">Components</a>
-        <a href="/docs/core-plugins/export">Export</a>
-        <a href="/docs/core-plugins/local-data">Local data</a>
-        <a href="/docs/core-plugins/localization">Localization</a>
-        <a href="/docs/core-plugins/markdown">Markdown</a>
-        <a href="/docs/core-plugins/payments">Payments</a>
-        <a href="/docs/core-plugins/resize">Resize</a>
-        <a href="/docs/core-plugins/router">Router</a>
-        <a href="/docs/core-plugins/url-parameters">URL parameters</a>
-        <a href="/docs/core-plugins/virtual">Virtual lists</a>
-      </div>
+          <!-- Elements dropdown -->
+          <template x-if="group.slug === 'elements'">
+            <div class="col gap-3">
+              <button x-dropdown="elements-menu" class="link text-sm" aria-label="Browse all HTML elements" aria-haspopup="menu">
+                <span>20+ HTML Elements</span>
+                <span x-icon="lucide:chevron-down"></span>
+              </button>
+              <dialog popover id="elements-menu" class="col w-40 p-2 [&_a]:justify-start [&_a]:w-full [&_a]:h-15 [&_a]:ghost">
+                <template x-for="(item, index) in group.items" :key="item.path || index">
+                  <a role="button" :href="'/docs/' + group.slug + '/' + item.path"><span x-icon="item.icon"></span><span x-text="item.name"></span></a>
+                </template>
+              </dialog>
+            </div>
+          </template>
 
-      <!-- Appwrite plugins -->
-      <div class="col gap-3">
-        <small>Appwrite plugins</small>
-        <a href="/docs/appwrite-plugins/appwrite-setup">Appwrite setup</a>
-        <a href="/docs/appwrite-plugins/auth">Auth</a>
-        <a href="/docs/appwrite-plugins/users">•&nbsp; Users</a>
-        <a href="/docs/appwrite-plugins/teams">•&nbsp; Teams</a>
-        <a href="/docs/appwrite-plugins/cloud-data">Cloud data</a>
-        <a href="/docs/appwrite-plugins/databases">•&nbsp; Databases</a>
-        <a href="/docs/appwrite-plugins/storage">•&nbsp; Storage</a>
-      </div>
+          <!-- GitHub -->
+          <template x-if="group.slug === 'resources'">
+            <a href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener"><span x-icon="meteor-icons:github"></span><span>GitHub</span><span x-icon="lucide:arrow-up-right"></span></a>
+          </template>
 
-      <!-- Style -->
-      <div class="col gap-3">
-        <small>Styles</small>
-        <a href="/docs/styles/reset">Reset</a>
-        <a href="/docs/styles/theme">Theme</a>
-        <a href="/docs/styles/color-modes">Color modes</a>
-        <a href="/docs/styles/utilities">Utilities</a>
-
-        <small class="mt-6">Elements</small>
-        <button x-dropdown="elements-menu" class="link text-sm" aria-label="Browse all HTML elements" aria-haspopup="menu">
-          <span>20+ HTML Elements</span>
-          <span x-icon="lucide:chevron-down"></span>
-        </button>
-        <dialog popover id="elements-menu" class="col w-40 p-2 [&_a]:justify-start [&_a]:w-full [&_a]:h-15 [&_a]:ghost">
-          <a role="button" href="/docs/elements/accordions"><span x-icon="lucide:list-collapse"></span><span>Accordions</span></a>
-          <a role="button" href="/docs/elements/avatars"><span x-icon="lucide:circle-user-round"></span><span>Avatars</span></a>
-          <a role="button" href="/docs/elements/badges"><span x-icon="lucide:circle-star"></span><span>Badges</span></a>
-          <a role="button" href="/docs/elements/buttons"><span x-icon="lucide:square-mouse-pointer"></span><span>Buttons</span></a>
-          <a role="button" href="/docs/elements/charts"><span x-icon="lucide:chart-line"></span><span>Charts</span></a>
-          <a role="button" href="/docs/elements/checkboxes"><span x-icon="lucide:square-check"></span><span>Checkboxes</span></a>
-          <a role="button" href="/docs/elements/code"><span x-icon="lucide:code"></span><span>Code Blocks</span></a>
-          <a role="button" href="/docs/elements/color-pickers"><span x-icon="lucide:palette"></span><span>Color
-              Pickers</span></a>
-          <a role="button" href="/docs/elements/date-pickers"><span x-icon="lucide:calendar"></span><span>Date Pickers</span></a>
-          <a role="button" href="/docs/elements/dialogs"><span x-icon="lucide:panel-top-dashed"></span><span>Dialogs</span></a>
-          <a role="button" href="/docs/elements/dividers"><span x-icon="lucide:minus"></span><span>Dividers</span></a>
-          <a role="button" href="/docs/elements/dropdowns"><span x-icon="lucide:chevron-down"></span><span>Dropdowns</span></a>
-          <a role="button" href="/docs/elements/forms"><span x-icon="lucide:rows-3"></span><span>Forms</span></a>
-          <a role="button" href="/docs/elements/icons"><span x-icon="lucide:smile"></span><span>Icons</span></a>
-          <a role="button" href="/docs/elements/inputs"><span x-icon="lucide:text-cursor-input"></span><span>Inputs</span></a>
-          <a role="button" href="/docs/elements/radios"><span x-icon="lucide:circle-dot"></span><span>Radios</span></a>
-          <a role="button" href="/docs/elements/ranges"><span x-icon="lucide:sliders-horizontal"></span><span>Ranges</span></a>
-          <a role="button" href="/docs/elements/selects"><span x-icon="lucide:menu"></span><span>Selects</span></a>
-          <a role="button" href="/docs/elements/sidebars"><span x-icon="lucide:sidebar"></span><span>Sidebars</span></a>
-          <a role="button" href="/docs/elements/svgs"><span x-icon="lucide:shapes"></span><span>SVGs</span></a>
-          <a role="button" href="/docs/elements/switches"><span x-icon="lucide:toggle-right"></span><span>Switches</span></a>
-          <a role="button" href="/docs/elements/tables"><span x-icon="lucide:table"></span><span>Tables</span></a>
-          <a role="button" href="/docs/elements/tabs"><span x-icon="lucide:app-window-mac"></span><span>Tabs</span></a>
-          <a role="button" href="/docs/elements/textareas"><span x-icon="lucide:text-cursor"></span><span>Textareas</span></a>
-          <a role="button" href="/docs/elements/toasts"><span x-icon="lucide:arrow-big-up-dash"></span><span>Toasts</span></a>
-          <a role="button" href="/docs/elements/tooltips"><span x-icon="lucide:circle-help"></span><span>Tooltips</span></a>
-          <a role="button" href="/docs/elements/typography"><span x-icon="lucide:type"></span><span>Typography</span></a>
-        </dialog>
-      </div>
-
-      <!-- Resources -->
-      <div class="col gap-3">
-        <small>Resources</small>
-        <a href="/docs/resources/reference">Reference</a>
-        <a href="/docs/resources/typescript">TypeScript</a>
-        <a href="/docs/resources/security">Security</a>
-        <a href="/docs/resources/license">MIT License</a>
-        <a href="/docs/resources/privacy">Privacy Policy</a>
-        <a href="/docs/resources/acknowledgements">Acknowledgements</a>
-        <a href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener"><span x-icon="meteor-icons:github"></span><span>GitHub</span><span x-icon="lucide:arrow-up-right"></span></a>
-      </div>
+        </div>
+      </template>
 
     </div>
 

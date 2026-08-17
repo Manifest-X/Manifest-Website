@@ -19,10 +19,6 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&amp;family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=Lexend+Exa&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lexend+Exa&display=swap">
-  </noscript>
   <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.191/lib/manifest.min.css">
   <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.191/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
@@ -48,7 +44,7 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Sidebars — Manifest"><meta property="og:description" content="Collapsible navigation panels anchored to a viewport edge."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/elements/sidebars"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-elements-sidebars.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Sidebars — Manifest"><meta property="twitter:description" content="Collapsible navigation panels anchored to a viewport edge."><meta property="twitter:image" content="/og/docs-elements-sidebars.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Sidebars — Manifest","description":"Collapsible navigation panels anchored to a viewport edge.","image":"/og/docs-elements-sidebars.png","url":"https://manifestx.dev/docs/elements/sidebars"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Elements","item":"https://manifestx.dev/docs/elements"},{"@type":"ListItem","position":4,"name":"Sidebars","item":"https://manifestx.dev/docs/elements/sidebars"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Sidebars — Manifest"><meta property="og:description" content="Collapsible navigation panels anchored to a viewport edge."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/elements/sidebars"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-elements-sidebars.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Sidebars — Manifest"><meta property="twitter:description" content="Collapsible navigation panels anchored to a viewport edge."><meta property="twitter:image" content="/og/docs-elements-sidebars.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Sidebars — Manifest","description":"Collapsible navigation panels anchored to a viewport edge.","image":"/og/docs-elements-sidebars.png","url":"https://manifestx.dev/docs/elements/sidebars"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Elements","item":"https://manifestx.dev/docs/elements"},{"@type":"ListItem","position":3,"name":"Sidebars","item":"https://manifestx.dev/docs/elements/sidebars"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/elements/sidebars">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -63,7 +59,9 @@
   }
 }" class="bg-surface-1">
 
-  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="0">
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
+
+  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
 
     <!-- Content Area -->
     <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
@@ -109,23 +107,23 @@
     </nav>
 
     <!-- Mobile Navigation Sidebar -->
-    <nav data-static="" popover="" id="mobile-navigation" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 shadow-xl overflow-y-auto no-scrollbar">
+    <nav aria-label="Documentation" data-static="" popover="" id="mobile-navigation" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 shadow-xl overflow-y-auto no-scrollbar">
         <div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Getting Started</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/introduction">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/introduction">
                             <span x-icon="lucide:book-open"></span>
                             <span>Introduction</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/setup">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/setup">
                             <span x-icon="lucide:terminal"></span>
                             <span>Setup</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/starter-project">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/starter-project">
                             <span x-icon="lucide:package"></span>
                             <span>Starter Project</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/compatibility">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/compatibility">
                             <span x-icon="lucide:globe-lock"></span>
                             <span>Compatibility</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
                             <span x-icon="lucide:eye"></span>
                             <span>Accessibility</span>
                         </a>
@@ -134,40 +132,40 @@
             </div><div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Core Plugins</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/chat">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/chat">
                             <span x-icon="lucide:message-square"></span>
                             <span>Chat</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
                             <span x-icon="lucide:panels-top-left"></span>
                             <span>Components</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
                             <span x-icon="lucide:download"></span>
                             <span>Export</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/local-data">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/local-data">
                             <span x-icon="lucide:list-tree"></span>
                             <span>Local Data</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/localization">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/localization">
                             <span x-icon="lucide:languages"></span>
                             <span>Localization</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/markdown">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/markdown">
                             <span x-icon="lucide:square-m"></span>
                             <span>Markdown</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                             <span x-icon="lucide:credit-card"></span>
                             <span>Payments</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
                             <span x-icon="lucide:panel-right-open"></span>
                             <span>Resize</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                             <span x-icon="lucide:route"></span>
                             <span>Router</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
                             <span x-icon="lucide:activity"></span>
                             <span>Status</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
                             <span x-icon="lucide:ampersand"></span>
                             <span>URL Parameters</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/virtual">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/virtual">
                             <span x-icon="lucide:list-chevrons-up-down"></span>
                             <span>Virtual</span>
                         </a>
@@ -176,28 +174,28 @@
             </div><div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Appwrite Plugins</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/appwrite-setup">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/appwrite-setup">
                             <span x-icon="simple-icons:appwrite"></span>
                             <span>Appwrite Setup</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/auth">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/auth">
                             <span x-icon="lucide:users"></span>
                             <span>Auth</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/users">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/users">
                             <span x-icon="lucide:dot"></span>
                             <span>Users</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/teams">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/teams">
                             <span x-icon="lucide:dot"></span>
                             <span>Teams</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/cloud-data">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/cloud-data">
                             <span x-icon="lucide:database"></span>
                             <span>Cloud Data</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/databases">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/databases">
                             <span x-icon="lucide:dot"></span>
                             <span>Databases</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/storage">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/storage">
                             <span x-icon="lucide:dot"></span>
                             <span>Storage</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/presence">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/presence">
                             <span x-icon="lucide:radio-tower"></span>
                             <span>Presence</span>
                         </a>
@@ -206,25 +204,25 @@
             </div><div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Publishing</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/testing">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/testing">
                             <span x-icon="lucide:circle-check"></span>
                             <span>Testing</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/websites">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/websites">
                             <span x-icon="lucide:globe"></span>
                             <span>Websites</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/seo-aeo">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/seo-aeo">
                             <span x-icon="lucide:dot"></span>
                             <span>SEO &amp; AEO</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/web-apps">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/web-apps">
                             <span x-icon="lucide:app-window"></span>
                             <span>Web Apps</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
                             <span x-icon="lucide:monitor-smartphone"></span>
                             <span>Native Apps</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/app-store-readiness">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/app-store-readiness">
                             <span x-icon="lucide:dot"></span>
                             <span>App Store Readiness</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-capabilities">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-capabilities">
                             <span x-icon="lucide:dot"></span>
                             <span>Native Capabilities</span>
                         </a>
@@ -233,16 +231,16 @@
             </div><div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Styles</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/reset">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/reset">
                             <span x-icon="lucide:scale"></span>
                             <span>Reset</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/theme">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/theme">
                             <span x-icon="lucide:paint-bucket"></span>
                             <span>Theme</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/color-modes">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/color-modes">
                             <span x-icon="lucide:sun-moon"></span>
                             <span>Color Modes</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/utilities">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/utilities">
                             <span x-icon="lucide:swatch-book"></span>
                             <span>Utilities</span>
                         </a>
@@ -251,91 +249,91 @@
             </div><div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Elements</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/accordions">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/accordions">
                             <span x-icon="lucide:list-collapse"></span>
                             <span>Accordions</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/avatars">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/avatars">
                             <span x-icon="lucide:circle-user-round"></span>
                             <span>Avatars</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/badges">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/badges">
                             <span x-icon="lucide:circle-star"></span>
                             <span>Badges</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/buttons">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/buttons">
                             <span x-icon="lucide:square-mouse-pointer"></span>
                             <span>Buttons</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/charts">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/charts">
                             <span x-icon="lucide:chart-line"></span>
                             <span>Charts</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/chats">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/chats">
                             <span x-icon="lucide:messages-square"></span>
                             <span>Chats</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/checkboxes">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/checkboxes">
                             <span x-icon="lucide:square-check"></span>
                             <span>Checkboxes</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/code">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/code">
                             <span x-icon="lucide:code"></span>
                             <span>Code</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/color-pickers">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/color-pickers">
                             <span x-icon="lucide:palette"></span>
                             <span>Color Pickers</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/comboboxes">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/comboboxes">
                             <span x-icon="lucide:text-search"></span>
                             <span>Comboboxes</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/date-pickers">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/date-pickers">
                             <span x-icon="lucide:calendar"></span>
                             <span>Date Pickers</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dialogs">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dialogs">
                             <span x-icon="lucide:panel-top-dashed"></span>
                             <span>Dialogs</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dividers">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dividers">
                             <span x-icon="lucide:minus"></span>
                             <span>Dividers</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dropdowns">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dropdowns">
                             <span x-icon="lucide:chevron-down"></span>
                             <span>Dropdowns</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/forms">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/forms">
                             <span x-icon="lucide:rows-3"></span>
                             <span>Forms</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/icons">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/icons">
                             <span x-icon="lucide:smile"></span>
                             <span>Icons</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/inputs">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/inputs">
                             <span x-icon="lucide:text-cursor-input"></span>
                             <span>Inputs</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/radios">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/radios">
                             <span x-icon="lucide:circle-dot"></span>
                             <span>Radios</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/ranges">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/ranges">
                             <span x-icon="lucide:sliders-horizontal"></span>
                             <span>Ranges</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/selects">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/selects">
                             <span x-icon="lucide:menu"></span>
                             <span>Selects</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/elements/sidebars">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/elements/sidebars" aria-current="page">
                             <span x-icon="lucide:sidebar"></span>
                             <span>Sidebars</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/svgs">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/svgs">
                             <span x-icon="lucide:shapes"></span>
                             <span>SVGs</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/switches">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/switches">
                             <span x-icon="lucide:toggle-right"></span>
                             <span>Switches</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tables">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tables">
                             <span x-icon="lucide:table"></span>
                             <span>Tables</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tabs">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tabs">
                             <span x-icon="lucide:app-window-mac"></span>
                             <span>Tabs</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/textareas">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/textareas">
                             <span x-icon="lucide:text-cursor"></span>
                             <span>Textareas</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/toasts">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/toasts">
                             <span x-icon="lucide:arrow-big-up-dash"></span>
                             <span>Toasts</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tooltips">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tooltips">
                             <span x-icon="lucide:circle-help"></span>
                             <span>Tooltips</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/typography">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/typography">
                             <span x-icon="lucide:type"></span>
                             <span>Typography</span>
                         </a>
@@ -344,22 +342,22 @@
             </div><div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Resources</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/reference">
+                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/reference">
                             <span x-icon="lucide:book-marked"></span>
                             <span>Reference</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/typescript">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/typescript">
                             <span x-icon="hugeicons:typescript-01"></span>
                             <span>TypeScript</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/security">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/security">
                             <span x-icon="lucide:lock"></span>
                             <span>Security</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/license">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/license">
                             <span x-icon="lucide:file-check"></span>
                             <span>MIT License</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/privacy">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/privacy">
                             <span x-icon="lucide:shield-check"></span>
                             <span>Privacy Policy</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/acknowledgements">
+                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/acknowledgements">
                             <span x-icon="lucide:heart-handshake"></span>
                             <span>Acknowledgements</span>
                         </a>
@@ -450,7 +448,7 @@
             this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
         },
         go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
-    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="search-1" data-order="1">
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="search-1" data-order="2">
 
     <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
 
@@ -490,7 +488,7 @@
     </dialog>
 </div>
 
-  <main class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="2" data-hydrate-id="h1">
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="3" data-hydrate-id="h1">
 
     <!-- Home page -->
     
@@ -499,27 +497,27 @@
     <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*">
 
   <!-- Desktop Navigation-->
-  <div data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-data="" x-init="(async () =&gt; { for (let i = 0; i &lt; 30; i++) { const a = $el.querySelector('a.pointer-events-none'); if (a) { $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2); break } await new Promise(r =&gt; setTimeout(r, 100)) } })()">
+  <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-data="" x-init="(async () =&gt; { for (let i = 0; i &lt; 30; i++) { const a = $el.querySelector('a.pointer-events-none'); if (a) { $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2); break } await new Promise(r =&gt; setTimeout(r, 100)) } })()">
     <div class="col gap-2">
         <small class="pl-2.5 text-content-subtle">Getting Started</small>
         <div class="col">
-          <a role="button" href="/docs/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
+          <a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:book-open"></span>
               <span>Introduction</span>
-            </a><a role="button" href="/docs/getting-started/setup" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/getting-started/setup" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:terminal"></span>
               <span>Setup</span>
-            </a><a role="button" href="/docs/getting-started/starter-project" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/getting-started/starter-project" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:package"></span>
               <span>Starter Project</span>
-            </a><a role="button" href="/docs/getting-started/compatibility" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/getting-started/compatibility" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:globe-lock"></span>
               <span>Compatibility</span>
-            </a><a role="button" href="/docs/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:eye"></span>
               <span>Accessibility</span>
@@ -529,51 +527,51 @@
       </div><div class="col gap-2">
         <small class="pl-2.5 text-content-subtle">Core Plugins</small>
         <div class="col">
-          <a role="button" href="/docs/core-plugins/chat" class="ghost text-content-neutral justify-start w-full">
+          <a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/core-plugins/chat" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:message-square"></span>
               <span>Chat</span>
-            </a><a role="button" href="/docs/core-plugins/components" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/core-plugins/components" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:panels-top-left"></span>
               <span>Components</span>
-            </a><a role="button" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:download"></span>
               <span>Export</span>
-            </a><a role="button" href="/docs/core-plugins/local-data" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/core-plugins/local-data" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:list-tree"></span>
               <span>Local Data</span>
-            </a><a role="button" href="/docs/core-plugins/localization" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/core-plugins/localization" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:languages"></span>
               <span>Localization</span>
-            </a><a role="button" href="/docs/core-plugins/markdown" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/core-plugins/markdown" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:square-m"></span>
               <span>Markdown</span>
-            </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:panel-right-open"></span>
               <span>Resize</span>
-            </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:route"></span>
               <span>Router</span>
-            </a><a role="button" href="/docs/core-plugins/status" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/core-plugins/status" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:activity"></span>
               <span>Status</span>
-            </a><a role="button" href="/docs/core-plugins/url-parameters" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/core-plugins/url-parameters" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:ampersand"></span>
               <span>URL Parameters</span>
-            </a><a role="button" href="/docs/core-plugins/virtual" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/core-plugins/virtual" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:list-chevrons-up-down"></span>
               <span>Virtual</span>
@@ -583,35 +581,35 @@
       </div><div class="col gap-2">
         <small class="pl-2.5 text-content-subtle">Appwrite Plugins</small>
         <div class="col">
-          <a role="button" href="/docs/appwrite-plugins/appwrite-setup" class="ghost text-content-neutral justify-start w-full">
+          <a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/appwrite-plugins/appwrite-setup" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="simple-icons:appwrite"></span>
               <span>Appwrite Setup</span>
-            </a><a role="button" href="/docs/appwrite-plugins/auth" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/appwrite-plugins/auth" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:users"></span>
               <span>Auth</span>
-            </a><a role="button" href="/docs/appwrite-plugins/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/appwrite-plugins/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
               <span x-icon="lucide:dot"></span>
               <span>Users</span>
-            </a><a role="button" href="/docs/appwrite-plugins/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/appwrite-plugins/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
               <span x-icon="lucide:dot"></span>
               <span>Teams</span>
-            </a><a role="button" href="/docs/appwrite-plugins/cloud-data" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/appwrite-plugins/cloud-data" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:database"></span>
               <span>Cloud Data</span>
-            </a><a role="button" href="/docs/appwrite-plugins/databases" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/appwrite-plugins/databases" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
               <span x-icon="lucide:dot"></span>
               <span>Databases</span>
-            </a><a role="button" href="/docs/appwrite-plugins/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/appwrite-plugins/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
               <span x-icon="lucide:dot"></span>
               <span>Storage</span>
-            </a><a role="button" href="/docs/appwrite-plugins/presence" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/appwrite-plugins/presence" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:radio-tower"></span>
               <span>Presence</span>
@@ -621,31 +619,31 @@
       </div><div class="col gap-2">
         <small class="pl-2.5 text-content-subtle">Publishing</small>
         <div class="col">
-          <a role="button" href="/docs/publishing/testing" class="ghost text-content-neutral justify-start w-full">
+          <a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/publishing/testing" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:circle-check"></span>
               <span>Testing</span>
-            </a><a role="button" href="/docs/publishing/websites" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/publishing/websites" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:globe"></span>
               <span>Websites</span>
-            </a><a role="button" href="/docs/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
               <span x-icon="lucide:dot"></span>
               <span>SEO &amp; AEO</span>
-            </a><a role="button" href="/docs/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:app-window"></span>
               <span>Web Apps</span>
-            </a><a role="button" href="/docs/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:monitor-smartphone"></span>
               <span>Native Apps</span>
-            </a><a role="button" href="/docs/publishing/app-store-readiness" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/publishing/app-store-readiness" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
               <span x-icon="lucide:dot"></span>
               <span>App Store Readiness</span>
-            </a><a role="button" href="/docs/publishing/native-capabilities" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/publishing/native-capabilities" class="ghost text-content-neutral justify-start w-full text-content-subtle">
 
               <span x-icon="lucide:dot"></span>
               <span>Native Capabilities</span>
@@ -655,19 +653,19 @@
       </div><div class="col gap-2">
         <small class="pl-2.5 text-content-subtle">Styles</small>
         <div class="col">
-          <a role="button" href="/docs/styles/reset" class="ghost text-content-neutral justify-start w-full">
+          <a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/styles/reset" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:scale"></span>
               <span>Reset</span>
-            </a><a role="button" href="/docs/styles/theme" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/styles/theme" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:paint-bucket"></span>
               <span>Theme</span>
-            </a><a role="button" href="/docs/styles/color-modes" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/styles/color-modes" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:sun-moon"></span>
               <span>Color Modes</span>
-            </a><a role="button" href="/docs/styles/utilities" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/styles/utilities" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:swatch-book"></span>
               <span>Utilities</span>
@@ -677,119 +675,119 @@
       </div><div class="col gap-2">
         <small class="pl-2.5 text-content-subtle">Elements</small>
         <div class="col">
-          <a role="button" href="/docs/elements/accordions" class="ghost text-content-neutral justify-start w-full">
+          <a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/accordions" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:list-collapse"></span>
               <span>Accordions</span>
-            </a><a role="button" href="/docs/elements/avatars" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/avatars" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:circle-user-round"></span>
               <span>Avatars</span>
-            </a><a role="button" href="/docs/elements/badges" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/badges" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:circle-star"></span>
               <span>Badges</span>
-            </a><a role="button" href="/docs/elements/buttons" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/buttons" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:square-mouse-pointer"></span>
               <span>Buttons</span>
-            </a><a role="button" href="/docs/elements/charts" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/charts" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:chart-line"></span>
               <span>Charts</span>
-            </a><a role="button" href="/docs/elements/chats" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/chats" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:messages-square"></span>
               <span>Chats</span>
-            </a><a role="button" href="/docs/elements/checkboxes" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/checkboxes" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:square-check"></span>
               <span>Checkboxes</span>
-            </a><a role="button" href="/docs/elements/code" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/code" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:code"></span>
               <span>Code</span>
-            </a><a role="button" href="/docs/elements/color-pickers" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/color-pickers" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:palette"></span>
               <span>Color Pickers</span>
-            </a><a role="button" href="/docs/elements/comboboxes" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/comboboxes" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:text-search"></span>
               <span>Comboboxes</span>
-            </a><a role="button" href="/docs/elements/date-pickers" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/date-pickers" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:calendar"></span>
               <span>Date Pickers</span>
-            </a><a role="button" href="/docs/elements/dialogs" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/dialogs" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:panel-top-dashed"></span>
               <span>Dialogs</span>
-            </a><a role="button" href="/docs/elements/dividers" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/dividers" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:minus"></span>
               <span>Dividers</span>
-            </a><a role="button" href="/docs/elements/dropdowns" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/dropdowns" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:chevron-down"></span>
               <span>Dropdowns</span>
-            </a><a role="button" href="/docs/elements/forms" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/forms" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:rows-3"></span>
               <span>Forms</span>
-            </a><a role="button" href="/docs/elements/icons" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/icons" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:smile"></span>
               <span>Icons</span>
-            </a><a role="button" href="/docs/elements/inputs" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/inputs" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:text-cursor-input"></span>
               <span>Inputs</span>
-            </a><a role="button" href="/docs/elements/radios" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/radios" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:circle-dot"></span>
               <span>Radios</span>
-            </a><a role="button" href="/docs/elements/ranges" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/ranges" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:sliders-horizontal"></span>
               <span>Ranges</span>
-            </a><a role="button" href="/docs/elements/selects" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/selects" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:menu"></span>
               <span>Selects</span>
-            </a><a role="button" href="/docs/elements/sidebars" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+            </a><a role="button" href="/docs/elements/sidebars" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
 
               <span x-icon="lucide:sidebar"></span>
               <span>Sidebars</span>
-            </a><a role="button" href="/docs/elements/svgs" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/svgs" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:shapes"></span>
               <span>SVGs</span>
-            </a><a role="button" href="/docs/elements/switches" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/switches" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:toggle-right"></span>
               <span>Switches</span>
-            </a><a role="button" href="/docs/elements/tables" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/tables" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:table"></span>
               <span>Tables</span>
-            </a><a role="button" href="/docs/elements/tabs" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/tabs" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:app-window-mac"></span>
               <span>Tabs</span>
-            </a><a role="button" href="/docs/elements/textareas" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/textareas" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:text-cursor"></span>
               <span>Textareas</span>
-            </a><a role="button" href="/docs/elements/toasts" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/toasts" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:arrow-big-up-dash"></span>
               <span>Toasts</span>
-            </a><a role="button" href="/docs/elements/tooltips" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/tooltips" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:circle-help"></span>
               <span>Tooltips</span>
-            </a><a role="button" href="/docs/elements/typography" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/elements/typography" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:type"></span>
               <span>Typography</span>
@@ -799,27 +797,27 @@
       </div><div class="col gap-2">
         <small class="pl-2.5 text-content-subtle">Resources</small>
         <div class="col">
-          <a role="button" href="/docs/resources/reference" class="ghost text-content-neutral justify-start w-full">
+          <a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/resources/reference" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:book-marked"></span>
               <span>Reference</span>
-            </a><a role="button" href="/docs/resources/typescript" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/resources/typescript" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="hugeicons:typescript-01"></span>
               <span>TypeScript</span>
-            </a><a role="button" href="/docs/resources/security" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/resources/security" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:lock"></span>
               <span>Security</span>
-            </a><a role="button" href="/docs/resources/license" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/resources/license" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:file-check"></span>
               <span>MIT License</span>
-            </a><a role="button" href="/docs/resources/privacy" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/resources/privacy" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:shield-check"></span>
               <span>Privacy Policy</span>
-            </a><a role="button" href="/docs/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
+            </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" href="/docs/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
 
               <span x-icon="lucide:heart-handshake"></span>
               <span>Acknowledgements</span>
@@ -827,7 +825,7 @@
         </div>
         <hr class="mt-4 mb-8">
       </div>
-  </div>
+  </nav>
 
   <!-- Articles -->
   <div class="col justify-between max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
@@ -1059,7 +1057,7 @@ nav[popover].custom {
   </div>
 
   <!-- Anchor Links -->
-  <div data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
+  <nav aria-label="On this page" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
 
     <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
       <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
@@ -1068,7 +1066,7 @@ nav[popover].custom {
 
     <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#default">Default</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#positioning">Positioning</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#theme">Theme</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#tailwind-css">Tailwind CSS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#transitions">Transitions</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#customization">Customization</a></div>
 
-  </div>
+  </nav>
 
 </div>
 
