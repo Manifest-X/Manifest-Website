@@ -2,7 +2,7 @@
 
   <!-- Desktop Navigation-->
   <nav aria-label="Documentation" data-static style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar"
-    x-data x-init="(async () => { for (let i = 0; i < 30; i++) { const a = $el.querySelector('a.pointer-events-none'); if (a) { $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2); break } await new Promise(r => setTimeout(r, 100)) } })()">
+    x-data x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r => addEventListener('manifest:ready', r, { once: true }))).then(() => { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
     <template x-for="group in $x.docs" :key="group.group">
       <div class="col gap-2">
         <small class="pl-2.5 text-content-subtle" x-text="group.group"></small>
@@ -27,24 +27,63 @@
   </nav>
 
   <!-- Articles -->
-  <div class="col justify-between max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
 
-    <div class="col max-w-full mx-auto">
+    <div class="col grow w-full max-w-full mx-auto">
 
       <!-- Eyebrow Group Name -->
-      <template x-if="$x.docs.$route('path')">
+      <template x-if="$x.docs.$route('path')?.name">
         <span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'"></span>
       </template>
 
       <!-- Markdown Document for Route -->
-      <template x-if="$x.docs.$route('path')">
+      <template x-if="$x.docs.$route('path')?.name">
         <div class="prose [&_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="$x.docs.$route('path')?.doc"></div>
+      </template>
+
+      <!-- Docs home -->
+      <template x-if="$route.replace(/\/$/, '') === '/docs'">
+        <div class="col gap-8">
+          <div class="col gap-3 max-w-2xl">
+            <h1>Documentation</h1>
+            <p class="text-content-neutral">Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference.</p>
+          </div>
+          <div class="row-wrap gap-3">
+            <template x-for="group in $x.docs" :key="group.group">
+              <a :href="'/docs/' + group.slug" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
+                <span x-icon="group.items?.[0]?.icon" class="text-brand-content"></span>
+                <span class="col">
+                  <span class="text-content-stark font-medium" x-text="group.group"></span>
+                  <small class="text-content-subtle" x-text="group.items.filter(i => i.name).length + ' articles'"></small>
+                </span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Group landing -->
+      <template x-if="$x.docs.$route('slug')?.group">
+        <div class="col gap-8" x-data="{ get group() { return $x.docs.$route('slug') } }">
+          <div class="col gap-3 max-w-2xl">
+            <h1 x-text="group?.group"></h1>
+            <p class="text-content-neutral" x-text="group?.description"></p>
+          </div>
+          <div class="row-wrap gap-3">
+            <template x-for="(item, index) in group?.items.filter(i => i.name) || []" :key="item.path || index">
+              <a :href="'/docs/' + group.slug + '/' + item.path" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
+                <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
+                <span class="text-content-stark" x-text="item.name"></span>
+              </a>
+            </template>
+          </div>
+        </div>
       </template>
 
     </div>
 
-    <!-- Default Content — `x-if` (not `x-show`) so the fallback is REMOVED from the DOM on valid routes, instead of just `display:none`. Otherwise every prerendered article page ships the "Article does not exist" text alongside its real content, which crawlers/AI scrapers see as duplicate/contradictory content. -->
-    <template x-if="!$x.docs.$route('path')">
+    <!-- Fallback — x-if so prerendered article pages don't ship it as duplicate content -->
+    <template x-if="!$x.docs.$route('path')?.name && !$x.docs.$route('slug')?.group && $route.replace(/\/$/, '') !== '/docs'">
       <div class="w-3xl max-w-full mx-auto text-center prose">
         <h1>Article does not exist</h1>
         <p>There is no documentation at this path.</p>

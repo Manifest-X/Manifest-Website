@@ -44,7 +44,7 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Comboboxes — Manifest"><meta property="og:description" content="Collect entries or chips in filterable fields."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/elements/comboboxes"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-elements-comboboxes.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Comboboxes — Manifest"><meta property="twitter:description" content="Collect entries or chips in filterable fields."><meta property="twitter:image" content="/og/docs-elements-comboboxes.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Comboboxes — Manifest","description":"Collect entries or chips in filterable fields.","image":"/og/docs-elements-comboboxes.png","url":"https://manifestx.dev/docs/elements/comboboxes"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Elements","item":"https://manifestx.dev/docs/elements"},{"@type":"ListItem","position":3,"name":"Comboboxes","item":"https://manifestx.dev/docs/elements/comboboxes"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Comboboxes — Manifest"><meta property="og:description" content="Collect entries or chips in filterable fields."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/elements/comboboxes"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-elements-comboboxes.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Comboboxes — Manifest"><meta property="twitter:description" content="Collect entries or chips in filterable fields."><meta property="twitter:image" content="/og/docs-elements-comboboxes.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Comboboxes — Manifest","description":"Collect entries or chips in filterable fields.","image":"/og/docs-elements-comboboxes.png","url":"https://manifestx.dev/docs/elements/comboboxes"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Elements","item":"https://manifestx.dev/docs/elements"},{"@type":"ListItem","position":4,"name":"Comboboxes","item":"https://manifestx.dev/docs/elements/comboboxes"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/elements/comboboxes">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -107,23 +107,23 @@
     </nav>
 
     <!-- Mobile Navigation Sidebar -->
-    <nav aria-label="Documentation" data-static="" popover="" id="mobile-navigation" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 shadow-xl overflow-y-auto no-scrollbar">
+    <nav aria-label="Documentation" data-static="" popover="" id="mobile-navigation" data-no-view-transition="" x-data="" @manifest:route-change.window="$el.hidePopover()" class="col w-64 h-full pt-8 pb-64 px-4 shadow-xl overflow-y-auto no-scrollbar">
         <div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Getting Started</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/introduction">
+                    <a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/introduction">
                             <span x-icon="lucide:book-open"></span>
                             <span>Introduction</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/setup">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/setup">
                             <span x-icon="lucide:terminal"></span>
                             <span>Setup</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/starter-project">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/starter-project">
                             <span x-icon="lucide:package"></span>
                             <span>Starter Project</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/compatibility">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/compatibility">
                             <span x-icon="lucide:globe-lock"></span>
                             <span>Compatibility</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
                             <span x-icon="lucide:eye"></span>
                             <span>Accessibility</span>
                         </a>
@@ -132,40 +132,40 @@
             </div><div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Core Plugins</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/chat">
+                    <a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/chat">
                             <span x-icon="lucide:message-square"></span>
                             <span>Chat</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
                             <span x-icon="lucide:panels-top-left"></span>
                             <span>Components</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
                             <span x-icon="lucide:download"></span>
                             <span>Export</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/local-data">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/local-data">
                             <span x-icon="lucide:list-tree"></span>
                             <span>Local Data</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/localization">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/localization">
                             <span x-icon="lucide:languages"></span>
                             <span>Localization</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/markdown">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/markdown">
                             <span x-icon="lucide:square-m"></span>
                             <span>Markdown</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                             <span x-icon="lucide:credit-card"></span>
                             <span>Payments</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
                             <span x-icon="lucide:panel-right-open"></span>
                             <span>Resize</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                             <span x-icon="lucide:route"></span>
                             <span>Router</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
                             <span x-icon="lucide:activity"></span>
                             <span>Status</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
                             <span x-icon="lucide:ampersand"></span>
                             <span>URL Parameters</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/virtual">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/virtual">
                             <span x-icon="lucide:list-chevrons-up-down"></span>
                             <span>Virtual</span>
                         </a>
@@ -174,28 +174,28 @@
             </div><div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Appwrite Plugins</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/appwrite-setup">
+                    <a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/appwrite-setup">
                             <span x-icon="simple-icons:appwrite"></span>
                             <span>Appwrite Setup</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/auth">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/auth">
                             <span x-icon="lucide:users"></span>
                             <span>Auth</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/users">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/users">
                             <span x-icon="lucide:dot"></span>
                             <span>Users</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/teams">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/teams">
                             <span x-icon="lucide:dot"></span>
                             <span>Teams</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/cloud-data">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/cloud-data">
                             <span x-icon="lucide:database"></span>
                             <span>Cloud Data</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/databases">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/databases">
                             <span x-icon="lucide:dot"></span>
                             <span>Databases</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/storage">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/storage">
                             <span x-icon="lucide:dot"></span>
                             <span>Storage</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/presence">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/presence">
                             <span x-icon="lucide:radio-tower"></span>
                             <span>Presence</span>
                         </a>
@@ -204,25 +204,25 @@
             </div><div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Publishing</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/testing">
+                    <a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/testing">
                             <span x-icon="lucide:circle-check"></span>
                             <span>Testing</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/websites">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/websites">
                             <span x-icon="lucide:globe"></span>
                             <span>Websites</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/seo-aeo">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/seo-aeo">
                             <span x-icon="lucide:dot"></span>
                             <span>SEO &amp; AEO</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/web-apps">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/web-apps">
                             <span x-icon="lucide:app-window"></span>
                             <span>Web Apps</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
                             <span x-icon="lucide:monitor-smartphone"></span>
                             <span>Native Apps</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/app-store-readiness">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/app-store-readiness">
                             <span x-icon="lucide:dot"></span>
                             <span>App Store Readiness</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-capabilities">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-capabilities">
                             <span x-icon="lucide:dot"></span>
                             <span>Native Capabilities</span>
                         </a>
@@ -231,16 +231,16 @@
             </div><div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Styles</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/reset">
+                    <a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/reset">
                             <span x-icon="lucide:scale"></span>
                             <span>Reset</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/theme">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/theme">
                             <span x-icon="lucide:paint-bucket"></span>
                             <span>Theme</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/color-modes">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/color-modes">
                             <span x-icon="lucide:sun-moon"></span>
                             <span>Color Modes</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/utilities">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/utilities">
                             <span x-icon="lucide:swatch-book"></span>
                             <span>Utilities</span>
                         </a>
@@ -249,91 +249,91 @@
             </div><div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Elements</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/accordions">
+                    <a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/accordions">
                             <span x-icon="lucide:list-collapse"></span>
                             <span>Accordions</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/avatars">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/avatars">
                             <span x-icon="lucide:circle-user-round"></span>
                             <span>Avatars</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/badges">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/badges">
                             <span x-icon="lucide:circle-star"></span>
                             <span>Badges</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/buttons">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/buttons">
                             <span x-icon="lucide:square-mouse-pointer"></span>
                             <span>Buttons</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/charts">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/charts">
                             <span x-icon="lucide:chart-line"></span>
                             <span>Charts</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/chats">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/chats">
                             <span x-icon="lucide:messages-square"></span>
                             <span>Chats</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/checkboxes">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/checkboxes">
                             <span x-icon="lucide:square-check"></span>
                             <span>Checkboxes</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/code">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/code">
                             <span x-icon="lucide:code"></span>
                             <span>Code</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/color-pickers">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/color-pickers">
                             <span x-icon="lucide:palette"></span>
                             <span>Color Pickers</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/elements/comboboxes" aria-current="page">
+                        </a><a role="button" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/elements/comboboxes" aria-current="page">
                             <span x-icon="lucide:text-search"></span>
                             <span>Comboboxes</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/date-pickers">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/date-pickers">
                             <span x-icon="lucide:calendar"></span>
                             <span>Date Pickers</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dialogs">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dialogs">
                             <span x-icon="lucide:panel-top-dashed"></span>
                             <span>Dialogs</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dividers">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dividers">
                             <span x-icon="lucide:minus"></span>
                             <span>Dividers</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dropdowns">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dropdowns">
                             <span x-icon="lucide:chevron-down"></span>
                             <span>Dropdowns</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/forms">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/forms">
                             <span x-icon="lucide:rows-3"></span>
                             <span>Forms</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/icons">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/icons">
                             <span x-icon="lucide:smile"></span>
                             <span>Icons</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/inputs">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/inputs">
                             <span x-icon="lucide:text-cursor-input"></span>
                             <span>Inputs</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/radios">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/radios">
                             <span x-icon="lucide:circle-dot"></span>
                             <span>Radios</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/ranges">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/ranges">
                             <span x-icon="lucide:sliders-horizontal"></span>
                             <span>Ranges</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/selects">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/selects">
                             <span x-icon="lucide:menu"></span>
                             <span>Selects</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/sidebars">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/sidebars">
                             <span x-icon="lucide:sidebar"></span>
                             <span>Sidebars</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/svgs">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/svgs">
                             <span x-icon="lucide:shapes"></span>
                             <span>SVGs</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/switches">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/switches">
                             <span x-icon="lucide:toggle-right"></span>
                             <span>Switches</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tables">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tables">
                             <span x-icon="lucide:table"></span>
                             <span>Tables</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tabs">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tabs">
                             <span x-icon="lucide:app-window-mac"></span>
                             <span>Tabs</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/textareas">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/textareas">
                             <span x-icon="lucide:text-cursor"></span>
                             <span>Textareas</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/toasts">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/toasts">
                             <span x-icon="lucide:arrow-big-up-dash"></span>
                             <span>Toasts</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tooltips">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tooltips">
                             <span x-icon="lucide:circle-help"></span>
                             <span>Tooltips</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/typography">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/typography">
                             <span x-icon="lucide:type"></span>
                             <span>Typography</span>
                         </a>
@@ -342,22 +342,22 @@
             </div><div class="col gap-6 py-4">
                 <small class="pl-2.5 text-content-subtle">Resources</small>
                 <div class="col">
-                    <a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/reference">
+                    <a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/reference">
                             <span x-icon="lucide:book-marked"></span>
                             <span>Reference</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/typescript">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/typescript">
                             <span x-icon="hugeicons:typescript-01"></span>
                             <span>TypeScript</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/security">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/security">
                             <span x-icon="lucide:lock"></span>
                             <span>Security</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/license">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/license">
                             <span x-icon="lucide:file-check"></span>
                             <span>MIT License</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/privacy">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/privacy">
                             <span x-icon="lucide:shield-check"></span>
                             <span>Privacy Policy</span>
-                        </a><a role="button" popovertarget="mobile-navigation" popoveraction="hide" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/acknowledgements">
+                        </a><a role="button" :aria-current="$x.docs.$route('path') &amp;&amp; $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/acknowledgements">
                             <span x-icon="lucide:heart-handshake"></span>
                             <span>Acknowledgements</span>
                         </a>
@@ -494,10 +494,10 @@
     
 
     <!-- Documentation pages -->
-    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="/docs/*">
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-route="docs">
 
   <!-- Desktop Navigation-->
-  <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-data="" x-init="(async () =&gt; { for (let i = 0; i &lt; 30; i++) { const a = $el.querySelector('a.pointer-events-none'); if (a) { $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2); break } await new Promise(r =&gt; setTimeout(r, 100)) } })()">
+  <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-data="" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
     <div class="col gap-2">
         <small class="pl-2.5 text-content-subtle">Getting Started</small>
         <div class="col">
@@ -828,17 +828,17 @@
   </nav>
 
   <!-- Articles -->
-  <div class="col justify-between max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
 
-    <div class="col max-w-full mx-auto">
+    <div class="col grow w-full max-w-full mx-auto">
 
       <!-- Eyebrow Group Name -->
-      <template x-if="$x.docs.$route('path')">
+      <template x-if="$x.docs.$route('path')?.name">
         <span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'"></span>
       </template><span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'" data-mnfst-prerender-clone="1">Elements</span>
 
       <!-- Markdown Document for Route -->
-      <template x-if="$x.docs.$route('path')">
+      <template x-if="$x.docs.$route('path')?.name">
         <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="$x.docs.$route('path')?.doc"></div>
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="comboboxes">Comboboxes</h1><p>Collect entries or chips in filterable fields.</p>
 <hr>
@@ -868,7 +868,7 @@
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox</span>=<span class="hljs-string">"countries"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Country"</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 22rem; anchor-name: --combobox-l9ylatt"><input x-combobox="cb-countries-t" autocomplete="off" aria-controls="combobox-menu-mwjbyru" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Country"><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 22rem; anchor-name: --combobox-ef7f3z5"><input x-combobox="cb-countries-t" autocomplete="off" aria-controls="combobox-menu-w8nvh4m" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Country"><span role="status"></span></div>
 <datalist id="cb-countries-t" style="display: none !important"><option>Australia</option><option>Brazil</option><option>Canada</option><option>Denmark</option><option>France</option><option>Germany</option><option>Japan</option><option>Mexico</option><option>Spain</option><option>Sweden</option></datalist></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -876,7 +876,7 @@
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"skills"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Add skills"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-4trxoms"><textarea x-combobox.multiple.chips="cb-skills-t" autocomplete="off" aria-controls="combobox-menu-zj50rue" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Add skills"></textarea><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-wq1wolb"><textarea x-combobox.multiple.chips="cb-skills-t" autocomplete="off" aria-controls="combobox-menu-92xd4jb" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Add skills"></textarea><span role="status"></span></div>
 <datalist id="cb-skills-t" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -889,7 +889,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Medium<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>High<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 16rem; anchor-name: --combobox-q1ivoyy"><button x-combobox="cb-priority-t" autocomplete="off" aria-controls="combobox-menu-alvkxem" aria-expanded="false" aria-haspopup="listbox">Select priority</button><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 16rem; anchor-name: --combobox-3u8dby0"><button x-combobox="cb-priority-t" autocomplete="off" aria-controls="combobox-menu-nc68i8n" aria-expanded="false" aria-haspopup="listbox">Select priority</button><span role="status"></span></div>
 <menu popover="" id="cb-priority-t" style="display: none !important"><li>Low</li><li>Medium</li><li>High</li><li>Urgent</li></menu></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -926,7 +926,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Brazil<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Canada<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">datalist</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 22rem; anchor-name: --combobox-j8bqe8n"><input x-combobox="cb-countries" autocomplete="off" aria-controls="combobox-menu-8pimn1g" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Country"><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 22rem; anchor-name: --combobox-dndu7cl"><input x-combobox="cb-countries" autocomplete="off" aria-controls="combobox-menu-cadzmig" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Country"><span role="status"></span></div>
 <datalist id="cb-countries" style="display: none !important"><option>Australia</option><option>Brazil</option><option>Canada</option><option>Denmark</option><option>France</option><option>Germany</option><option>Japan</option><option>Mexico</option><option>Spain</option><option>Sweden</option></datalist></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -940,7 +940,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Writing<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Research<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">datalist</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-hircyox"><input x-combobox.multiple.chips="cb-skills" autocomplete="off" aria-controls="combobox-menu-cbo9qwi" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Skills"><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-ohm41v0"><input x-combobox.multiple.chips="cb-skills" autocomplete="off" aria-controls="combobox-menu-y1nu02n" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Skills"><span role="status"></span></div>
 <datalist id="cb-skills" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -954,7 +954,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">data-value</span>=<span class="hljs-string">"ana"</span> <span class="hljs-attr">data-label</span>=<span class="hljs-string">"Ana Ruiz"</span>&gt;</span>Ana Ruiz <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"trailing"</span>&gt;</span>ana@acme.com<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">data-value</span>=<span class="hljs-string">"sam"</span> <span class="hljs-attr">data-label</span>=<span class="hljs-string">"Sam Cole"</span>&gt;</span>Sam Cole <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"trailing"</span>&gt;</span>sam@acme.com<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-roara69"><input x-combobox.multiple.chips="cb-people" autocomplete="off" aria-controls="combobox-menu-y6cmh42" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Assign people"><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-j8qx02i"><input x-combobox.multiple.chips="cb-people" autocomplete="off" aria-controls="combobox-menu-710zqjk" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Assign people"><span role="status"></span></div>
 <menu popover="" id="cb-people" style="display: none !important">
     <li data-value="ana" data-label="Ana Ruiz">Ana Ruiz <span class="trailing">ana@acme.com</span></li>
     <li data-value="sam" data-label="Sam Cole">Sam Cole <span class="trailing">sam@acme.com</span></li>
@@ -984,7 +984,7 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ picked: ['bug'], tagList: [{ id: 'bug', name: 'Bug', color: '#e5484d' }, { id: 'feature', name: 'Feature', color: '#30a46c' }, { id: 'docs', name: 'Docs', color: '#0091ff' }] }">
-<div class="combobox" style="max-width: 30rem; anchor-name: --combobox-757zv7u"><span class="combobox-chip" data-value="bug"><span><span data-chip="" class="row items-center gap-2"><span style="background: #e5484d; width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block"></span><span>Bug</span></span></span><button type="button" aria-label="Remove Bug">×</button></span><input x-combobox.multiple.chips="cb-tags" autocomplete="off" aria-controls="combobox-menu-n1x3r9j" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder=""><span role="status"></span></div>
+<div class="combobox" style="max-width: 30rem; anchor-name: --combobox-mdmja61"><span class="combobox-chip" data-value="bug"><span><span data-chip="" class="row items-center gap-2"><span style="background: #e5484d; width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block"></span><span>Bug</span></span></span><button type="button" aria-label="Remove Bug">×</button></span><input x-combobox.multiple.chips="cb-tags" autocomplete="off" aria-controls="combobox-menu-ok2u77t" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder=""><span role="status"></span></div>
 <menu popover="" id="cb-tags" style="display: none !important">
 <li data-value="bug" data-label="Bug">
 <span data-chip="" class="row items-center gap-2"><span style="background: #e5484d; width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block"></span><span>Bug</span></span>
@@ -1066,7 +1066,7 @@
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips.create</span>=<span class="hljs-string">"skills"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Skills"</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-7wt1gma"><input x-combobox.multiple.chips.create="cb-skills-create" autocomplete="off" aria-controls="combobox-menu-57ro66h" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Skills"><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-q53uvm1"><input x-combobox.multiple.chips.create="cb-skills-create" autocomplete="off" aria-controls="combobox-menu-jegtn7r" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Skills"><span role="status"></span></div>
 <datalist id="cb-skills-create" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option></datalist></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -1076,7 +1076,7 @@
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"{ source: 'skills', max: 3 }"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Pick up to 3"</span>&gt;</span></code></pre>
-<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-h58vasj"><input x-combobox.multiple.chips="{ source: 'cb-skills-max', max: 3 }" autocomplete="off" aria-controls="combobox-menu-fhb2srh" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Pick up to 3"><span role="status"></span></div>
+<aside class="frame"><div class="combobox" style="max-width: 30rem; anchor-name: --combobox-vr1wq8f"><input x-combobox.multiple.chips="{ source: 'cb-skills-max', max: 3 }" autocomplete="off" aria-controls="combobox-menu-2fcigea" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Pick up to 3"><span role="status"></span></div>
 <datalist id="cb-skills-max" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -1091,7 +1091,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Analytics<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">datalist</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ plan: ['SSL', 'Backups'] }" style="max-width: 30rem">
-<div class="combobox" style="anchor-name: --combobox-hqsippf"><span class="combobox-chip" data-value="SSL" data-locked=""><span>SSL</span></span><span class="combobox-chip" data-value="Backups"><span>Backups</span><button type="button" aria-label="Remove Backups">×</button></span><input x-combobox.multiple.chips="cb-plan-lock" autocomplete="off" aria-controls="combobox-menu-2j21p5l" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder=""><span role="status"></span></div>
+<div class="combobox" style="anchor-name: --combobox-06iq4qq"><span class="combobox-chip" data-value="SSL" data-locked=""><span>SSL</span></span><span class="combobox-chip" data-value="Backups"><span>Backups</span><button type="button" aria-label="Remove Backups">×</button></span><input x-combobox.multiple.chips="cb-plan-lock" autocomplete="off" aria-controls="combobox-menu-w492pta" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder=""><span role="status"></span></div>
 <datalist id="cb-plan-lock" style="display: none !important"><option data-locked="">SSL</option><option>Backups</option><option>Analytics</option><option>Priority support</option></datalist>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
@@ -1106,7 +1106,7 @@
             .then(users =&gt; $event.detail.setOptions(users))
     "</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <aside class="frame"><div x-data="{ search(e) { const all = ['Ada Lovelace','Alan Turing','Grace Hopper','Katherine Johnson','Linus Torvalds','Margaret Hamilton']; const v = e.detail.value.toLowerCase(); clearTimeout(this._t); this._t = setTimeout(() =&gt; e.detail.setOptions(all.filter(n =&gt; n.toLowerCase().includes(v))), 400) } }">
-<div class="combobox" style="max-width: 26rem; anchor-name: --combobox-f2r0n0f"><input x-combobox.async="{ min: 1 }" @combobox-filter="search($event)" autocomplete="off" aria-controls="combobox-menu-g2ck6z5" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Search users" data-hydrate-id="h2"><span role="status"></span></div>
+<div class="combobox" style="max-width: 26rem; anchor-name: --combobox-st529by"><input x-combobox.async="{ min: 1 }" @combobox-filter="search($event)" autocomplete="off" aria-controls="combobox-menu-050952z" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Search users" data-hydrate-id="h2"><span role="status"></span></div>
 </div></aside>
 <p>Each result is <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">{ value, label }</code>, or a plain string when the two are the same. The field opens on focus, shows a brief loading state while it waits, and ignores out-of-date responses. Use <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">min</code> to set how many characters are needed before fetching, and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">debounce</code> to set the pause after typing.</p>
 <hr>
@@ -1131,7 +1131,7 @@ tags=research</code></pre>
     <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"roles"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"member.roles"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Roles"</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ roles: ['Design', 'Research'] }" style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 30rem">
-<div class="combobox" style="anchor-name: --combobox-hjyobyp"><span class="combobox-chip" data-value="Design"><span>Design</span><button type="button" aria-label="Remove Design">×</button></span><span class="combobox-chip" data-value="Research"><span>Research</span><button type="button" aria-label="Remove Research">×</button></span><input x-combobox.multiple.chips="cb-roles-bind" autocomplete="off" aria-controls="combobox-menu-rsjh1p0" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder=""><span role="status"></span></div>
+<div class="combobox" style="anchor-name: --combobox-mbaxegw"><span class="combobox-chip" data-value="Design"><span>Design</span><button type="button" aria-label="Remove Design">×</button></span><span class="combobox-chip" data-value="Research"><span>Research</span><button type="button" aria-label="Remove Research">×</button></span><input x-combobox.multiple.chips="cb-roles-bind" autocomplete="off" aria-controls="combobox-menu-df02hcs" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder=""><span role="status"></span></div>
 <datalist id="cb-roles-bind" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist>
 <button type="button" class="hug sm" @click="roles = ['Writing', 'Testing']">Load a different record</button>
 <code x-text="'roles = ' + JSON.stringify(roles)">roles = ["Design","Research"]</code>
@@ -1345,10 +1345,144 @@ tags=research</code></pre>
 <p>Bind the color with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">:style</code> when it comes from your data (<code>:style="</code>--combobox-chip-surface: ${tag.color}<code>"</code>) — the chip re-tints whenever the value changes.</p>
 </div>
 
+      <!-- Docs home -->
+      <template x-if="$route.replace(/\/$/, '') === '/docs'">
+        <div class="col gap-8">
+          <div class="col gap-3 max-w-2xl">
+            <h1>Documentation</h1>
+            <p class="text-content-neutral">Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference.</p>
+          </div>
+          <div class="row-wrap gap-3">
+            <template x-for="group in $x.docs" :key="group.group">
+              <a :href="'/docs/' + group.slug" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
+                <span x-icon="group.items?.[0]?.icon" class="text-brand-content"></span>
+                <span class="col">
+                  <span class="text-content-stark font-medium" x-text="group.group"></span>
+                  <small class="text-content-subtle" x-text="group.items.filter(i =&gt; i.name).length + ' articles'"></small>
+                </span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Group landing -->
+      <template x-if="$x.docs.$route('slug')?.group">
+        <div class="col gap-8" x-data="{ get group() { return $x.docs.$route('slug') } }">
+          <div class="col gap-3 max-w-2xl">
+            <h1 x-text="group?.group"></h1>
+            <p class="text-content-neutral" x-text="group?.description"></p>
+          </div>
+          <div class="row-wrap gap-3">
+            <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
+              <a :href="'/docs/' + group.slug + '/' + item.path" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
+                <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
+                <span class="text-content-stark" x-text="item.name"></span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template><div class="col gap-8" x-data="{ get group() { return $x.docs.$route('slug') } }" data-mnfst-prerender-clone="1">
+          <div class="col gap-3 max-w-2xl">
+            <h1 x-text="group?.group">Elements</h1>
+            <p class="text-content-neutral" x-text="group?.description">Pre-styled HTML elements and interactive widgets.</p>
+          </div>
+          <div class="row-wrap gap-3">
+            <a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/accordions">
+                <span x-icon="lucide:list-collapse" class="text-brand-content"></span>
+                <span class="text-content-stark">Accordions</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/avatars">
+                <span x-icon="lucide:circle-user-round" class="text-brand-content"></span>
+                <span class="text-content-stark">Avatars</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/badges">
+                <span x-icon="lucide:circle-star" class="text-brand-content"></span>
+                <span class="text-content-stark">Badges</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/buttons">
+                <span x-icon="lucide:square-mouse-pointer" class="text-brand-content"></span>
+                <span class="text-content-stark">Buttons</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/charts">
+                <span x-icon="lucide:chart-line" class="text-brand-content"></span>
+                <span class="text-content-stark">Charts</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/chats">
+                <span x-icon="lucide:messages-square" class="text-brand-content"></span>
+                <span class="text-content-stark">Chats</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/checkboxes">
+                <span x-icon="lucide:square-check" class="text-brand-content"></span>
+                <span class="text-content-stark">Checkboxes</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/code">
+                <span x-icon="lucide:code" class="text-brand-content"></span>
+                <span class="text-content-stark">Code</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/color-pickers">
+                <span x-icon="lucide:palette" class="text-brand-content"></span>
+                <span class="text-content-stark">Color Pickers</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/comboboxes">
+                <span x-icon="lucide:text-search" class="text-brand-content"></span>
+                <span class="text-content-stark">Comboboxes</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/date-pickers">
+                <span x-icon="lucide:calendar" class="text-brand-content"></span>
+                <span class="text-content-stark">Date Pickers</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/dialogs">
+                <span x-icon="lucide:panel-top-dashed" class="text-brand-content"></span>
+                <span class="text-content-stark">Dialogs</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/dividers">
+                <span x-icon="lucide:minus" class="text-brand-content"></span>
+                <span class="text-content-stark">Dividers</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/dropdowns">
+                <span x-icon="lucide:chevron-down" class="text-brand-content"></span>
+                <span class="text-content-stark">Dropdowns</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/forms">
+                <span x-icon="lucide:rows-3" class="text-brand-content"></span>
+                <span class="text-content-stark">Forms</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/icons">
+                <span x-icon="lucide:smile" class="text-brand-content"></span>
+                <span class="text-content-stark">Icons</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/inputs">
+                <span x-icon="lucide:text-cursor-input" class="text-brand-content"></span>
+                <span class="text-content-stark">Inputs</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/radios">
+                <span x-icon="lucide:circle-dot" class="text-brand-content"></span>
+                <span class="text-content-stark">Radios</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/ranges">
+                <span x-icon="lucide:sliders-horizontal" class="text-brand-content"></span>
+                <span class="text-content-stark">Ranges</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/selects">
+                <span x-icon="lucide:menu" class="text-brand-content"></span>
+                <span class="text-content-stark">Selects</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/sidebars">
+                <span x-icon="lucide:sidebar" class="text-brand-content"></span>
+                <span class="text-content-stark">Sidebars</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/svgs">
+                <span x-icon="lucide:shapes" class="text-brand-content"></span>
+                <span class="text-content-stark">SVGs</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/switches">
+                <span x-icon="lucide:toggle-right" class="text-brand-content"></span>
+                <span class="text-content-stark">Switches</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/tables">
+                <span x-icon="lucide:table" class="text-brand-content"></span>
+                <span class="text-content-stark">Tables</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/tabs">
+                <span x-icon="lucide:app-window-mac" class="text-brand-content"></span>
+                <span class="text-content-stark">Tabs</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/textareas">
+                <span x-icon="lucide:text-cursor" class="text-brand-content"></span>
+                <span class="text-content-stark">Textareas</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/toasts">
+                <span x-icon="lucide:arrow-big-up-dash" class="text-brand-content"></span>
+                <span class="text-content-stark">Toasts</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/tooltips">
+                <span x-icon="lucide:circle-help" class="text-brand-content"></span>
+                <span class="text-content-stark">Tooltips</span>
+              </a><a class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline" href="/docs/elements/typography">
+                <span x-icon="lucide:type" class="text-brand-content"></span>
+                <span class="text-content-stark">Typography</span>
+              </a>
+          </div>
+        </div>
+
     </div>
 
-    <!-- Default Content — `x-if` (not `x-show`) so the fallback is REMOVED from the DOM on valid routes, instead of just `display:none`. Otherwise every prerendered article page ships the "Article does not exist" text alongside its real content, which crawlers/AI scrapers see as duplicate/contradictory content. -->
-    <template x-if="!$x.docs.$route('path')">
+    <!-- Fallback — x-if so prerendered article pages don't ship it as duplicate content -->
+    <template x-if="!$x.docs.$route('path')?.name &amp;&amp; !$x.docs.$route('slug')?.group &amp;&amp; $route.replace(/\/$/, '') !== '/docs'">
       <div class="w-3xl max-w-full mx-auto text-center prose">
         <h1>Article does not exist</h1>
         <p>There is no documentation at this path.</p>
@@ -1405,14 +1539,14 @@ tags=research</code></pre>
 
 
 
-<menu x-ignore="" popover="manual" id="combobox-menu-mwjbyru" role="listbox" style="position-anchor: --combobox-l9ylatt"><li id="combobox-menu-mwjbyru-opt-0" data-value="Australia" data-label="Australia" role="option" aria-selected="false">Australia</li><li id="combobox-menu-mwjbyru-opt-1" data-value="Brazil" data-label="Brazil" role="option" aria-selected="false">Brazil</li><li id="combobox-menu-mwjbyru-opt-2" data-value="Canada" data-label="Canada" role="option" aria-selected="false">Canada</li><li id="combobox-menu-mwjbyru-opt-3" data-value="Denmark" data-label="Denmark" role="option" aria-selected="false">Denmark</li><li id="combobox-menu-mwjbyru-opt-4" data-value="France" data-label="France" role="option" aria-selected="false">France</li><li id="combobox-menu-mwjbyru-opt-5" data-value="Germany" data-label="Germany" role="option" aria-selected="false">Germany</li><li id="combobox-menu-mwjbyru-opt-6" data-value="Japan" data-label="Japan" role="option" aria-selected="false">Japan</li><li id="combobox-menu-mwjbyru-opt-7" data-value="Mexico" data-label="Mexico" role="option" aria-selected="false">Mexico</li><li id="combobox-menu-mwjbyru-opt-8" data-value="Spain" data-label="Spain" role="option" aria-selected="false">Spain</li><li id="combobox-menu-mwjbyru-opt-9" data-value="Sweden" data-label="Sweden" role="option" aria-selected="false">Sweden</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-zj50rue" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-4trxoms"><li id="combobox-menu-zj50rue-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-zj50rue-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-zj50rue-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-zj50rue-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-zj50rue-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-alvkxem" role="listbox" style="position-anchor: --combobox-q1ivoyy"><li id="combobox-menu-alvkxem-opt-0" data-value="Low" data-label="Low" role="option" aria-selected="false">Low</li><li id="combobox-menu-alvkxem-opt-1" data-value="Medium" data-label="Medium" role="option" aria-selected="false">Medium</li><li id="combobox-menu-alvkxem-opt-2" data-value="High" data-label="High" role="option" aria-selected="false">High</li><li id="combobox-menu-alvkxem-opt-3" data-value="Urgent" data-label="Urgent" role="option" aria-selected="false">Urgent</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-8pimn1g" role="listbox" style="position-anchor: --combobox-j8bqe8n"><li id="combobox-menu-8pimn1g-opt-0" data-value="Australia" data-label="Australia" role="option" aria-selected="false">Australia</li><li id="combobox-menu-8pimn1g-opt-1" data-value="Brazil" data-label="Brazil" role="option" aria-selected="false">Brazil</li><li id="combobox-menu-8pimn1g-opt-2" data-value="Canada" data-label="Canada" role="option" aria-selected="false">Canada</li><li id="combobox-menu-8pimn1g-opt-3" data-value="Denmark" data-label="Denmark" role="option" aria-selected="false">Denmark</li><li id="combobox-menu-8pimn1g-opt-4" data-value="France" data-label="France" role="option" aria-selected="false">France</li><li id="combobox-menu-8pimn1g-opt-5" data-value="Germany" data-label="Germany" role="option" aria-selected="false">Germany</li><li id="combobox-menu-8pimn1g-opt-6" data-value="Japan" data-label="Japan" role="option" aria-selected="false">Japan</li><li id="combobox-menu-8pimn1g-opt-7" data-value="Mexico" data-label="Mexico" role="option" aria-selected="false">Mexico</li><li id="combobox-menu-8pimn1g-opt-8" data-value="Spain" data-label="Spain" role="option" aria-selected="false">Spain</li><li id="combobox-menu-8pimn1g-opt-9" data-value="Sweden" data-label="Sweden" role="option" aria-selected="false">Sweden</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-cbo9qwi" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-hircyox"><li id="combobox-menu-cbo9qwi-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-cbo9qwi-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-cbo9qwi-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-cbo9qwi-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-cbo9qwi-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-y6cmh42" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-roara69"><li data-value="ana" data-label="Ana Ruiz" id="combobox-menu-y6cmh42-opt-0" role="option" aria-selected="false">Ana Ruiz <span class="trailing">ana@acme.com</span></li><li data-value="sam" data-label="Sam Cole" id="combobox-menu-y6cmh42-opt-1" role="option" aria-selected="false">Sam Cole <span class="trailing">sam@acme.com</span></li><li data-value="kim" data-label="Kim Park" id="combobox-menu-y6cmh42-opt-2" role="option" aria-selected="false">Kim Park <span class="trailing">kim@acme.com</span></li><li data-value="lee" data-label="Lee Nash" id="combobox-menu-y6cmh42-opt-3" role="option" aria-selected="false">Lee Nash <span class="trailing">lee@acme.com</span></li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-n1x3r9j" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-757zv7u"><li data-value="bug" data-label="Bug" id="combobox-menu-n1x3r9j-opt-0" role="option" aria-selected="true">
+<menu x-ignore="" popover="manual" id="combobox-menu-w8nvh4m" role="listbox" style="position-anchor: --combobox-ef7f3z5"><li id="combobox-menu-w8nvh4m-opt-0" data-value="Australia" data-label="Australia" role="option" aria-selected="false">Australia</li><li id="combobox-menu-w8nvh4m-opt-1" data-value="Brazil" data-label="Brazil" role="option" aria-selected="false">Brazil</li><li id="combobox-menu-w8nvh4m-opt-2" data-value="Canada" data-label="Canada" role="option" aria-selected="false">Canada</li><li id="combobox-menu-w8nvh4m-opt-3" data-value="Denmark" data-label="Denmark" role="option" aria-selected="false">Denmark</li><li id="combobox-menu-w8nvh4m-opt-4" data-value="France" data-label="France" role="option" aria-selected="false">France</li><li id="combobox-menu-w8nvh4m-opt-5" data-value="Germany" data-label="Germany" role="option" aria-selected="false">Germany</li><li id="combobox-menu-w8nvh4m-opt-6" data-value="Japan" data-label="Japan" role="option" aria-selected="false">Japan</li><li id="combobox-menu-w8nvh4m-opt-7" data-value="Mexico" data-label="Mexico" role="option" aria-selected="false">Mexico</li><li id="combobox-menu-w8nvh4m-opt-8" data-value="Spain" data-label="Spain" role="option" aria-selected="false">Spain</li><li id="combobox-menu-w8nvh4m-opt-9" data-value="Sweden" data-label="Sweden" role="option" aria-selected="false">Sweden</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-92xd4jb" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-wq1wolb"><li id="combobox-menu-92xd4jb-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-92xd4jb-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-92xd4jb-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-92xd4jb-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-92xd4jb-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-nc68i8n" role="listbox" style="position-anchor: --combobox-3u8dby0"><li id="combobox-menu-nc68i8n-opt-0" data-value="Low" data-label="Low" role="option" aria-selected="false">Low</li><li id="combobox-menu-nc68i8n-opt-1" data-value="Medium" data-label="Medium" role="option" aria-selected="false">Medium</li><li id="combobox-menu-nc68i8n-opt-2" data-value="High" data-label="High" role="option" aria-selected="false">High</li><li id="combobox-menu-nc68i8n-opt-3" data-value="Urgent" data-label="Urgent" role="option" aria-selected="false">Urgent</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-cadzmig" role="listbox" style="position-anchor: --combobox-dndu7cl"><li id="combobox-menu-cadzmig-opt-0" data-value="Australia" data-label="Australia" role="option" aria-selected="false">Australia</li><li id="combobox-menu-cadzmig-opt-1" data-value="Brazil" data-label="Brazil" role="option" aria-selected="false">Brazil</li><li id="combobox-menu-cadzmig-opt-2" data-value="Canada" data-label="Canada" role="option" aria-selected="false">Canada</li><li id="combobox-menu-cadzmig-opt-3" data-value="Denmark" data-label="Denmark" role="option" aria-selected="false">Denmark</li><li id="combobox-menu-cadzmig-opt-4" data-value="France" data-label="France" role="option" aria-selected="false">France</li><li id="combobox-menu-cadzmig-opt-5" data-value="Germany" data-label="Germany" role="option" aria-selected="false">Germany</li><li id="combobox-menu-cadzmig-opt-6" data-value="Japan" data-label="Japan" role="option" aria-selected="false">Japan</li><li id="combobox-menu-cadzmig-opt-7" data-value="Mexico" data-label="Mexico" role="option" aria-selected="false">Mexico</li><li id="combobox-menu-cadzmig-opt-8" data-value="Spain" data-label="Spain" role="option" aria-selected="false">Spain</li><li id="combobox-menu-cadzmig-opt-9" data-value="Sweden" data-label="Sweden" role="option" aria-selected="false">Sweden</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-y1nu02n" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-ohm41v0"><li id="combobox-menu-y1nu02n-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-y1nu02n-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-y1nu02n-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-y1nu02n-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-y1nu02n-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-710zqjk" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-j8qx02i"><li data-value="ana" data-label="Ana Ruiz" id="combobox-menu-710zqjk-opt-0" role="option" aria-selected="false">Ana Ruiz <span class="trailing">ana@acme.com</span></li><li data-value="sam" data-label="Sam Cole" id="combobox-menu-710zqjk-opt-1" role="option" aria-selected="false">Sam Cole <span class="trailing">sam@acme.com</span></li><li data-value="kim" data-label="Kim Park" id="combobox-menu-710zqjk-opt-2" role="option" aria-selected="false">Kim Park <span class="trailing">kim@acme.com</span></li><li data-value="lee" data-label="Lee Nash" id="combobox-menu-710zqjk-opt-3" role="option" aria-selected="false">Lee Nash <span class="trailing">lee@acme.com</span></li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-ok2u77t" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-mdmja61"><li data-value="bug" data-label="Bug" id="combobox-menu-ok2u77t-opt-0" role="option" aria-selected="true">
 <span data-chip="" class="row items-center gap-2"><span style="background: #e5484d; width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block"></span><span>Bug</span></span>
 <span class="small trailing">bug</span>
-</li><li data-value="feature" data-label="Feature" id="combobox-menu-n1x3r9j-opt-1" role="option" aria-selected="false">
+</li><li data-value="feature" data-label="Feature" id="combobox-menu-ok2u77t-opt-1" role="option" aria-selected="false">
 <span data-chip="" class="row items-center gap-2"><span style="background: #30a46c; width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block"></span><span>Feature</span></span>
 <span class="small trailing">feature</span>
-</li><li data-value="docs" data-label="Docs" id="combobox-menu-n1x3r9j-opt-2" role="option" aria-selected="false">
+</li><li data-value="docs" data-label="Docs" id="combobox-menu-ok2u77t-opt-2" role="option" aria-selected="false">
 <span data-chip="" class="row items-center gap-2"><span style="background: #0091ff; width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block"></span><span>Docs</span></span>
 <span class="small trailing">docs</span>
-</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-57ro66h" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-7wt1gma"><li id="combobox-menu-57ro66h-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-57ro66h-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-57ro66h-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-57ro66h-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li class="combobox-create" role="option" hidden=""></li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-fhb2srh" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-h58vasj"><li id="combobox-menu-fhb2srh-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-fhb2srh-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-fhb2srh-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-fhb2srh-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-fhb2srh-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-2j21p5l" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-hqsippf"><li id="combobox-menu-2j21p5l-opt-0" data-value="SSL" data-label="SSL" role="option" aria-selected="true">SSL</li><li id="combobox-menu-2j21p5l-opt-1" data-value="Backups" data-label="Backups" role="option" aria-selected="true">Backups</li><li id="combobox-menu-2j21p5l-opt-2" data-value="Analytics" data-label="Analytics" role="option" aria-selected="false">Analytics</li><li id="combobox-menu-2j21p5l-opt-3" data-value="Priority support" data-label="Priority support" role="option" aria-selected="false">Priority support</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-g2ck6z5" role="listbox" style="position-anchor: --combobox-f2r0n0f"><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-rsjh1p0" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-hjyobyp"><li id="combobox-menu-rsjh1p0-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="true">Design</li><li id="combobox-menu-rsjh1p0-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-rsjh1p0-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="true">Research</li><li id="combobox-menu-rsjh1p0-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-rsjh1p0-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"style":"max-width: 26rem;","autocomplete":null,"aria-controls":null,"aria-expanded":null,"role":null,"aria-autocomplete":null}},{"id":"h3","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h4","attrs":{"type":null}},{"id":"h5","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
+</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-jegtn7r" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-q53uvm1"><li id="combobox-menu-jegtn7r-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-jegtn7r-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-jegtn7r-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-jegtn7r-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li class="combobox-create" role="option" hidden=""></li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-2fcigea" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-vr1wq8f"><li id="combobox-menu-2fcigea-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-2fcigea-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-2fcigea-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-2fcigea-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-2fcigea-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-w492pta" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-06iq4qq"><li id="combobox-menu-w492pta-opt-0" data-value="SSL" data-label="SSL" role="option" aria-selected="true">SSL</li><li id="combobox-menu-w492pta-opt-1" data-value="Backups" data-label="Backups" role="option" aria-selected="true">Backups</li><li id="combobox-menu-w492pta-opt-2" data-value="Analytics" data-label="Analytics" role="option" aria-selected="false">Analytics</li><li id="combobox-menu-w492pta-opt-3" data-value="Priority support" data-label="Priority support" role="option" aria-selected="false">Priority support</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-050952z" role="listbox" style="position-anchor: --combobox-st529by"><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" id="combobox-menu-df02hcs" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-mbaxegw"><li id="combobox-menu-df02hcs-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="true">Design</li><li id="combobox-menu-df02hcs-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-df02hcs-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="true">Research</li><li id="combobox-menu-df02hcs-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-df02hcs-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"style":"max-width: 26rem;","autocomplete":null,"aria-controls":null,"aria-expanded":null,"role":null,"aria-autocomplete":null}},{"id":"h3","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h4","attrs":{"type":null}},{"id":"h5","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
 </body></html>
