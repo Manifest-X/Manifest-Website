@@ -44,7 +44,8 @@
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full">Skip to content</a>
 
   <x-header></x-header>
-  <x-search></x-search>
+  <x-docs-search></x-docs-search>
+  <x-docs-nav></x-docs-nav>
 
   <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''">
 
@@ -52,7 +53,7 @@
     <x-home x-route="/"></x-home>
 
     <!-- Documentation pages -->
-    <x-docs x-route="docs"></x-docs>
+    <x-docs x-route="docs" intro="Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference."></x-docs>
 
   </main>
 

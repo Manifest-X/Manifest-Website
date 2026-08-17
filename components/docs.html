@@ -1,21 +1,30 @@
-<div class="col md:row justify-between gap-4 w-full max-w-full mx-auto">
+<div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-data="{
+    base: $modify('base') ?? '/docs',
+    src: $modify('source') ?? 'docs',
+    heading: $modify('heading') ?? 'Docs',
+    intro: $modify('intro') ?? '',
+    get groups() { return $x[this.src] || [] },
+    get article() { return $x[this.src].$route('path') },
+    get group() { const g = $x[this.src].$route('slug'); return g?.group && this.at(this.base + '/' + g.slug) ? g : null },
+    href(group, item) { return this.base + '/' + group.slug + (item ? '/' + item.path : '') },
+    at(path) { return $route.replace(/\/$/, '') === path },
+  }">
 
-  <!-- Desktop Navigation-->
+  <!-- Desktop navigation -->
   <nav aria-label="Documentation" data-static style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar"
-    x-data x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r => addEventListener('manifest:ready', r, { once: true }))).then(() => { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
-    <template x-for="group in $x.docs" :key="group.group">
+    x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r => addEventListener('manifest:ready', r, { once: true }))).then(() => { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
+    <template x-for="group in groups" :key="group.group">
       <div class="col gap-2">
         <small class="pl-2.5 text-content-subtle" x-text="group.group"></small>
         <div class="col">
           <template x-for="(item, index) in group.items" :key="item.path || index">
-            <a x-show="item.name" :href="'/docs/' + group.slug + '/' + item.path" role="button" :aria-current="$x.docs.$route('path') && $x.docs.$route('path').path === item.path ? 'page' : null" :class="[
-                  $x.docs.$route('path') && $x.docs.$route('path').path === item.path
+            <a x-show="item.name" :href="href(group, item)" role="button" :aria-current="article?.path === item.path ? 'page' : null" :class="[
+                  article?.path === item.path
                     ? 'text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15  pointer-events-none'
                     : 'ghost text-content-neutral',
                   'justify-start w-full',
                   item.indent ? 'text-content-subtle' : ''
                 ]">
-
               <span x-icon="item.icon" x-show="item.icon"></span>
               <span x-text="item.name"></span>
             </a>
@@ -31,26 +40,24 @@
 
     <div class="col grow w-full max-w-full mx-auto">
 
-      <!-- Eyebrow Group Name -->
-      <template x-if="$x.docs.$route('path')?.name">
-        <span class="h6 mb-3" x-text="$x.docs.$route('path')?.group || 'No group'"></span>
+      <!-- Article -->
+      <template x-if="article?.name">
+        <span class="h6 mb-3" x-text="article?.group"></span>
       </template>
-
-      <!-- Markdown Document for Route -->
-      <template x-if="$x.docs.$route('path')?.name">
-        <div class="prose [&_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="$x.docs.$route('path')?.doc"></div>
+      <template x-if="article?.name">
+        <div class="prose [&_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="article?.doc"></div>
       </template>
 
       <!-- Docs home -->
-      <template x-if="$route.replace(/\/$/, '') === '/docs'">
+      <template x-if="at(base)">
         <div class="col gap-8 w-2xl max-w-full">
           <div class="col gap-3">
-            <h1>Docs</h1>
-            <p class="text-content-neutral">Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference.</p>
+            <h1 x-text="heading"></h1>
+            <p class="text-content-neutral" x-show="intro" x-text="intro"></p>
           </div>
           <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            <template x-for="group in $x.docs" :key="group.group">
-              <a :href="'/docs/' + group.slug" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
+            <template x-for="group in groups" :key="group.group">
+              <a :href="href(group)" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
                 <span x-icon="group.items?.[0]?.icon" class="text-brand-content"></span>
                 <span class="col">
                   <span class="text-content-stark font-medium" x-text="group.group"></span>
@@ -63,15 +70,15 @@
       </template>
 
       <!-- Group landing -->
-      <template x-if="$x.docs.$route('slug')?.group">
-        <div class="col gap-8 w-2xl max-w-full" x-data="{ get group() { return $x.docs.$route('slug') } }">
+      <template x-if="group?.group">
+        <div class="col gap-8 w-2xl max-w-full">
           <div class="col gap-3">
             <h1 x-text="group?.group"></h1>
-            <p class="text-content-neutral" x-text="group?.description"></p>
+            <p class="text-content-neutral" x-show="group?.description" x-text="group?.description"></p>
           </div>
           <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <template x-for="(item, index) in group?.items.filter(i => i.name) || []" :key="item.path || index">
-              <a :href="'/docs/' + group.slug + '/' + item.path" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
+              <a :href="href(group, item)" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
                 <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
                 <span class="text-content-stark" x-text="item.name"></span>
               </a>
@@ -82,44 +89,19 @@
 
     </div>
 
-    <!-- Fallback — x-if so prerendered article pages don't ship it as duplicate content -->
-    <template x-if="!$x.docs.$route('path')?.name && !$x.docs.$route('slug')?.group && $route.replace(/\/$/, '') !== '/docs'">
+    <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
+    <template x-if="!article?.name && !group?.group && !at(base)">
       <div class="max-w-full prose">
         <h1>Article does not exist</h1>
         <p>There is no documentation at this path.</p>
       </div>
     </template>
 
-    <!-- Article Footer -->
-    <footer class="mt-20">
-      <hr>
-      <div class="row-wrap justify-between items-center gap-4 pt-4">
-
-        <!-- Start -->
-        <figcaption class="text-content-subtle">&copy; 2026 <a href="https://andrewmatlock.com" target="_blank" rel="noopener">Andrew
-            Matlock</a> • <a href="/docs/resources/license">MIT License</a>
-        </figcaption>
-
-        <!-- End -->
-        <div class="row-wrap gap-3">
-
-          <!-- GitHub-->
-          <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
-
-          <!-- Color mode -->
-          <div role="group" class="outlined rounded-full">
-            <button x-color="'light'" class="sm rounded-s-full" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode"></button>
-            <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode"></button>
-            <button x-color="'system'" class="sm ghost rounded-e-full" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode"></button>
-
-          </div>
-        </div>
-      </div>
-    </footer>
+    <x-docs-footer></x-docs-footer>
 
   </div>
 
-  <!-- Anchor Links -->
+  <!-- Anchor links -->
   <nav aria-label="On this page" data-static style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
 
     <small class="mb-2" x-show="$store.anchors?.count > 0">

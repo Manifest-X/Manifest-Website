@@ -41,30 +41,10 @@
             <a role="button" href="/docs/getting-started/introduction" class="sm accent rounded-full">Docs</a>
 
             <!-- Mobile Sidebar Button -->
-            <button class="ghost flex md:hidden" popovertarget="mobile-navigation" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
+            <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
 
         </div>
 
-    </nav>
-
-    <!-- Mobile Navigation Sidebar -->
-    <nav aria-label="Documentation" data-static popover id="mobile-navigation" data-no-view-transition x-data @manifest:route-change.window="$el.hidePopover()" class="col w-64 h-full pt-8 pb-64 px-4 shadow-xl overflow-y-auto no-scrollbar">
-        <template x-for="group in $x.docs" :key="group.group">
-            <div class="col gap-6 py-4">
-                <small class="pl-2.5 text-content-subtle" x-text="group.group"></small>
-                <div class="col">
-                    <template x-for="(item, index) in group.items" :key="item.path || index">
-                        <a x-show="item.name" role="button" :href="'/docs/' + group.slug + '/' + item.path" :aria-current="$x.docs.$route('path') && $x.docs.$route('path').path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="[
-                              $x.docs.$route('path') && $x.docs.$route('path').path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''
-                            ]">
-                            <span x-icon="item.icon"></span>
-                            <span x-text="item.name"></span>
-                        </a>
-                    </template>
-                </div>
-                <hr>
-            </div>
-        </template>
     </nav>
 
 </header>
