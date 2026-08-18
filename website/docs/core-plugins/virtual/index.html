@@ -234,7 +234,7 @@
         src: null ?? 'docs',
         get groups() { return $x[this.src] || [] },
         get article() { return $x[this.src].$route('path') },
-    }" @manifest:route-change.window="$el.hidePopover()" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" data-component="docs-nav-1" data-order="3">
     <div class="col gap-6 py-4">
             <small class="pl-2.5 text-content-subtle">Getting Started</small>
             <div class="col">
@@ -509,7 +509,7 @@
     get group() { const g = $x[this.src].$route('slug'); return g?.group &amp;&amp; this.at(this.base + '/' + g.slug) ? g : null },
     href(group, item) { return this.base + '/' + group.slug + (item ? '/' + item.path : '') },
     at(path) { return $route.replace(/\/$/, '') === path },
-  }" x-route="docs" intro="Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference." data-component="docs-1">
+  }" x-route="docs" intro="Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference.">
 
   <!-- Desktop navigation -->
   <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
@@ -1161,39 +1161,39 @@
 })) }" class="w-full">
     <div x-virtual="" class="border border-line rounded font-mono text-sm h-[300px] overflow-auto" style="overflow: auto">
         <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">06:57:38</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:16:42</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">06:58:38</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:17:42</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">06:59:38</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:18:42</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:00:38</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:19:42</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-warning" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:01:38</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:20:42</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-error" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">error</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:02:38</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:21:42</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:03:38</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:22:42</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:04:38</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:23:42</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:05:38</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:24:42</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-warning" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
