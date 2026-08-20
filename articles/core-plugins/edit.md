@@ -72,6 +72,35 @@ By default a region gets sort, text, and style. Naming any capability replaces t
 | **`.data`** | Edit the values behind an `x-for` list (opt-in) |
 | **`.lock`** | Opt this element and its subtree out |
 | **`.gated`** | Editable only after `$edit.on()` |
+| **`.quiet`** | No authoring chrome — see below |
+
+---
+
+## The Smallest Version
+
+Edit is a page editor, but nothing about it requires a page. A drag-to-reorder list is one attribute:
+
+```html
+<ul x-edit.sort.data.quiet="tasks">
+    <template x-for="task in tasks" :key="task.id">
+        <li x-text="task.label"></li>
+    </template>
+</ul>
+```
+
+Dragging reorders the array itself, so `tasks` is always the source of truth and whatever you already do with it keeps working. Rows identify themselves by the `x-for`'s `:key`; a `:data-key` attribute overrides it if you need something else.
+
+**`.quiet`** is what makes it look like a list rather than a page being edited: no dashed outline, no region label, no floating toolbar. It also changes what the edit means — a quiet area is application UI, not authoring, so its changes never become source patches and never persist to the editor's own overlay. The app owns the state; `$edit.undo()` still works for the session.
+
+Without a data source it works the same way on plain markup:
+
+```html
+<div class="row-wrap gap-2" x-edit.sort.quiet="chips">
+    <span>Roses</span>
+    <span>Peonies</span>
+    <span>Eucalyptus</span>
+</div>
+```
 
 ---
 
@@ -85,7 +114,25 @@ Edit classifies each region by what it actually contains, because the same gestu
 | **Data** | A `template x-for` | A reorder or field write against the data source |
 | **Component** | A `data-component` root | An override on one instance, or on the component itself |
 
+Rows added after the page loads — a new `x-for` item, anything appended — become sortable on their own; the container is watched for them.
+
 A component region can be edited for **this instance** or for **all** instances — right-click to switch scope. Instance overrides always win over component-wide ones, and either can be reverted independently.
+
+---
+
+## Reordering
+
+The dragged item follows the pointer while keeping its place in the flow, so its own slot is the gap that opens ahead of it. Items shift as you cross their midpoints, one position at a time.
+
+| Input | Action |
+|---|---|
+| **Drag** | Mouse, touch or pen — a 5px threshold means a tap is still a tap |
+| **Escape** during a drag | Put it back where it started |
+| **Space** / **Enter** on a focused item | Grab and drop |
+| **Arrow keys** while grabbed | Move a position |
+| **Escape** while grabbed | Cancel |
+
+Keyboard moves are announced through a live region, so a grab, each move and the drop are all spoken.
 
 ---
 
