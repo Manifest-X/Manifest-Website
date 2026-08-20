@@ -112,7 +112,7 @@ Every command is named for the tag it produces. There is no Manifest vocabulary 
 
 **Lists and insertions** — `.ul` `.ol` `.checklist` `.hr` `.img` `.br` `.table` `.a`
 
-**Operations with no tag of their own** — `.indent` `.outdent` `.align` `.color` `.background` `.font` `.size` `.clear` `.undo` `.redo` `.block`
+**Operations with no tag of their own** — `.indent` `.outdent` `.align` `.color` `.background` `.font` `.size` `.leading` `.clear` `.undo` `.redo` `.block`
 
 An argument is either the next modifier or an expression:
 
@@ -129,7 +129,13 @@ Markdown has syntax for some of these and not others. Rather than let a command 
 | Available in | Commands |
 |---|---|
 | **Every mode** | `strong` `b` `em` `i` `s` `del` `code` `a` `img` `ul` `ol` `checklist` `hr` `br` `p` `h1`–`h6` `blockquote` `pre` `indent` `outdent` `clear` `undo` `redo` `block` |
-| **`.html` only** | `u` `mark` `small` `sub` `sup` `kbd` `samp` `var` `abbr` `cite` `q` `ins` `dfn` `time` `span` `address` `figure` `figcaption` `dl` `dt` `dd` `div` `section` `article` `aside` `table` `color` `background` `font` `size` `align` |
+| **`.html` only** | `u` `mark` `small` `sub` `sup` `kbd` `samp` `var` `abbr` `cite` `q` `ins` `dfn` `time` `span` `address` `figure` `figcaption` `dl` `dt` `dd` `table` `color` `background` `font` `size` `align` `leading` |
+
+### With nothing selected
+
+A tag command with no selection **arms**: press Bold, then type, and what you type is bold. The control stays lit until you use it or move the caret away — arming lapses deliberately rather than firing somewhere you did not mean.
+
+`.a`, `.color`, `.background`, `.font` and `.size` need something to act on, so they report themselves unavailable until you select text — or, for the style four, use their page-level form below.
 
 So colour, font, size and alignment work — in `.html` mode, where they survive. In markdown mode their controls dim themselves rather than pretending.
 
@@ -233,6 +239,7 @@ Empty-item and empty-line exits matter for more than convenience: with Tab bound
 | **Shift + Enter** | Line break without leaving the block |
 | **Tab** | Next table cell · nest the list item · indent the block |
 | **Shift + Tab** | Previous cell · outdent |
+| **Backspace** at the start of a line | Merge into the line above, plainly — no inlined styles. At the start of a list item it leaves the list; at the start of the first block it demotes a heading to a paragraph |
 | **Escape** | Leave the editor |
 | **Cmd/Ctrl + Z** / **Shift + Z** | Undo / redo |
 | **Cmd/Ctrl + B / I / U** | `strong` / `em` / `u` |
@@ -283,6 +290,63 @@ Controls never take the caret. A button suppresses the focus change outright; a 
 
 ---
 
+## Page-Level Styling
+
+A document font or line spacing is **presentation, not content**. The stored value is the area's markup, and burying a wrapper in it to carry a font would misdescribe what the document says — so page-level styling is written as CSS custom properties on the area instead.
+
+Add `.page` to a style command and it applies to the whole document:
+
+```html
+<select x-text-edit.font.page>
+    <option value="">Default</option>
+    <option value="Georgia">Georgia</option>
+</select>
+
+<select x-text-edit.leading.page>
+    <option value="1.4">Tight</option>
+    <option value="2">Double</option>
+</select>
+
+<input type="color" x-text-edit.background.page aria-label="Page colour">
+```
+
+`.font` `.size` `.leading` `.align` `.color` `.background` all take `.page`. Page controls need no caret, so they stay usable when focus is anywhere on the screen, and they reflect the current page value rather than the selection's.
+
+| Variable | Set by |
+|---|---|
+| `--text-edit-font` | `.font.page` |
+| `--text-edit-size` | `.size.page` |
+| `--text-edit-leading` | `.leading.page` |
+| `--text-edit-align` | `.align.page` |
+| `--text-edit-color` | `.color.page` |
+| `--text-edit-background` | `.background.page` |
+
+Set them yourself in CSS for a document's default look; the controls only override.
+
+Because page styling is separate from the document, it is **yours to persist**. `$text.page` reads the set values back as a plain object, and assigning replaces them:
+
+```html
+<div x-data="{ doc: '', look: {} }"
+     x-init="$text.page = look"
+     @text-edit:page="look = $event.detail">
+```
+
+A `text-edit:page` event fires on the area whenever a page control changes something.
+
+---
+
+## New Page
+
+Document lifecycle is the application's, not the editor's — a new page is just a new value:
+
+```html
+<button @click="doc = ''; $text.page = {}; $text.focus()">New page</button>
+```
+
+Replacing the value from outside **resets the editor's undo history**, so a new page cannot undo its way back into the previous one. `$text.selectAll()` is there when a command should apply to everything.
+
+---
+
 ## Modes
 
 | Modifier | Stores | Use for |
@@ -303,26 +367,16 @@ Plus:
 
 ---
 
-## Keyboard
-
-| Shortcut | Action |
-|---|---|
-| **Cmd/Ctrl + B** | Bold |
-| **Cmd/Ctrl + I** | Italic |
-| **Cmd/Ctrl + K** | Link |
-
-Pasted content is converted to the editor's own subset rather than carried over as the source application's markup — pasting from a word processor brings the text and its marks, not its styling.
-
----
-
 ## $text
 
 For reading and scripting, rather than for building toolbars — controls handle that declaratively. `$text` resolves to the area the element sits in, or the last focused one.
 
 | Member | Returns | Description |
 |---|---|---|
-| **`$text.value`** | String | The stored value; assignable |
+| **`$text.value`** | String | The stored value; assignable. Assigning resets undo history |
+| **`$text.page`** | Object | Page-level styles; assignable, `{}` to clear |
 | **`$text.link`** | String | The `href` at the caret; assignable, empty to unlink |
+| **`$text.selectAll()`** | — | Select the whole document |
 | **`$text.run(cmd, arg)`** | — | Apply a command |
 | **`$text.active(cmd)`** | Boolean | Whether it is on at the caret |
 | **`$text.can(cmd)`** | Boolean | Whether this area's mode allows it |
