@@ -286,7 +286,9 @@ Every affordance the plugin injects is an attribute, so restyling never fights s
 
 ## Block Operations
 
-Copy, cut, paste, duplicate and delete act on a **block** — the sortable child a node sits in. They are on the store, and they default to whichever block the last right-click reported, which is what a menu wants:
+Copy, cut, paste, duplicate and delete act on a **block**: the sortable child a node sits in, or — where the region is not sortable at all — the outermost element inside the area that contains it. Deleting a heading does not require the region to have been declared reorderable.
+
+They are on the store, and they default to whichever block the last right-click reported, which is what a menu wants:
 
 | Member | Does |
 |---|---|
@@ -304,7 +306,11 @@ A focused block already has a tabindex from reordering, so the shortcuts ride it
 
 ### A context menu
 
-Right-click reports the block and the pointer. Call `preventDefault()` and the menu is yours:
+Right-click reports the block and the pointer. Call `preventDefault()` and the menu is yours.
+
+The event fires **after the pointer comes up**, not during the right-click. A popover opened while the button is still down is closed again by the release that follows it — the browser decides light dismissal on pointerup, and by then the menu was not yet open when the press was recorded. Waiting for the release is what lets a menu opened in the handler survive; you do not have to do anything about it.
+
+`$edit.can()` and `$edit.target` are reactive, so `:disabled` bindings track the block the menu is acting on:
 
 ```html
 <div @edit:context="
@@ -323,12 +329,14 @@ Right-click reports the block and the pointer. Call `preventDefault()` and the m
 </div>
 ```
 
-`$event.detail` carries `target`, `area`, `x`, `y` and a `can(op)` of its own. Leave the event alone and the built-in class and scope menus open instead — but only in an `.authoring` region, since those are authoring chrome.
+`$event.detail` carries `target`, `area`, `x`, `y` and a `can(op)` of its own. Leave the event alone and the built-in class and scope menus open instead — but only in an `.authoring` region, since those are authoring chrome. A right-click that lands outside any block keeps the browser's own menu.
 
 ### What it means per regime
 
 - **Data** — the array is the truth, so a duplicate clones the record with a fresh id and a delete splices it out. The record travels in the delta, so undo can put it back. These stay in the session: what the array should hold is yours to persist, so they never become source patches.
 - **Static** — the container's child order and the markup of whatever was added or removed. Proportional to the edit, not a snapshot of the region.
+
+  One caveat worth knowing: static nodes are addressed by their position among siblings, so adding or removing a block shifts the addresses of the ones after it. Edits recorded *before* a structural change, on blocks that sat *after* it, can therefore replay against the wrong element on a later reload. A tag check catches the obvious cases and skips rather than corrupting, but the safe habit is to publish before restructuring heavily.
 - **Component** — not restructured. An instance is overridden, not rebuilt, so `can()` reports false there.
 
 ---
