@@ -284,6 +284,55 @@ Every affordance the plugin injects is an attribute, so restyling never fights s
 
 ---
 
+## Block Operations
+
+Copy, cut, paste, duplicate and delete act on a **block** — the sortable child a node sits in. They are on the store, and they default to whichever block the last right-click reported, which is what a menu wants:
+
+| Member | Does |
+|---|---|
+| **`$edit.target`** | The block in play; assignable |
+| **`$edit.can(op)`** | Whether that operation applies right now |
+| **`$edit.copy()`** **`.cut()`** **`.paste()`** | The plugin's own clipboard, not the system one |
+| **`$edit.duplicate()`** **`.remove()`** | |
+| **`$edit.block(node)`** | The block containing a node, or null |
+
+Each takes an optional element if you would rather be explicit than rely on `target`.
+
+### Hotkeys
+
+A focused block already has a tabindex from reordering, so the shortcuts ride it: **Cmd/Ctrl + C / X / V / D**, and **Delete** or **Backspace** to remove. They stay out of the way of text — nothing fires while a caret is in a field or an input, so Cmd+C inside a paragraph still copies the words.
+
+### A context menu
+
+Right-click reports the block and the pointer. Call `preventDefault()` and the menu is yours:
+
+```html
+<div @edit:context="
+        $event.preventDefault();
+        const m = $refs.menu;
+        m.style.left = $event.detail.x + 'px';
+        m.style.top = $event.detail.y + 'px';
+        m.showPopover();">
+
+    <ul x-edit.sort.data="tasks">…</ul>
+
+    <menu popover x-ref="menu" class="p-1 col">
+        <button class="ghost sm" :disabled="!$edit.can('duplicate')" @click="$edit.duplicate()">Duplicate</button>
+        <button class="ghost sm" :disabled="!$edit.can('remove')" @click="$edit.remove()">Delete</button>
+    </menu>
+</div>
+```
+
+`$event.detail` carries `target`, `area`, `x`, `y` and a `can(op)` of its own. Leave the event alone and the built-in class and scope menus open instead — but only in an `.authoring` region, since those are authoring chrome.
+
+### What it means per regime
+
+- **Data** — the array is the truth, so a duplicate clones the record with a fresh id and a delete splices it out. The record travels in the delta, so undo can put it back. These stay in the session: what the array should hold is yours to persist, so they never become source patches.
+- **Static** — the container's child order and the markup of whatever was added or removed. Proportional to the edit, not a snapshot of the region.
+- **Component** — not restructured. An instance is overridden, not rebuilt, so `can()` reports false there.
+
+---
+
 ## With the Text Editor
 
 The two plugins are independent, and they stack. Put [`x-text-edit`](/docs/core-plugins/text-edit) on an element inside an editable region and the rich editor owns it: `x-edit` stops making its leaves editable, stops addressing nodes inside it, and stops competing for the caret.

@@ -446,6 +446,45 @@ Everything else in the command list is HTML, and lives in `.html` mode. That is 
 
 ---
 
+## Anchoring a Menu to the Selection
+
+A menu that appears over selected text is a matter of knowing when there is a selection and where it is. The plugin reports both and draws nothing, because where that menu sits and what it holds belongs to the project.
+
+```html
+<div x-data="{ sel: null }" @text-edit:selection="sel = $event.detail">
+
+    <div class="row gap-1 p-1 bg-surface-1 border border-line rounded" x-show="sel && !sel.collapsed" x-cloak
+         style="position: fixed; transform: translate(-50%, -125%)"
+         :style="sel && { left: (sel.x + sel.width / 2) + 'px', top: sel.top + 'px' }">
+        <button class="ghost sm" x-text-edit.strong><span x-icon="lucide:bold"></span></button>
+        <button class="ghost sm" x-text-edit.em><span x-icon="lucide:italic"></span></button>
+    </div>
+
+    <div x-text-edit.html="doc"></div>
+</div>
+```
+
+The controls are ordinary controls — they resolve to the area by the usual rules, and they never take the caret, so the selection is still there when the command runs.
+
+`text-edit:selection` fires on the area with the geometry, `$text.selection` is the same object on demand, and the area carries `data-text-edit-selected` plus custom properties for placing a menu without script:
+
+| Property | Value |
+|---|---|
+| `--text-edit-selection-x` / `-y` | Top-left of the selection |
+| `--text-edit-selection-width` / `-height` | Its size |
+| `--text-edit-selection-center` | Horizontal centre, for a centred bubble |
+
+```css
+[data-text-edit-selected] + .bubble {
+    position: fixed;
+    left: var(--text-edit-selection-center);
+    top: var(--text-edit-selection-y);
+    transform: translate(-50%, -125%);
+}
+```
+
+---
+
 ## Inside a Page Editor
 
 `x-text-edit` composes with [Edit](/docs/core-plugins/edit): put it on an element inside an `x-edit` region and the rich editor owns that element, while the region goes on editing everything around it. With no expression of its own, what you write there is captured by `x-edit` as an ordinary text delta and publishes with the rest of the page.
