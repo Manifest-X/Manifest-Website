@@ -72,7 +72,7 @@ By default a region gets sort, text, and style. Naming any capability replaces t
 | **`.data`** | Edit the values behind an `x-for` list (opt-in) |
 | **`.lock`** | Opt this element and its subtree out |
 | **`.gated`** | Editable only after `$edit.on()` |
-| **`.quiet`** | No authoring chrome — see below |
+| **`.authoring`** | Treat this region as a page being edited — see below |
 
 ---
 
@@ -81,7 +81,7 @@ By default a region gets sort, text, and style. Naming any capability replaces t
 Edit is a page editor, but nothing about it requires a page. A drag-to-reorder list is one attribute:
 
 ```html
-<ul x-edit.sort.data.quiet="tasks">
+<ul x-edit.sort.data="tasks">
     <template x-for="task in tasks" :key="task.id">
         <li x-text="task.label"></li>
     </template>
@@ -90,17 +90,39 @@ Edit is a page editor, but nothing about it requires a page. A drag-to-reorder l
 
 Dragging reorders the array itself, so `tasks` is always the source of truth and whatever you already do with it keeps working. Rows identify themselves by the `x-for`'s `:key`; a `:data-key` attribute overrides it if you need something else.
 
-**`.quiet`** is what makes it look like a list rather than a page being edited: no dashed outline, no region label, no floating toolbar. It also changes what the edit means — a quiet area is application UI, not authoring, so its changes never become source patches and never persist to the editor's own overlay. The app owns the state; `$edit.undo()` still works for the session.
+Nothing else appears — no dashed outline, no region label, no floating toolbar. **That is the default**, because most of what this plugin is asked to do is a resizable panel or a sortable list, and those should look like themselves. The page editor is the deepest thing it can do, not the ordinary thing.
+
+The default also decides what an edit *means*. Outside an authoring region the plugin is behaviour, the app owns the state, and changes never become source patches or persist to the editor's overlay. `$edit.undo()` still works for the session.
 
 Without a data source it works the same way on plain markup:
 
 ```html
-<div class="row-wrap gap-2" x-edit.sort.quiet="chips">
+<div class="row-wrap gap-2" x-edit.sort="chips">
     <span>Roses</span>
     <span>Peonies</span>
     <span>Eucalyptus</span>
 </div>
 ```
+
+---
+
+## Authoring a Page
+
+Add **`.authoring`** when a region really is a page being edited. That turns on the chrome — the dashed outline, the region label, the floating toolbar — and opts the region into publishing: its deltas become source patches and persist to the overlay between reloads.
+
+```html
+<header x-edit.text.authoring="hero">…</header>
+```
+
+Everything about that chrome is CSS. The plugin sets attributes — `data-edit-authoring`, `data-edit-armed`, `data-edit-label` — and the stylesheet decides what is drawn:
+
+```css
+/* A solid frame instead of the dashed default, and no region labels */
+[data-edit-armed][data-edit-authoring] { outline: 2px solid var(--color-brand-content) }
+[data-edit-armed][data-edit-authoring]::before { content: none }
+```
+
+One thing is not CSS's to decide: whether a toolbar should exist at all depends on which route is on screen, and no selector can ask that. Script sets `data-edit-active` on `<html>` when a visible authoring region exists; the stylesheet does the rest, so hiding or restyling the toolbar never means touching the plugin.
 
 ---
 
@@ -122,7 +144,18 @@ A component region can be edited for **this instance** or for **all** instances 
 
 ## Reordering
 
-The dragged item follows the pointer while keeping its place in the flow, so its own slot is the gap that opens ahead of it. Items shift as you cross their midpoints, one position at a time.
+The dragged item leaves the flow and follows the pointer. A **stand-in** takes its slot and moves ahead of it, so the gap you see is a real element showing exactly where a release would land. By default it is a translucent copy of what you are dragging; it is yours to restyle:
+
+```css
+/* Fainter */
+[data-edit-ghost] { --edit-ghost-opacity: .2 }
+
+/* Or an empty outlined slot instead of a preview */
+[data-edit-ghost] { opacity: 1; outline: 2px dashed var(--color-line); border-radius: var(--radius) }
+[data-edit-ghost] > * { visibility: hidden }
+```
+
+Items shift as you cross their midpoints, one position at a time.
 
 | Input | Action |
 |---|---|
@@ -248,6 +281,26 @@ Every affordance the plugin injects is an attribute, so restyling never fights s
 | **`[data-edit-menu]`** | The class and scope menu |
 
 `--edit-accent` recolours every affordance at once; it falls back to `--color-brand-content`.
+
+---
+
+## With the Text Editor
+
+The two plugins are independent, and they stack. Put [`x-text-edit`](/docs/core-plugins/text-edit) on an element inside an editable region and the rich editor owns it: `x-edit` stops making its leaves editable, stops addressing nodes inside it, and stops competing for the caret.
+
+```html
+<article x-edit.text.authoring="post">
+    <h1>A title, edited plainly</h1>
+    <div x-text-edit.html>A body, edited richly.</div>
+</article>
+```
+
+What happens to the value depends on whether the rich editor has one of its own:
+
+- **No expression** — `x-edit` captures what it produces as an ordinary text delta, so it undoes and publishes like any other edit in the region. Its block markup is vetted by the text editor's allowlist rather than `x-edit`'s stricter inline-only one, so headings and lists survive.
+- **An expression** — the app owns the value and `x-edit` leaves it alone entirely.
+
+Neither plugin requires the other. Load whichever you need.
 
 ---
 

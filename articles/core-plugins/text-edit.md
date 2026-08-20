@@ -446,6 +446,14 @@ Everything else in the command list is HTML, and lives in `.html` mode. That is 
 
 ---
 
+## Inside a Page Editor
+
+`x-text-edit` composes with [Edit](/docs/core-plugins/edit): put it on an element inside an `x-edit` region and the rich editor owns that element, while the region goes on editing everything around it. With no expression of its own, what you write there is captured by `x-edit` as an ordinary text delta and publishes with the rest of the page.
+
+Nothing needs configuring for that — the plugins are independent and neither requires the other.
+
+---
+
 ## Related
 
 - [Markdown](/docs/core-plugins/markdown) — render the value back out
