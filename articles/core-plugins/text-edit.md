@@ -66,24 +66,33 @@ Point `x-text-edit` at a piece of state. The element becomes editable in place �
 
 `placeholder` shows while the area is empty. Give every area an `aria-label` or an adjacent label — it is a text box, and screen readers announce it as one.
 
-To get a working toolbar without writing one, add `.toolbar`:
+The plugin adds no DOM of its own — not a wrapper, not a toolbar. Your element becomes editable and nothing else changes, so whatever you styled it as, it stays.
+
+A toolbar is therefore just markup. Use the elements Manifest already styles, and `x-icon` where an icon reads better than a word:
 
 ```html
-<div x-text-edit.toolbar="post"></div>
+<div class="row-wrap gap-1 items-center p-2 bg-surface-1 border border-line rounded">
+    <button class="ghost sm" x-text-edit.strong aria-label="Bold"><span x-icon="lucide:bold"></span></button>
+    <button class="ghost sm" x-text-edit.em aria-label="Italic"><span x-icon="lucide:italic"></span></button>
+
+    <div class="divider vertical h-6"></div>
+
+    <select x-text-edit.block class="sm hug" aria-label="Paragraph style">
+        <option value="p">Normal</option>
+        <option value="h1">Heading 1</option>
+        <option value="blockquote">Quote</option>
+    </select>
+
+    <label class="row items-center gap-1 hug">
+        <span x-icon="lucide:baseline"></span>
+        <input type="color" class="unstyle w-6 h-6" x-text-edit.color aria-label="Text colour">
+    </label>
+</div>
+
+<div x-text-edit.html="doc"></div>
 ```
 
-This follows the same convention as the [Colorpicker](/docs/core-plugins/colorpicker) library: default chrome is generated at runtime, marked `data-mnfst-generated` so the prerenderer drops it instead of baking it into the page, and **replaced wholesale by a `<template>` you supply**.
-
-```html
-<template x-text-edit.toolbar>
-    <button class="ghost sm" x-text-edit.strong>B</button>
-    <select x-text-edit.block>…</select>
-</template>
-```
-
-The buttons it writes are ordinary `x-text-edit` controls, so the built-in set has no privileges a hand-written one lacks — and it only offers commands the area's mode allows. It is the one case where the plugin adds DOM: the area is **wrapped** rather than gaining a sibling, because an area is often a flex or grid child where a sibling would land beside it. Without `.toolbar` your element is untouched.
-
-If you are writing your own controls anyway, skip `.toolbar` entirely and place them wherever you like.
+Because a control resolves by containment, that block works wherever you put it — above the editor, in a sidebar, inside a dialog.
 
 ---
 
@@ -172,17 +181,44 @@ With nothing selected, setting a URL inserts it as its own link.
 
 ---
 
+## Typing Markdown
+
+Markdown typed into the editor becomes the element it describes, as you type. `## ` at the start of a line turns the line into a heading; `- ` starts a list; `**bold**` closes into a `<strong>`.
+
+This is not only a convenience. Without it the two halves drift: type `## Title` into a paragraph, and the stored markdown says heading while the page shows body text — until the next load, when it comes back as a heading. Resolving it as you type keeps what you see and what is stored the same thing.
+
+| Type | Get |
+|---|---|
+| `# ` … `###### ` | `h1`–`h6` |
+| `- ` `* ` `+ ` | Bulleted list |
+| `1. ` | Numbered list |
+| `[ ] ` `[x] ` | Task list |
+| `> ` | Blockquote |
+| ` ``` ` | Code block |
+| `**bold**` `__bold__` | `strong` |
+| `*italic*` | `em` |
+| `~~struck~~` | `del` |
+| `` `code` `` | `code` |
+| `[text](url)` | Link |
+
+Block rules only fire at the start of a line, so `Mix ## into a sentence` stays literal. Add **`.literal`** to turn the whole thing off and keep the characters as typed.
+
+---
+
 ## Keyboard
 
 | Key | Action |
 |---|---|
-| **Tab** | Nest the current list item, or indent the current block |
-| **Shift + Tab** | Outdent |
+| **Tab** | Next table cell · nest the list item · indent the block |
+| **Shift + Tab** | Previous cell · outdent |
 | **Escape** | Leave the editor |
+| **Cmd/Ctrl + Z** / **Shift + Z** | Undo / redo |
 | **Cmd/Ctrl + B / I / U** | `strong` / `em` / `u` |
 | **Cmd/Ctrl + K** | Link |
 
-Tab indents rather than moving focus, the way every editor behaves; **Escape** is the way out, so keyboard users are never trapped. Nesting is capped at one level deeper than the item above it, and indenting a plain block is a margin, so that half only applies in `.html` mode.
+Tab indents rather than moving focus, the way every editor behaves — so **Escape** is the way out, and keyboard users are never trapped. Inside a table Tab walks cell to cell and adds a row at the end. List nesting is capped at one level deeper than the item above it; indenting a plain block is a margin, so that half only applies in `.html` mode, and the indent controls dim where they would do nothing.
+
+Undo is the editor's own, not the browser's. Wrapping a tag or moving a list item is a plain DOM edit that the browser's undo stack never sees, so the editor keeps its own history and coalesces typing into single steps.
 
 Pasted content is converted to the editor's own subset rather than carried over as the source application's markup — pasting from a word processor brings the text and its marks, not its styling.
 
@@ -238,8 +274,7 @@ Plus:
 | Modifier | Effect |
 |---|---|
 | **`.minimal`** | Inline marks only. Block controls disable themselves |
-| **`.toolbar`** | Write the default toolbar |
-| **`.sticky`** | A `.toolbar` sticks to the top while scrolling a long document |
+| **`.literal`** | Do not resolve typed markdown into elements |
 | **`.autofocus`** | Focus the area on load |
 
 `.html` sanitizes on the way in and out: script-like elements are removed, unknown tags are unwrapped to keep their text, attributes are stripped, and `javascript:` links are dropped.
@@ -280,11 +315,13 @@ For reading and scripting, rather than for building toolbars — controls handle
 Text Edit uses the following [theme](/docs/styles/theme) variables:
 
 - `--color-surface-1` — area background
-- `--color-surface-2` — toolbar background
+- `--color-surface-2` — a surface for chrome you author around it
 - `--color-line` — border and blockquote rule
 - `--color-content-subtle` — placeholder
 - `--color-brand-content` — links
 - `--radius` — corner rounding
+
+Controls are styled where they sit, by `[data-text-edit-control]` and `[data-text-edit-active]` — there is no toolbar element to hang styles on, because there is no toolbar unless you write one.
 
 Three variables tune the area itself, and can be set per instance:
 
@@ -310,8 +347,6 @@ Everything is addressed by attribute, so restyling never fights specificity:
 | **`[data-text-edit-minimal]`** | An area restricted to inline marks |
 | **`[data-text-edit-control]`** | A control; the value is its command |
 | **`[data-text-edit-active]`** | On a control whose command is active at the caret |
-| **`[data-text-edit-toolbar]`** | A toolbar row — yours or the built-in one |
-| **`[data-text-edit-field]`** | The wrapper `.toolbar` adds |
 | **`[data-checklist]`** | A task list, on the `ul` |
 
 ```css
