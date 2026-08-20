@@ -183,9 +183,11 @@ With nothing selected, setting a URL inserts it as its own link.
 
 ## Typing Markdown
 
-Markdown typed into the editor becomes the element it describes, as you type. `## ` at the start of a line turns the line into a heading; `- ` starts a list; `**bold**` closes into a `<strong>`.
+Markdown typed into the editor becomes the element it describes — **when you press Enter**, not while you are still typing the line. Finish `## Title` and press Enter, and the line you just left becomes a heading.
 
-This is not only a convenience. Without it the two halves drift: type `## Title` into a paragraph, and the stored markdown says heading while the page shows body text — until the next load, when it comes back as a heading. Resolving it as you type keeps what you see and what is stored the same thing.
+Converting mid-keystroke fights the writer: a `*` gets reinterpreted the moment a second one appears, and typing markdown literally becomes impossible. Waiting for the line to be finished also keeps the window in which what you see and what is stored disagree down to the line you are on.
+
+It is not only a convenience, either. Without any conversion the two genuinely drift: `## Title` left sitting in a paragraph is *stored* as a heading and comes back as one on the next load, having looked like body text the whole time it was being written.
 
 | Type | Get |
 |---|---|
@@ -205,10 +207,30 @@ Block rules only fire at the start of a line, so `Mix ## into a sentence` stays 
 
 ---
 
+## Enter
+
+Enter finishes the line and starts a plain paragraph. A heading or a quote **does not continue itself** — the line after a title is body text, which is what a writer means by pressing Enter.
+
+| In | Enter gives |
+|---|---|
+| A heading, quote, or any other block | A paragraph |
+| A list item | The next item |
+| An **empty** list item | A paragraph after the list |
+| A code block | A new line of code |
+| An **empty** last line of a code block | A paragraph after the block |
+
+Empty-item and empty-line exits matter for more than convenience: with Tab bound to indent, they are the only way out of a list or a code block that does not involve the mouse.
+
+**Shift + Enter** breaks the line without leaving the block.
+
+---
+
 ## Keyboard
 
 | Key | Action |
 |---|---|
+| **Enter** | Finish the line — see above |
+| **Shift + Enter** | Line break without leaving the block |
 | **Tab** | Next table cell · nest the list item · indent the block |
 | **Shift + Tab** | Previous cell · outdent |
 | **Escape** | Leave the editor |
