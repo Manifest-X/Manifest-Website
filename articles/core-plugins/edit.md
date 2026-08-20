@@ -206,5 +206,5 @@ Every affordance the plugin injects is an attribute, so restyling never fights s
 
 ## Related
 
-- [Prose](/docs/core-plugins/prose) — a rich text field, rather than editing the page itself
+- [Text Edit](/docs/core-plugins/text-edit) — a rich text field, rather than editing the page itself
 - [Resize](/docs/core-plugins/resize) — the older, standalone resize directive
