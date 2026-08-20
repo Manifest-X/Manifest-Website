@@ -9,7 +9,7 @@ A rich text editor assembled from your own markup.
 `x-text-edit` is one directive with two roles. Without a command modifier it marks an element as an editable area and binds its value. With one, it turns any element into a control for that area.
 
 ```html
-<button x-text-edit.bold>Bold</button>
+<button x-text-edit.strong>Bold</button>
 
 <div x-text-edit="post"></div>
 ```
@@ -66,72 +66,125 @@ Point `x-text-edit` at a piece of state. The element becomes editable in place �
 
 `placeholder` shows while the area is empty. Give every area an `aria-label` or an adjacent label — it is a text box, and screen readers announce it as one.
 
-To get a working toolbar without writing one, add `.toolbar`. It is the only case where the plugin adds DOM: the area is wrapped so the toolbar can sit above it. The buttons it writes are ordinary `x-text-edit` controls, so there is no privileged path — the built-in set is just markup you did not have to type.
+To get a working toolbar without writing one, add `.toolbar`:
 
 ```html
 <div x-text-edit.toolbar="post"></div>
 ```
 
+This follows the same convention as the [Colorpicker](/docs/core-plugins/colorpicker) library: default chrome is generated at runtime, marked `data-mnfst-generated` so the prerenderer drops it instead of baking it into the page, and **replaced wholesale by a `<template>` you supply**.
+
+```html
+<template x-text-edit.toolbar>
+    <button class="ghost sm" x-text-edit.strong>B</button>
+    <select x-text-edit.block>…</select>
+</template>
+```
+
+The buttons it writes are ordinary `x-text-edit` controls, so the built-in set has no privileges a hand-written one lacks — and it only offers commands the area's mode allows. It is the one case where the plugin adds DOM: the area is **wrapped** rather than gaining a sibling, because an area is often a flex or grid child where a sibling would land beside it. Without `.toolbar` your element is untouched.
+
+If you are writing your own controls anyway, skip `.toolbar` entirely and place them wherever you like.
+
 ---
 
-## Controls
+## Commands
 
-Any element becomes a control by naming a command as a modifier.
+Every command is named for the tag it produces. There is no Manifest vocabulary to learn on top of HTML: `.blockquote` makes a `<blockquote>`, `.strong` makes a `<strong>`.
 
 ```html
-<button x-text-edit.bold>Bold</button>
-<button x-text-edit.heading.2>Heading</button>
-<button x-text-edit.quote>Quote</button>
+<button x-text-edit.strong>Bold</button>
+<button x-text-edit.h2>Heading</button>
+<button x-text-edit.blockquote>Quote</button>
 ```
 
-| Command | Effect |
+**Inline tags** — `.strong` `.b` `.em` `.i` `.u` `.s` `.del` `.ins` `.code` `.mark` `.small` `.sub` `.sup` `.kbd` `.samp` `.var` `.abbr` `.cite` `.q` `.dfn` `.time` `.span`
+
+**Block tags** — `.p` `.h1`–`.h6` `.blockquote` `.pre` `.address` `.figure` `.figcaption` `.dl` `.dt` `.dd` `.div` `.section` `.article` `.aside`
+
+**Lists and insertions** — `.ul` `.ol` `.checklist` `.hr` `.img` `.br` `.table` `.a`
+
+**Operations with no tag of their own** — `.indent` `.outdent` `.align` `.color` `.background` `.font` `.size` `.clear` `.undo` `.redo` `.block`
+
+An argument is either the next modifier or an expression:
+
+```html
+<button x-text-edit.align.center>Centre</button>
+<button x-text-edit.table.4x3>Insert table</button>
+<button x-text-edit.img="photoUrl">Insert image</button>
+```
+
+### What markdown can carry
+
+Markdown has syntax for some of these and not others. Rather than let a command write something the next save would silently drop, a command that markdown cannot represent reports itself **unavailable** in markdown mode and disables its control.
+
+| Available in | Commands |
 |---|---|
-| **`.bold`** **`.italic`** **`.strike`** **`.code`** | Inline marks |
-| **`.heading`** | Toggle a heading; the level follows as a modifier or an expression (default 2) |
-| **`.paragraph`** | Set the block back to a paragraph |
-| **`.quote`** | Toggle a blockquote |
-| **`.bullets`** **`.numbers`** | Lists |
-| **`.divider`** | Insert a horizontal rule |
-| **`.link`** **`.unlink`** | Links |
-| **`.clear`** | Remove formatting from the selection |
-| **`.undo`** **`.redo`** | Step the editor's own history |
-| **`.block`** | For a `<select>` — see below |
+| **Every mode** | `strong` `b` `em` `i` `s` `del` `code` `a` `img` `ul` `ol` `checklist` `hr` `br` `p` `h1`–`h6` `blockquote` `pre` `indent` `outdent` `clear` `undo` `redo` `block` |
+| **`.html` only** | `u` `mark` `small` `sub` `sup` `kbd` `samp` `var` `abbr` `cite` `q` `ins` `dfn` `time` `span` `address` `figure` `figcaption` `dl` `dt` `dd` `div` `section` `article` `aside` `table` `color` `background` `font` `size` `align` |
 
-An argument can be static or dynamic:
+So colour, font, size and alignment work — in `.html` mode, where they survive. In markdown mode their controls dim themselves rather than pretending.
 
-```html
-<button x-text-edit.heading.3>H3</button>
-<button x-text-edit.heading="level">Heading</button>
-<button x-text-edit.link="url">Link</button>
-```
+---
 
-`.link` with no argument prompts for a URL, and toggles an existing link off.
+## Populating Options Yourself
 
-### Populating options yourself
-
-A `<select>` with `.block` reads the options **you** wrote, and reflects the caret's current block back into the field:
+Any element with a `value` becomes a control that both **sets** and **reflects**. The plugin never writes an option, a swatch or a font list — you do, and it fills in the current state.
 
 ```html
 <select x-text-edit.block>
     <option value="p">Paragraph</option>
     <option value="h2">Heading</option>
-    <option value="h3">Subheading</option>
-    <option value="quote">Quote</option>
+    <option value="blockquote">Quote</option>
     <option value="pre">Code block</option>
 </select>
+
+<select x-text-edit.font>
+    <option value="inherit">Default</option>
+    <option value="Georgia">Georgia</option>
+</select>
+
+<select x-text-edit.size>
+    <option value="16px">16</option>
+    <option value="24px">24</option>
+</select>
+
+<input type="color" x-text-edit.color aria-label="Text colour">
+<input type="color" x-text-edit.background aria-label="Highlight">
 ```
 
-Values are `p`, `h1`–`h6`, `quote`, and `pre`. Offer as many or as few as your document format allows — the plugin never adds options of its own.
+Values are exact tag names (`p`, `h1`–`h6`, `blockquote`, `pre`, `address`, `figcaption`, …) — the same names the command modifiers use.
 
-### Control state
+A `<select>` is never blanked by a value you did not offer. If the caret sits in a font or block your list does not contain, the control is left alone rather than showing empty.
 
-Every control is kept in sync with the caret:
+---
 
-- `data-text-edit-active` while its command is on
-- `aria-pressed` on buttons
-- `aria-disabled="true"` when the command is unavailable — in a `.minimal` area, in a `.plain` area, or when no area resolves at all
+## Links
 
-Manifest's reset already dims `[aria-disabled="true"]` and blocks its pointer events, so a control that cannot act looks and behaves like it.
+One `<input>` is the whole define, edit and clear surface. It shows the current `href`, sets it on change, and removes the link when emptied.
+
+```html
+<input type="url" x-text-edit.a placeholder="https://">
+```
+
+Select some text and type a URL to create the link; put the caret back inside it and the field shows the existing `href` for editing; clear the field to unlink. `Cmd/Ctrl + K` toggles a link at the caret, and `$text.link` is the same value in script.
+
+With nothing selected, setting a URL inserts it as its own link.
+
+---
+
+## Keyboard
+
+| Key | Action |
+|---|---|
+| **Tab** | Nest the current list item, or indent the current block |
+| **Shift + Tab** | Outdent |
+| **Escape** | Leave the editor |
+| **Cmd/Ctrl + B / I / U** | `strong` / `em` / `u` |
+| **Cmd/Ctrl + K** | Link |
+
+Tab indents rather than moving focus, the way every editor behaves; **Escape** is the way out, so keyboard users are never trapped. Nesting is capped at one level deeper than the item above it, and indenting a plain block is a margin, so that half only applies in `.html` mode.
+
+Pasted content is converted to the editor's own subset rather than carried over as the source application's markup — pasting from a word processor brings the text and its marks, not its styling.
 
 ---
 
@@ -148,23 +201,23 @@ When an ancestor holds more than one area, visible areas win over hidden ones, a
 ```html
 <!-- Contained: each dialog's toolbar drives only its own editor -->
 <dialog popover id="reply-a">
-    <button x-text-edit.bold>Bold</button>
+    <button x-text-edit.strong>Bold</button>
     <div x-text-edit="draftA"></div>
 </dialog>
 
 <dialog popover id="reply-b">
-    <button x-text-edit.bold>Bold</button>
+    <button x-text-edit.strong>Bold</button>
     <div x-text-edit="draftB"></div>
 </dialog>
 
 <!-- Pinned: drives A from anywhere, whatever has focus -->
 <div x-text-edit-for="#body-a">
-    <button x-text-edit.bold>Bold in A</button>
+    <button x-text-edit.strong>Bold in A</button>
 </div>
 
 <!-- Focused: no enclosing area, so it follows the caret -->
 <header>
-    <button x-text-edit.bold>Bold</button>
+    <button x-text-edit.strong>Bold</button>
 </header>
 ```
 
@@ -212,6 +265,7 @@ For reading and scripting, rather than for building toolbars — controls handle
 | Member | Returns | Description |
 |---|---|---|
 | **`$text.value`** | String | The stored value; assignable |
+| **`$text.link`** | String | The `href` at the caret; assignable, empty to unlink |
 | **`$text.run(cmd, arg)`** | — | Apply a command |
 | **`$text.active(cmd)`** | Boolean | Whether it is on at the caret |
 | **`$text.can(cmd)`** | Boolean | Whether this area's mode allows it |
@@ -258,6 +312,7 @@ Everything is addressed by attribute, so restyling never fights specificity:
 | **`[data-text-edit-active]`** | On a control whose command is active at the caret |
 | **`[data-text-edit-toolbar]`** | A toolbar row — yours or the built-in one |
 | **`[data-text-edit-field]`** | The wrapper `.toolbar` adds |
+| **`[data-checklist]`** | A task list, on the `ul` |
 
 ```css
 /* Borderless area that only shows its chrome on focus */
@@ -274,7 +329,9 @@ Everything is addressed by attribute, so restyling never fights specificity:
 
 ## Scope
 
-The markdown round trip covers what the commands can author: headings, bold, italic, strikethrough, inline code, links, bullet and numbered lists (nested), blockquotes, code fences, and horizontal rules. Markdown outside that set — tables, footnotes, reference links — is not silently converted. Use `.html` when content needs to keep structures beyond it.
+The markdown round trip covers headings, bold, italic, strikethrough, inline code, links, images, bullet and numbered lists (nested), task lists, blockquotes, code fences, hard breaks and horizontal rules. Markdown outside that set — tables, footnotes, reference links — is not silently converted.
+
+Everything else in the command list is HTML, and lives in `.html` mode. That is the trade the two modes make: markdown for content you want portable, HTML for content that needs the full range a word processor offers.
 
 ---
 
