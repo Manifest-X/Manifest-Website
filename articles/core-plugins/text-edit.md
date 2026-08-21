@@ -530,7 +530,7 @@ A menu that appears over selected text is a matter of knowing when there is a se
 
 The controls are ordinary controls — they resolve to the area by the usual rules, and they never take the caret, so the selection is still there when the command runs.
 
-`text-edit:selection` fires on the area with the geometry, `$text.selection` is the same object on demand, and the area carries `data-text-edit-selected` plus custom properties for placing a menu without script:
+`text-edit:selection` fires on the area with the geometry, `$text.selection` is the same object on demand, and the area carries `data-text-edit-selected` plus custom properties describing where the selection is on screen:
 
 | Property | Value |
 |---|---|
@@ -538,14 +538,37 @@ The controls are ordinary controls — they resolve to the area by the usual rul
 | `--text-edit-selection-width` / `-height` | Its size |
 | `--text-edit-selection-center` | Horizontal centre, for a centred bubble |
 
-```css
-[data-text-edit-selected] + .bubble {
-    position: fixed;
-    left: var(--text-edit-selection-center);
-    top: var(--text-edit-selection-y);
-    transform: translate(-50%, -125%);
-}
+The attribute and the properties are set on the area *and* on `:root`, so a menu can read them from anywhere in the document — it does not have to be a sibling or a descendant of the editor.
+
+### Put the menu in a popover
+
+Anchor the menu with `popover`. A popover lives in the top layer, above every stacking context on the page, so it cannot be painted over by anything with a `z-index` — including the [edit](/docs/core-plugins/edit) plugin's resize handles, which sit above ordinary page chrome by design.
+
+```html
+<div popover="manual" x-ref="bubble" class="row gap-1 p-1 bg-surface-1 border border-line rounded shadow"
+     style="position: fixed; margin: 0; inset: auto; transform: translate(-50%, -125%);
+            left: var(--text-edit-selection-center); top: var(--text-edit-selection-y)">
+    <button class="ghost sm" x-text-edit.strong aria-label="Bold"><span x-icon="lucide:bold"></span></button>
+    <button class="ghost sm" x-text-edit.em aria-label="Italic"><span x-icon="lucide:italic"></span></button>
+</div>
 ```
+
+`margin: 0` and `inset: auto` clear the browser's own popover defaults, which otherwise centre it in the viewport.
+
+CSS alone cannot open a popover, so the selection event does that one thing:
+
+```html
+<div x-data="{
+    bubble(detail) {
+        const el = this.$refs.bubble; if (!el) return;
+        const want = !!detail && !detail.collapsed;
+        if (want && !el.matches(':popover-open')) el.showPopover();
+        if (!want && el.matches(':popover-open')) el.hidePopover();
+    }
+}" @text-edit:selection.window="bubble($event.detail)">
+```
+
+Use `popover="manual"` rather than the default `auto`: an auto popover light-dismisses on any outside click, which would close the menu the moment the user selects text. The open animation Manifest gives popovers animates `scale`, leaving `transform` free for your own positioning.
 
 ---
 
