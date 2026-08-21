@@ -252,11 +252,19 @@ A table is a small spreadsheet inside a document, so it gets the operations one 
 
 All of them report themselves unavailable outside a table, so a menu can hold them permanently without going stale.
 
+**Merging** takes the rectangle the selection covers. Because an empty cell holds no text, a text selection can never reach one — the anchor and focus cells bound the block instead, the way a spreadsheet selection does, so empty cells take part like any other. With nothing selected, merge joins the cell to the right, which is the reading of a single press.
+
+**Sizing** is a drag on a cell border, columns and rows both. Widths are kept on a `<colgroup>` rather than on the first row's cells, so a merged cell in row one cannot throw them off, and they survive a save.
+
+**Repair is automatic.** A row left shorter than the others — by an edit, or by markup that arrived that way — is padded back out as the document settles. There is no way to click into a cell that does not exist, so a ragged table could not otherwise be fixed by hand.
+
 Keys behave the way a grid should:
 
 - **Tab** and **Shift + Tab** walk cell to cell, and Tab past the last cell adds a row.
 - **Left and right** cross the text in a cell first, and only move to the next cell once there is none left in that direction.
-- **Up and down** move between **rows**, not along the markup — down from a cell goes to the cell beneath it, not the one after it. From the first or last row they leave the table, adding a paragraph after it if there was nothing there.
+- **Up and down** move a line at a time, and only leave the cell from its last or first line — a cell holding several lines is walkable like any other text. Once they do leave, they move between **rows**: down from a cell goes to the cell beneath it, not the one after it. From the first or last row they leave the table, adding a paragraph after it if there was nothing there.
+
+Vertical movement aims at a point rather than an offset, so returning to a cell lands under the column you left from rather than at an arbitrary end.
 
 A table left as the last thing in a document has nowhere to click after it, so a paragraph is kept there. The same goes for a trailing rule, list, quote or code block.
 
