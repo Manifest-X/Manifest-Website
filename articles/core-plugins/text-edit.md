@@ -485,6 +485,14 @@ Everything else in the command list is HTML, and lives in `.html` mode. That is 
 
 ---
 
+## When Controls Go Quiet
+
+A control acts on the area the caret is in. Move the caret into anything else editable — a plain `contenteditable`, an input, a field belonging to another plugin — and the controls **dim**, because there is no longer a rich text area to act on.
+
+That is worth knowing when a page mixes them. A page editor might have rich text fields alongside plain data values bound to a source: clicking into a data value dims the text controls, and correctly so, since bold is not a thing that value can hold. A control that stayed lit there would style whichever field was last visited — text the writer can see is not selected.
+
+---
+
 ## Toolbars and the Caret
 
 Controls never take the caret, but the space *around* them will: a click that lands between two buttons blurs the field and takes the selection with it. If your controls sit in a container of their own, suppress it there:
