@@ -252,7 +252,7 @@ A table is a small spreadsheet inside a document, so it gets the operations one 
 
 All of them report themselves unavailable outside a table, so a menu can hold them permanently without going stale.
 
-**Merging** takes the rectangle the selection covers. Because an empty cell holds no text, a text selection can never reach one — the anchor and focus cells bound the block instead, the way a spreadsheet selection does, so empty cells take part like any other. With nothing selected, merge joins the cell to the right, which is the reading of a single press.
+**Merging** takes the rectangle the selection covers. Empty cells hold no text, so a text selection can neither reach one nor show one — dragging across cells is tracked by pointer instead, and the block is painted for you. With nothing selected, merge joins the cell to the right, which is the reading of a single press.
 
 **Sizing** is a drag on a cell border, columns and rows both. Widths are kept on a `<colgroup>` rather than on the first row's cells, so a merged cell in row one cannot throw them off, and they survive a save.
 
@@ -482,6 +482,21 @@ Everything is addressed by attribute, so restyling never fights specificity:
 The markdown round trip covers headings, bold, italic, strikethrough, inline code, links, images, bullet and numbered lists (nested), task lists, blockquotes, code fences, hard breaks and horizontal rules. Markdown outside that set — tables, footnotes, reference links — is not silently converted.
 
 Everything else in the command list is HTML, and lives in `.html` mode. That is the trade the two modes make: markdown for content you want portable, HTML for content that needs the full range a word processor offers.
+
+---
+
+## Toolbars and the Caret
+
+Controls never take the caret, but the space *around* them will: a click that lands between two buttons blurs the field and takes the selection with it. If your controls sit in a container of their own, suppress it there:
+
+```html
+<div class="row-wrap gap-1"
+     @pointerdown="if (!$event.target.closest('input, select, textarea')) $event.preventDefault()">
+    <button class="ghost sm" x-text-edit.strong>…</button>
+</div>
+```
+
+The exception for form fields matters — a colour input or a `<select>` among your controls needs the focus it is asking for.
 
 ---
 
