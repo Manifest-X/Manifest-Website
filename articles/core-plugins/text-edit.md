@@ -489,7 +489,9 @@ Everything else in the command list is HTML, and lives in `.html` mode. That is 
 
 A control acts on the area the caret is in. Move the caret into anything else editable — a plain `contenteditable`, an input, a field belonging to another plugin — and the controls **dim**, because there is no longer a rich text area to act on.
 
-That is worth knowing when a page mixes them. A page editor might have rich text fields alongside plain data values bound to a source: clicking into a data value dims the text controls, and correctly so, since bold is not a thing that value can hold. A control that stayed lit there would style whichever field was last visited — text the writer can see is not selected.
+That is worth knowing when a page mixes them. A control that stayed lit with the caret elsewhere would style whichever field was last visited — text the writer can see is not selected.
+
+Releasing the area also fires `text-edit:selection` with a `null` detail, so a menu anchored to the selection knows to go away rather than hanging over content it no longer has anything to do with.
 
 ---
 
@@ -544,6 +546,24 @@ The controls are ordinary controls — they resolve to the area by the usual rul
     transform: translate(-50%, -125%);
 }
 ```
+
+---
+
+## Editing a Data Value
+
+Nothing about a value coming from a data source makes it plain text. Bind the editor to the field and the record simply holds markup:
+
+```html
+<template x-for="p in $x.products" :key="p.id">
+    <div>
+        <div x-text-edit.html.minimal="p.name"></div>
+    </div>
+</template>
+```
+
+Styling the name writes `<strong>Wid</strong>get` into `p.name`, and the source stores it as written. The only requirement is that the value is *rendered* as markup — which is what binding through the editor does, and what `x-html` does elsewhere. A field rendered with `x-text` cannot hold markup, because the binding would show the tags as literal characters; that is the real distinction, not whether the value came from a file.
+
+Do not combine `x-text-edit` with `x-html` on the same element. Both own the element's content, and they will fight over it.
 
 ---
 
