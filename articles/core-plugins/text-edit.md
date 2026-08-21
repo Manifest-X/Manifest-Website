@@ -108,9 +108,13 @@ Every command is named for the tag it produces. There is no Manifest vocabulary 
 
 **Inline tags** — `.strong` `.b` `.em` `.i` `.u` `.s` `.del` `.ins` `.code` `.mark` `.small` `.sub` `.sup` `.kbd` `.samp` `.var` `.abbr` `.cite` `.q` `.dfn` `.time` `.span`
 
-**Block tags** — `.p` `.h1`–`.h6` `.blockquote` `.pre` `.address` `.figure` `.figcaption` `.dl` `.dt` `.dd` `.div` `.section` `.article` `.aside`
+**Block tags** — `.p` `.h1`–`.h6` `.blockquote` `.pre` `.address` `.figcaption` `.dl` `.dt` `.dd`
 
-**Lists and insertions** — `.ul` `.ol` `.checklist` `.hr` `.img` `.br` `.table` `.a`
+`.figure` is the exception to the tag-per-command rule: a `<figure>` is a block *with* a caption, so it wraps the current block and adds a `<figcaption>` rather than retagging in place — which would have looked like nothing happened.
+
+**Lists and insertions** — `.ul` `.ol` `.checklist` `.hr` `.img` `.br` `.a`
+
+**Tables** — `.table` `.row-before` `.row-after` `.row-remove` `.column-before` `.column-after` `.column-remove` `.merge` `.split` `.table-header` `.table-remove`
 
 **Operations with no tag of their own** — `.indent` `.outdent` `.align` `.color` `.background` `.font` `.size` `.leading` `.clear` `.undo` `.redo` `.block`
 
@@ -228,6 +232,33 @@ Enter finishes the line and starts a plain paragraph. A heading or a quote **doe
 Empty-item and empty-line exits matter for more than convenience: with Tab bound to indent, they are the only way out of a list or a code block that does not involve the mouse.
 
 **Shift + Enter** breaks the line without leaving the block.
+
+---
+
+## Tables
+
+A table is a small spreadsheet inside a document, so it gets the operations one has. Each is a command, so the UI is yours as usual:
+
+| Command | Does |
+|---|---|
+| **`.table`** | Insert one; the argument is `rows x columns` |
+| **`.row-before`** **`.row-after`** | Add a row either side of the caret |
+| **`.column-before`** **`.column-after`** | Add a column either side |
+| **`.row-remove`** **`.column-remove`** | Remove the one the caret is in |
+| **`.merge`** | Merge the selected cells, or the caret's cell with the one after it |
+| **`.split`** | Undo a merge |
+| **`.table-header`** | Turn the first row into a header row |
+| **`.table-remove`** | Remove the table |
+
+All of them report themselves unavailable outside a table, so a menu can hold them permanently without going stale.
+
+Keys behave the way a grid should:
+
+- **Tab** and **Shift + Tab** walk cell to cell, and Tab past the last cell adds a row.
+- **Left and right** cross the text in a cell first, and only move to the next cell once there is none left in that direction.
+- **Up and down** move between **rows**, not along the markup — down from a cell goes to the cell beneath it, not the one after it. From the first or last row they leave the table, adding a paragraph after it if there was nothing there.
+
+A table left as the last thing in a document has nowhere to click after it, so a paragraph is kept there. The same goes for a trailing rule, list, quote or code block.
 
 ---
 
