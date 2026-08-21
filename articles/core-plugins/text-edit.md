@@ -3,7 +3,6 @@
 A rich text editor assembled from your own markup.
 
 ---
-
 ## Overview
 
 `x-text-edit` is one directive with two roles. Without a command modifier it marks an element as an editable area and binds its value. With one, it turns any element into a control for that area.
@@ -19,7 +18,6 @@ Controls need no toolbar element, no wrapper, and no shared parent — a control
 The bound value is markdown by default, so [Markdown](/docs/core-plugins/markdown) renders it straight back.
 
 ---
-
 ## Setup
 
 Text Edit is included in `manifest.js` with all core plugins, or can be selectively loaded.
@@ -52,7 +50,6 @@ Editor styles are included in Manifest CSS or as a standalone stylesheet, both r
 </div>
 
 ---
-
 ## The Editable Area
 
 Point `x-text-edit` at a piece of state. The element becomes editable in place — no wrapper is inserted, so whatever you styled it as, it stays.
@@ -95,7 +92,6 @@ A toolbar is therefore just markup. Use the elements Manifest already styles, an
 Because a control resolves by containment, that block works wherever you put it — above the editor, in a sidebar, inside a dialog.
 
 ---
-
 ## Commands
 
 Every command is named for the tag it produces. There is no Manifest vocabulary to learn on top of HTML: `.blockquote` makes a `<blockquote>`, `.strong` makes a `<strong>`.
@@ -144,7 +140,6 @@ A tag command with no selection **arms**: press Bold, then type, and what you ty
 So colour, font, size and alignment work — in `.html` mode, where they survive. In markdown mode their controls dim themselves rather than pretending.
 
 ---
-
 ## Populating Options Yourself
 
 Any element with a `value` becomes a control that both **sets** and **reflects**. The plugin never writes an option, a swatch or a font list — you do, and it fills in the current state.
@@ -176,7 +171,6 @@ Values are exact tag names (`p`, `h1`–`h6`, `blockquote`, `pre`, `address`, `f
 A `<select>` is never blanked by a value you did not offer. If the caret sits in a font or block your list does not contain, the control is left alone rather than showing empty.
 
 ---
-
 ## Links
 
 One `<input>` is the whole define, edit and clear surface. It shows the current `href`, sets it on change, and removes the link when emptied.
@@ -190,7 +184,6 @@ Select some text and type a URL to create the link; put the caret back inside it
 With nothing selected, setting a URL inserts it as its own link.
 
 ---
-
 ## Typing Markdown
 
 Markdown typed into the editor becomes the element it describes — **when you press Enter**, not while you are still typing the line. Finish `## Title` and press Enter, and the line you just left becomes a heading.
@@ -216,7 +209,6 @@ It is not only a convenience, either. Without any conversion the two genuinely d
 Block rules only fire at the start of a line, so `Mix ## into a sentence` stays literal. Add **`.literal`** to turn the whole thing off and keep the characters as typed.
 
 ---
-
 ## Enter
 
 Enter finishes the line and starts a plain paragraph. A heading or a quote **does not continue itself** — the line after a title is body text, which is what a writer means by pressing Enter.
@@ -234,7 +226,6 @@ Empty-item and empty-line exits matter for more than convenience: with Tab bound
 **Shift + Enter** breaks the line without leaving the block.
 
 ---
-
 ## Tables
 
 A table is a small spreadsheet inside a document, so it gets the operations one has. Each is a command, so the UI is yours as usual:
@@ -269,7 +260,6 @@ Vertical movement aims at a point rather than an offset, so returning to a cell 
 A table left as the last thing in a document has nowhere to click after it, so a paragraph is kept there. The same goes for a trailing rule, list, quote or code block.
 
 ---
-
 ## Keyboard
 
 | Key | Action |
@@ -291,7 +281,6 @@ Undo is the editor's own, not the browser's. Wrapping a tag or moving a list ite
 Pasted content is converted to the editor's own subset rather than carried over as the source application's markup — pasting from a word processor brings the text and its marks, not its styling.
 
 ---
-
 ## How a Control Finds Its Area
 
 Resolution runs in this order, and stops at the first answer:
@@ -328,7 +317,87 @@ When an ancestor holds more than one area, visible areas win over hidden ones, a
 Controls never take the caret. A button suppresses the focus change outright; a `<select>` or text input has to take focus to work, so each area remembers its own last selection and puts it back before the command runs. That is what makes a "type a URL, then press Link" flow work across two separate fields.
 
 ---
+## Toolbars and the Caret
 
+Controls never take the caret, but the space *around* them will: a click that lands between two buttons blurs the field and takes the selection with it. If your controls sit in a container of their own, suppress it there:
+
+```html
+<div class="row-wrap gap-1"
+     @pointerdown="if (!$event.target.closest('input, select, textarea')) $event.preventDefault()">
+    <button class="ghost sm" x-text-edit.strong>…</button>
+</div>
+```
+
+The exception for form fields matters — a colour input or a `<select>` among your controls needs the focus it is asking for.
+
+---
+## When Controls Go Quiet
+
+A control acts on the area the caret is in. Move the caret into anything else editable — a plain `contenteditable`, an input, a field belonging to another plugin — and the controls **dim**, because there is no longer a rich text area to act on.
+
+That is worth knowing when a page mixes them. A control that stayed lit with the caret elsewhere would style whichever field was last visited — text the writer can see is not selected.
+
+Releasing the area also fires `text-edit:selection` with a `null` detail, so a menu anchored to the selection knows to go away rather than hanging over content it no longer has anything to do with.
+
+---
+## Anchoring a Menu to the Selection
+
+A menu that appears over selected text is a matter of knowing when there is a selection and where it is. The plugin reports both and draws nothing, because where that menu sits and what it holds belongs to the project.
+
+Make it a **popover**. A popover lives in the browser's top layer, above every stacking context on the page, so nothing can paint over it — including the [Edit](/docs/core-plugins/edit) plugin's resize handles, which sit above ordinary page chrome by design. Position it from the custom properties the plugin sets, and no script decides where it goes:
+
+```html
+<div popover="manual" x-ref="bubble" class="row gap-1 p-1 bg-surface-1 border border-line rounded shadow"
+     style="position: fixed; margin: 0; inset: auto; transform: translate(-50%, -125%);
+            left: var(--text-edit-selection-center); top: var(--text-edit-selection-y)">
+    <button class="ghost sm" x-text-edit.strong aria-label="Bold"><span x-icon="lucide:bold"></span></button>
+    <button class="ghost sm" x-text-edit.em aria-label="Italic"><span x-icon="lucide:italic"></span></button>
+</div>
+```
+
+`margin: 0` and `inset: auto` clear the browser's own popover defaults, which otherwise centre it in the viewport. Use `popover="manual"` rather than the default `auto`: an auto popover light-dismisses on any outside click, and selecting text is an outside click — the menu would close in the same gesture that summoned it.
+
+CSS cannot open a popover, so the selection event does that one thing and nothing else:
+
+```html
+<div x-data="{
+    bubble(detail) {
+        const el = this.$refs.bubble; if (!el) return;
+        const want = !!detail && !detail.collapsed;
+        if (want && !el.matches(':popover-open')) el.showPopover();
+        if (!want && el.matches(':popover-open')) el.hidePopover();
+    }
+}" @text-edit:selection.window="bubble($event.detail)">
+```
+
+The controls inside it are ordinary controls — they resolve to the area by the usual rules, and they never take the caret, so the selection is still there when the command runs.
+
+### What the plugin reports
+
+`text-edit:selection` fires on the area, and `$text.selection` is the same object on demand:
+
+| Key | Value |
+|---|---|
+| `collapsed` | True for a caret, false for a range |
+| `text` | The selected text |
+| `x` `y` `width` `height` | The selection's box, in viewport coordinates |
+| `top` `bottom` `left` `right` | The same box, in the shape a `DOMRect` has |
+
+The detail is `null` when the area loses the selection entirely, which is the signal to put the menu away.
+
+The same geometry is written as custom properties, alongside a `data-text-edit-selected` attribute:
+
+| Property | Value |
+|---|---|
+| `--text-edit-selection-x` / `-y` | Top-left of the selection |
+| `--text-edit-selection-width` / `-height` | Its size |
+| `--text-edit-selection-center` | Horizontal centre, for a centred bubble |
+
+They are set on the area **and** on `:root`. A menu anchored to a selection is rarely a descendant of the editor, and once it is a popover it is in the top layer, where it inherits nothing from the page at all — on the root they are readable from anywhere.
+
+One thing to know if you animate the menu yourself: Manifest's popover open animation animates the standalone `scale` property rather than `transform`, precisely so `transform` stays yours to position with. An animation with fill mode `both` holds its final value forever, so a `transform` animation would quietly cancel a `translate(-50%)` of your own.
+
+---
 ## Page-Level Styling
 
 A document font or line spacing is **presentation, not content**. The stored value is the area's markup, and burying a wrapper in it to carry a font would misdescribe what the document says — so page-level styling is written as CSS custom properties on the area instead.
@@ -373,7 +442,6 @@ Because page styling is separate from the document, it is **yours to persist**. 
 A `text-edit:page` event fires on the area whenever a page control changes something.
 
 ---
-
 ## New Page
 
 Document lifecycle is the application's, not the editor's — a new page is just a new value:
@@ -385,7 +453,6 @@ Document lifecycle is the application's, not the editor's — a new page is just
 Replacing the value from outside **resets the editor's undo history**, so a new page cannot undo its way back into the previous one. `$text.selectAll()` is there when a command should apply to everything.
 
 ---
-
 ## Modes
 
 | Modifier | Stores | Use for |
@@ -405,7 +472,37 @@ Plus:
 `.html` sanitizes on the way in and out: script-like elements are removed, unknown tags are unwrapped to keep their text, attributes are stripped, and `javascript:` links are dropped.
 
 ---
+## Scope
 
+The markdown round trip covers headings, bold, italic, strikethrough, inline code, links, images, bullet and numbered lists (nested), task lists, blockquotes, code fences, hard breaks and horizontal rules. Markdown outside that set — tables, footnotes, reference links — is not silently converted.
+
+Everything else in the command list is HTML, and lives in `.html` mode. That is the trade the two modes make: markdown for content you want portable, HTML for content that needs the full range a word processor offers.
+
+---
+## Editing a Data Value
+
+Nothing about a value coming from a data source makes it plain text. Bind the editor to the field and the record simply holds markup:
+
+```html
+<template x-for="p in $x.products" :key="p.id">
+    <div>
+        <div x-text-edit.html.minimal="p.name"></div>
+    </div>
+</template>
+```
+
+Styling the name writes `<strong>Wid</strong>get` into `p.name`, and the source stores it as written. The only requirement is that the value is *rendered* as markup — which is what binding through the editor does, and what `x-html` does elsewhere. A field rendered with `x-text` cannot hold markup, because the binding would show the tags as literal characters; that is the real distinction, not whether the value came from a file.
+
+Do not combine `x-text-edit` with `x-html` on the same element. Both own the element's content, and they will fight over it.
+
+---
+## Inside a Page Editor
+
+`x-text-edit` composes with [Edit](/docs/core-plugins/edit): put it on an element inside an `x-edit` region and the rich editor owns that element, while the region goes on editing everything around it. With no expression of its own, what you write there is captured by `x-edit` as an ordinary text delta and publishes with the rest of the page.
+
+Nothing needs configuring for that — the plugins are independent and neither requires the other.
+
+---
 ## $text
 
 For reading and scripting, rather than for building toolbars — controls handle that declaratively. `$text` resolves to the area the element sits in, or the last focused one.
@@ -424,7 +521,6 @@ For reading and scripting, rather than for building toolbars — controls handle
 | **`$text.focus()`** | — | Focus the area |
 
 ---
-
 ## Theme
 
 Text Edit uses the following [theme](/docs/styles/theme) variables:
@@ -451,7 +547,6 @@ Three variables tune the area itself, and can be set per instance:
 ```
 
 ---
-
 ## Styles
 
 Everything is addressed by attribute, so restyling never fights specificity:
@@ -460,9 +555,17 @@ Everything is addressed by attribute, so restyling never fights specificity:
 |---|---|
 | **`[data-text-edit]`** | An editable area; the value is its storage mode |
 | **`[data-text-edit-minimal]`** | An area restricted to inline marks |
+| **`[data-text-edit-empty]`** | An area with no content — what shows the placeholder |
+| **`[data-text-edit-page]`** | An area carrying page-level styles |
+| **`[data-text-edit-selected]`** | An area with a live selection, mirrored onto `:root` |
 | **`[data-text-edit-control]`** | A control; the value is its command |
 | **`[data-text-edit-active]`** | On a control whose command is active at the caret |
+| **`[data-text-edit-cell]`** | A table cell inside a block selection |
+| **`[data-text-edit-border]`** | A cell border being hovered for a resize |
+| **`[data-text-edit-resizing]`** | On the area while a column or row is being dragged |
 | **`[data-checklist]`** | A task list, on the `ul` |
+
+A control that cannot run right now is marked **`aria-disabled`**, not `disabled` — the plugin never touches an attribute you might be binding yourself, and the ARIA state is what a screen reader reads out. Manifest's reset already dims `[aria-disabled=true]`, so a control goes quiet without any CSS from you; restyle from that selector if you want something other than the default fade.
 
 ```css
 /* Borderless area that only shows its chrome on focus */
@@ -476,128 +579,6 @@ Everything is addressed by attribute, so restyling never fights specificity:
 ```
 
 ---
-
-## Scope
-
-The markdown round trip covers headings, bold, italic, strikethrough, inline code, links, images, bullet and numbered lists (nested), task lists, blockquotes, code fences, hard breaks and horizontal rules. Markdown outside that set — tables, footnotes, reference links — is not silently converted.
-
-Everything else in the command list is HTML, and lives in `.html` mode. That is the trade the two modes make: markdown for content you want portable, HTML for content that needs the full range a word processor offers.
-
----
-
-## When Controls Go Quiet
-
-A control acts on the area the caret is in. Move the caret into anything else editable — a plain `contenteditable`, an input, a field belonging to another plugin — and the controls **dim**, because there is no longer a rich text area to act on.
-
-That is worth knowing when a page mixes them. A control that stayed lit with the caret elsewhere would style whichever field was last visited — text the writer can see is not selected.
-
-Releasing the area also fires `text-edit:selection` with a `null` detail, so a menu anchored to the selection knows to go away rather than hanging over content it no longer has anything to do with.
-
----
-
-## Toolbars and the Caret
-
-Controls never take the caret, but the space *around* them will: a click that lands between two buttons blurs the field and takes the selection with it. If your controls sit in a container of their own, suppress it there:
-
-```html
-<div class="row-wrap gap-1"
-     @pointerdown="if (!$event.target.closest('input, select, textarea')) $event.preventDefault()">
-    <button class="ghost sm" x-text-edit.strong>…</button>
-</div>
-```
-
-The exception for form fields matters — a colour input or a `<select>` among your controls needs the focus it is asking for.
-
----
-
-## Anchoring a Menu to the Selection
-
-A menu that appears over selected text is a matter of knowing when there is a selection and where it is. The plugin reports both and draws nothing, because where that menu sits and what it holds belongs to the project.
-
-```html
-<div x-data="{ sel: null }" @text-edit:selection="sel = $event.detail">
-
-    <div class="row gap-1 p-1 bg-surface-1 border border-line rounded" x-show="sel && !sel.collapsed" x-cloak
-         style="position: fixed; transform: translate(-50%, -125%)"
-         :style="sel && { left: (sel.x + sel.width / 2) + 'px', top: sel.top + 'px' }">
-        <button class="ghost sm" x-text-edit.strong><span x-icon="lucide:bold"></span></button>
-        <button class="ghost sm" x-text-edit.em><span x-icon="lucide:italic"></span></button>
-    </div>
-
-    <div x-text-edit.html="doc"></div>
-</div>
-```
-
-The controls are ordinary controls — they resolve to the area by the usual rules, and they never take the caret, so the selection is still there when the command runs.
-
-`text-edit:selection` fires on the area with the geometry, `$text.selection` is the same object on demand, and the area carries `data-text-edit-selected` plus custom properties describing where the selection is on screen:
-
-| Property | Value |
-|---|---|
-| `--text-edit-selection-x` / `-y` | Top-left of the selection |
-| `--text-edit-selection-width` / `-height` | Its size |
-| `--text-edit-selection-center` | Horizontal centre, for a centred bubble |
-
-The attribute and the properties are set on the area *and* on `:root`, so a menu can read them from anywhere in the document — it does not have to be a sibling or a descendant of the editor.
-
-### Put the menu in a popover
-
-Anchor the menu with `popover`. A popover lives in the top layer, above every stacking context on the page, so it cannot be painted over by anything with a `z-index` — including the [edit](/docs/core-plugins/edit) plugin's resize handles, which sit above ordinary page chrome by design.
-
-```html
-<div popover="manual" x-ref="bubble" class="row gap-1 p-1 bg-surface-1 border border-line rounded shadow"
-     style="position: fixed; margin: 0; inset: auto; transform: translate(-50%, -125%);
-            left: var(--text-edit-selection-center); top: var(--text-edit-selection-y)">
-    <button class="ghost sm" x-text-edit.strong aria-label="Bold"><span x-icon="lucide:bold"></span></button>
-    <button class="ghost sm" x-text-edit.em aria-label="Italic"><span x-icon="lucide:italic"></span></button>
-</div>
-```
-
-`margin: 0` and `inset: auto` clear the browser's own popover defaults, which otherwise centre it in the viewport.
-
-CSS alone cannot open a popover, so the selection event does that one thing:
-
-```html
-<div x-data="{
-    bubble(detail) {
-        const el = this.$refs.bubble; if (!el) return;
-        const want = !!detail && !detail.collapsed;
-        if (want && !el.matches(':popover-open')) el.showPopover();
-        if (!want && el.matches(':popover-open')) el.hidePopover();
-    }
-}" @text-edit:selection.window="bubble($event.detail)">
-```
-
-Use `popover="manual"` rather than the default `auto`: an auto popover light-dismisses on any outside click, which would close the menu the moment the user selects text. The open animation Manifest gives popovers animates `scale`, leaving `transform` free for your own positioning.
-
----
-
-## Editing a Data Value
-
-Nothing about a value coming from a data source makes it plain text. Bind the editor to the field and the record simply holds markup:
-
-```html
-<template x-for="p in $x.products" :key="p.id">
-    <div>
-        <div x-text-edit.html.minimal="p.name"></div>
-    </div>
-</template>
-```
-
-Styling the name writes `<strong>Wid</strong>get` into `p.name`, and the source stores it as written. The only requirement is that the value is *rendered* as markup — which is what binding through the editor does, and what `x-html` does elsewhere. A field rendered with `x-text` cannot hold markup, because the binding would show the tags as literal characters; that is the real distinction, not whether the value came from a file.
-
-Do not combine `x-text-edit` with `x-html` on the same element. Both own the element's content, and they will fight over it.
-
----
-
-## Inside a Page Editor
-
-`x-text-edit` composes with [Edit](/docs/core-plugins/edit): put it on an element inside an `x-edit` region and the rich editor owns that element, while the region goes on editing everything around it. With no expression of its own, what you write there is captured by `x-edit` as an ordinary text delta and publishes with the rest of the page.
-
-Nothing needs configuring for that — the plugins are independent and neither requires the other.
-
----
-
 ## Related
 
 - [Markdown](/docs/core-plugins/markdown) — render the value back out
