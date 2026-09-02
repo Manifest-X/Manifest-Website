@@ -176,4 +176,4 @@ if (photo.dataUrl) img.src = photo.dataUrl
 Pair these with the native-feel primitives — safe-area utilities (`p-safe`, `pb-safe`, `--safe-*`), the `<nav dock>` bottom navigation, and `viewport-fit=cover` (shipped in the starter). Then wrap and submit:
 
 - [Native Apps](/docs/publishing/native-apps) — packaging with Capacitor.
-- [App Store Readiness](/docs/publishing/app-store-readiness) — passing iOS review, the 4.2 checklist, privacy manifests, and the payments boundary.
+- [Passing review](/docs/publishing/native-apps#passing-review) — iOS review, privacy manifests, and the payments boundary.

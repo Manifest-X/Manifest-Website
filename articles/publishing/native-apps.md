@@ -14,7 +14,7 @@ There are two ways to wrap a Manifest app, and the right one depends on the stor
 - **<a href="https://capacitorjs.com" target="_blank">Capacitor</a>** — generates a real native project you own, with a bridge to native device APIs (biometrics, push, camera, haptics, and more). It's more setup, but on iOS it's effectively required to pass App Store review.
 
 ::: brand icon="lucide:info"
-**iOS is stricter than the other stores.** Apple's <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2 (Minimum Functionality)</a> rejects apps that are just a repackaged website in a web view. Use **Capacitor** for the App Store, add genuine native capability, and self-audit against the [App Store Readiness guide](/docs/publishing/app-store-readiness) before you submit.
+**iOS is stricter than the other stores.** Apple's <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2 (Minimum Functionality)</a> rejects apps that are just a repackaged website in a web view. Use **Capacitor** for the App Store, add genuine native capability, and work through [Passing review](/docs/publishing/native-apps#passing-review) before you submit.
 :::
 
 ---
@@ -30,7 +30,7 @@ There are two ways to wrap a Manifest app, and the right one depends on the stor
 
 </div>
 
-Both render your Manifest UI, so your app code doesn't change between them. The difference is what surrounds it: PWABuilder drops your PWA into a stock web view, while Capacitor gives you a native project with a plugin bridge — which is what makes real native features (and iOS review) achievable. Capacitor's plugins are surfaced through Manifest's [native capability plugins](/docs/publishing/app-store-readiness), so you reach them with Alpine-friendly attributes instead of writing Swift.
+Both render your Manifest UI, so your app code doesn't change between them. The difference is what surrounds it: PWABuilder drops your PWA into a stock web view, while Capacitor gives you a native project with a plugin bridge — which is what makes real native features (and iOS review) achievable. Capacitor's plugins are surfaced through Manifest's [Device plugin](/docs/core-plugins/device), so you reach them with Alpine-friendly attributes instead of writing Swift.
 
 ---
 
@@ -56,8 +56,26 @@ Both render your Manifest UI, so your app code doesn't change between them. The 
 
 - **Packaging:** Use <a href="https://capacitorjs.com" target="_blank">Capacitor</a> to generate a native Xcode project. A thin <a href="https://www.pwabuilder.com" target="_blank">PWABuilder</a> WebKit wrapper also builds, but risks rejection under Guideline 4.2 (see below).
 - **App Store:** Sign and upload through <a href="https://appstoreconnect.apple.com" target="_blank">App Store Connect</a> on a Mac. Requires an Apple Developer account ($99/yr). Beta distribution goes through TestFlight.
-- **Review:** Apple reviews iOS apps by hand and rejects "repackaged website" wrappers under <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2</a>. Ship genuine native capability (Face ID, push, haptics, share) and native feel (safe-area layout, no browser chrome), then work the [App Store Readiness guide](/docs/publishing/app-store-readiness) and its 4.2 checklist before submitting.
+- **Review:** Apple reviews iOS apps by hand and rejects "repackaged website" wrappers under <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2</a>. Ship genuine native capability (Face ID, push, haptics, share) and native feel (safe-area layout, no browser chrome). See [Passing review](#passing-review) below.
 - **Open Distribution:** Limited. As of iOS 17.4, EU users can install from alternative app marketplaces. Elsewhere, the App Store is the only path.
+
+### Passing review
+
+A valid build is not an approved one. Reviewers check two things: the app feels native, and it does something a browser tab can't.
+
+**Feel native.** Manifest ships this layer, and it improves the mobile web build too:
+
+- Safe-area utilities (`p-safe`, `pb-safe`, `--safe-*`) keep content clear of the notch, Dynamic Island, and home indicator.
+- `viewport-fit=cover` on the viewport meta (shipped in the starter) fills the full screen, so backgrounds extend edge to edge.
+- `<nav dock>` gives primary navigation a native-style bottom bar instead of a web hamburger menu.
+- Suppress the web tells on tappable UI: double-tap zoom, the long-press callout, stray text selection, and rubber-band overscroll.
+- Set a branded splash screen and a status bar that matches your theme, so launch never flashes white.
+
+**Do something native.** Ship at least one real device capability, such as Face ID, push, haptics, share, or camera, through the [Device plugin](/docs/core-plugins/device). Name it in your review notes so the reviewer finds it.
+
+**Payments.** Physical goods and services may be sold in-app through the [Payments plugin](/docs/core-plugins/payments); digital goods and subscriptions consumed in the app must use Apple's <a href="https://developer.apple.com/app-store/review/guidelines/#in-app-purchase" target="_blank">In-App Purchase</a>.
+
+**Compliance.** Read <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2</a> in full, and ship a privacy manifest (`PrivacyInfo.xcprivacy`) that declares the data your app and its Capacitor plugins collect.
 
 ---
 
