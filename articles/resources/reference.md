@@ -166,16 +166,25 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 
 | Magic | Plugin | Description |
 |---|---|---|
+| `$app`{copy} | device | Foreground state: `active` (reactive), `onChange(fn)` |
 | `$auth`{copy} | appwrite-auth | Current user, login methods, team management |
+| `$biometric`{copy} | device | Face ID / Touch ID inside a Capacitor app: `available()`, `verify({ reason })`; `false` / `unsupported` on the web |
+| `$camera`{copy} | device | `photo()` and `pick()` resolve `{ dataUrl, format }` or `{ cancelled }`; a file picker on the web |
 | `$chart(id)`{copy} | charts | Read a chart's type/series, `update(cfg)`, `redraw()` |
 | `$chat`{copy} | chat | Open conversations: `$chat.open(id, { adapter })` returns a reactive handle with `messages`, `send()`, and more |
 | `$colorpicker`{copy} | colorpicker | Open and configure a color picker UI |
 | `$color`{copy} | color modes | Read/write the current color mode. `$color.current` returns `'light'`, `'dark'`, or `'system'`; assign to switch |
 | `$computed(s => ...)`{copy} | computed | Derived value from a function that receives the scope; recalculated only when what it reads changes, read as a plain property. Also `window.$computed` in `Alpine.data` factories. Attribute form: `x-computed:name` |
 | `$date(id)`{copy} | datepicker | Read or set a picker's value, time, range, and open state |
+| `$device`{copy} | utilities | `os`, `platform`, `online`, `standalone`, `native`, `touch`; always available |
 | `$edit`{copy} | edit | Page editor state: `on()`/`off()` for gated regions, `undo()`/`redo()`, block operations (`can`, `duplicate`, `remove`), `publish()`, `patches()`, `export()` |
+| `$haptics`{copy} | device | `impact(style)`, `notification(type)`, `selection()`, `vibrate(ms)`; `navigator.vibrate` on the web |
+| `$links`{copy} | device | Deep links: `open(url)`, `on(fn)`, `last` |
 | `$locale`{copy} | localization | Current locale, available locales, `set(code)` |
+| `$push`{copy} | device | `permission`, `token`, `request()`, `register()`, `onToken`, `onReceive`, `onTap`; Notification permission only on the web |
 | `$route`{copy} | router | Reactive string of the current logical route (e.g. `$route === '/'`); not a function |
+| `$secure`{copy} | device | Key/value store: `get`, `set`, `remove`, `keys`, `clear`, `use(adapter)`; Keychain in a Capacitor app, prefixed `localStorage` on the web |
+| `$share(opts)`{copy} | device | Share sheet, Web Share or clipboard; resolves `{ shared, method, cancelled? }` |
 | `$status`{copy} | status | Health of named services (e.g. `$status.api.state`, `$status.overall`) |
 | `$text`{copy} | text-edit | The enclosing (or last focused) rich text area: `value`, `page`, `link`, `selection`, `run(cmd)`, `markdown()`, `html()` |
 | `$toast`{copy} | toasts | Show a toast |
