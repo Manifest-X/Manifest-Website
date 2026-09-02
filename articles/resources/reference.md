@@ -122,6 +122,7 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-route`{copy} | [router](/docs/core-plugins/router) | Applies element to specific routes |
 | `x-svg`{copy} | [svgs](/docs/elements/svgs) | Inlines an SVG file |
 | `x-tab`{copy}, `x-tabpanel`{copy} | [tabs](/docs/elements/tabs) | Tab elements |
+| `x-text-edit`{copy} | [text edit](/docs/core-plugins/text-edit) | Rich text area bound to a value (markdown; `.html`, `.plain`); with a command modifier, a control for that area (`x-text-edit.strong`) |
 | `x-toast`{copy} | [toasts](/docs/elements/toasts) | Dispatches toast popover |
 | `x-tooltip`{copy} | [tooltips](/docs/elements/tooltips) | Applies tooltip to element |
 | `x-virtual`{copy} | [virtual](/docs/core-plugins/virtual) | Render only visible rows of a long list (wraps an `x-for` template) |
@@ -176,6 +177,7 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 | `$locale`{copy} | localization | Current locale, available locales, `set(code)` |
 | `$route`{copy} | router | Reactive string of the current logical route (e.g. `$route === '/'`); not a function |
 | `$status`{copy} | status | Health of named services (e.g. `$status.api.state`, `$status.overall`) |
+| `$text`{copy} | text-edit | The enclosing (or last focused) rich text area: `value`, `page`, `link`, `selection`, `run(cmd)`, `markdown()`, `html()` |
 | `$toast`{copy} | toasts | Show a toast |
 | `$try(fn, errorVar?)`{copy} | data | `await` an async callback; on error returns `undefined` instead of throwing. If `errorVar` names a property on the current `x-data` scope, the error message is written there on failure and cleared to `null` on success |
 | `$url`{copy} | url-parameters | Read/write URL query parameters reactively |
