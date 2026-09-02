@@ -569,6 +569,66 @@ And use `<span>` within applicable elements above for icons, truncating text wit
 
 ---
 
+## Closed Menus Cost Nothing
+
+A closed menu's contents are not initialised until it opens. Nothing inside it runs while it is closed, so a page can hold hundreds of menus for free.
+
+During idle time, Manifest warms the menus the visitor is likely to open next, so opening is instant. A menu that has not been warmed renders when it opens, and a menu opened once stays ready.
+
+Three optional knobs on the `<menu>` element:
+
+- `x-defer.priority="1"` — warm this menu first (a lower number is warmed earlier). Use on the one or two menus people open most.
+- `x-defer.off` — keep a menu eager. Only for menus whose contents must exist while closed.
+- `x-defer.discard` — throw the contents away when the menu closes, for large, rarely reopened menus.
+
+```html copy
+<menu popover id="account-menu" x-defer.priority="1">
+    <li>Profile</li>
+    <li>Sign out</li>
+</menu>
+```
+
+The modifier is part of the attribute name and the number is its value: `x-defer.priority="1"`. Writing `x-defer="priority:1"` does nothing.
+
+::: brand icon="lucide:info"
+If a menu lists more than ~100 items, put the list in [`x-virtual`](/docs/core-plugins/virtual#inside-menus-and-dialogs). Deferral makes the closed menu free; virtualisation makes the open menu fast.
+:::
+
+<div x-code-group>
+
+```html copy
+<div x-data="{ countries: /* 300 entries */ }">
+    <button x-dropdown="country-menu">Country</button>
+
+    <menu popover id="country-menu">
+        <div x-virtual class="h-64">
+            <template x-for="country in countries" :key="country.id">
+                <li x-text="country.name"></li>
+            </template>
+        </div>
+    </menu>
+</div>
+```
+
+::: frame text-base
+<div x-data="{ countries: Array.from({length: 300}, (_, i) => ({ id: i, name: ['Aurora','Borealis','Cassini','Delphinus','Eridanus','Fornax'][i % 6] + ' ' + (i + 1) })) }">
+    <button x-dropdown="virtual-menu-preview">Country</button>
+    <menu popover id="virtual-menu-preview">
+        <div x-virtual class="h-64">
+            <template x-for="country in countries" :key="country.id">
+                <li x-text="country.name"></li>
+            </template>
+        </div>
+    </menu>
+</div>
+:::
+
+</div>
+
+Three hundred rows are in the menu, but only the visible ones are rendered, and none of them exist until the menu opens.
+
+---
+
 ## Styles
 
 ### Theme

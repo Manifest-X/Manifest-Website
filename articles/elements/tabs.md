@@ -185,6 +185,12 @@ Wrap tab buttons in a [group wrapper](/docs/elements/forms) to style the set as 
 
 ---
 
+## Inactive Panels Cost Nothing
+
+An unselected tab panel's contents are not initialised until the panel is first shown, so nothing in it runs while another tab is selected. A panel shown once stays ready. The same knobs as [menus](/docs/elements/dropdowns#closed-menus-cost-nothing) apply to a panel: `x-defer.off` keeps it eager, `x-defer.discard` throws its contents away each time it is hidden, and `x-defer.priority="1"` prepares it early. See [performance](/docs/getting-started/performance#x-defer-reference) for the full reference.
+
+---
+
 ## Styles
 
 Tab buttons inherit from [buttons](/docs/elements/buttons). The plugin syncs `aria-selected="true"` on the active tab and toggles panel visibility based on the `x-tab` ID match.
