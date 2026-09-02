@@ -695,7 +695,7 @@ These properties are reactive and update automatically as data loads or errors o
 
 Reading `$x.team` subscribes only to the `team` source. When one source updates, only the parts of the page that read it re-render — everything else is left alone.
 
-Rows keep their identity. When new data arrives for rows you already have, the existing rows are updated in place, so lists don't flicker and edits you are making are not disturbed.
+Rows keep their identity. When new data arrives for rows you already have, the existing rows are updated in place, so lists don't flicker and edits you are making are not disturbed. Fields you add to a row yourself (a `_pending` flag on a placeholder, say) survive too — the network never sends them, so nothing clears them for you; clear them explicitly once the real data has landed.
 
 Your own changes show immediately. Direct assignments and array mutations (and `$create`, `$update` and `$delete` on [cloud sources](/docs/appwrite-plugins/cloud-data)) appear on the page at once, even while data is still arriving from the network.
 
