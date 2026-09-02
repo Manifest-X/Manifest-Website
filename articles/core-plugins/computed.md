@@ -1,12 +1,12 @@
 # Computed Values
 
-Derived data that recalculates only when what it depends on changes.
+Named values built from other data, recalculated only when that data changes.
 
 ---
 
 ## Overview
 
-A computed value is built from other state — a filtered list, a sorted table, a total — and is recalculated only when something it reads changes, instead of on every render of every place that uses it. A getter that filters a thousand rows runs again each time any part of the component updates; a computed over the same rows runs once per change and hands the same result to everyone who reads it.
+A computed value is anything worked out from other state, such as a filtered list, a sorted table, or a total. It is recalculated once when something it reads changes, and every place that shows it gets the same result in between. Without it, a filter written straight into the page runs again every time anything in the component updates, which adds up over a large list.
 
 Use it for filtered or sorted lists and anything built from a data source.
 
@@ -33,21 +33,19 @@ Computed values are included in `manifest.js` with all core plugins, or can be s
 
 ## Usage
 
-Declare a computed as a property of `x-data`, passing `$computed` a function that returns the value. Read it like any other property.
+Add `x-computed:name="expression"` to an element. The name becomes a value that everything inside the element can read, like any other property.
 
 <div x-code-group>
 
 ```html copy
-<div x-data="{ q: '', hits: $computed(function () { return $x.people.filter(p => p.name.includes(this.q)) }) }">
+<div x-data="{ q: '' }" x-computed:hits="$x.people.filter(p => p.name.includes(q))">
     <input type="text" placeholder="Filter people..." x-model="q">
-    <template x-for="person in hits" :key="person.id">
-        <p x-text="person.name"></p>
-    </template>
+    <p x-text="hits.length + ' people'"></p>
 </div>
 ```
 
 ::: frame
-<div x-data="{ q: '', hits: $computed(function () { return ($x.example.products || []).filter(p => p.name.toLowerCase().includes(this.q.toLowerCase())) }) }" class="col gap-3 w-full">
+<div x-data="{ q: '' }" x-computed:hits="($x.example.products || []).filter(p => p.name.toLowerCase().includes(q.toLowerCase()))" class="col gap-3 w-full">
     <input type="text" placeholder="Filter products..." aria-label="Filter products" x-model="q">
     <div class="col">
         <template x-for="product in hits" :key="product.name">
@@ -63,13 +61,13 @@ Declare a computed as a property of `x-data`, passing `$computed` a function tha
 
 </div>
 
-Type in the field: the list is recalculated when `q` changes and when the data source updates, and at no other time.
+Type in the field: `hits` is recalculated when `q` changes or the data source updates, and at no other time.
 
-The same works in an `Alpine.data` factory, where `$computed` is available as a global:
+In JavaScript, `$computed` takes a function that receives the scope:
 
 ```js copy
 Alpine.data('inbox', () => ({
-  rows: $computed(function () { return this.$x.chats.filter(c => c.open) }),
+    rows: $computed(s => s.$x.chats.filter(c => c.open)),
 }))
 ```
 
@@ -77,18 +75,16 @@ Alpine.data('inbox', () => ({
 
 ## Rules
 
-- Read it like a plain property: `hits`, not `hits()`.
-- Use `function () {}` rather than an arrow function, so `this` is the component.
-- Return a new array or object rather than mutating the previous result.
-- The result keeps the same identity until a dependency changes, so `x-for` and `x-virtual` reuse rows instead of rebuilding them.
-- A computed that throws keeps its last value and logs a warning.
+- Name it, then read it like a plain property: `hits`, not `hits()`.
+- Return a new array or object rather than changing the previous result in place.
+- Trivial expressions don't need it: `a + b` can stay inline.
 
-Recalculation happens once per change, at property grain: changing a field on a row in place re-runs the computeds that read that field.
+The value keeps the same identity until something it reads changes, so `x-for` and `x-virtual` reuse their rows instead of rebuilding them. If the expression throws, the value keeps its last result.
 
 ---
 
 ## When Not To Use It
 
-Trivial expressions like `a + b` don't need a computed — a plain getter, or the expression written inline, is fine. Reach for `$computed` when the work grows with your data: filtering, sorting, grouping and totals.
+Simple expressions and plain getters are fine on their own. Reach for a computed value when the work grows with your data: filtering, sorting, grouping and totals.
 
-See [performance](/docs/getting-started/performance) for where computed values fit alongside the rest of Manifest's rendering behaviour.
+See [performance](/docs/getting-started/performance) for where computed values fit alongside the rest of Manifest's rendering behavior.
