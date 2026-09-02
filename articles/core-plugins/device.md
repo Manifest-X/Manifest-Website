@@ -103,7 +103,7 @@ The same state is stamped on `<html>` as `data-os`, `data-platform`, `data-onlin
 ```
 
 ::: frame
-<div x-data="{ ready: false, r: null }" x-init="const tick = () => Alpine.store('links') ? ready = true : setTimeout(tick, 20); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
+<div x-data="{ ready: false, r: null }" x-init="let n = 0; const tick = () => Alpine.store('links') ? ready = true : (n++ < 250 && setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
 <template x-if="ready">
 <div class="row-wrap gap-3 center">
     <button class="hug" @click="r = await $share({ title: 'Manifest', text: 'Supercharged HTML', url: 'https://manifestx.dev' })">Share</button>
@@ -131,7 +131,7 @@ The same state is stamped on `<html>` as `data-os`, `data-platform`, `data-onlin
 ```
 
 ::: frame
-<div x-data="{ ready: false, shot: null }" x-init="const tick = () => Alpine.store('links') ? ready = true : setTimeout(tick, 20); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
+<div x-data="{ ready: false, shot: null }" x-init="let n = 0; const tick = () => Alpine.store('links') ? ready = true : (n++ < 250 && setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
 <template x-if="ready">
 <div class="col gap-3 w-full">
     <div class="row-wrap gap-2 center">
@@ -163,7 +163,7 @@ The same state is stamped on `<html>` as `data-os`, `data-platform`, `data-onlin
 ```
 
 ::: frame
-<div x-data="{ ready: false, away: 0 }" x-init="const tick = () => Alpine.store('links') ? ready = true : setTimeout(tick, 20); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
+<div x-data="{ ready: false, away: 0 }" x-init="let n = 0; const tick = () => Alpine.store('links') ? ready = true : (n++ < 250 && setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
 <template x-if="ready">
 <div class="row-wrap gap-3 center" x-init="$app.onChange(active => { if (!active) away++ })">
     <span class="badge" x-text="$app.active ? 'Active' : 'In the background'"></span>
@@ -194,7 +194,7 @@ Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore throu
 ```
 
 ::: frame
-<div x-data="{ ready: false, value: null }" x-init="const tick = () => Alpine.store('links') ? ready = true : setTimeout(tick, 20); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
+<div x-data="{ ready: false, value: null }" x-init="let n = 0; const tick = () => Alpine.store('links') ? ready = true : (n++ < 250 && setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
 <template x-if="ready">
 <div class="row-wrap gap-2 center">
     <button class="hug" @click="await $secure.set('token', 'abc123'); value = await $secure.get('token')">Set</button>
@@ -225,7 +225,7 @@ Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore throu
 ```
 
 ::: frame
-<div x-data="{ ready: false, last: '' }" x-init="const tick = () => Alpine.store('links') ? ready = true : setTimeout(tick, 20); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
+<div x-data="{ ready: false, last: '' }" x-init="let n = 0; const tick = () => Alpine.store('links') ? ready = true : (n++ < 250 && setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
 <template x-if="ready">
 <div class="row-wrap gap-2 center">
     <button class="hug" @click="$haptics.impact('LIGHT'); last = 'impact LIGHT'">Light</button>
@@ -255,7 +255,7 @@ Inside a Capacitor app (`App`) a tapped universal link like `https://app.example
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="const tick = () => Alpine.store('links') ? ready = true : setTimeout(tick, 20); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
+<div x-data="{ ready: false }" x-init="let n = 0; const tick = () => Alpine.store('links') ? ready = true : (n++ < 250 && setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
 <template x-if="ready">
 <div class="row-wrap gap-3 center">
     <button class="hug" @click="$links.open('myapp://docs/core-plugins/device')">Open a deep link</button>
@@ -284,7 +284,7 @@ Inside a Capacitor app (`App`) a tapped universal link like `https://app.example
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="const tick = () => Alpine.store('links') ? ready = true : setTimeout(tick, 20); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
+<div x-data="{ ready: false }" x-init="let n = 0; const tick = () => Alpine.store('links') ? ready = true : (n++ < 250 && setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
 <template x-if="ready">
 <div class="row-wrap gap-3 center">
     <code x-text="'permission: ' + $push.permission"></code>
@@ -315,7 +315,7 @@ Inside a Capacitor app (`PushNotifications`), `register()` registers with APNs o
 ```
 
 ::: frame
-<div x-data="{ ready: false, can: null, r: null }" x-init="const tick = () => Alpine.store('links') ? ready = true : setTimeout(tick, 20); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
+<div x-data="{ ready: false, can: null, r: null }" x-init="let n = 0; const tick = () => Alpine.store('links') ? ready = true : (n++ < 250 && setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick()">
 <template x-if="ready">
 <div class="row-wrap gap-3 center" x-init="can = await $biometric.available()">
     <code x-text="'available: ' + String(can)"></code>
