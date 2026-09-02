@@ -109,8 +109,9 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-code`{copy}, `<div x-code-group>` | [code](/docs/elements/code) | Code blocks with syntax highlights |
 | `x-colorpicker`{copy} | [color pickers](/docs/elements/color-pickers) | Colorpicker menu element |
 | `x-color`{copy} | [color modes](/docs/styles/color-modes) | Switches color mode on click |
+| `x-computed:name`{copy} | [computed](/docs/core-plugins/computed) | Named value readable inside the element, recalculated only when what it reads changes |
 | `x-date`{copy} | [date pickers](/docs/elements/date-pickers) | Date, range, and time picker field or calendar |
-| `x-defer`{copy} | [defer](/docs/getting-started/performance#x-defer-reference) | Defer a container's contents until it is shown. Modifiers: `.lazy`, `.discard`, `.priority="n"`, `.off` |
+| `x-defer`{copy} | [core](/docs/getting-started/performance#x-defer-reference) | Defer a container's contents until it is shown. Modifiers: `.lazy`, `.discard`, `.priority="n"`, `.off` |
 | `x-dropdown`{copy} | [dropdowns](/docs/elements/dropdowns) | Dropdown menu element |
 | `x-export`{copy} | [export](/docs/core-plugins/export) | Download page / region / data source as PDF, image, CSV, or JSON |
 | `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/core-plugins/local-data) | Bind file uploads |
@@ -168,7 +169,7 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 | `$chat`{copy} | chat | Open conversations: `$chat.open(id, { adapter })` returns a reactive handle with `messages`, `send()`, and more |
 | `$colorpicker`{copy} | colorpicker | Open and configure a color picker UI |
 | `$color`{copy} | color modes | Read/write the current color mode. `$color.current` returns `'light'`, `'dark'`, or `'system'`; assign to switch |
-| `$computed(fn)`{copy} | computed | Derived value recalculated only when its dependencies change; read as a plain property. Also `window.$computed` in `Alpine.data` factories |
+| `$computed(s => ...)`{copy} | computed | Derived value from a function that receives the scope; recalculated only when what it reads changes, read as a plain property. Also `window.$computed` in `Alpine.data` factories. Attribute form: `x-computed:name` |
 | `$date(id)`{copy} | datepicker | Read or set a picker's value, time, range, and open state |
 | `$locale`{copy} | localization | Current locale, available locales, `set(code)` |
 | `$route`{copy} | router | Reactive string of the current logical route (e.g. `$route === '/'`); not a function |
@@ -382,7 +383,7 @@ Three options, in increasing decoupling:
 | Inline expression | `<span x-text="count * 2">` — re-evaluates automatically. Best for trivial cases. |
 | Computed getter | `get doubled() { return this.count * 2 }` on `x-data` or store. Best for component- or store-level computeds. |
 | `$watch('prop', cb)` | Side-effects on change (e.g. write to localStorage, call API). |
-| `$computed(fn)` | Data-sized work (filtered or sorted lists, totals) recalculated only when its inputs change. See [computed values](/docs/core-plugins/computed). |
+| `x-computed:name` / `$computed(s => ...)` | Data-sized work (filtered or sorted lists, totals) recalculated only when its inputs change. See [computed values](/docs/core-plugins/computed). |
 
 ```html copy
 <div x-data="{ count: 0 }"
@@ -447,7 +448,7 @@ Listen example:
 
 ## Globals
 
-Window-level objects for diagnostics and configuration. See [performance](/docs/getting-started/performance#x-defer-reference).
+Window-level objects for diagnostics and configuration. See [performance](/docs/getting-started/performance#diagnostics).
 
 | Global | Description |
 |---|---|
