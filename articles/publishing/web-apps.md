@@ -86,19 +86,19 @@ Once installed, the app launches independently of the browser, tints the OS UI t
 
 A service worker is a small JavaScript file the browser runs in the background, separate from any open page. It can intercept network requests, cache responses, and serve them even when the user has no connection. Service workers are what let installed PWAs keep working offline.
 
-Manifest doesn't ship one by default. Every Manifest site works without it, and most don't need offline support. To enable offline use, add a `service-worker.js` file at your project root and register it from a `<script>` tag in `index.html`:
+Sites on Manifest hosting get one automatically. It keeps the page shell, scripts, styles and components on the visitor's device, so repeat visits load from the device and a page that was already open keeps working without a connection. Data still comes from the network. Publishing takes effect on the next load, because the page itself is always checked against the network first. Nothing needs adding to the project, and local previews with `mnfst-run` never register it. See [performance](/docs/getting-started/performance#what-is-automatic).
 
-```html "index.html" copy
-<script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js');
-    }
-</script>
+Hosting elsewhere? Add a two-line `sw.js` at the project root, pinned to the framework version your `index.html` loads:
+
+```js "sw.js" copy
+try { importScripts('https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.sw.min.js'); } catch (e) { importScripts('https://cdn.jsdelivr.net/npm/mnfst@0.5.199/lib/manifest.sw.min.js'); }
+if (!self.__mnfstSw) self.addEventListener('activate', function () { self.registration.unregister(); });
 ```
 
-The registration script can sit anywhere in the document (head or body). It runs once on each page load and tells the browser where to find the worker file. The browser then keeps the worker alive in the background, independent of any open tab.
+The loader registers it on its own. If the file is missing or fails to load, nothing is registered and the site works as before.
 
-Authoring the worker itself is project-specific. Tools like <a href="https://developer.chrome.com/docs/workbox" target="_blank">Workbox</a> generate one from a small config, or you can write one by hand. See MDN's <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers" target="_blank">Service Worker guide</a> for the API.
+To turn it off for a site, set `"sw": false` in `manifest.json`, or add `data-sw="off"` to the loader `<script>`. To use your own worker instead, put it at `/sw.js` in the project; a file you provide always wins over the hosted one.
+
 
 ---
 

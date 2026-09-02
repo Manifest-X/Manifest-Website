@@ -18,6 +18,10 @@ Most of Manifest's performance work is automatic. Closed containers cost nothing
 
 **Text only updates when it changes.** A text binding whose value comes back unchanged leaves the page alone, and empty values (`null` or `undefined`) show as empty text rather than the word "null".
 
+**Searches and filters on data are cached.** `$search`, `$query` and `$route` remember their result until the source they read changes, so binding the same search in fifty rows costs one pass, not fifty. Your own derivations get the same treatment with [x-computed](/docs/core-plugins/computed).
+
+**Repeat visits load from the browser.** Sites on Manifest hosting register a small service worker that keeps the page shell, scripts, styles and components on the visitor's device. The first visit loads from the network as usual; from the next visit on, the shell comes from the device and only the data is fetched, and a page that was already open keeps working offline. Publishing still takes effect on the next load, because the page itself is always checked against the network first. Local previews with `mnfst-run` never register it. To turn it off for a site, set `"sw": false` in `manifest.json`, or add `data-sw="off"` to the loader `<script>`.
+
 None of this needs an attribute or a setting. The one switch is `data-defer="off"` on the loader script, which turns closed-container deferral off for the whole page; `x-defer.off` does the same for a single element.
 
 ---

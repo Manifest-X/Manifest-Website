@@ -52,6 +52,8 @@ Appwrite's cloud data sources work identically to local data sources in the fron
 
 ---
 
+Cloud sources can keep their last rows on the visitor's device with the same `persist` option as any other source, so a return visit shows data before the network answers. See [persisted data](/docs/core-plugins/local-data#persisted-data).
+
 ## How Data Updates
 
 The parts of the page that read `$x.products` follow only the `products` source. When one source updates — including a realtime change from another session — only the parts of the page that read it are refreshed; everything else is left alone.

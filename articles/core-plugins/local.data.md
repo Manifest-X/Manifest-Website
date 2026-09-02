@@ -184,6 +184,47 @@ API sources behave the same as local sources, accessed via `$x.sourceName` with 
 
 ---
 
+## Persisted Data
+
+Any data source can keep its last rows on the visitor's device, so the next visit shows them before the network answers. Persistence is off unless a source asks for it, and it works for local, API and Appwrite sources alike.
+
+```json "manifest.json" copy
+{
+    "data": {
+        "chats": { "url": "${API_BASE_URL}/chats", "persist": true },
+        "contacts": {
+            "url": "${API_BASE_URL}/contacts",
+            "persist": { "tier": "lazy", "maxRows": 2000, "recent": "updatedAt", "ttl": "7d", "strip": ["email", "phone"] }
+        }
+    }
+}
+```
+
+| Option | Default | Effect |
+|---|---|---|
+| `tier` | `boot` | `boot` restores rows before the first paint; `lazy` restores on the first read of the source |
+| `maxRows` | `1000` | How many rows to keep, most recent first |
+| `recent` | `$updatedAt` | The field that decides which rows are most recent |
+| `ttl` | `7d` | Saved rows older than this are ignored |
+| `strip` | `[]` | Fields removed from every row before it is saved. Names, or patterns like `credentials*`. Fields matching `*secret*`, `*token*`, `*password*` and `credentials*` are always removed |
+
+Restored rows are marked stale: `$x.chats.$stale`{copy} is `true` until the first network response replaces them. Rows missing from that response are removed, so a deleted record never lingers. If the network fails, the restored rows stay and `$error` is set.
+
+**Scope.** Sites where one visitor can see different data, such as a workspace switcher, set a scope so rows from one workspace never appear in another:
+
+```json "manifest.json" copy
+{
+    "persistence": { "scope": "$auth.currentTeam?.$id" }
+}
+```
+
+The expression is re-evaluated whenever authentication changes. When the scope changes, the previous scope's rows are removed from the device and from memory before anything renders. Signing out always clears saved rows.
+
+**Clearing.** `$x.$wipe()`{copy} removes every saved row for the current scope, `$x.$wipe('chats')`{copy} one source, and `$x.$wipe({ all: true })`{copy} everything. `ManifestData.persistence()`{copy} reports what is enabled and saved. Saving happens after data arrives, never during your own edits, and if the browser refuses storage the site simply runs without it.
+
+---
+
+
 ## Display Content
 
 Data sources are accessed in HTML using our `$x` magic method with dot notation. The structure follows this pattern:

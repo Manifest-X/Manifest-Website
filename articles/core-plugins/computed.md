@@ -87,4 +87,6 @@ The value keeps the same identity until something it reads changes, so `x-for` a
 
 Simple expressions and plain getters are fine on their own. Reach for a computed value when the work grows with your data: filtering, sorting, grouping and totals.
 
+Data operators are already cached. `$search`, `$query` and `$route` on a data source remember their result until that source changes, so a search bound in many places is computed once. Use `x-computed` for derivations you write yourself, such as a `filter` or `reduce` over the rows.
+
 See [performance](/docs/getting-started/performance) for where computed values fit alongside the rest of Manifest's rendering behavior.
