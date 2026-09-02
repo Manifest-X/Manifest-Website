@@ -269,7 +269,7 @@ Tables are `.html` only. Every operation is a command and is disabled while the 
 | Escape | Leave the editor |
 | Cmd/Ctrl + Z / Shift + Z | Undo / redo (the editor keeps its own history) |
 | Cmd/Ctrl + B / I / U | Bold / italic / underline (`.html`) |
-| Cmd/Ctrl + K | Remove the link at the caret |
+| Cmd/Ctrl + K | Toggle a link: removes the one at the caret, otherwise asks for a URL (the area's `x-text-edit.a` field where there is one) and links the selection |
 
 Pasted content keeps its text and marks, not the source's styling.
 
