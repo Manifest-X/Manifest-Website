@@ -434,6 +434,27 @@ Chat visibility in the browser is cosmetic, like all client-side gating. Real ac
 
 ---
 
+## Persisted Conversations
+
+A conversation window can keep its recent messages on the visitor's device, so reopening it shows the last messages at once while the adapter loads. Off unless enabled, and it needs the [data](/docs/core-plugins/local-data#persisted-data) plugin's persistence store.
+
+```json "manifest.json" copy
+{
+    "chat": {
+        "persist": { "messages": 50, "conversations": 30, "ttl": "7d", "strip": ["meta.raw"] }
+    }
+}
+```
+
+`"persist": true`{copy} uses those defaults. `messages` is how many recent messages each conversation keeps, `conversations` how many recently opened conversations are kept before the oldest is dropped, and `strip` removes fields from every message before it is saved. Fields matching `*secret*`, `*token*`, `*password*` and `credentials*` are always removed, and messages that haven't been acknowledged yet are never saved.
+
+Restored messages are marked stale: `$chat.stale`{copy} is `true` until the adapter's response replaces them. Messages missing from that response are dropped, messages you send in the meantime are kept, and a failed load leaves the restored window in place with the usual `error` status. Group and threaded views built with `aggregate` are not saved.
+
+Saved conversations follow the same `persistence.scope` as data sources and are cleared on sign-out or a scope change, at which point open windows empty until reopened. `$chat.persistence()`{copy} reports what is saved.
+
+---
+
+
 ## Reference
 
 The `$chat` magic:
