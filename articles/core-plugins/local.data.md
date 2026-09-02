@@ -672,6 +672,7 @@ Data sources expose state properties for UI reactivity:
 - `$x.sourceName.$loading` - Boolean indicating if data is loading
 - `$x.sourceName.$error` - Error message string (null if no error)
 - `$x.sourceName.$ready` - Boolean indicating if data has loaded successfully
+- `$x.sourceName.$stale` - Boolean indicating cached rows are showing while fresh data loads (see [how data updates](#how-data-updates))
 
 ```html copy
 <!-- Loading state -->
@@ -687,6 +688,24 @@ Data sources expose state properties for UI reactivity:
 ```
 
 These properties are reactive and update automatically as data loads or errors occur.
+
+---
+
+## How Data Updates
+
+Reading `$x.team` subscribes only to the `team` source. When one source updates, only the parts of the page that read it re-render — everything else is left alone.
+
+Rows keep their identity. When new data arrives for rows you already have, the existing rows are updated in place, so lists don't flicker and edits you are making are not disturbed.
+
+Your own changes show immediately. Direct assignments and array mutations (and `$create`, `$update` and `$delete` on [cloud sources](/docs/appwrite-plugins/cloud-data)) appear on the page at once, even while data is still arriving from the network.
+
+Network updates are batched. Many arriving at once are applied together, once per frame.
+
+If a source was loaded before, you see its cached rows immediately while fresh data loads. `$x.team.$stale` is `true` until the fresh data has landed, and `$x.team.$fresh` is a promise that resolves at that moment, for a single reveal. A reload keeps the rows on screen and merges the fresh data in place; a failed reload keeps the old rows and sets `$error`. Identical concurrent loads make one request.
+
+```html copy
+<small x-show="$x.team.$stale">Refreshing…</small>
+```
 
 ---
 

@@ -52,6 +52,24 @@ Appwrite's cloud data sources work identically to local data sources in the fron
 
 ---
 
+## How Data Updates
+
+Reading `$x.products` subscribes only to the `products` source. When one source updates — including a realtime change from another session — only the parts of the page that read it re-render; everything else is left alone.
+
+Rows keep their identity. When new data arrives for rows you already have, the existing rows are updated in place, so lists don't flicker and edits you are making are not disturbed.
+
+Your own changes show immediately. `$create`, `$update`, `$delete` and direct assignments appear on the page at once, even while data is still arriving from the network.
+
+Network updates are batched. Many arriving at once are applied together, once per frame.
+
+If a source was loaded before, you see its cached rows immediately while fresh data loads. `$x.products.$stale` is `true` until the fresh data has landed, and `$x.products.$fresh` is a promise that resolves at that moment, for a single reveal. A reload keeps the rows on screen and merges the fresh data in place; a failed reload keeps the old rows and sets `$error`. Identical concurrent loads make one request.
+
+```html copy
+<small x-show="$x.products.$stale">Refreshing…</small>
+```
+
+---
+
 ## Rendering Untrusted Content
 
 Cloud data is the case where Manifest's default-permissive rendering deserves a second thought: the values in an Appwrite table can be written by your end users (reviews, comments, bios, uploaded SVGs, etc.), not just by you.
