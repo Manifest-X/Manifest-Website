@@ -446,7 +446,7 @@ A conversation window can keep its recent messages on the visitor's device, so r
 }
 ```
 
-`"persist": true`{copy} uses those defaults. `messages` is how many recent messages each conversation keeps, `conversations` how many recently opened conversations are kept before the oldest is dropped, and `strip` removes fields from every message before it is saved. Fields matching `*secret*`, `*token*`, `*password*` and `credentials*` are always removed, and messages that haven't been acknowledged yet are never saved.
+`"persist": true`{copy} uses those defaults. `messages` is how many recent messages each conversation keeps, `conversations` how many conversations are kept before the least recently active is dropped, and `strip` removes fields from every message before it is saved. A conversation is saved once it has messages; one that never receives any takes no space. To leave a particular window out, open it with `$chat.open(id, { persist: false })`{copy}. Fields matching `*secret*`, `*token*`, `*password*` and `credentials*` are always removed, and messages that haven't been acknowledged yet are never saved.
 
 Restored messages are marked stale: `$chat.stale`{copy} is `true` until the adapter's response replaces them. Messages missing from that response are dropped, messages you send in the meantime are kept, and a failed load leaves the restored window in place with the usual `error` status. Group and threaded views built with `aggregate` are not saved.
 
