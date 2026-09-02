@@ -571,7 +571,7 @@ And use `<span>` within applicable elements above for icons, truncating text wit
 
 ## Closed Menus Cost Nothing
 
-A closed menu's contents are not initialised until it opens. Nothing inside it runs while it is closed, so a page can hold hundreds of menus for free.
+A closed menu's contents are not initialized until it opens. Nothing inside it runs while it is closed, so a page can hold hundreds of menus for free.
 
 During idle time, Manifest warms the menus the visitor is likely to open next, so opening is instant. A menu that has not been warmed renders when it opens, and a menu opened once stays ready.
 
@@ -591,7 +591,7 @@ Three optional knobs on the `<menu>` element:
 The modifier is part of the attribute name and the number is its value: `x-defer.priority="1"`. Writing `x-defer="priority:1"` does nothing.
 
 ::: brand icon="lucide:info"
-If a menu lists more than ~100 items, put the list in [`x-virtual`](/docs/core-plugins/virtual#inside-menus-and-dialogs). Deferral makes the closed menu free; virtualisation makes the open menu fast.
+If a menu lists more than ~100 items, put the list in [`x-virtual`](/docs/core-plugins/virtual#inside-menus-and-dialogs). Deferral makes the closed menu free; virtualization makes the open menu fast.
 :::
 
 <div x-code-group>

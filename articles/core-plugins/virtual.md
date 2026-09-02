@@ -418,4 +418,4 @@ That makes virtualization a natural pair with `$search` and `$query`: wire a sea
 
 </div>
 
-A closed menu's contents are not initialised until it opens, so the virtualised list costs nothing while the menu is closed and renders only its visible rows once it opens.
+A closed menu's contents are not initialized until it opens, so the virtualized list costs nothing while the menu is closed and renders only its visible rows once it opens.

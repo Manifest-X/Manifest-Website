@@ -345,7 +345,7 @@ The `dialog` utility class will apply a dialog element's styles to other element
 
 ## Closed Dialogs Cost Nothing
 
-A closed `<dialog>` is inert: its contents are not initialised until it opens, so a page can hold as many dialogs as it likes for free. Closed `<details>` [accordions](/docs/elements/accordions) behave the same way. A dialog opened once stays ready. The same knobs as [menus](/docs/elements/dropdowns#closed-menus-cost-nothing) apply: `x-defer.off` keeps a dialog eager, `x-defer.discard` throws its contents away when it closes, and `x-defer.priority="1"` prepares it early. See [performance](/docs/getting-started/performance#x-defer-reference) for the full reference.
+A closed `<dialog>` costs nothing: its contents are not initialized until it opens, so a page can hold as many dialogs as it likes for free. Closed `<details>` [accordions](/docs/elements/accordions) behave the same way. A dialog opened once stays ready. The same knobs as [menus](/docs/elements/dropdowns#closed-menus-cost-nothing) apply: `x-defer.off` keeps a dialog eager, `x-defer.discard` throws its contents away when it closes, and `x-defer.priority="1"` prepares it early. See [performance](/docs/getting-started/performance#x-defer-reference) for the full reference.
 
 ---
 

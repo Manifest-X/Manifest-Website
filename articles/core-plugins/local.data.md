@@ -693,7 +693,7 @@ These properties are reactive and update automatically as data loads or errors o
 
 ## How Data Updates
 
-Reading `$x.team` subscribes only to the `team` source. When one source updates, only the parts of the page that read it re-render — everything else is left alone.
+The parts of the page that read `$x.team` follow only the `team` source. When one source updates, only the parts of the page that read it are refreshed — everything else is left alone.
 
 Rows keep their identity. When new data arrives for rows you already have, the existing rows are updated in place, so lists don't flicker and edits you are making are not disturbed. Fields you add to a row yourself (a `_pending` flag on a placeholder, say) survive too — the network never sends them, so nothing clears them for you; clear them explicitly once the real data has landed.
 
