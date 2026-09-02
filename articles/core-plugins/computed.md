@@ -33,7 +33,7 @@ Computed values are included in `manifest.js` with all core plugins, or can be s
 
 ## Usage
 
-Add `x-computed:name="expression"` to an element. The name becomes a value that everything inside the element can read, like any other property.
+Add `x-computed:name="expression"`{copy} to an element. The name becomes a value that everything inside the element can read, like any other property.
 
 <div x-code-group>
 
