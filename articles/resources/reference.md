@@ -113,6 +113,7 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-date`{copy} | [date pickers](/docs/elements/date-pickers) | Date, range, and time picker field or calendar |
 | `x-defer`{copy} | [core](/docs/getting-started/performance#x-defer-reference) | Defer a container's contents until it is shown. Modifiers: `.lazy`, `.discard`, `.priority="n"`, `.off` |
 | `x-dropdown`{copy} | [dropdowns](/docs/elements/dropdowns) | Dropdown menu element |
+| `x-edit`{copy} | [edit](/docs/core-plugins/edit) | Editable region: text, reorder, resize, classes, theme variables. Opt-in plugin; modifiers `.text`, `.sort`, `.style`, `.size`, `.data`, `.lock`, `.gated`, `.authoring`, `.theme`, `.cssvar` |
 | `x-export`{copy} | [export](/docs/core-plugins/export) | Download page / region / data source as PDF, image, CSV, or JSON |
 | `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/core-plugins/local-data) | Bind file uploads |
 | `x-icon`{copy} | [icons](/docs/elements/icons) | Render an icon by name |
@@ -171,6 +172,7 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 | `$color`{copy} | color modes | Read/write the current color mode. `$color.current` returns `'light'`, `'dark'`, or `'system'`; assign to switch |
 | `$computed(s => ...)`{copy} | computed | Derived value from a function that receives the scope; recalculated only when what it reads changes, read as a plain property. Also `window.$computed` in `Alpine.data` factories. Attribute form: `x-computed:name` |
 | `$date(id)`{copy} | datepicker | Read or set a picker's value, time, range, and open state |
+| `$edit`{copy} | edit | Page editor state: `on()`/`off()` for gated regions, `undo()`/`redo()`, block operations (`can`, `duplicate`, `remove`), `publish()`, `patches()`, `export()` |
 | `$locale`{copy} | localization | Current locale, available locales, `set(code)` |
 | `$route`{copy} | router | Reactive string of the current logical route (e.g. `$route === '/'`); not a function |
 | `$status`{copy} | status | Health of named services (e.g. `$status.api.state`, `$status.overall`) |
