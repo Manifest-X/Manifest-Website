@@ -40,6 +40,8 @@ The `manifest.js` script tag accepts `data-*` attributes to control plugin loadi
 | `data-alpine`{copy} | `3` | Alpine version, or a full URL |
 | `data-tailwind`{copy} | (off) | Boolean — load Manifest's Tailwind v4 build |
 | `data-plugin-base`{copy} | CDN | Base URL/path for plugin scripts (for self-hosted deployments) |
+| `data-defer`{copy} | (on) | `off` turns off automatic deferral of closed containers — see [performance](/docs/getting-started/performance#x-defer-reference) |
+| `data-defer-routes`{copy} | (off) | Boolean — experimental; defer inactive `x-route` pages until first shown |
 
 ---
 
@@ -108,6 +110,7 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-colorpicker`{copy} | [color pickers](/docs/elements/color-pickers) | Colorpicker menu element |
 | `x-color`{copy} | [color modes](/docs/styles/color-modes) | Switches color mode on click |
 | `x-date`{copy} | [date pickers](/docs/elements/date-pickers) | Date, range, and time picker field or calendar |
+| `x-defer`{copy} | [defer](/docs/getting-started/performance#x-defer-reference) | Defer a container's contents until it is shown. Modifiers: `.lazy`, `.discard`, `.priority="n"`, `.off` |
 | `x-dropdown`{copy} | [dropdowns](/docs/elements/dropdowns) | Dropdown menu element |
 | `x-export`{copy} | [export](/docs/core-plugins/export) | Download page / region / data source as PDF, image, CSV, or JSON |
 | `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/core-plugins/local-data) | Bind file uploads |
@@ -165,6 +168,7 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 | `$chat`{copy} | chat | Open conversations: `$chat.open(id, { adapter })` returns a reactive handle with `messages`, `send()`, and more |
 | `$colorpicker`{copy} | colorpicker | Open and configure a color picker UI |
 | `$color`{copy} | color modes | Read/write the current color mode. `$color.current` returns `'light'`, `'dark'`, or `'system'`; assign to switch |
+| `$computed(fn)`{copy} | computed | Derived value recalculated only when its dependencies change; read as a plain property. Also `window.$computed` in `Alpine.data` factories |
 | `$date(id)`{copy} | datepicker | Read or set a picker's value, time, range, and open state |
 | `$locale`{copy} | localization | Current locale, available locales, `set(code)` |
 | `$route`{copy} | router | Reactive string of the current logical route (e.g. `$route === '/'`); not a function |
@@ -187,6 +191,8 @@ Each `$x.<source>` returns an object or array. Standard JS array methods apply w
 | `$loading`{copy} | boolean | True during fetch / mutation |
 | `$error`{copy} | `Error \| string \| null` | Last error, or null |
 | `$ready`{copy} | boolean | True after initial load completes |
+| `$stale`{copy} | boolean | True while cached rows show and fresh data is still loading |
+| `$fresh`{copy} | `Promise` | Resolves once fresh data has landed |
 
 ---
 
@@ -376,6 +382,7 @@ Three options, in increasing decoupling:
 | Inline expression | `<span x-text="count * 2">` — re-evaluates automatically. Best for trivial cases. |
 | Computed getter | `get doubled() { return this.count * 2 }` on `x-data` or store. Best for component- or store-level computeds. |
 | `$watch('prop', cb)` | Side-effects on change (e.g. write to localStorage, call API). |
+| `$computed(fn)` | Data-sized work (filtered or sorted lists, totals) recalculated only when its inputs change. See [computed values](/docs/core-plugins/computed). |
 
 ```html copy
 <div x-data="{ count: 0 }"
@@ -427,6 +434,7 @@ Custom events dispatched on `window` that any component can subscribe to via `@e
 | `manifest:components-processed`{copy} | After components and templates have been registered | — |
 | `manifest:render-ready`{copy} | Signal from the data plugin that prerender can snapshot the page | — |
 | `manifest:dev-reload`{copy} | Dev-server hot-update of CSV / JSON / YAML data | `{ source, path }` |
+| `manifest:defer-render`{copy} | On a deferred container (not `window`), after its contents initialise | — |
 | `alpine:init` | Alpine initialization (standard Alpine event) | — |
 
 Listen example:
@@ -434,3 +442,15 @@ Listen example:
 ```html copy
 <div x-data @manifest:route-change.window="console.log('route:', $event.detail.to)"></div>
 ```
+
+---
+
+## Globals
+
+Window-level objects for diagnostics and configuration. See [performance](/docs/getting-started/performance#x-defer-reference).
+
+| Global | Description |
+|---|---|
+| `ManifestDefer.stats()`{copy} | Deferral counters: `{ pending, warm, cap, ready, armed, head, routes: { enabled, stashed, rendered } }` |
+| `ManifestDeferConfig.prewarmCap`{copy} | Maximum containers warming may prepare (default `48`) |
+| `ManifestDeferConfig.routes`{copy} | Experimental — `true` defers inactive `x-route` pages, same as `data-defer-routes` |
