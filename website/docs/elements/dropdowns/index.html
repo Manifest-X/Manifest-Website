@@ -14,18 +14,18 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.js" data-version="0.5.194"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -253,6 +253,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
                         <span x-icon="lucide:eye"></span>
                         <span>Accessibility</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/performance">
+                        <span x-icon="lucide:gauge"></span>
+                        <span>Performance</span>
                     </a>
             </div>
             <hr>
@@ -265,6 +268,15 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
                         <span x-icon="lucide:panels-top-left"></span>
                         <span>Components</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/computed">
+                        <span x-icon="lucide:sigma"></span>
+                        <span>Computed Values</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/device">
+                        <span x-icon="lucide:smartphone"></span>
+                        <span>Device</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
+                        <span x-icon="lucide:pencil-ruler"></span>
+                        <span>Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
                         <span x-icon="lucide:download"></span>
                         <span>Export</span>
@@ -289,6 +301,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
                         <span x-icon="lucide:activity"></span>
                         <span>Status</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/text-edit">
+                        <span x-icon="lucide:pilcrow"></span>
+                        <span>Text Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
                         <span x-icon="lucide:ampersand"></span>
                         <span>URL Parameters</span>
@@ -346,12 +361,6 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
                         <span x-icon="lucide:monitor-smartphone"></span>
                         <span>Native Apps</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/app-store-readiness">
-                        <span x-icon="lucide:dot"></span>
-                        <span>App Store Readiness</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-capabilities">
-                        <span x-icon="lucide:dot"></span>
-                        <span>Native Capabilities</span>
                     </a>
             </div>
             <hr>
@@ -531,6 +540,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:eye"></span>
               <span>Accessibility</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -543,6 +555,15 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/components" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:panels-top-left"></span>
               <span>Components</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Device</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:download"></span>
               <span>Export</span>
@@ -567,6 +588,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/status" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:activity"></span>
               <span>Status</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/text-edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Text Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/url-parameters" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:ampersand"></span>
               <span>URL Parameters</span>
@@ -624,12 +648,6 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:monitor-smartphone"></span>
               <span>Native Apps</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/app-store-readiness" class="ghost text-content-neutral justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>App Store Readiness</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-capabilities" class="ghost text-content-neutral justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>Native Capabilities</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -815,7 +833,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Item 2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Item 3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-<aside class="frame text-base"><button x-dropdown="basic-menu-preview" popovertarget="basic-menu-preview" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="basic-menu-preview" aria-expanded="false" data-hydrate-id="h2">Open Menu</button>
+<aside class="frame text-base"><button x-dropdown="basic-menu-preview" popovertarget="basic-menu-preview" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="basic-menu-preview" aria-expanded="false" data-hydrate-id="h8">Open Menu</button>
 
 <menu popover="" id="basic-menu-preview" role="menu" style="position-anchor: --dropdown-p1">
     <li role="menuitem">Item 1</li>
@@ -879,7 +897,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">close</span>&gt;</span>Settings<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Stays open<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-<aside class="frame text-base"><button x-dropdown="autoclose-menu-preview" popovertarget="autoclose-menu-preview" style="anchor-name: --dropdown-p4, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p4" aria-haspopup="menu" aria-controls="autoclose-menu-preview" aria-expanded="false" data-hydrate-id="h3">Actions</button>
+<aside class="frame text-base"><button x-dropdown="autoclose-menu-preview" popovertarget="autoclose-menu-preview" style="anchor-name: --dropdown-p4, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p4" aria-haspopup="menu" aria-controls="autoclose-menu-preview" aria-expanded="false" data-hydrate-id="h9">Actions</button>
 
 <menu popover="" id="autoclose-menu-preview" role="menu" style="position-anchor: --dropdown-p4">
     <li close="" role="menuitem">Duplicate</li>
@@ -945,12 +963,12 @@
 
     <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code><button class="expand" type="button" aria-expanded="false" aria-label="Show 14 more lines">+14</button></pre>
-<aside class="frame text-base"><button x-dropdown="nested-menu-preview" popovertarget="nested-menu-preview" style="anchor-name: --dropdown-p6, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p6" aria-haspopup="menu" aria-controls="nested-menu-preview" aria-expanded="false" data-hydrate-id="h4">Main Menu</button>
+<aside class="frame text-base"><button x-dropdown="nested-menu-preview" popovertarget="nested-menu-preview" style="anchor-name: --dropdown-p6, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p6" aria-haspopup="menu" aria-controls="nested-menu-preview" aria-expanded="false" data-hydrate-id="h10">Main Menu</button>
 
 <menu popover="" id="nested-menu-preview" role="menu" style="position-anchor: --dropdown-p6">
     <li role="menuitem">Item 1</li>
     <li role="menuitem">Item 2</li>
-    <button x-dropdown="submenu-1-preview" popovertarget="submenu-1-preview" style="anchor-name: --dropdown-p7, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p7" aria-haspopup="menu" aria-controls="submenu-1-preview" aria-expanded="false" data-hydrate-id="h5"><span>Submenu</span><span x-icon="lucide:chevron-right" class="trailing"></span></button>
+    <button x-dropdown="submenu-1-preview" popovertarget="submenu-1-preview" style="anchor-name: --dropdown-p7, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p7" aria-haspopup="menu" aria-controls="submenu-1-preview" aria-expanded="false" data-hydrate-id="h11"><span>Submenu</span><span x-icon="lucide:chevron-right" class="trailing"></span></button>
     <menu popover="" id="submenu-1-preview" role="menu" style="position-anchor: --dropdown-p7">
         <li role="menuitem">Item 1</li>
         <li role="menuitem">Item 2</li>
@@ -987,27 +1005,27 @@
     <div>
         <small class="block mb-2">Basic</small>
         <div class="row-wrap gap-2">
-            <button x-dropdown="menu-top-preview" popovertarget="menu-top-preview" style="anchor-name: --dropdown-p9, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p9" aria-haspopup="menu" aria-controls="menu-top-preview" aria-expanded="false" data-hydrate-id="h6">top</button>
+            <button x-dropdown="menu-top-preview" popovertarget="menu-top-preview" style="anchor-name: --dropdown-p9, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p9" aria-haspopup="menu" aria-controls="menu-top-preview" aria-expanded="false" data-hydrate-id="h12">top</button>
             <menu popover="" id="menu-top-preview" class="top" role="menu" style="position-anchor: --dropdown-p9">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-bottom-preview" popovertarget="menu-bottom-preview" style="anchor-name: --dropdown-p10, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p10" aria-haspopup="menu" aria-controls="menu-bottom-preview" aria-expanded="false" data-hydrate-id="h7">bottom</button>
+            <button x-dropdown="menu-bottom-preview" popovertarget="menu-bottom-preview" style="anchor-name: --dropdown-p10, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p10" aria-haspopup="menu" aria-controls="menu-bottom-preview" aria-expanded="false" data-hydrate-id="h13">bottom</button>
             <menu popover="" id="menu-bottom-preview" class="bottom" role="menu" style="position-anchor: --dropdown-p10">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-start-preview" popovertarget="menu-start-preview" style="anchor-name: --dropdown-p11, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p11" aria-haspopup="menu" aria-controls="menu-start-preview" aria-expanded="false" data-hydrate-id="h8">start</button>
+            <button x-dropdown="menu-start-preview" popovertarget="menu-start-preview" style="anchor-name: --dropdown-p11, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p11" aria-haspopup="menu" aria-controls="menu-start-preview" aria-expanded="false" data-hydrate-id="h14">start</button>
             <menu popover="" id="menu-start-preview" class="start" role="menu" style="position-anchor: --dropdown-p11">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-end-preview" popovertarget="menu-end-preview" style="anchor-name: --dropdown-p12, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p12" aria-haspopup="menu" aria-controls="menu-end-preview" aria-expanded="false" data-hydrate-id="h9">end</button>
+            <button x-dropdown="menu-end-preview" popovertarget="menu-end-preview" style="anchor-name: --dropdown-p12, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p12" aria-haspopup="menu" aria-controls="menu-end-preview" aria-expanded="false" data-hydrate-id="h15">end</button>
             <menu popover="" id="menu-end-preview" class="end" role="menu" style="position-anchor: --dropdown-p12">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-center-preview" popovertarget="menu-center-preview" style="anchor-name: --dropdown-p13, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p13" aria-haspopup="menu" aria-controls="menu-center-preview" aria-expanded="false" data-hydrate-id="h10">center</button>
+            <button x-dropdown="menu-center-preview" popovertarget="menu-center-preview" style="anchor-name: --dropdown-p13, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p13" aria-haspopup="menu" aria-controls="menu-center-preview" aria-expanded="false" data-hydrate-id="h16">center</button>
             <menu popover="" id="menu-center-preview" class="center" role="menu" style="position-anchor: --dropdown-p13">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
@@ -1019,22 +1037,22 @@
     <div>
         <small class="block mb-2">Top/Bottom alignment</small>
         <div class="row-wrap gap-2">
-            <button x-dropdown="menu-top-start-preview" popovertarget="menu-top-start-preview" style="anchor-name: --dropdown-p14, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p14" aria-haspopup="menu" aria-controls="menu-top-start-preview" aria-expanded="false" data-hydrate-id="h11">top-start</button>
+            <button x-dropdown="menu-top-start-preview" popovertarget="menu-top-start-preview" style="anchor-name: --dropdown-p14, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p14" aria-haspopup="menu" aria-controls="menu-top-start-preview" aria-expanded="false" data-hydrate-id="h17">top-start</button>
             <menu popover="" id="menu-top-start-preview" class="top-start" role="menu" style="position-anchor: --dropdown-p14">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-top-end-preview" popovertarget="menu-top-end-preview" style="anchor-name: --dropdown-p15, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p15" aria-haspopup="menu" aria-controls="menu-top-end-preview" aria-expanded="false" data-hydrate-id="h12">top-end</button>
+            <button x-dropdown="menu-top-end-preview" popovertarget="menu-top-end-preview" style="anchor-name: --dropdown-p15, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p15" aria-haspopup="menu" aria-controls="menu-top-end-preview" aria-expanded="false" data-hydrate-id="h18">top-end</button>
             <menu popover="" id="menu-top-end-preview" class="top-end" role="menu" style="position-anchor: --dropdown-p15">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-bottom-start-preview" popovertarget="menu-bottom-start-preview" style="anchor-name: --dropdown-p16, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p16" aria-haspopup="menu" aria-controls="menu-bottom-start-preview" aria-expanded="false" data-hydrate-id="h13">bottom-start</button>
+            <button x-dropdown="menu-bottom-start-preview" popovertarget="menu-bottom-start-preview" style="anchor-name: --dropdown-p16, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p16" aria-haspopup="menu" aria-controls="menu-bottom-start-preview" aria-expanded="false" data-hydrate-id="h19">bottom-start</button>
             <menu popover="" id="menu-bottom-start-preview" class="bottom-start" role="menu" style="position-anchor: --dropdown-p16">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-bottom-end-preview" popovertarget="menu-bottom-end-preview" style="anchor-name: --dropdown-p17, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p17" aria-haspopup="menu" aria-controls="menu-bottom-end-preview" aria-expanded="false" data-hydrate-id="h14">bottom-end</button>
+            <button x-dropdown="menu-bottom-end-preview" popovertarget="menu-bottom-end-preview" style="anchor-name: --dropdown-p17, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p17" aria-haspopup="menu" aria-controls="menu-bottom-end-preview" aria-expanded="false" data-hydrate-id="h20">bottom-end</button>
             <menu popover="" id="menu-bottom-end-preview" class="bottom-end" role="menu" style="position-anchor: --dropdown-p17">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
@@ -1046,22 +1064,22 @@
     <div>
         <small class="block mb-2">Start/End alignment</small>
         <div class="row-wrap gap-2">
-            <button x-dropdown="menu-start-top-preview" popovertarget="menu-start-top-preview" style="anchor-name: --dropdown-p18, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p18" aria-haspopup="menu" aria-controls="menu-start-top-preview" aria-expanded="false" data-hydrate-id="h15">start-top</button>
+            <button x-dropdown="menu-start-top-preview" popovertarget="menu-start-top-preview" style="anchor-name: --dropdown-p18, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p18" aria-haspopup="menu" aria-controls="menu-start-top-preview" aria-expanded="false" data-hydrate-id="h21">start-top</button>
             <menu popover="" id="menu-start-top-preview" class="start-top" role="menu" style="position-anchor: --dropdown-p18">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-start-bottom-preview" popovertarget="menu-start-bottom-preview" style="anchor-name: --dropdown-p19, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p19" aria-haspopup="menu" aria-controls="menu-start-bottom-preview" aria-expanded="false" data-hydrate-id="h16">start-bottom</button>
+            <button x-dropdown="menu-start-bottom-preview" popovertarget="menu-start-bottom-preview" style="anchor-name: --dropdown-p19, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p19" aria-haspopup="menu" aria-controls="menu-start-bottom-preview" aria-expanded="false" data-hydrate-id="h22">start-bottom</button>
             <menu popover="" id="menu-start-bottom-preview" class="start-bottom" role="menu" style="position-anchor: --dropdown-p19">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-end-top-preview" popovertarget="menu-end-top-preview" style="anchor-name: --dropdown-p20, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p20" aria-haspopup="menu" aria-controls="menu-end-top-preview" aria-expanded="false" data-hydrate-id="h17">end-top</button>
+            <button x-dropdown="menu-end-top-preview" popovertarget="menu-end-top-preview" style="anchor-name: --dropdown-p20, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p20" aria-haspopup="menu" aria-controls="menu-end-top-preview" aria-expanded="false" data-hydrate-id="h23">end-top</button>
             <menu popover="" id="menu-end-top-preview" class="end-top" role="menu" style="position-anchor: --dropdown-p20">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-end-bottom-preview" popovertarget="menu-end-bottom-preview" style="anchor-name: --dropdown-p21, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p21" aria-haspopup="menu" aria-controls="menu-end-bottom-preview" aria-expanded="false" data-hydrate-id="h18">end-bottom</button>
+            <button x-dropdown="menu-end-bottom-preview" popovertarget="menu-end-bottom-preview" style="anchor-name: --dropdown-p21, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p21" aria-haspopup="menu" aria-controls="menu-end-bottom-preview" aria-expanded="false" data-hydrate-id="h24">end-bottom</button>
             <menu popover="" id="menu-end-bottom-preview" class="end-bottom" role="menu" style="position-anchor: --dropdown-p21">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
@@ -1073,22 +1091,22 @@
     <div>
         <small class="block mb-2">Corner alignment</small>
         <div class="row-wrap gap-2">
-            <button x-dropdown="menu-start-top-corner-preview" popovertarget="menu-start-top-corner-preview" style="anchor-name: --dropdown-p22, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p22" aria-haspopup="menu" aria-controls="menu-start-top-corner-preview" aria-expanded="false" data-hydrate-id="h19">top-start-corner</button>
+            <button x-dropdown="menu-start-top-corner-preview" popovertarget="menu-start-top-corner-preview" style="anchor-name: --dropdown-p22, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p22" aria-haspopup="menu" aria-controls="menu-start-top-corner-preview" aria-expanded="false" data-hydrate-id="h25">top-start-corner</button>
             <menu popover="" id="menu-start-top-corner-preview" class="start-top-corner" role="menu" style="position-anchor: --dropdown-p22">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-end-top-corner-preview" popovertarget="menu-end-top-corner-preview" style="anchor-name: --dropdown-p23, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p23" aria-haspopup="menu" aria-controls="menu-end-top-corner-preview" aria-expanded="false" data-hydrate-id="h20">top-end-corner</button>
+            <button x-dropdown="menu-end-top-corner-preview" popovertarget="menu-end-top-corner-preview" style="anchor-name: --dropdown-p23, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p23" aria-haspopup="menu" aria-controls="menu-end-top-corner-preview" aria-expanded="false" data-hydrate-id="h26">top-end-corner</button>
             <menu popover="" id="menu-end-top-corner-preview" class="top-end-corner" role="menu" style="position-anchor: --dropdown-p23">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-start-bottom-corner-preview" popovertarget="menu-start-bottom-corner-preview" style="anchor-name: --dropdown-p24, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p24" aria-haspopup="menu" aria-controls="menu-start-bottom-corner-preview" aria-expanded="false" data-hydrate-id="h21">bottom-start-corner</button>
+            <button x-dropdown="menu-start-bottom-corner-preview" popovertarget="menu-start-bottom-corner-preview" style="anchor-name: --dropdown-p24, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p24" aria-haspopup="menu" aria-controls="menu-start-bottom-corner-preview" aria-expanded="false" data-hydrate-id="h27">bottom-start-corner</button>
             <menu popover="" id="menu-start-bottom-corner-preview" class="bottom-start-corner" role="menu" style="position-anchor: --dropdown-p24">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
             </menu>
-            <button x-dropdown="menu-end-bottom-corner-preview" popovertarget="menu-end-bottom-corner-preview" style="anchor-name: --dropdown-p25, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p25" aria-haspopup="menu" aria-controls="menu-end-bottom-corner-preview" aria-expanded="false" data-hydrate-id="h22">bottom-end-corner</button>
+            <button x-dropdown="menu-end-bottom-corner-preview" popovertarget="menu-end-bottom-corner-preview" style="anchor-name: --dropdown-p25, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p25" aria-haspopup="menu" aria-controls="menu-end-bottom-corner-preview" aria-expanded="false" data-hydrate-id="h28">bottom-end-corner</button>
             <menu popover="" id="menu-end-bottom-corner-preview" class="end-bottom-corner" role="menu" style="position-anchor: --dropdown-p25">
                 <li role="menuitem">Item 1</li>
                 <li role="menuitem">Item 2</li>
@@ -1121,19 +1139,19 @@
 
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
 <aside class="frame row-wrap gap-4"><div>
-        <button x-dropdown="`template-menu-preview-${i}`" popovertarget="template-menu-preview-1" style="anchor-name: --dropdown-p26, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p26" aria-haspopup="menu" aria-controls="template-menu-preview-1" aria-expanded="false" data-hydrate-id="h23">Menu 1</button>
+        <button x-dropdown="`template-menu-preview-${i}`" popovertarget="template-menu-preview-1" style="anchor-name: --dropdown-p26, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p26" aria-haspopup="menu" aria-controls="template-menu-preview-1" aria-expanded="false" data-hydrate-id="h29">Menu 1</button>
         <menu popover="" id="template-menu-preview-1" role="menu" style="position-anchor: --dropdown-p26">
             <li role="menuitem">Item 1</li>
             <li role="menuitem">Item 2</li>
         </menu>
     </div><div>
-        <button x-dropdown="`template-menu-preview-${i}`" popovertarget="template-menu-preview-2" style="anchor-name: --dropdown-p27, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p27" aria-haspopup="menu" aria-controls="template-menu-preview-2" aria-expanded="false" data-hydrate-id="h24">Menu 2</button>
+        <button x-dropdown="`template-menu-preview-${i}`" popovertarget="template-menu-preview-2" style="anchor-name: --dropdown-p27, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p27" aria-haspopup="menu" aria-controls="template-menu-preview-2" aria-expanded="false" data-hydrate-id="h30">Menu 2</button>
         <menu popover="" id="template-menu-preview-2" role="menu" style="position-anchor: --dropdown-p27">
             <li role="menuitem">Item 1</li>
             <li role="menuitem">Item 2</li>
         </menu>
     </div><div>
-        <button x-dropdown="`template-menu-preview-${i}`" popovertarget="template-menu-preview-3" style="anchor-name: --dropdown-p28, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p28" aria-haspopup="menu" aria-controls="template-menu-preview-3" aria-expanded="false" data-hydrate-id="h25">Menu 3</button>
+        <button x-dropdown="`template-menu-preview-${i}`" popovertarget="template-menu-preview-3" style="anchor-name: --dropdown-p28, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p28" aria-haspopup="menu" aria-controls="template-menu-preview-3" aria-expanded="false" data-hydrate-id="h31">Menu 3</button>
         <menu popover="" id="template-menu-preview-3" role="menu" style="position-anchor: --dropdown-p28">
             <li role="menuitem">Item 1</li>
             <li role="menuitem">Item 2</li>
@@ -1195,11 +1213,11 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Textarea"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
 
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code><button class="expand" type="button" aria-expanded="false" aria-label="Show 40 more lines">+40</button></pre>
-<aside class="frame text-base"><button x-dropdown="content-menu" popovertarget="content-menu" style="anchor-name: --dropdown-p29, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p29" aria-haspopup="menu" aria-controls="content-menu" aria-expanded="false" data-hydrate-id="h26"><span>Dropdown</span><span x-icon="lucide:chevron-down" class="trailing"></span></button>
+<aside class="frame text-base"><button x-dropdown="content-menu" popovertarget="content-menu" style="anchor-name: --dropdown-p29, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p29" aria-haspopup="menu" aria-controls="content-menu" aria-expanded="false" data-hydrate-id="h32"><span>Dropdown</span><span x-icon="lucide:chevron-down" class="trailing"></span></button>
 
 <menu popover="" id="content-menu" class="w-60 max-h-160" role="menu" style="position-anchor: --dropdown-p29">
     <small>List Items</small>
-    <li @click="alert('Hello world')" role="menuitem" data-hydrate-id="h27">Do Something</li>
+    <li @click="alert('Hello world')" role="menuitem" data-hydrate-id="h33">Do Something</li>
     <li role="menuitem"><span x-icon="lucide:house"></span><span>Icon</span></li>
     <li role="menuitem"><span>Trailing</span><kbd class="trailing">⌘</kbd><kbd>D</kbd></li>
     <li class="brand" role="menuitem">Brand</li>
@@ -1247,6 +1265,48 @@
 </ul>
 <p>And use <code>&lt;span&gt;</code> within applicable elements above for icons, truncating text with ellipsis, and trailing content.</p>
 <hr>
+<h2 id="closed-menus-cost-nothing">Closed Menus Cost Nothing</h2><p>A closed menu's contents are not initialized until it opens. Nothing inside it runs while it is closed, so a page can hold hundreds of menus for free.</p>
+<p>During idle time, Manifest warms the menus the visitor is likely to open next, so opening is instant. A menu that has not been warmed renders when it opens, and a menu opened once stays ready.</p>
+<p>Three optional knobs on the <code>&lt;menu&gt;</code> element:</p>
+<ul>
+<li><code>x-defer.priority="1"</code> — warm this menu first (a lower number is warmed earlier). Use on the one or two menus people open most.</li>
+<li><code>x-defer.off</code> — keep a menu eager. Only for menus whose contents must exist while closed.</li>
+<li><code>x-defer.discard</code> — throw the contents away when the menu closes, for large, rarely reopened menus.</li>
+</ul>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"account-menu"</span> <span class="hljs-attr">x-defer.priority</span>=<span class="hljs-string">"1"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Profile<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Sign out<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>The modifier is part of the attribute name and the number is its value: <code>x-defer.priority="1"</code>. Writing <code>x-defer="priority:1"</code> does nothing.</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p>If a menu lists more than ~100 items, put the list in <a href="/docs/core-plugins/virtual#inside-menus-and-dialogs"><code>x-virtual</code></a>. Deferral makes the closed menu free; virtualization makes the open menu fast.</p>
+</aside>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ countries: /* 300 entries */ }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-dropdown</span>=<span class="hljs-string">"country-menu"</span>&gt;</span>Country<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"country-menu"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-virtual</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"h-64"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"country in countries"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"country.id"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"country.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame text-base"><div x-data="{ countries: Array.from({length: 300}, (_, i) =&gt; ({ id: i, name: ['Aurora','Borealis','Cassini','Delphinus','Eridanus','Fornax'][i % 6] + ' ' + (i + 1) })) }">
+    <button x-dropdown="virtual-menu-preview" popovertarget="virtual-menu-preview" style="anchor-name: --dropdown-p30, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p30" aria-haspopup="menu" aria-controls="virtual-menu-preview" aria-expanded="false" data-hydrate-id="h34">Country</button>
+    <menu popover="" id="virtual-menu-preview" role="menu" style="position-anchor: --dropdown-p30">
+        <div x-virtual="" class="h-64" style="overflow: auto">
+            <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
+                <li x-text="country.name"></li>
+            </template>
+        </div>
+    </menu>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Three hundred rows are in the menu, but only the visible ones are rendered, and none of them exist until the menu opens.</p>
+<hr>
 <h2 id="styles">Styles</h2><h3 id="theme">Theme</h3><p>Default dropdowns use the following <a href="/docs/styles/theme">theme</a> variables:</p>
 <table>
 <thead>
@@ -1290,8 +1350,8 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Consectetur adipiscing elit<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Sed do eiusmod tempor incididunt<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-<aside class="frame text-base"><button x-dropdown="menu-wide-preview" popovertarget="menu-wide-preview" style="anchor-name: --dropdown-p30, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p30" aria-haspopup="menu" aria-controls="menu-wide-preview" aria-expanded="false" data-hydrate-id="h28">Offset &amp; Widen</button>
-<menu popover="" id="menu-wide-preview" class="w-100 !m-6" role="menu" style="position-anchor: --dropdown-p30">
+<aside class="frame text-base"><button x-dropdown="menu-wide-preview" popovertarget="menu-wide-preview" style="anchor-name: --dropdown-p31, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p31" aria-haspopup="menu" aria-controls="menu-wide-preview" aria-expanded="false" data-hydrate-id="h35">Offset &amp; Widen</button>
+<menu popover="" id="menu-wide-preview" class="w-100 !m-6" role="menu" style="position-anchor: --dropdown-p31">
     <li role="menuitem">Lorem ipsum dolor sit amet</li>
     <li role="menuitem">Consectetur adipiscing elit</li>
     <li role="menuitem">Sed do eiusmod tempor incididunt</li>
@@ -1336,8 +1396,8 @@ menu[popover].custom {
 }
 </style>
 
-<button x-dropdown="custom-menu-preview" popovertarget="custom-menu-preview" style="anchor-name: --dropdown-p31, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p31" aria-haspopup="menu" aria-controls="custom-menu-preview" aria-expanded="false" data-hydrate-id="h29">Custom Menu</button>
-<menu popover="" id="custom-menu-preview" class="custom" role="menu" style="position-anchor: --dropdown-p31">
+<button x-dropdown="custom-menu-preview" popovertarget="custom-menu-preview" style="anchor-name: --dropdown-p32, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p32" aria-haspopup="menu" aria-controls="custom-menu-preview" aria-expanded="false" data-hydrate-id="h36">Custom Menu</button>
+<menu popover="" id="custom-menu-preview" class="custom" role="menu" style="position-anchor: --dropdown-p32">
     <li role="menuitem">Custom Item 1</li>
     <li role="menuitem">Custom Item 2</li>
     <li role="menuitem">Custom Item 3</li>
@@ -1408,9 +1468,9 @@ menu[popover].custom {
       <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
 
       <div role="group" class="outlined rounded-full">
-        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h30"></button>
-        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h31"></button>
-        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h32"></button>
+        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h37"></button>
+        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h38"></button>
+        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h39"></button>
       </div>
     </div>
   </div>
@@ -1426,7 +1486,7 @@ menu[popover].custom {
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#default">Default</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#hover">Hover</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#context-menu">Context Menu</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#auto-close">Auto-Close</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#nesting">Nesting</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#positioning">Positioning</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#templating">Templating</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#content">Content</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#theme">Theme</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#tailwind-css">Tailwind CSS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#customization">Customization</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#default">Default</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#hover">Hover</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#context-menu">Context Menu</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#auto-close">Auto-Close</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#nesting">Nesting</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#positioning">Positioning</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#templating">Templating</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#content">Content</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#closed-menus-cost-nothing">Closed Menus Cost Nothing</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#theme">Theme</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#tailwind-css">Tailwind CSS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#customization">Customization</a></div>
 
   </nav>
 
@@ -1439,5 +1499,5 @@ menu[popover].custom {
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h5","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h6","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h7","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h8","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h9","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h10","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h11","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h12","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h13","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h14","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h15","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h16","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h17","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h18","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h19","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h20","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h21","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h22","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h23","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h24","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h25","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h26","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h27","attrs":{"role":null}},{"id":"h28","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h29","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h30","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h31","attrs":{"type":null}},{"id":"h32","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h9","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h10","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h11","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h12","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h13","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h14","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h15","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h16","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h17","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h18","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h19","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h20","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h21","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h22","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h23","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h24","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h25","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h26","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h27","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h28","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h29","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h30","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h31","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h32","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h33","attrs":{"role":null}},{"id":"h34","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h35","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h36","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h37","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h38","attrs":{"type":null}},{"id":"h39","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h40","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h41","attrs":{"type":null}},{"id":"h42","attrs":{"type":null}},{"id":"h43","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
 </body></html>

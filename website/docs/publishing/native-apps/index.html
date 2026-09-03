@@ -14,24 +14,24 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.js" data-version="0.5.194"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
-<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Native Apps — Manifest"><meta property="og:description" content="Package a Manifest project as a native app for app stores or direct download."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/publishing/native-apps"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-publishing-native-apps.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Native Apps — Manifest"><meta property="twitter:description" content="Package a Manifest project as a native app for app stores or direct download."><meta property="twitter:image" content="/og/docs-publishing-native-apps.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Native Apps — Manifest","description":"Package a Manifest project as a native app for app stores or direct download.","image":"/og/docs-publishing-native-apps.png","url":"https://manifestx.dev/docs/publishing/native-apps"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Publishing","item":"https://manifestx.dev/docs/publishing"},{"@type":"ListItem","position":4,"name":"Native Apps","item":"https://manifestx.dev/docs/publishing/native-apps"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant web (&:where(html:not([data-native]) *));</style><style>@view-transition { navigation: none }</style><meta property="og:title" content="Native Apps — Manifest"><meta property="og:description" content="Package a Manifest project as a native app for app stores or direct download."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/publishing/native-apps"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-publishing-native-apps.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Native Apps — Manifest"><meta property="twitter:description" content="Package a Manifest project as a native app for app stores or direct download."><meta property="twitter:image" content="/og/docs-publishing-native-apps.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Native Apps — Manifest","description":"Package a Manifest project as a native app for app stores or direct download.","image":"/og/docs-publishing-native-apps.png","url":"https://manifestx.dev/docs/publishing/native-apps"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Publishing","item":"https://manifestx.dev/docs/publishing"},{"@type":"ListItem","position":4,"name":"Native Apps","item":"https://manifestx.dev/docs/publishing/native-apps"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/publishing/native-apps">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -253,6 +253,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
                         <span x-icon="lucide:eye"></span>
                         <span>Accessibility</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/performance">
+                        <span x-icon="lucide:gauge"></span>
+                        <span>Performance</span>
                     </a>
             </div>
             <hr>
@@ -265,6 +268,15 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
                         <span x-icon="lucide:panels-top-left"></span>
                         <span>Components</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/computed">
+                        <span x-icon="lucide:sigma"></span>
+                        <span>Computed Values</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/device">
+                        <span x-icon="lucide:smartphone"></span>
+                        <span>Device</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
+                        <span x-icon="lucide:pencil-ruler"></span>
+                        <span>Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
                         <span x-icon="lucide:download"></span>
                         <span>Export</span>
@@ -289,6 +301,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
                         <span x-icon="lucide:activity"></span>
                         <span>Status</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/text-edit">
+                        <span x-icon="lucide:pilcrow"></span>
+                        <span>Text Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
                         <span x-icon="lucide:ampersand"></span>
                         <span>URL Parameters</span>
@@ -346,12 +361,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/publishing/native-apps" aria-current="page">
                         <span x-icon="lucide:monitor-smartphone"></span>
                         <span>Native Apps</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/app-store-readiness">
-                        <span x-icon="lucide:dot"></span>
-                        <span>App Store Readiness</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-capabilities">
-                        <span x-icon="lucide:dot"></span>
-                        <span>Native Capabilities</span>
                     </a>
             </div>
             <hr>
@@ -531,6 +540,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:eye"></span>
               <span>Accessibility</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -543,6 +555,15 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/components" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:panels-top-left"></span>
               <span>Components</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Device</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:download"></span>
               <span>Export</span>
@@ -567,6 +588,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/status" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:activity"></span>
               <span>Status</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/text-edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Text Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/url-parameters" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:ampersand"></span>
               <span>URL Parameters</span>
@@ -624,12 +648,6 @@
             </a><a role="button" href="/docs/publishing/native-apps" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
               <span x-icon="lucide:monitor-smartphone"></span>
               <span>Native Apps</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/app-store-readiness" class="ghost text-content-neutral justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>App Store Readiness</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-capabilities" class="ghost text-content-neutral justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>Native Capabilities</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -790,7 +808,7 @@
 <li><strong><a href="https://www.pwabuilder.com" target="_blank">PWABuilder</a></strong> — a free tool from Microsoft that takes your live URL and produces store-ready packages for iOS, Android, and Windows from one workflow. It's the fastest route and safe for Android, Windows, and direct distribution.</li>
 <li><strong><a href="https://capacitorjs.com" target="_blank">Capacitor</a></strong> — generates a real native project you own, with a bridge to native device APIs (biometrics, push, camera, haptics, and more). It's more setup, but on iOS it's effectively required to pass App Store review.</li>
 </ul>
-<aside class="brand"><span x-icon="lucide:info"></span><p><strong>iOS is stricter than the other stores.</strong> Apple's <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2 (Minimum Functionality)</a> rejects apps that are just a repackaged website in a web view. Use <strong>Capacitor</strong> for the App Store, add genuine native capability, and self-audit against the <a href="/docs/publishing/app-store-readiness">App Store Readiness guide</a> before you submit.</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p><strong>iOS is stricter than the other stores.</strong> Apple's <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2 (Minimum Functionality)</a> rejects apps that are just a repackaged website in a web view. Use <strong>Capacitor</strong> for the App Store, add genuine native capability, and work through <a href="/docs/publishing/native-apps#passing-review">Passing review</a> before you submit.</p>
 </aside>
 <hr>
 <h2 id="packaging-paths">Packaging paths</h2><div class="overflow-x-auto">
@@ -819,7 +837,7 @@
 </tbody></table>
 </div>
 
-<p>Both render your Manifest UI, so your app code doesn't change between them. The difference is what surrounds it: PWABuilder drops your PWA into a stock web view, while Capacitor gives you a native project with a plugin bridge — which is what makes real native features (and iOS review) achievable. Capacitor's plugins are surfaced through Manifest's <a href="/docs/publishing/app-store-readiness">native capability plugins</a>, so you reach them with Alpine-friendly attributes instead of writing Swift.</p>
+<p>Both render your Manifest UI, so your app code doesn't change between them. The difference is what surrounds it: PWABuilder drops your PWA into a stock web view, while Capacitor gives you a native project with a plugin bridge — which is what makes real native features (and iOS review) achievable. Capacitor's plugins are surfaced through Manifest's <a href="/docs/core-plugins/device">Device plugin</a>, so you reach them with Alpine-friendly attributes instead of writing Swift.</p>
 <hr>
 <h2 id="apps-by-os">Apps by OS</h2><div class="[&amp;_tbody_&gt;_tr:first-child]:opacity-50 overflow-x-auto">
 
@@ -881,9 +899,21 @@
 <h2 id="ios-ipados">iOS &amp; iPadOS</h2><ul>
 <li><strong>Packaging:</strong> Use <a href="https://capacitorjs.com" target="_blank">Capacitor</a> to generate a native Xcode project. A thin <a href="https://www.pwabuilder.com" target="_blank">PWABuilder</a> WebKit wrapper also builds, but risks rejection under Guideline 4.2 (see below).</li>
 <li><strong>App Store:</strong> Sign and upload through <a href="https://appstoreconnect.apple.com" target="_blank">App Store Connect</a> on a Mac. Requires an Apple Developer account ($99/yr). Beta distribution goes through TestFlight.</li>
-<li><strong>Review:</strong> Apple reviews iOS apps by hand and rejects "repackaged website" wrappers under <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2</a>. Ship genuine native capability (Face ID, push, haptics, share) and native feel (safe-area layout, no browser chrome), then work the <a href="/docs/publishing/app-store-readiness">App Store Readiness guide</a> and its 4.2 checklist before submitting.</li>
+<li><strong>Review:</strong> Apple reviews iOS apps by hand and rejects "repackaged website" wrappers under <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2</a>. Ship genuine native capability (Face ID, push, haptics, share) and native feel (safe-area layout, no browser chrome). See <a href="#passing-review">Passing review</a> below.</li>
 <li><strong>Open Distribution:</strong> Limited. As of iOS 17.4, EU users can install from alternative app marketplaces. Elsewhere, the App Store is the only path.</li>
 </ul>
+<h3 id="passing-review">Passing review</h3><p>A valid build is not an approved one. Reviewers check two things: the app feels native, and it does something a browser tab can't.</p>
+<p><strong>Feel native.</strong> Manifest ships this layer, and it improves the mobile web build too:</p>
+<ul>
+<li>Safe-area utilities (<code>p-safe</code>, <code>pb-safe</code>, <code>--safe-*</code>) keep content clear of the notch, Dynamic Island, and home indicator.</li>
+<li><code>viewport-fit=cover</code> on the viewport meta (shipped in the starter) fills the full screen, so backgrounds extend edge to edge.</li>
+<li><code>&lt;nav dock&gt;</code> gives primary navigation a native-style bottom bar instead of a web hamburger menu.</li>
+<li>Suppress the web tells on tappable UI: double-tap zoom, the long-press callout, stray text selection, and rubber-band overscroll.</li>
+<li>Set a branded splash screen and a status bar that matches your theme, so launch never flashes white.</li>
+</ul>
+<p><strong>Do something native.</strong> Ship at least one real device capability, such as Face ID, push, haptics, share, or camera, through the <a href="/docs/core-plugins/device">Device plugin</a>. Name it in your review notes so the reviewer finds it.</p>
+<p><strong>Payments.</strong> Physical goods and services may be sold in-app through the <a href="/docs/core-plugins/payments">Payments plugin</a>; digital goods and subscriptions consumed in the app must use Apple's <a href="https://developer.apple.com/app-store/review/guidelines/#in-app-purchase" target="_blank">In-App Purchase</a>.</p>
+<p><strong>Compliance.</strong> Read <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2</a> in full, and ship a privacy manifest (<code>PrivacyInfo.xcprivacy</code>) that declares the data your app and its Capacitor plugins collect.</p>
 <hr>
 <h2 id="macos">macOS</h2><ul>
 <li><strong>Packaging:</strong> PWABuilder generates the same Xcode wrapper as iOS, compiled for macOS via Mac Catalyst.</li>
@@ -978,9 +1008,9 @@
       <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
 
       <div role="group" class="outlined rounded-full">
-        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h2"></button>
-        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h3"></button>
-        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h4"></button>
+        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h8"></button>
+        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h9"></button>
+        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h10"></button>
       </div>
     </div>
   </div>
@@ -996,7 +1026,7 @@
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#packaging-paths">Packaging paths</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#apps-by-os">Apps by OS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#ios-ipados">iOS &amp; iPadOS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#macos">macOS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#android">Android</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#windows">Windows</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#chromeos">ChromeOS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#linux">Linux</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#packaging-paths">Packaging paths</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#apps-by-os">Apps by OS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#ios-ipados">iOS &amp; iPadOS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#passing-review">Passing review</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#macos">macOS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#android">Android</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#windows">Windows</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#chromeos">ChromeOS</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#linux">Linux</a></div>
 
   </nav>
 
@@ -1009,5 +1039,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h3","attrs":{"type":null}},{"id":"h4","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h9","attrs":{"type":null}},{"id":"h10","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h11","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h12","attrs":{"type":null}},{"id":"h13","attrs":{"type":null}},{"id":"h14","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
 </body></html>

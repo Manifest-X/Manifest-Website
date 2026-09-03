@@ -40,6 +40,8 @@ The `manifest.js` script tag accepts `data-*` attributes to control plugin loadi
 | `data-alpine`{copy} | `3` | Alpine version, or a full URL |
 | `data-tailwind`{copy} | (off) | Boolean — load Manifest's Tailwind v4 build |
 | `data-plugin-base`{copy} | CDN | Base URL/path for plugin scripts (for self-hosted deployments) |
+| `data-defer`{copy} | (on) | `off` turns off automatic deferral of closed containers — see [performance](/docs/getting-started/performance#x-defer-reference) |
+| `data-defer-routes`{copy} | (off) | Boolean — experimental; defer inactive `x-route` pages until first shown |
 
 ---
 
@@ -107,8 +109,11 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-code`{copy}, `<div x-code-group>` | [code](/docs/elements/code) | Code blocks with syntax highlights |
 | `x-colorpicker`{copy} | [color pickers](/docs/elements/color-pickers) | Colorpicker menu element |
 | `x-color`{copy} | [color modes](/docs/styles/color-modes) | Switches color mode on click |
+| `x-computed:name`{copy} | [computed](/docs/core-plugins/computed) | Named value readable inside the element, recalculated only when what it reads changes |
 | `x-date`{copy} | [date pickers](/docs/elements/date-pickers) | Date, range, and time picker field or calendar |
+| `x-defer`{copy} | [core](/docs/getting-started/performance#x-defer-reference) | Defer a container's contents until it is shown. Modifiers: `.lazy`, `.discard`, `.priority="n"`, `.off` |
 | `x-dropdown`{copy} | [dropdowns](/docs/elements/dropdowns) | Dropdown menu element |
+| `x-edit`{copy} | [edit](/docs/core-plugins/edit) | Editable region: text, reorder, resize, classes, theme variables. Opt-in plugin; modifiers `.text`, `.sort`, `.style`, `.size`, `.data`, `.lock`, `.gated`, `.authoring`, `.theme`, `.cssvar` |
 | `x-export`{copy} | [export](/docs/core-plugins/export) | Download page / region / data source as PDF, image, CSV, or JSON |
 | `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/core-plugins/local-data) | Bind file uploads |
 | `x-icon`{copy} | [icons](/docs/elements/icons) | Render an icon by name |
@@ -117,6 +122,7 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-route`{copy} | [router](/docs/core-plugins/router) | Applies element to specific routes |
 | `x-svg`{copy} | [svgs](/docs/elements/svgs) | Inlines an SVG file |
 | `x-tab`{copy}, `x-tabpanel`{copy} | [tabs](/docs/elements/tabs) | Tab elements |
+| `x-text-edit`{copy} | [text edit](/docs/core-plugins/text-edit) | Rich text area bound to a value (markdown; `.html`, `.plain`); with a command modifier, a control for that area (`x-text-edit.strong`) |
 | `x-toast`{copy} | [toasts](/docs/elements/toasts) | Dispatches toast popover |
 | `x-tooltip`{copy} | [tooltips](/docs/elements/tooltips) | Applies tooltip to element |
 | `x-virtual`{copy} | [virtual](/docs/core-plugins/virtual) | Render only visible rows of a long list (wraps an `x-for` template) |
@@ -160,15 +166,27 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 
 | Magic | Plugin | Description |
 |---|---|---|
+| `$app`{copy} | device | Foreground state: `active` (reactive), `onChange(fn)` |
 | `$auth`{copy} | appwrite-auth | Current user, login methods, team management |
+| `$biometric`{copy} | device | Face ID / Touch ID inside a Capacitor app: `available()`, `verify({ reason })`; `false` / `unsupported` on the web |
+| `$camera`{copy} | device | `photo()` and `pick()` resolve `{ dataUrl, format }` or `{ cancelled }`; a file picker on the web |
 | `$chart(id)`{copy} | charts | Read a chart's type/series, `update(cfg)`, `redraw()` |
 | `$chat`{copy} | chat | Open conversations: `$chat.open(id, { adapter })` returns a reactive handle with `messages`, `send()`, and more |
 | `$colorpicker`{copy} | colorpicker | Open and configure a color picker UI |
 | `$color`{copy} | color modes | Read/write the current color mode. `$color.current` returns `'light'`, `'dark'`, or `'system'`; assign to switch |
+| `$computed(s => ...)`{copy} | computed | Derived value from a function that receives the scope; recalculated only when what it reads changes, read as a plain property. Also `window.$computed` in `Alpine.data` factories. Attribute form: `x-computed:name` |
 | `$date(id)`{copy} | datepicker | Read or set a picker's value, time, range, and open state |
+| `$device`{copy} | utilities | `os`, `platform`, `online`, `standalone`, `native`, `touch`; always available |
+| `$edit`{copy} | edit | Page editor state: `on()`/`off()` for gated regions, `undo()`/`redo()`, block operations (`can`, `duplicate`, `remove`), `publish()`, `patches()`, `export()` |
+| `$haptics`{copy} | device | `impact(style)`, `notification(type)`, `selection()`, `vibrate(ms)`; `navigator.vibrate` on the web |
+| `$links`{copy} | device | Deep links: `open(url)`, `on(fn)`, `last` |
 | `$locale`{copy} | localization | Current locale, available locales, `set(code)` |
+| `$push`{copy} | device | `permission`, `token`, `request()`, `register()`, `onToken`, `onReceive`, `onTap`; Notification permission only on the web |
 | `$route`{copy} | router | Reactive string of the current logical route (e.g. `$route === '/'`); not a function |
+| `$secure`{copy} | device | Key/value store: `get`, `set`, `remove`, `keys`, `clear`, `use(adapter)`; Keychain in a Capacitor app, prefixed `localStorage` on the web |
+| `$share(opts)`{copy} | device | Share sheet, Web Share or clipboard; resolves `{ shared, method, cancelled? }` |
 | `$status`{copy} | status | Health of named services (e.g. `$status.api.state`, `$status.overall`) |
+| `$text`{copy} | text-edit | The enclosing (or last focused) rich text area: `value`, `page`, `link`, `selection`, `run(cmd)`, `markdown()`, `html()` |
 | `$toast`{copy} | toasts | Show a toast |
 | `$try(fn, errorVar?)`{copy} | data | `await` an async callback; on error returns `undefined` instead of throwing. If `errorVar` names a property on the current `x-data` scope, the error message is written there on failure and cleared to `null` on success |
 | `$url`{copy} | url-parameters | Read/write URL query parameters reactively |
@@ -187,6 +205,8 @@ Each `$x.<source>` returns an object or array. Standard JS array methods apply w
 | `$loading`{copy} | boolean | True during fetch / mutation |
 | `$error`{copy} | `Error \| string \| null` | Last error, or null |
 | `$ready`{copy} | boolean | True after initial load completes |
+| `$stale`{copy} | boolean | True while cached rows show and fresh data is still loading |
+| `$fresh`{copy} | `Promise` | Resolves once fresh data has landed |
 
 ---
 
@@ -376,6 +396,7 @@ Three options, in increasing decoupling:
 | Inline expression | `<span x-text="count * 2">` — re-evaluates automatically. Best for trivial cases. |
 | Computed getter | `get doubled() { return this.count * 2 }` on `x-data` or store. Best for component- or store-level computeds. |
 | `$watch('prop', cb)` | Side-effects on change (e.g. write to localStorage, call API). |
+| `x-computed:name` / `$computed(s => ...)` | Data-sized work (filtered or sorted lists, totals) recalculated only when its inputs change. See [computed values](/docs/core-plugins/computed). |
 
 ```html copy
 <div x-data="{ count: 0 }"
@@ -427,6 +448,7 @@ Custom events dispatched on `window` that any component can subscribe to via `@e
 | `manifest:components-processed`{copy} | After components and templates have been registered | — |
 | `manifest:render-ready`{copy} | Signal from the data plugin that prerender can snapshot the page | — |
 | `manifest:dev-reload`{copy} | Dev-server hot-update of CSV / JSON / YAML data | `{ source, path }` |
+| `manifest:defer-render`{copy} | On a deferred container (not `window`), after its contents initialise | — |
 | `alpine:init` | Alpine initialization (standard Alpine event) | — |
 
 Listen example:
@@ -434,3 +456,15 @@ Listen example:
 ```html copy
 <div x-data @manifest:route-change.window="console.log('route:', $event.detail.to)"></div>
 ```
+
+---
+
+## Globals
+
+Window-level objects for diagnostics and configuration. See [performance](/docs/getting-started/performance#diagnostics).
+
+| Global | Description |
+|---|---|
+| `ManifestDefer.stats()`{copy} | Deferral counters: `{ pending, warm, cap, ready, armed, head, routes: { enabled, stashed, rendered } }` |
+| `ManifestDeferConfig.prewarmCap`{copy} | Maximum containers warming may prepare (default `48`) |
+| `ManifestDeferConfig.routes`{copy} | Experimental — `true` defers inactive `x-route` pages, same as `data-defer-routes` |

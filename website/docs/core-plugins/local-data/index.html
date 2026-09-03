@@ -14,18 +14,18 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.js" data-version="0.5.194"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -253,6 +253,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
                         <span x-icon="lucide:eye"></span>
                         <span>Accessibility</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/performance">
+                        <span x-icon="lucide:gauge"></span>
+                        <span>Performance</span>
                     </a>
             </div>
             <hr>
@@ -265,6 +268,15 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
                         <span x-icon="lucide:panels-top-left"></span>
                         <span>Components</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/computed">
+                        <span x-icon="lucide:sigma"></span>
+                        <span>Computed Values</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/device">
+                        <span x-icon="lucide:smartphone"></span>
+                        <span>Device</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
+                        <span x-icon="lucide:pencil-ruler"></span>
+                        <span>Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
                         <span x-icon="lucide:download"></span>
                         <span>Export</span>
@@ -289,6 +301,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
                         <span x-icon="lucide:activity"></span>
                         <span>Status</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/text-edit">
+                        <span x-icon="lucide:pilcrow"></span>
+                        <span>Text Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
                         <span x-icon="lucide:ampersand"></span>
                         <span>URL Parameters</span>
@@ -346,12 +361,6 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
                         <span x-icon="lucide:monitor-smartphone"></span>
                         <span>Native Apps</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/app-store-readiness">
-                        <span x-icon="lucide:dot"></span>
-                        <span>App Store Readiness</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-capabilities">
-                        <span x-icon="lucide:dot"></span>
-                        <span>Native Capabilities</span>
                     </a>
             </div>
             <hr>
@@ -509,7 +518,7 @@
     get group() { const g = $x[this.src].$route('slug'); return g?.group &amp;&amp; this.at(this.base + '/' + g.slug) ? g : null },
     href(group, item) { return this.base + '/' + group.slug + (item ? '/' + item.path : '') },
     at(path) { return $route.replace(/\/$/, '') === path },
-  }" x-route="docs" intro="Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference." data-component="docs-1">
+  }" x-route="docs" intro="Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference.">
 
   <!-- Desktop navigation -->
   <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
@@ -531,6 +540,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:eye"></span>
               <span>Accessibility</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -543,6 +555,15 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/components" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:panels-top-left"></span>
               <span>Components</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Device</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:download"></span>
               <span>Export</span>
@@ -567,6 +588,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/status" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:activity"></span>
               <span>Status</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/text-edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Text Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/url-parameters" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:ampersand"></span>
               <span>URL Parameters</span>
@@ -624,12 +648,6 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:monitor-smartphone"></span>
               <span>Native Apps</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/app-store-readiness" class="ghost text-content-neutral justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>App Store Readiness</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-capabilities" class="ghost text-content-neutral justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>Native Capabilities</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -808,14 +826,14 @@
 <h2 id="create-local-data">Create Local Data</h2><p>Create CSV, JSON, or YAML files anywhere in your project directory. Each format works identically—choose based on preference.</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="contact.csv-(key-value)-tab-0" aria-selected="true" tabindex="0">contact.csv (key-value)</button><button type="button" role="tab" id="team.csv-(tabular)-tab-1" aria-selected="false" tabindex="-1">team.csv (tabular)</button><button type="button" role="tab" id="team.json-tab-2" aria-selected="false" tabindex="-1">team.json</button><button type="button" role="tab" id="team.yaml-tab-3" aria-selected="false" tabindex="-1">team.yaml</button></div></header>
 
-<pre x-code="csv" name="contact.csv (key-value)" data-code-block-built="yes" aria-label="contact.csv (key-value)" role="tabpanel" data-code-processed="yes" id="contact.csv-(key-value)-panel-0" aria-labelledby="contact.csv-(key-value)-tab-0"><code data-highlighted="yes" class="hljs language-undefined">key,value
-headquarters.name,Empire Headquarters
-headquarters.location,Death Star
-contact.email,forcechoke69@aol.com
-contact.phone,+1-555-0100</code></pre>
-<pre x-code="csv" name="team.csv (tabular)" data-code-block-built="yes" aria-label="team.csv (tabular)" role="tabpanel" data-code-processed="yes" id="team.csv-(tabular)-panel-1" aria-labelledby="team.csv-(tabular)-tab-1" style="display: none"><code data-highlighted="yes" class="hljs language-javascript">id,name,role,image
-<span class="hljs-number">1</span>,<span class="hljs-title class_">Darth</span> <span class="hljs-title class_">Vader</span>,<span class="hljs-title class_">Lord</span>,<span class="hljs-regexp">/assets/</span>examples/vader.<span class="hljs-property">webp</span>
-<span class="hljs-number">2</span>,<span class="hljs-title class_">Admiral</span> <span class="hljs-title class_">Piett</span>,<span class="hljs-title class_">Fleet</span> <span class="hljs-title class_">Commander</span>,<span class="hljs-regexp">/assets/</span>examples/piett.<span class="hljs-property">webp</span></code></pre>
+<pre x-code="csv" name="contact.csv (key-value)" data-code-block-built="yes" aria-label="contact.csv (key-value)" role="tabpanel" data-code-processed="yes" id="contact.csv-(key-value)-panel-0" aria-labelledby="contact.csv-(key-value)-tab-0"><code data-highlighted="yes" class="hljs language-css">key,value
+headquarters<span class="hljs-selector-class">.name</span>,Empire Headquarters
+headquarters<span class="hljs-selector-class">.location</span>,Death Star
+contact<span class="hljs-selector-class">.email</span>,forcechoke69<span class="hljs-keyword">@aol</span>.com
+contact.phone,+<span class="hljs-number">1</span>-<span class="hljs-number">555</span>-<span class="hljs-number">0100</span></code></pre>
+<pre x-code="csv" name="team.csv (tabular)" data-code-block-built="yes" aria-label="team.csv (tabular)" role="tabpanel" data-code-processed="yes" id="team.csv-(tabular)-panel-1" aria-labelledby="team.csv-(tabular)-tab-1" style="display: none"><code data-highlighted="yes" class="hljs language-bash"><span class="hljs-built_in">id</span>,name,role,image
+1,Darth Vader,Lord,/assets/examples/vader.webp
+2,Admiral Piett,Fleet Commander,/assets/examples/piett.webp</code></pre>
 <pre x-code="json" name="team.json" data-code-block-built="yes" aria-label="team.json" role="tabpanel" data-code-processed="yes" id="team.json-panel-2" aria-labelledby="team.json-tab-2" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">[</span>
     <span class="hljs-punctuation">{</span>
         <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Darth Vader"</span><span class="hljs-punctuation">,</span>
@@ -891,8 +909,8 @@ contact.phone,+1-555-0100</code></pre>
         <span class="hljs-punctuation">}</span>
     <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span></code></pre>
-<pre x-code="env" name=".env" copy="" data-code-block-built="yes" aria-label=".env" role="tabpanel" data-code-processed="yes" id=".env-panel-1" aria-labelledby=".env-tab-1" style="display: none"><code data-highlighted="yes" class="hljs language-undefined">API_BASE_URL=https://api.example.com
-API_TOKEN=sk_1234567890abcdef</code></pre>
+<pre x-code="env" name=".env" copy="" data-code-block-built="yes" aria-label=".env" role="tabpanel" data-code-processed="yes" id=".env-panel-1" aria-labelledby=".env-tab-1" style="display: none"><code data-highlighted="yes" class="hljs language-ini"><span class="hljs-attr">API_BASE_URL</span>=https://api.example.com
+<span class="hljs-attr">API_TOKEN</span>=sk_1234567890abcdef</code></pre>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <table>
@@ -936,6 +954,58 @@ API_TOKEN=sk_1234567890abcdef</code></pre>
 </tr>
 </tbody></table>
 <p>API sources behave the same as local sources, accessed via <code>$x.sourceName</code> with the same loading/error/ready state and <code>$search</code> / <code>$query</code> / <code>$route</code> helpers (see <a href="#display-content">Display Content</a> below).</p>
+<hr>
+<h2 id="persisted-data">Persisted Data</h2><p>Any data source can keep its last rows on the visitor's device, so the next visit shows them before the network answers. Persistence is off unless a source asks for it, and it works for local, API and Appwrite sources alike.</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"chats"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"${API_BASE_URL}/chats"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"persist"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"contacts"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"${API_BASE_URL}/contacts"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"persist"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"tier"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"lazy"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"maxRows"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2000</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"recent"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"updatedAt"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"ttl"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"7d"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"strip"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"email"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"phone"</span><span class="hljs-punctuation">]</span> <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tier</code></td>
+<td><code>boot</code></td>
+<td><code>boot</code> restores rows before the first paint; <code>lazy</code> restores on the first read of the source</td>
+</tr>
+<tr>
+<td><code>maxRows</code></td>
+<td><code>1000</code></td>
+<td>How many rows to keep, most recent first</td>
+</tr>
+<tr>
+<td><code>recent</code></td>
+<td><code>$updatedAt</code></td>
+<td>The field that decides which rows are most recent</td>
+</tr>
+<tr>
+<td><code>ttl</code></td>
+<td><code>7d</code></td>
+<td>Saved rows older than this are ignored</td>
+</tr>
+<tr>
+<td><code>strip</code></td>
+<td><code>[]</code></td>
+<td>Fields removed from every row before it is saved. Names, or patterns like <code>credentials*</code>. Fields matching <code>*secret*</code>, <code>*token*</code>, <code>*password*</code> and <code>credentials*</code> are always removed</td>
+</tr>
+</tbody></table>
+<p>Restored rows are marked stale: <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$x.chats.$stale</code> is <code>true</code> until the first network response replaces them. Rows missing from that response are removed, so a deleted record never lingers. If the network fails, the restored rows stay and <code>$error</code> is set.</p>
+<p><strong>Scope.</strong> Sites where one visitor can see different data, such as a workspace switcher, set a scope so rows from one workspace never appear in another:</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"persistence"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"scope"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"$auth.currentTeam?.$id"</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>The expression is re-evaluated whenever authentication changes. While sign-in is still resolving, nothing is saved or cleared. When the scope changes, the previous scope's rows are removed from the device and from memory before anything renders. Signing out always clears saved rows.</p>
+<p><strong>Clearing.</strong> <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$x.$wipe()</code> removes every saved row for the current scope, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$x.$wipe('chats')</code> one source, and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$x.$wipe({ all: true })</code> everything. <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">ManifestData.persistence()</code> reports what is enabled and saved. Saving happens after data arrives, never during your own edits, and if the browser refuses storage the site simply runs without it.</p>
 <hr>
 <h2 id="display-content">Display Content</h2><p>Data sources are accessed in HTML using our <code>$x</code> magic method with dot notation. The structure follows this pattern:</p>
 <p><code>$x.sourceName.property.subProperty</code></p>
@@ -1288,6 +1358,7 @@ $x.<span class="hljs-property">searchIndex</span>.$search(term, { <span class="h
 <li><code>$x.sourceName.$loading</code> - Boolean indicating if data is loading</li>
 <li><code>$x.sourceName.$error</code> - Error message string (null if no error)</li>
 <li><code>$x.sourceName.$ready</code> - Boolean indicating if data has loaded successfully</li>
+<li><code>$x.sourceName.$stale</code> - Boolean indicating cached rows are showing while fresh data loads (see <a href="#how-data-updates">how data updates</a>)</li>
 </ul>
 <pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Loading state --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$x.team.$loading"</span>&gt;</span>Loading team data...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -1300,6 +1371,13 @@ $x.<span class="hljs-property">searchIndex</span>.$search(term, { <span class="h
     Team loaded: <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.team.length"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> members
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p>These properties are reactive and update automatically as data loads or errors occur.</p>
+<hr>
+<h2 id="how-data-updates">How Data Updates</h2><p>The parts of the page that read <code>$x.team</code> follow only the <code>team</code> source. When one source updates, only the parts of the page that read it are refreshed — everything else is left alone.</p>
+<p>Rows keep their identity. When new data arrives for rows you already have, the existing rows are updated in place, so lists don't flicker and edits you are making are not disturbed. Fields you add to a row yourself (a <code>_pending</code> flag on a placeholder, say) survive too — the network never sends them, so nothing clears them for you; clear them explicitly once the real data has landed.</p>
+<p>Your own changes show immediately. Direct assignments and array mutations (and <code>$create</code>, <code>$update</code> and <code>$delete</code> on <a href="/docs/appwrite-plugins/cloud-data">cloud sources</a>) appear on the page at once, even while data is still arriving from the network.</p>
+<p>Network updates are batched. Many arriving at once are applied together, once per frame.</p>
+<p>If a source was loaded before, you see its cached rows immediately while fresh data loads. <code>$x.team.$stale</code> is <code>true</code> until the fresh data has landed, and <code>$x.team.$fresh</code> is a promise that resolves at that moment, for a single reveal. A reload keeps the rows on screen and merges the fresh data in place; a failed reload keeps the old rows and sets <code>$error</code>. Identical concurrent loads make one request.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$x.team.$stale"</span>&gt;</span>Refreshing…<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <hr>
 <h2 id="safe-async">Safe Async</h2><p>The <code>$try</code> magic wraps an async callback in try/catch and optionally routes the error message to a named property on the current <code>x-data</code> scope. Useful when calling cloud-data mutations or any other async operation that can fail.</p>
 <pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ saveError: null }"</span>&gt;</span>
@@ -1389,9 +1467,9 @@ $x.<span class="hljs-property">searchIndex</span>.$search(term, { <span class="h
       <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
 
       <div role="group" class="outlined rounded-full">
-        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h2"></button>
-        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h3"></button>
-        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h4"></button>
+        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h8"></button>
+        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h9"></button>
+        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h10"></button>
       </div>
     </div>
   </div>
@@ -1407,7 +1485,7 @@ $x.<span class="hljs-property">searchIndex</span>.$search(term, { <span class="h
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#create-local-data">Create Local Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#csv-formatting">CSV Formatting</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#register-local-data">Register Local Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#api-sources">API Sources</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#display-content">Display Content</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#text">Text</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#html">HTML</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#attributes">Attributes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#lists">Lists</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#search-query">Search &amp; Query</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#route-specific">Route-Specific</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#array-methods">Array Methods</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#state-properties">State Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#safe-async">Safe Async</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#create-local-data">Create Local Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#csv-formatting">CSV Formatting</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#register-local-data">Register Local Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#api-sources">API Sources</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#persisted-data">Persisted Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#display-content">Display Content</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#text">Text</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#html">HTML</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#attributes">Attributes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#lists">Lists</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#search-query">Search &amp; Query</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#route-specific">Route-Specific</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#array-methods">Array Methods</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#state-properties">State Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#how-data-updates">How Data Updates</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#safe-async">Safe Async</a></div>
 
   </nav>
 
@@ -1420,5 +1498,5 @@ $x.<span class="hljs-property">searchIndex</span>.$search(term, { <span class="h
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h3","attrs":{"type":null}},{"id":"h4","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h9","attrs":{"type":null}},{"id":"h10","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h11","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h12","attrs":{"type":null}},{"id":"h13","attrs":{"type":null}},{"id":"h14","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
 </body></html>

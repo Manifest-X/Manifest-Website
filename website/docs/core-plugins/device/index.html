@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>App Store Readiness — Manifest</title>
-  <meta name="description" content="Pass iOS App Review and ship an app that feels native, not web-in-a-box.">
+  <title>Device — Manifest</title>
+  <meta name="description" content="Share sheets, secure storage, deep links, push, lifecycle, haptics, biometrics and the camera as Alpine magics that fall back to the web.">
   <meta name="author" content="Andrew Matlock">
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
@@ -14,18 +14,18 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.js" data-version="0.5.194"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -44,8 +44,8 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="App Store Readiness — Manifest"><meta property="og:description" content="Pass iOS App Review and ship an app that feels native, not web-in-a-box."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/publishing/app-store-readiness"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-publishing-app-store-readiness.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="App Store Readiness — Manifest"><meta property="twitter:description" content="Pass iOS App Review and ship an app that feels native, not web-in-a-box."><meta property="twitter:image" content="/og/docs-publishing-app-store-readiness.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"App Store Readiness — Manifest","description":"Pass iOS App Review and ship an app that feels native, not web-in-a-box.","image":"/og/docs-publishing-app-store-readiness.png","url":"https://manifestx.dev/docs/publishing/app-store-readiness"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Publishing","item":"https://manifestx.dev/docs/publishing"},{"@type":"ListItem","position":4,"name":"App Store Readiness","item":"https://manifestx.dev/docs/publishing/app-store-readiness"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
-<link rel="canonical" href="https://manifestx.dev/docs/publishing/app-store-readiness">
+@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Device — Manifest"><meta property="og:description" content="Share sheets, secure storage, deep links, push, lifecycle, haptics, biometrics and the camera as Alpine magics that fall back to the web."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/device"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-core-plugins-device.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Device — Manifest"><meta property="twitter:description" content="Share sheets, secure storage, deep links, push, lifecycle, haptics, biometrics and the camera as Alpine magics that fall back to the web."><meta property="twitter:image" content="/og/docs-core-plugins-device.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Device — Manifest","description":"Share sheets, secure storage, deep links, push, lifecycle, haptics, biometrics and the camera as Alpine magics that fall back to the web.","image":"/og/docs-core-plugins-device.png","url":"https://manifestx.dev/docs/core-plugins/device"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Device","item":"https://manifestx.dev/docs/core-plugins/device"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/core-plugins/device">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
 <meta name="manifest:prerendered" content="1">
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -77,9 +77,9 @@
 
             <!-- Docs Breadcrumbs-->
             <small class="hidden sm:flex md:hidden truncate" x-route="/docs/*">
-                <span x-text="$x.docs.$route('path')?.group || 'No group'">Publishing</span>
+                <span x-text="$x.docs.$route('path')?.group || 'No group'">Core Plugins</span>
                 <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
-                <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'">App Store Readiness</span>
+                <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'">Device</span>
             </small>
 
         </div>
@@ -253,6 +253,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
                         <span x-icon="lucide:eye"></span>
                         <span>Accessibility</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/performance">
+                        <span x-icon="lucide:gauge"></span>
+                        <span>Performance</span>
                     </a>
             </div>
             <hr>
@@ -265,6 +268,15 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
                         <span x-icon="lucide:panels-top-left"></span>
                         <span>Components</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/computed">
+                        <span x-icon="lucide:sigma"></span>
+                        <span>Computed Values</span>
+                    </a><a role="button" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/core-plugins/device" aria-current="page">
+                        <span x-icon="lucide:smartphone"></span>
+                        <span>Device</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
+                        <span x-icon="lucide:pencil-ruler"></span>
+                        <span>Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
                         <span x-icon="lucide:download"></span>
                         <span>Export</span>
@@ -289,6 +301,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
                         <span x-icon="lucide:activity"></span>
                         <span>Status</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/text-edit">
+                        <span x-icon="lucide:pilcrow"></span>
+                        <span>Text Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
                         <span x-icon="lucide:ampersand"></span>
                         <span>URL Parameters</span>
@@ -346,12 +361,6 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
                         <span x-icon="lucide:monitor-smartphone"></span>
                         <span>Native Apps</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/publishing/app-store-readiness" aria-current="page">
-                        <span x-icon="lucide:dot"></span>
-                        <span>App Store Readiness</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-capabilities">
-                        <span x-icon="lucide:dot"></span>
-                        <span>Native Capabilities</span>
                     </a>
             </div>
             <hr>
@@ -531,6 +540,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:eye"></span>
               <span>Accessibility</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -543,6 +555,15 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/components" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:panels-top-left"></span>
               <span>Components</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" href="/docs/core-plugins/device" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Device</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:download"></span>
               <span>Export</span>
@@ -567,6 +588,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/status" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:activity"></span>
               <span>Status</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/text-edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Text Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/url-parameters" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:ampersand"></span>
               <span>URL Parameters</span>
@@ -624,12 +648,6 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:monitor-smartphone"></span>
               <span>Native Apps</span>
-            </a><a role="button" href="/docs/publishing/app-store-readiness" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>App Store Readiness</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-capabilities" class="ghost text-content-neutral justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>Native Capabilities</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -779,101 +797,327 @@
       <!-- Article -->
       <template x-if="article?.name">
         <span class="h6 mb-3" x-text="article?.group"></span>
-      </template><span class="h6 mb-3" x-text="article?.group" data-mnfst-prerender-clone="1">Publishing</span>
+      </template><span class="h6 mb-3" x-text="article?.group" data-mnfst-prerender-clone="1">Core Plugins</span>
       <template x-if="article?.name">
         <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="article?.doc"></div>
-      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="app-store-readiness">App Store Readiness</h1><p>Pass iOS App Review and ship an app that feels native, not web-in-a-box.</p>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="device">Device</h1><p>Share sheets, secure storage, deep links, push, lifecycle, haptics, biometrics and the camera as Alpine magics that fall back to the web.</p>
 <hr>
-<h2 id="overview">Overview</h2><p>Wrapping your Manifest app with <a href="/docs/publishing/native-apps">Capacitor</a> produces a valid iOS build — but a valid build is not an approved one. Apple reviews every iOS app by hand, and the bar that trips up wrapped web apps is <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2 (Minimum Functionality)</a>: an app must offer lasting value and native capability, not just "a repackaged website."</p>
-<p>Reviewers reject on two independent grounds, and you have to clear both:</p>
-<ul>
-<li><strong>It looks like a website.</strong> Browser chrome, a web-style hamburger menu, text that zooms on double-tap, a white flash on launch, a Safari-style loading bar — the tells reviewers scan for.</li>
-<li><strong>It does nothing a website couldn't.</strong> No use of the device: no biometrics, no push, no camera, no share sheet, no offline state.</li>
-</ul>
-<p>The rest of this guide is how to clear each, and a checklist to self-audit before you submit.</p>
+<h2 id="overview">Overview</h2><p>Each magic talks to Capacitor inside a Capacitor app and to a web equivalent, or an honest no-op, in a browser. The same markup runs as a website, an installed PWA and a packaged app.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$device.online ? 'Online' : 'Offline'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$device.standalone ? 'Installed' : 'In a browser tab'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$device.os"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre>
+<aside class="frame"><div class="row-wrap gap-2">
+    <span class="badge" x-text="$device.online ? 'Online' : 'Offline'">Online</span>
+    <span class="badge" x-text="$device.standalone ? 'Installed' : 'In a browser tab'">In a browser tab</span>
+    <span class="badge" x-text="$device.os || 'unknown os'">macos</span>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
 <hr>
-<h2 id="feel-native">Feel native</h2><p>Remove the giveaways that mark an app as a wrapped web page:</p>
-<ul>
-<li><strong>Fill the screen correctly.</strong> Handle the notch, Dynamic Island, and home indicator with safe-area insets, and set the viewport to cover the full display. Content should sit inside the safe area; backgrounds should extend under it.</li>
-<li><strong>Drop the browser chrome.</strong> No address-bar affordances, no web hamburger nav. Use a native-style bottom tab bar for primary navigation.</li>
-<li><strong>Suppress web behaviors.</strong> Turn off double-tap-to-zoom, the long-press callout menu, and accidental text selection on tappable UI. Keep momentum scrolling, but stop the rubber-band overscroll that reveals a web view.</li>
-<li><strong>Configure the status bar and splash screen.</strong> A branded splash and a status-bar style that matches your theme replace the white launch flash.</li>
-</ul>
-<p>Manifest provides these as an agnostic style-and-meta layer — safe-area insets, full-screen viewport, and opt-in web-tell suppression — that also improves the mobile web build, so you're not maintaining a separate native layout.</p>
+<h2 id="setup">Setup</h2><p>Device is opt-in. It loads on its own when a page uses one of its magics, when <code>manifest.json</code> has a <code>device</code> block, or inside a Capacitor app. The <code>+</code> prefix keeps the default plugins and adds it explicitly. <code>native</code> still works as an alias in both places.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="script-tag-tab-0" aria-selected="true" tabindex="0">Script Tag</button><button type="button" role="tab" id="manifest.json-tab-1" aria-selected="false" tabindex="-1">manifest.json</button></div></header>
+
+<pre x-code="html" name="Script Tag" data-code-block-built="yes" aria-label="Script Tag" role="tabpanel" data-code-processed="yes" id="script-tag-panel-0" aria-labelledby="script-tag-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+    <span class="hljs-attr">data-plugins</span>=<span class="hljs-string">"+device"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre x-code="json" name="manifest.json" data-code-block-built="yes" aria-label="manifest.json" role="tabpanel" data-code-processed="yes" id="manifest.json-panel-1" aria-labelledby="manifest.json-tab-1" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"device"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Capacitor plugins are read from <code>window.Capacitor.Plugins</code>. Install the ones you use when <a href="/docs/publishing/native-apps">packaging the app</a>.</p>
 <hr>
-<h2 id="add-genuine-native-capability">Add genuine native capability</h2><p>Guideline 4.2 wants the app to do something a browser tab can't. You don't need all of these — one or two done well is enough — but include at least one real device integration:</p>
-<ul>
-<li><strong>Biometric auth (Face ID / Touch ID)</strong> — the single easiest "this is native" win; gate sign-in or a sensitive action behind it.</li>
-<li><strong>Push notifications (APNs)</strong> — genuine re-engagement a website can't match.</li>
-<li><strong>Haptics</strong> — tactile feedback on key actions.</li>
-<li><strong>Native share sheet</strong> — share content through the OS, not a web fallback.</li>
-<li><strong>Camera / photos</strong> — capture or pick media.</li>
-<li><strong>Deep links / universal links</strong> — open the app to a specific screen from a URL.</li>
-</ul>
-<p>Manifest exposes these as opt-in capability plugins with Alpine-friendly attributes, so you add them without writing Swift, and each one no-ops gracefully on the web build.</p>
+<h2 id="device">$device</h2><p><code>$device</code> is part of the core utilities and always available. This plugin only adds Capacitor's network and platform readings to it.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$device.os</code></td>
+<td><code>macos</code>, <code>windows</code>, <code>linux</code>, <code>ios</code>, <code>android</code></td>
+</tr>
+<tr>
+<td><code>$device.platform</code></td>
+<td><code>web</code>, <code>ios</code>, <code>android</code>: the container, not the OS</td>
+</tr>
+<tr>
+<td><code>$device.online</code></td>
+<td>Connectivity, reactive</td>
+</tr>
+<tr>
+<td><code>$device.standalone</code></td>
+<td>Installed as a PWA</td>
+</tr>
+<tr>
+<td><code>$device.native</code></td>
+<td>Inside a Capacitor app</td>
+</tr>
+<tr>
+<td><code>$device.touch</code></td>
+<td>Coarse pointer</td>
+</tr>
+</tbody></table>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!$device.online"</span>&gt;</span>You're offline. Changes sync when you're back.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$device.native"</span>&gt;</span>Pay with Face ID<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!$device.native"</span>&gt;</span>Pay<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<aside class="frame"><div class="col gap-3 w-full">
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        <div class="row gap-2 justify-between px-3 py-2 rounded-lg bg-surface-2">
+                <small class="text-content-subtle">os</small>
+                <code>macos</code>
+            </div><div class="row gap-2 justify-between px-3 py-2 rounded-lg bg-surface-2">
+                <small class="text-content-subtle">platform</small>
+                <code>web</code>
+            </div><div class="row gap-2 justify-between px-3 py-2 rounded-lg bg-surface-2">
+                <small class="text-content-subtle">online</small>
+                <code>true</code>
+            </div><div class="row gap-2 justify-between px-3 py-2 rounded-lg bg-surface-2">
+                <small class="text-content-subtle">standalone</small>
+                <code>false</code>
+            </div><div class="row gap-2 justify-between px-3 py-2 rounded-lg bg-surface-2">
+                <small class="text-content-subtle">native</small>
+                <code>false</code>
+            </div><div class="row gap-2 justify-between px-3 py-2 rounded-lg bg-surface-2">
+                <small class="text-content-subtle">touch</small>
+                <code>false</code>
+            </div>
+    </div>
+    <small class="text-content-subtle">Turn your connection off and on: <code>online</code> follows it.</small>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The same state is stamped on <code>&lt;html&gt;</code> as <code>data-os</code>, <code>data-platform</code>, <code>data-online</code>, <code>data-standalone</code> and <code>data-native</code>, which drive the <code>.native-only</code>, <code>.web-only</code>, <code>.offline-only</code>, <code>.online-only</code> and <code>.standalone-only</code> classes and the <a href="/docs/styles/utilities#operating-system">OS classes</a>.</p>
 <hr>
-<h2 id="payments-physical-vs-digital">Payments: physical vs digital</h2><p>Getting this boundary wrong is a common, avoidable rejection. Apple treats two kinds of purchase very differently:</p>
-<ul>
-<li><strong>Physical goods and services</strong> (real-world products, shipped items, in-person services) — allowed through your own processor. You can take payment with Apple Pay or a card via Stripe and similar, right inside the app, with no In-App Purchase and no link-out gymnastics. This is <a href="https://developer.apple.com/app-store/review/guidelines/#payments" target="_blank">Guideline 3.1.3(e)</a>.</li>
-<li><strong>Digital goods and subscriptions</strong> (unlockable content, in-app credits, digital memberships consumed in the app) — generally <strong>must</strong> use Apple's In-App Purchase under <a href="https://developer.apple.com/app-store/review/guidelines/#in-app-purchase" target="_blank">Guideline 3.1.1</a>, which takes Apple's commission. Routing these through a third-party processor to avoid IAP is a direct rejection.</li>
-</ul>
-<aside class="brand"><span x-icon="lucide:info"></span><p><strong>Don't cross the streams.</strong> A Manifest app can sell physical goods in-app through the <a href="/docs/core-plugins/payments">Payments plugin</a> with a normal processor, but must not push a digital subscription through that same processor on iOS. If you sell both, take physical payment natively and keep digital billing on the web, outside the app.</p>
-</aside>
-<p>Following the 2021–2024 <em>Epic v. Apple</em> rulings, US apps have some latitude to link out to an external website for digital purchases. It's narrow and evolving — if your app depends on it, read the current guidelines closely and treat physical-in-app / digital-on-web as the safe default.</p>
+<h2 id="share">$share</h2><p><code>$share()</code> opens the native share sheet inside a Capacitor app (<code>Share</code>) and the Web Share sheet in a browser. Without Web Share it copies the URL, or the text, to the clipboard. It resolves <code>{ shared, method, cancelled? }</code>; <code>method</code> is <code>native</code>, <code>web</code>, <code>clipboard</code> or <code>none</code>.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$share({ title: 'Manifest', text: 'Supercharged HTML', url: 'https://manifestx.dev' })"</span>&gt;</span>Share<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false, r: null }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<template x-if="ready">
+<div class="row-wrap gap-3 center">
+    <button class="hug" @click="r = await $share({ title: 'Manifest', text: 'Supercharged HTML', url: 'https://manifestx.dev' })">Share</button>
+    <small class="text-content-subtle" x-text="!r ? 'Share sheet, or the clipboard where there is none.' : r.shared ? 'Shared via ' + r.method : r.cancelled ? 'Cancelled' : 'Not shared'"></small>
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
 <hr>
-<h2 id="declare-your-privacy-manifest">Declare your privacy manifest</h2><p>Since 2024, Apple requires a <strong>privacy manifest</strong> (<code>PrivacyInfo.xcprivacy</code>) in the app bundle, and this catches teams off guard at submission — it's a compliance gate, not an optional nicety.</p>
-<ul>
-<li><strong>Data collection.</strong> Declare every category of data your app collects (email, purchases, identifiers, usage) and whether it's linked to the user or used for tracking. This must match your App Store privacy "nutrition label."</li>
-<li><strong>Required-reason APIs.</strong> A handful of common APIs (file timestamps, disk space, user defaults, system boot time) require a declared reason code. Native wrappers and third-party SDKs touch these.</li>
-<li><strong>Third-party SDKs.</strong> Capacitor and its plugins are covered SDKs — they ship their own privacy manifests, and the ones you add (push, camera, biometric) may declare data types you must reflect in your app's disclosures. Audit the plugins you include.</li>
-</ul>
-<aside class="brand"><span x-icon="lucide:info"></span><p>Apple emails a warning and can reject the build if a privacy manifest is missing or inconsistent with your data-collection disclosures. Sort this before your first upload, not after a rejection.</p>
-</aside>
+<h2 id="camera">$camera</h2><p><code>photo()</code> captures and <code>pick()</code> chooses from the library (<code>Camera</code>). Both resolve <code>{ dataUrl, format }</code>, or <code>{ cancelled: true }</code>. On the web both open a file picker; on a phone <code>photo()</code> asks for the camera.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ shot: null }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"shot = await $camera.photo()"</span>&gt;</span>Take a photo<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"shot?.dataUrl"</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">"shot?.dataUrl"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">""</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false, shot: null }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<template x-if="ready">
+<div class="col gap-3 w-full">
+    <div class="row-wrap gap-2 center">
+        <button class="hug" @click="shot = await $camera.photo()">Take a photo</button>
+        <button class="hug" @click="shot = await $camera.pick()">Pick from library</button>
+        <small class="text-content-subtle" x-text="!shot ? 'A file picker in this browser.' : shot.dataUrl ? 'Got a ' + shot.format : 'Cancelled'"></small>
+    </div>
+    <img x-show="shot?.dataUrl" :src="shot?.dataUrl" alt="" class="max-h-48 w-auto self-start rounded-lg">
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
 <hr>
-<h2 id="never-show-a-white-screen">Never show a white screen</h2><p>An app that launches to a blank page or a browser error when offline reads as a broken web wrapper. A Capacitor app serves its shell from the local bundle, so the interface loads without a network — make sure an offline launch renders a branded state and a clear "you're offline" message rather than a spinner that never resolves or empty templates waiting on data that isn't coming.</p>
+<h2 id="app">$app</h2><p><code>$app.active</code> is <code>true</code> in the foreground. Capacitor reports <code>appStateChange</code> (<code>App</code>); the web uses <code>visibilitychange</code>, <code>pageshow</code> and <code>pagehide</code>. <code>$app.onChange(fn)</code> runs on each transition.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ away: 0 }"</span> <span class="hljs-attr">x-init</span>=<span class="hljs-string">"$app.onChange(active =&gt; { if (!active) away++ })"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$app.active ? 'Active' : 'In the background'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"away + ' times away'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false, away: 0 }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<template x-if="ready">
+<div class="row-wrap gap-3 center" x-init="$app.onChange(active =&gt; { if (!active) away++ })">
+    <span class="badge" x-text="$app.active ? 'Active' : 'In the background'"></span>
+    <code x-text="away + ' times away'"></code>
+    <small class="text-content-subtle">Switch tabs and come back.</small>
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
 <hr>
-<h2 id="the-4-2-checklist">The 4.2 checklist</h2><p>Self-audit before you submit. Every box should be checked.</p>
-<p><strong>Native feel</strong></p>
-<ul>
-<li><input type="checkbox"> Safe-area insets handled — no content under the notch, Dynamic Island, or home indicator</li>
-<li><input type="checkbox"> Viewport covers the full screen; backgrounds extend edge to edge</li>
-<li><input type="checkbox"> No browser chrome, address bar, or web-style hamburger navigation</li>
-<li><input type="checkbox"> Primary navigation uses a native-style tab bar or equivalent</li>
-<li><input type="checkbox"> Double-tap zoom, long-press callout, and stray text selection are suppressed on UI</li>
-<li><input type="checkbox"> No rubber-band overscroll revealing the web view</li>
-<li><input type="checkbox"> Branded splash screen and themed status bar — no white launch flash</li>
-</ul>
-<p><strong>Genuine native capability</strong></p>
-<ul>
-<li><input type="checkbox"> At least one real device integration (Face ID, push, camera, haptics, or share) is present and works</li>
-<li><input type="checkbox"> The app delivers value beyond what your website already does in a browser</li>
-</ul>
-<p><strong>Offline &amp; resilience</strong></p>
-<ul>
-<li><input type="checkbox"> Launching offline shows a branded state, never a white screen or browser error</li>
-<li><input type="checkbox"> The app doesn't hang on network data that may not arrive</li>
-</ul>
-<p><strong>Payments</strong></p>
-<ul>
-<li><input type="checkbox"> Physical goods use a normal processor (Apple Pay / card) — not forced through IAP</li>
-<li><input type="checkbox"> Digital goods and subscriptions use In-App Purchase, or are billed on the web outside the app</li>
-<li><input type="checkbox"> No third-party processor handles digital purchases inside the app</li>
-</ul>
-<p><strong>Privacy &amp; compliance</strong></p>
-<ul>
-<li><input type="checkbox"> <code>PrivacyInfo.xcprivacy</code> present and lists every data category the app collects</li>
-<li><input type="checkbox"> Required-reason API codes declared for the app and its plugins</li>
-<li><input type="checkbox"> App Store privacy "nutrition label" matches the manifest and actual data use</li>
-<li><input type="checkbox"> Third-party SDK / Capacitor plugin privacy manifests audited</li>
-</ul>
-<p><strong>Submission</strong></p>
-<ul>
-<li><input type="checkbox"> Store listing, screenshots, and description reflect a native app, not a website</li>
-<li><input type="checkbox"> A working demo account (if sign-in is required) is provided in review notes</li>
-<li><input type="checkbox"> Review notes point out the native features so the reviewer finds them</li>
-</ul>
+<h2 id="secure">$secure</h2><p>Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore through a plugin registered as <code>SecureStorage</code>. On the web it is <code>localStorage</code> under an <code>mnfst:</code> prefix, which is not encrypted. <code>get()</code> resolves a string or <code>null</code>.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ value: null }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"await $secure.set('token', 'abc123')"</span>&gt;</span>Set<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"value = await $secure.get('token')"</span>&gt;</span>Get<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"await $secure.remove('token'); value = null"</span>&gt;</span>Remove<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"JSON.stringify(value)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false, value: null }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<template x-if="ready">
+<div class="row-wrap gap-2 center">
+    <button class="hug" @click="await $secure.set('token', 'abc123'); value = await $secure.get('token')">Set</button>
+    <button class="hug" @click="value = await $secure.get('token')">Get</button>
+    <button class="hug" @click="await $secure.remove('token'); value = await $secure.get('token')">Remove</button>
+    <code x-text="'token: ' + JSON.stringify(value)"></code>
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p><code>keys()</code> lists stored keys and <code>clear()</code> removes them all. If your plugin's method names differ, hand it over once with <code>$secure.use(adapter)</code>.</p>
 <hr>
-<h2 id="submit">Submit</h2><p>Build with <a href="/docs/publishing/native-apps">Capacitor</a>, sign and upload through <a href="https://appstoreconnect.apple.com" target="_blank">App Store Connect</a>, and distribute the beta through TestFlight first. In the review notes, name the native capabilities you added and how to reach them — reviewers look for genuine native integration, and pointing them straight at it is the fastest way through 4.2.</p>
+<h2 id="haptics">$haptics</h2><p><code>impact()</code>, <code>notification()</code> and <code>selection()</code> map to Capacitor <code>Haptics</code>. The web falls back to <code>navigator.vibrate</code>, which desktop browsers and iOS Safari ignore.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$haptics.impact('LIGHT')"</span>&gt;</span>Light<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$haptics.impact('HEAVY')"</span>&gt;</span>Heavy<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$haptics.notification('SUCCESS')"</span>&gt;</span>Success<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false, last: '' }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<template x-if="ready">
+<div class="row-wrap gap-2 center">
+    <button class="hug" @click="$haptics.impact('LIGHT'); last = 'impact LIGHT'">Light</button>
+    <button class="hug" @click="$haptics.impact('HEAVY'); last = 'impact HEAVY'">Heavy</button>
+    <button class="hug" @click="$haptics.notification('SUCCESS'); last = 'notification SUCCESS'">Success</button>
+    <small class="text-content-subtle" x-text="(last ? last + '. ' : '') + ($device.touch ? 'A short buzz on Android; iOS Safari stays silent.' : 'No feedback on a desktop browser.')"></small>
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p><code>impact</code> takes <code>LIGHT</code>, <code>MEDIUM</code> (default) or <code>HEAVY</code>; <code>notification</code> takes <code>SUCCESS</code> (default), <code>WARNING</code> or <code>ERROR</code>. <code>vibrate(ms)</code> is a plain buzz.</p>
+<hr>
+<h2 id="links">$links</h2><p>Inside a Capacitor app (<code>App</code>) a tapped universal link like <code>https://app.example.com/order/123</code>, or a custom scheme like <code>myapp://order/123</code>, is routed to <code>/order/123</code> through the <a href="/docs/core-plugins/router">router</a>. <code>$links.open(url)</code> runs the same path by hand; <code>$links.last</code> keeps the latest inbound URL.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$links.open('myapp://docs/core-plugins/device')"</span>&gt;</span>Open a deep link<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$links.last"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<template x-if="ready">
+<div class="row-wrap gap-3 center">
+    <button class="hug" @click="$links.open('myapp://docs/core-plugins/device')">Open a deep link</button>
+    <code x-text="'last: ' + ($links.last || 'none')"></code>
+    <small class="text-content-subtle">The scheme maps to this page's route.</small>
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p><code>$links.on(fn)</code> replaces the default routing; <code>fn</code> receives <code>{ url, path }</code>.</p>
+<hr>
+<h2 id="push">$push</h2><p><code>$push.permission</code> is <code>prompt</code>, <code>granted</code>, <code>denied</code> or <code>unsupported</code>. Nothing is asked until you call <code>$push.request()</code>, which prompts and resolves the new state.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$push.permission"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$push.request()"</span>&gt;</span>Enable notifications<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<template x-if="ready">
+<div class="row-wrap gap-3 center">
+    <code x-text="'permission: ' + $push.permission"></code>
+    <button class="hug" @click="$push.request()">Enable notifications</button>
+    <small class="text-content-subtle">Opens the browser's permission prompt.</small>
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Inside a Capacitor app (<code>PushNotifications</code>), <code>register()</code> registers with APNs or FCM, <code>onToken(fn)</code> receives the device token for your backend, <code>onReceive(fn)</code> fires in the foreground, and a tapped notification routes to its <code>url</code> or <code>route</code> unless <code>onTap(fn)</code> takes over. On the web, permission maps to the Notification API; <code>register()</code> is a no-op and <code>token</code> stays <code>null</code>.</p>
+<hr>
+<h2 id="biometric">$biometric</h2><p><code>available()</code> resolves <code>true</code> when a Capacitor biometric plugin (<code>BiometricAuth</code> or <code>NativeBiometric</code>) reports Face ID or Touch ID. <code>verify({ reason })</code> resolves <code>{ verified: true }</code>, or <code>{ verified: false, error }</code>. The web has no equivalent: <code>available()</code> is <code>false</code> and <code>verify()</code> reports <code>unsupported</code>.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ can: null }"</span> <span class="hljs-attr">x-init</span>=<span class="hljs-string">"can = await $biometric.available()"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"can"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$biometric.verify({ reason: 'Confirm payment' })"</span>&gt;</span>Pay with Face ID<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"can === false"</span>&gt;</span>Biometrics are not available here.<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false, can: null, r: null }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<template x-if="ready">
+<div class="row-wrap gap-3 center" x-init="can = await $biometric.available()">
+    <code x-text="'available: ' + String(can)"></code>
+    <button class="hug" @click="r = await $biometric.verify({ reason: 'Confirm payment' })">Verify</button>
+    <small class="text-content-subtle" x-text="r ? (r.verified ? 'Verified' : 'verify() returned ' + JSON.stringify(r)) : 'Not available in a browser.'"></small>
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="reference">Reference</h2><table>
+<thead>
+<tr>
+<th>Magic</th>
+<th>API</th>
+<th>Web</th>
+<th>Capacitor</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$device</code></td>
+<td><code>os</code>, <code>platform</code>, <code>online</code>, <code>standalone</code>, <code>native</code>, <code>touch</code></td>
+<td>Always on (core)</td>
+<td><code>Network</code></td>
+</tr>
+<tr>
+<td><code>$share(opts)</code></td>
+<td><code>{ shared, method, cancelled? }</code></td>
+<td>Web Share, then clipboard</td>
+<td><code>Share</code></td>
+</tr>
+<tr>
+<td><code>$camera</code></td>
+<td><code>photo()</code>, <code>pick()</code></td>
+<td>File picker</td>
+<td><code>Camera</code></td>
+</tr>
+<tr>
+<td><code>$app</code></td>
+<td><code>active</code>, <code>onChange(fn)</code></td>
+<td>Page visibility</td>
+<td><code>App</code></td>
+</tr>
+<tr>
+<td><code>$secure</code></td>
+<td><code>get</code>, <code>set</code>, <code>remove</code>, <code>keys</code>, <code>clear</code>, <code>use(adapter)</code></td>
+<td>Prefixed <code>localStorage</code></td>
+<td><code>SecureStorage</code></td>
+</tr>
+<tr>
+<td><code>$haptics</code></td>
+<td><code>impact</code>, <code>notification</code>, <code>selection</code>, <code>vibrate</code></td>
+<td><code>navigator.vibrate</code></td>
+<td><code>Haptics</code></td>
+</tr>
+<tr>
+<td><code>$links</code></td>
+<td><code>open(url)</code>, <code>on(fn)</code>, <code>last</code></td>
+<td><code>open()</code> only</td>
+<td><code>App</code></td>
+</tr>
+<tr>
+<td><code>$push</code></td>
+<td><code>permission</code>, <code>token</code>, <code>request</code>, <code>register</code>, <code>onToken</code>, <code>onReceive</code>, <code>onTap</code></td>
+<td>Permission only</td>
+<td><code>PushNotifications</code></td>
+</tr>
+<tr>
+<td><code>$biometric</code></td>
+<td><code>available()</code>, <code>verify(opts)</code></td>
+<td><code>false</code> / <code>unsupported</code></td>
+<td><code>BiometricAuth</code>, <code>NativeBiometric</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="related">Related</h2><ul>
+<li><a href="/docs/publishing/native-apps">Native Apps</a> — packaging with Capacitor</li>
+<li><a href="/docs/core-plugins/router">Router</a> — where deep links and notification taps land</li>
+<li><a href="/docs/styles/utilities#operating-system">Utilities</a> — OS classes and variants</li>
+</ul>
 </div>
 
       <!-- Docs home -->
@@ -938,9 +1182,9 @@
       <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
 
       <div role="group" class="outlined rounded-full">
-        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h2"></button>
-        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h3"></button>
-        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h4"></button>
+        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h8"></button>
+        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h9"></button>
+        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h10"></button>
       </div>
     </div>
   </div>
@@ -956,7 +1200,7 @@
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#feel-native">Feel native</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#add-genuine-native-capability">Add genuine native capability</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#payments-physical-vs-digital">Payments: physical vs digital</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#declare-your-privacy-manifest">Declare your privacy manifest</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#never-show-a-white-screen">Never show a white screen</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#the-4-2-checklist">The 4.2 checklist</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#submit">Submit</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#device">$device</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#share">$share</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#camera">$camera</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#app">$app</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#secure">$secure</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#haptics">$haptics</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#links">$links</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#push">$push</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#biometric">$biometric</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#reference">Reference</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#related">Related</a></div>
 
   </nav>
 
@@ -969,5 +1213,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h3","attrs":{"type":null}},{"id":"h4","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h9","attrs":{"type":null}},{"id":"h10","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h11","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h12","attrs":{"type":null}},{"id":"h13","attrs":{"type":null}},{"id":"h14","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
 </body></html>

@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" data-online="true" data-os="macos" dir="auto"><head>
+  <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Text Edit — Manifest</title>
+  <meta name="description" content="A rich text editor built from your own markup, storing markdown.">
+  <meta name="author" content="Andrew Matlock">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="google" content="notranslate">
+  <link rel="icon" href="../../../favicon.ico" sizes="any">
+  <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
+
+  <!-- Web App & Manifest -->
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../../../manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="../../../manifest.theme.css">
+
+  <!-- Scripts -->
+  <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
+  <script src="../../../scripts/payments-demo.js" defer=""></script>
+  <script src="../../../scripts/hero-editor.js" defer=""></script>
+  <script src="../../../scripts/console-message.js" defer=""></script>
+  <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
+
+<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+@custom-variant cursor (@media (pointer: fine) and (hover: hover));
+@custom-variant pointer (@media (any-pointer: fine));
+@custom-variant mac (&:where([data-os="macos"] *));
+@custom-variant windows (&:where([data-os="windows"] *));
+@custom-variant linux (&:where([data-os="linux"] *));
+@custom-variant ios (&:where([data-os="ios"] *));
+@custom-variant android (&:where([data-os="android"] *));
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));
+@custom-variant online (&:where([data-online="true"] *));
+@custom-variant offline (&:where([data-online="false"] *));
+@custom-variant standalone (&:where([data-standalone] *));
+@custom-variant native (&:where([data-native] *));
+@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Text Edit — Manifest"><meta property="og:description" content="A rich text editor built from your own markup, storing markdown."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/text-edit"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-core-plugins-text-edit.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Text Edit — Manifest"><meta property="twitter:description" content="A rich text editor built from your own markup, storing markdown."><meta property="twitter:image" content="/og/docs-core-plugins-text-edit.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Text Edit — Manifest","description":"A rich text editor built from your own markup, storing markdown.","image":"/og/docs-core-plugins-text-edit.png","url":"https://manifestx.dev/docs/core-plugins/text-edit"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Text Edit","item":"https://manifestx.dev/docs/core-plugins/text-edit"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/core-plugins/text-edit">
+<meta name="manifest:router-base" content="">
+<meta name="manifest:prerender-locales" content="en">
+<meta name="manifest:prerendered" content="1">
+<meta name="manifest:router-base-depth" content="3">
+</head>
+
+<body x-data="{
+  init() {
+    const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
+    document.documentElement.setAttribute('dir', savedDirection);
+  }
+}" class="bg-surface-1">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
+
+  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
+
+    <!-- Content Area -->
+    <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+
+        <!-- Start -->
+        <div class="row items-center gap-3">
+
+            <!-- Logo -->
+            <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
+                <span class="hidden md:flex">{Manifest}</span>
+                <span class="md:hidden">{M}</span>
+            </a>
+
+            <!-- Docs Breadcrumbs-->
+            <small class="hidden sm:flex md:hidden truncate" x-route="/docs/*">
+                <span x-text="$x.docs.$route('path')?.group || 'No group'">Core Plugins</span>
+                <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
+                <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'">Text Edit</span>
+            </small>
+
+        </div>
+
+        <!-- Middle -->
+        
+        <div x-route="!/"></div>
+
+        <!-- End -->
+        <div class="row justify-end items-center gap-2">
+
+            <!-- CTAs -->
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full" aria-label="Search docs">
+                <span x-icon="lucide:search"></span>
+                <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
+            </button>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" class="sm transparent outlined rounded-full"><span x-icon="meteor-icons:github"></span><span>GitHub</span></a>
+            <a role="button" href="/docs/getting-started/introduction" class="sm accent rounded-full">Docs</a>
+
+            <!-- Mobile Sidebar Button -->
+            <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
+
+        </div>
+
+    </nav>
+
+</header>
+  <div x-data="{
+        base: null ?? '/docs',
+        src: null ?? 'docs',
+        q: '',
+        items: [],
+        ready: false,
+        loading: false,
+        active: 0,
+
+        // Fetch every article's markdown once, on first open; index title, description, headings, body.
+        async build() {
+            if (this.ready || this.loading) return;
+            this.loading = true;
+            for (let i = 0; i &lt; 20 &amp;&amp; (!$x[this.src] || !$x[this.src].length); i++) await new Promise(r =&gt; setTimeout(r, 100));
+            const jobs = [];
+            for (const g of ($x[this.src] || [])) {
+                for (const it of (g.items || [])) {
+                    if (!it.name || !it.doc) continue;
+                    const href = this.base + '/' + g.slug + '/' + it.path;
+                    jobs.push(fetch(it.doc)
+                        .then(r =&gt; r.ok ? r.text() : '')
+                        .catch(() =&gt; '')
+                        .then(md =&gt; {
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/&lt;[^&gt;]+&gt;/g, '').replace(/[*_`\[\]]/g, '').trim();
+                            const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
+                            const body = md
+                                .replace(/```[\s\S]*?```/g, ' ')
+                                .replace(/:::[^\n]*/g, ' ')
+                                .replace(/&lt;[^&gt;]+&gt;/g, ' ')
+                                .replace(/[#&gt;*_`\[\]()|]/g, ' ')
+                                .replace(/-{2,}/g, ' ')
+                                .replace(/\s+/g, ' ');
+                            this.items.push({
+                                name: it.name, group: g.group, icon: it.icon, href, desc,
+                                headings,
+                                hhay: headings.join(' · ').toLowerCase(),
+                                body, bhay: body.toLowerCase(),
+                            });
+                        }));
+                }
+            }
+            await Promise.all(jobs);
+            $x.$register('searchIndex', this.items);
+            this.ready = true;
+            this.loading = false;
+        },
+
+        results() {
+            const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
+            return ranked.slice(0, 20).map(it =&gt; ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i &gt; -1) return (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
+            }
+            return it.desc;
+        },
+
+        openDialog() { document.getElementById('docs-search')?.showPopover(); },
+        // The router swallows result clicks before element handlers run, so the
+        // dialog closes on the route-change event rather than the click itself.
+        closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
+        async onToggle(e) {
+            if (e.newState !== 'open') return;
+            this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() =&gt; { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
+        },
+        move(d) {
+            const n = this.results().length;
+            if (!n) return;
+            this.active = (this.active + d + n) % n;
+            this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
+        },
+        go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+
+        <!-- Query -->
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
+
+        <!-- Results -->
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
+            <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
+            <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
+                No matches for “<span x-text="q.trim()"></span>”.
+            </p>
+            <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i">
+                    <a :href="r.href" role="button" :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'" class="ghost justify-start w-full h-auto py-2 no-underline">
+                        <span class="col gap-0.5 min-w-0 grow text-left">
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <span class="text-content-subtle font-normal">·</span>
+                                <small class="text-content-subtle font-normal" x-text="r.group"></small>
+                            </span>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
+                        </span>
+                    </a>
+                </div>
+            </template>
+            
+        </div>
+
+    </dialog>
+</div>
+  <nav aria-label="Documentation" data-static="" popover="" id="docs-nav" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 shadow-xl overflow-y-auto no-scrollbar" x-data="{
+        base: null ?? '/docs',
+        src: null ?? 'docs',
+        get groups() { return $x[this.src] || [] },
+        get article() { return $x[this.src].$route('path') },
+    }" @manifest:route-change.window="$el.hidePopover()" data-component="docs-nav-1" data-order="3">
+    <div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Getting Started</small>
+            <div class="col">
+                <a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/introduction">
+                        <span x-icon="lucide:book-open"></span>
+                        <span>Introduction</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/setup">
+                        <span x-icon="lucide:terminal"></span>
+                        <span>Setup</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/starter-project">
+                        <span x-icon="lucide:package"></span>
+                        <span>Starter Project</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/compatibility">
+                        <span x-icon="lucide:globe-lock"></span>
+                        <span>Compatibility</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
+                        <span x-icon="lucide:eye"></span>
+                        <span>Accessibility</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/performance">
+                        <span x-icon="lucide:gauge"></span>
+                        <span>Performance</span>
+                    </a>
+            </div>
+            <hr>
+        </div><div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Core Plugins</small>
+            <div class="col">
+                <a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/chat">
+                        <span x-icon="lucide:message-square"></span>
+                        <span>Chat</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
+                        <span x-icon="lucide:panels-top-left"></span>
+                        <span>Components</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/computed">
+                        <span x-icon="lucide:sigma"></span>
+                        <span>Computed Values</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/device">
+                        <span x-icon="lucide:smartphone"></span>
+                        <span>Device</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
+                        <span x-icon="lucide:pencil-ruler"></span>
+                        <span>Edit</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
+                        <span x-icon="lucide:download"></span>
+                        <span>Export</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/local-data">
+                        <span x-icon="lucide:list-tree"></span>
+                        <span>Local Data</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/localization">
+                        <span x-icon="lucide:languages"></span>
+                        <span>Localization</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/markdown">
+                        <span x-icon="lucide:square-m"></span>
+                        <span>Markdown</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
+                        <span x-icon="lucide:credit-card"></span>
+                        <span>Payments</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
+                        <span x-icon="lucide:panel-right-open"></span>
+                        <span>Resize</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
+                        <span x-icon="lucide:route"></span>
+                        <span>Router</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
+                        <span x-icon="lucide:activity"></span>
+                        <span>Status</span>
+                    </a><a role="button" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/core-plugins/text-edit" aria-current="page">
+                        <span x-icon="lucide:pilcrow"></span>
+                        <span>Text Edit</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
+                        <span x-icon="lucide:ampersand"></span>
+                        <span>URL Parameters</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/virtual">
+                        <span x-icon="lucide:list-chevrons-up-down"></span>
+                        <span>Virtual</span>
+                    </a>
+            </div>
+            <hr>
+        </div><div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Appwrite Plugins</small>
+            <div class="col">
+                <a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/appwrite-setup">
+                        <span x-icon="simple-icons:appwrite"></span>
+                        <span>Appwrite Setup</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/auth">
+                        <span x-icon="lucide:users"></span>
+                        <span>Auth</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/users">
+                        <span x-icon="lucide:dot"></span>
+                        <span>Users</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/teams">
+                        <span x-icon="lucide:dot"></span>
+                        <span>Teams</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/cloud-data">
+                        <span x-icon="lucide:database"></span>
+                        <span>Cloud Data</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/databases">
+                        <span x-icon="lucide:dot"></span>
+                        <span>Databases</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/storage">
+                        <span x-icon="lucide:dot"></span>
+                        <span>Storage</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/presence">
+                        <span x-icon="lucide:radio-tower"></span>
+                        <span>Presence</span>
+                    </a>
+            </div>
+            <hr>
+        </div><div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Publishing</small>
+            <div class="col">
+                <a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/testing">
+                        <span x-icon="lucide:circle-check"></span>
+                        <span>Testing</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/websites">
+                        <span x-icon="lucide:globe"></span>
+                        <span>Websites</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/seo-aeo">
+                        <span x-icon="lucide:dot"></span>
+                        <span>SEO &amp; AEO</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/web-apps">
+                        <span x-icon="lucide:app-window"></span>
+                        <span>Web Apps</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
+                        <span x-icon="lucide:monitor-smartphone"></span>
+                        <span>Native Apps</span>
+                    </a>
+            </div>
+            <hr>
+        </div><div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Styles</small>
+            <div class="col">
+                <a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/reset">
+                        <span x-icon="lucide:scale"></span>
+                        <span>Reset</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/theme">
+                        <span x-icon="lucide:paint-bucket"></span>
+                        <span>Theme</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/color-modes">
+                        <span x-icon="lucide:sun-moon"></span>
+                        <span>Color Modes</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/utilities">
+                        <span x-icon="lucide:swatch-book"></span>
+                        <span>Utilities</span>
+                    </a>
+            </div>
+            <hr>
+        </div><div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Elements</small>
+            <div class="col">
+                <a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/accordions">
+                        <span x-icon="lucide:list-collapse"></span>
+                        <span>Accordions</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/avatars">
+                        <span x-icon="lucide:circle-user-round"></span>
+                        <span>Avatars</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/badges">
+                        <span x-icon="lucide:circle-star"></span>
+                        <span>Badges</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/buttons">
+                        <span x-icon="lucide:square-mouse-pointer"></span>
+                        <span>Buttons</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/charts">
+                        <span x-icon="lucide:chart-line"></span>
+                        <span>Charts</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/chats">
+                        <span x-icon="lucide:messages-square"></span>
+                        <span>Chats</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/checkboxes">
+                        <span x-icon="lucide:square-check"></span>
+                        <span>Checkboxes</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/code">
+                        <span x-icon="lucide:code"></span>
+                        <span>Code</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/color-pickers">
+                        <span x-icon="lucide:palette"></span>
+                        <span>Color Pickers</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/comboboxes">
+                        <span x-icon="lucide:text-search"></span>
+                        <span>Comboboxes</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/date-pickers">
+                        <span x-icon="lucide:calendar"></span>
+                        <span>Date Pickers</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dialogs">
+                        <span x-icon="lucide:panel-top-dashed"></span>
+                        <span>Dialogs</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dividers">
+                        <span x-icon="lucide:minus"></span>
+                        <span>Dividers</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dropdowns">
+                        <span x-icon="lucide:chevron-down"></span>
+                        <span>Dropdowns</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/forms">
+                        <span x-icon="lucide:rows-3"></span>
+                        <span>Forms</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/icons">
+                        <span x-icon="lucide:smile"></span>
+                        <span>Icons</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/inputs">
+                        <span x-icon="lucide:text-cursor-input"></span>
+                        <span>Inputs</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/radios">
+                        <span x-icon="lucide:circle-dot"></span>
+                        <span>Radios</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/ranges">
+                        <span x-icon="lucide:sliders-horizontal"></span>
+                        <span>Ranges</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/selects">
+                        <span x-icon="lucide:menu"></span>
+                        <span>Selects</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/sidebars">
+                        <span x-icon="lucide:sidebar"></span>
+                        <span>Sidebars</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/svgs">
+                        <span x-icon="lucide:shapes"></span>
+                        <span>SVGs</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/switches">
+                        <span x-icon="lucide:toggle-right"></span>
+                        <span>Switches</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tables">
+                        <span x-icon="lucide:table"></span>
+                        <span>Tables</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tabs">
+                        <span x-icon="lucide:app-window-mac"></span>
+                        <span>Tabs</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/textareas">
+                        <span x-icon="lucide:text-cursor"></span>
+                        <span>Textareas</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/toasts">
+                        <span x-icon="lucide:arrow-big-up-dash"></span>
+                        <span>Toasts</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tooltips">
+                        <span x-icon="lucide:circle-help"></span>
+                        <span>Tooltips</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/typography">
+                        <span x-icon="lucide:type"></span>
+                        <span>Typography</span>
+                    </a>
+            </div>
+            <hr>
+        </div><div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Resources</small>
+            <div class="col">
+                <a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/reference">
+                        <span x-icon="lucide:book-marked"></span>
+                        <span>Reference</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/typescript">
+                        <span x-icon="hugeicons:typescript-01"></span>
+                        <span>TypeScript</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/security">
+                        <span x-icon="lucide:lock"></span>
+                        <span>Security</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/license">
+                        <span x-icon="lucide:file-check"></span>
+                        <span>MIT License</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/privacy">
+                        <span x-icon="lucide:shield-check"></span>
+                        <span>Privacy Policy</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/acknowledgements">
+                        <span x-icon="lucide:heart-handshake"></span>
+                        <span>Acknowledgements</span>
+                    </a>
+            </div>
+            <hr>
+        </div>
+</nav>
+
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h1">
+
+    <!-- Home page -->
+    
+
+    <!-- Documentation pages -->
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-data="{
+    base: null ?? '/docs',
+    src: null ?? 'docs',
+    heading: null ?? 'Docs',
+    intro: 'Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference.' ?? '',
+    get groups() { return $x[this.src] || [] },
+    get article() { return $x[this.src].$route('path') },
+    get group() { const g = $x[this.src].$route('slug'); return g?.group &amp;&amp; this.at(this.base + '/' + g.slug) ? g : null },
+    href(group, item) { return this.base + '/' + group.slug + (item ? '/' + item.path : '') },
+    at(path) { return $route.replace(/\/$/, '') === path },
+  }" x-route="docs" intro="Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference.">
+
+  <!-- Desktop navigation -->
+  <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
+    <div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Getting Started</small>
+        <div class="col">
+          <a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-open"></span>
+              <span>Introduction</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:terminal"></span>
+              <span>Setup</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/starter-project" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:package"></span>
+              <span>Starter Project</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/compatibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe-lock"></span>
+              <span>Compatibility</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:eye"></span>
+              <span>Accessibility</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Core Plugins</small>
+        <div class="col">
+          <a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/chat" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:message-square"></span>
+              <span>Chat</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/components" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panels-top-left"></span>
+              <span>Components</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Device</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Edit</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:download"></span>
+              <span>Export</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/local-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-tree"></span>
+              <span>Local Data</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/localization" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:languages"></span>
+              <span>Localization</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/markdown" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-m"></span>
+              <span>Markdown</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:credit-card"></span>
+              <span>Payments</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panel-right-open"></span>
+              <span>Resize</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:route"></span>
+              <span>Router</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/status" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:activity"></span>
+              <span>Status</span>
+            </a><a role="button" href="/docs/core-plugins/text-edit" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Text Edit</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/url-parameters" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:ampersand"></span>
+              <span>URL Parameters</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/virtual" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-chevrons-up-down"></span>
+              <span>Virtual</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Appwrite Plugins</small>
+        <div class="col">
+          <a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/appwrite-plugins/appwrite-setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="simple-icons:appwrite"></span>
+              <span>Appwrite Setup</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/appwrite-plugins/auth" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:users"></span>
+              <span>Auth</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/appwrite-plugins/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Users</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/appwrite-plugins/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Teams</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/appwrite-plugins/cloud-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:database"></span>
+              <span>Cloud Data</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/appwrite-plugins/databases" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Databases</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/appwrite-plugins/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Storage</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/appwrite-plugins/presence" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:radio-tower"></span>
+              <span>Presence</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Publishing</small>
+        <div class="col">
+          <a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/testing" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-check"></span>
+              <span>Testing</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/websites" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe"></span>
+              <span>Websites</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>SEO &amp; AEO</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window"></span>
+              <span>Web Apps</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:monitor-smartphone"></span>
+              <span>Native Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Styles</small>
+        <div class="col">
+          <a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/styles/reset" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:scale"></span>
+              <span>Reset</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/styles/theme" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:paint-bucket"></span>
+              <span>Theme</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/styles/color-modes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sun-moon"></span>
+              <span>Color Modes</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/styles/utilities" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:swatch-book"></span>
+              <span>Utilities</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Elements</small>
+        <div class="col">
+          <a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/accordions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-collapse"></span>
+              <span>Accordions</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/avatars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-user-round"></span>
+              <span>Avatars</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/badges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-star"></span>
+              <span>Badges</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/buttons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-mouse-pointer"></span>
+              <span>Buttons</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/charts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chart-line"></span>
+              <span>Charts</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/chats" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:messages-square"></span>
+              <span>Chats</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/checkboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-check"></span>
+              <span>Checkboxes</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/code" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:code"></span>
+              <span>Code</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/color-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:palette"></span>
+              <span>Color Pickers</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/comboboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-search"></span>
+              <span>Comboboxes</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/date-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:calendar"></span>
+              <span>Date Pickers</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/dialogs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panel-top-dashed"></span>
+              <span>Dialogs</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/dividers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:minus"></span>
+              <span>Dividers</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/dropdowns" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chevron-down"></span>
+              <span>Dropdowns</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/forms" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:rows-3"></span>
+              <span>Forms</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/icons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smile"></span>
+              <span>Icons</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/inputs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor-input"></span>
+              <span>Inputs</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/radios" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-dot"></span>
+              <span>Radios</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/ranges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sliders-horizontal"></span>
+              <span>Ranges</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/selects" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:menu"></span>
+              <span>Selects</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/sidebars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sidebar"></span>
+              <span>Sidebars</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/svgs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:shapes"></span>
+              <span>SVGs</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/switches" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:toggle-right"></span>
+              <span>Switches</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/tables" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:table"></span>
+              <span>Tables</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/tabs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window-mac"></span>
+              <span>Tabs</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/textareas" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor"></span>
+              <span>Textareas</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/toasts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-big-up-dash"></span>
+              <span>Toasts</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/tooltips" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-help"></span>
+              <span>Tooltips</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/elements/typography" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:type"></span>
+              <span>Typography</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Resources</small>
+        <div class="col">
+          <a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/reference" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-marked"></span>
+              <span>Reference</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/typescript" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="hugeicons:typescript-01"></span>
+              <span>TypeScript</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/security" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:lock"></span>
+              <span>Security</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/license" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:file-check"></span>
+              <span>MIT License</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/privacy" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:shield-check"></span>
+              <span>Privacy Policy</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:heart-handshake"></span>
+              <span>Acknowledgements</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div>
+  </nav>
+
+  <!-- Articles -->
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+
+    <div class="col grow w-full max-w-full mx-auto">
+
+      <!-- Article -->
+      <template x-if="article?.name">
+        <span class="h6 mb-3" x-text="article?.group"></span>
+      </template><span class="h6 mb-3" x-text="article?.group" data-mnfst-prerender-clone="1">Core Plugins</span>
+      <template x-if="article?.name">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="article?.doc"></div>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="text-edit">Text Edit</h1><p>A rich text editor built from your own markup, storing markdown.</p>
+<hr>
+<h2 id="overview">Overview</h2><p><code>x-text-edit</code> has two roles. Alone, it makes an element an editable area bound to a value. With a command modifier, it makes any element a control for that area. It adds no toolbar of its own.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ post: '# Hello\n\nSelect a word, then press **Bold**.' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.strong</span>&gt;</span>Bold<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.em</span>&gt;</span>Italic<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.h2</span>&gt;</span>Heading<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.ul</span>&gt;</span>List<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit</span>=<span class="hljs-string">"post"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Post"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"post"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ post: '# Hello\n\nSelect a word, then press **Bold**.' }" class="col gap-2 w-full">
+    <div class="row-wrap gap-1">
+        <button class="ghost sm" x-text-edit.strong="" data-text-edit-control="strong" type="button" aria-disabled="false" aria-pressed="false">Bold</button>
+        <button class="ghost sm" x-text-edit.em="" data-text-edit-control="em" type="button" aria-disabled="false" aria-pressed="false">Italic</button>
+        <button class="ghost sm" x-text-edit.h2="" data-text-edit-control="h2" type="button" aria-disabled="false" aria-pressed="false">Heading</button>
+        <button class="ghost sm" x-text-edit.ul="" data-text-edit-control="ul" type="button" aria-disabled="false" aria-pressed="false">List</button>
+    </div>
+    <div x-text-edit="post" aria-label="Post" data-text-edit="markdown" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true"><h1>Hello</h1><p>Select a word, then press <strong>Bold</strong>.</p></div>
+    <pre class="text-xs p-2 bg-surface-2 rounded whitespace-pre-wrap" x-text="post"># Hello
+
+Select a word, then press **Bold**.</pre>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="setup">Setup</h2><p>Text Edit is included in <code>manifest.js</code> with all core plugins, or can be selectively loaded.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+
+<pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre x-code="html" name="Selective" data-code-block-built="yes" aria-label="Selective" role="tabpanel" data-code-processed="yes" id="selective-panel-1" aria-labelledby="selective-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+    <span class="hljs-attr">data-plugins</span>=<span class="hljs-string">"text-edit"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Editor styles are included in Manifest CSS or as a standalone stylesheet.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+
+<pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span>&gt;</span></code></pre>
+<pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.text.edit.css"</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="editable-area">Editable Area</h2><p>Point <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-text-edit</code> at a value. The element becomes editable in place. <code>placeholder</code> shows while it is empty. <a href="/docs/core-plugins/markdown">Markdown</a> renders the value straight back.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ note: 'A **markdown** note.' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit</span>=<span class="hljs-string">"note"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Write a note…"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Note"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-markdown</span>=<span class="hljs-string">"note"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ note: 'A **markdown** note.' }" class="col gap-2 w-full">
+    <div x-text-edit="note" placeholder="Write a note…" aria-label="Note" style="--text-edit-min-height: 4rem" data-text-edit="markdown" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true"><p>A <strong>markdown</strong> note.</p></div>
+    <div class="p-2 border border-line rounded" style="opacity: 1"><p>A <strong>markdown</strong> note.</p>
+</div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<table>
+<thead>
+<tr>
+<th>Modifier</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>(none)</em></td>
+<td>Stores markdown</td>
+</tr>
+<tr>
+<td><code>.html</code></td>
+<td>Stores sanitized HTML; every command available</td>
+</tr>
+<tr>
+<td><code>.plain</code></td>
+<td>Stores text; no commands</td>
+</tr>
+<tr>
+<td><code>.minimal</code></td>
+<td>Inline marks only</td>
+</tr>
+<tr>
+<td><code>.literal</code></td>
+<td>No typed-markdown shortcuts</td>
+</tr>
+<tr>
+<td><code>.autofocus</code></td>
+<td>Focus on load</td>
+</tr>
+</tbody></table>
+<p>Without a value, the element's existing markup is the initial content. Do not combine with <code>x-html</code>.</p>
+<hr>
+<h2 id="commands">Commands</h2><p>Commands are named for the tag they produce. A <code>&lt;button&gt;</code> runs on click and never takes the caret. A <code>&lt;select&gt;</code> or <code>&lt;input&gt;</code> runs on change and reflects the state at the caret. An argument is the next modifier or an expression: <code>.align.center</code>, <code>.img="url"</code>.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ doc: '&lt;p&gt;Select a word, then pick a command.&lt;/p&gt;' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">x-text-edit.block</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"p"</span>&gt;</span>Paragraph<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"h2"</span>&gt;</span>Heading<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"blockquote"</span>&gt;</span>Quote<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.strong</span>&gt;</span>Bold<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.code</span>&gt;</span>Code<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.align.center</span>&gt;</span>Center<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"color"</span> <span class="hljs-attr">x-text-edit.color</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Colour"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.undo</span>&gt;</span>Undo<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit.html</span>=<span class="hljs-string">"doc"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Document"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ doc: '&lt;p&gt;Select a word, then pick a command.&lt;/p&gt;' }" class="col gap-2 w-full">
+    <div class="row-wrap gap-1 items-center">
+        <select class="sm hug" x-text-edit.block="" aria-label="Block" data-text-edit-control="block" aria-disabled="false">
+            <option value="p">Paragraph</option>
+            <option value="h2">Heading</option>
+            <option value="blockquote">Quote</option>
+        </select>
+        <button class="ghost sm" x-text-edit.strong="" data-text-edit-control="strong" type="button" aria-disabled="false" aria-pressed="false">Bold</button>
+        <button class="ghost sm" x-text-edit.code="" data-text-edit-control="code" type="button" aria-disabled="false" aria-pressed="false">Code</button>
+        <button class="ghost sm" x-text-edit.align.center="" data-text-edit-control="align" type="button" aria-disabled="false" aria-pressed="false">Center</button>
+        <input type="color" class="unstyle w-6 h-6 rounded border border-line" x-text-edit.color="" aria-label="Colour" data-text-edit-control="color" aria-disabled="true">
+        <button class="ghost sm" x-text-edit.undo="" data-text-edit-control="undo" type="button" aria-disabled="true" aria-pressed="false">Undo</button>
+    </div>
+    <div x-text-edit.html="doc" aria-label="Document" style="--text-edit-min-height: 5rem" data-text-edit="html" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true"><p>Select a word, then pick a command.</p></div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Commands</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Inline</td>
+<td><code>strong</code> <code>b</code> <code>em</code> <code>i</code> <code>s</code> <code>del</code> <code>code</code> and, in <code>.html</code>, <code>u</code> <code>mark</code> <code>small</code> <code>sub</code> <code>sup</code> <code>kbd</code> <code>samp</code> <code>var</code> <code>abbr</code> <code>cite</code> <code>q</code> <code>ins</code> <code>dfn</code> <code>time</code> <code>span</code></td>
+</tr>
+<tr>
+<td>Block</td>
+<td><code>p</code> <code>h1</code>–<code>h6</code> <code>blockquote</code> <code>pre</code> <code>block</code> and, in <code>.html</code>, <code>address</code> <code>figure</code> <code>figcaption</code> <code>dl</code> <code>dt</code> <code>dd</code></td>
+</tr>
+<tr>
+<td>Lists, inserts</td>
+<td><code>ul</code> <code>ol</code> <code>checklist</code> <code>indent</code> <code>outdent</code> <code>hr</code> <code>br</code> <code>img</code> <code>a</code></td>
+</tr>
+<tr>
+<td>Style (<code>.html</code>)</td>
+<td><code>align</code> <code>color</code> <code>background</code> <code>font</code> <code>size</code> <code>leading</code></td>
+</tr>
+<tr>
+<td>Table (<code>.html</code>)</td>
+<td><code>table</code> <code>row-before</code> <code>row-after</code> <code>row-remove</code> <code>column-before</code> <code>column-after</code> <code>column-remove</code> <code>merge</code> <code>split</code> <code>table-header</code> <code>table-remove</code></td>
+</tr>
+<tr>
+<td>Other</td>
+<td><code>clear</code> <code>undo</code> <code>redo</code></td>
+</tr>
+</tbody></table>
+<p>A command markdown cannot store is disabled in markdown mode. A disabled control gets <code>aria-disabled="true"</code>, never <code>disabled</code>. An inline command with nothing selected arms for the next text typed.</p>
+<hr>
+<h2 id="links">Links</h2><p>One <code>&lt;input&gt;</code> defines, edits and clears a link. Select text and enter a URL to link it; the field shows the <code>href</code> at the caret; empty it to unlink.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ post: 'Visit [Manifest](https://manifestx.dev) today.' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"url"</span> <span class="hljs-attr">x-text-edit.a</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"https://"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Link"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit</span>=<span class="hljs-string">"post"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Post"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ post: 'Visit [Manifest](https://manifestx.dev) today.' }" class="col gap-2 w-full">
+    <input type="url" class="sm" x-text-edit.a="" placeholder="https://" aria-label="Link" data-text-edit-control="a" aria-disabled="true">
+    <div x-text-edit="post" aria-label="Post" style="--text-edit-min-height: 4rem" data-text-edit="markdown" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true"><p>Visit <a href="https://manifestx.dev">Manifest</a> today.</p></div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="typing-markdown">Typing Markdown</h2><p>A line converts when you press Enter. Block rules apply at the start of a line; <code>.literal</code> turns conversion off.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ draft: '' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit</span>=<span class="hljs-string">"draft"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Type ## Title and press Enter"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Draft"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ draft: '' }" class="w-full">
+    <div x-text-edit="draft" placeholder="Type ## Title and press Enter" aria-label="Draft" style="--text-edit-min-height: 5rem" data-text-edit="markdown" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true" data-text-edit-empty=""><p><br></p></div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Get</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code># </code> … <code>###### </code></td>
+<td>Heading</td>
+</tr>
+<tr>
+<td><code>- </code> <code>* </code> <code>+ </code> / <code>1. </code></td>
+<td>Bulleted / numbered list</td>
+</tr>
+<tr>
+<td><code>[ ] </code> <code>[x] </code></td>
+<td>Task list</td>
+</tr>
+<tr>
+<td><code>&gt; </code></td>
+<td>Blockquote</td>
+</tr>
+<tr>
+<td><code>```</code> / <code>---</code></td>
+<td>Code block / rule</td>
+</tr>
+<tr>
+<td><code>**bold**</code> <code>*italic*</code> <code>~~struck~~</code> <code>`code`</code></td>
+<td>Inline marks</td>
+</tr>
+<tr>
+<td><code>[text](url)</code> <code>![alt](src)</code></td>
+<td>Link, image</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="tables">Tables</h2><p>Tables are <code>.html</code> only. Every operation is a command and is disabled while the caret is outside a table. Drag a cell border to resize.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ doc: '&lt;table&gt;&lt;tr&gt;&lt;td&gt;Stem&lt;/td&gt;&lt;td&gt;Price&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Rose&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.table.3x2</span>&gt;</span>Insert 3×2<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.row-after</span>&gt;</span>Row below<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.column-after</span>&gt;</span>Column after<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.merge</span>&gt;</span>Merge<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.table-header</span>&gt;</span>Header row<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.table-remove</span>&gt;</span>Remove<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit.html</span>=<span class="hljs-string">"doc"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Document"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ doc: '&lt;table&gt;&lt;tr&gt;&lt;td&gt;Stem&lt;/td&gt;&lt;td&gt;Price&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Rose&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;' }" class="col gap-2 w-full">
+    <div class="row-wrap gap-1">
+        <button class="ghost sm" x-text-edit.table.3x2="" data-text-edit-control="table" type="button" aria-disabled="false" aria-pressed="false">Insert 3×2</button>
+        <button class="ghost sm" x-text-edit.row-after="" data-text-edit-control="row-after" type="button" aria-disabled="true" aria-pressed="false">Row below</button>
+        <button class="ghost sm" x-text-edit.column-after="" data-text-edit-control="column-after" type="button" aria-disabled="true" aria-pressed="false">Column after</button>
+        <button class="ghost sm" x-text-edit.merge="" data-text-edit-control="merge" type="button" aria-disabled="true" aria-pressed="false">Merge</button>
+        <button class="ghost sm" x-text-edit.table-header="" data-text-edit-control="table-header" type="button" aria-disabled="true" aria-pressed="false">Header row</button>
+        <button class="ghost sm" x-text-edit.table-remove="" data-text-edit-control="table-remove" type="button" aria-disabled="true" aria-pressed="false">Remove</button>
+    </div>
+    <div x-text-edit.html="doc" aria-label="Document" style="--text-edit-min-height: 5rem" data-text-edit="html" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true"><table><tbody><tr><td>Stem</td><td>Price</td></tr><tr><td>Rose</td><td>4</td></tr></tbody></table><p><br></p></div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p><code>merge</code> joins the selected cells, or the caret's cell with the one to its right. Tab walks cell to cell and adds a row past the last one; arrows leave a cell only at its edge.</p>
+<hr>
+<h2 id="keyboard">Keyboard</h2><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Enter</td>
+<td>New paragraph. In a list: next item; from an empty item, leave the list. In a code block: new line; from an empty last line, leave the block</td>
+</tr>
+<tr>
+<td>Shift + Enter</td>
+<td>Line break</td>
+</tr>
+<tr>
+<td>Tab / Shift + Tab</td>
+<td>Next / previous cell; nest / unnest a list item; indent / outdent a block (<code>.html</code>)</td>
+</tr>
+<tr>
+<td>Backspace at line start</td>
+<td>Join the line above; leave a list; demote a heading</td>
+</tr>
+<tr>
+<td>Escape</td>
+<td>Leave the editor</td>
+</tr>
+<tr>
+<td>Cmd/Ctrl + Z / Shift + Z</td>
+<td>Undo / redo (the editor keeps its own history)</td>
+</tr>
+<tr>
+<td>Cmd/Ctrl + B / I / U</td>
+<td>Bold / italic / underline (<code>.html</code>)</td>
+</tr>
+<tr>
+<td>Cmd/Ctrl + K</td>
+<td>Toggle a link: removes the one at the caret, otherwise asks for a URL (the area's <code>x-text-edit.a</code> field where there is one) and links the selection</td>
+</tr>
+</tbody></table>
+<p>Pasted content keeps its text and marks, not the source's styling.</p>
+<hr>
+<h2 id="scattered-controls">Scattered Controls</h2><p>A control finds its area in this order: the nearest ancestor with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-text-edit-for="selector"</code>; else the nearest ancestor holding exactly one area; else the last focused area. A shared toolbar is disabled until an area has been focused.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ a: 'First **draft**', b: 'Second draft' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.strong</span>&gt;</span>Bold (last focused)<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text-edit-for</span>=<span class="hljs-string">"#note-b"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.em</span>&gt;</span>Italic in B<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit</span>=<span class="hljs-string">"a"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"A"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit</span>=<span class="hljs-string">"b"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"note-b"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"B"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ a: 'First **draft**', b: 'Second draft' }" class="col gap-2 w-full">
+    <div class="row-wrap gap-1">
+        <button class="ghost sm" x-text-edit.strong="" data-text-edit-control="strong" type="button" aria-disabled="true" aria-pressed="false">Bold (last focused)</button>
+        <span x-text-edit-for="#te-note-b">
+            <button class="ghost sm" x-text-edit.em="" data-text-edit-control="em" type="button" aria-disabled="false" aria-pressed="false">Italic in B</button>
+        </span>
+    </div>
+    <div x-text-edit="a" aria-label="A" style="--text-edit-min-height: 3rem" data-text-edit="markdown" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true"><p>First <strong>draft</strong></p></div>
+    <div x-text-edit="b" id="te-note-b" aria-label="B" style="--text-edit-min-height: 3rem" data-text-edit="markdown" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true"><p>Second draft</p></div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Controls go quiet when the caret moves into any other editable element.</p>
+<hr>
+<h2 id="selection-menu">Selection Menu</h2><p>The area fires <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">text-edit:selection</code> with <code>{ collapsed, text, x, y, width, height, top, right, bottom, left }</code>, or <code>null</code> when it lets go. The same box is written as <code>--text-edit-selection-x</code>, <code>-y</code>, <code>-width</code>, <code>-height</code> and <code>-center</code> on the area and on <code>:root</code>, so a popover positions itself without script.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ post: 'Select some of this text.',
+        bubble(d) {
+            const el = this.$refs.menu, open = el.matches(':popover-open'), want = !!d &amp;&amp; !d.collapsed;
+            if (want &amp;&amp; !open) el.showPopover();
+            if (!want &amp;&amp; open) el.hidePopover();
+        } }"</span>
+     @<span class="hljs-attr">text-edit:selection</span>=<span class="hljs-string">"bubble($event.detail)"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">popover</span>=<span class="hljs-string">"manual"</span> <span class="hljs-attr">x-ref</span>=<span class="hljs-string">"menu"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"position: fixed; margin: 0; inset: auto;
+         transform: translate(-50%, -125%); left: var(--text-edit-selection-center); top: var(--text-edit-selection-y)"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.strong</span>&gt;</span>Bold<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.em</span>&gt;</span>Italic<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit</span>=<span class="hljs-string">"post"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Post"</span> @<span class="hljs-attr">focusout</span>=<span class="hljs-string">"bubble(null)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ post: 'Select some of this text.', bubble(d) { const el = this.$refs.menu, open = el.matches(':popover-open'), want = !!d &amp;&amp; !d.collapsed; if (want &amp;&amp; !open) el.showPopover(); if (!want &amp;&amp; open) el.hidePopover(); } }" @text-edit:selection="bubble($event.detail)" class="w-full">
+    <div popover="manual" x-ref="menu" class="row gap-1 p-1 bg-surface-1 border border-line rounded shadow" style="position: fixed; margin: 0; inset: auto; transform: translate(-50%, -125%); left: var(--text-edit-selection-center); top: var(--text-edit-selection-y)">
+        <button class="ghost sm" x-text-edit.strong="" data-text-edit-control="strong" type="button" aria-disabled="false" aria-pressed="false">Bold</button>
+        <button class="ghost sm" x-text-edit.em="" data-text-edit-control="em" type="button" aria-disabled="false" aria-pressed="false">Italic</button>
+    </div>
+    <div x-text-edit="post" aria-label="Post" @focusout="bubble(null)" style="--text-edit-min-height: 4rem" data-text-edit="markdown" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true" data-hydrate-id="h8"><p>Select some of this text.</p></div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Use <code>popover="manual"</code>: an auto popover closes on the outside click that selects the text. <code>focusout</code> covers clicks that land outside the editor.</p>
+<hr>
+<h2 id="editing-a-data-value">Editing a Data Value</h2><p>Bind the editor to a field of a <a href="/docs/core-plugins/local-data">data source</a> row and the row stores the markup.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"p in $x.example.products"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"p.name"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit.html.minimal</span>=<span class="hljs-string">"p.name"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+<aside class="frame"><div class="col gap-2 w-full">
+    <template x-for="p in ($x.example.products || []).slice(0, 3)" :key="p.name">
+        <div class="row gap-3 items-center">
+            <div x-text-edit.html.minimal="p.name" aria-label="Name" class="grow" style="--text-edit-min-height: 2.5rem; --text-edit-padding: 0.4rem 0.6rem"></div>
+            <code class="text-xs" x-text="p.name"></code>
+        </div>
+    </template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="page-styling">Page Styling</h2><p>Add <code>.page</code> to <code>font</code>, <code>size</code>, <code>leading</code>, <code>align</code>, <code>color</code> or <code>background</code> to style the whole area. Page styles are CSS variables on the area, not content: read or assign them with <code>$text.page</code>, and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">text-edit:page</code> fires with the current set.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ doc: '&lt;p&gt;Page styles live outside the document.&lt;/p&gt;', look: {} }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">x-text-edit.font.page</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span>&gt;</span>Default<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Georgia"</span>&gt;</span>Georgia<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"ui-monospace"</span>&gt;</span>Mono<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">x-text-edit.leading.page</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span>&gt;</span>Default<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"2"</span>&gt;</span>Double<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit.html</span>=<span class="hljs-string">"doc"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Document"</span> @<span class="hljs-attr">text-edit:page</span>=<span class="hljs-string">"look = $event.detail"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"JSON.stringify(look)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ doc: '&lt;p&gt;Page styles live outside the document.&lt;/p&gt;', look: {} }" class="col gap-2 w-full">
+    <div class="row-wrap gap-1">
+        <select class="sm hug" x-text-edit.font.page="" aria-label="Page font" data-text-edit-page="" data-text-edit-control="font" aria-disabled="false">
+            <option value="">Default</option>
+            <option value="Georgia">Georgia</option>
+            <option value="ui-monospace">Mono</option>
+        </select>
+        <select class="sm hug" x-text-edit.leading.page="" aria-label="Page spacing" data-text-edit-page="" data-text-edit-control="leading" aria-disabled="false">
+            <option value="">Default</option>
+            <option value="2">Double</option>
+        </select>
+    </div>
+    <div x-text-edit.html="doc" aria-label="Document" @text-edit:page="look = $event.detail" style="--text-edit-min-height: 4rem" data-text-edit="html" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true" data-hydrate-id="h9"><p>Page styles live outside the document.</p></div>
+    <code class="text-xs" x-text="JSON.stringify(look)">{}</code>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="text">$text</h2><p><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$text</code> is the area the element sits in, otherwise the last focused area.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>value</code></td>
+<td>Stored value; assigning resets undo history</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td>Page styles object; assign <code>{}</code> to clear</td>
+</tr>
+<tr>
+<td><code>link</code></td>
+<td><code>href</code> at the caret; assign to set, empty to unlink</td>
+</tr>
+<tr>
+<td><code>selection</code></td>
+<td>The last reported selection, or <code>null</code></td>
+</tr>
+<tr>
+<td><code>run(cmd, arg)</code> <code>active(cmd)</code> <code>can(cmd)</code></td>
+<td>Apply, test, or check availability of a command</td>
+</tr>
+<tr>
+<td><code>markdown()</code> <code>html()</code></td>
+<td>Content as markdown or sanitized HTML, whatever the mode</td>
+</tr>
+<tr>
+<td><code>focus()</code> <code>selectAll()</code></td>
+<td>Focus the area; select everything</td>
+</tr>
+</tbody></table>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ doc: '&lt;p&gt;Hello &lt;strong&gt;world&lt;/strong&gt;&lt;/p&gt;', md: '' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$text.selectAll()"</span>&gt;</span>Select all<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"doc = ''"</span>&gt;</span>New page<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit.html</span>=<span class="hljs-string">"doc"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Document"</span> @<span class="hljs-attr">input</span>=<span class="hljs-string">"md = $text.markdown()"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"md"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ doc: '&lt;p&gt;Hello &lt;strong&gt;world&lt;/strong&gt;&lt;/p&gt;', md: '' }" class="col gap-2 w-full">
+    <div class="row-wrap gap-1 items-center">
+        <button class="ghost sm" @click="$text.selectAll()">Select all</button>
+        <button class="ghost sm" @click="doc = ''">New page</button>
+        <small class="text-content-subtle">Click in the editor first</small>
+    </div>
+    <div x-text-edit.html="doc" aria-label="Document" @input="md = $text.markdown()" style="--text-edit-min-height: 4rem" data-text-edit="html" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true" data-hydrate-id="h10"><p>Hello <strong>world</strong></p></div>
+    <pre class="text-xs p-2 bg-surface-2 rounded whitespace-pre-wrap" x-text="md || '(markdown appears here as you type)'">(markdown appears here as you type)</pre>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="styles">Styles</h2><p>The area uses <code>--color-surface-1</code>, <code>--color-line</code>, <code>--color-content-subtle</code>, <code>--color-brand-content</code> and <code>--radius</code> from the <a href="/docs/styles/theme">theme</a>. Set these per instance:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Sets</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--text-edit-min-height</code></td>
+<td><code>8rem</code></td>
+<td>Minimum height</td>
+</tr>
+<tr>
+<td><code>--text-edit-max-height</code></td>
+<td><code>none</code></td>
+<td>Scrolls past this</td>
+</tr>
+<tr>
+<td><code>--text-edit-padding</code></td>
+<td><code>0.75rem</code></td>
+<td>Content padding</td>
+</tr>
+<tr>
+<td><code>--text-edit-font</code> <code>-size</code> <code>-leading</code> <code>-align</code> <code>-color</code> <code>-background</code></td>
+<td>inherit</td>
+<td>Page styles; <code>.page</code> controls override</td>
+</tr>
+</tbody></table>
+<p>Style by attribute: <code>[data-text-edit]</code> (value is the mode), <code>[data-text-edit-empty]</code>, <code>[data-text-edit-selected]</code>, <code>[data-text-edit-control]</code> (value is the command), <code>[data-text-edit-active]</code>, and <code>[aria-disabled="true"]</code>, which the reset already dims.</p>
+<hr>
+<h2 id="related">Related</h2><ul>
+<li><a href="/docs/core-plugins/markdown">Markdown</a> renders the stored value.</li>
+<li><a href="/docs/core-plugins/edit">Edit</a> edits the page itself; an <code>x-text-edit</code> element inside an <code>x-edit</code> region is owned by the rich editor.</li>
+</ul>
+</div>
+
+      <!-- Docs home -->
+      <template x-if="at(base)">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="heading"></h1>
+            <p class="text-content-neutral" x-show="intro" x-text="intro"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="group in groups" :key="group.group">
+              <a :href="href(group)" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
+                <span x-icon="group.items?.[0]?.icon" class="text-brand-content"></span>
+                <span class="col">
+                  <span class="text-content-stark font-medium" x-text="group.group"></span>
+                  <small class="text-content-subtle" x-text="group.items.filter(i =&gt; i.name).length + ' articles'"></small>
+                </span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Group landing -->
+      <template x-if="group?.group">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="group?.group"></h1>
+            <p class="text-content-neutral" x-show="group?.description" x-text="group?.description"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
+              <a :href="href(group, item)" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
+                <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
+                <span class="text-content-stark" x-text="item.name"></span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+    </div>
+
+    <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
+    <template x-if="!article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
+      <div class="max-w-full prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
+
+    <footer class="mt-20">
+  <hr>
+  <div class="row-wrap justify-between items-center gap-4 pt-4">
+
+    <figcaption class="text-content-subtle">© 2026 <a href="https://andrewmatlock.com" target="_blank" rel="noopener">Andrew
+        Matlock</a> • <a href="/docs/resources/license">MIT License</a>
+    </figcaption>
+
+    <div class="row-wrap gap-3">
+
+      <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
+
+      <div role="group" class="outlined rounded-full">
+        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h11"></button>
+        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h12"></button>
+        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h13"></button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+
+  <!-- Anchor links -->
+  <nav aria-label="On this page" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
+
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+      <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
+      <span>On this page</span>
+    </small>
+
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#editable-area">Editable Area</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#commands">Commands</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#links">Links</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#typing-markdown">Typing Markdown</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#tables">Tables</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#keyboard">Keyboard</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#scattered-controls">Scattered Controls</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#selection-menu">Selection Menu</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#editing-a-data-value">Editing a Data Value</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#page-styling">Page Styling</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#text">$text</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#related">Related</a></div>
+
+  </nav>
+
+</div>
+
+  </main>
+
+  <!-- Footer (visible on every route) -->
+  
+
+
+
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"data-text-edit":null,"data-text-edit-bound":null,"contenteditable":null,"role":null,"aria-multiline":null}},{"id":"h9","attrs":{"data-text-edit":null,"data-text-edit-bound":null,"contenteditable":null,"role":null,"aria-multiline":null}},{"id":"h10","attrs":{"data-text-edit":null,"data-text-edit-bound":null,"contenteditable":null,"role":null,"aria-multiline":null}},{"id":"h11","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h12","attrs":{"type":null}},{"id":"h13","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h14","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h15","attrs":{"type":null}},{"id":"h16","attrs":{"type":null}},{"id":"h17","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
+</body></html>

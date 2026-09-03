@@ -380,3 +380,42 @@ That makes virtualization a natural pair with `$search` and `$query`: wire a sea
 :::
 
 </div>
+
+---
+
+## Inside Menus and Dialogs
+
+`x-virtual` works inside popover [menus](/docs/elements/dropdowns#closed-menus-cost-nothing), [dialogs](/docs/elements/dialogs) and [tab panels](/docs/elements/tabs). The list measures itself when its container is shown, so nothing special is needed — give the `x-virtual` element a bounded height as usual and place it inside the menu.
+
+<div x-code-group>
+
+```html copy
+<div x-data="{ countries: /* 300 entries */ }">
+    <button x-dropdown="country-menu">Country</button>
+
+    <menu popover id="country-menu">
+        <div x-virtual class="h-64">
+            <template x-for="country in countries" :key="country.id">
+                <li x-text="country.name"></li>
+            </template>
+        </div>
+    </menu>
+</div>
+```
+
+::: frame text-base
+<div x-data="{ countries: Array.from({length: 300}, (_, i) => ({ id: i, name: ['Aurora','Borealis','Cassini','Delphinus','Eridanus','Fornax'][i % 6] + ' ' + (i + 1) })) }">
+    <button x-dropdown="virtual-in-menu-preview">Country</button>
+    <menu popover id="virtual-in-menu-preview">
+        <div x-virtual class="h-64">
+            <template x-for="country in countries" :key="country.id">
+                <li x-text="country.name"></li>
+            </template>
+        </div>
+    </menu>
+</div>
+:::
+
+</div>
+
+A closed menu's contents are not initialized until it opens, so the virtualized list costs nothing while the menu is closed and renders only its visible rows once it opens.

@@ -14,18 +14,18 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.js" data-version="0.5.194"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -234,7 +234,7 @@
         src: null ?? 'docs',
         get groups() { return $x[this.src] || [] },
         get article() { return $x[this.src].$route('path') },
-    }" @manifest:route-change.window="$el.hidePopover()" data-component="docs-nav-1" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" data-order="3">
     <div class="col gap-6 py-4">
             <small class="pl-2.5 text-content-subtle">Getting Started</small>
             <div class="col">
@@ -253,6 +253,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
                         <span x-icon="lucide:eye"></span>
                         <span>Accessibility</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/performance">
+                        <span x-icon="lucide:gauge"></span>
+                        <span>Performance</span>
                     </a>
             </div>
             <hr>
@@ -265,6 +268,15 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
                         <span x-icon="lucide:panels-top-left"></span>
                         <span>Components</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/computed">
+                        <span x-icon="lucide:sigma"></span>
+                        <span>Computed Values</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/device">
+                        <span x-icon="lucide:smartphone"></span>
+                        <span>Device</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
+                        <span x-icon="lucide:pencil-ruler"></span>
+                        <span>Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
                         <span x-icon="lucide:download"></span>
                         <span>Export</span>
@@ -289,6 +301,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
                         <span x-icon="lucide:activity"></span>
                         <span>Status</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/text-edit">
+                        <span x-icon="lucide:pilcrow"></span>
+                        <span>Text Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
                         <span x-icon="lucide:ampersand"></span>
                         <span>URL Parameters</span>
@@ -346,12 +361,6 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
                         <span x-icon="lucide:monitor-smartphone"></span>
                         <span>Native Apps</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/app-store-readiness">
-                        <span x-icon="lucide:dot"></span>
-                        <span>App Store Readiness</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-capabilities">
-                        <span x-icon="lucide:dot"></span>
-                        <span>Native Capabilities</span>
                     </a>
             </div>
             <hr>
@@ -531,6 +540,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:eye"></span>
               <span>Accessibility</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -543,6 +555,15 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/components" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:panels-top-left"></span>
               <span>Components</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Device</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:download"></span>
               <span>Export</span>
@@ -567,6 +588,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/status" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:activity"></span>
               <span>Status</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/text-edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Text Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/url-parameters" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:ampersand"></span>
               <span>URL Parameters</span>
@@ -624,12 +648,6 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:monitor-smartphone"></span>
               <span>Native Apps</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/app-store-readiness" class="ghost text-content-neutral justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>App Store Readiness</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-capabilities" class="ghost text-content-neutral justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>Native Capabilities</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -802,8 +820,8 @@
 
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"first"</span> <span class="hljs-attr">x-tabpanel</span>&gt;</span>First content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"second"</span> <span class="hljs-attr">x-tabpanel</span>&gt;</span>Second content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame row-wrap gap-4 items-center"><button x-on:click="tab = 'first'" :aria-selected="String(tab === 'first')" aria-selected="true" data-hydrate-id="h2">First</button>
-<button x-on:click="tab = 'second'" :aria-selected="String(tab === 'second')" aria-selected="false" data-hydrate-id="h3">Second</button>
+<aside class="frame row-wrap gap-4 items-center"><button x-on:click="tab = 'first'" :aria-selected="String(tab === 'first')" aria-selected="true" data-hydrate-id="h8">First</button>
+<button x-on:click="tab = 'second'" :aria-selected="String(tab === 'second')" aria-selected="false" data-hydrate-id="h9">Second</button>
 <div id="first" class="w-full" x-show="tab === 'first'">First content</div>
 <div class="second w-full" x-show="tab === 'second'" id="second" style="display: none">Second content</div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
@@ -823,8 +841,8 @@
 
 <span class="hljs-comment">&lt;!-- Single panel with ID --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"specific"</span> <span class="hljs-attr">x-tabpanel</span>=<span class="hljs-string">"classy"</span>&gt;</span>Specific content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame row-wrap gap-4 items-center"><button x-on:click="tab_sharedExample = 'shared'" :aria-selected="String(tab_sharedExample === 'shared')" aria-selected="true" data-hydrate-id="h4">Show All</button>
-<button x-on:click="tab_sharedExample = 'specific'" :aria-selected="String(tab_sharedExample === 'specific')" aria-selected="false" data-hydrate-id="h5">Show Specific</button>
+<aside class="frame row-wrap gap-4 items-center"><button x-on:click="tab_sharedExample = 'shared'" :aria-selected="String(tab_sharedExample === 'shared')" aria-selected="true" data-hydrate-id="h10">Show All</button>
+<button x-on:click="tab_sharedExample = 'specific'" :aria-selected="String(tab_sharedExample === 'specific')" aria-selected="false" data-hydrate-id="h11">Show Specific</button>
 
 <div class="shared w-full" x-show="tab_sharedExample === 'shared'" id="shared">Shared content 1</div>
 <div class="shared w-full" x-show="tab_sharedExample === 'shared'" id="shared">Shared content 2</div>
@@ -857,8 +875,8 @@
 <aside class="frame row-wrap gap-12 items-center"><div class="col gap-2">
     <small>Tab group A</small>
     <div class="row gap-2">
-        <button x-on:click="tab_group_a = 'first-a'" :aria-selected="String(tab_group_a === 'first-a')" aria-selected="true" data-hydrate-id="h6">First</button>
-        <button x-on:click="tab_group_a = 'second-a'" :aria-selected="String(tab_group_a === 'second-a')" aria-selected="false" data-hydrate-id="h7">Second</button>
+        <button x-on:click="tab_group_a = 'first-a'" :aria-selected="String(tab_group_a === 'first-a')" aria-selected="true" data-hydrate-id="h12">First</button>
+        <button x-on:click="tab_group_a = 'second-a'" :aria-selected="String(tab_group_a === 'second-a')" aria-selected="false" data-hydrate-id="h13">Second</button>
     </div>
     <div class="first-a" x-show="tab_group_a === 'first-a'" id="first-a">A. First content</div>
     <div class="second-a" x-show="tab_group_a === 'second-a'" id="second-a" style="display: none">A. Second content</div>
@@ -867,8 +885,8 @@
 <div class="col gap-2">
     <small>Tab group B</small>
     <div class="row gap-2">
-        <button x-on:click="tab_group_b = 'first-b'" :aria-selected="String(tab_group_b === 'first-b')" aria-selected="true" data-hydrate-id="h8">First</button>
-        <button x-on:click="tab_group_b = 'second-b'" :aria-selected="String(tab_group_b === 'second-b')" aria-selected="false" data-hydrate-id="h9">Second</button>
+        <button x-on:click="tab_group_b = 'first-b'" :aria-selected="String(tab_group_b === 'first-b')" aria-selected="true" data-hydrate-id="h14">First</button>
+        <button x-on:click="tab_group_b = 'second-b'" :aria-selected="String(tab_group_b === 'second-b')" aria-selected="false" data-hydrate-id="h15">Second</button>
     </div>
     <div class="first-b" x-show="tab_group_b === 'first-b'" id="first-b">B. First content</div>
     <div class="second-b" x-show="tab_group_b === 'second-b'" id="second-b" style="display: none">B. Second content</div>
@@ -894,8 +912,8 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"weekly"</span> <span class="hljs-attr">x-tabpanel</span>=<span class="hljs-string">"bar"</span>&gt;</span>Weekly content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame row-wrap gap-12 items-center"><div class="col gap-2">
     <div role="group">
-        <button x-on:click="tab_grouped = 'metrics'" :aria-selected="String(tab_grouped === 'metrics')" aria-selected="true" data-hydrate-id="h10">Metrics</button>
-        <button x-on:click="tab_grouped = 'reports'" :aria-selected="String(tab_grouped === 'reports')" aria-selected="false" data-hydrate-id="h11">Reports</button>
+        <button x-on:click="tab_grouped = 'metrics'" :aria-selected="String(tab_grouped === 'metrics')" aria-selected="true" data-hydrate-id="h16">Metrics</button>
+        <button x-on:click="tab_grouped = 'reports'" :aria-selected="String(tab_grouped === 'reports')" aria-selected="false" data-hydrate-id="h17">Reports</button>
     </div>
     <div class="metrics" x-show="tab_grouped === 'metrics'" id="metrics">Metrics content</div>
     <div class="reports" x-show="tab_grouped === 'reports'" id="reports" style="display: none">Reports content</div>
@@ -903,14 +921,16 @@
 
 <div class="col gap-2">
     <div role="tablist">
-        <button id="mnfst-tab-bar-daily-0" x-on:click="tab_bar = 'daily'" :aria-selected="String(tab_bar === 'daily')" role="tab" :tabindex="tab_bar === 'daily' ? '0' : '-1'" aria-controls="daily" aria-selected="true" tabindex="0" data-hydrate-id="h12">Daily</button>
-        <button id="mnfst-tab-bar-weekly-1" x-on:click="tab_bar = 'weekly'" :aria-selected="String(tab_bar === 'weekly')" role="tab" :tabindex="tab_bar === 'weekly' ? '0' : '-1'" aria-controls="weekly" aria-selected="false" tabindex="-1" data-hydrate-id="h13">Weekly</button>
+        <button id="mnfst-tab-bar-daily-0" x-on:click="tab_bar = 'daily'" :aria-selected="String(tab_bar === 'daily')" role="tab" :tabindex="tab_bar === 'daily' ? '0' : '-1'" aria-controls="daily" aria-selected="true" tabindex="0" data-hydrate-id="h18">Daily</button>
+        <button id="mnfst-tab-bar-weekly-1" x-on:click="tab_bar = 'weekly'" :aria-selected="String(tab_bar === 'weekly')" role="tab" :tabindex="tab_bar === 'weekly' ? '0' : '-1'" aria-controls="weekly" aria-selected="false" tabindex="-1" data-hydrate-id="h19">Weekly</button>
     </div>
     <div class="daily" x-show="tab_bar === 'daily'" id="daily" role="tabpanel" tabindex="0" aria-labelledby="mnfst-tab-bar-daily-0">Daily content</div>
     <div class="weekly" x-show="tab_bar === 'weekly'" id="weekly" role="tabpanel" tabindex="0" aria-labelledby="mnfst-tab-bar-weekly-1" style="display: none">Weekly content</div>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
+<hr>
+<h2 id="inactive-panels-cost-nothing">Inactive Panels Cost Nothing</h2><p>An unselected tab panel's contents are not initialized until the panel is first shown, so nothing in it runs while another tab is selected. A panel shown once stays ready. The same knobs as <a href="/docs/elements/dropdowns#closed-menus-cost-nothing">menus</a> apply to a panel: <code>x-defer.off</code> keeps it eager, <code>x-defer.discard</code> throws its contents away each time it is hidden, and <code>x-defer.priority="1"</code> prepares it early. See <a href="/docs/getting-started/performance#x-defer-reference">performance</a> for the full reference.</p>
 <hr>
 <h2 id="styles">Styles</h2><p>Tab buttons inherit from <a href="/docs/elements/buttons">buttons</a>. The plugin syncs <code>aria-selected="true"</code> on the active tab and toggles panel visibility based on the <code>x-tab</code> ID match.</p>
 <table>
@@ -1007,9 +1027,9 @@
       <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
 
       <div role="group" class="outlined rounded-full">
-        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h14"></button>
-        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h15"></button>
-        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h16"></button>
+        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h20"></button>
+        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h21"></button>
+        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h22"></button>
       </div>
     </div>
   </div>
@@ -1025,7 +1045,7 @@
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#default">Default</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#shared-buttons">Shared Buttons</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#multiple-tab-groups">Multiple Tab Groups</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#groups">Groups</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#customization">Customization</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#default">Default</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#shared-buttons">Shared Buttons</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#multiple-tab-groups">Multiple Tab Groups</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#groups">Groups</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#inactive-panels-cost-nothing">Inactive Panels Cost Nothing</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#customization">Customization</a></div>
 
   </nav>
 
@@ -1038,5 +1058,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"x-tab":"first","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h3","attrs":{"x-tab":"second","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h4","attrs":{"x-tab":"shared","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h5","attrs":{"x-tab":"specific","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h6","attrs":{"x-tab":"first-a","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h7","attrs":{"x-tab":"second-a","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h8","attrs":{"x-tab":"first-b","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h9","attrs":{"x-tab":"second-b","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h10","attrs":{"x-tab":"metrics","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h11","attrs":{"x-tab":"reports","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h12","attrs":{"x-tab":"daily","id":null,"x-on:click":null,":aria-selected":null,"role":null,":tabindex":null,"aria-controls":null,"aria-selected":null,"tabindex":null}},{"id":"h13","attrs":{"x-tab":"weekly","id":null,"x-on:click":null,":aria-selected":null,"role":null,":tabindex":null,"aria-controls":null,"aria-selected":null,"tabindex":null}},{"id":"h14","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h15","attrs":{"type":null}},{"id":"h16","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"x-tab":"first","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h9","attrs":{"x-tab":"second","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h10","attrs":{"x-tab":"shared","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h11","attrs":{"x-tab":"specific","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h12","attrs":{"x-tab":"first-a","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h13","attrs":{"x-tab":"second-a","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h14","attrs":{"x-tab":"first-b","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h15","attrs":{"x-tab":"second-b","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h16","attrs":{"x-tab":"metrics","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h17","attrs":{"x-tab":"reports","x-on:click":null,":aria-selected":null,"aria-selected":null}},{"id":"h18","attrs":{"x-tab":"daily","id":null,"x-on:click":null,":aria-selected":null,"role":null,":tabindex":null,"aria-controls":null,"aria-selected":null,"tabindex":null}},{"id":"h19","attrs":{"x-tab":"weekly","id":null,"x-on:click":null,":aria-selected":null,"role":null,":tabindex":null,"aria-controls":null,"aria-selected":null,"tabindex":null}},{"id":"h20","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h21","attrs":{"type":null}},{"id":"h22","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h23","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h24","attrs":{"type":null}},{"id":"h25","attrs":{"type":null}},{"id":"h26","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
 </body></html>

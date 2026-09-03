@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Native Capabilities — Manifest</title>
-  <meta name="description" content="Device APIs — biometrics, push, haptics, camera, and more — as Alpine magics that degrade to the web.">
+  <title>Computed Values — Manifest</title>
+  <meta name="description" content="Named values built from other data, recalculated only when that data changes.">
   <meta name="author" content="Andrew Matlock">
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
@@ -14,18 +14,18 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.js" data-version="0.5.194"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -44,8 +44,8 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Native Capabilities — Manifest"><meta property="og:description" content="Device APIs — biometrics, push, haptics, camera, and more — as Alpine magics that degrade to the web."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/publishing/native-capabilities"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-publishing-native-capabilities.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Native Capabilities — Manifest"><meta property="twitter:description" content="Device APIs — biometrics, push, haptics, camera, and more — as Alpine magics that degrade to the web."><meta property="twitter:image" content="/og/docs-publishing-native-capabilities.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Native Capabilities — Manifest","description":"Device APIs — biometrics, push, haptics, camera, and more — as Alpine magics that degrade to the web.","image":"/og/docs-publishing-native-capabilities.png","url":"https://manifestx.dev/docs/publishing/native-capabilities"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Publishing","item":"https://manifestx.dev/docs/publishing"},{"@type":"ListItem","position":4,"name":"Native Capabilities","item":"https://manifestx.dev/docs/publishing/native-capabilities"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
-<link rel="canonical" href="https://manifestx.dev/docs/publishing/native-capabilities">
+@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Computed Values — Manifest"><meta property="og:description" content="Named values built from other data, recalculated only when that data changes."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/computed"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-core-plugins-computed.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Computed Values — Manifest"><meta property="twitter:description" content="Named values built from other data, recalculated only when that data changes."><meta property="twitter:image" content="/og/docs-core-plugins-computed.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Computed Values — Manifest","description":"Named values built from other data, recalculated only when that data changes.","image":"/og/docs-core-plugins-computed.png","url":"https://manifestx.dev/docs/core-plugins/computed"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Computed","item":"https://manifestx.dev/docs/core-plugins/computed"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/core-plugins/computed">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
 <meta name="manifest:prerendered" content="1">
@@ -77,9 +77,9 @@
 
             <!-- Docs Breadcrumbs-->
             <small class="hidden sm:flex md:hidden truncate" x-route="/docs/*">
-                <span x-text="$x.docs.$route('path')?.group || 'No group'">Publishing</span>
+                <span x-text="$x.docs.$route('path')?.group || 'No group'">Core Plugins</span>
                 <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
-                <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'">Native Capabilities</span>
+                <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'">Computed Values</span>
             </small>
 
         </div>
@@ -253,6 +253,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
                         <span x-icon="lucide:eye"></span>
                         <span>Accessibility</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/performance">
+                        <span x-icon="lucide:gauge"></span>
+                        <span>Performance</span>
                     </a>
             </div>
             <hr>
@@ -265,6 +268,15 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
                         <span x-icon="lucide:panels-top-left"></span>
                         <span>Components</span>
+                    </a><a role="button" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/core-plugins/computed" aria-current="page">
+                        <span x-icon="lucide:sigma"></span>
+                        <span>Computed Values</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/device">
+                        <span x-icon="lucide:smartphone"></span>
+                        <span>Device</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
+                        <span x-icon="lucide:pencil-ruler"></span>
+                        <span>Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
                         <span x-icon="lucide:download"></span>
                         <span>Export</span>
@@ -289,6 +301,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
                         <span x-icon="lucide:activity"></span>
                         <span>Status</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/text-edit">
+                        <span x-icon="lucide:pilcrow"></span>
+                        <span>Text Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
                         <span x-icon="lucide:ampersand"></span>
                         <span>URL Parameters</span>
@@ -346,12 +361,6 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
                         <span x-icon="lucide:monitor-smartphone"></span>
                         <span>Native Apps</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/app-store-readiness">
-                        <span x-icon="lucide:dot"></span>
-                        <span>App Store Readiness</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/publishing/native-capabilities" aria-current="page">
-                        <span x-icon="lucide:dot"></span>
-                        <span>Native Capabilities</span>
                     </a>
             </div>
             <hr>
@@ -531,6 +540,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:eye"></span>
               <span>Accessibility</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -543,6 +555,15 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/components" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:panels-top-left"></span>
               <span>Components</span>
+            </a><a role="button" href="/docs/core-plugins/computed" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Device</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:download"></span>
               <span>Export</span>
@@ -567,6 +588,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/status" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:activity"></span>
               <span>Status</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/text-edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Text Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/url-parameters" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:ampersand"></span>
               <span>URL Parameters</span>
@@ -624,12 +648,6 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:monitor-smartphone"></span>
               <span>Native Apps</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/app-store-readiness" class="ghost text-content-neutral justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>App Store Readiness</span>
-            </a><a role="button" href="/docs/publishing/native-capabilities" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>Native Capabilities</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -779,120 +797,73 @@
       <!-- Article -->
       <template x-if="article?.name">
         <span class="h6 mb-3" x-text="article?.group"></span>
-      </template><span class="h6 mb-3" x-text="article?.group" data-mnfst-prerender-clone="1">Publishing</span>
+      </template><span class="h6 mb-3" x-text="article?.group" data-mnfst-prerender-clone="1">Core Plugins</span>
       <template x-if="article?.name">
         <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="article?.doc"></div>
-      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="native-capabilities">Native Capabilities</h1><p>Device APIs — biometrics, push, haptics, camera, and more — as Alpine magics that degrade to the web.</p>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="computed-values">Computed Values</h1><p>Named values built from other data, recalculated only when that data changes.</p>
 <hr>
-<h2 id="overview">Overview</h2><p>The native umbrella plugin exposes device capabilities through <code>$</code>-magics that feel like the rest of Manifest. Each is <strong>capability-first</strong>: it uses <a href="/docs/publishing/native-apps">Capacitor</a> inside a wrapped app, and falls back to a web equivalent (or a clean no-op) in the browser — so the same markup runs as a website, an installed PWA, and a native app.</p>
-<p>Capabilities: <code>$device</code> (state), <code>$share</code>, <code>$secure</code>, <code>$links</code>, <code>$push</code>, <code>$app</code>, <code>$haptics</code>, <code>$biometric</code>, <code>$camera</code>.</p>
-<aside class="brand"><span x-icon="lucide:info"></span><p>The web fallbacks let you build and test on the web; the native paths (APNs tokens, Keychain, Face ID, real capture) light up once you <a href="/docs/publishing/native-apps">wrap the app with Capacitor</a>. Nothing here is required to ship a plain website.</p>
-</aside>
+<h2 id="overview">Overview</h2><p>A computed value is anything worked out from other state, such as a filtered list, a sorted table, or a total. It is recalculated once when something it reads changes, and every place that shows it gets the same result in between. Without it, a filter written straight into the page runs again every time anything in the component updates, which adds up over a large list.</p>
+<p>Use it for filtered or sorted lists and anything built from a data source.</p>
 <hr>
-<h2 id="opting-in">Opting in</h2><p>Add a <code>native</code> block to <code>manifest.json</code> — an empty object is enough:</p>
-<pre x-code="json" name="manifest.json" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"native"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span>
-<span class="hljs-punctuation">}</span></code></pre>
-<p>Inside a Capacitor container the plugin <strong>auto-loads</strong> even without the block. You can also load it explicitly with <code>data-plugins="native"</code> on the Manifest script tag. <code>$device</code> (below) is part of core and always available.</p>
-<hr>
-<h2 id="device">$device</h2><p>Reactive device state — available on every build, not just native.</p>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>$device.os</code></td>
-<td><code>ios</code> · <code>android</code> · <code>macos</code> · <code>windows</code> · <code>linux</code></td>
-</tr>
-<tr>
-<td><code>$device.platform</code></td>
-<td><code>web</code> · <code>ios</code> · <code>android</code> (the container, distinct from <code>os</code>)</td>
-</tr>
-<tr>
-<td><code>$device.online</code></td>
-<td><code>true</code> / <code>false</code>, reactive to connectivity changes</td>
-</tr>
-<tr>
-<td><code>$device.standalone</code></td>
-<td>installed / standalone display mode</td>
-</tr>
-<tr>
-<td><code>$device.native</code></td>
-<td>running inside a native (Capacitor) container</td>
-</tr>
-<tr>
-<td><code>$device.touch</code></td>
-<td>coarse-pointer / touch device</td>
-</tr>
-</tbody></table>
-<pre x-code="html" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!$device.online"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"offline-only"</span>&gt;</span>You're offline<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-if</span>=<span class="hljs-string">"$device.native"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$haptics.impact()"</span>&gt;</span>Buy<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
-<p>The same state is mirrored on <code>&lt;html&gt;</code> as <code>data-os</code>, <code>data-online</code>, <code>data-standalone</code>, <code>data-native</code>, so you also get CSS/Tailwind variants (<code>ios:</code>, <code>offline:</code>, <code>native:</code>, <code>standalone:</code>) and visibility classes (<code>.native-only</code>, <code>.web-only</code>, <code>.offline-only</code>, <code>.online-only</code>, <code>.standalone-only</code>, plus the OS <code>.ios-only</code> / <code>.no-ios</code> family).</p>
-<hr>
-<h2 id="share">$share</h2><p>Native share sheet → Web Share API → clipboard. Resolves <code>{ shared, method, cancelled? }</code>.</p>
-<pre x-code="html" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$share({ title: 'Manifest', text: 'Look at this', url: 'https://manifestx.dev' })"</span>&gt;</span>Share<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
-<hr>
-<h2 id="secure">$secure</h2><p>Key/value storage backed by the Keychain / Keystore in-app, and a namespaced <code>localStorage</code> fallback on the web (not encrypted there — for real secrets, ship native). Good for session tokens.</p>
-<pre x-code="js" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">await</span> $secure.<span class="hljs-title function_">set</span>(<span class="hljs-string">'token'</span>, value)
-<span class="hljs-keyword">const</span> token = <span class="hljs-keyword">await</span> $secure.<span class="hljs-title function_">get</span>(<span class="hljs-string">'token'</span>)   <span class="hljs-comment">// string | null</span>
-<span class="hljs-keyword">await</span> $secure.<span class="hljs-title function_">remove</span>(<span class="hljs-string">'token'</span>)
-<span class="hljs-keyword">await</span> $secure.<span class="hljs-title function_">keys</span>()                        <span class="hljs-comment">// string[]</span>
-<span class="hljs-keyword">await</span> $secure.<span class="hljs-title function_">clear</span>()</code></pre>
-<p>Install a Capacitor secure-storage plugin registered as <code>SecureStorage</code>. If its API differs, adapt it once with <code>$secure.use(adapter)</code>.</p>
-<hr>
-<h2 id="links">$links</h2><p>Deep and universal links. A tapped link (native <code>appUrlOpen</code>, or a cold-start launch URL) hands off to the <a href="/docs/core-plugins/router">router</a> automatically.</p>
-<pre x-code="js" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes">$links.<span class="hljs-title function_">open</span>(<span class="hljs-string">'https://app.example.com/order/123'</span>)   <span class="hljs-comment">// navigate programmatically</span>
-$links.<span class="hljs-title function_">on</span>(<span class="hljs-function"><span class="hljs-params">link</span> =&gt;</span> { <span class="hljs-comment">/* take over: link.url, link.path */</span> })
-$links.<span class="hljs-property">last</span>                                          <span class="hljs-comment">// last inbound URL (reactive)</span></code></pre>
-<p>Universal (<code>https://</code>) links map to their path directly. For custom schemes (<code>myapp://order/123</code>) the host+path becomes the route (<code>/order/123</code>); use <code>$links.on()</code> for bespoke mapping.</p>
-<hr>
-<h2 id="push">$push</h2><p>Push notifications, designed as three author-controlled contracts — not display-only.</p>
-<pre x-code="js" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-comment">// 1. Permission, on your schedule (never auto-prompted)</span>
-<span class="hljs-keyword">const</span> state = <span class="hljs-keyword">await</span> $push.<span class="hljs-title function_">request</span>()        <span class="hljs-comment">// 'granted' | 'denied' | 'prompt' | 'unsupported'</span>
+<h2 id="setup">Setup</h2><p>Computed values are included in <code>manifest.js</code> with all core plugins, or can be selectively loaded.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
-<span class="hljs-comment">// 2. Device token -&gt; your backend</span>
-$push.<span class="hljs-title function_">onToken</span>(<span class="hljs-function"><span class="hljs-params">token</span> =&gt;</span> <span class="hljs-title function_">sendToServer</span>(token))
-<span class="hljs-keyword">await</span> $push.<span class="hljs-title function_">register</span>()                       <span class="hljs-comment">// registers with APNs (native)</span>
+<pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre x-code="html" name="Selective" data-code-block-built="yes" aria-label="Selective" role="tabpanel" data-code-processed="yes" id="selective-panel-1" aria-labelledby="selective-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+    <span class="hljs-attr">data-plugins</span>=<span class="hljs-string">"computed"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
-<span class="hljs-comment">// 3. Tap -&gt; route (default routes the payload's url/route; override to customise)</span>
-$push.<span class="hljs-title function_">onTap</span>(<span class="hljs-function"><span class="hljs-params">n</span> =&gt;</span> { <span class="hljs-comment">/* n.data */</span> })
-$push.<span class="hljs-title function_">onReceive</span>(<span class="hljs-function"><span class="hljs-params">n</span> =&gt;</span> { <span class="hljs-comment">/* foreground */</span> })
+<hr>
+<h2 id="usage">Usage</h2><p>Add <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-computed:name="expression"</code> to an element. The name becomes a value that everything inside the element can read, like any other property.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
 
-$push.<span class="hljs-property">permission</span>   <span class="hljs-comment">// reactive</span>
-$push.<span class="hljs-property">token</span>        <span class="hljs-comment">// reactive</span></code></pre>
-<p>On the web, permission maps to the Notification API; full web push (service worker + VAPID) is out of scope, so <code>register()</code> is a no-op there. The tap → route handoff reuses <code>$links</code>, so it pairs with deep links and <code>$app</code>.</p>
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ q: '' }"</span> <span class="hljs-attr">x-computed:hits</span>=<span class="hljs-string">"$x.people.filter(p =&gt; p.name.includes(q))"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Filter people..."</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"q"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"hits.length + ' people'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ q: '' }" x-computed:hits="($x.example.products || []).filter(p =&gt; p.name.toLowerCase().includes(q.toLowerCase()))" class="col gap-3 w-full">
+    <input type="text" placeholder="Filter products..." aria-label="Filter products" x-model="q">
+    <div class="col">
+        <div class="row gap-4 justify-between p-2 border-b border-line">
+                <span>MacBook Pro</span>
+                <small class="text-content-subtle">laptops</small>
+            </div><div class="row gap-4 justify-between p-2 border-b border-line">
+                <span>Dell XPS</span>
+                <small class="text-content-subtle">laptops</small>
+            </div><div class="row gap-4 justify-between p-2 border-b border-line">
+                <span>iPhone 15</span>
+                <small class="text-content-subtle">phones</small>
+            </div><div class="row gap-4 justify-between p-2 border-b border-line">
+                <span>Samsung Galaxy</span>
+                <small class="text-content-subtle">phones</small>
+            </div><div class="row gap-4 justify-between p-2 border-b border-line">
+                <span>iPad Air</span>
+                <small class="text-content-subtle">tablets</small>
+            </div><div class="row gap-4 justify-between p-2 border-b border-line">
+                <span>Surface Pro</span>
+                <small class="text-content-subtle">tablets</small>
+            </div>
+        <small x-show="!hits.length" class="text-content-subtle p-2" style="display: none">No matches</small>
+    </div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Type in the field: <code>hits</code> is recalculated when <code>q</code> changes or the data source updates, and at no other time.</p>
+<p>In JavaScript, <code>$computed</code> takes a function that receives the scope:</p>
+<pre x-code="js" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-title class_">Alpine</span>.<span class="hljs-title function_">data</span>(<span class="hljs-string">'inbox'</span>, <span class="hljs-function">() =&gt;</span> ({
+    <span class="hljs-attr">rows</span>: $computed(<span class="hljs-function"><span class="hljs-params">s</span> =&gt;</span> s.<span class="hljs-property">$x</span>.<span class="hljs-property">chats</span>.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.<span class="hljs-property">open</span>)),
+}))</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <hr>
-<h2 id="app">$app</h2><p>App lifecycle — foreground/background.</p>
-<pre x-code="html" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$app.active ? 'active' : 'background'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre>
-<pre x-code="js" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes">$app.<span class="hljs-title function_">onChange</span>(<span class="hljs-function"><span class="hljs-params">active</span> =&gt;</span> { <span class="hljs-keyword">if</span> (active) <span class="hljs-title function_">refresh</span>() })</code></pre>
-<p>Native uses Capacitor's <code>appStateChange</code>; the web falls back to <code>visibilitychange</code> / <code>pageshow</code> / <code>pagehide</code>.</p>
-<hr>
-<h2 id="haptics">$haptics</h2><p>Tactile feedback. Native uses Capacitor Haptics; the web falls back to <code>navigator.vibrate</code> (which desktop and iOS Safari often ignore — it's an enhancement).</p>
-<pre x-code="js" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes">$haptics.<span class="hljs-title function_">impact</span>()        <span class="hljs-comment">// 'LIGHT' | 'MEDIUM' | 'HEAVY'</span>
-$haptics.<span class="hljs-title function_">notification</span>()  <span class="hljs-comment">// 'SUCCESS' | 'WARNING' | 'ERROR'</span>
-$haptics.<span class="hljs-title function_">selection</span>()
-$haptics.<span class="hljs-title function_">vibrate</span>(<span class="hljs-number">200</span>)</code></pre>
-<hr>
-<h2 id="biometric">$biometric</h2><p>Face ID / Touch ID — a genuine native capability (and an easy Guideline 4.2 win). The web has no equivalent one-shot verify, so it reports unsupported.</p>
-<pre x-code="js" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">if</span> (<span class="hljs-keyword">await</span> $biometric.<span class="hljs-title function_">available</span>()) {
-  <span class="hljs-keyword">const</span> r = <span class="hljs-keyword">await</span> $biometric.<span class="hljs-title function_">verify</span>({ <span class="hljs-attr">reason</span>: <span class="hljs-string">'Confirm payment'</span> })
-  <span class="hljs-keyword">if</span> (r.<span class="hljs-property">verified</span>) { <span class="hljs-comment">/* proceed */</span> }
-}</code></pre>
-<p>Install a Capacitor biometric plugin (e.g. <code>capacitor-native-biometric</code> or <code>@aparajita/capacitor-biometric-auth</code>).</p>
-<hr>
-<h2 id="camera">$camera</h2><p>Capture or pick a photo. Native uses Capacitor Camera; the web falls back to a file picker. Resolves <code>{ dataUrl?, format?, cancelled? }</code>.</p>
-<pre x-code="js" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">const</span> photo = <span class="hljs-keyword">await</span> $camera.<span class="hljs-title function_">photo</span>()   <span class="hljs-comment">// capture</span>
-<span class="hljs-keyword">const</span> pick  = <span class="hljs-keyword">await</span> $camera.<span class="hljs-title function_">pick</span>()    <span class="hljs-comment">// from library</span>
-<span class="hljs-keyword">if</span> (photo.<span class="hljs-property">dataUrl</span>) img.<span class="hljs-property">src</span> = photo.<span class="hljs-property">dataUrl</span></code></pre>
-<hr>
-<h2 id="native-feel-packaging">Native feel &amp; packaging</h2><p>Pair these with the native-feel primitives — safe-area utilities (<code>p-safe</code>, <code>pb-safe</code>, <code>--safe-*</code>), the <code>&lt;nav dock&gt;</code> bottom navigation, and <code>viewport-fit=cover</code> (shipped in the starter). Then wrap and submit:</p>
-<ul>
-<li><a href="/docs/publishing/native-apps">Native Apps</a> — packaging with Capacitor.</li>
-<li><a href="/docs/publishing/app-store-readiness">App Store Readiness</a> — passing iOS review, the 4.2 checklist, privacy manifests, and the payments boundary.</li>
+<h2 id="rules">Rules</h2><ul>
+<li>Name it, then read it like a plain property: <code>hits</code>, not <code>hits()</code>.</li>
+<li>Return a new array or object rather than changing the previous result in place.</li>
+<li>Trivial expressions don't need it: <code>a + b</code> can stay inline.</li>
 </ul>
+<p>The value keeps the same identity until something it reads changes, so <code>x-for</code> and <code>x-virtual</code> reuse their rows instead of rebuilding them. If the expression throws, the value keeps its last result.</p>
+<hr>
+<h2 id="when-not-to-use-it">When Not To Use It</h2><p>Simple expressions and plain getters are fine on their own. Reach for a computed value when the work grows with your data: filtering, sorting, grouping and totals.</p>
+<p>Data operators are already cached. <code>$search</code>, <code>$query</code> and <code>$route</code> on a data source remember their result until that source changes, so a search bound in many places is computed once. Use <code>x-computed</code> for derivations you write yourself, such as a <code>filter</code> or <code>reduce</code> over the rows.</p>
+<p>See <a href="/docs/getting-started/performance">performance</a> for where computed values fit alongside the rest of Manifest's rendering behavior.</p>
 </div>
 
       <!-- Docs home -->
@@ -957,9 +928,9 @@ $haptics.<span class="hljs-title function_">vibrate</span>(<span class="hljs-num
       <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
 
       <div role="group" class="outlined rounded-full">
-        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h2"></button>
-        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h3"></button>
-        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h4"></button>
+        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h8"></button>
+        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h9"></button>
+        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h10"></button>
       </div>
     </div>
   </div>
@@ -975,7 +946,7 @@ $haptics.<span class="hljs-title function_">vibrate</span>(<span class="hljs-num
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#opting-in">Opting in</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#device">$device</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#share">$share</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#secure">$secure</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#links">$links</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#push">$push</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#app">$app</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#haptics">$haptics</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#biometric">$biometric</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#camera">$camera</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#native-feel-packaging">Native feel &amp; packaging</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#usage">Usage</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#rules">Rules</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#when-not-to-use-it">When Not To Use It</a></div>
 
   </nav>
 
@@ -988,5 +959,5 @@ $haptics.<span class="hljs-title function_">vibrate</span>(<span class="hljs-num
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h3","attrs":{"type":null}},{"id":"h4","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h9","attrs":{"type":null}},{"id":"h10","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h11","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h12","attrs":{"type":null}},{"id":"h13","attrs":{"type":null}},{"id":"h14","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
 </body></html>

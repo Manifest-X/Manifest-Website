@@ -14,18 +14,18 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.js" data-version="0.5.194"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -234,7 +234,7 @@
         src: null ?? 'docs',
         get groups() { return $x[this.src] || [] },
         get article() { return $x[this.src].$route('path') },
-    }" @manifest:route-change.window="$el.hidePopover()" data-component="docs-nav-1" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" data-order="3">
     <div class="col gap-6 py-4">
             <small class="pl-2.5 text-content-subtle">Getting Started</small>
             <div class="col">
@@ -253,6 +253,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
                         <span x-icon="lucide:eye"></span>
                         <span>Accessibility</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/performance">
+                        <span x-icon="lucide:gauge"></span>
+                        <span>Performance</span>
                     </a>
             </div>
             <hr>
@@ -265,6 +268,15 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
                         <span x-icon="lucide:panels-top-left"></span>
                         <span>Components</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/computed">
+                        <span x-icon="lucide:sigma"></span>
+                        <span>Computed Values</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/device">
+                        <span x-icon="lucide:smartphone"></span>
+                        <span>Device</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
+                        <span x-icon="lucide:pencil-ruler"></span>
+                        <span>Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
                         <span x-icon="lucide:download"></span>
                         <span>Export</span>
@@ -289,6 +301,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
                         <span x-icon="lucide:activity"></span>
                         <span>Status</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/text-edit">
+                        <span x-icon="lucide:pilcrow"></span>
+                        <span>Text Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
                         <span x-icon="lucide:ampersand"></span>
                         <span>URL Parameters</span>
@@ -346,12 +361,6 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
                         <span x-icon="lucide:monitor-smartphone"></span>
                         <span>Native Apps</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/app-store-readiness">
-                        <span x-icon="lucide:dot"></span>
-                        <span>App Store Readiness</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-capabilities">
-                        <span x-icon="lucide:dot"></span>
-                        <span>Native Capabilities</span>
                     </a>
             </div>
             <hr>
@@ -531,6 +540,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:eye"></span>
               <span>Accessibility</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -543,6 +555,15 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/components" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:panels-top-left"></span>
               <span>Components</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Device</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:download"></span>
               <span>Export</span>
@@ -567,6 +588,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/status" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:activity"></span>
               <span>Status</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/text-edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Text Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/url-parameters" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:ampersand"></span>
               <span>URL Parameters</span>
@@ -624,12 +648,6 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:monitor-smartphone"></span>
               <span>Native Apps</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/app-store-readiness" class="ghost text-content-neutral justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>App Store Readiness</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-capabilities" class="ghost text-content-neutral justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>Native Capabilities</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -888,6 +906,16 @@
 <td>CDN</td>
 <td>Base URL/path for plugin scripts (for self-hosted deployments)</td>
 </tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-defer</code></td>
+<td>(on)</td>
+<td><code>off</code> turns off automatic deferral of closed containers — see <a href="/docs/getting-started/performance#x-defer-reference">performance</a></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-defer-routes</code></td>
+<td>(off)</td>
+<td>Boolean — experimental; defer inactive <code>x-route</code> pages until first shown</td>
+</tr>
 </tbody></table>
 <hr>
 <h3 id="routing-view-transitions">Routing &amp; View Transitions</h3><p>Attributes for managing crossfades between routes:</p>
@@ -1059,14 +1087,29 @@
 <td>Switches color mode on click</td>
 </tr>
 <tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-computed:name</code></td>
+<td><a href="/docs/core-plugins/computed">computed</a></td>
+<td>Named value readable inside the element, recalculated only when what it reads changes</td>
+</tr>
+<tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-date</code></td>
 <td><a href="/docs/elements/date-pickers">date pickers</a></td>
 <td>Date, range, and time picker field or calendar</td>
 </tr>
 <tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-defer</code></td>
+<td><a href="/docs/getting-started/performance#x-defer-reference">core</a></td>
+<td>Defer a container's contents until it is shown. Modifiers: <code>.lazy</code>, <code>.discard</code>, <code>.priority="n"</code>, <code>.off</code></td>
+</tr>
+<tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-dropdown</code></td>
 <td><a href="/docs/elements/dropdowns">dropdowns</a></td>
 <td>Dropdown menu element</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-edit</code></td>
+<td><a href="/docs/core-plugins/edit">edit</a></td>
+<td>Editable region: text, reorder, resize, classes, theme variables. Opt-in plugin; modifiers <code>.text</code>, <code>.sort</code>, <code>.style</code>, <code>.size</code>, <code>.data</code>, <code>.lock</code>, <code>.gated</code>, <code>.authoring</code>, <code>.theme</code>, <code>.cssvar</code></td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-export</code></td>
@@ -1107,6 +1150,11 @@
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-tab</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-tabpanel</code></td>
 <td><a href="/docs/elements/tabs">tabs</a></td>
 <td>Tab elements</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-text-edit</code></td>
+<td><a href="/docs/core-plugins/text-edit">text edit</a></td>
+<td>Rich text area bound to a value (markdown; <code>.html</code>, <code>.plain</code>); with a command modifier, a control for that area (<code>x-text-edit.strong</code>)</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-toast</code></td>
@@ -1213,9 +1261,24 @@
 </tr>
 </thead>
 <tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$app</code></td>
+<td>device</td>
+<td>Foreground state: <code>active</code> (reactive), <code>onChange(fn)</code></td>
+</tr>
+<tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth</code></td>
 <td>appwrite-auth</td>
 <td>Current user, login methods, team management</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$biometric</code></td>
+<td>device</td>
+<td>Face ID / Touch ID inside a Capacitor app: <code>available()</code>, <code>verify({ reason })</code>; <code>false</code> / <code>unsupported</code> on the web</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$camera</code></td>
+<td>device</td>
+<td><code>photo()</code> and <code>pick()</code> resolve <code>{ dataUrl, format }</code> or <code>{ cancelled }</code>; a file picker on the web</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$chart(id)</code></td>
@@ -1238,9 +1301,34 @@
 <td>Read/write the current color mode. <code>$color.current</code> returns <code>'light'</code>, <code>'dark'</code>, or <code>'system'</code>; assign to switch</td>
 </tr>
 <tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$computed(s =&gt; ...)</code></td>
+<td>computed</td>
+<td>Derived value from a function that receives the scope; recalculated only when what it reads changes, read as a plain property. Also <code>window.$computed</code> in <code>Alpine.data</code> factories. Attribute form: <code>x-computed:name</code></td>
+</tr>
+<tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$date(id)</code></td>
 <td>datepicker</td>
 <td>Read or set a picker's value, time, range, and open state</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$device</code></td>
+<td>utilities</td>
+<td><code>os</code>, <code>platform</code>, <code>online</code>, <code>standalone</code>, <code>native</code>, <code>touch</code>; always available</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$edit</code></td>
+<td>edit</td>
+<td>Page editor state: <code>on()</code>/<code>off()</code> for gated regions, <code>undo()</code>/<code>redo()</code>, block operations (<code>can</code>, <code>duplicate</code>, <code>remove</code>), <code>publish()</code>, <code>patches()</code>, <code>export()</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$haptics</code></td>
+<td>device</td>
+<td><code>impact(style)</code>, <code>notification(type)</code>, <code>selection()</code>, <code>vibrate(ms)</code>; <code>navigator.vibrate</code> on the web</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$links</code></td>
+<td>device</td>
+<td>Deep links: <code>open(url)</code>, <code>on(fn)</code>, <code>last</code></td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$locale</code></td>
@@ -1248,14 +1336,34 @@
 <td>Current locale, available locales, <code>set(code)</code></td>
 </tr>
 <tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$push</code></td>
+<td>device</td>
+<td><code>permission</code>, <code>token</code>, <code>request()</code>, <code>register()</code>, <code>onToken</code>, <code>onReceive</code>, <code>onTap</code>; Notification permission only on the web</td>
+</tr>
+<tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$route</code></td>
 <td>router</td>
 <td>Reactive string of the current logical route (e.g. <code>$route === '/'</code>); not a function</td>
 </tr>
 <tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$secure</code></td>
+<td>device</td>
+<td>Key/value store: <code>get</code>, <code>set</code>, <code>remove</code>, <code>keys</code>, <code>clear</code>, <code>use(adapter)</code>; Keychain in a Capacitor app, prefixed <code>localStorage</code> on the web</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$share(opts)</code></td>
+<td>device</td>
+<td>Share sheet, Web Share or clipboard; resolves <code>{ shared, method, cancelled? }</code></td>
+</tr>
+<tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$status</code></td>
 <td>status</td>
 <td>Health of named services (e.g. <code>$status.api.state</code>, <code>$status.overall</code>)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$text</code></td>
+<td>text-edit</td>
+<td>The enclosing (or last focused) rich text area: <code>value</code>, <code>page</code>, <code>link</code>, <code>selection</code>, <code>run(cmd)</code>, <code>markdown()</code>, <code>html()</code></td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$toast</code></td>
@@ -1302,6 +1410,16 @@
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$ready</code></td>
 <td>boolean</td>
 <td>True after initial load completes</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$stale</code></td>
+<td>boolean</td>
+<td>True while cached rows show and fresh data is still loading</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$fresh</code></td>
+<td><code>Promise</code></td>
+<td>Resolves once fresh data has landed</td>
 </tr>
 </tbody></table>
 <hr>
@@ -1609,15 +1727,15 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"open"</span>&gt;</span>Hello<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p>For non-trivial logic, extract to an <code>Alpine.data()</code> factory (still local, but easier to test):</p>
-<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>
-document.addEventListener('alpine:init', () =&gt; {
-    Alpine.data('cart', () =&gt; ({
-        items: [],
-        add(p) { this.items.push(p); },
-        get total() { return this.items.reduce((s, i) =&gt; s + i.price, 0); }
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'alpine:init'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title class_">Alpine</span>.<span class="hljs-title function_">data</span>(<span class="hljs-string">'cart'</span>, <span class="hljs-function">() =&gt;</span> ({
+        <span class="hljs-attr">items</span>: [],
+        <span class="hljs-title function_">add</span>(<span class="hljs-params">p</span>) { <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-title function_">push</span>(p); },
+        <span class="hljs-keyword">get</span> <span class="hljs-title function_">total</span>() { <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">s, i</span>) =&gt;</span> s + i.<span class="hljs-property">price</span>, <span class="hljs-number">0</span>); }
     }));
 });
-<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"cart()"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"add({ id: 1, price: 10 })"</span>&gt;</span>Add<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -1625,15 +1743,15 @@ document.addEventListener('alpine:init', () =&gt; {
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <hr>
 <h3 id="global-alpine-stores">Global (Alpine Stores)</h3><p>Shared across all components. Define once, read anywhere via <code>$store.name</code>.</p>
-<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>
-document.addEventListener('alpine:init', () =&gt; {
-    Alpine.store('cart', {
-        items: [],
-        add(p) { this.items.push(p); },
-        get total() { return this.items.reduce((s, i) =&gt; s + i.price, 0); }
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'alpine:init'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title class_">Alpine</span>.<span class="hljs-title function_">store</span>(<span class="hljs-string">'cart'</span>, {
+        <span class="hljs-attr">items</span>: [],
+        <span class="hljs-title function_">add</span>(<span class="hljs-params">p</span>) { <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-title function_">push</span>(p); },
+        <span class="hljs-keyword">get</span> <span class="hljs-title function_">total</span>() { <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">s, i</span>) =&gt;</span> s + i.<span class="hljs-property">price</span>, <span class="hljs-number">0</span>); }
     });
 });
-<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$store.cart.add({ id: 1, price: 10 })"</span>&gt;</span>Add<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$store.cart.total"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
@@ -1665,6 +1783,10 @@ document.addEventListener('alpine:init', () =&gt; {
 <tr>
 <td><code>$watch('prop', cb)</code></td>
 <td>Side-effects on change (e.g. write to localStorage, call API).</td>
+</tr>
+<tr>
+<td><code>x-computed:name</code> / <code>$computed(s =&gt; ...)</code></td>
+<td>Data-sized work (filtered or sorted lists, totals) recalculated only when its inputs change. See <a href="/docs/core-plugins/computed">computed values</a>.</td>
 </tr>
 </tbody></table>
 <pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ count: 0 }"</span>
@@ -1764,6 +1886,11 @@ document.addEventListener('alpine:init', () =&gt; {
 <td><code>{ source, path }</code></td>
 </tr>
 <tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:defer-render</code></td>
+<td>On a deferred container (not <code>window</code>), after its contents initialise</td>
+<td>—</td>
+</tr>
+<tr>
 <td><code>alpine:init</code></td>
 <td>Alpine initialization (standard Alpine event)</td>
 <td>—</td>
@@ -1771,6 +1898,28 @@ document.addEventListener('alpine:init', () =&gt; {
 </tbody></table>
 <p>Listen example:</p>
 <pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span> @<span class="hljs-attr">manifest:route-change.window</span>=<span class="hljs-string">"console.log('route:', $event.detail.to)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h2 id="globals">Globals</h2><p>Window-level objects for diagnostics and configuration. See <a href="/docs/getting-started/performance#diagnostics">performance</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Global</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">ManifestDefer.stats()</code></td>
+<td>Deferral counters: <code>{ pending, warm, cap, ready, armed, head, routes: { enabled, stashed, rendered } }</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">ManifestDeferConfig.prewarmCap</code></td>
+<td>Maximum containers warming may prepare (default <code>48</code>)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">ManifestDeferConfig.routes</code></td>
+<td>Experimental — <code>true</code> defers inactive <code>x-route</code> pages, same as <code>data-defer-routes</code></td>
+</tr>
+</tbody></table>
 </div>
 
       <!-- Docs home -->
@@ -1835,9 +1984,9 @@ document.addEventListener('alpine:init', () =&gt; {
       <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
 
       <div role="group" class="outlined rounded-full">
-        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h2"></button>
-        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h3"></button>
-        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h4"></button>
+        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h8"></button>
+        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h9"></button>
+        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h10"></button>
       </div>
     </div>
   </div>
@@ -1853,7 +2002,7 @@ document.addEventListener('alpine:init', () =&gt; {
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#cli-commands">CLI Commands</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#data-attributes">Data-* Attributes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#plugin-loading">Plugin Loading</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#routing-view-transitions">Routing &amp; View Transitions</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#rendering">Rendering</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#directives">Directives</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#alpine">Alpine</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#manifest">Manifest</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#magic-properties">Magic Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#alpine">Alpine</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#manifest">Manifest</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#data-source-operators">Data Source Operators</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#state">State</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#filtering">Filtering</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#mutations">Mutations</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#pagination">Pagination</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#files">Files</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#row-properties">Row Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#queries">Queries</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#state-management">State Management</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#component-local">Component-Local</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#global-alpine-stores">Global (Alpine Stores)</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#server-persistent">Server / Persistent</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#derived-state">Derived State</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#cross-component-communication">Cross-Component Communication</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#css-variables">CSS Variables</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#manifest-events">Manifest Events</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#cli-commands">CLI Commands</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#data-attributes">Data-* Attributes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#plugin-loading">Plugin Loading</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#routing-view-transitions">Routing &amp; View Transitions</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#rendering">Rendering</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#directives">Directives</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#alpine">Alpine</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#manifest">Manifest</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#magic-properties">Magic Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#alpine">Alpine</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#manifest">Manifest</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#data-source-operators">Data Source Operators</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#state">State</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#filtering">Filtering</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#mutations">Mutations</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#pagination">Pagination</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#files">Files</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#row-properties">Row Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#queries">Queries</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#state-management">State Management</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#component-local">Component-Local</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#global-alpine-stores">Global (Alpine Stores)</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#server-persistent">Server / Persistent</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#derived-state">Derived State</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#cross-component-communication">Cross-Component Communication</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#css-variables">CSS Variables</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#manifest-events">Manifest Events</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#globals">Globals</a></div>
 
   </nav>
 
@@ -1866,5 +2015,5 @@ document.addEventListener('alpine:init', () =&gt; {
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h3","attrs":{"type":null}},{"id":"h4","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h9","attrs":{"type":null}},{"id":"h10","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h11","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h12","attrs":{"type":null}},{"id":"h13","attrs":{"type":null}},{"id":"h14","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
 </body></html>

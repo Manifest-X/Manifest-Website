@@ -2,6 +2,12 @@
 
 Make any HTML element resizable with drag handles.
 
+<aside>
+
+Superseded by `x-edit.size` in the [Edit](/docs/core-plugins/edit) plugin, which preserves the element's authored unit, snaps by magnet rather than grid, resolves logical edges for RTL, and makes every resize undoable and publishable. Resize keeps working — existing projects need no changes — but new ones should start with `x-edit.size`.
+
+</aside>
+
 ---
 
 ## Overview

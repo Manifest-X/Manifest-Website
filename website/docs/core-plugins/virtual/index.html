@@ -14,18 +14,18 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.194/lib/manifest.min.js" data-version="0.5.194"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -234,7 +234,7 @@
         src: null ?? 'docs',
         get groups() { return $x[this.src] || [] },
         get article() { return $x[this.src].$route('path') },
-    }" @manifest:route-change.window="$el.hidePopover()" data-component="docs-nav-1" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" data-order="3">
     <div class="col gap-6 py-4">
             <small class="pl-2.5 text-content-subtle">Getting Started</small>
             <div class="col">
@@ -253,6 +253,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
                         <span x-icon="lucide:eye"></span>
                         <span>Accessibility</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/performance">
+                        <span x-icon="lucide:gauge"></span>
+                        <span>Performance</span>
                     </a>
             </div>
             <hr>
@@ -265,6 +268,15 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
                         <span x-icon="lucide:panels-top-left"></span>
                         <span>Components</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/computed">
+                        <span x-icon="lucide:sigma"></span>
+                        <span>Computed Values</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/device">
+                        <span x-icon="lucide:smartphone"></span>
+                        <span>Device</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
+                        <span x-icon="lucide:pencil-ruler"></span>
+                        <span>Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
                         <span x-icon="lucide:download"></span>
                         <span>Export</span>
@@ -289,6 +301,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
                         <span x-icon="lucide:activity"></span>
                         <span>Status</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/text-edit">
+                        <span x-icon="lucide:pilcrow"></span>
+                        <span>Text Edit</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
                         <span x-icon="lucide:ampersand"></span>
                         <span>URL Parameters</span>
@@ -346,12 +361,6 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
                         <span x-icon="lucide:monitor-smartphone"></span>
                         <span>Native Apps</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/app-store-readiness">
-                        <span x-icon="lucide:dot"></span>
-                        <span>App Store Readiness</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-capabilities">
-                        <span x-icon="lucide:dot"></span>
-                        <span>Native Capabilities</span>
                     </a>
             </div>
             <hr>
@@ -531,6 +540,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:eye"></span>
               <span>Accessibility</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -543,6 +555,15 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/components" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:panels-top-left"></span>
               <span>Components</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Device</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:download"></span>
               <span>Export</span>
@@ -567,6 +588,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/status" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:activity"></span>
               <span>Status</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/text-edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Text Edit</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/url-parameters" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:ampersand"></span>
               <span>URL Parameters</span>
@@ -624,12 +648,6 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:monitor-smartphone"></span>
               <span>Native Apps</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/app-store-readiness" class="ghost text-content-neutral justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>App Store Readiness</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/publishing/native-capabilities" class="ghost text-content-neutral justify-start w-full text-content-subtle">
-              <span x-icon="lucide:dot"></span>
-              <span>Native Capabilities</span>
             </a>
         </div>
         <hr class="mt-4 mb-8">
@@ -814,7 +832,7 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ team: Array.from({length: 500}, (_, i) =&gt; ({ id: i, name: ['Sirius','Vega','Polaris','Betelgeuse','Rigel','Arcturus'][i % 6] + ' ' + (i + 1), role: ['Senior Engineer','Product Manager','Designer','Researcher','QA Lead','Tech Writer'][i % 6] })) }" class="w-full">
-    <div x-virtual="" class="border border-line rounded h-[300px] overflow-auto" style="overflow: auto">
+    <div x-virtual="" class="border border-line rounded h-[300px] overflow-auto">
         <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="p-3 border-b border-line">
                 <p class="font-semibold" x-text="member.name">Sirius 1</p>
                 <small class="text-muted" x-text="member.role">Senior Engineer</small>
@@ -870,7 +888,7 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ users: Array.from({length: 1000}, (_, i) =&gt; ({ id: i, name: ['Sirius','Vega','Polaris','Rigel','Arcturus','Lyra'][i % 6] + ' ' + (i + 1), email: 'user' + (i + 1) + '@acme.io', role: ['Engineer','Designer','PM','Researcher','QA','Writer'][i % 6] })) }" class="w-full">
-    <div x-virtual="" class="border border-line rounded h-[300px] overflow-auto" style="overflow: auto">
+    <div x-virtual="" class="border border-line rounded h-[300px] overflow-auto">
         <table class="table-fixed w-full">
             <thead>
                 <tr><th class="w-32">Name</th><th>Email</th><th class="w-28">Role</th></tr>
@@ -1024,7 +1042,7 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ tiles: Array.from({length: 1000}, (_, i) =&gt; ({ id: i, w: 90 + ((i * 47) % 140), h: 70 + ((i * 71) % 120), color: `hsl(${(i * 53) % 360} 65% 58%)` })) }" class="w-full">
-    <div x-virtual="{ estimate: { width: 160, height: 120 } }" class="border border-line rounded flex flex-wrap content-start gap-2 h-80 overflow-auto p-2" style="overflow: auto">
+    <div x-virtual="{ estimate: { width: 160, height: 120 } }" class="border border-line rounded flex flex-wrap content-start gap-2 h-80 overflow-auto p-2">
         <div data-virtual-spacer="" aria-hidden="true" style="flex: 0 0 100%; width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 90px; height: 70px; background: hsl(0 65% 58%)">#0</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 137px; height: 141px; background: hsl(53 65% 58%)">#1</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 184px; height: 92px; background: hsl(106 65% 58%)">#2</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 91px; height: 163px; background: hsl(159 65% 58%)">#3</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 138px; height: 114px; background: hsl(212 65% 58%)">#4</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 185px; height: 185px; background: hsl(265 65% 58%)">#5</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 92px; height: 136px; background: hsl(318 65% 58%)">#6</div><div data-virtual-spacer="" aria-hidden="true" style="flex: 0 0 100%; width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
             <div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id"></div>
         </template>
@@ -1053,11 +1071,11 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ blocks: Array.from({length: 1000}, (_, i) =&gt; ({ id: i, span: i % 11 === 0 ? 2 : 1, height: 80 + ((i * 61) % 160) + (i % 23 === 0 ? 140 : 0), color: `hsl(${(i * 53) % 360} 65% 58%)` })) }" class="w-full">
-    <div x-virtual="{ mode: 'masonry', columnWidth: 140, gap: 8, span: block =&gt; block.span, height: block =&gt; block.height }" class="border border-line rounded relative h-96 overflow-auto p-2" style="overflow: auto; position: relative">
+    <div x-virtual="{ mode: 'masonry', columnWidth: 140, gap: 8, span: block =&gt; block.span, height: block =&gt; block.height }" class="border border-line rounded relative h-96 overflow-auto p-2">
         <template>
             <div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id"></div>
         </template>
-    <div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 220px; background: rgb(218, 78, 78); position: absolute; left: 0px; top: 0px; width: 306px" data-hydrate-id="h2">#0</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 141px; background: rgb(218, 201, 78); position: absolute; left: 314px; top: 0px; width: 149px" data-hydrate-id="h3">#1</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 202px; background: rgb(111, 218, 78); position: absolute; left: 471px; top: 0px; width: 149px" data-hydrate-id="h4">#2</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 103px; background: rgb(78, 218, 169); position: absolute; left: 314px; top: 149px; width: 149px" data-hydrate-id="h5">#3</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 164px; background: rgb(78, 143, 218); position: absolute; left: 471px; top: 210px; width: 149px" data-hydrate-id="h6">#4</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 225px; background: rgb(136, 78, 218); position: absolute; left: 0px; top: 228px; width: 149px" data-hydrate-id="h7">#5</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 126px; background: rgb(218, 78, 176); position: absolute; left: 157px; top: 228px; width: 149px" data-hydrate-id="h8">#6</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 187px; background: rgb(218, 104, 78); position: absolute; left: 314px; top: 260px; width: 149px" data-hydrate-id="h9">#7</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 88px; background: rgb(208, 218, 78); position: absolute; left: 157px; top: 362px; width: 149px" data-hydrate-id="h10">#8</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 149px; background: rgb(85, 218, 78); position: absolute; left: 471px; top: 382px; width: 149px" data-hydrate-id="h11">#9</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 210px; background: rgb(78, 218, 194); position: absolute; left: 314px; top: 455px; width: 149px" data-hydrate-id="h12">#10</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 111px; background: rgb(78, 118, 218); position: absolute; left: 0px; top: 461px; width: 306px" data-hydrate-id="h13">#11</div><div data-virtual-spacer="" aria-hidden="true" style="position: absolute; top: 0px; left: 0px; width: 1px; height: 0px; pointer-events: none"></div></div>
+    <div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 220px; background: rgb(218, 78, 78); position: absolute; left: 0px; top: 0px; width: 306px" data-hydrate-id="h8">#0</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 141px; background: rgb(218, 201, 78); position: absolute; left: 314px; top: 0px; width: 149px" data-hydrate-id="h9">#1</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 202px; background: rgb(111, 218, 78); position: absolute; left: 471px; top: 0px; width: 149px" data-hydrate-id="h10">#2</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 103px; background: rgb(78, 218, 169); position: absolute; left: 314px; top: 149px; width: 149px" data-hydrate-id="h11">#3</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 164px; background: rgb(78, 143, 218); position: absolute; left: 471px; top: 210px; width: 149px" data-hydrate-id="h12">#4</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 225px; background: rgb(136, 78, 218); position: absolute; left: 0px; top: 228px; width: 149px" data-hydrate-id="h13">#5</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 126px; background: rgb(218, 78, 176); position: absolute; left: 157px; top: 228px; width: 149px" data-hydrate-id="h14">#6</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 187px; background: rgb(218, 104, 78); position: absolute; left: 314px; top: 260px; width: 149px" data-hydrate-id="h15">#7</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 88px; background: rgb(208, 218, 78); position: absolute; left: 157px; top: 362px; width: 149px" data-hydrate-id="h16">#8</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 149px; background: rgb(85, 218, 78); position: absolute; left: 471px; top: 382px; width: 149px" data-hydrate-id="h17">#9</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 210px; background: rgb(78, 218, 194); position: absolute; left: 314px; top: 455px; width: 149px" data-hydrate-id="h18">#10</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 111px; background: rgb(78, 118, 218); position: absolute; left: 0px; top: 461px; width: 306px" data-hydrate-id="h19">#11</div><div data-virtual-spacer="" aria-hidden="true" style="position: absolute; top: 0px; left: 0px; width: 1px; height: 0px; pointer-events: none"></div></div>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -1159,41 +1177,41 @@
         ? 'Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.'
         : 'Standard log line.'
 })) }" class="w-full">
-    <div x-virtual="" class="border border-line rounded font-mono text-sm h-[300px] overflow-auto" style="overflow: auto">
+    <div x-virtual="" class="border border-line rounded font-mono text-sm h-[300px] overflow-auto">
         <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:16:42</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:46:45</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:17:42</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:47:45</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:18:42</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:48:45</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:19:42</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:49:45</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-warning" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:20:42</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:50:45</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-error" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">error</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:21:42</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:51:45</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:22:42</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:52:45</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:23:42</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:53:45</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">07:24:42</span>
+                <span class="text-muted shrink-0" x-text="log.time">07:54:45</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-warning" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
@@ -1238,7 +1256,7 @@
     }
 }" class="col gap-3 w-full">
     <input type="text" placeholder="Filter products..." aria-label="Filter products" x-model="term">
-    <div x-virtual="" class="border border-line rounded h-[300px] overflow-auto" style="overflow: auto">
+    <div x-virtual="" class="border border-line rounded h-[300px] overflow-auto">
         <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="row gap-4 p-3 border-b border-line">
                 <p class="flex-1" x-text="product.name">Telescope Mk-1</p>
                 <small>$<span x-text="product.price">10</span></small>
@@ -1276,6 +1294,35 @@
     <small class="text-muted">Showing <span x-text="filtered.length">2000</span> of 2000</small>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="inside-menus-and-dialogs">Inside Menus and Dialogs</h2><p><code>x-virtual</code> works inside popover <a href="/docs/elements/dropdowns#closed-menus-cost-nothing">menus</a>, <a href="/docs/elements/dialogs">dialogs</a> and <a href="/docs/elements/tabs">tab panels</a>. The list measures itself when its container is shown, so nothing special is needed — give the <code>x-virtual</code> element a bounded height as usual and place it inside the menu.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ countries: /* 300 entries */ }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-dropdown</span>=<span class="hljs-string">"country-menu"</span>&gt;</span>Country<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"country-menu"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-virtual</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"h-64"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"country in countries"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"country.id"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"country.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame text-base"><div x-data="{ countries: Array.from({length: 300}, (_, i) =&gt; ({ id: i, name: ['Aurora','Borealis','Cassini','Delphinus','Eridanus','Fornax'][i % 6] + ' ' + (i + 1) })) }">
+    <button x-dropdown="virtual-in-menu-preview" popovertarget="virtual-in-menu-preview" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="virtual-in-menu-preview" aria-expanded="false" data-hydrate-id="h20">Country</button>
+    <menu popover="" id="virtual-in-menu-preview" role="menu" style="position-anchor: --dropdown-p1">
+        <div x-virtual="" class="h-64" style="overflow: auto">
+            <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
+                <li x-text="country.name"></li>
+            </template>
+        </div>
+    </menu>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>A closed menu's contents are not initialized until it opens, so the virtualized list costs nothing while the menu is closed and renders only its visible rows once it opens.</p>
 </div>
 
       <!-- Docs home -->
@@ -1340,9 +1387,9 @@
       <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
 
       <div role="group" class="outlined rounded-full">
-        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h14"></button>
-        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h15"></button>
-        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h16"></button>
+        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h21"></button>
+        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h22"></button>
+        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h23"></button>
       </div>
     </div>
   </div>
@@ -1358,7 +1405,7 @@
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#basic-usage">Basic Usage</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#layout">Layout</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#table">Table</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#grid">Grid</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#gallery">Gallery</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#masonry">Masonry</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#customization">Customization</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#mixed-sizes">Mixed Sizes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#dynamic-data">Dynamic Data</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#basic-usage">Basic Usage</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#layout">Layout</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#table">Table</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#grid">Grid</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#gallery">Gallery</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#masonry">Masonry</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#customization">Customization</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#mixed-sizes">Mixed Sizes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#dynamic-data">Dynamic Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#inside-menus-and-dialogs">Inside Menus and Dialogs</a></div>
 
   </nav>
 
@@ -1371,5 +1418,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"style":"height: 220px; background: rgb(218, 78, 78); position: absolute; left: 0px; top: 0px; width: 316px;"}},{"id":"h3","attrs":{"style":"height: 141px; background: rgb(218, 201, 78); position: absolute; left: 324px; top: 0px; width: 154px;"}},{"id":"h4","attrs":{"style":"height: 202px; background: rgb(111, 218, 78); position: absolute; left: 486px; top: 0px; width: 154px;"}},{"id":"h5","attrs":{"style":"height: 103px; background: rgb(78, 218, 169); position: absolute; left: 324px; top: 149px; width: 154px;"}},{"id":"h6","attrs":{"style":"height: 164px; background: rgb(78, 143, 218); position: absolute; left: 486px; top: 210px; width: 154px;"}},{"id":"h7","attrs":{"style":"height: 225px; background: rgb(136, 78, 218); position: absolute; left: 0px; top: 228px; width: 154px;"}},{"id":"h8","attrs":{"style":"height: 126px; background: rgb(218, 78, 176); position: absolute; left: 162px; top: 228px; width: 154px;"}},{"id":"h9","attrs":{"style":"height: 187px; background: rgb(218, 104, 78); position: absolute; left: 324px; top: 260px; width: 154px;"}},{"id":"h10","attrs":{"style":"height: 88px; background: rgb(208, 218, 78); position: absolute; left: 162px; top: 362px; width: 154px;"}},{"id":"h11","attrs":{"style":"height: 149px; background: rgb(85, 218, 78); position: absolute; left: 486px; top: 382px; width: 154px;"}},{"id":"h12","attrs":{"style":"height: 210px; background: rgb(78, 218, 194); position: absolute; left: 324px; top: 455px; width: 154px;"}},{"id":"h13","attrs":{"style":"height: 111px; background: rgb(78, 118, 218); position: absolute; left: 0px; top: 461px; width: 316px;"}},{"id":"h14","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h15","attrs":{"type":null}},{"id":"h16","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"style":"height: 220px; background: rgb(218, 78, 78); position: absolute; left: 0px; top: 0px; width: 307px;"}},{"id":"h9","attrs":{"style":"height: 141px; background: rgb(218, 201, 78); position: absolute; left: 315px; top: 0px; width: 149.5px;"}},{"id":"h10","attrs":{"style":"height: 202px; background: rgb(111, 218, 78); position: absolute; left: 472.5px; top: 0px; width: 149.5px;"}},{"id":"h11","attrs":{"style":"height: 103px; background: rgb(78, 218, 169); position: absolute; left: 315px; top: 149px; width: 149.5px;"}},{"id":"h12","attrs":{"style":"height: 164px; background: rgb(78, 143, 218); position: absolute; left: 472.5px; top: 210px; width: 149.5px;"}},{"id":"h13","attrs":{"style":"height: 225px; background: rgb(136, 78, 218); position: absolute; left: 0px; top: 228px; width: 149.5px;"}},{"id":"h14","attrs":{"style":"height: 126px; background: rgb(218, 78, 176); position: absolute; left: 157.5px; top: 228px; width: 149.5px;"}},{"id":"h15","attrs":{"style":"height: 187px; background: rgb(218, 104, 78); position: absolute; left: 315px; top: 260px; width: 149.5px;"}},{"id":"h16","attrs":{"style":"height: 88px; background: rgb(208, 218, 78); position: absolute; left: 157.5px; top: 362px; width: 149.5px;"}},{"id":"h17","attrs":{"style":"height: 149px; background: rgb(85, 218, 78); position: absolute; left: 472.5px; top: 382px; width: 149.5px;"}},{"id":"h18","attrs":{"style":"height: 210px; background: rgb(78, 218, 194); position: absolute; left: 315px; top: 455px; width: 149.5px;"}},{"id":"h19","attrs":{"style":"height: 111px; background: rgb(78, 118, 218); position: absolute; left: 0px; top: 461px; width: 307px;"}},{"id":"h20","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h21","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h22","attrs":{"type":null}},{"id":"h23","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h24","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h25","attrs":{"type":null}},{"id":"h26","attrs":{"type":null}},{"id":"h27","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
 </body></html>
