@@ -19,7 +19,7 @@ Turn a live page into its own editor.
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <section class="col gap-2 p-4" x-edit.authoring="hero-demo">
     <span class="h3">Bloom &amp; Bramble</span>
@@ -85,7 +85,7 @@ Editor styles are included in Manifest CSS or as a standalone stylesheet.
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <blockquote class="col gap-1 m-0" x-edit.text="quote-demo">
     <p class="m-0">Click to rewrite this line. Nothing else changes.</p>
@@ -119,7 +119,7 @@ Text commits on blur. Only inline formatting survives.
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="{ tasks: [{ id: 1, label: 'Cut stems' }, { id: 2, label: 'Arrange' }, { id: 3, label: 'Deliver' }] }" class="col gap-3">
     <ul class="col gap-2 m-0 p-0 list-none" x-edit.sort.data="tasks-demo">
@@ -156,7 +156,7 @@ Focus a row and press Space to grab it, the arrow keys to move it and Enter to d
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="{ w: '16rem' }">
     <div class="center bg-surface-2 rounded text-content-subtle" x-edit.size="panel-demo" @edit:size="w = $event.detail.css.width"
@@ -200,7 +200,7 @@ Copy, cut, paste, duplicate and delete act on a block: the sortable child, or th
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data class="col gap-3">
     <div class="row-wrap gap-2" x-edit.sort="chips-demo" @edit:context="$event.preventDefault(); $refs.menu.style.inset = 'auto'; $refs.menu.style.left = $event.detail.x + 'px'; $refs.menu.style.top = $event.detail.y + 'px'; $refs.menu.showPopover()">
@@ -239,7 +239,7 @@ The event fires after the pointer is released, so a popover opened in the handle
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div class="col gap-4">
     <div class="p-4 bg-surface-2 rounded" x-edit.theme="card-demo" style="--color-brand-surface: #7c3aed; --radius: 0.5rem">
@@ -277,7 +277,7 @@ Put [`x-text-edit`](/docs/core-plugins/text-edit) on an element inside a region 
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div class="col gap-3">
     <div class="row gap-1">
@@ -315,7 +315,7 @@ Edits in `.authoring` regions persist to `localStorage` and survive a reload. El
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="{ out: '' }" x-init="$edit.onPublish = patches => out = JSON.stringify(patches, null, 2)" class="col gap-3">
     <div class="row gap-2">
