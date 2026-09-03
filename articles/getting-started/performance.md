@@ -26,6 +26,30 @@ None of this needs an attribute or a setting. The one switch is `data-defer="off
 
 ---
 
+## Utility Classes
+
+Publishing bakes a stylesheet of every Tailwind-style utility class your pages use (`flex`, `gap-4`, `hover:underline`, `bg-brand-surface`, and their variants) instead of shipping an engine that scans the page and generates them live. When that baked sheet covers every class on a page, the live engine never loads at all — one less script, sooner interactivity.
+
+**Classes a scan can't see.** A class assigned only from a runtime value — `:class="ok ? 'bg-green-500' : 'bg-amber-500'"` — may not appear anywhere the publish-time scan looks. List it under `utilities.safelist` in `manifest.json` so it's baked in like any other class:
+
+```json "manifest.json" copy
+"utilities": {
+	"safelist": ["bg-amber-500", "bg-green-500"]
+}
+```
+
+For a whole family built at runtime, `utilities.patterns` takes regular expressions matched against each class token instead. These aren't baked — a pattern can't be expanded into concrete classes — but the runtime treats a match as already covered rather than flagging it:
+
+```json "manifest.json" copy
+"utilities": {
+	"patterns": ["^bg-(red|green|blue)-[0-9]+$"]
+}
+```
+
+If a class still turns up uncovered on a live page, Manifest loads the full engine automatically and logs a warning — a page never renders unstyled without saying so.
+
+---
+
 ## What To Reach For
 
 | Situation | Use |
