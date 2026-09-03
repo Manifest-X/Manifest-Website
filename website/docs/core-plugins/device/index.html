@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1 mnfst-og-nudge">
+}" class="bg-surface-1">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -234,7 +234,7 @@
         src: null ?? 'docs',
         get groups() { return $x[this.src] || [] },
         get article() { return $x[this.src].$route('path') },
-    }" @manifest:route-change.window="$el.hidePopover()" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" data-component="docs-nav-1" data-order="3">
     <div class="col gap-6 py-4">
             <small class="pl-2.5 text-content-subtle">Getting Started</small>
             <div class="col">
@@ -898,13 +898,16 @@
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$share({ title: 'Manifest', text: 'Supercharged HTML', url: 'https://manifestx.dev' })"</span>&gt;</span>Share<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false, r: null }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<aside class="frame"><div x-data="{ ready: false, r: null }" x-init="(function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device', document.querySelector('script[data-version]')?.dataset.version); tick(); })()">
 <template x-if="ready">
 <div class="row-wrap gap-3 center">
     <button class="hug" @click="r = await $share({ title: 'Manifest', text: 'Supercharged HTML', url: 'https://manifestx.dev' })">Share</button>
     <small class="text-content-subtle" x-text="!r ? 'Share sheet, or the clipboard where there is none.' : r.shared ? 'Shared via ' + r.method : r.cancelled ? 'Cancelled' : 'Not shared'"></small>
 </div>
-</template>
+</template><div class="row-wrap gap-3 center" data-mnfst-prerender-clone="1">
+    <button class="hug" @click="r = await $share({ title: 'Manifest', text: 'Supercharged HTML', url: 'https://manifestx.dev' })">Share</button>
+    <small class="text-content-subtle" x-text="!r ? 'Share sheet, or the clipboard where there is none.' : r.shared ? 'Shared via ' + r.method : r.cancelled ? 'Cancelled' : 'Not shared'">Share sheet, or the clipboard where there is none.</small>
+</div>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -916,7 +919,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"shot = await $camera.photo()"</span>&gt;</span>Take a photo<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"shot?.dataUrl"</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">"shot?.dataUrl"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">""</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false, shot: null }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<aside class="frame"><div x-data="{ ready: false, shot: null }" x-init="(function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device', document.querySelector('script[data-version]')?.dataset.version); tick(); })()">
 <template x-if="ready">
 <div class="col gap-3 w-full">
     <div class="row-wrap gap-2 center">
@@ -926,7 +929,14 @@
     </div>
     <img x-show="shot?.dataUrl" :src="shot?.dataUrl" alt="" class="max-h-48 w-auto self-start rounded-lg">
 </div>
-</template>
+</template><div class="col gap-3 w-full" data-mnfst-prerender-clone="1">
+    <div class="row-wrap gap-2 center">
+        <button class="hug" @click="shot = await $camera.photo()">Take a photo</button>
+        <button class="hug" @click="shot = await $camera.pick()">Pick from library</button>
+        <small class="text-content-subtle" x-text="!shot ? 'A file picker in this browser.' : shot.dataUrl ? 'Got a ' + shot.format : 'Cancelled'">A file picker in this browser.</small>
+    </div>
+    <img x-show="shot?.dataUrl" :src="shot?.dataUrl" alt="" class="max-h-48 w-auto self-start rounded-lg" src="" style="display: none">
+</div>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -938,14 +948,18 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$app.active ? 'Active' : 'In the background'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"away + ' times away'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false, away: 0 }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<aside class="frame"><div x-data="{ ready: false, away: 0 }" x-init="(function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device', document.querySelector('script[data-version]')?.dataset.version); tick(); })()">
 <template x-if="ready">
 <div class="row-wrap gap-3 center" x-init="$app.onChange(active =&gt; { if (!active) away++ })">
     <span class="badge" x-text="$app.active ? 'Active' : 'In the background'"></span>
     <code x-text="away + ' times away'"></code>
     <small class="text-content-subtle">Switch tabs and come back.</small>
 </div>
-</template>
+</template><div class="row-wrap gap-3 center" x-init="$app.onChange(active =&gt; { if (!active) away++ })" data-mnfst-prerender-clone="1">
+    <span class="badge" x-text="$app.active ? 'Active' : 'In the background'">In the background</span>
+    <code x-text="away + ' times away'">1 times away</code>
+    <small class="text-content-subtle">Switch tabs and come back.</small>
+</div>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -959,7 +973,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"await $secure.remove('token'); value = null"</span>&gt;</span>Remove<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"JSON.stringify(value)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false, value: null }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<aside class="frame"><div x-data="{ ready: false, value: null }" x-init="(function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device', document.querySelector('script[data-version]')?.dataset.version); tick(); })()">
 <template x-if="ready">
 <div class="row-wrap gap-2 center">
     <button class="hug" @click="await $secure.set('token', 'abc123'); value = await $secure.get('token')">Set</button>
@@ -967,7 +981,12 @@
     <button class="hug" @click="await $secure.remove('token'); value = await $secure.get('token')">Remove</button>
     <code x-text="'token: ' + JSON.stringify(value)"></code>
 </div>
-</template>
+</template><div class="row-wrap gap-2 center" data-mnfst-prerender-clone="1">
+    <button class="hug" @click="await $secure.set('token', 'abc123'); value = await $secure.get('token')">Set</button>
+    <button class="hug" @click="value = await $secure.get('token')">Get</button>
+    <button class="hug" @click="await $secure.remove('token'); value = await $secure.get('token')">Remove</button>
+    <code x-text="'token: ' + JSON.stringify(value)">token: null</code>
+</div>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -979,7 +998,7 @@
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$haptics.impact('LIGHT')"</span>&gt;</span>Light<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$haptics.impact('HEAVY')"</span>&gt;</span>Heavy<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$haptics.notification('SUCCESS')"</span>&gt;</span>Success<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false, last: '' }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<aside class="frame"><div x-data="{ ready: false, last: '' }" x-init="(function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device', document.querySelector('script[data-version]')?.dataset.version); tick(); })()">
 <template x-if="ready">
 <div class="row-wrap gap-2 center">
     <button class="hug" @click="$haptics.impact('LIGHT'); last = 'impact LIGHT'">Light</button>
@@ -987,7 +1006,12 @@
     <button class="hug" @click="$haptics.notification('SUCCESS'); last = 'notification SUCCESS'">Success</button>
     <small class="text-content-subtle" x-text="(last ? last + '. ' : '') + ($device.touch ? 'A short buzz on Android; iOS Safari stays silent.' : 'No feedback on a desktop browser.')"></small>
 </div>
-</template>
+</template><div class="row-wrap gap-2 center" data-mnfst-prerender-clone="1">
+    <button class="hug" @click="$haptics.impact('LIGHT'); last = 'impact LIGHT'">Light</button>
+    <button class="hug" @click="$haptics.impact('HEAVY'); last = 'impact HEAVY'">Heavy</button>
+    <button class="hug" @click="$haptics.notification('SUCCESS'); last = 'notification SUCCESS'">Success</button>
+    <small class="text-content-subtle" x-text="(last ? last + '. ' : '') + ($device.touch ? 'A short buzz on Android; iOS Safari stays silent.' : 'No feedback on a desktop browser.')">No feedback on a desktop browser.</small>
+</div>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -998,14 +1022,18 @@
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$links.open('myapp://docs/core-plugins/device')"</span>&gt;</span>Open a deep link<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$links.last"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<aside class="frame"><div x-data="{ ready: false }" x-init="(function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device', document.querySelector('script[data-version]')?.dataset.version); tick(); })()">
 <template x-if="ready">
 <div class="row-wrap gap-3 center">
     <button class="hug" @click="$links.open('myapp://docs/core-plugins/device')">Open a deep link</button>
     <code x-text="'last: ' + ($links.last || 'none')"></code>
     <small class="text-content-subtle">The scheme maps to this page's route.</small>
 </div>
-</template>
+</template><div class="row-wrap gap-3 center" data-mnfst-prerender-clone="1">
+    <button class="hug" @click="$links.open('myapp://docs/core-plugins/device')">Open a deep link</button>
+    <code x-text="'last: ' + ($links.last || 'none')">last: none</code>
+    <small class="text-content-subtle">The scheme maps to this page's route.</small>
+</div>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -1016,14 +1044,18 @@
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$push.permission"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$push.request()"</span>&gt;</span>Enable notifications<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<aside class="frame"><div x-data="{ ready: false }" x-init="(function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device', document.querySelector('script[data-version]')?.dataset.version); tick(); })()">
 <template x-if="ready">
 <div class="row-wrap gap-3 center">
     <code x-text="'permission: ' + $push.permission"></code>
     <button class="hug" @click="$push.request()">Enable notifications</button>
     <small class="text-content-subtle">Opens the browser's permission prompt.</small>
 </div>
-</template>
+</template><div class="row-wrap gap-3 center" data-mnfst-prerender-clone="1">
+    <code x-text="'permission: ' + $push.permission">permission: prompt</code>
+    <button class="hug" @click="$push.request()">Enable notifications</button>
+    <small class="text-content-subtle">Opens the browser's permission prompt.</small>
+</div>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -1036,14 +1068,18 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"can"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$biometric.verify({ reason: 'Confirm payment' })"</span>&gt;</span>Pay with Face ID<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"can === false"</span>&gt;</span>Biometrics are not available here.<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false, can: null, r: null }" x-init="window.__manifestRender || (function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device'); tick(); })()">
+<aside class="frame"><div x-data="{ ready: false, can: null, r: null }" x-init="(function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device', document.querySelector('script[data-version]')?.dataset.version); tick(); })()">
 <template x-if="ready">
 <div class="row-wrap gap-3 center" x-init="can = await $biometric.available()">
     <code x-text="'available: ' + String(can)"></code>
     <button class="hug" @click="r = await $biometric.verify({ reason: 'Confirm payment' })">Verify</button>
     <small class="text-content-subtle" x-text="r ? (r.verified ? 'Verified' : 'verify() returned ' + JSON.stringify(r)) : 'Not available in a browser.'"></small>
 </div>
-</template>
+</template><div class="row-wrap gap-3 center" x-init="can = await $biometric.available()" data-mnfst-prerender-clone="1">
+    <code x-text="'available: ' + String(can)">available: false</code>
+    <button class="hug" @click="r = await $biometric.verify({ reason: 'Confirm payment' })">Verify</button>
+    <small class="text-content-subtle" x-text="r ? (r.verified ? 'Verified' : 'verify() returned ' + JSON.stringify(r)) : 'Not available in a browser.'">Not available in a browser.</small>
+</div>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 

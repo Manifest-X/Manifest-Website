@@ -234,7 +234,7 @@
         src: null ?? 'docs',
         get groups() { return $x[this.src] || [] },
         get article() { return $x[this.src].$route('path') },
-    }" @manifest:route-change.window="$el.hidePopover()" data-component="docs-nav-1" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" data-order="3">
     <div class="col gap-6 py-4">
             <small class="pl-2.5 text-content-subtle">Getting Started</small>
             <div class="col">
@@ -1062,12 +1062,12 @@
   <!-- Anchor links -->
   <nav aria-label="On this page" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
 
-    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0" style="display: none">
       <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#default">Default</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#positioning">Positioning</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#rich-content">Rich Content</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#dynamic-content">Dynamic Content</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#data-sources">Data Sources</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#other-popovers">Other Popovers</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#theme">Theme</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#delay">Delay</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#customization">Customization</a></div>
+    
 
   </nav>
 

@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -234,7 +234,7 @@
         src: null ?? 'docs',
         get groups() { return $x[this.src] || [] },
         get article() { return $x[this.src].$route('path') },
-    }" @manifest:route-change.window="$el.hidePopover()" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" data-component="docs-nav-1" data-order="3">
     <div class="col gap-6 py-4">
             <small class="pl-2.5 text-content-subtle">Getting Started</small>
             <div class="col">
@@ -810,7 +810,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Seasonal arrangements, delivered weekly.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Click any text to edit it. Drag a line to reorder. Right-click for classes.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
+<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <section class="col gap-2 p-4" x-edit.authoring="hero-demo">
     <span class="h3">Bloom &amp; Bramble</span>
@@ -852,7 +852,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Click to rewrite this line. Nothing else changes.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">cite</span>&gt;</span>A customer<span class="hljs-tag">&lt;/<span class="hljs-name">cite</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">blockquote</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
+<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <blockquote class="col gap-1 m-0" x-edit.text="quote-demo">
     <p class="m-0">Click to rewrite this line. Nothing else changes.</p>
@@ -878,7 +878,7 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"tasks.map(t =&gt; t.label).join(' → ')"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
+<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="{ tasks: [{ id: 1, label: 'Cut stems' }, { id: 2, label: 'Arrange' }, { id: 3, label: 'Deliver' }] }" class="col gap-3">
     <ul class="col gap-2 m-0 p-0 list-none" x-edit.sort.data="tasks-demo">
@@ -909,7 +909,7 @@
         <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"w"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
+<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="{ w: '16rem' }">
     <div class="center bg-surface-2 rounded text-content-subtle" x-edit.size="panel-demo" @edit:size="w = $event.detail.css.width" style="width: 16rem; height: 5rem; min-width: 8rem; max-width: 24rem; --edit-size-edges: end bottom; --edit-size-snap: 12rem 20rem; --edit-size-snap-distance: 1rem">
@@ -945,7 +945,7 @@
         <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"!$edit.can('remove')"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$edit.remove(); $refs.menu.hidePopover()"</span>&gt;</span>Delete<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
+<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="" class="col gap-3">
     <div class="row-wrap gap-2" x-edit.sort="chips-demo" @edit:context="$event.preventDefault(); $refs.menu.style.inset = 'auto'; $refs.menu.style.left = $event.detail.x + 'px'; $refs.menu.style.top = $event.detail.y + 'px'; $refs.menu.showPopover()">
@@ -983,7 +983,7 @@
 
 <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Brand <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"color"</span> <span class="hljs-attr">x-edit.cssvar</span>=<span class="hljs-string">"card:--color-brand-surface"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Radius <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"range"</span> <span class="hljs-attr">min</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">max</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">step</span>=<span class="hljs-string">"0.125"</span> <span class="hljs-attr">data-unit</span>=<span class="hljs-string">"rem"</span> <span class="hljs-attr">x-edit.cssvar</span>=<span class="hljs-string">"card:--radius"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
+<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div class="col gap-4">
     <div class="p-4 bg-surface-2 rounded" x-edit.theme="card-demo" style="--color-brand-surface: #7c3aed; --radius: 0.5rem">
@@ -1018,7 +1018,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>A title, edited plainly.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit.html</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>A body, <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>edited richly<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
+<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div class="col gap-3">
     <div class="row gap-1">
@@ -1053,7 +1053,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$edit.publish()"</span>&gt;</span>Publish<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"out"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit')).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
+<aside class="frame"><div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="{ out: '' }" x-init="$edit.onPublish = patches =&gt; out = JSON.stringify(patches, null, 2)" class="col gap-3">
     <div class="row gap-2">

@@ -31,7 +31,7 @@
   <script src="../../../scripts/console-message.js" defer=""></script>
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
-<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Reset — Manifest"><meta property="og:description" content="Normalize styles for consistent rendering across browsers."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/styles/reset"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-styles-reset.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Reset — Manifest"><meta property="twitter:description" content="Normalize styles for consistent rendering across browsers."><meta property="twitter:image" content="/og/docs-styles-reset.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Reset — Manifest","description":"Normalize styles for consistent rendering across browsers.","image":"/og/docs-styles-reset.png","url":"https://manifestx.dev/docs/styles/reset"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Styles","item":"https://manifestx.dev/docs/styles"},{"@type":"ListItem","position":4,"name":"Reset","item":"https://manifestx.dev/docs/styles/reset"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant web (&:where(html:not([data-native]) *));</style><style>@view-transition { navigation: none }</style><meta property="og:title" content="Reset — Manifest"><meta property="og:description" content="Normalize styles for consistent rendering across browsers."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/styles/reset"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-styles-reset.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Reset — Manifest"><meta property="twitter:description" content="Normalize styles for consistent rendering across browsers."><meta property="twitter:image" content="/og/docs-styles-reset.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Reset — Manifest","description":"Normalize styles for consistent rendering across browsers.","image":"/og/docs-styles-reset.png","url":"https://manifestx.dev/docs/styles/reset"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Styles","item":"https://manifestx.dev/docs/styles"},{"@type":"ListItem","position":4,"name":"Reset","item":"https://manifestx.dev/docs/styles/reset"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/styles/reset">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -64,7 +64,7 @@
   <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
 
     <!-- Content Area -->
-    <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+    <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h4">
 
         <!-- Start -->
         <div class="row items-center gap-3">
@@ -190,7 +190,7 @@
             this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
         },
         go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
-    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-hydrate-id="h5" data-component="docs-search-1" data-order="2">
 
     <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
 
@@ -502,7 +502,7 @@
         </div>
 </nav>
 
-  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h1">
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h6">
 
     <!-- Home page -->
     
@@ -886,9 +886,9 @@
       <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
 
       <div role="group" class="outlined rounded-full">
-        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h8"></button>
-        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h9"></button>
-        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h10"></button>
+        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h13"></button>
+        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h14"></button>
+        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h15"></button>
       </div>
     </div>
   </div>
@@ -917,5 +917,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h9","attrs":{"type":null}},{"id":"h10","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h11","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h12","attrs":{"type":null}},{"id":"h13","attrs":{"type":null}},{"id":"h14","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h1","attrs":{"type":null}},{"id":"h2","attrs":{"type":null}},{"id":"h3","attrs":{"class":"sm rounded-e-full","type":null}},{"id":"h4","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h5","attrs":{"data-order":null}},{"id":"h6","attrs":{"data-order":null}},{"id":"h7","attrs":{"dir":null}},{"id":"h8","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h9","attrs":{"role":null}},{"id":"h10","attrs":{"role":null}},{"id":"h11","attrs":{"role":null}},{"id":"h12","attrs":{"role":null}},{"id":"h13","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h14","attrs":{"type":null}},{"id":"h15","attrs":{"class":"sm ghost rounded-e-full","type":null}}]</script>
 </body></html>

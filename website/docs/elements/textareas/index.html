@@ -234,7 +234,7 @@
         src: null ?? 'docs',
         get groups() { return $x[this.src] || [] },
         get article() { return $x[this.src].$route('path') },
-    }" @manifest:route-change.window="$el.hidePopover()" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" data-component="docs-nav-1" data-order="3">
     <div class="col gap-6 py-4">
             <small class="pl-2.5 text-content-subtle">Getting Started</small>
             <div class="col">
@@ -1073,7 +1073,7 @@ textarea.custom:focus-visible {
   <!-- Anchor links -->
   <nav aria-label="On this page" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
 
-    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0" style="display: none">
       <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
       <span>On this page</span>
     </small>
