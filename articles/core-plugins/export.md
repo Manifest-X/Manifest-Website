@@ -6,7 +6,7 @@ Download the page, a region, or a data source as a file.
 
 ## Overview
 
-The `x-export` directive turns its host element into a download action. The whole page, a target section, or an `$x` data source can be exported. Supported formats are **PDF**, **PNG**, **JPEG**, **WebP**, **CSV**, and **JSON**. The plugin also ships the mirror direction — see [Import](/docs/core-plugins/import) for picking a local file and parsing it back into data.
+The `x-export` directive turns its host element into a download action. The whole page, a target section, or an `$x` data source can be exported. Supported formats are **PDF**, **PNG**, **JPEG**, **WebP**, **CSV**, and **JSON**. The plugin also covers the mirror direction: [importing](#import) a local JSON or CSV file back into data.
 
 PDFs go through the browser's native print pipeline, so users get the familiar "Save as PDF" dialog with proper multi-page layout, vector text (selectable and copy-pasteable), and the page's own `@media print` rules. Whole-page PDFs print the whole page; targeted PDFs scope the print to the chosen subtree via a temporary print stylesheet. Raster image formats (PNG, JPEG, WebP) use <a href="https://github.com/yorickshen/html2canvas-pro" target="_blank">html2canvas-pro</a>, lazy-loaded from the jsDelivr CDN on first use.
 
@@ -288,6 +288,64 @@ All of `$export`'s options are identical to those of `x-export`.
 ::: brand icon="lucide:info"
 **Cross-origin assets**: snapshots of regions containing images from other domains need those images served with permissive CORS headers (`Access-Control-Allow-Origin: *`), or they'll appear blank in the exported file. Self-hosted assets work without configuration.
 :::
+
+---
+
+## Import
+
+The mirror of everything above: `x-import` turns its host element into a file-open action. The visitor picks a **JSON** or **CSV** file, the plugin parses it client-side (nothing is uploaded anywhere), and the result is delivered as an event, a promise, or straight into an `$x` data source. Restoring an exported backup, loading a saved document, or accepting user-made content packs is one attribute.
+
+With no options the picker accepts JSON or CSV and infers the format from the picked file's extension; a modifier pins it.
+
+```html copy
+<button x-import>Open file</button>
+<button x-import.json>Open JSON</button>
+<button x-import.csv>Open CSV</button>
+```
+
+The parsed result arrives as a `manifest:import` event that bubbles from the trigger, so it can be handled right on the element. The detail carries `data` (the parsed value), `format`, `source` (when one was targeted), and `file` (`name`, `size`, `type`). A file that fails to parse fires `manifest:import-error` instead, with `format` and `error`.
+
+```html copy
+<button x-import.json @manifest:import="restore($event.detail.data)">
+    Restore backup
+</button>
+```
+
+### Replacing a Data Source
+
+Pass a `source` to write the parsed content into a `$x` data source, replacing what's there. Anything bound to that source updates reactively. A bare string value is shorthand for the same thing.
+
+```html copy
+<button x-import="{ source: 'products' }">Load products</button>
+<button x-import="'products'">Load products</button>
+```
+
+Together with export, client-side backup and restore is a few lines:
+
+```html copy
+<button x-export="{ format: 'json', source: 'saves', filename: 'backup.json' }">Back up</button>
+<button x-import="{ format: 'json', source: 'saves' }">Restore</button>
+```
+
+### Import Magic
+
+`$import(opts)` opens the picker programmatically and resolves the parsed data — `null` when the dialog is dismissed. Same options as the directive.
+
+```html copy
+<button @click="save = await $import({ format: 'json' })">Load save</button>
+```
+
+### CSV Parsing
+
+CSV comes back as an array of objects keyed by the header row. Quoted fields, embedded delimiters and newlines follow the usual CSV rules, and the delimiter (comma, semicolon, or tab) is detected from the header line. Cell values are typed: numbers, `true`/`false`/`null`, and JSON-looking cells (`{…}` or `[…]`) parse to real values; everything else stays a string. A file produced by the CSV export round-trips.
+
+### Import Options
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| **`format`{copy}** | String | inferred | `'json'` or `'csv'`. Omitted: inferred from the file extension, defaulting to JSON. |
+| **`source`{copy}** | String | — | `$x` data source to replace with the parsed content. |
+| **`accept`{copy}** | String | by format | Override the file dialog's accept list. |
 
 ---
 
