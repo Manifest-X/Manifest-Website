@@ -6,7 +6,7 @@ Download the page, a region, or a data source as a file.
 
 ## Overview
 
-The `x-export` directive turns its host element into a download action. The whole page, a target section, or an `$x` data source can be exported. Supported formats are **PDF**, **PNG**, **JPEG**, **WebP**, **CSV**, and **JSON**.
+The `x-export` directive turns its host element into a download action. The whole page, a target section, or an `$x` data source can be exported. Supported formats are **PDF**, **PNG**, **JPEG**, **WebP**, **CSV**, and **JSON**. The plugin also ships the mirror direction — see [Import](/docs/core-plugins/import) for picking a local file and parsing it back into data.
 
 PDFs go through the browser's native print pipeline, so users get the familiar "Save as PDF" dialog with proper multi-page layout, vector text (selectable and copy-pasteable), and the page's own `@media print` rules. Whole-page PDFs print the whole page; targeted PDFs scope the print to the chosen subtree via a temporary print stylesheet. Raster image formats (PNG, JPEG, WebP) use <a href="https://github.com/yorickshen/html2canvas-pro" target="_blank">html2canvas-pro</a>, lazy-loaded from the jsDelivr CDN on first use.
 
