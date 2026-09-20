@@ -1,20 +1,23 @@
-# Export
+# Import/Export
 
-Download the page, a region, or a data source as a file.
+Move files out of the page and back in — downloads and uploads of documents and data.
 
 ---
 
 ## Overview
 
-The `x-export` directive turns its host element into a download action. The whole page, a target section, or an `$x` data source can be exported. Supported formats are **PDF**, **PNG**, **JPEG**, **WebP**, **CSV**, and **JSON**. The plugin also covers the mirror direction: [importing](#import) a local JSON or CSV file back into data.
+One plugin covers both directions of file transfer, entirely client-side:
 
-PDFs go through the browser's native print pipeline, so users get the familiar "Save as PDF" dialog with proper multi-page layout, vector text (selectable and copy-pasteable), and the page's own `@media print` rules. Whole-page PDFs print the whole page; targeted PDFs scope the print to the chosen subtree via a temporary print stylesheet. Raster image formats (PNG, JPEG, WebP) use <a href="https://github.com/yorickshen/html2canvas-pro" target="_blank">html2canvas-pro</a>, lazy-loaded from the jsDelivr CDN on first use.
+- **[Export](#export)** — `x-export` turns its host element into a download action. The whole page, a target section, or an `$x` data source can be exported as **PDF**, **PNG**, **JPEG**, **WebP**, **CSV**, or **JSON**.
+- **[Import](#import)** — `x-import` turns its host element into a file-open action. A local **JSON** or **CSV** file is parsed and delivered as an event, a promise, or straight into an `$x` data source.
+
+Together they close the loop: what a visitor exports, they (or anyone else) can import back — save files, backups, and user-made content packs with no server involved.
 
 ---
 
 ## Setup
 
-Export is included in `manifest.js` with all core plugins, or can be selectively loaded.
+Import/Export is included in `manifest.js` with all core plugins, or can be selectively loaded. The plugin name is `export`; `import` is accepted as an alias for the same file.
 
 <div x-code-group copy>
 
@@ -31,9 +34,13 @@ Export is included in `manifest.js` with all core plugins, or can be selectively
 
 ---
 
-## Triggers
+## Export
 
-### Buttons
+The `x-export` directive and `$export` magic download the page, a region, or a data source. PDFs go through the browser's native print pipeline, so users get the familiar "Save as PDF" dialog with proper multi-page layout, vector text (selectable and copy-pasteable), and the page's own `@media print` rules. Whole-page PDFs print the whole page; targeted PDFs scope the print to the chosen subtree via a temporary print stylesheet. Raster image formats (PNG, JPEG, WebP) use <a href="https://github.com/yorickshen/html2canvas-pro" target="_blank">html2canvas-pro</a>, lazy-loaded from the jsDelivr CDN on first use.
+
+### Triggers
+
+#### Buttons
 
 Add `x-export` to any clickable element. With no options it snaps the whole page as a PDF. Other formats are defined by a modifier.
 
@@ -119,7 +126,7 @@ For more control, pass an object expression. The `target`{copy} property is a CS
 
 ---
 
-### Anchor Links
+#### Anchor Links
 
 When `x-export` is on an `<a>` whose `href` starts with `#`, the directive treats the fragment as the target. Clicking downloads the matched element instead of scrolling.
 
@@ -143,7 +150,7 @@ This pairs well with a normal in-page anchor as a "download this section" compan
 
 ---
 
-### Cross-Page Links
+#### Cross-Page Links
 
 When `x-export` is on an `<a>` whose `href` points to another page, the directive rewrites the href to append `?export=<format>`. The browser navigates normally. The destination page picks up the URL signal and exports itself after loading.
 
@@ -173,7 +180,7 @@ The pattern keeps the *intent* on the link that expresses it, and the *capabilit
 
 ---
 
-## Data Sources
+### Data Sources
 
 For tabular and structured data, point at a `$x` source by name. The directive serializes the source as CSV or JSON and triggers a download.
 
@@ -228,7 +235,7 @@ CSV output handles RFC-4180 quoting automatically. Values containing commas, quo
 
 ---
 
-## Magic Property
+### Export Magic
 
 The `$export` magic provides the same functionality as `x-export`, and is useful for custom trigger conditions, multi-step workflows, or non-clickable triggers.
 
@@ -266,7 +273,7 @@ All of `$export`'s options are identical to those of `x-export`.
 
 ---
 
-## Options
+### Export Options
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
@@ -291,9 +298,55 @@ All of `$export`'s options are identical to those of `x-export`.
 
 ---
 
+### Batch and CI Exports
+
+The `mnfst-export` CLI runs the same exports from Node. It's the right tool for build pipelines, scheduled jobs, and any case where no human is around to click. The CLI supports the same six formats as the directive, plus an `rss` format for blog feeds.
+
+```bash copy
+# Snapshot a single route as PDF
+npx mnfst-export --pdf --path /reports/q3 --target "#report"
+
+# Whole project at once (reads manifest.export.routes from manifest.json)
+npx mnfst-export
+
+# Data source as CSV
+npx mnfst-export --csv --path /admin/customers --source customers
+```
+
+Routes can be configured in `manifest.json` so the same `npx mnfst-export`{copy} runs in any environment.
+
+```json "manifest.json" copy
+{
+  "export": {
+    "output": "exports",
+    "routes": [
+      { "path": "/reports/q3", "format": "pdf", "target": "#report" },
+      { "path": "/customers",  "format": "csv", "source": "customers" },
+      { "path": "/blog",       "format": "rss", "source": "posts", "map": { "link": "slug" } }
+    ]
+  }
+}
+```
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| **`output`{copy}** | `string` | `"exports"` | Output folder relative to the project root |
+| **`routes`{copy}** | `object[]` | `[]` | Per-route export entries. Each takes the same fields as the directive's object form (`path`, `format`, `target`, `source`, `filename`, `pageSize`, etc.) |
+| **`rss`{copy}** | `object` | inherited | Channel defaults: `{ title, link, description }`. Falls back to `manifest.name`, `manifest.live_url`, and `manifest.description`. |
+
+The CLI spins up a static server, opens each route in headless Chromium, waits for the `manifest:render-ready` signal, then snapshots or serializes whatever the route exposes. Visual formats use Puppeteer's native `page.pdf()` and `page.screenshot()`, which are more reliable in headless than the in-browser libraries.
+
+Run `npx mnfst-export --help`{copy} for the full list of flags. Puppeteer is a peer dependency. Install it once in the project.
+
+```bash copy
+npm i -D puppeteer
+```
+
+---
+
 ## Import
 
-The mirror of everything above: `x-import` turns its host element into a file-open action. The visitor picks a **JSON** or **CSV** file, the plugin parses it client-side (nothing is uploaded anywhere), and the result is delivered as an event, a promise, or straight into an `$x` data source. Restoring an exported backup, loading a saved document, or accepting user-made content packs is one attribute.
+The `x-import` directive and `$import` magic bring files back in. The visitor picks a **JSON** or **CSV** file, the plugin parses it client-side (nothing leaves the browser), and the result is delivered as an event, a promise, or straight into an `$x` data source. Restoring an exported backup, loading a saved document, or accepting user-made content packs is one attribute.
 
 With no options the picker accepts JSON or CSV and infers the format from the picked file's extension; a modifier pins it.
 
@@ -346,49 +399,3 @@ CSV comes back as an array of objects keyed by the header row. Quoted fields, em
 | **`format`{copy}** | String | inferred | `'json'` or `'csv'`. Omitted: inferred from the file extension, defaulting to JSON. |
 | **`source`{copy}** | String | — | `$x` data source to replace with the parsed content. |
 | **`accept`{copy}** | String | by format | Override the file dialog's accept list. |
-
----
-
-## Batch and CI Exports
-
-The `mnfst-export` CLI runs the same exports from Node. It's the right tool for build pipelines, scheduled jobs, and any case where no human is around to click. The CLI supports the same six formats as the directive, plus an `rss` format for blog feeds.
-
-```bash copy
-# Snapshot a single route as PDF
-npx mnfst-export --pdf --path /reports/q3 --target "#report"
-
-# Whole project at once (reads manifest.export.routes from manifest.json)
-npx mnfst-export
-
-# Data source as CSV
-npx mnfst-export --csv --path /admin/customers --source customers
-```
-
-Routes can be configured in `manifest.json` so the same `npx mnfst-export`{copy} runs in any environment.
-
-```json "manifest.json" copy
-{
-  "export": {
-    "output": "exports",
-    "routes": [
-      { "path": "/reports/q3", "format": "pdf", "target": "#report" },
-      { "path": "/customers",  "format": "csv", "source": "customers" },
-      { "path": "/blog",       "format": "rss", "source": "posts", "map": { "link": "slug" } }
-    ]
-  }
-}
-```
-
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| **`output`{copy}** | `string` | `"exports"` | Output folder relative to the project root |
-| **`routes`{copy}** | `object[]` | `[]` | Per-route export entries. Each takes the same fields as the directive's object form (`path`, `format`, `target`, `source`, `filename`, `pageSize`, etc.) |
-| **`rss`{copy}** | `object` | inherited | Channel defaults: `{ title, link, description }`. Falls back to `manifest.name`, `manifest.live_url`, and `manifest.description`. |
-
-The CLI spins up a static server, opens each route in headless Chromium, waits for the `manifest:render-ready` signal, then snapshots or serializes whatever the route exposes. Visual formats use Puppeteer's native `page.pdf()` and `page.screenshot()`, which are more reliable in headless than the in-browser libraries.
-
-Run `npx mnfst-export --help`{copy} for the full list of flags. Puppeteer is a peer dependency. Install it once in the project.
-
-```bash copy
-npm i -D puppeteer
-```

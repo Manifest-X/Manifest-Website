@@ -11,7 +11,7 @@ Manifest's CLI commands, directives, magic properties, data-source operators, an
 | `npx mnfst-starter <name>`{copy} | Scaffold a new Manifest project | [Starter Project](/docs/getting-started/starter-project) |
 | `npx mnfst-run`{copy} | Zero-dep dev server with live reload | [Setup](/docs/getting-started/setup#run-a-project) |
 | `npx mnfst-render`{copy} | Prerender the SPA into a static MPA | [Websites](/docs/publishing/websites) |
-| `npx mnfst-export`{copy} | Batch / CI exports — PDF, image, CSV, JSON, RSS | [Export](/docs/core-plugins/export#batch-and-ci-exports) |
+| `npx mnfst-export`{copy} | Batch / CI exports — PDF, image, CSV, JSON, RSS | [Export](/docs/core-plugins/import-export#batch-and-ci-exports) |
 | `npx mnfst-types`{copy} | Generate TypeScript ambient types from `manifest.json` | [TypeScript](/docs/resources/typescript) |
 | `npx mnfst-test`{copy} | Project linter + component-test harness | [Testing](/docs/publishing/testing) |
 
@@ -114,7 +114,7 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-defer`{copy} | [core](/docs/getting-started/performance#x-defer-reference) | Defer a container's contents until it is shown. Modifiers: `.lazy`, `.discard`, `.priority="n"`, `.off` |
 | `x-dropdown`{copy} | [dropdowns](/docs/elements/dropdowns) | Dropdown menu element |
 | `x-edit`{copy} | [edit](/docs/core-plugins/edit) | Editable region: text, reorder, resize, classes, theme variables. Opt-in plugin; modifiers `.text`, `.sort`, `.style`, `.size`, `.data`, `.lock`, `.gated`, `.authoring`, `.theme`, `.cssvar` |
-| `x-export`{copy} | [export](/docs/core-plugins/export) | Download page / region / data source as PDF, image, CSV, or JSON |
+| `x-export`{copy} | [export](/docs/core-plugins/import-export) | Download page / region / data source as PDF, image, CSV, or JSON |
 | `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/core-plugins/local-data) | Bind file uploads |
 | `x-icon`{copy} | [icons](/docs/elements/icons) | Render an icon by name |
 | `x-markdown`{copy} | [markdown](/docs/core-plugins/markdown) | Render markdown content from a source |
