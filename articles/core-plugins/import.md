@@ -14,7 +14,7 @@ Files never leave the browser: parsing is entirely client-side, and nothing is u
 
 ## Setup
 
-Import is included in `manifest.js` with all core plugins, or can be selectively loaded.
+Import ships inside the [Export](/docs/core-plugins/export) plugin — included in `manifest.js` with all core plugins, or selectively loaded. `data-plugins="import"` and `data-plugins="export"` load the same file.
 
 <div x-code-group copy>
 
