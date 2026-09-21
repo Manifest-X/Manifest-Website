@@ -358,7 +358,7 @@ With no options the picker accepts JSON or CSV and tells them apart by the file'
 
 The result arrives as a `manifest:import` event on the trigger element, so it can be handled right where the button is. The event's `detail` carries `data` (the parsed content), `format`, `source` (when one was targeted), and `file` (`name`, `size`, `type`). A file that can't be read fires `manifest:import-error` instead, with `format` and `error`.
 
-Here's the whole loop in one place — download the table below as a CSV, open it in any spreadsheet app and change a name or a number, then import the same file back. The table shows whatever the file says.
+Here's the whole loop in one place. Download the table as a CSV, then import the file back — a second table appears showing exactly what the file contains, parsed fresh from disk. Change a name or a number in a spreadsheet app first if you'd like proof it isn't a trick.
 
 <div x-code-group>
 
@@ -367,7 +367,7 @@ Here's the whole loop in one place — download the table below as a CSV, open i
     { name: 'June',  role: 'Design',      hours: 12 },
     { name: 'Marco', role: 'Engineering', hours: 9 },
     { name: 'Priya', role: 'Research',    hours: 14 }
-] }">
+], imported: null, filename: '' }">
     <table>
         <thead><tr><th>Name</th><th>Role</th><th>Hours</th></tr></thead>
         <tbody>
@@ -381,7 +381,28 @@ Here's the whole loop in one place — download the table below as a CSV, open i
         </tbody>
     </table>
     <button x-export="{ format: 'csv', data: team, filename: 'team.csv' }">Download CSV</button>
-    <button x-import.csv @manifest:import="team = $event.detail.data">Import it back</button>
+    <button x-import.csv
+        @manifest:import="imported = $event.detail.data; filename = $event.detail.file.name">
+        Import a CSV
+    </button>
+
+    <template x-if="imported">
+        <div>
+            <small x-text="'From ' + filename + ':'"></small>
+            <table>
+                <thead><tr><th>Name</th><th>Role</th><th>Hours</th></tr></thead>
+                <tbody>
+                    <template x-for="(m, i) in imported" :key="i">
+                        <tr>
+                            <td x-text="m.name"></td>
+                            <td x-text="m.role"></td>
+                            <td x-text="m.hours"></td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </template>
 </div>
 ```
 
@@ -390,7 +411,7 @@ Here's the whole loop in one place — download the table below as a CSV, open i
     { name: 'June',  role: 'Design',      hours: 12 },
     { name: 'Marco', role: 'Engineering', hours: 9 },
     { name: 'Priya', role: 'Research',    hours: 14 }
-] }" class="col gap-3 w-full">
+], imported: null, filename: '' }" class="col gap-3 w-full">
     <table class="w-full text-sm">
         <thead><tr class="text-muted text-left"><th>Name</th><th>Role</th><th>Hours</th></tr></thead>
         <tbody>
@@ -405,8 +426,28 @@ Here's the whole loop in one place — download the table below as a CSV, open i
     </table>
     <div class="row gap-2">
         <button x-export="{ format: 'csv', data: team, filename: 'team.csv' }">Download CSV</button>
-        <button x-import.csv @manifest:import="team = $event.detail.data" class="outlined">Import it back</button>
+        <button x-import.csv @manifest:import="imported = $event.detail.data; filename = $event.detail.file.name" class="outlined">Import a CSV</button>
     </div>
+    <template x-if="!imported">
+        <small class="text-muted">Nothing imported yet — the file's contents will appear here.</small>
+    </template>
+    <template x-if="imported">
+        <div class="col gap-2 p-4 border border-line rounded">
+            <small class="text-muted" x-text="'From ' + filename + ':'"></small>
+            <table class="w-full text-sm">
+                <thead><tr class="text-muted text-left"><th>Name</th><th>Role</th><th>Hours</th></tr></thead>
+                <tbody>
+                    <template x-for="(m, i) in imported" :key="i">
+                        <tr class="border-t border-line">
+                            <td x-text="m.name"></td>
+                            <td x-text="m.role"></td>
+                            <td x-text="m.hours"></td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </template>
 </div>
 :::
 
