@@ -6,18 +6,18 @@ Move files out of the page and back in — downloads and uploads of documents an
 
 ## Overview
 
-One plugin covers both directions of file transfer, entirely client-side:
+One plugin covers both directions of file transfer, and everything happens in the visitor's browser — no server involved:
 
-- **[Export](#export)** — `x-export` turns its host element into a download action. The whole page, a target section, or an `$x` data source can be exported as **PDF**, **PNG**, **JPEG**, **WebP**, **CSV**, or **JSON**.
-- **[Import](#import)** — `x-import` turns its host element into a file-open action. A local **JSON** or **CSV** file is parsed and delivered as an event, a promise, or straight into an `$x` data source.
+- **[Export](#export)** — `x-export` turns any element into a download button. The whole page, a chosen section, or an `$x` data source can be saved as **PDF**, **PNG**, **JPEG**, **WebP**, **CSV**, or **JSON**.
+- **[Import](#import)** — `x-import` turns any element into an "open file" button. A **JSON** or **CSV** file from the visitor's device is read and handed back as usable data.
 
-Together they close the loop: what a visitor exports, they (or anyone else) can import back — save files, backups, and user-made content packs with no server involved.
+Together they close the loop: whatever a visitor exports, they (or anyone else) can import back. Save files, backups, and user-made content packs all work without a single line of server code.
 
 ---
 
 ## Setup
 
-Import/Export is included in `manifest.js` with all core plugins, or can be selectively loaded. The plugin name is `export`; `import` is accepted as an alias for the same file.
+Import/Export is included in `manifest.js` with all core plugins, or can be selectively loaded. The plugin name is `export`; `import` also works and loads the same file.
 
 <div x-code-group copy>
 
@@ -36,13 +36,13 @@ Import/Export is included in `manifest.js` with all core plugins, or can be sele
 
 ## Export
 
-The `x-export` directive and `$export` magic download the page, a region, or a data source. PDFs go through the browser's native print pipeline, so users get the familiar "Save as PDF" dialog with proper multi-page layout, vector text (selectable and copy-pasteable), and the page's own `@media print` rules. Whole-page PDFs print the whole page; targeted PDFs scope the print to the chosen subtree via a temporary print stylesheet. Raster image formats (PNG, JPEG, WebP) use <a href="https://github.com/yorickshen/html2canvas-pro" target="_blank">html2canvas-pro</a>, lazy-loaded from the jsDelivr CDN on first use.
+The `x-export` directive and `$export` magic save the page, a section of it, or a data source as a file. PDFs go through the browser's own print dialog — the familiar "Save as PDF" flow — so text stays selectable and copy-pasteable, long content flows across pages properly, and the page's own `@media print` styles apply. Exporting the whole page prints the whole page; exporting a target section temporarily narrows the print to just that section. Image formats (PNG, JPEG, WebP) use <a href="https://github.com/yorickshen/html2canvas-pro" target="_blank">html2canvas-pro</a>, fetched from the jsDelivr CDN only when someone first clicks.
 
 ### Triggers
 
 #### Buttons
 
-Add `x-export` to any clickable element. With no options it snaps the whole page as a PDF. Other formats are defined by a modifier.
+Add `x-export` to anything clickable. With no options it saves the whole page as a PDF; a modifier picks another format.
 
 <div x-code-group>
 
@@ -82,18 +82,18 @@ Add `x-export` to any clickable element. With no options it snaps the whole page
 
 </div>
 
-Visual formats (PDF, PNG, JPEG, WebP) snapshot the page or a target element. Data formats (CSV, JSON) serialize an `$x` source or inline value — covered in detail in [Data Sources](#data-sources) below.
+The visual formats (PDF, PNG, JPEG, WebP) take a picture of the page or a chosen element. The data formats (CSV, JSON) write out a `$x` source or an inline value — covered in [Data Sources](#data-sources) below.
 
-UI elements that shouldn't appear in the snapshot (headers, sidebars, navigation, the export button itself) can be marked with `data-no-export`{copy}. The filter applies to every visual export on the page.
+Anything that shouldn't appear in the saved file (headers, sidebars, navigation, the export button itself) can be marked with `data-no-export`{copy}. The filter applies to every visual export on the page.
 
-The downloaded filename is configurable without switching to the object form. A `data-filename`{copy} attribute works on any element. On an anchor link trigger, the standard HTML `download`{copy} attribute is honored as well.
+The downloaded filename can be set without any other options: a `data-filename`{copy} attribute works on any element, and on a link the standard HTML `download`{copy} attribute works too.
 
 ```html copy
 <button x-export.png data-filename="report.png">Download report</button>
 <a x-export.pdf href="#chart" download="chart.pdf">Save chart</a>
 ```
 
-To control resolution or dimensions of a raster image, use the object form. `resolution` is the pixel-density multiplier (defaults to the device pixel ratio so the exported image matches what's on screen); `width` and `height` set explicit output dimensions.
+To control the sharpness or size of a saved image, use the options form. `resolution` multiplies the pixel density — it defaults to the visitor's screen density, so the saved image looks like what they see; set it to `2` or `3` for a consistently sharp result on any hardware. `width` and `height` set exact output dimensions.
 
 ```html copy
 <button x-export="{ format: 'png', resolution: 2 }">Retina PNG</button>
@@ -101,7 +101,7 @@ To control resolution or dimensions of a raster image, use the object form. `res
 <button x-export="{ format: 'webp', width: 1200, height: 800 }">Sized WEBP</button>
 ```
 
-For more control, pass an object expression. The `target`{copy} property is a CSS selector pointing at the element to snapshot. Anything outside it is ignored.
+For more control, pass an options object. `target`{copy} is a CSS selector pointing at the element to save; everything outside it is left out.
 
 <div x-code-group>
 
@@ -128,7 +128,7 @@ For more control, pass an object expression. The `target`{copy} property is a CS
 
 #### Anchor Links
 
-When `x-export` is on an `<a>` whose `href` starts with `#`, the directive treats the fragment as the target. Clicking downloads the matched element instead of scrolling.
+When `x-export` sits on a link whose `href` starts with `#`, that fragment becomes the target. Clicking downloads the matched element instead of scrolling to it.
 
 <div x-code-group>
 
@@ -152,7 +152,7 @@ This pairs well with a normal in-page anchor as a "download this section" compan
 
 #### Cross-Page Links
 
-When `x-export` is on an `<a>` whose `href` points to another page, the directive rewrites the href to append `?export=<format>`. The browser navigates normally. The destination page picks up the URL signal and exports itself after loading.
+When `x-export` sits on a link to another page, the link quietly gains `?export=<format>`. The browser navigates as usual, and the destination page notices the signal in its URL and exports itself once it has loaded.
 
 <div x-code-group copy>
 
@@ -172,17 +172,17 @@ When `x-export` is on an `<a>` whose `href` points to another page, the directiv
 
 </div>
 
-The pattern keeps the *intent* on the link that expresses it, and the *capability* on the page that knows what's exportable. Random visitors never trigger downloads. Only those arriving via an export link, or a pasted URL with the param, will.
+The link says what the visitor wants; the destination page knows what it can hand over. Ordinary visitors never trigger downloads — only someone arriving through an export link, or a pasted URL carrying the parameter, will.
 
 ::: brand icon="lucide:info"
-**Headless / SSR**: visual exports run in the user's browser at click time, so they're inert in prerendered HTML and crawler views. The export button itself ships, but no library is loaded until the user clicks. For automated headless exports, see [Batch and CI Exports](#batch-and-ci-exports) below.
+**Prerendered pages and crawlers**: exports run in the visitor's browser at click time, so they do nothing in prerendered HTML or search-engine views. The button itself ships with the page, but no library loads until someone clicks. For exports with no person clicking at all, see [Batch and CI Exports](#batch-and-ci-exports) below.
 :::
 
 ---
 
 ### Data Sources
 
-For tabular and structured data, point at a `$x` source by name. The directive serializes the source as CSV or JSON and triggers a download.
+For tables and structured data, point at a `$x` source by name. The plugin writes the source out as CSV or JSON and downloads it.
 
 <div x-code-group>
 
@@ -231,13 +231,13 @@ For tabular and structured data, point at a `$x` source by name. The directive s
 
 </div>
 
-CSV output handles RFC-4180 quoting automatically. Values containing commas, quotes, or newlines are properly escaped. The header row is the union of keys across all rows, so heterogeneous arrays export faithfully.
+CSV quoting is handled automatically to the standard rules (RFC 4180): values containing commas, quotes, or line breaks come out intact. The header row collects every column that appears in any row, so rows don't all need the same fields.
 
 ---
 
 ### Export Magic
 
-The `$export` magic provides the same functionality as `x-export`, and is useful for custom trigger conditions, multi-step workflows, or non-clickable triggers.
+`$export` does everything `x-export` does, from inside an expression — useful when the download should happen on your own conditions: after validation, behind a sign-in check, or partway through a multi-step flow.
 
 <div x-code-group>
 
@@ -278,29 +278,29 @@ All of `$export`'s options are identical to those of `x-export`.
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | **`format`{copy}** | String | `'pdf'` | One of `pdf`, `png`, `jpeg`, `webp`, `csv`, `json` |
-| **`target`{copy}** | String / Element | `<body>` | CSS selector or element to snapshot. Visual formats only. |
+| **`target`{copy}** | String / Element | `<body>` | CSS selector or element to save. Visual formats only. |
 | **`source`{copy}** | String | — | Name of a `$x` data source to export. `csv` / `json` only. |
 | **`data`{copy}** | Array / Object | — | Inline data to export instead of a `$x` source. `csv` / `json` only. |
-| **`filename`{copy}** | String | `export-<timestamp>.<ext>` | Suggested download name. Falls back to a `download` attribute on anchor hosts, then a `data-filename` attribute, then a timestamped default. |
-| **`resolution`{copy}** | Number | device pixel ratio | Pixel-density multiplier for raster image exports. Default matches the host display — `1` on standard monitors, `2` on retina — so the exported image looks like what you see on screen. Set explicitly (e.g. `2` or `3`) for hardware-independent renders. |
-| **`width`{copy}** | Number | natural width | Output canvas width in pixels for raster image exports. Overrides the target's natural width. |
-| **`height`{copy}** | Number | natural height | Output canvas height in pixels for raster image exports. Overrides the target's natural height. |
+| **`filename`{copy}** | String | `export-<timestamp>.<ext>` | Suggested download name. Falls back to a `download` attribute on links, then a `data-filename` attribute, then a timestamped default. |
+| **`resolution`{copy}** | Number | screen density | Sharpness multiplier for saved images. The default matches the visitor's screen — `1` on standard monitors, `2` on retina — so the file looks like what they see. Set it explicitly (e.g. `2` or `3`) for the same sharpness on any hardware. |
+| **`width`{copy}** | Number | natural width | Output width in pixels for saved images. Overrides the element's natural width. |
+| **`height`{copy}** | Number | natural height | Output height in pixels for saved images. Overrides the element's natural height. |
 | **`quality`{copy}** | Number (0–1) | `0.95` | JPEG / WebP compression quality |
-| **`backgroundColor`{copy}** | String | page background | Solid background for raster exports (PNG, JPEG, WebP). Defaults to the page's effective background. Pass `'transparent'` to disable the fill (useful for icon / logo exports). PDFs render the page CSS directly and ignore this option. |
-| **`pageSize`{copy}** | String | `'a4'` | PDF page size — `a4`, `a3`, `letter`, `legal`, etc. Passed through to the print pipeline's `@page` rule. Users can still override in the browser's print dialog. |
-| **`trigger`{copy}** | String | `'click'` | `'click'` (default) or `'url'`. With `'url'` the export fires on page load if the URL has the export param. |
-| **`urlParam`{copy}** | String | `'export'` | URL query-param name to watch when `trigger: 'url'` |
-| **`delay`{copy}** | Number | `0` | Milliseconds to wait after a `url` trigger fires before snapshotting. Useful when charts or animations need to settle. |
+| **`backgroundColor`{copy}** | String | page background | Solid background for saved images (PNG, JPEG, WebP). Defaults to the page's own background. Pass `'transparent'` for no fill (useful for icon / logo exports). PDFs use the page's CSS directly and ignore this option. |
+| **`pageSize`{copy}** | String | `'a4'` | PDF page size — `a4`, `a3`, `letter`, `legal`, etc. Visitors can still change it in the browser's print dialog. |
+| **`trigger`{copy}** | String | `'click'` | `'click'` (default) or `'url'`. With `'url'` the export runs on page load if the URL carries the export parameter. |
+| **`urlParam`{copy}** | String | `'export'` | Name of the URL parameter to watch when `trigger: 'url'` |
+| **`delay`{copy}** | Number | `0` | Milliseconds to wait after a `url` trigger before saving. Useful when charts or animations need a moment to settle. |
 
 ::: brand icon="lucide:info"
-**Cross-origin assets**: snapshots of regions containing images from other domains need those images served with permissive CORS headers (`Access-Control-Allow-Origin: *`), or they'll appear blank in the exported file. Self-hosted assets work without configuration.
+**Images from other sites**: saving a section that contains images hosted on another domain needs those images served with permissive CORS headers (`Access-Control-Allow-Origin: *`), or they'll come out blank. Images hosted with the site itself work without any configuration.
 :::
 
 ---
 
 ### Batch and CI Exports
 
-The `mnfst-export` CLI runs the same exports from Node. It's the right tool for build pipelines, scheduled jobs, and any case where no human is around to click. The CLI supports the same six formats as the directive, plus an `rss` format for blog feeds.
+The `mnfst-export` command-line tool runs the same exports with nobody clicking — the right tool for build pipelines, scheduled jobs, and bulk runs. It supports the same six formats, plus an `rss` format for blog feeds.
 
 ```bash copy
 # Snapshot a single route as PDF
@@ -313,7 +313,7 @@ npx mnfst-export
 npx mnfst-export --csv --path /admin/customers --source customers
 ```
 
-Routes can be configured in `manifest.json` so the same `npx mnfst-export`{copy} runs in any environment.
+Routes can be listed in `manifest.json` so the same `npx mnfst-export`{copy} runs anywhere.
 
 ```json "manifest.json" copy
 {
@@ -331,12 +331,12 @@ Routes can be configured in `manifest.json` so the same `npx mnfst-export`{copy}
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | **`output`{copy}** | `string` | `"exports"` | Output folder relative to the project root |
-| **`routes`{copy}** | `object[]` | `[]` | Per-route export entries. Each takes the same fields as the directive's object form (`path`, `format`, `target`, `source`, `filename`, `pageSize`, etc.) |
+| **`routes`{copy}** | `object[]` | `[]` | Per-route export entries. Each takes the same fields as the directive's options (`path`, `format`, `target`, `source`, `filename`, `pageSize`, etc.) |
 | **`rss`{copy}** | `object` | inherited | Channel defaults: `{ title, link, description }`. Falls back to `manifest.name`, `manifest.live_url`, and `manifest.description`. |
 
-The CLI spins up a static server, opens each route in headless Chromium, waits for the `manifest:render-ready` signal, then snapshots or serializes whatever the route exposes. Visual formats use Puppeteer's native `page.pdf()` and `page.screenshot()`, which are more reliable in headless than the in-browser libraries.
+The tool starts a temporary local server, opens each page in an invisible browser, waits for the page to finish rendering (the `manifest:render-ready` signal), then saves whatever that page exposes. PDFs and images use the browser engine's own capture, which is more reliable there than the in-page libraries.
 
-Run `npx mnfst-export --help`{copy} for the full list of flags. Puppeteer is a peer dependency. Install it once in the project.
+Run `npx mnfst-export --help`{copy} for the full list of flags. Puppeteer (the invisible browser) is required — install it once in the project.
 
 ```bash copy
 npm i -D puppeteer
@@ -346,9 +346,9 @@ npm i -D puppeteer
 
 ## Import
 
-The `x-import` directive and `$import` magic bring files back in. The visitor picks a **JSON** or **CSV** file, the plugin parses it client-side (nothing leaves the browser), and the result is delivered as an event, a promise, or straight into an `$x` data source. Restoring an exported backup, loading a saved document, or accepting user-made content packs is one attribute.
+The `x-import` directive and `$import` magic bring files back in. The visitor picks a **JSON** or **CSV** file, the plugin reads it right there in the browser (the file never leaves their device), and the content arrives as an event, a promise, or straight into an `$x` data source. Restoring an exported backup, loading a saved document, or accepting user-made content packs is one attribute.
 
-With no options the picker accepts JSON or CSV and infers the format from the picked file's extension; a modifier pins it.
+With no options the picker accepts JSON or CSV and tells them apart by the file's extension; a modifier pins one format.
 
 ```html copy
 <button x-import>Open file</button>
@@ -356,24 +356,72 @@ With no options the picker accepts JSON or CSV and infers the format from the pi
 <button x-import.csv>Open CSV</button>
 ```
 
-The parsed result arrives as a `manifest:import` event that bubbles from the trigger, so it can be handled right on the element. The detail carries `data` (the parsed value), `format`, `source` (when one was targeted), and `file` (`name`, `size`, `type`). A file that fails to parse fires `manifest:import-error` instead, with `format` and `error`.
+The result arrives as a `manifest:import` event on the trigger element, so it can be handled right where the button is. The event's `detail` carries `data` (the parsed content), `format`, `source` (when one was targeted), and `file` (`name`, `size`, `type`). A file that can't be read fires `manifest:import-error` instead, with `format` and `error`.
+
+Here's the whole loop in one place — download the table below as a CSV, open it in any spreadsheet app and change a name or a number, then import the same file back. The table shows whatever the file says.
+
+<div x-code-group>
 
 ```html copy
-<button x-import.json @manifest:import="restore($event.detail.data)">
-    Restore backup
-</button>
+<div x-data="{ team: [
+    { name: 'June',  role: 'Design',      hours: 12 },
+    { name: 'Marco', role: 'Engineering', hours: 9 },
+    { name: 'Priya', role: 'Research',    hours: 14 }
+] }">
+    <table>
+        <thead><tr><th>Name</th><th>Role</th><th>Hours</th></tr></thead>
+        <tbody>
+            <template x-for="(m, i) in team" :key="i">
+                <tr>
+                    <td x-text="m.name"></td>
+                    <td x-text="m.role"></td>
+                    <td x-text="m.hours"></td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+    <button x-export="{ format: 'csv', data: team, filename: 'team.csv' }">Download CSV</button>
+    <button x-import.csv @manifest:import="team = $event.detail.data">Import it back</button>
+</div>
 ```
+
+::: frame col gap-4 p-10
+<div x-data="{ team: [
+    { name: 'June',  role: 'Design',      hours: 12 },
+    { name: 'Marco', role: 'Engineering', hours: 9 },
+    { name: 'Priya', role: 'Research',    hours: 14 }
+] }" class="col gap-3 w-full">
+    <table class="w-full text-sm">
+        <thead><tr class="text-muted text-left"><th>Name</th><th>Role</th><th>Hours</th></tr></thead>
+        <tbody>
+            <template x-for="(m, i) in team" :key="i">
+                <tr class="border-t border-line">
+                    <td x-text="m.name"></td>
+                    <td x-text="m.role"></td>
+                    <td x-text="m.hours"></td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+    <div class="row gap-2">
+        <button x-export="{ format: 'csv', data: team, filename: 'team.csv' }">Download CSV</button>
+        <button x-import.csv @manifest:import="team = $event.detail.data" class="outlined">Import it back</button>
+    </div>
+</div>
+:::
+
+</div>
 
 ### Replacing a Data Source
 
-Pass a `source` to write the parsed content into a `$x` data source, replacing what's there. Anything bound to that source updates reactively. A bare string value is shorthand for the same thing.
+Pass a `source` to pour the file's content into a `$x` data source, replacing what's there. Anything on the page bound to that source updates on its own. A bare string value is shorthand for the same thing.
 
 ```html copy
 <button x-import="{ source: 'products' }">Load products</button>
 <button x-import="'products'">Load products</button>
 ```
 
-Together with export, client-side backup and restore is a few lines:
+Together with export, backup and restore is a few lines — no server, no account:
 
 ```html copy
 <button x-export="{ format: 'json', source: 'saves', filename: 'backup.json' }">Back up</button>
@@ -382,7 +430,7 @@ Together with export, client-side backup and restore is a few lines:
 
 ### Import Magic
 
-`$import(opts)` opens the picker programmatically and resolves the parsed data — `null` when the dialog is dismissed. Same options as the directive.
+`$import(opts)` opens the picker from inside an expression and hands back the parsed data — or `null` when the visitor closes the dialog without choosing. Same options as the directive.
 
 ```html copy
 <button @click="save = await $import({ format: 'json' })">Load save</button>
@@ -390,12 +438,12 @@ Together with export, client-side backup and restore is a few lines:
 
 ### CSV Parsing
 
-CSV comes back as an array of objects keyed by the header row. Quoted fields, embedded delimiters and newlines follow the usual CSV rules, and the delimiter (comma, semicolon, or tab) is detected from the header line. Cell values are typed: numbers, `true`/`false`/`null`, and JSON-looking cells (`{…}` or `[…]`) parse to real values; everything else stays a string. A file produced by the CSV export round-trips.
+A CSV file comes back as a list of objects, one per row, named by the header row. Quotes, and commas or line breaks inside values, follow the standard CSV rules, and the separator — comma, semicolon, or tab — is detected automatically from the first line. Values arrive typed: numbers become numbers, `true`/`false`/`null` become real values, cells that look like JSON (`{…}` or `[…]`) are parsed, and everything else stays text. A file produced by the CSV export imports back exactly.
 
 ### Import Options
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| **`format`{copy}** | String | inferred | `'json'` or `'csv'`. Omitted: inferred from the file extension, defaulting to JSON. |
-| **`source`{copy}** | String | — | `$x` data source to replace with the parsed content. |
-| **`accept`{copy}** | String | by format | Override the file dialog's accept list. |
+| **`format`{copy}** | String | inferred | `'json'` or `'csv'`. Left out, it's inferred from the file extension, defaulting to JSON. |
+| **`source`{copy}** | String | — | `$x` data source to replace with the file's content. |
+| **`accept`{copy}** | String | by format | Override which file types the picker dialog offers. |
