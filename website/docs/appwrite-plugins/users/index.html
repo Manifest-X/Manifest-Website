@@ -14,18 +14,18 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -277,9 +277,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
                         <span x-icon="lucide:pencil-ruler"></span>
                         <span>Edit</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
-                        <span x-icon="lucide:download"></span>
-                        <span>Export</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/import-export">
+                        <span x-icon="lucide:arrow-down-up"></span>
+                        <span>Import/Export</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/local-data">
                         <span x-icon="lucide:list-tree"></span>
                         <span>Local Data</span>
@@ -490,9 +490,6 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/license">
                         <span x-icon="lucide:file-check"></span>
                         <span>MIT License</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/privacy">
-                        <span x-icon="lucide:shield-check"></span>
-                        <span>Privacy Policy</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/acknowledgements">
                         <span x-icon="lucide:heart-handshake"></span>
                         <span>Acknowledgements</span>
@@ -564,9 +561,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:pencil-ruler"></span>
               <span>Edit</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:download"></span>
-              <span>Export</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/local-data" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:list-tree"></span>
               <span>Local Data</span>
@@ -777,9 +774,6 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/license" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:file-check"></span>
               <span>MIT License</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/privacy" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:shield-check"></span>
-              <span>Privacy Policy</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:heart-handshake"></span>
               <span>Acknowledgements</span>
@@ -800,7 +794,7 @@
       </template><span class="h6 mb-3" x-text="article?.group" data-mnfst-prerender-clone="1">Appwrite Plugins</span>
       <template x-if="article?.name">
         <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="article?.doc"></div>
-      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="users">Users</h1><p>Enable guests and user accounts in your project.</p>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/appwrite-plugins/auth.users.md" data-mnfst-prerender-clone="1"><h1 id="users">Users</h1><p>Enable guests and user accounts in your project.</p>
 <hr>
 <h2 id="appwrite-configuration">Appwrite Configuration</h2><aside class="frame"><img src="../../../assets/examples/appwrite.auth.settings.webp" alt="Appwrite auth settings"></aside>
 <p>Your Appwrite project's Auth dashboard provides various options to customize the user experience. Go to <b>Auth</b> &gt; <b>Settings</b> to enable your preferred sign-in methods. The auth plugin currently supports:</p>
@@ -883,9 +877,9 @@
 
 <!-- Status -->
 <p x-show="$auth.inProgress" style="display: none">Authorizing...</p>
-<p x-show="$auth.isAuthenticated" style="display: none">You're signed-in using <b x-text="$auth.method || 'guest'">guest</b><span x-show="$auth.provider" style="display: none"> via <b x-text="$auth.provider"></b></span> as <b x-text="$auth.user?.email || 'a guest'"></b></p>
+<p x-show="$auth.isAuthenticated" style="display: none">You're signed-in using <b x-text="$auth.method || 'guest'">guest</b><span x-show="$auth.provider" style="display: none"> via <b x-text="$auth.provider"></b></span> as <b x-text="$auth.user?.email || 'a guest'">a guest</b></p>
 <p x-show="!$auth.isAuthenticated">You're not signed-in.</p>
-<p x-show="$auth.error" x-text="$auth.error"></p></aside>
+<p x-show="$auth.error" x-text="$auth.error" style="display: none"></p></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>The <code>$auth.loginOAuth('...')</code> method accepts provider names like <code>google</code>, <code>github</code>, and <code>discord</code>. When applicable, the user is redirected to the provider's sign-in page and gets returned when authenticated.</p>
@@ -924,9 +918,9 @@
 <p x-show="$auth.inProgress" style="display: none">Authorizing...</p>
 <p x-show="$auth.magicLinkSent" style="display: none">Magic URL sent. Check your inbox or spam to sign-in.</p>
 <p x-show="$auth.magicLinkExpired" style="display: none">Magic URL expired. Please try again.</p>
-<p x-show="$auth.isAuthenticated" style="display: none">You're signed-in using <b x-text="$auth.method || 'guest'">guest</b><span x-show="$auth.provider" style="display: none"> via <b x-text="$auth.provider"></b></span> as <b x-text="$auth.user?.email || 'a guest'"></b></p>
+<p x-show="$auth.isAuthenticated" style="display: none">You're signed-in using <b x-text="$auth.method || 'guest'">guest</b><span x-show="$auth.provider" style="display: none"> via <b x-text="$auth.provider"></b></span> as <b x-text="$auth.user?.email || 'a guest'">a guest</b></p>
 <p x-show="!$auth.isAuthenticated">You're not signed-in.</p>
-<p x-show="$auth.error" x-text="$auth.error"></p></aside>
+<p x-show="$auth.error" x-text="$auth.error" style="display: none"></p></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>The button's <code>$auth.sendMagicLink()</code> method automatically finds the email input in the same parent element, form element, or otherwise finds the first email input on the page. To target a specific input, add its element ID like <code>$auth.sendMagicLink('#email-input')</code>. When activated, a magic URL is sent and the email input field is cleared.</p>
@@ -969,9 +963,9 @@
 <p x-show="$auth.inProgress" style="display: none">Authorizing...</p>
 <p x-show="$auth.otpSent" style="display: none">Code sent. Check your inbox or spam.</p>
 <p x-show="$auth.otpExpired" style="display: none">Code was invalid or expired. Please try again.</p>
-<p x-show="$auth.isAuthenticated" style="display: none">You're signed-in using <b x-text="$auth.method || 'guest'">guest</b> as <b x-text="$auth.user?.email || 'a guest'"></b></p>
+<p x-show="$auth.isAuthenticated" style="display: none">You're signed-in using <b x-text="$auth.method || 'guest'">guest</b> as <b x-text="$auth.user?.email || 'a guest'">a guest</b></p>
 <p x-show="!$auth.isAuthenticated">You're not signed-in.</p>
-<p x-show="$auth.error" x-text="$auth.error"></p></aside>
+<p x-show="$auth.error" x-text="$auth.error" style="display: none"></p></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p><code>$auth.sendEmailOTP()</code> finds the email input the same way <code>sendMagicLink()</code> does (nearest input, form, or first on the page), or accepts a selector like <code>$auth.sendEmailOTP('#email-input')</code>.</p>
@@ -1108,9 +1102,9 @@
         <p x-show="$auth.inProgress" style="display: none">Authorizing...</p>
         <p x-show="$auth.magicLinkSent" style="display: none">Magic URL sent. Check your inbox or spam to sign-in.</p>
         <p x-show="$auth.magicLinkExpired" style="display: none">Magic URL expired. Please try again.</p>
-        <p x-show="$auth.isAuthenticated" style="display: none">You're signed-in using <b x-text="$auth.method || 'guest'">guest</b><span x-show="$auth.provider" style="display: none"> via <b x-text="$auth.provider"></b></span> as <b x-text="$auth.user?.email || 'a guest'"></b></p>
+        <p x-show="$auth.isAuthenticated" style="display: none">You're signed-in using <b x-text="$auth.method || 'guest'">guest</b><span x-show="$auth.provider" style="display: none"> via <b x-text="$auth.provider"></b></span> as <b x-text="$auth.user?.email || 'a guest'">a guest</b></p>
         <p x-show="!$auth.isAuthenticated">You're not signed-in.</p>
-        <p x-show="$auth.error" x-text="$auth.error"></p>
+        <p x-show="$auth.error" x-text="$auth.error" style="display: none"></p>
     </div>
     <button @click="$auth.logout()" :disabled="!$auth.isAuthenticated || $auth.inProgress" class="!w-fit" disabled="disabled" data-hydrate-id="h12">Logout</button>
 </div></aside>
@@ -1426,6 +1420,9 @@
   </nav>
 
 </div>
+
+    <!-- Legal pages -->
+    
 
   </main>
 

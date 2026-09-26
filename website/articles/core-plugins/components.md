@@ -16,7 +16,7 @@ See the [router](/docs/core-plugins/router) plugin for details on navigation, wh
 
 ## Setup
 
-Components are included in `manifest.js` with all core plugins, or can be selectively loaded. `manifest.json` is required to register components.
+Components are included in `manifest.js` with all core plugins, or can be selectively loaded. Files in `components/` need no registration; `manifest.json` registers components elsewhere and tunes preloading.
 
 <div x-code-group copy>
 
@@ -136,7 +136,9 @@ Check the console for this page and you should see the above log.
 
 ## Register Components
 
-HTML files need to be declared in `manifest.json` due to browser security restrictions.
+A file at `components/<name>.html` works as `<x-name>` with no registration at all — create the file, use the tag. This is the convention path: when a tag isn't listed in `manifest.json`, the loader tries `components/<name>.html` and renders it on a hit. Unknown tags that don't resolve are left untouched.
+
+Registering in `manifest.json` is still how components in other folders are declared, and how load order is tuned:
 
 ```json "manifest.json" copy
 {
@@ -152,7 +154,7 @@ HTML files need to be declared in `manifest.json` due to browser security restri
 }
 ```
 Components are registered by custom filepath from the project root in one of two arrays:
-- `components` is the default array, suitable for components that load on-demand.
+- `components` is the default array, suitable for components that load on-demand. Convention components (unlisted `components/*.html`) behave like entries here.
 - `preloadedComponents` is for components that should load in the background if not already used by a current [route](/docs/core-plugins/router), reducing their load time on subsequent navigations.
 
 Note that components are cached after first render for the duration of the session.

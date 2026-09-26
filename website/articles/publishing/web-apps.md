@@ -86,7 +86,19 @@ Once installed, the app launches independently of the browser, tints the OS UI t
 
 A service worker is a small JavaScript file the browser runs in the background, separate from any open page. It can intercept network requests, cache responses, and serve them even when the user has no connection. Service workers are what let installed PWAs keep working offline.
 
-Sites on Manifest hosting get one automatically. It keeps the page shell, scripts, styles and components on the visitor's device, so repeat visits load from the device and a page that was already open keeps working without a connection. Data still comes from the network. Publishing takes effect on the next load, because the page itself is always checked against the network first. Nothing needs adding to the project, and local previews with `mnfst-run` never register it. See [performance](/docs/getting-started/performance#what-is-automatic).
+Sites on Manifest hosting get one automatically. It keeps the page shell, scripts, styles, components, and the images, audio and fonts your pages reference on the visitor's device, so repeat visits load from the device and a page that was already open keeps working without a connection. Data still comes from the network. Publishing takes effect on the next load, because the page itself is always checked against the network first. Nothing needs adding to the project, and local previews with `mnfst-run` never register it. See [performance](/docs/getting-started/performance#what-is-automatic).
+
+Files loaded dynamically from script — canvas sprites, audio a game fetches on demand — aren't visible to that reference scan. Declare them in an `assets` array in `manifest.json` and they're cached up front too (paths or simple globs; `*` matches within a folder, `**` across folders):
+
+```json "manifest.json" copy
+{
+    "assets": [
+        "sprites/*.png",
+        "audio/**",
+        "game/engine.wasm"
+    ]
+}
+```
 
 Hosting elsewhere? Add a two-line `sw.js` at the project root, pinned to the framework version your `index.html` loads:
 

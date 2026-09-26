@@ -90,6 +90,22 @@ Scope options are:
 
 Scope queries are always prepended to user queries, ensuring scope restrictions cannot be bypassed.
 
+By default scope filters on the `userId`/`teamId` columns. If your table names them differently (e.g. a `workspaceId` column), set `scopeColumn`:
+
+```json "manifest.json" copy
+{
+    "data": {
+        "projects": {
+            "appwriteTableId": "your-table-id",
+            "scope": "team",
+            "scopeColumn": "workspaceId"
+        }
+    }
+}
+```
+
+`scopeColumn` can also be an object to name the user and team columns independently: `{ "team": "workspaceId", "user": "ownerId" }`.
+
 When using `["user", "team"]` scope, projects are shown for the current user OR the current team. If no team is selected (`$auth.currentTeam`), only user-scoped projects will display. Use `"teams"` (plural) instead of `"team"` (singular) to query all teams the user belongs to, not just the current team.
 
 ::: brand icon="lucide:info"
@@ -477,6 +493,23 @@ Define reusable queries in `manifest.json` and reference them in HTML:
 ```
 
 </div>
+
+A query value can also reference the signed-in user via `$auth.<path>` (e.g. `$auth.currentTeam.$id`, `$auth.userId`) or the active locale via `$locale.current`:
+
+```json "manifest.json" copy
+{
+    "data": {
+        "projects": {
+            "appwriteTableId": "your-table-id",
+            "queries": {
+                "default": [["equal", "workspaceId", "$auth.currentTeam.$id"]]
+            }
+        }
+    }
+}
+```
+
+If the referenced value isn't available yet (auth still loading, no current team selected), the read is skipped rather than sent with a broken value — it retries automatically once auth settles.
 
 ---
 

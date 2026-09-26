@@ -14,18 +14,18 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -234,7 +234,7 @@
         src: null ?? 'docs',
         get groups() { return $x[this.src] || [] },
         get article() { return $x[this.src].$route('path') },
-    }" @manifest:route-change.window="$el.hidePopover()" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" data-component="docs-nav-1" data-order="3">
     <div class="col gap-6 py-4">
             <small class="pl-2.5 text-content-subtle">Getting Started</small>
             <div class="col">
@@ -277,9 +277,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
                         <span x-icon="lucide:pencil-ruler"></span>
                         <span>Edit</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
-                        <span x-icon="lucide:download"></span>
-                        <span>Export</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/import-export">
+                        <span x-icon="lucide:arrow-down-up"></span>
+                        <span>Import/Export</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/local-data">
                         <span x-icon="lucide:list-tree"></span>
                         <span>Local Data</span>
@@ -490,9 +490,6 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/license">
                         <span x-icon="lucide:file-check"></span>
                         <span>MIT License</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/privacy">
-                        <span x-icon="lucide:shield-check"></span>
-                        <span>Privacy Policy</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/acknowledgements">
                         <span x-icon="lucide:heart-handshake"></span>
                         <span>Acknowledgements</span>
@@ -564,9 +561,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:pencil-ruler"></span>
               <span>Edit</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:download"></span>
-              <span>Export</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/local-data" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:list-tree"></span>
               <span>Local Data</span>
@@ -777,9 +774,6 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/license" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:file-check"></span>
               <span>MIT License</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/privacy" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:shield-check"></span>
-              <span>Privacy Policy</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:heart-handshake"></span>
               <span>Acknowledgements</span>
@@ -800,7 +794,7 @@
       </template><span class="h6 mb-3" x-text="article?.group" data-mnfst-prerender-clone="1">Elements</span>
       <template x-if="article?.name">
         <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="article?.doc"></div>
-      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="accordions">Accordions</h1><p>Collapsible content panels that expand on demand.</p>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/elements/accordions.md" data-mnfst-prerender-clone="1"><h1 id="accordions">Accordions</h1><p>Collapsible content panels that expand on demand.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Accordion styles are included in Manifest CSS or a standalone stylesheet, both referencing <a href="/docs/styles/theme">theme</a> variables.</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
@@ -1037,7 +1031,7 @@ details.custom {
   <!-- Anchor links -->
   <nav aria-label="On this page" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
 
-    <small class="mb-2" x-show="$store.anchors?.count &gt; 0" style="display: none">
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
       <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
       <span>On this page</span>
     </small>
@@ -1047,6 +1041,9 @@ details.custom {
   </nav>
 
 </div>
+
+    <!-- Legal pages -->
+    
 
   </main>
 

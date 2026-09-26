@@ -14,18 +14,18 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -277,9 +277,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
                         <span x-icon="lucide:pencil-ruler"></span>
                         <span>Edit</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
-                        <span x-icon="lucide:download"></span>
-                        <span>Export</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/import-export">
+                        <span x-icon="lucide:arrow-down-up"></span>
+                        <span>Import/Export</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/local-data">
                         <span x-icon="lucide:list-tree"></span>
                         <span>Local Data</span>
@@ -490,9 +490,6 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/license">
                         <span x-icon="lucide:file-check"></span>
                         <span>MIT License</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/privacy">
-                        <span x-icon="lucide:shield-check"></span>
-                        <span>Privacy Policy</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/acknowledgements">
                         <span x-icon="lucide:heart-handshake"></span>
                         <span>Acknowledgements</span>
@@ -564,9 +561,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:pencil-ruler"></span>
               <span>Edit</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:download"></span>
-              <span>Export</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/local-data" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:list-tree"></span>
               <span>Local Data</span>
@@ -777,9 +774,6 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/license" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:file-check"></span>
               <span>MIT License</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/privacy" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:shield-check"></span>
-              <span>Privacy Policy</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:heart-handshake"></span>
               <span>Acknowledgements</span>
@@ -800,7 +794,7 @@
       </template><span class="h6 mb-3" x-text="article?.group" data-mnfst-prerender-clone="1">Resources</span>
       <template x-if="article?.name">
         <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="article?.doc"></div>
-      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="reference">Reference</h1><p>Manifest's CLI commands, directives, magic properties, data-source operators, and state-management patterns.</p>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/resources/reference.md" data-mnfst-prerender-clone="1"><h1 id="reference">Reference</h1><p>Manifest's CLI commands, directives, magic properties, data-source operators, and state-management patterns.</p>
 <hr>
 <h2 id="cli-commands">CLI Commands</h2><table>
 <thead>
@@ -828,7 +822,7 @@
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-export</code></td>
 <td>Batch / CI exports — PDF, image, CSV, JSON, RSS</td>
-<td><a href="/docs/core-plugins/export#batch-and-ci-exports">Export</a></td>
+<td><a href="/docs/core-plugins/import-export#batch-and-ci-exports">Export</a></td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-types</code></td>
@@ -1113,7 +1107,7 @@
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-export</code></td>
-<td><a href="/docs/core-plugins/export">export</a></td>
+<td><a href="/docs/core-plugins/import-export">export</a></td>
 <td>Download page / region / data source as PDF, image, CSV, or JSON</td>
 </tr>
 <tr>
@@ -2007,6 +2001,9 @@
   </nav>
 
 </div>
+
+    <!-- Legal pages -->
+    
 
   </main>
 

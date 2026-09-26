@@ -14,24 +14,24 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
-<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Web Apps — Manifest"><meta property="og:description" content="Turn a Manifest project into an installable progressive web app (PWA)."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/publishing/web-apps"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-publishing-web-apps.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Web Apps — Manifest"><meta property="twitter:description" content="Turn a Manifest project into an installable progressive web app (PWA)."><meta property="twitter:image" content="/og/docs-publishing-web-apps.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Web Apps — Manifest","description":"Turn a Manifest project into an installable progressive web app (PWA).","image":"/og/docs-publishing-web-apps.png","url":"https://manifestx.dev/docs/publishing/web-apps"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Publishing","item":"https://manifestx.dev/docs/publishing"},{"@type":"ListItem","position":4,"name":"Web Apps","item":"https://manifestx.dev/docs/publishing/web-apps"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant web (&:where(html:not([data-native]) *));</style><style>@view-transition { navigation: none }</style><meta property="og:title" content="Web Apps — Manifest"><meta property="og:description" content="Turn a Manifest project into an installable progressive web app (PWA)."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/publishing/web-apps"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-publishing-web-apps.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Web Apps — Manifest"><meta property="twitter:description" content="Turn a Manifest project into an installable progressive web app (PWA)."><meta property="twitter:image" content="/og/docs-publishing-web-apps.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Web Apps — Manifest","description":"Turn a Manifest project into an installable progressive web app (PWA).","image":"/og/docs-publishing-web-apps.png","url":"https://manifestx.dev/docs/publishing/web-apps"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Publishing","item":"https://manifestx.dev/docs/publishing"},{"@type":"ListItem","position":4,"name":"Web Apps","item":"https://manifestx.dev/docs/publishing/web-apps"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/publishing/web-apps">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -277,9 +277,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
                         <span x-icon="lucide:pencil-ruler"></span>
                         <span>Edit</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
-                        <span x-icon="lucide:download"></span>
-                        <span>Export</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/import-export">
+                        <span x-icon="lucide:arrow-down-up"></span>
+                        <span>Import/Export</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/local-data">
                         <span x-icon="lucide:list-tree"></span>
                         <span>Local Data</span>
@@ -490,9 +490,6 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/license">
                         <span x-icon="lucide:file-check"></span>
                         <span>MIT License</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/privacy">
-                        <span x-icon="lucide:shield-check"></span>
-                        <span>Privacy Policy</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/acknowledgements">
                         <span x-icon="lucide:heart-handshake"></span>
                         <span>Acknowledgements</span>
@@ -564,9 +561,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:pencil-ruler"></span>
               <span>Edit</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:download"></span>
-              <span>Export</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/local-data" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:list-tree"></span>
               <span>Local Data</span>
@@ -777,9 +774,6 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/license" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:file-check"></span>
               <span>MIT License</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/privacy" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:shield-check"></span>
-              <span>Privacy Policy</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:heart-handshake"></span>
               <span>Acknowledgements</span>
@@ -800,7 +794,7 @@
       </template><span class="h6 mb-3" x-text="article?.group" data-mnfst-prerender-clone="1">Publishing</span>
       <template x-if="article?.name">
         <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="article?.doc"></div>
-      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="web-apps">Web Apps</h1><p>Turn a Manifest project into an installable progressive web app (PWA).</p>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/publishing/web-apps.md" data-mnfst-prerender-clone="1"><h1 id="web-apps">Web Apps</h1><p>Turn a Manifest project into an installable progressive web app (PWA).</p>
 <hr>
 <h2 id="overview">Overview</h2><p>A progressive web app is a website that can be installed and run like a native desktop or mobile app. Once installed, it launches from the home screen or app dock, opens in its own window without browser chrome, and behaves like any other installed application.</p>
 <p>Manifest projects qualify as PWAs the moment <code>manifest.json</code> declares the right web-app fields. Browsers detect the file at the root of your site and offer users an install prompt automatically, with no separate build step, bundler, or app store required.</p>
@@ -888,7 +882,15 @@
 <p>Once installed, the app launches independently of the browser, tints the OS UI to match <code>theme_color</code>, and uses the largest matching icon from <code>manifest.json</code> for its home screen presence.</p>
 <hr>
 <h2 id="offline-support">Offline Support</h2><p>A service worker is a small JavaScript file the browser runs in the background, separate from any open page. It can intercept network requests, cache responses, and serve them even when the user has no connection. Service workers are what let installed PWAs keep working offline.</p>
-<p>Sites on Manifest hosting get one automatically. It keeps the page shell, scripts, styles and components on the visitor's device, so repeat visits load from the device and a page that was already open keeps working without a connection. Data still comes from the network. Publishing takes effect on the next load, because the page itself is always checked against the network first. Nothing needs adding to the project, and local previews with <code>mnfst-run</code> never register it. See <a href="/docs/getting-started/performance#what-is-automatic">performance</a>.</p>
+<p>Sites on Manifest hosting get one automatically. It keeps the page shell, scripts, styles, components, and the images, audio and fonts your pages reference on the visitor's device, so repeat visits load from the device and a page that was already open keeps working without a connection. Data still comes from the network. Publishing takes effect on the next load, because the page itself is always checked against the network first. Nothing needs adding to the project, and local previews with <code>mnfst-run</code> never register it. See <a href="/docs/getting-started/performance#what-is-automatic">performance</a>.</p>
+<p>Files loaded dynamically from script — canvas sprites, audio a game fetches on demand — aren't visible to that reference scan. Declare them in an <code>assets</code> array in <code>manifest.json</code> and they're cached up front too (paths or simple globs; <code>*</code> matches within a folder, <code>**</code> across folders):</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"assets"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-string">"sprites/*.png"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-string">"audio/**"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-string">"game/engine.wasm"</span>
+    <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p>Hosting elsewhere? Add a two-line <code>sw.js</code> at the project root, pinned to the framework version your <code>index.html</code> loads:</p>
 <pre x-code="js" name="sw.js" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="sw.js" role="region"><header><div>sw.js</div></header><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">try</span> { <span class="hljs-title function_">importScripts</span>(<span class="hljs-string">'https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.sw.min.js'</span>); } <span class="hljs-keyword">catch</span> (e) { <span class="hljs-title function_">importScripts</span>(<span class="hljs-string">'https://cdn.jsdelivr.net/npm/mnfst@0.5.199/lib/manifest.sw.min.js'</span>); }
 <span class="hljs-keyword">if</span> (!self.<span class="hljs-property">__mnfstSw</span>) self.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'activate'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) { self.<span class="hljs-property">registration</span>.<span class="hljs-title function_">unregister</span>(); });</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
@@ -973,7 +975,7 @@
   <!-- Anchor links -->
   <nav aria-label="On this page" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
 
-    <small class="mb-2" x-show="$store.anchors?.count &gt; 0" style="display: none">
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
       <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
       <span>On this page</span>
     </small>
@@ -983,6 +985,9 @@
   </nav>
 
 </div>
+
+    <!-- Legal pages -->
+    
 
   </main>
 

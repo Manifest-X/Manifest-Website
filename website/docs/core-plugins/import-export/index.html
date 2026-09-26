@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Export — Manifest</title>
-  <meta name="description" content="Download the page, a region, or a data source as a file.">
+  <title>Import/Export — Manifest</title>
+  <meta name="description" content="Move files out of the page and back in — downloads and uploads of documents and data.">
   <meta name="author" content="Andrew Matlock">
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
@@ -14,18 +14,18 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -44,8 +44,8 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Export — Manifest"><meta property="og:description" content="Download the page, a region, or a data source as a file."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/export"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-core-plugins-export.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Export — Manifest"><meta property="twitter:description" content="Download the page, a region, or a data source as a file."><meta property="twitter:image" content="/og/docs-core-plugins-export.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Export — Manifest","description":"Download the page, a region, or a data source as a file.","image":"/og/docs-core-plugins-export.png","url":"https://manifestx.dev/docs/core-plugins/export"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Export","item":"https://manifestx.dev/docs/core-plugins/export"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
-<link rel="canonical" href="https://manifestx.dev/docs/core-plugins/export">
+@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Import/Export — Manifest"><meta property="og:description" content="Move files out of the page and back in — downloads and uploads of documents and data."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/import-export"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-core-plugins-import-export.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Import/Export — Manifest"><meta property="twitter:description" content="Move files out of the page and back in — downloads and uploads of documents and data."><meta property="twitter:image" content="/og/docs-core-plugins-import-export.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Import/Export — Manifest","description":"Move files out of the page and back in — downloads and uploads of documents and data.","image":"/og/docs-core-plugins-import-export.png","url":"https://manifestx.dev/docs/core-plugins/import-export"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Import Export","item":"https://manifestx.dev/docs/core-plugins/import-export"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/core-plugins/import-export">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
 <meta name="manifest:prerendered" content="1">
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -79,7 +79,7 @@
             <small class="hidden sm:flex md:hidden truncate" x-route="/docs/*">
                 <span x-text="$x.docs.$route('path')?.group || 'No group'">Core Plugins</span>
                 <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
-                <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'">Export</span>
+                <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'">Import/Export</span>
             </small>
 
         </div>
@@ -277,9 +277,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
                         <span x-icon="lucide:pencil-ruler"></span>
                         <span>Edit</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/core-plugins/export" aria-current="page">
-                        <span x-icon="lucide:download"></span>
-                        <span>Export</span>
+                    </a><a role="button" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/core-plugins/import-export" aria-current="page">
+                        <span x-icon="lucide:arrow-down-up"></span>
+                        <span>Import/Export</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/local-data">
                         <span x-icon="lucide:list-tree"></span>
                         <span>Local Data</span>
@@ -490,9 +490,6 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/license">
                         <span x-icon="lucide:file-check"></span>
                         <span>MIT License</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/privacy">
-                        <span x-icon="lucide:shield-check"></span>
-                        <span>Privacy Policy</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/acknowledgements">
                         <span x-icon="lucide:heart-handshake"></span>
                         <span>Acknowledgements</span>
@@ -564,9 +561,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:pencil-ruler"></span>
               <span>Edit</span>
-            </a><a role="button" href="/docs/core-plugins/export" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
-              <span x-icon="lucide:download"></span>
-              <span>Export</span>
+            </a><a role="button" href="/docs/core-plugins/import-export" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/local-data" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:list-tree"></span>
               <span>Local Data</span>
@@ -777,9 +774,6 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/license" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:file-check"></span>
               <span>MIT License</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/privacy" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:shield-check"></span>
-              <span>Privacy Policy</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:heart-handshake"></span>
               <span>Acknowledgements</span>
@@ -800,12 +794,16 @@
       </template><span class="h6 mb-3" x-text="article?.group" data-mnfst-prerender-clone="1">Core Plugins</span>
       <template x-if="article?.name">
         <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="article?.doc"></div>
-      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="export">Export</h1><p>Download the page, a region, or a data source as a file.</p>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/core-plugins/import.export.md" data-mnfst-prerender-clone="1"><h1 id="import-export">Import/Export</h1><p>Move files out of the page and back in — downloads and uploads of documents and data.</p>
 <hr>
-<h2 id="overview">Overview</h2><p>The <code>x-export</code> directive turns its host element into a download action. The whole page, a target section, or an <code>$x</code> data source can be exported. Supported formats are <strong>PDF</strong>, <strong>PNG</strong>, <strong>JPEG</strong>, <strong>WebP</strong>, <strong>CSV</strong>, and <strong>JSON</strong>.</p>
-<p>PDFs go through the browser's native print pipeline, so users get the familiar "Save as PDF" dialog with proper multi-page layout, vector text (selectable and copy-pasteable), and the page's own <code>@media print</code> rules. Whole-page PDFs print the whole page; targeted PDFs scope the print to the chosen subtree via a temporary print stylesheet. Raster image formats (PNG, JPEG, WebP) use <a href="https://github.com/yorickshen/html2canvas-pro" target="_blank">html2canvas-pro</a>, lazy-loaded from the jsDelivr CDN on first use.</p>
+<h2 id="overview">Overview</h2><p>One plugin covers both directions of file transfer, and everything happens in the visitor's browser — no server involved:</p>
+<ul>
+<li><strong><a href="#export">Export</a></strong> — <code>x-export</code> turns any element into a download button. The whole page, a chosen section, or an <code>$x</code> data source can be saved as <strong>PDF</strong>, <strong>PNG</strong>, <strong>JPEG</strong>, <strong>WebP</strong>, <strong>CSV</strong>, or <strong>JSON</strong>.</li>
+<li><strong><a href="#import">Import</a></strong> — <code>x-import</code> turns any element into an "open file" button. A <strong>JSON</strong> or <strong>CSV</strong> file from the visitor's device is read and handed back as usable data.</li>
+</ul>
+<p>Together they close the loop: whatever a visitor exports, they (or anyone else) can import back. Save files, backups, and user-made content packs all work without a single line of server code.</p>
 <hr>
-<h2 id="setup">Setup</h2><p>Export is included in <code>manifest.js</code> with all core plugins, or can be selectively loaded.</p>
+<h2 id="setup">Setup</h2><p>Import/Export is included in <code>manifest.js</code> with all core plugins, or can be selectively loaded. The plugin name is <code>export</code>; <code>import</code> also works and loads the same file.</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
@@ -814,7 +812,8 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <hr>
-<h2 id="triggers">Triggers</h2><h3 id="buttons">Buttons</h3><p>Add <code>x-export</code> to any clickable element. With no options it snaps the whole page as a PDF. Other formats are defined by a modifier.</p>
+<h2 id="export">Export</h2><p>The <code>x-export</code> directive and <code>$export</code> magic save the page, a section of it, or a data source as a file. PDFs go through the browser's own print dialog — the familiar "Save as PDF" flow — so text stays selectable and copy-pasteable, long content flows across pages properly, and the page's own <code>@media print</code> styles apply. Exporting the whole page prints the whole page; exporting a target section temporarily narrows the print to just that section. Image formats (PNG, JPEG, WebP) use <a href="https://github.com/yorickshen/html2canvas-pro" target="_blank">html2canvas-pro</a>, fetched from the jsDelivr CDN only when someone first clicks.</p>
+<h3 id="triggers">Triggers</h3><h4 id="buttons">Buttons</h4><p>Add <code>x-export</code> to anything clickable. With no options it saves the whole page as a PDF; a modifier picks another format.</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- PDF --&gt;</span>
@@ -846,16 +845,16 @@
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
-<p>Visual formats (PDF, PNG, JPEG, WebP) snapshot the page or a target element. Data formats (CSV, JSON) serialize an <code>$x</code> source or inline value — covered in detail in <a href="#data-sources">Data Sources</a> below.</p>
-<p>UI elements that shouldn't appear in the snapshot (headers, sidebars, navigation, the export button itself) can be marked with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-no-export</code>. The filter applies to every visual export on the page.</p>
-<p>The downloaded filename is configurable without switching to the object form. A <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-filename</code> attribute works on any element. On an anchor link trigger, the standard HTML <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">download</code> attribute is honored as well.</p>
+<p>The visual formats (PDF, PNG, JPEG, WebP) take a picture of the page or a chosen element. The data formats (CSV, JSON) write out a <code>$x</code> source or an inline value — covered in <a href="#data-sources">Data Sources</a> below.</p>
+<p>Anything that shouldn't appear in the saved file (headers, sidebars, navigation, the export button itself) can be marked with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-no-export</code>. The filter applies to every visual export on the page.</p>
+<p>The downloaded filename can be set without any other options: a <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-filename</code> attribute works on any element, and on a link the standard HTML <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">download</code> attribute works too.</p>
 <pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-export.png</span> <span class="hljs-attr">data-filename</span>=<span class="hljs-string">"report.png"</span>&gt;</span>Download report<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">x-export.pdf</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#chart"</span> <span class="hljs-attr">download</span>=<span class="hljs-string">"chart.pdf"</span>&gt;</span>Save chart<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
-<p>To control resolution or dimensions of a raster image, use the object form. <code>resolution</code> is the pixel-density multiplier (defaults to the device pixel ratio so the exported image matches what's on screen); <code>width</code> and <code>height</code> set explicit output dimensions.</p>
+<p>To control the sharpness or size of a saved image, use the options form. <code>resolution</code> multiplies the pixel density — it defaults to the visitor's screen density, so the saved image looks like what they see; set it to <code>2</code> or <code>3</code> for a consistently sharp result on any hardware. <code>width</code> and <code>height</code> set exact output dimensions.</p>
 <pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-export</span>=<span class="hljs-string">"{ format: 'png', resolution: 2 }"</span>&gt;</span>Retina PNG<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-export</span>=<span class="hljs-string">"{ format: 'jpeg', width: 1200 }"</span>&gt;</span>1200 px wide JPG<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-export</span>=<span class="hljs-string">"{ format: 'webp', width: 1200, height: 800 }"</span>&gt;</span>Sized WEBP<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
-<p>For more control, pass an object expression. The <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">target</code> property is a CSS selector pointing at the element to snapshot. Anything outside it is ignored.</p>
+<p>For more control, pass an options object. <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">target</code> is a CSS selector pointing at the element to save; everything outside it is left out.</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"report"</span>&gt;</span>
@@ -872,7 +871,7 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <hr>
-<h3 id="anchor-links">Anchor Links</h3><p>When <code>x-export</code> is on an <code>&lt;a&gt;</code> whose <code>href</code> starts with <code>#</code>, the directive treats the fragment as the target. Clicking downloads the matched element instead of scrolling.</p>
+<h4 id="anchor-links">Anchor Links</h4><p>When <code>x-export</code> sits on a link whose <code>href</code> starts with <code>#</code>, that fragment becomes the target. Clicking downloads the matched element instead of scrolling to it.</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">x-export.png</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#chart"</span>&gt;</span>Save chart as PNG<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></code></pre>
@@ -885,7 +884,7 @@
 
 <p>This pairs well with a normal in-page anchor as a "download this section" companion.</p>
 <hr>
-<h3 id="cross-page-links">Cross-Page Links</h3><p>When <code>x-export</code> is on an <code>&lt;a&gt;</code> whose <code>href</code> points to another page, the directive rewrites the href to append <code>?export=&lt;format&gt;</code>. The browser navigates normally. The destination page picks up the URL signal and exports itself after loading.</p>
+<h4 id="cross-page-links">Cross-Page Links</h4><p>When <code>x-export</code> sits on a link to another page, the link quietly gains <code>?export=&lt;format&gt;</code>. The browser navigates as usual, and the destination page notices the signal in its URL and exports itself once it has loaded.</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="trigger-page-tab-0" aria-selected="true" tabindex="0">Trigger page</button><button type="button" role="tab" id="export-page-tab-1" aria-selected="false" tabindex="-1">Export page</button></div></header>
 
 <pre x-code="html" name="Trigger page" data-code-block-built="yes" aria-label="Trigger page" role="tabpanel" data-code-processed="yes" id="trigger-page-panel-0" aria-labelledby="trigger-page-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- The link becomes /reports/q3?export=pdf --&gt;</span>
@@ -894,11 +893,11 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-export</span>=<span class="hljs-string">"{ trigger: 'url', target: '#report' }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
-<p>The pattern keeps the <em>intent</em> on the link that expresses it, and the <em>capability</em> on the page that knows what's exportable. Random visitors never trigger downloads. Only those arriving via an export link, or a pasted URL with the param, will.</p>
-<aside class="brand"><span x-icon="lucide:info"></span><p><strong>Headless / SSR</strong>: visual exports run in the user's browser at click time, so they're inert in prerendered HTML and crawler views. The export button itself ships, but no library is loaded until the user clicks. For automated headless exports, see <a href="#batch-and-ci-exports">Batch and CI Exports</a> below.</p>
+<p>The link says what the visitor wants; the destination page knows what it can hand over. Ordinary visitors never trigger downloads — only someone arriving through an export link, or a pasted URL carrying the parameter, will.</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p><strong>Prerendered pages and crawlers</strong>: exports run in the visitor's browser at click time, so they do nothing in prerendered HTML or search-engine views. The button itself ships with the page, but no library loads until someone clicks. For exports with no person clicking at all, see <a href="#batch-and-ci-exports">Batch and CI Exports</a> below.</p>
 </aside>
 <hr>
-<h2 id="data-sources">Data Sources</h2><p>For tabular and structured data, point at a <code>$x</code> source by name. The directive serializes the source as CSV or JSON and triggers a download.</p>
+<h3 id="data-sources">Data Sources</h3><p>For tables and structured data, point at a <code>$x</code> source by name. The plugin writes the source out as CSV or JSON and downloads it.</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Full source as CSV --&gt;</span>
@@ -950,9 +949,9 @@
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
-<p>CSV output handles RFC-4180 quoting automatically. Values containing commas, quotes, or newlines are properly escaped. The header row is the union of keys across all rows, so heterogeneous arrays export faithfully.</p>
+<p>CSV quoting is handled automatically to the standard rules (RFC 4180): values containing commas, quotes, or line breaks come out intact. The header row collects every column that appears in any row, so rows don't all need the same fields.</p>
 <hr>
-<h2 id="magic-property">Magic Property</h2><p>The <code>$export</code> magic provides the same functionality as <code>x-export</code>, and is useful for custom trigger conditions, multi-step workflows, or non-clickable triggers.</p>
+<h3 id="export-magic">Export Magic</h3><p><code>$export</code> does everything <code>x-export</code> does, from inside an expression — useful when the download should happen on your own conditions: after validation, behind a sign-in check, or partway through a multi-step flow.</p>
 <pre x-code-group="" data-group-processed="yes" role="region">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Validate, then export --&gt;</span>
@@ -979,7 +978,7 @@
 
 <p>All of <code>$export</code>'s options are identical to those of <code>x-export</code>.</p>
 <hr>
-<h2 id="options">Options</h2><table>
+<h3 id="export-options">Export Options</h3><table>
 <thead>
 <tr>
 <th>Property</th>
@@ -998,7 +997,7 @@
 <td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">target</code></strong></td>
 <td>String / Element</td>
 <td><code>&lt;body&gt;</code></td>
-<td>CSS selector or element to snapshot. Visual formats only.</td>
+<td>CSS selector or element to save. Visual formats only.</td>
 </tr>
 <tr>
 <td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">source</code></strong></td>
@@ -1016,25 +1015,25 @@
 <td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">filename</code></strong></td>
 <td>String</td>
 <td><code>export-&lt;timestamp&gt;.&lt;ext&gt;</code></td>
-<td>Suggested download name. Falls back to a <code>download</code> attribute on anchor hosts, then a <code>data-filename</code> attribute, then a timestamped default.</td>
+<td>Suggested download name. Falls back to a <code>download</code> attribute on links, then a <code>data-filename</code> attribute, then a timestamped default.</td>
 </tr>
 <tr>
 <td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">resolution</code></strong></td>
 <td>Number</td>
-<td>device pixel ratio</td>
-<td>Pixel-density multiplier for raster image exports. Default matches the host display — <code>1</code> on standard monitors, <code>2</code> on retina — so the exported image looks like what you see on screen. Set explicitly (e.g. <code>2</code> or <code>3</code>) for hardware-independent renders.</td>
+<td>screen density</td>
+<td>Sharpness multiplier for saved images. The default matches the visitor's screen — <code>1</code> on standard monitors, <code>2</code> on retina — so the file looks like what they see. Set it explicitly (e.g. <code>2</code> or <code>3</code>) for the same sharpness on any hardware.</td>
 </tr>
 <tr>
 <td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">width</code></strong></td>
 <td>Number</td>
 <td>natural width</td>
-<td>Output canvas width in pixels for raster image exports. Overrides the target's natural width.</td>
+<td>Output width in pixels for saved images. Overrides the element's natural width.</td>
 </tr>
 <tr>
 <td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">height</code></strong></td>
 <td>Number</td>
 <td>natural height</td>
-<td>Output canvas height in pixels for raster image exports. Overrides the target's natural height.</td>
+<td>Output height in pixels for saved images. Overrides the element's natural height.</td>
 </tr>
 <tr>
 <td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">quality</code></strong></td>
@@ -1046,37 +1045,37 @@
 <td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">backgroundColor</code></strong></td>
 <td>String</td>
 <td>page background</td>
-<td>Solid background for raster exports (PNG, JPEG, WebP). Defaults to the page's effective background. Pass <code>'transparent'</code> to disable the fill (useful for icon / logo exports). PDFs render the page CSS directly and ignore this option.</td>
+<td>Solid background for saved images (PNG, JPEG, WebP). Defaults to the page's own background. Pass <code>'transparent'</code> for no fill (useful for icon / logo exports). PDFs use the page's CSS directly and ignore this option.</td>
 </tr>
 <tr>
 <td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">pageSize</code></strong></td>
 <td>String</td>
 <td><code>'a4'</code></td>
-<td>PDF page size — <code>a4</code>, <code>a3</code>, <code>letter</code>, <code>legal</code>, etc. Passed through to the print pipeline's <code>@page</code> rule. Users can still override in the browser's print dialog.</td>
+<td>PDF page size — <code>a4</code>, <code>a3</code>, <code>letter</code>, <code>legal</code>, etc. Visitors can still change it in the browser's print dialog.</td>
 </tr>
 <tr>
 <td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">trigger</code></strong></td>
 <td>String</td>
 <td><code>'click'</code></td>
-<td><code>'click'</code> (default) or <code>'url'</code>. With <code>'url'</code> the export fires on page load if the URL has the export param.</td>
+<td><code>'click'</code> (default) or <code>'url'</code>. With <code>'url'</code> the export runs on page load if the URL carries the export parameter.</td>
 </tr>
 <tr>
 <td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">urlParam</code></strong></td>
 <td>String</td>
 <td><code>'export'</code></td>
-<td>URL query-param name to watch when <code>trigger: 'url'</code></td>
+<td>Name of the URL parameter to watch when <code>trigger: 'url'</code></td>
 </tr>
 <tr>
 <td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">delay</code></strong></td>
 <td>Number</td>
 <td><code>0</code></td>
-<td>Milliseconds to wait after a <code>url</code> trigger fires before snapshotting. Useful when charts or animations need to settle.</td>
+<td>Milliseconds to wait after a <code>url</code> trigger before saving. Useful when charts or animations need a moment to settle.</td>
 </tr>
 </tbody></table>
-<aside class="brand"><span x-icon="lucide:info"></span><p><strong>Cross-origin assets</strong>: snapshots of regions containing images from other domains need those images served with permissive CORS headers (<code>Access-Control-Allow-Origin: *</code>), or they'll appear blank in the exported file. Self-hosted assets work without configuration.</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p><strong>Images from other sites</strong>: saving a section that contains images hosted on another domain needs those images served with permissive CORS headers (<code>Access-Control-Allow-Origin: *</code>), or they'll come out blank. Images hosted with the site itself work without any configuration.</p>
 </aside>
 <hr>
-<h2 id="batch-and-ci-exports">Batch and CI Exports</h2><p>The <code>mnfst-export</code> CLI runs the same exports from Node. It's the right tool for build pipelines, scheduled jobs, and any case where no human is around to click. The CLI supports the same six formats as the directive, plus an <code>rss</code> format for blog feeds.</p>
+<h3 id="batch-and-ci-exports">Batch and CI Exports</h3><p>The <code>mnfst-export</code> command-line tool runs the same exports with nobody clicking — the right tool for build pipelines, scheduled jobs, and bulk runs. It supports the same six formats, plus an <code>rss</code> format for blog feeds.</p>
 <pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes"><span class="hljs-comment"># Snapshot a single route as PDF</span>
 npx mnfst-export --pdf --path /reports/q3 --target <span class="hljs-string">"#report"</span>
 
@@ -1085,7 +1084,7 @@ npx mnfst-export
 
 <span class="hljs-comment"># Data source as CSV</span>
 npx mnfst-export --csv --path /admin/customers --<span class="hljs-built_in">source</span> customers</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
-<p>Routes can be configured in <code>manifest.json</code> so the same <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-export</code> runs in any environment.</p>
+<p>Routes can be listed in <code>manifest.json</code> so the same <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-export</code> runs anywhere.</p>
 <pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"export"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"exports"</span><span class="hljs-punctuation">,</span>
@@ -1115,7 +1114,7 @@ npx mnfst-export --csv --path /admin/customers --<span class="hljs-built_in">sou
 <td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">routes</code></strong></td>
 <td><code>object[]</code></td>
 <td><code>[]</code></td>
-<td>Per-route export entries. Each takes the same fields as the directive's object form (<code>path</code>, <code>format</code>, <code>target</code>, <code>source</code>, <code>filename</code>, <code>pageSize</code>, etc.)</td>
+<td>Per-route export entries. Each takes the same fields as the directive's options (<code>path</code>, <code>format</code>, <code>target</code>, <code>source</code>, <code>filename</code>, <code>pageSize</code>, etc.)</td>
 </tr>
 <tr>
 <td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">rss</code></strong></td>
@@ -1124,9 +1123,147 @@ npx mnfst-export --csv --path /admin/customers --<span class="hljs-built_in">sou
 <td>Channel defaults: <code>{ title, link, description }</code>. Falls back to <code>manifest.name</code>, <code>manifest.live_url</code>, and <code>manifest.description</code>.</td>
 </tr>
 </tbody></table>
-<p>The CLI spins up a static server, opens each route in headless Chromium, waits for the <code>manifest:render-ready</code> signal, then snapshots or serializes whatever the route exposes. Visual formats use Puppeteer's native <code>page.pdf()</code> and <code>page.screenshot()</code>, which are more reliable in headless than the in-browser libraries.</p>
-<p>Run <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-export --help</code> for the full list of flags. Puppeteer is a peer dependency. Install it once in the project.</p>
+<p>The tool starts a temporary local server, opens each page in an invisible browser, waits for the page to finish rendering (the <code>manifest:render-ready</code> signal), then saves whatever that page exposes. PDFs and images use the browser engine's own capture, which is more reliable there than the in-page libraries.</p>
+<p>Run <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-export --help</code> for the full list of flags. Puppeteer (the invisible browser) is required — install it once in the project.</p>
 <pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npm i -D puppeteer</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h2 id="import">Import</h2><p>The <code>x-import</code> directive and <code>$import</code> magic bring files back in. The visitor picks a <strong>JSON</strong> or <strong>CSV</strong> file, the plugin reads it right there in the browser (the file never leaves their device), and the content arrives as an event, a promise, or straight into an <code>$x</code> data source. Restoring an exported backup, loading a saved document, or accepting user-made content packs is one attribute.</p>
+<p>With no options the picker accepts JSON or CSV and tells them apart by the file's extension; a modifier pins one format.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-import</span>&gt;</span>Open file<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-import.json</span>&gt;</span>Open JSON<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-import.csv</span>&gt;</span>Open CSV<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>The result arrives as a <code>manifest:import</code> event on the trigger element, so it can be handled right where the button is. The event's <code>detail</code> carries <code>data</code> (the parsed content), <code>format</code>, <code>source</code> (when one was targeted), and <code>file</code> (<code>name</code>, <code>size</code>, <code>type</code>). A file that can't be read fires <code>manifest:import-error</code> instead, with <code>format</code> and <code>error</code>.</p>
+<p>Here's the whole loop in one place. Download the table as a CSV, then import the file back — a second table appears showing exactly what the file contains, parsed fresh from disk. Change a name or a number in a spreadsheet app first if you'd like proof it isn't a trick.</p>
+<pre x-code-group="" data-group-processed="yes" role="region">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ team: [
+    { name: 'June',  role: 'Design',      hours: 12 },
+    { name: 'Marco', role: 'Engineering', hours: 9 },
+    { name: 'Priya', role: 'Research',    hours: 14 }
+], imported: null, filename: '' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">thead</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Name<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Role<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Hours<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">thead</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"(m, i) in team"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"i"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.role"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.hours"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-export</span>=<span class="hljs-string">"{ format: 'csv', data: team, filename: 'team.csv' }"</span>&gt;</span>Download CSV<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-import.csv</span>
+        @<span class="hljs-attr">manifest:import</span>=<span class="hljs-string">"imported = $event.detail.data; filename = $event.detail.file.name"</span>&gt;</span>
+        Import a CSV
+    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-if</span>=<span class="hljs-string">"imported"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"'From ' + filename + ':'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">thead</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Name<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Role<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Hours<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">thead</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"(m, i) in imported"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"i"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.role"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.hours"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame col gap-4 p-10"><div x-data="{ team: [
+    { name: 'June',  role: 'Design',      hours: 12 },
+    { name: 'Marco', role: 'Engineering', hours: 9 },
+    { name: 'Priya', role: 'Research',    hours: 14 }
+], imported: null, filename: '' }" class="col gap-3 w-full">
+    <table class="w-full text-sm">
+        <thead><tr class="text-muted text-left"><th>Name</th><th>Role</th><th>Hours</th></tr></thead>
+        <tbody>
+            <tr class="border-t border-line">
+                    <td>June</td>
+                    <td>Design</td>
+                    <td>12</td>
+                </tr><tr class="border-t border-line">
+                    <td>Marco</td>
+                    <td>Engineering</td>
+                    <td>9</td>
+                </tr><tr class="border-t border-line">
+                    <td>Priya</td>
+                    <td>Research</td>
+                    <td>14</td>
+                </tr>
+        </tbody>
+    </table>
+    <div class="row gap-2">
+        <button x-export="{ format: 'csv', data: team, filename: 'team.csv' }">Download CSV</button>
+        <button x-import.csv="" @manifest:import="imported = $event.detail.data; filename = $event.detail.file.name" class="outlined">Import a CSV</button>
+    </div>
+    <template x-if="!imported">
+        <small class="text-muted">Nothing imported yet — the file's contents will appear here.</small>
+    </template><small class="text-muted" data-mnfst-prerender-clone="1">Nothing imported yet — the file's contents will appear here.</small>
+    <template x-if="imported">
+        <div class="col gap-2 p-4 border border-line rounded">
+            <small class="text-muted" x-text="'From ' + filename + ':'"></small>
+            <table class="w-full text-sm">
+                <thead><tr class="text-muted text-left"><th>Name</th><th>Role</th><th>Hours</th></tr></thead>
+                <tbody>
+                    <template x-for="(m, i) in imported" :key="i">
+                        <tr class="border-t border-line">
+                            <td x-text="m.name"></td>
+                            <td x-text="m.role"></td>
+                            <td x-text="m.hours"></td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h3 id="replacing-a-data-source">Replacing a Data Source</h3><p>Pass a <code>source</code> to pour the file's content into a <code>$x</code> data source, replacing what's there. Anything on the page bound to that source updates on its own. A bare string value is shorthand for the same thing.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-import</span>=<span class="hljs-string">"{ source: 'products' }"</span>&gt;</span>Load products<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-import</span>=<span class="hljs-string">"'products'"</span>&gt;</span>Load products<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Together with export, backup and restore is a few lines — no server, no account:</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-export</span>=<span class="hljs-string">"{ format: 'json', source: 'saves', filename: 'backup.json' }"</span>&gt;</span>Back up<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-import</span>=<span class="hljs-string">"{ format: 'json', source: 'saves' }"</span>&gt;</span>Restore<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<h3 id="import-magic">Import Magic</h3><p><code>$import(opts)</code> opens the picker from inside an expression and hands back the parsed data — or <code>null</code> when the visitor closes the dialog without choosing. Same options as the directive.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"save = await $import({ format: 'json' })"</span>&gt;</span>Load save<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<h3 id="csv-parsing">CSV Parsing</h3><p>A CSV file comes back as a list of objects, one per row, named by the header row. Quotes, and commas or line breaks inside values, follow the standard CSV rules, and the separator — comma, semicolon, or tab — is detected automatically from the first line. Values arrive typed: numbers become numbers, <code>true</code>/<code>false</code>/<code>null</code> become real values, cells that look like JSON (<code>{…}</code> or <code>[…]</code>) are parsed, and everything else stays text. A file produced by the CSV export imports back exactly.</p>
+<h3 id="import-options">Import Options</h3><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">format</code></strong></td>
+<td>String</td>
+<td>inferred</td>
+<td><code>'json'</code> or <code>'csv'</code>. Left out, it's inferred from the file extension, defaulting to JSON.</td>
+</tr>
+<tr>
+<td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">source</code></strong></td>
+<td>String</td>
+<td>—</td>
+<td><code>$x</code> data source to replace with the file's content.</td>
+</tr>
+<tr>
+<td><strong><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">accept</code></strong></td>
+<td>String</td>
+<td>by format</td>
+<td>Override which file types the picker dialog offers.</td>
+</tr>
+</tbody></table>
 </div>
 
       <!-- Docs home -->
@@ -1209,11 +1346,14 @@ npx mnfst-export --csv --path /admin/customers --<span class="hljs-built_in">sou
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#triggers">Triggers</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#buttons">Buttons</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#anchor-links">Anchor Links</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#cross-page-links">Cross-Page Links</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#data-sources">Data Sources</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#magic-property">Magic Property</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#options">Options</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#batch-and-ci-exports">Batch and CI Exports</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#export">Export</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#triggers">Triggers</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#data-sources">Data Sources</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#export-magic">Export Magic</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#export-options">Export Options</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#batch-and-ci-exports">Batch and CI Exports</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#import">Import</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#replacing-a-data-source">Replacing a Data Source</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#import-magic">Import Magic</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#csv-parsing">CSV Parsing</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#import-options">Import Options</a></div>
 
   </nav>
 
 </div>
+
+    <!-- Legal pages -->
+    
 
   </main>
 

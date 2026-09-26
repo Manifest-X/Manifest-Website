@@ -14,18 +14,18 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -234,7 +234,7 @@
         src: null ?? 'docs',
         get groups() { return $x[this.src] || [] },
         get article() { return $x[this.src].$route('path') },
-    }" @manifest:route-change.window="$el.hidePopover()" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" data-component="docs-nav-1" data-order="3">
     <div class="col gap-6 py-4">
             <small class="pl-2.5 text-content-subtle">Getting Started</small>
             <div class="col">
@@ -277,9 +277,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
                         <span x-icon="lucide:pencil-ruler"></span>
                         <span>Edit</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
-                        <span x-icon="lucide:download"></span>
-                        <span>Export</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/import-export">
+                        <span x-icon="lucide:arrow-down-up"></span>
+                        <span>Import/Export</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/local-data">
                         <span x-icon="lucide:list-tree"></span>
                         <span>Local Data</span>
@@ -490,9 +490,6 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/license">
                         <span x-icon="lucide:file-check"></span>
                         <span>MIT License</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/privacy">
-                        <span x-icon="lucide:shield-check"></span>
-                        <span>Privacy Policy</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/acknowledgements">
                         <span x-icon="lucide:heart-handshake"></span>
                         <span>Acknowledgements</span>
@@ -564,9 +561,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:pencil-ruler"></span>
               <span>Edit</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:download"></span>
-              <span>Export</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/local-data" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:list-tree"></span>
               <span>Local Data</span>
@@ -777,9 +774,6 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/license" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:file-check"></span>
               <span>MIT License</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/privacy" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:shield-check"></span>
-              <span>Privacy Policy</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:heart-handshake"></span>
               <span>Acknowledgements</span>
@@ -800,7 +794,7 @@
       </template><span class="h6 mb-3" x-text="article?.group" data-mnfst-prerender-clone="1">Appwrite Plugins</span>
       <template x-if="article?.name">
         <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="article?.doc"></div>
-      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="databases">Databases</h1><p>Query and manage Appwrite database tables.</p>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/appwrite-plugins/cloud.data.databases.md" data-mnfst-prerender-clone="1"><h1 id="databases">Databases</h1><p>Query and manage Appwrite database tables.</p>
 <hr>
 <h2 id="appwrite-configuration">Appwrite Configuration</h2><p>In your Appwrite project's <strong>Databases</strong> dashboard, create a database.</p>
 <aside class="frame"><img src="../../../assets/examples/appwrite.database.webp" alt="Appwrite databases"></aside>
@@ -880,6 +874,17 @@
 </tr>
 </tbody></table>
 <p>Scope queries are always prepended to user queries, ensuring scope restrictions cannot be bypassed.</p>
+<p>By default scope filters on the <code>userId</code>/<code>teamId</code> columns. If your table names them differently (e.g. a <code>workspaceId</code> column), set <code>scopeColumn</code>:</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"projects"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"appwriteTableId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"your-table-id"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"scope"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"team"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"scopeColumn"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"workspaceId"</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p><code>scopeColumn</code> can also be an object to name the user and team columns independently: <code>{ "team": "workspaceId", "user": "ownerId" }</code>.</p>
 <p>When using <code>["user", "team"]</code> scope, projects are shown for the current user OR the current team. If no team is selected (<code>$auth.currentTeam</code>), only user-scoped projects will display. Use <code>"teams"</code> (plural) instead of <code>"team"</code> (singular) to query all teams the user belongs to, not just the current team.</p>
 <aside class="brand"><span x-icon="lucide:info"></span><p>All interactive examples below require you to be logged into a dummy account via the <a href="/docs/appwrite-plugins/users">users</a> article. The data entries you generate below use the <code>team</code> scope.</p>
 </aside>
@@ -1003,8 +1008,8 @@
     <div class="col">
         <!-- Create -->
         <div class="row-wrap gap-2 mb-2">
-            <input type="text" placeholder="Project name" aria-label="Project name" x-model="newName" :disabled="!$auth.currentTeam" class="flex-1">
-            <button @click="$x.projects.$create({ name: newName, type: 'demo' }).then(() =&gt; { newName = ''; })" :disabled="!newName || !$auth.currentTeam || $x.projects.$error" disabled="disabled" data-hydrate-id="h8">
+            <input type="text" placeholder="Project name" aria-label="Project name" x-model="newName" :disabled="!$auth.currentTeam" class="flex-1" disabled="disabled" data-hydrate-id="h8">
+            <button @click="$x.projects.$create({ name: newName, type: 'demo' }).then(() =&gt; { newName = ''; })" :disabled="!newName || !$auth.currentTeam || $x.projects.$error" disabled="disabled" data-hydrate-id="h9">
                 Create
             </button>
         </div>
@@ -1312,6 +1317,18 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
+<p>A query value can also reference the signed-in user via <code>$auth.&lt;path&gt;</code> (e.g. <code>$auth.currentTeam.$id</code>, <code>$auth.userId</code>) or the active locale via <code>$locale.current</code>:</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"projects"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"appwriteTableId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"your-table-id"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"queries"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"default"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span><span class="hljs-string">"equal"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"workspaceId"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"$auth.currentTeam.$id"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span>
+            <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>If the referenced value isn't available yet (auth still loading, no current team selected), the read is skipped rather than sent with a broken value — it retries automatically once auth settles.</p>
 <hr>
 <h2 id="storage-file-references">Storage File References</h2><p>Database entries can reference files stored in Appwrite storage buckets, such as a project (the entry) with files. When duplicating entries, you can control how file references are handled.</p>
 <h3 id="linking-files-to-entries">Linking Files to Entries</h3><p>Files are linked to entries via a <code>fileIds</code> column (or custom column name) that stores an array of file IDs:</p>
@@ -1680,9 +1697,9 @@
       <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
 
       <div role="group" class="outlined rounded-full">
-        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h9"></button>
-        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h10"></button>
-        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h11"></button>
+        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h10"></button>
+        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h11"></button>
+        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h12"></button>
       </div>
     </div>
   </div>
@@ -1704,6 +1721,9 @@
 
 </div>
 
+    <!-- Legal pages -->
+    
+
   </main>
 
   <!-- Footer (visible on every route) -->
@@ -1711,5 +1731,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"disabled":null}},{"id":"h9","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h10","attrs":{"type":null}},{"id":"h11","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h12","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h13","attrs":{"type":null}},{"id":"h14","attrs":{"type":null}},{"id":"h15","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"disabled":null}},{"id":"h9","attrs":{"disabled":null}},{"id":"h10","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h11","attrs":{"type":null}},{"id":"h12","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h13","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h14","attrs":{"type":null}},{"id":"h15","attrs":{"type":null}},{"id":"h16","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
 </body></html>

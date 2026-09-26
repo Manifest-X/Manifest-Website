@@ -14,18 +14,18 @@
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.min.js" data-version="0.5.199"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -277,9 +277,9 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
                         <span x-icon="lucide:pencil-ruler"></span>
                         <span>Edit</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/export">
-                        <span x-icon="lucide:download"></span>
-                        <span>Export</span>
+                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/import-export">
+                        <span x-icon="lucide:arrow-down-up"></span>
+                        <span>Import/Export</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/local-data">
                         <span x-icon="lucide:list-tree"></span>
                         <span>Local Data</span>
@@ -490,9 +490,6 @@
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/license">
                         <span x-icon="lucide:file-check"></span>
                         <span>MIT License</span>
-                    </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/privacy">
-                        <span x-icon="lucide:shield-check"></span>
-                        <span>Privacy Policy</span>
                     </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/acknowledgements">
                         <span x-icon="lucide:heart-handshake"></span>
                         <span>Acknowledgements</span>
@@ -564,9 +561,9 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/edit" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:pencil-ruler"></span>
               <span>Edit</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/export" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:download"></span>
-              <span>Export</span>
+            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/core-plugins/local-data" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:list-tree"></span>
               <span>Local Data</span>
@@ -777,9 +774,6 @@
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/license" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:file-check"></span>
               <span>MIT License</span>
-            </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/privacy" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:shield-check"></span>
-              <span>Privacy Policy</span>
             </a><a role="button" :aria-current="article?.path === item.path ? 'page' : null" href="/docs/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:heart-handshake"></span>
               <span>Acknowledgements</span>
@@ -800,7 +794,7 @@
       </template><span class="h6 mb-3" x-text="article?.group" data-mnfst-prerender-clone="1">Core Plugins</span>
       <template x-if="article?.name">
         <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="article?.doc"></div>
-      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-prerender-clone="1"><h1 id="virtual">Virtual</h1><p>Render long lists, tables, grids, and galleries efficiently with windowed scrolling.</p>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/core-plugins/virtual.md" data-mnfst-prerender-clone="1"><h1 id="virtual">Virtual</h1><p>Render long lists, tables, grids, and galleries efficiently with windowed scrolling.</p>
 <hr>
 <h2 id="overview">Overview</h2><p>When a list, table, or gallery grows past a few hundred items, rendering them all up front becomes slow — with initial paint stalls, scrolling stutters, and climbing memory. The Virtual plugin solves this by only mounting the items currently visible in the scroll viewport, plus a small overscan buffer for smooth scrolling. A collection of ten thousand items can keep just twenty or so in the DOM at any time while the user scrolls through smoothly.</p>
 <p>Items render with the layout you already use — a stacked list, a native <code>&lt;table&gt;</code>, a CSS grid, a flex-wrap gallery, or a masonry wall — so virtualizing doesn't change your markup or break column alignment, sticky headers, or shared cell styling.</p>
@@ -1179,39 +1173,39 @@
 })) }" class="w-full">
     <div x-virtual="" class="border border-line rounded font-mono text-sm h-[300px] overflow-auto">
         <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">08:29:59</span>
+                <span class="text-muted shrink-0" x-text="log.time">17:56:16</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">08:30:59</span>
+                <span class="text-muted shrink-0" x-text="log.time">17:57:16</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">08:31:59</span>
+                <span class="text-muted shrink-0" x-text="log.time">17:58:16</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">08:32:59</span>
+                <span class="text-muted shrink-0" x-text="log.time">17:59:16</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-warning" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">08:33:59</span>
+                <span class="text-muted shrink-0" x-text="log.time">18:00:16</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-error" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">error</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">08:34:59</span>
+                <span class="text-muted shrink-0" x-text="log.time">18:01:16</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">08:35:59</span>
+                <span class="text-muted shrink-0" x-text="log.time">18:02:16</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">08:36:59</span>
+                <span class="text-muted shrink-0" x-text="log.time">18:03:16</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">08:37:59</span>
+                <span class="text-muted shrink-0" x-text="log.time">18:04:16</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-warning" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
@@ -1410,6 +1404,9 @@
   </nav>
 
 </div>
+
+    <!-- Legal pages -->
+    
 
   </main>
 
