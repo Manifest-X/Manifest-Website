@@ -6,7 +6,7 @@ A rich text editor built from your own markup, storing markdown.
 
 ## Overview
 
-`x-text-edit` has two roles. Alone, it makes an element an editable area bound to a value. With a command modifier, it makes any element a control for that area. It adds no toolbar of its own.
+`x-text-edit` has two roles. On its own, it makes an element an editable area bound to a value. With a command modifier, it makes any element a control for that area. It ships no toolbar of its own — you build one from your own buttons and inputs, styled like the rest of your page.
 
 <div x-code-group>
 
@@ -74,7 +74,7 @@ Editor styles are included in Manifest CSS or as a standalone stylesheet.
 
 ## Editable Area
 
-Point `x-text-edit`{copy} at a value. The element becomes editable in place. `placeholder` shows while it is empty. [Markdown](/docs/core-plugins/markdown) renders the value straight back.
+Point `x-text-edit`{copy} at a value and the element becomes editable in place. `placeholder` shows while it's empty. The stored value is markdown, so [x-markdown](/docs/core-plugins/markdown) can render it anywhere else on the page — below, the second box re-renders the value as you type.
 
 <div x-code-group>
 
@@ -103,13 +103,13 @@ Point `x-text-edit`{copy} at a value. The element becomes editable in place. `pl
 | `.literal` | No typed-markdown shortcuts |
 | `.autofocus` | Focus on load |
 
-Without a value, the element's existing markup is the initial content. Do not combine with `x-html`.
+With no value to point at, the element's existing markup is the starting content and the element itself holds the result. Don't combine it with `x-html` — both would write to the same element.
 
 ---
 
 ## Commands
 
-Commands are named for the tag they produce. A `<button>` runs on click and never takes the caret. A `<select>` or `<input>` runs on change and reflects the state at the caret. An argument is the next modifier or an expression: `.align.center`, `.img="url"`.
+Commands are named after the tag they produce. On a `<button>` the command runs on click, without moving focus out of the text. On a `<select>` or `<input>` it runs on change, and the control also reflects the state at the caret — the block dropdown below reads "Heading" while the caret sits in one. A command that takes an argument gets it from the next modifier or from an expression: `.align.center`, `.img="url"`.
 
 <div x-code-group>
 
@@ -159,13 +159,13 @@ Commands are named for the tag they produce. A `<button>` runs on click and neve
 | Table (`.html`) | `table` `row-before` `row-after` `row-remove` `column-before` `column-after` `column-remove` `merge` `split` `table-header` `table-remove` |
 | Other | `clear` `undo` `redo` |
 
-A command markdown cannot store is disabled in markdown mode. A disabled control gets `aria-disabled="true"`, never `disabled`. An inline command with nothing selected arms for the next text typed.
+A command whose output markdown can't store — underline, colours, tables — is disabled unless the area uses `.html`. Disabled controls get `aria-disabled="true"` rather than `disabled`, so they stay focusable. An inline command clicked with nothing selected applies to the next text you type.
 
 ---
 
 ## Links
 
-One `<input>` defines, edits and clears a link. Select text and enter a URL to link it; the field shows the `href` at the caret; empty it to unlink.
+A single `<input>` handles links end to end. Select text and type a URL to link it; put the caret inside a link and the field shows its `href`; clear the field to unlink.
 
 <div x-code-group>
 
@@ -189,7 +189,7 @@ One `<input>` defines, edits and clears a link. Select text and enter a URL to l
 
 ## Typing Markdown
 
-A line converts when you press Enter. Block rules apply at the start of a line; `.literal` turns conversion off.
+Type markdown and the line converts when you press Enter. Block shortcuts — headings, lists, quotes — work at the start of a line; inline marks convert anywhere. `.literal` turns the shortcuts off.
 
 <div x-code-group>
 
@@ -308,13 +308,13 @@ A control finds its area in this order: the nearest ancestor with `x-text-edit-f
 
 </div>
 
-Controls go quiet when the caret moves into any other editable element.
+Controls disable themselves while the caret sits in some other editable element, so a page-level toolbar can't write into the wrong field.
 
 ---
 
 ## Selection Menu
 
-The area fires `text-edit:selection`{copy} with `{ collapsed, text, x, y, width, height, top, right, bottom, left }`, or `null` when it lets go. The same box is written as `--text-edit-selection-x`, `-y`, `-width`, `-height` and `-center` on the area and on `:root`, so a popover positions itself without script.
+The area fires `text-edit:selection`{copy} with `{ collapsed, text, x, y, width, height, top, right, bottom, left }`, or `null` once the selection is gone. The same box is written as `--text-edit-selection-x`, `-y`, `-width`, `-height` and `-center` on the area and on `:root`, so a popover positions itself without script.
 
 <div x-code-group>
 
@@ -353,7 +353,7 @@ Use `popover="manual"`: an auto popover closes on the outside click that selects
 
 ## Editing a Data Value
 
-Bind the editor to a field of a [data source](/docs/core-plugins/local-data) row and the row stores the markup.
+Bind the editor to a field of a [data source](/docs/core-plugins/local-data) row and the edit is stored in that row — the field simply holds the markup.
 
 <div x-code-group>
 
@@ -380,7 +380,7 @@ Bind the editor to a field of a [data source](/docs/core-plugins/local-data) row
 
 ## Page Styling
 
-Add `.page` to `font`, `size`, `leading`, `align`, `color` or `background` to style the whole area. Page styles are CSS variables on the area, not content: read or assign them with `$text.page`, and `text-edit:page`{copy} fires with the current set.
+Add `.page` to `font`, `size`, `leading`, `align`, `color` or `background` and the command styles the whole area instead of the selection. Page styles live as CSS variables on the area, not as tags in the content, so the stored document stays clean. Read or assign them with `$text.page`; `text-edit:page`{copy} fires with the current set whenever they change.
 
 <div x-code-group>
 
@@ -425,7 +425,7 @@ Add `.page` to `font`, `size`, `leading`, `align`, `color` or `background` to st
 
 ## $text
 
-`$text`{copy} is the area the element sits in, otherwise the last focused area.
+`$text`{copy} resolves to the editable area the expression's element sits in, or failing that, the last focused area.
 
 | Member | Description |
 |---|---|
