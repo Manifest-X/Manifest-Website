@@ -6,7 +6,7 @@ Turn a live page into its own editor.
 
 ## Overview
 
-`x-edit` marks a region of the page as editable. Inside it, text is rewritten in place, children are reordered, elements are resized and classes are changed. Every change is appended to a delta log; undo, redo, reload and publishing replay that log.
+`x-edit` marks a region of the page as editable. Inside it, click text to rewrite it, drag children to reorder them, resize elements and change their classes. Every change is recorded in the region's edit history: undo and redo step through it, it survives a reload, and publishing turns it into changes to your source files.
 
 <div x-code-group>
 
@@ -14,17 +14,17 @@ Turn a live page into its own editor.
 <section x-edit.authoring="hero">
     <h1>Bloom &amp; Bramble</h1>
     <p>Seasonal arrangements, delivered weekly.</p>
-    <p>Click any text to edit it. Drag a line to reorder. Right-click for classes.</p>
+    <p>Click any text to edit it. Drag a line to reorder. Right-click an element for the class menu.</p>
 </section>
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <section class="col gap-2 p-4" x-edit.authoring="hero-demo">
     <span class="h3">Bloom &amp; Bramble</span>
     <p>Seasonal arrangements, delivered weekly.</p>
-    <p class="text-content-subtle">Click any text to edit it. Drag a line to reorder. Right-click for classes.</p>
+    <p class="text-content-subtle">Click any text to edit it. Drag a line to reorder. Right-click an element for the class menu.</p>
 </section>
 </template>
 </div>
@@ -32,13 +32,13 @@ Turn a live page into its own editor.
 
 </div>
 
-`.authoring` adds the chrome: a dashed outline, a region label and the floating toolbar. Without it a region is plain behaviour.
+`.authoring` turns on the editing UI: a dashed outline, a region label and the floating undo/redo/publish toolbar. Without it the region is just as editable, but nothing announces it — the page looks untouched, and any editing controls are yours to provide.
 
 ---
 
 ## Setup
 
-Edit is opt-in. The `+` prefix keeps the default plugins and adds it; `Manifest.loadPlugin('edit')`{copy} loads it behind your own gate.
+Edit is opt-in and never part of the default bundle, so visitors don't download editor code. The `+` prefix keeps the default plugins and adds it; `Manifest.loadPlugin('edit')`{copy} loads it from script, so you can load it only for signed-in editors.
 
 <div x-code-group copy>
 
@@ -73,7 +73,7 @@ Editor styles are included in Manifest CSS or as a standalone stylesheet.
 
 ## Editable Regions
 
-`x-edit` takes a key that names the region; keep it stable. A region allows sort, text and style by default. Naming any capability replaces that default.
+`x-edit` takes a key that names the region. Edits are stored against that key, so keep it stable — renaming it strands the edits already made under the old name. By default a region allows sorting, text and style edits; naming any capability replaces that default with only the ones you name.
 
 <div x-code-group>
 
@@ -85,7 +85,7 @@ Editor styles are included in Manifest CSS or as a standalone stylesheet.
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <blockquote class="col gap-1 m-0" x-edit.text="quote-demo">
     <p class="m-0">Click to rewrite this line. Nothing else changes.</p>
@@ -97,13 +97,15 @@ Editor styles are included in Manifest CSS or as a standalone stylesheet.
 
 </div>
 
-Text commits on blur. Only inline formatting survives.
+A text edit is saved when the element loses focus. Only inline formatting is kept: bold, italics, links and similar tags survive, and anything else — including pasted block markup — is reduced to its text.
 
 ---
 
 ## Reorder
 
-`.sort` makes children draggable. Over an `x-for` list the array itself is reordered; rows are identified by the loop's `:key` and records need an `id`. Add `.data` and a `:data-key` to edit field values in place too.
+`.sort` makes the region's children draggable. Drag with a pointer, or focus a row and press Space to grab it, the arrow keys to move it and Enter to drop it; Escape cancels either way.
+
+Over an `x-for` list, reordering moves the records themselves: the underlying array changes order, with rows identified by the loop's `:key`, so records need an `id`. Add `.data` — plus a `:data-key` on each row — to also edit record fields in place. Field edits update the data source, not the HTML.
 
 <div x-code-group>
 
@@ -119,7 +121,7 @@ Text commits on blur. Only inline formatting survives.
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="{ tasks: [{ id: 1, label: 'Cut stems' }, { id: 2, label: 'Arrange' }, { id: 3, label: 'Deliver' }] }" class="col gap-3">
     <ul class="col gap-2 m-0 p-0 list-none" x-edit.sort.data="tasks-demo">
@@ -135,13 +137,11 @@ Text commits on blur. Only inline formatting survives.
 
 </div>
 
-Focus a row and press Space to grab it, the arrow keys to move it and Enter to drop. Escape cancels any drag.
-
 ---
 
 ## Resize
 
-`.size` adds drag handles. The size is written in the unit the element already uses; limits come from its own `min-` and `max-` width and height. Options are CSS variables.
+`.size` adds drag handles. The new size is written in whatever unit the element already uses, and the element's own `min-` and `max-` width and height set the limits. Which edges get handles, snap stops and collapse thresholds are configured with the `--edit-size-*` variables listed under [Styles](#styles).
 
 <div x-code-group>
 
@@ -156,7 +156,7 @@ Focus a row and press Space to grab it, the arrow keys to move it and Enter to d
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="{ w: '16rem' }">
     <div class="center bg-surface-2 rounded text-content-subtle" x-edit.size="panel-demo" @edit:size="w = $event.detail.css.width"
@@ -170,13 +170,15 @@ Focus a row and press Space to grab it, the arrow keys to move it and Enter to d
 
 </div>
 
-Handles are focusable: the arrow keys resize, Shift takes a larger step. `edit:size` fires during the drag and once with `detail.done` on commit.
+Handles are focusable: the arrow keys resize, and Shift takes a larger step. `edit:size` fires throughout the drag and once more with `detail.done` when it commits.
 
 ---
 
 ## Block Operations
 
-Copy, cut, paste, duplicate and delete act on a block: the sortable child, or the outermost element in a region that is not sortable. A focused block takes **Cmd/Ctrl + C, X, V, D** and **Delete**. Right-click fires `edit:context` with the block and pointer position; call `preventDefault()` and open your own menu.
+A block is the unit these operations act on: the sortable child in a region that sorts, otherwise the region's outermost element. A focused block responds to **Cmd/Ctrl + C, X, V, D** and **Delete** — copy, cut, paste, duplicate and delete.
+
+Right-clicking a block fires `edit:context` with the block and the pointer position. Call `preventDefault()` and open your own menu; with no handler, an `.authoring` region opens the built-in class menu instead.
 
 <div x-code-group>
 
@@ -200,7 +202,7 @@ Copy, cut, paste, duplicate and delete act on a block: the sortable child, or th
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data class="col gap-3">
     <div class="row-wrap gap-2" x-edit.sort="chips-demo" @edit:context="$event.preventDefault(); $refs.menu.style.inset = 'auto'; $refs.menu.style.left = $event.detail.x + 'px'; $refs.menu.style.top = $event.detail.y + 'px'; $refs.menu.showPopover()">
@@ -219,13 +221,13 @@ Copy, cut, paste, duplicate and delete act on a block: the sortable child, or th
 
 </div>
 
-The event fires after the pointer is released, so a popover opened in the handler survives the click. `$edit.can()` is reactive. Without a handler, an `.authoring` region opens the built-in class menu.
+The event fires after the pointer is released, so a popover opened in the handler isn't immediately closed by the same click. `$edit.can()` is reactive: bound to a button's `disabled`, it updates as the targeted block changes.
 
 ---
 
 ## Theme Controls
 
-`x-edit.cssvar` binds an input to a CSS variable. A bare name writes to `:root`; a `scope:` prefix writes onto the element that declared that scope with `x-edit.theme`. `data-unit` appends a unit to a numeric value.
+`x-edit.cssvar` binds an input to a CSS variable, so a control panel can restyle the page live. A bare variable name writes to `:root` and applies everywhere. A `scope:` prefix writes onto the element that declared that scope with `x-edit.theme`, so the change applies only inside it. `data-unit` appends a unit to a numeric input's value.
 
 <div x-code-group>
 
@@ -239,7 +241,7 @@ The event fires after the pointer is released, so a popover opened in the handle
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div class="col gap-4">
     <div class="p-4 bg-surface-2 rounded" x-edit.theme="card-demo" style="--color-brand-surface: #7c3aed; --radius: 0.5rem">
@@ -256,13 +258,13 @@ The event fires after the pointer is released, so a popover opened in the handle
 
 </div>
 
-`.theme` on its own declares a cascade target, not an editable area, so it can wrap other regions.
+`.theme` on its own only declares a scope — it makes nothing editable — so it can safely wrap other regions.
 
 ---
 
 ## With the Text Editor
 
-Put [`x-text-edit`](/docs/core-plugins/text-edit) on an element inside a region and the rich editor owns it: `x-edit` records what it produces as a text delta, block markup included.
+Text edits in a plain region keep inline formatting only. For rich text, put [`x-text-edit`](/docs/core-plugins/text-edit) on an element inside the region: the rich editor takes over that element, and `x-edit` records whatever it produces — headings, lists and other block markup included — as an ordinary text edit, so undo and publishing treat it like everything else.
 
 <div x-code-group>
 
@@ -277,7 +279,7 @@ Put [`x-text-edit`](/docs/core-plugins/text-edit) on an element inside a region 
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div class="col gap-3">
     <div class="row gap-1">
@@ -295,15 +297,15 @@ Put [`x-text-edit`](/docs/core-plugins/text-edit) on an element inside a region 
 
 </div>
 
-Give `x-text-edit` an expression and the app owns that value instead.
+Here `x-text-edit` has no expression of its own, so the content belongs to the page and the edit lands in the region's history. Give it an expression and that value belongs to your app instead — the region no longer records it.
 
 ---
 
 ## Publishing
 
-Edits in `.authoring` regions persist to `localStorage` and survive a reload. Elsewhere the app owns the state and edits last for the session; undo still works.
+Edits in `.authoring` regions are saved to the browser's `localStorage` as they happen, so they're still there after a reload. Edits outside `.authoring` last for the session only; undo works either way.
 
-`$edit.publish()` resolves the log into patches against your source. During development, `npx mnfst-run --edit`{copy} accepts them and writes your files. Set `$edit.onPublish` to receive the patches yourself.
+`$edit.publish()` turns the recorded edits into patches: concrete changes to your source files. During development, `npx mnfst-run --edit`{copy} accepts them and writes the files directly. Set `$edit.onPublish` to receive the patches yourself and send them wherever your edits live.
 
 <div x-code-group>
 
@@ -315,7 +317,7 @@ Edits in `.authoring` regions persist to `localStorage` and survive a reload. El
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="(Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="{ out: '' }" x-init="$edit.onPublish = patches => out = JSON.stringify(patches, null, 2)" class="col gap-3">
     <div class="row gap-2">
@@ -337,25 +339,25 @@ Edits in `.authoring` regions persist to `localStorage` and survive a reload. El
 
 | Modifier | Effect |
 |---|---|
-| `.text` | Rewrite text leaves in place |
+| `.text` | Rewrite text in place |
 | `.sort` | Reorder children by drag or keyboard |
-| `.style` | Right-click class menu (`.authoring` only) |
+| `.style` | Right-click class menu (needs `.authoring`) |
 | `.size` | Resize by handles |
-| `.data` | Edit `x-for` field values; rows need `:data-key` |
-| `.lock` | Opt this element and its subtree out |
+| `.data` | Edit `x-for` record fields; rows need `:data-key` |
+| `.lock` | Exclude this element and everything inside it |
 | `.gated` | Editable only after `$edit.on()` |
-| `.authoring` | Chrome, persistence and publishing |
+| `.authoring` | Editing UI, persistence and publishing |
 | `.theme` | Declare a scope for `x-edit.cssvar` |
 | `.cssvar` | Bind an input to `--var` or `scope:--var` |
 
 | `$edit` | Description |
 |---|---|
 | `active`, `on()`, `off()`, `toggle()` | Activate `.gated` regions |
-| `undo()`, `redo()`, `canUndo`, `canRedo` | Walk the log |
-| `target`, `can(op)`, `block(node)` | The block in play and what applies to it |
+| `undo()`, `redo()`, `canUndo`, `canRedo` | Step through the edit history |
+| `target`, `can(op)`, `block(node)` | The current block and which operations apply to it |
 | `copy()`, `cut()`, `paste()`, `duplicate()`, `remove()` | Block operations; optional element argument |
-| `lock(el)`, `unlock(el)` | Lock a subtree at runtime; not logged |
-| `publish()`, `onPublish`, `patches()`, `export()` | Send patches, intercept them, read them, or export the log |
+| `lock(el)`, `unlock(el)` | Lock a subtree at runtime; not recorded in the history |
+| `publish()`, `onPublish`, `patches()`, `export()` | Send patches, intercept them, read them, or export the raw history |
 
 | Event | Fires on | `detail` |
 |---|---|---|
@@ -369,10 +371,10 @@ Edits in `.authoring` regions persist to `localStorage` and survive a reload. El
 
 | Variable | Default | Purpose |
 |---|---|---|
-| `--edit-accent` | `--color-brand-content` | Colour of every affordance |
+| `--edit-accent` | `--color-brand-content` | Colour of every editing affordance |
 | `--edit-ghost-opacity` | `0.4` | Opacity of the drag stand-in |
 | `--edit-size` | `both` | Resize axes: `both`, `x`, `y`, `none` |
-| `--edit-size-edges` | all | Handle list; accepts `start` and `end` |
+| `--edit-size-edges` | all | Which edges get handles; accepts logical `start` and `end` |
 | `--edit-size-handle` | `1rem` | Handle hit area |
 | `--edit-size-snap` | — | Snap stops; `-x` and `-y` per axis |
 | `--edit-size-snap-distance` | `0` | Magnet tolerance; `-x` and `-y` per axis |
