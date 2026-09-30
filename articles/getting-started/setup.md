@@ -94,7 +94,7 @@ If your project is not a downloadable web app, and does not include HTML compone
 ```html "Omit Plugins"
 <!-- Load all core plugins except omitted ones -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-	data-omit="markdown,resize"></script>
+	data-omit="markdown,charts"></script>
 ```
 
 ```html "Include Tailwind CSS"

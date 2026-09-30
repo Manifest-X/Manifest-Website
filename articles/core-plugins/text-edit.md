@@ -133,7 +133,7 @@ Commands are named after the tag they produce. On a `<button>` the command runs 
 ::: frame
 <div x-data="{ doc: '<p>Select a word, then pick a command.</p>' }" class="col gap-2 w-full">
     <div class="row-wrap gap-1 items-center">
-        <select class="sm hug" x-text-edit.block aria-label="Block">
+        <select class="ghost sm hug" x-text-edit.block aria-label="Block">
             <option value="p">Paragraph</option>
             <option value="h2">Heading</option>
             <option value="blockquote">Quote</option>
@@ -154,31 +154,35 @@ Commands are named after the tag they produce. On a `<button>` the command runs 
 |---|---|
 | Inline | `strong` `b` `em` `i` `s` `del` `code` and, in `.html`, `u` `mark` `small` `sub` `sup` `kbd` `samp` `var` `abbr` `cite` `q` `ins` `dfn` `time` `span` |
 | Block | `p` `h1`–`h6` `blockquote` `pre` `block` and, in `.html`, `address` `figure` `figcaption` `dl` `dt` `dd` |
-| Lists, inserts | `ul` `ol` `checklist` `indent` `outdent` `hr` `br` `img` `a` |
+| Lists, inserts | `ul` `ol` `checklist` `indent` `outdent` `hr` `br` `img` `a` `unlink` |
 | Style (`.html`) | `align` `color` `background` `font` `size` `leading` |
 | Table (`.html`) | `table` `row-before` `row-after` `row-remove` `column-before` `column-after` `column-remove` `merge` `split` `table-header` `table-remove` |
 | Other | `clear` `undo` `redo` |
 
-A command whose output markdown can't store — underline, colours, tables — is disabled unless the area uses `.html`. Disabled controls get `aria-disabled="true"` rather than `disabled`, so they stay focusable. An inline command clicked with nothing selected applies to the next text you type.
+A command whose output markdown can't store — underline, colours, tables — is disabled unless the area uses `.html`. Disabled controls get `aria-disabled="true"` rather than `disabled`, so they stay focusable; every control on this page is disabled until the caret is in an area it can act on. An inline command clicked with nothing selected applies to the next text you type. Colour inputs apply live as you pick — each tick restyles the selection, and undo removes the whole colour pass in one step.
 
 ---
 
 ## Links
 
-A single `<input>` handles links end to end. Select text and type a URL to link it; put the caret inside a link and the field shows its `href`; clear the field to unlink.
+A single `<input>` handles links end to end. Select text and type a URL to link it; click inside a link — clicking never navigates while editing — and the field shows its `href`; clear the field, or press an `unlink` button, to remove it. A bare domain gets `https://` for you, and something that isn't a URL at all is refused: the field re-syncs to the real `href`, showing it didn't take.
 
 <div x-code-group>
 
 ```html copy
 <div x-data="{ post: 'Visit [Manifest](https://manifestx.dev) today.' }">
     <input type="url" x-text-edit.a placeholder="https://" aria-label="Link">
+    <button x-text-edit.unlink>Unlink</button>
     <div x-text-edit="post" aria-label="Post"></div>
 </div>
 ```
 
 ::: frame
 <div x-data="{ post: 'Visit [Manifest](https://manifestx.dev) today.' }" class="col gap-2 w-full">
-    <input type="url" class="sm" x-text-edit.a placeholder="https://" aria-label="Link">
+    <div class="row gap-2">
+        <input type="url" class="sm grow" x-text-edit.a placeholder="https://" aria-label="Link">
+        <button class="ghost sm" x-text-edit.unlink>Unlink</button>
+    </div>
     <div x-text-edit="post" aria-label="Post" style="--text-edit-min-height: 4rem"></div>
 </div>
 :::
@@ -254,7 +258,19 @@ Tables are `.html` only. Every operation is a command and is disabled while the 
 
 </div>
 
-`merge` joins the selected cells, or the caret's cell with the one to its right. Tab walks cell to cell and adds a row past the last one; arrows leave a cell only at its edge.
+`merge` joins the selected cells, or the caret's cell with the one to its right. Tab walks cell to cell and adds a row past the last one; arrows leave a cell only at its edge. Inserting a table while the caret is inside one lands the new table after it — tables never nest.
+
+| Command | Effect |
+|---|---|
+| `table` | Insert; size as a modifier or expression: `.table.3x2`, `.table="cols + 'x' + rows"` (default 3×3) |
+| `row-before`, `row-after` | Add a row above / below the caret's |
+| `row-remove` | Remove the caret's row |
+| `column-before`, `column-after` | Add a column before / after the caret's |
+| `column-remove` | Remove the caret's column |
+| `merge` | Join the selected cells, or the caret's cell with its right neighbour |
+| `split` | Undo a merge: split the caret's spanning cell |
+| `table-header` | Toggle the first row between header and body cells |
+| `table-remove` | Remove the whole table |
 
 ---
 
@@ -269,7 +285,6 @@ Tables are `.html` only. Every operation is a command and is disabled while the 
 | Escape | Leave the editor |
 | Cmd/Ctrl + Z / Shift + Z | Undo / redo (the editor keeps its own history) |
 | Cmd/Ctrl + B / I / U | Bold / italic / underline (`.html`) |
-| Cmd/Ctrl + K | Toggle a link: removes the one at the caret, otherwise asks for a URL (the area's `x-text-edit.a` field where there is one) and links the selection |
 
 Pasted content keeps its text and marks, not the source's styling.
 
@@ -277,7 +292,13 @@ Pasted content keeps its text and marks, not the source's styling.
 
 ## Scattered Controls
 
-A control finds its area in this order: the nearest ancestor with `x-text-edit-for="selector"`{copy}; else the nearest ancestor holding exactly one area; else the last focused area. A shared toolbar is disabled until an area has been focused.
+A control finds its area in this order:
+
+1. The nearest ancestor with `x-text-edit-for="selector"`{copy}.
+2. The nearest ancestor holding exactly one area.
+3. The last focused area.
+
+A shared toolbar is disabled until an area has been focused.
 
 <div x-code-group>
 
@@ -314,46 +335,39 @@ Controls disable themselves while the caret sits in some other editable element,
 
 ## Selection Menu
 
-The area fires `text-edit:selection`{copy} with `{ collapsed, text, x, y, width, height, top, right, bottom, left }`, or `null` once the selection is gone. The same box is written as `--text-edit-selection-x`, `-y`, `-width`, `-height` and `-center` on the area and on `:root`, so a popover positions itself without script.
+Put `x-text-edit-menu`{copy} on an element holding commands and it becomes a selection bubble: shown over the selection of the area it belongs to (found the same way any control finds its area), hidden once the selection is gone. It's promoted to a manual popover, so the click that makes the selection can't close it.
 
 <div x-code-group>
 
 ```html copy
-<div x-data="{ post: 'Select some of this text.',
-        bubble(d) {
-            const el = this.$refs.menu, open = el.matches(':popover-open'), want = !!d && !d.collapsed;
-            if (want && !open) el.showPopover();
-            if (!want && open) el.hidePopover();
-        } }"
-     @text-edit:selection="bubble($event.detail)">
-    <div popover="manual" x-ref="menu" style="position: fixed; margin: 0; inset: auto;
-         transform: translate(-50%, -125%); left: var(--text-edit-selection-center); top: var(--text-edit-selection-y)">
+<div x-data="{ post: 'Select some of this text.' }">
+    <menu x-text-edit-menu>
         <button x-text-edit.strong>Bold</button>
         <button x-text-edit.em>Italic</button>
-    </div>
-    <div x-text-edit="post" aria-label="Post" @focusout="bubble(null)"></div>
+    </menu>
+    <div x-text-edit="post" aria-label="Post"></div>
 </div>
 ```
 
 ::: frame
-<div x-data="{ post: 'Select some of this text.', bubble(d) { const el = this.$refs.menu, open = el.matches(':popover-open'), want = !!d && !d.collapsed; if (want && !open) el.showPopover(); if (!want && open) el.hidePopover(); } }" @text-edit:selection="bubble($event.detail)" class="w-full">
-    <div popover="manual" x-ref="menu" class="row gap-1 p-1 bg-surface-1 border border-line rounded shadow" style="position: fixed; margin: 0; inset: auto; transform: translate(-50%, -125%); left: var(--text-edit-selection-center); top: var(--text-edit-selection-y)">
+<div x-data="{ post: 'Select some of this text.' }" class="w-full">
+    <menu class="unstyle" x-text-edit-menu>
         <button class="ghost sm" x-text-edit.strong>Bold</button>
         <button class="ghost sm" x-text-edit.em>Italic</button>
-    </div>
-    <div x-text-edit="post" aria-label="Post" @focusout="bubble(null)" style="--text-edit-min-height: 4rem"></div>
+    </menu>
+    <div x-text-edit="post" aria-label="Post" style="--text-edit-min-height: 4rem"></div>
 </div>
 :::
 
 </div>
 
-Use `popover="manual"`: an auto popover closes on the outside click that selects the text. `focusout` covers clicks that land outside the editor.
+For a menu of your own, the same plumbing is exposed directly: the area fires `text-edit:selection`{copy} with `{ collapsed, text, x, y, width, height, top, right, bottom, left }`, or `null` once the selection is gone, and the same box is written as `--text-edit-selection-x`, `-y`, `-width`, `-height` and `-center` custom properties on the area and on `:root` — so anything can position itself over the selection without script.
 
 ---
 
 ## Editing a Data Value
 
-Bind the editor to a field of a [data source](/docs/core-plugins/local-data) row and the edit is stored in that row — the field simply holds the markup.
+Bind the editor to a field of a [data source](/docs/core-plugins/local-data) row and the edit is stored in that row — the field simply holds the markup. Below, each editor is bound to a product's `name`; the code on the right isn't part of the pattern, it just shows the stored value updating as you type.
 
 <div x-code-group>
 
@@ -364,11 +378,11 @@ Bind the editor to a field of a [data source](/docs/core-plugins/local-data) row
 ```
 
 ::: frame
-<div class="col gap-2 w-full">
+<div class="col gap-3 w-full">
     <template x-for="p in ($x.example.products || []).slice(0, 3)" :key="p.name">
-        <div class="row gap-3 items-center">
-            <div x-text-edit.html.minimal="p.name" aria-label="Name" class="grow" style="--text-edit-min-height: 2.5rem; --text-edit-padding: 0.4rem 0.6rem"></div>
-            <code class="text-xs" x-text="p.name"></code>
+        <div class="grid grid-cols-2 gap-4 items-center">
+            <div x-text-edit.html.minimal="p.name" aria-label="Name" style="--text-edit-min-height: 2.5rem; --text-edit-padding: 0.4rem 0.6rem"></div>
+            <code class="text-xs text-content-subtle" x-text="'name: ' + JSON.stringify(p.name)"></code>
         </div>
     </template>
 </div>
@@ -442,7 +456,7 @@ Add `.page` to `font`, `size`, `leading`, `align`, `color` or `background` and t
 ```html copy
 <div x-data="{ doc: '<p>Hello <strong>world</strong></p>', md: '' }">
     <button @click="$text.selectAll()">Select all</button>
-    <button @click="doc = ''">New page</button>
+    <button :disabled="!doc" @click="doc = ''">Clear</button>
 
     <div x-text-edit.html="doc" aria-label="Document" @input="md = $text.markdown()"></div>
     <pre x-text="md"></pre>
@@ -451,10 +465,9 @@ Add `.page` to `font`, `size`, `leading`, `align`, `color` or `background` and t
 
 ::: frame
 <div x-data="{ doc: '<p>Hello <strong>world</strong></p>', md: '' }" class="col gap-2 w-full">
-    <div class="row-wrap gap-1 items-center">
+    <div class="row gap-1">
         <button class="ghost sm" @click="$text.selectAll()">Select all</button>
-        <button class="ghost sm" @click="doc = ''">New page</button>
-        <small class="text-content-subtle">Click in the editor first</small>
+        <button class="ghost sm" :disabled="!doc" @click="doc = ''">Clear</button>
     </div>
     <div x-text-edit.html="doc" aria-label="Document" @input="md = $text.markdown()" style="--text-edit-min-height: 4rem"></div>
     <pre class="text-xs p-2 bg-surface-2 rounded whitespace-pre-wrap" x-text="md || '(markdown appears here as you type)'"></pre>
@@ -462,6 +475,8 @@ Add `.page` to `font`, `size`, `leading`, `align`, `color` or `background` and t
 :::
 
 </div>
+
+Literal `*` and `_` come back escaped from `markdown()` — in an `.html` area they're ordinary characters, and the escape is what keeps them ordinary on the way back in.
 
 ---
 

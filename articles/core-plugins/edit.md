@@ -6,7 +6,7 @@ Turn a live page into its own editor.
 
 ## Overview
 
-`x-edit` marks a region of the page as editable. Inside it, click text to rewrite it, drag children to reorder them, resize elements and change their classes. Every change is recorded in the region's edit history: undo and redo step through it, it survives a reload, and publishing turns it into changes to your source files.
+`x-edit` marks a region of the page as editable. Inside it, elements can be reordered, resized, moved, and text can be edited. Every change is recorded in the region's undo/redo history, it survives reload, and publishing applies changes to your source files.
 
 <div x-code-group>
 
@@ -14,7 +14,7 @@ Turn a live page into its own editor.
 <section x-edit.authoring="hero">
     <h1>Bloom &amp; Bramble</h1>
     <p>Seasonal arrangements, delivered weekly.</p>
-    <p>Click any text to edit it. Drag a line to reorder. Right-click an element for the class menu.</p>
+    <p>Click any text to edit it. Drag a line to reorder.</p>
 </section>
 ```
 
@@ -24,7 +24,7 @@ Turn a live page into its own editor.
 <section class="col gap-2 p-4" x-edit.authoring="hero-demo">
     <span class="h3">Bloom &amp; Bramble</span>
     <p>Seasonal arrangements, delivered weekly.</p>
-    <p class="text-content-subtle">Click any text to edit it. Drag a line to reorder. Right-click an element for the class menu.</p>
+    <p class="text-content-subtle">Click any text to edit it. Drag a line to reorder.</p>
 </section>
 </template>
 </div>
@@ -32,7 +32,7 @@ Turn a live page into its own editor.
 
 </div>
 
-`.authoring` turns on the editing UI: a dashed outline, a region label and the floating undo/redo/publish toolbar. Without it the region is just as editable, but nothing announces it — the page looks untouched, and any editing controls are yours to provide.
+`.authoring` applies editing UI on interactions, which can be customized with CSS (see [Styles](#styles)). The same UI is available without authoring semantics: put `data-edit-ui` on a region, or on any ancestor to cover a whole editor view. Without either, a region is just as editable but has no visual cues.
 
 ---
 
@@ -78,7 +78,7 @@ Editor styles are included in Manifest CSS or as a standalone stylesheet.
 <div x-code-group>
 
 ```html copy
-<blockquote x-edit.text="quote">
+<blockquote x-edit.text="quote" data-edit-ui>
     <p>Click to rewrite this line. Nothing else changes.</p>
     <cite>A customer</cite>
 </blockquote>
@@ -87,7 +87,7 @@ Editor styles are included in Manifest CSS or as a standalone stylesheet.
 ::: frame
 <div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
-<blockquote class="col gap-1 m-0" x-edit.text="quote-demo">
+<blockquote class="col gap-1 m-0" x-edit.text="quote-demo" data-edit-ui>
     <p class="m-0">Click to rewrite this line. Nothing else changes.</p>
     <cite class="text-content-subtle">A customer</cite>
 </blockquote>
@@ -97,13 +97,13 @@ Editor styles are included in Manifest CSS or as a standalone stylesheet.
 
 </div>
 
-A text edit is saved when the element loses focus. Only inline formatting is kept: bold, italics, links and similar tags survive, and anything else — including pasted block markup — is reduced to its text.
+Focusing text selects all of it, so replacing a line is one click and typing; click again to place the caret for a smaller edit. A text edit is saved when the element loses focus. Only inline formatting is kept: bold, italics, links and similar tags survive, and anything else — including pasted block markup — is reduced to its text.
 
 ---
 
 ## Reorder
 
-`.sort` makes the region's children draggable. Drag with a pointer, or focus a row and press Space to grab it, the arrow keys to move it and Enter to drop it; Escape cancels either way.
+`.sort` makes the region's children draggable. Drag by pointer, or focus a row and press Space to grab it, the arrow keys to move it and Enter to drop it; Escape cancels either way. Inside an editing-UI scope each row shows an inline grip on approach.
 
 Over an `x-for` list, reordering moves the records themselves: the underlying array changes order, with rows identified by the loop's `:key`, so records need an `id`. Add `.data` — plus a `:data-key` on each row — to also edit record fields in place. Field edits update the data source, not the HTML.
 
@@ -111,7 +111,7 @@ Over an `x-for` list, reordering moves the records themselves: the underlying ar
 
 ```html copy
 <div x-data="{ tasks: [{ id: 1, label: 'Cut stems' }, { id: 2, label: 'Arrange' }, { id: 3, label: 'Deliver' }] }">
-    <ul x-edit.sort.data="tasks">
+    <ul x-edit.sort.data="tasks" data-edit-ui>
         <template x-for="task in tasks" :key="task.id">
             <li :data-key="task.id"><span x-text="task.label"></span></li>
         </template>
@@ -124,9 +124,9 @@ Over an `x-for` list, reordering moves the records themselves: the underlying ar
 <div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="{ tasks: [{ id: 1, label: 'Cut stems' }, { id: 2, label: 'Arrange' }, { id: 3, label: 'Deliver' }] }" class="col gap-3">
-    <ul class="col gap-2 m-0 p-0 list-none" x-edit.sort.data="tasks-demo">
+    <ul class="col gap-2 m-0 p-0 list-none" x-edit.sort.data="tasks-demo" data-edit-ui>
         <template x-for="task in tasks" :key="task.id">
-            <li class="row items-center gap-3 p-3 bg-surface-1 border border-line rounded" :data-key="task.id"><span x-icon="lucide:grip-vertical" class="text-content-subtle"></span><span x-text="task.label"></span></li>
+            <li class="row items-center p-3 bg-surface-1 border border-line rounded" :data-key="task.id"><span x-text="task.label"></span></li>
         </template>
     </ul>
     <small class="text-content-subtle" x-text="tasks.map(t => t.label).join(' → ')"></small>
@@ -139,6 +139,36 @@ Over an `x-for` list, reordering moves the records themselves: the underlying ar
 
 ---
 
+## Move
+
+A positioned child — `position: absolute` or `fixed` — isn't reordered, it's moved: drag it anywhere in its containing block, or focus it and nudge with the arrow keys (Shift takes a larger step). The new `left` and `top` are written in whatever unit the element already uses, so a `%`-positioned element stays fluid. This is the freeform mode for canvas-style editing; in-flow siblings in the same region still reorder.
+
+<div x-code-group>
+
+```html copy
+<div x-edit.sort="stage" data-edit-ui style="position: relative; height: 10rem">
+    <span style="position: absolute; left: 5%; top: 1rem">Drag me anywhere</span>
+    <span style="position: absolute; left: 50%; top: 5rem">Me too</span>
+</div>
+```
+
+::: frame
+<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<template x-if="ready">
+<div class="bg-surface-2 rounded" x-edit.sort="stage-demo" data-edit-ui style="position: relative; height: 10rem">
+    <span class="py-2 px-3 bg-surface-1 border border-line rounded" style="position: absolute; left: 5%; top: 1rem">Drag me anywhere</span>
+    <span class="py-2 px-3 bg-surface-1 border border-line rounded" style="position: absolute; left: 50%; top: 5rem">Me too</span>
+</div>
+</template>
+</div>
+:::
+
+</div>
+
+Dragging between regions — lifting an element out of one parent and dropping it into another — isn't supported yet.
+
+---
+
 ## Resize
 
 `.size` adds drag handles. The new size is written in whatever unit the element already uses, and the element's own `min-` and `max-` width and height set the limits. Which edges get handles, snap stops and collapse thresholds are configured with the `--edit-size-*` variables listed under [Styles](#styles).
@@ -147,7 +177,7 @@ Over an `x-for` list, reordering moves the records themselves: the underlying ar
 
 ```html copy
 <div x-data="{ w: '16rem' }">
-    <div x-edit.size="panel" @edit:size="w = $event.detail.css.width"
+    <div x-edit.size="panel" data-edit-ui @edit:size="w = $event.detail.css.width"
          style="width: 16rem; height: 5rem; min-width: 8rem; max-width: 24rem;
                 --edit-size-edges: end bottom; --edit-size-snap: 12rem 20rem; --edit-size-snap-distance: 1rem">
         <span x-text="w"></span>
@@ -159,7 +189,7 @@ Over an `x-for` list, reordering moves the records themselves: the underlying ar
 <div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="{ w: '16rem' }">
-    <div class="center bg-surface-2 rounded text-content-subtle" x-edit.size="panel-demo" @edit:size="w = $event.detail.css.width"
+    <div class="p-4 bg-surface-2 rounded text-content-subtle" x-edit.size="panel-demo" data-edit-ui @edit:size="w = $event.detail.css.width"
          style="width: 16rem; height: 5rem; min-width: 8rem; max-width: 24rem; --edit-size-edges: end bottom; --edit-size-snap: 12rem 20rem; --edit-size-snap-distance: 1rem">
         <span x-text="w"></span>
     </div>
@@ -184,7 +214,7 @@ Right-clicking a block fires `edit:context` with the block and the pointer posit
 
 ```html copy
 <div x-data>
-    <div x-edit.sort="chips" @edit:context="$event.preventDefault();
+    <div x-edit.sort="chips" data-edit-ui @edit:context="$event.preventDefault();
             $refs.menu.style.inset = 'auto';
             $refs.menu.style.left = $event.detail.x + 'px';
             $refs.menu.style.top = $event.detail.y + 'px';
@@ -205,7 +235,7 @@ Right-clicking a block fires `edit:context` with the block and the pointer posit
 <div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data class="col gap-3">
-    <div class="row-wrap gap-2" x-edit.sort="chips-demo" @edit:context="$event.preventDefault(); $refs.menu.style.inset = 'auto'; $refs.menu.style.left = $event.detail.x + 'px'; $refs.menu.style.top = $event.detail.y + 'px'; $refs.menu.showPopover()">
+    <div class="row-wrap gap-2" x-edit.sort="chips-demo" data-edit-ui @edit:context="$event.preventDefault(); $refs.menu.style.inset = 'auto'; $refs.menu.style.left = $event.detail.x + 'px'; $refs.menu.style.top = $event.detail.y + 'px'; $refs.menu.showPopover()">
         <span class="py-2 px-3 bg-surface-2 rounded">Roses</span>
         <span class="py-2 px-3 bg-surface-2 rounded">Peonies</span>
         <span class="py-2 px-3 bg-surface-2 rounded">Eucalyptus</span>
@@ -236,8 +266,8 @@ The event fires after the pointer is released, so a popover opened in the handle
     <button class="brand">Order now</button>
 </div>
 
-<label>Brand <input type="color" x-edit.cssvar="card:--color-brand-surface"></label>
-<label>Radius <input type="range" min="0" max="2" step="0.125" data-unit="rem" x-edit.cssvar="card:--radius"></label>
+<label><data>Brand</data> <input type="color" x-edit.cssvar="card:--color-brand-surface"></label>
+<label><data>Radius</data> <input type="range" min="0" max="2" step="0.125" data-unit="rem" x-edit.cssvar="card:--radius"></label>
 ```
 
 ::: frame
@@ -247,9 +277,9 @@ The event fires after the pointer is released, so a popover opened in the handle
     <div class="p-4 bg-surface-2 rounded" x-edit.theme="card-demo" style="--color-brand-surface: #7c3aed; --radius: 0.5rem">
         <button class="brand">Order now</button>
     </div>
-    <div class="row-wrap gap-4">
-        <label>Brand <input type="color" x-edit.cssvar="card-demo:--color-brand-surface"></label>
-        <label>Radius <input type="range" min="0" max="2" step="0.125" data-unit="rem" x-edit.cssvar="card-demo:--radius"></label>
+    <div class="row-wrap gap-6">
+        <label><data>Brand</data> <input type="color" x-edit.cssvar="card-demo:--color-brand-surface"></label>
+        <label class="grow"><data>Radius</data> <input type="range" min="0" max="2" step="0.125" data-unit="rem" x-edit.cssvar="card-demo:--radius"></label>
     </div>
 </div>
 </template>
@@ -305,7 +335,9 @@ Here `x-text-edit` has no expression of its own, so the content belongs to the p
 
 Edits in `.authoring` regions are saved to the browser's `localStorage` as they happen, so they're still there after a reload. Edits outside `.authoring` last for the session only; undo works either way.
 
-`$edit.publish()` turns the recorded edits into patches: concrete changes to your source files. During development, `npx mnfst-run --edit`{copy} accepts them and writes the files directly. Set `$edit.onPublish` to receive the patches yourself and send them wherever your edits live.
+`$edit.publish()` turns the recorded edits into patches: concrete changes to the page's source. Set `$edit.onPublish` to receive them and send them wherever your product stores content — your API, a database row, or the pipeline that regenerates a published site. That's the shape of most real editors: the person edits in place, and publish hands you the result.
+
+Editing your own project while you build it is the other case: without an `onPublish` handler, publish posts the patches to `npx mnfst-run --edit`{copy} — the local development server — which writes them straight into your source files.
 
 <div x-code-group>
 
@@ -340,7 +372,7 @@ Edits in `.authoring` regions are saved to the browser's `localStorage` as they 
 | Modifier | Effect |
 |---|---|
 | `.text` | Rewrite text in place |
-| `.sort` | Reorder children by drag or keyboard |
+| `.sort` | Reorder children by drag or keyboard; positioned children move freely |
 | `.style` | Right-click class menu (needs `.authoring`) |
 | `.size` | Resize by handles |
 | `.data` | Edit `x-for` record fields; rows need `:data-key` |
@@ -369,10 +401,14 @@ Edits in `.authoring` regions are saved to the browser's `localStorage` as they 
 
 ## Styles
 
+All editing UI is drawn only inside a `data-edit-ui` scope — the attribute on the region itself, or on any ancestor to cover a whole view. `.authoring` sets it on its region automatically. Outside the scope everything still works (cursors and hit areas remain); it just draws nothing.
+
 | Variable | Default | Purpose |
 |---|---|---|
 | `--edit-accent` | `--color-brand-content` | Colour of every editing affordance |
+| `--edit-grip` | `0.6rem` | Inline drag grip on sortable rows; `0` removes it |
 | `--edit-ghost-opacity` | `0.4` | Opacity of the drag stand-in |
+| `--edit-toolbar` | `flex` | The floating toolbar; `none` hides it |
 | `--edit-size` | `both` | Resize axes: `both`, `x`, `y`, `none` |
 | `--edit-size-edges` | all | Which edges get handles; accepts logical `start` and `end` |
 | `--edit-size-handle` | `1rem` | Handle hit area |
@@ -380,9 +416,24 @@ Edits in `.authoring` regions are saved to the browser's `localStorage` as they 
 | `--edit-size-snap-distance` | `0` | Magnet tolerance; `-x` and `-y` per axis |
 | `--edit-size-collapse-x`, `-y` | — | Below this, set `data-edit-collapsed` |
 
+Every affordance is addressable — style them like any other markup:
+
+| Selector | What it is |
+|---|---|
+| `[data-edit-ui]` | The scope that turns the UI on |
+| `[data-edit-armed]` | An active editable region; `::before` shows `data-edit-label` |
+| `[data-edit-sortable]` | A draggable row; `::before` is the grip |
+| `[data-edit-grabbed]` | A row grabbed by keyboard |
+| `[data-edit-ghost]` | The stand-in holding the drop slot during a drag |
+| `[data-edit-movable]` | A positioned, freely draggable element |
+| `[data-edit-sizable]`, `[data-edit-handle]` | A resizable element and its handles (valued by edge) |
+| `[data-edit-collapsed]` | Resized below the collapse threshold |
+| `[data-edit-toolbar]` | The floating undo/redo/publish toolbar |
+| `[data-edit-menu]` | The built-in right-click class menu |
+| `html[data-edit-active]` | Set while an authoring region is active on screen |
+
 ---
 
 ## Related
 
 - [Text Edit](/docs/core-plugins/text-edit) — a rich text field
-- [Resize](/docs/core-plugins/resize) — the standalone resize directive

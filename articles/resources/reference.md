@@ -118,7 +118,6 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/core-plugins/local-data) | Bind file uploads |
 | `x-icon`{copy} | [icons](/docs/elements/icons) | Render an icon by name |
 | `x-markdown`{copy} | [markdown](/docs/core-plugins/markdown) | Render markdown content from a source |
-| `x-resize`{copy} | [resize](/docs/core-plugins/resize) | Makes an element resizable |
 | `x-route`{copy} | [router](/docs/core-plugins/router) | Applies element to specific routes |
 | `x-svg`{copy} | [svgs](/docs/elements/svgs) | Inlines an SVG file |
 | `x-tab`{copy}, `x-tabpanel`{copy} | [tabs](/docs/elements/tabs) | Tab elements |
