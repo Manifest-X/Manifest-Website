@@ -133,7 +133,7 @@ Commands are named after the tag they produce. On a `<button>` the command runs 
 ::: frame
 <div x-data="{ doc: '<p>Select a word, then pick a command.</p>' }" class="col gap-2 w-full">
     <div class="row-wrap gap-1 items-center">
-        <select class="ghost sm hug" x-text-edit.block aria-label="Block">
+        <select class="ghost sm" x-text-edit.block aria-label="Block">
             <option value="p">Paragraph</option>
             <option value="h2">Heading</option>
             <option value="blockquote">Quote</option>
@@ -193,7 +193,7 @@ A single `<input>` handles links end to end. Select text and type a URL to link 
 
 ## Typing Markdown
 
-Type markdown and the line converts when you press Enter. Block shortcuts — headings, lists, quotes — work at the start of a line; inline marks convert anywhere. `.literal` turns the shortcuts off.
+Type markdown and it becomes the real thing. Inline marks — `**bold**`, `*italic*`, `` `code` `` — convert the moment you type the closing marker. Block shortcuts — headings, lists, quotes — work at the start of a line and convert when you press Enter. `.literal` turns the shortcuts off.
 
 <div x-code-group>
 
@@ -418,12 +418,12 @@ Add `.page` to `font`, `size`, `leading`, `align`, `color` or `background` and t
 ::: frame
 <div x-data="{ doc: '<p>Page styles live outside the document.</p>', look: {} }" class="col gap-2 w-full">
     <div class="row-wrap gap-1">
-        <select class="sm hug" x-text-edit.font.page aria-label="Page font">
+        <select class="ghost sm" x-text-edit.font.page aria-label="Page font">
             <option value="">Default</option>
             <option value="Georgia">Georgia</option>
             <option value="ui-monospace">Mono</option>
         </select>
-        <select class="sm hug" x-text-edit.leading.page aria-label="Page spacing">
+        <select class="ghost sm" x-text-edit.leading.page aria-label="Page spacing">
             <option value="">Default</option>
             <option value="2">Double</option>
         </select>
