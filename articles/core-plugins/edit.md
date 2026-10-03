@@ -165,7 +165,43 @@ A positioned child — `position: absolute` or `fixed` — isn't reordered, it's
 
 </div>
 
-Dragging between regions — lifting an element out of one parent and dropping it into another — isn't supported yet.
+Blocks also drag **between regions**: lift an element out of one static sort region and drop it into another, and the move is recorded like any other edit — undo brings it home, publishing writes it to both places in your source. Cross-region moves work between top-level static regions; rows of an `x-for` data list belong to their list and reorder in place.
+
+<div x-code-group>
+
+```html copy
+<ul x-edit.sort="monday" data-edit-ui>
+    <li>Cut stems</li>
+    <li>Arrange</li>
+</ul>
+<ul x-edit.sort="tuesday" data-edit-ui>
+    <li>Deliver</li>
+</ul>
+```
+
+::: frame
+<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() => Alpine.store('edit').on()) }))">
+<template x-if="ready">
+<div class="grid grid-cols-2 gap-4">
+    <div class="col gap-2">
+        <small class="text-content-subtle">Monday</small>
+        <ul class="col gap-2 m-0 p-0 list-none" x-edit.sort="monday-demo" data-edit-ui>
+            <li class="row items-center p-3 bg-surface-1 border border-line rounded">Cut stems</li>
+            <li class="row items-center p-3 bg-surface-1 border border-line rounded">Arrange</li>
+        </ul>
+    </div>
+    <div class="col gap-2">
+        <small class="text-content-subtle">Tuesday</small>
+        <ul class="col gap-2 m-0 p-0 list-none" x-edit.sort="tuesday-demo" data-edit-ui>
+            <li class="row items-center p-3 bg-surface-1 border border-line rounded">Deliver</li>
+        </ul>
+    </div>
+</div>
+</template>
+</div>
+:::
+
+</div>
 
 ---
 
