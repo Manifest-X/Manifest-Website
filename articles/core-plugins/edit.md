@@ -406,7 +406,8 @@ All editing UI is drawn only inside a `data-edit-ui` scope — the attribute on 
 | Variable | Default | Purpose |
 |---|---|---|
 | `--edit-accent` | `--color-brand-content` | Colour of every editing affordance |
-| `--edit-grip` | `0.6rem` | Inline drag grip on sortable rows; `0` removes it |
+| `--edit-grip` | `0.6rem` | Size of the inline drag grip on sortable rows |
+| `--edit-grip-display` | `inline-block` | `none` removes the grip (e.g. grid rows, where it would occupy a cell) |
 | `--edit-ghost-opacity` | `0.4` | Opacity of the drag stand-in |
 | `--edit-toolbar` | `flex` | The floating toolbar; `none` hides it |
 | `--edit-size` | `both` | Resize axes: `both`, `x`, `y`, `none` |
