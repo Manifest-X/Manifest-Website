@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -800,7 +794,7 @@
 <p>All headings generated from markdown content (<code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> elements) will have IDs automatically generated for anchor linking.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Markdown is included in <code>manifest.js</code> with all core plugins, or can be selectively loaded.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 <pre x-code="html" name="Selective" data-code-block-built="yes" aria-label="Selective" role="tabpanel" data-code-processed="yes" id="selective-panel-1" aria-labelledby="selective-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
@@ -809,7 +803,7 @@
 
 <hr>
 <h2 id="inline-content">Inline Content</h2><p>Markdown can be written directly inside elements using the <code>x-markdown</code> directive, with content wrapped in single quotes.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-markdown</span>=<span class="hljs-string">"'This is **bold** and *italic* text with a [link](/).'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame text-base"><div>This is <strong>bold</strong> and <em>italic</em> text with a <a href="/">link</a>.</div></aside>
@@ -817,7 +811,7 @@
 
 <hr>
 <h2 id="dynamic-content">Dynamic Content</h2><p>Markdown content can use Alpine expressions for dynamic updates, including template literals with variables. Scope variables and member chains evaluate directly — <code>x-markdown="post.body"</code>, or <code>x-markdown="m.body.text"</code> inside an <code>x-for</code> — with no wrapping needed. An undefined step mid-chain (data still loading) renders nothing instead of throwing, and a single bare word evaluates when defined in scope, otherwise rendering as literal text.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ title: 'Your Bank Account', count: 0 }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-markdown</span>=<span class="hljs-string">"`# ${title}
@@ -834,7 +828,7 @@
 
 <hr>
 <h2 id="file-content">File Content</h2><p>Load markdown content from external <code>.md</code> files by providing a file path like <code>x-markdown="/assets/menu.md"</code>. A path must be a single whitespace-free token — a <code>.md</code>/<code>.markdown</code> file or a slash path — so dynamic prose containing slashes is never mistaken for a file.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="menu.md-tab-1" aria-selected="false" tabindex="-1">menu.md</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="menu.md-tab-1" aria-selected="false" tabindex="-1">menu.md</button></div></header>
 
 <pre x-code="html" name="HTML" copy="" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-markdown</span>=<span class="hljs-string">"'/assets/menu.md'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <pre x-code="markdown" name="menu.md" data-code-block-built="yes" aria-label="menu.md" role="tabpanel" data-code-processed="yes" id="menu.md-panel-1" aria-labelledby="menu.md-tab-1" style="display: none"><code class="hljs language-markdown" data-highlighted="yes"><span class="hljs-section">### Menù del Giornaliero</span>
@@ -850,7 +844,7 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <h3 id="from-data-source">From Data Source</h3><p>The markdown file's path can also be populated from a <a href="/docs/core-plugins/local-data">data source</a>.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="blog.json-tab-1" aria-selected="false" tabindex="-1">blog.json</button><button type="button" role="tab" id="burn-book.md-tab-2" aria-selected="false" tabindex="-1">burn-book.md</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="blog.json-tab-1" aria-selected="false" tabindex="-1">blog.json</button><button type="button" role="tab" id="burn-book.md-tab-2" aria-selected="false" tabindex="-1">burn-book.md</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.blog.title"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">small</span>&gt;</span>By <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.blog.author"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
@@ -870,7 +864,7 @@ She is a fugly slut!!</code></pre>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>This approach is ideal for blogs, articles, or any content managed through data sources that can leverage markdown files rather than large text blocks. It's also possible to make loading contingent on a URL route (e.g. <code>.../blog/burn-book</code>), use the <code>$route()</code> function:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="blog.json-tab-1" aria-selected="false" tabindex="-1">blog.json</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="blog.json-tab-1" aria-selected="false" tabindex="-1">blog.json</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"prose"</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$x.blog.$route('path')"</span> <span class="hljs-attr">x-markdown</span>=<span class="hljs-string">"$x.blog.$route('path').article"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <pre x-code="json" name="blog.json" data-code-block-built="yes" aria-label="blog.json" role="tabpanel" data-code-processed="yes" id="blog.json-panel-1" aria-labelledby="blog.json-tab-1" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
@@ -886,7 +880,7 @@ She is a fugly slut!!</code></pre>
 <hr>
 <h2 id="markdown-syntax">Markdown Syntax</h2><p>See this <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Markdown Guide</a> for supported syntax in addition to HTML. Manifest also provides additional support for components, callouts, previews, and code blocks.</p>
 <h3 id="components">Components</h3><p>A <a href="/docs/core-plugins/components">component tag</a> placed in a markdown file will render the component in position.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="markdown-tab-0" aria-selected="true" tabindex="0">Markdown</button><button type="button" role="tab" id="disclaimer.html-tab-1" aria-selected="false" tabindex="-1">disclaimer.html</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="markdown-tab-0" aria-selected="true" tabindex="0">Markdown</button><button type="button" role="tab" id="disclaimer.html-tab-1" aria-selected="false" tabindex="-1">disclaimer.html</button></div></header>
 
 <pre x-code="markdown" name="Markdown" data-code-block-built="yes" aria-label="Markdown" role="tabpanel" data-code-processed="yes" id="markdown-panel-0" aria-labelledby="markdown-tab-0"><code class="hljs language-markdown" data-highlighted="yes">Kaffee: I WANT THE TRUTH!
 Col. Jessup: YOU CAN'T HANDLE THE TRUTH!
@@ -903,7 +897,7 @@ Col. Jessup: YOU CAN'T HANDLE THE TRUTH!
 <hr>
 <h3 id="callouts">Callouts</h3><p>Callouts highlight specific text in a long form article. They require <a href="/docs/styles/utilities">utility</a> styles and a parent element with the <code>prose</code> class applied.</p>
 <p>Use <code>:::</code> markers to open and close the callout within markdown. Text added to the opening marker's line are treated as CSS classes, useful for adding styles like Manifest utility colors. A leading <a href="/docs/elements/icons">icon</a> can also be added with <code>icon="..."</code> anywhere in the same line.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="default-tab-0" aria-selected="true" tabindex="0">Default</button><button type="button" role="tab" id="brand-tab-1" aria-selected="false" tabindex="-1">Brand</button><button type="button" role="tab" id="accent-tab-2" aria-selected="false" tabindex="-1">Accent</button><button type="button" role="tab" id="positive-tab-3" aria-selected="false" tabindex="-1">Positive</button><button type="button" role="tab" id="negative-tab-4" aria-selected="false" tabindex="-1">Negative</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="default-tab-0" aria-selected="true" tabindex="0">Default</button><button type="button" role="tab" id="brand-tab-1" aria-selected="false" tabindex="-1">Brand</button><button type="button" role="tab" id="accent-tab-2" aria-selected="false" tabindex="-1">Accent</button><button type="button" role="tab" id="positive-tab-3" aria-selected="false" tabindex="-1">Positive</button><button type="button" role="tab" id="negative-tab-4" aria-selected="false" tabindex="-1">Negative</button></div></header>
 
 <pre x-code="markdown" name="Default" data-code-block-built="yes" aria-label="Default" role="tabpanel" data-code-processed="yes" id="default-panel-0" aria-labelledby="default-tab-0"><code class="hljs language-markdown" data-highlighted="yes">:::
 Default callout
@@ -961,7 +955,7 @@ It's a trap!
 :::</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <aside class="frame"><img src="../../../assets/examples/poochie.webp" alt="Poochie the dog"></aside>
 <p>The <code>frame</code> class within a <code>prose</code> container provides frame styles, which can be modified with custom CSS:</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="css" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-class">.prose</span> <span class="hljs-selector-tag">aside</span><span class="hljs-selector-class">.frame</span> {
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">1rem</span>;

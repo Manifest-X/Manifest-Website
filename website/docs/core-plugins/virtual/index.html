@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -804,7 +798,7 @@
 </aside>
 <hr>
 <h2 id="setup">Setup</h2><p>Virtual is included in <code>manifest.js</code> with all core plugins, or can be selectively loaded.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 <pre x-code="html" name="Selective" data-code-block-built="yes" aria-label="Selective" role="tabpanel" data-code-processed="yes" id="selective-panel-1" aria-labelledby="selective-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
@@ -813,7 +807,7 @@
 
 <hr>
 <h2 id="basic-usage">Basic Usage</h2><p>Wrap an <code>x-for</code> template in a scrolling container marked with <code>x-virtual</code>. The container needs a bounded height like a pixel value, percentage, viewport unit, or flex layout in order to support a scroll viewport.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ team: /* 500 entries */ }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-virtual</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"h-[300px] overflow-auto"</span>&gt;</span>
@@ -863,7 +857,7 @@
 <hr>
 <h2 id="layout">Layout</h2><p>The same <code>x-virtual</code> adapts to whatever markup fits your data — a native <a href="/docs/elements/tables">table</a>, a CSS grid, a wrapping gallery, or a masonry wall. The plugin detects the layout automatically; masonry is the one mode you set explicitly.</p>
 <h3 id="table">Table</h3><p>Put <code>x-virtual</code> on the scroll container and let the <code>x-for</code> template live inside <code>&lt;tbody&gt;</code>. Columns align across rows and <code>&lt;thead&gt;</code> can be sticky, exactly as in a normal <a href="/docs/elements/tables">table</a>.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-virtual</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"h-[300px] overflow-auto"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"table-fixed w-full"</span>&gt;</span>
@@ -948,7 +942,7 @@
 <p>Stripe by a value from your data — here <code>user.id</code> — rather than <code>:nth-child</code>, which counts only the rows currently rendered and so flickers as you scroll. Give columns explicit widths (<code>table-fixed</code>) so they don't shift either.</p>
 <hr>
 <h3 id="grid">Grid</h3><p>Manifest's <a href="/docs/elements/tables"><code>.grid-table</code></a> is a <code>display: grid</code> container with <code>display: contents</code> rows, so every cell shares one grid. Set the columns on the container and mark each row <code>.grid-row</code>.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-virtual</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"grid-table grid-cols-[8rem_1fr_7rem] h-[300px] overflow-auto"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"grid-header"</span>&gt;</span>
@@ -967,7 +961,7 @@
         <div class="grid-header">
             <div>Name</div><div>Email</div><div>Role</div>
         </div>
-        <div data-virtual-spacer="" aria-hidden="true" style="grid-column: 1 / -1; width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="grid-row">
+        <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none; grid-column: 1 / -1"></div><div class="grid-row">
                 <div x-text="user.name">Sirius 1</div>
                 <div x-text="user.email">user1@acme.io</div>
                 <div x-text="user.role">Engineer</div>
@@ -1011,7 +1005,7 @@
                 <div x-text="user.name">Arcturus 11</div>
                 <div x-text="user.email">user11@acme.io</div>
                 <div x-text="user.role">QA</div>
-            </div><div data-virtual-spacer="" aria-hidden="true" style="grid-column: 1 / -1; width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
+            </div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none; grid-column: 1 / -1"></div><template>
             <div class="grid-row">
                 <div x-text="user.name"></div>
                 <div x-text="user.email"></div>
@@ -1025,7 +1019,7 @@
 <p><code>.grid-table</code> is itself the grid, so you only set the columns. Keep those tracks content-independent (<code>px</code>, <code>%</code>, or <code>minmax(0, 1fr)</code>) so columns hold steady as the window changes.</p>
 <hr>
 <h3 id="gallery">Gallery</h3><p>A gallery packs many items per line. The plugin auto-detects a <code>flex-wrap</code> container; for a CSS grid, add <code>mode: 'gallery'</code> so it isn't read as a table. Either way only the visible items mount — ragged widths and heights are fine. Seed <code>estimate</code> with an approximate item size for a steadier first paint.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-virtual</span>=<span class="hljs-string">"{ estimate: { width: 160, height: 120 } }"</span>
      <span class="hljs-attr">class</span>=<span class="hljs-string">"flex flex-wrap content-start gap-2 h-80 overflow-auto"</span>&gt;</span>
@@ -1037,7 +1031,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ tiles: Array.from({length: 1000}, (_, i) =&gt; ({ id: i, w: 90 + ((i * 47) % 140), h: 70 + ((i * 71) % 120), color: `hsl(${(i * 53) % 360} 65% 58%)` })) }" class="w-full">
     <div x-virtual="{ estimate: { width: 160, height: 120 } }" class="border border-line rounded flex flex-wrap content-start gap-2 h-80 overflow-auto p-2">
-        <div data-virtual-spacer="" aria-hidden="true" style="flex: 0 0 100%; width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 90px; height: 70px; background: hsl(0 65% 58%)">#0</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 137px; height: 141px; background: hsl(53 65% 58%)">#1</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 184px; height: 92px; background: hsl(106 65% 58%)">#2</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 91px; height: 163px; background: hsl(159 65% 58%)">#3</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 138px; height: 114px; background: hsl(212 65% 58%)">#4</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 185px; height: 185px; background: hsl(265 65% 58%)">#5</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 92px; height: 136px; background: hsl(318 65% 58%)">#6</div><div data-virtual-spacer="" aria-hidden="true" style="flex: 0 0 100%; width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
+        <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none; flex: 0 0 100%"></div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 90px; height: 70px; background: hsl(0 65% 58%)">#0</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 137px; height: 141px; background: hsl(53 65% 58%)">#1</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 184px; height: 92px; background: hsl(106 65% 58%)">#2</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 91px; height: 163px; background: hsl(159 65% 58%)">#3</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 138px; height: 114px; background: hsl(212 65% 58%)">#4</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 185px; height: 185px; background: hsl(265 65% 58%)">#5</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 92px; height: 136px; background: hsl(318 65% 58%)">#6</div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none; flex: 0 0 100%"></div><template>
             <div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id"></div>
         </template>
     </div>
@@ -1054,7 +1048,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <hr>
 <h3 id="masonry">Masonry</h3><p>Masonry packs items of independent sizes into the shortest column — the layout where the occasional showcase item spans extra width or height. Set <code>mode: 'masonry'</code> and either a <code>columnWidth</code> or a fixed <code>columns</code> count.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-virtual</span>=<span class="hljs-string">"{ mode: 'masonry', columnWidth: 220, gap: 12, span: block =&gt; block.span, height: block =&gt; block.height }"</span>
      <span class="hljs-attr">class</span>=<span class="hljs-string">"relative h-96 overflow-auto"</span>&gt;</span>
@@ -1152,7 +1146,7 @@
 <p>Without these options the defaults will work for most uniform collections. Tune <code>estimate</code> higher when items are tall (cards, images), and raise <code>overscan</code> if you see brief blank flashes during fast wheel-scrolling.</p>
 <hr>
 <h2 id="mixed-sizes">Mixed Sizes</h2><p>Items with variable content like multi-line descriptions, embedded images, or expanded details work without any extra configuration. Each item is measured on first render and the scroll offsets adjust to its actual size. There is no fixed-size requirement.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-virtual</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"h-[600px] overflow-auto"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"log in $x.logs"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"log.id"</span>&gt;</span>
@@ -1173,39 +1167,39 @@
 })) }" class="w-full">
     <div x-virtual="" class="border border-line rounded font-mono text-sm h-[300px] overflow-auto">
         <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">06:20:28</span>
+                <span class="text-muted shrink-0" x-text="log.time">19:12:53</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">06:21:28</span>
+                <span class="text-muted shrink-0" x-text="log.time">19:13:53</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">06:22:28</span>
+                <span class="text-muted shrink-0" x-text="log.time">19:14:53</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">06:23:28</span>
+                <span class="text-muted shrink-0" x-text="log.time">19:15:53</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-warning" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">06:24:28</span>
+                <span class="text-muted shrink-0" x-text="log.time">19:16:53</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-error" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">error</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">06:25:28</span>
+                <span class="text-muted shrink-0" x-text="log.time">19:17:53</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">06:26:28</span>
+                <span class="text-muted shrink-0" x-text="log.time">19:18:53</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">06:27:28</span>
+                <span class="text-muted shrink-0" x-text="log.time">19:19:53</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-muted" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time">06:28:28</span>
+                <span class="text-muted shrink-0" x-text="log.time">19:20:53</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-warning" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
@@ -1223,7 +1217,7 @@
 <hr>
 <h2 id="dynamic-data">Dynamic Data</h2><p>Point the template's <code>x-for</code> at any reactive source — a <a href="/docs/core-plugins/local-data">local</a> or <a href="/docs/appwrite-plugins/cloud-data">cloud</a> data source through <code>$x</code>, or plain Alpine state — and the window stays in sync. Adds, deletes, sorts, and filters update the visible items automatically, and items re-bind by key, so reordering the data never scrambles their content.</p>
 <p>That makes virtualization a natural pair with <code>$search</code> and <code>$query</code>: wire a search input to <code>$x.&lt;source&gt;.$search()</code> and the list re-renders against the filtered results without rebuilding the whole DOM.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ term: '' }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Filter products..."</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Filter products"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"term"</span>&gt;</span>
@@ -1291,7 +1285,7 @@
 
 <hr>
 <h2 id="inside-menus-and-dialogs">Inside Menus and Dialogs</h2><p><code>x-virtual</code> works inside popover <a href="/docs/elements/dropdowns#closed-menus-cost-nothing">menus</a>, <a href="/docs/elements/dialogs">dialogs</a> and <a href="/docs/elements/tabs">tab panels</a>. The list measures itself when its container is shown, so nothing special is needed — give the <code>x-virtual</code> element a bounded height as usual and place it inside the menu.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ countries: /* 300 entries */ }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-dropdown</span>=<span class="hljs-string">"country-menu"</span>&gt;</span>Country<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>

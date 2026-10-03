@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -797,7 +791,7 @@
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/elements/dividers.md" data-mnfst-prerender-clone="1"><h1 id="dividers">Dividers</h1><p>Horizontal and vertical lines for visual separation.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Divider styles are included in Manifest CSS or a standalone stylesheet, both referencing <a href="/docs/styles/theme">theme</a> variables.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
 
 <pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span> /&gt;</span></code></pre>
 <pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.divider.css"</span> /&gt;</span></code></pre>
@@ -806,7 +800,7 @@
 <hr>
 <h2 id="default">Default</h2><p>Dividers in Manifest are horizontal or vertical dividing lines, which can optionally display inline text or icons.</p>
 <h3 id="horizontal-rule">Horizontal Rule</h3><p>For a basic horizontal line, use the <code>&lt;hr&gt;</code> element.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">hr</span>&gt;</span></code></pre>
 <aside class="frame"><hr class="w-full"></aside>
@@ -814,14 +808,14 @@
 
 <hr>
 <h3 id="with-content">With Content</h3><p>All other divider configurations use the <code>divider</code> class, which automatically creates lines around content. This is best suited for a <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code>, but will work with any text-supporting element.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"divider"</span>&gt;</span>Default Divider<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame text-base"><div class="divider">Default Divider</div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>Dividers can include <a href="/docs/elements/icons">icons</a> for enhanced visual separation.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Icon only --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"divider"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:star"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -835,7 +829,7 @@
 <hr>
 <h2 id="utilities">Utilities</h2><p>Dividers accept utility classes for different layouts and positioning.</p>
 <h3 id="alignment">Alignment</h3><p>The <code>start</code> and <code>end</code> classes will align content to one side or the other depending on text direction.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Start aligned (no line before) --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"divider start"</span>&gt;</span>Start Aligned<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -852,7 +846,7 @@
 
 <hr>
 <h3 id="vertical">Vertical</h3><p>The <code>vertical</code> class changes the axis, and can be stacked with alignment classes. The divider requires a taller parent container for its lines to be visible.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row gap-3 h-40"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"divider vertical"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -894,7 +888,7 @@
 </tbody></table>
 <hr>
 <h3 id="customization">Customization</h3><p>Modify base divider styles with custom CSS for the <code>.divider</code> selector.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="css" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-class">.divider</span> {
     <span class="hljs-attribute">color</span>: <span class="hljs-number">#ff6b6b</span>;

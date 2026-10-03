@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -797,14 +791,14 @@
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/elements/typography.md" data-mnfst-prerender-clone="1"><h1 id="typography">Typography</h1><p>Heading, paragraph, and inline text styling.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Typography styles are included in Manifest CSS or a standalone stylesheet, both referencing <a href="/docs/styles/theme">theme</a> variables.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
 
 <pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span> /&gt;</span></code></pre>
 <pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.typography.css"</span> /&gt;</span></code></pre>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <hr>
-<h2 id="block-text">Block Text</h2><pre x-code-group="" data-group-processed="yes" role="region">
+<h2 id="block-text">Block Text</h2><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Heading 1<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Heading 2<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
@@ -846,7 +840,7 @@
 
 <p>See <a href="/docs/elements/code">code blocks</a> for use of the <code>&lt;pre&gt;</code> element.</p>
 <hr>
-<h2 id="inline-text">Inline Text</h2><pre x-code-group="" data-group-processed="yes" role="region">
+<h2 id="inline-text">Inline Text</h2><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Text can be <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>bold<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> or <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>strong<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>It can also be <span class="hljs-tag">&lt;<span class="hljs-name">i</span>&gt;</span>italic<span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span> or <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>emphasized<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
@@ -861,7 +855,7 @@
 <p>See <a href="/docs/elements/badges">badges</a> for use of the <code>&lt;mark&gt;</code> tag.</p>
 <hr>
 <h2 id="lists">Lists</h2><p>List styles are carefully styled to keep markers aligned with content above and below, rather than default browser behaviour where they float outside.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>First level item
@@ -893,7 +887,7 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <h3 id="icon-markers">Icon Markers</h3><p>List markers can be overwritten with inline <a href="/docs/elements/icons">icons</a> using the <code>x-icon</code> attribute. The generated SVG is placed directly before any text content.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Regular marker<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
@@ -972,7 +966,7 @@
 <td>Caption/figcaption styles</td>
 </tr>
 </tbody></table>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"h1"</span>&gt;</span>Heading 1 style<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"h2"</span>&gt;</span>Heading 2 style<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
@@ -997,7 +991,7 @@
 
 <hr>
 <h3 id="colors">Colors</h3><p>All text elements accept Manifest color utility classes, either directly or inherited from a parent.</p>
-<h4 id="direct">Direct</h4><pre x-code-group="" data-group-processed="yes" role="region">
+<h4 id="direct">Direct</h4><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Stark variant --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stark"</span>&gt;</span>Lorem ipsum dolor sit amet.<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
@@ -1028,7 +1022,7 @@
 <span class="h3 negative">Lorem ipsum dolor sit amet.</span></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
-<h4 id="inherited">Inherited</h4><pre x-code-group="" data-group-processed="yes" role="region">
+<h4 id="inherited">Inherited</h4><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Stark variant --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stark"</span>&gt;</span>
@@ -1130,7 +1124,7 @@
 <p><code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code> elements have a specialty font set by separate <a href="/docs/elements/code#styles">code styles</a>, and otherwise use the user's system monospace font or other fallbacks.</p>
 <hr>
 <h3 id="customization">Customization</h3><p>Modify base text element styles with custom CSS for its respective selector.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="css" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-tag">h3</span> {
     <span class="hljs-attribute">font-family</span>: Playfair Display, Abril Fatface;

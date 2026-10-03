@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -802,7 +796,7 @@
 </aside>
 <hr>
 <h2 id="setup">Setup</h2><p>The chat plugin is included in <code>manifest.js</code> with all core plugins. It loads automatically when <code>$chat</code> appears in your page's markup, or when <code>manifest.json</code> contains an <code>ai</code> or <code>chat</code> entry (a config block, or <code>"chat": true</code>). It can also be declared in <code>data-plugins</code>, where the <code>+</code> prefix adds it alongside the default plugins.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-trigger-(default)-tab-0" aria-selected="true" tabindex="0">Manifest Trigger (default)</button><button type="button" role="tab" id="declared-tab-1" aria-selected="false" tabindex="-1">Declared</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-trigger-(default)-tab-0" aria-selected="true" tabindex="0">Manifest Trigger (default)</button><button type="button" role="tab" id="declared-tab-1" aria-selected="false" tabindex="-1">Declared</button></div></header>
 
 <pre x-code="html" name="Manifest Trigger (default)" data-code-block-built="yes" aria-label="Manifest Trigger (default)" role="tabpanel" data-code-processed="yes" id="manifest-trigger-(default)-panel-0" aria-labelledby="manifest-trigger-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta: manifest.json contains an "ai" or "chat" entry --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
@@ -869,7 +863,7 @@
 <hr>
 <h3 id="markup">Markup</h3><p>Open a conversation with <code>$chat.open</code> and render it. The call returns a reactive handle. Loop over its <code>messages</code>, bind a field to a draft, and call <code>send</code>.</p>
 <p>Three details complete the UI. Style your own messages by comparing each message's author to the handle's <code>me</code>. Render finished replies with the <a href="/docs/core-plugins/markdown">markdown</a> plugin, and show plain text with <code>x-text</code> while a reply streams. When the text comes from participants you don't control, use <code>x-markdown.safe</code> to sanitize it.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML"><header><div>HTML</div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"chat-wrapper"</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ c: $chat.open('support', { adapter: 'claude' }), draft: '' }"</span>&gt;</span>
 
@@ -900,11 +894,11 @@
             <div>
                 <div class="">
                         <span style="display: none">Hi — I can help with your account. What do you need?</span>
-                        <div style="opacity: 1"><p>Hi — I can help with your account. What do you need?</p>
+                        <div x-markdown="m.body.text" style="opacity: 1"><p>Hi — I can help with your account. What do you need?</p>
 </div>
                     </div><div class="own">
                         <span style="display: none">How many free credits do I get?</span>
-                        <div style="opacity: 1"><p>How many free credits do I get?</p>
+                        <div x-markdown="m.body.text" style="opacity: 1"><p>How many free credits do I get?</p>
 </div>
                     </div>
             </div>
@@ -986,7 +980,7 @@
 </tr>
 </tbody></table>
 <p>The frame below lays these fields out for a seeded support thread. Each row shows the author's <code>kind</code>, the text, and the delivery <code>status</code>. Notice <code>kind</code> distinguishing the customer (<code>contact</code>) from the agent (<code>human</code>).</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML"><header><div>HTML</div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ c: $chat.open('hist-em-1', { adapter: 'demo' }) }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"m in c.messages"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"m.id"</span>&gt;</span>
@@ -1017,7 +1011,7 @@
 <hr>
 <h2 id="groups-reactions">Groups &amp; Reactions</h2><p>A conversation can hold any number of participants, human or AI. The handle exposes the participant list reactively. Reactions toggle with one call: <code>react</code> adds yours, and calling it again removes it.</p>
 <p>In the frame, invite Cy and the participant list updates. Ask the assistant and its reply streams into the conversation.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML"><header><div>HTML</div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ g: $chat.open('grp-1', { adapter: 'demo' }) }"</span>&gt;</span>
 
@@ -1073,7 +1067,7 @@
 <hr>
 <h2 id="threaded-replies">Threaded Replies</h2><p>Messages can reply to other messages through <code>replyTo</code>. The <code>tree()</code> and <code>flatTree()</code> methods project the flat list into a nested one, so the same conversation renders as a chat, a forum, or a comment section. Nesting depth is a rendering choice: cap it with <code>maxDepth</code> or leave it unlimited.</p>
 <p>Replying is a <code>send</code> with a parent ID. Pick a message in the frame and your reply nests under it.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML"><header><div>HTML</div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ f: $chat.open('forum-1', { adapter: 'demo' }), to: null, reply: '' }"</span>&gt;</span>
 
@@ -1160,7 +1154,7 @@
 </tr>
 </tbody></table>
 <p>The frame below is this page's real comment thread. Comments come from other readers, live, and disappear after 24 hours:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML"><header><div>HTML</div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ c: $chat.open('website-comments', { adapter: 'appwrite' }), draft: '' }"</span>&gt;</span>
 

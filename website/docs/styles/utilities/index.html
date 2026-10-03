@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -797,7 +791,7 @@
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/styles/utilities.md" data-mnfst-prerender-clone="1"><h1 id="utilities">Utilities</h1><p>Maintain visual consistency with common utility classes.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Utilities are available in the full Manifest CSS library, or as a standalone stylesheet. Both reference <a href="/docs/styles/theme">theme</a> variables.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
 
 <pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span>&gt;</span></code></pre>
 <pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.utilities.css"</span>&gt;</span></code></pre>
@@ -807,7 +801,7 @@
 <p>See <a href="/docs/styles/theme#custom-utilities">custom utilities</a> for classes generated from your CSS variables.</p>
 <hr>
 <h2 id="page-class">Page Class</h2><p>The <code>page</code> class creates a structured layout with a formatted header, main content, and footer. It can be applied to any top-level wrapper like the <code>&lt;body&gt;</code>, with styles applying to direct child elements in this HTML structure:</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <aside class="frame col gap-2"><small>&lt;body class="<b>page</b>"&gt;</small>
 
@@ -1192,7 +1186,7 @@
 <td><code>not-any-pointer-fine:hidden</code></td>
 </tr>
 </tbody></table>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML"><header><div>HTML</div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"touch-only"</span>&gt;</span>👆 Touch device<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"cursor-only"</span>&gt;</span>🖱️ Cursor device<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -1246,7 +1240,7 @@
 </tbody></table>
 <p>To <strong>omit</strong> on one or two systems instead of listing all the others, use the <code>no-</code> form: <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">no-mac</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">no-windows</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">no-linux</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">no-ios</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">no-android</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">no-apple</code>.</p>
 <p>A common use is keyboard-shortcut hints — the frame below shows the right one for <em>your</em> device:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML"><header><div>HTML</div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">kbd</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"apple-only"</span>&gt;</span>⌘ K<span class="hljs-tag">&lt;/<span class="hljs-name">kbd</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">kbd</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"no-apple"</span>&gt;</span>Ctrl K<span class="hljs-tag">&lt;/<span class="hljs-name">kbd</span>&gt;</span></code></pre>

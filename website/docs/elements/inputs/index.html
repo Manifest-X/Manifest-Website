@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -797,14 +791,14 @@
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/elements/inputs.md" data-mnfst-prerender-clone="1"><h1 id="inputs">Inputs</h1><p>Single-line text fields with validation states.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Input styles are included in Manifest CSS or a standalone stylesheet, both referencing <a href="/docs/styles/theme">theme</a> variables.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
 
 <pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span> /&gt;</span></code></pre>
 <pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.input.css"</span> /&gt;</span></code></pre>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <hr>
-<h2 id="default">Default</h2><pre x-code-group="" data-group-processed="yes" role="region">
+<h2 id="default">Default</h2><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Type here"</span> /&gt;</span></code></pre>
 <aside class="frame"><input placeholder="Type here"></aside>
@@ -812,7 +806,7 @@
 
 <hr>
 <h2 id="utilities">Utilities</h2><p>Inputs accept Manifest <a href="/docs/styles/utilities">utility</a> classes, which can be stacked in any combination.</p>
-<h3 id="colors">Colors</h3><pre x-code-group="" data-group-processed="yes" role="region">
+<h3 id="colors">Colors</h3><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Brand variant --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"brand"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Brand"</span> /&gt;</span>
@@ -832,7 +826,7 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <hr>
-<h3 id="size">Size</h3><pre x-code-group="" data-group-processed="yes" role="region">
+<h3 id="size">Size</h3><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Small variant --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"sm"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Small"</span> /&gt;</span>
@@ -844,7 +838,7 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <hr>
-<h3 id="appearance">Appearance</h3><pre x-code-group="" data-group-processed="yes" role="region">
+<h3 id="appearance">Appearance</h3><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- No background until hover --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"ghost"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Ghost"</span> /&gt;</span>
@@ -861,7 +855,7 @@
 
 <hr>
 <h2 id="variants">Variants</h2><h3 id="search">Search</h3><p>Inputs of <code>type="search"</code> work on their own, or can be placed in a label to facilitate a search icon.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"button"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:search"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
@@ -876,7 +870,7 @@
 <p>See the <a href="http://localhost:5070/docs/core-plugins/local-data#search-query">local data</a> plugin for wiring up search functionality. </p>
 <hr>
 <h3 id="copy">Copy</h3><p>Pair an input with a copy button by placing both in a label, and marking the button with <code>command="--copy"</code>. No wiring is required; clicking the button copies the field's value and flashes a confirmation <a href="/docs/elements/tooltips">tooltip</a>, just like copyable code blocks.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"MNFST-20"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Coupon code"</span> /&gt;</span>
@@ -890,7 +884,7 @@
 
 <p>This works with any text-like input type (<code>text</code>, <code>email</code>, <code>tel</code>, <code>number</code>, <code>url</code>). The <code>--</code> prefix is native HTML syntax for custom button commands and carries no default browser behaviour, so Manifest uses it as the styling and behaviour hook. Use <code>commandfor</code> with an input's <code>id</code> when the button sits outside the label.</p>
 <p>Both tooltips are customizable. Set the button's <code>value</code> to replace the confirmation icon with text, or bind it for localized or dynamic phrasing. Add an <code>x-tooltip</code> to label the button on hover. The hover label steps aside for the confirmation flash, then returns on the next hover.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"hello@manifestx.dev"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Email"</span> /&gt;</span>
@@ -906,7 +900,7 @@
 <p>Override the button icons with the <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--icon-field-copy</code> and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--icon-field-copied</code> variables.</p>
 <hr>
 <h3 id="file-uploads">File Uploads</h3><p>Inputs of <code>type="file"</code> work on their own, or can be placed in a label to facilitate an upload icon.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"button"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"file"</span> /&gt;</span>
@@ -924,7 +918,7 @@
 <h2 id="form-layouts">Form Layouts</h2><aside class="brand"><span x-icon="lucide:info"></span><p>These styles are included in <code>manifest.css</code>, or the standalone <code>manifest.form.css</code>.</p>
 </aside>
 <h3 id="labels">Labels</h3><p>Placing the input and text inside a <code>&lt;label&gt;</code> automatically stacks them with spacing.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
     Email
@@ -937,7 +931,7 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>To horizontally inline the label text with the input, place the text in a <code>&lt;data&gt;</code> element. This is used as a CSS hook with no semantic impact.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>Email<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span>
@@ -951,7 +945,7 @@
 
 <hr>
 <h3 id="groups">Groups</h3><p>Horizontally group inputs, buttons, or selects together with a <code>role="group"</code> attribute on the parent container.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"group"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Insert email"</span> /&gt;</span>
@@ -966,7 +960,7 @@
 <p>When these elements are grouped, only the outer elements' outer corners retain their border radii for a seamless appearance.</p>
 <hr>
 <h2 id="validation">Validation</h2><p>Inputs support native HTML5 validation through attributes like <code>required</code>, <code>pattern</code>, <code>minlength</code>, <code>maxlength</code>, <code>min</code>, <code>max</code>, and <code>type="email"</code> / <code>type="url"</code>. Style the invalid and valid states with Tailwind pseudo-class variants.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span> <span class="hljs-attr">required</span>
     <span class="hljs-attr">class</span>=<span class="hljs-string">"user-invalid:border-negative-surface user-valid:border-positive-surface"</span> /&gt;</span></code></pre>
@@ -1014,7 +1008,7 @@
 </tbody></table>
 <hr>
 <h3 id="customization">Customization</h3><p>Modify base input styles with custom CSS for the <code>input</code> selector.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="css" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-tag">input</span> {
     <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f0f8ff</span>;

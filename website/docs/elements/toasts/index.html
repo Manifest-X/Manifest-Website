@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -798,7 +792,7 @@
 <hr>
 <h2 id="setup">Setup</h2><p>Toast styles are included in Manifest CSS or a standalone stylesheet, both referencing <a href="/docs/styles/theme">theme</a> variables.</p>
 <p>Toast functionality is included in <code>manifest.js</code> with all core plugins, or it can be selectively loaded.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-/-js-tab-0" aria-selected="true" tabindex="0">Manifest CSS / JS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-/-js-tab-0" aria-selected="true" tabindex="0">Manifest CSS / JS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
 
 <pre x-code="html" name="Manifest CSS / JS" data-code-block-built="yes" aria-label="Manifest CSS / JS" role="tabpanel" data-code-processed="yes" id="manifest-css-/-js-panel-0" aria-labelledby="manifest-css-/-js-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Manifest CSS --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span> /&gt;</span>
@@ -815,7 +809,7 @@
 
 <hr>
 <h2 id="default">Default</h2><p>Toasts can be triggered from any element using the <code>x-toast</code> directive, with its value being the content. They automatically disappear after 3 seconds, though the timer will pause on hover. Toasts will stack if multiple are triggered concurrently.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-toast</span>=<span class="hljs-string">"This is a basic toast notification"</span>&gt;</span>Show Toast<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
 <aside class="frame"><button x-toast="This is a basic toast notification">Show Toast</button></aside>
@@ -823,7 +817,7 @@
 
 <hr>
 <h2 id="modifiers">Modifiers</h2><h3 id="colors">Colors</h3><p>Color modifiers provide unique visual context.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-toast</span>=<span class="hljs-string">"Default toast notification"</span>&gt;</span>Default<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-toast.brand</span>=<span class="hljs-string">"Brand toast notification"</span>&gt;</span>Brand<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -839,7 +833,7 @@
 
 <hr>
 <h3 id="duration">Duration</h3><p>A number sets how long the toast remains visible in milliseconds.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-toast.1000</span>=<span class="hljs-string">"Dismisses after 1 second"</span>&gt;</span>1 Second<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-toast</span>=<span class="hljs-string">"Default 3 seconds"</span>&gt;</span>Default<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -851,7 +845,7 @@
 
 <hr>
 <h3 id="dismiss">Dismiss</h3><p>The dismiss modifier enables manual closing.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-toast.dismiss</span>=<span class="hljs-string">"Can be manually dismissed"</span>&gt;</span>Dismissible<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-toast.positive.dismiss</span>=<span class="hljs-string">"Positive with dismiss button"</span>&gt;</span>Positive Dismissible<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -863,7 +857,7 @@
 
 <hr>
 <h3 id="fixed">Fixed</h3><p>The fixed modifier prevents the default auto-dismiss behavior and adds the dismiss button by default.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-toast.fixed</span>=<span class="hljs-string">"Stays until manually closed"</span>&gt;</span>Fixed<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-toast.positive.fixed</span>=<span class="hljs-string">"Fixed positive notification"</span>&gt;</span>Fixed Positive<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -875,7 +869,7 @@
 
 <hr>
 <h3 id="combined">Combined</h3><p>Combine different modifiers for complex toast behaviors.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-toast.negative.dismiss.2000</span>=<span class="hljs-string">"Negative toast with 2s duration and dismiss button"</span>&gt;</span>Negative + Dismiss + 2s<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-toast.positive.fixed</span>=<span class="hljs-string">"Positive toast that stays until dismissed"</span>&gt;</span>Positive + Fixed<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
@@ -885,7 +879,7 @@
 
 <hr>
 <h2 id="magic-method">Magic Method</h2><p>Use the <code>$toast</code> magic method for programmatic toast creation.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$toast('Programmatic toast')"</span>&gt;</span>Basic Magic<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$toast.brand('Brand via magic method')"</span>&gt;</span>Brand Magic<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -901,7 +895,7 @@
 
 <hr>
 <h2 id="rich-content">Rich Content</h2><p>Rich content supports HTML including <a href="/docs/elements/icons">icons</a> for enhanced formatting.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-toast</span>=<span class="hljs-string">"&lt;span x-icon='lucide:info'&gt;&lt;/span&gt;Hello &lt;b&gt;bold&lt;/b&gt; and &lt;em&gt;italic&lt;/em&gt; world"</span>&gt;</span>Rich Content<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
 <aside class="frame"><button x-toast.fixed="&lt;span x-icon='lucide:info'&gt;&lt;/span&gt;Hello &lt;b&gt;bold&lt;/b&gt; and &lt;em&gt;italic&lt;/em&gt; world">Rich Content</button></aside>
@@ -909,7 +903,7 @@
 
 <hr>
 <h2 id="dynamic-expressions">Dynamic Expressions</h2><p>Toast content can include dynamic expressions and variables.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ count: 0 }"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"count++; $toast(`Button clicked ${count} times`)"</span>&gt;</span>
     Dynamic Count (<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"count"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>)
@@ -929,7 +923,7 @@
 
 <hr>
 <h2 id="dynamic-data">Dynamic Data</h2><p>Toasts can retrieve content from <a href="/docs/core-plugins/local-data">data sources</a> using the <code>$x</code> syntax.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="example.json-tab-1" aria-selected="false" tabindex="-1">example.json</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="example.json-tab-1" aria-selected="false" tabindex="-1">example.json</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-toast</span>=<span class="hljs-string">"$x.example.toast"</span>&gt;</span>Data Source Toast<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
 <pre x-code="json" name="example.json" data-code-block-built="yes" aria-label="example.json" role="tabpanel" data-code-processed="yes" id="example.json-panel-1" aria-labelledby="example.json-tab-1" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>

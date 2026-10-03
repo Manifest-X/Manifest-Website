@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -799,7 +793,7 @@
 <h2 id="overview">Overview</h2><p>Manifest applies color modes by toggling a <code>dark</code> class on the <code>&lt;html&gt;</code> tag. Any CSS variables or styles scoped under <code>.dark</code> override their light defaults. Users can switch modes through your UI with the <code>x-color</code> directive, or follow their operating system's preference.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Color modes are included in <code>manifest.js</code> with all core plugins, or can be selectively loaded.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 <pre x-code="html" name="Selective" data-code-block-built="yes" aria-label="Selective" role="tabpanel" data-code-processed="yes" id="selective-panel-1" aria-labelledby="selective-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
@@ -808,7 +802,7 @@
 
 <hr>
 <h2 id="modes">Modes</h2><h3 id="light-default">Light/Default</h3><p>The light mode is the default, picking up all variable and static colors not in a <code>.dark</code> declaration.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="variable-tab-0" aria-selected="true" tabindex="0">Variable</button><button type="button" role="tab" id="static-tab-1" aria-selected="false" tabindex="-1">Static</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="variable-tab-0" aria-selected="true" tabindex="0">Variable</button><button type="button" role="tab" id="static-tab-1" aria-selected="false" tabindex="-1">Static</button></div></header>
 
 <pre x-code="css" name="Variable" data-code-block-built="yes" aria-label="Variable" role="tabpanel" data-code-processed="yes" id="variable-panel-0" aria-labelledby="variable-tab-0"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-pseudo">:root</span> {
     <span class="hljs-attr">--color-page</span>: <span class="hljs-number">#efefef</span>;
@@ -825,7 +819,7 @@
 <p>See <a href="/docs/styles/theme">theme</a> styles for Manifest's suggested color variables.</p>
 <hr>
 <h3 id="dark">Dark</h3><p>Use the <code>.dark</code> class to override light/default color values. The plugin operates by adding or removing the <code>dark</code> class in the <code>&lt;html&gt;</code> tag.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="variable-tab-0" aria-selected="true" tabindex="0">Variable</button><button type="button" role="tab" id="static-tab-1" aria-selected="false" tabindex="-1">Static</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="variable-tab-0" aria-selected="true" tabindex="0">Variable</button><button type="button" role="tab" id="static-tab-1" aria-selected="false" tabindex="-1">Static</button></div></header>
 
 <pre x-code="css" name="Variable" data-code-block-built="yes" aria-label="Variable" role="tabpanel" data-code-processed="yes" id="variable-panel-0" aria-labelledby="variable-tab-0"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-comment">/* Light mode */</span>
 <span class="hljs-selector-pseudo">:root</span> {
@@ -864,7 +858,7 @@
 <li><code>'system'</code> sets to system mode</li>
 <li><code>'toggle'</code> toggles between light and dark modes</li>
 </ul>
-<h3 id="buttons">Buttons</h3><pre x-code-group="" data-group-processed="yes" role="region">
+<h3 id="buttons">Buttons</h3><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <aside class="frame row-wrap gap-2"><button x-color="'light'" type="button" data-hydrate-id="h8"><span x-icon="lucide:sun"></span><span>Light</span></button>
 <button x-color="'dark'" type="button" data-hydrate-id="h9"><span x-icon="lucide:moon"></span><span>Dark</span></button>
@@ -876,7 +870,7 @@
 
 <p>See <a href="/docs/elements/buttons">buttons</a> for details on the element.</p>
 <hr>
-<h3 id="toggle">Toggle</h3><pre x-code-group="" data-group-processed="yes" role="region">
+<h3 id="toggle">Toggle</h3><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <aside class="frame"><button x-color="'toggle'" x-icon="ph:sun" aria-label="Toggle Color Mode" type="button" data-hydrate-id="h11"></button></aside>
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-color</span>=<span class="hljs-string">"'toggle'"</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"$color.current === 'light' ? 'ph:moon' : 'ph:sun'"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Toggle Color Mode"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
@@ -884,7 +878,7 @@
 
 <p>See <a href="/docs/elements/icons">icons</a> for details on conditional icons.</p>
 <hr>
-<h3 id="dropdown">Dropdown</h3><pre x-code-group="" data-group-processed="yes" role="region">
+<h3 id="dropdown">Dropdown</h3><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <aside class="frame"><button x-dropdown.bottom="color-mode-preview" aria-label="Color Mode Menu" x-icon="lucide:sun-moon" popovertarget="color-mode-preview" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="color-mode-preview" aria-expanded="false" data-hydrate-id="h12"></button>
 <menu popover="" id="color-mode-preview" class="min-w-0" role="menu" style="position-anchor: --dropdown-p1">
@@ -903,7 +897,7 @@
 <p>See <a href="/docs/elements/dropdowns">dropdowns</a> for details on the menu element.</p>
 <hr>
 <h2 id="current-mode">Current Mode</h2><p>Display the current mode's title with <code>x-text="$color.current"</code>:</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Join the <span class="hljs-tag">&lt;<span class="hljs-name">strong</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$color.current"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span> side<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
 <aside class="frame text-base"><p>Join the <strong x-text="$color.current">system</strong> side</p></aside>

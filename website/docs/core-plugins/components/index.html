@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -44,7 +44,7 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><script data-route-head="div-mh06f7jle">
+@custom-variant web (&:where(html:not([data-native]) *));</style><script data-route-head="div-nfun5sqp7">
         console.log('🔄 Component article script loaded');
     </script><meta property="og:title" content="Components — Manifest"><meta property="og:description" content="Reusable HTML templates with route-bound rendering."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/components"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-core-plugins-components.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Components — Manifest"><meta property="twitter:description" content="Reusable HTML templates with route-bound rendering."><meta property="twitter:image" content="/og/docs-core-plugins-components.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Components — Manifest","description":"Reusable HTML templates with route-bound rendering.","image":"/og/docs-core-plugins-components.png","url":"https://manifestx.dev/docs/core-plugins/components"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Components","item":"https://manifestx.dev/docs/core-plugins/components"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/core-plugins/components">
@@ -294,9 +294,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -578,9 +575,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -803,7 +797,7 @@
 </aside>
 <hr>
 <h2 id="setup">Setup</h2><p>Components are included in <code>manifest.js</code> with all core plugins, or can be selectively loaded. Files in <code>components/</code> need no registration; <code>manifest.json</code> registers components elsewhere and tunes preloading.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
@@ -820,7 +814,7 @@
 
 <hr>
 <h2 id="create-components">Create Components</h2><p>Create an HTML file anywhere in your project directory, such as <code>/components/header.html</code>. Its filename must be distinct from other components.</p>
-<pre x-code-group="" data-group-processed="yes" role="region" aria-label="header.html"><header><div>header.html</div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" aria-label="header.html" data-group-built="yes"><header><div>header.html</div></header>
 
 <pre x-code="html" name="header.html" data-code-block-built="yes" aria-label="header.html" role="region" data-code-processed="yes" id="header.html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">header</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"w-full p-4 bg-page border-b border-line"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Acme<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
@@ -838,7 +832,7 @@
 <p>All components are rendered as a descendant of the <code>index.html</code> body, and cannot contain their own <code>&lt;body&gt;</code> tag.</p>
 <hr>
 <h3 id="nesting">Nesting</h3><p>Provided that a circular reference is not created, components can be recursively nested—such as a logo placed in a header component.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="header.html-tab-0" aria-selected="true" tabindex="0">header.html</button><button type="button" role="tab" id="logo.html-tab-1" aria-selected="false" tabindex="-1">logo.html</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="header.html-tab-0" aria-selected="true" tabindex="0">header.html</button><button type="button" role="tab" id="logo.html-tab-1" aria-selected="false" tabindex="-1">logo.html</button></div></header>
 
 <pre x-code="html" name="header.html" data-code-block-built="yes" aria-label="header.html" role="tabpanel" data-code-processed="yes" id="header.html-panel-0" aria-labelledby="header.html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">header</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row items-center gap-2 w-full p-4 bg-page border-b border-line"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">x-logo</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-logo</span>&gt;</span>
@@ -950,7 +944,7 @@
 <hr>
 <h2 id="customizing-instances">Customizing Instances</h2><p>In some scenarios it's useful to diverge an instance's content or styles from the source component, such as modifying the header for a special page.</p>
 <h3 id="isolate-the-instance">Isolate the Instance</h3><p>If the instance is used globally like the earlier header example, we'll need to create an isolated version that can be modified without affecting the others. The <a href="/docs/core-plugins/router">x-route</a> attribute can be used to show or hide instances based on the current route.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="index.html-tab-0" aria-selected="true" tabindex="0">index.html</button><button type="button" role="tab" id="special-page.html-tab-1" aria-selected="false" tabindex="-1">special-page.html</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="index.html-tab-0" aria-selected="true" tabindex="0">index.html</button><button type="button" role="tab" id="special-page.html-tab-1" aria-selected="false" tabindex="-1">special-page.html</button></div></header>
 
 <pre x-code="html" name="index.html" data-code-block-built="yes" aria-label="index.html" role="tabpanel" data-code-processed="yes" id="index.html-panel-0" aria-labelledby="index.html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
 
@@ -970,7 +964,7 @@
 
 <hr>
 <h3 id="parent-modification">Parent Modification</h3><p>Modifying just the parent element can be done immediately by adding any new attribute values to the component tag:</p>
-<pre x-code-group="" data-group-processed="yes" role="region" aria-label="special-page.html"><header><div>special-page.html</div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" aria-label="special-page.html" data-group-built="yes"><header><div>special-page.html</div></header>
 
 <pre x-code="html" name="special-page.html" data-code-block-built="yes" aria-label="special-page.html" role="region" data-code-processed="yes" id="special-page.html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">x-header</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"specialHeader"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-slate-50 !bg-slate-500"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-header</span>&gt;</span>
@@ -997,7 +991,7 @@
 <hr>
 <h3 id="child-modification">Child Modification</h3><p>Modifying child elements requires custom attributes that can be referenced in the instance placeholder tag like <code>&lt;x-header colors="..." wordmark="..."&gt;</code>.</p>
 <p>These custom attributes are created in the component source file using Alpine directives (dynamic attributes) like <a href="https://alpinejs.dev/directives/text">x-text</a>, <a href="https://alpinejs.dev/directives/html">x-html</a>, and <a href="https://alpinejs.dev/directives/bind">x-bind</a>, or Manifest's extended directives like <a href="/docs/elements/icons">x-icon</a>.</p>
-<pre x-code-group="" data-group-processed="yes" role="region" aria-label="Empty Component"><header><div>Empty Component</div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" aria-label="Empty Component" data-group-built="yes"><header><div>Empty Component</div></header>
 
 <pre x-code="html" name="Empty Component" data-code-block-built="yes" aria-label="Empty Component" role="region" data-code-processed="yes" id="empty-component-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">header</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row items-center gap-2 w-full p-4 bg-stone-400 dark:bg-stone-800 text-stone-50"</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"$modify('colors')"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"$modify('icon')"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
@@ -1010,7 +1004,7 @@
 </pre>
 
 <p>Each directive requires a <code>$modify('...')</code> value with the name of the custom attribute to be exposed. This attribute is subsequently available to all of the component's instances:</p>
-<pre x-code-group="" data-group-processed="yes" role="region" aria-label="Instance"><header><div>Instance</div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" aria-label="Instance" data-group-built="yes"><header><div>Instance</div></header>
 
 <pre x-code="html" name="Instance" data-code-block-built="yes" aria-label="Instance" role="region" data-code-processed="yes" id="instance-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">x-header</span>
     <span class="hljs-attr">colors</span>=<span class="hljs-string">"!text-white !bg-pink-400 dark:!bg-pink-900"</span>
@@ -1024,7 +1018,7 @@
 </pre>
 
 <p>If overrides with custom attributes are not required in every instance, place fallback logic in the component source to ensure optimal presentation.</p>
-<pre x-code-group="" data-group-processed="yes" role="region" aria-label="Component"><header><div>Component</div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" aria-label="Component" data-group-built="yes"><header><div>Component</div></header>
 
 <pre x-code="html" name="Component" data-code-block-built="yes" aria-label="Component" role="region" data-code-processed="yes" id="component-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Static classes apply if not overridden by the colors attribute --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">header</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row items-center gap-2 w-full p-4 bg-color-400 dark:bg-color-800 text-color-50"</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"$modify('colors')"</span>&gt;</span>
@@ -1046,7 +1040,7 @@
 </aside>
 <hr>
 <h3 id="injecting-dynamic-data">Injecting Dynamic Data</h3><p>Instances can also receive their content from a <a href="/docs/core-plugins/local-data">data source</a>. Simply make the custom attributes dynamic with a leading <code>:</code> and turn the value into a data source reference using <code>$x</code>. In this example, we're referencing an arbitrary <code>content.json</code> source:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="instance-tab-0" aria-selected="true" tabindex="0">Instance</button><button type="button" role="tab" id="content.json-tab-1" aria-selected="false" tabindex="-1">content.json</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="instance-tab-0" aria-selected="true" tabindex="0">Instance</button><button type="button" role="tab" id="content.json-tab-1" aria-selected="false" tabindex="-1">content.json</button></div></header>
 
 <pre x-code="html" name="Instance" data-code-block-built="yes" aria-label="Instance" role="tabpanel" data-code-processed="yes" id="instance-panel-0" aria-labelledby="instance-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">x-header</span>
     <span class="hljs-attr">:colors</span>=<span class="hljs-string">"$x.content.specialHeader.colors"</span>
@@ -1069,7 +1063,7 @@
 
 <hr>
 <h2 id="embedding-in-other-sites">Embedding in Other Sites</h2><p>A Manifest component can be embedded in any HTML like a WordPress site, Shopify storefront, static landing page, or an app built in another framework. Host the component files on a CDN or your own server, declare them in the project's <code>manifest.json</code>, then load Manifest's script and drop in the component tags.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="any-host-page.html-tab-0" aria-selected="true" tabindex="0">any-host-page.html</button><button type="button" role="tab" id="manifest.json-tab-1" aria-selected="false" tabindex="-1">manifest.json</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="any-host-page.html-tab-0" aria-selected="true" tabindex="0">any-host-page.html</button><button type="button" role="tab" id="manifest.json-tab-1" aria-selected="false" tabindex="-1">manifest.json</button></div></header>
 
 <pre x-code="html" name="any-host-page.html" copy="" data-code-block-built="yes" aria-label="any-host-page.html" role="tabpanel" data-code-processed="yes" id="any-host-page.html-panel-0" aria-labelledby="any-host-page.html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- manifest.json with Manifest-framework fields added --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>

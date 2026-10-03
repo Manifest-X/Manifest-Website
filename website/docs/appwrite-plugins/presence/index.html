@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -804,7 +798,7 @@
 <hr>
 <h2 id="setup">Setup</h2><p>Complete the <a href="/docs/appwrite-plugins/appwrite-setup">Appwrite setup</a> and <a href="/docs/appwrite-plugins/auth">auth</a> steps to connect your project and give people a way in — a full sign-in, guest access, or both. Presence needs auth, since it identifies each person by their session.</p>
 <p>Add the Appwrite SDK and <code>manifest.js</code> scripts to the HTML head, then turn presence on by adding a <code>presence</code> block to your <code>appwrite</code> config in <code>manifest.json</code>. It loads automatically whenever that block is present or <code>$presence</code> appears in your page's markup (bringing auth along with it), or you can load it explicitly with <code>data-plugins</code> (<code>"+appwrite-presences"</code> adds it alongside the defaults).</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
@@ -834,7 +828,7 @@
 </aside>
 <hr>
 <h2 id="start-tracking">Start Tracking</h2><p>Call <code>$presence.start()</code> once the person has a session — whether they signed in or joined as a guest. It begins publishing their status and loads everyone else's, keeping the roster in sync from then on.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML"><header><div>HTML</div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Begin tracking presence --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$presence.start()"</span>&gt;</span>Go online<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -886,7 +880,7 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$presence.start({ auto: false, status: 'available' })"</span>&gt;</span>Start<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <hr>
 <h2 id="set-a-status">Set a Status</h2><p><code>$presence.set(status)</code> publishes any label you like — there's no fixed list. Pass an optional second argument to attach extra details, such as which page the person is viewing.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML"><header><div>HTML</div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$presence.set('online')"</span>&gt;</span>Online<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$presence.set('away')"</span>&gt;</span>Away<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -916,7 +910,7 @@
 <hr>
 <h2 id="see-who-s-here">See Who's Here</h2><p><code>$presence.list</code> is the live roster — an array of everyone currently present, yourself included. It updates on its own as people arrive, change status, and leave. Loop over it to build whatever display you like.</p>
 <p>Each person carries a <code>color</code> for easy visual distinction and a <code>metadata.name</code>. The name is the person's real account name when they have one, or <code>null</code> when they don't — a guest, say. Because that fallback is <code>null</code>, <strong>you</strong> decide the label to show in its place, so it's yours to name and to <a href="/docs/core-plugins/localization">localize</a>.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML"><header><div>HTML</div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"person in $presence.list"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"person.userId"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row items-center gap-2"</span>&gt;</span>

@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -234,7 +234,7 @@
         src: null ?? 'docs',
         get groups() { return $x[this.src] || [] },
         get article() { return $x[this.src].$route('path') },
-    }" @manifest:route-change.window="$el.hidePopover()" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" data-component="docs-nav-1" data-order="3">
     <div class="col gap-6 py-4">
             <small class="pl-2.5 text-content-subtle">Getting Started</small>
             <div class="col">
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -797,7 +791,7 @@
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/core-plugins/text-edit.md" data-mnfst-prerender-clone="1"><h1 id="text-edit">Text Edit</h1><p>A rich text editor built from your own markup, storing markdown.</p>
 <hr>
 <h2 id="overview">Overview</h2><p><code>x-text-edit</code> has two roles. On its own, it makes an element an editable area bound to a value. With a command modifier, it makes any element a control for that area. It ships no toolbar of its own — you build one from your own buttons and inputs, styled like the rest of your page.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ post: '# Hello\n\nSelect a word, then press **Bold**.' }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.strong</span>&gt;</span>Bold<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -824,7 +818,7 @@ Select a word, then press **Bold**.</pre>
 
 <hr>
 <h2 id="setup">Setup</h2><p>Text Edit is included in <code>manifest.js</code> with all core plugins, or can be selectively loaded.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 <pre x-code="html" name="Selective" data-code-block-built="yes" aria-label="Selective" role="tabpanel" data-code-processed="yes" id="selective-panel-1" aria-labelledby="selective-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
@@ -832,7 +826,7 @@ Select a word, then press **Bold**.</pre>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>Editor styles are included in Manifest CSS or as a standalone stylesheet.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
 
 <pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span>&gt;</span></code></pre>
 <pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.text.edit.css"</span>&gt;</span></code></pre>
@@ -840,7 +834,7 @@ Select a word, then press **Bold**.</pre>
 
 <hr>
 <h2 id="editable-area">Editable Area</h2><p>Point <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-text-edit</code> at a value and the element becomes editable in place. <code>placeholder</code> shows while it's empty. The stored value is markdown, so <a href="/docs/core-plugins/markdown">x-markdown</a> can render it anywhere else on the page — below, the second box re-renders the value as you type.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ note: 'A **markdown** note.' }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit</span>=<span class="hljs-string">"note"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Write a note…"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Note"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -848,7 +842,7 @@ Select a word, then press **Bold**.</pre>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ note: 'A **markdown** note.' }" class="col gap-2 w-full">
     <div x-text-edit="note" placeholder="Write a note…" aria-label="Note" style="--text-edit-min-height: 4rem" data-text-edit="markdown" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true"><p>A <strong>markdown</strong> note.</p></div>
-    <div class="p-2 border border-line rounded" style="opacity: 1"><p>A <strong>markdown</strong> note.</p>
+    <div x-markdown="note" class="p-2 border border-line rounded" style="opacity: 1"><p>A <strong>markdown</strong> note.</p>
 </div>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
@@ -888,7 +882,7 @@ Select a word, then press **Bold**.</pre>
 <p>With no value to point at, the element's existing markup is the starting content and the element itself holds the result. Don't combine it with <code>x-html</code> — both would write to the same element.</p>
 <hr>
 <h2 id="commands">Commands</h2><p>Commands are named after the tag they produce. On a <code>&lt;button&gt;</code> the command runs on click, without moving focus out of the text. On a <code>&lt;select&gt;</code> or <code>&lt;input&gt;</code> it runs on change, and the control also reflects the state at the caret — the block dropdown below reads "Heading" while the caret sits in one. A command that takes an argument gets it from the next modifier or from an expression: <code>.align.center</code>, <code>.img="url"</code>.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ doc: '&lt;p&gt;Select a word, then pick a command.&lt;/p&gt;' }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">x-text-edit.block</span>&gt;</span>
@@ -906,7 +900,7 @@ Select a word, then press **Bold**.</pre>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ doc: '&lt;p&gt;Select a word, then pick a command.&lt;/p&gt;' }" class="col gap-2 w-full">
     <div class="row-wrap gap-1 items-center">
-        <select class="sm hug" x-text-edit.block="" aria-label="Block" data-text-edit-control="block" aria-disabled="false">
+        <select class="ghost sm" x-text-edit.block="" aria-label="Block" data-text-edit-control="block" aria-disabled="false">
             <option value="p">Paragraph</option>
             <option value="h2">Heading</option>
             <option value="blockquote">Quote</option>
@@ -938,7 +932,7 @@ Select a word, then press **Bold**.</pre>
 </tr>
 <tr>
 <td>Lists, inserts</td>
-<td><code>ul</code> <code>ol</code> <code>checklist</code> <code>indent</code> <code>outdent</code> <code>hr</code> <code>br</code> <code>img</code> <code>a</code></td>
+<td><code>ul</code> <code>ol</code> <code>checklist</code> <code>indent</code> <code>outdent</code> <code>hr</code> <code>br</code> <code>img</code> <code>a</code> <code>unlink</code></td>
 </tr>
 <tr>
 <td>Style (<code>.html</code>)</td>
@@ -953,24 +947,28 @@ Select a word, then press **Bold**.</pre>
 <td><code>clear</code> <code>undo</code> <code>redo</code></td>
 </tr>
 </tbody></table>
-<p>A command whose output markdown can't store — underline, colours, tables — is disabled unless the area uses <code>.html</code>. Disabled controls get <code>aria-disabled="true"</code> rather than <code>disabled</code>, so they stay focusable. An inline command clicked with nothing selected applies to the next text you type.</p>
+<p>A command whose output markdown can't store — underline, colours, tables — is disabled unless the area uses <code>.html</code>. Disabled controls get <code>aria-disabled="true"</code> rather than <code>disabled</code>, so they stay focusable; every control on this page is disabled until the caret is in an area it can act on. An inline command clicked with nothing selected applies to the next text you type. Colour inputs apply live as you pick — each tick restyles the selection, and undo removes the whole colour pass in one step.</p>
 <hr>
-<h2 id="links">Links</h2><p>A single <code>&lt;input&gt;</code> handles links end to end. Select text and type a URL to link it; put the caret inside a link and the field shows its <code>href</code>; clear the field to unlink.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<h2 id="links">Links</h2><p>A single <code>&lt;input&gt;</code> handles links end to end. Select text and type a URL to link it; click inside a link — clicking never navigates while editing — and the field shows its <code>href</code>; clear the field, or press an <code>unlink</code> button, to remove it. A bare domain gets <code>https://</code> for you, and something that isn't a URL at all is refused: the field re-syncs to the real <code>href</code>, showing it didn't take.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ post: 'Visit [Manifest](https://manifestx.dev) today.' }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"url"</span> <span class="hljs-attr">x-text-edit.a</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"https://"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Link"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.unlink</span>&gt;</span>Unlink<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit</span>=<span class="hljs-string">"post"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Post"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ post: 'Visit [Manifest](https://manifestx.dev) today.' }" class="col gap-2 w-full">
-    <input type="url" class="sm" x-text-edit.a="" placeholder="https://" aria-label="Link" data-text-edit-control="a" aria-disabled="true">
+    <div class="row gap-2">
+        <input type="url" class="sm grow" x-text-edit.a="" placeholder="https://" aria-label="Link" data-text-edit-control="a" aria-disabled="true">
+        <button class="ghost sm" x-text-edit.unlink="" data-text-edit-control="unlink" type="button" aria-disabled="true" aria-pressed="false">Unlink</button>
+    </div>
     <div x-text-edit="post" aria-label="Post" style="--text-edit-min-height: 4rem" data-text-edit="markdown" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true"><p>Visit <a href="https://manifestx.dev">Manifest</a> today.</p></div>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <hr>
-<h2 id="typing-markdown">Typing Markdown</h2><p>Type markdown and the line converts when you press Enter. Block shortcuts — headings, lists, quotes — work at the start of a line; inline marks convert anywhere. <code>.literal</code> turns the shortcuts off.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<h2 id="typing-markdown">Typing Markdown</h2><p>Type markdown and it becomes the real thing. Inline marks — <code>**bold**</code>, <code>*italic*</code>, <code>`code`</code> — convert the moment you type the closing marker. Block shortcuts — headings, lists, quotes — work at the start of a line and convert when you press Enter. <code>.literal</code> turns the shortcuts off.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ draft: '' }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit</span>=<span class="hljs-string">"draft"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Type ## Title and press Enter"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Draft"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -1018,7 +1016,7 @@ Select a word, then press **Bold**.</pre>
 </tbody></table>
 <hr>
 <h2 id="tables">Tables</h2><p>Tables are <code>.html</code> only. Every operation is a command and is disabled while the caret is outside a table. Drag a cell border to resize.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ doc: '&lt;table&gt;&lt;tr&gt;&lt;td&gt;Stem&lt;/td&gt;&lt;td&gt;Price&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Rose&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;' }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.table.3x2</span>&gt;</span>Insert 3×2<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -1043,7 +1041,51 @@ Select a word, then press **Bold**.</pre>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
-<p><code>merge</code> joins the selected cells, or the caret's cell with the one to its right. Tab walks cell to cell and adds a row past the last one; arrows leave a cell only at its edge.</p>
+<p><code>merge</code> joins the selected cells, or the caret's cell with the one to its right. Tab walks cell to cell and adds a row past the last one; arrows leave a cell only at its edge. Inserting a table while the caret is inside one lands the new table after it — tables never nest.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>table</code></td>
+<td>Insert; size as a modifier or expression: <code>.table.3x2</code>, <code>.table="cols + 'x' + rows"</code> (default 3×3)</td>
+</tr>
+<tr>
+<td><code>row-before</code>, <code>row-after</code></td>
+<td>Add a row above / below the caret's</td>
+</tr>
+<tr>
+<td><code>row-remove</code></td>
+<td>Remove the caret's row</td>
+</tr>
+<tr>
+<td><code>column-before</code>, <code>column-after</code></td>
+<td>Add a column before / after the caret's</td>
+</tr>
+<tr>
+<td><code>column-remove</code></td>
+<td>Remove the caret's column</td>
+</tr>
+<tr>
+<td><code>merge</code></td>
+<td>Join the selected cells, or the caret's cell with its right neighbour</td>
+</tr>
+<tr>
+<td><code>split</code></td>
+<td>Undo a merge: split the caret's spanning cell</td>
+</tr>
+<tr>
+<td><code>table-header</code></td>
+<td>Toggle the first row between header and body cells</td>
+</tr>
+<tr>
+<td><code>table-remove</code></td>
+<td>Remove the whole table</td>
+</tr>
+</tbody></table>
 <hr>
 <h2 id="keyboard">Keyboard</h2><table>
 <thead>
@@ -1080,15 +1122,17 @@ Select a word, then press **Bold**.</pre>
 <td>Cmd/Ctrl + B / I / U</td>
 <td>Bold / italic / underline (<code>.html</code>)</td>
 </tr>
-<tr>
-<td>Cmd/Ctrl + K</td>
-<td>Toggle a link: removes the one at the caret, otherwise asks for a URL (the area's <code>x-text-edit.a</code> field where there is one) and links the selection</td>
-</tr>
 </tbody></table>
 <p>Pasted content keeps its text and marks, not the source's styling.</p>
 <hr>
-<h2 id="scattered-controls">Scattered Controls</h2><p>A control finds its area in this order: the nearest ancestor with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-text-edit-for="selector"</code>; else the nearest ancestor holding exactly one area; else the last focused area. A shared toolbar is disabled until an area has been focused.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<h2 id="scattered-controls">Scattered Controls</h2><p>A control finds its area in this order:</p>
+<ol>
+<li>The nearest ancestor with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-text-edit-for="selector"</code>.</li>
+<li>The nearest ancestor holding exactly one area.</li>
+<li>The last focused area.</li>
+</ol>
+<p>A shared toolbar is disabled until an area has been focused.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ a: 'First **draft**', b: 'Second draft' }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.strong</span>&gt;</span>Bold (last focused)<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -1113,45 +1157,38 @@ Select a word, then press **Bold**.</pre>
 
 <p>Controls disable themselves while the caret sits in some other editable element, so a page-level toolbar can't write into the wrong field.</p>
 <hr>
-<h2 id="selection-menu">Selection Menu</h2><p>The area fires <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">text-edit:selection</code> with <code>{ collapsed, text, x, y, width, height, top, right, bottom, left }</code>, or <code>null</code> once the selection is gone. The same box is written as <code>--text-edit-selection-x</code>, <code>-y</code>, <code>-width</code>, <code>-height</code> and <code>-center</code> on the area and on <code>:root</code>, so a popover positions itself without script.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<h2 id="selection-menu">Selection Menu</h2><p>Put <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-text-edit-menu</code> on an element holding commands and it becomes a selection bubble: shown over the selection of the area it belongs to (found the same way any control finds its area), hidden once the selection is gone. It's promoted to a manual popover, so the click that makes the selection can't close it.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
-<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ post: 'Select some of this text.',
-        bubble(d) {
-            const el = this.$refs.menu, open = el.matches(':popover-open'), want = !!d &amp;&amp; !d.collapsed;
-            if (want &amp;&amp; !open) el.showPopover();
-            if (!want &amp;&amp; open) el.hidePopover();
-        } }"</span>
-     @<span class="hljs-attr">text-edit:selection</span>=<span class="hljs-string">"bubble($event.detail)"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">popover</span>=<span class="hljs-string">"manual"</span> <span class="hljs-attr">x-ref</span>=<span class="hljs-string">"menu"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"position: fixed; margin: 0; inset: auto;
-         transform: translate(-50%, -125%); left: var(--text-edit-selection-center); top: var(--text-edit-selection-y)"</span>&gt;</span>
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ post: 'Select some of this text.' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">x-text-edit-menu</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.strong</span>&gt;</span>Bold<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.em</span>&gt;</span>Italic<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit</span>=<span class="hljs-string">"post"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Post"</span> @<span class="hljs-attr">focusout</span>=<span class="hljs-string">"bubble(null)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit</span>=<span class="hljs-string">"post"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Post"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<aside class="frame"><div x-data="{ post: 'Select some of this text.', bubble(d) { const el = this.$refs.menu, open = el.matches(':popover-open'), want = !!d &amp;&amp; !d.collapsed; if (want &amp;&amp; !open) el.showPopover(); if (!want &amp;&amp; open) el.hidePopover(); } }" @text-edit:selection="bubble($event.detail)" class="w-full">
-    <div popover="manual" x-ref="menu" class="row gap-1 p-1 bg-surface-1 border border-line rounded shadow" style="position: fixed; margin: 0; inset: auto; transform: translate(-50%, -125%); left: var(--text-edit-selection-center); top: var(--text-edit-selection-y)">
+<aside class="frame"><div x-data="{ post: 'Select some of this text.' }" class="w-full">
+    <menu class="unstyle" x-text-edit-menu="" popover="manual" data-text-edit-menu="">
         <button class="ghost sm" x-text-edit.strong="" data-text-edit-control="strong" type="button" aria-disabled="false" aria-pressed="false">Bold</button>
         <button class="ghost sm" x-text-edit.em="" data-text-edit-control="em" type="button" aria-disabled="false" aria-pressed="false">Italic</button>
-    </div>
-    <div x-text-edit="post" aria-label="Post" @focusout="bubble(null)" style="--text-edit-min-height: 4rem" data-text-edit="markdown" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true" data-hydrate-id="h8"><p>Select some of this text.</p></div>
+    </menu>
+    <div x-text-edit="post" aria-label="Post" style="--text-edit-min-height: 4rem" data-text-edit="markdown" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true"><p>Select some of this text.</p></div>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
-<p>Use <code>popover="manual"</code>: an auto popover closes on the outside click that selects the text. <code>focusout</code> covers clicks that land outside the editor.</p>
+<p>For a menu of your own, the same plumbing is exposed directly: the area fires <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">text-edit:selection</code> with <code>{ collapsed, text, x, y, width, height, top, right, bottom, left }</code>, or <code>null</code> once the selection is gone, and the same box is written as <code>--text-edit-selection-x</code>, <code>-y</code>, <code>-width</code>, <code>-height</code> and <code>-center</code> custom properties on the area and on <code>:root</code> — so anything can position itself over the selection without script.</p>
 <hr>
-<h2 id="editing-a-data-value">Editing a Data Value</h2><p>Bind the editor to a field of a <a href="/docs/core-plugins/local-data">data source</a> row and the edit is stored in that row — the field simply holds the markup.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<h2 id="editing-a-data-value">Editing a Data Value</h2><p>Bind the editor to a field of a <a href="/docs/core-plugins/local-data">data source</a> row and the edit is stored in that row — the field simply holds the markup. Below, each editor is bound to a product's <code>name</code>; the code on the right isn't part of the pattern, it just shows the stored value updating as you type.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"p in $x.example.products"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"p.name"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit.html.minimal</span>=<span class="hljs-string">"p.name"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
-<aside class="frame"><div class="col gap-2 w-full">
+<aside class="frame"><div class="col gap-3 w-full">
     <template x-for="p in ($x.example.products || []).slice(0, 3)" :key="p.name">
-        <div class="row gap-3 items-center">
-            <div x-text-edit.html.minimal="p.name" aria-label="Name" class="grow" style="--text-edit-min-height: 2.5rem; --text-edit-padding: 0.4rem 0.6rem"></div>
-            <code class="text-xs" x-text="p.name"></code>
+        <div class="grid grid-cols-2 gap-4 items-center">
+            <div x-text-edit.html.minimal="p.name" aria-label="Name" style="--text-edit-min-height: 2.5rem; --text-edit-padding: 0.4rem 0.6rem"></div>
+            <code class="text-xs text-content-subtle" x-text="'name: ' + JSON.stringify(p.name)"></code>
         </div>
     </template>
 </div></aside>
@@ -1159,7 +1196,7 @@ Select a word, then press **Bold**.</pre>
 
 <hr>
 <h2 id="page-styling">Page Styling</h2><p>Add <code>.page</code> to <code>font</code>, <code>size</code>, <code>leading</code>, <code>align</code>, <code>color</code> or <code>background</code> and the command styles the whole area instead of the selection. Page styles live as CSS variables on the area, not as tags in the content, so the stored document stays clean. Read or assign them with <code>$text.page</code>; <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">text-edit:page</code> fires with the current set whenever they change.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ doc: '&lt;p&gt;Page styles live outside the document.&lt;/p&gt;', look: {} }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">x-text-edit.font.page</span>&gt;</span>
@@ -1177,17 +1214,17 @@ Select a word, then press **Bold**.</pre>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ doc: '&lt;p&gt;Page styles live outside the document.&lt;/p&gt;', look: {} }" class="col gap-2 w-full">
     <div class="row-wrap gap-1">
-        <select class="sm hug" x-text-edit.font.page="" aria-label="Page font" data-text-edit-page="" data-text-edit-control="font" aria-disabled="false">
+        <select class="ghost sm" x-text-edit.font.page="" aria-label="Page font" data-text-edit-page="" data-text-edit-control="font" aria-disabled="false">
             <option value="">Default</option>
             <option value="Georgia">Georgia</option>
             <option value="ui-monospace">Mono</option>
         </select>
-        <select class="sm hug" x-text-edit.leading.page="" aria-label="Page spacing" data-text-edit-page="" data-text-edit-control="leading" aria-disabled="false">
+        <select class="ghost sm" x-text-edit.leading.page="" aria-label="Page spacing" data-text-edit-page="" data-text-edit-control="leading" aria-disabled="false">
             <option value="">Default</option>
             <option value="2">Double</option>
         </select>
     </div>
-    <div x-text-edit.html="doc" aria-label="Document" @text-edit:page="look = $event.detail" style="--text-edit-min-height: 4rem" data-text-edit="html" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true" data-hydrate-id="h9"><p>Page styles live outside the document.</p></div>
+    <div x-text-edit.html="doc" aria-label="Document" @text-edit:page="look = $event.detail" style="--text-edit-min-height: 4rem" data-text-edit="html" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true" data-hydrate-id="h8"><p>Page styles live outside the document.</p></div>
     <code class="text-xs" x-text="JSON.stringify(look)">{}</code>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
@@ -1230,26 +1267,26 @@ Select a word, then press **Bold**.</pre>
 <td>Focus the area; select everything</td>
 </tr>
 </tbody></table>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ doc: '&lt;p&gt;Hello &lt;strong&gt;world&lt;/strong&gt;&lt;/p&gt;', md: '' }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$text.selectAll()"</span>&gt;</span>Select all<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"doc = ''"</span>&gt;</span>New page<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"!doc"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"doc = ''"</span>&gt;</span>Clear<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit.html</span>=<span class="hljs-string">"doc"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Document"</span> @<span class="hljs-attr">input</span>=<span class="hljs-string">"md = $text.markdown()"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"md"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ doc: '&lt;p&gt;Hello &lt;strong&gt;world&lt;/strong&gt;&lt;/p&gt;', md: '' }" class="col gap-2 w-full">
-    <div class="row-wrap gap-1 items-center">
+    <div class="row gap-1">
         <button class="ghost sm" @click="$text.selectAll()">Select all</button>
-        <button class="ghost sm" @click="doc = ''">New page</button>
-        <small class="text-content-subtle">Click in the editor first</small>
+        <button class="ghost sm" :disabled="!doc" @click="doc = ''">Clear</button>
     </div>
-    <div x-text-edit.html="doc" aria-label="Document" @input="md = $text.markdown()" style="--text-edit-min-height: 4rem" data-text-edit="html" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true" data-hydrate-id="h10"><p>Hello <strong>world</strong></p></div>
+    <div x-text-edit.html="doc" aria-label="Document" @input="md = $text.markdown()" style="--text-edit-min-height: 4rem" data-text-edit="html" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true" data-hydrate-id="h9"><p>Hello <strong>world</strong></p></div>
     <pre class="text-xs p-2 bg-surface-2 rounded whitespace-pre-wrap" x-text="md || '(markdown appears here as you type)'">(markdown appears here as you type)</pre>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
+<p>Literal <code>*</code> and <code>_</code> come back escaped from <code>markdown()</code> — in an <code>.html</code> area they're ordinary characters, and the escape is what keeps them ordinary on the way back in.</p>
 <hr>
 <h2 id="styles">Styles</h2><p>The area uses <code>--color-surface-1</code>, <code>--color-line</code>, <code>--color-content-subtle</code>, <code>--color-brand-content</code> and <code>--radius</code> from the <a href="/docs/styles/theme">theme</a>. Set these per instance:</p>
 <table>
@@ -1351,9 +1388,9 @@ Select a word, then press **Bold**.</pre>
       <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
 
       <div role="group" class="outlined rounded-full">
-        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h11"></button>
-        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h12"></button>
-        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h13"></button>
+        <button x-color="'light'" class="sm rounded-s-full ghost" :class="$color.current === 'light' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h10"></button>
+        <button x-color="'dark'" class="sm ghost" :class="$color.current === 'dark' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h11"></button>
+        <button x-color="'system'" class="sm ghost rounded-e-full bg-brand-surface/50 dark:bg-brand-surface/35 text-brand-content pointer-events-none" :class="$color.current === 'system' ? 'bg-brand-surface/50 dark:bg-brand-surface/35  text-brand-content pointer-events-none' : 'ghost'" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h12"></button>
       </div>
     </div>
   </div>
@@ -1385,5 +1422,5 @@ Select a word, then press **Bold**.</pre>
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"data-text-edit":null,"data-text-edit-bound":null,"contenteditable":null,"role":null,"aria-multiline":null}},{"id":"h9","attrs":{"data-text-edit":null,"data-text-edit-bound":null,"contenteditable":null,"role":null,"aria-multiline":null}},{"id":"h10","attrs":{"data-text-edit":null,"data-text-edit-bound":null,"contenteditable":null,"role":null,"aria-multiline":null}},{"id":"h11","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h12","attrs":{"type":null}},{"id":"h13","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h14","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h15","attrs":{"type":null}},{"id":"h16","attrs":{"type":null}},{"id":"h17","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"data-text-edit":null,"data-text-edit-bound":null,"contenteditable":null,"role":null,"aria-multiline":null}},{"id":"h9","attrs":{"data-text-edit":null,"data-text-edit-bound":null,"contenteditable":null,"role":null,"aria-multiline":null}},{"id":"h10","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h11","attrs":{"type":null}},{"id":"h12","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h13","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h14","attrs":{"type":null}},{"id":"h15","attrs":{"type":null}},{"id":"h16","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
 </body></html>

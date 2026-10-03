@@ -19,19 +19,19 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
   <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
-<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><style>@view-transition { navigation: none }</style><meta property="og:title" content="Router — Manifest"><meta property="og:description" content="Set page navigation paths in your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/router"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-core-plugins-router.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Router — Manifest"><meta property="twitter:description" content="Set page navigation paths in your project."><meta property="twitter:image" content="/og/docs-core-plugins-router.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Router — Manifest","description":"Set page navigation paths in your project.","image":"/og/docs-core-plugins-router.png","url":"https://manifestx.dev/docs/core-plugins/router"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Router","item":"https://manifestx.dev/docs/core-plugins/router"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="Router — Manifest"><meta property="og:description" content="Set page navigation paths in your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/core-plugins/router"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-core-plugins-router.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Router — Manifest"><meta property="twitter:description" content="Set page navigation paths in your project."><meta property="twitter:image" content="/og/docs-core-plugins-router.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Router — Manifest","description":"Set page navigation paths in your project.","image":"/og/docs-core-plugins-router.png","url":"https://manifestx.dev/docs/core-plugins/router"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Core Plugins","item":"https://manifestx.dev/docs/core-plugins"},{"@type":"ListItem","position":4,"name":"Router","item":"https://manifestx.dev/docs/core-plugins/router"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/core-plugins/router">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral selected brand !text-content-stark pointer-events-none" href="/docs/core-plugins/router" aria-current="page">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -802,7 +796,7 @@
 </aside>
 <hr>
 <h2 id="setup">Setup</h2><p>The router is included in <code>manifest.js</code> with all core plugins, or can be selectively loaded.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 <pre x-code="html" name="Selective" data-code-block-built="yes" aria-label="Selective" role="tabpanel" data-code-processed="yes" id="selective-panel-1" aria-labelledby="selective-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
@@ -811,7 +805,7 @@
 
 <hr>
 <h2 id="routing">Routing</h2><p><code>index.html</code> is the entrypoint for rendering, where high-level elements, layout structures, and components can be applied. Within <code>index.html</code> or any component HTML file, use the <code>x-route</code> attribute to make any element conditional on a URL path.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="index.html-tab-0" aria-selected="true" tabindex="0">index.html</button><button type="button" role="tab" id="home.html-tab-1" aria-selected="false" tabindex="-1">home.html</button><button type="button" role="tab" id="about.html-tab-2" aria-selected="false" tabindex="-1">about.html</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="index.html-tab-0" aria-selected="true" tabindex="0">index.html</button><button type="button" role="tab" id="home.html-tab-1" aria-selected="false" tabindex="-1">home.html</button><button type="button" role="tab" id="about.html-tab-2" aria-selected="false" tabindex="-1">about.html</button></div></header>
 
 <pre x-code="html" name="index.html" data-code-block-built="yes" aria-label="index.html" role="tabpanel" data-code-processed="yes" id="index.html-panel-0" aria-labelledby="index.html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
@@ -874,7 +868,7 @@
 <p>Each component is fetched at most once per page, and repeat encounters reuse the cache. To opt a specific link out of hover prefetching, give it the <code>data-no-prefetch</code> attribute (the router will still navigate normally, just without warming the components in advance).</p>
 <hr>
 <h2 id="route-magic-property">Route Magic Property</h2><p>The router provides a <code>$route</code> magic property that returns the current route as a string, enabling conditional statements.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Current logical route: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$route"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"$route === '/docs/core-plugins/router' ? 'text-brand-content' : ''"</span>&gt;</span>I'm a brand color because of the route.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
@@ -884,7 +878,7 @@
 
 <hr>
 <h2 id="page-head-content">Page Head Content</h2><p>The static content in the <code>index.html</code> <code>&lt;head&gt;</code> tag is global across all routes. To make head content like the title, metas, scripts, or stylesheets conditional to a specific route, place them in a <code>&lt;template data-head&gt;</code> tag, subject to its own route condition or that of a parent's.</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="index.html-tab-0" aria-selected="true" tabindex="0">index.html</button><button type="button" role="tab" id="special-page.html-tab-1" aria-selected="false" tabindex="-1">special-page.html</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="index.html-tab-0" aria-selected="true" tabindex="0">index.html</button><button type="button" role="tab" id="special-page.html-tab-1" aria-selected="false" tabindex="-1">special-page.html</button></div></header>
 
 <pre x-code="html" name="index.html" data-code-block-built="yes" aria-label="index.html" role="tabpanel" data-code-processed="yes" id="index.html-panel-0" aria-labelledby="index.html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>

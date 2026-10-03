@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -797,7 +791,7 @@
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/core-plugins/device.md" data-mnfst-prerender-clone="1"><h1 id="device">Device</h1><p>Share sheets, secure storage, deep links, push, lifecycle, haptics, biometrics and the camera as Alpine magics that fall back to the web.</p>
 <hr>
 <h2 id="overview">Overview</h2><p>Each magic talks to Capacitor inside a Capacitor app and to a web equivalent, or an honest no-op, in a browser. The same markup runs as a website, an installed PWA and a packaged app.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$device.online ? 'Online' : 'Offline'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$device.standalone ? 'Installed' : 'In a browser tab'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
@@ -811,7 +805,7 @@
 
 <hr>
 <h2 id="setup">Setup</h2><p>Device is opt-in. It loads on its own when a page uses one of its magics, when <code>manifest.json</code> has a <code>device</code> block, or inside a Capacitor app. The <code>+</code> prefix keeps the default plugins and adds it explicitly. <code>native</code> still works as an alias in both places.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="script-tag-tab-0" aria-selected="true" tabindex="0">Script Tag</button><button type="button" role="tab" id="manifest.json-tab-1" aria-selected="false" tabindex="-1">manifest.json</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="script-tag-tab-0" aria-selected="true" tabindex="0">Script Tag</button><button type="button" role="tab" id="manifest.json-tab-1" aria-selected="false" tabindex="-1">manifest.json</button></div></header>
 
 <pre x-code="html" name="Script Tag" data-code-block-built="yes" aria-label="Script Tag" role="tabpanel" data-code-processed="yes" id="script-tag-panel-0" aria-labelledby="script-tag-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
     <span class="hljs-attr">data-plugins</span>=<span class="hljs-string">"+device"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
@@ -855,7 +849,7 @@
 <td>Coarse pointer</td>
 </tr>
 </tbody></table>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!$device.online"</span>&gt;</span>You're offline. Changes sync when you're back.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$device.native"</span>&gt;</span>Pay with Face ID<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -889,7 +883,7 @@
 <p>The same state is stamped on <code>&lt;html&gt;</code> as <code>data-os</code>, <code>data-platform</code>, <code>data-online</code>, <code>data-standalone</code> and <code>data-native</code>, which drive the <code>.native-only</code>, <code>.web-only</code>, <code>.offline-only</code>, <code>.online-only</code> and <code>.standalone-only</code> classes and the <a href="/docs/styles/utilities#operating-system">OS classes</a>.</p>
 <hr>
 <h2 id="share">$share</h2><p><code>$share()</code> opens the native share sheet inside a Capacitor app (<code>Share</code>) and the Web Share sheet in a browser. Without Web Share it copies the URL, or the text, to the clipboard. It resolves <code>{ shared, method, cancelled? }</code>; <code>method</code> is <code>native</code>, <code>web</code>, <code>clipboard</code> or <code>none</code>.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$share({ title: 'Manifest', text: 'Supercharged HTML', url: 'https://manifestx.dev' })"</span>&gt;</span>Share<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ ready: false, r: null }" x-init="(function () { let n = 0; const tick = () =&gt; Alpine.store('links') ? ready = true : (n++ &lt; 250 &amp;&amp; setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device', document.querySelector('script[data-version]')?.dataset.version); tick(); })()">
@@ -907,7 +901,7 @@
 
 <hr>
 <h2 id="camera">$camera</h2><p><code>photo()</code> captures and <code>pick()</code> chooses from the library (<code>Camera</code>). Both resolve <code>{ dataUrl, format }</code>, or <code>{ cancelled: true }</code>. On the web both open a file picker; on a phone <code>photo()</code> asks for the camera.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ shot: null }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"shot = await $camera.photo()"</span>&gt;</span>Take a photo<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -936,7 +930,7 @@
 
 <hr>
 <h2 id="app">$app</h2><p><code>$app.active</code> is <code>true</code> in the foreground. Capacitor reports <code>appStateChange</code> (<code>App</code>); the web uses <code>visibilitychange</code>, <code>pageshow</code> and <code>pagehide</code>. <code>$app.onChange(fn)</code> runs on each transition.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ away: 0 }"</span> <span class="hljs-attr">x-init</span>=<span class="hljs-string">"$app.onChange(active =&gt; { if (!active) away++ })"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$app.active ? 'Active' : 'In the background'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
@@ -959,7 +953,7 @@
 
 <hr>
 <h2 id="secure">$secure</h2><p>Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore through a plugin registered as <code>SecureStorage</code>. On the web it is <code>localStorage</code> under an <code>mnfst:</code> prefix, which is not encrypted. <code>get()</code> resolves a string or <code>null</code>.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ value: null }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"await $secure.set('token', 'abc123')"</span>&gt;</span>Set<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -987,7 +981,7 @@
 <p><code>keys()</code> lists stored keys and <code>clear()</code> removes them all. If your plugin's method names differ, hand it over once with <code>$secure.use(adapter)</code>.</p>
 <hr>
 <h2 id="haptics">$haptics</h2><p><code>impact()</code>, <code>notification()</code> and <code>selection()</code> map to Capacitor <code>Haptics</code>. The web falls back to <code>navigator.vibrate</code>, which desktop browsers and iOS Safari ignore.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$haptics.impact('LIGHT')"</span>&gt;</span>Light<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$haptics.impact('HEAVY')"</span>&gt;</span>Heavy<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -1012,7 +1006,7 @@
 <p><code>impact</code> takes <code>LIGHT</code>, <code>MEDIUM</code> (default) or <code>HEAVY</code>; <code>notification</code> takes <code>SUCCESS</code> (default), <code>WARNING</code> or <code>ERROR</code>. <code>vibrate(ms)</code> is a plain buzz.</p>
 <hr>
 <h2 id="links">$links</h2><p>Inside a Capacitor app (<code>App</code>) a tapped universal link like <code>https://app.example.com/order/123</code>, or a custom scheme like <code>myapp://order/123</code>, is routed to <code>/order/123</code> through the <a href="/docs/core-plugins/router">router</a>. <code>$links.open(url)</code> runs the same path by hand; <code>$links.last</code> keeps the latest inbound URL.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$links.open('myapp://docs/core-plugins/device')"</span>&gt;</span>Open a deep link<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$links.last"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span></code></pre>
@@ -1034,7 +1028,7 @@
 <p><code>$links.on(fn)</code> replaces the default routing; <code>fn</code> receives <code>{ url, path }</code>.</p>
 <hr>
 <h2 id="push">$push</h2><p><code>$push.permission</code> is <code>prompt</code>, <code>granted</code>, <code>denied</code> or <code>unsupported</code>. Nothing is asked until you call <code>$push.request()</code>, which prompts and resolves the new state.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$push.permission"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$push.request()"</span>&gt;</span>Enable notifications<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
@@ -1056,7 +1050,7 @@
 <p>Inside a Capacitor app (<code>PushNotifications</code>), <code>register()</code> registers with APNs or FCM, <code>onToken(fn)</code> receives the device token for your backend, <code>onReceive(fn)</code> fires in the foreground, and a tapped notification routes to its <code>url</code> or <code>route</code> unless <code>onTap(fn)</code> takes over. On the web, permission maps to the Notification API; <code>register()</code> is a no-op and <code>token</code> stays <code>null</code>.</p>
 <hr>
 <h2 id="biometric">$biometric</h2><p><code>available()</code> resolves <code>true</code> when a Capacitor biometric plugin (<code>BiometricAuth</code> or <code>NativeBiometric</code>) reports Face ID or Touch ID. <code>verify({ reason })</code> resolves <code>{ verified: true }</code>, or <code>{ verified: false, error }</code>. The web has no equivalent: <code>available()</code> is <code>false</code> and <code>verify()</code> reports <code>unsupported</code>.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ can: null }"</span> <span class="hljs-attr">x-init</span>=<span class="hljs-string">"can = await $biometric.available()"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"can"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$biometric.verify({ reason: 'Confirm payment' })"</span>&gt;</span>Pay with Face ID<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>

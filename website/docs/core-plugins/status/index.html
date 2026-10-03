@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -797,7 +791,7 @@
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/core-plugins/status.md" data-mnfst-prerender-clone="1"><h1 id="status">Status</h1><p>Track the health of your services and display it with <code>$status</code>.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>The status plugin is included in <code>manifest.js</code> with all core plugins, or can be selectively loaded. It activates when <code>manifest.json</code> contains a <code>status</code> block.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-plugins-(default)-tab-0" aria-selected="true" tabindex="0">All Plugins (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Plugins (default)" data-code-block-built="yes" aria-label="All Plugins (default)" role="tabpanel" data-code-processed="yes" id="all-plugins-(default)-panel-0" aria-labelledby="all-plugins-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
@@ -883,7 +877,7 @@
 <li><strong><code>url</code></strong> has the browser fetch the endpoint and infer state from the response (<code>2xx</code> is operational; a <code>degradedAbove</code> latency threshold marks it degraded). Simplest, but bound by CORS and run per visitor, so it suits same-origin or CORS-enabled endpoints.</li>
 <li><strong><code>feed</code></strong> reads a small JSON document your backend produces and maps its state onto the Manifest vocabulary. This avoids CORS and can represent what a probe cannot, such as background workers and queues.</li>
 </ul>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="probe-tab-0" aria-selected="true" tabindex="0">Probe</button><button type="button" role="tab" id="feed-tab-1" aria-selected="false" tabindex="-1">Feed</button><button type="button" role="tab" id="feed-response-tab-2" aria-selected="false" tabindex="-1">Feed response</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="probe-tab-0" aria-selected="true" tabindex="0">Probe</button><button type="button" role="tab" id="feed-tab-1" aria-selected="false" tabindex="-1">Feed</button><button type="button" role="tab" id="feed-response-tab-2" aria-selected="false" tabindex="-1">Feed response</button></div></header>
 
 <pre x-code="json" name="Probe" data-code-block-built="yes" aria-label="Probe" role="tabpanel" data-code-processed="yes" id="probe-panel-0" aria-labelledby="probe-tab-0"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
@@ -1106,7 +1100,7 @@
 </tr>
 </tbody></table>
 <p>Address a service by name, or iterate <code>$status</code> directly — each item is a health object, so you read it with dot notation just like a <code>$x</code> source.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$status.API.state"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 
@@ -1119,7 +1113,7 @@
 
 <hr>
 <h2 id="ui-templates">UI Templates</h2><p>The plugin gives you state; the presentation is yours. These templates range from a full status page down to a single indicator — each reads the same <code>$status</code> values, including the built-in <code>service.uptime</code>, the <code>service.history</code> meter, and <code>$status.incidents</code>. History accrues live as the plugin polls (or is hydrated from a feed); incidents are logged whenever you post an update with <code>$status.set</code>.</p>
-<pre x-code-group="" lines="" collapse="10" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="status-page-tab-0" aria-selected="true" tabindex="0">Status Page</button><button type="button" role="tab" id="service-cards-tab-1" aria-selected="false" tabindex="-1">Service Cards</button><button type="button" role="tab" id="banner-tab-2" aria-selected="false" tabindex="-1">Banner</button><button type="button" role="tab" id="notification-dot-tab-3" aria-selected="false" tabindex="-1">Notification Dot</button></div></header>
+<pre x-code-group="" lines="" collapse="10" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="status-page-tab-0" aria-selected="true" tabindex="0">Status Page</button><button type="button" role="tab" id="service-cards-tab-1" aria-selected="false" tabindex="-1">Service Cards</button><button type="button" role="tab" id="banner-tab-2" aria-selected="false" tabindex="-1">Banner</button><button type="button" role="tab" id="notification-dot-tab-3" aria-selected="false" tabindex="-1">Notification Dot</button></div></header>
 
 <pre x-code="html" name="Status Page" lines="" collapse="10" data-code-block-built="yes" aria-label="Status Page" role="tabpanel" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes" id="status-page-panel-0" aria-labelledby="status-page-tab-0"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span><span>40</span><span>41</span><span>42</span><span>43</span><span>44</span><span>45</span><span>46</span><span>47</span><span>48</span><span>49</span><span>50</span><span>51</span><span>52</span><span>53</span><span>54</span><span>55</span><span>56</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-10 w-full"</span>&gt;</span>
 
@@ -1468,7 +1462,7 @@
 <td>Pulse a <code>heartbeat</code> signal; absence past its window reads as down.</td>
 </tr>
 </tbody></table>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$status.set('API', 'major_outage', 'Investigating elevated error rates')"</span>&gt;</span>Report outage<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$status.clear('API')"</span>&gt;</span>Resolve<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>

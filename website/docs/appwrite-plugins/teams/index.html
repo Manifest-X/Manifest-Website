@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -832,7 +826,7 @@
 <p>For a guest-only sandbox (a demo workspace for anonymous visitors that signed-in users should never receive), combine <code>"template"</code> with <code>"guests": true, "authenticated": false</code>.</p>
 </div></aside>
 <p>Every user can generate custom teams, view all teams, and manage them with the respective permissions. Existing teams can also be duplicated, optionally cloning their members and roles to spin up a new workspace from a known configuration.</p>
-<pre x-code-group="" numbers="" copy="" collapse="10" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="create-team-tab-0" aria-selected="true" tabindex="0">Create Team</button><button type="button" role="tab" id="list-&amp;-manage-teams-tab-1" aria-selected="false" tabindex="-1">List &amp; Manage Teams</button></div></header>
+<pre x-code-group="" numbers="" copy="" collapse="10" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="create-team-tab-0" aria-selected="true" tabindex="0">Create Team</button><button type="button" role="tab" id="list-&amp;-manage-teams-tab-1" aria-selected="false" tabindex="-1">List &amp; Manage Teams</button></div></header>
 
 <pre x-code="html" name="Create Team" collapse="10" data-code-block-built="yes" aria-label="Create Team" role="tabpanel" data-code-processed="yes" id="create-team-panel-0" aria-labelledby="create-team-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Team name input --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Team name"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Team name"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"$auth.newTeamName"</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"$auth.isCreatingTeam()"</span> /&gt;</span>
@@ -1017,7 +1011,7 @@
 <span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p><code>creatorRoles</code> takes precedence over <code>creatorRole</code>. When neither is set, the creator is assigned the first defined role.</p>
 <p>Owner-only is the safest choice for a creator who should have full, future-proof access: a member holding <em>no</em> custom role resolves to <strong>all</strong> permissions (including any you add later), so they can never be locked out. By contrast, assigning the creator a custom role scopes them to exactly that role's permissions — if you later edit that role down, the creator loses access too. Prefer <code>creatorRoles: []</code> for owners; reserve named roles for invited members.</p>
-<pre x-code-group="" numbers="" copy="" collapse="10" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="create-custom-role-tab-0" aria-selected="true" tabindex="0">Create Custom Role</button><button type="button" role="tab" id="manage-roles-tab-1" aria-selected="false" tabindex="-1">Manage Roles</button></div></header>
+<pre x-code-group="" numbers="" copy="" collapse="10" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="create-custom-role-tab-0" aria-selected="true" tabindex="0">Create Custom Role</button><button type="button" role="tab" id="manage-roles-tab-1" aria-selected="false" tabindex="-1">Manage Roles</button></div></header>
 
 <pre x-code="html" name="Create Custom Role" collapse="10" data-code-block-built="yes" aria-label="Create Custom Role" role="tabpanel" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes" id="create-custom-role-panel-0" aria-labelledby="create-custom-role-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Role name input --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Role name"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Role name"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"$auth.newRoleName"</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"!$auth.canManageRoles() || $auth.isActionDisabled('manageRoles') || $auth.isCreatingRole()"</span> /&gt;</span>
@@ -1125,7 +1119,7 @@
 <hr>
 <h2 id="members">Members</h2><p>Team members can be invited, updated, and removed, subject to the respective user permissions.</p>
 <p>In your Appwrite project under <b>Auth</b> &gt; <b>Settings</b>, ensure <b>Team invites</b> is toggled on. Invitation emails can be customized under <b>Auth</b> &gt; <b>Settings</b> &gt; <b>Invite user</b>.</p>
-<pre x-code-group="" numbers="" copy="" collapse="10" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="invite-members-tab-0" aria-selected="true" tabindex="0">Invite Members</button><button type="button" role="tab" id="list-&amp;-manage-members-tab-1" aria-selected="false" tabindex="-1">List &amp; Manage Members</button></div></header>
+<pre x-code-group="" numbers="" copy="" collapse="10" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="invite-members-tab-0" aria-selected="true" tabindex="0">Invite Members</button><button type="button" role="tab" id="list-&amp;-manage-members-tab-1" aria-selected="false" tabindex="-1">List &amp; Manage Members</button></div></header>
 
 <pre x-code="html" name="Invite Members" collapse="10" data-code-block-built="yes" aria-label="Invite Members" role="tabpanel" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes" id="invite-members-panel-0" aria-labelledby="invite-members-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Email input --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Email"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Email to invite"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"$auth.inviteEmail"</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"$auth.isActionDisabled('inviteMembers')"</span> <span class="hljs-attr">required</span> /&gt;</span>

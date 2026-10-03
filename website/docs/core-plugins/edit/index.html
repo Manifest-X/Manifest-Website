@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -796,29 +790,29 @@
         <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="article?.doc"></div>
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/core-plugins/edit.md" data-mnfst-prerender-clone="1"><h1 id="edit">Edit</h1><p>Turn a live page into its own editor.</p>
 <hr>
-<h2 id="overview">Overview</h2><p><code>x-edit</code> marks a region of the page as editable. Inside it, click text to rewrite it, drag children to reorder them, resize elements and change their classes. Every change is recorded in the region's edit history: undo and redo step through it, it survives a reload, and publishing turns it into changes to your source files.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<h2 id="overview">Overview</h2><p><code>x-edit</code> marks a region of the page as editable. Inside it, elements can be reordered, resized, moved, and text can be edited. Every change is recorded in the region's undo/redo history, it survives reload, and publishing applies changes to your source files.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">x-edit.authoring</span>=<span class="hljs-string">"hero"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Bloom <span class="hljs-symbol">&amp;amp;</span> Bramble<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Seasonal arrangements, delivered weekly.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Click any text to edit it. Drag a line to reorder. Right-click an element for the class menu.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Click any text to edit it. Drag a line to reorder.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <section class="col gap-2 p-4" x-edit.authoring="hero-demo">
     <span class="h3">Bloom &amp; Bramble</span>
     <p>Seasonal arrangements, delivered weekly.</p>
-    <p class="text-content-subtle">Click any text to edit it. Drag a line to reorder. Right-click an element for the class menu.</p>
+    <p class="text-content-subtle">Click any text to edit it. Drag a line to reorder.</p>
 </section>
 </template>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
-<p><code>.authoring</code> turns on the editing UI: a dashed outline, a region label and the floating undo/redo/publish toolbar. Without it the region is just as editable, but nothing announces it — the page looks untouched, and any editing controls are yours to provide.</p>
+<p><code>.authoring</code> applies editing UI on interactions, which can be customized with CSS (see <a href="#styles">Styles</a>). The same UI is available without authoring semantics: put <code>data-edit-ui</code> on a region, or on any ancestor to cover a whole editor view. Without either, a region is just as editable but has no visual cues.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Edit is opt-in and never part of the default bundle, so visitors don't download editor code. The <code>+</code> prefix keeps the default plugins and adds it; <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">Manifest.loadPlugin('edit')</code> loads it from script, so you can load it only for signed-in editors.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="script-tag-tab-0" aria-selected="true" tabindex="0">Script Tag</button><button type="button" role="tab" id="gated-tab-1" aria-selected="false" tabindex="-1">Gated</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="script-tag-tab-0" aria-selected="true" tabindex="0">Script Tag</button><button type="button" role="tab" id="gated-tab-1" aria-selected="false" tabindex="-1">Gated</button></div></header>
 
 <pre x-code="html" name="Script Tag" data-code-block-built="yes" aria-label="Script Tag" role="tabpanel" data-code-processed="yes" id="script-tag-panel-0" aria-labelledby="script-tag-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
     <span class="hljs-attr">data-plugins</span>=<span class="hljs-string">"+edit"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
@@ -828,7 +822,7 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>Editor styles are included in Manifest CSS or as a standalone stylesheet.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
 
 <pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span>&gt;</span></code></pre>
 <pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.edit.css"</span>&gt;</span></code></pre>
@@ -836,15 +830,15 @@
 
 <hr>
 <h2 id="editable-regions">Editable Regions</h2><p><code>x-edit</code> takes a key that names the region. Edits are stored against that key, so keep it stable — renaming it strands the edits already made under the old name. By default a region allows sorting, text and style edits; naming any capability replaces that default with only the ones you name.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
-<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span> <span class="hljs-attr">x-edit.text</span>=<span class="hljs-string">"quote"</span>&gt;</span>
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span> <span class="hljs-attr">x-edit.text</span>=<span class="hljs-string">"quote"</span> <span class="hljs-attr">data-edit-ui</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Click to rewrite this line. Nothing else changes.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">cite</span>&gt;</span>A customer<span class="hljs-tag">&lt;/<span class="hljs-name">cite</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">blockquote</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
 <template x-if="ready">
-<blockquote class="col gap-1 m-0" x-edit.text="quote-demo">
+<blockquote class="col gap-1 m-0" x-edit.text="quote-demo" data-edit-ui="">
     <p class="m-0">Click to rewrite this line. Nothing else changes.</p>
     <cite class="text-content-subtle">A customer</cite>
 </blockquote>
@@ -852,14 +846,14 @@
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
-<p>A text edit is saved when the element loses focus. Only inline formatting is kept: bold, italics, links and similar tags survive, and anything else — including pasted block markup — is reduced to its text.</p>
+<p>Focusing text selects all of it, so replacing a line is one click and typing; click again to place the caret for a smaller edit. A text edit is saved when the element loses focus. Only inline formatting is kept: bold, italics, links and similar tags survive, and anything else — including pasted block markup — is reduced to its text.</p>
 <hr>
-<h2 id="reorder">Reorder</h2><p><code>.sort</code> makes the region's children draggable. Drag with a pointer, or focus a row and press Space to grab it, the arrow keys to move it and Enter to drop it; Escape cancels either way.</p>
+<h2 id="reorder">Reorder</h2><p><code>.sort</code> makes the region's children draggable. Drag by pointer, or focus a row and press Space to grab it, the arrow keys to move it and Enter to drop it; Escape cancels either way. Inside an editing-UI scope each row shows an inline grip on approach.</p>
 <p>Over an <code>x-for</code> list, reordering moves the records themselves: the underlying array changes order, with rows identified by the loop's <code>:key</code>, so records need an <code>id</code>. Add <code>.data</code> — plus a <code>:data-key</code> on each row — to also edit record fields in place. Field edits update the data source, not the HTML.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ tasks: [{ id: 1, label: 'Cut stems' }, { id: 2, label: 'Arrange' }, { id: 3, label: 'Deliver' }] }"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">x-edit.sort.data</span>=<span class="hljs-string">"tasks"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">x-edit.sort.data</span>=<span class="hljs-string">"tasks"</span> <span class="hljs-attr">data-edit-ui</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"task in tasks"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"task.id"</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">:data-key</span>=<span class="hljs-string">"task.id"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"task.label"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
@@ -869,9 +863,9 @@
 <aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="{ tasks: [{ id: 1, label: 'Cut stems' }, { id: 2, label: 'Arrange' }, { id: 3, label: 'Deliver' }] }" class="col gap-3">
-    <ul class="col gap-2 m-0 p-0 list-none" x-edit.sort.data="tasks-demo">
+    <ul class="col gap-2 m-0 p-0 list-none" x-edit.sort.data="tasks-demo" data-edit-ui="">
         <template x-for="task in tasks" :key="task.id">
-            <li class="row items-center gap-3 p-3 bg-surface-1 border border-line rounded" :data-key="task.id"><span x-icon="lucide:grip-vertical" class="text-content-subtle"></span><span x-text="task.label"></span></li>
+            <li class="row items-center p-3 bg-surface-1 border border-line rounded" :data-key="task.id"><span x-text="task.label"></span></li>
         </template>
     </ul>
     <small class="text-content-subtle" x-text="tasks.map(t =&gt; t.label).join(' → ')"></small>
@@ -881,11 +875,60 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <hr>
+<h2 id="move">Move</h2><p>A positioned child — <code>position: absolute</code> or <code>fixed</code> — isn't reordered, it's moved: drag it anywhere in its containing block, or focus it and nudge with the arrow keys (Shift takes a larger step). The new <code>left</code> and <code>top</code> are written in whatever unit the element already uses, so a <code>%</code>-positioned element stays fluid. This is the freeform mode for canvas-style editing; in-flow siblings in the same region still reorder.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-edit.sort</span>=<span class="hljs-string">"stage"</span> <span class="hljs-attr">data-edit-ui</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"position: relative; height: 10rem"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"position: absolute; left: 5%; top: 1rem"</span>&gt;</span>Drag me anywhere<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"position: absolute; left: 50%; top: 5rem"</span>&gt;</span>Me too<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
+<template x-if="ready">
+<div class="bg-surface-2 rounded" x-edit.sort="stage-demo" data-edit-ui="" style="position: relative; height: 10rem">
+    <span class="py-2 px-3 bg-surface-1 border border-line rounded" style="position: absolute; left: 5%; top: 1rem">Drag me anywhere</span>
+    <span class="py-2 px-3 bg-surface-1 border border-line rounded" style="position: absolute; left: 50%; top: 5rem">Me too</span>
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Blocks also drag <strong>between regions</strong>: lift an element out of one static sort region and drop it into another, and the move is recorded like any other edit — undo brings it home, publishing writes it to both places in your source. Cross-region moves work between top-level static regions; rows of an <code>x-for</code> data list belong to their list and reorder in place.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">x-edit.sort</span>=<span class="hljs-string">"monday"</span> <span class="hljs-attr">data-edit-ui</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Cut stems<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Arrange<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">x-edit.sort</span>=<span class="hljs-string">"tuesday"</span> <span class="hljs-attr">data-edit-ui</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Deliver<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
+<template x-if="ready">
+<div class="grid grid-cols-2 gap-4">
+    <div class="col gap-2">
+        <small class="text-content-subtle">Monday</small>
+        <ul class="col gap-2 m-0 p-0 list-none" x-edit.sort="monday-demo" data-edit-ui="">
+            <li class="row items-center p-3 bg-surface-1 border border-line rounded">Cut stems</li>
+            <li class="row items-center p-3 bg-surface-1 border border-line rounded">Arrange</li>
+        </ul>
+    </div>
+    <div class="col gap-2">
+        <small class="text-content-subtle">Tuesday</small>
+        <ul class="col gap-2 m-0 p-0 list-none" x-edit.sort="tuesday-demo" data-edit-ui="">
+            <li class="row items-center p-3 bg-surface-1 border border-line rounded">Deliver</li>
+        </ul>
+    </div>
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
 <h2 id="resize">Resize</h2><p><code>.size</code> adds drag handles. The new size is written in whatever unit the element already uses, and the element's own <code>min-</code> and <code>max-</code> width and height set the limits. Which edges get handles, snap stops and collapse thresholds are configured with the <code>--edit-size-*</code> variables listed under <a href="#styles">Styles</a>.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ w: '16rem' }"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-edit.size</span>=<span class="hljs-string">"panel"</span> @<span class="hljs-attr">edit:size</span>=<span class="hljs-string">"w = $event.detail.css.width"</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-edit.size</span>=<span class="hljs-string">"panel"</span> <span class="hljs-attr">data-edit-ui</span> @<span class="hljs-attr">edit:size</span>=<span class="hljs-string">"w = $event.detail.css.width"</span>
          <span class="hljs-attr">style</span>=<span class="hljs-string">"width: 16rem; height: 5rem; min-width: 8rem; max-width: 24rem;
                 --edit-size-edges: end bottom; --edit-size-snap: 12rem 20rem; --edit-size-snap-distance: 1rem"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"w"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
@@ -894,7 +937,7 @@
 <aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="{ w: '16rem' }">
-    <div class="center bg-surface-2 rounded text-content-subtle" x-edit.size="panel-demo" @edit:size="w = $event.detail.css.width" style="width: 16rem; height: 5rem; min-width: 8rem; max-width: 24rem; --edit-size-edges: end bottom; --edit-size-snap: 12rem 20rem; --edit-size-snap-distance: 1rem">
+    <div class="p-4 bg-surface-2 rounded text-content-subtle" x-edit.size="panel-demo" data-edit-ui="" @edit:size="w = $event.detail.css.width" style="width: 16rem; height: 5rem; min-width: 8rem; max-width: 24rem; --edit-size-edges: end bottom; --edit-size-snap: 12rem 20rem; --edit-size-snap-distance: 1rem">
         <span x-text="w"></span>
     </div>
 </div>
@@ -906,10 +949,10 @@
 <hr>
 <h2 id="block-operations">Block Operations</h2><p>A block is the unit these operations act on: the sortable child in a region that sorts, otherwise the region's outermost element. A focused block responds to <strong>Cmd/Ctrl + C, X, V, D</strong> and <strong>Delete</strong> — copy, cut, paste, duplicate and delete.</p>
 <p>Right-clicking a block fires <code>edit:context</code> with the block and the pointer position. Call <code>preventDefault()</code> and open your own menu; with no handler, an <code>.authoring</code> region opens the built-in class menu instead.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-edit.sort</span>=<span class="hljs-string">"chips"</span> @<span class="hljs-attr">edit:context</span>=<span class="hljs-string">"$event.preventDefault();
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-edit.sort</span>=<span class="hljs-string">"chips"</span> <span class="hljs-attr">data-edit-ui</span> @<span class="hljs-attr">edit:context</span>=<span class="hljs-string">"$event.preventDefault();
             $refs.menu.style.inset = 'auto';
             $refs.menu.style.left = $event.detail.x + 'px';
             $refs.menu.style.top = $event.detail.y + 'px';
@@ -927,7 +970,7 @@
 <aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div x-data="" class="col gap-3">
-    <div class="row-wrap gap-2" x-edit.sort="chips-demo" @edit:context="$event.preventDefault(); $refs.menu.style.inset = 'auto'; $refs.menu.style.left = $event.detail.x + 'px'; $refs.menu.style.top = $event.detail.y + 'px'; $refs.menu.showPopover()">
+    <div class="row-wrap gap-2" x-edit.sort="chips-demo" data-edit-ui="" @edit:context="$event.preventDefault(); $refs.menu.style.inset = 'auto'; $refs.menu.style.left = $event.detail.x + 'px'; $refs.menu.style.top = $event.detail.y + 'px'; $refs.menu.showPopover()">
         <span class="py-2 px-3 bg-surface-2 rounded">Roses</span>
         <span class="py-2 px-3 bg-surface-2 rounded">Peonies</span>
         <span class="py-2 px-3 bg-surface-2 rounded">Eucalyptus</span>
@@ -944,23 +987,23 @@
 <p>The event fires after the pointer is released, so a popover opened in the handler isn't immediately closed by the same click. <code>$edit.can()</code> is reactive: bound to a button's <code>disabled</code>, it updates as the targeted block changes.</p>
 <hr>
 <h2 id="theme-controls">Theme Controls</h2><p><code>x-edit.cssvar</code> binds an input to a CSS variable, so a control panel can restyle the page live. A bare variable name writes to <code>:root</code> and applies everywhere. A <code>scope:</code> prefix writes onto the element that declared that scope with <code>x-edit.theme</code>, so the change applies only inside it. <code>data-unit</code> appends a unit to a numeric input's value.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-edit.theme</span>=<span class="hljs-string">"card"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--color-brand-surface: #7c3aed; --radius: 0.5rem"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"brand"</span>&gt;</span>Order now<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
-<span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Brand <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"color"</span> <span class="hljs-attr">x-edit.cssvar</span>=<span class="hljs-string">"card:--color-brand-surface"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Radius <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"range"</span> <span class="hljs-attr">min</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">max</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">step</span>=<span class="hljs-string">"0.125"</span> <span class="hljs-attr">data-unit</span>=<span class="hljs-string">"rem"</span> <span class="hljs-attr">x-edit.cssvar</span>=<span class="hljs-string">"card:--radius"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></code></pre>
+<span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>Brand<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"color"</span> <span class="hljs-attr">x-edit.cssvar</span>=<span class="hljs-string">"card:--color-brand-surface"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">data</span>&gt;</span>Radius<span class="hljs-tag">&lt;/<span class="hljs-name">data</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"range"</span> <span class="hljs-attr">min</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">max</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">step</span>=<span class="hljs-string">"0.125"</span> <span class="hljs-attr">data-unit</span>=<span class="hljs-string">"rem"</span> <span class="hljs-attr">x-edit.cssvar</span>=<span class="hljs-string">"card:--radius"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true; setTimeout(() =&gt; Alpine.store('edit').on()) }))">
 <template x-if="ready">
 <div class="col gap-4">
     <div class="p-4 bg-surface-2 rounded" x-edit.theme="card-demo" style="--color-brand-surface: #7c3aed; --radius: 0.5rem">
         <button class="brand">Order now</button>
     </div>
-    <div class="row-wrap gap-4">
-        <label>Brand <input type="color" x-edit.cssvar="card-demo:--color-brand-surface"></label>
-        <label>Radius <input type="range" min="0" max="2" step="0.125" data-unit="rem" x-edit.cssvar="card-demo:--radius"></label>
+    <div class="row-wrap gap-6">
+        <label><data>Brand</data> <input type="color" x-edit.cssvar="card-demo:--color-brand-surface"></label>
+        <label class="grow"><data>Radius</data> <input type="range" min="0" max="2" step="0.125" data-unit="rem" x-edit.cssvar="card-demo:--radius"></label>
     </div>
 </div>
 </template>
@@ -970,7 +1013,7 @@
 <p><code>.theme</code> on its own only declares a scope — it makes nothing editable — so it can safely wrap other regions.</p>
 <hr>
 <h2 id="with-the-text-editor">With the Text Editor</h2><p>Text edits in a plain region keep inline formatting only. For rich text, put <a href="/docs/core-plugins/text-edit"><code>x-text-edit</code></a> on an element inside the region: the rich editor takes over that element, and <code>x-edit</code> records whatever it produces — headings, lists and other block markup included — as an ordinary text edit, so undo and publishing treat it like everything else.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.strong</span>&gt;</span>Bold<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-text-edit.em</span>&gt;</span>Italic<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -998,8 +1041,9 @@
 <p>Here <code>x-text-edit</code> has no expression of its own, so the content belongs to the page and the edit lands in the region's history. Give it an expression and that value belongs to your app instead — the region no longer records it.</p>
 <hr>
 <h2 id="publishing">Publishing</h2><p>Edits in <code>.authoring</code> regions are saved to the browser's <code>localStorage</code> as they happen, so they're still there after a reload. Edits outside <code>.authoring</code> last for the session only; undo works either way.</p>
-<p><code>$edit.publish()</code> turns the recorded edits into patches: concrete changes to your source files. During development, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-run --edit</code> accepts them and writes the files directly. Set <code>$edit.onPublish</code> to receive the patches yourself and send them wherever your edits live.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<p><code>$edit.publish()</code> turns the recorded edits into patches: concrete changes to the page's source. Set <code>$edit.onPublish</code> to receive them and send them wherever your product stores content — your API, a database row, or the pipeline that regenerates a published site. That's the shape of most real editors: the person edits in place, and publish hands you the result.</p>
+<p>Editing your own project while you build it is the other case: without an <code>onPublish</code> handler, publish posts the patches to <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-run --edit</code> — the local development server — which writes them straight into your source files.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ out: '' }"</span> <span class="hljs-attr">x-init</span>=<span class="hljs-string">"$edit.onPublish = patches =&gt; out = JSON.stringify(patches, null, 2)"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$edit.publish()"</span>&gt;</span>Publish<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -1033,7 +1077,7 @@
 </tr>
 <tr>
 <td><code>.sort</code></td>
-<td>Reorder children by drag or keyboard</td>
+<td>Reorder children by drag or keyboard; positioned children move freely</td>
 </tr>
 <tr>
 <td><code>.style</code></td>
@@ -1125,7 +1169,8 @@
 </tr>
 </tbody></table>
 <hr>
-<h2 id="styles">Styles</h2><table>
+<h2 id="styles">Styles</h2><p>All editing UI is drawn only inside a <code>data-edit-ui</code> scope — the attribute on the region itself, or on any ancestor to cover a whole view. <code>.authoring</code> sets it on its region automatically. Outside the scope everything still works (cursors and hit areas remain); it just draws nothing.</p>
+<table>
 <thead>
 <tr>
 <th>Variable</th>
@@ -1139,9 +1184,24 @@
 <td>Colour of every editing affordance</td>
 </tr>
 <tr>
+<td><code>--edit-grip</code></td>
+<td><code>0.6rem</code></td>
+<td>Size of the inline drag grip on sortable rows</td>
+</tr>
+<tr>
+<td><code>--edit-grip-display</code></td>
+<td><code>inline-block</code></td>
+<td><code>none</code> removes the grip (e.g. grid rows, where it would occupy a cell)</td>
+</tr>
+<tr>
 <td><code>--edit-ghost-opacity</code></td>
 <td><code>0.4</code></td>
 <td>Opacity of the drag stand-in</td>
+</tr>
+<tr>
+<td><code>--edit-toolbar</code></td>
+<td><code>flex</code></td>
+<td>The floating toolbar; <code>none</code> hides it</td>
 </tr>
 <tr>
 <td><code>--edit-size</code></td>
@@ -1174,10 +1234,62 @@
 <td>Below this, set <code>data-edit-collapsed</code></td>
 </tr>
 </tbody></table>
+<p>Every affordance is addressable — style them like any other markup:</p>
+<table>
+<thead>
+<tr>
+<th>Selector</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[data-edit-ui]</code></td>
+<td>The scope that turns the UI on</td>
+</tr>
+<tr>
+<td><code>[data-edit-armed]</code></td>
+<td>An active editable region; <code>::before</code> shows <code>data-edit-label</code></td>
+</tr>
+<tr>
+<td><code>[data-edit-sortable]</code></td>
+<td>A draggable row; <code>::before</code> is the grip</td>
+</tr>
+<tr>
+<td><code>[data-edit-grabbed]</code></td>
+<td>A row grabbed by keyboard</td>
+</tr>
+<tr>
+<td><code>[data-edit-ghost]</code></td>
+<td>The stand-in holding the drop slot during a drag</td>
+</tr>
+<tr>
+<td><code>[data-edit-movable]</code></td>
+<td>A positioned, freely draggable element</td>
+</tr>
+<tr>
+<td><code>[data-edit-sizable]</code>, <code>[data-edit-handle]</code></td>
+<td>A resizable element and its handles (valued by edge)</td>
+</tr>
+<tr>
+<td><code>[data-edit-collapsed]</code></td>
+<td>Resized below the collapse threshold</td>
+</tr>
+<tr>
+<td><code>[data-edit-toolbar]</code></td>
+<td>The floating undo/redo/publish toolbar</td>
+</tr>
+<tr>
+<td><code>[data-edit-menu]</code></td>
+<td>The built-in right-click class menu</td>
+</tr>
+<tr>
+<td><code>html[data-edit-active]</code></td>
+<td>Set while an authoring region is active on screen</td>
+</tr>
+</tbody></table>
 <hr>
 <h2 id="related">Related</h2><ul>
 <li><a href="/docs/core-plugins/text-edit">Text Edit</a> — a rich text field</li>
-<li><a href="/docs/core-plugins/resize">Resize</a> — the standalone resize directive</li>
 </ul>
 </div>
 
@@ -1261,7 +1373,7 @@
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#editable-regions">Editable Regions</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#reorder">Reorder</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#resize">Resize</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#block-operations">Block Operations</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#theme-controls">Theme Controls</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#with-the-text-editor">With the Text Editor</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#publishing">Publishing</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#reference">Reference</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#related">Related</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#editable-regions">Editable Regions</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#reorder">Reorder</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#move">Move</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#resize">Resize</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#block-operations">Block Operations</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#theme-controls">Theme Controls</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#with-the-text-editor">With the Text Editor</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#publishing">Publishing</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#reference">Reference</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#related">Related</a></div>
 
   </nav>
 

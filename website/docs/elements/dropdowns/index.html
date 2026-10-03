@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -798,7 +792,7 @@
 <hr>
 <h2 id="setup">Setup</h2><p>Dropdown styles are included in Manifest CSS or a standalone stylesheet, both referencing <a href="/docs/styles/theme">theme</a> variables.</p>
 <p>Dropdown functionality is included in <code>manifest.js</code> with all core plugins, or it can be selectively loaded.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-/-js-tab-0" aria-selected="true" tabindex="0">Manifest CSS / JS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-/-js-tab-0" aria-selected="true" tabindex="0">Manifest CSS / JS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
 
 <pre x-code="html" name="Manifest CSS / JS" data-code-block-built="yes" aria-label="Manifest CSS / JS" role="tabpanel" data-code-processed="yes" id="manifest-css-/-js-panel-0" aria-labelledby="manifest-css-/-js-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Manifest CSS --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span> /&gt;</span>
@@ -818,7 +812,7 @@
 <p>For OS dropdowns, see <a href="/docs/elements/selects">selects</a>.</p>
 <hr>
 <h2 id="default">Default</h2><p>Dropdowns use the <code>&lt;menu&gt;</code> element as a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API" target="_blank">popover</a>. The <code>&lt;button&gt;</code> that opens the dropdown requires the <code>x-dropdown</code> attribute, matching the menu ID.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-dropdown</span>=<span class="hljs-string">"basic-menu"</span>&gt;</span>Open Menu<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 
@@ -838,7 +832,7 @@
 
 <hr>
 <h2 id="hover">Hover</h2><p>Add the <code>hover</code> modifier to <code>x-dropdown</code> for mouseover dropdowns:</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-dropdown.hover</span>=<span class="hljs-string">"hover-menu"</span>&gt;</span>Hover Me<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 
@@ -861,7 +855,7 @@
 </aside>
 <hr>
 <h2 id="context-menu">Context Menu</h2><p>Add the <code>context</code> modifier to <code>x-dropdown</code> for right-click dropdowns. The menu appears at the cursor position, replacing the browser's native context menu on the trigger element.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-dropdown.context</span>=<span class="hljs-string">"context-menu"</span>&gt;</span>Right-click this area<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
@@ -882,7 +876,7 @@
 <p>The trigger element does not need to be a <code>&lt;button&gt;</code> since the menu is opened programmatically on right-click rather than via the <code>popovertarget</code> attribute's click-to-toggle behavior. The menu still uses the Popover API for rendering and stacking.</p>
 <hr>
 <h2 id="auto-close">Auto-Close</h2><p>Dropdowns stay open when an item is clicked, so menus built around checkboxes, switches and inputs keep working. Add the <code>close</code> attribute to an individual item to dismiss the menu when that item is activated:</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-dropdown</span>=<span class="hljs-string">"autoclose-menu"</span>&gt;</span>Actions<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 
@@ -901,7 +895,7 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>Add the <code>close</code> modifier to <code>x-dropdown</code> when every item should dismiss the menu, as in a select-like list of choices:</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-dropdown.close</span>=<span class="hljs-string">"autoclose-all"</span>&gt;</span>Select One<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 
@@ -931,7 +925,7 @@
 </aside>
 <hr>
 <h2 id="nesting">Nesting</h2><p>Create multi-level navigation menus with nested dropdowns.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" collapse="10" data-code-block-built="yes" role="region" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-dropdown</span>=<span class="hljs-string">"nested-menu"</span>&gt;</span>Main Menu<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 
@@ -980,7 +974,7 @@
 <p>Nested dropdowns automatically position themselves to avoid overlapping and maintain proper navigation flow.</p>
 <hr>
 <h2 id="positioning">Positioning</h2><p>Menus have utility classes like <code>top</code> and <code>bottom</code> to position them in relation to their trigger buttons. If no class is set, menus default to <code>bottom-start</code>, or <code>end-start</code> if nested.</p>
-<pre x-code-group="" data-group-processed="yes" role="region" aria-label="Examples"><header><div>Examples</div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" aria-label="Examples" data-group-built="yes"><header><div>Examples</div></header>
 
 <pre x-code="html" name="Examples" data-code-block-built="yes" aria-label="Examples" role="region" data-code-processed="yes" id="examples-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Top --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"top"</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span>
@@ -1113,7 +1107,7 @@
 <p>Regardless of a set class, dropdowns overflowing the viewport will attempt to stay onscreen with default fallback positions.</p>
 <hr>
 <h2 id="templating">Templating</h2><p>HTML IDs must identify single elements on a page, and generating multiple dropdowns in a <a href="https://alpinejs.dev/essentials/templating#looping-elements" target="_blank">template loop</a> requires each dropdown be assigned a unique ID. These can be generated with Alpine using template literals like <code>${i}</code>.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" lines="" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"i in 3"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"i"</span>&gt;</span>
 
@@ -1155,7 +1149,7 @@
 
 <hr>
 <h2 id="content">Content</h2><p>Use <code>&lt;li&gt;</code> elements for generic options in a dropdown, with Alpine's <code>@click</code> directive giving them utility. A variety of other elements support additional dropdown content needs.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" lines="" copy="" collapse="10" data-code-block-built="yes" role="region" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span><span>40</span><span>41</span><span>42</span><span>43</span><span>44</span><span>45</span><span>46</span><span>47</span><span>48</span><span>49</span><span>50</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-dropdown</span>=<span class="hljs-string">"content-menu"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Dropdown<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:chevron-down"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"trailing"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 
@@ -1274,7 +1268,7 @@
 <p>The modifier is part of the attribute name and the number is its value: <code>x-defer.priority="1"</code>. Writing <code>x-defer="priority:1"</code> does nothing.</p>
 <aside class="brand"><span x-icon="lucide:info"></span><p>If a menu lists more than ~100 items, put the list in <a href="/docs/core-plugins/virtual#inside-menus-and-dialogs"><code>x-virtual</code></a>. Deferral makes the closed menu free; virtualization makes the open menu fast.</p>
 </aside>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ countries: /* 300 entries */ }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-dropdown</span>=<span class="hljs-string">"country-menu"</span>&gt;</span>Country<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -1336,7 +1330,7 @@
 </tbody></table>
 <hr>
 <h3 id="tailwind-css">Tailwind CSS</h3><p>If using Tailwind, individual menus can be customized with utility classes. Menus taller than a max height will vertically scroll.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-dropdown</span>=<span class="hljs-string">"menu-wide-preview"</span>&gt;</span>Offset &amp; Widen<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"menu-wide-preview"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"w-100 !m-6"</span>&gt;</span>
@@ -1354,7 +1348,7 @@
 
 <hr>
 <h3 id="customization">Customization</h3><p>Modify base dropdown styles with custom CSS for the <code>menu[popover]</code> selector.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="css" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-tag">menu</span><span class="hljs-selector-attr">[popover]</span> {
     <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f0f8ff</span>;

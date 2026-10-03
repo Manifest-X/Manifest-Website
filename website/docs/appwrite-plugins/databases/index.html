@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -890,7 +884,7 @@
 </aside>
 <hr>
 <h2 id="display-manage-entries">Display &amp; Manage Entries</h2><p>Database tables work identically to local data sources. Access entries using the <code>$x</code> magic method and perform all CRUD operations:</p>
-<pre x-code-group="" numbers="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-tab-0" aria-selected="true" tabindex="0">All</button><button type="button" role="tab" id="display-tab-1" aria-selected="false" tabindex="-1">Display</button><button type="button" role="tab" id="create-tab-2" aria-selected="false" tabindex="-1">Create</button><button type="button" role="tab" id="update-tab-3" aria-selected="false" tabindex="-1">Update</button><button type="button" role="tab" id="duplicate-tab-4" aria-selected="false" tabindex="-1">Duplicate</button><button type="button" role="tab" id="delete-tab-5" aria-selected="false" tabindex="-1">Delete</button></div></header>
+<pre x-code-group="" numbers="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-tab-0" aria-selected="true" tabindex="0">All</button><button type="button" role="tab" id="display-tab-1" aria-selected="false" tabindex="-1">Display</button><button type="button" role="tab" id="create-tab-2" aria-selected="false" tabindex="-1">Create</button><button type="button" role="tab" id="update-tab-3" aria-selected="false" tabindex="-1">Update</button><button type="button" role="tab" id="duplicate-tab-4" aria-selected="false" tabindex="-1">Duplicate</button><button type="button" role="tab" id="delete-tab-5" aria-selected="false" tabindex="-1">Delete</button></div></header>
 
 <pre x-code="html" name="All" data-code-block-built="yes" aria-label="All" role="tabpanel" data-code-processed="yes" id="all-panel-0" aria-labelledby="all-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ newName: '' }"</span>&gt;</span>
     <span class="hljs-comment">&lt;!-- Create --&gt;</span>
@@ -1061,7 +1055,7 @@
 </tbody></table>
 <hr>
 <h2 id="search-query-entries">Search &amp; Query Entries</h2><p>Use <code>$query</code> to search, filter, and sort entries:</p>
-<pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-tab-0" aria-selected="true" tabindex="0">All</button><button type="button" role="tab" id="key-search-tab-1" aria-selected="false" tabindex="-1">Key Search</button><button type="button" role="tab" id="query-tab-2" aria-selected="false" tabindex="-1">Query</button></div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-tab-0" aria-selected="true" tabindex="0">All</button><button type="button" role="tab" id="key-search-tab-1" aria-selected="false" tabindex="-1">Key Search</button><button type="button" role="tab" id="query-tab-2" aria-selected="false" tabindex="-1">Query</button></div></header>
 
 <pre x-code="html" name="All" copy="" data-code-block-built="yes" aria-label="All" role="tabpanel" data-code-processed="yes" id="all-panel-0" aria-labelledby="all-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ searchTerm: '', sortBy: 'newest' }"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-4"</span>&gt;</span>
     <span class="hljs-comment">&lt;!-- Search Input --&gt;</span>
@@ -1297,7 +1291,7 @@
 <p>See <a href="https://appwrite.io/docs/products/databases/queries">Appwrite's query documentation</a> for the complete list of query methods and operators.</p>
 <hr>
 <h3 id="reusable-queries">Reusable Queries</h3><p>Define reusable queries in <code>manifest.json</code> and reference them in HTML:</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id="html-tab-1" aria-selected="false" tabindex="-1">HTML</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id="html-tab-1" aria-selected="false" tabindex="-1">HTML</button></div></header>
 
 <pre x-code="json" name="manifest.json" data-code-block-built="yes" aria-label="manifest.json" role="tabpanel" data-code-processed="yes" id="manifest.json-panel-0" aria-labelledby="manifest.json-tab-0"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
@@ -1480,7 +1474,7 @@
     Projects loaded: <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.projects.length"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span></code></pre>
 <hr>
-<h3 id="crud-methods">CRUD Methods</h3><pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="$create-tab-0" aria-selected="true" tabindex="0">$create</button><button type="button" role="tab" id="$update-tab-1" aria-selected="false" tabindex="-1">$update</button><button type="button" role="tab" id="$duplicate-tab-2" aria-selected="false" tabindex="-1">$duplicate</button><button type="button" role="tab" id="$delete-tab-3" aria-selected="false" tabindex="-1">$delete</button></div></header>
+<h3 id="crud-methods">CRUD Methods</h3><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="$create-tab-0" aria-selected="true" tabindex="0">$create</button><button type="button" role="tab" id="$update-tab-1" aria-selected="false" tabindex="-1">$update</button><button type="button" role="tab" id="$duplicate-tab-2" aria-selected="false" tabindex="-1">$duplicate</button><button type="button" role="tab" id="$delete-tab-3" aria-selected="false" tabindex="-1">$delete</button></div></header>
 
 <pre x-code="html" name="$create" copy="" data-code-block-built="yes" aria-label="$create" role="tabpanel" data-code-processed="yes" id="$create-panel-0" aria-labelledby="$create-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Create single entry --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$create({ name: 'New Project' })"</span>&gt;</span>
@@ -1535,7 +1529,7 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <hr>
-<h3 id="query-search-methods">Query &amp; Search Methods</h3><pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="$query-tab-0" aria-selected="true" tabindex="0">$query</button><button type="button" role="tab" id="$search-tab-1" aria-selected="false" tabindex="-1">$search</button></div></header>
+<h3 id="query-search-methods">Query &amp; Search Methods</h3><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="$query-tab-0" aria-selected="true" tabindex="0">$query</button><button type="button" role="tab" id="$search-tab-1" aria-selected="false" tabindex="-1">$search</button></div></header>
 
 <pre x-code="html" name="$query" copy="" data-code-block-built="yes" aria-label="$query" role="tabpanel" data-code-processed="yes" id="$query-panel-0" aria-labelledby="$query-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Query with filters and sorting --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$query([
@@ -1577,7 +1571,7 @@
 </tr>
 </tbody></table>
 <hr>
-<h3 id="pagination-methods">Pagination Methods</h3><pre x-code-group="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="$firstpage-tab-0" aria-selected="true" tabindex="0">$firstPage</button><button type="button" role="tab" id="$nextpage-tab-1" aria-selected="false" tabindex="-1">$nextPage</button><button type="button" role="tab" id="$page-tab-2" aria-selected="false" tabindex="-1">$page</button></div></header>
+<h3 id="pagination-methods">Pagination Methods</h3><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="$firstpage-tab-0" aria-selected="true" tabindex="0">$firstPage</button><button type="button" role="tab" id="$nextpage-tab-1" aria-selected="false" tabindex="-1">$nextPage</button><button type="button" role="tab" id="$page-tab-2" aria-selected="false" tabindex="-1">$page</button></div></header>
 
 <pre x-code="html" name="$firstPage" copy="" data-code-block-built="yes" aria-label="$firstPage" role="tabpanel" data-code-processed="yes" id="$firstpage-panel-0" aria-labelledby="$firstpage-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Get first page (cursor-based) --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$firstPage(10).then(result =&gt; {

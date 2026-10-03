@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1 mnfst-og-nudge">
+}" class="bg-surface-1">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -798,7 +792,7 @@
 <hr>
 <h2 id="setup">Setup</h2><p>Tooltip styles are included in Manifest CSS or a standalone stylesheet, both referencing <a href="/docs/styles/theme">theme</a> variables.</p>
 <p>Tooltip functionality is included in <code>manifest.js</code> with all core plugins, or it can be selectively loaded.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-/-js-tab-0" aria-selected="true" tabindex="0">Manifest CSS / JS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-/-js-tab-0" aria-selected="true" tabindex="0">Manifest CSS / JS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
 
 <pre x-code="html" name="Manifest CSS / JS" data-code-block-built="yes" aria-label="Manifest CSS / JS" role="tabpanel" data-code-processed="yes" id="manifest-css-/-js-panel-0" aria-labelledby="manifest-css-/-js-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Manifest CSS --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span> /&gt;</span>
@@ -815,7 +809,7 @@
 
 <hr>
 <h2 id="default">Default</h2><p>Apply tooltips to any element with the <code>x-tooltip</code> attribute.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-tooltip</span>=<span class="hljs-string">"Hello world"</span>&gt;</span>Hover me<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
 <aside class="frame"><button x-tooltip="Hello world">Hover me</button></aside>
@@ -823,7 +817,7 @@
 
 <hr>
 <h2 id="positioning">Positioning</h2><p>Tooltips have utility modifiers like <code>top</code> and <code>bottom</code> to position them in relation to their trigger element. If no modifier is set, tooltips default to <code>bottom</code> (centered below).</p>
-<pre x-code-group="" data-group-processed="yes" role="region" aria-label="Examples"><header><div>Examples</div></header>
+<pre x-code-group="" data-group-processed="yes" role="region" aria-label="Examples" data-group-built="yes"><header><div>Examples</div></header>
 
 <pre x-code="html" name="Examples" copy="" data-code-block-built="yes" aria-label="Examples" role="region" data-code-processed="yes" id="examples-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Top --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-tooltip.top</span>=<span class="hljs-string">"Top tooltip"</span>&gt;</span>top<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -887,7 +881,7 @@
 <p>Regardless of a set modifier, tooltips overflowing the viewport will attempt to stay onscreen with default fallback positions.</p>
 <hr>
 <h2 id="rich-content">Rich Content</h2><p>Tooltip content supports HTML including <a href="/docs/elements/icons">icons</a> for enhanced formatting.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-tooltip</span>=<span class="hljs-string">"&lt;span x-icon='lucide:info'&gt;&lt;/span&gt;Hello &lt;b&gt;bold&lt;/b&gt; and &lt;em&gt;italic&lt;/em&gt; world"</span>&gt;</span>Rich Content<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
 <aside class="frame"><button x-tooltip="&lt;span x-icon='lucide:info'&gt;&lt;/span&gt;Hello &lt;b&gt;bold&lt;/b&gt; and &lt;em&gt;italic&lt;/em&gt; world">Rich Content</button></aside>
@@ -895,7 +889,7 @@
 
 <hr>
 <h2 id="dynamic-content">Dynamic Content</h2><p>Tooltips can display dynamic content using Alpine.js expressions.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ message: 'dynamic content', count: 42 }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-tooltip</span>=<span class="hljs-string">"'Current count: ' + count"</span>&gt;</span>Count Tooltip<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -908,7 +902,7 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>Note that tooltips with loop variables from <code>x-for</code> use template literals or string concatenation to ensure the expression is recognized as dynamic.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="example.yaml-tab-1" aria-selected="false" tabindex="-1">example.yaml</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="example.yaml-tab-1" aria-selected="false" tabindex="-1">example.yaml</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"item in $x.example.tooltipList"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">h4</span> <span class="hljs-attr">x-tooltip</span>=<span class="hljs-string">"`${item.tooltip}`"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"item.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
@@ -927,7 +921,7 @@
 
 <hr>
 <h2 id="data-sources">Data Sources</h2><p>Tooltips can retrieve content from <a href="/docs/core-plugins/local-data">data sources</a> using the <code>$x</code> syntax.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="example.json-tab-1" aria-selected="false" tabindex="-1">example.json</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="example.json-tab-1" aria-selected="false" tabindex="-1">example.json</button></div></header>
 
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-tooltip</span>=<span class="hljs-string">"$x.example.tooltip"</span>&gt;</span>Data Source Tooltip<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
 <pre x-code="json" name="example.json" data-code-block-built="yes" aria-label="example.json" role="tabpanel" data-code-processed="yes" id="example.json-panel-1" aria-labelledby="example.json-tab-1" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>

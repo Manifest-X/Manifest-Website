@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.216/lib/manifest.min.js" data-version="0.5.216"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -292,9 +292,6 @@
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
                         <span x-icon="lucide:credit-card"></span>
                         <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/resize">
-                        <span x-icon="lucide:panel-right-open"></span>
-                        <span>Resize</span>
                     </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
                         <span x-icon="lucide:route"></span>
                         <span>Router</span>
@@ -576,9 +573,6 @@
             </a><a role="button" href="/docs/core-plugins/payments" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:credit-card"></span>
               <span>Payments</span>
-            </a><a role="button" href="/docs/core-plugins/resize" class="ghost text-content-neutral justify-start w-full">
-              <span x-icon="lucide:panel-right-open"></span>
-              <span>Resize</span>
             </a><a role="button" href="/docs/core-plugins/router" class="ghost text-content-neutral justify-start w-full">
               <span x-icon="lucide:route"></span>
               <span>Router</span>
@@ -797,7 +791,7 @@
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" style="opacity: 1" data-mnfst-md-src="/articles/elements/dialogs.md" data-mnfst-prerender-clone="1"><h1 id="dialogs">Dialogs</h1><p>Modal and non-modal overlays for focused interactions.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Dialog styles are included in Manifest CSS or a standalone stylesheet, both referencing <a href="/docs/styles/theme">theme</a> variables.</p>
-<pre x-code-group="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
 
 <pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span> /&gt;</span></code></pre>
 <pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.dialog.css"</span> /&gt;</span></code></pre>
@@ -805,7 +799,7 @@
 
 <hr>
 <h2 id="default">Default</h2><p>Dialogs are supported in pure HTML using the <code>&lt;dialog&gt;</code> element as a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API" target="_blank">popover</a>. The <code>&lt;button&gt;</code> that opens the dialog requires the <code>popovertarget="ID"</code> attribute, matching the dialog ID.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">popovertarget</span>=<span class="hljs-string">"dialog-default"</span>&gt;</span>Open Empty Dialog<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">dialog</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"dialog-default"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dialog</span>&gt;</span></code></pre>
@@ -817,7 +811,7 @@
 </aside>
 <hr>
 <h2 id="light-dismiss">Light Dismiss</h2><p>Popovers operate by default as lightboxes, and clicking anywhere outside the dialog or pressing <kbd>esc</kbd> will close it, known as "light dismiss". Prevent this with the <code>popover="manual"</code> attribute.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">popovertarget</span>=<span class="hljs-string">"dialog-manual"</span>&gt;</span>Open Dialog<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">dialog</span> <span class="hljs-attr">popover</span>=<span class="hljs-string">"manual"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"dialog-manual"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col center gap-2"</span>&gt;</span>
@@ -834,7 +828,7 @@
 <p>Manual popovers require internal close buttons, with a <code>popovertarget</code> ID'ing the dialog and <code>popoveraction="hide"</code> to close it.</p>
 <hr>
 <h2 id="layout">Layout</h2><p>Use the <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, and/or <code>&lt;footer&gt;</code> elements as direct children of the dialog element for a typical dialog layout.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">popovertarget</span>=<span class="hljs-string">"dialog-formatted"</span>&gt;</span>Open Formatted Dialog<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 
@@ -875,7 +869,7 @@
 <p>The layout containers have default styles for padding, and the header will spread its content while the footer aligns it to the end.</p>
 <hr>
 <h2 id="nesting">Nesting</h2><p>Dialogs can open or close from each other in a visual stack. <a href="/docs/elements/dropdowns">Dropdowns</a> are also popovers that can control dialogs and exist within them.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" lines="" copy="" collapse="10" data-code-block-built="yes" role="region" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span><span>40</span><span>41</span><span>42</span><span>43</span><span>44</span><span>45</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">popovertarget</span>=<span class="hljs-string">"dialog-first"</span>&gt;</span>Open First Dialog<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 
@@ -971,7 +965,7 @@
 
 <hr>
 <h2 id="templating">Templating</h2><p>HTML IDs must identify single elements on a page, and generating multiple dialogs in a <a href="https://alpinejs.dev/essentials/templating#looping-elements" target="_blank">template loop</a> requires each dialog be assigned a unique ID. These can be generated with Alpine using template literals like <code>${i}</code>.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" lines="" copy="" collapse="10" data-code-block-built="yes" role="region" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"i in 3"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"i"</span>&gt;</span>
 
@@ -1045,7 +1039,7 @@
 
 <hr>
 <h2 id="utility-class">Utility Class</h2><p>The <code>dialog</code> utility class will apply a dialog element's styles to other elements.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" lines="" copy="" collapse="10" data-code-block-built="yes" role="region" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Alpine can be used to open/close a fake dialog if it's not a popover --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ reveal: false }"</span>&gt;</span>
@@ -1116,7 +1110,7 @@
 </tbody></table>
 <hr>
 <h3 id="backdrop">Backdrop</h3><p>Dialog <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop" target="_blank">backdrops</a> (the light dismiss area) have arbitrary background colors with transparency. They can be styled with custom CSS in light and dark modes.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="css" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-comment">/* Light theme backdrop */</span>
 dialog<span class="hljs-selector-attr">[popover]</span><span class="hljs-selector-pseudo">::backdrop</span> {
@@ -1146,7 +1140,7 @@ dialog[popover].override::backdrop {
 
 <hr>
 <h3 id="transitions">Transitions</h3><p>Default open/close transitions for all popovers—including dialogs—are defined in <a href="/docs/styles/reset">reset</a> styles. Override them with custom CSS.</p>
-<pre x-code-group="" lines="" copy="" data-group-processed="yes" role="region"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-popovers-tab-0" aria-selected="true" tabindex="0">All Popovers</button><button type="button" role="tab" id="dialogs-only-tab-1" aria-selected="false" tabindex="-1">Dialogs Only</button></div></header>
+<pre x-code-group="" lines="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-popovers-tab-0" aria-selected="true" tabindex="0">All Popovers</button><button type="button" role="tab" id="dialogs-only-tab-1" aria-selected="false" tabindex="-1">Dialogs Only</button></div></header>
 
 <pre x-code="css" name="All Popovers" lines="" data-code-block-built="yes" aria-label="All Popovers" role="tabpanel" data-code-processed="yes" id="all-popovers-panel-0" aria-labelledby="all-popovers-tab-0"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span></div><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-attr">[popover]</span> {
     <span class="hljs-attribute">display</span>: none;
@@ -1202,7 +1196,7 @@ dialog[popover].override::backdrop {
 </aside>
 <hr>
 <h3 id="tailwind-css">Tailwind CSS</h3><p>If using Tailwind, individual dialogs can be customized with utility classes. Dialogs will automatically adjust their size and positioning based on content.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">popovertarget</span>=<span class="hljs-string">"dialog-tailwind-preview"</span>&gt;</span>Custom Size &amp; Position<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">dialog</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"dialog-tailwind-preview"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"w-96 h-80 mt-20"</span>&gt;</span>
@@ -1234,7 +1228,7 @@ dialog[popover].override::backdrop {
 
 <hr>
 <h3 id="customization">Customization</h3><p>Modify base dialog styles with custom CSS for the <code>dialog[popover]</code> selector.</p>
-<pre x-code-group="" data-group-processed="yes" role="region">
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="css" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-css" data-highlighted="yes">dialog<span class="hljs-selector-attr">[popover]</span>, <span class="hljs-selector-class">.dialog</span> {
     <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f0f8ff</span>;
