@@ -245,7 +245,7 @@ Add `data-scroll-keep` to a container or any of its ancestors to keep its scroll
 </div>
 ```
 
-The container is kept on every route change, including when its route is hidden and shown again. The attribute is checked on each navigation, so adding or removing it at runtime takes effect on the next one. It only applies to containers: the window still scrolls to the top, even with `data-scroll-keep` on `<html>` or `<body>`.
+The container is kept on every route change, including when its route is hidden and shown again. The attribute is checked on each navigation, so adding or removing it at runtime takes effect on the next one. It only applies to containers: the window still scrolls to the top, even with `data-scroll-keep` on `<html>` or `<body>`, where it keeps every container instead.
 
 ---
 

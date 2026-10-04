@@ -405,7 +405,7 @@ Check data source loading state, errors, and readiness:
 </small>
 ```
 
-A [scoped](#scope) source has no files to show without an [auth](/docs/appwrite-plugins/auth) session, so gate signed-in UI on `$auth.isAuthenticated` rather than `$ready`.
+With the [auth](/docs/appwrite-plugins/auth) plugin loaded, a [scoped](#scope) source has no files to show until a session starts, so gate signed-in UI on `$auth.isAuthenticated` rather than `$ready`.
 
 ---
 
