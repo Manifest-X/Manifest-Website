@@ -390,7 +390,7 @@ Check data source loading state, errors, and readiness:
 |----------|------|-------------|
 | `$loading` | boolean | Indicates if data is currently being loaded |
 | `$error` | string \| null | Error message if an operation failed (null if no error) |
-| `$ready` | boolean | Indicates if data has been loaded at least once |
+| `$ready` | boolean | Indicates if the source has settled at least once, with files or empty |
 
 ```html
 <!-- Loading state -->
@@ -404,6 +404,8 @@ Check data source loading state, errors, and readiness:
     Files loaded: <b x-text="$x.assets.length"></b>
 </small>
 ```
+
+A [scoped](#scope) source has no files to show without an [auth](/docs/appwrite-plugins/auth) session, so gate signed-in UI on `$auth.isAuthenticated` rather than `$ready`.
 
 ---
 
