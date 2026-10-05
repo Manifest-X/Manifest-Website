@@ -459,7 +459,7 @@ Add `.page` to `font`, `size`, `leading`, `align`, `color` or `background` and t
     <button :disabled="!doc" @click="doc = ''">Clear</button>
 
     <div x-text-edit.html="doc" aria-label="Document" @input="md = $text.markdown()"></div>
-    <pre x-text="md"></pre>
+    <pre x-text="doc ? md : '(empty)'"></pre>
 </div>
 ```
 
@@ -470,7 +470,7 @@ Add `.page` to `font`, `size`, `leading`, `align`, `color` or `background` and t
         <button class="ghost sm" :disabled="!doc" @click="doc = ''">Clear</button>
     </div>
     <div x-text-edit.html="doc" aria-label="Document" @input="md = $text.markdown()" style="--text-edit-min-height: 4rem"></div>
-    <pre class="text-xs p-2 bg-surface-2 rounded whitespace-pre-wrap" x-text="md || '(markdown appears here as you type)'"></pre>
+    <pre class="text-xs p-2 bg-surface-2 rounded whitespace-pre-wrap" x-text="doc ? (md || '(markdown appears here as you type)') : '(empty)'"></pre>
 </div>
 :::
 
@@ -482,7 +482,7 @@ Literal `*` and `_` come back escaped from `markdown()` — in an `.html` area t
 
 ## Styles
 
-The area uses `--color-surface-1`, `--color-line`, `--color-content-subtle`, `--color-brand-content` and `--radius` from the [theme](/docs/styles/theme). Set these per instance:
+By default the area looks like a field — it borrows the same theme tokens inputs use (`--color-surface-1`, `--color-line`, `--radius`), so it sits naturally in a form. For a WYSIWYG document that should look like the page itself, add `unstyle`: the field chrome (background, border, padding, minimum height) drops away and the text inherits its element's own type and colours, while every command, placeholder and selection behaviour keeps working. The `--text-edit-*` variables are per-instance overrides on top of the theme:
 
 | Variable | Default | Sets |
 |---|---|---|
@@ -491,7 +491,7 @@ The area uses `--color-surface-1`, `--color-line`, `--color-content-subtle`, `--
 | `--text-edit-padding` | `0.75rem` | Content padding |
 | `--text-edit-font` `-size` `-leading` `-align` `-color` `-background` | inherit | Page styles; `.page` controls override |
 
-Style by attribute: `[data-text-edit]` (value is the mode), `[data-text-edit-empty]`, `[data-text-edit-selected]`, `[data-text-edit-control]` (value is the command), `[data-text-edit-active]`, and `[aria-disabled="true"]`, which the reset already dims.
+Style by attribute: `[data-text-edit]` (value is the mode), `[data-text-edit-empty]`, `[data-text-edit-selected]`, `[data-text-edit-focused]` (held while the area owns the editing session, even when a `<select>` or colour control takes native focus), `[data-text-edit-control]` (value is the command), `[data-text-edit-active]`, and `[aria-disabled="true"]`, which the reset already dims.
 
 ---
 

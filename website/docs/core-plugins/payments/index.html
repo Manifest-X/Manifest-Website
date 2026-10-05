@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.221/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.221/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.221/lib/manifest.min.js" data-version="0.5.221"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1">
+}" class="bg-surface-1 mnfst-og-nudge">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -1074,7 +1074,7 @@
 </tr>
 </tbody></table>
 <p>The webhook deserves a plain-language note: when someone finishes paying, the provider's servers send your function a cryptographically signed message. That message — not the buyer returning to your site — is what the template trusts before granting anything. It's the difference between "the buyer's browser says they paid" and "the provider says they paid."</p>
-<aside class="brand"><span x-icon="lucide:sparkles"></span><p><strong>Manifest AI can wire this up for you.</strong> Projects connected to <a href="https://manifestx.dev" target="_blank" rel="noopener">Manifest AI</a> can skip the function entirely: ask for payments, share your provider key and product list, and it provisions a managed payment function — webhook registration included — and hands back the <code>payments</code> block for <code>manifest.json</code>.</p>
+<aside class="brand"><span x-icon="lucide:sparkles"><span class="iconify" data-icon="lucide:sparkles"></span></span><p><strong>Manifest AI can wire this up for you.</strong> Projects connected to <a href="https://manifestx.dev" target="_blank" rel="noopener">Manifest AI</a> can skip the function entirely: ask for payments, share your provider key and product list, and it provisions a managed payment function — webhook registration included — and hands back the <code>payments</code> block for <code>manifest.json</code>.</p>
 </aside>
 <h3 id="appwrite-template">Appwrite Template</h3><p>Appwrite-enabled projects can use an <a href="https://appwrite.io/docs/products/functions" target="_blank" rel="noopener">Appwrite Function</a>. The template function below is complete and ready to deploy — edit <code>PRODUCTS</code> to match what you sell, deploy it as an Appwrite Function (Node runtime, <code>node-appwrite</code> dependency), and set the environment variables. The full multi-file template with tests lives in the <a href="https://github.com/Manifest-X/Manifest/tree/main/templates/payments-function" target="_blank" rel="noopener">Manifest repository</a>.</p>
 <pre x-code-group="" lines="" collapse="10" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="main.js-tab-0" aria-selected="true" tabindex="0">main.js</button><button type="button" role="tab" id="environment-tab-1" aria-selected="false" tabindex="-1">Environment</button></div></header>

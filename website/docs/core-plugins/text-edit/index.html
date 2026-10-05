@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.221/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.221/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.220/lib/manifest.min.js" data-version="0.5.220"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.221/lib/manifest.min.js" data-version="0.5.221"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -57,7 +57,7 @@
     const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
     document.documentElement.setAttribute('dir', savedDirection);
   }
-}" class="bg-surface-1 mnfst-og-nudge">
+}" class="bg-surface-1">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
@@ -1274,7 +1274,7 @@ Select a word, then press **Bold**.</pre>
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"!doc"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"doc = ''"</span>&gt;</span>Clear<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text-edit.html</span>=<span class="hljs-string">"doc"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Document"</span> @<span class="hljs-attr">input</span>=<span class="hljs-string">"md = $text.markdown()"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"md"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"doc ? md : '(empty)'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ doc: '&lt;p&gt;Hello &lt;strong&gt;world&lt;/strong&gt;&lt;/p&gt;', md: '' }" class="col gap-2 w-full">
     <div class="row gap-1">
@@ -1282,13 +1282,13 @@ Select a word, then press **Bold**.</pre>
         <button class="ghost sm" :disabled="!doc" @click="doc = ''">Clear</button>
     </div>
     <div x-text-edit.html="doc" aria-label="Document" @input="md = $text.markdown()" style="--text-edit-min-height: 4rem" data-text-edit="html" data-text-edit-bound="" contenteditable="true" role="textbox" aria-multiline="true" data-hydrate-id="h9"><p>Hello <strong>world</strong></p></div>
-    <pre class="text-xs p-2 bg-surface-2 rounded whitespace-pre-wrap" x-text="md || '(markdown appears here as you type)'">(markdown appears here as you type)</pre>
+    <pre class="text-xs p-2 bg-surface-2 rounded whitespace-pre-wrap" x-text="doc ? (md || '(markdown appears here as you type)') : '(empty)'">(markdown appears here as you type)</pre>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>Literal <code>*</code> and <code>_</code> come back escaped from <code>markdown()</code> — in an <code>.html</code> area they're ordinary characters, and the escape is what keeps them ordinary on the way back in.</p>
 <hr>
-<h2 id="styles">Styles</h2><p>The area uses <code>--color-surface-1</code>, <code>--color-line</code>, <code>--color-content-subtle</code>, <code>--color-brand-content</code> and <code>--radius</code> from the <a href="/docs/styles/theme">theme</a>. Set these per instance:</p>
+<h2 id="styles">Styles</h2><p>By default the area looks like a field — it borrows the same theme tokens inputs use (<code>--color-surface-1</code>, <code>--color-line</code>, <code>--radius</code>), so it sits naturally in a form. For a WYSIWYG document that should look like the page itself, add <code>unstyle</code>: the field chrome (background, border, padding, minimum height) drops away and the text inherits its element's own type and colours, while every command, placeholder and selection behaviour keeps working. The <code>--text-edit-*</code> variables are per-instance overrides on top of the theme:</p>
 <table>
 <thead>
 <tr>
@@ -1318,7 +1318,7 @@ Select a word, then press **Bold**.</pre>
 <td>Page styles; <code>.page</code> controls override</td>
 </tr>
 </tbody></table>
-<p>Style by attribute: <code>[data-text-edit]</code> (value is the mode), <code>[data-text-edit-empty]</code>, <code>[data-text-edit-selected]</code>, <code>[data-text-edit-control]</code> (value is the command), <code>[data-text-edit-active]</code>, and <code>[aria-disabled="true"]</code>, which the reset already dims.</p>
+<p>Style by attribute: <code>[data-text-edit]</code> (value is the mode), <code>[data-text-edit-empty]</code>, <code>[data-text-edit-selected]</code>, <code>[data-text-edit-focused]</code> (held while the area owns the editing session, even when a <code>&lt;select&gt;</code> or colour control takes native focus), <code>[data-text-edit-control]</code> (value is the command), <code>[data-text-edit-active]</code>, and <code>[aria-disabled="true"]</code>, which the reset already dims.</p>
 <hr>
 <h2 id="related">Related</h2><ul>
 <li><a href="/docs/core-plugins/markdown">Markdown</a> renders the stored value.</li>
