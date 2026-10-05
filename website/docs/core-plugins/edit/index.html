@@ -19,13 +19,13 @@
   <link rel="manifest" href="../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.221/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.221/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.222/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.222/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.221/lib/manifest.min.js" data-version="0.5.221"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.222/lib/manifest.min.js" data-version="0.5.222"></script>
   <script src="../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
@@ -362,6 +362,15 @@
             </div>
             <hr>
         </div><div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Platform</small>
+            <div class="col">
+                <a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/platform/connector">
+                        <span x-icon="lucide:plug"></span>
+                        <span>Claude Connector</span>
+                    </a>
+            </div>
+            <hr>
+        </div><div class="col gap-6 py-4">
             <small class="pl-2.5 text-content-subtle">Styles</small>
             <div class="col">
                 <a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/reset">
@@ -643,6 +652,15 @@
         </div>
         <hr class="mt-4 mb-8">
       </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Platform</small>
+        <div class="col">
+          <a role="button" href="/docs/platform/connector" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:plug"></span>
+              <span>Claude Connector</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
         <small class="pl-2.5 text-content-subtle">Styles</small>
         <div class="col">
           <a role="button" href="/docs/styles/reset" class="ghost text-content-neutral justify-start w-full">
@@ -809,7 +827,7 @@
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
-<p><code>.authoring</code> applies editing UI on interactions, which can be customized with CSS (see <a href="#styles">Styles</a>). The same UI is available without authoring semantics: put <code>data-edit-ui</code> on a region, or on any ancestor to cover a whole editor view. Without either, a region is just as editable but has no visual cues.</p>
+<p><code>.authoring</code> applies editing UI on interactions — hover and focus affordances on the elements themselves, and the floating toolbar — all customizable with CSS (see <a href="#styles">Styles</a>). There is deliberately no box drawn around the region: a page being edited still looks like the page. The same UI is available without authoring semantics by putting <code>data-edit-ui</code> on a region, or on any ancestor to cover a whole editor view. Without either, a region is just as editable but has no visual cues.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Edit is opt-in and never part of the default Manifest bundle, so visitors don't download editor code. The <code>+</code> prefix keeps the default plugins and adds it; <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">Manifest.loadPlugin('edit')</code> loads it from script, so you can load it only for signed-in editors.</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="script-tag-tab-0" aria-selected="true" tabindex="0">Script Tag</button><button type="button" role="tab" id="gated-tab-1" aria-selected="false" tabindex="-1">Gated</button></div></header>
@@ -1197,7 +1215,7 @@
 </tr>
 </tbody></table>
 <hr>
-<h2 id="styles">Styles</h2><p>All editing UI is drawn only inside a <code>data-edit-ui</code> scope — the attribute on the region itself, or on any ancestor to cover a whole view. <code>.authoring</code> sets it on its region automatically. Interaction affordances (cursors, resize hairlines, drop targets) belong to every region in the scope; the dashed boundary and its label belong to <code>.authoring</code> regions only, so ordinary lists and panels never read as a diagram of themselves. Outside the scope everything still works; it just draws nothing.</p>
+<h2 id="styles">Styles</h2><p>All editing UI is drawn only inside a <code>data-edit-ui</code> scope — the attribute on the region itself, or on any ancestor to cover a whole view. <code>.authoring</code> sets it on its region automatically. The affordances live on the elements being edited (cursors, hover and focus outlines, resize hairlines, drop targets); no boundary or label is ever drawn around a region. Outside the scope everything still works; it just draws nothing.</p>
 <table>
 <thead>
 <tr>
@@ -1266,7 +1284,11 @@
 </tr>
 <tr>
 <td><code>[data-edit-armed]</code></td>
-<td>An active editable region; <code>::before</code> shows <code>data-edit-label</code></td>
+<td>An active editable region; <code>data-edit-label</code> carries "key · regime" for your own chrome</td>
+</tr>
+<tr>
+<td><code>[data-edit-authoring]</code></td>
+<td>An <code>.authoring</code> region — draw your own boundary here if your editor wants one</td>
 </tr>
 <tr>
 <td><code>[data-edit-sortable]</code></td>
