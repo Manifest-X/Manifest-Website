@@ -32,7 +32,7 @@ Turn a live page into its own editor.
 
 </div>
 
-`.authoring` applies editing UI on interactions, which can be customized with CSS (see [Styles](#styles)). The same UI is available without authoring semantics: put `data-edit-ui` on a region, or on any ancestor to cover a whole editor view. Without either, a region is just as editable but has no visual cues.
+`.authoring` applies editing UI on interactions — hover and focus affordances on the elements themselves, and the floating toolbar — all customizable with CSS (see [Styles](#styles)). There is deliberately no box drawn around the region: a page being edited still looks like the page. The same UI is available without authoring semantics by putting `data-edit-ui` on a region, or on any ancestor to cover a whole editor view. Without either, a region is just as editable but has no visual cues.
 
 ---
 
@@ -475,7 +475,7 @@ Editing your own project while you build it is the other case: without an `onPub
 
 ## Styles
 
-All editing UI is drawn only inside a `data-edit-ui` scope — the attribute on the region itself, or on any ancestor to cover a whole view. `.authoring` sets it on its region automatically. Interaction affordances (cursors, resize hairlines, drop targets) belong to every region in the scope; the dashed boundary and its label belong to `.authoring` regions only, so ordinary lists and panels never read as a diagram of themselves. Outside the scope everything still works; it just draws nothing.
+All editing UI is drawn only inside a `data-edit-ui` scope — the attribute on the region itself, or on any ancestor to cover a whole view. `.authoring` sets it on its region automatically. The affordances live on the elements being edited (cursors, hover and focus outlines, resize hairlines, drop targets); no boundary or label is ever drawn around a region. Outside the scope everything still works; it just draws nothing.
 
 | Variable | Default | Purpose |
 |---|---|---|
@@ -494,7 +494,8 @@ Every affordance is addressable — style them like any other markup:
 | Selector | What it is |
 |---|---|
 | `[data-edit-ui]` | The scope that turns the UI on |
-| `[data-edit-armed]` | An active editable region; `::before` shows `data-edit-label` |
+| `[data-edit-armed]` | An active editable region; `data-edit-label` carries "key · regime" for your own chrome |
+| `[data-edit-authoring]` | An `.authoring` region — draw your own boundary here if your editor wants one |
 | `[data-edit-sortable]` | A draggable row (the row is the handle; its text keeps a text cursor) |
 | `[data-edit-drop-target]` | A valid destination region during a cross-region drag |
 | `[data-edit-grabbed]` | A row grabbed by keyboard |
