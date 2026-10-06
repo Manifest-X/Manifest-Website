@@ -87,6 +87,8 @@ Scope filters are applied when listing files, ensuring users only see files they
 
 When using `["user", "team"]` scope, files are shown for the current user OR the current team. If no team is selected (`$auth.currentTeam`), only user-scoped files will display. Use `"teams"` (plural) instead of `"team"` (singular) to query all teams the user belongs to, not just the current team.
 
+**Signed out.** A bucket whose queries reference `$auth.` values settles as empty (`[]`, `$ready` `true`) while no user is signed in, and loads on sign-in; scope alone does not hold back the listing, since it filters by permissions after the files arrive. Signing out — in any tab — resets and reloads every user-dependent bucket source, so one user's files never carry over to the next. See [session recovery](/docs/appwrite-plugins/users#session-recovery).
+
 ::: brand icon="lucide:info"
 All interactive examples below require you to be logged into a dummy account via the [users](/docs/appwrite-plugins/users) article. The files you generate below use the `team` scope.
 :::
@@ -390,7 +392,7 @@ Check data source loading state, errors, and readiness:
 |----------|------|-------------|
 | `$loading` | boolean | Indicates if data is currently being loaded |
 | `$error` | string \| null | Error message if an operation failed (null if no error) |
-| `$ready` | boolean | Indicates if data has been loaded at least once |
+| `$ready` | boolean | Indicates if the source has settled: loaded at least once, or resolved as empty while [signed out](#scope) |
 
 ```html
 <!-- Loading state -->

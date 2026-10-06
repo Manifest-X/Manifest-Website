@@ -108,6 +108,8 @@ By default scope filters on the `userId`/`teamId` columns. If your table names t
 
 When using `["user", "team"]` scope, projects are shown for the current user OR the current team. If no team is selected (`$auth.currentTeam`), only user-scoped projects will display. Use `"teams"` (plural) instead of `"team"` (singular) to query all teams the user belongs to, not just the current team.
 
+**Signed out.** While no user is signed in, a scoped table (or one whose queries reference `$auth.` values) settles as empty: the source is `[]`, `$ready` is `true`, and no request is sent. It loads when the user signs in. Signing out — in any tab — resets and reloads every user-dependent source, so one user's entries never carry over to the next. See [session recovery](/docs/appwrite-plugins/users#session-recovery).
+
 ::: brand icon="lucide:info"
 All interactive examples below require you to be logged into a dummy account via the [users](/docs/appwrite-plugins/users) article. The data entries you generate below use the `team` scope.
 :::
@@ -627,7 +629,7 @@ Check data source loading state, errors, and readiness:
 |----------|------|-------------|
 | `$loading` | boolean | Indicates if data is currently being loaded |
 | `$error` | string \| null | Error message if an operation failed (null if no error) |
-| `$ready` | boolean | Indicates if data has been loaded at least once |
+| `$ready` | boolean | Indicates if the source has settled: loaded at least once, or resolved as empty while [signed out](#scope) |
 
 ```html
 <!-- Loading state -->
