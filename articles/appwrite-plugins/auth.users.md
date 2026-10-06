@@ -15,6 +15,7 @@ Your Appwrite project's Auth dashboard provides various options to customize the
 - Anonymous (guest sessions)
 - Magic URL
 - Email OTP (one-time passcode)
+- Phone OTP (SMS one-time passcode)
 
 See Appwrite's <a href="https://appwrite.io/docs/products/auth" target="_blank" rel="noopener">Auth docs</a> for all configuration details.
 
@@ -49,6 +50,7 @@ In `manifest.json`, use the auth `methods` array to define your project's sign-i
 | `guest-manual`{copy} | Allows users to manually create guest sessions via `$auth.requestGuest()`{copy} |
 | `magic`{copy} | Enables passwordless login via magic URLs sent to email |
 | `otp`{copy} | Enables passwordless login via a one-time passcode sent to email |
+| `phone`{copy} | Enables passwordless login via a one-time passcode sent by SMS |
 | `oauth`{copy} | Enables OAuth sign-in with providers like Google, GitHub, etc. |
 
 ---
@@ -226,6 +228,49 @@ Unlike OAuth and magic links, email OTP cannot convert a guest's account in plac
 
 ---
 
+### Phone OTP
+
+Phone OTP provides passwordless authentication via a one-time passcode sent by SMS. Users enter their phone number, receive a short code by text, then enter that code to sign in — all on the same page, with no redirect.
+
+<div x-code-group>
+
+```json "manifest.json" copy
+{
+    "appwrite": {
+        ...
+        "auth": {
+            "methods": ["phone"]
+        }
+    }
+}
+```
+
+```html "HTML" copy
+<!-- Step 1: request a code -->
+<input type="tel" placeholder="+14155550123" x-show="!$auth.otpSent" @keyup.enter="$auth.sendPhoneOTP()" />
+<button x-show="!$auth.otpSent" @click="$auth.sendPhoneOTP()">Text code</button>
+
+<!-- Step 2: enter the code -->
+<input name="otp" placeholder="Code" x-show="$auth.otpSent" @keyup.enter="$auth.submitOTP()" />
+<button x-show="$auth.otpSent" @click="$auth.submitOTP()">Verify</button>
+
+<p x-show="$auth.otpSent">Code sent — check your phone.</p>
+```
+
+</div>
+
+`$auth.sendPhoneOTP()` finds the phone input the same way `sendEmailOTP()` does (nearest `input[type="tel"]`, form, or first on the page), or accepts a selector like `$auth.sendPhoneOTP('#phone-input')`. Numbers must include the country code (international E.164 format, e.g. `+14155550123`); common separators like spaces, dashes, and parentheses are stripped automatically.
+
+The code-entry step is shared with email OTP: the same `$auth.submitOTP()` and `$auth.otpSent`/`$auth.otpExpired` flags drive it, so the verify markup is identical.
+
+Phone OTP requires an SMS provider (Twilio, Vonage, MSG91, or Telesign) connected in Appwrite under <b>Messaging</b> > <b>Providers</b>, and the Phone method enabled under <b>Auth</b> > <b>Settings</b>.
+
+::: brand icon="lucide:info"
+Like email OTP, phone OTP cannot convert a guest's account in place — a phone sign-in always creates a fresh account. [Guest Team Carryover](#guest-team-carryover-otp) covers phone OTP too.
+:::
+
+---
+
 ### Guest Sessions
 
 Guest sessions allow visitors to browse your app without creating an account, with each session registered in the Appwrite userbase (including repeat visits from the same user). With Manifest, guest sessions can begin automatically or by a user action.
@@ -311,14 +356,14 @@ By default a guest who signs in gets a brand-new account, and anything tied to t
 No markup changes are needed — `$auth.sendMagicLink()` and `$auth.loginOAuth()` handle the upgrade automatically when a guest signs in. `guestUpgrade` defaults to the value of `teams.guests`, so enabling guest teams turns it on for you.
 
 ::: brand icon="lucide:info"
-Guest upgrade only works with OAuth and magic links, while email OTP sign-in always creates a fresh account.
+Guest upgrade only works with OAuth and magic links, while email and phone OTP sign-ins always create a fresh account.
 :::
 
 <br>
 
 #### Guest Team Carryover (OTP)
 
-Because email OTP can't convert a guest in place, `guestUpgrade` can't preserve a guest's teams for OTP sign-ins. `guestMigration` covers this case: it carries the guest's teams over to the new account by reassigning team membership. It's the OTP-friendly counterpart to `guestUpgrade`.
+Because email and phone OTP can't convert a guest in place, `guestUpgrade` can't preserve a guest's teams for OTP sign-ins. `guestMigration` covers this case: it carries the guest's teams over to the new account by reassigning team membership. It's the OTP-friendly counterpart to `guestUpgrade`.
 
 Reassigning team ownership between accounts is privileged — it needs a server API key, so it has to run on a server, not in the browser. To make that turnkey, Manifest provides a ready-to-deploy <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/guest-migration-function" target="_blank" rel="noopener">guest-migration function template</a>. Deploy it to your Appwrite project and point the plugin at it:
 
@@ -466,6 +511,9 @@ Current session details (null if not authenticated). The session object comes di
 | `$auth.error`{copy} | string \| null | Error message string (null if no error) |
 | `$auth.magicLinkSent`{copy} | boolean | Indicates if magic link was sent |
 | `$auth.magicLinkExpired`{copy} | boolean | Indicates if magic link expired |
+| `$auth.otpSent`{copy} | boolean | Indicates if an OTP code (email or SMS) was sent and awaits entry |
+| `$auth.otpExpired`{copy} | boolean | Indicates if the entered OTP code was invalid or expired |
+| `$auth.otpPhrase`{copy} | string \| null | Email OTP anti-phishing security phrase (when requested with `{ phrase: true }`) |
 | `$auth.guestManualEnabled`{copy} | boolean | Indicates if manual guest creation is enabled |
 
 ---
@@ -474,7 +522,7 @@ Current session details (null if not authenticated). The session object comes di
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `$auth.method`{copy} | string \| null | Authentication method: `'oauth'`, `'magic'`, `'anonymous'`, or `null` |
+| `$auth.method`{copy} | string \| null | Authentication method: `'oauth'`, `'magic'`, `'otp'`, `'phone'`, `'anonymous'`, or `null` |
 | `$auth.provider`{copy} | string \| null | OAuth provider name (e.g., `'google'`, `'github'`) or `null` for non-OAuth methods |
 
 ---
@@ -485,6 +533,9 @@ Current session details (null if not authenticated). The session object comes di
 |--------|------------|-------------|
 | `$auth.loginOAuth(...)`{copy} | `provider` (string), `successUrl` (optional), `failureUrl` (optional) | Sign in with OAuth provider. Redirects to provider. |
 | `$auth.sendMagicLink(...)`{copy} | `emailInputOrRef` (element ID or element, optional), `redirectUrl` (optional) | Send magic link to email. |
+| `$auth.sendEmailOTP(...)`{copy} | `emailInputOrRef` (selector or element, optional), `options` (optional, `{ phrase: true }` for a security phrase) | Email a one-time passcode. |
+| `$auth.sendPhoneOTP(...)`{copy} | `phoneInputOrRef` (selector or element, optional) | Text a one-time passcode to a phone number (E.164 format). |
+| `$auth.submitOTP(...)`{copy} | `codeInputOrRef` (selector or element, optional) | Verify the entered passcode and complete sign-in (email or phone). |
 | `$auth.requestGuest()`{copy} | None | Create a manual guest session. |
 | `$auth.logout()`{copy} | None | Delete current session and sign out. If automatic guest sessions are enabled, a new guest session will begin after logout. |
 | `$auth.refresh()`{copy} | None | Refresh user data from Appwrite. |
