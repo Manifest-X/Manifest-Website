@@ -218,7 +218,7 @@ Restored rows are marked stale: `$x.chats.$stale`{copy} is `true` until the firs
 }
 ```
 
-The expression is re-evaluated whenever authentication changes. While sign-in is still resolving, nothing is saved or cleared. When the scope changes, the previous scope's rows are removed from the device and from memory before anything renders. Signing out always clears saved rows.
+The expression is re-evaluated whenever authentication changes. While sign-in is still resolving, nothing is saved or cleared. When the scope changes, the previous scope's rows are removed from the device and from memory before anything renders. Signing out always clears saved rows. Saved rows of Appwrite sources are also tied to the user who read them: they are only restored for that same user, never for a different user or a guest, even without a scope. An offline visit keeps them until the session can be checked.
 
 **Clearing.** `$x.$wipe()`{copy} removes every saved row for the current scope, `$x.$wipe('chats')`{copy} one source, and `$x.$wipe({ all: true })`{copy} everything. `ManifestData.persistence()`{copy} reports what is enabled and saved. Saving happens after data arrives, never during your own edits, and if the browser refuses storage the site simply runs without it.
 

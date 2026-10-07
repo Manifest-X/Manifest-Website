@@ -52,6 +52,8 @@ Appwrite's cloud data sources work identically to local data sources in the fron
 
 ---
 
+What a visitor can read depends on who they are, through scopes, `$auth` queries, or the row and file permissions set in Appwrite. Every table and bucket source therefore follows the signed-in identity: on sign-out, the previous user's rows are cleared at once and the source reloads for whoever is now browsing (a guest, or nobody). Sources open to everyone show their public rows again; sources that need a signed-in user stay empty until someone signs in.
+
 Cloud sources can keep their last rows on the visitor's device with the same `persist` option as any other source, so a return visit shows data before the network answers. See [persisted data](/docs/core-plugins/local-data#persisted-data).
 
 ## How Data Updates
