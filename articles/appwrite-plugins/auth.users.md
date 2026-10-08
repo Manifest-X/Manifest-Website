@@ -543,6 +543,24 @@ Current session details (null if not authenticated). The session object comes di
 
 ---
 
+## Session Recovery
+
+Sessions are checked against Appwrite on every page load, and the plugin distinguishes a real sign-out from a connection problem.
+
+### Sign-out Across Tabs
+
+Logging out in one tab signs out every open tab, as does Appwrite reporting that the session no longer exists (a 401). Data sources that depend on the user — a [scope](/docs/appwrite-plugins/databases#scope) or queries referencing `$auth.` values — reset and reload in every tab, so the previous user's entries never linger.
+
+### Offline Starts
+
+When a signed-in user opens the app without a connection, the session check fails with a network error rather than a "no session" answer. The tab renders signed out (`$auth.isAuthenticated` is `false`) but other tabs are left untouched — only a genuine "no session" answer from Appwrite signs them out. Auto guest sessions are also held back, so no guest account is created over the real one.
+
+The session is rechecked when the connection returns, when the user returns to the tab, and on a timer (2s, 5s, 15s, then every 60s). Once Appwrite answers, either the session is restored — the usual sign-in events fire and scoped data loads — or a genuine "no session" answer signs the user out everywhere.
+
+[Persisted](/docs/core-plugins/local-data#persisted-data) rows from user-dependent sources are kept on the device while the session is unverified, and restored only after it is confirmed.
+
+---
+
 ## Next Steps
 
 See [teams](/docs/appwrite-plugins/teams) to enable shared workspaces between users, including roles and permissions.
