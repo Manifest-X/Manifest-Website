@@ -231,6 +231,24 @@ The static content in the `index.html` `<head>` tag is global across all routes.
 
 ---
 
+## Scroll Reset
+
+On a route change the router scrolls the window to the top, along with any scrolled containers (`div`, `main`, `section`, `article`, `aside`, `nav`, `header`, `footer`, or `.prose` elements). Routes with an anchor are skipped so the browser can scroll to the target instead.
+
+Add `data-scroll-keep` to a container or any of its ancestors to keep its scroll position across route changes, like a list that stays on screen while selecting its items changes the route.
+
+```html copy
+<div x-route="contacts" class="row">
+    <!-- Keeps its scroll position as the selected contact changes -->
+    <nav data-scroll-keep class="overflow-y-auto">...</nav>
+    <main class="overflow-y-auto">...</main>
+</div>
+```
+
+The container is kept on every route change, including when its route is hidden and shown again. The attribute is checked on each navigation, so adding or removing it at runtime takes effect on the next one. It only applies to containers: the window still scrolls to the top, even with `data-scroll-keep` on `<html>` or `<body>`, where it keeps every container instead.
+
+---
+
 ## Anchor Navigation
 
 The router follows typical anchor link behaviour with smooth scrolling. Link to any element with an `id` attribute using standard HTML.

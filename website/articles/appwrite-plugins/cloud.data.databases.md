@@ -627,7 +627,7 @@ Check data source loading state, errors, and readiness:
 |----------|------|-------------|
 | `$loading` | boolean | Indicates if data is currently being loaded |
 | `$error` | string \| null | Error message if an operation failed (null if no error) |
-| `$ready` | boolean | Indicates if data has been loaded at least once |
+| `$ready` | boolean | Indicates if the source has settled at least once, with data or empty |
 
 ```html
 <!-- Loading state -->
@@ -641,6 +641,8 @@ Check data source loading state, errors, and readiness:
     Projects loaded: <b x-text="$x.projects.length"></b>
 </small>
 ```
+
+A [scoped](#scope) source with no [auth](/docs/appwrite-plugins/auth) session, or without the auth plugin, settles empty without a request: an empty array, `$ready` true, and no `$error`. It loads once a session starts. Check `$auth.isAuthenticated` to tell a signed-out visitor apart from a user with no entries.
 
 ---
 
