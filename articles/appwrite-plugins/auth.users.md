@@ -549,15 +549,15 @@ Sessions are checked against Appwrite on every page load, and the plugin disting
 
 ### Sign-out Across Tabs
 
-Logging out in one tab signs out every open tab, as does Appwrite reporting that the session no longer exists (a 401). Every Appwrite table and bucket source clears and reloads in every tab, so the previous user's entries never linger. Signing in from another tab reloads them too (see [cloud data](/docs/appwrite-plugins/cloud-data)).
+Logging out in one tab signs out every open tab (or moves them to the new guest session, with auto guest sessions), as does a session check finding the session gone (a 401). Every Appwrite table and bucket source clears and reloads in every tab, so the previous user's entries never linger. Signing in from another tab reloads them too (see [cloud data](/docs/appwrite-plugins/cloud-data)).
 
 ### Offline Starts
 
 When a signed-in user opens the app without a connection, the session check fails with a network error rather than a "no session" answer. The tab renders signed out (`$auth.isAuthenticated` is `false`) but other tabs are left untouched — only a genuine "no session" answer from Appwrite signs them out. Auto guest sessions are also held back, so no guest account is created over the real one.
 
-The session is rechecked when the connection returns, when the user returns to the tab, and on a timer (2s, 5s, 15s, then every 60s). Once Appwrite answers, either the session is restored — the usual sign-in events fire and data sources reload for the user — or a genuine "no session" answer signs the user out everywhere.
+The session is rechecked when the connection returns, when the user returns to the tab, and on a timer (2s, 5s, 15s, then every 60s). Once Appwrite answers, either the session is restored — the usual sign-in events fire and sources waiting on the session load — or a genuine "no session" answer signs the user out everywhere.
 
-Meanwhile, [persisted](/docs/core-plugins/local-data#persisted-data) rows saved for the user last signed in on this device are shown, except from tables with a [scope](/docs/appwrite-plugins/databases#scope) and sources whose queries reference `$auth.` values, which stay empty while the tab is signed out. A "no session" answer clears them.
+Meanwhile, [persisted](/docs/core-plugins/local-data#persisted-data) rows saved for the user last signed in on this device are shown, except from tables with a [scope](/docs/appwrite-plugins/databases#scope) and sources whose queries reference `$auth.` values, which end up empty while the tab is signed out. A "no session" answer clears them.
 
 ---
 
