@@ -392,7 +392,7 @@ Check data source loading state, errors, and readiness:
 |----------|------|-------------|
 | `$loading` | boolean | Indicates if data is currently being loaded |
 | `$error` | string \| null | Error message if an operation failed (null if no error) |
-| `$ready` | boolean | Indicates if the source has settled: loaded at least once, or resolved as empty because its [scope](#scope) can't apply (signed out, or no team) |
+| `$ready` | boolean | Indicates if the source has settled: loaded at least once, or resolved as empty because its `$auth.` queries can't apply while signed out |
 
 ```html
 <!-- Loading state -->
