@@ -85,7 +85,6 @@ When a non-technical user says "make it more rounded" or "use a warmer brand col
 - `x-dropdown="menu-id"` — open `<menu popover id="menu-id">`
 - `x-toast="message"` — push notification (modifiers: `.brand`, `.accent`, `.positive`, `.negative`)
 - `x-tab="id"` / `x-tabpanel="id"` — tab control + content
-- `x-resize` — drag-to-resize edges/corners
 - `x-colorpicker.swatch` — dropdown color picker UI
 - `$x.sourceName` — registered data source
 - `$url.paramName.value/.set()/.add()/.remove()` — URL query params (filters, search)

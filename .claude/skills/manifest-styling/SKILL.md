@@ -58,7 +58,7 @@ If the user wants a button-styled link, use `<a>` with the `button` class — bu
 
 - `class="avatar"` — avatar/profile chip: initials, a nested `<img>` as the profile picture, an `x-icon`, and a nested `<figure>` status dot. Sized from the field-height token. **Use this for any avatar — never a styled `<button>` or `<div>`.** e.g. `<span class="avatar"><img src="…" alt="Ada"></span>`.
 - `class="presence"` — online/away status indicator.
-- `x-tooltip`, `x-dropdown`, `x-colorpicker`, `x-resize` — directive-driven UI (see the directive quick-reference in CLAUDE.md).
+- `x-tooltip`, `x-dropdown`, `x-colorpicker` — directive-driven UI (see the directive quick-reference in CLAUDE.md).
 - Plus accordion (`<details>`/`<summary>`), divider (`<hr>`), sidebar/drawer (`<aside popover>`), range, switch, slides, code block, table, toast — all have shipped element styles.
 
 The authoritative catalog is the framework's `styles/elements/manifest.*.css` set — `avatar, accordion, button, checkbox, code, colorpicker, dialog, divider, dropdown, form, input, presence, radio, range, resize, sidebar, slides, switch, table, toast, tooltip, typography` — and the docs (Further reading, below). If a primitive exists, use it instead of inventing markup + CSS.
