@@ -47,7 +47,7 @@ Device is opt-in. It loads on its own when a page uses one of its magics, when `
 
 </div>
 
-Capacitor plugins are read from `window.Capacitor.Plugins`. Install the ones you use when [packaging the app](/docs/publishing/native-apps).
+Capacitor plugins are read from `window.Capacitor.Plugins`. Install the ones you use when [packaging the app](/docs/framework/publishing/native-apps).
 
 ---
 
@@ -88,7 +88,7 @@ Capacitor plugins are read from `window.Capacitor.Plugins`. Install the ones you
 
 </div>
 
-The same state is stamped on `<html>` as `data-os`, `data-platform`, `data-online`, `data-standalone` and `data-native`, which drive the `.native-only`, `.web-only`, `.offline-only`, `.online-only` and `.standalone-only` classes and the [OS classes](/docs/styles/utilities#operating-system).
+The same state is stamped on `<html>` as `data-os`, `data-platform`, `data-online`, `data-standalone` and `data-native`, which drive the `.native-only`, `.web-only`, `.offline-only`, `.online-only` and `.standalone-only` classes and the [OS classes](/docs/framework/styles/utilities#operating-system).
 
 ---
 
@@ -245,7 +245,7 @@ Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore throu
 
 ## $links
 
-Inside a Capacitor app (`App`) a tapped universal link like `https://app.example.com/order/123`, or a custom scheme like `myapp://order/123`, is routed to `/order/123` through the [router](/docs/core-plugins/router). `$links.open(url)` runs the same path by hand; `$links.last` keeps the latest inbound URL.
+Inside a Capacitor app (`App`) a tapped universal link like `https://app.example.com/order/123`, or a custom scheme like `myapp://order/123`, is routed to `/order/123` through the [router](/docs/framework/core-plugins/router). `$links.open(url)` runs the same path by hand; `$links.last` keeps the latest inbound URL.
 
 <div x-code-group>
 
@@ -348,6 +348,6 @@ Inside a Capacitor app (`PushNotifications`), `register()` registers with APNs o
 
 ## Related
 
-- [Native Apps](/docs/publishing/native-apps) — packaging with Capacitor
-- [Router](/docs/core-plugins/router) — where deep links and notification taps land
-- [Utilities](/docs/styles/utilities#operating-system) — OS classes and variants
+- [Native Apps](/docs/framework/publishing/native-apps) — packaging with Capacitor
+- [Router](/docs/framework/core-plugins/router) — where deep links and notification taps land
+- [Utilities](/docs/framework/styles/utilities#operating-system) — OS classes and variants

@@ -78,7 +78,7 @@ Register the payment provider in `manifest.json` under a `payments` block, point
 | `endpoint`{copy} | – | Your payment function's URL. Creates checkouts and confirms payments. |
 | `mode`{copy} | `"redirect"` | Preferred checkout style: `redirect` (provider's page) or `overlay` (popup). |
 | `publicKey`{copy} | – | A publishable key, if your provider's popup needs one. Safe to commit. |
-| `state.url`{copy} | – | Where to read payment state for `$pay.state`. Appwrite projects can use [databases](/docs/appwrite-plugins/databases) and `$x` instead. |
+| `state.url`{copy} | – | Where to read payment state for `$pay.state`. Appwrite projects can use [databases](/docs/framework/appwrite-plugins/databases) and `$x` instead. |
 
 ::: brand icon="lucide:info"
 Your provider's <b>secret key</b> never goes in `manifest.json`, HTML, or anywhere else a browser can see. It lives only in the payment function's environment variables.
@@ -188,7 +188,7 @@ return res.json({ mode: 'redirect', url: order.checkout_url })
 
 </div>
 
-If the signed-in user and active team are available from [auth](/docs/appwrite-plugins/auth), the plugin sends them along automatically — so your function knows which account to credit without extra wiring. The payload also suits quantities, coupon codes, or anything else your function wants at checkout time — it travels as-is.
+If the signed-in user and active team are available from [auth](/docs/framework/appwrite-plugins/auth), the plugin sends them along automatically — so your function knows which account to credit without extra wiring. The payload also suits quantities, coupon codes, or anything else your function wants at checkout time — it travels as-is.
 
 ::: brand icon="lucide:info"
 Full checkouts need a <b>signed-in buyer</b> — the grant is credited to their workspace, so the function refuses anonymous checkouts rather than taking money it can't assign. For anonymous purchases (donations, one-off sales), use [payment links](#payment-links). Buttons also handle themselves during a checkout: they disable while the flow opens (no double-charges from double-clicks), and failures surface automatically as a toast when the toasts plugin is loaded.
@@ -236,7 +236,7 @@ return res.json(e ? { plan: e.plan, status: e.status, credits: e.credits } : {})
 | `$pay.loading`{copy} | reactive | `true` while a checkout is opening. |
 | `$pay.error`{copy} | reactive | The last error message, or `null`. |
 
-Appwrite-enabled projects can skip `state.url` and store the payment record in a [database](/docs/appwrite-plugins/databases) instead. The function writes it, and your pages read it reactively through `$x` with realtime updates.
+Appwrite-enabled projects can skip `state.url` and store the payment record in a [database](/docs/framework/appwrite-plugins/databases) instead. The function writes it, and your pages read it reactively through `$x` with realtime updates.
 
 ---
 

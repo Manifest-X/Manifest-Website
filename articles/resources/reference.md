@@ -8,12 +8,12 @@ Manifest's CLI commands, directives, magic properties, data-source operators, an
 
 | Command | Purpose | Reference |
 |---------|---------|-----------|
-| `npx mnfst-starter <name>`{copy} | Scaffold a new Manifest project | [Starter Project](/docs/getting-started/starter-project) |
-| `npx mnfst-run`{copy} | Zero-dep dev server with live reload | [Setup](/docs/getting-started/setup#run-a-project) |
-| `npx mnfst-render`{copy} | Prerender the SPA into a static MPA | [Websites](/docs/publishing/websites) |
-| `npx mnfst-export`{copy} | Batch / CI exports — PDF, image, CSV, JSON, RSS | [Export](/docs/core-plugins/import-export#batch-and-ci-exports) |
-| `npx mnfst-types`{copy} | Generate TypeScript ambient types from `manifest.json` | [TypeScript](/docs/resources/typescript) |
-| `npx mnfst-test`{copy} | Project linter + component-test harness | [Testing](/docs/publishing/testing) |
+| `npx mnfst-starter <name>`{copy} | Scaffold a new Manifest project | [Starter Project](/docs/framework/getting-started/starter-project) |
+| `npx mnfst-run`{copy} | Zero-dep dev server with live reload | [Setup](/docs/framework/getting-started/setup#run-a-project) |
+| `npx mnfst-render`{copy} | Prerender the SPA into a static MPA | [Websites](/docs/framework/publishing/websites) |
+| `npx mnfst-export`{copy} | Batch / CI exports — PDF, image, CSV, JSON, RSS | [Export](/docs/framework/core-plugins/import-export#batch-and-ci-exports) |
+| `npx mnfst-types`{copy} | Generate TypeScript ambient types from `manifest.json` | [TypeScript](/docs/framework/resources/typescript) |
+| `npx mnfst-test`{copy} | Project linter + component-test harness | [Testing](/docs/framework/publishing/testing) |
 
 Common conventions:
 
@@ -40,7 +40,7 @@ The `manifest.js` script tag accepts `data-*` attributes to control plugin loadi
 | `data-alpine`{copy} | `3` | Alpine version, or a full URL |
 | `data-tailwind`{copy} | (off) | Boolean — load Manifest's Tailwind v4 build |
 | `data-plugin-base`{copy} | CDN | Base URL/path for plugin scripts (for self-hosted deployments) |
-| `data-defer`{copy} | (on) | `off` turns off automatic deferral of closed containers — see [performance](/docs/getting-started/performance#x-defer-reference) |
+| `data-defer`{copy} | (on) | `off` turns off automatic deferral of closed containers — see [performance](/docs/framework/getting-started/performance#x-defer-reference) |
 | `data-defer-routes`{copy} | (off) | Boolean — experimental; defer inactive `x-route` pages until first shown |
 
 ---
@@ -104,27 +104,27 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 
 | Directive | Plugin | Description |
 |---|---|---|
-| `x-anchors`{copy} | [router](/docs/core-plugins/router) | Anchor links list |
-| `x-chart`{copy} | [charts](/docs/elements/charts) | SVG chart from a config object or `<data>` series |
-| `x-code`{copy}, `<div x-code-group>` | [code](/docs/elements/code) | Code blocks with syntax highlights |
-| `x-colorpicker`{copy} | [color pickers](/docs/elements/color-pickers) | Colorpicker menu element |
-| `x-color`{copy} | [color modes](/docs/styles/color-modes) | Switches color mode on click |
-| `x-computed:name`{copy} | [computed](/docs/core-plugins/computed) | Named value readable inside the element, recalculated only when what it reads changes |
-| `x-date`{copy} | [date pickers](/docs/elements/date-pickers) | Date, range, and time picker field or calendar |
-| `x-defer`{copy} | [core](/docs/getting-started/performance#x-defer-reference) | Defer a container's contents until it is shown. Modifiers: `.lazy`, `.discard`, `.priority="n"`, `.off` |
-| `x-dropdown`{copy} | [dropdowns](/docs/elements/dropdowns) | Dropdown menu element |
-| `x-edit`{copy} | [edit](/docs/core-plugins/edit) | Editable region: text, reorder, resize, classes, theme variables. Opt-in plugin; modifiers `.text`, `.sort`, `.style`, `.size`, `.data`, `.lock`, `.gated`, `.authoring`, `.theme`, `.cssvar` |
-| `x-export`{copy} | [export](/docs/core-plugins/import-export) | Download page / region / data source as PDF, image, CSV, or JSON |
-| `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/core-plugins/local-data) | Bind file uploads |
-| `x-icon`{copy} | [icons](/docs/elements/icons) | Render an icon by name |
-| `x-markdown`{copy} | [markdown](/docs/core-plugins/markdown) | Render markdown content from a source |
-| `x-route`{copy} | [router](/docs/core-plugins/router) | Applies element to specific routes |
-| `x-svg`{copy} | [svgs](/docs/elements/svgs) | Inlines an SVG file |
-| `x-tab`{copy}, `x-tabpanel`{copy} | [tabs](/docs/elements/tabs) | Tab elements |
-| `x-text-edit`{copy} | [text edit](/docs/core-plugins/text-edit) | Rich text area bound to a value (markdown; `.html`, `.plain`); with a command modifier, a control for that area (`x-text-edit.strong`) |
-| `x-toast`{copy} | [toasts](/docs/elements/toasts) | Dispatches toast popover |
-| `x-tooltip`{copy} | [tooltips](/docs/elements/tooltips) | Applies tooltip to element |
-| `x-virtual`{copy} | [virtual](/docs/core-plugins/virtual) | Render only visible rows of a long list (wraps an `x-for` template) |
+| `x-anchors`{copy} | [router](/docs/framework/core-plugins/router) | Anchor links list |
+| `x-chart`{copy} | [charts](/docs/framework/elements/charts) | SVG chart from a config object or `<data>` series |
+| `x-code`{copy}, `<div x-code-group>` | [code](/docs/framework/elements/code) | Code blocks with syntax highlights |
+| `x-colorpicker`{copy} | [color pickers](/docs/framework/elements/color-pickers) | Colorpicker menu element |
+| `x-color`{copy} | [color modes](/docs/framework/styles/color-modes) | Switches color mode on click |
+| `x-computed:name`{copy} | [computed](/docs/framework/core-plugins/computed) | Named value readable inside the element, recalculated only when what it reads changes |
+| `x-date`{copy} | [date pickers](/docs/framework/elements/date-pickers) | Date, range, and time picker field or calendar |
+| `x-defer`{copy} | [core](/docs/framework/getting-started/performance#x-defer-reference) | Defer a container's contents until it is shown. Modifiers: `.lazy`, `.discard`, `.priority="n"`, `.off` |
+| `x-dropdown`{copy} | [dropdowns](/docs/framework/elements/dropdowns) | Dropdown menu element |
+| `x-edit`{copy} | [edit](/docs/framework/core-plugins/edit) | Editable region: text, reorder, resize, classes, theme variables. Opt-in plugin; modifiers `.text`, `.sort`, `.style`, `.size`, `.data`, `.lock`, `.gated`, `.authoring`, `.theme`, `.cssvar` |
+| `x-export`{copy} | [export](/docs/framework/core-plugins/import-export) | Download page / region / data source as PDF, image, CSV, or JSON |
+| `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/framework/core-plugins/local-data) | Bind file uploads |
+| `x-icon`{copy} | [icons](/docs/framework/elements/icons) | Render an icon by name |
+| `x-markdown`{copy} | [markdown](/docs/framework/core-plugins/markdown) | Render markdown content from a source |
+| `x-route`{copy} | [router](/docs/framework/core-plugins/router) | Applies element to specific routes |
+| `x-svg`{copy} | [svgs](/docs/framework/elements/svgs) | Inlines an SVG file |
+| `x-tab`{copy}, `x-tabpanel`{copy} | [tabs](/docs/framework/elements/tabs) | Tab elements |
+| `x-text-edit`{copy} | [text edit](/docs/framework/core-plugins/text-edit) | Rich text area bound to a value (markdown; `.html`, `.plain`); with a command modifier, a control for that area (`x-text-edit.strong`) |
+| `x-toast`{copy} | [toasts](/docs/framework/elements/toasts) | Dispatches toast popover |
+| `x-tooltip`{copy} | [tooltips](/docs/framework/elements/tooltips) | Applies tooltip to element |
+| `x-virtual`{copy} | [virtual](/docs/framework/core-plugins/virtual) | Render only visible rows of a long list (wraps an `x-for` template) |
 
 #### Route Patterns
 
@@ -395,7 +395,7 @@ Three options, in increasing decoupling:
 | Inline expression | `<span x-text="count * 2">` — re-evaluates automatically. Best for trivial cases. |
 | Computed getter | `get doubled() { return this.count * 2 }` on `x-data` or store. Best for component- or store-level computeds. |
 | `$watch('prop', cb)` | Side-effects on change (e.g. write to localStorage, call API). |
-| `x-computed:name` / `$computed(s => ...)` | Data-sized work (filtered or sorted lists, totals) recalculated only when its inputs change. See [computed values](/docs/core-plugins/computed). |
+| `x-computed:name` / `$computed(s => ...)` | Data-sized work (filtered or sorted lists, totals) recalculated only when its inputs change. See [computed values](/docs/framework/core-plugins/computed). |
 
 ```html copy
 <div x-data="{ count: 0 }"
@@ -433,7 +433,7 @@ Theme tokens live in `manifest.theme.css` and can be customized per project. Com
 | `--transition`{copy} | Default transition timing |
 | `--view-transition-*` | View transition tuning for SPA and MPA crossfades |
 
-See [page transitions](/docs/publishing/websites#page-transitions) for the SPA on/off mechanism (`<html data-view-transitions>` / `<html data-no-view-transitions>`).
+See [page transitions](/docs/framework/publishing/websites#page-transitions) for the SPA on/off mechanism (`<html data-view-transitions>` / `<html data-no-view-transitions>`).
 
 ---
 
@@ -460,7 +460,7 @@ Listen example:
 
 ## Globals
 
-Window-level objects for diagnostics and configuration. See [performance](/docs/getting-started/performance#diagnostics).
+Window-level objects for diagnostics and configuration. See [performance](/docs/framework/getting-started/performance#diagnostics).
 
 | Global | Description |
 |---|---|

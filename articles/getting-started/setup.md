@@ -69,7 +69,7 @@ We leverage this file as a place to declare HTML components and local or cloud d
 }
 ```
 
-An optional `version` field acts as a release stamp that busts component caches on deploy — see [browser caching](/docs/core-plugins/components#browser-caching). Projects published through Manifest are stamped automatically.
+An optional `version` field acts as a release stamp that busts component caches on deploy — see [browser caching](/docs/framework/core-plugins/components#browser-caching). Projects published through Manifest are stamped automatically.
 
 If your project is not a downloadable web app, and does not include HTML components or data sources, `manifest.json` can be omitted.
 
@@ -77,7 +77,7 @@ If your project is not a downloadable web app, and does not include HTML compone
 
 ## Script
 
-`manifest.js` dynamically loads <a href="https://alpinejs.dev" target="_blank">Alpine JS</a> and our plugins to make your project functional. Add the `<script>` tag anywhere in the HTML head or body (within `index.html` if [routing](/docs/core-plugins/router)).
+`manifest.js` dynamically loads <a href="https://alpinejs.dev" target="_blank">Alpine JS</a> and our plugins to make your project functional. Add the `<script>` tag anywhere in the HTML head or body (within `index.html` if [routing](/docs/framework/core-plugins/router)).
 
 <div x-code-group copy>
 
@@ -123,9 +123,9 @@ Scripts load the latest version from CDN by default. Load a specified version by
 ## Styles
 Stylesheets are divided by UI category, available individually or bundled in `manifest.css`.
 
-A separate `manifest.theme.css` can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification. It maintains CSS variables referenced by the other sheets if present, centralizing your project's visual identity. See [theme](/docs/styles/theme) for more.
+A separate `manifest.theme.css` can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification. It maintains CSS variables referenced by the other sheets if present, centralizing your project's visual identity. See [theme](/docs/framework/styles/theme) for more.
 
-Add the desired Manifest CSS files to the HTML head (within `index.html` if [routing](/docs/core-plugins/router)). 
+Add the desired Manifest CSS files to the HTML head (within `index.html` if [routing](/docs/framework/core-plugins/router)). 
 
 <div x-code-group copy>
 
@@ -151,11 +151,11 @@ Manifest provides a handful of handy `npx` commands to assist with project devel
 
 | Command | Purpose | Reference |
 |---------|---------|-----------|
-| `npx mnfst-starter <name>`{copy} | Scaffold a new Manifest project | [Starter Project](/docs/getting-started/starter-project) |
+| `npx mnfst-starter <name>`{copy} | Scaffold a new Manifest project | [Starter Project](/docs/framework/getting-started/starter-project) |
 | `npx mnfst-run`{copy} | Zero-dependency dev server with live reload | [Setup](#run-a-project) |
-| `npx mnfst-render`{copy} | Prerender the SPA into a static MPA | [Websites](/docs/publishing/websites) |
-| `npx mnfst-types`{copy} | Generate TypeScript ambient types from `manifest.json` | [TypeScript](/docs/resources/typescript) |
-| `npx mnfst-test`{copy} | Project linter + component-test harness | [Testing](/docs/publishing/testing) |
+| `npx mnfst-render`{copy} | Prerender the SPA into a static MPA | [Websites](/docs/framework/publishing/websites) |
+| `npx mnfst-types`{copy} | Generate TypeScript ambient types from `manifest.json` | [TypeScript](/docs/framework/resources/typescript) |
+| `npx mnfst-test`{copy} | Project linter + component-test harness | [Testing](/docs/framework/publishing/testing) |
 
 ### Run a Project
 

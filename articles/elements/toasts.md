@@ -6,7 +6,7 @@ Transient notifications anchored to the viewport.
 
 ## Setup
 
-Toast styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Toast styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 Toast functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
 
@@ -193,7 +193,7 @@ Use the `$toast` magic method for programmatic toast creation.
 
 ## Rich Content
 
-Rich content supports HTML including [icons](/docs/elements/icons) for enhanced formatting.
+Rich content supports HTML including [icons](/docs/framework/elements/icons) for enhanced formatting.
 
 <div x-code-group>
 
@@ -241,7 +241,7 @@ Toast content can include dynamic expressions and variables.
 
 ## Dynamic Data
 
-Toasts can retrieve content from [data sources](/docs/core-plugins/local-data) using the `$x` syntax.
+Toasts can retrieve content from [data sources](/docs/framework/core-plugins/local-data) using the `$x` syntax.
 
 <div x-code-group copy>
 
@@ -267,7 +267,7 @@ Toasts can retrieve content from [data sources](/docs/core-plugins/local-data) u
 
 ### Theme
 
-Default toasts use the following [theme](/docs/styles/theme) variables:
+Default toasts use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|----------|

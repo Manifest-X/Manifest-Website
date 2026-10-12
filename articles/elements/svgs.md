@@ -21,7 +21,7 @@ The SVG plugin is included in `manifest.js` with all core plugins, or can be sel
 
 </div>
 
-Use `x-svg` to load a local SVG file's `<svg>` element within it. Fetched files are cached in memory for the page session, similar to the [markdown](/docs/core-plugins/markdown) plugin.
+Use `x-svg` to load a local SVG file's `<svg>` element within it. Fetched files are cached in memory for the page session, similar to the [markdown](/docs/framework/core-plugins/markdown) plugin.
 
 ---
 
@@ -63,7 +63,7 @@ The SVG tag itself can be applied within apostrophes, using `&quot;` for its int
 
 ## Dynamic Content
 
-Alpine expressions can supply the SVG string or path at runtime (including template literals), same as [dynamic markdown](/docs/core-plugins/markdown#dynamic-content).
+Alpine expressions can supply the SVG string or path at runtime (including template literals), same as [dynamic markdown](/docs/framework/core-plugins/markdown#dynamic-content).
 
 <div x-code-group>
 
@@ -85,7 +85,7 @@ Alpine expressions can supply the SVG string or path at runtime (including templ
 
 ## From Data Sources
 
-The SVG file's path can also be populated from a [data source](/docs/core-plugins/local-data).
+The SVG file's path can also be populated from a [data source](/docs/framework/core-plugins/local-data).
 
 <div x-code-group copy>
 

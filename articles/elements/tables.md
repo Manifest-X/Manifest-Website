@@ -6,7 +6,7 @@ Structured layouts for tabular data with grid and striped variants.
 
 ## Setup
 
-Table styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Table styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -311,7 +311,7 @@ Add the `striped` class to alternate row background colors, which removes row bo
 
 ### Theme
 
-Default tables use the following [theme](/docs/styles/theme) variables:
+Default tables use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|

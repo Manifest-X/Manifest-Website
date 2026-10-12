@@ -91,7 +91,7 @@ Icons can be switched dynamically with Alpine expressions. Click the example but
 
 ### Collection Icons
 
-`x-icon` can get its value from a [data source](/docs/core-plugins/local-data).
+`x-icon` can get its value from a [data source](/docs/framework/core-plugins/local-data).
 
 <div x-code-group copy>
 
@@ -117,4 +117,4 @@ Icons can be switched dynamically with Alpine expressions. Click the example but
 
 Icons are treated like text and inherit parent text properties like `font-size` and `color`.
 
-Certain elements like [buttons](/docs/elements/buttons) have unique styles to ensure icons always appear nicely inline, on their own, or alongside text.
+Certain elements like [buttons](/docs/framework/elements/buttons) have unique styles to ensure icons always appear nicely inline, on their own, or alongside text.

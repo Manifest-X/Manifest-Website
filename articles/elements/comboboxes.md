@@ -6,7 +6,7 @@ Collect entries or chips in filterable fields.
 
 ## Setup
 
-Combobox styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables. The plugin is included in `manifest.js`{copy} with all core plugins, or it can be loaded on its own.
+Combobox styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables. The plugin is included in `manifest.js`{copy} with all core plugins, or it can be loaded on its own.
 
 <div x-code-group copy>
 
@@ -32,7 +32,7 @@ Combobox styles are included in Manifest CSS or a standalone stylesheet, both re
 </div>
 
 ::: brand icon="lucide:info"
-The suggestion list uses [dropdowns](/docs/elements/dropdowns), with its respective plugins and styles as dependencies.
+The suggestion list uses [dropdowns](/docs/framework/elements/dropdowns), with its respective plugins and styles as dependencies.
 :::
 
 ---
@@ -151,7 +151,7 @@ Seed the field with a starting set using the `value`{copy} attribute, written wi
 
 ## Suggestions List
 
-Point a field at a list of options to filter as the user types. Name the list by its `id`{copy} in the directive value, the same way [dropdowns](/docs/elements/dropdowns) reference their menu. The list is a `<datalist>`{copy} or `<select>`{copy} kept in the page as the source.
+Point a field at a list of options to filter as the user types. Name the list by its `id`{copy} in the directive value, the same way [dropdowns](/docs/framework/elements/dropdowns) reference their menu. The list is a `<datalist>`{copy} or `<select>`{copy} kept in the page as the source.
 
 A single field lets the user pick one option or type their own. Re-opening it shows the whole list again, so the choice can be swapped.
 
@@ -425,7 +425,7 @@ tags=research
 
 Bind a field to state with `x-model`{copy} and it stays in sync both ways. The field renders one chip per value on load and re-renders whenever the bound value changes — so the same combobox both composes a new selection and edits an existing record (switch which record is selected and the chips follow). Adding or removing chips writes straight back to the bound value.
 
-The bound value can be an array or a comma-separated string; the field keeps whatever shape it started with. Any reactive source works, including [local](/docs/core-plugins/local-data) and [cloud](/docs/appwrite-plugins/cloud-data) data through `$x`{copy}.
+The bound value can be an array or a comma-separated string; the field keeps whatever shape it started with. Any reactive source works, including [local](/docs/framework/core-plugins/local-data) and [cloud](/docs/framework/appwrite-plugins/cloud-data) data through `$x`{copy}.
 
 <div x-code-group>
 
@@ -454,7 +454,7 @@ The bound value is only ever written on an explicit selection or removal. Loadin
 
 ## Localization
 
-The few built-in UI strings are overridable through the universal `_ui`{copy} block, namespaced under `combobox`{copy}, in any [local data](/docs/core-plugins/local-data) file your project loads. Override only the keys you want. Anything omitted stays in English, and switching [locale](/docs/core-plugins/localization) updates them live.
+The few built-in UI strings are overridable through the universal `_ui`{copy} block, namespaced under `combobox`{copy}, in any [local data](/docs/framework/core-plugins/local-data) file your project loads. Override only the keys you want. Anything omitted stays in English, and switching [locale](/docs/framework/core-plugins/localization) updates them live.
 
 <div x-code-group copy>
 
@@ -507,7 +507,7 @@ The `add`{copy} string places the typed text with a `{value}`{copy} token, so tr
 
 ### Theme
 
-Comboboxes use the following [theme](/docs/styles/theme) variables.
+Comboboxes use the following [theme](/docs/framework/styles/theme) variables.
 
 | Variable | Purpose |
 |----------|---------|

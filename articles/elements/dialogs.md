@@ -6,7 +6,7 @@ Modal and non-modal overlays for focused interactions.
 
 ## Setup
 
-Dialog styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Dialog styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -128,7 +128,7 @@ The layout containers have default styles for padding, and the header will sprea
 
 ## Nesting
 
-Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/elements/dropdowns) are also popovers that can control dialogs and exist within them.
+Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/framework/elements/dropdowns) are also popovers that can control dialogs and exist within them.
 
 <div x-code-group>
 
@@ -345,7 +345,7 @@ The `dialog` utility class will apply a dialog element's styles to other element
 
 ## Closed Dialogs Cost Nothing
 
-A closed `<dialog>` costs nothing: its contents are not initialized until it opens, so a page can hold as many dialogs as it likes for free. Closed `<details>` [accordions](/docs/elements/accordions) behave the same way. A dialog opened once stays ready. The same knobs as [menus](/docs/elements/dropdowns#closed-menus-cost-nothing) apply: `x-defer.off` keeps a dialog eager, `x-defer.discard` throws its contents away when it closes, and `x-defer.priority="1"` prepares it early. See [performance](/docs/getting-started/performance#x-defer-reference) for the full reference.
+A closed `<dialog>` costs nothing: its contents are not initialized until it opens, so a page can hold as many dialogs as it likes for free. Closed `<details>` [accordions](/docs/framework/elements/accordions) behave the same way. A dialog opened once stays ready. The same knobs as [menus](/docs/framework/elements/dropdowns#closed-menus-cost-nothing) apply: `x-defer.off` keeps a dialog eager, `x-defer.discard` throws its contents away when it closes, and `x-defer.priority="1"` prepares it early. See [performance](/docs/framework/getting-started/performance#x-defer-reference) for the full reference.
 
 ---
 
@@ -353,7 +353,7 @@ A closed `<dialog>` costs nothing: its contents are not initialized until it ope
 
 ### Theme
 
-Default dialogs use the following [theme](/docs/styles/theme) variables:
+Default dialogs use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|----------|
@@ -406,7 +406,7 @@ dialog[popover].override::backdrop {
 
 ### Transitions
 
-Default open/close transitions for all popovers—including dialogs—are defined in [reset](/docs/styles/reset) styles. Override them with custom CSS.
+Default open/close transitions for all popovers—including dialogs—are defined in [reset](/docs/framework/styles/reset) styles. Override them with custom CSS.
 
 <div x-code-group lines copy>
 

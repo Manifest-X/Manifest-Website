@@ -6,7 +6,7 @@ Localize your project to different languages and regions.
 
 ## Overview
 
-The localization plugin provides automatic language detection, URL-based locale switching, and seamless integration with [local data](/docs/core-plugins/local-data) for multilingual content.
+The localization plugin provides automatic language detection, URL-based locale switching, and seamless integration with [local data](/docs/framework/core-plugins/local-data) for multilingual content.
 
 ---
 
@@ -36,7 +36,7 @@ Localization is included in `manifest.js` with all core plugins, or can be selec
 </div>
 
 ::: brand icon="lucide:info"
-Localization requires the Manifest [router](/docs/core-plugins/router) and [data](/docs/core-plugins/local-data) plugins to operate.
+Localization requires the Manifest [router](/docs/framework/core-plugins/router) and [data](/docs/framework/core-plugins/local-data) plugins to operate.
 :::
 
 ---
@@ -225,19 +225,19 @@ If a language code is detected as a slug anywhere in the URL path, that locale i
 
 ```html lines copy
 <!-- Links -->
-<a href="/en/docs/core-plugins/localization">English</a>
-<a href="/fr/docs/core-plugins/localization">Français</a>
-<a href="/zh/docs/core-plugins/localization">中文</a>
-<a href="/ar/docs/core-plugins/localization">العربية</a>
+<a href="/en/docs/framework/core-plugins/localization">English</a>
+<a href="/fr/docs/framework/core-plugins/localization">Français</a>
+<a href="/zh/docs/framework/core-plugins/localization">中文</a>
+<a href="/ar/docs/framework/core-plugins/localization">العربية</a>
 <button class="link" @click="$locale.reset()">Base URL</button>
 ```
 
 ::: frame col gap-4 text-base [&_a]:underline
 <div class="row-wrap gap-4">
-  <a href="/en/docs/core-plugins/localization#url-paths">English</a>
-  <a href="/fr/docs/core-plugins/localization#url-paths">Français</a>
-  <a href="/zh/docs/core-plugins/localization#url-paths">中文</a>
-  <a href="/ar/docs/core-plugins/localization#url-paths">العربية</a>
+  <a href="/en/docs/framework/core-plugins/localization#url-paths">English</a>
+  <a href="/fr/docs/framework/core-plugins/localization#url-paths">Français</a>
+  <a href="/zh/docs/framework/core-plugins/localization#url-paths">中文</a>
+  <a href="/ar/docs/framework/core-plugins/localization#url-paths">العربية</a>
   <button class="link underline" @click="$locale.reset()">Base URL</button>
 </div>
 <template x-for="feature in $x['feature-examples'].content">
@@ -256,7 +256,7 @@ If a language code is detected as a slug anywhere in the URL path, that locale i
 
 ### Localized Content
 
-Like regular [local data](/docs/core-plugins/local-data#display-content), localizations are accessed using the `$x` magic method with dot notation. The structure follows this pattern:
+Like regular [local data](/docs/framework/core-plugins/local-data#display-content), localizations are accessed using the `$x` magic method with dot notation. The structure follows this pattern:
 
 `$x.sourceName.property.subProperty`
 - `$x` — magic method prefix
@@ -313,7 +313,7 @@ features.responsive.description,Works on all devices,Fonctionne sur tous les app
 
 </div>
 
-See [local data](/docs/core-plugins/local-data#display-content) for specifics on how to inject content as text, HTML, or attribute values like links and images.
+See [local data](/docs/framework/core-plugins/local-data#display-content) for specifics on how to inject content as text, HTML, or attribute values like links and images.
 
 ---
 

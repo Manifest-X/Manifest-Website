@@ -6,7 +6,7 @@ Syntax-highlighted code elements using standard HTML, with numerous configurable
 
 ## Setup
 
-Code block styles ship as a separate stylesheet (independent of `manifest.css`) and reference [theme](/docs/styles/theme) variables.
+Code block styles ship as a separate stylesheet (independent of `manifest.css`) and reference [theme](/docs/framework/styles/theme) variables.
 
 Code block functionality is included in `manifest.js` with all core plugins, or it can be loaded selectively.
 
@@ -57,7 +57,7 @@ If at first you don’t succeed, just `<del></del>`{copy} and pretend it never h
 
 The `copy`{copy} attribute on an inline element makes inline code click-copyable, triggered with Tab + Enter for keyboard users.
 
-If the [tooltip plugin](/docs/elements/tooltips) is loaded and the element has no `x-tooltip`{copy} of its own, a confirmation tooltip automatically appears on copy.
+If the [tooltip plugin](/docs/framework/elements/tooltips) is loaded and the element has no `x-tooltip`{copy} of its own, a confirmation tooltip automatically appears on copy.
 
 If writing the inline code in markdown (using backticks), a trailing brace can be used to specify the snippet's language, whether it's copyable, and to add any CSS classes, e.g. `` `npx mnfst-run`{copy} `` or `` `<button>Click Me</button>`{html copy .btn-red} ``.
 
@@ -76,7 +76,7 @@ Supported tokens inside the braces:
 
 Add `x-code`{copy} to any block text element to apply syntax highlighting.
 
-Use a `<pre x-code>`{copy} element to visualize the same line breaks and indents as the written snippet. In markdown files, fenced code blocks (```` ``` ````) are automatically compiled to `<pre x-code>`, with every character of the body landing in the rendered output unchanged. See the [markdown plugin](/docs/core-plugins/markdown) for the fence info-string syntax.
+Use a `<pre x-code>`{copy} element to visualize the same line breaks and indents as the written snippet. In markdown files, fenced code blocks (```` ``` ````) are automatically compiled to `<pre x-code>`, with every character of the body landing in the rendered output unchanged. See the [markdown plugin](/docs/framework/core-plugins/markdown) for the fence info-string syntax.
 
 <div x-code-group copy>
 
@@ -214,7 +214,7 @@ When rendered HTML on the page is a snippet's source of truth, link a code block
 </div>
 ```
 
-In markdown, to render a demo and show its source in one go, add the `demo` modifier to the [frame](/docs/core-plugins/markdown#frames) fence. The plugin emits both the live frame contents and a sibling `<pre x-code="html" copy>` showing the same source.
+In markdown, to render a demo and show its source in one go, add the `demo` modifier to the [frame](/docs/framework/core-plugins/markdown#frames) fence. The plugin emits both the live frame contents and a sibling `<pre x-code="html" copy>` showing the same source.
 
 ````markdown copy
 ::: frame demo
@@ -363,7 +363,7 @@ Any of these can be overridden by setting the attribute yourself before the plug
 
 ### Theme
 
-Default code blocks use these [theme](/docs/styles/theme) variables:
+Default code blocks use these [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |---|---|

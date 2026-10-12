@@ -11,7 +11,7 @@ The chat plugin adds conversations to your project. A conversation is a reactive
 Adapters decide where messages live. Built-in adapters cover AI models, an Appwrite backend, and an in-browser demo — or you can register your own. A conversation with an AI works the same as one between people.
 
 ::: brand icon="lucide:info"
-The plugin renders nothing itself. See the [chats](/docs/elements/chats) element styles for ready-made conversation layouts. Each works without the other.
+The plugin renders nothing itself. See the [chats](/docs/framework/elements/chats) element styles for ready-made conversation layouts. Each works without the other.
 :::
 
 ---
@@ -41,7 +41,7 @@ The chat plugin is included in `manifest.js` with all core plugins. It loads aut
 
 </div>
 
-Markup detection covers `$chat` written in the page itself. If your only usage lives inside a lazily loaded [component](/docs/core-plugins/components), use one of the other two triggers.
+Markup detection covers `$chat` written in the page itself. If your only usage lives inside a lazily loaded [component](/docs/framework/core-plugins/components), use one of the other two triggers.
 
 ---
 
@@ -86,7 +86,7 @@ Long `system` and `grounding` text is sent as a cacheable prompt. After the firs
 
 Open a conversation with `$chat.open` and render it. The call returns a reactive handle. Loop over its `messages`, bind a field to a draft, and call `send`.
 
-Three details complete the UI. Style your own messages by comparing each message's author to the handle's `me`. Render finished replies with the [markdown](/docs/core-plugins/markdown) plugin, and show plain text with `x-text` while a reply streams. When the text comes from participants you don't control, use `x-markdown.safe` to sanitize it.
+Three details complete the UI. Style your own messages by comparing each message's author to the handle's `me`. Render finished replies with the [markdown](/docs/framework/core-plugins/markdown) plugin, and show plain text with `x-text` while a reply streams. When the text comes from participants you don't control, use `x-markdown.safe` to sanitize it.
 
 <div x-code-group copy>
 
@@ -141,7 +141,7 @@ Three details complete the UI. Style your own messages by comparing each message
 
 </div>
 
-This frame uses the `demo` adapter, which plays the model's part so this page doesn't need an API key. With an `ai` block configured, change the adapter name to `claude` and the same markup talks to the real model. The layout comes from the [chats](/docs/elements/chats) element styles; the plugin only supplies the data.
+This frame uses the `demo` adapter, which plays the model's part so this page doesn't need an API key. With an `ai` block configured, change the adapter name to `claude` and the same markup talks to the real model. The layout comes from the [chats](/docs/framework/elements/chats) element styles; the plugin only supplies the data.
 
 Replies stream in live. A reply appears with `status: 'streaming'` and grows until it's done. Conversation history is kept in the visitor's browser per conversation ID, so an open conversation picks up where it left off after a reload.
 
@@ -326,7 +326,7 @@ A reply whose parent isn't loaded still renders, flagged as an orphan, instead o
 
 ## Appwrite Adapter
 
-Conversations between real visitors need a real backend. Manifest integrates with <a href="https://appwrite.io" target="_blank" rel="noopener">Appwrite</a>, an open source backend platform, for [authentication](/docs/appwrite-plugins/auth), [databases](/docs/appwrite-plugins/databases), and more. See [Appwrite setup](/docs/appwrite-plugins/appwrite-setup) to connect a project.
+Conversations between real visitors need a real backend. Manifest integrates with <a href="https://appwrite.io" target="_blank" rel="noopener">Appwrite</a>, an open source backend platform, for [authentication](/docs/framework/appwrite-plugins/auth), [databases](/docs/framework/appwrite-plugins/databases), and more. See [Appwrite setup](/docs/framework/appwrite-plugins/appwrite-setup) to connect a project.
 
 The built-in `appwrite` adapter stores messages as rows in your Appwrite database, and new messages arrive over its realtime connection. Identity comes from auth. Visitors get a guest session on their first message, so commenting needs no signup.
 
@@ -430,13 +430,13 @@ An adapter is where messages actually live. The plugin renders and drives the co
 
 `identity`, `load`, and `subscribe` are required. Everything else — `send`, `react`, `edit`, `setTyping`, and more — is optional, and the handle's `can` flags reflect exactly what you implemented. A read-only transcript is just an adapter with no `send`. The full adapter guide, covering streaming, paging, reconnection, and a copyable skeleton, lives in the <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/chat-adapter" target="_blank" rel="noopener">Manifest repository</a>.
 
-Chat visibility in the browser is cosmetic, like all client-side gating. Real access control belongs to whatever backend the adapter talks to. As with [payments](/docs/core-plugins/payments), secrets live server-side only: the adapter calls your API, and your API holds the keys.
+Chat visibility in the browser is cosmetic, like all client-side gating. Real access control belongs to whatever backend the adapter talks to. As with [payments](/docs/framework/core-plugins/payments), secrets live server-side only: the adapter calls your API, and your API holds the keys.
 
 ---
 
 ## Persisted Conversations
 
-A conversation window can keep its recent messages on the visitor's device, so reopening it shows the last messages at once while the adapter loads. Off unless enabled, and it needs the [data](/docs/core-plugins/local-data#persisted-data) plugin's persistence store.
+A conversation window can keep its recent messages on the visitor's device, so reopening it shows the last messages at once while the adapter loads. Off unless enabled, and it needs the [data](/docs/framework/core-plugins/local-data#persisted-data) plugin's persistence store.
 
 ```json "manifest.json" copy
 {

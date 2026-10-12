@@ -8,7 +8,7 @@ Help search engines and AI crawlers find, understand, and rank your site.
 
 Search engine optimization (SEO) and answer engine optimization (AEO, for AI crawlers) both rely on the same fundamentals. Pages need clear titles, descriptions, preview images, and machine-readable hints about what each page contains.
 
-When you render your site into an MPA with `npx mnfst-render`{copy} (see [websites](/docs/publishing/websites)), Manifest generates all of this automatically. No configuration is needed for most sites. This article covers what gets generated, when you'd want to customize it, and how.
+When you render your site into an MPA with `npx mnfst-render`{copy} (see [websites](/docs/framework/publishing/websites)), Manifest generates all of this automatically. No configuration is needed for most sites. This article covers what gets generated, when you'd want to customize it, and how.
 
 ---
 

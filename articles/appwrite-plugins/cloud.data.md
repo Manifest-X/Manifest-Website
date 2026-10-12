@@ -1,12 +1,12 @@
 # Cloud Data
 
-Access Appwrite databases and storage with the same `$x` API as [local data](/docs/core-plugins/local-data).
+Access Appwrite databases and storage with the same `$x` API as [local data](/docs/framework/core-plugins/local-data).
 
 ---
 
 ## Setup
 
-Complete the [Appwrite setup](/docs/appwrite-plugins/appwrite-setup) steps to connect your Appwrite and Manifest projects.
+Complete the [Appwrite setup](/docs/framework/appwrite-plugins/appwrite-setup) steps to connect your Appwrite and Manifest projects.
 
 Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json` is also required for Appwrite credentials and to register database tables or storage buckets.
 
@@ -52,7 +52,9 @@ Appwrite's cloud data sources work identically to local data sources in the fron
 
 ---
 
-Cloud sources can keep their last rows on the visitor's device with the same `persist` option as any other source, so a return visit shows data before the network answers. See [persisted data](/docs/core-plugins/local-data#persisted-data).
+What a visitor can read depends on who they are, through scopes, `$auth` queries, or the row and file permissions set in Appwrite. Every table and bucket source therefore follows the identity: when someone signs in, signs out, or switches accounts (a guest signing in included), in any tab, the source reloads for the new identity. The previous user's or guest's rows are cleared at once; rows read while signed out stay on screen until the new ones arrive. Buckets open to everyone list their public files to signed-out visitors. Table reads need a session whenever the [auth](/docs/framework/appwrite-plugins/auth) plugin is loaded: a signed-out visitor's table source reports a "not authenticated" `$error` (enable guest sessions to read public rows without signing in), and scoped or `$auth.` tables settle empty. Sources that need a signed-in user show nothing until someone signs in.
+
+Cloud sources can keep their last rows on the visitor's device with the same `persist` option as any other source, so a return visit shows data before the network answers. See [persisted data](/docs/framework/core-plugins/local-data#persisted-data).
 
 ## How Data Updates
 
@@ -92,5 +94,5 @@ For those cases, prefer the safe variants when rendering into HTML or SVG sinks:
 
 Complete cloud data support using the guides for:
 
-- [Databases](/docs/appwrite-plugins/databases) of cloud-hosted content
-- [Storage](/docs/appwrite-plugins/storage) of cloud-hosted files
+- [Databases](/docs/framework/appwrite-plugins/databases) of cloud-hosted content
+- [Storage](/docs/framework/appwrite-plugins/storage) of cloud-hosted files

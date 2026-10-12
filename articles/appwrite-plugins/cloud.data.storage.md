@@ -26,7 +26,7 @@ In a bucket's **Settings** tab, ensure any permissions required by your frontend
 
 ## Register Storage Buckets
 
-Register storage buckets in your `manifest.json` under the `data` property, same as [local data files](/docs/core-plugins/local-data) and [database tables](/docs/appwrite-plugins/databases). Include the `appwriteBucketId` value provided by Appwrite.
+Register storage buckets in your `manifest.json` under the `data` property, same as [local data files](/docs/framework/core-plugins/local-data) and [database tables](/docs/framework/appwrite-plugins/databases). Include the `appwriteBucketId` value provided by Appwrite.
 
 ```json "manifest.json" copy
 {
@@ -87,8 +87,10 @@ Scope filters are applied when listing files, ensuring users only see files they
 
 When using `["user", "team"]` scope, files are shown for the current user OR the current team. If no team is selected (`$auth.currentTeam`), only user-scoped files will display. Use `"teams"` (plural) instead of `"team"` (singular) to query all teams the user belongs to, not just the current team.
 
+**Signed out.** A bucket whose queries reference `$auth.` values settles as empty (`[]`, `$ready` `true`) without a request while no user is signed in, and loads on sign-in. A scope alone does not hold back the listing: the files are still requested, and any returned are filtered out. Like every bucket source, it reloads whenever the identity changes, so one user's files never carry over to the next (see [cloud data](/docs/framework/appwrite-plugins/cloud-data) and [session recovery](/docs/framework/appwrite-plugins/users#session-recovery)).
+
 ::: brand icon="lucide:info"
-All interactive examples below require you to be logged into a dummy account via the [users](/docs/appwrite-plugins/users) article. The files you generate below use the `team` scope.
+All interactive examples below require you to be logged into a dummy account via the [users](/docs/framework/appwrite-plugins/users) article. The files you generate below use the `team` scope.
 :::
 
 ---
@@ -343,7 +345,7 @@ Alternatively, link files manually after upload:
 </button>
 ```
 
-See [databases](/docs/appwrite-plugins/databases#storage-file-references) for more details on file references.
+See [databases](/docs/framework/appwrite-plugins/databases#storage-file-references) for more details on file references.
 
 ---
 
@@ -390,7 +392,7 @@ Check data source loading state, errors, and readiness:
 |----------|------|-------------|
 | `$loading` | boolean | Indicates if data is currently being loaded |
 | `$error` | string \| null | Error message if an operation failed (null if no error) |
-| `$ready` | boolean | Indicates if data has been loaded at least once |
+| `$ready` | boolean | Indicates if the source has settled: loaded at least once, or resolved as empty because its `$auth.` queries can't apply while signed out |
 
 ```html
 <!-- Loading state -->
@@ -590,4 +592,4 @@ Image preview options:
 
 ## Next Steps
 
-See [databases](/docs/appwrite-plugins/databases) for managing database entries and linking files to entries.
+See [databases](/docs/framework/appwrite-plugins/databases) for managing database entries and linking files to entries.

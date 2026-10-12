@@ -8,7 +8,7 @@ Load YAML, JSON, or CSV files as reactive data sources.
 Local data consists of CSV, JSON, or YAML files in your project directory. Their content can be used to organize and populate UI content. Files are loaded on-demand and cached in memory until the page reloads.
 
 ::: brand icon="lucide:info"
-Local files are maintained client-side and should not contain sensitive data. See [cloud data](/docs/appwrite-plugins/cloud-data) for a securely hosted equivalent.
+Local files are maintained client-side and should not contain sensitive data. See [cloud data](/docs/framework/appwrite-plugins/cloud-data) for a securely hosted equivalent.
 :::
 
 ---
@@ -86,7 +86,7 @@ id,name,role,image
 
 </div>
 
-Local files can use any structure - arrays, objects, or nested combinations. See [localization](/docs/core-plugins/localization) for details on language-specific data sources.
+Local files can use any structure - arrays, objects, or nested combinations. See [localization](/docs/framework/core-plugins/localization) for details on language-specific data sources.
 
 ::: brand icon="lucide:info"
 Syntax errors will prevent usability. Use validators like <a href="https://jsonlint.com/" target="_blank">JSON Lint</a> or <a href="https://yamlchecker.com/" target="_blank">YAML Checker</a> to check your files.
@@ -108,7 +108,7 @@ CSV files support two parsing modes, automatically detected based on structure.
 - Returns an array of objects, one per row
 - Use for lists of similar items (team members, products, etc.)
 
-CSV files can also include locale columns for multilingual content. See [localization](/docs/core-plugins/localization) for details.
+CSV files can also include locale columns for multilingual content. See [localization](/docs/framework/core-plugins/localization) for details.
 
 ---
 
@@ -129,7 +129,7 @@ Register local data in the project's `manifest.json`. Under the `data` property,
 
 ## API Sources
 
-Register an HTTP endpoint as a data source the same way as a file. Currently read-only, only `GET` requests are fully supported. For full CRUD with realtime sync, use [Appwrite databases](/docs/appwrite-plugins/databases).
+Register an HTTP endpoint as a data source the same way as a file. Currently read-only, only `GET` requests are fully supported. For full CRUD with realtime sync, use [Appwrite databases](/docs/framework/appwrite-plugins/databases).
 
 For an endpoint with no auth or transformation, register the URL string directly:
 
@@ -219,6 +219,8 @@ Restored rows are marked stale: `$x.chats.$stale`{copy} is `true` until the firs
 ```
 
 The expression is re-evaluated whenever authentication changes. While sign-in is still resolving, nothing is saved or cleared. When the scope changes, the previous scope's rows are removed from the device and from memory before anything renders. Signing out always clears saved rows.
+
+**Identity.** Saved rows of Appwrite tables and buckets, and of any source with a scope or `$auth.` queries, carry the ID of the user who read them, and are only restored for that same user, never for a different user or a guest, even without a scope. Before the session is confirmed (while the page loads, or offline), they are restored for the user last signed in on this device, and cleared at once if the session turns out to be someone else or no one. Offline, a table with a [scope](/docs/framework/appwrite-plugins/databases#scope), or any source whose queries reference `$auth.` values, ends up empty, since the tab is signed out until the session is verified again (see [session recovery](/docs/framework/appwrite-plugins/users#session-recovery)). A `boot`-tier source restores at startup and a `lazy`-tier source on its first read; if the device has no record of the last user, both wait until sign-in resolves.
 
 **Clearing.** `$x.$wipe()`{copy} removes every saved row for the current scope, `$x.$wipe('chats')`{copy} one source, and `$x.$wipe({ all: true })`{copy} everything. `ManifestData.persistence()`{copy} reports what is enabled and saved. Saving happens after data arrives, never during your own edits, and if the browser refuses storage the site simply runs without it.
 
@@ -477,7 +479,7 @@ Both `$search` and `$query` operate **client-side** (in the browser) for local d
 - **`$search(term, ...attributes)`**: Real-time text filtering across specified attributes. Returns filtered array immediately.
 - **`$query(queries)`**: Advanced filtering, sorting, and pagination using query arrays. Processes data in browser.
 
-For cloud-hosted data with backend filtering, see [Appwrite databases](/docs/appwrite-plugins/databases).
+For cloud-hosted data with backend filtering, see [Appwrite databases](/docs/framework/appwrite-plugins/databases).
 
 #### Weighted Search
 
@@ -701,7 +703,7 @@ Data sources support standard JavaScript array methods:
 - `push()` / `pop()` / `shift()` / `unshift()` / `splice()`
 
 ::: brand icon="lucide:info"
-Mutation methods on local data sources update the in-memory store and trigger reactivity, but **do not persist** — values reset to the file's contents on page reload. For persistence, use [Appwrite databases](/docs/appwrite-plugins/databases).
+Mutation methods on local data sources update the in-memory store and trigger reactivity, but **do not persist** — values reset to the file's contents on page reload. For persistence, use [Appwrite databases](/docs/framework/appwrite-plugins/databases).
 :::
 
 ---
@@ -738,7 +740,7 @@ The parts of the page that read `$x.team` follow only the `team` source. When on
 
 Rows keep their identity. When new data arrives for rows you already have, the existing rows are updated in place, so lists don't flicker and edits you are making are not disturbed. Fields you add to a row yourself (a `_pending` flag on a placeholder, say) survive too — the network never sends them, so nothing clears them for you; clear them explicitly once the real data has landed.
 
-Your own changes show immediately. Direct assignments and array mutations (and `$create`, `$update` and `$delete` on [cloud sources](/docs/appwrite-plugins/cloud-data)) appear on the page at once, even while data is still arriving from the network.
+Your own changes show immediately. Direct assignments and array mutations (and `$create`, `$update` and `$delete` on [cloud sources](/docs/framework/appwrite-plugins/cloud-data)) appear on the page at once, even while data is still arriving from the network.
 
 Network updates are batched. Many arriving at once are applied together, once per frame.
 

@@ -6,7 +6,7 @@ Form controls for selecting one option from a group.
 
 ## Setup
 
-Radio styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Radio styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -42,7 +42,7 @@ Radio styles are included in Manifest CSS or a standalone stylesheet, both refer
 
 ## Utilities
 
-Radios accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
+Radios accept Manifest [utility](/docs/framework/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
 
@@ -207,7 +207,7 @@ Placing labelled radios inside a `<fieldset>` automatically arranges them in a c
 
 ### Theme
 
-Default radios use the following [theme](/docs/styles/theme) variables:
+Default radios use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|

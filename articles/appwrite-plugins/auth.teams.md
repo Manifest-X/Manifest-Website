@@ -48,7 +48,7 @@ Default teams are defined by their name within array objects:
 The user is the owner and only initial member of each default team. Depending on their role and permissions, the team can be modified and other members invited.
 
 ::: brand icon="lucide:info"
-Guests are full Appwrite sessions, so they can own teams. When `"guests": true`, a guest's default teams are created the moment their session starts. Pair this with [`guestUpgrade`](/docs/appwrite-plugins/users#guest-upgrade) so those teams carry over when the guest later signs in (via magic link or OAuth) — otherwise they're left behind on the discarded guest account.
+Guests are full Appwrite sessions, so they can own teams. When `"guests": true`, a guest's default teams are created the moment their session starts. Pair this with [`guestUpgrade`](/docs/framework/appwrite-plugins/users#guest-upgrade) so those teams carry over when the guest later signs in (via magic link or OAuth) — otherwise they're left behind on the discarded guest account.
 
 For a guest-only sandbox (a demo workspace for anonymous visitors that signed-in users should never receive), combine `"template"` with `"guests": true, "authenticated": false`.
 :::
@@ -677,4 +677,4 @@ For invitations/member editing.
 
 ## Next Steps
 
-See [cloud data](/docs/appwrite-plugins/cloud-data) for giving users access to databases and stored files.
+See [cloud data](/docs/framework/appwrite-plugins/cloud-data) for giving users access to databases and stored files.

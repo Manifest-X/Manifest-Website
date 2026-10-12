@@ -74,7 +74,7 @@ Editor styles are included in Manifest CSS or as a standalone stylesheet.
 
 ## Editable Area
 
-Point `x-text-edit`{copy} at a value and the element becomes editable in place. `placeholder` shows while it's empty. The stored value is markdown, so [x-markdown](/docs/core-plugins/markdown) can render it anywhere else on the page — below, the second box re-renders the value as you type.
+Point `x-text-edit`{copy} at a value and the element becomes editable in place. `placeholder` shows while it's empty. The stored value is markdown, so [x-markdown](/docs/framework/core-plugins/markdown) can render it anywhere else on the page — below, the second box re-renders the value as you type.
 
 <div x-code-group>
 
@@ -367,7 +367,7 @@ For a menu of your own, the same plumbing is exposed directly: the area fires `t
 
 ## Editing a Data Value
 
-Bind the editor to a field of a [data source](/docs/core-plugins/local-data) row and the edit is stored in that row — the field simply holds the markup. Below, each editor is bound to a product's `name`; the code on the right isn't part of the pattern, it just shows the stored value updating as you type.
+Bind the editor to a field of a [data source](/docs/framework/core-plugins/local-data) row and the edit is stored in that row — the field simply holds the markup. Below, each editor is bound to a product's `name`; the code on the right isn't part of the pattern, it just shows the stored value updating as you type.
 
 <div x-code-group>
 
@@ -497,5 +497,5 @@ Style by attribute: `[data-text-edit]` (value is the mode), `[data-text-edit-emp
 
 ## Related
 
-- [Markdown](/docs/core-plugins/markdown) renders the stored value.
-- [Edit](/docs/core-plugins/edit) edits the page itself; an `x-text-edit` element inside an `x-edit` region is owned by the rich editor.
+- [Markdown](/docs/framework/core-plugins/markdown) renders the stored value.
+- [Edit](/docs/framework/core-plugins/edit) edits the page itself; an `x-text-edit` element inside an `x-edit` region is owned by the rich editor.

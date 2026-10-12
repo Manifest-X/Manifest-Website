@@ -46,5 +46,5 @@ HTML is read more times each day than any human language is spoken — and writt
 ---
 
 ::: brand icon="lucide:info"
-Manifest went public in 2026. Ideas, bug reports, and pull requests are welcome on <a href="https://github.com/Manifest-X/Manifest" target="_blank">GitHub</a>. Full credits live in the [Acknowledgements](/docs/resources/acknowledgements) article.
+Manifest went public in 2026. Ideas, bug reports, and pull requests are welcome on <a href="https://github.com/Manifest-X/Manifest" target="_blank">GitHub</a>. Full credits live in the [Acknowledgements](/docs/framework/resources/acknowledgements) article.
 :::

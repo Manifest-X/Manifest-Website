@@ -26,15 +26,15 @@ Manifest's advanced elements, including those supported by plugin scripts, imple
 
 | Element | Accessibility |
 |---|---|
-| [Accordions](/docs/elements/accordions) | Native `<details>` / `<summary>` — focusable, Enter / Space to toggle, `aria-expanded` implicit |
-| [Color Pickers](/docs/elements/color-pickers) | Keyboard-navigable swatches and inputs with labeled controls |
-| [Dialogs](/docs/elements/dialogs) | Native `<dialog>` / popover API — focus trap, Escape to close, return focus on close, `role="dialog"` and `aria-modal` implicit |
-| [Dropdowns](/docs/elements/dropdowns) | `aria-haspopup="menu"`, reactive `aria-expanded`, `aria-controls`, `role="menu"` / `"menuitem"`, arrow navigation, Escape to close with focus return to trigger, roving `tabindex` |
-| [Forms](/docs/elements/forms) | Native HTML5 validation, error states, and semantic labeling |
-| [Sidebars](/docs/elements/sidebars) | Native popover dismissal with Escape |
-| [Tabs](/docs/elements/tabs) | `role="tablist"` / `"tab"` / `"tabpanel"`, reactive `aria-selected`, `aria-controls`, `aria-labelledby`, roving `tabindex`, Left / Right / Up / Down / Home / End arrow navigation |
-| [Toasts](/docs/elements/toasts) | `role="status"` + `aria-live="polite"` for confirmations; `role="alert"` for negative / destructive types |
-| [Tooltips](/docs/elements/tooltips) | `role="tooltip"`, `aria-describedby` linking the trigger to the tooltip content, fires on hover **and** keyboard focus (WCAG 2.1 SC 1.4.13) |
+| [Accordions](/docs/framework/elements/accordions) | Native `<details>` / `<summary>` — focusable, Enter / Space to toggle, `aria-expanded` implicit |
+| [Color Pickers](/docs/framework/elements/color-pickers) | Keyboard-navigable swatches and inputs with labeled controls |
+| [Dialogs](/docs/framework/elements/dialogs) | Native `<dialog>` / popover API — focus trap, Escape to close, return focus on close, `role="dialog"` and `aria-modal` implicit |
+| [Dropdowns](/docs/framework/elements/dropdowns) | `aria-haspopup="menu"`, reactive `aria-expanded`, `aria-controls`, `role="menu"` / `"menuitem"`, arrow navigation, Escape to close with focus return to trigger, roving `tabindex` |
+| [Forms](/docs/framework/elements/forms) | Native HTML5 validation, error states, and semantic labeling |
+| [Sidebars](/docs/framework/elements/sidebars) | Native popover dismissal with Escape |
+| [Tabs](/docs/framework/elements/tabs) | `role="tablist"` / `"tab"` / `"tabpanel"`, reactive `aria-selected`, `aria-controls`, `aria-labelledby`, roving `tabindex`, Left / Right / Up / Down / Home / End arrow navigation |
+| [Toasts](/docs/framework/elements/toasts) | `role="status"` + `aria-live="polite"` for confirmations; `role="alert"` for negative / destructive types |
+| [Tooltips](/docs/framework/elements/tooltips) | `role="tooltip"`, `aria-describedby` linking the trigger to the tooltip content, fires on hover **and** keyboard focus (WCAG 2.1 SC 1.4.13) |
 
 ---
 
@@ -70,7 +70,7 @@ Run Manifest's project linter to catch accessibility violations alongside other 
 npx mnfst-test
 ```
 
-The runtime pass injects <a href="https://github.com/dequelabs/axe-core" target="_blank">axe-core</a> against a headless render of your project and reports each failure with severity, the offending element, and (for color-contrast issues) the theme CSS variable driving the bad color. See [testing](/docs/publishing/testing) for full details.
+The runtime pass injects <a href="https://github.com/dequelabs/axe-core" target="_blank">axe-core</a> against a headless render of your project and reports each failure with severity, the offending element, and (for color-contrast issues) the theme CSS variable driving the bad color. See [testing](/docs/framework/publishing/testing) for full details.
 
 ---
 

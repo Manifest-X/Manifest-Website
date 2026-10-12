@@ -14,8 +14,20 @@
         <p class="w-60 max-w-full">The website & app framework that thinks like you do.</p>
       </div> -->
 
+      <!-- AI Plugins columns -->
+      <template x-for="(group, gi) in $x.ai" :key="group.group || gi">
+        <div class="col gap-3 mb-8 break-inside-avoid">
+          <small x-text="group.group || 'AI Plugins'"></small>
+          <div class="col gap-3">
+            <template x-for="(item, index) in group.items" :key="item.path || index">
+              <a x-show="item.name" :href="'/docs/ai' + (group.slug ? '/' + group.slug : '') + '/' + item.path" :class="item.indent ? 'ps-3' : ''" x-text="item.name"></a>
+            </template>
+          </div>
+        </div>
+      </template>
+
       <!-- Docs columns -->
-      <template x-for="group in $x.docs" :key="group.group">
+      <template x-for="group in $x.framework" :key="group.group">
         <div class="col gap-3 mb-8 break-inside-avoid">
           <small x-text="group.group"></small>
 
@@ -23,7 +35,7 @@
           <template x-if="group.slug !== 'elements'">
             <div class="col gap-3">
               <template x-for="(item, index) in group.items" :key="item.path || index">
-                <a x-show="item.name" :href="'/docs/' + group.slug + '/' + item.path" :class="item.indent ? 'ps-3' : ''" x-text="item.name"></a>
+                <a x-show="item.name" :href="'/docs/framework/' + group.slug + '/' + item.path" :class="item.indent ? 'ps-3' : ''" x-text="item.name"></a>
               </template>
             </div>
           </template>
@@ -37,7 +49,7 @@
               </button>
               <dialog popover id="elements-menu" class="col w-40 p-2 [&_a]:justify-start [&_a]:w-full [&_a]:h-15 [&_a]:ghost">
                 <template x-for="(item, index) in group.items" :key="item.path || index">
-                  <a role="button" :href="'/docs/' + group.slug + '/' + item.path"><span x-icon="item.icon"></span><span x-text="item.name"></span></a>
+                  <a role="button" :href="'/docs/framework/' + group.slug + '/' + item.path"><span x-icon="item.icon"></span><span x-text="item.name"></span></a>
                 </template>
               </dialog>
             </div>
@@ -60,7 +72,7 @@
 
       <!-- Attribution -->
       <figcaption>Copyright &copy; 2026 <a href="https://andrewmatlock.com" target="_blank" rel="noopener">Andrew
-          Matlock</a>.&nbsp; Manifest is open source under <a href="/docs/resources/license">MIT License</a>.&nbsp;
+          Matlock</a>.&nbsp; Manifest is open source under <a href="/docs/framework/resources/license">MIT License</a>.&nbsp;
         <a href="/legal/privacy">Privacy</a> &middot; <a href="/legal/terms">Terms</a>
       </figcaption>
 

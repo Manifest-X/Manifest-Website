@@ -6,7 +6,7 @@ Collapsible navigation panels anchored to a viewport edge.
 
 ## Setup
 
-Sidebar styles are included in Manifest CSS or as a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Sidebar styles are included in Manifest CSS or as a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -83,7 +83,7 @@ By default, sidebars slide in from the inline-end (right in LTR, left in RTL). A
 
 ### Theme
 
-Default sidebars use the following [theme](/docs/styles/theme) variables:
+Default sidebars use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|----------|
@@ -125,7 +125,7 @@ If using Tailwind, individual sidebars can be customized with utility classes.
 
 ### Transitions
 
-Sidebars use custom transform animations for sliding effects. Opacity and scale are set to overwrite defaults in [reset styles](/docs/styles/reset).
+Sidebars use custom transform animations for sliding effects. Opacity and scale are set to overwrite defaults in [reset styles](/docs/framework/styles/reset).
 
 ```css
 nav[popover] {

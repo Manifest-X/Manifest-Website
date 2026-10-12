@@ -150,7 +150,7 @@ A `feed` or `mirror` may return its own vocabulary (`up`, `down`, `pass`, `minor
 
 ### Labels
 
-`$status.label(state)` turns a state into a display string (`major_outage` → "Major Outage"). Labels default to English but localize through the `_ui` convention — the same mechanism as the datepicker (`_ui.date`) and [colorpicker](/docs/elements/color-pickers) (`_ui.colorpicker`). Provide overrides under `_ui.status.label` in any loaded data source, per locale:
+`$status.label(state)` turns a state into a display string (`major_outage` → "Major Outage"). Labels default to English but localize through the `_ui` convention — the same mechanism as the datepicker (`_ui.date`) and [colorpicker](/docs/framework/elements/color-pickers) (`_ui.colorpicker`). Provide overrides under `_ui.status.label` in any loaded data source, per locale:
 
 ```yaml "labels.fr.yaml" copy
 _ui:
@@ -164,7 +164,7 @@ _ui:
       unknown: Inconnu
 ```
 
-`$status.label(state)` — and anything that uses it — then returns the localized string, reactive to the current [locale](/docs/core-plugins/localization).
+`$status.label(state)` — and anything that uses it — then returns the localized string, reactive to the current [locale](/docs/framework/core-plugins/localization).
 
 ---
 

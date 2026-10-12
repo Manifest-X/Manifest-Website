@@ -6,7 +6,7 @@ Anchored menus for actions and selections.
 
 ## Setup
 
-Dropdown styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Dropdown styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 Dropdown functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
 
@@ -35,7 +35,7 @@ Dropdown functionality is included in `manifest.js` with all core plugins, or it
 Older browser versions require polyfills like OddBird's <a href="https://github.com/oddbird/popover-polyfill" target="_blank">popover</a> and <a href="https://github.com/oddbird/css-anchor-positioning" target="_blank">CSS anchor positioning</a> scripts, which mimic the HTML and CSS abilities required for dropdowns.
 :::
 
-For OS dropdowns, see [selects](/docs/elements/selects).
+For OS dropdowns, see [selects](/docs/framework/elements/selects).
 
 ---
 
@@ -591,7 +591,7 @@ Three optional knobs on the `<menu>` element:
 The modifier is part of the attribute name and the number is its value: `x-defer.priority="1"`. Writing `x-defer="priority:1"` does nothing.
 
 ::: brand icon="lucide:info"
-If a menu lists more than ~100 items, put the list in [`x-virtual`](/docs/core-plugins/virtual#inside-menus-and-dialogs). Deferral makes the closed menu free; virtualization makes the open menu fast.
+If a menu lists more than ~100 items, put the list in [`x-virtual`](/docs/framework/core-plugins/virtual#inside-menus-and-dialogs). Deferral makes the closed menu free; virtualization makes the open menu fast.
 :::
 
 <div x-code-group>
@@ -633,7 +633,7 @@ Three hundred rows are in the menu, but only the visible ones are rendered, and 
 
 ### Theme
 
-Default dropdowns use the following [theme](/docs/styles/theme) variables:
+Default dropdowns use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|----------|

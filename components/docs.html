@@ -1,21 +1,30 @@
 <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-data="{
-    base: $modify('base') ?? '/docs',
-    src: $modify('source') ?? 'docs',
+    base: $modify('base') ?? '/docs/framework',
+    src: $modify('source') ?? 'framework',
     heading: $modify('heading') ?? 'Docs',
     intro: $modify('intro') ?? '',
     get groups() { return $x[this.src] || [] },
     get article() { return $x[this.src].$route('path') },
     get group() { const g = $x[this.src].$route('slug'); return g?.group && this.at(this.base + '/' + g.slug) ? g : null },
-    href(group, item) { return this.base + '/' + group.slug + (item ? '/' + item.path : '') },
+    href(group, item) { return this.base + (group.slug ? '/' + group.slug : '') + (item ? '/' + item.path : '') },
+    get cards() {
+      const out = [];
+      for (const g of this.groups) {
+        const items = (g.items || []).filter(i => i.name);
+        if (g.group) out.push({ href: this.href(g), icon: g.icon || items[0]?.icon, title: g.group, sub: items.length + (items.length === 1 ? ' article' : ' articles') });
+        else items.forEach(i => out.push({ href: this.href(g, i), icon: i.icon, title: i.name, sub: 'Start here' }));
+      }
+      return out;
+    },
     at(path) { return $route.replace(/\/$/, '') === path },
   }">
 
   <!-- Desktop navigation -->
   <nav aria-label="Documentation" data-static style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar"
     x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r => addEventListener('manifest:ready', r, { once: true }))).then(() => { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
-    <template x-for="group in groups" :key="group.group">
+    <template x-for="(group, gi) in groups" :key="group.group || gi">
       <div class="col gap-2">
-        <small class="pl-2.5 text-content-subtle" x-text="group.group"></small>
+        <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
         <div class="col">
           <template x-for="(item, index) in group.items" :key="item.path || index">
             <a x-show="item.name" :href="href(group, item)" role="button" :aria-current="article?.path === item.path ? 'page' : null" :class="[
@@ -41,7 +50,7 @@
     <div class="col grow w-full max-w-full mx-auto">
 
       <!-- Article -->
-      <template x-if="article?.name">
+      <template x-if="article?.name && article?.group">
         <span class="h6 mb-3" x-text="article?.group"></span>
       </template>
       <template x-if="article?.name">
@@ -56,12 +65,12 @@
             <p class="text-content-neutral" x-show="intro" x-text="intro"></p>
           </div>
           <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            <template x-for="group in groups" :key="group.group">
-              <a :href="href(group)" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
-                <span x-icon="group.items?.[0]?.icon" class="text-brand-content"></span>
+            <template x-for="card in cards" :key="card.href">
+              <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
+                <span x-icon="card.icon" class="text-brand-content"></span>
                 <span class="col">
-                  <span class="text-content-stark font-medium" x-text="group.group"></span>
-                  <small class="text-content-subtle" x-text="group.items.filter(i => i.name).length + ' articles'"></small>
+                  <span class="text-content-stark font-medium" x-text="card.title"></span>
+                  <small class="text-content-subtle" x-text="card.sub"></small>
                 </span>
               </a>
             </template>

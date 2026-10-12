@@ -6,7 +6,7 @@ Calendar dates, ranges, and times with native fallbacks and full localization.
 
 ## Setup
 
-Date picker styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Date picker styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 Date picker functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
 
@@ -33,7 +33,7 @@ Date picker functionality is included in `manifest.js` with all core plugins, or
 </div>
 
 ::: brand icon="lucide:info"
-Calendar menus piggyback on [dropdown](/docs/elements/dropdowns) styles and popover behavior, so the dropdown stylesheet loads as a dependency. Navigation chevrons are baked into the CSS as the `--icon-previous` / `--icon-next` [theme](/docs/styles/theme) variables — no icons plugin needed, and overridable like any other token.
+Calendar menus piggyback on [dropdown](/docs/framework/elements/dropdowns) styles and popover behavior, so the dropdown stylesheet loads as a dependency. Navigation chevrons are baked into the CSS as the `--icon-previous` / `--icon-next` [theme](/docs/framework/styles/theme) variables — no icons plugin needed, and overridable like any other token.
 :::
 
 ---
@@ -374,9 +374,9 @@ The day grid is fully keyboard-operable with a single tab stop (the selection, o
 
 ## Localization
 
-Calendars localize themselves from the active [locale](/docs/core-plugins/localization): month and weekday names, first day of the week, date display formats, and the 12/24-hour clock all come from `Intl`. Switching locale re-renders every calendar, with no configuration needed.
+Calendars localize themselves from the active [locale](/docs/framework/core-plugins/localization): month and weekday names, first day of the week, date display formats, and the 12/24-hour clock all come from `Intl`. Switching locale re-renders every calendar, with no configuration needed.
 
-The few built-in UI strings are overridable through the universal `_ui` block — namespaced under `date` — in any [local data](/docs/core-plugins/local-data) file your project loads. Override only the keys you want; anything omitted stays in English.
+The few built-in UI strings are overridable through the universal `_ui` block — namespaced under `date` — in any [local data](/docs/framework/core-plugins/local-data) file your project loads. Override only the keys you want; anything omitted stays in English.
 
 <div x-code-group copy>
 
@@ -460,7 +460,7 @@ Use the `$date(id)` magic method to read or change a picker from anywhere on the
 
 ### Theme
 
-The default calendar uses the following [theme](/docs/styles/theme) variables:
+The default calendar uses the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable                  | Purpose                                          |
 | ------------------------- | ------------------------------------------------ |

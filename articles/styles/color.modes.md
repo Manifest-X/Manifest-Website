@@ -55,7 +55,7 @@ The light mode is the default, picking up all variable and static colors not in 
 
 </div>
 
-See [theme](/docs/styles/theme) styles for Manifest's suggested color variables.
+See [theme](/docs/framework/styles/theme) styles for Manifest's suggested color variables.
 
 ---
 
@@ -136,7 +136,7 @@ Allow users to toggle color modes with the `x-color` directive, using the follow
 
 </div>
 
-See [buttons](/docs/elements/buttons) for details on the element.
+See [buttons](/docs/framework/elements/buttons) for details on the element.
 
 ---
 
@@ -154,7 +154,7 @@ See [buttons](/docs/elements/buttons) for details on the element.
 
 </div>
 
-See [icons](/docs/elements/icons) for details on conditional icons.
+See [icons](/docs/framework/elements/icons) for details on conditional icons.
 
 ---
 
@@ -182,7 +182,7 @@ See [icons](/docs/elements/icons) for details on conditional icons.
 
 </div>
 
-See [dropdowns](/docs/elements/dropdowns) for details on the menu element.
+See [dropdowns](/docs/framework/elements/dropdowns) for details on the menu element.
 
 ---
 

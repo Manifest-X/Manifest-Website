@@ -32,22 +32,92 @@
             },
             {
                 "from": "/docs/publishing/app-store-readiness",
-                "to": "/docs/publishing/native-apps#passing-review",
+                "to": "/docs/framework/publishing/native-apps#passing-review",
                 "status": 301
             },
             {
                 "from": "/docs/publishing/native-capabilities",
-                "to": "/docs/core-plugins/device",
+                "to": "/docs/framework/core-plugins/device",
                 "status": 301
             },
             {
                 "from": "/docs/core-plugins/export",
-                "to": "/docs/core-plugins/import-export",
+                "to": "/docs/framework/core-plugins/import-export",
                 "status": 301
             },
             {
                 "from": "/docs/core-plugins/resize",
-                "to": "/docs/core-plugins/edit",
+                "to": "/docs/framework/core-plugins/edit",
+                "status": 301
+            },
+            {
+                "from": "/docs/getting-started/*",
+                "to": "/docs/framework/getting-started/:splat",
+                "status": 301
+            },
+            {
+                "from": "/docs/getting-started",
+                "to": "/docs/framework/getting-started",
+                "status": 301
+            },
+            {
+                "from": "/docs/core-plugins/*",
+                "to": "/docs/framework/core-plugins/:splat",
+                "status": 301
+            },
+            {
+                "from": "/docs/core-plugins",
+                "to": "/docs/framework/core-plugins",
+                "status": 301
+            },
+            {
+                "from": "/docs/appwrite-plugins/*",
+                "to": "/docs/framework/appwrite-plugins/:splat",
+                "status": 301
+            },
+            {
+                "from": "/docs/appwrite-plugins",
+                "to": "/docs/framework/appwrite-plugins",
+                "status": 301
+            },
+            {
+                "from": "/docs/publishing/*",
+                "to": "/docs/framework/publishing/:splat",
+                "status": 301
+            },
+            {
+                "from": "/docs/publishing",
+                "to": "/docs/framework/publishing",
+                "status": 301
+            },
+            {
+                "from": "/docs/styles/*",
+                "to": "/docs/framework/styles/:splat",
+                "status": 301
+            },
+            {
+                "from": "/docs/styles",
+                "to": "/docs/framework/styles",
+                "status": 301
+            },
+            {
+                "from": "/docs/elements/*",
+                "to": "/docs/framework/elements/:splat",
+                "status": 301
+            },
+            {
+                "from": "/docs/elements",
+                "to": "/docs/framework/elements",
+                "status": 301
+            },
+            {
+                "from": "/docs/resources/*",
+                "to": "/docs/framework/resources/:splat",
+                "status": 301
+            },
+            {
+                "from": "/docs/resources",
+                "to": "/docs/framework/resources",
                 "status": 301
             }
         ],
@@ -76,6 +146,7 @@
     ],
     "components": [
         "components/legal.html",
+        "components/docs-index.html",
         "assets/example-components/disclaimer.html",
         "assets/example-components/header-basic.html",
         "assets/example-components/header-nested.html",
@@ -98,7 +169,8 @@
         "components/docs-footer.html"
     ],
     "data": {
-        "docs": "/data/docs.yaml",
+        "framework": "/data/docs.yaml",
+        "ai": "/data/ai.yaml",
         "faq": "/data/faq.yaml",
         "features": "/data/features.yaml",
         "comparisons": "/data/comparisons.yaml",

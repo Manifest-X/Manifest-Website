@@ -12,7 +12,7 @@ MNFST OÜ is a private limited company (osaühing) incorporated in Estonia, regi
 
 By creating an account, connecting the Service to an AI assistant, publishing a project, or otherwise using the Service, you (**"User"**, **"you"** or **"your"**) agree to these Terms and to our [Privacy Policy](/legal/privacy). If you do not agree, do not use the Service. If you use the Service on behalf of an organization, you represent that you are authorized to bind that organization, and "you" includes it.
 
-The open-source Manifest framework is separate from the Service: it is licensed under the [MIT License](/docs/resources/license), which alone governs your use of the framework's code. These Terms apply to the hosted Service, not to the framework code itself.
+The open-source Manifest framework is separate from the Service: it is licensed under the [MIT License](/docs/framework/resources/license), which alone governs your use of the framework's code. These Terms apply to the hosted Service, not to the framework code itself.
 
 ---
 

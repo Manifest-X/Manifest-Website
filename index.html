@@ -52,8 +52,10 @@
     <!-- Home page -->
     <x-home x-route="/"></x-home>
 
-    <!-- Documentation pages -->
-    <x-docs x-route="docs" intro="Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference."></x-docs>
+    <!-- Documentation -->
+    <x-docs-index x-route="=docs"></x-docs-index>
+    <x-docs x-route="docs/ai" base="/docs/ai" source="ai" heading="AI Plugins" intro="Put your site online and run it from your AI app. No coding required."></x-docs>
+    <x-docs x-route="docs/framework" base="/docs/framework" source="framework" heading="Framework" intro="Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference."></x-docs>
 
     <!-- Legal pages -->
     <x-legal x-route="legal"></x-legal>

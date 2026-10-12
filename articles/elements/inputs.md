@@ -6,7 +6,7 @@ Single-line text fields with validation states.
 
 ## Setup
 
-Input styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Input styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -40,7 +40,7 @@ Input styles are included in Manifest CSS or a standalone stylesheet, both refer
 
 ## Utilities
 
-Inputs accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
+Inputs accept Manifest [utility](/docs/framework/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
 
@@ -141,13 +141,13 @@ Inputs of `type="search"` work on their own, or can be placed in a label to faci
 
 </div>
 
-See the [local data](http://localhost:5070/docs/core-plugins/local-data#search-query) plugin for wiring up search functionality. 
+See the [local data](/docs/framework/core-plugins/local-data#search-query) plugin for wiring up search functionality. 
 
 ---
 
 ### Copy
 
-Pair an input with a copy button by placing both in a label, and marking the button with `command="--copy"`. No wiring is required; clicking the button copies the field's value and flashes a confirmation [tooltip](/docs/elements/tooltips), just like copyable code blocks.
+Pair an input with a copy button by placing both in a label, and marking the button with `command="--copy"`. No wiring is required; clicking the button copies the field's value and flashes a confirmation [tooltip](/docs/framework/elements/tooltips), just like copyable code blocks.
 
 <div x-code-group>
 
@@ -313,7 +313,7 @@ Inputs support native HTML5 validation through attributes like `required`, `patt
 
 </div>
 
-Prefer `user-invalid:` and `user-valid:` over the unprefixed `invalid:` and `valid:`. They wait until the user has actually engaged with the field, avoiding the awkward "everything is red on page load" effect. See [forms](/docs/elements/forms#validation) for the full variant reference and inline-message patterns.
+Prefer `user-invalid:` and `user-valid:` over the unprefixed `invalid:` and `valid:`. They wait until the user has actually engaged with the field, avoiding the awkward "everything is red on page load" effect. See [forms](/docs/framework/elements/forms#validation) for the full variant reference and inline-message patterns.
 
 ---
 
@@ -321,7 +321,7 @@ Prefer `user-invalid:` and `user-valid:` over the unprefixed `invalid:` and `val
 
 ### Theme
 
-Default inputs use the following [theme](/docs/styles/theme) variables:
+Default inputs use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|

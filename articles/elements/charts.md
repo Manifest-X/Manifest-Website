@@ -6,7 +6,7 @@ Reactive SVG charts, from simple sparklines to live dashboards.
 
 ## Setup
 
-Chart styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Chart styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 Chart functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
 
@@ -33,7 +33,7 @@ Chart functionality is included in `manifest.js` with all core plugins, or it ca
 </div>
 
 ::: brand icon="lucide:info"
-Charts render as SVG, so they inherit theme colors, restyle with ordinary CSS, and survive [prerendering](/docs/publishing/websites) as real DOM. The geometry engine (d3's scale/shape micro-modules, ~22 KB) lazy-loads the first time a chart scrolls into view. Pages that never show a chart never pay for one.
+Charts render as SVG, so they inherit theme colors, restyle with ordinary CSS, and survive [prerendering](/docs/framework/publishing/websites) as real DOM. The geometry engine (d3's scale/shape micro-modules, ~22 KB) lazy-loads the first time a chart scrolls into view. Pages that never show a chart never pay for one.
 :::
 
 ---
@@ -384,7 +384,7 @@ Every chart resolves a segment's (or series', or slice's) color through the same
 2. For Gantt charts, the config `colors`{copy} map (`status` → color) — so the same status is one color across every track, with one legend entry.
 3. Otherwise the `--color-chart-N`{copy} **palette**, assigned in first-seen order.
 
-Whatever you supply for `color` is passed straight to the SVG `fill`, so **any** CSS `<color>` or `var()` works — a fixed value, a chart palette variable, a [theme](/docs/styles/theme) token, or your own custom property:
+Whatever you supply for `color` is passed straight to the SVG `fill`, so **any** CSS `<color>` or `var()` works — a fixed value, a chart palette variable, a [theme](/docs/framework/styles/theme) token, or your own custom property:
 
 ```html copy
 <div x-chart="{ type: 'gantt', series: [{ name: 'Build', data: [
@@ -476,13 +476,13 @@ To reference a place by **name** instead of coordinates, supply a `places`{copy}
 
 </div>
 
-Because the whole config is a live Alpine expression, any field — including `name` — accepts a `$x` binding (`{ name: $x.site.label, value: $x.site.users }`), so points can come straight from [data](/docs/core-plugins/local-data). Point names are author text and aren't auto-translated (only region labels are); to localize them, bind to a locale-aware source.
+Because the whole config is a live Alpine expression, any field — including `name` — accepts a `$x` binding (`{ name: $x.site.label, value: $x.site.users }`), so points can come straight from [data](/docs/framework/core-plugins/local-data). Point names are author text and aren't auto-translated (only region labels are); to localize them, bind to a locale-aware source.
 
 #### Localization
 
-Geographic labels translate automatically to ~30 languages, following the current [locale](/docs/core-plugins/localization). The translations are lazy-loaded on demand from the [`i18n-iso-countries`](https://www.npmjs.com/package/i18n-iso-countries) dataset (via jsDelivr) — only the active locale is fetched, and only when a map is shown. English is the default.
+Geographic labels translate automatically to ~30 languages, following the current [locale](/docs/framework/core-plugins/localization). The translations are lazy-loaded on demand from the [`i18n-iso-countries`](https://www.npmjs.com/package/i18n-iso-countries) dataset (via jsDelivr) — only the active locale is fetched, and only when a map is shown. English is the default.
 
-Override or extend any name through the `_ui.map` block, exactly like the [color](/docs/elements/color-pickers) and [date](/docs/elements/date-pickers) pickers:
+Override or extend any name through the `_ui.map` block, exactly like the [color](/docs/framework/elements/color-pickers) and [date](/docs/framework/elements/date-pickers) pickers:
 
 ```js copy
 // in a locale data source
@@ -527,7 +527,7 @@ _ui: {
 
 ### Declarative Series
 
-For content-first authoring, set the type as a modifier and declare each series as a `<data>` child — handy when values come from [local data](/docs/core-plugins/local-data) bindings.
+For content-first authoring, set the type as a modifier and declare each series as a `<data>` child — handy when values come from [local data](/docs/framework/core-plugins/local-data) bindings.
 
 ```html copy
 <figure x-chart.bar labels="['Q1','Q2','Q3','Q4']">
@@ -540,7 +540,7 @@ For content-first authoring, set the type as a modifier and declare each series 
 
 ## Dynamic Data
 
-The config is a live Alpine expression: charts re-render whenever the data behind them changes. Bind series to [local data](/docs/core-plugins/local-data), [cloud data](/docs/appwrite-plugins/cloud-data), or any reactive state — dashboards assemble themselves from whatever `$x` holds.
+The config is a live Alpine expression: charts re-render whenever the data behind them changes. Bind series to [local data](/docs/framework/core-plugins/local-data), [cloud data](/docs/framework/appwrite-plugins/cloud-data), or any reactive state — dashboards assemble themselves from whatever `$x` holds.
 
 ```html copy
 <!-- Re-draws whenever $x.sales loads or updates -->
@@ -651,7 +651,7 @@ Modify base styles with custom CSS targeting `[x-chart]` (or the `.chart` marker
 | `text.value`{copy}          | Data labels (`.inverse` when on a filled segment) |
 | `text.gauge-label`{copy}    | Gauge centered readout                        |
 | `footer`{copy}              | Legend — `<span>` items with `<i>` swatches (heatmap: `footer.heat-legend` gradient bar) |
-| `.tooltip`{copy}            | Cursor tooltip — chrome shared with [tooltips](/docs/elements/tooltips) |
+| `.tooltip`{copy}            | Cursor tooltip — chrome shared with [tooltips](/docs/framework/elements/tooltips) |
 
 Each series element carries its resolved color as `--color-chart-color`, so one rule can restyle any series-colored part.
 

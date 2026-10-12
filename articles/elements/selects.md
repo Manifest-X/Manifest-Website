@@ -6,7 +6,7 @@ OS-native dropdown lists for choosing options.
 
 ## Setup
 
-Select styles are included in Manifest CSS or the standalone [buttons](/docs/elements/buttons) stylesheet. Both reference [theme](/docs/styles/theme) variables.
+Select styles are included in Manifest CSS or the standalone [buttons](/docs/framework/elements/buttons) stylesheet. Both reference [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -48,7 +48,7 @@ Select styles are included in Manifest CSS or the standalone [buttons](/docs/ele
 
 ## Utilities
 
-Selects accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
+Selects accept Manifest [utility](/docs/framework/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
 <div x-code-group>
@@ -312,7 +312,7 @@ When these elements are grouped, only the outer elements' outer corners retain t
 
 ### Theme
 
-Default selects use the following [theme](/docs/styles/theme) variables:
+Default selects use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|

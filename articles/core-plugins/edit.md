@@ -364,7 +364,7 @@ The event fires after the pointer is released, so a popover opened in the handle
 
 ## With Text Edit
 
-Text edits in a plain region keep inline formatting only. For rich text, put [`x-text-edit`](/docs/core-plugins/text-edit) on an element inside the region: the rich editor takes over that element, and `x-edit` records whatever it produces — headings, lists and other block markup included — as an ordinary text edit, so undo and publishing treat it like everything else.
+Text edits in a plain region keep inline formatting only. For rich text, put [`x-text-edit`](/docs/framework/core-plugins/text-edit) on an element inside the region: the rich editor takes over that element, and `x-edit` records whatever it produces — headings, lists and other block markup included — as an ordinary text edit, so undo and publishing treat it like everything else.
 
 <div x-code-group>
 
@@ -511,4 +511,4 @@ Every affordance is addressable — style them like any other markup:
 
 ## Related
 
-- [Text Edit](/docs/core-plugins/text-edit) — a rich text field
+- [Text Edit](/docs/framework/core-plugins/text-edit) — a rich text field

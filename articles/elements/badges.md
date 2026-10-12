@@ -6,7 +6,7 @@ Compact labels for status, counts, and tags.
 
 ## Setup
 
-Badge styles are included in Manifest CSS or the standalone [typography](/docs/elements/typography) stylesheet. Both reference [theme](/docs/styles/theme) variables.
+Badge styles are included in Manifest CSS or the standalone [typography](/docs/framework/elements/typography) stylesheet. Both reference [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -42,7 +42,7 @@ Apply the `badge` class to any text element.
 
 ## Utilities
 
-Badges accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
+Badges accept Manifest [utility](/docs/framework/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
 <div x-code-group>
@@ -126,7 +126,7 @@ Badges accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 
 ### Solo Icon
 
-Badges containing a single [icon](/docs/elements/icons) are automatically squared.
+Badges containing a single [icon](/docs/framework/elements/icons) are automatically squared.
 
 <div x-code-group>
 
@@ -166,7 +166,7 @@ Any number of icons and text can be nested in any order. Place icons in `<span>`
 
 ### Theme
 
-Default badges use the following [theme](/docs/styles/theme) variables:
+Default badges use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|

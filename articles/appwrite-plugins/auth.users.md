@@ -339,7 +339,7 @@ When `guest-manual` is enabled, visitors must explicitly choose to continue as a
 
 #### Guest Upgrade
 
-By default a guest who signs in gets a brand-new account, and anything tied to the guest session (such as guest-created [teams](/docs/appwrite-plugins/teams)) is left behind. Set `guestUpgrade` to `true` to instead convert the guest's existing account in place, preserving its data and team memberships.
+By default a guest who signs in gets a brand-new account, and anything tied to the guest session (such as guest-created [teams](/docs/framework/appwrite-plugins/teams)) is left behind. Set `guestUpgrade` to `true` to instead convert the guest's existing account in place, preserving its data and team memberships.
 
 ```json "manifest.json" copy
 {
@@ -543,6 +543,24 @@ Current session details (null if not authenticated). The session object comes di
 
 ---
 
+## Session Recovery
+
+Sessions are checked against Appwrite on every page load, and the plugin distinguishes a real sign-out from a connection problem.
+
+### Sign-out Across Tabs
+
+Logging out in one tab signs out every open tab (or moves them to the new guest session, with auto guest sessions), as does a session check finding the session gone (a 401). Every Appwrite table and bucket source clears and reloads in every tab, so the previous user's entries never linger. Signing in or switching accounts from another tab reloads them too, and loads that user's [teams](/docs/framework/appwrite-plugins/teams) (see [cloud data](/docs/framework/appwrite-plugins/cloud-data)).
+
+### Offline Starts
+
+When a signed-in user opens the app without a connection, the session check fails with a network error rather than a "no session" answer. The tab renders signed out (`$auth.isAuthenticated` is `false`) but other tabs are left untouched — only a genuine "no session" answer from Appwrite signs them out. Auto guest sessions are also held back, so no guest account is created over the real one.
+
+The session is rechecked when the connection returns, when the user returns to the tab, and on a timer (2s, 5s, 15s, then every 60s). Once Appwrite answers, either the session is restored — the usual sign-in events fire, and every table and bucket source reloads for the user, including those showing saved rows — or a genuine "no session" answer signs the user out everywhere.
+
+Meanwhile, [persisted](/docs/framework/core-plugins/local-data#persisted-data) rows saved for the user last signed in on this device are shown, except from tables with a [scope](/docs/framework/appwrite-plugins/databases#scope) and sources whose queries reference `$auth.` values, which end up empty while the tab is signed out. A "no session" answer clears them.
+
+---
+
 ## Next Steps
 
-See [teams](/docs/appwrite-plugins/teams) to enable shared workspaces between users, including roles and permissions.
+See [teams](/docs/framework/appwrite-plugins/teams) to enable shared workspaces between users, including roles and permissions.

@@ -22,7 +22,7 @@ Manifest projects work as a single-page app by default. No build step required. 
 - Set the root to `./` if applicable
 - Set the fallback file to `./index.html` if applicable
 
-The [starter project](/docs/getting-started/starter-project) includes a `_redirects` file to assist the host with SPA routing.
+The [starter project](/docs/framework/getting-started/starter-project) includes a `_redirects` file to assist the host with SPA routing.
 
 ---
 
@@ -42,6 +42,31 @@ Routes with sub-pages driven by data (e.g. a page template component for blog ar
 <x-blog x-route="/blog, /blog/*"></x-blog>
 ```
 
+The wildcard's paths come from the data source whose key matches the route's base. The render reads each entry's `path` (or `slug`) from local YAML, JSON, or CSV sources and places it under the base. Grouped lists prefix each item's `path` with the group name, lowercased and hyphenated (grouped items need `path`, not `slug`).
+
+<div x-code-group>
+
+```json "manifest.json" copy
+{
+  "data": {
+    "blog": "/data/blog.yaml"
+  }
+}
+```
+
+```yaml "data/blog.yaml" copy
+- group: "Releases"
+  items:
+    - name: "Version 1"
+      path: "version-1"
+```
+
+</div>
+
+With the `/blog/*` route above, this renders `/blog/releases/version-1`. For locales defined in your data sources, the locale stays in front (e.g. `fr/releases/version-1` becomes `/fr/blog/releases/version-1`). When the project has wildcard routes, data paths that don't fall under one aren't rendered.
+
+The base can also be nested: a key matches a wildcard route ending in that key, so a `framework` source fills `x-route="docs/framework/*"`, and the render prints a notice naming the mount. A route named exactly after the key takes precedence over nested ones. If several nested routes end in the same key (e.g. `a/docs/*` and `b/docs/*`), the source mounts under neither and the render prints a warning. Rename the key or one of the routes to resolve it.
+
 By default, output is generated in a `/website` folder which includes:
 
 - Copies of all folders and assets from the project, preserving path references.
@@ -60,7 +85,7 @@ By default, output is generated in a `/website` folder which includes:
 
 ### SEO & AEO
 
-The render automatically generates page titles, descriptions, social-share images, structured data, `sitemap.xml`, `robots.txt`, and the `llms.txt` family for AI crawlers. No configuration is needed for most sites. See [SEO & AEO](/docs/publishing/seo-aeo) for what's generated, when to customize it, and how.
+The render automatically generates page titles, descriptions, social-share images, structured data, `sitemap.xml`, `robots.txt`, and the `llms.txt` family for AI crawlers. No configuration is needed for most sites. See [SEO & AEO](/docs/framework/publishing/seo-aeo) for what's generated, when to customize it, and how.
 
 ---
 
@@ -135,6 +160,8 @@ Interactive directives like `x-color`, `x-model`, `@click`, and `:class` are aut
 ### Publishing
 
 To deploy an MPA on a host environment, set the root directory to the prerendered output directory (i.e. `./website`).
+
+To publish from Claude with Manifest hosting instead, see [AI Plugins](/docs/ai/introduction).
 
 ---
 

@@ -6,7 +6,7 @@ Structured input layouts with built-in validation.
 
 ## Setup
 
-Form styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Form styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -484,15 +484,15 @@ A wrapper with `role="tablist"` instead becomes a tab bar. Mark the active butto
 
 </div>
 
-[Tab](/docs/elements/tabs) buttons sync `aria-selected` automatically, so adding `role="tablist"` to a wrapper of `x-tab` buttons gets this styling with no further markup.
+[Tab](/docs/framework/elements/tabs) buttons sync `aria-selected` automatically, so adding `role="tablist"` to a wrapper of `x-tab` buttons gets this styling with no further markup.
 
-Button [utility classes](/docs/elements/buttons#utilities) like `transparent`, `outlined`, `sm`, and `lg`, also apply at the wrapper level, styling the whole control as one.
+Button [utility classes](/docs/framework/elements/buttons#utilities) like `transparent`, `outlined`, `sm`, and `lg`, also apply at the wrapper level, styling the whole control as one.
 
 ---
 
 ## Remove Buttons
 
-A button named `remove` becomes a floating dismiss affordance for whatever contains it — a chip, an [avatar](/docs/elements/avatars), a pending [chat attachment](/docs/elements/chats#composer). The complete markup is one attribute pair; everything else is automatic.
+A button named `remove` becomes a floating dismiss affordance for whatever contains it — a chip, an [avatar](/docs/framework/elements/avatars), a pending [chat attachment](/docs/framework/elements/chats#composer). The complete markup is one attribute pair; everything else is automatic.
 
 <div x-code-group>
 
@@ -589,7 +589,7 @@ Common Tailwind variants:
 
 ## Styles
 
-Forms inherit styling from their child elements ([buttons](/docs/elements/buttons), [inputs](/docs/elements/inputs), [selects](/docs/elements/selects)) and reference [theme](/docs/styles/theme) variables. The form, fieldset, label, and group elements layer in a small amount of layout structure on top.
+Forms inherit styling from their child elements ([buttons](/docs/framework/elements/buttons), [inputs](/docs/framework/elements/inputs), [selects](/docs/framework/elements/selects)) and reference [theme](/docs/framework/styles/theme) variables. The form, fieldset, label, and group elements layer in a small amount of layout structure on top.
 
 | Selector | Purpose |
 |---|---|

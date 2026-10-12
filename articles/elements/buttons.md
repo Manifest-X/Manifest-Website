@@ -6,7 +6,7 @@ Interactive elements that trigger actions.
 
 ## Setup
 
-Button styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Button styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -70,7 +70,7 @@ The button's appearance is determined by these top-level factors:
 
 ## Utilities
 
-Buttons accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
+Buttons accept Manifest [utility](/docs/framework/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
 
@@ -155,7 +155,7 @@ Buttons accept Manifest [utility](/docs/styles/utilities) classes, which can be 
 
 ### Solo Icon
 
-Buttons containing a single [icon](/docs/elements/icons) are automatically squared. Add `aria-label` so screen readers can announce what the button does — icons alone have no accessible name.
+Buttons containing a single [icon](/docs/framework/elements/icons) are automatically squared. Add `aria-label` so screen readers can announce what the button does — icons alone have no accessible name.
 
 <div x-code-group>
 
@@ -317,7 +317,7 @@ When these elements are grouped, only the outer elements' outer corners retain t
 
 ### Theme
 
-Default buttons use the following [theme](/docs/styles/theme) variables:
+Default buttons use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|

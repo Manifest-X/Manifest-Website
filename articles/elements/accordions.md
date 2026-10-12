@@ -6,7 +6,7 @@ Collapsible content panels that expand on demand.
 
 ## Setup
 
-Accordion styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Accordion styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -122,7 +122,7 @@ Add the `open` attribute to accordions that should be open on page load.
 
 ### Theme
 
-Default accordions use the following [theme](/docs/styles/theme) variables:
+Default accordions use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|

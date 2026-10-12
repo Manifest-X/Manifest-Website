@@ -8,7 +8,7 @@ Display content with modified URL strings.
 
 URL parameters provide a reactive `$url` magic method for storing application state in the URL with common URL characters like `?` and `&`. This preserves user interactions like search queries, filters, and view preferences, and the generated URLs can be further shared or bookmarked.
 
-Parameters are fully reactive: any binding that reads a parameter (`x-text`, `x-show`, `x-for`, etc) re-renders when it changes — whether from `.set()`, `.add()`, `.remove()`, browser back/forward, or [router](/docs/core-plugins/router) navigation. Mutations apply instantly; only the address bar update is debounced to prevent excessive history entries during rapid input. Parameters persist across page reloads.
+Parameters are fully reactive: any binding that reads a parameter (`x-text`, `x-show`, `x-for`, etc) re-renders when it changes — whether from `.set()`, `.add()`, `.remove()`, browser back/forward, or [router](/docs/framework/core-plugins/router) navigation. Mutations apply instantly; only the address bar update is debounced to prevent excessive history entries during rapid input. Parameters persist across page reloads.
 
 ---
 
@@ -170,7 +170,7 @@ Remove a parameter entirely from the URL with `.clear()` or a no-argument `.remo
 
 ## Data Sources
 
-Content from a [data source](/docs/core-plugins/local-data) can be the subject of a URL parameter.
+Content from a [data source](/docs/framework/core-plugins/local-data) can be the subject of a URL parameter.
 
 <div x-code-group copy>
 

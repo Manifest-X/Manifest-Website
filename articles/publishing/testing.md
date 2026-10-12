@@ -19,7 +19,7 @@ Or target a subdirectory with a path like `npx mnfst-test website`{copy} for `/w
 The test suite checks:
 
 - **Configuration** — every component file and data file declared in `manifest.json` actually exists on disk.
-- **Web app completeness** — the required and recommended fields for an [installable web app](/docs/publishing/web-apps).
+- **Web app completeness** — the required and recommended fields for an [installable web app](/docs/framework/publishing/web-apps).
 - **Component usage** — every `<x-component>` tag in your project matches a registered component, and every registered component is actually used somewhere.
 - **Data references** — every `$x.<name>` in your HTML matches a registered data source, and any unused sources are flagged.
 - **Alpine syntax** — every Alpine attribute (`x-data`, `x-show`, `x-text`, `x-if`, `x-for`, `x-bind`, `@click`, etc.) parses as valid JavaScript.

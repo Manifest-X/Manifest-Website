@@ -1,7 +1,6 @@
 <!-- Docs search: Cmd/Ctrl-K dialog, filters all articles by title, headings, and content -->
 <div x-data="{
-        base: $modify('base') ?? '/docs',
-        src: $modify('source') ?? 'docs',
+        sources: [['ai', '/docs/ai'], ['framework', '/docs/framework']],
         q: '',
         items: [],
         ready: false,
@@ -12,12 +11,13 @@
         async build() {
             if (this.ready || this.loading) return;
             this.loading = true;
-            for (let i = 0; i < 20 && (!$x[this.src] || !$x[this.src].length); i++) await new Promise(r => setTimeout(r, 100));
             const jobs = [];
-            for (const g of ($x[this.src] || [])) {
+            for (const [src, base] of this.sources) {
+            for (let i = 0; i < 20 && (!$x[src] || !$x[src].length); i++) await new Promise(r => setTimeout(r, 100));
+            for (const g of ($x[src] || [])) {
                 for (const it of (g.items || [])) {
                     if (!it.name || !it.doc) continue;
-                    const href = this.base + '/' + g.slug + '/' + it.path;
+                    const href = base + (g.slug ? '/' + g.slug : '') + '/' + it.path;
                     jobs.push(fetch(it.doc)
                         .then(r => r.ok ? r.text() : '')
                         .catch(() => '')
@@ -40,6 +40,7 @@
                             });
                         }));
                 }
+            }
             }
             await Promise.all(jobs);
             $x.$register('searchIndex', this.items);

@@ -8,13 +8,13 @@ Conversation layouts with message bubbles, attachments, and input composers.
 
 Chat styles turn semantic HTML into a full conversation surface: a message log that stays pinned to the newest message, bubbles for your own messages, media attachments, and a composer that grows as you type. There are only two class names to learn. Add `chat-wrapper` to the container and `own` to the user's own messages, and everything else is styled through native elements and attributes.
 
-The styles don't care where messages come from. They work with a static array, [local data](/docs/core-plugins/local-data), your own backend, or the [chat plugin](/docs/core-plugins/chat). The plugin renders nothing itself, so neither requires the other.
+The styles don't care where messages come from. They work with a static array, [local data](/docs/framework/core-plugins/local-data), your own backend, or the [chat plugin](/docs/framework/core-plugins/chat). The plugin renders nothing itself, so neither requires the other.
 
 ---
 
 ## Setup
 
-Chat styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables. Remove buttons in the composer come from [form](/docs/elements/forms) styles.
+Chat styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables. Remove buttons in the composer come from [form](/docs/framework/elements/forms) styles.
 
 <div x-code-group copy>
 
@@ -123,7 +123,7 @@ Pinning is pure CSS: the log lays out in reverse column order, which browsers na
 
 ## Messages
 
-Messages are plain elements inside the column — one `<div>` per message is typical. Paragraph spacing is tuned for rendered [markdown](/docs/core-plugins/markdown). Add the `own` class to the current user's messages: they become right-aligned, fit-content bubbles on a surface tint.
+Messages are plain elements inside the column — one `<div>` per message is typical. Paragraph spacing is tuned for rendered [markdown](/docs/framework/core-plugins/markdown). Add the `own` class to the current user's messages: they become right-aligned, fit-content bubbles on a surface tint.
 
 ```html copy
 <template x-for="m in messages" :key="m.id">
@@ -131,7 +131,7 @@ Messages are plain elements inside the column — one `<div>` per message is typ
 </template>
 ```
 
-With the [Chat plugin](/docs/core-plugins/chat), the condition compares the author to the conversation's identity:
+With the [Chat plugin](/docs/framework/core-plugins/chat), the condition compares the author to the conversation's identity:
 
 ```html copy
 <div :class="m.author?.id === chat.me?.id && 'own'"></div>
@@ -180,9 +180,9 @@ Media inside a message is styled by element: images and videos are capped to a c
 
 ## Composer
 
-The chat form is a wrapping row aligned to the reading column. A textarea inside it flexes to fill the row and grows with its content (`field-sizing: content`), while buttons sit at the row's end. Two named buttons carry the conventions: `type="submit"` sends, and `name="attach"` triggers the file picker (see [forms](/docs/elements/forms) for name-based buttons).
+The chat form is a wrapping row aligned to the reading column. A textarea inside it flexes to fill the row and grows with its content (`field-sizing: content`), while buttons sit at the row's end. Two named buttons carry the conventions: `type="submit"` sends, and `name="attach"` triggers the file picker (see [forms](/docs/framework/elements/forms) for name-based buttons).
 
-Pending attachments live in an `<output>` element, the native element for showing the result of a user action. Screen readers announce its additions politely. Its children can be any elements: an `<img>` renders as a square thumbnail, a `<span>` as a file chip, and each can carry a [remove button](/docs/elements/forms#remove-buttons).
+Pending attachments live in an `<output>` element, the native element for showing the result of a user action. Screen readers announce its additions politely. Its children can be any elements: an `<img>` renders as a square thumbnail, a `<span>` as a file chip, and each can carry a [remove button](/docs/framework/elements/forms#remove-buttons).
 
 Placement is flexible. The strip and the buttons are styled anywhere inside `chat-wrapper`, so the strip can sit inside the form or just above it as a sibling. Only the textarea needs to be inside the form, which is what lays out the composer row. A send button placed elsewhere still submits if you point it at the form with a `form="form-id"` attribute.
 
@@ -254,7 +254,7 @@ Only classify files as images when the browser can decode them (the demo's regex
 
 ### Theme
 
-Chat layouts use the following [theme](/docs/styles/theme) variables:
+Chat layouts use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
@@ -283,7 +283,7 @@ Everything inside the wrapper is addressed by element or attribute:
 | `textarea` | Growing draft field |
 | `output` | Pending-attachments strip |
 | `button[name="attach"]` | File picker trigger |
-| `button[name="remove"]` | Floating dismiss affordance, from [form](/docs/elements/forms#remove-buttons) styles |
+| `button[name="remove"]` | Floating dismiss affordance, from [form](/docs/framework/elements/forms#remove-buttons) styles |
 
 ---
 

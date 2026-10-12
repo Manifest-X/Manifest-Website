@@ -6,7 +6,7 @@ Visual color selection with Hex, RGB, HSL, and OKLCH inputs.
 
 ## Setup
 
-Color picker styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Color picker styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 Color picker functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
 
@@ -34,7 +34,7 @@ Color picker functionality is included in `manifest.js` with all core plugins, o
 </div>
 
 ::: brand icon="lucide:info"
-The default color picker menu uses [dropdowns](/docs/elements/dropdowns) and [tooltips](/docs/elements/tooltips), with their respective plugins and styles as dependencies.
+The default color picker menu uses [dropdowns](/docs/framework/elements/dropdowns) and [tooltips](/docs/framework/elements/tooltips), with their respective plugins and styles as dependencies.
 :::
 
 ---
@@ -63,7 +63,7 @@ The simplest swatch is a native `<input type="color">`, displaying the browser's
 
 ### Picker Button
 
-Manifest provides a more nuanced color picker menu, opened by default as a [dropdown](/docs/elements/dropdowns) from a button swatch with `x-colorpicker.swatch`.
+Manifest provides a more nuanced color picker menu, opened by default as a [dropdown](/docs/framework/elements/dropdowns) from a button swatch with `x-colorpicker.swatch`.
 
 <div x-code-group>
 
@@ -248,7 +248,7 @@ To replace the fallback menu page-wide, declare a single `<template x-colorpicke
 <button x-colorpicker.swatch></button>
 ```
 
-To componentize the default across multiple pages or routes, wrap the template in a Manifest [HTML component](/docs/core-plugins/components) and drop it into your layout.
+To componentize the default across multiple pages or routes, wrap the template in a Manifest [HTML component](/docs/framework/core-plugins/components) and drop it into your layout.
 
 Each panel can be individually customized:
 
@@ -460,7 +460,7 @@ Recent is per-swatch and persists in `localStorage`, which can be cleared progra
 
 #### Default & Custom Palettes
 
-Two default palettes are bundled and appear in the library automatically: Tailwind (the full Tailwind CSS color scale) and iOS (Apple's system colors). To overwrite either one or add custom palettes, declare one or more [local data](/docs/core-plugins/local-data) files flagged with a `colorpicker` key.
+Two default palettes are bundled and appear in the library automatically: Tailwind (the full Tailwind CSS color scale) and iOS (Apple's system colors). To overwrite either one or add custom palettes, declare one or more [local data](/docs/framework/core-plugins/local-data) files flagged with a `colorpicker` key.
 
 <div x-code-group>
 
@@ -512,7 +512,7 @@ The contents of `_tailwind` or `_ios` will overwrite their respective default co
 
 ### Text & Localization
 
-The default menu text is localizable. Add a top-level `_ui` block — namespaced under `colorpicker` — to any [local data](/docs/core-plugins/local-data) file your project loads. The framework merges every loaded source's `_ui` onto the built-in English defaults, so you only override the keys you want to change; anything omitted stays in English.
+The default menu text is localizable. Add a top-level `_ui` block — namespaced under `colorpicker` — to any [local data](/docs/framework/core-plugins/local-data) file your project loads. The framework merges every loaded source's `_ui` onto the built-in English defaults, so you only override the keys you want to change; anything omitted stays in English.
 
 Because `_ui` rides the normal data model, it isn't tied to the picker's palette source. Colocate it with your `colorpicker`-flagged palettes, or keep it in a shared file alongside other elements' overrides — wherever it's authored, it's picked up.
 
@@ -558,7 +558,7 @@ _ui:
 
 #### Localization
 
-`_ui` localizes through the standard [local data](/docs/core-plugins/local-data) model — there's no picker-specific mechanism. Either chain values to a [locale](/docs/core-plugins/local-data) file with `$x` references…
+`_ui` localizes through the standard [local data](/docs/framework/core-plugins/local-data) model — there's no picker-specific mechanism. Either chain values to a [locale](/docs/framework/core-plugins/local-data) file with `$x` references…
 
 <div x-code-group>
 
@@ -681,7 +681,7 @@ Without an id, `$colorpicker` exposes a few helpers for working with palettes:
 
 ### Theme
 
-The default picker uses the following [theme](/docs/styles/theme) variables:
+The default picker uses the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable                  | Purpose                                                          |
 | ------------------------- | ---------------------------------------------------------------- |

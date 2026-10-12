@@ -105,7 +105,7 @@ APPWRITE_DEV_KEY=your-appwrite-dev-key
 **Production deployments.** Static hosts (Netlify, Vercel, Cloudflare Pages, GitHub Pages, S3, etc.) serve `manifest.json` verbatim — no runtime substitution. The Dev Key should not ship to production in the first place: it's strictly a development-time convenience for bypassing Appwrite's rate limits, and Appwrite enforces real auth through project-level permissions for live users. For any other `${VAR}` values you actually need in production, either hardcode them directly in `manifest.json` (acceptable for public values like Project ID and API Endpoint), bake them into the prerendered HTML at build time, or use your host's env-var injection feature.
 :::
 
-Alternatively, credentials can be added directly into specific [database](/docs/appwrite-plugins/databases) or [storage](/docs/appwrite-plugins/storage) sources, declared within the `data` object.
+Alternatively, credentials can be added directly into specific [database](/docs/framework/appwrite-plugins/databases) or [storage](/docs/framework/appwrite-plugins/storage) sources, declared within the `data` object.
 
 ```json "manifest.json" copy
 {
@@ -134,5 +134,5 @@ If credentials are declared in both `appwrite` and `data` objects, the `data` cr
 
 After a successful setup above, your Manifest project should be paired with your Appwrite project(s). Proceed to configuring:
 
-- [Users](/docs/appwrite-plugins/users) or [Teams](/docs/appwrite-plugins/teams)
-- [Databases](/docs/appwrite-plugins/databases) or [Storage](/docs/appwrite-plugins/storage)
+- [Users](/docs/framework/appwrite-plugins/users) or [Teams](/docs/framework/appwrite-plugins/teams)
+- [Databases](/docs/framework/appwrite-plugins/databases) or [Storage](/docs/framework/appwrite-plugins/storage)

@@ -12,7 +12,7 @@ Items render with the layout you already use — a stacked list, a native `<tabl
 
 Each item is measured as it renders, so tall items (multi-line text, embedded media, expanded details) coexist with short ones without configuration. There's no fixed-size requirement.
 
-Virtualization is a *rendering* optimization, not a data-fetching one. The full data array stays in memory, and only its DOM representation is windowed. For server-side pagination see [databases](/docs/appwrite-plugins/databases#pagination-methods).
+Virtualization is a *rendering* optimization, not a data-fetching one. The full data array stays in memory, and only its DOM representation is windowed. For server-side pagination see [databases](/docs/framework/appwrite-plugins/databases#pagination-methods).
 
 ::: brand icon="lucide:info"
 **SEO & AEO** (Answer Engine Optimization): virtualized content is rendered client-side at scroll time, so it isn't visible to search engines or AI crawlers by default. Virtualization is best applied to interactive data like dashboard content, where discoverability isn't the goal.
@@ -81,11 +81,11 @@ A single `<template>` child is supported per `x-virtual` container, and the temp
 
 ## Layout
 
-The same `x-virtual` adapts to whatever markup fits your data — a native [table](/docs/elements/tables), a CSS grid, a wrapping gallery, or a masonry wall. The plugin detects the layout automatically; masonry is the one mode you set explicitly.
+The same `x-virtual` adapts to whatever markup fits your data — a native [table](/docs/framework/elements/tables), a CSS grid, a wrapping gallery, or a masonry wall. The plugin detects the layout automatically; masonry is the one mode you set explicitly.
 
 ### Table
 
-Put `x-virtual` on the scroll container and let the `x-for` template live inside `<tbody>`. Columns align across rows and `<thead>` can be sticky, exactly as in a normal [table](/docs/elements/tables).
+Put `x-virtual` on the scroll container and let the `x-for` template live inside `<tbody>`. Columns align across rows and `<thead>` can be sticky, exactly as in a normal [table](/docs/framework/elements/tables).
 
 <div x-code-group>
 
@@ -137,7 +137,7 @@ Stripe by a value from your data — here `user.id` — rather than `:nth-child`
 
 ### Grid
 
-Manifest's [`.grid-table`](/docs/elements/tables) is a `display: grid` container with `display: contents` rows, so every cell shares one grid. Set the columns on the container and mark each row `.grid-row`.
+Manifest's [`.grid-table`](/docs/framework/elements/tables) is a `display: grid` container with `display: contents` rows, so every cell shares one grid. Set the columns on the container and mark each row `.grid-row`.
 
 <div x-code-group>
 
@@ -332,7 +332,7 @@ In this example, short and tall log lines coexist correctly. The scroll position
 
 ## Dynamic Data
 
-Point the template's `x-for` at any reactive source — a [local](/docs/core-plugins/local-data) or [cloud](/docs/appwrite-plugins/cloud-data) data source through `$x`, or plain Alpine state — and the window stays in sync. Adds, deletes, sorts, and filters update the visible items automatically, and items re-bind by key, so reordering the data never scrambles their content.
+Point the template's `x-for` at any reactive source — a [local](/docs/framework/core-plugins/local-data) or [cloud](/docs/framework/appwrite-plugins/cloud-data) data source through `$x`, or plain Alpine state — and the window stays in sync. Adds, deletes, sorts, and filters update the visible items automatically, and items re-bind by key, so reordering the data never scrambles their content.
 
 That makes virtualization a natural pair with `$search` and `$query`: wire a search input to `$x.<source>.$search()` and the list re-renders against the filtered results without rebuilding the whole DOM.
 
@@ -385,7 +385,7 @@ That makes virtualization a natural pair with `$search` and `$query`: wire a sea
 
 ## Inside Menus and Dialogs
 
-`x-virtual` works inside popover [menus](/docs/elements/dropdowns#closed-menus-cost-nothing), [dialogs](/docs/elements/dialogs) and [tab panels](/docs/elements/tabs). The list measures itself when its container is shown, so nothing special is needed — give the `x-virtual` element a bounded height as usual and place it inside the menu.
+`x-virtual` works inside popover [menus](/docs/framework/elements/dropdowns#closed-menus-cost-nothing), [dialogs](/docs/framework/elements/dialogs) and [tab panels](/docs/framework/elements/tabs). The list measures itself when its container is shown, so nothing special is needed — give the `x-virtual` element a bounded height as usual and place it inside the menu.
 
 <div x-code-group>
 

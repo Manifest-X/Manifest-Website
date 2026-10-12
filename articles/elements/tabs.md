@@ -21,7 +21,7 @@ Tabs are included in `manifest.js` with all core plugins, or can be selectively 
 
 </div>
 
-Tabs draw their styles from any respective elements used, like [buttons](/docs/elements/buttons).
+Tabs draw their styles from any respective elements used, like [buttons](/docs/framework/elements/buttons).
 
 ---
 
@@ -50,7 +50,7 @@ Create tab menus with `x-tab` selectable targets and `x-tabpanel` content areas,
 
 The plugin works by automatically creating an Alpine `x-data` value called `tabs`, which uses the `x-tab` values to show the selected panel and hide the others.
 
-Wrap the buttons in an element with `role="tablist"` to opt into the full accessibility pattern — the plugin then adds `role="tab"`, roving focus, and arrow-key navigation, and the wrapper picks up the [tab bar styling](/docs/elements/forms) with a sliding selected background.
+Wrap the buttons in an element with `role="tablist"` to opt into the full accessibility pattern — the plugin then adds `role="tab"`, roving focus, and arrow-key navigation, and the wrapper picks up the [tab bar styling](/docs/framework/elements/forms) with a sliding selected background.
 
 ---
 
@@ -141,7 +141,7 @@ By default, `x-tabpanel` content is part of the same tab group on the page. For 
 
 ## Groups
 
-Wrap tab buttons in a [group wrapper](/docs/elements/forms) to style the set as one control. `role="group"` connects the buttons flush with shared borders. `role="tablist"` makes a tab bar with a background that slides behind the selected tab, and opts into the full ARIA tabs pattern with arrow-key navigation.
+Wrap tab buttons in a [group wrapper](/docs/framework/elements/forms) to style the set as one control. `role="group"` connects the buttons flush with shared borders. `role="tablist"` makes a tab bar with a background that slides behind the selected tab, and opts into the full ARIA tabs pattern with arrow-key navigation.
 
 <div x-code-group>
 
@@ -187,13 +187,13 @@ Wrap tab buttons in a [group wrapper](/docs/elements/forms) to style the set as 
 
 ## Inactive Panels Cost Nothing
 
-An unselected tab panel's contents are not initialized until the panel is first shown, so nothing in it runs while another tab is selected. A panel shown once stays ready. The same knobs as [menus](/docs/elements/dropdowns#closed-menus-cost-nothing) apply to a panel: `x-defer.off` keeps it eager, `x-defer.discard` throws its contents away each time it is hidden, and `x-defer.priority="1"` prepares it early. See [performance](/docs/getting-started/performance#x-defer-reference) for the full reference.
+An unselected tab panel's contents are not initialized until the panel is first shown, so nothing in it runs while another tab is selected. A panel shown once stays ready. The same knobs as [menus](/docs/framework/elements/dropdowns#closed-menus-cost-nothing) apply to a panel: `x-defer.off` keeps it eager, `x-defer.discard` throws its contents away each time it is hidden, and `x-defer.priority="1"` prepares it early. See [performance](/docs/framework/getting-started/performance#x-defer-reference) for the full reference.
 
 ---
 
 ## Styles
 
-Tab buttons inherit from [buttons](/docs/elements/buttons). The plugin syncs `aria-selected="true"` on the active tab and toggles panel visibility based on the `x-tab` ID match.
+Tab buttons inherit from [buttons](/docs/framework/elements/buttons). The plugin syncs `aria-selected="true"` on the active tab and toggles panel visibility based on the `x-tab` ID match.
 
 | Selector | Purpose |
 |---|---|

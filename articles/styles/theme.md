@@ -186,7 +186,7 @@ The fastest way to customize your theme is to find and replace these default col
 ---
 
 ### Theme Colors
-See [color modes](/docs/styles/color-modes) for more information on setting up light and dark themes. Light/default color variables are established in a `:root`, while equivalent dark variable values go in a standalone  `.dark` style.
+See [color modes](/docs/framework/styles/color-modes) for more information on setting up light and dark themes. Light/default color variables are established in a `:root`, while equivalent dark variable values go in a standalone  `.dark` style.
 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
@@ -206,7 +206,7 @@ See [color modes](/docs/styles/color-modes) for more information on setting up l
 ---
 
 ### Semantic Colors
-These semantic colors are easily applied to text, backgrounds, and certain form elements using the Manifest [utility](/docs/styles/utilities) classes `brand`, `accent`, `positive`, and `negative`.
+These semantic colors are easily applied to text, backgrounds, and certain form elements using the Manifest [utility](/docs/framework/styles/utilities) classes `brand`, `accent`, `positive`, and `negative`.
 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
@@ -234,12 +234,12 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 |----------|---------|-------------------|
 | `--radius`{copy} | Default border radius | — |
 | `--spacing`{copy} | Base spacing unit | `p-1` `m-1` `gap-1` |
-| `--spacing-content-width`{copy} | Maximum content width in [utility](/docs/styles/utilities) styles | `max-w-content-width` |
+| `--spacing-content-width`{copy} | Maximum content width in [utility](/docs/framework/styles/utilities) styles | `max-w-content-width` |
 | `--spacing-field-padding`{copy} | Form field padding | `p-field-padding` |
 | `--spacing-field-height`{copy} | Form field height | `h-field-height` |
 | `--spacing-popover-offset`{copy} | Dropdown & tooltip positioning offset | `mt-dropdown-offset` |
-| `--spacing-resize-handle`{copy} | [Resize](/docs/core-plugins/resize) handle width | `w-resize-handle` |
-| `--spacing-viewport-padding`{copy} | Viewport padding for responsive design  in [utility](/docs/styles/utilities) styles | `px-viewport-padding` |
+| `--spacing-resize-handle`{copy} | [Resize](/docs/framework/core-plugins/resize) handle width | `w-resize-handle` |
+| `--spacing-viewport-padding`{copy} | Viewport padding for responsive design  in [utility](/docs/framework/styles/utilities) styles | `px-viewport-padding` |
 
 ---
 
@@ -247,9 +247,9 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
 | `--transition`{copy} | Default form element transition timing | — |
-| `--tooltip-hover-delay`{copy} | [Tooltip](/docs/elements/tooltips) hover delay timing | — |
-| `--view-transition-duration`{copy} | [Page transition](/docs/publishing/websites) duration for prerendered MPAs | — |
-| `--view-transition-easing`{copy} | [Page transition](/docs/publishing/websites) easing for prerendered MPAs | — |
+| `--tooltip-hover-delay`{copy} | [Tooltip](/docs/framework/elements/tooltips) hover delay timing | — |
+| `--view-transition-duration`{copy} | [Page transition](/docs/framework/publishing/websites) duration for prerendered MPAs | — |
+| `--view-transition-easing`{copy} | [Page transition](/docs/framework/publishing/websites) easing for prerendered MPAs | — |
 
 ---
 
@@ -263,9 +263,9 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 ### Icons
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
-| `--icon-accordion`{copy} | [Accordion](/docs/elements/accordions) expand/collapse icon | — |
-| `--icon-checkbox`{copy} | [Checkbox](/docs/elements/checkboxes) checked state icon | — |
-| `--icon-toast-dismiss`{copy} | [Toast](/docs/elements/toasts) notification dismiss icon | — |
+| `--icon-accordion`{copy} | [Accordion](/docs/framework/elements/accordions) expand/collapse icon | — |
+| `--icon-checkbox`{copy} | [Checkbox](/docs/framework/elements/checkboxes) checked state icon | — |
+| `--icon-toast-dismiss`{copy} | [Toast](/docs/framework/elements/toasts) notification dismiss icon | — |
 
 ---
 
@@ -317,7 +317,7 @@ The utility plugin operates independently, but follows Tailwind naming patterns 
 
 While it's not advertised for production use, Play CDN aligns with Manifest's ethos of being plug-and-play with no build steps, and has a typically negligible performance impact.
 
-`manifest.js` can load a modified version of Play CDN that removes Tailwind's Preflight styles in favor of our [reset](/docs/styles/reset) styles. It also removes a console warning about using Play CDN in production. Add the `data-tailwind` attribute to access it.
+`manifest.js` can load a modified version of Play CDN that removes Tailwind's Preflight styles in favor of our [reset](/docs/framework/styles/reset) styles. It also removes a console warning about using Play CDN in production. Add the `data-tailwind` attribute to access it.
 
 <div x-code-group copy>
 

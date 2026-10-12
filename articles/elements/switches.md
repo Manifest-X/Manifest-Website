@@ -6,7 +6,7 @@ Binary toggle controls with on/off states.
 
 ## Setup
 
-Switch styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Switch styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -40,7 +40,7 @@ Switch styles are included in Manifest CSS or a standalone stylesheet, both refe
 
 ## Utilities
 
-Switches accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
+Switches accept Manifest [utility](/docs/framework/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
 
@@ -190,7 +190,7 @@ Placing labelled switches inside a `<fieldset>` automatically arranges them in a
 
 ### Theme
 
-Default switches use the following [theme](/docs/styles/theme) variables:
+Default switches use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|

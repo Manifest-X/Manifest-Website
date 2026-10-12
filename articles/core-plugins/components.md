@@ -9,7 +9,7 @@ Reusable HTML templates with route-bound rendering.
 Components in Manifest are HTML files representing pages, sections, or other UI templates that can be reused throughout a project. Optimized for performance, components are resolved and rendered in milliseconds at browser runtime, eliminating the need for server-side rendering.
 
 ::: brand icon="lucide:info"
-See the [router](/docs/core-plugins/router) plugin for details on navigation, which can be used to show and hide components based on URL paths.
+See the [router](/docs/framework/core-plugins/router) plugin for details on navigation, which can be used to show and hide components based on URL paths.
 :::
 
 ---
@@ -114,7 +114,7 @@ Provided that a circular reference is not created, components can be recursively
 
 ### Page Head Content
 
-Components can include head content in a `<template data-head>` tag, which gets appended to the head of any [route](/docs/core-plugins/router) that includes the component, and removed when the component is no longer rendered.
+Components can include head content in a `<template data-head>` tag, which gets appended to the head of any [route](/docs/framework/core-plugins/router) that includes the component, and removed when the component is no longer rendered.
 
 ```html copy
 <template data-head>
@@ -155,7 +155,7 @@ Registering in `manifest.json` is still how components in other folders are decl
 ```
 Components are registered by custom filepath from the project root in one of two arrays:
 - `components` is the default array, suitable for components that load on-demand. Convention components (unlisted `components/*.html`) behave like entries here.
-- `preloadedComponents` is for components that should load in the background if not already used by a current [route](/docs/core-plugins/router), reducing their load time on subsequent navigations.
+- `preloadedComponents` is for components that should load in the background if not already used by a current [route](/docs/framework/core-plugins/router), reducing their load time on subsequent navigations.
 
 Note that components are cached after first render for the duration of the session.
 
@@ -211,7 +211,7 @@ Components are applied with `<x-filename>` tags, where `filename` is the actual 
 </html>
 ```
 
-See the [router](/docs/core-plugins/router) plugin for more information on conditional rendering with the `x-route` attribute.
+See the [router](/docs/framework/core-plugins/router) plugin for more information on conditional rendering with the `x-route` attribute.
 
 ::: brand icon="lucide:info"
 Component placeholder tags like `<x-about x-route="about">` will assign the route to all top-level elements in the component, overwriting their own `x-route` values if present.
@@ -224,7 +224,7 @@ In some scenarios it's useful to diverge an instance's content or styles from th
 
 ### Isolate the Instance
 
-If the instance is used globally like the earlier header example, we'll need to create an isolated version that can be modified without affecting the others. The [x-route](/docs/core-plugins/router) attribute can be used to show or hide instances based on the current route.
+If the instance is used globally like the earlier header example, we'll need to create an isolated version that can be modified without affecting the others. The [x-route](/docs/framework/core-plugins/router) attribute can be used to show or hide instances based on the current route.
 
 
 <div x-code-group>
@@ -280,7 +280,7 @@ These attribute values will be added to the first top-level element in the compo
 
 Modifying child elements requires custom attributes that can be referenced in the instance placeholder tag like `<x-header colors="..." wordmark="...">`.
 
-These custom attributes are created in the component source file using Alpine directives (dynamic attributes) like [x-text](https://alpinejs.dev/directives/text), [x-html](https://alpinejs.dev/directives/html), and [x-bind](https://alpinejs.dev/directives/bind), or Manifest's extended directives like [x-icon](/docs/elements/icons).
+These custom attributes are created in the component source file using Alpine directives (dynamic attributes) like [x-text](https://alpinejs.dev/directives/text), [x-html](https://alpinejs.dev/directives/html), and [x-bind](https://alpinejs.dev/directives/bind), or Manifest's extended directives like [x-icon](/docs/framework/elements/icons).
 
 <div x-code-group>
 
@@ -349,7 +349,7 @@ Be sure to avoid <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Refe
 ---
 
 ### Injecting Dynamic Data
-Instances can also receive their content from a [data source](/docs/core-plugins/local-data). Simply make the custom attributes dynamic with a leading `:` and turn the value into a data source reference using `$x`. In this example, we're referencing an arbitrary `content.json` source:
+Instances can also receive their content from a [data source](/docs/framework/core-plugins/local-data). Simply make the custom attributes dynamic with a leading `:` and turn the value into a data source reference using `$x`. In this example, we're referencing an arbitrary `content.json` source:
 
 <div x-code-group copy>
 

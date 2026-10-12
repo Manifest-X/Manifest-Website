@@ -4,7 +4,9 @@
     <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4" :class="$route === '/' ? 'w-content-width' : 'w-full'">
 
         <!-- Start -->
-        <div class="row items-center gap-3">
+        <div class="row items-center gap-3" x-data="{
+            get family() { return $route.startsWith('/docs/ai') ? 'ai' : 'framework' },
+        }">
 
             <!-- Logo -->
             <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
@@ -12,11 +14,33 @@
                 <span class="md:hidden">{M}</span>
             </a>
 
+            <!-- Docs family -->
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation">
+                <span x-text="family === 'ai' ? 'AI Plugins' : 'Framework'"></span>
+                <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
+            </button>
+            <menu popover id="docs-family">
+                <a href="/docs/ai" close>
+                    <span>AI Plugins</span>
+                    <span x-show="family === 'ai'" x-icon="lucide:check" class="trailing"></span>
+                </a>
+                <a href="/docs/framework" close>
+                    <span>Framework</span>
+                    <span x-show="family === 'framework'" x-icon="lucide:check" class="trailing"></span>
+                </a>
+            </menu>
+
             <!-- Docs Breadcrumbs-->
-            <small class="hidden sm:flex md:hidden truncate" x-route="/docs/*">
-                <span x-text="$x.docs.$route('path')?.group || 'No group'"></span>
+            <small class="hidden sm:flex md:hidden truncate" x-route="docs/ai/*">
+                <template x-if="$x.ai.$route('path')?.group">
+                    <span class="row items-center"><span x-text="$x.ai.$route('path')?.group"></span><span class="mx-1.5" x-icon="lucide:chevron-right"></span></span>
+                </template>
+                <span class="text-content-stark" x-text="$x.ai.$route('path')?.name || 'No article'"></span>
+            </small>
+            <small class="hidden sm:flex md:hidden truncate" x-route="docs/framework/*">
+                <span x-text="$x.framework.$route('path')?.group || 'No group'"></span>
                 <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
-                <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'"></span>
+                <span class="text-content-stark" x-text="$x.framework.$route('path')?.name || 'No article'"></span>
             </small>
 
         </div>
@@ -38,7 +62,7 @@
                 <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
             </button>
             <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" class="sm transparent outlined rounded-full"><span x-icon="meteor-icons:github"></span><span>GitHub</span></a>
-            <a role="button" href="/docs/getting-started/introduction" class="sm accent rounded-full">Docs</a>
+            <a role="button" href="/docs" class="sm accent rounded-full">Docs</a>
 
             <!-- Mobile Sidebar Button -->
             <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>

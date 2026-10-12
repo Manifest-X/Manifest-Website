@@ -6,9 +6,9 @@ Set page navigation paths in your project.
 
 ## Overview
 
-With the router plugin, Manifest turns your project into a single-page application (SPA), where URL paths can be used to show or hide any element, including [components](/docs/core-plugins/components).
+With the router plugin, Manifest turns your project into a single-page application (SPA), where URL paths can be used to show or hide any element, including [components](/docs/framework/core-plugins/components).
 
-See [website publishing](/docs/publishing/websites) for generating static sites that are optimized for search engines and AI crawlers, also supported by this router.
+See [website publishing](/docs/framework/publishing/websites) for generating static sites that are optimized for search engines and AI crawlers, also supported by this router.
 
 ::: brand icon="lucide:info"
 If applied, this router should be used independent of other routing systems or frameworks with routers.
@@ -143,7 +143,7 @@ When using the prerender script, the 404 view is captured at build time and writ
 
 ### Other Paths
 
-The router supports non-navigation paths. See [data](/docs/core-plugins/local-data), [localization](/docs/core-plugins/localization), and [URL parameters](/docs/core-plugins/url-parameters) for plugins that apply additional path segments to the URL for content purposes.
+The router supports non-navigation paths. See [data](/docs/framework/core-plugins/local-data), [localization](/docs/framework/core-plugins/localization), and [URL parameters](/docs/framework/core-plugins/url-parameters) for plugins that apply additional path segments to the URL for content purposes.
 
 ---
 
@@ -166,12 +166,12 @@ The router provides a `$route` magic property that returns the current route as 
 
 ```html copy
 <p>Current logical route: <span x-text="$route"></span></p>
-<p :class="$route === '/docs/core-plugins/router' ? 'text-brand-content' : ''">I'm a brand color because of the route.</p>
+<p :class="$route === '/docs/framework/core-plugins/router' ? 'text-brand-content' : ''">I'm a brand color because of the route.</p>
 ```
 
 ::: frame col text-base
 <p>Current logical route: <span class="font-bold" x-text="$route"></span></p>
-<p class="font-bold" :class="$route === '/docs/core-plugins/router' ? 'text-brand-content' : ''">I'm a brand color because of the route.</p>
+<p class="font-bold" :class="$route === '/docs/framework/core-plugins/router' ? 'text-brand-content' : ''">I'm a brand color because of the route.</p>
 :::
 
 </div>
@@ -228,6 +228,24 @@ The static content in the `index.html` `<head>` tag is global across all routes.
 ::: brand icon="lucide:info"
 `<script>` content inside `<template data-head>` is moved to the document head and executed — that's how the per-route head injection works. Treat anything inside these script bodies as the same trust level as a script in `index.html`: never compose the script source from data-source values or URL parameters.
 :::
+
+---
+
+## Scroll Reset
+
+On a route change the router scrolls the window to the top, along with any scrolled containers (`div`, `main`, `section`, `article`, `aside`, `nav`, `header`, `footer`, or `.prose` elements). Routes with an anchor are skipped so the browser can scroll to the target instead.
+
+Add `data-scroll-keep` to a container or any of its ancestors to keep its scroll position across route changes, like a list that stays on screen while selecting its items changes the route.
+
+```html copy
+<div x-route="contacts" class="row">
+    <!-- Keeps its scroll position as the selected contact changes -->
+    <nav data-scroll-keep class="overflow-y-auto">...</nav>
+    <main class="overflow-y-auto">...</main>
+</div>
+```
+
+The container is kept on every route change, including when its route is hidden and shown again. The attribute is checked on each navigation, so adding or removing it at runtime takes effect on the next one. It only applies to containers: the window still scrolls to the top, even with `data-scroll-keep` on `<html>` or `<body>`, where it keeps every container instead.
 
 ---
 

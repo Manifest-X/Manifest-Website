@@ -6,7 +6,7 @@ Multi-line text fields with auto-resize and validation.
 
 ## Setup
 
-Textareas styles are included in Manifest CSS or the standalone [inputs](/docs/elements/inputs) stylesheet. Both reference [theme](/docs/styles/theme) variables.
+Textareas styles are included in Manifest CSS or the standalone [inputs](/docs/framework/elements/inputs) stylesheet. Both reference [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -41,7 +41,7 @@ Textareas styles are included in Manifest CSS or the standalone [inputs](/docs/e
 
 ## Utilities
 
-Textareas accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
+Textareas accept Manifest [utility](/docs/framework/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
 
@@ -223,7 +223,7 @@ Textareas support native HTML5 validation through `required`, `minlength`, and `
 
 </div>
 
-Prefer `user-invalid:` and `user-valid:` over the unprefixed `invalid:` and `valid:`. They wait until the user has actually engaged with the field. See [forms](/docs/elements/forms#validation) for the full variant reference and inline-message patterns.
+Prefer `user-invalid:` and `user-valid:` over the unprefixed `invalid:` and `valid:`. They wait until the user has actually engaged with the field. See [forms](/docs/framework/elements/forms#validation) for the full variant reference and inline-message patterns.
 
 ---
 
@@ -231,7 +231,7 @@ Prefer `user-invalid:` and `user-valid:` over the unprefixed `invalid:` and `val
 
 ### Theme
 
-Default textareas use the following [theme](/docs/styles/theme) variables:
+Default textareas use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
