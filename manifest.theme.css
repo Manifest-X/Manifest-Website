@@ -294,6 +294,7 @@
 
 /* Prompts — panel (a blockquote of copyable lines) */
 .prose blockquote:has(code[copy]) {
+    margin-top: 1rem;
     padding: 0;
     overflow: hidden;
     border: 1px solid var(--color-line);
@@ -405,4 +406,82 @@
 
 .prose .steps-end {
     display: none
+}
+
+/* Docs polish */
+.prose > h1 {
+    font-size: 2.25rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em
+}
+
+.prose > h1 + p {
+    margin-top: 0.75rem;
+    font-size: 1.125rem;
+    line-height: 1.6
+}
+
+.prose > hr {
+    display: none
+}
+
+.prose > h2 {
+    margin-top: 3.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+    line-height: 1.3;
+    letter-spacing: -0.02em
+}
+
+.prose > h3 {
+    margin-top: 2.25rem;
+    font-size: 1.125rem;
+    letter-spacing: -0.01em
+}
+
+.prose > p,
+.prose > ul > li,
+.prose > ol > li {
+    line-height: 1.75
+}
+
+main span.h6.mb-3,
+nav[aria-label="Documentation"] small,
+nav[aria-label="On this page"] > small {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase
+}
+
+main span.h6.mb-3 {
+    color: var(--color-brand-content)
+}
+
+nav[aria-label="Documentation"] {
+    & small {
+        margin-bottom: 0.25rem;
+        color: var(--color-content-subtle)
+    }
+
+    & a[role="button"] {
+        height: 2rem;
+        min-height: 2rem;
+        font-size: 0.875rem
+    }
+
+    & hr {
+        background-color: transparent
+    }
+}
+
+nav[aria-label="On this page"] > small {
+    color: var(--color-content-subtle)
+}
+
+.prose [x-code-group] aside.frame {
+    background-image: radial-gradient(circle, color-mix(in oklch, var(--color-content-stark) 13%, transparent) 1px, transparent 1.25px);
+    background-size: 1rem 1rem;
+    background-position: center
 }
