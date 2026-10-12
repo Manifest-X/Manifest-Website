@@ -14,7 +14,7 @@ There's no account to create up front. You sign in the first time your project g
 
 ---
 
-<div class="steps"></div>
+<div class="step">
 
 ## Ask for it
 
@@ -26,11 +26,13 @@ Claude sets up the project, builds it, and opens a preview on your computer. Not
 
 Be as specific or as vague as you like. Colors, a name, links, a site or app you admire: everything you mention shapes the result, and Claude decides the rest.
 
----
+</div>
+
+<div class="step">
 
 ## Make it yours
 
-Look at the preview and say what should change, as you would to a person:
+Look at the preview and say what should change, as you would to a person.
 
 > `Use a warmer color palette, something like terracotta`{copy}
 > `Make the opening hours easier to read on a phone`{copy}
@@ -38,9 +40,13 @@ Look at the preview and say what should change, as you would to a person:
 
 Each change shows up in the preview. Keep going until it looks right. There's no limit, and nothing is published until you say so.
 
----
+</div>
+
+<div class="step">
 
 ## Put it online
+
+When you're happy with it, ask Claude to publish.
 
 > `Put it online`{copy}
 
@@ -48,7 +54,7 @@ The first time, a page opens in your browser. Sign in with Google, GitHub, or yo
 
 A moment later, Claude gives you your project's address, something like `my-pottery-studio.manifestx.ai`. Open it, send it to a friend: it's live, for as long as you want it to be.
 
-<div class="steps-end"></div>
+</div>
 
 ---
 
@@ -62,3 +68,9 @@ A moment later, Claude gives you your project's address, something like `my-pott
 ::: brand icon="lucide:info"
 Free projects show a small "Made with Manifest" badge in the corner. Everything in this walkthrough is free, with no time limit.
 :::
+
+<div class="stuck">
+  <span x-icon="lucide:life-buoy"></span>
+  <p><strong>Stuck?</strong> Tell Claude what you expected and what happened instead, like <code class="prompt" copy>Why isn't my project online?</code> It can check your project and fix most problems. If it can't, the Manifest team will help.</p>
+  <a href="mailto:team@manifestx.dev" role="button" class="small">Email the team</a>
+</div>
