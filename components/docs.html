@@ -3,6 +3,28 @@
     src: $modify('source') ?? 'framework',
     heading: $modify('heading') ?? 'Docs',
     intro: $modify('intro') ?? '',
+    home: $modify('home') ?? '',
+    canonical: 'https://manifestx.dev',
+    copied: false,
+    get pages() {
+      const out = [];
+      for (const g of this.groups) for (const i of (g.items || [])) if (i.name) out.push({ href: this.href(g, i), name: i.name, group: g.group || '' });
+      return out;
+    },
+    get pageIndex() { return this.pages.findIndex(p => this.at(p.href)) },
+    get prev() { return this.pageIndex > 0 ? this.pages[this.pageIndex - 1] : null },
+    get next() { const i = this.pageIndex; return i > -1 && i < this.pages.length - 1 ? this.pages[i + 1] : null },
+    get askClaude() {
+      const url = this.canonical + $route.replace(/\/$/, '');
+      return 'https://claude.ai/new?q=' + encodeURIComponent(`Read ${url} from the Manifest docs and help me with it.`);
+    },
+    async copyPage() {
+      const md = await fetch(this.article.doc).then(r => r.text());
+      const clean = md.replace(/`([^`\n]+)`\{[^}\n]*\}/g, '`$1`');
+      await navigator.clipboard.writeText(`Source: ${this.canonical}${$route.replace(/\/$/, '')}\n\n${clean}`);
+      this.copied = true;
+      setTimeout(() => this.copied = false, 1500);
+    },
     get groups() { return $x[this.src] || [] },
     get article() { return $x[this.src].$route('path') },
     get group() { const g = $x[this.src].$route('slug'); return g?.group && this.at(this.base + '/' + g.slug) ? g : null },
@@ -50,15 +72,51 @@
     <div class="col grow w-full max-w-full mx-auto">
 
       <!-- Article -->
-      <template x-if="article?.name && article?.group">
-        <span class="h6 mb-3" x-text="article?.group"></span>
+      <template x-if="article?.name">
+        <div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7">
+          <span class="h6" x-text="article?.group || ''"></span>
+          <div class="row gap-1.5" data-page-actions>
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'"></span>
+            </button>
+            <a :href="askClaude" target="_blank" rel="noopener" role="button" class="sm ghost outlined" aria-label="Ask Claude about this page">
+              <span x-icon="'simple-icons:claude'"></span>
+              <span>Ask Claude</span>
+            </a>
+          </div>
+        </div>
       </template>
       <template x-if="article?.name">
         <div class="prose [&_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="article?.doc"></div>
       </template>
 
+      <!-- Previous / next -->
+      <template x-if="article?.name && (prev || next)">
+        <nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav>
+          <template x-if="prev">
+            <a :href="prev.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev.name"></span>
+            </a>
+          </template>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next.name"></span>
+            </a>
+          </template>
+        </nav>
+      </template>
+
+      <!-- Family home (markdown) -->
+      <template x-if="at(base) && home">
+        <div class="prose [&_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="home"></div>
+      </template>
+
       <!-- Docs home -->
-      <template x-if="at(base)">
+      <template x-if="at(base) && !home">
         <div class="col gap-8 w-2xl max-w-full">
           <div class="col gap-3">
             <h1 x-text="heading"></h1>

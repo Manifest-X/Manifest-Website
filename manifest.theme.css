@@ -423,6 +423,78 @@
     }
 }
 
+/* Docs landing cards */
+.prose > .docs-feature,
+.prose > .docs-cards > a {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+
+    &:hover {
+        background-color: color-mix(in oklch, var(--color-content-stark) 4%, transparent);
+        border-color: color-mix(in oklch, var(--color-content-stark) 18%, transparent)
+    }
+
+    & > [x-icon] {
+        flex-shrink: 0;
+        font-size: 1.125rem;
+        color: var(--color-brand-content)
+    }
+
+    & > span:not([x-icon]) {
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+        min-width: 0
+    }
+
+    & strong {
+        font-weight: 550;
+        color: var(--color-content-stark)
+    }
+
+    & small {
+        font-size: 0.875rem;
+        color: var(--color-content-subtle)
+    }
+}
+
+.prose > .docs-feature {
+    margin-top: 2rem;
+    padding: 1.125rem 1.25rem;
+
+    & > span:not([x-icon]) {
+        flex-grow: 1
+    }
+
+    & > [x-icon]:last-child {
+        color: var(--color-content-subtle)
+    }
+
+    & strong {
+        font-size: 1.0625rem
+    }
+}
+
+.prose > .docs-cards {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+
+    @media (min-width: 40rem) {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+
+    & > a {
+        padding: 0.875rem 1rem
+    }
+}
+
 /* Docs polish */
 .prose > h1 {
     font-size: 2.25rem;
@@ -460,7 +532,7 @@
     line-height: 1.75
 }
 
-main span.h6.mb-3,
+main div:has(> [data-page-actions]) > .h6,
 nav[aria-label="Documentation"] small,
 nav[aria-label="On this page"] > small {
     font-family: var(--font-mono, ui-monospace, monospace);
@@ -470,7 +542,7 @@ nav[aria-label="On this page"] > small {
     text-transform: uppercase
 }
 
-main span.h6.mb-3 {
+main div:has(> [data-page-actions]) > .h6 {
     color: var(--color-brand-content)
 }
 
