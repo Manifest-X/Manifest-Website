@@ -270,3 +270,40 @@
         flex-direction: column;
     }
 }
+
+/* AI docs — prompt chips. Things you say to Claude, written in articles as
+   `Put my site online`{.prompt copy}: a speech chip, click to copy. */
+.prose code.prompt {
+    font-family: inherit;
+    font-size: 0.95em;
+    font-style: normal;
+    white-space: normal;
+    padding: 0.25em 0.85em;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    color: var(--color-content-stark);
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.prose code.prompt::before {
+    content: '\201C';
+    color: var(--color-brand-content);
+    font-weight: 600;
+    margin-inline-end: 0.1em;
+}
+
+.prose code.prompt::after {
+    content: '\201D';
+    color: var(--color-brand-content);
+    font-weight: 600;
+    margin-inline-start: 0.1em;
+}
+
+.prose code.prompt:hover {
+    border-color: var(--color-content-subtle);
+}
+
+.prose code.prompt.copied {
+    border-color: var(--color-positive-surface);
+}
