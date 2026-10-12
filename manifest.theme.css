@@ -271,39 +271,138 @@
     }
 }
 
-/* AI docs — prompt chips. Things you say to Claude, written in articles as
-   `Put my site online`{.prompt copy}: a speech chip, click to copy. */
+/* Prompts — inline */
 .prose code.prompt {
+    display: inline;
+    padding: 0.1em 0.45em;
     font-family: inherit;
     font-size: 0.95em;
-    font-style: normal;
+    font-weight: 500;
     white-space: normal;
-    padding: 0.25em 0.85em;
-    background: var(--color-surface-2);
-    border: 1px solid var(--color-line);
-    border-radius: 999px;
     color: var(--color-content-stark);
-    transition: border-color 0.15s ease, background-color 0.15s ease;
+    background-color: color-mix(in oklch, var(--color-content-stark) 6%, transparent);
+    border: 0 none;
+    border-radius: calc(var(--radius) * 0.75);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    cursor: copy;
+
+    &:hover {
+        background-color: color-mix(in oklch, var(--color-content-stark) 11%, transparent)
+    }
 }
 
-.prose code.prompt::before {
-    content: '\201C';
-    color: var(--color-brand-content);
-    font-weight: 600;
-    margin-inline-end: 0.1em;
+/* Prompts — panel (a blockquote of copyable lines) */
+.prose blockquote:has(code[copy]) {
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+
+    &::before {
+        content: 'Prompt';
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-height: var(--spacing-field-height);
+        padding-inline: calc(var(--spacing) * 4);
+        font-size: 0.875rem;
+        color: var(--color-content-neutral);
+        background-color: color-mix(in oklch, var(--color-content-stark) 8%, transparent)
+    }
+
+    &:has(br)::before {
+        content: 'Prompts'
+    }
+
+    & p {
+        display: flex;
+        flex-direction: column;
+        margin: 0
+    }
+
+    & br {
+        display: none
+    }
+
+    & code[copy] {
+        position: relative;
+        display: block;
+        width: 100%;
+        padding: calc(var(--spacing) * 3) calc(var(--spacing) * 12) calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+        font-family: inherit;
+        font-size: inherit;
+        line-height: 1.6;
+        color: var(--color-content-stark);
+        background-color: transparent;
+        border: 0 none;
+        border-radius: 0;
+        cursor: copy;
+
+        & + br + code[copy],
+        & + code[copy] {
+            border-top: 1px solid var(--color-line)
+        }
+
+        &:hover {
+            background-color: color-mix(in oklch, var(--color-content-stark) 4%, transparent)
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            inset-inline-end: calc(var(--spacing) * 4);
+            width: 0.8125rem;
+            height: 0.8125rem;
+            translate: 0 -50%;
+            background-color: var(--color-content-subtle);
+            mask-image: var(--icon-code-copy);
+            mask-size: contain;
+            mask-repeat: no-repeat
+        }
+
+        &:hover::after {
+            background-color: var(--color-content-stark)
+        }
+
+        &.copied::after {
+            mask-image: var(--icon-code-copied);
+            background-color: var(--color-positive-content)
+        }
+    }
 }
 
-.prose code.prompt::after {
-    content: '\201D';
-    color: var(--color-brand-content);
-    font-weight: 600;
-    margin-inline-start: 0.1em;
+/* Numbered steps — h2s between .steps and .steps-end markers */
+.prose .steps {
+    display: none;
+    counter-reset: step
 }
 
-.prose code.prompt:hover {
-    border-color: var(--color-content-subtle);
+.prose .steps ~ h2:has(~ .steps-end) {
+    counter-increment: step;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    &::before {
+        content: counter(step, decimal-leading-zero);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 1.75rem;
+        height: 1.75rem;
+        font-family: var(--font-mono, ui-monospace, monospace);
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0;
+        color: var(--color-content-neutral);
+        border: 1px solid var(--color-line);
+        border-radius: calc(var(--radius) * 0.75)
+    }
 }
 
-.prose code.prompt.copied {
-    border-color: var(--color-positive-surface);
+.prose .steps-end {
+    display: none
 }

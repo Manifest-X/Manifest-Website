@@ -6,17 +6,17 @@ Add Manifest to any Claude app and sign in once.
 
 ## Overview
 
-The Manifest connector lets Claude publish and run your sites for you. Ask in plain words and Claude handles the rest:
+The Manifest connector lets Claude publish and run your projects for you. Ask in plain words and Claude handles the rest:
 
 - **Publish** any project that builds to static files, whether it's made with Manifest, React, Vite, Astro, Hugo, or plain HTML.
-- **Preview on staging**, then move the exact version you checked to your live site.
+- **Preview on staging**, then move the exact version you checked live.
 - **Connect your own domain.** The secure certificate is set up and renewed for you.
-- **Invite people** to work on your site from their own Claude.
-- **See visitor numbers** for your site.
+- **Invite people** to work on your project from their own Claude.
+- **See visitor numbers** for your project.
 
 You never need an API key. Signing in to the connector is all Claude needs to work on your behalf.
 
-Using Claude Code? The [plugin](/docs/ai/setup/plugin) includes this connector, plus skills and commands for building sites.
+Using Claude Code? The [plugin](/docs/ai/setup/plugin) includes this connector, plus skills and commands for building.
 
 ---
 
@@ -96,15 +96,15 @@ A sign-in request is valid for 10 minutes. If it expires, go back to Claude and 
 
 Once you're connected, ask Claude in plain words. To learn what to ask, see:
 
-- [Manage](/docs/ai/site/manage) your projects and team
-- [Edit](/docs/ai/site/edit) your site
-- [Publish](/docs/ai/site/publish) your site and take it live
+- [Manage](/docs/ai/projects/manage) your projects and team
+- [Edit](/docs/ai/projects/edit) a project
+- [Publish](/docs/ai/projects/publish) a project and take it live
 
 ---
 
 ## Disconnect
 
-To stop Claude from using Manifest, remove the connector from **Customize > Connectors**, or run `claude mcp remove manifest` in Claude Code. Your Manifest account and sites stay as they are. Connect again any time to pick up where you left off.
+To stop Claude from using Manifest, remove the connector from **Customize > Connectors**, or run `claude mcp remove manifest` in Claude Code. Your Manifest account and projects stay as they are. Connect again any time to pick up where you left off.
 
 ---
 
