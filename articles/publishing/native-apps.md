@@ -32,6 +32,8 @@ There are two ways to wrap a Manifest app, and the right one depends on the stor
 
 Both render your Manifest UI, so your app code doesn't change between them. The difference is what surrounds it: PWABuilder drops your PWA into a stock web view, while Capacitor gives you a native project with a plugin bridge — which is what makes real native features (and iOS review) achievable. Capacitor's plugins are surfaced through Manifest's [Device plugin](/docs/framework/core-plugins/device), so you reach them with Alpine-friendly attributes instead of writing Swift.
 
+A Capacitor app ships a prerendered copy of the project, so the shell paints without a network. Point `webDir` in `capacitor.config.json` at a dot-folder such as `.app-www`, and fill it with `npx mnfst-render --out .app-www` before each `npx cap sync`. When a `capacitor.config.*` file is at the project root, the render leaves `ios/`, `android/` and the Capacitor config out of its output, and an `--out` render leaves out the regular `website/` output too. A starter config and step-by-step guide are in the framework's <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/capacitor" target="_blank">Capacitor template</a>.
+
 ---
 
 ## Apps by OS
