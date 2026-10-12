@@ -28,7 +28,7 @@ Defaults are derived from each page's rendered content. The first `<h1>` becomes
 
 ### llms.txt
 
-The renderer writes `llms.txt` (a curated index of your site) and `llms-full.txt` (the concatenated full content) per the <a href="https://llmstxt.org" target="_blank">llmstxt.org</a> convention. AI crawlers prefer reading this structured plaintext over scraping rendered HTML. Pages are grouped into sections by their first URL segment.
+The renderer writes `llms.txt` (a curated index of your site) and `llms-full.txt` (the concatenated full content) per the <a href="https://llmstxt.org" target="_blank">llmstxt.org</a> convention. AI crawlers prefer reading this structured plaintext over scraping rendered HTML. Pages are grouped into sections by their first URL segment. Where a path holds two or more areas that each have their own page and child pages, such as `/docs/guides/*` and `/docs/api/*`, each area gets its own section, named after its page title.
 
 ---
 
