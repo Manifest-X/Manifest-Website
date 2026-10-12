@@ -69,8 +69,6 @@ A moment later, Claude gives you your project's address, something like `my-pott
 Free projects show a small "Made with Manifest" badge in the corner. Everything in this walkthrough is free, with no time limit.
 :::
 
-<div class="stuck">
-  <span x-icon="lucide:life-buoy"></span>
-  <p><strong>Stuck?</strong> Tell Claude what you expected and what happened instead, like <code class="prompt" copy>Why isn't my project online?</code> It can check your project and fix most problems. If it can't, the Manifest team will help.</p>
-  <a href="mailto:team@manifestx.dev" role="button" class="small">Email the team</a>
-</div>
+::: icon="lucide:life-buoy"
+**Stuck?** Tell Claude what you expected and what happened instead, like `Why isn't my project online?`{.prompt copy}. It can check your project and fix most problems. If it can't, [email the Manifest team](mailto:team@manifestx.dev).
+:::
