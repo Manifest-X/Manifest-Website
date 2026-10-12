@@ -146,33 +146,35 @@ Tooltip content supports HTML including [icons](/docs/framework/elements/icons) 
 
 ## Dynamic Content
 
-Tooltips can display dynamic content using Alpine.js expressions.
+Tooltip content can be any Alpine.js expression, re-evaluated each time the tooltip shows. Plain text that isn't an expression, like `Hello world` or `Don't save`, displays exactly as written.
 
 <div x-code-group>
 
 ```html copy
-<div x-data="{ message: 'dynamic content', count: 42 }">
-    <button x-tooltip="'Current count: ' + count">Count Tooltip</button>
-    <button x-tooltip="`Template: ${message}`" @click="count++">Template Literal</button>
+<div x-data="{ count: 42, saved: false }">
+    <button x-tooltip="'Current count: ' + count" @click="count++">Count</button>
+    <button x-tooltip="saved ? 'All changes saved' : 'Unsaved changes'" @click="saved = !saved">Status</button>
 </div>
 ```
 
 ::: frame
-<div x-data="{ message: 'dynamic content', count: 42 }" class="row-wrap gap-4">
-    <button x-tooltip="'Current count: ' + count">Count Tooltip</button>
-    <button x-tooltip="`Template: ${message}`" @click="count++">Template Literal</button>
+<div x-data="{ count: 42, saved: false }" class="row-wrap gap-4">
+    <button x-tooltip="'Current count: ' + count" @click="count++">Count</button>
+    <button x-tooltip="saved ? 'All changes saved' : 'Unsaved changes'" @click="saved = !saved">Status</button>
 </div>
 :::
 
 </div>
 
-Note that tooltips with loop variables from `x-for` use template literals or string concatenation to ensure the expression is recognized as dynamic.
+A single word displays as text unless it names a value in scope, so `x-tooltip="count"` shows `42` while `x-tooltip="Delete"` shows `Delete`. An expression that resolves to an empty string, `false`, or `null` shows no tooltip. Expression results are escaped; add the `.html` modifier to render them as HTML.
+
+Loop variables from `x-for` work the same way.
 
 <div x-code-group copy>
 
 ```html "HTML"
 <template x-for="item in $x.example.tooltipList">
-    <h4 x-tooltip="`${item.tooltip}`" x-text="item.name"></h4>
+    <h4 x-tooltip="item.tooltip" x-text="item.name"></h4>
 </template>
 ```
 
@@ -188,7 +190,7 @@ tooltipList:
 
 ::: frame row-wrap gap-4
 <template x-for="item in $x.example.tooltipList">
-    <span class="h4" x-tooltip="`${item.tooltip}`" x-text="item.name"></span>
+    <span class="h4" x-tooltip="item.tooltip" x-text="item.name"></span>
 </template>
 :::
 
