@@ -211,7 +211,7 @@ Rich content supports HTML including [icons](/docs/framework/elements/icons) for
 
 ## Dynamic Expressions
 
-Toast content can include dynamic expressions and variables.
+Toast content can be any Alpine.js expression, evaluated each time the toast is triggered. Plain text that isn't an expression, like `Hello world` or `Don't save`, displays exactly as written.
 
 <div x-code-group>
 
@@ -223,6 +223,10 @@ Toast content can include dynamic expressions and variables.
 <button x-toast="`Current time: ${new Date().toLocaleTimeString()}`">
     Current Time
 </button>
+
+<button x-data="{ pending: ['Draft', 'Review'] }" x-toast="pending.length ? 'Pending: ' + pending.join(', ') : 'Nothing pending'">
+    Pending
+</button>
 ```
 
 ::: frame row-wrap gap-4
@@ -233,9 +237,17 @@ Toast content can include dynamic expressions and variables.
 <button x-toast="`Current time: ${new Date().toLocaleTimeString()}`">
     Current Time
 </button>
+
+<button x-data="{ pending: ['Draft', 'Review'] }" x-toast="pending.length ? 'Pending: ' + pending.join(', ') : 'Nothing pending'">
+    Pending
+</button>
 :::
 
 </div>
+
+A single word displays as text unless it names a value in scope, so `x-toast="count"` shows the current count while `x-toast="Saved"` shows `Saved`. Loop variables from `x-for` work the same way, as in `x-toast="item.message"`. An expression that resolves to an empty string, `false`, or `null` shows no toast.
+
+Like static content, expression results render as HTML. Escape user-submitted values before showing them in a toast.
 
 ---
 
