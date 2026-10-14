@@ -245,7 +245,7 @@ Toast content can be any Alpine.js expression, evaluated each time the toast is 
 
 </div>
 
-A single word displays as text unless it names a value in scope, so `x-toast="count"` shows the current count while `x-toast="Saved"` shows `Saved`. Loop variables from `x-for` work the same way, as in `x-toast="item.message"`. An expression that resolves to an empty string, `false`, or `null` shows no toast.
+A single word displays as text unless it names a value in scope, so `x-toast="count"` shows the current count while `x-toast="Saved"` shows `Saved`. Loop variables from `x-for` work the same way, as in `x-toast="item.message"`. Expressions read state after the element's click handlers run, so give `x-for` rows a `:key` when a click reorders or removes items. An expression that resolves to an empty string, `false`, or `null` shows no toast.
 
 Like static content, expression results render as HTML. Escape user-submitted values before showing them in a toast.
 
