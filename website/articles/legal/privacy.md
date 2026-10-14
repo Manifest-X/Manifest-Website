@@ -4,7 +4,7 @@ Our commitment to your privacy and data protection.
 
 ---
 
-*Updated September 25, 2026*
+*Updated October 14, 2026*
 
 This Privacy Policy (**"Policy"**) describes how MNFST OÜ (**"Manifest"**, **"we"**, **"us"** or **"our"**) collects, protects and uses the personally identifiable information (**"Personal Information"**) you (**"User"**, **"you"** or **"your"**) may provide through the Manifest website (manifestx.dev), the Manifest account dashboard (dash.manifestx.dev), the Manifest connector for AI assistants, the Manifest command-line tools, Manifest-managed hosting (including sites served on manifestx.ai and connected custom domains), and any other product, application, or service offered by Manifest (collectively, the **"Service"**). The Policy also describes the choices available to you regarding our use of your Personal Information and how you can access and update this information. This Policy does not apply to the practices of companies that we do not own or control, or to individuals that we do not employ or manage.
 
@@ -20,7 +20,7 @@ We receive and store information you knowingly provide to us when you use the Se
 - **Content you publish.** When you publish a project, we receive and store the site files you upload so we can host and serve them. Published sites are publicly accessible at their assigned address; do not include Personal Information in published files unless you intend it to be public.
 - **Team invitations.** When you invite someone to a project, we collect the invitee's email address in order to send the invitation and, once they sign in, to associate them with the project. If you provide someone else's email address, you are responsible for having their permission to do so.
 - **Payment provider credentials.** If you connect a payment provider to enable checkout on your own published site, we store the credentials you supply and use them solely to operate that integration on your behalf. Provide only credentials you are authorized to use, and rotate them with your provider if you disconnect.
-- **Purchases.** If you buy a paid plan, payment is handled by our payment processor (see "Information transfer and storage"). We receive confirmation of your subscription status and a billing reference; we do not receive or store your full card number.
+- **Purchases.** If you buy a paid plan, the purchase is processed by Stripe, which acts as the merchant of record for plans bought through self-serve checkout (see "Information transfer and storage"). We receive your name, email, billing address, subscription status and a billing reference; we do not receive or store your full card number. If we invoice you directly, we are the seller and Stripe processes the payment on our behalf.
 
 ---
 
@@ -90,9 +90,9 @@ We use the following processors to operate the Service:
 
 - **Appwrite** ([appwrite.io](https://appwrite.io)) provides authentication, sessions, account storage, and the delivery of transactional email such as sign-in codes and project invitations.
 - **Cloudflare** ([cloudflare.com](https://cloudflare.com)) provides hosting, content delivery, storage, and supporting infrastructure for the Service and for published sites, and operates the privacy-friendly analytics described in this Policy.
-- **Polar** ([polar.sh](https://polar.sh)) processes payments and manages billing for paid plans. Card details are provided directly to the payment processor and are not stored by us.
+- **Stripe** ([stripe.com](https://stripe.com)) processes payments and manages billing for paid plans. For plans bought through self-serve checkout, Stripe acts as the merchant of record and handles the payment, billing and tax information it collects from you under its own [Privacy Policy](https://stripe.com/privacy). Card details are provided directly to Stripe and are not stored by us.
 
-Each provider has its own privacy policy and processes data under contractual obligations consistent with this Policy. Data is encrypted in transit using TLS 1.2 or higher and at rest by our providers in accordance with their security practices.
+Each provider has its own privacy policy and processes data under contractual obligations consistent with this Policy. Where Stripe acts as merchant of record, it processes that information under its own policy rather than on our behalf. Data is encrypted in transit using TLS 1.2 or higher and at rest by our providers in accordance with their security practices.
 
 ---
 
