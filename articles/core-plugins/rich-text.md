@@ -130,7 +130,7 @@ Type in each field below and watch what it stores.
 
 </div>
 
-Without a value, as in `<div x-rich-text>`, the element's own markup is the starting content and the element itself holds the result; read it with [`$rich`](#reference). Don't combine `x-rich-text` with `x-html` or `x-text` on the same element: both would write to it.
+Without a value, as in `<div x-rich-text>`, the element's own markup is the starting content, empty paragraphs and figures included, and the element itself holds the result; read it with [`$rich`](#reference). Don't combine `x-rich-text` with `x-html` or `x-text` on the same element: both would write to it.
 
 Each field gets `role="textbox"`; give it an `aria-label`, or a `<label>` that points to it, so screen readers can name it. `placeholder` shows while the field is empty.
 
@@ -187,7 +187,7 @@ Text without paragraphs of its own, such as a few copied words, goes in at the c
 Type markdown and it turns into formatting as you go. Marks turn over the moment you type the closing character, and what you type next is outside the mark; block shortcuts at the start of a line turn over when you press Enter. `.literal` turns this off, and `.plain` never does it.
 
 ::: negative icon="lucide:triangle-alert"
-After `` `code` `` turns over, a space typed straight away is currently dropped, and what follows stays inside the code. Other marks, and any other character after code, behave as described.
+After `` `code` `` turns over, a space typed straight away is currently lost when you type the next character, and that character and what follows land inside the code. Other marks, and any other character after code, behave as described.
 :::
 
 <div x-code-group>
@@ -600,11 +600,7 @@ Bold follows the field you were last in, and stays disabled until you've been in
 
 ## Links
 
-Typing `[text](url)` makes a link as you close it. A single `<input>` with `x-rich-text.a` handles links from a control: select some text, type an address into the input and press Enter. With the caret in a link, the input shows that link's address, and editing it changes the address; clearing it removes the link. Clicking inside a link places the caret rather than following it.
-
-::: negative icon="lucide:triangle-alert"
-With the [Router](/docs/framework/core-plugins/router) plugin loaded, as it is by default, a click on a link to a page of the same site, such as `/docs`, is still followed, because the router catches it first. Links to other sites and `#anchors` behave as described.
-:::
+Typing `[text](url)` makes a link as you close it. A single `<input>` with `x-rich-text.a` handles links from a control: select some text, type an address into the input and press Enter. With the caret in a link, the input shows that link's address, and editing it changes the address; clearing it removes the link. A link in a field is never followed, whether you click it, middle-click it or press Enter on it, so it can be edited like any other text; links inside an element marked `contenteditable="false"` still work.
 
 <div x-code-group>
 
