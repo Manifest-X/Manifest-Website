@@ -186,10 +186,6 @@ Text without paragraphs of its own, such as a few copied words, goes in at the c
 
 Type markdown and it turns into formatting as you go. Marks turn over the moment you type the closing character, and what you type next is outside the mark; block shortcuts at the start of a line turn over when you press Enter. `.literal` turns this off, and `.plain` never does it.
 
-::: negative icon="lucide:triangle-alert"
-After `` `code` `` turns over, a space typed straight away is currently lost when you type the next character, and that character and what follows land inside the code. Other marks, and any other character after code, behave as described.
-:::
-
 <div x-code-group>
 
 ```html copy

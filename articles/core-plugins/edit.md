@@ -695,6 +695,8 @@ When the page loads, it reads from the server how each source file looks, and pu
 
 In a single-page app, a region that isn't on screen keeps its edits: they wait in the history, show again when the region comes back, and publish then.
 
+A region inside content another plugin generates, such as `x-markdown` or `x-html` output, edits on the page and reaches `onPublish`, but its markup isn't in a file, so `mnfst-run --edit` refuses it by name, keeps its edits and publishes the other regions. Edit warns about it once in the console. The examples on this page are regions of that kind, inside the article's markdown, and their Publish goes to an `onPublish` handler.
+
 ### Changed Source
 
 A publish checks that the source still matches what the page loaded. The development server reloads an open page whenever an HTML file changes, so the page normally shows the source as it is now. While edits that `.persist` doesn't keep are waiting to be published, including edits in a region that's off screen in a single-page app, that reload is held back so they aren't lost: Edit warns in the console, adds the files to `$edit.stale` and fires `edit:stale`. Publish them with `rebase`, as below, and the page reloads itself afterwards. Typing still in progress in a `.persist` region is recorded before a reload, so it isn't lost either, and a publish includes typing in progress wherever it is.
