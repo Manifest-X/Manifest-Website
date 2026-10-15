@@ -176,7 +176,7 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 | `$computed(s => ...)`{copy} | computed | Derived value from a function that receives the scope; recalculated only when what it reads changes, read as a plain property. Also `window.$computed` in `Alpine.data` factories. Attribute form: `x-computed:name` |
 | `$date(id)`{copy} | datepicker | Read or set a picker's value, time, range, and open state |
 | `$device`{copy} | utilities | `os`, `platform`, `online`, `standalone`, `native`, `touch`; always available |
-| `$edit`{copy} | edit | Page editor: `on()`/`off()` for gated regions, `undo()`/`redo()`, `canUndo`/`canRedo`, `target`, `can()`, block actions (`copy`, `cut`, `paste`, `duplicate`, `remove`), `lock()`, `publish()`, `onPublish`, `patches()`, `stale` |
+| `$edit`{copy} | edit | Page editor: `on()`/`off()` for gated regions, `undo()`/`redo()`, `canUndo`/`canRedo`, `target`, `can()`, block actions (`copy`, `cut`, `paste`, `duplicate`, `remove`), `lock()`, `publish()`, `onPublish`, `patches()`, `stale`, `conflicts` |
 | `$haptics`{copy} | device | `impact(style)`, `notification(type)`, `selection()`, `vibrate(ms)`; `navigator.vibrate` on the web |
 | `$links`{copy} | device | Deep links: `open(url)`, `on(fn)`, `last` |
 | `$locale`{copy} | localization | Current locale, available locales, `set(code)` |

@@ -60,11 +60,9 @@ Rich Text isn't in the default bundle. With the default plugins, or a `data-plug
 
 </div>
 
-A binding that reads `$rich` as soon as it appears, such as an `x-effect` or `:disabled`, needs the plugin already there. When that markup only arrives after the page has started, in a component or rendered markdown, it can be read before Rich Text has loaded; load it up front with `data-plugins` or `Manifest.loadPlugin('rich-text')`{copy}. Event handlers such as `@click` read `$rich` only when they run, so they're never early.
+Until Rich Text has loaded, `$rich` reads as an empty field that does nothing, so an expression that uses it never throws; once it loads, bindings that read it run again.
 
 Rich Text reads and writes markdown on its own. Showing a stored value as formatted text elsewhere on the page, as some examples here do, uses the [Markdown](/docs/framework/core-plugins/markdown) plugin's `x-markdown`, which is in the default bundle; a selective list needs `markdown` for that, as above.
-
-Alpine only runs inside an element with `x-data`. The default bundle adds `x-data` to `<body>` for you; with a selective list, add it yourself, as in `<body x-data>`.
 
 Field and control styles are included in Manifest CSS or as a standalone stylesheet.
 
@@ -177,21 +175,19 @@ Pasting brings in the text and its structure, not the look of the page it came f
 
 | Pasted into | Keeps |
 |---|---|
-| Markdown | Headings, paragraphs, lists, quotes, code, links, images, and the bold, italic, strikethrough and code marks. A table becomes one line per row with ` · ` between cells. Description lists, figures and addresses become paragraphs |
+| Markdown | Headings, paragraphs, lists, quotes, code, links, images, and the bold, italic, strikethrough and code marks. Other marks, such as underline or highlight, are dropped and their text kept. A table becomes one line per row with ` · ` between cells. Description lists, figures and addresses become paragraphs |
 | HTML | Every tag a command can make, tables included |
 | Plain text | The text, one line per line |
 | One-line | The formatting its format allows, on one line |
 
-::: negative icon="lucide:triangle-alert"
-In a markdown field, pasted marks markdown can't store, such as underline or highlight, still show until the page reloads, but they aren't in the saved value.
-:::
+Text without paragraphs of its own, such as a few copied words, goes in at the caret, inside the paragraph you're in. Pasting over a selection that spans paragraphs first deletes it as typing would: the paragraphs at either end join.
 
 ### Typing Markdown
 
 Type markdown and it turns into formatting as you go. Marks turn over the moment you type the closing character, and what you type next is outside the mark; block shortcuts at the start of a line turn over when you press Enter. `.literal` turns this off, and `.plain` never does it.
 
 ::: negative icon="lucide:triangle-alert"
-A space typed straight after a mark that just turned over currently lands inside the mark, so the following words stay bold or italic. Any other character lands outside it as intended.
+After `` `code` `` turns over, a space typed straight away is currently dropped, and what follows stays inside the code. Other marks, and any other character after code, behave as described.
 :::
 
 <div x-code-group>
@@ -253,11 +249,7 @@ Characters that would otherwise read as formatting are escaped with a backslash 
 
 Any element becomes a control with a command as its modifier: `x-rich-text.strong` bolds, `x-rich-text.h2` makes a heading. Commands are named after the HTML tag they make, plus a few for actions such as `undo` or `align`; [All Commands](#all-commands) lists every one.
 
-A control acts on the field it [resolves to](#toolbars). It's disabled until the caret has been in that field, and whenever its command can't apply there: in a `.plain` field, for a block command in a one-line field, or for an HTML-only command in a markdown field. Disabled controls get `aria-disabled="true"` rather than `disabled`, so a click on one doesn't take focus away from the field.
-
-::: negative icon="lucide:triangle-alert"
-After you click away from a field onto something that isn't editable, its controls stay enabled. Pressing one then puts the caret back in the field, but at its start, so it doesn't apply to the text that was selected.
-:::
+A control acts on the field it [resolves to](#toolbars). It's disabled until the caret has been in that field, and whenever its command can't apply there, including while focus is in some other input or editor: in a `.plain` field, for a block command in a one-line field, or for an HTML-only command in a markdown field. Disabled controls get `aria-disabled="true"` rather than `disabled`, so a click on one doesn't take focus away from the field.
 
 ### Buttons
 
@@ -292,11 +284,9 @@ A button runs its command when clicked, without taking focus from the field, so 
 
 Every icon-only button in these examples has an `aria-label`: an icon has no text, so without one a screen reader announces only "button", and the pressed state the plugin sets would have nothing to describe.
 
-An inline command clicked with nothing selected applies to the characters you type next at that spot, and moving the caret first cancels it.
+An inline command clicked with nothing selected is armed: the button shows it as active, and it applies to the characters you type next at that spot. Inside text that already has it, it ends there instead, so what you type next is plain. Moving the caret first cancels it.
 
-::: negative icon="lucide:triangle-alert"
-Starting that typing with a space currently loses the space and the formatting, and clicking a command inside text that already has it adds the same tag again instead of ending it for what you type next.
-:::
+After you click away from a field, its controls keep the selection it had: pressing one puts you back in the field and acts on that selection.
 
 A button can also run a command from script with [`$rich`](#reference), as in `@click="$rich.strong()"`. A plain button takes focus when pressed, though, and with more than one field near it, `$rich` then can't tell which field you meant and does nothing. Add `@mousedown.prevent` so the click leaves focus in the field, or use a command modifier, which does that for you.
 
@@ -318,6 +308,7 @@ A `<select>` or `<input>` runs its command with its own value, when it changes o
         <option value="blockquote">Quote</option>
     </select>
     <select x-rich-text.font aria-label="Font">
+        <option value="">Default</option>
         <option value="Georgia">Georgia</option>
         <option value="ui-monospace">Mono</option>
     </select>
@@ -346,6 +337,7 @@ A `<select>` or `<input>` runs its command with its own value, when it changes o
             <option value="blockquote">Quote</option>
         </select>
         <select class="sm hug" x-rich-text.font aria-label="Font">
+            <option value="">Default</option>
             <option value="Georgia">Georgia</option>
             <option value="ui-monospace">Mono</option>
         </select>
@@ -367,9 +359,9 @@ A `<select>` or `<input>` runs its command with its own value, when it changes o
 
 </div>
 
-A colour input recolours the selection live as you move through the picker, and the whole pass is one step of the history. Font, size and colour need a selection, and each wraps it in a `<span>` with that style; [`clear`](#all-commands) removes them again. Alignment and line height apply to the block the caret is in.
+A colour input recolours the selection live as you move through the picker, and the whole pass is one step of the history. Font, size and colour need a selection, and each wraps it in a `<span>` with that style. An empty value, like the Default font below, removes that style from the selection again, as [`clear`](#all-commands) does with all formatting. Alignment and line height apply to the block the caret is in.
 
-A command that takes a value gets it from, in order: the modifier after the command, as in `x-rich-text.align.center` or `x-rich-text.table.3x2`; the control's expression, as in `x-rich-text.img="photoUrl"`; or a dropdown's or input's own value. The expression is read whenever the controls update, not only on click, so it should just return a value, never open a dialog or change anything.
+A command that takes a value gets it from, in order: the modifier after the command, as in `x-rich-text.align.center` or `x-rich-text.table.3x2`; the control's expression, as in `x-rich-text.img="photoUrl"`; or a dropdown's or input's own value. The expression is read when the control runs.
 
 | Command | Value |
 |---|---|
@@ -379,7 +371,7 @@ A command that takes a value gets it from, in order: the modifier after the comm
 | `size` | A number of pixels, or any CSS length such as `1.25rem` |
 | `color`, `background` | Any CSS colour; a colour input gives `#rrggbb` |
 | `a` | The address; see [Links](#links) |
-| `img` | The source, or an array of source and alt text |
+| `img` | The source, or an array of source and alt text; a `data:` source must be a PNG, JPEG, GIF, WebP or AVIF image |
 | `table` | Columns × rows: `3x2`, `[3, 2]`, or `3` for 3 × 3 |
 | `abbr`, `dfn` | The `title`: the expansion or definition |
 | `bdo` | The direction: `rtl` (default), `ltr` or `auto` |
@@ -441,7 +433,7 @@ So a toolbar next to its field needs nothing more, and one toolbar can serve a w
 
 </div>
 
-While the caret is in some other editable element, an input or another editor, the controls disable themselves, so a page-wide toolbar never writes into the wrong place. Undo and redo are the exception: they stay ready whenever their field has steps to take.
+While the caret is in some other editable element, an input or another editor, the controls disable themselves, so a page-wide toolbar never writes into the wrong place.
 
 ### Selection Menu
 
@@ -473,7 +465,7 @@ While the caret is in some other editable element, an input or another editor, t
 
 </div>
 
-To build a menu of your own, the same information is available directly. The field fires `rich-text:selection` whenever the selection changes, with `{ collapsed, text, x, y, width, height, top, right, bottom, left }`, or `null` when the field lets go of it. While text is selected, its box is also written as `--rich-text-selection-x`, `-y`, `-width`, `-height` and `-center` on the field and on `:root`, so anything can be positioned over the selection with CSS alone.
+To build a menu of your own, the same information is available directly. The field fires `rich-text:selection` whenever the selection changes, with `{ collapsed, text, x, y, width, height, top, right, bottom, left }`, or `null` when the field lets go of it. While text is selected, its box is also written as `--rich-text-selection-x`, `-y`, `-width`, `-height` and `-center` on `:root`, so anything can be positioned over the selection with CSS alone.
 
 ### All Commands
 
@@ -608,14 +600,17 @@ Bold follows the field you were last in, and stays disabled until you've been in
 
 ## Links
 
-Typing `[text](url)` makes a link as you close it. To link a selection from a control, give `x-rich-text.a` the address as its value. Clicking inside a link places the caret rather than following it, and `unlink` removes the link at the caret.
+Typing `[text](url)` makes a link as you close it. A single `<input>` with `x-rich-text.a` handles links from a control: select some text, type an address into the input and press Enter. With the caret in a link, the input shows that link's address, and editing it changes the address; clearing it removes the link. Clicking inside a link places the caret rather than following it.
+
+::: negative icon="lucide:triangle-alert"
+With the [Router](/docs/framework/core-plugins/router) plugin loaded, as it is by default, a click on a link to a page of the same site, such as `/docs`, is still followed, because the router catches it first. Links to other sites and `#anchors` behave as described.
+:::
 
 <div x-code-group>
 
 ```html copy
-<div x-data="{ post: 'Visit [Manifest](https://manifestx.dev) today.', url: '' }">
-    <input type="url" x-model="url" placeholder="https://" aria-label="Link address">
-    <button x-rich-text.a="url" aria-label="Link"><span x-icon="lucide:link"></span></button>
+<div x-data="{ post: 'Visit [Manifest](https://manifestx.dev) today.' }">
+    <input type="url" x-rich-text.a placeholder="https://" aria-label="Link address">
     <button x-rich-text.unlink aria-label="Unlink"><span x-icon="lucide:unlink"></span></button>
 
     <div x-rich-text="post" aria-label="Post"></div>
@@ -623,10 +618,9 @@ Typing `[text](url)` makes a link as you close it. To link a selection from a co
 ```
 
 ::: frame
-<div x-data="{ post: 'Visit [Manifest](https://manifestx.dev) today.', url: '' }" class="col gap-2 w-full">
+<div x-data="{ post: 'Visit [Manifest](https://manifestx.dev) today.' }" class="col gap-2 w-full">
     <div class="row items-center gap-1">
-        <input type="url" class="sm grow" x-model="url" placeholder="https://" aria-label="Link address">
-        <button class="ghost sm" x-rich-text.a="url" aria-label="Link"><span x-icon="lucide:link"></span></button>
+        <input type="url" class="sm grow" x-rich-text.a placeholder="https://" aria-label="Link address">
         <button class="ghost sm" x-rich-text.unlink aria-label="Unlink"><span x-icon="lucide:unlink"></span></button>
     </div>
     <div x-rich-text="post" aria-label="Post" style="--rich-text-min-height: 4rem"></div>
@@ -636,11 +630,9 @@ Typing `[text](url)` makes a link as you close it. To link a selection from a co
 
 </div>
 
-Type an address, select the words to link, then press Link. On a link, Link changes its address. An empty address removes the link. The address can be a full URL, a `mailto:`, `tel:` or `sms:` link, a path or `#anchor` on the site, or a bare domain such as `example.com`, which gets `https://` added. Anything else, a script address included, is refused and the text is left as it was. `$rich.link` reads the address at the caret, and assigning to it links or unlinks like the button.
+The address can be a full URL, a `mailto:`, `tel:` or `sms:` link, a path or `#anchor` on the site, or a bare domain such as `example.com`, which gets `https://` added. Anything else, a script address included, is refused and the text is left as it was. A button can link too, with the address as its value, as in `x-rich-text.a="url"`.
 
-::: negative icon="lucide:triangle-alert"
-An `<input x-rich-text.a>` is meant to link the selection when you press Enter in it, and to show the address of the link at the caret. It shows the address, but taking focus clears the field's selection, so it can't apply one yet; use a button as above.
-:::
+Links can't hold links. Linking part of an existing link splits it: the selected words take the new address and the rest keep the old one. `unlink` removes the whole link at the caret, or only the selected part of one. A field that is itself a link or a button, or sits inside one, takes no links at all. `$rich.link` reads the address at the caret, and assigning to it links or unlinks like the input.
 
 Rich Text leaves **Cmd/Ctrl + K** to the page, where it often opens search.
 
@@ -722,8 +714,6 @@ Because they aren't part of the value, save them yourself. `$rich.all` reads the
 ```
 
 ::: frame
-<div x-data="{ ready: false }" x-init="window.__manifestRender || (window.ManifestRichText ? Promise.resolve() : Manifest.loadPlugin('rich-text', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._rt) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
-<template x-if="ready">
 <div x-data="{ doc: 'The whole page follows these controls.', look: { font: 'Georgia' } }" class="col gap-2 w-full">
     <div class="row-wrap gap-1">
         <select class="sm hug" x-rich-text.font.all aria-label="Page font">
@@ -742,8 +732,6 @@ Because they aren't part of the value, save them yourself. `$rich.all` reads the
     </div>
     <div x-rich-text="doc" aria-label="Document" x-effect="$rich.all = look" @rich-text:all="look = $event.detail" style="--rich-text-min-height: 4rem"></div>
     <code class="text-xs" x-text="JSON.stringify(look)"></code>
-</div>
-</template>
 </div>
 :::
 
@@ -787,11 +775,7 @@ The loop is keyed by position, `i`. Keying it by the field being edited, as in `
 
 ## History
 
-Each field keeps its own history. **Cmd/Ctrl + Z** undoes and **Shift + Cmd/Ctrl + Z** redoes, and so do the browser's Undo and Redo menu items. Typing is grouped into one step once you pause for a moment, and every command, paste and markdown conversion is a step of its own. A history holds the latest 200 steps.
-
-::: negative icon="lucide:triangle-alert"
-Undo currently can't step back past a command that leaves a list, table, quote, code block, rule or figure as the field's last block. The field adds an empty paragraph after that block, and each undo returns to the same step.
-:::
+Each field keeps its own history. **Cmd/Ctrl + Z** undoes and **Shift + Cmd/Ctrl + Z** redoes, as does **Ctrl + Y** outside the Mac, and so do the browser's Undo and Redo menu items. Typing is grouped into one step once you pause for a moment, and every command, paste and markdown conversion is a step of its own. A history holds the latest 200 steps.
 
 The browser's own undo can't do this: it doesn't know about the changes the plugin makes itself, such as a heading made from `## ` or a list made by a button, and it would undo only some of them. The field replaces it with a history of its own so every change steps back in order.
 
@@ -830,7 +814,7 @@ The history starts again whenever the value is set from outside the field, by yo
 
 | Key | In a field |
 |---|---|
-| Enter | A new paragraph. In a list, a new item; in an empty item, leaves the list. In a code block, a new line; on an empty last line, leaves the block. In a description list, alternates term and description. In a caption, a paragraph after the figure. A heading ends, and the next line is a paragraph. A quote made by typing `> ` ends the same way, while a quote holding paragraphs, such as one loaded from markdown, gets a new paragraph inside it. In a one-line field, fires `rich-text:enter` |
+| Enter | A new paragraph. In a list, a new item; in an empty item, leaves the list. In a code block, a new line; on an empty last line, leaves the block. In a description list, alternates term and description. In a caption, a paragraph after the figure. A heading ends, and the next line is a paragraph. A quote made by typing `> ` ends the same way, while a quote holding paragraphs, such as one loaded from markdown, gets a new paragraph inside it; Enter on its empty last paragraph leaves the quote. In a one-line field, fires `rich-text:enter` |
 | Shift + Enter | A line break inside the block. In a one-line field, fires `rich-text:enter` with `shiftKey` |
 | Tab, Shift + Tab | In a table, the next or previous cell; past the last cell, a new row. In a list, nests or un-nests the item. In an HTML field, indents or outdents the block. In a multi-line field Tab never leaves it: press Escape first. One-line and plain fields keep Tab for moving between fields |
 | Backspace at the start of a block | Joins the block to the one above: a list item to the item above, the first item out of its list, a paragraph into the last item of a list above it. Removes a rule just above. The field's first block becomes a paragraph if it isn't one |
@@ -838,7 +822,7 @@ The history starts again whenever the value is set from outside the field, by yo
 | Arrow keys in a table | Move to the next cell at a cell's edge, keeping the column |
 | Escape | Leaves the field |
 | Cmd/Ctrl + B, I, U | Bold, italic, underline, where the field allows them; the browser's own formatting never applies |
-| Cmd/Ctrl + Z, Shift + Cmd/Ctrl + Z | Undo, redo |
+| Cmd/Ctrl + Z, Shift + Cmd/Ctrl + Z | Undo, redo; Ctrl + Y also redoes outside the Mac |
 | Cmd/Ctrl + K | Left to the page |
 
 ---
@@ -863,7 +847,7 @@ The history starts again whenever the value is set from outside the field, by yo
 |---|---|
 | `x-rich-text.<command>` | Makes the element a control for that command |
 | `x-rich-text.<command>.<value>` | A fixed value, such as `.align.center` or `.table.3x2` |
-| `x-rich-text.<command>="expression"` | The value from an expression, read whenever controls update |
+| `x-rich-text.<command>="expression"` | The value from an expression, read when the control runs |
 | `x-rich-text.<command>.all` | For `font`, `size`, `leading`, `align`, `color`, `background`: style the whole field |
 | `x-rich-text-for="selector"` | On a control or any element around it: pins controls to that field |
 | `x-rich-text-menu` | On an element holding controls: shows it over the field's selection |
@@ -906,13 +890,13 @@ On a button, dropdown, input or link, a misspelt command logs a warning with the
 
 | Member | Description |
 |---|---|
-| `attach(el, options)` | Makes `el` a field and returns a handle: the `$rich` members, plus `el` and `detach()` |
+| `attach(el, options)` | Makes `el` a field and returns a handle: the `$rich` members, plus `el`, `detach()` and `newest()` |
 | `toMarkdown(el)` | The markdown for an element's content |
 | `fromMarkdown(markdown)` | Cleaned HTML for a markdown string |
 | `sanitize(html, blocks, styles)` | Cleans HTML to what Rich Text allows: inline tags only unless `blocks` is true, and `style` attributes only when `styles` is true |
 | `commands()` | Every command name |
 
-`attach()` takes `{ format, mode, breaks, value, literal, onChange }`: `format` is `'markdown'` (default), `'html'` or `'plain'`; `mode: 'inline'` makes a one-line field; `breaks: true` lets a one-line HTML field keep line breaks, with Shift + Enter adding one; `value` is the starting value, otherwise the element's markup; `literal` turns off markdown shortcuts; and `onChange(value)` is called after every change. `detach()` removes editing and restores the element's own attributes.
+`attach()` takes `{ format, mode, breaks, all, value, literal, onChange }`: `format` is `'markdown'` (default), `'html'` or `'plain'`; `mode: 'inline'` makes a one-line field; `breaks: true` lets a one-line HTML field keep line breaks, with Shift + Enter adding one; `all: false` turns off document-wide styles, so `.all` controls stay disabled and `$rich.all` can't be set; `value` is the starting value, otherwise the element's markup; `literal` turns off markdown shortcuts; and `onChange(value)` is called after every change. `detach()` removes editing and restores the element's own attributes, and `newest()` returns the markup of the newest step in the field's history, recording any typing still in progress first.
 
 ```js copy
 const note = ManifestRichText.attach(document.querySelector('#note'), {
@@ -1059,7 +1043,7 @@ The field's own states are attributes too: style the empty state's placeholder, 
 | `--rich-text-padding` | `0.75rem` | Padding |
 | `--rich-text-background` | `--color-surface-1` | Background; also set by `background.all` |
 | `--rich-text-font`, `-size`, `-leading`, `-align`, `-color` | inherited; `start` for align | Document-wide styles, set by `.all` controls |
-| `--rich-text-selection-x`, `-y`, `-width`, `-height`, `-center` | — | Written by the plugin: the selection's box, on the field and `:root` |
+| `--rich-text-selection-x`, `-y`, `-width`, `-height`, `-center` | — | Written by the plugin on `:root`: the selection's box |
 
 ### Attributes
 
