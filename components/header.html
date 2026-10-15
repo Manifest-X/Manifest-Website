@@ -31,13 +31,13 @@
             </menu>
 
             <!-- Docs Breadcrumbs-->
-            <small class="hidden sm:flex md:hidden truncate" x-route="docs/ai/*">
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/ai/*">
                 <template x-if="$x.ai.$route('path')?.group">
                     <span class="row items-center"><span x-text="$x.ai.$route('path')?.group"></span><span class="mx-1.5" x-icon="lucide:chevron-right"></span></span>
                 </template>
                 <span class="text-content-stark" x-text="$x.ai.$route('path')?.name || 'No article'"></span>
             </small>
-            <small class="hidden sm:flex md:hidden truncate" x-route="docs/framework/*">
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/framework/*">
                 <span x-text="$x.framework.$route('path')?.group || 'No group'"></span>
                 <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
                 <span class="text-content-stark" x-text="$x.framework.$route('path')?.name || 'No article'"></span>
