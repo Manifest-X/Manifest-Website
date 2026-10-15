@@ -113,15 +113,15 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-date`{copy} | [date pickers](/docs/framework/elements/date-pickers) | Date, range, and time picker field or calendar |
 | `x-defer`{copy} | [core](/docs/framework/getting-started/performance#x-defer-reference) | Defer a container's contents until it is shown. Modifiers: `.lazy`, `.discard`, `.priority="n"`, `.off` |
 | `x-dropdown`{copy} | [dropdowns](/docs/framework/elements/dropdowns) | Dropdown menu element |
-| `x-edit`{copy} | [edit](/docs/framework/core-plugins/edit) | Editable region: text, reorder, resize, classes, theme variables. Opt-in plugin; modifiers `.text`, `.sort`, `.style`, `.size`, `.data`, `.lock`, `.gated`, `.authoring`, `.theme`, `.cssvar` |
+| `x-edit`{copy} | [edit](/docs/framework/core-plugins/edit) | Editable region: text in place, moving and nesting pieces, resizing, theme variables. Opt-in plugin; capabilities `.text`, `.move`, `.size`, `.data` (none named: text and move), plus `.lock` and `.lock.<action>`, `.gated`, `.persist`, `.bare`, `.theme`, `.cssvar` |
 | `x-export`{copy} | [export](/docs/framework/core-plugins/import-export) | Download page / region / data source as PDF, image, CSV, or JSON |
 | `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/framework/core-plugins/local-data) | Bind file uploads |
 | `x-icon`{copy} | [icons](/docs/framework/elements/icons) | Render an icon by name |
 | `x-markdown`{copy} | [markdown](/docs/framework/core-plugins/markdown) | Render markdown content from a source |
+| `x-rich-text`{copy} | [rich text](/docs/framework/core-plugins/rich-text) | Text field with formatting, bound to a value (markdown; `.html`, `.plain`, `.inline`); with a command modifier, a control for a field (`x-rich-text.strong`). Also `x-rich-text-for`, `x-rich-text-menu`. Loads on use |
 | `x-route`{copy} | [router](/docs/framework/core-plugins/router) | Applies element to specific routes |
 | `x-svg`{copy} | [svgs](/docs/framework/elements/svgs) | Inlines an SVG file |
 | `x-tab`{copy}, `x-tabpanel`{copy} | [tabs](/docs/framework/elements/tabs) | Tab elements |
-| `x-text-edit`{copy} | [text edit](/docs/framework/core-plugins/text-edit) | Rich text area bound to a value (markdown; `.html`, `.plain`); with a command modifier, a control for that area (`x-text-edit.strong`) |
 | `x-toast`{copy} | [toasts](/docs/framework/elements/toasts) | Dispatches toast popover |
 | `x-tooltip`{copy} | [tooltips](/docs/framework/elements/tooltips) | Applies tooltip to element |
 | `x-virtual`{copy} | [virtual](/docs/framework/core-plugins/virtual) | Render only visible rows of a long list (wraps an `x-for` template) |
@@ -176,16 +176,16 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 | `$computed(s => ...)`{copy} | computed | Derived value from a function that receives the scope; recalculated only when what it reads changes, read as a plain property. Also `window.$computed` in `Alpine.data` factories. Attribute form: `x-computed:name` |
 | `$date(id)`{copy} | datepicker | Read or set a picker's value, time, range, and open state |
 | `$device`{copy} | utilities | `os`, `platform`, `online`, `standalone`, `native`, `touch`; always available |
-| `$edit`{copy} | edit | Page editor state: `on()`/`off()` for gated regions, `undo()`/`redo()`, block operations (`can`, `duplicate`, `remove`), `publish()`, `patches()`, `export()` |
+| `$edit`{copy} | edit | Page editor: `on()`/`off()` for gated regions, `undo()`/`redo()`, `canUndo`/`canRedo`, `target`, `can()`, block actions (`copy`, `cut`, `paste`, `duplicate`, `remove`), `lock()`, `publish()`, `onPublish`, `patches()`, `stale` |
 | `$haptics`{copy} | device | `impact(style)`, `notification(type)`, `selection()`, `vibrate(ms)`; `navigator.vibrate` on the web |
 | `$links`{copy} | device | Deep links: `open(url)`, `on(fn)`, `last` |
 | `$locale`{copy} | localization | Current locale, available locales, `set(code)` |
 | `$push`{copy} | device | `permission`, `token`, `request()`, `register()`, `onToken`, `onReceive`, `onTap`; Notification permission only on the web |
+| `$rich`{copy} | rich-text | The field the element sits in, or the one its controls act on: `value`, `all`, `link`, `selection`, `run(command)`, `can()`, `active()`, `markdown()`, `html()`, and every command as a method |
 | `$route`{copy} | router | Reactive string of the current logical route (e.g. `$route === '/'`); not a function |
 | `$secure`{copy} | device | Key/value store: `get`, `set`, `remove`, `keys`, `clear`, `use(adapter)`; Keychain in a Capacitor app, prefixed `localStorage` on the web |
 | `$share(opts)`{copy} | device | Share sheet, Web Share or clipboard; resolves `{ shared, method, cancelled? }` |
 | `$status`{copy} | status | Health of named services (e.g. `$status.api.state`, `$status.overall`) |
-| `$text`{copy} | text-edit | The enclosing (or last focused) rich text area: `value`, `page`, `link`, `selection`, `run(cmd)`, `markdown()`, `html()` |
 | `$toast`{copy} | toasts | Show a toast |
 | `$try(fn, errorVar?)`{copy} | data | `await` an async callback; on error returns `undefined` instead of throwing. If `errorVar` names a property on the current `x-data` scope, the error message is written there on failure and cleared to `null` on success |
 | `$url`{copy} | url-parameters | Read/write URL query parameters reactively |

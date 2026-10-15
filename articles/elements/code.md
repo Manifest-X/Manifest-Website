@@ -160,7 +160,7 @@ Long blocks can be capped to a preview length with a toggle below. Use `collapse
 
 ### Edit
 
-Add `edit`{copy} to make the block text-editable. The editor uses <a href="https://github.com/antonmedv/codejar" target="_blank" rel="noopener">CodeJar</a> (~4 KB gzipped, loaded lazily), with highlight.js re-highlighting on every keystroke.
+Add `edit`{copy} to make the block text-editable. The editor uses <a href="https://github.com/antonmedv/codejar" target="_blank" rel="noopener">CodeJar</a> (~4 KB gzipped, loaded lazily), with highlight.js re-highlighting on every keystroke. This edits the code in the block only; to edit page content in place see [Edit](/docs/framework/core-plugins/edit), and for a text field with formatting see [Rich Text](/docs/framework/core-plugins/rich-text).
 
 ```html copy
 <pre x-code="javascript" edit>

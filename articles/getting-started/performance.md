@@ -74,7 +74,7 @@ These containers are deferred automatically:
 - `[hidden]` elements — except `[x-route]` panes, because inactive pages are handled by the router
 - Tab panels that are not initially selected
 
-Containers with their own rendering directive are never deferred: `x-html`, `x-text`, `x-virtual`, `x-colorpicker`, `x-date`, `x-text-edit`, `x-chart`, `x-icon`, `x-svg`, `x-code`, `x-markdown` and the like. Empty containers are not deferred.
+Containers with their own rendering directive are never deferred: `x-html`, `x-text`, `x-virtual`, `x-colorpicker`, `x-date`, `x-rich-text`, `x-chart`, `x-icon`, `x-svg`, `x-code`, `x-markdown` and the like. Empty containers are not deferred.
 
 Deferred contents are initialized on the container's own open signal: `beforetoggle` for popovers and dialogs, `toggle` for details, selection for tab panels, and removal of the `hidden` attribute. Once initialized they stay that way unless the container has `x-defer.discard`. `$refs` inside a deferred container resolve after its first open.
 
