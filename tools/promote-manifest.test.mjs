@@ -211,11 +211,47 @@ test('hook gates production by default: publish without env, any mnfst-publish n
   assert.equal(B(`npx mnfst-publish --root ${ROOT} --promote`), 'promote');
   assert.equal(B('npx mnfst-publish --staging'), null);
   assert.equal(B('npx mnfst-publish --env staging --source render'), null);
-  assert.equal(B('MNFST_PUBLISH_ENV=staging npx mnfst-publish'), null);
-  assert.equal(B('npx mnfst-publish --project proj_other --promote'), null);
-  assert.equal(B('npx mnfst-publish --project proj_manifest_website --promote'), 'promote');
-  assert.deepEqual(classify({ tool_name: 'Bash', tool_input: { command: 'npx mnfst-publish --rollback' } }), { kind: 'rollback', target: null });
+  assert.equal(B('MNFST_PUBLISH_ENV=staging npx mnfst-publish'), 'publish');
+  assert.equal(B('npx mnfst-publish --env=staging'), 'publish');
+  assert.equal(B('npx mnfst-publish --project proj_other --promote'), 'promote');
+  assert.equal(B('npx mnfst-publish --rollback'), 'publish');
   assert.deepEqual(classify({ tool_name: 'mcp__x__manifest_rollback', tool_input: {}, cwd: ROOT }), { kind: 'rollback', target: null });
+});
+
+test('hook classifies every mnfst-publish call in a compound Bash command', async () => {
+  const other = await site({ '.mcp.json': JSON.stringify({ mcpServers: { m: { headers: { 'X-Manifest-Project': 'proj_other' } } } }) });
+  const K = (command) => classify({ tool_name: 'Bash', tool_input: { command }, cwd: other })?.kinds ?? null;
+  for (const sep of [' && ', ' || ', '; ', ' | ', ' & ', '\n']) assert.deepEqual(K(`npx mnfst-publish --staging${sep}npx mnfst-publish --production`), ['publish'], JSON.stringify(sep));
+  assert.deepEqual(K('npx mnfst-publish --staging && npx mnfst-publish --promote'), ['promote']);
+  assert.deepEqual(K('npx mnfst-publish && npx mnfst-publish --promote'), ['publish', 'promote']);
+  assert.deepEqual(K('npx mnfst-publish --staging --production'), ['publish']);
+  assert.deepEqual(K('npx mnfst-publish --production --staging'), null);
+  assert.deepEqual(K('npx mnfst-publish --staging # proj_other'), null);
+  assert.deepEqual(K('# proj_other\nnpx mnfst-publish'), ['publish']);
+  assert.deepEqual(K('echo proj_other; npx mnfst-publish'), ['publish']);
+  assert.deepEqual(K('npx mnfst-publish # --staging'), ['publish']);
+  assert.deepEqual(K('# npx mnfst-publish'), null);
+  assert.deepEqual(K('bash -c "npx mnfst-publish --staging && npx mnfst-publish"'), ['publish']);
+  assert.deepEqual(K("sh -c 'npx mnfst-publish --staging'"), null);
+  assert.deepEqual(K('echo "$(npx mnfst-publish)"'), ['publish']);
+  assert.deepEqual(K('x=`npx mnfst-publish`'), ['publish']);
+  assert.deepEqual(K('npx mnfst-publish $FLAGS'), ['publish']);
+  assert.deepEqual(K('npx mnfst-publish --staging --root "$PWD" 2>&1 | tail'), null);
+  assert.deepEqual(K('npx mnfst-publish --root --staging'), ['publish']);
+  assert.deepEqual(K('npx mnfst-publish --env "staging"'), null);
+  assert.deepEqual(K('npx -y mnfst-publish@0.1.14 --staging && node node_modules/mnfst-publish/manifest.publish.mjs'), ['publish']);
+  assert.deepEqual(K('npm exec mnfst-publish -- --staging'), null);
+  assert.deepEqual(K('npx mnfst-render && git status'), null);
+});
+
+test('hook blocks a production publish chained after a staging one', async () => {
+  const env = { PROMOTE_PRODUCTION: await site({ 'index.html': 'old' }), PROMOTE_APPROVALS: join(ROOT, 'none.json') };
+  const run = (command) => hook({ tool_name: 'Bash', tool_input: { command }, cwd: ROOT }, env);
+  const r = run('npx mnfst-publish --staging && npx mnfst-publish --production');
+  assert.equal(r.status, 2);
+  assert.match(r.stderr, /BLOCKED/);
+  assert.equal(run('npx mnfst-publish --staging').status, 0);
+  assert.equal(r.stdout, '');
 });
 
 test('hook blocks an unapproved promote with no project_id and allows a clean one', async () => {

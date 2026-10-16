@@ -19,6 +19,16 @@
             "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/ui-guard.mjs\""
           }
         ]
+      },
+      {
+        "matcher": "Bash|mcp__.*__manifest_(promote|publish|rollback)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/promote-gate.mjs\"",
+            "timeout": 60
+          }
+        ]
       }
     ]
   }

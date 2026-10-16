@@ -23,6 +23,18 @@ const sha = (b) => createHash('sha256').update(b).digest('hex');
 const md5 = (b) => createHash('md5').update(b).digest('hex');
 const isUrl = (s) => /^https?:\/\//.test(s);
 
+// Transport errors retry twice; HTTP errors never do.
+async function fetchRetry(url, init) {
+  for (let n = 0; ; n++) {
+    try {
+      return await fetch(url, init);
+    } catch (e) {
+      if (n >= 2) throw new Error(`${url}: ${e.cause?.code ?? e.message}`);
+      await new Promise((r) => setTimeout(r, 250 * (n + 1)));
+    }
+  }
+}
+
 // Strips only known host/CDN noise; everything else is compared byte for byte.
 export function normalize(path, buf) {
   if (!TEXT.test(path)) return buf;
@@ -47,12 +59,7 @@ export function source(base) {
     const root = base.replace(/\/$/, '');
     return {
       async get(path) {
-        let res;
-        try {
-          res = await fetch(root + path, { redirect: 'manual', headers: { 'cache-control': 'no-cache' } });
-        } catch (e) {
-          throw new Error(`${root + path}: ${e.cause?.code ?? e.message}`);
-        }
+        const res = await fetchRetry(root + path, { redirect: 'manual', headers: { 'cache-control': 'no-cache' } });
         if (res.status === 404) return null;
         if (res.status >= 300 && res.status < 400) return Buffer.from(`redirect ${res.status} ${res.headers.get('location')}`);
         if (!res.ok) throw new Error(`${root + path}: HTTP ${res.status}`);
@@ -60,12 +67,7 @@ export function source(base) {
       },
       // Binary: R2 etags are content md5s, so a HEAD is enough; anything else falls back to GET.
       async fingerprint(path) {
-        let res;
-        try {
-          res = await fetch(root + path, { method: 'HEAD', redirect: 'manual', headers: { 'cache-control': 'no-cache' } });
-        } catch (e) {
-          throw new Error(`${root + path}: ${e.cause?.code ?? e.message}`);
-        }
+        const res = await fetchRetry(root + path, { method: 'HEAD', redirect: 'manual', headers: { 'cache-control': 'no-cache' } });
         if (res.status === 404) return null;
         const tag = res.headers.get('etag')?.replace(/^W\//, '').replace(/"/g, '');
         if (res.ok && tag && /^[0-9a-f]{32}$/.test(tag)) return `md5:${tag}`;
@@ -281,11 +283,10 @@ const entry = (() => {
   }
 })();
 if (entry && pathToFileURL(realpathSync(new URL(import.meta.url))).href === entry) {
-  main().then(
-    (code) => process.exit(code),
-    (e) => {
-      console.error(`promote-manifest: ${e.message}`);
-      process.exit(2);
-    },
-  );
+  // Exit once stdout/stderr drain; pipes are async on macOS, so process.exit would truncate.
+  const done = (code) => process.stdout.write('', () => process.stderr.write('', () => process.exit(code)));
+  main().then(done, (e) => {
+    console.error(`promote-manifest: ${e.message}`);
+    done(2);
+  });
 }
