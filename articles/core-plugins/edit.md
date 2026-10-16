@@ -170,11 +170,11 @@ A piece locked from moving can't be picked up, though other pieces can still be 
 
 ## Text
 
-Text in a region is edited in place. The first click on a piece of text selects all of it, so replacing a line is one click and typing; click again to place the caret. **Enter** starts a new line inside the same element, so a heading stays one heading, and **Escape** leaves the text. The change is recorded when the text loses focus, as one step of the history.
+Page text is edited with [Rich Text](/docs/framework/core-plugins/rich-text), Manifest's text editing plugin. Edit loads it automatically, so there's nothing to add: each piece of text in a region becomes an inline Rich Text field. That's why Rich Text's shortcuts and controls work on page text, as below, while headings, lists, and other blocks stay out of it, so a heading stays one heading.
 
-A press on text that moves before you let go drags the piece instead; see [Move](/docs/framework/core-plugins/move). While you're typing in a piece, dragging across its text selects words as usual.
+The first click on a piece of text selects all of it, so replacing a line is one click and typing; click again to place the caret. **Enter** starts a new line inside the same element, and **Escape** leaves the text. The change is recorded when the text loses focus, as one step of the history. A press on text that moves before you let go drags the piece instead; see [Move](/docs/framework/core-plugins/move). While you're typing in a piece, dragging across its text selects words as usual.
 
-Page text runs on [Rich Text](/docs/framework/core-plugins/rich-text) in its one-line mode, so Rich Text's controls and shortcuts format it: **Cmd/Ctrl + B**, **I**, and **U** for bold, italic, and underline, and any [Rich Text button](/docs/framework/core-plugins/rich-text-controls#buttons) for inline formatting. The buttons don't take focus, so they act on whichever text you're in.
+To format it, use **Cmd/Ctrl + B**, **I**, and **U** for bold, italic, and underline, or any [Rich Text button](/docs/framework/core-plugins/rich-text-controls#buttons) for inline formatting. The buttons don't take focus, so they act on whichever text you're in.
 
 <div x-code-group>
 
@@ -235,6 +235,7 @@ Such an element is still a piece, and its own attributes and classes can be chan
 ::: brand icon="lucide:info"
 Edit's `.text` means *text can be edited*. Alpine's `x-text` is the opposite case: text rendered from an expression, which Edit leaves alone.
 :::
+
 ---
 
 ## Blocks
@@ -360,6 +361,7 @@ Edits live in memory, so a reload loses the ones not yet published. `.persist` k
 It's opt-in because the saved edits belong to one browser on one device, are invisible to everyone else, and go stale if the source changes underneath them; on a shared computer the next person would see them too. Use it for an editor where people work across reloads before they publish.
 
 `.persist` keeps text, order, nesting, sizes, attributes and classes, runtime locks, and a data list's order and record fields. Theme values are kept when `.persist` is on their control or their `.theme` scope. It doesn't keep closes, which are page state, or rows added, duplicated, or deleted in a data list. The history is one for the whole document, so in a single-page app it carries across routes, and it's saved under every path the page has shown, capped at the latest 400 steps.
+
 ---
 
 ## Theme Controls
@@ -396,6 +398,7 @@ It's opt-in because the saved edits belong to one browser on one device, are inv
 </div>
 
 The variable changes live as the input moves, and is recorded as a step of the history when the input commits its value: when you let go of a slider or close the colour picker, and at each arrow-key step on a focused slider. Undo puts the previous value back. `.theme` on its own only declares a scope and makes nothing editable, so it can wrap regions safely. When published, a global value is written to the `manifest.theme.css` that `index.html` links, or `styles/core/manifest.theme.css` if none is. A scoped value is written into the scope element's own `style` attribute, never into a stylesheet, so it never reaches `:root`; a scope element inside content another plugin generates has no file to write to, so its values are refused by name. Publishing global values needs the project's own `manifest.theme.css`, linked from `index.html`. See [Publishing](/docs/framework/core-plugins/edit-publishing). `.persist` on the control, or on its scope element, keeps unpublished values across a reload.
+
 ---
 
 ## Reference

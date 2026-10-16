@@ -327,7 +327,7 @@ In a markdown field, a pasted table is kept as text, one line per row; see [Past
 
 ---
 
-## Styling the Whole Document
+## Whole Document Styles
 
 A style command with `.all` styles the whole field instead of the selection: `font`, `size`, `leading`, `align`, `color`, and `background`. These document-wide styles are CSS variables on the field, not tags in the content, so the stored value stays clean, and they work in markdown fields too. `.all` controls are ready as soon as their field can be found, without the caret being in it.
 

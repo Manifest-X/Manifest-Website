@@ -299,7 +299,7 @@ Commands are HTML tag names, so the name says what it makes. **Markdown** marks 
 | `dt`, `dd` | Switches between term and description, inside a description list | No |
 | `block` | Any of the above by name, for a dropdown | Each tag as above |
 
-**Layout and style.** `.all` applies the style to the whole document instead; see [Styling the Whole Document](/docs/framework/core-plugins/rich-text#styling-the-whole-document).
+**Layout and style.** `.all` applies the style to the whole document instead; see [Whole Document Styles](/docs/framework/core-plugins/rich-text#whole-document-styles).
 
 | Command | Does | Markdown |
 |---|---|---|
