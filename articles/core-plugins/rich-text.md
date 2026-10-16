@@ -96,6 +96,8 @@ A field stores its text in one of three formats, chosen by modifier. The value i
 | `x-rich-text.html="value"` | HTML, cleaned of anything unsafe | Every command |
 | `x-rich-text.plain="value"` | Plain text, with line breaks | None |
 
+An HTML value never ends with the empty paragraph the field keeps after a final list, table or code block so there's a line to type on.
+
 Type in each field below and watch what it stores.
 
 <div x-code-group>
@@ -229,8 +231,8 @@ A markdown field reads markdown by the same rules as CommonMark for the parts it
 
 | Written as | Shown as | Saved as |
 |---|---|---|
-| `__bold__` or `_italic_` | Bold or italic; `snake_case` stays text | `**bold**` or `*italic*`, except where only the underscore form reads back the same, such as bold right next to italic |
-| `<strong>`, `<b>`, `<em>`, `<i>`, `<s>`, `<del>` or `<code>` | That formatting | Its markdown: `**…**`, `*…*`, `~~…~~` or `` `…` `` |
+| `__bold__` or `_italic_` | Bold or italic; `snake_case` stays text | `**bold**` or `*italic*`: underscores are never written |
+| `<strong>`, `<b>`, `<em>`, `<i>`, `<s>`, `<del>` or `<code>` | That formatting | Its markdown, `**…**`, `*…*`, `~~…~~` or `` `…` ``, except as below |
 | Other HTML tags, such as `<u>`, `<span>` or `<mark>` | The tags as text | The tags with `<` and `>` escaped |
 | A lone `*` between characters, as in `2*1024` | The character | `2\*1024` |
 | A link title in single quotes or parentheses, as in `[text](url 'title')` | A link with that title | The title in double quotes |
@@ -242,7 +244,7 @@ A markdown field reads markdown by the same rules as CommonMark for the parts it
 | Indented code | A paragraph | The text without its indentation |
 | Several blank lines | One gap | One blank line |
 
-Links keep their titles, as a `title` on the link. Code fences keep their language (` ```bash `), autolinks such as `<https://example.com>` read as links and save back as written, and link addresses with balanced parentheses, such as Wikipedia's, round-trip unchanged. Bold and italic nested in a way `*` and `_` can't say, such as bold inside italic with text touching both sides, are saved as `<strong>` and `<em>` tags, which markdown allows and the field reads back.
+Links keep their titles, as a `title` on the link. Code fences keep their language (` ```bash `), autolinks such as `<https://example.com>` read as links and save back as written, and link addresses with balanced parentheses, such as Wikipedia's, round-trip unchanged. Bold, italic and strikethrough set off by spaces or punctuation, as in ordinary prose, save as `**`, `*` and `~~`. Where a mark touches another mark or a letter with no space between them, in a way markdown renderers read differently, it's saved as an `<strong>`, `<em>` or `<s>` tag instead, so it displays the same everywhere: `<em>a</em><strong>b</strong>c` is saved as written. Code that contains a backtick is saved as a `<code>` tag. Markdown allows these tags, and the field reads them back.
 
 Characters that would otherwise read as formatting are escaped with a backslash when saved: `\ ` `` ` `` `*` `~` `[` `]` `<` `>`, `_` except between letters or digits, an `&` that starts an entity, and `#`, `-`, `+` or `1.` at the start of a line.
 
