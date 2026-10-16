@@ -1,14 +1,21 @@
 #!/usr/bin/env node
-// PreToolUse: blocks Manifest-Website production changes the promote manifest does not clear. Fails closed.
+// PreToolUse: Website production is reached only by promote, and a promote needs committed approvals. Fails closed.
 import { spawnSync } from 'node:child_process';
-import { readFileSync, realpathSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { existsSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
+import { homedir, tmpdir } from 'node:os';
+import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const ID = 'proj_manifest_website';
 const NAME = /^manifest[-_ ]?website$/i;
 export const DEADLINE_MS = Number(process.env.PROMOTE_DEADLINE_MS) || 45000;
+const START = Date.now();
+
+const SHELL_TOOLS = /^(?:Bash|Monitor|mcp__terminal__run_in_terminal)$/;
+const PUBLISH_MSG =
+  "Blocked: Manifest-Website production is reached only by promote. Publish to staging (manifest_publish env='staging', or `npx mnfst-publish --staging`), then promote; the promote gate compares the served staging bytes with production.";
+const APPROVAL_MSG = "Blocked: these files need Andrew's approval in promote-manifest.json on origin/staging. Do not add approvals yourself; ask Andrew or file a queue row.";
 
 // Exit 2 once stderr drains; pipes are async on macOS, so process.exit would truncate.
 class Halt extends Error {}
@@ -17,28 +24,60 @@ const block = (msg) => {
   throw new Halt(msg);
 };
 
-function pinned(cwd) {
-  for (let d = cwd; d && d !== dirname(d); d = dirname(d)) {
+const isWebsiteId = (id) => id === ID || NAME.test(id);
+
+export function pinned(dir) {
+  for (let d = dir; d && d !== dirname(d); d = dirname(d)) {
     try {
       const m = JSON.parse(readFileSync(join(d, '.mcp.json'), 'utf8'));
       for (const s of Object.values(m.mcpServers ?? {})) {
         const h = Object.entries(s.headers ?? {}).find(([k]) => k.toLowerCase() === 'x-manifest-project');
-        if (h) return h[1];
+        if (h) return String(h[1]).trim();
       }
     } catch {}
   }
   return null;
 }
 
-// Unknown project counts as Manifest-Website.
-export function isWebsite(input) {
-  const id = input.tool_input?.project_id ?? pinned(input.cwd ?? process.cwd());
-  return id == null || id === ID || NAME.test(String(id).trim());
+// Any checkout or worktree of the repo carrying this gate.
+function inWebsite(dir) {
+  for (let d = dir; d && d !== dirname(d); d = dirname(d)) {
+    if (existsSync(join(d, 'promote-manifest.json')) && existsSync(join(d, '.claude/hooks/promote-gate.mjs'))) return true;
+  }
+  return false;
 }
 
-// Shell words grouped into commands; quotes respected, $ and ` mark a word dynamic.
+// Connector tools: an unknown project counts as Manifest-Website.
+export function isWebsite(input) {
+  const id = String(input.tool_input?.project_id ?? '').trim() || pinned(input.cwd ?? process.cwd());
+  return !id || isWebsiteId(id);
+}
+
+const SHELL_RUN = /(?:^|[|;&(]|&&|\|\|)\s*(?:\S*\/)?(?:sh|bash|zsh|dash|ksh|fish)\b/;
+
+// Here-doc body: run as commands when fed to a shell, else only its unquoted $() and `` run.
+function heredoc(cmd, from, h, subs) {
+  let i = from;
+  const body = [];
+  while (i < cmd.length) {
+    const eol = cmd.indexOf('\n', i);
+    const ln = cmd.slice(i, eol < 0 ? cmd.length : eol);
+    i = eol < 0 ? cmd.length : eol + 1;
+    if ((h.strip ? ln.replace(/^\t+/, '') : ln) === h.delim) break;
+    body.push(ln);
+  }
+  const text = body.join('\n');
+  if (h.shell) subs.push(text);
+  else if (!h.quoted) for (const m of text.matchAll(/\$\(([^)]*)\)|`([^`]*)`/g)) subs.push(m[1] ?? m[2]);
+  return i;
+}
+
+// Shell words grouped into commands; quotes respected, $ and ` mark a word dynamic; quoted $() and `` land in subs.
 export function commands(cmd) {
   const out = [[]];
+  const subs = [];
+  const docs = [];
+  let line = 0;
   let w = null;
   const end = () => {
     if (w) out.at(-1).push(w);
@@ -67,7 +106,17 @@ export function commands(cmd) {
       let j = i + 1;
       for (; j < cmd.length && cmd[j] !== '"'; j++) {
         if (cmd[j] === '\\' && j + 1 < cmd.length) w.text += cmd[++j];
-        else ch(cmd[j], cmd[j] === '$' || cmd[j] === '`');
+        else if (cmd.startsWith('$(', j) || cmd[j] === '`') {
+          const open = cmd[j] === '`' ? 1 : 2;
+          let k = j + open;
+          for (let depth = 1; k < cmd.length; k++) {
+            if (open === 1 ? cmd[k] === '`' : cmd[k] === ')' && !--depth) break;
+            if (open === 2 && cmd[k] === '(') depth++;
+          }
+          subs.push(cmd.slice(j + open, k));
+          ch('$', true);
+          j = k;
+        } else ch(cmd[j], cmd[j] === '$');
       }
       if (j >= cmd.length) w.dynamic = true;
       i = j;
@@ -77,63 +126,167 @@ export function commands(cmd) {
     } else if (c === '#' && !w) {
       while (i < cmd.length && cmd[i] !== '\n') i++;
       cut();
-    } else if (/[\s]/.test(c)) c === '\n' ? cut() : end();
-    else if (/[;&|()`<>]/.test(c)) cut();
+    } else if (c === '\n') {
+      cut();
+      for (const h of docs.splice(0)) i = heredoc(cmd, i + 1, h, subs) - 1;
+      line = i + 1;
+    } else if (/\s/.test(c)) end();
+    else if (cmd.startsWith('<<', i) && cmd[i + 2] !== '<') {
+      cut();
+      const m = cmd.slice(i + 2).match(/^(-?)\s*(['"]?)([A-Za-z0-9_.-]+)\2/);
+      if (m) {
+        const eol = cmd.indexOf('\n', i);
+        const head = cmd.slice(line, eol < 0 ? cmd.length : eol);
+        docs.push({ delim: m[3], strip: !!m[1], quoted: !!m[2], shell: SHELL_RUN.test(head) });
+        i += 1 + m[0].length;
+      } else i++;
+    } else if (/[;&|()`<>]/.test(c)) cut();
     else ch(c, c === '$');
   }
   cut();
-  return out.filter((c) => c.length);
+  return Object.assign(out.filter((c) => c.length), { subs });
 }
 
-const VALUE = /^--(?:source|output-dir|key|mcp|root)$/;
 const PROGRAM = /(?:^|\/)(?:mnfst-publish(?:@[^/\s]*)?(?:\.m?js)?|manifest\.publish\.mjs)$/;
+const VALUE = /^--(?:source|output-dir|key|mcp)$/;
+const ASSIGN = /^[A-Za-z_][A-Za-z0-9_]*=/;
+const PREFIX = new Set(['env', 'exec', 'time', 'nohup', 'command', 'sudo', 'builtin', 'xargs', 'timeout']);
+const SHELL = new Set(['sh', 'bash', 'zsh', 'dash', 'ksh', 'fish']);
+const CODE = { node: /^(?:-e|--eval|-p|--print)$/, deno: /^eval$/, bun: /^(?:-e|--eval)$/, python: /^-c$/, python3: /^-c$/, perl: /^-[a-zA-Z]*e$/, ruby: /^-e$/ };
+const base = (w) => w.text.split('/').pop();
+const expand = (p) => (p === '~' ? homedir() : p.startsWith('~/') ? join(homedir(), p.slice(2)) : p);
+const at = (cwd, p) => (isAbsolute(expand(p)) ? expand(p) : cwd ? resolve(cwd, p) : null);
 
 // Mirrors mnfst-publish's parseArgs: production unless the last env flag says staging.
-function publishKinds(cmd, depth = 0) {
-  if (depth > 4) return ['publish'];
-  const kinds = new Set();
-  for (const words of commands(cmd)) {
-    words.forEach((w, i) => {
-      if (!PROGRAM.test(w.text)) {
-        if (/mnfst-publish|manifest\.publish/.test(w.text) && /\s/.test(w.text)) for (const k of publishKinds(w.text, depth + 1)) kinds.add(k);
-        return;
-      }
-      let env = 'production';
-      let promote = false;
-      const rest = words.slice(i + 1);
-      for (let j = 0; j < rest.length; j++) {
-        const a = rest[j];
-        if (a.dynamic) env = null;
-        else if (a.text === '--staging') env = 'staging';
-        else if (a.text === '--production' || a.text === '--prod') env = 'production';
-        else if (a.text === '--env') env = rest[++j] && !rest[j].dynamic ? rest[j].text : null;
-        else if (a.text === '--promote') promote = true;
-        else if (VALUE.test(a.text)) j++;
-      }
-      if (promote) kinds.add('promote');
-      else if (env !== 'staging') kinds.add('publish');
-    });
+function call(rest, cwd) {
+  let env = 'production';
+  let promote = false;
+  let dir = cwd;
+  for (let j = 0; j < rest.length; j++) {
+    const a = rest[j];
+    if (a.dynamic) env = null;
+    else if (a.text === '-h' || a.text === '--help') return null;
+    else if (a.text === '--staging') env = 'staging';
+    else if (a.text === '--production' || a.text === '--prod') env = 'production';
+    else if (a.text === '--env') env = rest[++j] && !rest[j].dynamic ? rest[j].text : null;
+    else if (a.text === '--promote') promote = true;
+    else if (a.text === '--root') dir = rest[++j] && !rest[j].dynamic ? at(cwd, rest[j].text) : null;
+    else if (VALUE.test(a.text)) j++;
   }
-  return [...kinds];
+  if (promote) return { kind: 'promote', dir };
+  return env === 'staging' ? null : { kind: 'publish', dir };
+}
+
+// mnfst-publish calls in command position; `cwd` null means unknown.
+export function calls(cmd, cwd, depth = 0, code = false) {
+  if (depth > 4) return [{ kind: 'publish', dir: null }];
+  const out = [];
+  const parsed = commands(cmd);
+  for (const sub of parsed.subs) out.push(...calls(sub, cwd, depth + 1, code));
+  for (const words of parsed) {
+    if (code) {
+      words.forEach((w, i) => {
+        if (PROGRAM.test(w.text)) {
+          const c = call(words.slice(i + 1), cwd);
+          if (c) out.push(c);
+        } else if (/mnfst-publish|manifest\.publish/.test(w.text) && /\s/.test(w.text)) out.push(...calls(w.text, cwd, depth + 1, true));
+      });
+      continue;
+    }
+    let i = 0;
+    while (i < words.length) {
+      const w = words[i];
+      const b = base(w);
+      if (ASSIGN.test(w.text)) i++;
+      else if (PROGRAM.test(w.text)) {
+        const c = call(words.slice(i + 1), cwd);
+        if (c) out.push(c);
+        break;
+      } else if (b === 'cd' || b === 'pushd') {
+        const t = words[i + 1];
+        cwd = !t ? homedir() : t.dynamic ? null : at(cwd, t.text);
+        break;
+      } else if (PREFIX.has(b)) {
+        i++;
+        while (words[i]?.text.startsWith('-')) i++;
+        if (b === 'timeout' && /^\d/.test(words[i]?.text ?? '')) i++;
+      } else if (b === 'npx' || b === 'bunx') {
+        i++;
+        while (words[i]?.text.startsWith('-')) i += /^(?:-p|--package)$/.test(words[i].text) ? 2 : 1;
+      } else if ((b === 'npm' && /^(?:exec|x)$/.test(words[i + 1]?.text)) || (/^(?:pnpm|yarn)$/.test(b) && /^(?:dlx|exec)$/.test(words[i + 1]?.text))) {
+        i += 2;
+        while (words[i]?.text.startsWith('-')) i += /^(?:-p|--package)$/.test(words[i].text) ? 2 : 1;
+      } else if (b === 'eval') {
+        out.push(...calls(words.slice(i + 1).map((x) => x.text).join(' '), cwd, depth + 1));
+        break;
+      } else if (SHELL.has(b)) {
+        const k = words.findIndex((x, n) => n > i && /^-[a-zA-Z]*c[a-zA-Z]*$/.test(x.text));
+        if (k > 0 && words[k + 1]) out.push(...calls(words[k + 1].text, cwd, depth + 1));
+        break;
+      } else if (CODE[b]) {
+        const k = words.findIndex((x, n) => n > i && CODE[b].test(x.text));
+        if (k > 0 && words[k + 1]) {
+          out.push(...calls(words[k + 1].text, cwd, depth + 1, true));
+          break;
+        }
+        i++;
+        while (words[i]?.text.startsWith('-')) i++;
+      } else break;
+    }
+  }
+  return out;
+}
+
+function shellCwd(input) {
+  const ti = input.tool_input ?? {};
+  if (input.tool_name === 'mcp__terminal__run_in_terminal') {
+    if (ti.tab_id) return null;
+    if (ti.cwd) return at(input.cwd ?? process.cwd(), String(ti.cwd));
+  }
+  return input.cwd ?? process.cwd();
 }
 
 export function classify(input) {
   const tool = input.tool_name ?? '';
   const ti = input.tool_input ?? {};
-  if (/manifest_promote$/.test(tool)) return isWebsite(input) ? { kind: 'promote' } : null;
-  if (/manifest_rollback$/.test(tool)) return isWebsite(input) && ti.env !== 'staging' ? { kind: 'rollback', target: ti.deployment_id ?? null } : null;
-  if (/manifest_publish$/.test(tool)) return isWebsite(input) && ti.env !== 'staging' ? { kind: 'publish' } : null;
-  if (tool === 'Bash') {
-    const kinds = publishKinds(String(ti.command ?? ''));
-    return kinds.length ? { kind: kinds[0], kinds } : null;
+  if (/__manifest_promote$/.test(tool)) return isWebsite(input) ? { kind: 'promote' } : null;
+  if (/__manifest_rollback$/.test(tool)) return isWebsite(input) && ti.env !== 'staging' ? { kind: 'rollback', target: ti.deployment_id ?? null } : null;
+  if (/__manifest_publish(?:_files)?$/.test(tool)) return isWebsite(input) && ti.env !== 'staging' ? { kind: 'publish' } : null;
+  if (SHELL_TOOLS.test(tool)) {
+    const cwd = shellCwd(input);
+    const hits = calls(String(ti.command ?? ''), cwd).filter((c) => {
+      const id = c.dir ? pinned(c.dir) : null;
+      return id ? isWebsiteId(id) : inWebsite(c.dir ?? input.cwd ?? process.cwd());
+    });
+    if (hits.some((c) => c.kind === 'publish')) return { kind: 'publish' };
+    if (hits.length) return { kind: 'promote' };
   }
   return null;
 }
 
-function approvedRollback(target) {
+// Approvals count only once committed to origin/staging.
+function approvals() {
+  if (process.env.PROMOTE_APPROVALS) {
+    try {
+      return readFileSync(process.env.PROMOTE_APPROVALS, 'utf8');
+    } catch {
+      return null;
+    }
+  }
+  const r = spawnSync('git', ['-C', ROOT, 'show', 'origin/staging:promote-manifest.json'], { encoding: 'utf8', timeout: 10000 });
+  if (r.status !== 0) return null;
+  try {
+    JSON.parse(r.stdout);
+    return r.stdout;
+  } catch {
+    return null;
+  }
+}
+
+function approvedRollback(text, target) {
   let doc;
   try {
-    doc = JSON.parse(readFileSync(process.env.PROMOTE_APPROVALS ?? join(ROOT, 'promote-manifest.json'), 'utf8'));
+    doc = JSON.parse(text);
   } catch {
     return false;
   }
@@ -145,18 +298,32 @@ function approvedRollback(target) {
 export function run(input) {
   const c = classify(input);
   if (!c) return;
+  if (c.kind === 'publish') block(PUBLISH_MSG);
+  const text = approvals();
+  if (text == null) block('promote-gate: could not read the committed approvals (origin/staging:promote-manifest.json); blocking.');
   if (c.kind === 'rollback') {
-    if (approvedRollback(c.target)) return;
+    if (approvedRollback(text, c.target)) return;
     block(c.target
-      ? `Rollback blocked: an older deployment can restore unapproved pages. Add {"deployment_id": "${c.target}", "approver", "date"} to "rollbacks" in promote-manifest.json, then retry.`
-      : 'Rollback blocked: name the target deployment_id; only a deployment listed under "rollbacks" in promote-manifest.json can be restored.');
+      ? `Rollback blocked: an older deployment can restore unapproved pages. ${c.target} is not listed under "rollbacks" in promote-manifest.json on origin/staging. Do not add it yourself; ask Andrew or file a queue row.`
+      : 'Rollback blocked: name the target deployment_id; only a deployment Andrew listed under "rollbacks" in promote-manifest.json can be restored.');
   }
-  for (const kind of c.kinds ?? [c.kind]) {
-    const args = ['tools/promote-manifest.mjs'];
-    if (kind === 'publish') args.push('--staging', join(ROOT, 'website'));
-    const r = spawnSync(process.execPath, args, { cwd: ROOT, encoding: 'utf8', timeout: DEADLINE_MS, killSignal: 'SIGKILL' });
-    if (r.error || r.signal) block(`promote-gate: gate did not finish within ${DEADLINE_MS / 1000}s (${r.error?.code ?? r.signal}); blocking.`);
-    if (r.status !== 0) block(`${r.stdout}${r.stderr}\nBlocked: add an approval (path, sha256, approver, date) to promote-manifest.json for each file above; \`npm run promote:check -- --template\` prints them.`);
+  const left = DEADLINE_MS - (Date.now() - START);
+  if (left <= 0) block('promote-gate: out of time before the check ran (not an approvals problem); blocking.');
+  const tmp = mkdtempSync(join(tmpdir(), 'promote-gate-'));
+  let r;
+  try {
+    writeFileSync(join(tmp, 'approvals.json'), text);
+    r = spawnSync(process.execPath, ['tools/promote-manifest.mjs', '--approvals', join(tmp, 'approvals.json')], { cwd: ROOT, encoding: 'utf8', timeout: left, killSignal: 'SIGKILL' });
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
+  }
+  if (r.error || r.signal) block(`promote-gate: the check did not finish within ${DEADLINE_MS / 1000}s (${r.error?.code ?? r.signal}); network slowness, not an approvals problem. Blocking; retry later.`);
+  if (r.status === 2) block(`promote-gate: network failure reading the staging or production site, not an approvals problem:\n${r.stderr.trim()}\nBlocking; retry once both hosts respond.`);
+  if (r.status !== 0) block(`${r.stdout}${r.stderr}\n${APPROVAL_MSG}`);
+  const removed = r.stdout.split('\n').filter((l) => /^\s+OK\s+removed /.test(l));
+  if (removed.length) {
+    const msg = `Promote gate passed. This promote REMOVES ${removed.length} file(s) from production:\n${removed.map((l) => l.trim().replace(/^OK\s+removed\s+/, '  ')).join('\n')}`;
+    process.stdout.write(JSON.stringify({ systemMessage: msg, hookSpecificOutput: { hookEventName: 'PreToolUse', additionalContext: msg } }));
   }
 }
 

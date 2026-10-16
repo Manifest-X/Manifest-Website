@@ -21,11 +21,11 @@
         ]
       },
       {
-        "matcher": "Bash|mcp__.*__manifest_(promote|publish|rollback)",
+        "matcher": "Bash|Monitor|mcp__terminal__run_in_terminal|mcp__.*__manifest_(promote|publish|publish_files|rollback)",
         "hooks": [
           {
             "type": "command",
-            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/promote-gate.mjs\"",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/promote-gate.mjs\" || exit 2",
             "timeout": 60
           }
         ]
