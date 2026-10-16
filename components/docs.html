@@ -17,12 +17,12 @@
     aiApps: [
       { name: 'Claude', icon: 'simple-icons:claude', url: 'https://claude.ai/new?q=' },
       { name: 'ChatGPT', icon: 'simple-icons:openai', url: 'https://chatgpt.com/?q=' },
+      { name: 'Gemini', icon: 'simple-icons:googlegemini', url: 'https://gemini.google.com/app', paste: true },
       { name: 'Perplexity', icon: 'simple-icons:perplexity', url: 'https://www.perplexity.ai/search?q=' }
     ],
-    askIn(app) {
-      const url = this.canonical + $route.replace(/\/$/, '');
-      return app.url + encodeURIComponent(`Read ${url} from the Manifest docs and help me with it.`);
-    },
+    get askPrompt() { return `Read ${this.canonical + $route.replace(/\/$/, '')} from the Manifest docs and help me with it.` },
+    askIn(app) { return app.paste ? app.url : app.url + encodeURIComponent(this.askPrompt) },
+    askCopy(app) { if (app.paste) navigator.clipboard.writeText(this.askPrompt).catch(() => {}) },
     async copyPage() {
       const md = await fetch(this.article.doc).then(r => r.text());
       const clean = md.replace(/`([^`\n]+)`\{[^}\n]*\}/g, '`$1`');
@@ -86,13 +86,13 @@
               <span x-text="copied ? 'Copied' : 'Copy page'"></span>
             </button>
             <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
-              <span x-icon="'lucide:sparkles'"></span>
+              <span x-icon="'lucide:asterisk'"></span>
               <span>Ask AI</span>
               <span x-icon="'lucide:chevron-down'"></span>
             </button>
             <menu popover :id="'ask-ai-' + src">
               <template x-for="app in aiApps" :key="app.name">
-                <a :href="askIn(app)" target="_blank" rel="noopener" role="button" class="sm ghost justify-start">
+                <a :href="askIn(app)" target="_blank" rel="noopener" role="button" class="sm ghost justify-start" @click="askCopy(app)" :title="app.paste ? 'Opens ' + app.name + ' with the question copied, ready to paste' : null">
                   <span x-icon="app.icon"></span>
                   <span x-text="'Ask ' + app.name"></span>
                 </a>
