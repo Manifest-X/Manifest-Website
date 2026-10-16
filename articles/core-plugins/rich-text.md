@@ -216,7 +216,8 @@ Type markdown and it turns into formatting as you go. Marks turn over the moment
 | ` ``` ` | Code block | Enter |
 | `---` `***` `___` | Rule | Enter |
 | `**bold**` `__bold__` | Bold | Closing characters |
-| `*italic*` | Italic | Closing `*` |
+| `*italic*` `_italic_` | Italic | Closing `*` or `_` |
+| `***both***` | Bold and italic | Closing characters |
 | `~~struck~~` | Strikethrough | Closing `~~` |
 | `` `code` `` | Code | Closing `` ` `` |
 | `[text](url)` | Link | Closing `)` |
@@ -224,23 +225,26 @@ Type markdown and it turns into formatting as you go. Marks turn over the moment
 
 ### Markdown Written Elsewhere
 
-A markdown field reads and writes one subset of markdown, so markdown written by hand or by another tool can change when the field first saves it. The text is never lost, but its notation may be rewritten, or read as plain text:
+A markdown field reads markdown by the same rules as CommonMark for the parts it supports, and saves what you didn't change as it was written. Markdown written by hand or by another tool still changes in these ways when the field first saves it. The text is never lost, but its notation may be rewritten, or read as plain text:
 
 | Written as | Shown as | Saved as |
 |---|---|---|
+| `__bold__` or `_italic_` | Bold or italic; `snake_case` stays text | `**bold**` or `*italic*`, except where only the underscore form reads back the same, such as bold right next to italic |
+| `<strong>`, `<b>`, `<em>`, `<i>`, `<s>`, `<del>` or `<code>` | That formatting | Its markdown: `**…**`, `*…*`, `~~…~~` or `` `…` `` |
+| Other HTML tags, such as `<u>`, `<span>` or `<mark>` | The tags as text | The tags with `<` and `>` escaped |
+| A lone `*` between characters, as in `2*1024` | The character | `2\*1024` |
+| A link with a title, as in `[text](url "title")` | A link | The link without its title |
 | `* item` or `+ item` | A bulleted list | `- item` |
 | `3. item` | A numbered list | `1. item`: lists are renumbered from 1 |
 | A list nested by 2 spaces | One level, not nested | Nesting needs 4 spaces or a tab per level |
 | `***` or `___` | A rule | `---` |
-| ` ```js ` | A code block | ` ``` `: the language is dropped |
-| `__bold__` or `_italic_` | Bold or italic, by the same rules as CommonMark, so `snake_case` stays text | `**bold**` or `*italic*`, except where only the underscore form reads back the same, such as bold right next to italic |
-| `<strong>` or `<em>` | Bold or italic | `**bold**` or `*italic*` |
-| Pipe tables, setext headings (`===` underlines), reference links, autolinks (`<https://…>`), links with a title | The characters as typed | The same text, with `[`, `]`, `<` and `>` escaped |
+| Pipe tables, setext headings (`===` underlines), reference links | The characters as typed | The same text, with `[`, `]`, `<` and `>` escaped |
 | Indented code | A paragraph | The text without its indentation |
-| Other HTML tags, such as `<b>` or `<span>` | The tags as text | The tags with `<` and `>` escaped |
 | Several blank lines | One gap | One blank line |
 
-Bold and italic nested in a way markdown's `*` and `_` can't say, such as bold inside italic with text touching both sides, are saved as `<strong>` and `<em>` tags, which markdown allows and the field reads back. Characters that would otherwise read as formatting are escaped with a backslash when saved: `\ ` `` ` `` `*` `_` `~` `[` `]` `<` `>`, an `&` that starts an entity, and `#`, `-`, `+` or `1.` at the start of a line.
+Code fences keep their language (` ```bash `), autolinks such as `<https://example.com>` read as links and save back as written, and link addresses with balanced parentheses, such as Wikipedia's, round-trip unchanged. Bold and italic nested in a way `*` and `_` can't say, such as bold inside italic with text touching both sides, are saved as `<strong>` and `<em>` tags, which markdown allows and the field reads back.
+
+Characters that would otherwise read as formatting are escaped with a backslash when saved: `\ ` `` ` `` `*` `~` `[` `]` `<` `>`, `_` except between letters or digits, an `&` that starts an entity, and `#`, `-`, `+` or `1.` at the start of a line.
 
 ---
 
