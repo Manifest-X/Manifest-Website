@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 // Promote manifest gate: every served file a promote would add or change must be approved, bound by sha256.
+// Limit: live-vs-live sees only files reachable by link; pass a build dir to cover unlinked files.
 // Usage: node tools/promote-manifest.mjs [--staging <url|dir>] [--production <url|dir>] [--approvals <file>] [--template] [--json]
 import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { realpathSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -12,11 +14,13 @@ export const DEFAULTS = {
   approvals: process.env.PROMOTE_APPROVALS ?? 'promote-manifest.json',
 };
 
-const SEEDS = ['/index.html', '/404.html', '/sitemap.xml', '/manifest.json', '/robots.txt', '/llms.txt', '/llms-full.txt', '/favicon.ico', '/data/docs.yaml'];
+const SEEDS = ['/sw.js', '/index.html', '/404.html', '/sitemap.xml', '/manifest.json', '/robots.txt', '/llms.txt', '/llms-full.txt', '/favicon.ico', '/data/docs.yaml'];
 const TEXT = /\.(html?|css|m?js|json|ya?ml|md|txt|xml|csv|svg|webmanifest)$/i;
 const MAX_FILES = 5000;
+const CONCURRENCY = 48;
 
 const sha = (b) => createHash('sha256').update(b).digest('hex');
+const md5 = (b) => createHash('md5').update(b).digest('hex');
 const isUrl = (s) => /^https?:\/\//.test(s);
 
 // Strips only known host/CDN noise; everything else is compared byte for byte.
@@ -27,6 +31,7 @@ export function normalize(path, buf) {
     .replace(/<script defer src="https:\/\/static\.cloudflareinsights\.com\/beacon\.min\.js"[^>]*><\/script>/g, '')
     .replace(/<script>\(function\(\)\{function c\(\)\{var b=a\.contentDocument[\s\S]*?<\/script>/g, '')
     .replace(/\?v=[0-9a-f]{6,64}\b/g, '?v=*');
+  if (path === '/sw.js') s = s.replace(/mnfst@\d+\.\d+\.\d+/g, 'mnfst@*');
   if (path === '/manifest.json') {
     try {
       const j = JSON.parse(s);
@@ -53,6 +58,20 @@ export function source(base) {
         if (!res.ok) throw new Error(`${root + path}: HTTP ${res.status}`);
         return Buffer.from(await res.arrayBuffer());
       },
+      // Binary: R2 etags are content md5s, so a HEAD is enough; anything else falls back to GET.
+      async fingerprint(path) {
+        let res;
+        try {
+          res = await fetch(root + path, { method: 'HEAD', redirect: 'manual', headers: { 'cache-control': 'no-cache' } });
+        } catch (e) {
+          throw new Error(`${root + path}: ${e.cause?.code ?? e.message}`);
+        }
+        if (res.status === 404) return null;
+        const tag = res.headers.get('etag')?.replace(/^W\//, '').replace(/"/g, '');
+        if (res.ok && tag && /^[0-9a-f]{32}$/.test(tag)) return `md5:${tag}`;
+        const body = await this.get(path);
+        return body == null ? null : `md5:${md5(body)}`;
+      },
       list: async () => [],
     };
   }
@@ -64,6 +83,10 @@ export function source(base) {
         if (e.code === 'ENOENT' || e.code === 'EISDIR' || e.code === 'ENOTDIR') return null;
         throw e;
       }
+    },
+    async fingerprint(path) {
+      const body = await this.get(path);
+      return body == null ? null : `md5:${md5(body)}`;
     },
     async list() {
       const out = [];
@@ -94,12 +117,16 @@ export function refs(path, text) {
     else if (!/\.[a-z0-9]{1,6}$/i.test(p.split('/').pop())) p += '/index.html';
     out.add(p);
   };
-  for (const m of text.matchAll(/(?:href|src|data-mnfst-md-src|content|poster|data-src)\s*=\s*"([^"]+)"/g)) add(m[1]);
+  const isData = /\.(json|ya?ml)$/.test(path);
+  const file = (v) => /\.[a-z0-9]{1,6}$/i.test(v.replace(/[?#].*$/, ''));
+  for (const m of text.matchAll(/\s(?:href|src|data-mnfst-md-src|poster|data-src)\s*=\s*"([^"]+)"/g)) add(m[1]);
+  for (const m of text.matchAll(/\scontent\s*=\s*"((?:\/|https:\/\/manifestx\.dev\/)[^"]+)"/g)) if (file(m[1])) add(m[1]);
   for (const m of text.matchAll(/srcset\s*=\s*"([^"]+)"/g)) for (const part of m[1].split(',')) add(part.trim().split(/\s+/)[0]);
   for (const m of text.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)) add(m[1]);
   for (const m of text.matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/g)) add(m[1]);
   for (const m of text.matchAll(/https:\/\/manifestx\.dev(\/[^\s"'<>)\]]*)/g)) add(m[1]);
-  for (const m of text.matchAll(/["'`](\.{0,2}\/?[A-Za-z0-9_@~\-][A-Za-z0-9_@~\-./]*\.(?:html|md|json|ya?ml|csv|js|mjs|css|svg|png|jpe?g|webp|gif|ico|txt|xml|woff2?))["'`]/g)) add(m[1]);
+  const quoted = isData ? /["'`](\.{0,2}\/?[A-Za-z0-9_@~\-][A-Za-z0-9_@~\-./]*\.[a-z0-9]{1,6})["'`]/g : /["'`](\/[A-Za-z0-9_@~\-][A-Za-z0-9_@~\-./]*\.(?:html|md|json|ya?ml|csv|js|mjs|css|svg|png|jpe?g|webp|gif|ico|txt|xml|woff2?))["'`]/g;
+  for (const m of text.matchAll(quoted)) add(m[1]);
   return [...out];
 }
 
@@ -109,19 +136,39 @@ export async function crawl(srcs) {
   const queue = [...SEEDS];
   for (const s of srcs) queue.push(...(await s.list()));
   const files = srcs.map(() => new Map());
-  while (queue.length) {
-    const batch = queue.splice(0, 16).filter((p) => !seen.has(p) && seen.add(p));
-    await Promise.all(
-      batch.map(async (p) => {
-        const bodies = await Promise.all(srcs.map((s) => s.get(p)));
-        bodies.forEach((b, i) => b != null && files[i].set(p, b));
-        for (const b of bodies) if (b != null && TEXT.test(p)) for (const r of refs(p, b.toString('utf8'))) if (!seen.has(r)) queue.push(r);
-      }),
-    );
-    if (seen.size > MAX_FILES) throw new Error(`more than ${MAX_FILES} files; refusing to guess`);
-  }
+  let active = 0;
+  let failed = null;
+  await new Promise((resolve, reject) => {
+    const pump = () => {
+      if (failed) return;
+      while (active < CONCURRENCY && queue.length) {
+        const p = queue.shift();
+        if (seen.has(p)) continue;
+        seen.add(p);
+        if (seen.size > MAX_FILES) return reject((failed = new Error(`more than ${MAX_FILES} files; refusing to guess`)));
+        active++;
+        visit(p).then(
+          () => {
+            active--;
+            pump();
+          },
+          (e) => reject((failed = e)),
+        );
+      }
+      if (!active && !queue.length) resolve();
+    };
+    const visit = async (p) => {
+      const text = TEXT.test(p);
+      const bodies = await Promise.all(srcs.map((s) => (text ? s.get(p) : s.fingerprint(p))));
+      bodies.forEach((b, i) => b != null && files[i].set(p, b));
+      if (text) for (const b of bodies) if (b != null) for (const r of refs(p, b.toString('utf8'))) if (!seen.has(r)) queue.push(r);
+    };
+    pump();
+  });
   return files;
 }
+
+const fp = (path, v) => sha(typeof v === 'string' ? v : normalize(path, v));
 
 export function diff(staging, production) {
   const rows = [];
@@ -129,11 +176,11 @@ export function diff(staging, production) {
   for (const path of [...paths].sort()) {
     const s = staging.get(path);
     const p = production.get(path);
-    if (s == null) rows.push({ kind: 'removed', path, hash: sha(normalize(path, p)) });
+    if (s == null) rows.push({ kind: 'removed', path, hash: fp(path, p) });
     else {
-      const hash = sha(normalize(path, s));
+      const hash = fp(path, s);
       if (p == null) rows.push({ kind: 'added', path, hash });
-      else if (hash !== sha(normalize(path, p))) rows.push({ kind: 'changed', path, hash });
+      else if (hash !== fp(path, p)) rows.push({ kind: 'changed', path, hash });
     }
   }
   return rows;
@@ -226,7 +273,14 @@ export async function main(argv = process.argv.slice(2), log = console.log) {
   return result.ok ? 0 : 1;
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
+const entry = (() => {
+  try {
+    return pathToFileURL(realpathSync(process.argv[1])).href;
+  } catch {
+    return null;
+  }
+})();
+if (entry && pathToFileURL(realpathSync(new URL(import.meta.url))).href === entry) {
   main().then(
     (code) => process.exit(code),
     (e) => {

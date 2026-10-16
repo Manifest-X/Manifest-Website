@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 // PreToolUse: blocks Manifest-Website production changes the promote manifest does not clear. Fails closed.
 import { spawnSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { readFileSync, realpathSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const ID = 'proj_manifest_website';
 const NAME = /^manifest[-_ ]?website$/i;
+export const DEADLINE_MS = Number(process.env.PROMOTE_DEADLINE_MS) || 45000;
 
 const block = (msg) => {
   process.stderr.write(msg.endsWith('\n') ? msg : msg + '\n');
@@ -37,17 +38,17 @@ export function classify(input) {
   const tool = input.tool_name ?? '';
   const ti = input.tool_input ?? {};
   if (/manifest_promote$/.test(tool)) return isWebsite(input) ? { kind: 'promote' } : null;
-  if (/manifest_rollback$/.test(tool)) return isWebsite(input) && ti.env !== 'staging' ? { kind: 'rollback', target: ti.deployment_id ?? 'previous' } : null;
-  if (/manifest_publish$/.test(tool)) return isWebsite(input) && ti.env === 'production' ? { kind: 'publish' } : null;
+  if (/manifest_rollback$/.test(tool)) return isWebsite(input) && ti.env !== 'staging' ? { kind: 'rollback', target: ti.deployment_id ?? null } : null;
+  if (/manifest_publish$/.test(tool)) return isWebsite(input) && ti.env !== 'staging' ? { kind: 'publish' } : null;
   if (tool === 'Bash') {
     const cmd = String(ti.command ?? '');
     if (!/mnfst-publish/.test(cmd)) return null;
-    const cd = cmd.match(/(?:^|[;&|]\s*)cd\s+["']?([^"';&|]+?)["']?\s*(?:&&|;|$)/)?.[1]?.replace(/^~(?=\/)/, process.env.HOME ?? '~');
-    const cwd = cd ? (cd.startsWith('/') ? cd : join(input.cwd ?? process.cwd(), cd)) : input.cwd;
-    if (!isWebsite({ cwd })) return null;
+    const named = [...cmd.matchAll(/\bproj_[A-Za-z0-9_]+/g)].map((m) => m[0]);
+    if (named.length && !named.includes(ID)) return null;
     if (/--promote\b/.test(cmd)) return { kind: 'promote' };
-    if (/--rollback\b/.test(cmd)) return { kind: 'rollback', target: 'previous' };
-    if (/--env[= ]+["']?production/.test(cmd) || /MNFST_PUBLISH_ENV=["']?production/.test(cmd)) return { kind: 'publish' };
+    if (/--rollback\b/.test(cmd)) return { kind: 'rollback', target: cmd.match(/\bdep_[A-Za-z0-9]+/)?.[0] ?? null };
+    if (/--staging\b|--env[= ]+["']?staging\b|MNFST_PUBLISH_ENV=["']?staging\b/.test(cmd)) return null;
+    return { kind: 'publish' };
   }
   return null;
 }
@@ -60,7 +61,7 @@ function approvedRollback(target) {
     return false;
   }
   return (doc.rollbacks ?? []).some(
-    (r) => r?.deployment_id === target && typeof r.approver === 'string' && r.approver.trim() && /^\d{4}-\d{2}-\d{2}$/.test(r.date ?? ''),
+    (r) => /^dep_/.test(target ?? '') && r?.deployment_id === target && typeof r.approver === 'string' && r.approver.trim() && /^\d{4}-\d{2}-\d{2}$/.test(r.date ?? ''),
   );
 }
 
@@ -69,16 +70,27 @@ export function run(input) {
   if (!c) return;
   if (c.kind === 'rollback') {
     if (approvedRollback(c.target)) return;
-    block(`Rollback blocked: an older deployment can restore unapproved pages. Add {"deployment_id": "${c.target}", "approver", "date"} to "rollbacks" in promote-manifest.json, then retry.`);
+    block(c.target
+      ? `Rollback blocked: an older deployment can restore unapproved pages. Add {"deployment_id": "${c.target}", "approver", "date"} to "rollbacks" in promote-manifest.json, then retry.`
+      : 'Rollback blocked: name the target deployment_id; only a deployment listed under "rollbacks" in promote-manifest.json can be restored.');
   }
   const args = ['tools/promote-manifest.mjs'];
   if (c.kind === 'publish') args.push('--staging', join(ROOT, 'website'));
-  const r = spawnSync(process.execPath, args, { cwd: ROOT, encoding: 'utf8' });
+  const r = spawnSync(process.execPath, args, { cwd: ROOT, encoding: 'utf8', timeout: DEADLINE_MS, killSignal: 'SIGKILL' });
+  if (r.error || r.signal) block(`promote-gate: gate did not finish within ${DEADLINE_MS / 1000}s (${r.error?.code ?? r.signal}); blocking.`);
   if (r.status === 0) return;
   block(`${r.stdout}${r.stderr}\nBlocked: add an approval (path, sha256, approver, date) to promote-manifest.json for each file above; \`npm run promote:check -- --template\` prints them.`);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+const self = () => {
+  try {
+    return pathToFileURL(realpathSync(process.argv[1])).href === pathToFileURL(realpathSync(fileURLToPath(import.meta.url))).href;
+  } catch {
+    return false;
+  }
+};
+if (self()) {
+  setTimeout(() => block('promote-gate: deadline reached; blocking.'), DEADLINE_MS + 5000).unref();
   let raw = '';
   for await (const c of process.stdin) raw += c;
   let input;

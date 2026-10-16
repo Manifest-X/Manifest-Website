@@ -1,10 +1,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, writeFile, readFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, writeFile, readFile, symlink } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { createServer } from 'node:http';
-import { spawnSync } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { normalize, refs, source, crawl, diff, gate, validateApprovals, template, main } from './promote-manifest.mjs';
 import { classify } from '../.claude/hooks/promote-gate.mjs';
@@ -38,14 +39,17 @@ async function site(files) {
   return root;
 }
 
-async function serve(root, { fail } = {}) {
+async function serve(root, { fail, etag, onHead } = {}) {
   const srv = createServer(async (req, res) => {
     let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
     if (fail && p === fail) return (res.statusCode = 500), res.end('boom');
+    if (req.method === 'HEAD') onHead?.(p);
     if (p.endsWith('/')) p += 'index.html';
     for (const c of [p, p + '/index.html']) {
       try {
-        return res.end(await readFile(join(root, c)));
+        const body = await readFile(join(root, c));
+        if (etag) res.setHeader('etag', `"${createHash('md5').update(body).digest('hex')}"`);
+        return res.end(req.method === 'HEAD' ? undefined : body);
       } catch {}
     }
     res.statusCode = 404;
@@ -186,10 +190,32 @@ test('hook classifies Website promotes by id, name, missing id and .mcp.json pin
   assert.deepEqual(classify({ tool_name: 'mcp__x__manifest_rollback', tool_input: { deployment_id: 'dep_1' }, cwd: web }), { kind: 'rollback', target: 'dep_1' });
   assert.equal(classify({ tool_name: 'mcp__x__manifest_publish', tool_input: { env: 'production' }, cwd: web })?.kind, 'publish');
   assert.equal(classify({ tool_name: 'mcp__x__manifest_publish', tool_input: { env: 'staging' }, cwd: web }), null);
-  assert.equal(classify({ tool_name: 'Bash', tool_input: { command: 'npx mnfst-publish --promote' }, cwd: web })?.kind, 'promote');
-  assert.equal(classify({ tool_name: 'Bash', tool_input: { command: `cd ${other} && npx mnfst-publish --promote` }, cwd: web }), null);
-  assert.equal(classify({ tool_name: 'Bash', tool_input: { command: 'X=1 npx mnfst-publish --env production --source render' }, cwd: web })?.kind, 'publish');
   assert.equal(classify({ tool_name: 'Bash', tool_input: { command: 'ls' }, cwd: web }), null);
+});
+
+test('hook gates production by default: publish without env, any mnfst-publish not explicitly staging', async () => {
+  const other = await site({ '.mcp.json': JSON.stringify({ mcpServers: { m: { headers: { 'X-Manifest-Project': 'proj_other' } } } }) });
+  const P = (ti, cwd = ROOT) => classify({ tool_name: 'mcp__x__manifest_publish', tool_input: ti, cwd })?.kind ?? null;
+  assert.equal(P({}), 'publish');
+  assert.equal(P({ source: 'render' }), 'publish');
+  assert.equal(P({ env: 'staging' }), null);
+  assert.equal(P({}, other), null);
+  const B = (command) => classify({ tool_name: 'Bash', tool_input: { command }, cwd: other })?.kind ?? null;
+  assert.equal(B('npx mnfst-publish'), 'publish');
+  assert.equal(B('MNFST_PUBLISH_UPLOAD_URL="https://mcp.manifestx.dev/publish/put_x" npx mnfst-publish --source render --output-dir website'), 'publish');
+  assert.equal(B('npx mnfst-publish --production'), 'publish');
+  assert.equal(B('npx mnfst-publish --prod'), 'publish');
+  assert.equal(B('npx mnfst-publish --env production'), 'publish');
+  assert.equal(B(`(cd ${ROOT} && npx mnfst-publish --promote)`), 'promote');
+  assert.equal(B(`cd ${other} && npx mnfst-publish --promote`), 'promote');
+  assert.equal(B(`npx mnfst-publish --root ${ROOT} --promote`), 'promote');
+  assert.equal(B('npx mnfst-publish --staging'), null);
+  assert.equal(B('npx mnfst-publish --env staging --source render'), null);
+  assert.equal(B('MNFST_PUBLISH_ENV=staging npx mnfst-publish'), null);
+  assert.equal(B('npx mnfst-publish --project proj_other --promote'), null);
+  assert.equal(B('npx mnfst-publish --project proj_manifest_website --promote'), 'promote');
+  assert.deepEqual(classify({ tool_name: 'Bash', tool_input: { command: 'npx mnfst-publish --rollback' } }), { kind: 'rollback', target: null });
+  assert.deepEqual(classify({ tool_name: 'mcp__x__manifest_rollback', tool_input: {}, cwd: ROOT }), { kind: 'rollback', target: null });
 });
 
 test('hook blocks an unapproved promote with no project_id and allows a clean one', async () => {
@@ -208,6 +234,8 @@ test('hook blocks Website rollbacks unless listed, and a gate crash blocks', asy
   const rb = (id) => hook({ tool_name: 'mcp__x__manifest_rollback', tool_input: { project_id: 'proj_manifest_website', deployment_id: id } }, env).status;
   assert.equal(rb('dep_445fe657'), 2);
   assert.equal(rb('dep_ok'), 0);
+  const prev = await site({ 'p.json': JSON.stringify({ approvals: [], rollbacks: [{ deployment_id: 'previous', approver: 'Andrew', date: '2026-10-16' }, { deployment_id: null, approver: 'Andrew', date: '2026-10-16' }] }) });
+  assert.equal(hook({ tool_name: 'mcp__x__manifest_rollback', tool_input: { project_id: 'proj_manifest_website' } }, { PROMOTE_APPROVALS: join(prev, 'p.json') }).status, 2);
   const crash = hook({ tool_name: 'mcp__x__manifest_promote', tool_input: {}, cwd: ROOT }, { PROMOTE_STAGING: 'http://127.0.0.1:1', PROMOTE_PRODUCTION: 'http://127.0.0.1:1' });
   assert.equal(crash.status, 2);
 });
@@ -216,4 +244,55 @@ test('hook blocks on malformed input and passes unrelated tools', () => {
   assert.equal(hook('not json').status, 2);
   assert.equal(hook('').status, 2);
   assert.equal(hook({ tool_name: 'Read', tool_input: {} }).status, 0);
+});
+
+test('hook blocks when the gate outlives its deadline', async () => {
+  const srv = createServer(() => {});
+  await new Promise((r) => srv.listen(0, '127.0.0.1', r));
+  try {
+    const url = `http://127.0.0.1:${srv.address().port}`;
+    const t = Date.now();
+    const r = await new Promise((resolve) => {
+      const c = spawn(process.execPath, [HOOK], { env: { ...process.env, PROMOTE_STAGING: url, PROMOTE_PRODUCTION: url, PROMOTE_DEADLINE_MS: '1500' } });
+      let err = '';
+      c.stderr.on('data', (d) => (err += d));
+      c.on('close', (status) => resolve({ status, err }));
+      c.stdin.end(JSON.stringify({ tool_name: 'mcp__x__manifest_promote', tool_input: {}, cwd: ROOT }));
+    });
+    assert.equal(r.status, 2);
+    assert.match(r.err, /did not finish|deadline/);
+    assert.ok(Date.now() - t < 5000);
+  } finally {
+    srv.closeAllConnections?.();
+    srv.close();
+  }
+});
+
+test('hook and tool run when invoked through a symlinked path with spaces', async () => {
+  const dir = join(await mkdtemp(join(tmpdir(), 'pm link ')), 'with space');
+  await mkdir(dir);
+  await symlink(HOOK, join(dir, 'hook link.mjs'));
+  await symlink(join(ROOT, 'tools/promote-manifest.mjs'), join(dir, 'tool link.mjs'));
+  assert.equal(spawnSync(process.execPath, [join(dir, 'hook link.mjs')], { input: 'not json' }).status, 2);
+  assert.equal(spawnSync(process.execPath, [join(dir, 'tool link.mjs'), '--bogus']).status, 2);
+});
+
+test('sw.js framework version is host noise', () => {
+  const sw = (v) => Buffer.from(`importScripts('https://cdn.manifestx.dev/npm/mnfst@${v}/lib/manifest.sw.min.js');`);
+  assert.equal(normalize('/sw.js', sw('0.5.222')).toString(), normalize('/sw.js', sw('0.5.229')).toString());
+  assert.notEqual(normalize('/other.js', sw('0.5.222')).toString(), normalize('/other.js', sw('0.5.229')).toString());
+});
+
+test('binary files compare by content, using a HEAD etag on live hosts', async () => {
+  const a = await site({ ...BASE, 'index.html': page('<img src="/og/a.png"><a href="/docs/reset">R</a><a href="/legal/privacy">P</a>'), 'og/a.png': 'one' });
+  const b = await site({ ...BASE, 'index.html': page('<img src="/og/a.png"><a href="/docs/reset">R</a><a href="/legal/privacy">P</a>'), 'og/a.png': 'two' });
+  const heads = [];
+  const s = await serve(a, { etag: true, onHead: (p) => heads.push(p) });
+  try {
+    assert.deepEqual(kinds(await rowsOf(s.url, b)), ['changed /og/a.png']);
+    assert.deepEqual(await rowsOf(s.url, a), []);
+    assert.ok(heads.includes('/og/a.png'));
+  } finally {
+    s.close();
+  }
 });
