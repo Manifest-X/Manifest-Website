@@ -16,12 +16,12 @@
 
             <!-- Docs family -->
             <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation">
-                <span x-text="family === 'ai' ? 'AI Plugins' : 'Framework'"></span>
+                <span x-text="family === 'ai' ? 'AI Plugin' : 'Framework'"></span>
                 <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
             </button>
             <menu popover id="docs-family">
                 <a href="/docs/ai" close>
-                    <span>AI Plugins</span>
+                    <span>AI Plugin</span>
                     <span x-show="family === 'ai'" x-icon="lucide:check" class="trailing"></span>
                 </a>
                 <a href="/docs/framework" close>

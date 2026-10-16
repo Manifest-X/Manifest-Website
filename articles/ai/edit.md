@@ -1,64 +1,63 @@
 # Edit
 
-Change your project by asking your AI.
+Change a project by asking Claude, and check it in a preview.
 
 ---
 
-## Where to edit
+## Ask for changes
 
-Editing changes your project's files, so you do it in Claude Code, opened in your project's folder. If you're new to it, see [what Claude Code is](/docs/ai/setup/claude#what-is-claude-code).
-
-For the best results, install the [Manifest plugin](/docs/ai/setup/plugin). Its skills teach Claude how Manifest projects are put together.
-
----
-
-## Just ask
-
-Describe the change you want in plain words. For example:
+Open the project's folder in the **Code** tab of the Claude desktop app, and describe what you want as you would to a person.
 
 > `Make the headline bigger and center it`{copy}
-> `Change the main color to dark green`{copy}
-> `Add a contact form at the bottom of the page`{copy}
+> `Add a signup form that saves entries to a database`{copy}
+> `Show our product list from this spreadsheet`{copy}
 > `Add a high-score table to the game`{copy}
 > `Add a French version`{copy}
 > `Make it look like this screenshot`{copy}
 
-Claude works out which files to change and makes the edit. If something isn't right, say so, as you would to a person: `The button is too big now`{.prompt copy}.
+If something isn't right, say so: `the button is too big now`{.prompt copy}.
 
 ---
 
-## See your changes
+## Preview
 
-Check your changes on your own computer before anyone else sees them. Ask Claude to `preview my project`{.prompt copy}, or type `/manifest:preview` if you have the plugin. Your project opens in a browser window or preview panel. Nothing goes online.
+A preview runs your project on your own computer, so you can try changes before anyone else sees them. Nothing goes online.
 
-When you're happy with it, [publish](/docs/ai/projects/publish) the changes.
+- **Start it** by asking Claude to `preview my project`{.prompt copy}, or type `/manifest:preview`. It opens next to the chat.
+- **It updates on its own.** Each change Claude makes appears in the preview a moment later.
+- **It's only on your computer.** To share a version with someone, publish it to [staging](/docs/ai/projects/publish#staging-then-live).
 
-::: brand icon="lucide:info"
-Previewing needs <a href="https://nodejs.org" target="_blank">Node.js</a> on your computer.
+::: icon="lucide:refresh-cw"
+**Preview closed or stopped loading?** Previews stop after a while without use. Ask Claude to `restart the preview`{.prompt copy}, and it picks up where you left off. Your work is saved in your project's folder either way.
 :::
 
 ---
 
-## What Claude can help with
+## What Claude knows
 
-With the plugin, Claude uses Manifest skills for pages and layout, colors and fonts, forms, images, translations, search and sharing, sign-in and saved data, speed, and testing. See the full list in [Skills](/docs/ai/setup/plugin#skills).
+Manifest's skills teach Claude how projects built with the Manifest framework work. Claude uses them on its own, so you never need to name one.
 
-Using only the connector in Claude Code? Ask Claude to `install the Manifest skills`{.prompt copy} and it adds them to your project folder.
+| Area | Ask things like |
+|---|---|
+| Pages and layout | `Add an About page`{.prompt copy} `Put these three cards in a row`{.prompt copy} |
+| Look and feel | `Use our brand colors`{.prompt copy} `Make the buttons rounder`{.prompt copy} |
+| Forms and data | `Add a contact form`{.prompt copy} `Load our team from this file`{.prompt copy} |
+| Accounts | `Let people sign in`{.prompt copy} |
+| Images and fonts | `Replace the logo`{.prompt copy} `Use the Inter font`{.prompt copy} |
+| Languages | `Add a French version`{.prompt copy} |
+| Search and sharing | `Improve how pages look when shared on social media`{.prompt copy} |
+| Speed and testing | `This menu feels slow`{.prompt copy} `Check everything works before I publish`{.prompt copy} |
+| Matching a design | `Rebuild this layout from the screenshot`{.prompt copy} |
+
+Projects built with something else, such as React or Astro, keep their own setup, and Claude edits them the way they're built.
 
 ---
 
-## Projects built another way
+## Team collaboration
 
-If your project was built with something other than Manifest, such as React, Vite, or Astro, Claude keeps your setup as it is and edits the project the way it expects. Publishing works the same way for every project.
+When several people edit a Pro project, start each session by getting everyone else's latest changes:
 
-To bring an existing project to Manifest, open Claude Code in its folder and ask:
+- **On GitHub:** ask Claude to `get the latest changes`{.prompt copy}, or type `/manifest:sync`.
+- **Not on GitHub:** ask Claude to `download the latest published version`{.prompt copy} and work from that.
 
-> `Connect this project to Manifest`{copy}
-
-Claude sets it up as a Manifest project without changing how it's built.
-
----
-
-## Edit with other people
-
-To edit the same project as someone else, share it on [GitHub](/docs/ai/setup/github#work-with-a-teammate). Each of you then gets the latest changes with `/manifest:sync` before you start, and shares yours with `/manifest:staging`.
+Without GitHub, if someone else published since your copy was made, Manifest stops you from publishing over their work, and Claude helps you catch up first. See [Project teams](/docs/ai/projects/manage#project-teams).

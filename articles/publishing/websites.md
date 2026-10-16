@@ -161,7 +161,7 @@ Interactive directives like `x-color`, `x-model`, `@click`, and `:class` are aut
 
 To deploy an MPA on a host environment, set the root directory to the prerendered output directory (i.e. `./website`).
 
-To publish from Claude with Manifest hosting instead, see [AI Plugins](/docs/ai/introduction).
+To publish from Claude with Manifest hosting instead, see [AI Plugin](/docs/ai/setup/introduction).
 
 ---
 

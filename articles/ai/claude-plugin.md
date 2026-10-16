@@ -1,93 +1,103 @@
-# Plugin
+# Claude Plugin
 
-Add Manifest to Claude Code, with skills and commands for building and publishing.
+Add Manifest to Claude once, and use it in every Claude app.
 
 ---
 
-## Overview
+## What it does
 
-The Manifest plugin sets up everything Claude Code needs in one install:
+The Manifest plugin connects Claude to your Manifest account and teaches it how to build, publish, and run projects. You install it once, and it works in chats on the web, desktop, and phone, in Cowork, and in the desktop app's **Code** tab.
 
-- **The Manifest connector**, so Claude can publish and run your projects. You don't need to add it separately.
-- **Skills**: know-how Claude uses on its own when you ask for something, like laying out a page, styling it, adding a form, or translating it.
-- **Commands**: shortcuts you type to preview, publish, and check on your project.
+It includes:
 
-New to Claude Code? See [what Claude Code is](/docs/ai/setup/claude#what-is-claude-code).
+- **The Manifest connection**, so Claude can publish and manage your projects for you.
+- **Skills**: know-how Claude uses on its own when you ask for something, like laying out a page or adding a form.
+- **Commands**: shortcuts like `/manifest:publish`, for the Code tab.
 
 ---
 
 ## Install
 
-### From Claude's plugin directory
+The plugin works on every Claude plan, including Free.
 
-1. In Claude Code, type `/plugin`.
-2. Open the **Discover** tab and search for **Manifest**.
-3. Select **Manifest**, then install it.
+1. In the Claude app or at <a href="https://claude.ai" target="_blank">claude.ai</a>, go to **Customize > Plugins**.
+2. Add Manifest:
+   - **On Claude Pro, Max, Team, or Enterprise:** open **Discover**, search for **Manifest**, and add it.
+   - **On Claude's Free plan:** select **Add > Add marketplace**, enter `Manifest-X/claude-plugin`{copy}, then add **Manifest**.
+3. In the plugin's **Connectors** tab, select **Connect** next to Manifest.
 
-### From GitHub
+A Manifest page opens in your browser:
 
-You can also install it straight from Manifest's plugin repository:
+1. **Sign in** with Google, GitHub, or your email address. If you're new, this creates your free account.
+2. **Check the request.** Manifest shows which app is connecting and what it will be able to do: publish and update your projects, manage domains, and invite people.
+3. **Select Approve.** Or select **Cancel**, and nothing is shared.
 
-```bash copy
-/plugin marketplace add Manifest-X/claude-plugin
-```
+That's it. The plugin appears in the Code tab the next time you start a session there. You never share a password or API key with Claude.
 
-```bash copy
-/plugin install manifest@manifest
-```
-
----
-
-## Sign in
-
-The first time Claude uses Manifest, type `/mcp` and choose Manifest. A sign-in page opens in your browser. Sign in with Google, GitHub, or your email address, then select **Approve**. See [Sign in](/docs/ai/setup/connector#sign-in) for what you'll see along the way.
-
-::: brand icon="lucide:info"
-If you added the Manifest connector to Claude Code before installing the plugin, remove it so Claude doesn't load Manifest twice: run `claude mcp remove manifest` in your terminal.
+::: icon="lucide:building-2"
+**On a Team or Enterprise plan**, an Owner can make the plugin available to everyone, or install it for everyone, from the organization's plugin settings. Each person still connects their own Manifest account.
 :::
 
 ---
 
-## Commands
+## Where to do what
 
-Type a command in Claude Code, or ask in plain words. Both do the same thing.
+The **Code** tab of the Claude desktop app is the best place to build: Claude works with files on your computer, previews your project, and handles projects of any size. Claude can also build and publish smaller projects right in a chat, and you can manage any project from a chat, including on your phone.
 
-| Command | Or say | What it does |
+| | Code tab | Any Claude chat |
 |---|---|---|
-| `/manifest:preview` | `Preview my project`{.prompt copy} | Opens your project on your own computer, so you can see changes before publishing. Nothing goes online. |
-| `/manifest:staging` | `Publish to staging`{.prompt copy} | Puts your latest changes at your staging address for checking. |
-| `/manifest:publish` | `Take it live`{.prompt copy} | Makes your project live for everyone. |
-| `/manifest:status` | `What's the status of my project?`{.prompt copy} | Sums up what's changed and what's ready to publish. |
-| `/manifest:sync` | `Get the latest changes`{.prompt copy} | Brings in teammates' changes, for projects saved on GitHub. |
+| Build and publish | ✓ | Smaller projects |
+| Preview on your computer | ✓ | |
+| Take staging live, roll back | ✓ | ✓ |
+| Domains, team, and analytics | ✓ | ✓ |
+
+The **Code** tab is the part of the Claude desktop app where Claude can work with files on your computer. You pick a folder, and Claude creates and changes files there, runs your project, and shows it in a preview next to the chat.
 
 ---
 
-## Skills
+## Updates and removal
 
-You don't run skills yourself. Claude picks the right one when you ask for something. With the plugin, Claude knows how to:
+Plugin updates arrive on their own. To remove the plugin, go to **Customize > Plugins**. Your Manifest account and projects stay as they are.
 
-| Area | Ask things like |
+If Manifest stops responding, your sign-in may have lapsed. Open the plugin's **Connectors** tab and connect again.
+
+---
+
+## Connect without the plugin
+
+You can also add Manifest to Claude as a custom connector. It connects to the same Manifest account and gives Claude the same abilities. Instead of being built in, Manifest's skills and commands are added to each project's folder when Claude sets the project up.
+
+1. Go to **Customize > Connectors**, select **+**, then **Add custom connector**.
+2. Enter the details below, leave **Advanced settings** empty, and select **Add**, then **Connect**.
+
+| Field | Value |
 |---|---|
-| Pages and layout | `Add an About page`{.prompt copy} `Put these three cards in a row`{.prompt copy} |
-| Look and feel | `Use a warmer color palette`{.prompt copy} `Make the buttons rounder`{.prompt copy} |
-| Reusable sections | `Turn this banner into something I can reuse on every page`{.prompt copy} |
-| Forms | `Add a contact form`{.prompt copy} |
-| Content and data | `Show my product list from this spreadsheet`{.prompt copy} |
-| Images, icons, and fonts | `Replace the logo`{.prompt copy} `Use the Inter font`{.prompt copy} |
-| Translations | `Add a French version`{.prompt copy} |
-| Search and sharing | `Improve how my pages look when shared on social media`{.prompt copy} |
-| Accounts and saved data | `Let visitors sign in`{.prompt copy} `Save form entries to a database`{.prompt copy} |
-| Speed | `This menu feels slow`{.prompt copy} |
-| Testing | `Check that everything works before I publish`{.prompt copy} |
-| Matching a design | `Make it look like this screenshot`{.prompt copy} |
-| Starting from an example | `Rebuild this layout for my business`{.prompt copy} |
-| Saving to GitHub | `Save my project to GitHub`{.prompt copy} `Add sam to my project`{.prompt copy} |
-| Hosting elsewhere | `Host this on Netlify instead`{.prompt copy} |
-| Several projects | `Let's work on the bakery website`{.prompt copy} |
-| Getting expert help | `I'd like someone to finish this for me`{.prompt copy} |
+| Name | `Manifest`{copy} |
+| Server URL | `https://mcp.manifestx.dev/mcp`{copy} |
 
----
+::: frame py-10
+<div class="w-full max-w-sm mx-auto border border-line rounded-2xl bg-surface-1 p-6 flex flex-col gap-4 pointer-events-none select-none shadow-lg" aria-hidden="true">
+  <strong>Add custom connector</strong>
+  <label class="flex flex-col gap-1.5 text-sm">
+    Name
+    <input value="Manifest" readonly tabindex="-1" />
+  </label>
+  <label class="flex flex-col gap-1.5 text-sm">
+    Server URL
+    <input value="https://mcp.manifestx.dev/mcp" readonly tabindex="-1" />
+  </label>
+  <p class="text-xs text-content-2">Advanced settings — leave empty</p>
+  <div class="flex justify-end gap-2 pt-1">
+    <button class="ghost small" tabindex="-1">Cancel</button>
+    <button class="brand small" tabindex="-1">Add</button>
+  </div>
+</div>
+:::
 
-## Manage the plugin
+::: icon="lucide:terminal"
+**Using Claude Code in a terminal?** Type `/plugin directory` and install Manifest from there.
+:::
 
-To update or remove the plugin, type `/plugin` and open the **Installed** tab.
+::: icon="lucide:plug"
+**Other AI apps.** Manifest's server uses the open MCP standard, so other AI apps that let you add a custom MCP server can usually connect with the same server URL. Setup differs by app, and Manifest's skills and commands are written for Claude, so other apps get Manifest's tools without them.
+:::

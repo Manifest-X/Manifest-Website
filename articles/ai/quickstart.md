@@ -1,30 +1,37 @@
 # Quickstart
 
-From an idea to a live project in a few minutes, just by asking.
+From an idea to a live project in a few minutes.
 
 ---
 
 ## What you need
 
-- **Claude Code**, the version of Claude that can work with files. It's the **Code** tab of the Claude desktop app. New to it? See [what Claude Code is](/docs/ai/setup/claude#what-is-claude-code).
-- **The Manifest plugin**, installed once. See [Plugin](/docs/ai/setup/plugin).
-- **Node.js**, a free tool Claude uses to run your project. Get it at <a href="https://nodejs.org" target="_blank">nodejs.org</a>. Claude tells you if it's missing.
+- **The <a href="https://claude.com/download" target="_blank">Claude desktop app</a>**, on any Claude plan.
+- **About five minutes.** Manifest's Free plan covers everything below.
 
-There's no account to create up front. You sign in the first time your project goes online.
+::: icon="lucide:info"
+**On Claude's Free plan?** Use a regular chat instead of the **Code** tab. Claude builds and publishes smaller projects there, and you check changes on a staging address instead of a preview. The Code tab comes with paid Claude plans and handles projects of any size.
+:::
 
 ---
 
 <div class="step">
 
+## Add Manifest to Claude
+
+In **Customize > Plugins**, add **Manifest**, then select **Connect** in its **Connectors** tab and sign in. [How to add it on each plan](/docs/ai/setup/claude-plugin#install).
+
+</div>
+
+<div class="step">
+
 ## Ask for it
 
-Open Claude Code in a new folder and describe what you want in your own words. A website, an app, a game: anything that runs in a browser.
+In the **Code** tab, open an empty folder and describe your project. Say "with Manifest" so Claude builds it with Manifest's framework.
 
-> `Make me a one-page website for my pottery studio, with a photo gallery and opening hours, and show me a preview`{copy}
+> `Build a landing page for our new product with Manifest, and show me a preview`{copy}
 
-Claude sets up the project, builds it, and opens a preview on your computer. Nothing is online yet. Only you can see it.
-
-Be as specific or as vague as you like. Colors, a name, links, a site or app you admire: everything you mention shapes the result, and Claude decides the rest.
+Prefer React or another framework? Name it instead. The Manifest plugin publishes and hosts any project.
 
 </div>
 
@@ -32,13 +39,9 @@ Be as specific or as vague as you like. Colors, a name, links, a site or app you
 
 ## Make it yours
 
-Look at the preview and say what should change, as you would to a person.
+Ask for changes in the preview until it looks right.
 
-> `Use a warmer color palette, something like terracotta`{copy}
-> `Make the opening hours easier to read on a phone`{copy}
-> `Add a short section about me with a placeholder photo`{copy}
-
-Each change shows up in the preview. Keep going until it looks right. There's no limit, and nothing is published until you say so.
+> `Use our brand colors: navy and orange`{copy}
 
 </div>
 
@@ -46,29 +49,24 @@ Each change shows up in the preview. Keep going until it looks right. There's no
 
 ## Put it online
 
-When you're happy with it, ask Claude to publish.
-
 > `Put it online`{copy}
 
-The first time, a page opens in your browser. Sign in with Google, GitHub, or your email address, and select **Approve**. That creates your free Manifest account and connects it to Claude, so you won't be asked again.
-
-A moment later, Claude gives you your project's address, something like `my-pottery-studio.manifestx.ai`. Open it, send it to a friend: it's live, for as long as you want it to be.
+Claude gives you a live address, like `acme-launch.manifestx.ai`.
 
 </div>
 
----
-
-## Where to go next
-
-- **Keep changing it.** Ask for changes any time, then ask Claude to `put it online`{.prompt copy} again. See [Edit](/docs/ai/projects/edit).
-- **Check changes before anyone sees them** with a staging address. See [Staging, then live](/docs/ai/projects/publish#staging-then-live).
-- **Use your own domain**, like `mypottery.com`. See [Use your own domain](/docs/ai/projects/publish#use-your-own-domain).
-- **Invite someone** to work on it from their own Claude, or **see your visitors**. See [Manage](/docs/ai/projects/manage).
-
-::: brand icon="lucide:info"
-Free projects show a small "Made with Manifest" badge in the corner. Everything in this walkthrough is free, with no time limit.
+::: icon="lucide:info"
+Claude may need a free tool called **Node.js** on your computer. If it's missing, Claude walks you through installing it.
 :::
 
+---
+
+## Next steps
+
+- **Check changes before they go live** on [staging](/docs/ai/projects/publish#staging-then-live).
+- **Connect a domain** you own. See [Custom domains](/docs/ai/projects/publish#custom-domains).
+- **Bring an existing project.** Open its folder in the Code tab and ask Claude to `publish this project`{.prompt copy}.
+
 ::: icon="lucide:life-buoy"
-**Stuck?** Tell Claude what you expected and what happened instead, like `Why isn't my project online?`{.prompt copy}. It can check your project and fix most problems. If it can't, [email the Manifest team](mailto:team@manifestx.dev).
+**Stuck?** Tell Claude what you expected and what happened, like `Why isn't my project online?`{.prompt copy}. If it can't fix it, [email the Manifest team](mailto:team@manifestx.dev).
 :::

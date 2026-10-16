@@ -14,10 +14,10 @@
         <p class="w-60 max-w-full">The website & app framework that thinks like you do.</p>
       </div> -->
 
-      <!-- AI Plugins columns -->
+      <!-- AI Plugin columns -->
       <template x-for="(group, gi) in $x.ai" :key="group.group || gi">
         <div class="col gap-3 mb-8 break-inside-avoid">
-          <small x-text="group.group || 'AI Plugins'"></small>
+          <small x-text="group.group || 'AI Plugin'"></small>
           <div class="col gap-3">
             <template x-for="(item, index) in group.items" :key="item.path || index">
               <a x-show="item.name" :href="'/docs/ai' + (group.slug ? '/' + group.slug : '') + '/' + item.path" :class="item.indent ? 'ps-3' : ''" x-text="item.name"></a>

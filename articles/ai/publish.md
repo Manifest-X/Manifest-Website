@@ -1,96 +1,88 @@
 # Publish
 
-Put your project online, check changes before anyone sees them, and undo mistakes.
-
----
-
-## Before you start
-
-Publishing uploads your project's files from your computer, so you start it in Claude Code with Manifest added, either the [plugin](/docs/ai/setup/plugin) or the [connector](/docs/ai/setup/connector). Your computer needs <a href="https://nodejs.org" target="_blank">Node.js</a>.
-
-Once a project is online, you can take it live, undo changes, and connect domains from Claude on the web, desktop, or phone too.
+Put a project online, check changes first, undo mistakes, and publish native apps.
 
 ---
 
 ## Put it online
 
-Ask Claude:
+In the **Code** tab, with your project's folder open, ask:
 
-> `Put my project online`{copy}
-> `This is a Vite app. Build it and publish it`{copy}
+> `Put it online`{copy}
 
-When it's done, Claude gives you the live address. New projects get an address ending in `.manifestx.ai`.
+Claude publishes it and gives you the address, ending in `.manifestx.ai`. To publish a project built with something else, like React or Vite, just ask the same way. Claude runs its usual build first and leaves your setup as it is.
 
-For a project that isn't built with Manifest, Claude runs your usual build first, then publishes the result. Your framework and files stay as they are.
+Without the Code tab, such as in a chat on Claude's Free plan, Claude can still build and publish smaller projects: it creates the files in the chat and sends them to Manifest directly. Larger projects, especially ones with many images, need the Code tab.
 
 ---
 
 ## Staging, then live
 
-Every project has two versions: **staging** for checking changes, and **live** for everyone else.
+Every project has two versions, each at its own address: **staging** for checking changes, and **live** for everyone else.
 
-1. Ask Claude to `publish to staging`{.prompt copy}. You get a separate staging address to review.
-2. When it looks right, ask Claude to `take it live`{.prompt copy}. The exact version you reviewed goes live, with no rebuild.
+1. Ask Claude to `publish to staging`{.prompt copy}, then check the staging address.
+2. When it looks right, ask Claude to `take it live`{.prompt copy}. The exact version you checked goes live.
 
-If you ask Claude to publish without saying where, it publishes to live.
-
-::: brand icon="lucide:badge-check"
-On the Free plan, projects show a small "Made with Manifest" badge in the corner, and Manifest may feature your project in its showcase. On [Pro](/docs/ai/projects/manage#plans-and-billing), the badge is removed automatically, and you can ask Claude to `keep my project out of the showcase`{.prompt copy}. The showcase doesn't affect how search engines find you.
-:::
+If you don't say which, Claude publishes to live. You can take staging live from any Claude chat, including on your phone.
 
 ---
 
 ## Commands
 
-Ask in plain words in any Claude app, or type a command in Claude Code with the [plugin](/docs/ai/setup/plugin). Both do the same thing.
+Commands are shortcuts for the most common requests. Type them in the Code tab, or just ask in your own words.
 
-| To | Say | Or type |
+| Command | Or ask | What it does |
 |---|---|---|
-| See changes on your own computer | `Preview my project`{.prompt copy} | `/manifest:preview` |
-| Publish to staging | `Publish to staging`{.prompt copy} | `/manifest:staging` |
-| Make it live | `Take it live`{.prompt copy} | `/manifest:publish` |
-| See what's ready to publish | `What's the status of my project?`{.prompt copy} | `/manifest:status` |
-| Get teammates' changes | `Get the latest changes`{.prompt copy} | `/manifest:sync` |
+| `/manifest:preview` | `Preview my project`{.prompt copy} | Runs the project on your computer only. |
+| `/manifest:staging` | `Publish to staging`{.prompt copy} | Publishes to your staging address. |
+| `/manifest:publish` | `Take it live`{.prompt copy} | Makes it live. |
+| `/manifest:status` | `What's the status of my project?`{.prompt copy} | Sums up what's changed and what's ready. |
+| `/manifest:sync` | `Get the latest changes`{.prompt copy} | Brings in teammates' changes, for projects synced with [GitHub](/docs/ai/projects/github-sync). |
 
-If your project is saved on GitHub, these commands keep GitHub up to date too. See [GitHub](/docs/ai/setup/github#how-commands-change).
+In chats, there's nothing to type: just ask, and Claude does the same thing.
 
 ---
 
-## Undo a change
-
-If an update broke something, ask Claude to put the previous version back. To pick a specific version, ask to see recent versions first, then choose one.
+## Rollbacks
 
 > `Put the previous version back`{copy}
 > `Show me recent versions`{copy}
 
-Undoing changes is part of the [Pro plan](/docs/ai/projects/manage#plans-and-billing), which keeps your last 5 versions of both staging and live. You can also download any of those versions as a backup.
+Pro projects keep their last 5 versions of both staging and live, so you can go back to any of them or download a copy. See [plans](/docs/ai/setup/plans).
 
 ---
 
-## Change your address
+## Your address
 
-Ask Claude to change your project's address to a name you like, such as `my-bakery.manifestx.ai`. The old address stops working, so update any links you've shared.
+To change the `.manifestx.ai` address, ask Claude to `change my address to acme-launch`{.prompt copy}. The old address stops working, so update any links you've shared.
 
 ---
 
-## Use your own domain
-
-Claude tells you the record to add where you bought the domain. Once the record is in place, Manifest sets up the secure certificate and renews it for you. Ask Claude to check the domain's status at any time.
+## Custom domains
 
 > `Connect www.example.com to my project`{copy}
 
-Moving a domain that's already live on another host? Tell Claude, and it can set up the certificate before any traffic moves, so nothing goes down during the switch.
+Claude tells you which record to add where you bought the domain. Once it's in place, Manifest sets up the security certificate and renews it for you.
 
-A few more things you can ask:
-
-- **With or without www.** If you ask for `example.com`, your project is served at `www.example.com`, and Claude tells you how to send visitors from `example.com` to it at your domain provider. That works with every provider. To serve it at `example.com` itself, say so; Claude checks that your domain provider supports it.
-- **A domain for staging.** Ask Claude to `connect preview.example.com to staging`{.prompt copy}.
-- **Remove a domain.** Ask Claude to `remove www.example.com`{.prompt copy}. Your project stops answering at that address, and the domain is free to use elsewhere.
+- **Moving a domain that's live elsewhere?** Tell Claude, and it sets up the certificate before anything moves, so nothing goes offline.
+- **`example.com` or `www.example.com`?** By default your project is served at `www`, and Claude tells you how to send `example.com` visitors there. Ask for `example.com` itself if your domain provider supports it.
+- **Staging can have a domain too**, like `preview.example.com`.
+- **To stop using a domain**, ask Claude to `remove www.example.com`{.prompt copy}.
 
 ---
 
-## If something goes wrong
+## Native apps
 
-If publishing keeps failing, your sign-in may have lapsed. Reconnect Manifest (type `/mcp` in Claude Code, or use your connector settings) and try again.
+Your project can also become a native app, installed from the App Store, Google Play, the Microsoft Store, or directly.
 
-For anything else, email <a href="mailto:team@manifestx.dev">team@manifestx.dev</a>.
+> `Turn this project into an iPhone and Android app`{copy}
+
+Claude packages the same project for each platform and can add native features like Face ID, push notifications, and haptics. Submitting to a store uses your own developer account (Apple's costs $99 a year, Google's a one-time $25), and Apple reviews each app by hand. See [Native Apps](/docs/framework/publishing/native-apps) for each store's requirements.
+
+Projects built with the Manifest framework can also be installed straight from the browser, like an app, with no store involved. See [Web Apps](/docs/framework/publishing/web-apps).
+
+---
+
+## Badge and showcase
+
+Free projects show a small "Made with Manifest" badge, and may be featured in Manifest's showcase. On Pro, the badge is removed automatically, and you can ask Claude to `keep my project out of the showcase`{.prompt copy}. Neither affects how search engines find you.
