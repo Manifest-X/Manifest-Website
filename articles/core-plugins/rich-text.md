@@ -213,7 +213,7 @@ Type markdown and it turns into formatting as you go. Marks turn over the moment
 | `1. ` | Numbered list | Enter |
 | `[ ] ` `[x] ` | Task list item | Enter |
 | `> ` | Quote | Enter |
-| ` ``` ` | Code block | Enter |
+| ` ``` ` or ` ```ts ` | Code block, with that language | Enter |
 | `---` `***` `___` | Rule | Enter |
 | `**bold**` `__bold__` | Bold | Closing characters |
 | `*italic*` `_italic_` | Italic | Closing `*` or `_` |
@@ -233,7 +233,7 @@ A markdown field reads markdown by the same rules as CommonMark for the parts it
 | `<strong>`, `<b>`, `<em>`, `<i>`, `<s>`, `<del>` or `<code>` | That formatting | Its markdown: `**…**`, `*…*`, `~~…~~` or `` `…` `` |
 | Other HTML tags, such as `<u>`, `<span>` or `<mark>` | The tags as text | The tags with `<` and `>` escaped |
 | A lone `*` between characters, as in `2*1024` | The character | `2\*1024` |
-| A link with a title, as in `[text](url "title")` | A link | The link without its title |
+| A link title in single quotes or parentheses, as in `[text](url 'title')` | A link with that title | The title in double quotes |
 | `* item` or `+ item` | A bulleted list | `- item` |
 | `3. item` | A numbered list | `1. item`: lists are renumbered from 1 |
 | A list nested by 2 spaces | One level, not nested | Nesting needs 4 spaces or a tab per level |
@@ -242,7 +242,7 @@ A markdown field reads markdown by the same rules as CommonMark for the parts it
 | Indented code | A paragraph | The text without its indentation |
 | Several blank lines | One gap | One blank line |
 
-Code fences keep their language (` ```bash `), autolinks such as `<https://example.com>` read as links and save back as written, and link addresses with balanced parentheses, such as Wikipedia's, round-trip unchanged. Bold and italic nested in a way `*` and `_` can't say, such as bold inside italic with text touching both sides, are saved as `<strong>` and `<em>` tags, which markdown allows and the field reads back.
+Links keep their titles, as a `title` on the link. Code fences keep their language (` ```bash `), autolinks such as `<https://example.com>` read as links and save back as written, and link addresses with balanced parentheses, such as Wikipedia's, round-trip unchanged. Bold and italic nested in a way `*` and `_` can't say, such as bold inside italic with text touching both sides, are saved as `<strong>` and `<em>` tags, which markdown allows and the field reads back.
 
 Characters that would otherwise read as formatting are escaped with a backslash when saved: `\ ` `` ` `` `*` `~` `[` `]` `<` `>`, `_` except between letters or digits, an `&` that starts an entity, and `#`, `-`, `+` or `1.` at the start of a line.
 
