@@ -86,7 +86,7 @@ Edit is opt-in and never part of the default Manifest bundle, so visitors don't 
 
 The examples on this page also use Tailwind utility classes, such as `grid-cols-3`, `h-48` and `[&>*]:absolute`, which need the `data-tailwind` attribute shown here; see [Setup](/docs/framework/getting-started/setup). Without it, copy the markup and style it your own way.
 
-To load it only for signed-in editors, leave it out of `data-plugins` and call `Manifest.loadPlugin('edit')`{copy} once you know the visitor can edit; regions marked [`.gated`](#regions) then stay switched off until `$edit.on()`.
+To load it only for signed-in editors, leave it out of `data-plugins` and call `Manifest.loadPlugin('edit')`{copy} once you know the visitor can edit. The regions already on the page become editable when it loads, except those marked [`.gated`](#regions), which stay switched off until `$edit.on()`. Until then, `$edit` is an idle stand-in, so bindings such as `:disabled="!$edit.canUndo"` work before Edit loads and pick up the real state once it has; anything assigned to it in the meantime, such as `onPublish`, is ignored, so set that after loading.
 
 Editor styles are included in Manifest CSS, or as standalone stylesheets for Edit and Rich Text. Both reference [theme](/docs/framework/styles/theme) variables, such as the brand colours the editing visuals and examples use, so load the theme stylesheet too.
 
@@ -697,9 +697,10 @@ npx mnfst-run --edit
 | Markup in a region | `index.html`, or the component's HTML file when the region is written in one |
 | A data list's order and record fields | The CSV or JSON file the data source names in `manifest.json` (a JSON file must hold an array of records) |
 | A component instance | The instance's attributes in `index.html`, or the component's HTML file in `main` scope |
-| Theme values | The file named by the scope's `data-edit-theme-file`, otherwise `styles/core/manifest.theme.css` |
+| Global theme values | The `manifest.theme.css` that `index.html` links, wherever it lives; with none linked, `styles/core/manifest.theme.css` |
+| Scoped theme values | The scope element's own `style` attribute, in the file it's written in |
 
-Each kind of edit writes only its own kind of file (HTML, CSS or data), inside the project, and never into a hidden folder such as `.git` or into `node_modules`. Theme values go only to `styles/core/manifest.theme.css`, a stylesheet `index.html` links, or a file named by `data-edit-theme-file`. Files are written together or not at all. If one region can't be published, the others are published without it: its result is an error naming the region and the reason, and its edits stay in the history; a region tied to it by a move between them stays back with it. Publishes run one at a time: a second waits for the first to finish, then builds on its result.
+Each kind of edit writes only its own kind of file (HTML, CSS or data), inside the project, and never into a hidden folder such as `.git` or into `node_modules`. Files are written together or not at all. If one region or theme value can't be published, the others are published without it: its result is an error naming it and the reason, and its edits stay in the history; a region tied to it by a move between them stays back with it. Publishes run one at a time: a second waits for the first to finish, then builds on its result.
 
 When the page loads, it reads from the server how each source file looks, and publishing needs that. If it couldn't be read, because the page isn't served by `mnfst-run --edit` or the server didn't answer, a publish is refused and the edits are kept.
 
@@ -768,7 +769,7 @@ The server only accepts edits from pages it serves on your machine, and its edit
 
 </div>
 
-The variable changes live as the input moves, and is recorded as a step of the history when the input commits its value: when you let go of a slider or close the colour picker, and at each arrow-key step on a focused slider. Undo puts the previous value back. `.theme` on its own only declares a scope and makes nothing editable, so it can wrap regions safely. When published, a scoped value is written to the file named by `data-edit-theme-file` on the scope element, and anything else to `styles/core/manifest.theme.css`; see [Publishing](#publishing). `.persist` on the control, or on its scope element, keeps unpublished values across a reload.
+The variable changes live as the input moves, and is recorded as a step of the history when the input commits its value: when you let go of a slider or close the colour picker, and at each arrow-key step on a focused slider. Undo puts the previous value back. `.theme` on its own only declares a scope and makes nothing editable, so it can wrap regions safely. When published, a global value is written to the `manifest.theme.css` that `index.html` links, or `styles/core/manifest.theme.css` if none is. A scoped value is written into the scope element's own `style` attribute, never into a stylesheet, so it never reaches `:root`; a scope element inside content another plugin generates has no file to write to, so its values are refused by name. See [Publishing](#publishing). `.persist` on the control, or on its scope element, keeps unpublished values across a reload.
 
 ---
 
@@ -808,7 +809,7 @@ The variable changes live as the input moves, and is recorded as a step of the h
 | `block(node)` | The piece holding a node, or `null`; a component is one piece |
 | `attr(name, value, el)` | Set an attribute: a string sets it, `true` sets it empty, `null` or `false` removes it |
 | `classes.add(cls, el)`, `.remove()`, `.toggle(cls, el, force)`, `.set(value, el)`, `.has()`, `.list(el)` | Change and read an element's classes; classes from a `:class` binding are left to it |
-| `scope(value, el)` | For a region wrapping exactly one component: read its scope, or set `'instance'` or `'main'` |
+| `scope(el)`, `scope(value, el)` | For a region wrapping exactly one component: `scope(el)` reads the scope of `el`'s region, `'instance'` or `'main'`; `scope(value, el)` sets it |
 | `revert(el)` | Drop a component instance's edits to one element, or to all of them when `el` is the region |
 | `patches()` | The patches a publish would send |
 | `publish(options)` | Send the patches, after any publish still running; resolves with the response. `{ rebase: true }` writes over source that changed since the page loaded |
@@ -833,7 +834,6 @@ Methods that take `el` use `$edit.target` when it's left out, and return `true` 
 | Attribute | On | Purpose |
 |---|---|---|
 | `data-edit-hotkeys="off"` | A region or any element above it | Turns off the undo and redo shortcuts there |
-| `data-edit-theme-file` | A `.theme` scope element | The CSS file its values are published to |
 | `data-unit` | A `.cssvar` input | A unit added to the input's value |
 | `:data-key` | A row of a data list | The record's `id`, bound as in `:data-key="walk.id"`, when the `x-for` has no `:key` |
 
