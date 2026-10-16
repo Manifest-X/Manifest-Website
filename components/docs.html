@@ -109,16 +109,16 @@
       <template x-if="article?.name && (prev || next)">
         <nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav>
           <template x-if="prev">
-            <a :href="prev.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
               <small class="text-content-subtle">Previous</small>
-              <span class="text-content-stark" x-text="prev.name"></span>
+              <span class="text-content-stark" x-text="prev?.name"></span>
             </a>
           </template>
           <template x-if="!prev"><span></span></template>
           <template x-if="next">
-            <a :href="next.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
               <small class="text-content-subtle">Next</small>
-              <span class="text-content-stark" x-text="next.name"></span>
+              <span class="text-content-stark" x-text="next?.name"></span>
             </a>
           </template>
         </nav>
