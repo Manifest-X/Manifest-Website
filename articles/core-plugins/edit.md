@@ -11,23 +11,23 @@ Turn a live page into its own editor.
 <div x-code-group>
 
 ```html copy
-<section x-edit="adopt">
+<section x-edit="poochie">
     <h2>Meet Poochie</h2>
     <div class="grid grid-cols-3 gap-3">
         <article>
-            <h3>Good with kids</h3>
-            <p>Gentle, patient, endlessly cuddly.</p>
+            <h3>Loves pasta</h3>
+            <p>And ice cream, whenever she can get it.</p>
         </article>
         <article>
-            <h3>House-trained</h3>
-            <p>Knows sit, stay and the way to the door.</p>
+            <h3>Always quiet</h3>
+            <p>Never barks at the mail carrier.</p>
         </article>
         <article>
-            <h3>Loves walks</h3>
-            <p>Any weather, any distance.</p>
+            <h3>Well trained</h3>
+            <p>Knows sit, stay, and the way to the door.</p>
         </article>
     </div>
-    <figure x-edit.size="adopt-photo" style="width: 14rem; height: 9rem; min-width: 8rem; max-width: 100%">
+    <figure x-edit.size="poochie-photo" style="width: 14rem; height: 9rem; min-width: 8rem; max-width: 100%">
         <img src="/assets/examples/poochie.webp" alt="Poochie the dog">
     </figure>
 </section>
@@ -36,23 +36,23 @@ Turn a live page into its own editor.
 ::: frame
 <div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
 <template x-if="ready">
-<section class="col gap-4 w-full" x-edit="adopt-demo">
+<section class="col gap-4 w-full" x-edit="poochie-demo">
     <h2 class="m-0">Meet Poochie</h2>
     <div class="grid grid-cols-3 gap-3">
         <article class="col gap-1 p-4 bg-surface-2 rounded">
-            <h3 class="m-0 text-lg">Good with kids</h3>
-            <p class="m-0 text-sm">Gentle, patient, endlessly cuddly.</p>
+            <h3 class="m-0 text-lg">Loves pasta</h3>
+            <p class="m-0 text-sm">And ice cream, whenever she can get it.</p>
         </article>
         <article class="col gap-1 p-4 bg-surface-2 rounded">
-            <h3 class="m-0 text-lg">House-trained</h3>
-            <p class="m-0 text-sm">Knows sit, stay and the way to the door.</p>
+            <h3 class="m-0 text-lg">Always quiet</h3>
+            <p class="m-0 text-sm">Never barks at the mail carrier.</p>
         </article>
         <article class="col gap-1 p-4 bg-surface-2 rounded">
-            <h3 class="m-0 text-lg">Loves walks</h3>
-            <p class="m-0 text-sm">Any weather, any distance.</p>
+            <h3 class="m-0 text-lg">Well trained</h3>
+            <p class="m-0 text-sm">Knows sit, stay, and the way to the door.</p>
         </article>
     </div>
-    <figure class="m-0" x-edit.size="adopt-photo-demo" style="width: 14rem; height: 9rem; min-width: 8rem; max-width: 100%">
+    <figure class="m-0" x-edit.size="poochie-photo-demo" style="width: 14rem; height: 9rem; min-width: 8rem; max-width: 100%">
         <img class="w-full h-full object-cover rounded m-0" src="/assets/examples/poochie.webp" alt="Poochie the dog">
     </figure>
 </section>
@@ -62,13 +62,13 @@ Turn a live page into its own editor.
 
 </div>
 
-Click the headline and type a new one. Drag a card by its padding to put it somewhere else, or drag the photo's edges and corners to resize it. **Cmd/Ctrl + Z** undoes each change and **Shift + Cmd/Ctrl + Z** redoes it.
+Click a heading and type a new one. Drag a card from anywhere on it to put it somewhere else, or drag the photo's edges and corners to resize it. **Cmd/Ctrl + Z** undoes each change and **Shift + Cmd/Ctrl + Z** redoes it.
 
 ---
 
 ## Setup
 
-Edit is opt-in and never part of the default Manifest bundle, so visitors don't download editor code. The `+` prefix keeps the default plugins and adds it; the standalone tab loads Edit on its own. Either way, Edit loads [Rich Text](/docs/framework/core-plugins/rich-text) automatically, because page text is edited with it.
+Edit is opt-in and never part of the default Manifest bundle, so visitors don't download editor code. The `+` prefix keeps the default plugins and adds it; the selective tab loads Edit without the other default plugins. Edit has no script of its own to link: it needs the Manifest loader, which brings in Alpine and [Rich Text](/docs/framework/core-plugins/rich-text) with it. Either way, Rich Text loads automatically, because page text is edited with it.
 
 <div x-code-group copy>
 
@@ -77,14 +77,14 @@ Edit is opt-in and never part of the default Manifest bundle, so visitors don't 
     data-plugins="+edit" data-tailwind></script>
 ```
 
-```html "Standalone"
+```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
     data-plugins="edit" data-tailwind></script>
 ```
 
 </div>
 
-The examples on this page also use Tailwind utility classes, such as `grid-cols-3`, `h-48` and `[&>*]:absolute`, which need the `data-tailwind` attribute shown here; see [Setup](/docs/framework/getting-started/setup). Without it, copy the markup and style it your own way.
+The examples on this page also use Tailwind utility classes, such as `grid-cols-3`, `h-48`, and `[&>*]:absolute`, which need the `data-tailwind` attribute shown here; see [Setup](/docs/framework/getting-started/setup). Without it, copy the markup and style it your own way.
 
 To load it only for signed-in editors, leave it out of `data-plugins` and call `Manifest.loadPlugin('edit')`{copy} once you know the visitor can edit. The regions already on the page become editable when it loads, except those marked [`.gated`](#regions), which stay switched off until `$edit.on()`. Until then, `$edit` is an idle stand-in, so bindings such as `:disabled="!$edit.canUndo"` work before Edit loads and pick up the real state once it has; anything assigned to it in the meantime, such as `onPublish`, is kept and carries over to Edit when it loads.
 
@@ -117,8 +117,8 @@ A piece is any element directly inside the region, or inside a container in it, 
 |---|---|
 | `x-edit="key"` | This region can be edited: its text, and its pieces moved |
 | `.text` | Its text can be rewritten in place |
-| `.move` | Its pieces can be dragged to new places |
-| `.size` | This element can be resized by its edges |
+| `.move` | Its pieces can be dragged to new places; see [Move](/docs/framework/core-plugins/move) |
+| `.size` | This element can be resized by its edges; see [Resize](/docs/framework/core-plugins/resize) |
 | `.data` | Fields of the records in its `x-for` list can be edited |
 | `.gated` | Editing stays off until `$edit.on()` |
 | `.persist` | Unpublished edits survive a reload in this browser |
@@ -129,14 +129,14 @@ A region inside another region sets its own capabilities for what it holds, and 
 
 What a region holds decides where its edits go when published:
 
-- **Markup** you wrote, in the page or in a component's HTML file: text, order, nesting, sizes and attributes are written back into that markup. A component's root element is the exception: its own attributes and classes come partly from where the component is used, so they aren't editable.
-- **A list from data**, an `x-for` directly inside the region: moving reorders the array and `.data` edits record fields, see [In a List or Grid](#in-a-list-or-grid).
-- **A component**, such as `<x-card>`, among other content: it's one piece, moved as a whole. It drags, steps with Alt + arrows, nests, locks, duplicates into a new instance and deletes like any piece, and can move into another region, in this file or another; it can't be copied or cut. Its own markup isn't edited from here. A region written inside the component's file is edited there, in its own right; duplicating such a component puts that region on the page twice, so it stops being editable.
+- **Markup** you wrote, in the page or in a component's HTML file: text, order, nesting, sizes, and attributes are written back into that markup. A component's root element is the exception: its own attributes and classes come partly from where the component is used, so they aren't editable.
+- **A list from data**, an `x-for` directly inside the region: moving reorders the array and `.data` edits record fields, see [In a List or Grid](/docs/framework/core-plugins/move#in-a-list-or-grid).
+- **A component**, such as `<x-card>`, among other content: it's one piece, moved as a whole. Like any piece, it drags, steps with Alt + arrows, nests, locks, duplicates into a new instance, and deletes. It can also move into another region, in this file or another, but it can't be copied or cut. Its own markup isn't edited from here. A region written inside the component's file is edited there, in its own right; duplicating such a component puts that region on the page twice, so it stops being editable.
 - **Exactly one component** and nothing else, with no region of its own: its text and classes can be edited, and with `.size` the region resized, as overrides for this instance. `$edit.scope('main')` makes edits apply to the component itself, and so to every instance, and `$edit.revert()` drops an instance's own edits.
 
 ### Lock
 
-`x-edit.lock` on an element inside a region keeps it and everything inside it from being edited. Add an action to block only that one: `.lock.move`, `.lock.remove`, `.lock.duplicate`, `.lock.text`, `.lock.attrs` (attributes and classes) or `.lock.size`. Actions can be combined, as in `.lock.move.remove`.
+`x-edit.lock` on an element inside a region keeps it and everything inside it from being edited. Add an action to block only that one: `.lock.move`, `.lock.remove`, `.lock.duplicate`, `.lock.text`, `.lock.attrs` (attributes and classes), or `.lock.size`. Actions can be combined, as in `.lock.move.remove`.
 
 <div x-code-group>
 
@@ -170,9 +170,11 @@ A piece locked from moving can't be picked up, though other pieces can still be 
 
 ## Text
 
-Text in a region is edited in place. The first click on a piece of text selects all of it, so replacing a line is one click and typing; click again to place the caret. Enter does nothing, so a heading stays one heading, and **Shift + Enter** starts a new line inside it. **Escape** leaves the text. The change is recorded when the text loses focus, as one step of the history.
+Text in a region is edited in place. The first click on a piece of text selects all of it, so replacing a line is one click and typing; click again to place the caret. **Enter** starts a new line inside the same element, so a heading stays one heading, and **Escape** leaves the text. The change is recorded when the text loses focus, as one step of the history.
 
-Page text runs on [Rich Text](/docs/framework/core-plugins/rich-text) in its one-line mode, so Rich Text's controls and shortcuts format it: **Cmd/Ctrl + B**, **I** and **U** for bold, italic and underline, and any [Rich Text button](/docs/framework/core-plugins/rich-text#buttons) for inline formatting. The buttons don't take focus, so they act on whichever text you're in.
+A press on text that moves before you let go drags the piece instead; see [Move](/docs/framework/core-plugins/move). While you're typing in a piece, dragging across its text selects words as usual.
+
+Page text runs on [Rich Text](/docs/framework/core-plugins/rich-text) in its one-line mode, so Rich Text's controls and shortcuts format it: **Cmd/Ctrl + B**, **I**, and **U** for bold, italic, and underline, and any [Rich Text button](/docs/framework/core-plugins/rich-text-controls#buttons) for inline formatting. The buttons don't take focus, so they act on whichever text you're in.
 
 <div x-code-group>
 
@@ -211,11 +213,11 @@ Page text runs on [Rich Text](/docs/framework/core-plugins/rich-text) in its one
 
 The buttons stay disabled until the caret is in a piece of text, and block-level commands such as headings and lists never apply to page text. Each `aria-label` names an icon-only button for screen readers.
 
-Text that holds only plain formatting, such as bold, italics, links and line breaks, is one piece: the paragraph above is edited as a whole, with its bold words inside. HTML comments inside the text are kept as written. An element inside the text with its own class or Alpine directive is left as a separate piece instead, so its styling and bindings survive.
+Text that holds only plain formatting, such as bold, italics, links, and line breaks, is one piece: the paragraph above is edited as a whole, with its bold words inside. HTML comments inside the text are kept as written. An element inside the text with its own class or Alpine directive is left as a separate piece instead, so its styling and bindings survive.
 
 Clicking a link in page text, with the middle button too, or pressing Enter on it, never follows it while its region is editable, so you can edit it without leaving the page; links inside an element marked `contenteditable="false"` still work. Links follow HTML's rule that a link can't hold another link: text that is itself a link or a button takes no links, and linking part of an existing link splits it, so the rest keeps its own address.
 
-To allow headings, lists and other blocks in part of a region, put [`x-rich-text`](/docs/framework/core-plugins/rich-text) on that element, with no value of its own. It becomes a full Rich Text field, and Edit records the markup it produces as an ordinary text edit.
+To allow headings, lists, and other blocks in part of a region, put [`x-rich-text`](/docs/framework/core-plugins/rich-text) on that element, with no value of its own. It becomes a full Rich Text field, and Edit records the markup it produces as an ordinary text edit.
 
 ```html copy
 <article x-edit="post">
@@ -226,295 +228,18 @@ To allow headings, lists and other blocks in part of a region, put [`x-rich-text
 </article>
 ```
 
-Some text can't be edited because it isn't written in the page: anything rendered by `x-text`, `x-html`, `x-markdown`, `x-icon` or another directive that produces its own content, and the rows an `x-for` or `x-if` renders, unless the region is a [data list](#in-a-list-or-grid). The contents of `<script>`, `<style>`, `<textarea>` and `<title>` are never editable.
+Some text can't be edited because it isn't written in the page: anything rendered by `x-text`, `x-html`, `x-markdown`, `x-icon`, or another directive that produces its own content, and the rows an `x-for` or `x-if` renders, unless the region is a [data list](/docs/framework/core-plugins/move#in-a-list-or-grid). The contents of `<script>`, `<style>`, `<textarea>`, and `<title>` are never editable.
+
+Such an element is still a piece, and its own attributes and classes can be changed: an icon's size and colour are classes, and a `<textarea>`'s `placeholder` is an attribute. Change them from your own controls with [`$edit.classes`](#edit) and [`$edit.attr()`](#edit), which record them in the history and publish them like any other edit.
 
 ::: brand icon="lucide:info"
 Edit's `.text` means *text can be edited*. Alpine's `x-text` is the opposite case: text rendered from an expression, which Edit leaves alone.
 :::
-
----
-
-## Move
-
-`.move` makes every piece of a region draggable. One drag covers every kind of move: among its siblings, into a container, out of one, or into another region. While you drag, a faint stand-in shows where the piece will land and the container it would land in gets a dashed outline.
-
-A piece that is text has a small grip at its start edge, because its own surface is for typing; drag the grip to move it. Other pieces drag from anywhere on them that isn't text. In a region that allows moving but not text, every piece drags from its whole surface.
-
-A drop the browser would rewrite is refused and the piece goes back: a `<div>` into a `<p>`, a `<li>` outside a list, a link inside a link, and anything else HTML doesn't allow.
-
-### In a List or Grid
-
-Pieces in a list, a row or a grid take the order you drop them in. Hovering a piece outlines it, so you can see what you're about to pick up.
-
-<div x-code-group>
-
-```html copy
-<ul x-edit.move="queue">
-    <li>Wash Poochie</li>
-    <li>Trim nails</li>
-    <li>Brush coat</li>
-    <li>Photo shoot</li>
-</ul>
-```
-
-::: frame
-<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
-<template x-if="ready">
-<ul class="col gap-2 m-0 p-0 list-none w-full" x-edit.move="queue-demo">
-    <li class="m-0 p-3 bg-surface-2 rounded">Wash Poochie</li>
-    <li class="m-0 p-3 bg-surface-2 rounded">Trim nails</li>
-    <li class="m-0 p-3 bg-surface-2 rounded">Brush coat</li>
-    <li class="m-0 p-3 bg-surface-2 rounded">Photo shoot</li>
-</ul>
-</template>
-</div>
-:::
-
-</div>
-
-By keyboard, Tab to a piece and press **Space** or **Enter** to pick it up. The arrow keys move it, **Enter** or **Space** drops it, and **Escape** puts it back. **Alt + Up** and **Alt + Down** move a focused piece one step at once, and work while you're typing in it too; in text, Space and Enter keep typing, so press Escape first to pick the piece up.
-
-A list rendered by `x-for` reorders its data instead of the markup: the array itself changes order. Each record needs an `id`, given to the loop as its `:key`. Add `.data` to edit record fields too: the row, or any element in it, whose `x-text` or `x-html` is a record field, such as `x-text="walk.name"`, becomes editable, and the edit updates the record when the text loses focus. A row that is itself the field drags by its grip, like other text. Rows from data stay in their own list.
-
-To publish a list's order and field edits with `mnfst-run --edit`, its records must come from a CSV or JSON file declared as a data source in `manifest.json`, as in `$x.walks`. A list written inline in `x-data`, like the one here, edits on the page and reaches `onPublish`, but has no file to write to.
-
-<div x-code-group>
-
-```html copy
-<div x-data="{ walks: [{ id: 1, name: 'Park' }, { id: 2, name: 'Beach' }, { id: 3, name: 'Woods' }] }">
-    <ul x-edit.move.data="walks">
-        <template x-for="walk in walks" :key="walk.id">
-            <li x-text="walk.name"></li>
-        </template>
-    </ul>
-    <p x-text="walks.map(w => w.name).join(' → ')"></p>
-</div>
-```
-
-::: frame
-<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
-<template x-if="ready">
-<div class="col gap-3 w-full" x-data="{ walks: [{ id: 1, name: 'Park' }, { id: 2, name: 'Beach' }, { id: 3, name: 'Woods' }] }">
-    <ul class="col gap-2 m-0 p-0 list-none" x-edit.move.data="walks-demo">
-        <template x-for="walk in walks" :key="walk.id">
-            <li class="m-0 p-3 bg-surface-2 rounded" x-text="walk.name"></li>
-        </template>
-    </ul>
-    <p class="m-0 text-sm text-content-subtle" x-text="walks.map(w => w.name).join(' → ')"></p>
-</div>
-</template>
-</div>
-:::
-
-</div>
-
-### Nesting
-
-Any element in a moving region that holds other elements is a container, empty ones included. Paragraphs, headings and other text elements are always pieces, never containers. Dropping a piece in the middle of a container puts it inside; dropping near the container's edge puts it beside it. Dragging a piece out of its container un-nests it. While you drag, empty containers grow enough to drop into.
-
-By keyboard, **Alt + Right** moves a focused piece into the container just before it, and **Alt + Left** moves it out one level. In text, Alt + Left and Right keep jumping by word, so press Escape first.
-
-<div x-code-group>
-
-```html copy
-<div x-edit.move="kennel">
-    <p>Biscuit</p>
-    <div>
-        <p>Poochie</p>
-        <p>Rex</p>
-    </div>
-    <p>Mochi</p>
-    <div></div>
-</div>
-```
-
-::: frame
-<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
-<template x-if="ready">
-<div class="col gap-2 w-full" x-edit.move="kennel-demo">
-    <p class="m-0 p-3 bg-surface-2 rounded">Biscuit</p>
-    <div class="col gap-2 p-3 border border-line rounded">
-        <p class="m-0 p-3 bg-surface-2 rounded">Poochie</p>
-        <p class="m-0 p-3 bg-surface-2 rounded">Rex</p>
-    </div>
-    <p class="m-0 p-3 bg-surface-2 rounded">Mochi</p>
-    <div class="col gap-2 p-3 border border-line rounded"></div>
-</div>
-</template>
-</div>
-:::
-
-</div>
-
-### Between Regions
-
-A piece can be dragged from one region into another that also allows moving. Every region it could land in shows a dashed outline while you drag, an empty one included, and a drop just outside a region still lands in it. The move is one step of the history, and publishing writes it to both places.
-
-<div x-code-group>
-
-```html copy
-<div class="grid grid-cols-2 gap-4">
-    <ul x-edit.move="monday">
-        <li>Bath</li>
-        <li>Walk</li>
-    </ul>
-    <ul x-edit.move="tuesday">
-        <li>Vet</li>
-    </ul>
-</div>
-```
-
-::: frame
-<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
-<template x-if="ready">
-<div class="grid grid-cols-2 gap-4 w-full">
-    <div class="col gap-2">
-        <span class="text-sm text-content-subtle">Monday</span>
-        <ul class="col gap-2 m-0 p-0 list-none" x-edit.move="monday-demo">
-            <li class="m-0 p-3 bg-surface-2 rounded">Bath</li>
-            <li class="m-0 p-3 bg-surface-2 rounded">Walk</li>
-        </ul>
-    </div>
-    <div class="col gap-2">
-        <span class="text-sm text-content-subtle">Tuesday</span>
-        <ul class="col gap-2 m-0 p-0 list-none" x-edit.move="tuesday-demo">
-            <li class="m-0 p-3 bg-surface-2 rounded">Vet</li>
-        </ul>
-    </div>
-</div>
-</template>
-</div>
-:::
-
-</div>
-
-Regions of written markup, in the page or in component files, can trade pieces, whole components included. Rows of a data list and the parts inside a component stay where they are, and so does a piece that is itself a region.
-
-### Freeform
-
-Whether a dropped piece flows or sits where you let go is decided by CSS, after the drop. If the piece is in normal flow in its new container, as in a block, flex or grid layout, it takes its place in that order, and any `left` and `top` left over from an earlier freeform drop are removed. If it ends up absolutely positioned, by its own CSS or its container's, it's placed at the drop point. The new `left` and `top` are written in the units the piece already uses, so a `%` position stays fluid.
-
-Here the canvas positions its children absolutely and the tray doesn't, so the same sticker sits where you drop it on the canvas and lines up in the tray. They're two regions, so a sticker crosses between them as in [Between Regions](#between-regions).
-
-<div x-code-group>
-
-```html copy
-<div class="grid grid-cols-2 gap-4">
-    <div x-edit.move="canvas" class="relative h-48 [&>*]:absolute">
-        <span style="left: 1rem; top: 1rem">Fetch</span>
-        <span style="left: 40%; top: 5rem">Nap</span>
-    </div>
-    <div x-edit.move="tray" class="col gap-2">
-        <span>Dinner</span>
-    </div>
-</div>
-```
-
-::: frame
-<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
-<template x-if="ready">
-<div class="grid grid-cols-2 gap-4 w-full">
-    <div class="relative h-48 bg-surface-2 rounded [&>*]:absolute" x-edit.move="canvas-demo">
-        <span class="py-2 px-3 bg-surface-1 border border-line rounded" style="left: 1rem; top: 1rem">Fetch</span>
-        <span class="py-2 px-3 bg-surface-1 border border-line rounded" style="left: 40%; top: 5rem">Nap</span>
-    </div>
-    <div class="col gap-2 p-3 border border-line rounded" x-edit.move="tray-demo">
-        <span class="py-2 px-3 bg-surface-1 border border-line rounded">Dinner</span>
-    </div>
-</div>
-</template>
-</div>
-:::
-
-</div>
-
-`[&>*]:absolute` gives every child of the canvas `position: absolute`. Dropped in the tray, a sticker is no longer a child of the canvas, so it's in flow and its `left` and `top` are removed; dropped back on the canvas, it's positioned again at the drop point. A piece that is absolutely positioned by its own `style` or classes stays positioned wherever it goes.
-
-A positioned piece is dropped inside its container's box, never past its edges. With one focused, the arrow keys nudge it by 4 pixels, or 16 with Shift.
-
----
-
-## Resize
-
-`.size` gives an element handles on its edges and corners. The new width and height are written in the units the element already uses, so `rem` stays `rem` and `%` stays `%`. The element's own `min-` and `max-` width and height are the limits.
-
-Each panel below has a handle on its inner edge. Drag it near 12rem or 16rem and it snaps there; drag it below 6rem and it closes. The buttons reopen it, and so does undo.
-
-<div x-code-group>
-
-```html copy
-<div x-data="{ left: true, right: true }" class="row h-48 border border-line">
-    <div x-edit.size="left-panel" x-show="left"
-           style="width: 12rem; min-width: 8rem; max-width: 20rem;
-                  --edit-size: x; --edit-size-edges: end;
-                  --edit-size-snap: 12rem 16rem; --edit-size-snap-distance: 1rem;
-                  --edit-size-close: 6rem">
-        Left panel
-    </div>
-
-    <main class="grow col gap-2">
-        <span>Main content</span>
-        <button @click="left = !left">Toggle left</button>
-        <button @click="right = !right">Toggle right</button>
-    </main>
-
-    <div x-edit.size="right-panel" x-show="right"
-           style="width: 12rem; min-width: 8rem; max-width: 20rem;
-                  --edit-size: x; --edit-size-edges: start;
-                  --edit-size-snap: 12rem 16rem; --edit-size-snap-distance: 1rem;
-                  --edit-size-close: 6rem">
-        Right panel
-    </div>
-</div>
-```
-
-::: frame
-<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
-<template x-if="ready">
-<div x-data="{ left: true, right: true }" class="row h-48 w-full border border-line">
-    <div class="p-4 bg-surface-2 border-e border-line" x-edit.size="left-panel-demo" x-show="left" style="width: 12rem; min-width: 8rem; max-width: 20rem; --edit-size: x; --edit-size-edges: end; --edit-size-snap: 12rem 16rem; --edit-size-snap-distance: 1rem; --edit-size-close: 6rem">Left panel</div>
-    <main class="grow col gap-2 p-4">
-        <span>Main content</span>
-        <button class="sm" @click="left = !left">Toggle left</button>
-        <button class="sm" @click="right = !right">Toggle right</button>
-    </main>
-    <div class="p-4 bg-surface-2 border-s border-line" x-edit.size="right-panel-demo" x-show="right" style="width: 12rem; min-width: 8rem; max-width: 20rem; --edit-size: x; --edit-size-edges: start; --edit-size-snap: 12rem 16rem; --edit-size-snap-distance: 1rem; --edit-size-close: 6rem">Right panel</div>
-</div>
-</template>
-</div>
-:::
-
-</div>
-
-Everything is set with `--edit-size-*` variables, on the element or anywhere above it, so a theme file can set project-wide defaults. Snapping and closing are off unless you set them. `none` on any of the variables cancels a value inherited from above.
-
-### Handles and Limits
-
-| Variable | Default | Sets |
-|---|---|---|
-| `--edit-size` | `both` | Which way it resizes: `both`, `x`, `y` or `none` |
-| `--edit-size-edges` | every edge and corner of those axes | The handles, from `top` `right` `bottom` `left`, corners such as `bottom-right`, and logical `start` `end` `top-start` `bottom-end` that follow the writing direction |
-| `--edit-size-handle` | `1rem` | How wide each handle's grab area is |
-
-A handle shows when you hover the element, and it can be focused with Tab: the arrow keys then resize by 8 pixels, or 32 with Shift. `edit:size` fires on the element throughout a resize, and once more when it's recorded, with `detail.done` set.
-
-Handles are drawn inside the element, so an image, video or other element that can't hold children is resized through a wrapper, like the `<figure>` in the [overview](#overview).
-
-### Snap Points
-
-`--edit-size-snap` lists sizes the edge is pulled to, in any CSS length, such as `12rem 16rem 50%`. `--edit-size-snap-distance` sets how close the edge must come before it's pulled in. Without a distance, the size is always the nearest snap point. `-x` and `-y` variants, such as `--edit-size-snap-x`, set each axis on its own and take priority over the shared value.
-
-### Close and Reopen
-
-`--edit-size-close` (or `-close-x`, `-close-y`) closes the element when it's released below that size. Closing rides `x-show`: the element shrinks to its minimum size, or keeps the size it had if it has no minimum, and its `x-show` variable is set to `false`, so Alpine hides it. Reopen it with your own button that sets the variable back, or undo: one undo restores both the size and the visibility.
-
-The `x-show` value must be something that can be assigned, such as `left` or `panels.left`. Without one, Edit warns in the console and a resize released below the close size goes back to the size it had. Closing and reopening are part of the page state, not the content: they aren't kept by [`.persist`](#history) or published.
-
 ---
 
 ## Blocks
 
-A block is a piece the person editing acts on as a whole: copy, cut, paste, duplicate or delete it. With a piece focused, and not while typing in it, **Cmd/Ctrl + C**, **X**, **V** and **D** copy, cut, paste and duplicate it, and **Delete** or **Backspace** deletes it. A paste lands after the focused piece.
+A block is a piece the person editing acts on as a whole: copy, cut, paste, duplicate, or delete it. With a piece focused, and not while typing in it, **Cmd/Ctrl + C**, **X**, **V**, and **D** copy, cut, paste, and duplicate it, and **Delete** or **Backspace** deletes it. A paste lands after the focused piece.
 
 For a right-click menu, put [`x-dropdown.context`](/docs/framework/elements/dropdowns#context-menu) on the region. Right-clicking a piece opens your menu, and `$edit.target` is the piece you clicked, set before the menu opens; every `$edit` action uses it when called without an element. `$edit.can(action)` says whether an action applies to it, so a button bound to it disables itself.
 
@@ -569,7 +294,7 @@ Right-click a toy, copy it, then right-click another and paste. Lock deleting on
 
 `$edit.lock(el, action)` and `$edit.unlock(el, action)` do at runtime what `.lock` does in markup, so the people using your editor can protect parts of a page from their own mistakes. Leave out the action to lock everything. A runtime lock is a step of the history, so it undoes, and `.persist` keeps it, but it's never written to your source: it belongs to the editing session, not the page. Unlocking also lifts a `.lock` written in the markup.
 
-`$edit.can()` answers for `move`, `remove`, `duplicate`, `text`, `attrs`, `class`, `size`, `copy`, `cut` and `paste`, taking the region's capabilities and every lock into account. A component piece answers `false` for `copy` and `cut`. Other actions for menus and panels are in the [reference](#reference): `$edit.move()`, `nest()` and `unnest()` move a piece by script, and `$edit.attr()` and `$edit.classes` change attributes and classes as recorded edits.
+`$edit.can()` answers for `move`, `remove`, `duplicate`, `text`, `attrs`, `class`, `size`, `copy`, `cut`, and `paste`, taking the region's capabilities and every lock into account. A component piece answers `false` for `copy` and `cut`. Other actions for menus and panels are in the [reference](#reference): `$edit.move()`, `nest()`, and `unnest()` move a piece by script, and `$edit.attr()` and `$edit.classes` change attributes and classes as recorded edits.
 
 ::: brand icon="lucide:info"
 In [Rich Text](/docs/framework/core-plugins/rich-text), *block* means a paragraph-level tag such as a heading or a list. Here it means any piece of the page.
@@ -581,9 +306,9 @@ In [Rich Text](/docs/framework/core-plugins/rich-text), *block* means a paragrap
 
 Every edit on the page joins one history, shared by every region, in the order the edits were made. **Cmd/Ctrl + Z** undoes the last one and **Shift + Cmd/Ctrl + Z** (or **Ctrl + Y**) redoes it, wherever you are on the page, except in form fields and in elements with their own `x-rich-text`, which keep their own undo. While you're in a piece of text, the shortcuts first step through what you've done in it since you clicked in, typing burst by typing burst, then through the page's history. Put `data-edit-hotkeys="off"` on a region, or on any element above it such as `<html>`, to leave the shortcuts to your own code.
 
-The browser's own undo can't do this: it only knows about typing in one field at a time, not about pieces moving, nesting, resizing or closing. Edit replaces it with one history of its own, so moves, nesting, resizes, closes, locks and text edits all step back in the order they were made.
+The browser's own undo can't do this: it only knows about typing in one field at a time, not about pieces moving, nesting, resizing, or closing. Edit replaces it with one history of its own, so moves, nesting, resizes, closes, locks, and text edits all step back in the order they were made.
 
-There's no built-in toolbar. Build your own from buttons that call `$edit.undo()`, `$edit.redo()` and `$edit.publish()`, and bind them to `$edit.canUndo` and `$edit.canRedo` so they disable themselves when there's nothing to step to.
+There's no built-in toolbar. Build your own from buttons that call `$edit.undo()`, `$edit.redo()`, and `$edit.publish()`, and bind them to `$edit.canUndo` and `$edit.canRedo` so they disable themselves when there's nothing to step to.
 
 <div x-code-group>
 
@@ -626,7 +351,7 @@ There's no built-in toolbar. Build your own from buttons that call `$edit.undo()
 
 </div>
 
-The undo and redo buttons step through the whole page's history, so they also undo edits made in the other examples on this page. Publish sends the edits and clears the history; here they only go to a handler that shows the time, see [Publishing](#publishing).
+The undo and redo buttons step through the whole page's history, so they also undo edits made in the other examples on this page. Publish sends the edits and clears the history; here they only go to a handler that shows the time, see [Publishing](/docs/framework/core-plugins/edit-publishing).
 
 ### What a Reload Keeps
 
@@ -634,106 +359,7 @@ Edits live in memory, so a reload loses the ones not yet published. `.persist` k
 
 It's opt-in because the saved edits belong to one browser on one device, are invisible to everyone else, and go stale if the source changes underneath them; on a shared computer the next person would see them too. Use it for an editor where people work across reloads before they publish.
 
-`.persist` keeps text, order, nesting, sizes, attributes and classes, runtime locks, and a data list's order and record fields. Theme values are kept when `.persist` is on their control or their `.theme` scope. It doesn't keep closes, which are page state, or rows added, duplicated or deleted in a data list. The history is one for the whole document, so in a single-page app it carries across routes, and it's saved under every path the page has shown, capped at the latest 400 steps.
-
----
-
-## Publishing
-
-Edits are kept as a history of changes until you publish them. `$edit.patches()` turns that history into patches: the final state of each changed region, in terms of your source. Below, change something in any example on this page, then show the patches.
-
-<div x-code-group>
-
-```html copy
-<div x-data="{ patches: '' }">
-    <button @click="patches = JSON.stringify($edit.patches(), null, 2)">Show patches</button>
-    <pre x-text="patches"></pre>
-</div>
-```
-
-::: frame
-<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
-<template x-if="ready">
-<div class="col gap-3 w-full" x-data="{ patches: '' }">
-    <button class="sm self-start" @click="patches = JSON.stringify($edit.patches(), null, 2) || '[]'">Show patches</button>
-    <pre class="m-0 p-3 text-xs bg-surface-2 rounded max-h-64 overflow-auto" x-show="patches" x-text="patches"></pre>
-</div>
-</template>
-</div>
-:::
-
-</div>
-
-`$edit.publish()` sends them, and where they go depends on who the editor is for.
-
-**Your own product.** Set `$edit.onPublish` to a function and publish hands it the patches. Send them wherever your product keeps its content: your API, a database row, or the pipeline that rebuilds a published site. Return the response, or a promise of it; unless it reports an error, the edits count as published and the history starts again from there. If the handler throws or its promise rejects, `publish()` rejects with that error and the history is kept, so check the response before reading it, as below.
-
-```html copy
-<div x-data="{
-    init() {
-        this.$edit.onPublish = async patches => {
-            const res = await fetch('/api/pages/home', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(patches)
-            });
-            if (!res.ok) throw new Error('Saving failed: ' + res.status);
-            return res.json();
-        };
-    }
-}"></div>
-```
-
-A response shaped `{ results: [...] }` in which any result has `status: 'error'` counts as failed, and the history is kept so nothing is lost.
-
-**Your own project.** Run the local development server with editing switched on, edit the page in the browser, and publish: with no `onPublish` set, the patches go to the server, which writes them straight into your source files.
-
-```bash copy
-npx mnfst-run --edit
-```
-
-| Edited | Written to |
-|---|---|
-| Markup in a region | `index.html`, or the component's HTML file when the region is written in one |
-| A data list's order and record fields | The CSV or JSON file the data source names in `manifest.json` (a JSON file must hold an array of records) |
-| A component instance | The instance's attributes in `index.html`, or the component's HTML file in `main` scope |
-| Global theme values | The `manifest.theme.css` that `index.html` links, wherever it lives; with none linked, `styles/core/manifest.theme.css` |
-| Scoped theme values | The scope element's own `style` attribute, in the file it's written in |
-
-Each kind of edit writes only its own kind of file (HTML, CSS or data), inside the project, and never into a hidden folder such as `.git` or into `node_modules`. Files are written together or not at all. If one region or theme value can't be published, the others are published without it: its result is an error naming it and the reason, and its edits stay in the history; a region tied to it by a move between them stays back with it. Publishes run one at a time: a second waits for the first to finish, then builds on its result.
-
-When the page loads, it reads from the server how each source file looks, and publishing needs that. If it couldn't be read, because the page isn't served by `mnfst-run --edit` or the server didn't answer, a publish is refused and the edits are kept.
-
-In a single-page app, a region that isn't on screen keeps its edits: they wait in the history, show again when the region comes back, and publish then.
-
-A region inside content another plugin generates, such as `x-markdown` or `x-html` output, edits on the page and reaches `onPublish`, but its markup isn't in a file, so `mnfst-run --edit` refuses it by name, keeps its edits and publishes the other regions. Edit warns about it once in the console. The examples on this page are regions of that kind, inside the article's markdown, and their Publish goes to an `onPublish` handler.
-
-### Changed Source
-
-A publish checks that the source still matches what the page loaded. The development server reloads an open page whenever an HTML file changes, so the page normally shows the source as it is now. While edits that `.persist` doesn't keep are waiting to be published, including edits in a region that's off screen in a single-page app, that reload is held back so they aren't lost: Edit warns in the console, adds the files to `$edit.stale` and fires `edit:stale`. Publish them with `rebase`, as below, and the page reloads itself afterwards. Typing still in progress in a `.persist` region is recorded before a reload, so it isn't lost either, and a publish includes typing in progress wherever it is.
-
-If an HTML file the publish would rewrite has changed since the page loaded, the whole publish is refused, so a stale page can't overwrite newer work. Stylesheets and data files aren't checked this way, because their edits are written value by value: a CSS or data file saved in your code editor while the page is open doesn't block a publish.
-
-A refused publish keeps the history, lists the changed files in `$edit.stale`, and fires `edit:stale` on the document with `detail.files`. Either reload, to start again from the new source, or call `$edit.publish({ rebase: true })` to take the source as it is now and write the edits over it, each into the element it belongs to. After a rebase that wrote over changes, the page reloads itself shortly afterwards to show the result, and until it has, a plain publish is refused as stale.
-
-```html copy
-<div x-data @edit:stale.document="console.warn('Changed since this page loaded:', $event.detail.files)">
-    <p x-show="$edit.stale.length">
-        <span x-text="$edit.stale.join(', ')"></span> changed since this page loaded.
-        <button @click="$edit.publish({ rebase: true })">Publish over it</button>
-        <button @click="location.reload()">Reload</button>
-    </p>
-</div>
-```
-
-The page also remembers each element it shows as it was when it loaded: its tag, its attributes and its own text. A publish that edits an element changed in the meantime is refused with *reload to continue*, rebase or not, because its edit could land on the wrong thing. The same goes for identical elements, such as two `<li>Walk</li>`, when any of them moved or changed: the page can no longer tell which one you edited. Changes elsewhere in the file, outside the elements you edited, don't get in the way of a rebase.
-
-Edits kept from before, by `.persist` or by a region coming back on screen, can find the source changed under them. A text or attribute edit whose element changed can't be applied. Moves and other layout edits are kept when the only change was text in pieces they didn't move; if a piece they moved, added or removed changed, the region's layout edits can't be applied, and if pieces swapped places, Edit reports it rather than guess which is which. Edits that can't be applied are dropped from the history and reported: `$edit.conflicts` lists them, `edit:conflict` fires on the document with `detail.conflicts`, and Edit warns in the console.
-
-Each entry has a `reason` in words, its `region`, the element's `key` and its tag and text as `element`, the `prop` it edited, and the `value` it held. Layout entries have `prop: 'structure'`, and their `value` holds what was dropped, `{ changed, moved, copies }`, so typed content can be recovered. For a `.persist` region, the list survives reloads until you call `$edit.clearConflicts()`.
-
-The server only accepts edits from pages it serves on your machine, and its editing endpoints don't exist without `--edit`.
-
+`.persist` keeps text, order, nesting, sizes, attributes and classes, runtime locks, and a data list's order and record fields. Theme values are kept when `.persist` is on their control or their `.theme` scope. It doesn't keep closes, which are page state, or rows added, duplicated, or deleted in a data list. The history is one for the whole document, so in a single-page app it carries across routes, and it's saved under every path the page has shown, capped at the latest 400 steps.
 ---
 
 ## Theme Controls
@@ -744,7 +370,7 @@ The server only accepts edits from pages it serves on your machine, and its edit
 
 ```html copy
 <div x-edit.theme="card" style="--color-brand-surface: #7c3aed; --color-brand-inverse: #ffffff; --radius: 0.5rem">
-    <button class="brand">Adopt me</button>
+    <button class="brand">Give Poochie a treat</button>
 </div>
 
 <label>Brand <input type="color" x-edit.cssvar="card:--color-brand-surface"></label>
@@ -756,7 +382,7 @@ The server only accepts edits from pages it serves on your machine, and its edit
 <template x-if="ready">
 <div class="col gap-4 w-full">
     <div class="p-4 bg-surface-2 rounded" x-edit.theme="card-demo" style="--color-brand-surface: #7c3aed; --color-brand-inverse: #ffffff; --radius: 0.5rem">
-        <button class="brand">Adopt me</button>
+        <button class="brand">Give Poochie a treat</button>
     </div>
     <div class="row-wrap items-center gap-6">
         <label class="row items-center gap-2">Brand <input type="color" x-edit.cssvar="card-demo:--color-brand-surface"></label>
@@ -769,8 +395,7 @@ The server only accepts edits from pages it serves on your machine, and its edit
 
 </div>
 
-The variable changes live as the input moves, and is recorded as a step of the history when the input commits its value: when you let go of a slider or close the colour picker, and at each arrow-key step on a focused slider. Undo puts the previous value back. `.theme` on its own only declares a scope and makes nothing editable, so it can wrap regions safely. When published, a global value is written to the `manifest.theme.css` that `index.html` links, or `styles/core/manifest.theme.css` if none is. A scoped value is written into the scope element's own `style` attribute, never into a stylesheet, so it never reaches `:root`; a scope element inside content another plugin generates has no file to write to, so its values are refused by name. Publishing global values needs the project's own `manifest.theme.css`, linked from `index.html`. See [Publishing](#publishing). `.persist` on the control, or on its scope element, keeps unpublished values across a reload.
-
+The variable changes live as the input moves, and is recorded as a step of the history when the input commits its value: when you let go of a slider or close the colour picker, and at each arrow-key step on a focused slider. Undo puts the previous value back. `.theme` on its own only declares a scope and makes nothing editable, so it can wrap regions safely. When published, a global value is written to the `manifest.theme.css` that `index.html` links, or `styles/core/manifest.theme.css` if none is. A scoped value is written into the scope element's own `style` attribute, never into a stylesheet, so it never reaches `:root`; a scope element inside content another plugin generates has no file to write to, so its values are refused by name. Publishing global values needs the project's own `manifest.theme.css`, linked from `index.html`. See [Publishing](/docs/framework/core-plugins/edit-publishing). `.persist` on the control, or on its scope element, keeps unpublished values across a reload.
 ---
 
 ## Reference
@@ -785,10 +410,11 @@ The variable changes live as the input moves, and is recorded as a step of the h
 | `.size` | An element | Resize handles on its edges and corners |
 | `.data` | A region with an `x-for` list | Record fields shown with `x-text` or `x-html`, in a row or as the row itself, can be edited |
 | `.gated` | A region | Off until `$edit.on()` |
-| `.persist` | A region, a `.cssvar` control or a `.theme` scope | Unpublished edits survive a reload in this browser |
+| `.persist` | A region, a `.cssvar` control, or a `.theme` scope | Unpublished edits survive a reload in this browser |
 | `.bare` | A region | No editing visuals; everything else works |
 | `.lock` | An element in a region | No edits to it or anything inside it |
 | `.lock.move` `.lock.remove` `.lock.duplicate` `.lock.text` `.lock.attrs` `.lock.size` | An element in a region | Blocks one action; combine as needed |
+| `.grab` | An element inside a piece | Makes it the piece's handle: the piece drags only from it. See [Grab Handles](/docs/framework/core-plugins/move#grab-handles) |
 | `.theme` | Any element | Declares a scope for `.cssvar`, named by its value |
 | `.cssvar` | An input | Binds the input to `--var` or `scope:--var` |
 
@@ -836,7 +462,6 @@ Methods that take `el` use `$edit.target` when it's left out, and return `true` 
 | `data-edit-hotkeys="off"` | A region or any element above it | Turns off the undo and redo shortcuts there |
 | `data-unit` | A `.cssvar` input | A unit added to the input's value |
 | `:data-key` | A row of a data list | The record's `id`, bound as in `:data-key="walk.id"`, when the `x-for` has no `:key` |
-
 ---
 
 ## Styles
@@ -845,7 +470,7 @@ Every editing visual is drawn by CSS on the elements being edited, keyed off `da
 
 ### Accent
 
-`--edit-accent` colours every visual at once. Set it on a region to recolour that region, its grip included, or on `:root` for everything.
+`--edit-accent` colours every visual at once. Set it on a region to recolour that region, or on `:root` for everything.
 
 <div x-code-group>
 
@@ -871,7 +496,7 @@ Every editing visual is drawn by CSS on the elements being edited, keyed off `da
 
 ### Hover and Focus
 
-A piece shows a thin outline on hover and a solid one when focused. Text shows its own outline while you edit it.
+A piece shows a thin outline on hover and a solid one when focused. Text shows its own outline while you edit it, and a text cursor over it, while the rest of a piece shows a grab cursor.
 
 <div x-code-group>
 
@@ -910,140 +535,14 @@ A piece shows a thin outline on hover and a solid one when focused. Text shows i
 
 </div>
 
-### Grip
-
-The grip that drags a piece of text is one element at the end of `<body>`, shown beside whichever piece you hover or focus. It takes `--edit-accent`, `--edit-grip-size` and `--edit-grip-offset` from that piece, so set them on the region as you would any other variable.
-
-<div x-code-group>
-
-```html copy
-<div x-edit="notes" style="--edit-accent: #db2777; --edit-grip-size: 1.25rem; --edit-grip-offset: 0.5rem">
-    <p>Hover me, then drag the dotted grip.</p>
-    <p>Or drag me instead.</p>
-</div>
-```
-
-::: frame
-<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
-<template x-if="ready">
-<div class="col gap-2 ps-6 w-full" x-edit="notes-demo" style="--edit-accent: #db2777; --edit-grip-size: 1.25rem; --edit-grip-offset: 0.5rem">
-    <p class="m-0">Hover me, then drag the dotted grip.</p>
-    <p class="m-0">Or drag me instead.</p>
-</div>
-</template>
-</div>
-:::
-
-</div>
-
-### Drop Targets
-
-While you drag, the container a piece would land in gets a dashed outline, other regions it could land in are marked with `data-edit-drop-target`, and the stand-in holding its place is marked `data-edit-ghost`.
-
-<div x-code-group>
-
-```html copy
-<style>
-    .targets [data-edit-drop-target],
-    .targets :has(> [data-edit-ghost]) {
-        outline: none;
-        background: color-mix(in oklch, #16a34a 12%, transparent);
-    }
-    .targets [data-edit-ghost] {
-        opacity: 1;
-        outline: 2px dashed #16a34a;
-    }
-</style>
-
-<div class="targets grid grid-cols-2 gap-4">
-    <ul x-edit.move="indoor"><li>Puzzle</li><li>Tug</li></ul>
-    <ul x-edit.move="outdoor"><li>Frisbee</li></ul>
-</div>
-```
-
-::: frame
-<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
-<template x-if="ready">
-<div class="w-full">
-    <style>
-        .targets [data-edit-drop-target],
-        .targets :has(> [data-edit-ghost]) {
-            outline: none;
-            background: color-mix(in oklch, #16a34a 12%, transparent);
-        }
-        .targets [data-edit-ghost] {
-            opacity: 1;
-            outline: 2px dashed #16a34a;
-        }
-    </style>
-    <div class="targets grid grid-cols-2 gap-4">
-        <ul class="col gap-2 m-0 p-2 list-none rounded" x-edit.move="indoor-demo">
-            <li class="m-0 p-3 bg-surface-2 rounded">Puzzle</li>
-            <li class="m-0 p-3 bg-surface-2 rounded">Tug</li>
-        </ul>
-        <ul class="col gap-2 m-0 p-2 list-none rounded" x-edit.move="outdoor-demo">
-            <li class="m-0 p-3 bg-surface-2 rounded">Frisbee</li>
-        </ul>
-    </div>
-</div>
-</template>
-</div>
-:::
-
-</div>
-
-### Resize Handles
-
-Each handle is a `<span data-edit-handle>` inside the element, valued by its edge. Its grab area is transparent and its visible line is its `::before`.
-
-<div x-code-group>
-
-```html copy
-<style>
-    .thick-handles [data-edit-handle]::before {
-        background-color: var(--color-line);
-        border-radius: 999px;
-    }
-    .thick-handles [data-edit-handle="right"]::before { width: 4px; height: 2.5rem; }
-    .thick-handles [data-edit-handle="bottom"]::before { width: 2.5rem; height: 4px; }
-</style>
-
-<div x-edit.size="kennel-size" class="thick-handles"
-     style="width: 16rem; height: 6rem; --edit-size-edges: right bottom">
-    Drag the right or bottom edge
-</div>
-```
-
-::: frame
-<div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() => setTimeout(() => { const t = $el.querySelector('template'), c = t && t._x_currentIfEl; if (c && !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
-<template x-if="ready">
-<div class="py-4">
-    <style>
-        .thick-handles [data-edit-handle]::before {
-            background-color: var(--color-line);
-            border-radius: 999px;
-        }
-        .thick-handles [data-edit-handle="right"]::before { width: 4px; height: 2.5rem; }
-        .thick-handles [data-edit-handle="bottom"]::before { width: 2.5rem; height: 4px; }
-    </style>
-    <div class="p-4 bg-surface-2 rounded thick-handles" x-edit.size="kennel-size-demo" style="width: 16rem; height: 6rem; --edit-size-edges: right bottom">Drag the right or bottom edge</div>
-</div>
-</template>
-</div>
-:::
-
-</div>
-
 ### Variables
 
 | Variable | Default | Sets |
 |---|---|---|
 | `--edit-accent` | `--color-brand-content` | Colour of every editing visual |
 | `--edit-ghost-opacity` | `0.4` | Opacity of the stand-in during a drag |
-| `--edit-grip-size` | `0.75rem` | Width of the grip; its height is 1.5 times this |
-| `--edit-grip-offset` | `0.25rem` | Gap between the grip and its text |
 | `--edit-drop-reach` | `48px` | How far outside another region a drop still lands in it |
-| `--edit-size` | `both` | Resize axes: `both`, `x`, `y`, `none` |
+| `--edit-size` | `both` | Resize axes: `both`, `x`, `y`, `none`; see [Resize](/docs/framework/core-plugins/resize) |
 | `--edit-size-edges` | every edge and corner of those axes | Which handles to draw |
 | `--edit-size-handle` | `1rem` | Grab area of each handle |
 | `--edit-size-snap`, `-x`, `-y` | none | Snap points |
@@ -1056,17 +555,21 @@ Each handle is a `<span data-edit-handle>` inside the element, valued by its edg
 |---|---|
 | `data-edit-area` | Every region; `bare` on a `.bare` one |
 | `data-edit-piece` | Every piece that can be moved |
+| `data-edit-grabbable` | A piece with its own `x-edit.grab` handle |
 | `data-edit-text` | Page text being edited with Rich Text |
-| `data-edit-grip` | The grip for dragging text |
 | `data-edit-dragging` | The piece being dragged; `keyboard` when picked up by keyboard |
 | `data-edit-ghost` | The stand-in holding a dragged piece's place |
 | `data-edit-drop-target` | Other regions a dragged piece can land in |
 | `data-edit-handle` | A resize handle, valued by its edge |
+| `data-edit-resizing` | The handle being dragged |
+| `data-edit-snapped` | The element being resized, and its handle, while an edge sits on a snap point |
 | `data-edit-key` | Source elements in a region, naming them for publishing; never set or change it |
-
 ---
 
 ## Related
 
+- [Move](/docs/framework/core-plugins/move) drags pieces within and between regions.
+- [Resize](/docs/framework/core-plugins/resize) adds edge handles, snap points, and closing.
+- [Publishing](/docs/framework/core-plugins/edit-publishing) sends the edits to your backend or writes them into your source files.
 - [Rich Text](/docs/framework/core-plugins/rich-text) edits a field's text with formatting, and powers page text here.
 - [Dropdowns](/docs/framework/elements/dropdowns#context-menu) build the right-click menus.

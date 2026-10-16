@@ -14,9 +14,14 @@
     get pageIndex() { return this.pages.findIndex(p => this.at(p.href)) },
     get prev() { return this.pageIndex > 0 ? this.pages[this.pageIndex - 1] : null },
     get next() { const i = this.pageIndex; return i > -1 && i < this.pages.length - 1 ? this.pages[i + 1] : null },
-    get askClaude() {
+    aiApps: [
+      { name: 'Claude', icon: 'simple-icons:claude', url: 'https://claude.ai/new?q=' },
+      { name: 'ChatGPT', icon: 'simple-icons:openai', url: 'https://chatgpt.com/?q=' },
+      { name: 'Perplexity', icon: 'simple-icons:perplexity', url: 'https://www.perplexity.ai/search?q=' }
+    ],
+    askIn(app) {
       const url = this.canonical + $route.replace(/\/$/, '');
-      return 'https://claude.ai/new?q=' + encodeURIComponent(`Read ${url} from the Manifest docs and help me with it.`);
+      return app.url + encodeURIComponent(`Read ${url} from the Manifest docs and help me with it.`);
     },
     async copyPage() {
       const md = await fetch(this.article.doc).then(r => r.text());
@@ -80,10 +85,19 @@
               <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
               <span x-text="copied ? 'Copied' : 'Copy page'"></span>
             </button>
-            <a :href="askClaude" target="_blank" rel="noopener" role="button" class="sm ghost outlined" aria-label="Ask Claude about this page">
-              <span x-icon="'simple-icons:claude'"></span>
-              <span>Ask Claude</span>
-            </a>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
+              <span x-icon="'lucide:sparkles'"></span>
+              <span>Ask AI</span>
+              <span x-icon="'lucide:chevron-down'"></span>
+            </button>
+            <menu popover :id="'ask-ai-' + src">
+              <template x-for="app in aiApps" :key="app.name">
+                <a :href="askIn(app)" target="_blank" rel="noopener" role="button" class="sm ghost justify-start">
+                  <span x-icon="app.icon"></span>
+                  <span x-text="'Ask ' + app.name"></span>
+                </a>
+              </template>
+            </menu>
           </div>
         </div>
       </template>
