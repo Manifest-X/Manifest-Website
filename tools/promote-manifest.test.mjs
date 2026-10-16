@@ -1,144 +1,219 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, writeFile, readFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { createServer } from 'node:http';
-import { sitemapPaths, pageText, snapshot, diff, gate, validateApprovals, template, main } from './promote-manifest.mjs';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { normalize, refs, source, crawl, diff, gate, validateApprovals, template, main } from './promote-manifest.mjs';
+import { classify } from '../.claude/hooks/promote-gate.mjs';
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const HOOK = join(ROOT, '.claude/hooks/promote-gate.mjs');
+const H = (c) => c.repeat(64);
+
+const page = (body, { title = 'Doc', md } = {}) =>
+  `<html><head><title>${title}</title></head><body>${md ? `<main data-mnfst-md-src="${md}">` : '<main>'}${body}</main></body></html>`;
+
+const BASE = {
+  'index.html': page('<a href="/docs/reset">Reset</a><a href="/legal/privacy">Privacy</a>'),
+  'sitemap.xml': '<urlset><url><loc>https://manifestx.dev/docs/reset</loc></url><url><loc>https://manifestx.dev/legal/privacy</loc></url></urlset>',
+  'manifest.json': JSON.stringify({ components: ['components/header.html'], data: { faq: '/data/faq.yaml' } }),
+  'components/header.html': '<header>Manifest</header>',
+  'data/faq.yaml': '- q: Price\n  a: Free\n',
+  'docs/reset/index.html': page('Reset', { md: '/articles/reset.md' }),
+  'articles/reset.md': '# Reset',
+  'legal/privacy/index.html': page('Privacy', { md: '/articles/privacy.md' }),
+  'articles/privacy.md': '# Privacy v1',
+};
 
 async function site(files) {
   const root = await mkdtemp(join(tmpdir(), 'pm-'));
-  const locs = Object.keys(files.pages).map((p) => `<url><loc>https://manifestx.dev${p}</loc></url>`).join('');
-  const all = { 'sitemap.xml': `<urlset>${locs}</urlset>`, ...files.extra };
-  for (const [p, page] of Object.entries(files.pages)) {
-    const md = page.md ? ` data-mnfst-md-src="/articles${p}.md"` : '';
-    all[(p === '/' ? '' : p.slice(1) + '/') + 'index.html'] = `<html><body><main${md}>${page.html ?? ''}</main></body></html>`;
-    if (page.md) all[`articles${p}.md`] = page.md;
-  }
-  for (const [rel, body] of Object.entries(all)) {
+  for (const [rel, body] of Object.entries(files)) {
+    if (body == null) continue;
     await mkdir(dirname(join(root, rel)), { recursive: true });
     await writeFile(join(root, rel), body);
   }
   return root;
 }
 
-const prodPages = {
-  '/': { html: 'Home' },
-  '/docs/styles/reset': { md: '# Reset', html: 'nav A' },
-  '/legal/privacy': { md: '# Privacy v1' },
-};
-
-test('sitemapPaths normalises hosts and trailing slashes', () => {
-  assert.deepEqual(sitemapPaths('<loc>https://a.dev/docs/x/</loc><loc>https://b.dev/</loc><loc> https://a.dev/docs/x </loc>'), ['/', '/docs/x']);
-});
-
-test('pageText ignores scripts, styles and CDN-injected beacons', () => {
-  const a = '<p>Hi</p><script src="x"></script>';
-  const b = '<p>Hi</p>\n<script defer src="https://static.cloudflareinsights.com/beacon.min.js"></script><style>p{}</style>';
-  assert.equal(pageText(a), pageText(b));
-});
-
-test('article pages fingerprint the markdown, so rebakes of the shell do not count as changes', async () => {
-  const prod = await snapshot(await site({ pages: prodPages }));
-  const stag = await snapshot(await site({ pages: { ...prodPages, '/docs/styles/reset': { md: '# Reset', html: 'nav B' } } }));
-  assert.deepEqual(diff(stag, prod), []);
-});
-
-test('diff reports added, changed and removed pages', async () => {
-  const prod = await snapshot(await site({ pages: prodPages }));
-  const stag = await snapshot(await site({
-    pages: {
-      '/': { html: 'Home' },
-      '/docs/styles/reset': { md: '# Reset' },
-      '/legal/privacy': { md: '# Privacy v2' },
-      '/docs/platform/connector': { md: '# Claude Connector' },
-    },
-  }));
-  const rows = diff(stag, prod).map((r) => [r.kind, r.path, r.source]);
-  assert.deepEqual(rows, [
-    ['added', '/docs/platform/connector', '/articles/docs/platform/connector.md'],
-    ['changed', '/legal/privacy', '/articles/legal/privacy.md'],
-  ]);
-  const removed = diff(prod, stag).find((r) => r.kind === 'removed');
-  assert.equal(removed.path, '/docs/platform/connector');
-});
-
-test('gate blocks unapproved additions and passes approved ones', () => {
-  const rows = [{ kind: 'added', path: '/docs/a', hash: 'h1', source: 'x' }];
-  assert.equal(gate(rows, { approvals: [] }).ok, false);
-  const ok = gate(rows, { approvals: [{ path: '/docs/a/', approver: 'Andrew', date: '2026-10-16' }] });
-  assert.equal(ok.ok, true);
-  assert.equal(ok.rows[0].status, 'approved');
-});
-
-test('an approval bound to a sha256 goes stale when the page changes', () => {
-  const h = 'a'.repeat(64);
-  const rows = [{ kind: 'changed', path: '/docs/a', hash: 'b'.repeat(64), source: 'x' }];
-  const r = gate(rows, { approvals: [{ path: '/docs/a', approver: 'Andrew', date: '2026-10-16', sha256: h }] });
-  assert.equal(r.ok, false);
-  assert.equal(r.rows[0].status, 'stale');
-});
-
-test('removals never need approval', () => {
-  assert.equal(gate([{ kind: 'removed', path: '/docs/a', hash: 'h' }], { approvals: [] }).ok, true);
-});
-
-test('malformed approvals block the promote', () => {
-  assert.equal(gate([], null).ok, false);
-  const { errors } = validateApprovals({ approvals: [{ path: '/a', approver: '', date: '2026-10-16' }, { path: '/b', approver: 'A', date: '16/10' }] });
-  assert.equal(errors.length, 2);
-  assert.equal(gate([], { approvals: [{ path: 'x', approver: 'A', date: '2026-10-16' }] }).ok, false);
-});
-
-test('template lists each pending page with its hash and blank approver', () => {
-  const t = template([{ kind: 'added', path: '/a', hash: 'h' }, { kind: 'removed', path: '/b', hash: 'g' }]);
-  assert.deepEqual(t, { approvals: [{ path: '/a', sha256: 'h', approver: '', date: '', note: 'added' }] });
-});
-
-test('main exits 1 on an unapproved staged article and 0 once approved', async () => {
-  const prod = await site({ pages: prodPages });
-  const stag = await site({ pages: { ...prodPages, '/docs/platform/connector': { md: '# Claude Connector' } } });
-  const out = [];
-  const empty = join(await mkdtemp(join(tmpdir(), 'pm-')), 'none.json');
-  assert.equal(await main(['--staging', stag, '--production', prod, '--approvals', empty], (s) => out.push(s)), 1);
-  assert.match(out[0], /UNAPPROVED\s+added\s+\/docs\/platform\/connector/);
-  assert.match(out[0], /BLOCKED: 1 unapproved/);
-
-  const file = join(dirname(empty), 'ok.json');
-  await writeFile(file, JSON.stringify({ approvals: [{ path: '/docs/platform/connector', approver: 'Andrew', date: '2026-10-16' }] }));
-  assert.equal(await main(['--staging', stag, '--production', prod, '--approvals', file], () => {}), 0);
-});
-
-test('reads deployments over HTTP', async () => {
-  const root = await site({ pages: { ...prodPages, '/docs/new': { md: '# New' } } });
-  const { readFile } = await import('node:fs/promises');
+async function serve(root, { fail } = {}) {
   const srv = createServer(async (req, res) => {
     let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
+    if (fail && p === fail) return (res.statusCode = 500), res.end('boom');
     if (p.endsWith('/')) p += 'index.html';
-    try {
-      res.end(await readFile(join(root, p)));
-    } catch {
-      res.statusCode = 404;
-      res.end('Not found');
+    for (const c of [p, p + '/index.html']) {
+      try {
+        return res.end(await readFile(join(root, c)));
+      } catch {}
     }
+    res.statusCode = 404;
+    res.end('Not found');
   });
-  await new Promise((r) => srv.listen(0, r));
+  await new Promise((r) => srv.listen(0, '127.0.0.1', r));
+  return { url: `http://127.0.0.1:${srv.address().port}`, close: () => srv.close() };
+}
+
+const rowsOf = async (stag, prod) => diff(...(await crawl([source(stag), source(prod)])));
+const kinds = (rows) => rows.map((r) => `${r.kind} ${r.path}`);
+
+test('normalize strips only Cloudflare injections, ?v= stamps and the manifest deployment key', () => {
+  const a = '<p>x</p><script src="/a.js?v=abc123ef"></script></body>';
+  const b = '<p>x</p><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{}\'></script><script src="/a.js?v=99887766"></script><script>(function(){function c(){var b=a.contentDocument||1}})();</script></body>';
+  assert.equal(normalize('/i.html', Buffer.from(a)).toString(), normalize('/i.html', Buffer.from(b)).toString());
+  assert.equal(normalize('/manifest.json', Buffer.from('{"a":1,"deployment":"x"}')).toString(), normalize('/manifest.json', Buffer.from('{"a":1}')).toString());
+  assert.notEqual(normalize('/i.html', Buffer.from('<p>x</p><script>evil()</script>')).toString(), normalize('/i.html', Buffer.from('<p>x</p>')).toString());
+});
+
+test('refs finds routes, assets, sitemap locs, manifest entries and md sources', () => {
+  const r = refs('/docs/x/index.html', '<a href="/docs/y">y</a><img src="../img/a.png"><loc>https://manifestx.dev/legal</loc><div x-markdown="\'/articles/z.md\'"></div><a href="https://other.dev/q">');
+  assert.deepEqual(r.sort(), ['/articles/z.md', '/docs/img/a.png', '/docs/y/index.html', '/legal/index.html']);
+  assert.deepEqual(refs('/manifest.json', '{"components":["components/h.html"]}'), ['/components/h.html']);
+});
+
+test('identical builds pass with no rows', async () => {
+  assert.deepEqual(await rowsOf(await site(BASE), await site(BASE)), []);
+});
+
+test('non-page files are gated: components, data yaml, images, files no page links to', async () => {
+  const stag = await site({ ...BASE, 'components/header.html': '<header>Manifest Pro $15</header>', 'data/faq.yaml': '- q: Price\n  a: $15\n', 'og/new.png': 'png', 'scripts/orphan.js': 'x()' });
+  assert.deepEqual(kinds(await rowsOf(stag, await site(BASE))), [
+    'changed /components/header.html',
+    'changed /data/faq.yaml',
+    'added /og/new.png',
+    'added /scripts/orphan.js',
+  ]);
+});
+
+test('title or meta change on a markdown-backed page is gated', async () => {
+  const stag = await site({ ...BASE, 'docs/reset/index.html': page('Reset', { md: '/articles/reset.md', title: 'Reset - now with Pro' }) });
+  assert.deepEqual(kinds(await rowsOf(stag, await site(BASE))), ['changed /docs/reset/index.html']);
+});
+
+test('a page dropped from the staging sitemap but still served and edited is changed, not removed', async () => {
+  const stag = await site({ ...BASE, 'sitemap.xml': '<urlset><url><loc>https://manifestx.dev/docs/reset</loc></url></urlset>', 'index.html': page('<a href="/docs/reset">Reset</a>'), 'articles/privacy.md': '# Privacy v2' });
+  const s = await serve(stag);
+  const p = await serve(await site(BASE));
   try {
-    const url = `http://127.0.0.1:${srv.address().port}`;
-    const rows = diff(await snapshot(url), await snapshot(await site({ pages: prodPages })));
-    assert.deepEqual(rows.map((r) => r.path), ['/docs/new']);
+    const rows = await rowsOf(s.url, p.url);
+    assert.ok(kinds(rows).includes('changed /articles/privacy.md'));
+    assert.ok(!rows.some((r) => r.kind === 'removed'));
+    assert.equal(gate(rows, { approvals: [] }).ok, false);
   } finally {
-    srv.close();
+    s.close();
+    p.close();
   }
 });
 
-test('docs nav is gated once as /data/docs.yaml, not on every page that bakes it', async () => {
-  const nav = (g) => `<nav aria-label="Documentation"><small>${g}</small></nav>`;
-  const prod = await snapshot(await site({ pages: { '/docs': { html: nav('Styles') + 'Docs' } }, extra: { 'data/docs.yaml': '- group: Styles\n' } }));
-  const stag = await snapshot(await site({ pages: { '/docs': { html: nav('Platform Styles') + 'Docs' } }, extra: { 'data/docs.yaml': '- group: Platform\n- group: Styles\n' } }));
-  assert.deepEqual(diff(stag, prod).map((r) => [r.kind, r.path, r.source]), [['changed', '/data/docs.yaml', 'nav']]);
+test('removed means absent from staging, and removals pass', async () => {
+  const stag = await site({ ...BASE, 'legal/privacy/index.html': null, 'articles/privacy.md': null, 'index.html': page('<a href="/docs/reset">Reset</a>') });
+  const rows = await rowsOf(stag, await site(BASE));
+  assert.deepEqual(kinds(rows.filter((r) => r.kind === 'removed')), ['removed /articles/privacy.md', 'removed /legal/privacy/index.html']);
+  assert.equal(gate(rows.filter((r) => r.kind === 'removed'), { approvals: [] }).ok, true);
 });
 
-test('other page text still counts, including the site header nav', () => {
-  assert.notEqual(pageText('<nav>Home Docs</nav><p>x</p>'), pageText('<nav>Home Docs Pricing</nav><p>x</p>'));
+test('crawls live hosts over HTTP from seeds', async () => {
+  const s = await serve(await site({ ...BASE, 'articles/reset.md': '# Reset v2' }));
+  const p = await serve(await site(BASE));
+  try {
+    assert.deepEqual(kinds(await rowsOf(s.url, p.url)), ['changed /articles/reset.md']);
+  } finally {
+    s.close();
+    p.close();
+  }
+});
+
+test('network errors and 5xx abort instead of passing', async () => {
+  const s = await serve(await site(BASE), { fail: '/data/faq.yaml' });
+  const p = await serve(await site(BASE));
+  try {
+    await assert.rejects(rowsOf(s.url, p.url), /HTTP 500/);
+    await assert.rejects(rowsOf('http://127.0.0.1:1', p.url), /ECONNREFUSED|fetch failed/);
+  } finally {
+    s.close();
+    p.close();
+  }
+});
+
+test('approvals need path, approver, date and sha256; a sha256 mismatch is stale', () => {
+  const rows = [{ kind: 'added', path: '/a', hash: H('a') }];
+  assert.equal(gate(rows, { approvals: [] }).ok, false);
+  assert.equal(gate(rows, { approvals: [{ path: '/a', approver: 'Andrew', date: '2026-10-16' }] }).ok, false);
+  assert.equal(gate(rows, { approvals: [{ path: '/a', approver: 'Andrew', date: '2026-10-16', sha256: H('b') }] }).rows[0].status, 'stale');
+  assert.equal(gate(rows, { approvals: [{ path: '/a', approver: 'Andrew', date: '2026-10-16', sha256: H('a') }] }).ok, true);
+  assert.equal(gate([], null).ok, false);
+  assert.equal(validateApprovals({ approvals: [{ path: '/a', approver: '', date: '2026-10-16', sha256: H('a') }, { path: '/b', approver: 'A', date: '16/10', sha256: H('a') }] }).errors.length, 2);
+});
+
+test('template lists pending files with their hashes', () => {
+  assert.deepEqual(template([{ kind: 'added', path: '/a', hash: 'h' }, { kind: 'removed', path: '/b', hash: 'g' }]), {
+    approvals: [{ path: '/a', sha256: 'h', approver: '', date: '', note: 'added' }],
+  });
+});
+
+test('main blocks an unapproved staged article and passes once approved by hash', async () => {
+  const prod = await site(BASE);
+  const stag = await site({ ...BASE, 'index.html': page('<a href="/docs/connector">C</a><a href="/docs/reset">R</a><a href="/legal/privacy">P</a>'), 'docs/connector/index.html': page('C', { md: '/articles/connector.md' }), 'articles/connector.md': '# Claude Connector' });
+  const out = [];
+  const none = join(await mkdtemp(join(tmpdir(), 'pm-')), 'none.json');
+  assert.equal(await main(['--staging', stag, '--production', prod, '--approvals', none], (s) => out.push(s)), 1);
+  assert.match(out[0], /UNAPPROVED\s+added\s+\/docs\/connector\/index\.html/);
+  const t = [];
+  await main(['--staging', stag, '--production', prod, '--template'], (s) => t.push(s));
+  const approvals = JSON.parse(t[0]);
+  for (const a of approvals.approvals) Object.assign(a, { approver: 'Andrew', date: '2026-10-16' });
+  await writeFile(none, JSON.stringify(approvals));
+  assert.equal(await main(['--staging', stag, '--production', prod, '--approvals', none], () => {}), 0);
+});
+
+// Hook
+
+const hook = (input, env = {}) =>
+  spawnSync(process.execPath, [HOOK], { input: typeof input === 'string' ? input : JSON.stringify(input), encoding: 'utf8', env: { ...process.env, ...env } });
+
+test('hook classifies Website promotes by id, name, missing id and .mcp.json pin', async () => {
+  const other = await site({ '.mcp.json': JSON.stringify({ mcpServers: { m: { headers: { 'X-Manifest-Project': 'proj_other' } } } }) });
+  const web = await site({ '.mcp.json': JSON.stringify({ mcpServers: { m: { headers: { 'x-manifest-project': 'proj_manifest_website' } } } }) });
+  const bare = await site({ 'x.txt': '' });
+  const t = 'mcp__x__manifest_promote';
+  assert.equal(classify({ tool_name: t, tool_input: {}, cwd: web })?.kind, 'promote');
+  assert.equal(classify({ tool_name: t, tool_input: {}, cwd: bare })?.kind, 'promote');
+  assert.equal(classify({ tool_name: t, tool_input: { project_id: 'Manifest-Website' }, cwd: other })?.kind, 'promote');
+  assert.equal(classify({ tool_name: t, tool_input: { project_id: 'proj_manifest_website' }, cwd: other })?.kind, 'promote');
+  assert.equal(classify({ tool_name: t, tool_input: {}, cwd: other }), null);
+  assert.equal(classify({ tool_name: t, tool_input: { project_id: 'proj_other' } }), null);
+  assert.deepEqual(classify({ tool_name: 'mcp__x__manifest_rollback', tool_input: { deployment_id: 'dep_1' }, cwd: web }), { kind: 'rollback', target: 'dep_1' });
+  assert.equal(classify({ tool_name: 'mcp__x__manifest_publish', tool_input: { env: 'production' }, cwd: web })?.kind, 'publish');
+  assert.equal(classify({ tool_name: 'mcp__x__manifest_publish', tool_input: { env: 'staging' }, cwd: web }), null);
+  assert.equal(classify({ tool_name: 'Bash', tool_input: { command: 'npx mnfst-publish --promote' }, cwd: web })?.kind, 'promote');
+  assert.equal(classify({ tool_name: 'Bash', tool_input: { command: `cd ${other} && npx mnfst-publish --promote` }, cwd: web }), null);
+  assert.equal(classify({ tool_name: 'Bash', tool_input: { command: 'X=1 npx mnfst-publish --env production --source render' }, cwd: web })?.kind, 'publish');
+  assert.equal(classify({ tool_name: 'Bash', tool_input: { command: 'ls' }, cwd: web }), null);
+});
+
+test('hook blocks an unapproved promote with no project_id and allows a clean one', async () => {
+  const prod = await site(BASE);
+  const dirty = await site({ ...BASE, 'articles/reset.md': '# changed' });
+  const env = { PROMOTE_PRODUCTION: prod, PROMOTE_APPROVALS: join(prod, 'none.json') };
+  const r = hook({ tool_name: 'mcp__x__manifest_promote', tool_input: {}, cwd: ROOT }, { ...env, PROMOTE_STAGING: dirty });
+  assert.equal(r.status, 2);
+  assert.match(r.stderr, /UNAPPROVED\s+changed \/articles\/reset\.md/);
+  assert.equal(hook({ tool_name: 'mcp__x__manifest_promote', tool_input: {}, cwd: ROOT }, { ...env, PROMOTE_STAGING: await site(BASE) }).status, 0);
+});
+
+test('hook blocks Website rollbacks unless listed, and a gate crash blocks', async () => {
+  const dir = await site({ 'ok.json': JSON.stringify({ approvals: [], rollbacks: [{ deployment_id: 'dep_ok', approver: 'Andrew', date: '2026-10-16' }] }) });
+  const env = { PROMOTE_APPROVALS: join(dir, 'ok.json') };
+  const rb = (id) => hook({ tool_name: 'mcp__x__manifest_rollback', tool_input: { project_id: 'proj_manifest_website', deployment_id: id } }, env).status;
+  assert.equal(rb('dep_445fe657'), 2);
+  assert.equal(rb('dep_ok'), 0);
+  const crash = hook({ tool_name: 'mcp__x__manifest_promote', tool_input: {}, cwd: ROOT }, { PROMOTE_STAGING: 'http://127.0.0.1:1', PROMOTE_PRODUCTION: 'http://127.0.0.1:1' });
+  assert.equal(crash.status, 2);
+});
+
+test('hook blocks on malformed input and passes unrelated tools', () => {
+  assert.equal(hook('not json').status, 2);
+  assert.equal(hook('').status, 2);
+  assert.equal(hook({ tool_name: 'Read', tool_input: {} }).status, 0);
 });
