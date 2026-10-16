@@ -230,7 +230,7 @@ export function calls(cmd, cwd, depth = 0, code = false) {
   const parsed = commands(cmd);
   for (const sub of parsed.subs) out.push(...calls(sub, cwd, depth + 1, code));
   let clean = depth === 0 && !code;
-  for (const words of parsed) {
+  for (const [n, words] of parsed.entries()) {
     if (code) {
       words.forEach((w, i) => {
         if (PROGRAM.test(w.text)) {
@@ -255,7 +255,8 @@ export function calls(cmd, cwd, depth = 0, code = false) {
       } else if (/^(?:cd|pushd|popd)$/.test(b)) {
         // Known only for a leading, unconditional cd to an existing dir outside any subshell.
         const t = words[i + 1];
-        const plain = first && clean && !words.sub && (words.sep == null || words.sep === ';' || words.sep === '\n');
+        const next = parsed[n + 1]?.sep;
+        const plain = first && clean && !words.sub && (words.sep == null || words.sep === ';' || words.sep === '\n') && next !== '|' && next !== '&';
         cwd = !plain || b === 'popd' || t?.text === '-' ? null : !t ? homedir() : dirAt(cwd, t);
         if (cwd == null) clean = false;
         break;

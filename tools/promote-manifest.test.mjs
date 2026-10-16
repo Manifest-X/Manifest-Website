@@ -321,6 +321,8 @@ test('Bash directory is unknown after an unresolvable, conditional, late or subs
   assert.equal(B(`false || cd ${other}; npx mnfst-publish`, ROOT), 'publish');
   assert.equal(B(`ls; cd ${other}; npx mnfst-publish`, ROOT), 'publish');
   assert.equal(B(`(cd ${other} && npx mnfst-publish)`, ROOT), 'publish');
+  assert.equal(B(`cd ${other} | cat; npx mnfst-publish`, ROOT), 'publish');
+  assert.equal(B(`cd ${other} & npx mnfst-publish`, ROOT), 'publish');
   assert.equal(B(`(cd ${other}) && npx mnfst-publish --promote`), 'promote');
   assert.equal(B(`echo $(cd ${other}; npx mnfst-publish)`, ROOT), 'publish');
   assert.equal(B(`bash -c "cd ${other} && npx mnfst-publish"`, ROOT), 'publish');
