@@ -64,17 +64,17 @@ Until Rich Text has loaded, `$rich` reads as an empty field that does nothing, s
 
 Rich Text reads and writes markdown on its own. Showing a stored value as formatted text elsewhere on the page, as some examples here do, uses the [Markdown](/docs/framework/core-plugins/markdown) plugin's `x-markdown`, which is in the default bundle; a selective list needs `markdown` for that, as above.
 
-Field and control styles are included in Manifest CSS or as a standalone stylesheet. Both reference [theme](/docs/framework/styles/theme) variables, such as the surface, line and brand colours fields and the style examples use, so load the theme stylesheet too.
+Field and control styles are included in Manifest CSS or as a standalone stylesheet. Both reference [theme](/docs/framework/styles/theme) variables, such as the surface, line and brand colours fields and the style examples use. Link your project's own `manifest.theme.css`, which can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification, as in [Setup](/docs/framework/getting-started/setup#styles).
 
 <div x-code-group copy>
 
 ```html "Manifest CSS"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css">
+<link rel="stylesheet" href="/manifest.theme.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
 ```
 
 ```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css">
+<link rel="stylesheet" href="/manifest.theme.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.rich.text.css">
 ```
 

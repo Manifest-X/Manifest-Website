@@ -88,17 +88,17 @@ The examples on this page also use Tailwind utility classes, such as `grid-cols-
 
 To load it only for signed-in editors, leave it out of `data-plugins` and call `Manifest.loadPlugin('edit')`{copy} once you know the visitor can edit. The regions already on the page become editable when it loads, except those marked [`.gated`](#regions), which stay switched off until `$edit.on()`. Until then, `$edit` is an idle stand-in, so bindings such as `:disabled="!$edit.canUndo"` work before Edit loads and pick up the real state once it has; anything assigned to it in the meantime, such as `onPublish`, is kept and carries over to Edit when it loads.
 
-Editor styles are included in Manifest CSS, or as standalone stylesheets for Edit and Rich Text. Both reference [theme](/docs/framework/styles/theme) variables, such as the brand colours the editing visuals and examples use, so load the theme stylesheet too.
+Editor styles are included in Manifest CSS, or as standalone stylesheets for Edit and Rich Text. Both reference [theme](/docs/framework/styles/theme) variables, such as the brand colours the editing visuals and examples use. Link your project's own `manifest.theme.css`, which can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification, as in [Setup](/docs/framework/getting-started/setup#styles).
 
 <div x-code-group copy>
 
 ```html "Manifest CSS"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css">
+<link rel="stylesheet" href="/manifest.theme.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
 ```
 
 ```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css">
+<link rel="stylesheet" href="/manifest.theme.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.edit.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.rich.text.css">
 ```
@@ -769,7 +769,7 @@ The server only accepts edits from pages it serves on your machine, and its edit
 
 </div>
 
-The variable changes live as the input moves, and is recorded as a step of the history when the input commits its value: when you let go of a slider or close the colour picker, and at each arrow-key step on a focused slider. Undo puts the previous value back. `.theme` on its own only declares a scope and makes nothing editable, so it can wrap regions safely. When published, a global value is written to the `manifest.theme.css` that `index.html` links, or `styles/core/manifest.theme.css` if none is. A scoped value is written into the scope element's own `style` attribute, never into a stylesheet, so it never reaches `:root`; a scope element inside content another plugin generates has no file to write to, so its values are refused by name. See [Publishing](#publishing). `.persist` on the control, or on its scope element, keeps unpublished values across a reload.
+The variable changes live as the input moves, and is recorded as a step of the history when the input commits its value: when you let go of a slider or close the colour picker, and at each arrow-key step on a focused slider. Undo puts the previous value back. `.theme` on its own only declares a scope and makes nothing editable, so it can wrap regions safely. When published, a global value is written to the `manifest.theme.css` that `index.html` links, or `styles/core/manifest.theme.css` if none is. A scoped value is written into the scope element's own `style` attribute, never into a stylesheet, so it never reaches `:root`; a scope element inside content another plugin generates has no file to write to, so its values are refused by name. Publishing global values needs the project's own `manifest.theme.css`, linked from `index.html`. See [Publishing](#publishing). `.persist` on the control, or on its scope element, keeps unpublished values across a reload.
 
 ---
 
