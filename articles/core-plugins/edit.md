@@ -74,27 +74,31 @@ Edit is opt-in and never part of the default Manifest bundle, so visitors don't 
 
 ```html "All Plugins + Edit"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="+edit"></script>
+    data-plugins="+edit" data-tailwind></script>
 ```
 
 ```html "Standalone"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="edit"></script>
+    data-plugins="edit" data-tailwind></script>
 ```
 
 </div>
 
+The examples on this page also use Tailwind utility classes, such as `grid-cols-3`, `h-48` and `[&>*]:absolute`, which need the `data-tailwind` attribute shown here; see [Setup](/docs/framework/getting-started/setup). Without it, copy the markup and style it your own way.
+
 To load it only for signed-in editors, leave it out of `data-plugins` and call `Manifest.loadPlugin('edit')`{copy} once you know the visitor can edit; regions marked [`.gated`](#regions) then stay switched off until `$edit.on()`.
 
-Editor styles are included in Manifest CSS, or as standalone stylesheets for Edit and Rich Text.
+Editor styles are included in Manifest CSS, or as standalone stylesheets for Edit and Rich Text. Both reference [theme](/docs/framework/styles/theme) variables, such as the brand colours the editing visuals and examples use, so load the theme stylesheet too.
 
 <div x-code-group copy>
 
 ```html "Manifest CSS"
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
 ```
 
 ```html "Standalone"
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.edit.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.rich.text.css">
 ```
@@ -107,7 +111,7 @@ Editor styles are included in Manifest CSS, or as standalone stylesheets for Edi
 
 A region is an element marked with `x-edit`, together with everything inside it. Its value is a key that names the region's edits, so a publish knows where in your source they belong. Keep the key stable and unique on the page: renaming it strands edits already made under the old name, and a key that appears on the page more than once, from two regions sharing it or a component used several times, isn't editable anywhere (Edit warns in the console), because a publish couldn't tell which one is meant.
 
-Modifiers say what a region allows. With no capability named, a region allows text and move; naming one or more replaces that default, so `x-edit.move` allows moving only.
+A piece is any element directly inside the region, or inside a container in it, that can be picked up and moved. Modifiers say what a region allows. With no capability named, a region allows text and move; naming one or more replaces that default, so `x-edit.move` allows moving only.
 
 | Write | Means |
 |---|---|
@@ -121,7 +125,7 @@ Modifiers say what a region allows. With no capability named, a region allows te
 | `.bare` | Editable, but draws none of the editing visuals |
 | `.theme`, `.cssvar` | [Theme controls](#theme-controls) |
 
-A piece is any element directly inside the region, or inside a container in it, that can be picked up and moved. A region inside another region sets its own capabilities for what it holds, and is itself a piece of the outer one. That's how the photo above can be resized while its section moves.
+A region inside another region sets its own capabilities for what it holds, and is itself a piece of the outer one. That's how the photo above can be resized while its section moves.
 
 What a region holds decides where its edits go when published:
 
@@ -271,6 +275,8 @@ Pieces in a list, a row or a grid take the order you drop them in. Hovering a pi
 By keyboard, Tab to a piece and press **Space** or **Enter** to pick it up. The arrow keys move it, **Enter** or **Space** drops it, and **Escape** puts it back. **Alt + Up** and **Alt + Down** move a focused piece one step at once, and work while you're typing in it too; in text, Space and Enter keep typing, so press Escape first to pick the piece up.
 
 A list rendered by `x-for` reorders its data instead of the markup: the array itself changes order. Each record needs an `id`, given to the loop as its `:key`. Add `.data` to edit record fields too: the row, or any element in it, whose `x-text` or `x-html` is a record field, such as `x-text="walk.name"`, becomes editable, and the edit updates the record when the text loses focus. A row that is itself the field drags by its grip, like other text. Rows from data stay in their own list.
+
+To publish a list's order and field edits with `mnfst-run --edit`, its records must come from a CSV or JSON file declared as a data source in `manifest.json`, as in `$x.walks`. A list written inline in `x-data`, like the one here, edits on the page and reaches `onPublish`, but has no file to write to.
 
 <div x-code-group>
 
@@ -660,16 +666,20 @@ Edits are kept as a history of changes until you publish them. `$edit.patches()`
 
 `$edit.publish()` sends them, and where they go depends on who the editor is for.
 
-**Your own product.** Set `$edit.onPublish` to a function and publish hands it the patches. Send them wherever your product keeps its content: your API, a database row, or the pipeline that rebuilds a published site. Return the response, or a promise of it; unless it reports an error, the edits count as published and the history starts again from there.
+**Your own product.** Set `$edit.onPublish` to a function and publish hands it the patches. Send them wherever your product keeps its content: your API, a database row, or the pipeline that rebuilds a published site. Return the response, or a promise of it; unless it reports an error, the edits count as published and the history starts again from there. If the handler throws or its promise rejects, `publish()` rejects with that error and the history is kept, so check the response before reading it, as below.
 
 ```html copy
 <div x-data="{
     init() {
-        this.$edit.onPublish = patches => fetch('/api/pages/home', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(patches)
-        }).then(r => r.json());
+        this.$edit.onPublish = async patches => {
+            const res = await fetch('/api/pages/home', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(patches)
+            });
+            if (!res.ok) throw new Error('Saving failed: ' + res.status);
+            return res.json();
+        };
     }
 }"></div>
 ```
@@ -825,7 +835,7 @@ Methods that take `el` use `$edit.target` when it's left out, and return `true` 
 | `data-edit-hotkeys="off"` | A region or any element above it | Turns off the undo and redo shortcuts there |
 | `data-edit-theme-file` | A `.theme` scope element | The CSS file its values are published to |
 | `data-unit` | A `.cssvar` input | A unit added to the input's value |
-| `data-key` | A row of a data list | The record's `id`, when the `x-for` has no `:key` |
+| `:data-key` | A row of a data list | The record's `id`, bound as in `:data-key="walk.id"`, when the `x-for` has no `:key` |
 
 ---
 

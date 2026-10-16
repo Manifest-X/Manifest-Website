@@ -64,15 +64,17 @@ Until Rich Text has loaded, `$rich` reads as an empty field that does nothing, s
 
 Rich Text reads and writes markdown on its own. Showing a stored value as formatted text elsewhere on the page, as some examples here do, uses the [Markdown](/docs/framework/core-plugins/markdown) plugin's `x-markdown`, which is in the default bundle; a selective list needs `markdown` for that, as above.
 
-Field and control styles are included in Manifest CSS or as a standalone stylesheet.
+Field and control styles are included in Manifest CSS or as a standalone stylesheet. Both reference [theme](/docs/framework/styles/theme) variables, such as the surface, line and brand colours fields and the style examples use, so load the theme stylesheet too.
 
 <div x-code-group copy>
 
 ```html "Manifest CSS"
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
 ```
 
 ```html "Standalone"
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.rich.text.css">
 ```
 
@@ -355,7 +357,7 @@ A `<select>` or `<input>` runs its command with its own value, when it changes o
 
 </div>
 
-A colour input recolours the selection live as you move through the picker, and the whole pass is one step of the history. Font, size and colour need a selection, and each wraps it in a `<span>` with that style. An empty value, like the Default font below, removes that style from the selection again, as [`clear`](#all-commands) does with all formatting. Alignment and line height apply to the block the caret is in.
+A colour input recolours the selection live as you move through the picker, and the whole pass is one step of the history. Font, size and colour need a selection, and each wraps it in a `<span>` with that style. An empty value, like the Default font above, removes that style from the selection again, as [`clear`](#all-commands) does with all formatting. Alignment and line height apply to the block the caret is in.
 
 A command that takes a value gets it from, in order: the modifier after the command, as in `x-rich-text.align.center` or `x-rich-text.table.3x2`; the control's expression, as in `x-rich-text.img="photoUrl"`; or a dropdown's or input's own value. The expression is read when the control runs.
 
@@ -461,7 +463,7 @@ While the caret is in some other editable element, an input or another editor, t
 
 </div>
 
-To build a menu of your own, the same information is available directly. The field fires `rich-text:selection` whenever the selection changes, with `{ collapsed, text, x, y, width, height, top, right, bottom, left }`, or `null` when the field lets go of it. While text is selected, its box is also written as `--rich-text-selection-x`, `-y`, `-width`, `-height` and `-center` on `:root`, so anything can be positioned over the selection with CSS alone.
+To build a menu of your own, the same information is available directly. The field fires `rich-text:selection` whenever the selection changes, with `{ collapsed, text, x, y, width, height, top, right, bottom, left }`, or `null` when the field lets go of it. The numbers are pixels in viewport coordinates, as from `getBoundingClientRect()`, so they suit `position: fixed`. While text is selected, its box is also written as `--rich-text-selection-x`, `-y`, `-width`, `-height` and `-center` on `:root`, so anything can be positioned over the selection with CSS alone.
 
 ### All Commands
 
@@ -735,22 +737,28 @@ Here `look` holds the styles: `x-effect` applies them to the field, including th
 
 ## Editing Data
 
-A field can edit a value anywhere Alpine can reach, such as a record from a [data source](/docs/framework/core-plugins/local-data). Below, each field edits one product's `name`, and the text beside it is that value, updating as you type.
+A field can edit a value anywhere Alpine can reach: a list in `x-data`, a store, or a record from a [data source](/docs/framework/core-plugins/local-data) such as `$x.products`. Below, each field edits one product's `name`, and the text beside it is that value, updating as you type.
 
 <div x-code-group>
 
 ```html copy
-<template x-for="(product, i) in $x.example.products" :key="i">
-    <div>
-        <div x-rich-text.inline="product.name" aria-label="Product name"></div>
-        <code x-text="product.name"></code>
-    </div>
-</template>
+<div x-data="{ products: [
+    { id: 1, name: 'Peony bouquet' },
+    { id: 2, name: 'Tulip bunch' },
+    { id: 3, name: 'Rose box' }
+] }">
+    <template x-for="product in products" :key="product.id">
+        <div>
+            <div x-rich-text.inline="product.name" aria-label="Product name"></div>
+            <code x-text="product.name"></code>
+        </div>
+    </template>
+</div>
 ```
 
 ::: frame
-<div class="col gap-3 w-full">
-    <template x-for="(product, i) in ($x.example.products || []).slice(0, 3)" :key="i">
+<div class="col gap-3 w-full" x-data="{ products: [{ id: 1, name: 'Peony bouquet' }, { id: 2, name: 'Tulip bunch' }, { id: 3, name: 'Rose box' }] }">
+    <template x-for="product in products" :key="product.id">
         <div class="grid grid-cols-2 items-center gap-4">
             <div x-rich-text.inline="product.name" aria-label="Product name"></div>
             <code class="text-xs" x-text="product.name"></code>
@@ -761,7 +769,7 @@ A field can edit a value anywhere Alpine can reach, such as a record from a [dat
 
 </div>
 
-The loop is keyed by position, `i`. Keying it by the field being edited, as in `:key="product.name"`, would make every keystroke look like a new record, so Alpine would rebuild the row and the field would lose the caret after one character. Key a list by something that doesn't change while you edit it, such as an `id`.
+The loop is keyed by each record's `id`. Keying it by the field being edited, as in `:key="product.name"`, would make every keystroke look like a new record, so Alpine would rebuild the row and the field would lose the caret after one character. Key a list by something that doesn't change while you edit it.
 
 ---
 
@@ -855,7 +863,7 @@ On a button, dropdown, input or link, a misspelt command logs a warning with the
 | `value` | The stored value; assigning replaces the document and restarts the history |
 | `all` | Document-wide styles as an object; assign an object to set them, `{}` to clear |
 | `link` | The address of the link at the caret; assign to link or unlink |
-| `selection` | The last reported selection, as in `rich-text:selection`, or `null` |
+| `selection` | The last reported selection, as in `rich-text:selection`, in viewport coordinates, or `null` |
 | `run(command, value)` | Runs a command |
 | `active(command)` | Whether a command is active at the caret |
 | `can(command)` | Whether a command can run here now |
@@ -1035,7 +1043,7 @@ The field's own states are attributes too: style the empty state's placeholder, 
 | `--rich-text-padding` | `0.75rem` | Padding |
 | `--rich-text-background` | `--color-surface-1` | Background; also set by `background.all` |
 | `--rich-text-font`, `-size`, `-leading`, `-align`, `-color` | inherited; `start` for align | Document-wide styles, set by `.all` controls |
-| `--rich-text-selection-x`, `-y`, `-width`, `-height`, `-center` | — | Written by the plugin on `:root`: the selection's box |
+| `--rich-text-selection-x`, `-y`, `-width`, `-height`, `-center` | — | Written by the plugin on `:root`: the selection's box, in viewport pixels |
 
 ### Attributes
 

@@ -176,7 +176,7 @@
       <span>On this page</span>
     </small>
 
-    <template x-anchors=".prose | h2, h3">
+    <template x-anchors=".prose | h2:not(.frame *), h3:not(.frame *)">
       <div class="col gap-1.5" x-show="$store.anchors?.count > 0">
         <a :href="anchor.link" class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" :class="{
                 'pl-2': anchor.tag === 'h3',
