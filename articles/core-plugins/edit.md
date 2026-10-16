@@ -86,7 +86,7 @@ Edit is opt-in and never part of the default Manifest bundle, so visitors don't 
 
 The examples on this page also use Tailwind utility classes, such as `grid-cols-3`, `h-48` and `[&>*]:absolute`, which need the `data-tailwind` attribute shown here; see [Setup](/docs/framework/getting-started/setup). Without it, copy the markup and style it your own way.
 
-To load it only for signed-in editors, leave it out of `data-plugins` and call `Manifest.loadPlugin('edit')`{copy} once you know the visitor can edit. The regions already on the page become editable when it loads, except those marked [`.gated`](#regions), which stay switched off until `$edit.on()`. Until then, `$edit` is an idle stand-in, so bindings such as `:disabled="!$edit.canUndo"` work before Edit loads and pick up the real state once it has; anything assigned to it in the meantime, such as `onPublish`, is ignored, so set that after loading.
+To load it only for signed-in editors, leave it out of `data-plugins` and call `Manifest.loadPlugin('edit')`{copy} once you know the visitor can edit. The regions already on the page become editable when it loads, except those marked [`.gated`](#regions), which stay switched off until `$edit.on()`. Until then, `$edit` is an idle stand-in, so bindings such as `:disabled="!$edit.canUndo"` work before Edit loads and pick up the real state once it has; anything assigned to it in the meantime, such as `onPublish`, is kept and carries over to Edit when it loads.
 
 Editor styles are included in Manifest CSS, or as standalone stylesheets for Edit and Rich Text. Both reference [theme](/docs/framework/styles/theme) variables, such as the brand colours the editing visuals and examples use, so load the theme stylesheet too.
 

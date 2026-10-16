@@ -225,7 +225,7 @@ Type markdown and it turns into formatting as you go. Marks turn over the moment
 
 ### Markdown Written Elsewhere
 
-A markdown field reads markdown by the same rules as CommonMark for the parts it supports, and saves what you didn't change as it was written. Markdown written by hand or by another tool still changes in these ways when the field first saves it. The text is never lost, but its notation may be rewritten, or read as plain text:
+A markdown field reads markdown by the same rules as CommonMark for the parts it supports. The first time it saves, after any edit at all, it rewrites the whole value in its own notation, not only the part you changed: `__bold__ text` and `* item`, with a character typed in the item, save as `**bold** text` and `- item!`. The text is never lost, but markdown written by hand or by another tool can change in these ways, or be read as plain text:
 
 | Written as | Shown as | Saved as |
 |---|---|---|
@@ -289,7 +289,7 @@ Every icon-only button in these examples has an `aria-label`: an icon has no tex
 
 An inline command clicked with nothing selected is armed: the button shows it as active, and it applies to the characters you type next at that spot. Inside text that already has it, it ends there instead, so what you type next is plain. Moving the caret first cancels it.
 
-After you click away from a field, its controls keep the selection it had: pressing one puts you back in the field and acts on that selection.
+A toolbar that serves one field keeps that field's selection after you click away: pressing a control puts you back in the field and acts on the selection it had. A toolbar shared by several fields works differently; see [Toolbars](#toolbars).
 
 A button can also run a command from script with [`$rich`](#reference), as in `@click="$rich.strong()"`. A plain button takes focus when pressed, though, and with more than one field near it, `$rich` then can't tell which field you meant and does nothing. Add `@mousedown.prevent` so the click leaves focus in the field, or use a command modifier, which does that for you.
 
@@ -388,9 +388,9 @@ A toolbar is just controls grouped together, and each control finds its field on
 
 1. Inside an element with `x-rich-text-for="selector"`, the field that selector matches, or the field inside it.
 2. Otherwise the nearest container that holds exactly one field.
-3. Where a container holds several, the one last focused among them. With none of them focused, the controls stay disabled.
+3. Where a container holds several, the field that has focus, or, while focus is on one of the controls, the field last focused. Once focus moves anywhere else on the page, the controls disable themselves until you're back in a field.
 
-So a toolbar next to its field needs nothing more, and one toolbar can serve a whole page of fields, following whichever was last focused.
+So a toolbar next to its field needs nothing more, and keeps that field's selection after a click away. One toolbar can also serve a whole page of fields, following whichever field you're in.
 
 <div x-code-group>
 
@@ -566,7 +566,7 @@ Commands are HTML tag names, so the name says what it makes. **Markdown** marks 
 
 ## Multiple Editors
 
-Each field has its own value, history and selection. Controls follow the [toolbar rules](#toolbars): a toolbar shared by several fields acts on the one last focused, and `x-rich-text-for` pins controls to one field, so they never act on another.
+Each field has its own value, history and selection. Controls follow the [toolbar rules](#toolbars): a toolbar shared by several fields acts on the field you're in, or the one you were last in while you use its controls, and disables itself once focus moves anywhere else on the page. `x-rich-text-for` pins controls to one field, so they never act on another.
 
 <div x-code-group>
 
@@ -597,7 +597,7 @@ Each field has its own value, history and selection. Controls follow the [toolba
 
 </div>
 
-Bold follows the field you were last in, and stays disabled until you've been in one. The italic button works on B only: it's ready while the caret is in B, and disabled while it's in A.
+Bold follows the field you're in, and is disabled while you're in neither. The italic button works on B only: it's ready while the caret is in B, and disabled while it's in A.
 
 ---
 
@@ -639,7 +639,7 @@ Rich Text leaves **Cmd/Ctrl + K** to the page, where it often opens search.
 
 ## Tables
 
-Tables need `.html`. Every table command stays disabled while the caret is outside a table, and inserting a table while inside one puts the new one after it: tables never nest. Drag across cells to select a rectangle of them, and drag a cell's border to resize its column or row.
+Tables need `.html`. Every table command except `table` stays disabled while the caret is outside a table, and inserting a table while inside one puts the new one after it: tables never nest. Drag across cells to select a rectangle of them, and drag a cell's border to resize its column or row.
 
 <div x-code-group>
 
