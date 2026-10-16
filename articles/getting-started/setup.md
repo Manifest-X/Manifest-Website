@@ -130,14 +130,14 @@ Add the desired Manifest CSS files to the HTML head (within `index.html` if [rou
 <div x-code-group copy>
 
 ```html "Bundled (47kb)"
-  <link rel="stylesheet" href="/manifest.theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
+  <link rel="stylesheet" href="/manifest.theme.css">
 ```
 
 ```html "Individual (<10kb)"
   <link rel="stylesheet" href="/manifest.theme.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.reset.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.buttons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.button.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.utilities.css">
 ```
 

@@ -69,8 +69,8 @@ Field and control styles are included in Manifest CSS or as a standalone stylesh
 <div x-code-group copy>
 
 ```html "Manifest CSS"
-<link rel="stylesheet" href="/manifest.theme.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
+<link rel="stylesheet" href="/manifest.theme.css">
 ```
 
 ```html "Standalone"
