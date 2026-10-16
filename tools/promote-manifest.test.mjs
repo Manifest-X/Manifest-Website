@@ -176,7 +176,7 @@ test('main blocks an unapproved staged article and passes once approved by hash'
 const hook = (input, env = {}) =>
   spawnSync(process.execPath, [HOOK], { input: typeof input === 'string' ? input : JSON.stringify(input), encoding: 'utf8', env: { ...process.env, ...env } });
 
-test('hook classifies Website promotes by id, name, missing id and .mcp.json pin', async () => {
+test('connector calls: Website unless a project_id names another project, whatever the cwd', async () => {
   const other = await site({ '.mcp.json': JSON.stringify({ mcpServers: { m: { headers: { 'X-Manifest-Project': 'proj_other' } } } }) });
   const web = await site({ '.mcp.json': JSON.stringify({ mcpServers: { m: { headers: { 'x-manifest-project': 'proj_manifest_website' } } } }) });
   const bare = await site({ 'x.txt': '' });
@@ -186,8 +186,11 @@ test('hook classifies Website promotes by id, name, missing id and .mcp.json pin
   assert.equal(classify({ tool_name: t, tool_input: { project_id: 'Manifest-Website' }, cwd: other })?.kind, 'promote');
   assert.equal(classify({ tool_name: t, tool_input: { project_id: ' proj_manifest_website ' }, cwd: other })?.kind, 'promote');
   assert.equal(classify({ tool_name: t, tool_input: { project_id: '  ' }, cwd: web })?.kind, 'promote');
-  assert.equal(classify({ tool_name: t, tool_input: {}, cwd: other }), null);
+  assert.equal(classify({ tool_name: t, tool_input: {}, cwd: other })?.kind, 'promote');
+  assert.equal(classify({ tool_name: t, tool_input: { project_id: '' }, cwd: other })?.kind, 'promote');
   assert.equal(classify({ tool_name: t, tool_input: { project_id: 'proj_other' } }), null);
+  assert.equal(classify({ tool_name: t, tool_input: { project_id: ' proj_other ' }, cwd: web }), null);
+  assert.equal(classify({ tool_name: 'mcp__x__manifest_rollback', tool_input: { deployment_id: 'dep_1' }, cwd: other })?.kind, 'rollback');
   assert.deepEqual(classify({ tool_name: 'mcp__x__manifest_rollback', tool_input: { deployment_id: 'dep_1' }, cwd: web }), { kind: 'rollback', target: 'dep_1' });
   assert.equal(classify({ tool_name: 'Bash', tool_input: { command: 'ls' }, cwd: web }), null);
 });
@@ -199,7 +202,8 @@ test('hook blocks every Website production publish outright: connector tools def
     assert.equal(P({}), 'publish');
     assert.equal(P({ env: 'production' }), 'publish');
     assert.equal(P({ env: 'staging' }), null);
-    assert.equal(P({}, other), null);
+    assert.equal(P({}, other), 'publish');
+    assert.equal(P({ project_id: 'proj_other' }), null);
     assert.equal(P({ project_id: 'proj_manifest_website' }, other), 'publish');
   }
   const r = hook({ tool_name: 'mcp__x__manifest_publish_files', tool_input: { files: [] }, cwd: ROOT });
@@ -291,13 +295,93 @@ test('hook gates only the Website: target from cwd, cd, --root and .mcp.json', a
   assert.equal(B(`npx mnfst-publish --root ${ROOT} --promote`, other), 'promote');
   assert.equal(B(`npx mnfst-publish --root ${other}`, ROOT), null);
   assert.equal(B('cd "$DIR" && npx mnfst-publish', ROOT), 'publish');
-  assert.equal(B('cd "$DIR" && npx mnfst-publish', bare), null);
+  assert.equal(B('cd "$DIR" && npx mnfst-publish', bare), 'publish');
   assert.equal(B('npx mnfst-publish --root "$DIR"', ROOT), 'publish');
   const T = (ti) => classify({ tool_name: 'mcp__terminal__run_in_terminal', tool_input: ti, cwd: ROOT })?.kind ?? null;
   assert.equal(T({ command: 'npx mnfst-publish' }), 'publish');
   assert.equal(T({ command: 'npx mnfst-publish', cwd: other }), null);
   assert.equal(T({ command: 'npx mnfst-publish', tab_id: '3' }), 'publish');
   assert.equal(classify({ tool_name: 'Monitor', tool_input: { command: 'npx mnfst-publish --promote' }, cwd: ROOT })?.kind, 'promote');
+});
+
+test('Bash directory is unknown after an unresolvable, conditional, late or subshell cd, and unknown blocks', async () => {
+  const pin = (id) => JSON.stringify({ mcpServers: { m: { headers: { 'X-Manifest-Project': id } } } });
+  const other = await site({ '.mcp.json': pin('proj_other'), 'sub/x.txt': '' });
+  const B = (command, cwd = other, tool = 'Bash', ti = {}) => classify({ tool_name: tool, tool_input: { command, ...ti }, cwd })?.kind ?? null;
+  assert.equal(B('npx mnfst-publish'), null);
+  assert.equal(B(`cd ${other} && npx mnfst-publish`, ROOT), null);
+  assert.equal(B(`cd ${other}; npx mnfst-publish`, ROOT), null);
+  assert.equal(B(`cd ${other}\ncd sub && npx mnfst-publish`, ROOT), null);
+  assert.equal(B('cd sub && npx mnfst-publish'), null);
+  assert.equal(B(`cd ${join(other, 'missing')} && npx mnfst-publish`), 'publish');
+  assert.equal(B('cd "$DIR" && npx mnfst-publish'), 'publish');
+  assert.equal(B('cd - && npx mnfst-publish'), 'publish');
+  assert.equal(B('popd && npx mnfst-publish'), 'publish');
+  assert.equal(B(`true && cd ${other} && npx mnfst-publish`, ROOT), 'publish');
+  assert.equal(B(`false || cd ${other}; npx mnfst-publish`, ROOT), 'publish');
+  assert.equal(B(`ls; cd ${other}; npx mnfst-publish`, ROOT), 'publish');
+  assert.equal(B(`(cd ${other} && npx mnfst-publish)`, ROOT), 'publish');
+  assert.equal(B(`(cd ${other}) && npx mnfst-publish --promote`), 'promote');
+  assert.equal(B(`echo $(cd ${other}; npx mnfst-publish)`, ROOT), 'publish');
+  assert.equal(B(`bash -c "cd ${other} && npx mnfst-publish"`, ROOT), 'publish');
+  assert.equal(B('cd "$DIR" && npx mnfst-publish --staging'), null);
+  assert.equal(B(`cd "$DIR" && npx mnfst-publish --root ${other}`), null);
+  assert.equal(B('npx mnfst-publish', other, 'mcp__terminal__run_in_terminal', { tab_id: '2' }), 'publish');
+  assert.equal(B('npx mnfst-publish', ROOT, 'mcp__terminal__run_in_terminal', { cwd: other }), null);
+  assert.equal(B('npx mnfst-publish', other, 'mcp__terminal__run_in_terminal', { cwd: join(other, 'missing') }), 'publish');
+});
+
+test('wrappers: env -C, nice, timeout -s SIG N, sudo -u x', async () => {
+  const pin = (id) => JSON.stringify({ mcpServers: { m: { headers: { 'X-Manifest-Project': id } } } });
+  const other = await site({ '.mcp.json': pin('proj_other') });
+  const B = (command, cwd = ROOT) => classify({ tool_name: 'Bash', tool_input: { command }, cwd })?.kind ?? null;
+  for (const c of ['nice npx mnfst-publish', 'nice -n 10 npx mnfst-publish', 'timeout -s KILL 60 npx mnfst-publish', 'timeout -k 5 30s npx mnfst-publish', 'sudo -u andrew npx mnfst-publish', "env -S 'npx mnfst-publish'", 'env -u FOO npx mnfst-publish', 'env -- npx mnfst-publish']) assert.equal(B(c), 'publish', c);
+  assert.equal(B(`env -C ${other} npx mnfst-publish`), null);
+  assert.equal(B(`env --chdir=${other} npx mnfst-publish`), null);
+  assert.equal(B(`env -C ${ROOT} npx mnfst-publish`, other), 'publish');
+  assert.equal(B('env -C "$X" npx mnfst-publish', other), 'publish');
+  assert.equal(B(`sudo -D ${other} npx mnfst-publish`), null);
+  assert.equal(B('nice -n 10 npx mnfst-publish --staging'), null);
+});
+
+test('approvals come from the remote staging sha; a local ref named origin/staging cannot shadow it', async () => {
+  const sh = (cwd, ...a) => {
+    const r = spawnSync('git', a, { cwd, encoding: 'utf8' });
+    assert.equal(r.status, 0, `git ${a.join(' ')}: ${r.stderr}`);
+    return r.stdout.trim();
+  };
+  const tmp = await mkdtemp(join(tmpdir(), 'pm-git-'));
+  const bare = join(tmp, 'remote.git');
+  const seed = join(tmp, 'seed');
+  const clone = join(tmp, 'clone');
+  sh(tmp, 'init', '-q', '--bare', bare);
+  sh(tmp, 'init', '-q', '-b', 'staging', seed);
+  const commit = async (dir, rollbacks, msg) => {
+    await writeFile(join(dir, 'promote-manifest.json'), JSON.stringify({ approvals: [], rollbacks: rollbacks.map((d) => ({ deployment_id: d, approver: 'Andrew', date: '2026-10-17' })) }));
+    sh(dir, 'add', 'promote-manifest.json');
+    sh(dir, '-c', 'user.name=t', '-c', 'user.email=t@t', 'commit', '-q', '-m', msg);
+  };
+  await commit(seed, ['dep_ok'], 'one');
+  sh(seed, 'push', '-q', bare, 'staging');
+  sh(tmp, 'clone', '-q', '-b', 'staging', bare, clone);
+  await mkdir(join(clone, '.claude/hooks'), { recursive: true });
+  await writeFile(join(clone, '.claude/hooks/promote-gate.mjs'), await readFile(HOOK));
+  await commit(clone, ['dep_evil'], 'local only');
+  sh(clone, 'tag', 'origin/staging');
+  sh(clone, 'branch', 'origin/staging');
+  await commit(seed, ['dep_ok', 'dep_new'], 'two');
+  sh(seed, 'push', '-q', bare, 'staging');
+  const env = { ...process.env };
+  delete env.PROMOTE_APPROVALS;
+  const rb = (id) => spawnSync(process.execPath, [join(clone, '.claude/hooks/promote-gate.mjs')], { input: JSON.stringify({ tool_name: 'mcp__x__manifest_rollback', tool_input: { deployment_id: id }, cwd: clone }), encoding: 'utf8', env });
+  assert.equal(rb('dep_evil').status, 2, 'local tag/branch named origin/staging must not count');
+  const fresh = rb('dep_new');
+  assert.equal(fresh.status, 0, fresh.stderr);
+  assert.equal(rb('dep_ok').status, 0);
+  sh(clone, 'remote', 'set-url', 'origin', join(tmp, 'gone.git'));
+  const offline = rb('dep_ok');
+  assert.equal(offline.status, 2);
+  assert.match(offline.stderr, /remote staging branch/);
 });
 
 test('hook blocks a production publish chained after a staging one without running the crawl', () => {
@@ -339,7 +423,7 @@ test('hook reads approvals from origin/staging, not the working tree', () => {
   const r = spawnSync(process.execPath, [HOOK], { input: JSON.stringify({ tool_name: 'mcp__x__manifest_rollback', tool_input: { project_id: 'proj_manifest_website', deployment_id: 'dep_x' } }), encoding: 'utf8', env });
   assert.equal(r.status, 2);
   const committed = spawnSync('git', ['-C', ROOT, 'show', 'origin/staging:promote-manifest.json']).status === 0;
-  assert.match(r.stderr, committed ? /dep_x is not listed under "rollbacks" in promote-manifest\.json on origin\/staging/ : /could not read the committed approvals/);
+  assert.match(r.stderr, committed ? /dep_x is not listed under "rollbacks" in promote-manifest\.json on origin\/staging/ : /could not read promote-manifest\.json from the remote staging branch/);
 });
 
 test('hook network failure says so instead of blaming approvals', async () => {

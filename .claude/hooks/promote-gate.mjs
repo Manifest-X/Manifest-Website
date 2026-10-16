@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 // PreToolUse: Website production is reached only by promote, and a promote needs committed approvals. Fails closed.
+// Known limits (durable fix: server-side check in Manifest-MCP promote-core.ts):
+// - argv-form spawns in code strings (spawnSync('npx', ['mnfst-publish']), subprocess.run([...])) are not seen;
+// - scripts, aliases and shell functions that call the CLI indirectly are not seen;
+// - the dashboard promote button and other clients bypass this hook;
+// - live-vs-live crawls trust host ETags for binaries and see only linked files.
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, realpathSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { homedir, tmpdir } from 'node:os';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -47,9 +52,9 @@ function inWebsite(dir) {
   return false;
 }
 
-// Connector tools: an unknown project counts as Manifest-Website.
+// Connector tools: only a named other project passes; the repo's .mcp.json pin wins server-side.
 export function isWebsite(input) {
-  const id = String(input.tool_input?.project_id ?? '').trim() || pinned(input.cwd ?? process.cwd());
+  const id = String(input.tool_input?.project_id ?? '').trim();
   return !id || isWebsiteId(id);
 }
 
@@ -74,7 +79,10 @@ function heredoc(cmd, from, h, subs) {
 
 // Shell words grouped into commands; quotes respected, $ and ` mark a word dynamic; quoted $() and `` land in subs.
 export function commands(cmd) {
-  const out = [[]];
+  let depth = 0;
+  let tick = false;
+  const seg = (sep) => Object.assign([], { sep, sub: depth > 0 || tick });
+  const out = [seg(null)];
   const subs = [];
   const docs = [];
   let line = 0;
@@ -83,9 +91,14 @@ export function commands(cmd) {
     if (w) out.at(-1).push(w);
     w = null;
   };
-  const cut = () => {
+  const cut = (sep = ';') => {
     end();
-    if (out.at(-1).length) out.push([]);
+    const last = out.at(-1);
+    if (last.length) out.push(seg(sep));
+    else {
+      if (!/^(?:&&|\|\|)$/.test(last.sep ?? '')) last.sep = sep;
+      last.sub ||= depth > 0 || tick;
+    }
   };
   const ch = (c, dyn = false) => {
     w ??= { text: '', dynamic: false };
@@ -125,14 +138,14 @@ export function commands(cmd) {
       else ch(cmd[++i] ?? '');
     } else if (c === '#' && !w) {
       while (i < cmd.length && cmd[i] !== '\n') i++;
-      cut();
+      cut('\n');
     } else if (c === '\n') {
-      cut();
+      cut('\n');
       for (const h of docs.splice(0)) i = heredoc(cmd, i + 1, h, subs) - 1;
       line = i + 1;
     } else if (/\s/.test(c)) end();
     else if (cmd.startsWith('<<', i) && cmd[i + 2] !== '<') {
-      cut();
+      cut('>');
       const m = cmd.slice(i + 2).match(/^(-?)\s*(['"]?)([A-Za-z0-9_.-]+)\2/);
       if (m) {
         const eol = cmd.indexOf('\n', i);
@@ -140,22 +153,55 @@ export function commands(cmd) {
         docs.push({ delim: m[3], strip: !!m[1], quoted: !!m[2], shell: SHELL_RUN.test(head) });
         i += 1 + m[0].length;
       } else i++;
-    } else if (/[;&|()`<>]/.test(c)) cut();
+    } else if (c === '&' || c === '|') {
+      const two = cmd[i + 1] === c;
+      if (two) i++;
+      cut(two ? c + c : c);
+    } else if (c === '(') {
+      depth++;
+      cut('(');
+    } else if (c === ')') {
+      depth = Math.max(0, depth - 1);
+      cut(')');
+    } else if (c === '`') {
+      tick = !tick;
+      cut('`');
+    } else if (/[;<>]/.test(c)) cut(c === ';' ? ';' : '>');
     else ch(c, c === '$');
   }
-  cut();
+  end();
   return Object.assign(out.filter((c) => c.length), { subs });
 }
 
 const PROGRAM = /(?:^|\/)(?:mnfst-publish(?:@[^/\s]*)?(?:\.m?js)?|manifest\.publish\.mjs)$/;
 const VALUE = /^--(?:source|output-dir|key|mcp)$/;
 const ASSIGN = /^[A-Za-z_][A-Za-z0-9_]*=/;
-const PREFIX = new Set(['env', 'exec', 'time', 'nohup', 'command', 'sudo', 'builtin', 'xargs', 'timeout']);
+// Wrappers before a program: flags that take a value, and flags that change directory.
+const WRAP = {
+  env: { value: /^(?:-u|-C|-S|--unset|--chdir|--split-string)$/, chdir: /^(?:-C|--chdir)$/, split: /^(?:-S|--split-string)$/ },
+  sudo: { value: /^(?:-[ugCDhpRrTtU]|--(?:user|group|chdir|host|prompt|role|type|other-user|close-from|command-timeout))$/, chdir: /^(?:-D|--chdir)$/ },
+  nice: { value: /^(?:-n|--adjustment)$/ },
+  timeout: { value: /^(?:-s|-k|--signal|--kill-after)$/, duration: true },
+  xargs: { value: /^-[nILPsdEa]$/ },
+  exec: { value: /^-a$/ },
+  time: {},
+  nohup: {},
+  command: {},
+  builtin: {},
+};
 const SHELL = new Set(['sh', 'bash', 'zsh', 'dash', 'ksh', 'fish']);
 const CODE = { node: /^(?:-e|--eval|-p|--print)$/, deno: /^eval$/, bun: /^(?:-e|--eval)$/, python: /^-c$/, python3: /^-c$/, perl: /^-[a-zA-Z]*e$/, ruby: /^-e$/ };
 const base = (w) => w.text.split('/').pop();
 const expand = (p) => (p === '~' ? homedir() : p.startsWith('~/') ? join(homedir(), p.slice(2)) : p);
 const at = (cwd, p) => (isAbsolute(expand(p)) ? expand(p) : cwd ? resolve(cwd, p) : null);
+const dirAt = (cwd, w) => {
+  const p = w && !w.dynamic ? at(cwd, w.text) : null;
+  try {
+    return p && statSync(p).isDirectory() ? p : null;
+  } catch {
+    return null;
+  }
+};
 
 // Mirrors mnfst-publish's parseArgs: production unless the last env flag says staging.
 function call(rest, cwd) {
@@ -183,6 +229,7 @@ export function calls(cmd, cwd, depth = 0, code = false) {
   const out = [];
   const parsed = commands(cmd);
   for (const sub of parsed.subs) out.push(...calls(sub, cwd, depth + 1, code));
+  let clean = depth === 0 && !code;
   for (const words of parsed) {
     if (code) {
       words.forEach((w, i) => {
@@ -194,22 +241,38 @@ export function calls(cmd, cwd, depth = 0, code = false) {
       continue;
     }
     let i = 0;
+    let dir = cwd;
+    const first = /^(?:cd|pushd|popd)$/.test(words[0].text);
+    if (!first) clean = false;
     while (i < words.length) {
       const w = words[i];
       const b = base(w);
       if (ASSIGN.test(w.text)) i++;
       else if (PROGRAM.test(w.text)) {
-        const c = call(words.slice(i + 1), cwd);
+        const c = call(words.slice(i + 1), dir);
         if (c) out.push(c);
         break;
-      } else if (b === 'cd' || b === 'pushd') {
+      } else if (/^(?:cd|pushd|popd)$/.test(b)) {
+        // Known only for a leading, unconditional cd to an existing dir outside any subshell.
         const t = words[i + 1];
-        cwd = !t ? homedir() : t.dynamic ? null : at(cwd, t.text);
+        const plain = first && clean && !words.sub && (words.sep == null || words.sep === ';' || words.sep === '\n');
+        cwd = !plain || b === 'popd' || t?.text === '-' ? null : !t ? homedir() : dirAt(cwd, t);
+        if (cwd == null) clean = false;
         break;
-      } else if (PREFIX.has(b)) {
+      } else if (WRAP[b]) {
+        const spec = WRAP[b];
         i++;
-        while (words[i]?.text.startsWith('-')) i++;
-        if (b === 'timeout' && /^\d/.test(words[i]?.text ?? '')) i++;
+        while (words[i]?.text.startsWith('-') && words[i].text !== '--') {
+          const f = words[i].text;
+          if (/^--chdir=/.test(f)) dir = dirAt(dir, { text: f.slice(8), dynamic: words[i].dynamic });
+          if (spec.value?.test(f)) {
+            if (spec.chdir?.test(f)) dir = dirAt(dir, words[i + 1]);
+            if (spec.split?.test(f) && words[i + 1]) out.push(...calls(words[i + 1].text, dir, depth + 1));
+            i += 2;
+          } else i++;
+        }
+        if (words[i]?.text === '--') i++;
+        if (spec.duration && /^\d/.test(words[i]?.text ?? '')) i++;
       } else if (b === 'npx' || b === 'bunx') {
         i++;
         while (words[i]?.text.startsWith('-')) i += /^(?:-p|--package)$/.test(words[i].text) ? 2 : 1;
@@ -240,8 +303,8 @@ export function calls(cmd, cwd, depth = 0, code = false) {
 function shellCwd(input) {
   const ti = input.tool_input ?? {};
   if (input.tool_name === 'mcp__terminal__run_in_terminal') {
+    if (ti.cwd) return dirAt(input.cwd ?? process.cwd(), { text: String(ti.cwd), dynamic: false });
     if (ti.tab_id) return null;
-    if (ti.cwd) return at(input.cwd ?? process.cwd(), String(ti.cwd));
   }
   return input.cwd ?? process.cwd();
 }
@@ -254,9 +317,11 @@ export function classify(input) {
   if (/__manifest_publish(?:_files)?$/.test(tool)) return isWebsite(input) && ti.env !== 'staging' ? { kind: 'publish' } : null;
   if (SHELL_TOOLS.test(tool)) {
     const cwd = shellCwd(input);
+    // Unknown directory: block rather than guess.
     const hits = calls(String(ti.command ?? ''), cwd).filter((c) => {
-      const id = c.dir ? pinned(c.dir) : null;
-      return id ? isWebsiteId(id) : inWebsite(c.dir ?? input.cwd ?? process.cwd());
+      if (!c.dir) return true;
+      const id = pinned(c.dir);
+      return id ? isWebsiteId(id) : inWebsite(c.dir);
     });
     if (hits.some((c) => c.kind === 'publish')) return { kind: 'publish' };
     if (hits.length) return { kind: 'promote' };
@@ -264,7 +329,9 @@ export function classify(input) {
   return null;
 }
 
-// Approvals count only once committed to origin/staging.
+const git = (...args) => spawnSync('git', ['-C', ROOT, ...args], { encoding: 'utf8', timeout: 15000 });
+
+// Approvals count only once on the remote staging branch; resolved by sha so no local ref can shadow it.
 function approvals() {
   if (process.env.PROMOTE_APPROVALS) {
     try {
@@ -273,7 +340,14 @@ function approvals() {
       return null;
     }
   }
-  const r = spawnSync('git', ['-C', ROOT, 'show', 'origin/staging:promote-manifest.json'], { encoding: 'utf8', timeout: 10000 });
+  const ls = git('ls-remote', 'origin', 'refs/heads/staging');
+  const sha = ls.status === 0 ? ls.stdout.match(/^([0-9a-f]{40})\trefs\/heads\/staging$/m)?.[1] : null;
+  if (!sha) return null;
+  const has = () => git('cat-file', '-e', `${sha}^{commit}`).status === 0;
+  if (!has()) git('fetch', '-q', 'origin', sha);
+  if (!has()) git('fetch', '-q', 'origin', 'refs/heads/staging');
+  if (!has()) return null;
+  const r = git('show', `${sha}:promote-manifest.json`);
   if (r.status !== 0) return null;
   try {
     JSON.parse(r.stdout);
@@ -300,7 +374,7 @@ export function run(input) {
   if (!c) return;
   if (c.kind === 'publish') block(PUBLISH_MSG);
   const text = approvals();
-  if (text == null) block('promote-gate: could not read the committed approvals (origin/staging:promote-manifest.json); blocking.');
+  if (text == null) block('promote-gate: could not read promote-manifest.json from the remote staging branch (git ls-remote origin refs/heads/staging); blocking.');
   if (c.kind === 'rollback') {
     if (approvedRollback(text, c.target)) return;
     block(c.target
