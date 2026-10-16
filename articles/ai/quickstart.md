@@ -10,7 +10,7 @@ From an idea to a live project in a few minutes.
 - **About five minutes.** Manifest's Free plan covers everything below.
 
 ::: icon="lucide:info"
-**On Claude's Free plan?** Use a regular chat instead of the **Code** tab. Claude builds and publishes smaller projects there, and you check changes on a staging address instead of a preview. The Code tab comes with paid Claude plans and handles projects of any size.
+**On Claude's Free plan?** Use a regular chat instead of the **Code** tab. Claude builds and publishes sites up to 10 MB there, and you check changes on a staging address instead of a preview. The Code tab comes with paid Claude plans and handles projects of any size.
 :::
 
 ---

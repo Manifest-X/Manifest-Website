@@ -12,7 +12,7 @@ In the **Code** tab, with your project's folder open, ask:
 
 Claude publishes it and gives you the address, ending in `.manifestx.ai`. To publish a project built with something else, like React or Vite, just ask the same way. Claude runs its usual build first and leaves your setup as it is.
 
-Without the Code tab, such as in a chat on Claude's Free plan, Claude can still build and publish smaller projects: it creates the files in the chat and sends them to Manifest directly. Larger projects, especially ones with many images, need the Code tab.
+Without the Code tab, such as in a chat on Claude's Free plan, Claude can still build and publish sites up to 10 MB: it creates the files in the chat and sends them to Manifest directly. Larger projects, especially ones with many images, need the Code tab.
 
 ---
 

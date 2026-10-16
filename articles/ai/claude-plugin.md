@@ -23,7 +23,7 @@ The plugin works on every Claude plan, including Free.
 1. In the Claude app or at <a href="https://claude.ai" target="_blank">claude.ai</a>, go to **Customize > Plugins**.
 2. Add Manifest:
    - **On Claude Pro, Max, Team, or Enterprise:** open **Discover**, search for **Manifest**, and add it.
-   - **On Claude's Free plan:** select **Add > Add marketplace**, enter `Manifest-X/claude-plugin`{copy}, then add **Manifest**.
+   - **On Claude's Free plan:** select **Add > Add marketplace > Add from a repository**, paste `https://github.com/Manifest-X/claude-plugin`{copy}, then add **Manifest**.
 3. In the plugin's **Connectors** tab, select **Connect** next to Manifest.
 
 A Manifest page opens in your browser:
@@ -42,14 +42,16 @@ That's it. The plugin appears in the Code tab the next time you start a session 
 
 ## Where to do what
 
-The **Code** tab of the Claude desktop app is the best place to build: Claude works with files on your computer, previews your project, and handles projects of any size. Claude can also build and publish smaller projects right in a chat, and you can manage any project from a chat, including on your phone.
+The **Code** tab of the Claude desktop app is the best place to build: Claude works with files on your computer, previews your project, and handles projects of any size. Claude can also build and publish sites up to 10 MB right in a chat or Cowork, and you can manage any project from a chat, including on your phone.
 
-| | Code tab | Any Claude chat |
+| Claude Sessions | Code | Chat & Cowork |
 |---|---|---|
-| Build and publish | ✓ | Smaller projects |
-| Preview on your computer | ✓ | |
-| Take staging live, roll back | ✓ | ✓ |
-| Domains, team, and analytics | ✓ | ✓ |
+| Build and publish | ✓ | Sites up to 10 MB |
+| Preview in Claude app | ✓ | |
+| Publish live and roll back | ✓ | ✓ |
+| Connect domains | ✓ | ✓ |
+| Collaborate with teams | ✓ | ✓ |
+| Get analytics | ✓ | ✓ |
 
 The **Code** tab is the part of the Claude desktop app where Claude can work with files on your computer. You pick a folder, and Claude creates and changes files there, runs your project, and shows it in a preview next to the chat.
 
