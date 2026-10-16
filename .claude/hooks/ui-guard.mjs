@@ -88,12 +88,11 @@ function handlePreToolUse(data) {
     hits.join(' and ') + ' — an outdated approach in Manifest. Move styling into manifest.theme.css ' +
     'tokens, Manifest semantic classes (row/col/center, ghost/brand/outlined), or theme-derived ' +
     'utilities; load manifest-styling if you have not. (Dynamic :style / x-bind:style bindings are ' +
-    'fine and are not flagged.) This is allowed to proceed, but prefer to revise it before the user reviews.';
+    'fine and are not flagged.) This is not blocked, but prefer to revise it before the user reviews.';
 
   process.stdout.write(JSON.stringify({
     hookSpecificOutput: {
       hookEventName: 'PreToolUse',
-      permissionDecision: 'allow',
       additionalContext: msg,
     },
   }));
