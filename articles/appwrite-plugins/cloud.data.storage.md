@@ -407,6 +407,8 @@ Check data source loading state, errors, and readiness:
 </small>
 ```
 
+A source can be `$ready` while no one is signed in (see [Signed out](#scope)), so gate signed-in UI on `$auth.isAuthenticated` rather than `$ready`.
+
 ---
 
 ### CRUD Methods

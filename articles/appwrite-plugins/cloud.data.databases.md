@@ -644,6 +644,8 @@ Check data source loading state, errors, and readiness:
 </small>
 ```
 
+A source can be `$ready` with no entries because its [scope](#scope) can't apply yet (signed out, or no team), so check `$auth.isAuthenticated` to tell a signed-out visitor apart from a user with no entries.
+
 ---
 
 ### CRUD Methods
