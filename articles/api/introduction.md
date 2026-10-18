@@ -19,7 +19,7 @@ Either way, the site goes to staging first and moves to production when you [pro
 
 ## Getting access
 
-Every Manifest account can use the API. Create an API key in the [dashboard](https://dash.manifestx.dev/settings) under **Settings**, then **API keys**. See [Authentication](/docs/api/setup/authentication#create-an-api-key).
+Every Manifest account can use the API. Create an API key on the dashboard's [API page](https://dash.manifestx.dev/api). See [Authentication](/docs/api/setup/authentication#create-an-api-key).
 
 A key works on two kinds of project:
 

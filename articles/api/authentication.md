@@ -6,11 +6,11 @@ Send your API key with every request.
 
 ## Create an API key
 
-1. Open the [dashboard](https://dash.manifestx.dev/settings) and go to **Settings**.
-2. Under **API keys**, name the key after the service that will use it, such as "CI" or "Docs sync", and select **Create key**.
+1. Open the [API page](https://dash.manifestx.dev/api) of the dashboard. It's also in the account menu, under **API**.
+2. Select **New key**, name it after the service that will use it, such as "CI" or "Docs sync", and select **Create key**.
 3. Copy the key. It is shown once, so store it in your secrets manager right away.
 
-Keys start with `mnfst_api_`{copy}. You can hold up to 10 keys. Give each service its own key, so you can revoke one without touching the others. The list in Settings shows each key's prefix, name, creation date, and when it was last used.
+Keys start with `mnfst_api_`{copy}. You can hold up to 10 keys. Give each service its own key, so you can revoke one without touching the others. The API page lists each key's prefix, name, creation date, and when it was last used.
 
 Platform account keys are issued by Manifest when the account is set up.
 
@@ -58,7 +58,7 @@ Creating a project also returns that project's own key, `project_key`{copy}, onc
 
 ## Revoke a key
 
-In **Settings**, under **API keys**, select the trash icon next to the key, then **Revoke key**. The key stops working on the next request and can't be restored. If a key leaks, revoke it and create a new one. To revoke a platform account key, [contact Manifest](/support).
+On the [API page](https://dash.manifestx.dev/api), select the trash icon next to the key, then **Revoke key**. The key stops working on the next request and can't be restored. If a key leaks, revoke it and create a new one. To revoke a platform account key, [contact Manifest](/support).
 
 ---
 
