@@ -102,7 +102,7 @@
         </div>
       </template>
       <template x-if="article?.name">
-        <div class="prose [&_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="article?.doc"></div>
+        <div class="prose [&_:where(h1,h2,h3)]:scroll-mt-26 [&_table]:block [&_table]:overflow-x-auto sm:[&_table]:table" x-markdown="article?.doc"></div>
       </template>
 
       <!-- Previous / next -->
