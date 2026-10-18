@@ -16,7 +16,7 @@ Every error has the same shape. `message` is written for a person; branch on `er
 }
 ```
 
-A content error also names the field, for example `"field": "articles[1].slug"`.
+Any path outside `/v1/*` answers `404` with `"error": "not_found"` and "No such API route." A content error also names the field, for example `"field": "articles[1].slug"`.
 
 ---
 

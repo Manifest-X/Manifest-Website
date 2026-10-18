@@ -45,7 +45,7 @@ The answer is `201 Created`. Keep `project.id` for the next steps:
     "source_id": "site_8231",
     "name": "Acme Docs",
     "status": "active",
-    "api_key_prefix": "mfst_live_AbCd1234",
+    "project_key_prefix": "mfst_live_AbCd1234",
     "created_at": 1792138921,
     "urls": {
       "production": "https://acme-docs.manifestx.ai",
@@ -53,12 +53,12 @@ The answer is `201 Created`. Keep `project.id` for the next steps:
     },
     "published": { "production": false, "staging": false }
   },
-  "api_key": "mfst_live_…",
+  "project_key": "mfst_live_…",
   "request_id": "…"
 }
 ```
 
-`api_key` is the project's own key, shown once. You don't need it for the API (see [Create a project](/docs/api/projects/manage#create-a-project)).
+`project_key` is the project's own key, shown once. It is not your API key, and you don't need it for the API (see [Create a project](/docs/api/projects/manage#create-a-project)).
 
 ```bash copy
 export PROJECT_ID="proj_…"

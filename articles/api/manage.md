@@ -32,7 +32,7 @@ A new project answers `201 Created`:
     "source_id": "site_8231",
     "name": "Acme Docs",
     "status": "active",
-    "api_key_prefix": "mfst_live_AbCd1234",
+    "project_key_prefix": "mfst_live_AbCd1234",
     "created_at": 1760140800,
     "urls": {
       "production": "https://acme-docs.manifestx.ai",
@@ -40,12 +40,12 @@ A new project answers `201 Created`:
     },
     "published": { "production": false, "staging": false }
   },
-  "api_key": "mfst_live_…",
+  "project_key": "mfst_live_…",
   "request_id": "…"
 }
 ```
 
-`api_key` is the project's own key, returned **once**. It is a normal Manifest project key: hand it to the site's CI if it publishes headless, or keep it in your vault. The API itself doesn't need it, because your API key acts on every project in your account. The subdomains are reserved immediately; `published` flips to `true` per environment after the first publish there.
+`project_key` is the project's own key, returned **once**. It is a normal Manifest project key for that one project, not your API key: hand it to the site's CI if it publishes headless, or keep it in your vault. The API itself doesn't need it, because your API key acts on every project in your account. The subdomains are reserved immediately; `published` flips to `true` per environment after the first publish there.
 
 Every project you create is private by default (it never appears in the Manifest showcase) and carries no badge.
 
@@ -55,7 +55,7 @@ Every project you create is private by default (it never appears in the Manifest
 
 | **Request**                                              | **Response**                                                                                  |
 |----------------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| Same `source_id`, same `name` (and `subdomain`, if sent) | `200 OK` with the existing project. No `api_key`: it was returned when the project was created. |
+| Same `source_id`, same `name` (and `subdomain`, if sent) | `200 OK` with the existing project. No `project_key`: it was returned when the project was created. |
 | Same `source_id`, different `name` or `subdomain`        | `409 source_id_conflict`, naming the existing project id. Nothing is changed.                 |
 | Two creates for the same `source_id` at the same moment  | One project. The first wins (`201`); the other sees it (`200`).                               |
 
@@ -74,7 +74,7 @@ curl https://api.manifestx.dev/v1/projects \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
 ```
 
-Returns `{ "projects": [ … ], "request_id": "…" }` with every live project in your API account, newest first, in the same shape as the create response (without `api_key`). Deleted projects and projects outside your account are never included.
+Returns `{ "projects": [ … ], "request_id": "…" }` with every live project in your API account, newest first, in the same shape as the create response (without `project_key`). Deleted projects and projects outside your account are never included.
 
 ---
 

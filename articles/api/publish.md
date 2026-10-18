@@ -33,14 +33,14 @@ The answer is `201 Created`:
 ```json
 {
   "deployment": { "id": "dep_…", "env": "staging", "source": "spa", "output_dir": "", "status": "uploading" },
-  "upload_url": "https://mcp.manifestx.dev/publish/put_…",
-  "status_url": "https://mcp.manifestx.dev/publish/put_…/status",
+  "upload_url": "https://api.manifestx.dev/v1/uploads/put_…",
+  "status_url": "https://api.manifestx.dev/v1/uploads/put_…/status",
   "expires_in_seconds": 900,
   "request_id": "…"
 }
 ```
 
-The upload URL works once and expires after 15 minutes. It carries its own authority, so the machine that uploads never needs your API key. With an `Idempotency-Key`, a retried start returns the same URL instead of opening a second deployment.
+The upload URL works once and expires after 15 minutes. The token in the URL is its own authority, so the upload and the status checks need no `Authorization` header, and the machine that uploads never needs your API key. With an `Idempotency-Key`, a retried start returns the same URL instead of opening a second deployment.
 
 ---
 
@@ -67,7 +67,7 @@ Without the header the upload waits and answers with the same outcome. The site 
 | Largest single file   | 25 MB     |
 | Files per deployment  | 10,000    |
 
-An upload over a limit answers `413` and an expired URL answers `410`; start a new publish in either case. Sending the zip again to a URL whose upload already finished publishes nothing new: it answers with that first outcome, so a retry after a dropped response is safe.
+An upload over a limit answers `413`, and an expired URL answers `410` with "Publish link expired or already used. Start a new publish." Start a new publish in either case. Sending the zip again to a URL whose upload already finished publishes nothing new: it answers with that first outcome, so a retry after a dropped response is safe.
 
 ---
 

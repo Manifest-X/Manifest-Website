@@ -38,7 +38,7 @@ Keep the key on your server. It can act on every project your API account owns, 
 
 ## Project keys
 
-Creating a project also returns that project's own key, `api_key`, once. It is a normal Manifest project key for publishing that one project headless, for example from its CI with `mnfst-publish`. The API doesn't need it: your API key acts on every project in your account. See [Create a project](/docs/api/projects/manage#create-a-project).
+Creating a project also returns that project's own key, `project_key`, once. It is a normal Manifest project key for publishing that one project headless, for example from its CI with `mnfst-publish`. The API doesn't need it: your API key acts on every project in your account. See [Create a project](/docs/api/projects/manage#create-a-project).
 
 ---
 
@@ -53,5 +53,13 @@ A revoked key stops working on the next request. If a key leaks, [contact Manife
 | **Status** | **`error`**      | **Meaning**                                                  |
 |------------|------------------|--------------------------------------------------------------|
 | 401        | `unauthorized`   | The key is missing, malformed, or not an API key.            |
-| 401        | `key_revoked`    | The key was revoked. Switch to a current key.                |
-| 404        | `not_found`      | The route doesn't exist.                                     |
+| 401        | `key_revoked`    | The key was revoked. Use a current key or contact Manifest.  |
+| 404        | `not_found`      | No such API route. Only `/v1/*` exists on `api.manifestx.dev`. |
+
+The `message` says which key problem it is:
+
+| **Key**   | **`message`**                                                          |
+|-----------|------------------------------------------------------------------------|
+| Missing   | `Send your API key as "Authorization: Bearer mfst_api_…".`             |
+| Unknown   | `That API key is not recognised.`                                      |
+| Revoked   | `That API key has been revoked. Use a current key or contact Manifest.` |

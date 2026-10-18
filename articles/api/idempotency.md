@@ -30,7 +30,7 @@ curl -X POST https://api.manifestx.dev/v1/projects \
 | Different body                           | `422 idempotency_key_reused`. Nothing runs.                                                                 |
 | First request answered `409` or `5xx`    | Not stored: the retry runs the request again.                                                               |
 
-Responses are kept for 24 hours. JSON key order and whitespace don't change the match, and the header is ignored on `GET`. A replayed create returns the original `api_key`, so a retry after a dropped response still receives the project key.
+Responses are kept for 24 hours. JSON key order and whitespace don't change the match, and the header is ignored on `GET`. A replayed create returns the original `project_key`, so a retry after a dropped response still receives the project key.
 
 ---
 
