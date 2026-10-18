@@ -2,6 +2,8 @@
 
 Create, publish, and manage Manifest-hosted sites from your own code.
 
+API access is by invitation for now. [Request an API account](/docs/api/setup/introduction#getting-access).
+
 <a href="/docs/api/setup/quickstart" class="docs-feature">
   <span x-icon="lucide:square-arrow-up-right"></span>
   <span>

@@ -6,7 +6,7 @@ Send your API key with every request.
 
 ## API keys
 
-Your API account comes with an API key, issued by Manifest when the account is set up. It starts with `mnfst_api_`{copy} and is shown once, so store it in your secrets manager. Send it on every request as a bearer token, `Authorization: Bearer <key>`{copy}:
+Your API account comes with an API key, issued by Manifest when the account is set up ([request access](/docs/api/setup/introduction#getting-access)). It starts with `mnfst_api_`{copy} and is shown once, so store it in your secrets manager. Send it on every request as a bearer token, `Authorization: Bearer <key>`{copy}:
 
 ```bash copy
 curl https://api.manifestx.dev/v1/me \

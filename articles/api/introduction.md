@@ -10,10 +10,16 @@ The Manifest API lets your backend create sites and keep them published without 
 
 There are two ways to publish a site today:
 
-- **Send content for a Manifest template.** Send the site's pages, written in Markdown, plus its settings and theme, and Manifest builds the site from one of its templates. The docs template, for documentation sites, is the first. See [Content](/docs/api/projects/content).
+- **Send content for a Manifest template.** Send the site's pages, written in Markdown, plus its settings and theme, and Manifest builds the site from one of its templates. Today that is the docs template, for documentation and help sites. See [Content](/docs/api/projects/content).
 - **Upload your own site files** as a zip: a Manifest project, custom or from any template, or any other static build. Any static build works from frameworks like Manifest, React, Vite, Astro, or just plain HTML. See [Publish](/docs/api/projects/publish).
 
 Either way, the site goes to staging first and moves to production when you [promote](/docs/api/projects/publish#promote-staging-to-production) it.
+
+---
+
+## Getting access
+
+API access is by invitation while the API is new. To request an API account, email [team@manifestx.dev](mailto:team@manifestx.dev) with your company, what you want to build, and roughly how many sites you expect to run.
 
 ---
 
