@@ -8,10 +8,10 @@ Create, publish, and manage Manifest-hosted sites from your own code.
 
 The Manifest API lets your backend create sites and keep them published without a person in the loop. Each site is an ordinary Manifest project owned by your API account, so it has its own deployments, staging and production environments, domains, and team.
 
-There are two ways to put a site online:
+There are two ways to publish a site today:
 
-- **Publish your own build.** If you already build the site, upload the output as a zip. Any static build works: React, Vite, Astro, plain HTML, or a Manifest app. See [Publish](/docs/api/projects/publish).
-- **Send content.** If you have the content but no front end, send articles as JSON and Manifest builds a documentation site from them. See [Content](/docs/api/projects/content).
+- **Send content for a Manifest template.** Send the site's pages, written in Markdown, plus its settings and theme, and Manifest builds the site from one of its templates. The docs template, for documentation sites, is the first. See [Content](/docs/api/projects/content).
+- **Upload your own site files** as a zip: a Manifest project, custom or from any template, or any other static build. Any static build works from frameworks like Manifest, React, Vite, Astro, or just plain HTML. See [Publish](/docs/api/projects/publish).
 
 Either way, the site goes to staging first and moves to production when you [promote](/docs/api/projects/publish#promote-staging-to-production) it.
 
@@ -25,7 +25,7 @@ All requests go to one versioned base URL:
 https://api.manifestx.dev/v1
 ```
 
-Requests and responses are JSON. Every response carries a `request_id`; quote it when you contact Manifest.
+Requests and responses are JSON. Every response carries a `request_id`{copy}; quote it when you contact Manifest.
 
 ---
 

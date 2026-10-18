@@ -8,8 +8,8 @@ Retry any request safely.
 
 Creates are idempotent on your own id; everything else that changes something uses a header.
 
-- **Creates:** `source_id` is the key. Re-sending the same body returns the existing project (`200`), so a create needs no header. See [Idempotent creates](/docs/api/projects/manage#idempotent-creates).
-- **Everything else that changes something** (content, publish, promote, rollback, and domains): send an `Idempotency-Key` header, 1 to 200 characters, unique per operation and scoped to your API account. Derive it from your own job id, such as `help-center-sync-0193`, so a retry of the same job reuses it.
+- **Creates:** `source_id`{copy} is the key. Re-sending the same body returns the existing project (`200`), so a create needs no header. See [Idempotent creates](/docs/api/projects/manage#idempotent-creates).
+- **Everything else that changes something** (content, publish, promote, rollback, and domains): send an `Idempotency-Key`{copy} header, 1 to 200 characters, unique per operation and scoped to your API account. Derive it from your own job id, such as `help-center-sync-0193`, so a retry of the same job reuses it.
 
 ```bash copy
 curl -X POST https://api.manifestx.dev/v1/projects \
@@ -25,12 +25,12 @@ curl -X POST https://api.manifestx.dev/v1/projects \
 
 | **Repeat with the same key**             | **Result**                                                                                                  |
 |------------------------------------------|-------------------------------------------------------------------------------------------------------------|
-| Same body, first request finished        | The stored response, byte for byte, with an `Idempotent-Replayed: true` header. Nothing runs twice.         |
+| Same body, first request finished        | The stored response, byte for byte, with an `Idempotent-Replayed: true`{copy} header. Nothing runs twice.         |
 | Same body, first request still running   | `409 idempotency_in_progress`. Retry shortly.                                                               |
 | Different body                           | `422 idempotency_key_reused`. Nothing runs.                                                                 |
 | First request answered `409` or `5xx`    | Not stored: the retry runs the request again.                                                               |
 
-Responses are kept for 24 hours. JSON key order and whitespace don't change the match, and the header is ignored on `GET`. A replayed create returns the original `project_key`, so a retry after a dropped response still receives the project key.
+Responses are kept for 24 hours. JSON key order and whitespace don't change the match, and the header is ignored on `GET`. A replayed create returns the original `project_key`{copy}, so a retry after a dropped response still receives the project key.
 
 ---
 
@@ -38,7 +38,7 @@ Responses are kept for 24 hours. JSON key order and whitespace don't change the 
 
 | **Status** | **`error`**                 | **Meaning**                                                                          |
 |------------|-----------------------------|--------------------------------------------------------------------------------------|
-| 400        | `invalid_idempotency_key`   | `Idempotency-Key` is blank or longer than 200 characters.                            |
-| 409        | `idempotency_in_progress`   | The first request with this key is still running. Retry shortly.                     |
-| 422        | `idempotency_key_reused`    | The key was already used with a different request body.                              |
-| 503        | `idempotency_unavailable`   | Idempotent requests are temporarily unavailable. Retry later, or without the header. |
+| 400        | `invalid_idempotency_key`{copy}   | `Idempotency-Key`{copy} is blank or longer than 200 characters.                            |
+| 409        | `idempotency_in_progress`{copy}   | The first request with this key is still running. Retry shortly.                     |
+| 422        | `idempotency_key_reused`{copy}    | The key was already used with a different request body.                              |
+| 503        | `idempotency_unavailable`{copy}   | Idempotent requests are temporarily unavailable. Retry later, or without the header. |

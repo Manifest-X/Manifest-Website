@@ -1,12 +1,14 @@
 # Content
 
-Send articles as JSON and Manifest builds a documentation site from them.
+Send the site's pages as Markdown, and Manifest builds a documentation site from them.
 
 ---
 
 ## Send content
 
-If you have the content but no front end, send the articles as JSON and Manifest builds a documentation site from its docs template. There is no build step on your side and no zip. Each ingest is a new deployment of the whole site, so it replaces everything the previous ingest published.
+If you have the content but no site, send it in one JSON request: the site's pages, written in Markdown, plus site settings and theme. Manifest builds them into a documentation site from its docs template. There is no build step on your side and no zip. Each ingest is a new deployment of the whole site, so it replaces everything the previous ingest published.
+
+In the request, each page is an entry in `articles`{copy}, with a `title`{copy}, a `slug`{copy} for its URL, the `group`{copy} it is listed under in the navigation, and its `markdown`{copy}.
 
 ```bash copy
 curl -X POST https://api.manifestx.dev/v1/projects/proj_…/content \
@@ -38,27 +40,27 @@ curl -X POST https://api.manifestx.dev/v1/projects/proj_…/content \
 
 | **Field**          | **Type** | **Required** | **Notes**                                                                                           |
 |--------------------|----------|--------------|-----------------------------------------------------------------------------------------------------|
-| `template`         | string   | yes          | `docs`.                                                                                             |
-| `env`              | string   | no           | `staging` (default) or `production`.                                                                |
-| `site.name`        | string   | yes          | Page title, header, and app name. Up to 120 characters.                                              |
-| `site.description` | string   | no           | Meta description and the landing-page intro. Up to 1,000 characters.                               |
-| `site.theme`       | object   | no           | `tokens` (light) and `dark`: theme token names mapped to CSS values. See below.                     |
-| `groups`           | array    | no           | `{slug, description?}` per group. Listed groups come first, in this order, with their description.  |
-| `articles`         | array    | yes          | At least one article.                                                                               |
+| `template`{copy}         | string   | yes          | `docs`{copy}.                                                                                             |
+| `env`{copy}              | string   | no           | `staging`{copy} (default) or `production`{copy}.                                                                |
+| `site.name`{copy}        | string   | yes          | Page title, header, and app name. Up to 120 characters.                                              |
+| `site.description`{copy} | string   | no           | Meta description and the landing-page intro. Up to 1,000 characters.                               |
+| `site.theme`{copy}       | object   | no           | `tokens`{copy} (light) and `dark`{copy}: theme token names mapped to CSS values. See below.                     |
+| `groups`{copy}           | array    | no           | `{slug, description?}` per group. Listed groups come first, in this order, with their description.  |
+| `articles`{copy}         | array    | yes          | At least one page.                                                                               |
 
-Each article:
+Each entry in `articles`{copy} is one page:
 
 | **Field**    | **Type** | **Required** | **Notes**                                                                                     |
 |--------------|----------|--------------|-----------------------------------------------------------------------------------------------|
-| `group`      | string   | yes          | Group name shown in the navigation.                                                           |
-| `group_slug` | string   | no           | URL segment of the group. Defaults to the group name in lowercase with hyphens.               |
-| `title`      | string   | yes          | Up to 200 characters.                                                                         |
-| `slug`       | string   | yes          | URL segment of the article. See the slug rules below.                                         |
-| `markdown`   | string   | yes          | The article body. If its first line isn't a `# ` heading, the title is added as one.          |
-| `icon`       | string   | no           | An Iconify name such as `lucide:receipt`. Defaults to `lucide:file-text`.                     |
-| `order`      | number   | no           | Sort position inside the group. Articles without one follow, in the order you sent them.      |
+| `group`{copy}      | string   | yes          | Group name shown in the navigation.                                                           |
+| `group_slug`{copy} | string   | no           | URL segment of the group. Defaults to the group name in lowercase with hyphens.               |
+| `title`{copy}      | string   | yes          | Up to 200 characters.                                                                         |
+| `slug`{copy}       | string   | yes          | URL segment of the page. See the slug rules below.                                         |
+| `markdown`{copy}   | string   | yes          | The page body. If its first line isn't a `# ` heading, the title is added as one.          |
+| `icon`{copy}       | string   | no           | An Iconify name such as `lucide:receipt`{copy}. Defaults to `lucide:file-text`{copy}.                     |
+| `order`{copy}      | number   | no           | Sort position inside the group. Pages without one follow, in the order you sent them.      |
 
-Articles carry markdown only: a field not listed here is refused, in an article, `site`, `site.theme`, or `groups`, and so is markdown containing control characters. Images and other files are not part of the payload, so link to them by absolute URL.
+Pages carry markdown only: a field not listed here is refused, in a page, `site`{copy}, `site.theme`{copy}, or `groups`{copy}, and so is markdown containing control characters. Images and other files are not part of the payload, so link to them by absolute URL.
 
 The site answers `201 Created` and is live on that environment's URL straight away:
 
@@ -71,15 +73,15 @@ The site answers `201 Created` and is live on that environment's URL straight aw
 }
 ```
 
-Rarely, the site goes live but a follow-up step, such as setting up the default hostname, doesn't finish. The answer is still `201`, with a `warning`:
+Rarely, the site goes live but a follow-up step, such as setting up the default hostname, doesn't finish. The answer is still `201`, with a `warning`{copy}:
 
 ```json
 { "warning": { "code": "post_publish_incomplete", "message": "The site is live, but a follow-up step …" } }
 ```
 
-The deployment is live and counts as published, so don't resend it. The step completes on the next publish, and `url` can be `null` until then.
+The deployment is live and counts as published, so don't resend it. The step completes on the next publish, and `url`{copy} can be `null` until then.
 
-An article is served at `/docs/<group_slug>/<slug>`. [Promote](/docs/api/projects/publish#promote-staging-to-production), [rollback](/docs/api/projects/publish#roll-back), and the [deployment list](/docs/api/projects/publish#list-deployments) work exactly as for your own builds.
+A page is served at `/docs/<group_slug>/<slug>`. [Promote](/docs/api/projects/publish#promote-staging-to-production), [rollback](/docs/api/projects/publish#roll-back), and the [deployment list](/docs/api/projects/publish#list-deployments) work exactly as for your own builds.
 
 ---
 
@@ -93,10 +95,10 @@ A project's first successful ingest pins the docs template version it was built 
 
 Slugs are lowercase letters and digits in words joined by single hyphens, such as `payment-methods`, up to 80 characters. Because the site matches a link against every part of its path:
 
-- an article slug is unique across **all** groups, not only within its own;
-- an article slug can't equal any group slug: a `billing` article inside a `billing` group is refused, so name it `billing-overview`;
-- neither can be `docs`, the segment the site lives under;
-- one `group_slug` has one group name, and two groups can't share a name.
+- a page slug is unique across **all** groups, not only within its own;
+- a page slug can't equal any group slug: a `billing` page inside a `billing` group is refused, so name it `billing-overview`;
+- neither can be `docs`{copy}, the segment the site lives under;
+- one `group_slug`{copy} has one group name, and two groups can't share a name.
 
 ---
 
@@ -111,12 +113,12 @@ Token names are the template's theme tokens, with or without the leading `--`. V
 | **Limit**                     | **Value**    |
 |-------------------------------|--------------|
 | Request body                  | 12 MB        |
-| Articles per ingest           | 1,000        |
-| Markdown per article          | 512 KB       |
+| Pages per ingest           | 1,000        |
+| Markdown per page          | 512 KB       |
 | Markdown per ingest, in total | 10 MB        |
-| Entries in `groups`           | 100          |
-| Slug and `group_slug`         | 80 characters, including a `group_slug` derived from the group name |
-| Group name, article title     | 200 characters |
+| Entries in `groups`{copy}           | 100          |
+| Slug and `group_slug`{copy}         | 80 characters, including a `group_slug`{copy} derived from the group name |
+| Group name, page title     | 200 characters |
 | Group description             | 1,000 characters |
 | Site name                     | 120 characters |
 | Site description              | 1,000 characters |
@@ -127,13 +129,13 @@ Token names are the template's theme tokens, with or without the leading `--`. V
 
 ## Retrying an ingest
 
-Send an `Idempotency-Key` with every ingest. A retry with the same key and body returns the first response and creates no second deployment; the same key with a different body is `422 idempotency_key_reused`. A `5xx` is never stored, so a retry after one runs again.
+Send an `Idempotency-Key`{copy} with every ingest. A retry with the same key and body returns the first response and creates no second deployment; the same key with a different body is `422 idempotency_key_reused`. A `5xx` is never stored, so a retry after one runs again.
 
 ---
 
 ## Errors
 
-A content problem answers `422` with a `field` that names the article and property, and no deployment is created:
+A content problem answers `422` with a `field`{copy} that names the page and property, and no deployment is created:
 
 ```json
 {
@@ -146,10 +148,10 @@ A content problem answers `422` with a `field` that names the article and proper
 
 | **Status** | **`error`**              | **Meaning**                                                                                              |
 |------------|--------------------------|----------------------------------------------------------------------------------------------------------|
-| 400        | `invalid_input`          | The body isn't UTF-8 JSON, isn't an object, has an unknown top-level field, `template` isn't `docs`, or `env` is wrong.|
-| 404        | `not_found`              | No such project in your API account.                                                                 |
-| 413        | `payload_too_large`      | The body is over 12 MB.                                                                                  |
-| 422        | `invalid_content`        | A slug, size, theme value, or article field is invalid. `field` says which.                               |
-| 500        | `ingest_failed`          | The deployment failed before going live. Whatever was live on that environment is unchanged (or nothing, on a first ingest). Retry the request. |
-| 503        | `template_unavailable`   | The docs template couldn't be loaded. Retry shortly.                                                     |
+| 400        | `invalid_input`{copy}          | The body isn't UTF-8 JSON, isn't an object, has an unknown top-level field, `template`{copy} isn't `docs`{copy}, or `env`{copy} is wrong.|
+| 404        | `not_found`{copy}              | No such project in your API account.                                                                 |
+| 413        | `payload_too_large`{copy}      | The body is over 12 MB.                                                                                  |
+| 422        | `invalid_content`{copy}        | A slug, size, theme value, or page field is invalid. `field`{copy} says which.                               |
+| 500        | `ingest_failed`{copy}          | The deployment failed before going live. Whatever was live on that environment is unchanged (or nothing, on a first ingest). Retry the request. |
+| 503        | `template_unavailable`{copy}   | The docs template couldn't be loaded. Retry shortly.                                                     |
 

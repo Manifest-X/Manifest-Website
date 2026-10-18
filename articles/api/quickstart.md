@@ -15,7 +15,7 @@ You need an API key. See [Authentication](/docs/api/setup/authentication). Each 
 Put your API key in an environment variable and ask the API who you are:
 
 ```bash copy
-export MANIFEST_ACCOUNT_KEY="mfst_api_…"
+export MANIFEST_ACCOUNT_KEY="mnfst_api_…"
 
 curl https://api.manifestx.dev/v1/me \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
@@ -27,7 +27,7 @@ A `200` with your API account's name means the key works.
 
 ## 2. Create a project
 
-`source_id` is your own id for this site, such as a record id in your system:
+`source_id`{copy} is your own id for this site, such as a record id in your system:
 
 ```bash copy
 curl -X POST https://api.manifestx.dev/v1/projects \
@@ -36,7 +36,7 @@ curl -X POST https://api.manifestx.dev/v1/projects \
   -d '{ "source_id": "site_8231", "name": "Acme Docs", "subdomain": "acme-docs" }'
 ```
 
-The answer is `201 Created`. Keep `project.id` for the next steps:
+The answer is `201 Created`. Keep `project.id`{copy} for the next steps:
 
 ```json
 {
@@ -58,7 +58,7 @@ The answer is `201 Created`. Keep `project.id` for the next steps:
 }
 ```
 
-`project_key` is the project's own key, shown once. It is not your API key, and you don't need it for the API (see [Create a project](/docs/api/projects/manage#create-a-project)).
+`project_key`{copy} is the project's own key, shown once. It is not your API key, and you don't need it for the API (see [Create a project](/docs/api/projects/manage#create-a-project)).
 
 ```bash copy
 export PROJECT_ID="proj_…"
@@ -68,7 +68,7 @@ export PROJECT_ID="proj_…"
 
 ## 3. Send the content
 
-Two articles in two groups become a documentation site:
+Two Markdown pages, listed under two groups, become a documentation site:
 
 ```bash copy
 curl -X POST https://api.manifestx.dev/v1/projects/$PROJECT_ID/content \
@@ -98,7 +98,7 @@ curl -X POST https://api.manifestx.dev/v1/projects/$PROJECT_ID/content \
 
 ## 4. Open the staging URL
 
-The site is live at `url` as soon as the request returns. The Invoices article is at `/docs/billing/invoices` on that URL. Production still answers "This site hasn't been published yet."
+The site is live at `url`{copy} as soon as the request returns. The Invoices article is at `/docs/billing/invoices` on that URL. Production still answers "This site hasn't been published yet."
 
 ---
 
@@ -127,6 +127,6 @@ The same site now answers at `https://acme-docs.manifestx.ai`.
 
 ## Next steps
 
-- Send new [content](/docs/api/projects/content) whenever the articles change. Each request replaces the whole site on staging.
+- Send new [content](/docs/api/projects/content) whenever the pages change. Each request replaces the whole site on staging.
 - Point a domain of your own at the site with [Domains](/docs/api/projects/domains).
 - Publish a build of your own instead with [Publish](/docs/api/projects/publish).
