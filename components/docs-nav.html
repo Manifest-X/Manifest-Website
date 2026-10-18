@@ -1,24 +1,74 @@
-<!-- Mobile docs navigation. Open from anywhere with popovertarget="docs-nav". -->
-<nav aria-label="Documentation" data-static popover id="docs-nav" data-no-view-transition class="col w-64 h-full pt-8 pb-64 px-4 shadow-xl overflow-y-auto no-scrollbar" x-data="{
-        get src() { return $route.startsWith('/docs/ai') ? 'ai' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+<!-- Mobile navigation -->
+<nav aria-label="Menu" popover id="docs-nav" data-no-view-transition class="col w-64 h-full pt-8 pb-64 px-4 shadow-xl overflow-y-auto no-scrollbar" x-data="{
+        view: null,
+        get current() { return $route.match(/^\/docs\/(ai|api|framework)(\/|$)/)?.[1] || null },
+        get src() { return this.view || this.current },
         get base() { return '/docs/' + this.src },
-        get groups() { return $x[this.src] || [] },
-        get article() { return $x[this.src].$route('path') },
-    }" @manifest:route-change.window="$el.hidePopover()">
-    <template x-for="group in groups" :key="group.group">
+        get groups() { return this.src ? $x[this.src] || [] : [] },
+        get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
+        here(href) { return $route.replace(/\/$/, '') === href },
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' && (view = null)" @click="$event.target.closest('a[href]') && $el.hidePopover()">
+
+    <!-- Docs -->
+    <template x-if="src">
+        <div class="col">
+            <div role="group" class="row w-full border border-line rounded-full my-4">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <button type="button" class="sm grow rounded-full" :class="src === d.key ? 'accent' : 'transparent'" :aria-pressed="src === d.key" @click="view = d.key" x-text="d.name"></button>
+                </template>
+            </div>
+            <a role="button" :href="base" :aria-current="here(base) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="here(base) ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                <span x-icon="lucide:house"></span>
+                <span>Overview</span>
+            </a>
+            <template x-for="group in groups" :key="group.group">
+                <div class="col gap-6 py-4">
+                    <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
+                    <div class="col">
+                        <template x-for="(item, index) in group.items" :key="item.path || index">
+                            <a x-show="item.name" role="button" :href="base + (group.slug ? '/' + group.slug : '') + '/' + item.path" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="article?.path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                                <span x-icon="item.icon"></span>
+                                <span x-text="item.name"></span>
+                            </a>
+                        </template>
+                    </div>
+                    <hr>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <!-- Site -->
+    <div class="col py-4">
+        <template x-for="s in $x.site.sections" :key="s.anchor">
+            <a role="button" :href="($route === '/' ? '#' : '/#') + s.anchor" class="ghost justify-start w-full text-content-neutral">
+                <span x-icon="s.icon"></span>
+                <span x-text="s.name"></span>
+            </a>
+        </template>
+    </div>
+    <hr class="shrink-0">
+    <template x-if="!src">
         <div class="col gap-6 py-4">
-            <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
+            <small class="pl-2.5 text-content-subtle">Docs</small>
             <div class="col">
-                <template x-for="(item, index) in group.items" :key="item.path || index">
-                    <a x-show="item.name" role="button" :href="base + (group.slug ? '/' + group.slug : '') + '/' + item.path" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="[
-                              article?.path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''
-                            ]">
-                        <span x-icon="item.icon"></span>
-                        <span x-text="item.name"></span>
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a role="button" :href="'/docs/' + d.key" class="ghost justify-start w-full text-content-neutral">
+                        <span x-icon="d.icon"></span>
+                        <span x-text="d.name"></span>
                     </a>
                 </template>
             </div>
-            <hr>
         </div>
     </template>
+    <hr class="shrink-0" x-show="!src">
+    <div class="col py-4">
+        <template x-for="p in $x.site.pages" :key="p.href">
+            <a role="button" :href="p.href" :aria-current="$route.startsWith(p.href) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="$route.startsWith(p.href) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="p.icon"></span>
+                <span x-text="p.name"></span>
+            </a>
+        </template>
+    </div>
+
 </nav>

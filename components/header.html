@@ -5,7 +5,6 @@
 
         <!-- Start -->
         <div class="row items-center gap-3" x-data="{
-            families: { ai: 'AI Plugin', framework: 'Framework', api: 'API' },
             get family() { return $route.startsWith('/docs/ai') ? 'ai' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
         }">
 
@@ -17,14 +16,14 @@
 
             <!-- Docs family -->
             <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation">
-                <span x-text="families[family]"></span>
+                <span x-text="$x.site.docs.find(d => d.key === family)?.name"></span>
                 <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
             </button>
             <menu popover id="docs-family">
-                <template x-for="(label, key) in families" :key="key">
-                    <a :href="'/docs/' + key" close>
-                        <span x-text="label"></span>
-                        <span x-show="family === key" x-icon="lucide:check" class="trailing"></span>
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a :href="'/docs/' + d.key" close>
+                        <span x-text="d.name"></span>
+                        <span x-show="family === d.key" x-icon="lucide:check" class="trailing"></span>
                     </a>
                 </template>
             </menu>
@@ -52,9 +51,9 @@
 
         <!-- Middle -->
         <div class="hidden md:row justify-center items-center gap-6 no-underline" x-route="/">
-            <a href="#features" class="text-sm no-underline">Features</a>
-            <a href="#comparisons" class="text-sm no-underline">Comparisons</a>
-            <a href="#faq" class="text-sm no-underline">FAQ</a>
+            <template x-for="s in $x.site.sections" :key="s.anchor">
+                <a :href="'#' + s.anchor" class="text-sm no-underline" x-text="s.name"></a>
+            </template>
         </div>
         <div x-route="!/"></div>
 
@@ -62,7 +61,7 @@
         <div class="row justify-end items-center gap-2">
 
             <!-- CTAs -->
-            <button popovertarget="docs-search" class="sm transparent outlined rounded-full" aria-label="Search docs" x-tooltip="Search docs">
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
                 <span x-icon="lucide:search"></span>
                 <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
             </button>
