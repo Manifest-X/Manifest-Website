@@ -503,7 +503,7 @@ _ui: {
 | Key          | Type             | Description                                                                  |
 | ------------ | ---------------- | ---------------------------------------------------------------------------- |
 | `type`{copy}       | string           | `line`, `area`, `bar`, `pie`, `donut`, `scatter`, `combo`, `candlestick`, `gauge`, `heatmap`, `gantt` (alias `timeline`), `map`. Default `line`. |
-| `labels`{copy}     | array            | X-axis categories, slice labels, heatmap columns, or a Gantt's category-axis stages. |
+| `labels`{copy}     | array            | X-axis categories, slice labels, heatmap columns, or a Gantt's category-axis stages. Long category axes thin their labels to fit, always showing the first and last. |
 | `series`{copy}     | array            | `{ name, data, color?, type? }` per series. `color` overrides the palette; `type` applies in combo charts; in a heatmap each series is a row; in a Gantt each series is a track and its `data` is `{ from, to, status?, color? }` segments. |
 | `data`{copy}       | array \| object  | Shorthand for a single unnamed series; for a map, the region values as `{ region: value }` or `[region, value]` rows. |
 | `height`{copy}     | number           | Chart height in pixels. Default `240`. Width tracks the container.            |
@@ -511,8 +511,8 @@ _ui: {
 | `curve`{copy}      | string           | Line interpolation — `monotone` (default), `linear`, `step`, `natural`.       |
 | `legend`{copy}     | boolean          | Show the legend (multi-series, pies, heatmap ramp). Default `true`.           |
 | `axis`{copy} / `grid`{copy} | boolean | Show axis labels / grid lines (heatmap: row & column labels). Default `true`. |
-| `tooltip`{copy}    | boolean          | Hover tooltips on segments. Default `true`.                                   |
-| `dataLabels`{copy} | boolean          | Static value labels on points, bars, slices, and heatmap tiles. Default `false`. |
+| `tooltip`{copy}    | boolean          | Hover tooltips on segments, with the point's label shown as the heading. Default `true`. |
+| `dataLabels`{copy} | boolean          | Static value labels on points, bars, slices, and heatmap tiles. Off for dense line and area charts. Default `false`. |
 | `title`{copy}      | string           | Accessible chart label (`aria-label` on the SVG).                             |
 | `value`{copy}      | number           | Gauge — the plotted value (or use a one-number `series`/`data`).              |
 | `min`{copy} / `max`{copy} | number \| string | Gauge range (default `0` / `100`); or a Gantt's fixed axis window (numeric or time). |
@@ -639,12 +639,14 @@ Modify base styles with custom CSS targeting `[x-chart]` (or the `.chart` marker
 | `path.line`{copy}           | Line series strokes                           |
 | `path.area`{copy}           | Area fills                                    |
 | `path.slice`{copy}          | Pie / donut slices                            |
-| `rect`{copy}                | Bars and candle bodies                        |
+| `rect`{copy}                | Bars and candle bodies (style with `rect:not(.hit)`) |
+| `rect.hit`{copy}            | Transparent hover columns on dense line and area charts |
 | `rect.heat-cell`{copy}      | Heatmap tiles (fill driven by the `--heat` percentage) |
 | `rect.gantt-segment`{copy} / `rect.gantt-point`{copy} | Gantt spans and point markers |
 | `path.map-region`{copy}     | Map countries (fill driven by `--color-chart-color`) |
 | `circle.map-point`{copy}    | Map location bubbles                          |
-| `circle`{copy}              | Line points and scatter dots (`.scatter`)     |
+| `circle`{copy}              | Line points and scatter dots (`.scatter`). Line points are dropped when points are under 10px apart. |
+| `circle.focus`{copy}        | The hover dot on dense charts                 |
 | `g.positive`{copy} / `g.negative`{copy} | Rising / falling candles          |
 | `path.gauge-track`{copy} / `path.gauge-value`{copy} | Gauge track and value arc         |
 | `line.gantt-marker`{copy} / `text.gantt-track`{copy} | Gantt reference lines and track labels |
