@@ -1,6 +1,6 @@
 <!-- Mobile docs navigation. Open from anywhere with popovertarget="docs-nav". -->
 <nav aria-label="Documentation" data-static popover id="docs-nav" data-no-view-transition class="col w-64 h-full pt-8 pb-64 px-4 shadow-xl overflow-y-auto no-scrollbar" x-data="{
-        get src() { return $route.startsWith('/docs/ai') ? 'ai' : 'framework' },
+        get src() { return $route.startsWith('/docs/ai') ? 'ai' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
         get base() { return '/docs/' + this.src },
         get groups() { return $x[this.src] || [] },
         get article() { return $x[this.src].$route('path') },

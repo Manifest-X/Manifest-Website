@@ -5,7 +5,8 @@
 
         <!-- Start -->
         <div class="row items-center gap-3" x-data="{
-            get family() { return $route.startsWith('/docs/ai') ? 'ai' : 'framework' },
+            families: { ai: 'AI Plugin', framework: 'Framework', api: 'API' },
+            get family() { return $route.startsWith('/docs/ai') ? 'ai' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
         }">
 
             <!-- Logo -->
@@ -16,18 +17,16 @@
 
             <!-- Docs family -->
             <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation">
-                <span x-text="family === 'ai' ? 'AI Plugin' : 'Framework'"></span>
+                <span x-text="families[family]"></span>
                 <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
             </button>
             <menu popover id="docs-family">
-                <a href="/docs/ai" close>
-                    <span>AI Plugin</span>
-                    <span x-show="family === 'ai'" x-icon="lucide:check" class="trailing"></span>
-                </a>
-                <a href="/docs/framework" close>
-                    <span>Framework</span>
-                    <span x-show="family === 'framework'" x-icon="lucide:check" class="trailing"></span>
-                </a>
+                <template x-for="(label, key) in families" :key="key">
+                    <a :href="'/docs/' + key" close>
+                        <span x-text="label"></span>
+                        <span x-show="family === key" x-icon="lucide:check" class="trailing"></span>
+                    </a>
+                </template>
             </menu>
 
             <!-- Docs Breadcrumbs-->
@@ -36,6 +35,12 @@
                     <span class="row items-center"><span x-text="$x.ai.$route('path')?.group"></span><span class="mx-1.5" x-icon="lucide:chevron-right"></span></span>
                 </template>
                 <span class="text-content-stark" x-text="$x.ai.$route('path')?.name || 'No article'"></span>
+            </small>
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/api/*">
+                <template x-if="$x.api.$route('path')?.group">
+                    <span class="row items-center"><span x-text="$x.api.$route('path')?.group"></span><span class="mx-1.5" x-icon="lucide:chevron-right"></span></span>
+                </template>
+                <span class="text-content-stark" x-text="$x.api.$route('path')?.name || 'No article'"></span>
             </small>
             <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/framework/*">
                 <span x-text="$x.framework.$route('path')?.group || 'No group'"></span>
