@@ -124,7 +124,9 @@ The new version is live on the staging URL as soon as the answer arrives. Send i
 
 Every update is a new deployment, so [rollback](#roll-back) works as for any publish. Staging keeps its five most recent deployments, so frequent updates push older versions out of reach. Send an `Idempotency-Key`{copy} so a retried update doesn't publish twice.
 
-If nothing is live on staging yet, the files start a new site and must include `index.html`{copy}. A change that would remove `index.html`{copy} is refused. `.env` files, `.git`, `node_modules`, and `.claude` are refused, and so are the files Manifest writes on every publish: `precache.json`{copy}, `manifest.utilities.css`{copy}, `_redirects.json`{copy}, and `_headers.json`{copy}. To change redirects or headers, update `_redirects`{copy} or `_headers`{copy}.
+If nothing is live on staging yet, the files start a new site and must include `index.html`{copy}. A change that would remove `index.html`{copy} is refused. `.env` files, `.git`, `node_modules`, and `.claude` are refused, and so are `precache.json`{copy} and `manifest.utilities.css`{copy}, which Manifest writes on every publish. When the site has a `_redirects`{copy} or `_headers`{copy} file, Manifest compiles it to `_redirects.json`{copy} or `_headers.json`{copy}, so update the source file instead.
+
+HTML read back from the staging URL can be sent as is: the analytics and badge tags Manifest adds when serving a page are removed before the file is stored.
 
 Some sites carry a `notices`{copy} list in the answer:
 
@@ -225,9 +227,10 @@ curl "https://api.manifestx.dev/v1/projects/proj_…/deployments?env=staging" \
 | 413        | `payload_too_large`{copy}     | A file update body is over 12 MB.                                                            |
 | 413        | `file_too_large`{copy}        | A file is over 8 MB. Publish it in a zip.                                                    |
 | 413        | `deployment_too_large`{copy}  | The updated site would pass 250 MB or 10,000 files.                                          |
-| 422        | `invalid_path`{copy}          | A path is unsafe, private, written by Manifest, or listed twice. `field`{copy} names it.           |
+| 422        | `invalid_path`{copy}          | A path is unsafe, private, written by Manifest, compiled from `_redirects`{copy} or `_headers`{copy}, or listed twice. `field`{copy} names it. |
 | 422        | `invalid_file`{copy}          | A change needs exactly one of `content`{copy}, `content_base64`{copy}, and `delete`{copy}, or its base64 is invalid. |
 | 422        | `file_not_found`{copy}        | A delete names a file that isn't on staging.                                                 |
 | 422        | `no_index`{copy}              | The update would leave the site without `index.html`{copy}.                                        |
-| 500        | `update_failed`{copy}         | The update failed before going live, and staging is unchanged. Retry.                        |
+| 500        | `update_failed`{copy}         | The update failed. The message says whether staging is unchanged, or to check [deployments](#list-deployments) before retrying. |
+| 503        | `update_timed_out`{copy}      | Copying a large site took too long, and staging is unchanged. Retry, or publish a zip.        |
 | 503        | `publish_unavailable`{copy}   | A publish couldn't be started. Retry shortly.                                                |
