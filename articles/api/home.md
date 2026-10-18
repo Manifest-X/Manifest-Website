@@ -2,7 +2,7 @@
 
 Create, publish, and manage Manifest-hosted sites from your own code.
 
-API access is by invitation for now. [Request an API account](/docs/api/setup/introduction#getting-access).
+Every Manifest account can use the API. [Create an API key](/docs/api/setup/authentication#create-an-api-key) in the dashboard.
 
 <a href="/docs/api/setup/quickstart" class="docs-feature">
   <span x-icon="lucide:square-arrow-up-right"></span>

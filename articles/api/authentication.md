@@ -4,9 +4,21 @@ Send your API key with every request.
 
 ---
 
-## API keys
+## Create an API key
 
-Your API account comes with an API key, issued by Manifest when the account is set up ([request access](/docs/api/setup/introduction#getting-access)). It starts with `mnfst_api_`{copy} and is shown once, so store it in your secrets manager. Send it on every request as a bearer token, `Authorization: Bearer <key>`{copy}:
+1. Open the [dashboard](https://dash.manifestx.dev/settings) and go to **Settings**.
+2. Under **API keys**, name the key after the service that will use it, such as "CI" or "Docs sync", and select **Create key**.
+3. Copy the key. It is shown once, so store it in your secrets manager right away.
+
+Keys start with `mnfst_api_`{copy}. You can hold up to 10 keys. Give each service its own key, so you can revoke one without touching the others. The list in Settings shows each key's prefix, name, creation date, and when it was last used.
+
+Platform account keys are issued by Manifest when the account is set up.
+
+---
+
+## Send the key
+
+Send the key on every request as a bearer token, `Authorization: Bearer <key>`{copy}:
 
 ```bash copy
 curl https://api.manifestx.dev/v1/me \
@@ -19,16 +31,20 @@ curl https://api.manifestx.dev/v1/me \
 {
   "account": {
     "id": "acct_…",
-    "name": "Acme Docs",
-    "max_projects": 100,
+    "name": "Sam Rivera",
+    "plan": "free",
+    "max_projects": 2,
     "created_at": 1760140800
   },
+  "rate_limit": { "requests_per_minute": 60 },
   "key": { "prefix": "mnfst_api_AbCd1234" },
   "request_id": "…"
 }
 ```
 
-Keep the key on your server. It can act on every project your API account owns, so never ship it to a browser or a site's repository.
+`plan`{copy} is `free`{copy} for the free allowance that comes with every Manifest account, or `platform`{copy} for a platform account. `max_projects`{copy} is how many projects the key can create through the API. See [Manage](/docs/api/projects/manage#what-a-key-can-manage) for what the key can do.
+
+Keep the key on your server. It can act on every project it reaches, so never ship it to a browser or a site's repository.
 
 **No CORS:** call the API from your server, never from a browser.
 
@@ -36,13 +52,13 @@ Keep the key on your server. It can act on every project your API account owns, 
 
 ## Project keys
 
-Creating a project also returns that project's own key, `project_key`{copy}, once. It is a normal Manifest project key for publishing that one project headless, for example from its CI with `mnfst-publish`. The API doesn't need it: your API key acts on every project in your account. See [Create a project](/docs/api/projects/manage#create-a-project).
+Creating a project also returns that project's own key, `project_key`{copy}, once. It is a normal Manifest project key for publishing that one project headless, for example from its CI with `mnfst-publish`. The API doesn't need it: your API key already reaches the project. See [Create a project](/docs/api/projects/manage#create-a-project).
 
 ---
 
-## Revoked keys
+## Revoke a key
 
-A revoked key stops working on the next request. If a key leaks, [contact Manifest](/support) to revoke it and receive a replacement.
+In **Settings**, under **API keys**, select the trash icon next to the key, then **Revoke key**. The key stops working on the next request and can't be restored. If a key leaks, revoke it and create a new one. To revoke a platform account key, [contact Manifest](/support).
 
 ---
 
@@ -53,6 +69,7 @@ A revoked key stops working on the next request. If a key leaks, [contact Manife
 | 401        | `unauthorized`{copy}   | The key is missing, malformed, or not an API key.            |
 | 401        | `key_revoked`{copy}    | The key was revoked. Use a current key or contact Manifest.  |
 | 404        | `not_found`{copy}      | No such API route. Only `/v1/*` exists on `api.manifestx.dev`. |
+| 429        | `rate_limited`{copy}   | Too many requests with this key. Wait the seconds in `Retry-After`{copy}. See [Limits](/docs/api/reference/limits). |
 
 The `message`{copy} says which key problem it is:
 

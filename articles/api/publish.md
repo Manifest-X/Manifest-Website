@@ -108,7 +108,7 @@ curl -X POST https://api.manifestx.dev/v1/projects/proj_…/rollback \
 | `env`{copy}           | string   | no           | `production`{copy} (default) or `staging`{copy}.                                            |
 | `deployment_id`{copy} | string   | no           | The version to restore. Omit it to go back to the version before the live one. |
 
-Rollback is instant: it points the environment back at an earlier deployment without copying anything. It answers `{ "env": "production", "live_deployment_id": "dep_…", "url": "https://acme-docs.manifestx.ai", "request_id": "…" }`. To roll forward again, roll back to the newer `deployment_id`{copy}.
+Rollback is part of Pro: on a Free project it answers `402 pro_required`. Rollback is instant: it points the environment back at an earlier deployment without copying anything. It answers `{ "env": "production", "live_deployment_id": "dep_…", "url": "https://acme-docs.manifestx.ai", "request_id": "…" }`. To roll forward again, roll back to the newer `deployment_id`{copy}.
 
 ---
 
@@ -142,11 +142,14 @@ curl "https://api.manifestx.dev/v1/projects/proj_…/deployments?env=staging" \
 | **Status** | **`error`**             | **Meaning**                                                                                  |
 |------------|-------------------------|----------------------------------------------------------------------------------------------|
 | 400        | `invalid_input`{copy}         | Missing or malformed field, unknown field, or an `env`{copy} that isn't `staging`{copy} or `production`{copy}. |
-| 404        | `not_found`{copy}             | No such project in your API account.                                                         |
+| 402        | `pro_required`{copy}          | Rollback on a Free project. Upgrade the project to Pro in the dashboard.                     |
+| 403        | `forbidden`{copy}             | You are a member of this project, not its owner or an admin.                                 |
+| 404        | `not_found`{copy}             | No such project, or the key can't reach it.                                                  |
 | 404        | `unknown_deployment`{copy}    | `deployment_id`{copy} isn't one of this project's deployments for that environment.                |
 | 409        | `nothing_on_staging`{copy}    | Promote with nothing live on staging. Publish to staging first.                              |
 | 409        | `promote_in_progress`{copy}   | Another promote of this project is still copying. Retry shortly.                             |
 | 409        | `no_earlier_version`{copy}    | Rollback without `deployment_id`{copy}, and there is no earlier version to go back to.             |
 | 409        | `already_live`{copy}          | That deployment is already live.                                                             |
 | 409        | `not_restorable`{copy}        | That deployment is still uploading or failed.                                                |
+| 429        | `publish_limit_reached`{copy} | A Free project's daily publish limit is reached. Wait the seconds in `Retry-After`{copy}.          |
 | 503        | `publish_unavailable`{copy}   | A publish couldn't be started. Retry shortly.                                                |

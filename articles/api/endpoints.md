@@ -10,9 +10,9 @@ Base URL `https://api.manifestx.dev/v1`{copy}, authenticated with your [API key]
 
 | **Endpoint** | **Purpose** | **Reference** |
 |---|---|---|
-| `GET /me`{copy} | The API account the key belongs to | [Authentication](/docs/api/setup/authentication#api-keys) |
+| `GET /me`{copy} | The API account the key belongs to | [Authentication](/docs/api/setup/authentication#send-the-key) |
 | `POST /projects`{copy} | Create a project, idempotent on `source_id`{copy} | [Create a project](/docs/api/projects/manage#create-a-project) |
-| `GET /projects`{copy} | List the account's projects | [List projects](/docs/api/projects/manage#list-projects) |
+| `GET /projects`{copy} | List the projects the key reaches | [List projects](/docs/api/projects/manage#list-projects) |
 | `GET /projects/:id`{copy} | One project, with its URLs and publish state | [Get a project](/docs/api/projects/manage#get-a-project) |
 | `POST /projects/:id/content`{copy} | Build a docs site from Markdown pages | [Content](/docs/api/projects/content) |
 | `POST /projects/:id/publish`{copy} | Start a publish: a one-time upload URL for a zip | [Start a publish](/docs/api/projects/publish#start-a-publish) |

@@ -6,7 +6,7 @@ Create, publish, and manage Manifest-hosted sites from your own code.
 
 ## What the API does
 
-The Manifest API lets your backend create sites and keep them published without a person in the loop. Each site is an ordinary Manifest project owned by your API account, so it has its own deployments, staging and production environments, domains, and team.
+The Manifest API lets your backend create sites and keep them published without a person in the loop. Each site is an ordinary Manifest project, so it has its own deployments, staging and production environments, domains, and team. Your API key also reaches the projects you already have, so you can publish them from your own code.
 
 There are two ways to publish a site today:
 
@@ -19,7 +19,14 @@ Either way, the site goes to staging first and moves to production when you [pro
 
 ## Getting access
 
-API access is by invitation while the API is new. To request an API account, email [team@manifestx.dev](mailto:team@manifestx.dev) with your company, what you want to build, and roughly how many sites you expect to run.
+Every Manifest account can use the API. Create an API key in the [dashboard](https://dash.manifestx.dev/settings) under **Settings**, then **API keys**. See [Authentication](/docs/api/setup/authentication#create-an-api-key).
+
+A key works on two kinds of project:
+
+- **Your own projects.** It can publish, promote, roll back, and manage domains on every project you own or admin. Each project keeps its own plan, so a Pro feature such as rollback needs that project on Pro.
+- **Projects it creates.** The free allowance creates up to 2 projects through the API, on the Free plan.
+
+For more projects, ask about a platform account at [team@manifestx.dev](mailto:team@manifestx.dev). Platform accounts are set up by contract, with a higher project cap and projects created without the Manifest badge. See [Manage](/docs/api/projects/manage#what-a-key-can-manage).
 
 ---
 
@@ -37,7 +44,7 @@ Requests and responses are JSON. Every response carries a `request_id`{copy}; qu
 
 ## How it works
 
-1. **Get an API key.** Your API account comes with one. See [Authentication](/docs/api/setup/authentication).
+1. **Get an API key** from the dashboard. See [Authentication](/docs/api/setup/authentication).
 2. **Create a project** for each site, keyed by your own id for it. See [Manage](/docs/api/projects/manage).
 3. **Publish to staging**, either a zip or content, and check the staging URL.
 4. **Promote to production.** Attach a custom domain whenever you like with [Domains](/docs/api/projects/domains).

@@ -8,6 +8,8 @@ Send the site's pages as Markdown, and Manifest builds a documentation site from
 
 If you have the content but no site, send it in one JSON request: the site's pages, written in Markdown, plus site settings and theme. Manifest builds them into a documentation site from its docs template. There is no build step on your side and no zip. Each ingest is a new deployment of the whole site, so it replaces everything the previous ingest published.
 
+Content works on projects the key created through the API. On your other projects it answers `422 not_api_project`, so it never replaces a site you built another way; [publish a zip](/docs/api/projects/publish) to those instead.
+
 In the request, each page is an entry in `articles`{copy}, with a `title`{copy}, a `slug`{copy} for its URL, the `group`{copy} it is listed under in the navigation, and its `markdown`{copy}.
 
 ```bash copy
@@ -149,9 +151,11 @@ A content problem answers `422` with a `field`{copy} that names the page and pro
 | **Status** | **`error`**              | **Meaning**                                                                                              |
 |------------|--------------------------|----------------------------------------------------------------------------------------------------------|
 | 400        | `invalid_input`{copy}          | The body isn't UTF-8 JSON, isn't an object, has an unknown top-level field, `template`{copy} isn't `docs`{copy}, or `env`{copy} is wrong.|
-| 404        | `not_found`{copy}              | No such project in your API account.                                                                 |
+| 404        | `not_found`{copy}              | No such project, or the key can't reach it.                                                              |
 | 413        | `payload_too_large`{copy}      | The body is over 12 MB.                                                                                  |
 | 422        | `invalid_content`{copy}        | A slug, size, theme value, or page field is invalid. `field`{copy} says which.                               |
+| 422        | `not_api_project`{copy}        | The project wasn't created through the API. Publish a zip to it instead.                                 |
+| 429        | `publish_limit_reached`{copy}  | A Free project's daily publish limit is reached. Wait the seconds in `Retry-After`{copy}.                     |
 | 500        | `ingest_failed`{copy}          | The deployment failed before going live. Whatever was live on that environment is unchanged (or nothing, on a first ingest). Retry the request. |
 | 503        | `template_unavailable`{copy}   | The docs template couldn't be loaded. Retry shortly.                                                     |
 

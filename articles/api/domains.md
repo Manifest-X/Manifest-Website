@@ -102,7 +102,8 @@ Answers `{ "removed": "docs.acme.com", "request_id": "…" }`. The site stops an
 | 400        | `invalid_input`{copy}               | Missing or malformed field, or an unknown field.                                  |
 | 400        | `invalid_hostname`{copy}            | `hostname`{copy} isn't a hostname, for example it has spaces, no dot, or is an IP address.     |
 | 403        | `domain_cap_reached`{copy}          | The project has 25 custom domains. Remove one first.                              |
-| 404        | `not_found`{copy}                   | No such project in your API account, or no such domain on the project.        |
+| 403        | `forbidden`{copy}                   | You are a member of this project, not its owner or an admin.                      |
+| 404        | `not_found`{copy}                   | No such project, the key can't reach it, or no such domain on the project.    |
 | 409        | `hostname_taken`{copy}              | The hostname is attached to another project.                                      |
 | 422        | `hostname_reserved`{copy}           | The hostname is on a Manifest domain (`manifestx.ai`, `manifestx.dev`).           |
 | 502        | `domain_attach_failed`{copy}        | The domain couldn't be attached. Check the hostname and retry.                    |
