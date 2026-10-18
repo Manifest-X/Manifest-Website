@@ -16,7 +16,7 @@ Every error has the same shape. `message`{copy} is written for a person; branch 
 }
 ```
 
-Any path outside `/v1/*` answers `404` with `"error": "not_found"`{copy} and "No such API route." A content error also names the field, for example `"field": "articles[1].slug"`{copy}.
+Any path outside `/v1/*` answers `404` with `"error": "not_found"`{copy} and "No such API route." A content or file update error also names the field, for example `"field": "articles[1].slug"`{copy} or `"field": "files[0].path"`{copy}.
 
 ---
 
@@ -29,7 +29,7 @@ Any path outside `/v1/*` answers `404` with `"error": "not_found"`{copy} and "No
 | 403        | A cap is reached (projects or domains). The message names it.                                                   |
 | 404        | The project, deployment, or domain isn't in your API account, or the route doesn't exist.                       |
 | 409        | A conflict or an operation still running. The `error`{copy} code says which; retry the `_in_progress` ones shortly.  |
-| 413        | The body is too large. See [Limits](/docs/api/reference/limits).                                                |
+| 413        | The body or a file is too large. See [Limits](/docs/api/reference/limits).                                      |
 | 5xx        | Retry with the same `Idempotency-Key`{copy}. Failures are never stored, so the retry runs again.                      |
 
 ---
@@ -40,7 +40,7 @@ Each article lists its own codes:
 
 - [Authentication](/docs/api/setup/authentication#errors): missing, invalid, and revoked keys.
 - [Manage](/docs/api/projects/manage#errors): creates, `source_id`{copy} conflicts, and the project cap.
-- [Publish](/docs/api/projects/publish#errors): uploads, promotes, and rollbacks.
+- [Publish](/docs/api/projects/publish#errors): uploads, file updates, promotes, and rollbacks.
 - [Content](/docs/api/projects/content#errors): content ingest and `field`{copy} errors.
 - [Domains](/docs/api/projects/domains#errors): hostnames, certificates, and the domain cap.
 - [Idempotency](/docs/api/reference/idempotency#errors): `Idempotency-Key`{copy} reuse and retries.
