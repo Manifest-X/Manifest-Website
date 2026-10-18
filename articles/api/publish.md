@@ -1,6 +1,6 @@
 # Publish
 
-Publish your own build, promote it, and roll it back.
+Publish your own build, update individual files, promote, and roll back.
 
 ---
 
@@ -9,6 +9,8 @@ Publish your own build, promote it, and roll it back.
 If you already build the site, publish the output as a zip. Any static build works from frameworks like Manifest, React, Vite, Astro, or just plain HTML. Publishing is two steps: ask the API for a one-time upload URL, then send the zip to it. Every publish lands as a new deployment, and staging and production each keep their history, so a bad release is one call away from being undone.
 
 If you have content but no site, send the pages as Markdown instead and Manifest builds the site from its docs template. See [Content](/docs/api/projects/content).
+
+To change a few files without sending the whole build again, [update individual files](#update-individual-files).
 
 ---
 
@@ -68,6 +70,77 @@ Without the header the upload waits and answers with the same outcome. The site 
 | Files per deployment  | 10,000    |
 
 An upload over a limit answers `413`, and an expired URL answers `410` with "Publish link expired or already used. Start a new publish." Start a new publish in either case. Sending the zip again to a URL whose upload already finished publishes nothing new: it answers with that first outcome, so a retry after a dropped response is safe.
+
+---
+
+## Update individual files
+
+When only a few files change, such as an article, a data file, a stylesheet, or an image, send just those files. Manifest copies what is live on staging, applies your changes, and publishes the result as a new staging deployment. Every file you don't send stays as it was. Promote to ship the result to production.
+
+```bash copy
+curl -X PATCH https://api.manifestx.dev/v1/projects/proj_…/files \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
+  -H "Idempotency-Key: edit-intro-0042" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "base": "dep_…",
+    "files": [
+      { "path": "articles/intro.md", "content": "# Introduction\n\nUpdated text." },
+      { "path": "data/team.yaml", "content": "- name: Ada\n  role: Editor\n" },
+      { "path": "media/logo.png", "content_base64": "iVBORw0KGgo…" },
+      { "path": "articles/old.md", "delete": true }
+    ]
+  }'
+```
+
+| **Field** | **Type** | **Required** | **Notes** |
+|-----------|----------|--------------|-----------|
+| `env`{copy} | string | no | `staging`{copy}, the default and only value. Promote to reach production. |
+| `base`{copy} | string | no | The deployment your changes start from, usually the `deployment.id`{copy} of your last update. If staging has moved on since, nothing changes and the answer is `409`. |
+| `files`{copy} | array | yes | 1 to 1,000 changes, one per path. |
+
+Each change has a `path`{copy} and exactly one of these:
+
+| **Field** | **Type** | **Notes** |
+|-----------|----------|-----------|
+| `content`{copy} | string | The new file as UTF-8 text, for Markdown, YAML, JSON, CSV, HTML, CSS, and other text files. |
+| `content_base64`{copy} | string | The new file as standard base64, for images and other binary files. |
+| `delete`{copy} | boolean | `true`{copy} removes the file. |
+
+`path`{copy} starts at the site root, so `articles/intro.md`{copy} is served at `/articles/intro.md`. If the build was published with an `output_dir`{copy}, paths start inside that folder. A path that doesn't exist yet adds a file.
+
+The answer is `201 Created`:
+
+```json
+{
+  "deployment": { "id": "dep_…", "env": "staging", "status": "ready", "files": 43, "bytes": 320544, "base": "dep_…" },
+  "changes": { "updated": 3, "deleted": 1 },
+  "url": "https://acme-docs-staging.manifestx.ai",
+  "request_id": "…"
+}
+```
+
+The new version is live on the staging URL as soon as the answer arrives. Send its `deployment.id`{copy} as `base`{copy} on your next update. That way two editors working from the same version can't overwrite each other: the second update gets `409 base_mismatch`{copy} with the `live_deployment_id`{copy}, so read the current files from staging, apply the change again, and send it with that id as `base`{copy}. Without `base`{copy}, the changes apply to whatever is live on staging. Either way, if another publish lands on staging while an update is running, the update is refused with the same `409`, and you can send it again.
+
+Every update is a new deployment, so [rollback](#roll-back) works as for any publish. Staging keeps its five most recent deployments, so frequent updates push older versions out of reach. Send an `Idempotency-Key`{copy} so a retried update doesn't publish twice.
+
+If nothing is live on staging yet, the files start a new site and must include `index.html`{copy}. A change that would remove `index.html`{copy} is refused. `.env` files, `.git`, `node_modules`, and `.claude` are refused, and so are `precache.json`{copy} and `manifest.utilities.css`{copy}, which Manifest writes on every publish. When the site has a `_redirects`{copy} or `_headers`{copy} file, Manifest compiles it to `_redirects.json`{copy} or `_headers.json`{copy}, so update the source file instead, or delete it in the same update. Each file update counts as a publish toward a Free project's daily limit.
+
+HTML read back from the staging URL can be sent as is: the analytics and badge tags Manifest adds when serving a page are removed before the file is stored.
+
+Some sites carry a `notices`{copy} list in the answer:
+
+| **Notice** | **Meaning** |
+|------------|-------------|
+| `template_site`{copy} | The site was built by [Content](/docs/api/projects/content). The next content request rebuilds the whole site and replaces these changes. |
+| `prerendered_site`{copy} | The build is `render`{copy} output. Pages prerendered from the changed files are not rebuilt, so publish a new build to refresh them. |
+
+| **Limit**             | **Value** |
+|-----------------------|-----------|
+| Request body          | 12 MB     |
+| Largest single file   | 8 MB, after base64 decoding. Publish larger files in a zip. |
+| Changes per request   | 1,000     |
+| Resulting deployment  | The zip limits: 250 MB and 10,000 files |
 
 ---
 
@@ -142,6 +215,7 @@ curl "https://api.manifestx.dev/v1/projects/proj_…/deployments?env=staging" \
 | **Status** | **`error`**             | **Meaning**                                                                                  |
 |------------|-------------------------|----------------------------------------------------------------------------------------------|
 | 400        | `invalid_input`{copy}         | Missing or malformed field, unknown field, or an `env`{copy} that isn't `staging`{copy} or `production`{copy}. |
+| 400        | `staging_only`{copy}          | A file update sent `env`{copy} `production`{copy}. Update staging, then promote.              |
 | 402        | `pro_required`{copy}          | Rollback on a Free project. Upgrade the project to Pro in the dashboard.                     |
 | 403        | `forbidden`{copy}             | You are a member of this project, not its owner or an admin.                                 |
 | 404        | `not_found`{copy}             | No such project, or the key can't reach it.                                                  |
@@ -151,5 +225,15 @@ curl "https://api.manifestx.dev/v1/projects/proj_…/deployments?env=staging" \
 | 409        | `no_earlier_version`{copy}    | Rollback without `deployment_id`{copy}, and there is no earlier version to go back to.             |
 | 409        | `already_live`{copy}          | That deployment is already live.                                                             |
 | 409        | `not_restorable`{copy}        | That deployment is still uploading or failed.                                                |
+| 409        | `base_mismatch`{copy}         | A file update's `base`{copy} isn't live on staging anymore. Reapply the change on `live_deployment_id`{copy}. |
+| 413        | `payload_too_large`{copy}     | A file update body is over 12 MB.                                                            |
+| 413        | `file_too_large`{copy}        | A file is over 8 MB. Publish it in a zip.                                                    |
+| 413        | `deployment_too_large`{copy}  | The updated site would pass 250 MB or 10,000 files.                                          |
+| 422        | `invalid_path`{copy}          | A path is unsafe, private, written by Manifest, compiled from `_redirects`{copy} or `_headers`{copy}, or listed twice. `field`{copy} names it. |
+| 422        | `invalid_file`{copy}          | A change needs exactly one of `content`{copy}, `content_base64`{copy}, and `delete`{copy}, or its base64 is invalid. |
+| 422        | `file_not_found`{copy}        | A delete names a file that isn't on staging.                                                 |
+| 422        | `no_index`{copy}              | The update would leave the site without `index.html`{copy}.                                        |
 | 429        | `publish_limit_reached`{copy} | A Free project's daily publish limit is reached. Wait the seconds in `Retry-After`{copy}.          |
+| 500        | `update_failed`{copy}         | The update failed. The message says whether staging is unchanged, or to check [deployments](#list-deployments) before retrying. |
+| 503        | `update_timed_out`{copy}      | Copying a large site took too long, and staging is unchanged. Retry, or publish a zip.        |
 | 503        | `publish_unavailable`{copy}   | A publish couldn't be started. Retry shortly.                                                |
