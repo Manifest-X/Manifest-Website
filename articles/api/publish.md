@@ -1,6 +1,6 @@
 # Publish
 
-Publish your own build, update individual files, promote, and roll back.
+Publish your own build, read and update individual files, promote, and roll back.
 
 ---
 
@@ -10,7 +10,7 @@ If you already build the site, publish the output as a zip. Any static build wor
 
 If you have content but no site, send the pages as Markdown instead and Manifest builds the site from its docs template. See [Content](/docs/api/projects/content).
 
-To change a few files without sending the whole build again, [update individual files](#update-individual-files).
+To change a few files without sending the whole build again, [read the files](#read-files) and [update individual files](#update-individual-files).
 
 ---
 
@@ -73,9 +73,64 @@ An upload over a limit answers `413`, and an expired URL answers `410` with "Pub
 
 ---
 
+## Read files
+
+Read what is live before you change it. List the files of the live deployment, fetch the ones you need, and send your changes back as a [file update](#update-individual-files) with the listed `deployment_id`{copy} as `base`{copy}.
+
+```bash copy
+curl "https://api.manifestx.dev/v1/projects/proj_…/files?env=staging" \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
+```
+
+| **Parameter** | **Notes** |
+|---------------|-----------|
+| `env`{copy} | `staging`{copy} (default) or `production`{copy}. |
+| `limit`{copy} | Files per page, 1 to 1,000. Defaults to 1,000. |
+| `cursor`{copy} | The `next_cursor`{copy} of the previous page. |
+
+The answer lists the files, sorted by path:
+
+```json
+{
+  "env": "staging",
+  "deployment_id": "dep_…",
+  "files": [
+    { "path": "_redirects", "size": 64, "content_type": "application/octet-stream", "etag": "9b2e…" },
+    { "path": "_redirects.json", "size": 210, "content_type": "application/json; charset=utf-8", "etag": "41c7…", "compiled_from": "_redirects" },
+    { "path": "articles/intro.md", "size": 1834, "content_type": "text/markdown; charset=utf-8", "etag": "e3b0…" },
+    { "path": "index.html", "size": 2210, "content_type": "text/html; charset=utf-8", "etag": "5d41…" }
+  ],
+  "next_cursor": null,
+  "request_id": "…"
+}
+```
+
+Paths start at the site root, inside `output_dir`{copy} when the build has one, exactly as a file update takes them. `etag`{copy} changes whenever a file's content does, so compare it to tell which files changed since your last read. `precache.json`{copy} and `manifest.utilities.css`{copy} are left out because Manifest writes them on every publish. A file with `compiled_from`{copy} is compiled from that source file, so edit the source instead. If nothing is live yet, `deployment_id`{copy} is `null`{copy} and `files`{copy} is empty.
+
+When `next_cursor`{copy} isn't `null`{copy}, send it as `cursor`{copy} for the next page. A cursor keeps reading the same deployment even if a new one goes live in the meantime, so every page comes from one version of the site.
+
+### Read one file
+
+```bash copy
+curl "https://api.manifestx.dev/v1/projects/proj_…/files/articles/intro.md" \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
+```
+
+The answer is the file itself, not JSON, from the deployment live on `env`{copy} (`staging`{copy} by default):
+
+| **Header** | **Value** |
+|------------|-----------|
+| `Content-Type`{copy} | The file's type, such as `text/markdown; charset=utf-8`{copy} or `image/png`{copy}. |
+| `ETag`{copy} | The file's `etag`{copy} from the list, in quotes. |
+| `x-manifest-deployment`{copy} | The deployment the file came from. Send it as `base`{copy} with your update. |
+
+HTML comes back as stored, without the analytics, badge, and stylesheet tags Manifest adds when it serves or publishes a page. Send `If-None-Match`{copy} with the `ETag`{copy} to get `304 Not Modified` when the file hasn't changed. Encode special characters in a path the way a browser would, such as a space as `%20`{copy}. A file that isn't in the live site, or that Manifest writes itself, answers `404 file_not_found`{copy}.
+
+---
+
 ## Update individual files
 
-When only a few files change, such as an article, a data file, a stylesheet, or an image, send just those files. Manifest copies what is live on staging, applies your changes, and publishes the result as a new staging deployment. Every file you don't send stays as it was. Promote to ship the result to production.
+When only a few files change, such as an article, a data file, a stylesheet, or an image, send just those files. Manifest stores only the files you send, keeps everything else that is live on staging, and publishes the result as a new staging deployment. Every file you don't send stays as it was, so an update takes about as long for a 10,000-file site as for a small one. Promote to ship the result to production.
 
 ```bash copy
 curl -X PATCH https://api.manifestx.dev/v1/projects/proj_…/files \
@@ -120,7 +175,7 @@ The answer is `201 Created`:
 }
 ```
 
-The new version is live on the staging URL as soon as the answer arrives. Send its `deployment.id`{copy} as `base`{copy} on your next update. That way two editors working from the same version can't overwrite each other: the second update gets `409 base_mismatch`{copy} with the `live_deployment_id`{copy}, so read the current files from staging, apply the change again, and send it with that id as `base`{copy}. Without `base`{copy}, the changes apply to whatever is live on staging. Either way, if another publish lands on staging while an update is running, the update is refused with the same `409`, and you can send it again.
+The new version is live on the staging URL as soon as the answer arrives. Send its `deployment.id`{copy} as `base`{copy} on your next update. That way two editors working from the same version can't overwrite each other: the second update gets `409 base_mismatch`{copy} with the `live_deployment_id`{copy}, so [read the current files](#read-files) from staging, apply the change again, and send it with that id as `base`{copy}. Without `base`{copy}, the changes apply to whatever is live on staging. Either way, if another publish lands on staging while an update is running, the update is refused with the same `409`, and you can send it again.
 
 Every update is a new deployment, so [rollback](#roll-back) works as for any publish. Staging keeps its five most recent deployments, so frequent updates push older versions out of reach. Send an `Idempotency-Key`{copy} so a retried update doesn't publish twice.
 
@@ -163,7 +218,7 @@ Promote ships exactly what is live on staging to production, with no rebuild:
 }
 ```
 
-Each promote copies the build into a new production deployment, so send an `Idempotency-Key`{copy}: a retry with the same key returns the first result and copies nothing.
+Each promote creates a new production deployment, so send an `Idempotency-Key`{copy}: a retry with the same key returns the first result and creates nothing. A site changed through file updates promotes without copying its files, however large it is.
 
 ---
 
@@ -216,10 +271,13 @@ curl "https://api.manifestx.dev/v1/projects/proj_…/deployments?env=staging" \
 |------------|-------------------------|----------------------------------------------------------------------------------------------|
 | 400        | `invalid_input`{copy}         | Missing or malformed field, unknown field, or an `env`{copy} that isn't `staging`{copy} or `production`{copy}. |
 | 400        | `staging_only`{copy}          | A file update sent `env`{copy} `production`{copy}. Update staging, then promote.              |
+| 400        | `invalid_cursor`{copy}        | A file list `cursor`{copy} isn't valid for this project, or its deployment is gone. List again without it. |
+| 400        | `invalid_path`{copy}          | A file read's path doesn't name a file, for example it ends in `/`{copy} or contains `..`{copy}.       |
 | 402        | `pro_required`{copy}          | Rollback on a Free project. Upgrade the project to Pro in the dashboard.                     |
 | 403        | `forbidden`{copy}             | You are a member of this project, not its owner or an admin.                                 |
 | 404        | `not_found`{copy}             | No such project, or the key can't reach it.                                                  |
 | 404        | `unknown_deployment`{copy}    | `deployment_id`{copy} isn't one of this project's deployments for that environment.                |
+| 404        | `file_not_found`{copy}        | A file read names a file that isn't in the live site, or nothing is live on that environment yet. |
 | 409        | `nothing_on_staging`{copy}    | Promote with nothing live on staging. Publish to staging first.                              |
 | 409        | `promote_in_progress`{copy}   | Another promote of this project is still copying. Retry shortly.                             |
 | 409        | `no_earlier_version`{copy}    | Rollback without `deployment_id`{copy}, and there is no earlier version to go back to.             |
@@ -235,5 +293,6 @@ curl "https://api.manifestx.dev/v1/projects/proj_…/deployments?env=staging" \
 | 422        | `no_index`{copy}              | The update would leave the site without `index.html`{copy}.                                        |
 | 429        | `publish_limit_reached`{copy} | A Free project's daily publish limit is reached. Wait the seconds in `Retry-After`{copy}.          |
 | 500        | `update_failed`{copy}         | The update failed. The message says whether staging is unchanged, or to check [deployments](#list-deployments) before retrying. |
-| 503        | `update_timed_out`{copy}      | Copying a large site took too long, and staging is unchanged. Retry, or publish a zip.        |
+| 503        | `update_timed_out`{copy}      | Storing the changed files took too long, and staging is unchanged. Retry, or send fewer files per request. |
+| 503        | `promote_failed`{copy}        | A promote couldn't finish, and production is unchanged. Retry shortly.                       |
 | 503        | `publish_unavailable`{copy}   | A publish couldn't be started. Retry shortly.                                                |
