@@ -11,9 +11,9 @@ A key reaches two kinds of project:
 | **Project**                                   | **What the key can do**                                                                 |
 |-----------------------------------------------|-----------------------------------------------------------------------------------------|
 | Projects you own or admin                     | Publish, promote, roll back, list deployments, and manage custom domains.               |
-| Projects the key creates through the API      | All of the above, plus [content](/docs/api/projects/content).                           |
+| Projects your keys create through the API     | All of the above, plus [content](/docs/api/projects/content).                           |
 
-Your own projects are the ones you see in the dashboard, made with Claude, the Manifest plugin, or the API. On a team project you need the owner or admin role: as a member the key answers `403 forbidden`. A project you can't access answers `404 not_found`, the same as one that doesn't exist.
+Your own projects are the ones you see in the dashboard, made with Claude, the Manifest plugin, or the API. On a team project you need the owner or admin role: as a member the key answers `403 forbidden`. A project created by another account's API keys is reachable only with that account's keys. A project you can't access answers `404 not_found`, the same as one that doesn't exist.
 
 Each project keeps its own plan. Publishing, staging, promote, and custom domains work on every plan. Rollback is part of Pro, so on a Free project it answers `402 pro_required`; upgrade the project in the [dashboard](https://dash.manifestx.dev) to use it.
 
@@ -50,7 +50,7 @@ A new project answers `201 Created`:
     "name": "Acme Docs",
     "plan": "free",
     "status": "active",
-    "project_key_prefix": "mfst_live_AbCd1234",
+    "project_key_prefix": "mfst_free_AbCd1234",
     "created_at": 1760140800,
     "urls": {
       "production": "https://acme-docs.manifestx.ai",
@@ -58,14 +58,14 @@ A new project answers `201 Created`:
     },
     "published": { "production": false, "staging": false }
   },
-  "project_key": "mfst_live_…",
+  "project_key": "mfst_free_…",
   "request_id": "…"
 }
 ```
 
 `project_key`{copy} is the project's own key, returned **once**. It is a normal Manifest project key for that one project, not your API key: hand it to the site's CI if it publishes headless, or keep it in your vault. The API itself doesn't need it, because your API key already reaches the project. The subdomains are reserved immediately; `published`{copy} flips to `true` per environment after the first publish there.
 
-`plan`{copy} is the project's plan. On the free allowance a new project is on Free, so its site shows the "Made with Manifest" badge and can appear in the Manifest showcase. A platform account's projects are private by default (they never appear in the showcase) and carry no badge.
+`plan`{copy} is the project's plan: `free`{copy}, `pro`{copy}, or `api`{copy} for a platform account's projects. On the free allowance a new project is on Free, so its site shows the "Made with Manifest" badge and can appear in the Manifest showcase. A platform account's projects are private by default (they never appear in the showcase) and carry no badge.
 
 ### Idempotent creates
 
@@ -81,7 +81,7 @@ Every other request that changes something is made retry-safe with an `Idempoten
 
 ### Free allowance and project cap
 
-Each key can create up to `max_projects`{copy} projects through the API, shown on `GET /me`{copy}. On the free allowance that is 2. Projects you made with Claude, the plugin, or the dashboard don't count toward it.
+Your API keys share one allowance: together they can create up to `max_projects`{copy} projects through the API, shown on `GET /me`{copy}. On the free allowance that is 2. Projects you made with Claude, the plugin, or the dashboard don't count toward it.
 
 A create past the cap is refused with `403 project_cap_reached`, and the message names the cap. Existing projects are unaffected, and re-sending an existing `source_id`{copy} still returns it. Deleting an allowance project in the dashboard frees its place.
 
@@ -120,7 +120,7 @@ Returns `{ "project": { … }, "request_id": "…" }`. A project the key can't r
 | 400        | `invalid_input`{copy}             | Missing or malformed field, blank `source_id`{copy}, unknown field, or a body that isn't JSON.       |
 | 400        | `invalid_subdomain`{copy}         | `subdomain`{copy} isn't a clean label (lowercase letters, digits, single hyphens, 1–40 characters). |
 | 400        | `invalid_idempotency_key`{copy}   | `Idempotency-Key`{copy} is blank or longer than 200 characters.                                     |
-| 403        | `project_cap_reached`{copy}       | The key's project cap is reached. The message names the cap.                                  |
+| 403        | `project_cap_reached`{copy}       | Your account's project cap is reached. The message names the cap.                                  |
 | 403        | `forbidden`{copy}                 | You are a member of this project, not its owner or an admin.                                  |
 | 404        | `not_found`{copy}                 | No such project, or the key can't reach it.                                                   |
 | 409        | `source_id_conflict`{copy}        | `source_id`{copy} already names a project with a different `name`{copy} or `subdomain`{copy}.                   |

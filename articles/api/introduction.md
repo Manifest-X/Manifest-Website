@@ -24,7 +24,7 @@ Every Manifest account can use the API. Create an API key in the [dashboard](htt
 A key works on two kinds of project:
 
 - **Your own projects.** It can publish, promote, roll back, and manage domains on every project you own or admin. Each project keeps its own plan, so a Pro feature such as rollback needs that project on Pro.
-- **Projects it creates.** The free allowance creates up to 2 projects through the API, on the Free plan.
+- **Projects it creates.** Your keys share a free allowance of 2 projects created through the API, on the Free plan.
 
 For more projects, ask about a platform account at [team@manifestx.dev](mailto:team@manifestx.dev). Platform accounts are set up by contract, with a higher project cap and projects created without the Manifest badge. See [Manage](/docs/api/projects/manage#what-a-key-can-manage).
 

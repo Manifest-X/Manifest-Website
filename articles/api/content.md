@@ -8,7 +8,7 @@ Send the site's pages as Markdown, and Manifest builds a documentation site from
 
 If you have the content but no site, send it in one JSON request: the site's pages, written in Markdown, plus site settings and theme. Manifest builds them into a documentation site from its docs template. There is no build step on your side and no zip. Each ingest is a new deployment of the whole site, so it replaces everything the previous ingest published.
 
-Content works on projects the key created through the API. On your other projects it answers `422 not_api_project`, so it never replaces a site you built another way; [publish a zip](/docs/api/projects/publish) to those instead.
+Content works on projects your keys created through the API. On your other projects it answers `422 not_api_project`, so it never replaces a site you built another way; [publish a zip](/docs/api/projects/publish) to those instead.
 
 In the request, each page is an entry in `articles`{copy}, with a `title`{copy}, a `slug`{copy} for its URL, the `group`{copy} it is listed under in the navigation, and its `markdown`{copy}.
 
