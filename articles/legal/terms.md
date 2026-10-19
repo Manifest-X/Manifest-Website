@@ -4,7 +4,7 @@ The agreement between you and Manifest when you use our services.
 
 ---
 
-*Updated September 25, 2026*
+*Updated October 19, 2026*
 
 These Terms of Service (**"Terms"**) govern your access to and use of the services offered by MNFST OÜ (**"Manifest"**, **"we"**, **"us"** or **"our"**): the Manifest website (manifestx.dev), the Manifest account dashboard (dash.manifestx.dev), the Manifest connector for AI assistants, the Manifest command-line tools, Manifest-managed hosting (including sites served on manifestx.ai and connected custom domains), and any related product, application, or service we offer (collectively, the **"Service"**).
 
@@ -61,7 +61,7 @@ To report content that violates these Terms, or an intellectual-property complai
 
 ## Plans, payment, and cancellation
 
-Core publishing features are available on a free plan. Some features require a paid subscription; current prices and inclusions are shown at the point of purchase. Free-plan projects may carry a small Manifest attribution badge.
+Core publishing features are available on a free plan. Some features require a paid subscription; current prices and inclusions are shown at the point of purchase. Free-plan projects may carry a small Manifest attribution badge and may be featured in Manifest's public showcase, which links to the published site; on Pro and Enterprise plans, you can keep a project out of the showcase.
 
 Subscriptions are billed in advance on a recurring basis through our payment processor and renew automatically until cancelled. You can cancel at any time, effective at the end of the current billing period; amounts already paid are non-refundable except where the law of your country requires otherwise. If a renewal payment fails or a subscription lapses, paid features may remain available for a short transition period, after which the project reverts to the free plan; content exceeding free-plan limits may become inaccessible until you export it, resubscribe, or reduce usage.
 

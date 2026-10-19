@@ -4,7 +4,7 @@ Our commitment to your privacy and data protection.
 
 ---
 
-*Updated October 14, 2026*
+*Updated October 19, 2026*
 
 This Privacy Policy (**"Policy"**) describes how MNFST OÜ (**"Manifest"**, **"we"**, **"us"** or **"our"**) collects, protects and uses the personally identifiable information (**"Personal Information"**) you (**"User"**, **"you"** or **"your"**) may provide through the Manifest website (manifestx.dev), the Manifest account dashboard (dash.manifestx.dev), the Manifest connector for AI assistants, the Manifest command-line tools, Manifest-managed hosting (including sites served on manifestx.ai and connected custom domains), and any other product, application, or service offered by Manifest (collectively, the **"Service"**). The Policy also describes the choices available to you regarding our use of your Personal Information and how you can access and update this information. This Policy does not apply to the practices of companies that we do not own or control, or to individuals that we do not employ or manage.
 
@@ -20,6 +20,7 @@ We receive and store information you knowingly provide to us when you use the Se
 - **Content you publish.** When you publish a project, we receive and store the site files you upload so we can host and serve them. Published sites are publicly accessible at their assigned address; do not include Personal Information in published files unless you intend it to be public.
 - **Team invitations.** When you invite someone to a project, we collect the invitee's email address in order to send the invitation and, once they sign in, to associate them with the project. If you provide someone else's email address, you are responsible for having their permission to do so.
 - **Payment provider credentials.** If you connect a payment provider to enable checkout on your own published site, we store the credentials you supply and use them solely to operate that integration on your behalf. Provide only credentials you are authorized to use, and rotate them with your provider if you disconnect.
+- **Help requests.** If you ask through the connector for our team to build, finish, or fix a project for you, we receive the contact email you give, your name if you give it, a summary of the project, the help you want, and any budget or timeline you mention. We email these, with the project's identifier and plan, to our team inbox so we can reply to you about the work.
 - **Purchases.** If you buy a paid plan, the purchase is processed by Stripe, which acts as the merchant of record for plans bought through self-serve checkout (see "Information transfer and storage"). We receive your name, email, billing address, subscription status and a billing reference; we do not receive or store your full card number. If we invoice you directly, we are the seller and Stripe processes the payment on our behalf.
 
 ---
@@ -28,7 +29,7 @@ We receive and store information you knowingly provide to us when you use the Se
 
 When you visit the Service, our servers automatically record information your browser sends. This may include your IP address, browser and operating system type and version, language preferences, pages visited, time spent on those pages, and access times and dates. We use a privacy-friendly analytics provider that does not identify you individually.
 
-We also record service telemetry for requests made to the Service by connected AI assistants: one log entry per request containing request metadata such as the tool invoked, the assistant client's name and version, response status, and hashed identifiers. Identifiers in telemetry are hashed, and header names are recorded without their values.
+We also record service telemetry for requests made to the Service by connected AI assistants: one log entry per request containing request metadata such as the tool invoked, the assistant client's name and version, protocol version, response status, and hashed identifiers. Identifiers in telemetry are hashed. Request header names, and the names of request metadata fields, are recorded without their values, except the user-agent header (its first 160 characters) and the MCP protocol version header.
 
 ---
 
@@ -47,6 +48,8 @@ The Service can be used through an AI assistant (such as Claude) via the Manifes
 You control the content of sites you publish through the Service. For Personal Information contained in your published content, or collected by your site from its visitors through features you add, you are the controller and we process it on your behalf as a hosting provider.
 
 For sites hosted on the Service, we collect aggregate visitor analytics — such as page views, referrers, and country-level location — using a privacy-friendly analytics provider, and make these aggregates available to the site's owner. This analytics data does not identify individual visitors and is not used to profile them.
+
+**Showcase.** We may feature projects on the free plan in Manifest's public showcase of sites built with the Service, which links to the published site. We choose which projects are featured. On Pro and Enterprise plans, the project's owner can keep it out of the showcase; this option is not available on the free plan. Being in the showcase does not change how search engines index your site.
 
 ---
 
@@ -68,7 +71,7 @@ When you sign in to the Service using your Google Account, we access certain inf
 
 ## Use and processing of collected information
 
-We use the information we collect to identify you within the Service, provide access to its features, host and serve the content you publish, send transactional messages such as sign-in codes and project invitations, provide analytics to site owners, process payments for paid plans, communicate with you about your account or material changes, improve the Service and our documentation, secure the Service against abuse, and operate the Service. We do not sell or rent your Personal Information to any third party.
+We use the information we collect to identify you within the Service, provide access to its features, host and serve the content you publish, send transactional messages such as sign-in codes and project invitations, respond to requests for help, feature projects in the showcase, provide analytics to site owners, process payments for paid plans, communicate with you about your account or material changes, improve the Service and our documentation, secure the Service against abuse, and operate the Service. We do not sell or rent your Personal Information to any third party.
 
 ---
 
@@ -122,7 +125,7 @@ To exercise any right you believe you hold, or to request account deletion, cont
 
 This Policy is intended to satisfy the substantive requirements of applicable privacy laws globally, including the General Data Protection Regulation, the UK GDPR, the California Consumer Privacy Act as amended by the California Privacy Rights Act, the Personal Information Protection and Electronic Documents Act, and equivalent state, provincial, and national legislation. Our lead supervisory authority is the Estonian Data Protection Inspectorate (Andmekaitse Inspektsioon).
 
-**Categories of Personal Information collected.** In the preceding twelve (12) months, we have collected only the categories of Personal Information described in this Policy: identifiers (such as your email address and the email addresses of people you invite), content you choose to publish, credentials you supply for integrations, commercial information (subscription status), and internet or other electronic network activity information (such as anonymized browsing data and service telemetry).
+**Categories of Personal Information collected.** In the preceding twelve (12) months, we have collected only the categories of Personal Information described in this Policy: identifiers (such as your email address and the email addresses of people you invite), content you choose to publish, details you include in help requests, credentials you supply for integrations, commercial information (subscription status), and internet or other electronic network activity information (such as anonymized browsing data and service telemetry).
 
 **No sale or sharing.** We do not sell or share Personal Information as those terms are defined under any applicable privacy law, and have not done so in the preceding twelve (12) months. We do not knowingly process the Personal Information of children, and we do not collect or process Sensitive Personal Information to infer characteristics about you.
 
