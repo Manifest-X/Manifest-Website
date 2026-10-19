@@ -503,7 +503,8 @@ _ui: {
 | Key          | Type             | Description                                                                  |
 | ------------ | ---------------- | ---------------------------------------------------------------------------- |
 | `type`{copy}       | string           | `line`, `area`, `bar`, `pie`, `donut`, `scatter`, `combo`, `candlestick`, `gauge`, `heatmap`, `gantt` (alias `timeline`), `map`. Default `line`. |
-| `labels`{copy}     | array            | X-axis categories, slice labels, heatmap columns, or a Gantt's category-axis stages. Long category axes thin their labels to fit, always showing the first and last. |
+| `labels`{copy}     | array            | X-axis categories, slice labels, heatmap columns, or a Gantt's category-axis stages. Long category axes thin their labels to fit, spaced evenly and always showing the first and last. |
+| `ticks`{copy}      | array            | Category axes: the labels to show, as indices or `{ at, label }`. Ticks that would overlap are thinned evenly. Tooltips still show the full `labels`. See [Axis Ticks](#axis-ticks). |
 | `series`{copy}     | array            | `{ name, data, color?, type? }` per series. `color` overrides the palette; `type` applies in combo charts; in a heatmap each series is a row; in a Gantt each series is a track and its `data` is `{ from, to, status?, color? }` segments. |
 | `data`{copy}       | array \| object  | Shorthand for a single unnamed series; for a map, the region values as `{ region: value }` or `[region, value]` rows. |
 | `height`{copy}     | number           | Chart height in pixels. Default `240`. Width tracks the container.            |
@@ -524,6 +525,21 @@ _ui: {
 | `markers`{copy}    | array            | Gantt — vertical reference lines: `{ at, label?, color? }`.                |
 | `points`{copy}     | array            | Map — location bubbles: `{ lat, lng, value?, label?, color? }` or a `name` resolved via `places`. |
 | `places`{copy}     | object           | Map — `name` → `[lat, lng]` gazetteer for positioning named `points`.       |
+
+### Axis Ticks
+
+Long category axes pick their own evenly spaced labels. To choose them yourself, pass `ticks`. For a year of daily data, label the start of each month and keep the full date in the tooltip:
+
+```html copy
+<div x-chart="{
+    type: 'area',
+    labels: days,
+    ticks: [{ at: 0, label: 'Jan' }, { at: 31, label: 'Feb' }, { at: 59, label: 'Mar' }],
+    series: [{ name: 'Visitors', data: visits }]
+}"></div>
+```
+
+Here `days` holds one label per point (`'Jan 1, 2026'`, `'Jan 2, 2026'`, and so on), and each tick's `at` is a point index. Plain indices (`ticks: [0, 31, 59]`) show those points' own labels.
 
 ### Declarative Series
 
