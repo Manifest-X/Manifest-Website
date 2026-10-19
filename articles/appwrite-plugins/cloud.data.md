@@ -57,8 +57,10 @@ Appwrite's cloud data sources work identically to local data sources in the fron
 What a visitor can read depends on who they are: through [scopes](/docs/framework/appwrite-plugins/databases#scope), `$auth.` queries, or the row and file permissions set in Appwrite.
 
 - **Identity changes reload sources.** When someone signs in, signs out, or switches accounts (a guest signing in included), in any tab, every table and bucket source reloads for the new identity. The previous user's or guest's rows are cleared at once; rows read while signed out stay on screen until the new ones arrive.
-- **Unscoped sources follow Appwrite permissions.** Tables and buckets without a scope or `$auth.` queries read whatever Appwrite allows, including rows and files open to everyone (`read("any")`) for signed-out visitors.
+- **Unscoped sources follow Appwrite permissions.** Tables and buckets without a scope or `$auth.` queries read whatever Appwrite allows, including rows and files open to everyone (`read("any")`) or to the `guests` role for signed-out visitors. When Appwrite refuses a signed-out visitor's table read outright, the source reports an "Authentication required" `$error`; with row security on and no rows readable by guests, it settles empty with no `$error`.
 - **Scoped sources wait for a user.** Scoped tables, and sources whose queries use `$auth.` values, stay empty until someone signs in.
+
+The [prerender](/docs/framework/publishing/websites) runs signed out. `x-for` lists over a table re-render from live rows at runtime; values bound directly (e.g. `x-text`) and `data-static` lists keep the rows readable by `any` or `guests` as rendered until the next render and publish. Mark such an element with [`data-hydrate`](/docs/framework/publishing/websites#hydration) to keep it live.
 
 Cloud sources can keep their last rows on the visitor's device with the same `persist` option as any other source, so a return visit shows data before the network answers. See [persisted data](/docs/framework/core-plugins/local-data#persisted-data).
 
