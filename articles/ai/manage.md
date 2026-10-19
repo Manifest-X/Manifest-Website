@@ -54,7 +54,7 @@ For teams that edit often, saving the project to [GitHub](/docs/ai/projects/gith
 
 > `How many people visited this week, and where did they come from?`{copy}
 
-Claude reports views, visits, top pages, where visitors came from, and their countries and devices: the last 7 days on Free, all time on [Pro](/docs/ai/setup/plans). Manifest's analytics don't use cookies or identify anyone. To switch them off, ask Claude to `turn off analytics`{.prompt copy}.
+Claude reports views, visits, top pages, where visitors came from, and their countries and devices: the last 7 days on Free, all time on [Pro](/docs/ai/setup/plans). You can also ask for a specific date range: any range on Pro, or one within the last 7 days on Free. Manifest's analytics don't use cookies or identify anyone. To switch them off, ask Claude to `turn off analytics`{.prompt copy}.
 
 ---
 
