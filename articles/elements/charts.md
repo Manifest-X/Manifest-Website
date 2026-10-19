@@ -504,7 +504,7 @@ _ui: {
 | ------------ | ---------------- | ---------------------------------------------------------------------------- |
 | `type`{copy}       | string           | `line`, `area`, `bar`, `pie`, `donut`, `scatter`, `combo`, `candlestick`, `gauge`, `heatmap`, `gantt` (alias `timeline`), `map`. Default `line`. |
 | `labels`{copy}     | array            | X-axis categories, slice labels, heatmap columns, or a Gantt's category-axis stages. Long category axes thin their labels to fit, spaced evenly and always showing the first and last. |
-| `ticks`{copy}      | array            | Category axes: the labels to show, as indices or `{ at, label }`. Ticks that would overlap are thinned evenly. Tooltips still show the full `labels`. See [Axis Ticks](#axis-ticks). |
+| `ticks`{copy}      | array            | Line, area, bar, combo, scatter, and candlestick x-axes: the labels to show, as indices or `{ at, label }`. Ticks that would overlap are thinned evenly, and `ticks: []` hides the labels. Tooltips still show the full `labels`. See [Axis Ticks](#axis-ticks). |
 | `series`{copy}     | array            | `{ name, data, color?, type? }` per series. `color` overrides the palette; `type` applies in combo charts; in a heatmap each series is a row; in a Gantt each series is a track and its `data` is `{ from, to, status?, color? }` segments. |
 | `data`{copy}       | array \| object  | Shorthand for a single unnamed series; for a map, the region values as `{ region: value }` or `[region, value]` rows. |
 | `height`{copy}     | number           | Chart height in pixels. Default `240`. Width tracks the container.            |
