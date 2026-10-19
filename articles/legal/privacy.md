@@ -29,7 +29,7 @@ We receive and store information you knowingly provide to us when you use the Se
 
 When you visit the Service, our servers automatically record information your browser sends. This may include your IP address, browser and operating system type and version, language preferences, pages visited, time spent on those pages, and access times and dates. We use a privacy-friendly analytics provider that does not identify you individually.
 
-We also record service telemetry for requests made to the Service by connected AI assistants: one log entry per request containing request metadata such as the tool invoked, the assistant client's name and version, protocol version, response status, and hashed identifiers. Identifiers in telemetry are hashed. Request header names, and the names of request metadata fields, are recorded without their values, except the user-agent header (its first 160 characters) and the MCP protocol version header.
+We also record service telemetry for requests made to the Service by connected AI assistants: one log entry per request containing request metadata such as the tool invoked, the assistant client's name and version, protocol version, response status, and hashed identifiers. Identifiers in telemetry are hashed. In our telemetry, request header names, and the names of metadata (`_meta`) fields in MCP messages, are recorded without their values, except the user-agent header (its first 160 characters) and the MCP protocol version header. Our hosting provider's request logs for these requests may also include your IP address and other request metadata.
 
 ---
 
@@ -49,7 +49,7 @@ You control the content of sites you publish through the Service. For Personal I
 
 For sites hosted on the Service, we collect aggregate visitor analytics — such as page views, referrers, and country-level location — using a privacy-friendly analytics provider, and make these aggregates available to the site's owner. This analytics data does not identify individual visitors and is not used to profile them.
 
-**Showcase.** We may feature projects on the free plan in Manifest's public showcase of sites built with the Service, which links to the published site. We choose which projects are featured. On Pro and Enterprise plans, the project's owner can keep it out of the showcase; this option is not available on the free plan. Being in the showcase does not change how search engines index your site.
+**Showcase.** We may feature projects in Manifest's public showcase of sites built with the Service, which shows the site's name and a screenshot and links to the published site. We choose which projects are featured. On Pro, Enterprise and API plans, you can keep a project out of the showcase (projects on a paid API platform account are out by default); free-plan projects cannot be kept out this way, but you can ask us to remove a featured project at [team@manifestx.dev](mailto:team@manifestx.dev). Being in the showcase does not change how search engines index your site.
 
 ---
 
@@ -93,6 +93,7 @@ We use the following processors to operate the Service:
 
 - **Appwrite** ([appwrite.io](https://appwrite.io)) provides authentication, sessions, account storage, and the delivery of transactional email such as sign-in codes and project invitations.
 - **Cloudflare** ([cloudflare.com](https://cloudflare.com)) provides hosting, content delivery, storage, and supporting infrastructure for the Service and for published sites, and operates the privacy-friendly analytics described in this Policy.
+- **Proton** ([proton.me](https://proton.me)) provides email for our team inbox, including the help requests described in this Policy.
 - **Stripe** ([stripe.com](https://stripe.com)) processes payments and manages billing for paid plans. For plans bought through self-serve checkout, Stripe acts as the merchant of record and handles the payment, billing and tax information it collects from you under its own [Privacy Policy](https://stripe.com/privacy). Card details are provided directly to Stripe and are not stored by us.
 
 Each provider has its own privacy policy and processes data under contractual obligations consistent with this Policy. Where Stripe acts as merchant of record, it processes that information under its own policy rather than on our behalf. Data is encrypted in transit using TLS 1.2 or higher and at rest by our providers in accordance with their security practices.

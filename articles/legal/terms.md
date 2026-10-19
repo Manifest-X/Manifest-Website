@@ -61,7 +61,7 @@ To report content that violates these Terms, or an intellectual-property complai
 
 ## Plans, payment, and cancellation
 
-Core publishing features are available on a free plan. Some features require a paid subscription; current prices and inclusions are shown at the point of purchase. Free-plan projects may carry a small Manifest attribution badge and may be featured in Manifest's public showcase, which links to the published site; on Pro and Enterprise plans, you can keep a project out of the showcase.
+Core publishing features are available on a free plan. Some features require a paid subscription; current prices and inclusions are shown at the point of purchase. Free-plan projects may carry a small Manifest attribution badge and may be featured in Manifest's public showcase, which shows the site's name and a screenshot and links to the published site; on Pro, Enterprise and API plans, you can keep a project out of the showcase, and on the free plan you can ask us to remove a featured project.
 
 Subscriptions are billed in advance on a recurring basis through our payment processor and renew automatically until cancelled. You can cancel at any time, effective at the end of the current billing period; amounts already paid are non-refundable except where the law of your country requires otherwise. If a renewal payment fails or a subscription lapses, paid features may remain available for a short transition period, after which the project reverts to the free plan; content exceeding free-plan limits may become inaccessible until you export it, resubscribe, or reduce usage.
 
