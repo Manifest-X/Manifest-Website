@@ -664,8 +664,8 @@ nav[aria-label="On this page"] > small {
 
 /* Hero demo app (Solstice Studio) — its own small brand so it reads as a user's product */
 .hero-app {
-    --app-accent: oklch(0.56 0.1 160);
-    --app-accent-hover: oklch(0.48 0.11 160);
+    --app-accent: oklch(0.62 0.14 15);
+    --app-accent-hover: oklch(0.54 0.15 15);
     --app-on-accent: oklch(0.99 0 0);
 
     & .app-logo {
@@ -699,4 +699,28 @@ nav[aria-label="On this page"] > small {
     & .app-row:hover {
         border-color: var(--app-accent)
     }
+
+    & .app-thumb {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: calc(var(--radius) * 0.75);
+        color: var(--app-on-accent);
+        font-size: 1.1rem
+    }
+
+    & .app-thumb.a {
+        background: linear-gradient(135deg, oklch(0.78 0.11 70), oklch(0.62 0.14 25))
+    }
+
+    & .app-thumb.b {
+        background: linear-gradient(135deg, oklch(0.64 0.13 350), oklch(0.5 0.14 300))
+    }
+}
+
+/* Anthropic's Claude brand coral, for the chat demo mark */
+:root {
+    --color-claude: #D97757
 }
