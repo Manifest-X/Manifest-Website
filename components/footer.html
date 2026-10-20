@@ -4,86 +4,36 @@
   <nav class="col gap-4 w-content-width max-w-full mx-auto">
 
     <!-- Top -->
-    <div class="columns-1 sm:columns-3 md:columns-5 gap-8 pb-10 [&_a]:text-sm">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pb-10 [&_a]:text-sm [&_a]:w-fit">
 
-      <!-- Brand block -->
-      <!-- <div class="col gap-4 col-span-1">
-        <a href="/" class="row items-center w-fit no-underline">
-          <x-logo class="text-content-subtle"></x-logo>
-        </a>
-        <p class="w-60 max-w-full">The website & app framework that thinks like you do.</p>
-      </div> -->
-
-      <!-- Explore -->
-      <div class="col gap-3 mb-8 break-inside-avoid">
-        <small>Explore</small>
-        <div class="col gap-3">
-          <a href="/framework">The framework</a>
-          <a href="/compare/lovable">Manifest vs Lovable</a>
-          <a href="/support">Support</a>
-        </div>
+      <!-- Product -->
+      <div class="col gap-3">
+        <small>Product</small>
+        <a href="/framework">The framework</a>
+        <a href="https://dash.manifestx.dev">Dashboard</a>
       </div>
 
-      <!-- AI Plugin columns -->
-      <template x-for="(group, gi) in $x.ai" :key="group.group || gi">
-        <div class="col gap-3 mb-8 break-inside-avoid">
-          <small x-text="group.group || 'AI Plugin'"></small>
-          <div class="col gap-3">
-            <template x-for="(item, index) in group.items" :key="item.path || index">
-              <a x-show="item.name" :href="'/docs/ai' + (group.slug ? '/' + group.slug : '') + '/' + item.path" :class="item.indent ? 'ps-3' : ''" x-text="item.name"></a>
-            </template>
-          </div>
-        </div>
-      </template>
+      <!-- Docs -->
+      <div class="col gap-3">
+        <small>Docs</small>
+        <a href="/docs/ai">AI Plugin</a>
+        <a href="/docs/framework">Framework</a>
+        <a href="/docs/api">API</a>
+      </div>
 
-      <!-- API columns -->
-      <template x-for="(group, gi) in $x.api" :key="group.group || gi">
-        <div class="col gap-3 mb-8 break-inside-avoid">
-          <small x-text="'API ' + group.group"></small>
-          <div class="col gap-3">
-            <template x-for="(item, index) in group.items" :key="item.path || index">
-              <a x-show="item.name" :href="'/docs/api/' + group.slug + '/' + item.path" x-text="item.name"></a>
-            </template>
-          </div>
-        </div>
-      </template>
+      <!-- Compare -->
+      <div class="col gap-3">
+        <small>Compare</small>
+        <a href="/compare/lovable">Manifest vs Lovable</a>
+      </div>
 
-      <!-- Docs columns -->
-      <template x-for="group in $x.framework" :key="group.group">
-        <div class="col gap-3 mb-8 break-inside-avoid">
-          <small x-text="group.group"></small>
-
-          <!-- Group links -->
-          <template x-if="group.slug !== 'elements'">
-            <div class="col gap-3">
-              <template x-for="(item, index) in group.items" :key="item.path || index">
-                <a x-show="item.name" :href="'/docs/framework/' + group.slug + '/' + item.path" :class="item.indent ? 'ps-3' : ''" x-text="item.name"></a>
-              </template>
-            </div>
-          </template>
-
-          <!-- Elements dropdown -->
-          <template x-if="group.slug === 'elements'">
-            <div class="col gap-3">
-              <button x-dropdown="elements-menu" class="link text-sm" aria-label="Browse all HTML elements" aria-haspopup="menu">
-                <span>20+ HTML Elements</span>
-                <span x-icon="lucide:chevron-down"></span>
-              </button>
-              <dialog popover id="elements-menu" class="col w-40 p-2 [&_a]:justify-start [&_a]:w-full [&_a]:h-15 [&_a]:ghost">
-                <template x-for="(item, index) in group.items" :key="item.path || index">
-                  <a role="button" :href="'/docs/framework/' + group.slug + '/' + item.path"><span x-icon="item.icon"></span><span x-text="item.name"></span></a>
-                </template>
-              </dialog>
-            </div>
-          </template>
-
-          <!-- GitHub -->
-          <template x-if="group.slug === 'resources'">
-            <a href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener"><span x-icon="meteor-icons:github"></span><span>GitHub</span><span x-icon="lucide:arrow-up-right"></span></a>
-          </template>
-
-        </div>
-      </template>
+      <!-- Company -->
+      <div class="col gap-3">
+        <small>Company</small>
+        <a href="/support">Support</a>
+        <a href="mailto:team@manifestx.dev">Contact</a>
+        <a href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="row items-center gap-1.5"><span x-icon="meteor-icons:github"></span><span>GitHub</span></a>
+      </div>
 
     </div>
 
@@ -95,7 +45,7 @@
       <!-- Attribution -->
       <figcaption>Copyright &copy; 2026 <a href="https://andrewmatlock.com" target="_blank" rel="noopener">Andrew
           Matlock</a>.&nbsp; Manifest is open source under <a href="/docs/framework/resources/license">MIT License</a>.&nbsp;
-        <a href="/support">Support</a> &middot; <a href="/legal/privacy">Privacy</a> &middot; <a href="/legal/terms">Terms</a>
+        <a href="/legal/privacy">Privacy</a> &middot; <a href="/legal/terms">Terms</a>
       </figcaption>
 
       <!-- Controls -->
@@ -108,17 +58,9 @@
           <button x-color="'system'" class="sm rounded-e-full" :class="{ 'accent pointer-events-none': $color.current === 'system' }" x-icon="lucide:sun-moon" aria-label="Auto mode"></button>
         </div>
 
-        <!-- Locale -->
-        <!-- <button class="sm rounded-full">
-          <span x-icon="lucide:globe"></span>
-          <span>English</span>
-        </button> -->
-
       </div>
     </div>
 
   </nav>
-
-
 
 </footer>

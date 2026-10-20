@@ -5,7 +5,7 @@
   <div class="col gap-4 justify-start w-content-width max-w-full">
     <p class="h6 text-content-subtle tracking-widest uppercase">Compare</p>
     <h1 class="leading-tight">Manifest vs Lovable</h1>
-    <p class="w-2xl max-w-full text-content-neutral text-balance">Lovable meters your building with credits. Manifest runs inside the Claude you already use: building is conversation, publishing is flat.</p>
+    <p class="w-2xl max-w-full text-content-neutral text-balance">Lovable meters building with monthly credits. Manifest runs on your Claude chats, which recharge every few hours, and adds no meter of its own.</p>
   </div>
 </section>
 
@@ -17,7 +17,7 @@
   <!-- Content -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-content-width max-w-full">
 
-    <div class="col gap-4 p-6 bg-surface-2 rounded-lg">
+    <div class="col gap-4 p-8 bg-surface-2 rounded-lg">
       <h2 class="h4">Choose Lovable if…</h2>
       <ul class="col gap-3 text-content-neutral">
         <li x-icon="lucide:check">You want one web app that builds and hosts in a single place.</li>
@@ -26,9 +26,9 @@
       </ul>
     </div>
 
-    <div class="col gap-4 p-6 bg-surface-2 rounded-lg border border-brand-surface/40">
-      <h2 class="h4">Choose Manifest if…</h2>
-      <ul class="col gap-3 text-content-neutral">
+    <div class="col gap-4 p-8 bg-accent-surface text-accent-inverse rounded-lg">
+      <h2 class="h4 text-accent-inverse">Choose Manifest if…</h2>
+      <ul class="col gap-3 opacity-85">
         <li x-icon="lucide:check">You already work in Claude or Claude Code and want building covered by that subscription.</li>
         <li x-icon="lucide:check">You want flat per-project pricing with no credit meter.</li>
         <li x-icon="lucide:check">You want an open-source framework underneath and your code exportable from day one.</li>
@@ -54,27 +54,27 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-      <div class="col gap-3 p-6 bg-surface-2 rounded-lg">
+      <div class="col gap-3 p-8 bg-surface-2 rounded-lg">
         <small class="text-content-subtle tracking-widest uppercase">Lovable · one month</small>
         <div class="col gap-2 text-sm">
           <span class="row justify-between gap-4"><span>Pro plan, 100 credits included</span><span class="shrink-0">$25.00</span></span>
-          <span class="row justify-between gap-4 text-content-neutral"><span>Each edit, build and AI feature spends credits</span><span class="shrink-0">—</span></span>
+          <span class="row justify-between gap-4 text-content-neutral"><span>Each edit, build, and AI feature spends credits</span></span>
+          <span class="row justify-between gap-4 text-content-neutral"><span>Credits spent are gone until next month</span></span>
           <span class="row justify-between gap-4 text-content-neutral"><span>Heavy months: credit top-ups</span><span class="shrink-0">+ variable</span></span>
-          <span class="row justify-between gap-4 text-content-neutral"><span>Custom domain</span><span class="shrink-0">included from Pro</span></span>
         </div>
         <hr>
         <span class="row justify-between font-semibold"><span>Month total</span><span>$25+</span></span>
       </div>
 
-      <div class="col gap-3 p-6 bg-surface-2 rounded-lg border border-brand-surface/40">
-        <small class="text-content-subtle tracking-widest uppercase">Manifest · one month</small>
+      <div class="col gap-3 p-8 bg-accent-surface text-accent-inverse rounded-lg">
+        <small class="opacity-70 tracking-widest uppercase">Manifest · one month</small>
         <div class="col gap-2 text-sm">
           <span class="row justify-between gap-4"><span>Pro plan, one project</span><span class="shrink-0">$15.00</span></span>
-          <span class="row justify-between gap-4 text-content-neutral"><span>Edits happen in your Claude chat</span><span class="shrink-0">$0.00</span></span>
-          <span class="row justify-between gap-4 text-content-neutral"><span>Custom domain, staging, rollback, teammates</span><span class="shrink-0">$0.00</span></span>
-          <span class="row justify-between gap-4 text-content-neutral"><span>Prefer free? Custom domain included, badge on</span><span class="shrink-0">$0</span></span>
+          <span class="row justify-between gap-4 opacity-75"><span>Edits happen in your Claude chats</span><span class="shrink-0">$0.00</span></span>
+          <span class="row justify-between gap-4 opacity-75"><span>Custom domain, staging, rollback, teammates</span><span class="shrink-0">$0.00</span></span>
+          <span class="row justify-between gap-4 opacity-75"><span>Prefer free? Custom domain included, badge on</span><span class="shrink-0">$0</span></span>
         </div>
-        <hr>
+        <hr class="opacity-30">
         <span class="row justify-between font-semibold"><span>Month total</span><span>$15</span></span>
       </div>
 
@@ -88,9 +88,13 @@
 
 
 <!-- CALLOUT -->
-<section class="col center w-full py-12 text-center">
-  <div class="col center gap-2 w-content-width max-w-full">
-    <h2 class="text-5xl leading-tight">Your edits are conversation, <mark class="brand">not credits</mark>.</h2>
+<section class="col center w-full py-16 text-center">
+  <div class="col center gap-3 w-content-width max-w-full">
+    <h2 class="md:col text-5xl leading-tight">
+      <span>Chats recharge.</span>
+      <span class="text-content-subtle">Credits run out.</span>
+    </h2>
+    <p class="text-content-neutral text-balance">Claude's allowance refreshes every few hours. Lovable's credits are a monthly meter. Manifest never adds one.</p>
   </div>
 </section>
 
@@ -110,54 +114,54 @@
           <tr class="[&_th]:p-3">
             <th class="!text-start">Feature</th>
             <th class="text-center">Lovable</th>
-            <th class="text-center bg-brand-surface/15 !text-brand-content !font-bold">Manifest</th>
+            <th class="text-center"><span class="px-3 py-1 bg-accent-surface text-accent-inverse rounded-full">Manifest</span></th>
           </tr>
         </thead>
         <tbody class="[&_td]:p-3 [&_td:not(:first-child)]:text-center font-medium">
           <tr class="border-b border-line">
             <td>Pricing model</td>
             <td class="text-content-neutral">Per account, plus credits</td>
-            <td class="bg-brand-surface/10">Per project, flat</td>
+            <td class="bg-surface-2">Per project, flat</td>
           </tr>
           <tr class="border-b border-line">
             <td>AI building</td>
-            <td class="text-content-neutral">Metered in credits</td>
-            <td class="bg-brand-surface/10">Your Claude chat, unmetered</td>
+            <td class="text-content-neutral">Metered monthly credits</td>
+            <td class="bg-surface-2">Your Claude chats, unmetered</td>
           </tr>
           <tr class="border-b border-line">
             <td>Custom domain on the free tier</td>
             <td class="text-content-neutral">—</td>
-            <td class="bg-brand-surface/10"><span x-icon="lucide:check" aria-label="Included"></span></td>
+            <td class="bg-surface-2">Included</td>
           </tr>
           <tr class="border-b border-line">
             <td>Staging + production environments</td>
             <td class="text-content-neutral">Preview links</td>
-            <td class="bg-brand-surface/10"><span x-icon="lucide:check" aria-label="Included"></span> Free</td>
+            <td class="bg-surface-2">Included, free</td>
           </tr>
           <tr class="border-b border-line">
             <td>Deployment rollback</td>
             <td class="text-content-neutral">In-editor history</td>
-            <td class="bg-brand-surface/10">One step, Pro</td>
+            <td class="bg-surface-2">One step, Pro</td>
           </tr>
           <tr class="border-b border-line">
             <td>Teams</td>
             <td class="text-content-neutral">Business plan, $50/mo</td>
-            <td class="bg-brand-surface/10">Included in Pro, $15</td>
+            <td class="bg-surface-2">Included in Pro, $15</td>
           </tr>
           <tr class="border-b border-line">
             <td>What's underneath</td>
             <td class="text-content-neutral">Proprietary stack</td>
-            <td class="bg-brand-surface/10">Open-source framework</td>
+            <td class="bg-surface-2">Open-source framework</td>
           </tr>
           <tr class="border-b border-line">
             <td>Publish any static project</td>
             <td class="text-content-neutral">—</td>
-            <td class="bg-brand-surface/10"><span x-icon="lucide:check" aria-label="Included"></span></td>
+            <td class="bg-surface-2">Included</td>
           </tr>
           <tr class="border-b border-line">
             <td>API access on every plan</td>
             <td class="text-content-neutral">—</td>
-            <td class="bg-brand-surface/10"><span x-icon="lucide:check" aria-label="Included"></span></td>
+            <td class="bg-surface-2">Included</td>
           </tr>
         </tbody>
       </table>
@@ -189,7 +193,7 @@
       </div>
       <div class="col gap-1">
         <h3 class="h4">Does Manifest charge per AI edit?</h3>
-        <p class="text-content-neutral">No. Building happens in your Claude chat. Manifest charges a flat rate per project, and free is free.</p>
+        <p class="text-content-neutral">No. Building happens in your Claude chats. Manifest charges a flat rate per project, and free is free.</p>
       </div>
     </div>
 
