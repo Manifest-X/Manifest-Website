@@ -20,10 +20,10 @@
     </div>
 
     <!-- Conversation → live site -->
-    <div class="grid md:grid-cols-[1fr_auto_1.2fr] gap-6 items-center w-full mt-6" aria-label="A Claude conversation becoming a live website">
+    <div class="grid md:grid-cols-[1fr_auto_1.2fr] gap-6 items-center w-full mt-6" aria-label="A Claude chat becoming a live website">
 
       <!-- Chat -->
-      <div class="col gap-3 p-5 bg-surface-2 rounded-lg">
+      <div class="col gap-3 p-5 bg-surface-2 rounded-lg shadow-lg md:-rotate-1">
         <p class="self-end max-w-[85%] px-4 py-2.5 bg-accent-surface text-accent-inverse rounded-2xl rounded-br-md">Make a website for my pottery studio, with a gallery and a contact form.</p>
         <p class="self-start max-w-[85%] px-4 py-2.5 bg-surface-3 rounded-2xl rounded-bl-md">Done. It's on a staging link for you to review.</p>
         <p class="self-end max-w-[85%] px-4 py-2.5 bg-accent-surface text-accent-inverse rounded-2xl rounded-br-md">Perfect. Take it live on terraceramics.com.</p>
@@ -35,7 +35,7 @@
       <span class="md:hidden self-center text-content-subtle" x-icon="lucide:arrow-down" aria-hidden="true"></span>
 
       <!-- Site -->
-      <div class="col w-full bg-page dark:bg-surface-2 rounded-lg shadow-xl overflow-hidden">
+      <div class="col w-full bg-page dark:bg-surface-2 rounded-lg shadow-2xl md:rotate-1 overflow-hidden">
         <div class="row items-center gap-2 px-3 py-2 border-b border-line">
           <span class="row gap-1 [&_i]:size-2 [&_i]:bg-surface-2 [&_i]:rounded-full" aria-hidden="true"><i></i><i></i><i></i></span>
           <span class="grow text-center text-xs text-content-subtle bg-surface-1 rounded-full py-1 px-3">terraceramics.com</span>
@@ -66,24 +66,30 @@
   <!-- Content -->
   <div class="col gap-10 justify-start w-content-width max-w-full">
 
-    <h2 class="md:col leading-tight">
-      <span>From idea to online.</span>
-      <span class="text-content-subtle">Three steps, one conversation.</span>
-    </h2>
+    <div class="col gap-1">
+      <p class="h6 text-content-subtle tracking-widest uppercase">Workflow</p>
+      <h2 class="md:col leading-tight">
+        <span>From idea to online.</span>
+        <span class="text-content-subtle">Three steps, one chat.</span>
+      </h2>
+    </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="col gap-3 p-6 bg-surface-2 rounded-lg">
-        <span class="row center size-10 bg-surface-3 rounded-lg" x-icon="lucide:plug" aria-hidden="true"></span>
+      <div class="relative col gap-3 p-6 bg-surface-2 rounded-lg overflow-hidden">
+        <span class="absolute top-3 right-5 text-6xl font-semibold text-surface-3 select-none" aria-hidden="true">1</span>
+        <span class="row center size-10 bg-brand-surface/15 text-brand-content rounded-lg" x-icon="lucide:plug" aria-hidden="true"></span>
         <h3 class="h4">Add Manifest to Claude</h3>
         <p class="text-content-neutral">One plugin, sign in once. No API keys, nothing to configure.</p>
       </div>
-      <div class="col gap-3 p-6 bg-surface-2 rounded-lg">
-        <span class="row center size-10 bg-surface-3 rounded-lg" x-icon="lucide:messages-square" aria-hidden="true"></span>
+      <div class="relative col gap-3 p-6 bg-surface-2 rounded-lg overflow-hidden">
+        <span class="absolute top-3 right-5 text-6xl font-semibold text-surface-3 select-none" aria-hidden="true">2</span>
+        <span class="row center size-10 bg-brand-surface/15 text-brand-content rounded-lg" x-icon="lucide:messages-square" aria-hidden="true"></span>
         <h3 class="h4">Build in conversation</h3>
         <p class="text-content-neutral">Your framework or ours. Claude does the work while you direct.</p>
       </div>
-      <div class="col gap-3 p-6 bg-surface-2 rounded-lg">
-        <span class="row center size-10 bg-surface-3 rounded-lg" x-icon="lucide:rocket" aria-hidden="true"></span>
+      <div class="relative col gap-3 p-6 bg-surface-2 rounded-lg overflow-hidden">
+        <span class="absolute top-3 right-5 text-6xl font-semibold text-surface-3 select-none" aria-hidden="true">3</span>
+        <span class="row center size-10 bg-brand-surface/15 text-brand-content rounded-lg" x-icon="lucide:rocket" aria-hidden="true"></span>
         <h3 class="h4">Publish and run</h3>
         <p class="text-content-neutral">Live URL, your own domain, staging to production, instant rollback.</p>
       </div>
@@ -100,7 +106,8 @@
   <!-- Content -->
   <div class="col gap-10 justify-start w-content-width max-w-full">
 
-    <div class="col w-2xl max-w-full">
+    <div class="col gap-1 w-2xl max-w-full">
+      <p class="h6 text-content-subtle tracking-widest uppercase">Collaboration</p>
       <h2 class="md:col leading-tight">
         <span>Teammates edit content. Agents edit code.</span>
         <span class="text-content-subtle">Nothing collides.</span>
@@ -109,17 +116,35 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="row items-center gap-3 p-5 bg-surface-2 rounded-lg">
-        <span x-icon="lucide:mail-plus" class="text-content-subtle" aria-hidden="true"></span>
-        <p class="text-content-neutral">Invite by email — the project shows up in their Claude.</p>
+      <div class="col gap-4 p-6 bg-surface-2 rounded-lg">
+        <div class="row items-center gap-3">
+          <span class="avatar"><span>AR</span><figure class="presence positive"></figure></span>
+          <div class="col">
+            <b class="text-sm">Ana</b>
+            <small class="text-content-subtle">Client</small>
+          </div>
+        </div>
+        <p class="text-content-neutral">Invited by email. The project appears in her own Claude; she updates content safely.</p>
       </div>
-      <div class="row items-center gap-3 p-5 bg-surface-2 rounded-lg">
-        <span x-icon="lucide:key-round" class="text-content-subtle" aria-hidden="true"></span>
-        <p class="text-content-neutral">No API keys, no shared credentials, nothing to leak.</p>
+      <div class="col gap-4 p-6 bg-surface-2 rounded-lg">
+        <div class="row items-center gap-3">
+          <span class="avatar"><span x-icon="simple-icons:claude"></span><figure class="presence positive"></figure></span>
+          <div class="col">
+            <b class="text-sm">Claude</b>
+            <small class="text-content-subtle">Agent</small>
+          </div>
+        </div>
+        <p class="text-content-neutral">Builds and refactors in chat. No API keys, no shared credentials, nothing to leak.</p>
       </div>
-      <div class="row items-center gap-3 p-5 bg-surface-2 rounded-lg">
-        <span x-icon="lucide:history" class="text-content-subtle" aria-hidden="true"></span>
-        <p class="text-content-neutral">One history, one rollback — everyone's work in one place.</p>
+      <div class="col gap-4 p-6 bg-surface-2 rounded-lg">
+        <div class="row items-center gap-3">
+          <span class="avatar"><span>SK</span><figure class="presence positive"></figure></span>
+          <div class="col">
+            <b class="text-sm">Sam</b>
+            <small class="text-content-subtle">Developer</small>
+          </div>
+        </div>
+        <p class="text-content-neutral">One history, one rollback. Everyone's work lands in the same place.</p>
       </div>
     </div>
 
@@ -134,7 +159,8 @@
   <!-- Content -->
   <div class="col gap-10 justify-start w-content-width max-w-full">
 
-    <div class="col w-2xl max-w-full">
+    <div class="col gap-1 w-2xl max-w-full">
+      <p class="h6 text-content-subtle tracking-widest uppercase">Beyond websites</p>
       <h2 class="md:col leading-tight">
         <span>Sign-in, cloud data, file storage, payments.</span>
         <span class="text-content-subtle">Without running a server.</span>
@@ -143,10 +169,10 @@
     </div>
 
     <div class="row-wrap gap-3">
-      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span x-icon="lucide:layout-dashboard" aria-hidden="true"></span>SaaS dashboards</span>
-      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span x-icon="lucide:wrench" aria-hidden="true"></span>Internal tools</span>
-      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span x-icon="lucide:briefcase" aria-hidden="true"></span>Client sites</span>
-      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span x-icon="lucide:gamepad-2" aria-hidden="true"></span>Games</span>
+      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span class="text-brand-content" x-icon="lucide:layout-dashboard" aria-hidden="true"></span>SaaS dashboards</span>
+      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span class="text-brand-content" x-icon="lucide:wrench" aria-hidden="true"></span>Internal tools</span>
+      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span class="text-brand-content" x-icon="lucide:briefcase" aria-hidden="true"></span>Client sites</span>
+      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span class="text-brand-content" x-icon="lucide:gamepad-2" aria-hidden="true"></span>Games</span>
     </div>
 
     <small class="text-content-subtle">Hosting serves static sites and SPAs. There is no server runtime; your site calls APIs and backends wherever they already run.</small>
@@ -157,58 +183,64 @@
 
 
 <!-- BUILT WITH MANIFEST -->
-<section id="showcase" class="col center gap-6 w-full py-24">
+<section id="showcase" class="col center gap-10 w-full py-24">
 
-  <!-- Content -->
-  <div class="col gap-10 justify-start w-content-width max-w-full">
-
-    <!-- Text -->
+  <!-- Text -->
+  <div class="col gap-1 w-content-width max-w-full">
+    <p class="h6 text-content-subtle tracking-widest uppercase">Showcase</p>
     <h2 class="md:col leading-tight">
       <span>Built with Manifest.</span>
       <span class="text-content-subtle">Real products, in production.</span>
     </h2>
+  </div>
 
-    <!-- Graphic -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+  <!-- Wall -->
+  <div class="showcase-wall">
 
-      <!-- Card -->
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/Playcom.webp" alt="Screenshot of the Playcom website homepage" width="600" height="375" loading="lazy" />
-        </div>
-        <a href="https://playcom.ai" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Playcom</span>
-          <span x-icon="lucide:arrow-up-right"></span></a>
-      </div>
+    <a href="https://playcom.ai" target="_blank">
+      <img src="/assets/showcase/wall/playcom-hero.webp" alt="Playcom homepage hero" width="800" height="500" loading="lazy">
+      <span>Playcom<i x-icon="lucide:arrow-up-right"></i></span>
+    </a>
 
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/Ortus.webp" alt="Screenshot of the Ortus Advisors website homepage" width="600" height="375" loading="lazy" />
-        </div>
-        <a href="https://ortusadvisors.com" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Ortus Advisors</span>
-          <span x-icon="lucide:arrow-up-right"></span></a>
-      </div>
+    <a href="https://andrewmatlock.com" target="_blank">
+      <img src="/assets/showcase/AndrewMatlock.webp" alt="Andrew Matlock's personal site" width="600" height="375" loading="lazy">
+      <span>Andrew Matlock<i x-icon="lucide:arrow-up-right"></i></span>
+    </a>
 
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/AndrewMatlock.webp" alt="Screenshot of Andrew Matlock's personal website homepage" width="600" height="375" loading="lazy" />
-        </div>
-        <a href="https://andrewmatlock.com" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Andrew Matlock</span>
-          <span x-icon="lucide:arrow-up-right"></span></a>
-      </div>
+    <a href="/docs/framework">
+      <img src="/assets/showcase/wall/manifest-docs.webp" alt="The Manifest documentation" width="720" height="450" loading="lazy">
+      <span>Manifest Docs<i x-icon="lucide:arrow-right"></i></span>
+    </a>
 
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="col center w-full aspect-[1440/900] bg-surface-2 rounded-lg pattern">
-          <p class="">Your Next Project</p>
-        </div>
-        <a href="/get-started" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Start building</span>
-          <span x-icon="lucide:arrow-right"></span></a>
-      </div>
+    <a href="https://ortusadvisors.com" target="_blank">
+      <img src="/assets/showcase/Ortus.webp" alt="Ortus Advisors website" width="600" height="375" loading="lazy">
+      <span>Ortus Advisors<i x-icon="lucide:arrow-up-right"></i></span>
+    </a>
 
-    </div>
+    <a href="/framework">
+      <img src="/assets/showcase/wall/manifest-home.webp" alt="manifestx.dev, built on Manifest itself" width="800" height="500" loading="lazy">
+      <span>This site<i x-icon="lucide:arrow-right"></i></span>
+    </a>
+
+    <a href="https://playcom.ai" target="_blank">
+      <img src="/assets/showcase/Playcom.webp" alt="Playcom website, light theme" width="600" height="375" loading="lazy">
+      <span>Playcom<i x-icon="lucide:arrow-up-right"></i></span>
+    </a>
+
+    <a href="https://andrewmatlock.com" target="_blank">
+      <img src="/assets/showcase/wall/andrewmatlock-hero.webp" alt="Andrew Matlock's site, dark theme" width="800" height="500" loading="lazy">
+      <span>Andrew Matlock<i x-icon="lucide:arrow-up-right"></i></span>
+    </a>
+
+    <a href="https://playcom.ai" target="_blank">
+      <img src="/assets/showcase/wall/playcom-stats.webp" alt="Playcom platform statistics" width="800" height="500" loading="lazy">
+      <span>Playcom<i x-icon="lucide:arrow-up-right"></i></span>
+    </a>
+
+    <a href="/get-started" class="cta col center gap-1 aspect-[8/5] bg-surface-2 pattern no-underline">
+      <p>Your Next Project</p>
+      <b class="row center gap-1 text-brand-content">Start building<i x-icon="lucide:arrow-right"></i></b>
+    </a>
 
   </div>
 
@@ -222,7 +254,8 @@
   <!-- Content -->
   <div class="col gap-10 justify-start w-content-width max-w-full">
 
-    <div class="col w-2xl max-w-full">
+    <div class="col gap-1 w-2xl max-w-full">
+      <p class="h6 text-content-subtle tracking-widest uppercase">Bring your stack</p>
       <h2 class="md:col leading-tight">
         <span>If it builds to static files,</span>
         <span class="text-content-subtle">Claude can publish it here.</span>
@@ -239,11 +272,11 @@
 <section id="platforms" class="col center w-full py-24">
 
   <!-- Content -->
-  <div class="col md:row md:items-center gap-10 justify-between w-content-width max-w-full p-10 bg-surface-2 rounded-lg">
+  <div class="col md:row md:items-center gap-10 justify-between w-content-width max-w-full p-10 bg-accent-surface text-accent-inverse rounded-lg">
 
     <div class="col gap-4 w-2xl max-w-full">
-      <h2 class="leading-tight">A publishing API for platforms.</h2>
-      <p class="text-content-neutral text-balance">Generate branded sites and apps for customers on their own domain, from the data you already manage, all inside your product.</p>
+      <h2 class="leading-tight text-accent-inverse">A publishing API for platforms.</h2>
+      <p class="text-accent-inverse opacity-75 text-balance">Generate branded sites and apps for customers on their own domain, from the data you already manage, all inside your product.</p>
     </div>
 
     <a role="button" href="/platforms" class="lg outlined transparent rounded-full shrink-0">For platforms<span x-icon="lucide:arrow-right"></span></a>
@@ -257,14 +290,16 @@
 <section id="framework" class="col center w-full py-24">
 
   <!-- Content -->
-  <div class="col md:row md:items-center gap-10 justify-between w-content-width max-w-full p-10 bg-surface-2 rounded-lg">
+  <div class="relative col md:row md:items-center gap-10 justify-between w-content-width max-w-full p-10 bg-surface-2 rounded-lg overflow-hidden">
+
+    <span class="absolute -bottom-10 -right-6 text-[11rem] text-surface-3/60 pointer-events-none" x-icon="lucide:code-xml" aria-hidden="true"></span>
 
     <div class="col gap-4 w-2xl max-w-full">
       <h2 class="leading-tight">HTML that speaks AI.</h2>
       <p class="text-content-neutral text-balance">Manifest is an open-source framework that extends HTML to build full websites, apps and platforms. With no build step, no dependencies and no overhead, humans and AI alike build faster with fewer bugs.</p>
     </div>
 
-    <a role="button" href="/framework" class="lg outlined transparent rounded-full shrink-0">Explore the framework<span x-icon="lucide:arrow-right"></span></a>
+    <a role="button" href="/framework" class="lg outlined transparent rounded-full shrink-0 z-1">Explore the framework<span x-icon="lucide:arrow-right"></span></a>
 
   </div>
 </section>

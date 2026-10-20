@@ -568,3 +568,52 @@ nav[aria-label="On this page"] > small {
     background-size: 1rem 1rem;
     background-position: center
 }
+
+/* Showcase wall (home) */
+.showcase-wall {
+    columns: 2;
+    gap: calc(var(--spacing) * 3);
+    width: 100%;
+    max-width: 1600px;
+
+    & > a {
+        position: relative;
+        display: block;
+        margin-bottom: calc(var(--spacing) * 3);
+        break-inside: avoid;
+        border-radius: var(--radius);
+        overflow: hidden;
+
+        & img {
+            display: block;
+            width: 100%
+        }
+
+        & > span {
+            position: absolute;
+            inset-inline: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing) * 1.5);
+            padding: calc(var(--spacing) * 3);
+            font-size: 0.875rem;
+            color: white;
+            background: linear-gradient(to top, rgb(0 0 0 / 0.7), transparent);
+            opacity: 0;
+            transition: opacity 0.15s ease
+        }
+
+        &:hover > span {
+            opacity: 1
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .showcase-wall { columns: 3 }
+}
+
+@media (min-width: 1440px) {
+    .showcase-wall { columns: 4 }
+}
