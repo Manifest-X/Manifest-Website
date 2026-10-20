@@ -569,25 +569,29 @@ nav[aria-label="On this page"] > small {
     background-position: center
 }
 
-/* Showcase wall (home) */
+/* Showcase wall (home) — masonry grid; .tall spans two rows for portrait tiles */
 .showcase-wall {
-    columns: 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-flow: dense;
     gap: calc(var(--spacing) * 3);
     width: 100%;
     max-width: 1600px;
 
-    & > a {
+    & > a, & > figure {
         position: relative;
         display: block;
-        margin-bottom: calc(var(--spacing) * 3);
-        break-inside: avoid;
+        margin: 0;
         border: 1px solid var(--color-line);
         border-radius: var(--radius);
         overflow: hidden;
 
         & img {
             display: block;
-            width: 100%
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top
         }
 
         & > span {
@@ -609,10 +613,14 @@ nav[aria-label="On this page"] > small {
             opacity: 1
         }
     }
+
+    & > .tall {
+        grid-row: span 2
+    }
 }
 
 @media (min-width: 1024px) {
-    .showcase-wall { columns: 3 }
+    .showcase-wall { grid-template-columns: repeat(3, 1fr) }
 }
 
 /* Hero build-in animation */
@@ -646,4 +654,49 @@ nav[aria-label="On this page"] > small {
     background-size: 2.5rem 2.5rem;
     -webkit-mask-image: radial-gradient(130% 130% at 100% 0%, black, transparent 65%);
     mask-image: radial-gradient(130% 130% at 100% 0%, black, transparent 65%)
+}
+
+/* Grid texture fading from the top-left instead */
+.grid-fade-tl {
+    -webkit-mask-image: radial-gradient(130% 130% at 0% 0%, black, transparent 65%);
+    mask-image: radial-gradient(130% 130% at 0% 0%, black, transparent 65%)
+}
+
+/* Hero demo app (Solstice Studio) — its own small brand so it reads as a user's product */
+.hero-app {
+    --app-accent: oklch(0.56 0.1 160);
+    --app-accent-hover: oklch(0.48 0.11 160);
+    --app-on-accent: oklch(0.99 0 0);
+
+    & .app-logo {
+        background: var(--app-accent)
+    }
+
+    & .app-nav {
+        cursor: pointer;
+        transition: var(--transition)
+    }
+
+    & .app-nav:hover {
+        color: var(--color-content-stark)
+    }
+
+    & button.app-book {
+        background: var(--app-accent);
+        color: var(--app-on-accent);
+        transition: var(--transition);
+        cursor: pointer
+    }
+
+    & button.app-book:hover {
+        background: var(--app-accent-hover)
+    }
+
+    & .app-row {
+        transition: var(--transition)
+    }
+
+    & .app-row:hover {
+        border-color: var(--app-accent)
+    }
 }
