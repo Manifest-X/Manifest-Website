@@ -268,9 +268,9 @@ Pass an object as the directive's value for reactive configuration. All keys are
 
 | Key        | Type                  | Description                                                                                     |
 | ---------- | --------------------- | ----------------------------------------------------------------------------------------------- |
-| `months`{copy}   | number (1–4)          | Calendar months displayed side by side. Default `1`.                                            |
+| `months`{copy}   | number (1–4)          | Calendar months displayed side by side. Default `1`. |
 | `firstDay`{copy} | string \| number      | First weekday override — a name (`'monday'`) or index (`0` = Sunday). Defaults to the locale's. |
-| `min`{copy} / `max`{copy} | ISO string   | Selectable bounds. Also read from the input's native `min`/`max` attributes.                    |
+| `min`{copy} / `max`{copy} | ISO string   | Selectable bounds. Also read from the input's native `min`/`max` attributes. If panels would fall past `max`, the calendar opens with the max month as the last panel. A future `min` opens on the min month, and a selected date stays in view. |
 | `disabled`{copy} | array \| function     | Unselectable dates — ISO strings, `{ from, to }` spans, or a `(date) => boolean` predicate.     |
 | `presets`{copy}  | array                 | Quick-pick chips shown in the footer (see below).                                               |
 | `now`{copy} / `clear`{copy} | boolean    | Set `false` to hide the Today/Now or Clear action. Both default `true`.                         |

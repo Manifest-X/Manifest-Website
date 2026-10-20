@@ -503,7 +503,9 @@ _ui: {
 | Key          | Type             | Description                                                                  |
 | ------------ | ---------------- | ---------------------------------------------------------------------------- |
 | `type`{copy}       | string           | `line`, `area`, `bar`, `pie`, `donut`, `scatter`, `combo`, `candlestick`, `gauge`, `heatmap`, `gantt` (alias `timeline`), `map`. Default `line`. |
-| `labels`{copy}     | array            | X-axis categories, slice labels, heatmap columns, or a Gantt's category-axis stages. |
+| `labels`{copy}     | array            | X-axis categories, slice labels, heatmap columns, or a Gantt's category-axis stages. Long category axes thin their labels to fit by a whole step, showing every second, third, or nth label so the gaps stay equal. |
+| `ticks`{copy}      | array            | Line, area, bar, combo, scatter, and candlestick x-axes: the labels to show, as indices or `{ at, label }`. Ticks that would overlap are thinned by a whole step, and `ticks: []` hides the labels. Tooltips still show the full `labels`. See [Axis Ticks](#axis-ticks). |
+| `tickAnchor`{copy} | string           | Which end thinned line, area, bar, combo, scatter, and candlestick x-axis labels count from: `'start'` always shows the first label, `'end'` always shows the last (handy when the latest day matters most). Default `'start'`. |
 | `series`{copy}     | array            | `{ name, data, color?, type? }` per series. `color` overrides the palette; `type` applies in combo charts; in a heatmap each series is a row; in a Gantt each series is a track and its `data` is `{ from, to, status?, color? }` segments. |
 | `data`{copy}       | array \| object  | Shorthand for a single unnamed series; for a map, the region values as `{ region: value }` or `[region, value]` rows. |
 | `height`{copy}     | number           | Chart height in pixels. Default `240`. Width tracks the container.            |
@@ -511,8 +513,8 @@ _ui: {
 | `curve`{copy}      | string           | Line interpolation — `monotone` (default), `linear`, `step`, `natural`.       |
 | `legend`{copy}     | boolean          | Show the legend (multi-series, pies, heatmap ramp). Default `true`.           |
 | `axis`{copy} / `grid`{copy} | boolean | Show axis labels / grid lines (heatmap: row & column labels). Default `true`. |
-| `tooltip`{copy}    | boolean          | Hover tooltips on segments. Default `true`.                                   |
-| `dataLabels`{copy} | boolean          | Static value labels on points, bars, slices, and heatmap tiles. Default `false`. |
+| `tooltip`{copy}    | boolean          | Hover tooltips on segments, with the point's label shown as the heading. Default `true`. |
+| `dataLabels`{copy} | boolean          | Static value labels on points, bars, slices, and heatmap tiles. Off for dense line and area charts. Default `false`. |
 | `title`{copy}      | string           | Accessible chart label (`aria-label` on the SVG).                             |
 | `value`{copy}      | number           | Gauge — the plotted value (or use a one-number `series`/`data`).              |
 | `min`{copy} / `max`{copy} | number \| string | Gauge range (default `0` / `100`); or a Gantt's fixed axis window (numeric or time). |
@@ -524,6 +526,21 @@ _ui: {
 | `markers`{copy}    | array            | Gantt — vertical reference lines: `{ at, label?, color? }`.                |
 | `points`{copy}     | array            | Map — location bubbles: `{ lat, lng, value?, label?, color? }` or a `name` resolved via `places`. |
 | `places`{copy}     | object           | Map — `name` → `[lat, lng]` gazetteer for positioning named `points`.       |
+
+### Axis Ticks
+
+Long category axes pick their own labels, keeping every nth one so the gaps stay equal. Set `tickAnchor: 'end'` to count from the last label instead of the first. To choose them yourself, pass `ticks`. For a year of daily data, label the start of each month and keep the full date in the tooltip:
+
+```html copy
+<div x-chart="{
+    type: 'area',
+    labels: days,
+    ticks: [{ at: 0, label: 'Jan' }, { at: 31, label: 'Feb' }, { at: 59, label: 'Mar' }],
+    series: [{ name: 'Visitors', data: visits }]
+}"></div>
+```
+
+Here `days` holds one label per point (`'Jan 1, 2026'`, `'Jan 2, 2026'`, and so on), and each tick's `at` is a point index. Plain indices (`ticks: [0, 31, 59]`) show those points' own labels.
 
 ### Declarative Series
 
@@ -639,12 +656,14 @@ Modify base styles with custom CSS targeting `[x-chart]` (or the `.chart` marker
 | `path.line`{copy}           | Line series strokes                           |
 | `path.area`{copy}           | Area fills                                    |
 | `path.slice`{copy}          | Pie / donut slices                            |
-| `rect`{copy}                | Bars and candle bodies                        |
+| `rect`{copy}                | Bars and candle bodies (style with `rect:not(.hit)`) |
+| `rect.hit`{copy}            | Transparent hover columns on dense line and area charts |
 | `rect.heat-cell`{copy}      | Heatmap tiles (fill driven by the `--heat` percentage) |
 | `rect.gantt-segment`{copy} / `rect.gantt-point`{copy} | Gantt spans and point markers |
 | `path.map-region`{copy}     | Map countries (fill driven by `--color-chart-color`) |
 | `circle.map-point`{copy}    | Map location bubbles                          |
-| `circle`{copy}              | Line points and scatter dots (`.scatter`)     |
+| `circle`{copy}              | Line points and scatter dots (`.scatter`). Line points are dropped when points are under 10px apart. |
+| `circle.focus`{copy}        | The hover dot on dense charts                 |
 | `g.positive`{copy} / `g.negative`{copy} | Rising / falling candles          |
 | `path.gauge-track`{copy} / `path.gauge-value`{copy} | Gauge track and value arc         |
 | `line.gantt-marker`{copy} / `text.gantt-track`{copy} | Gantt reference lines and track labels |

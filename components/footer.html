@@ -26,6 +26,18 @@
         </div>
       </template>
 
+      <!-- API columns -->
+      <template x-for="(group, gi) in $x.api" :key="group.group || gi">
+        <div class="col gap-3 mb-8 break-inside-avoid">
+          <small x-text="'API ' + group.group"></small>
+          <div class="col gap-3">
+            <template x-for="(item, index) in group.items" :key="item.path || index">
+              <a x-show="item.name" :href="'/docs/api/' + group.slug + '/' + item.path" x-text="item.name"></a>
+            </template>
+          </div>
+        </div>
+      </template>
+
       <!-- Docs columns -->
       <template x-for="group in $x.framework" :key="group.group">
         <div class="col gap-3 mb-8 break-inside-avoid">

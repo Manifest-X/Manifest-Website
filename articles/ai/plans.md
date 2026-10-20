@@ -16,7 +16,7 @@ Everything you need to build and publish is free. Pro adds history, teams, and c
 | Staging, to check changes before they go live | ✓ | ✓ |
 | Visitor analytics | Last 7 days | All time |
 | Undo changes and download past versions | | Last 5 versions |
-| Teammates and roles | | ✓ |
+| Invite teammates and make admins | | ✓ |
 | "Made with Manifest" badge | Shown | Removed |
 | Manifest's showcase | May be featured | Your choice |
 
@@ -24,7 +24,7 @@ Everything you need to build and publish is free. Pro adds history, teams, and c
 
 ## What Pro adds
 
-- **All-time analytics.** See every visit since your project went live, not just the last week.
+- **All-time analytics.** Keep your full visitor history, not just the last week.
 - **Undo and download.** Go back to any of your last 5 versions of staging or live, or download one as a backup.
 - **Teams.** Invite people to work on the project from their own Claude, as members who can edit and publish, or admins who can also invite others.
 - **No badge.** The small "Made with Manifest" badge is removed from every page.

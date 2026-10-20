@@ -1,6 +1,6 @@
 # Reference
 
-Manifest's CLI commands, partner API endpoints, directives, magic properties, data-source operators, and state-management patterns.
+Manifest's CLI commands, directives, magic properties, data-source operators, and state-management patterns.
 
 ---
 
@@ -23,27 +23,6 @@ Common conventions:
 | `--manifest <path>` | Override `manifest.json` location |
 | `--json` | Machine-readable output (where applicable) |
 | `-h`, `--help` | Show usage |
-
----
-
-## Partner API Endpoints
-
-Base URL `https://mcp.manifestx.dev/partner/v1`, authenticated with a partner key. See [Partner API](/docs/framework/publishing/partner-api).
-
-| Endpoint | Purpose | Reference |
-|---|---|---|
-| `GET /me` | The partner account the key belongs to | [Authentication](/docs/framework/publishing/partner-api#authentication) |
-| `POST /projects` | Create a project, idempotent on `external_id` | [Create a project](/docs/framework/publishing/partner-api#create-a-project) |
-| `GET /projects` | List the account's projects | [List projects](/docs/framework/publishing/partner-api#list-projects) |
-| `GET /projects/:id` | One project, with its URLs and publish state | [Get a project](/docs/framework/publishing/partner-api#get-a-project) |
-| `POST /projects/:id/content` | Build a docs site from articles | [Content ingest](/docs/framework/publishing/partner-api#content-ingest-docs-template) |
-| `POST /projects/:id/publish` | Start a publish: a one-time upload URL for a zip | [Start a publish](/docs/framework/publishing/partner-api#start-a-publish) |
-| `POST /projects/:id/promote` | Ship what is live on staging to production | [Promote](/docs/framework/publishing/partner-api#promote-staging-to-production) |
-| `POST /projects/:id/rollback` | Point an environment back at an earlier deployment | [Roll back](/docs/framework/publishing/partner-api#roll-back) |
-| `GET /projects/:id/deployments` | Recent deployments per environment | [List deployments](/docs/framework/publishing/partner-api#list-deployments) |
-| `POST /projects/:id/domains` | Attach a custom domain; returns the DNS records | [Attach a domain](/docs/framework/publishing/partner-api#attach-a-domain) |
-| `GET /projects/:id/domains/:hostname` | Domain and certificate status | [Check status](/docs/framework/publishing/partner-api#check-status) |
-| `DELETE /projects/:id/domains/:hostname` | Detach a custom domain | [Remove a domain](/docs/framework/publishing/partner-api#remove-a-domain) |
 
 ---
 
