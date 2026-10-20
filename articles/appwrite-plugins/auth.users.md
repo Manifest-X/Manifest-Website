@@ -543,7 +543,7 @@ Signing in or out in one tab updates every open tab, and every Appwrite table an
 
 If the app opens offline, it renders signed out (`$auth.isAuthenticated` is `false`) and restores the session on its own once Appwrite is reachable (it rechecks on reconnect, on tab refocus, and after 2, 5, 15 and 60 seconds); no guest session is created over the real one. Only a genuine "no session" answer from Appwrite signs a user out. Listen for `manifest:auth:login` to react when the session returns.
 
-[Persisted](/docs/framework/core-plugins/local-data#persisted-data) rows saved for the user last signed in on this device are shown while offline, except from tables with a [scope](/docs/framework/appwrite-plugins/databases#scope) and sources whose queries reference `$auth.` values, which stay empty until the session is restored.
+While offline, [persisted](/docs/framework/core-plugins/local-data#persisted-data) rows saved for the user last signed in on this device stay shown for every source, including tables with a [scope](/docs/framework/appwrite-plugins/databases#scope) and sources whose queries reference `$auth.` values, unless the persistence `scope` depends on the signed-in user or team, which can't be evaluated until the session is verified (the saved rows stay on the device until then). A restored session reloads them; a "no session" answer, a sign-out, or a different user clears them.
 
 ---
 
