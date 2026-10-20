@@ -557,7 +557,7 @@ When a signed-in user opens the app without a connection, the session check fail
 
 The session is rechecked when the connection returns, when the user returns to the tab, and on a timer (2s, 5s, 15s, then every 60s). Once Appwrite answers, either the session is restored — the usual sign-in events fire, and every table and bucket source reloads for the user, including those showing saved rows — or a genuine "no session" answer signs the user out everywhere.
 
-Meanwhile, [persisted](/docs/framework/core-plugins/local-data#persisted-data) rows saved for the user last signed in on this device stay shown for every source, including tables with a [scope](/docs/framework/appwrite-plugins/databases#scope) and sources whose queries reference `$auth.` values. A restored session reloads them; a "no session" answer, a sign-out, or a different user clears them.
+Meanwhile, [persisted](/docs/framework/core-plugins/local-data#persisted-data) rows saved for the user last signed in on this device stay shown for every source, including tables with a [scope](/docs/framework/appwrite-plugins/databases#scope) and sources whose queries reference `$auth.` values, unless the persistence `scope` depends on the signed-in user or team, which can't be evaluated until the session is verified (the saved rows stay on the device until then). A restored session reloads them; a "no session" answer, a sign-out, or a different user clears them.
 
 ---
 
