@@ -126,7 +126,18 @@ Render settings can be configured in `manifest.json`. Most projects don't need t
 | `concurrency`{copy} | `number` | `2` | Number of pages rendered in parallel. Increase for faster builds on high-core machines; decrease if memory is constrained. |
 | `retries`{copy} | `number` | `2` | Number of retry attempts for pages that fail to render. |
 | `browserRecycleEvery`{copy} | `number` | `50` | Recycle the browser after this many pages to prevent memory buildup on large sites. |
+| `incremental`{copy} | `boolean` | `false` | Skip re-rendering pages whose inputs are provably unchanged since the last successful run. See [Incremental renders](#incremental-renders). |
 | `tailwindInput`{copy} | `string` | — | Path to a custom Tailwind CSS entry file relative to the project root. Tailwind compilation is otherwise auto-detected via the `data-tailwind` attribute on the manifest script tag. |
+
+---
+
+### Incremental Renders
+
+Re-rendering a large site when little has changed is mostly wasted work. Opt in with `"incremental": true` in the `render` block, or pass `--incremental` on the command line (`--no-incremental` overrides both).
+
+While rendering, Manifest records every file and URL each page actually loads. On the next run a page is skipped — its files copied from the previous output — only when everything it depends on is provably unchanged: the files it fetched, the render configuration, the renderer version, and every external resource (checked by ETag, or by re-downloading and comparing when a server sends no caching headers). Anything that can't be verified re-renders; a page is never skipped on a guess, so an incremental run's output is always identical to a full render's. One caveat is inherent to any cache: values a page computes from the clock or from randomness stay frozen on skipped pages until something else triggers a re-render.
+
+The record lives in `.mnfst-cache/routes.json` in your project (keep `.mnfst-cache/` out of version control). It is only written after a fully successful run. To force a full render, pass `--no-incremental` or delete `.mnfst-cache/`.
 
 ---
 
