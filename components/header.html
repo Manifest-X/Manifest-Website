@@ -47,11 +47,15 @@
 
         <!-- Middle -->
         <div class="hidden md:row justify-center items-center gap-6 no-underline" x-route="/">
+            <a href="/framework" class="text-sm no-underline">Framework</a>
+            <a href="/docs/ai" class="text-sm no-underline">AI Plugin</a>
+        </div>
+        <div class="hidden md:row justify-center items-center gap-6 no-underline" x-route="=framework">
             <a href="#features" class="text-sm no-underline">Features</a>
             <a href="#comparisons" class="text-sm no-underline">Comparisons</a>
             <a href="#faq" class="text-sm no-underline">FAQ</a>
         </div>
-        <div x-route="!/"></div>
+        <div x-route="!/" :class="$route === '/framework' && 'hidden'"></div>
 
         <!-- End -->
         <div class="row justify-end items-center gap-2">

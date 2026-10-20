@@ -47,10 +47,16 @@
   <x-docs-search></x-docs-search>
   <x-docs-nav></x-docs-nav>
 
-  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''">
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="['/', '/framework'].includes($route) || $route.startsWith('/compare') ? 'bg-surface-1' : ''">
 
     <!-- Home page -->
     <x-home x-route="/"></x-home>
+
+    <!-- Framework -->
+    <x-framework x-route="=framework"></x-framework>
+
+    <!-- Compare -->
+    <x-compare-lovable x-route="compare/lovable"></x-compare-lovable>
 
     <!-- Documentation -->
     <x-docs-index x-route="=docs"></x-docs-index>
@@ -66,7 +72,7 @@
   </main>
 
   <!-- Footer (visible on every route) -->
-  <x-footer x-route="/, =support"></x-footer>
+  <x-footer x-route="/, =support, =framework, compare"></x-footer>
 
 </body>
 

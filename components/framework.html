@@ -1,0 +1,322 @@
+<!-- HERO -->
+<section id="home" class="col center gap-6 w-full py-24">
+
+  <!-- Content -->
+  <div class="col gap-10 justify-start w-content-width max-w-full">
+
+    <!-- Text -->
+    <div class="col w-2xl max-w-full">
+      <p class="h4 text-content-subtle mb-1">The Manifest framework</p>
+      <h1 class="md:col leading-tight">
+        <span>The website & app framework</span>
+        <span class="text-content-subtle">that thinks like you do.</span>
+      </h1>
+    </div>
+
+    <!-- CTA -->
+    <div class="row gap-4">
+      <a role="button" href="/docs/framework/getting-started/introduction" class="accent lg rounded-full"><span x-icon="lucide:book-open"></span><span>Get started</span></a>
+      <!-- <a role="button" class="lg outlined transparent rounded-full" x-icon="lucide:book-open" x-tooltip="Documentation"></a> -->
+    </div>
+
+    <x-hero-editor></x-hero-editor>
+
+  </div>
+</section>
+
+
+
+<!-- FEATURES -->
+<section id="features" class="col center w-full py-24">
+
+  <!-- Content -->
+  <div class="col gap-6 justify-start w-content-width max-w-full">
+
+    <!-- Text -->
+    <h2 class="md:col mb-4 leading-tight">
+      <span>Everything a project needs.</span>
+      <span class="text-content-subtle">Nothing it doesn't.</span>
+    </h2>
+
+    <!-- Premier features -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+      <template x-for="feature in $x.features.premier" :key="feature.name">
+        <div class="col gap-5 w-full h-full p-4 bg-surface-2 rounded-lg">
+          <div class="col gap-2 w-xl max-w-full">
+            <h3 class="h4"><span x-icon="feature.icon"></span><span x-text="feature.name"></span></h3>
+            <p class="text-content-neutral" x-text="feature.description"></p>
+          </div>
+          <a :href="feature.link" :aria-label="'Read more about ' + feature.name" class="brand gap-1 hover:gap-1.5 no-underline">
+            <span>Read more</span>
+            <span x-icon="lucide:arrow-right"></span></a>
+
+          <!-- Code example -->
+          <div class="grow col justify-end pt-6 ps-6 w-full bg-surface-3 rounded-lg overflow-hidden">
+            <div class="col w-full h-fit bg-page dark:bg-surface-1 rounded-ss-lg shadow-lg">
+              <div class="row gap-1 px-3 py-2 border-b border-surface-3 [&_figure]:size-3 [&_figure]:bg-surface-2 [&_figure]:rounded-full">
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+              </div>
+              <div class="col gap-2 w-fit px-4 pt-4 pb-3 text-xs font-mono [&_div]:whitespace-pre opacity-85 pointer-events-none">
+                <template x-for="line in feature.codeLines" :key="line">
+                  <div x-html="$hl(line, feature.lang)"></div>
+                </template>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </template>
+    </div>
+
+    <!-- Noteworthy features -->
+    <div class="col gap-4 mt-4">
+      <div class="row-wrap gap-2 text-sm">
+        <span class="text-content-subtle">Plus</span>
+        <template x-for="feature in $x.features.noteworthy" :key="feature.name">
+          <div class="row gap-2">
+            <a :href="feature.link" class="text-content-neutral hover:text-content-stark" x-text="feature.name"></a>
+            <span aria-hidden="true">•</span>
+          </div>
+        </template>
+        <p class="text-content-subtle">And more</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPARISONS -->
+<section id="comparisons" class="col center gap-6 w-full py-24">
+
+  <!-- Content -->
+  <div class="col justify-start w-content-width max-w-full">
+
+    <!-- Text -->
+    <div class="col w-2xl max-w-full mb-10">
+      <p class="h4 text-content-subtle mb-1">Comparison</p>
+      <h2 class="md:col leading-tight">
+        <span>Familiar pieces.</span>
+        <span class="text-content-subtle">Fewer steps.</span>
+      </h2>
+      <p class="mt-4 text-content-neutral text-balance">Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required.</p>
+    </div>
+
+    <!-- Comparison tables -->
+    <div class="w-full" x-data="{
+        isBuiltIn(v) { return typeof v === 'string' && v.startsWith('✓'); },
+        detail(v) { return typeof v === 'string' ? v.slice(1).trim() : ''; }
+      }">
+
+      <!-- Sticky header table -->
+      <div class="sticky top-[60px] z-1 overflow-hidden">
+        <table class="w-full min-w-3xl text-sm table-fixed [&_th]:text-center rounded-none" x-ref="headerTable">
+          <thead>
+            <tr class="bg-surface-2 dark:bg-surface-3 [&_th]:p-3 [&_th]:font-medium [&_th]:text-content-stark">
+              <th class="!text-start !text-neutral">Aspect</th>
+              <th class="bg-brand-surface !text-brand-inverse !font-bold">Manifest</th>
+              <th>React</th>
+              <th>Vue</th>
+              <th>HTMX</th>
+              <th>Astro</th>
+              <th>Alpine.js</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <!-- Horizontal scroll wrapper -->
+      <div class="overflow-x-auto" @scroll.passive="$refs.headerTable.style.transform = `translateX(${-$event.target.scrollLeft}px)`">
+
+        <!-- Summary table -->
+        <table class="w-full min-w-3xl text-sm table-fixed">
+          <tbody class="font-medium [&_td:not(:first-child)]:text-center">
+            <template x-for="row in $x.comparisons.summaryRows" :key="row.aspect">
+              <tr class="border-b border-line">
+                <td class="p-3 text-content-stark" x-text="row.aspect"></td>
+
+                <td class="p-3 text-brand-content bg-brand-surface/10 border-b border-line">
+                  <template x-if="isBuiltIn(row.manifest)">
+                    <span class="row justify-center gap-1.5 items-center">
+                      <span x-icon="lucide:check"></span>
+                      <span x-show="detail(row.manifest)" x-text="detail(row.manifest)"></span>
+                    </span>
+                  </template>
+                  <template x-if="!isBuiltIn(row.manifest)"><span x-text="row.manifest"></span></template>
+                </td>
+
+                <td class="p-3 text-content-neutral">
+                  <template x-if="isBuiltIn(row.react)">
+                    <span class="row justify-center gap-1.5 items-center">
+                      <span x-icon="lucide:check"></span>
+                      <span x-show="detail(row.react)" x-text="detail(row.react)"></span>
+                    </span>
+                  </template>
+                  <template x-if="!isBuiltIn(row.react)"><span x-text="row.react"></span></template>
+                </td>
+
+                <td class="p-3 text-content-neutral">
+                  <template x-if="isBuiltIn(row.vue)">
+                    <span class="row justify-center gap-1.5 items-center">
+                      <span x-icon="lucide:check"></span>
+                      <span x-show="detail(row.vue)" x-text="detail(row.vue)"></span>
+                    </span>
+                  </template>
+                  <template x-if="!isBuiltIn(row.vue)"><span x-text="row.vue"></span></template>
+                </td>
+
+                <td class="p-3 text-content-neutral">
+                  <template x-if="isBuiltIn(row.htmx)">
+                    <span class="row justify-center gap-1.5 items-center">
+                      <span x-icon="lucide:check"></span>
+                      <span x-show="detail(row.htmx)" x-text="detail(row.htmx)"></span>
+                    </span>
+                  </template>
+                  <template x-if="!isBuiltIn(row.htmx)"><span x-text="row.htmx"></span></template>
+                </td>
+
+                <td class="p-3 text-content-neutral">
+                  <template x-if="isBuiltIn(row.astro)">
+                    <span class="row justify-center gap-1.5 items-center">
+                      <span x-icon="lucide:check"></span>
+                      <span x-show="detail(row.astro)" x-text="detail(row.astro)"></span>
+                    </span>
+                  </template>
+                  <template x-if="!isBuiltIn(row.astro)"><span x-text="row.astro"></span></template>
+                </td>
+
+                <td class="p-3 text-content-neutral">
+                  <template x-if="isBuiltIn(row.alpine)">
+                    <span class="row justify-center gap-1.5 items-center">
+                      <span x-icon="lucide:check"></span>
+                      <span x-show="detail(row.alpine)" x-text="detail(row.alpine)"></span>
+                    </span>
+                  </template>
+                  <template x-if="!isBuiltIn(row.alpine)"><span x-text="row.alpine"></span></template>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+
+        <!-- Extended table -->
+        <details class="w-full">
+          <summary class="ps-3 text-sm text-content-subtle hover:text-content-stark border-b border-line">See more</summary>
+          <table class="w-full min-w-3xl text-sm table-fixed rounded-none [&_tbody_td:not(:first-child)]:text-center">
+            <template x-for="section in $x.comparisons.extendedSections" :key="section.title">
+              <tbody class="font-medium">
+                <tr class="bg-surface-2">
+                  <th colspan="7" class="p-3 font-semibold text-content-subtle text-xs uppercase tracking-wider" x-text="section.title"></th>
+                </tr>
+                <template x-for="row in section.rows" :key="row.aspect">
+                  <tr class="border-b border-line">
+                    <td class="p-3 text-content-stark" x-text="row.aspect"></td>
+
+                    <td class="p-3 text-brand-content bg-brand-surface/10">
+                      <template x-if="isBuiltIn(row.manifest)">
+                        <span class="row justify-center gap-1.5 items-center">
+                          <span x-icon="lucide:check"></span>
+                          <span x-show="detail(row.manifest)" x-text="detail(row.manifest)"></span>
+                        </span>
+                      </template>
+                      <template x-if="!isBuiltIn(row.manifest)"><span x-text="row.manifest"></span></template>
+                    </td>
+
+                    <td class="p-3 text-content-neutral">
+                      <template x-if="isBuiltIn(row.react)">
+                        <span class="row justify-center gap-1.5 items-center">
+                          <span x-icon="lucide:check"></span>
+                          <span x-show="detail(row.react)" x-text="detail(row.react)"></span>
+                        </span>
+                      </template>
+                      <template x-if="!isBuiltIn(row.react)"><span x-text="row.react"></span></template>
+                    </td>
+
+                    <td class="p-3 text-content-neutral">
+                      <template x-if="isBuiltIn(row.vue)">
+                        <span class="row justify-center gap-1.5 items-center">
+                          <span x-icon="lucide:check"></span>
+                          <span x-show="detail(row.vue)" x-text="detail(row.vue)"></span>
+                        </span>
+                      </template>
+                      <template x-if="!isBuiltIn(row.vue)"><span x-text="row.vue"></span></template>
+                    </td>
+
+                    <td class="p-3 text-content-neutral">
+                      <template x-if="isBuiltIn(row.htmx)">
+                        <span class="row justify-center gap-1.5 items-center">
+                          <span x-icon="lucide:check"></span>
+                          <span x-show="detail(row.htmx)" x-text="detail(row.htmx)"></span>
+                        </span>
+                      </template>
+                      <template x-if="!isBuiltIn(row.htmx)"><span x-text="row.htmx"></span></template>
+                    </td>
+
+                    <td class="p-3 text-content-neutral">
+                      <template x-if="isBuiltIn(row.astro)">
+                        <span class="row justify-center gap-1.5 items-center">
+                          <span x-icon="lucide:check"></span>
+                          <span x-show="detail(row.astro)" x-text="detail(row.astro)"></span>
+                        </span>
+                      </template>
+                      <template x-if="!isBuiltIn(row.astro)"><span x-text="row.astro"></span></template>
+                    </td>
+
+                    <td class="p-3 text-content-neutral">
+                      <template x-if="isBuiltIn(row.alpine)">
+                        <span class="row justify-center gap-1.5 items-center">
+                          <span x-icon="lucide:check"></span>
+                          <span x-show="detail(row.alpine)" x-text="detail(row.alpine)"></span>
+                        </span>
+                      </template>
+                      <template x-if="!isBuiltIn(row.alpine)"><span x-text="row.alpine"></span></template>
+                    </td>
+                  </tr>
+                </template>
+              </tbody>
+            </template>
+          </table>
+        </details>
+
+      </div>
+    </div>
+</section>
+
+
+<!-- FAQ -->
+<section id="faq" class="col center gap-6 w-full py-24">
+
+  <!-- Content -->
+  <div class="col gap-10 justify-start w-content-width max-w-full">
+
+    <!-- Text -->
+    <h2 class="w-2xl max-w-full leading-tight">Common questions</h2>
+
+    <!-- Graphic -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 w-full">
+      <template x-for="item in $x.faq" :key="item.question">
+        <div class="col gap-1 w-full h-full">
+          <h3 class="h4" x-text="item.question"></h3>
+          <p class="text-content-neutral" x-html="item.answer"></p>
+        </div>
+      </template>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- CTA -->
+<section class="col center gap-6 w-full pt-50 pb-70 text-center">
+
+  <!-- Content -->
+  <div class="col center gap-13 justify-start w-content-width max-w-full">
+    <h2 class="text-6xl">Start your project</h2>
+    <a role="button" href="/docs/framework/getting-started/introduction" class="accent lg rounded-full">Introduction to
+      Manifest</a>
+  </div>
+
+</section>

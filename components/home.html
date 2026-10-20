@@ -6,98 +6,166 @@
 
     <!-- Text -->
     <div class="col w-2xl max-w-full">
-      <p class="h4 text-content-subtle mb-1">Introducing</p>
       <h1 class="md:col leading-tight">
-        <span>The website & app framework</span>
-        <span class="text-content-subtle">that thinks like you do.</span>
+        <span>Build, publish, and run websites and apps</span>
+        <span class="text-content-subtle">— right from Claude.</span>
       </h1>
+      <p class="mt-4 text-content-neutral text-balance">Manifest turns Claude into a complete studio: build in conversation, go live in one step, and run it — hosting, staging, custom domains, rollback, and a team that never touches an API key.</p>
     </div>
 
     <!-- CTA -->
-    <div class="row gap-4">
-      <a role="button" href="/docs/framework/getting-started/introduction" class="accent lg rounded-full"><span x-icon="lucide:book-open"></span><span>Get started</span></a>
-      <!-- <a role="button" class="lg outlined transparent rounded-full" x-icon="lucide:book-open" x-tooltip="Documentation"></a> -->
+    <div class="row-wrap gap-4">
+      <a role="button" href="/get-started" class="accent lg rounded-full"><span x-icon="simple-icons:claude"></span><span>Add Manifest to Claude</span></a>
+      <a role="button" href="/framework" class="lg outlined transparent rounded-full">Explore the framework</a>
     </div>
 
-    <x-hero-editor></x-hero-editor>
+    <!-- Conversation → live site -->
+    <div class="grid md:grid-cols-[1fr_auto_1.2fr] gap-6 items-center w-full mt-6" aria-label="A Claude conversation becoming a live website">
+
+      <!-- Chat -->
+      <div class="col gap-3 p-5 bg-surface-2 rounded-lg">
+        <p class="self-end max-w-[85%] px-4 py-2.5 bg-accent-surface text-accent-inverse rounded-2xl rounded-br-md">Make a website for my pottery studio, with a gallery and a contact form.</p>
+        <p class="self-start max-w-[85%] px-4 py-2.5 bg-surface-3 rounded-2xl rounded-bl-md">Done. It's on a staging link for you to review.</p>
+        <p class="self-end max-w-[85%] px-4 py-2.5 bg-accent-surface text-accent-inverse rounded-2xl rounded-br-md">Perfect. Take it live on terraceramics.com.</p>
+        <p class="self-start max-w-[85%] px-4 py-2.5 bg-surface-3 rounded-2xl rounded-bl-md">Live. Your site is up on your domain.</p>
+      </div>
+
+      <!-- Arrow -->
+      <span class="hidden md:flex text-content-subtle" x-icon="lucide:arrow-right" aria-hidden="true"></span>
+      <span class="md:hidden self-center text-content-subtle" x-icon="lucide:arrow-down" aria-hidden="true"></span>
+
+      <!-- Site -->
+      <div class="col w-full bg-page dark:bg-surface-2 rounded-lg shadow-xl overflow-hidden">
+        <div class="row items-center gap-2 px-3 py-2 border-b border-line">
+          <span class="row gap-1 [&_i]:size-2 [&_i]:bg-surface-2 [&_i]:rounded-full" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="grow text-center text-xs text-content-subtle bg-surface-1 rounded-full py-1 px-3">terraceramics.com</span>
+        </div>
+        <div class="col gap-6 p-8">
+          <div class="row items-center justify-between">
+            <span class="font-semibold tracking-tight">Terra Ceramics</span>
+            <span class="row gap-4 text-xs text-content-subtle"><span>Gallery</span><span>About</span><span>Contact</span></span>
+          </div>
+          <div class="col gap-2">
+            <span class="h3">Hand-thrown pottery,<br>fired with care.</span>
+            <span class="text-sm text-content-neutral">Small-batch stoneware from our studio to your table.</span>
+          </div>
+          <span class="row center w-fit px-4 py-1.5 bg-brand-surface text-brand-inverse rounded-full text-sm font-medium pointer-events-none">Browse the gallery</span>
+        </div>
+      </div>
+
+    </div>
 
   </div>
 </section>
 
 
 
-<!-- FEATURES -->
-<section id="features" class="col center w-full py-24">
+<!-- HOW IT WORKS -->
+<section id="how-it-works" class="col center w-full py-24">
 
   <!-- Content -->
-  <div class="col gap-6 justify-start w-content-width max-w-full">
+  <div class="col gap-10 justify-start w-content-width max-w-full">
 
-    <!-- Text -->
-    <h2 class="md:col mb-4 leading-tight">
-      <span>Everything a project needs.</span>
-      <span class="text-content-subtle">Nothing it doesn't.</span>
+    <h2 class="md:col leading-tight">
+      <span>From idea to online.</span>
+      <span class="text-content-subtle">Three steps, one conversation.</span>
     </h2>
 
-    <!-- Premier features -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-
-      <template x-for="feature in $x.features.premier" :key="feature.name">
-        <div class="col gap-5 w-full h-full p-4 bg-surface-2 rounded-lg">
-          <div class="col gap-2 w-xl max-w-full">
-            <h3 class="h4"><span x-icon="feature.icon"></span><span x-text="feature.name"></span></h3>
-            <p class="text-content-neutral" x-text="feature.description"></p>
-          </div>
-          <a :href="feature.link" :aria-label="'Read more about ' + feature.name" class="brand gap-1 hover:gap-1.5 no-underline">
-            <span>Read more</span>
-            <span x-icon="lucide:arrow-right"></span></a>
-
-          <!-- Code example -->
-          <div class="grow col justify-end pt-6 ps-6 w-full bg-surface-3 rounded-lg overflow-hidden">
-            <div class="col w-full h-fit bg-page dark:bg-surface-1 rounded-ss-lg shadow-lg">
-              <div class="row gap-1 px-3 py-2 border-b border-surface-3 [&_figure]:size-3 [&_figure]:bg-surface-2 [&_figure]:rounded-full">
-                <figure></figure>
-                <figure></figure>
-                <figure></figure>
-              </div>
-              <div class="col gap-2 w-fit px-4 pt-4 pb-3 text-xs font-mono [&_div]:whitespace-pre opacity-85 pointer-events-none">
-                <template x-for="line in feature.codeLines" :key="line">
-                  <div x-html="$hl(line, feature.lang)"></div>
-                </template>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </template>
-    </div>
-
-    <!-- Noteworthy features -->
-    <div class="col gap-4 mt-4">
-      <div class="row-wrap gap-2 text-sm">
-        <span class="text-content-subtle">Plus</span>
-        <template x-for="feature in $x.features.noteworthy" :key="feature.name">
-          <div class="row gap-2">
-            <a :href="feature.link" class="text-content-neutral hover:text-content-stark" x-text="feature.name"></a>
-            <span aria-hidden="true">•</span>
-          </div>
-        </template>
-        <p class="text-content-subtle">And more</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="col gap-3 p-6 bg-surface-2 rounded-lg">
+        <span class="row center size-10 bg-surface-3 rounded-lg" x-icon="lucide:plug" aria-hidden="true"></span>
+        <h3 class="h4">Add Manifest to Claude</h3>
+        <p class="text-content-neutral">One plugin, sign in once. No API keys, nothing to configure.</p>
+      </div>
+      <div class="col gap-3 p-6 bg-surface-2 rounded-lg">
+        <span class="row center size-10 bg-surface-3 rounded-lg" x-icon="lucide:messages-square" aria-hidden="true"></span>
+        <h3 class="h4">Build in conversation</h3>
+        <p class="text-content-neutral">Your framework or ours. Claude does the work while you direct.</p>
+      </div>
+      <div class="col gap-3 p-6 bg-surface-2 rounded-lg">
+        <span class="row center size-10 bg-surface-3 rounded-lg" x-icon="lucide:rocket" aria-hidden="true"></span>
+        <h3 class="h4">Publish and run</h3>
+        <p class="text-content-neutral">Live URL, your own domain, staging to production, instant rollback.</p>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- SHOWCASE -->
-<section class="col center gap-6 w-full py-24">
+
+
+<!-- TEAMS -->
+<section id="teams" class="col center w-full py-24">
+
+  <!-- Content -->
+  <div class="col gap-10 justify-start w-content-width max-w-full">
+
+    <div class="col w-2xl max-w-full">
+      <h2 class="md:col leading-tight">
+        <span>Teammates edit content. Agents edit code.</span>
+        <span class="text-content-subtle">Nothing collides.</span>
+      </h2>
+      <p class="mt-4 text-content-neutral text-balance">Invite anyone by email: a teammate, a client, an editor. The project appears in their own Claude when they sign in.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="row items-center gap-3 p-5 bg-surface-2 rounded-lg">
+        <span x-icon="lucide:mail-plus" class="text-content-subtle" aria-hidden="true"></span>
+        <p class="text-content-neutral">Invite by email — the project shows up in their Claude.</p>
+      </div>
+      <div class="row items-center gap-3 p-5 bg-surface-2 rounded-lg">
+        <span x-icon="lucide:key-round" class="text-content-subtle" aria-hidden="true"></span>
+        <p class="text-content-neutral">No API keys, no shared credentials, nothing to leak.</p>
+      </div>
+      <div class="row items-center gap-3 p-5 bg-surface-2 rounded-lg">
+        <span x-icon="lucide:history" class="text-content-subtle" aria-hidden="true"></span>
+        <p class="text-content-neutral">One history, one rollback — everyone's work in one place.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- APPS -->
+<section id="apps" class="col center w-full py-24">
+
+  <!-- Content -->
+  <div class="col gap-10 justify-start w-content-width max-w-full">
+
+    <div class="col w-2xl max-w-full">
+      <h2 class="md:col leading-tight">
+        <span>Sign-in, cloud data, file storage, payments.</span>
+        <span class="text-content-subtle">Without running a server.</span>
+      </h2>
+      <p class="mt-4 text-content-neutral text-balance">Manifest sites are static to host and dynamic at runtime. Add user accounts, teams, databases and file storage, take payments, call any API.</p>
+    </div>
+
+    <div class="row-wrap gap-3">
+      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span x-icon="lucide:layout-dashboard" aria-hidden="true"></span>SaaS dashboards</span>
+      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span x-icon="lucide:wrench" aria-hidden="true"></span>Internal tools</span>
+      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span x-icon="lucide:briefcase" aria-hidden="true"></span>Client sites</span>
+      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span x-icon="lucide:gamepad-2" aria-hidden="true"></span>Games</span>
+    </div>
+
+    <small class="text-content-subtle">Hosting serves static sites and SPAs. There is no server runtime; your site calls APIs and backends wherever they already run.</small>
+
+  </div>
+</section>
+
+
+
+<!-- BUILT WITH MANIFEST -->
+<section id="showcase" class="col center gap-6 w-full py-24">
 
   <!-- Content -->
   <div class="col gap-10 justify-start w-content-width max-w-full">
 
     <!-- Text -->
     <h2 class="md:col leading-tight">
-      <span>Trusted by AI and developers.</span>
-      <span class="text-content-subtle">Powering products in production.</span>
+      <span>Built with Manifest.</span>
+      <span class="text-content-subtle">Real products, in production.</span>
     </h2>
 
     <!-- Graphic -->
@@ -135,8 +203,8 @@
         <div class="col center w-full aspect-[1440/900] bg-surface-2 rounded-lg pattern">
           <p class="">Your Next Project</p>
         </div>
-        <a href="/docs/framework/getting-started/starter-project" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Get the Starter Project</span>
+        <a href="/get-started" class="brand gap-1 hover:gap-1.5 no-underline">
+          <span>Start building</span>
           <span x-icon="lucide:arrow-right"></span></a>
       </div>
 
@@ -148,221 +216,55 @@
 
 
 
-<!-- COMPARISONS -->
-<section id="comparisons" class="col center gap-6 w-full py-24">
-
-  <!-- Content -->
-  <div class="col justify-start w-content-width max-w-full">
-
-    <!-- Text -->
-    <div class="col w-2xl max-w-full mb-10">
-      <p class="h4 text-content-subtle mb-1">Comparison</p>
-      <h2 class="md:col leading-tight">
-        <span>Familiar pieces.</span>
-        <span class="text-content-subtle">Fewer steps.</span>
-      </h2>
-      <p class="mt-4 text-content-neutral text-balance">Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required.</p>
-    </div>
-
-    <!-- Comparison tables -->
-    <div class="w-full" x-data="{
-        isBuiltIn(v) { return typeof v === 'string' && v.startsWith('✓'); },
-        detail(v) { return typeof v === 'string' ? v.slice(1).trim() : ''; }
-      }">
-
-      <!-- Sticky header table -->
-      <div class="sticky top-[60px] z-1 overflow-hidden">
-        <table class="w-full min-w-3xl text-sm table-fixed [&_th]:text-center rounded-none" x-ref="headerTable">
-          <thead>
-            <tr class="bg-surface-2 dark:bg-surface-3 [&_th]:p-3 [&_th]:font-medium [&_th]:text-content-stark">
-              <th class="!text-start !text-neutral">Aspect</th>
-              <th class="bg-brand-surface !text-brand-inverse !font-bold">Manifest</th>
-              <th>React</th>
-              <th>Vue</th>
-              <th>HTMX</th>
-              <th>Astro</th>
-              <th>Alpine.js</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
-
-      <!-- Horizontal scroll wrapper -->
-      <div class="overflow-x-auto" @scroll.passive="$refs.headerTable.style.transform = `translateX(${-$event.target.scrollLeft}px)`">
-
-        <!-- Summary table -->
-        <table class="w-full min-w-3xl text-sm table-fixed">
-          <tbody class="font-medium [&_td:not(:first-child)]:text-center">
-            <template x-for="row in $x.comparisons.summaryRows" :key="row.aspect">
-              <tr class="border-b border-line">
-                <td class="p-3 text-content-stark" x-text="row.aspect"></td>
-
-                <td class="p-3 text-brand-content bg-brand-surface/10 border-b border-line">
-                  <template x-if="isBuiltIn(row.manifest)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.manifest)" x-text="detail(row.manifest)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.manifest)"><span x-text="row.manifest"></span></template>
-                </td>
-
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.react)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.react)" x-text="detail(row.react)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.react)"><span x-text="row.react"></span></template>
-                </td>
-
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.vue)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.vue)" x-text="detail(row.vue)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.vue)"><span x-text="row.vue"></span></template>
-                </td>
-
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.htmx)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.htmx)" x-text="detail(row.htmx)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.htmx)"><span x-text="row.htmx"></span></template>
-                </td>
-
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.astro)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.astro)" x-text="detail(row.astro)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.astro)"><span x-text="row.astro"></span></template>
-                </td>
-
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.alpine)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.alpine)" x-text="detail(row.alpine)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.alpine)"><span x-text="row.alpine"></span></template>
-                </td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-
-        <!-- Extended table -->
-        <details class="w-full">
-          <summary class="ps-3 text-sm text-content-subtle hover:text-content-stark border-b border-line">See more</summary>
-          <table class="w-full min-w-3xl text-sm table-fixed rounded-none [&_tbody_td:not(:first-child)]:text-center">
-            <template x-for="section in $x.comparisons.extendedSections" :key="section.title">
-              <tbody class="font-medium">
-                <tr class="bg-surface-2">
-                  <th colspan="7" class="p-3 font-semibold text-content-subtle text-xs uppercase tracking-wider" x-text="section.title"></th>
-                </tr>
-                <template x-for="row in section.rows" :key="row.aspect">
-                  <tr class="border-b border-line">
-                    <td class="p-3 text-content-stark" x-text="row.aspect"></td>
-
-                    <td class="p-3 text-brand-content bg-brand-surface/10">
-                      <template x-if="isBuiltIn(row.manifest)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.manifest)" x-text="detail(row.manifest)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.manifest)"><span x-text="row.manifest"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.react)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.react)" x-text="detail(row.react)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.react)"><span x-text="row.react"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.vue)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.vue)" x-text="detail(row.vue)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.vue)"><span x-text="row.vue"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.htmx)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.htmx)" x-text="detail(row.htmx)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.htmx)"><span x-text="row.htmx"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.astro)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.astro)" x-text="detail(row.astro)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.astro)"><span x-text="row.astro"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.alpine)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.alpine)" x-text="detail(row.alpine)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.alpine)"><span x-text="row.alpine"></span></template>
-                    </td>
-                  </tr>
-                </template>
-              </tbody>
-            </template>
-          </table>
-        </details>
-
-      </div>
-    </div>
-</section>
-
-
-<!-- FAQ -->
-<section id="faq" class="col center gap-6 w-full py-24">
+<!-- BRING ANY PROJECT -->
+<section id="any-project" class="col center w-full py-24">
 
   <!-- Content -->
   <div class="col gap-10 justify-start w-content-width max-w-full">
 
-    <!-- Text -->
-    <h2 class="w-2xl max-w-full leading-tight">Common questions</h2>
-
-    <!-- Graphic -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 w-full">
-      <template x-for="item in $x.faq" :key="item.question">
-        <div class="col gap-1 w-full h-full">
-          <h3 class="h4" x-text="item.question"></h3>
-          <p class="text-content-neutral" x-html="item.answer"></p>
-        </div>
-      </template>
+    <div class="col w-2xl max-w-full">
+      <h2 class="md:col leading-tight">
+        <span>If it builds to static files,</span>
+        <span class="text-content-subtle">Claude can publish it here.</span>
+      </h2>
+      <p class="mt-4 text-content-neutral text-balance">React, Vite, Astro, Hugo, plain HTML. Claude runs your build and publishes the output in one command. Keep your framework and your conventions.</p>
     </div>
+
+  </div>
+</section>
+
+
+
+<!-- FOR PLATFORMS -->
+<section id="platforms" class="col center w-full py-24">
+
+  <!-- Content -->
+  <div class="col md:row md:items-center gap-10 justify-between w-content-width max-w-full p-10 bg-surface-2 rounded-lg">
+
+    <div class="col gap-4 w-2xl max-w-full">
+      <h2 class="leading-tight">A publishing API for platforms.</h2>
+      <p class="text-content-neutral text-balance">Generate branded sites and apps for customers on their own domain, from the data you already manage, all inside your product.</p>
+    </div>
+
+    <a role="button" href="/platforms" class="lg outlined transparent rounded-full shrink-0">For platforms<span x-icon="lucide:arrow-right"></span></a>
+
+  </div>
+</section>
+
+
+
+<!-- THE FRAMEWORK -->
+<section id="framework" class="col center w-full py-24">
+
+  <!-- Content -->
+  <div class="col md:row md:items-center gap-10 justify-between w-content-width max-w-full p-10 bg-surface-2 rounded-lg">
+
+    <div class="col gap-4 w-2xl max-w-full">
+      <h2 class="leading-tight">HTML that speaks AI.</h2>
+      <p class="text-content-neutral text-balance">Manifest is an open-source framework that extends HTML to build full websites, apps and platforms. With no build step, no dependencies and no overhead, humans and AI alike build faster with fewer bugs.</p>
+    </div>
+
+    <a role="button" href="/framework" class="lg outlined transparent rounded-full shrink-0">Explore the framework<span x-icon="lucide:arrow-right"></span></a>
 
   </div>
 </section>
@@ -375,8 +277,11 @@
   <!-- Content -->
   <div class="col center gap-13 justify-start w-content-width max-w-full">
     <h2 class="text-6xl">Start your project</h2>
-    <a role="button" href="/docs/framework/getting-started/introduction" class="accent lg rounded-full">Introduction to
-      Manifest</a>
+    <p class="text-content-neutral">Free gets you online for real, your own domain included. $15 when it means business.</p>
+    <div class="row-wrap center gap-4">
+      <a role="button" href="/get-started" class="accent lg rounded-full"><span x-icon="simple-icons:claude"></span><span>Add Manifest to Claude</span></a>
+      <a href="/pricing" class="no-underline text-content-neutral hover:text-content-stark">See pricing</a>
+    </div>
   </div>
 
 </section>
