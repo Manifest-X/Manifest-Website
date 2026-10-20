@@ -10,7 +10,7 @@
         <span>Build, publish, and run websites and apps</span>
         <span class="text-content-subtle">— right from Claude.</span>
       </h1>
-      <p class="mt-4 text-content-neutral text-balance">Manifest turns Claude into a complete studio: build in conversation, go live in one step, and run it — hosting, staging, custom domains, rollback, and a team that never touches an API key.</p>
+      <p class="mt-4 text-content-neutral text-balance">Manifest turns Claude into a complete studio: build in conversation, go live in one step, and run it — hosting, staging, custom domains, rollback, and teammates invited by email.</p>
     </div>
 
     <!-- CTA -->
@@ -19,37 +19,78 @@
       <a role="button" href="/framework" class="lg outlined transparent rounded-full">Explore the framework</a>
     </div>
 
-    <!-- Conversation → live site -->
-    <div class="grid md:grid-cols-[1fr_auto_1.2fr] gap-6 items-center w-full mt-6" aria-label="A Claude chat becoming a live website">
+    <!-- Chat → live platform -->
+    <div class="grid md:grid-cols-[1fr_1.25fr] gap-10 items-center w-full mt-6" aria-label="A Claude chat becoming a live booking platform">
 
       <!-- Chat -->
-      <div class="col gap-3 p-5 bg-surface-2 rounded-lg shadow-lg md:-rotate-1">
-        <p class="self-end max-w-[85%] px-4 py-2.5 bg-accent-surface text-accent-inverse rounded-2xl rounded-br-md">Make a website for my pottery studio, with a gallery and a contact form.</p>
-        <p class="self-start max-w-[85%] px-4 py-2.5 bg-surface-3 rounded-2xl rounded-bl-md">Done. It's on a staging link for you to review.</p>
-        <p class="self-end max-w-[85%] px-4 py-2.5 bg-accent-surface text-accent-inverse rounded-2xl rounded-br-md">Perfect. Take it live on terraceramics.com.</p>
-        <p class="self-start max-w-[85%] px-4 py-2.5 bg-surface-3 rounded-2xl rounded-bl-md">Live. Your site is up on your domain.</p>
+      <div class="col gap-6 py-4">
+        <p class="rise rise-1 self-end text-end max-w-[90%]">Build a booking platform for my yoga studio. Class schedules, member sign-in, and payments.</p>
+        <p class="rise rise-3 self-start row items-start gap-2.5 max-w-[90%] text-content-neutral"><i class="shrink-0 mt-1 text-content-subtle" x-icon="simple-icons:claude" aria-hidden="true"></i><span>Done. It's on a staging link for your review.</span></p>
+        <p class="rise rise-5 self-end text-end max-w-[90%]">Looks great. Take it live on solstice.studio.</p>
+        <p class="rise rise-7 self-start row items-start gap-2.5 max-w-[90%] text-content-neutral"><i class="shrink-0 mt-1 text-content-subtle" x-icon="simple-icons:claude" aria-hidden="true"></i><span>Published. Your platform is live.</span></p>
       </div>
 
-      <!-- Arrow -->
-      <span class="hidden md:flex text-content-subtle" x-icon="lucide:arrow-right" aria-hidden="true"></span>
-      <span class="md:hidden self-center text-content-subtle" x-icon="lucide:arrow-down" aria-hidden="true"></span>
+      <!-- Generated platform -->
+      <div class="col w-full bg-page dark:bg-surface-2 rounded-lg shadow-2xl overflow-hidden">
 
-      <!-- Site -->
-      <div class="col w-full bg-page dark:bg-surface-2 rounded-lg shadow-2xl md:rotate-1 overflow-hidden">
-        <div class="row items-center gap-2 px-3 py-2 border-b border-line">
-          <span class="row gap-1 [&_i]:size-2 [&_i]:bg-surface-2 [&_i]:rounded-full" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="grow text-center text-xs text-content-subtle bg-surface-1 rounded-full py-1 px-3">terraceramics.com</span>
+        <!-- App bar -->
+        <div class="rise rise-2 row items-center justify-between gap-4 px-5 py-3 border-b border-line">
+          <b>Solstice Studio</b>
+          <span class="row items-center gap-4">
+            <span class="hidden sm:inline text-xs text-content-subtle">Schedule</span>
+            <span class="hidden sm:inline text-xs text-content-subtle">Members</span>
+            <span class="avatar"><span>MJ</span></span>
+          </span>
         </div>
-        <div class="col gap-6 p-8">
-          <div class="row items-center justify-between">
-            <span class="font-semibold tracking-tight">Terra Ceramics</span>
-            <span class="row gap-4 text-xs text-content-subtle"><span>Gallery</span><span>About</span><span>Contact</span></span>
+
+        <div class="col gap-4 p-5">
+
+          <!-- Stats -->
+          <div class="rise rise-4 grid grid-cols-3 gap-3">
+            <div class="col gap-0.5 p-3 bg-surface-1 dark:bg-surface-3 rounded-lg">
+              <small class="text-content-subtle text-xs">Members</small>
+              <b class="text-lg">412</b>
+            </div>
+            <div class="col gap-0.5 p-3 bg-surface-1 dark:bg-surface-3 rounded-lg">
+              <small class="text-content-subtle text-xs">Bookings today</small>
+              <b class="text-lg">38</b>
+            </div>
+            <div class="col gap-0.5 p-3 bg-surface-1 dark:bg-surface-3 rounded-lg">
+              <small class="text-content-subtle text-xs">Revenue</small>
+              <b class="text-lg">$2,140</b>
+            </div>
           </div>
-          <div class="col gap-2">
-            <span class="h3">Hand-thrown pottery,<br>fired with care.</span>
-            <span class="text-sm text-content-neutral">Small-batch stoneware from our studio to your table.</span>
+
+          <!-- Classes -->
+          <div class="rise rise-6 col gap-2">
+            <div class="row items-center justify-between gap-3 p-3 border border-line rounded-lg">
+              <span class="col">
+                <b class="text-sm">Sunrise Flow</b>
+                <small class="text-content-subtle text-xs">Tomorrow · 7:00</small>
+              </span>
+              <span class="row items-center gap-3">
+                <small class="text-content-subtle text-xs">12/16</small>
+                <span class="px-3 py-1 bg-brand-surface text-brand-inverse rounded-full text-xs font-medium">Book</span>
+              </span>
+            </div>
+            <div class="row items-center justify-between gap-3 p-3 border border-line rounded-lg">
+              <span class="col">
+                <b class="text-sm">Power Vinyasa</b>
+                <small class="text-content-subtle text-xs">Tomorrow · 18:30</small>
+              </span>
+              <span class="row items-center gap-3">
+                <small class="text-content-subtle text-xs">15/16</small>
+                <span class="px-3 py-1 bg-brand-surface text-brand-inverse rounded-full text-xs font-medium">Book</span>
+              </span>
+            </div>
           </div>
-          <span class="row center w-fit px-4 py-1.5 bg-brand-surface text-brand-inverse rounded-full text-sm font-medium pointer-events-none">Browse the gallery</span>
+
+          <!-- Live -->
+          <span class="rise rise-8 row items-center gap-2 text-xs text-positive-content">
+            <span class="size-1.5 bg-positive-surface rounded-full" aria-hidden="true"></span>
+            Live on solstice.studio
+          </span>
+
         </div>
       </div>
 
@@ -70,7 +111,7 @@
       <p class="h6 text-content-subtle tracking-widest uppercase">Workflow</p>
       <h2 class="md:col leading-tight">
         <span>From idea to online.</span>
-        <span class="text-content-subtle">Three steps, one chat.</span>
+        <span class="text-content-subtle">Three simple steps.</span>
       </h2>
     </div>
 
@@ -79,7 +120,7 @@
         <span class="absolute top-3 right-5 text-6xl font-semibold text-surface-3 select-none" aria-hidden="true">1</span>
         <span class="row center size-10 bg-brand-surface/15 text-brand-content rounded-lg" x-icon="lucide:plug" aria-hidden="true"></span>
         <h3 class="h4">Add Manifest to Claude</h3>
-        <p class="text-content-neutral">One plugin, sign in once. No API keys, nothing to configure.</p>
+        <p class="text-content-neutral">Install the Manifest plugin and sign in once. That's the setup.</p>
       </div>
       <div class="relative col gap-3 p-6 bg-surface-2 rounded-lg overflow-hidden">
         <span class="absolute top-3 right-5 text-6xl font-semibold text-surface-3 select-none" aria-hidden="true">2</span>
@@ -91,8 +132,36 @@
         <span class="absolute top-3 right-5 text-6xl font-semibold text-surface-3 select-none" aria-hidden="true">3</span>
         <span class="row center size-10 bg-brand-surface/15 text-brand-content rounded-lg" x-icon="lucide:rocket" aria-hidden="true"></span>
         <h3 class="h4">Publish and run</h3>
-        <p class="text-content-neutral">Live URL, your own domain, staging to production, instant rollback.</p>
+        <p class="text-content-neutral">Share preview links, add custom domains, and view visitor analytics.</p>
       </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- BUILD ANYTHING -->
+<section id="build-anything" class="col center w-full py-24">
+
+  <!-- Content -->
+  <div class="col gap-10 justify-start w-content-width max-w-full">
+
+    <div class="col gap-1 w-2xl max-w-full">
+      <p class="h6 text-content-subtle tracking-widest uppercase">Build anything</p>
+      <h2 class="md:col leading-tight">
+        <span>Sign-ins, cloud data,</span>
+        <span class="text-content-subtle">payments, and more.</span>
+      </h2>
+      <p class="mt-4 text-content-neutral text-balance">Manifest builds complete products. User accounts, cloud databases, file uploads, and payments are all part of the toolkit. Content sites ship with SEO and structured data baked in, easy for search engines and AI assistants to find and cite.</p>
+    </div>
+
+    <div class="row-wrap gap-3">
+      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span class="text-brand-content" x-icon="lucide:layout-dashboard" aria-hidden="true"></span>SaaS dashboards</span>
+      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span class="text-brand-content" x-icon="lucide:briefcase" aria-hidden="true"></span>Client sites</span>
+      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span class="text-brand-content" x-icon="lucide:wrench" aria-hidden="true"></span>Internal tools</span>
+      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span class="text-brand-content" x-icon="lucide:newspaper" aria-hidden="true"></span>Blogs & docs</span>
+      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span class="text-brand-content" x-icon="lucide:gamepad-2" aria-hidden="true"></span>Games</span>
     </div>
 
   </div>
@@ -109,73 +178,34 @@
     <div class="col gap-1 w-2xl max-w-full">
       <p class="h6 text-content-subtle tracking-widest uppercase">Collaboration</p>
       <h2 class="md:col leading-tight">
-        <span>Teammates edit content. Agents edit code.</span>
-        <span class="text-content-subtle">Nothing collides.</span>
+        <span>Teammates edit content.</span>
+        <span class="text-content-subtle">Agents edit code.</span>
       </h2>
-      <p class="mt-4 text-content-neutral text-balance">Invite anyone by email: a teammate, a client, an editor. The project appears in their own Claude when they sign in.</p>
+      <p class="mt-4 text-content-neutral text-balance">Invite clients or contributors to edit the project from their own Claude chats.</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="col gap-4 p-6 bg-surface-2 rounded-lg">
-        <div class="row items-center gap-3">
-          <span class="avatar"><span>AR</span><figure class="presence positive"></figure></span>
-          <div class="col">
-            <b class="text-sm">Ana</b>
-            <small class="text-content-subtle">Client</small>
-          </div>
-        </div>
-        <p class="text-content-neutral">Invited by email. The project appears in her own Claude; she updates content safely.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="col gap-3 p-6 bg-surface-2 rounded-lg">
+        <span class="row center size-10 bg-brand-surface/15 text-brand-content rounded-lg" x-icon="lucide:mail-plus" aria-hidden="true"></span>
+        <h3 class="h5">Invite by email</h3>
+        <p class="text-content-neutral text-sm">Send an invite and the project appears in their Claude, ready to edit.</p>
       </div>
-      <div class="col gap-4 p-6 bg-surface-2 rounded-lg">
-        <div class="row items-center gap-3">
-          <span class="avatar"><span x-icon="simple-icons:claude"></span><figure class="presence positive"></figure></span>
-          <div class="col">
-            <b class="text-sm">Claude</b>
-            <small class="text-content-subtle">Agent</small>
-          </div>
-        </div>
-        <p class="text-content-neutral">Builds and refactors in chat. No API keys, no shared credentials, nothing to leak.</p>
+      <div class="col gap-3 p-6 bg-surface-2 rounded-lg">
+        <span class="row center size-10 bg-brand-surface/15 text-brand-content rounded-lg" x-icon="lucide:git-merge" aria-hidden="true"></span>
+        <h3 class="h5">Versions in sync</h3>
+        <p class="text-content-neutral text-sm">Everyone's edits land in one history, and publishes check against the latest version.</p>
       </div>
-      <div class="col gap-4 p-6 bg-surface-2 rounded-lg">
-        <div class="row items-center gap-3">
-          <span class="avatar"><span>SK</span><figure class="presence positive"></figure></span>
-          <div class="col">
-            <b class="text-sm">Sam</b>
-            <small class="text-content-subtle">Developer</small>
-          </div>
-        </div>
-        <p class="text-content-neutral">One history, one rollback. Everyone's work lands in the same place.</p>
+      <div class="col gap-3 p-6 bg-surface-2 rounded-lg">
+        <span class="row center size-10 bg-brand-surface/15 text-brand-content rounded-lg" x-icon="meteor-icons:github" aria-hidden="true"></span>
+        <h3 class="h5">GitHub, optional</h3>
+        <p class="text-content-neutral text-sm">Sync the project to a repo when your team wants one.</p>
+      </div>
+      <div class="col gap-3 p-6 bg-surface-2 rounded-lg">
+        <span class="row center size-10 bg-brand-surface/15 text-brand-content rounded-lg" x-icon="lucide:history" aria-hidden="true"></span>
+        <h3 class="h5">Staging & rollback</h3>
+        <p class="text-content-neutral text-sm">Review on staging, promote in one step, roll back instantly.</p>
       </div>
     </div>
-
-  </div>
-</section>
-
-
-
-<!-- APPS -->
-<section id="apps" class="col center w-full py-24">
-
-  <!-- Content -->
-  <div class="col gap-10 justify-start w-content-width max-w-full">
-
-    <div class="col gap-1 w-2xl max-w-full">
-      <p class="h6 text-content-subtle tracking-widest uppercase">Beyond websites</p>
-      <h2 class="md:col leading-tight">
-        <span>Sign-in, cloud data, file storage, payments.</span>
-        <span class="text-content-subtle">Without running a server.</span>
-      </h2>
-      <p class="mt-4 text-content-neutral text-balance">Manifest sites are static to host and dynamic at runtime. Add user accounts, teams, databases and file storage, take payments, call any API.</p>
-    </div>
-
-    <div class="row-wrap gap-3">
-      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span class="text-brand-content" x-icon="lucide:layout-dashboard" aria-hidden="true"></span>SaaS dashboards</span>
-      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span class="text-brand-content" x-icon="lucide:wrench" aria-hidden="true"></span>Internal tools</span>
-      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span class="text-brand-content" x-icon="lucide:briefcase" aria-hidden="true"></span>Client sites</span>
-      <span class="row gap-2 items-center px-4 py-2 bg-surface-2 rounded-full text-sm"><span class="text-brand-content" x-icon="lucide:gamepad-2" aria-hidden="true"></span>Games</span>
-    </div>
-
-    <small class="text-content-subtle">Hosting serves static sites and SPAs. There is no server runtime; your site calls APIs and backends wherever they already run.</small>
 
   </div>
 </section>
@@ -202,33 +232,28 @@
       <span>Playcom<i x-icon="lucide:arrow-up-right"></i></span>
     </a>
 
-    <a href="https://andrewmatlock.com" target="_blank">
-      <img src="/assets/showcase/AndrewMatlock.webp" alt="Andrew Matlock's personal site" width="600" height="375" loading="lazy">
-      <span>Andrew Matlock<i x-icon="lucide:arrow-up-right"></i></span>
-    </a>
-
-    <a href="/docs/framework">
-      <img src="/assets/showcase/wall/manifest-docs.webp" alt="The Manifest documentation" width="720" height="450" loading="lazy">
-      <span>Manifest Docs<i x-icon="lucide:arrow-right"></i></span>
-    </a>
-
     <a href="https://ortusadvisors.com" target="_blank">
-      <img src="/assets/showcase/Ortus.webp" alt="Ortus Advisors website" width="600" height="375" loading="lazy">
+      <img src="/assets/showcase/wall/ortus-landing.webp" alt="Ortus Advisors landing page" width="800" height="500" loading="lazy">
       <span>Ortus Advisors<i x-icon="lucide:arrow-up-right"></i></span>
     </a>
 
-    <a href="/framework">
-      <img src="/assets/showcase/wall/manifest-home.webp" alt="manifestx.dev, built on Manifest itself" width="800" height="500" loading="lazy">
-      <span>This site<i x-icon="lucide:arrow-right"></i></span>
-    </a>
-
-    <a href="https://playcom.ai" target="_blank">
-      <img src="/assets/showcase/Playcom.webp" alt="Playcom website, light theme" width="600" height="375" loading="lazy">
+    <a href="https://playcom.ai/platform" target="_blank">
+      <img src="/assets/showcase/wall/playcom-platform.webp" alt="The Playcom platform overview" width="800" height="500" loading="lazy">
       <span>Playcom<i x-icon="lucide:arrow-up-right"></i></span>
     </a>
 
     <a href="https://andrewmatlock.com" target="_blank">
-      <img src="/assets/showcase/wall/andrewmatlock-hero.webp" alt="Andrew Matlock's site, dark theme" width="800" height="500" loading="lazy">
+      <img src="/assets/showcase/wall/andrewmatlock-hero.webp" alt="Andrew Matlock's personal site" width="800" height="500" loading="lazy">
+      <span>Andrew Matlock<i x-icon="lucide:arrow-up-right"></i></span>
+    </a>
+
+    <a href="https://playcom.ai/pricing" target="_blank">
+      <img src="/assets/showcase/wall/playcom-pricing.webp" alt="Playcom pricing page" width="800" height="500" loading="lazy">
+      <span>Playcom<i x-icon="lucide:arrow-up-right"></i></span>
+    </a>
+
+    <a href="https://andrewmatlock.com/work" target="_blank">
+      <img src="/assets/showcase/wall/andrewmatlock-work.webp" alt="Andrew Matlock's selected works" width="800" height="500" loading="lazy">
       <span>Andrew Matlock<i x-icon="lucide:arrow-up-right"></i></span>
     </a>
 
@@ -237,33 +262,8 @@
       <span>Playcom<i x-icon="lucide:arrow-up-right"></i></span>
     </a>
 
-    <a href="/get-started" class="cta col center gap-1 aspect-[8/5] bg-surface-2 pattern no-underline">
-      <p>Your Next Project</p>
-      <b class="row center gap-1 text-brand-content">Start building<i x-icon="lucide:arrow-right"></i></b>
-    </a>
-
   </div>
 
-</section>
-
-
-
-<!-- BRING ANY PROJECT -->
-<section id="any-project" class="col center w-full py-24">
-
-  <!-- Content -->
-  <div class="col gap-10 justify-start w-content-width max-w-full">
-
-    <div class="col gap-1 w-2xl max-w-full">
-      <p class="h6 text-content-subtle tracking-widest uppercase">Bring your stack</p>
-      <h2 class="md:col leading-tight">
-        <span>If it builds to static files,</span>
-        <span class="text-content-subtle">Claude can publish it here.</span>
-      </h2>
-      <p class="mt-4 text-content-neutral text-balance">React, Vite, Astro, Hugo, plain HTML. Claude runs your build and publishes the output in one command. Keep your framework and your conventions.</p>
-    </div>
-
-  </div>
 </section>
 
 
@@ -272,14 +272,16 @@
 <section id="platforms" class="col center w-full py-24">
 
   <!-- Content -->
-  <div class="col md:row md:items-center gap-10 justify-between w-content-width max-w-full p-10 bg-accent-surface text-accent-inverse rounded-lg">
+  <div class="relative col md:row md:items-center gap-10 justify-between w-content-width max-w-full p-10 bg-accent-surface text-accent-inverse rounded-lg overflow-hidden">
 
-    <div class="col gap-4 w-2xl max-w-full">
+    <span class="grid-fade" aria-hidden="true"></span>
+
+    <div class="col gap-4 w-2xl max-w-full z-1">
       <h2 class="leading-tight text-accent-inverse">A publishing API for platforms.</h2>
-      <p class="text-accent-inverse opacity-75 text-balance">Generate branded sites and apps for customers on their own domain, from the data you already manage, all inside your product.</p>
+      <p class="text-accent-inverse opacity-75 text-balance">Build and publish branded sites and apps for your customers on their own domains, from the data you already manage, all inside your product.</p>
     </div>
 
-    <a role="button" href="/platforms" class="lg outlined transparent rounded-full shrink-0">For platforms<span x-icon="lucide:arrow-right"></span></a>
+    <a role="button" href="/platforms" class="lg outlined transparent rounded-full shrink-0 z-1 text-accent-inverse hover:bg-accent-inverse/15 hover:text-accent-inverse">For platforms<span x-icon="lucide:arrow-right"></span></a>
 
   </div>
 </section>
@@ -292,11 +294,12 @@
   <!-- Content -->
   <div class="relative col md:row md:items-center gap-10 justify-between w-content-width max-w-full p-10 bg-surface-2 rounded-lg overflow-hidden">
 
-    <span class="absolute -bottom-10 -right-6 text-[11rem] text-surface-3/60 pointer-events-none" x-icon="lucide:code-xml" aria-hidden="true"></span>
+    <span class="grid-fade" aria-hidden="true"></span>
+    <span class="absolute -bottom-12 -right-8 text-[12rem] text-surface-3 pointer-events-none" x-icon="lucide:code-xml" aria-hidden="true"></span>
 
-    <div class="col gap-4 w-2xl max-w-full">
+    <div class="col gap-4 w-2xl max-w-full z-1">
       <h2 class="leading-tight">HTML that speaks AI.</h2>
-      <p class="text-content-neutral text-balance">Manifest is an open-source framework that extends HTML to build full websites, apps and platforms. With no build step, no dependencies and no overhead, humans and AI alike build faster with fewer bugs.</p>
+      <p class="text-content-neutral text-balance">The Manifest framework is open source. It extends HTML to build full websites, apps, and platforms, with no build step, no dependencies, and no overhead, so humans and AI alike build faster with fewer bugs.</p>
     </div>
 
     <a role="button" href="/framework" class="lg outlined transparent rounded-full shrink-0 z-1">Explore the framework<span x-icon="lucide:arrow-right"></span></a>
