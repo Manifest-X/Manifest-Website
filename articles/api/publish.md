@@ -60,7 +60,7 @@ With `x-mnfst-async: 1`{copy} the upload answers `202` with `"status": "ingestin
 { "status": "done", "ok": true, "deployment_id": "dep_…", "env": "staging", "files": 42, "bytes": 318211, "url": "https://acme-docs-staging.manifestx.ai" }
 ```
 
-Without the header the upload waits and answers with the same outcome. The site is live on that environment's URL the moment the status is `done`{copy}. `.env` files, `.git`, `node_modules`, and `.claude` are never published, even when they are in the zip.
+Without the header the upload waits and answers with the same outcome. The site is live on that environment's URL the moment the status is `done`{copy}. `.env` files, `.git`, `node_modules`, and `.claude` are never published, even when they are in the zip. Manifest stores each file's content once per project, so files that haven't changed since an earlier publish aren't stored again.
 
 | **Limit**             | **Value** |
 |-----------------------|-----------|
@@ -218,7 +218,7 @@ Promote ships exactly what is live on staging to production, with no rebuild:
 }
 ```
 
-Each promote creates a new production deployment, so send an `Idempotency-Key`{copy}: a retry with the same key returns the first result and creates nothing. A site changed through file updates promotes without copying its files, however large it is.
+Each promote creates a new production deployment, so send an `Idempotency-Key`{copy}: a retry with the same key returns the first result and creates nothing. Promote doesn't copy the site's files, so a large site promotes as quickly as a small one.
 
 ---
 
