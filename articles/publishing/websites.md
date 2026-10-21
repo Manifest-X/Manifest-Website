@@ -128,7 +128,8 @@ Render settings can be configured in `manifest.json`. Most projects don't need t
 | `browserRecycleEvery`{copy} | `number` | `50` | Recycle the browser after this many pages to prevent memory buildup on large sites. |
 | `incremental`{copy} | `boolean` | `false` | Skip re-rendering pages whose inputs are provably unchanged since the last successful run. See [Incremental renders](#incremental-renders). |
 | `blockRequests`{copy} | `string[]` | `[]` | URL patterns (substring match, `*` glob supported) whose requests are aborted during prerender — e.g. a custom analytics tracker the built-in list doesn't cover. A short pattern can block more than intended. |
-| `blockTelemetry`{copy} | `boolean` | `true` | Block well-known analytics collection endpoints (Google Analytics, Plausible, Segment, Mixpanel, Meta) during prerender so renders never register as visitors. Set `false` to allow. |
+| `blockTelemetry`{copy} | `boolean` | `true` | Block well-known analytics and error-reporting collection endpoints during prerender so renders never register as visitors or file crash reports. Set `false` to allow. |
+| `runCache`{copy} | `boolean` | `true` | Fetch each cross-origin URL at most once per render run and reuse the first successful response on every page — a prerender is a point-in-time snapshot, so run-level consistency is intended. Failures are never cached and retry on the next page. |
 | `tailwindInput`{copy} | `string` | — | Path to a custom Tailwind CSS entry file relative to the project root. Tailwind compilation is otherwise auto-detected via the `data-tailwind` attribute on the manifest script tag. |
 
 ---
@@ -145,7 +146,11 @@ The record lives in `.mnfst-cache/routes.json` in your project (keep `.mnfst-cac
 
 ### Analytics During Prerender
 
-Prerendering runs your pages in a real browser, so analytics tags fire real events — a 465-page render shows up as 465 page views in your analytics. The renderer therefore blocks the well-known collection endpoints by default (`blockTelemetry`), and each run reports how many requests it blocked. Add custom trackers to `blockRequests`. Belt and braces: gate your tag behind `navigator.webdriver` so no automated browser ever reports as a visitor.
+Prerendering runs your pages in a real browser, so embedded third parties fire real events — analytics tags register page views, and error reporters file crash reports for exceptions that only happen in a headless browser. The renderer therefore blocks the well-known analytics and error/RUM collection endpoints by default (`blockTelemetry` — Google Analytics, Plausible, Segment, Mixpanel, Meta, Sentry, Bugsnag, Rollbar, Cloudflare RUM, New Relic, Datadog; collection endpoints only, never script loads), and each run reports how many requests it blocked. Add custom trackers to `blockRequests`. Belt and braces: gate your tag behind `navigator.webdriver` so no automated browser ever reports as a visitor.
+
+If routes come out non-cacheable on incremental runs, the end of the run lists every distinct cause with counts and the host involved (`prerender: non-cacheable causes —`), so a single render shows everything worth adding to `blockRequests`.
+
+Each external asset is fetched once per run and reused across pages (`runCache`), so large sites don't hammer CDNs and a third-party hiccup can't fail a long render. Pages that genuinely depend on partial (Range) responses, such as embedded media players, should set `runCache: false`.
 
 ---
 
