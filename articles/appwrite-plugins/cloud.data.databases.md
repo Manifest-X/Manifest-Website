@@ -287,6 +287,22 @@ x-effect="(async () => {
 
 Database tables automatically sync changes in realtime across all active sessions. When one user creates, updates, or deletes an entry, all other users see the change immediately without page refresh.
 
+Realtime is multiplexed over one connection per tab: however many data sources subscribe, Manifest opens a single Appwrite Realtime client and one channel subscription per distinct table or bucket. Sources sharing a table each receive every event once.
+
+Events are filtered by the source's own `queries` before touching `$x`: a created or updated row that doesn't match the configured filters is ignored (or removed if it stops matching). Filters that can't be evaluated client-side (`search`, unresolved `$auth.` values) are treated as matching, so live data is never silently dropped.
+
+Growth is bounded by default. Realtime appends stop at max(500, 2× the initially loaded rows); skipped events are counted in `$x.<source>.$realtimeOverflow` (reset on each load), so a UI can show "N new rows — refresh". Configure per source with a `realtime` key on the data source:
+
+| Value | Behavior |
+|---|---|
+| *(omitted)* | Subscribed; append mode, cap max(500, 2× initial rows) |
+| `false` | No realtime subscription for this source |
+| `{ "mode": "append", "maxRows": 200 }`{copy} | Appends until 200 rows, then counts overflow |
+| `{ "mode": "window" }`{copy} | Holds the initial window size (the `limit` query if present), evicting the oldest realtime-appended rows first — initially loaded rows are never evicted. A window that is already full admits no live appends; watch `$realtimeOverflow` and reload to pull new rows into the window. |
+| `{ "mode": "append", "maxRows": 0 }`{copy} | Legacy unbounded growth (explicit opt-in; ignored in window mode, which falls back to the default cap) |
+
+Updates and deletes to rows already held always apply, regardless of caps. For programmatic control, `window.ManifestDataRealtime.setFilter('<source>', (eventType, row) => boolean)`{copy} runs per event per source before any merge work; return `false` to drop the event, pass `null` to clear.
+
 **Method details:**
 
 | Method | Parameters | Description |
