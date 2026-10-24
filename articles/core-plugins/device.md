@@ -180,7 +180,7 @@ The same state is stamped on `<html>` as `data-os`, `data-platform`, `data-onlin
 
 ## $secure
 
-Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore through <a href="https://github.com/aparajita/capacitor-secure-storage" target="_blank">@aparajita/capacitor-secure-storage</a>, under that plugin's default `capacitor-storage_` prefix. On the web it is `localStorage` under an `mnfst:` prefix, which is not encrypted. `get()` resolves a string or `null`. In the app, a failed Keychain or Keystore call rejects with the plugin's error.
+Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore through <a href="https://github.com/aparajita/capacitor-secure-storage" target="_blank">@aparajita/capacitor-secure-storage</a>, under that plugin's default `capacitor-storage_` prefix. On the web it is `localStorage` under an `mnfst:` prefix, which is not encrypted. `get()` resolves a string or `null`. In the app, a failed Keychain or Keystore call rejects with the plugin's error. Values are plain strings, so they read back through the plugin's own `getItem()`/`setItem()` but not its JSON-encoding `get()`/`set()`, and `setKeyPrefix()` has no effect on `$secure`.
 
 <div x-code-group>
 
@@ -208,7 +208,7 @@ Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore throu
 
 </div>
 
-`keys()` lists stored keys and `clear()` removes them all. A different plugin registered as `SecureStorage` works if it has `getItem`/`setItem`/`removeItem` or `get`/`set`/`remove` with `{ key, value }`. For anything else, hand over an object with async `get`, `set`, `remove`, `keys` and `clear` once with `$secure.use(adapter)`.
+`keys()` lists stored keys and `clear()` removes them all. A different plugin registered as `SecureStorage` works if it has `getItem`/`setItem`/`removeItem` or `get`/`set`/`remove` with `{ key, value }`; if the latter rejects for a missing key, so does `get()`. For anything else, hand over an object with async `get`, `set`, `remove`, `keys` and `clear` once with `$secure.use(adapter)`.
 
 ---
 
@@ -305,13 +305,14 @@ Inside a Capacitor app (`PushNotifications`), `register()` registers with APNs o
 
 ## $biometric
 
-`available()` resolves `true` when <a href="https://github.com/aparajita/capacitor-biometric-auth" target="_blank">@aparajita/capacitor-biometric-auth</a> or <a href="https://github.com/Cap-go/capacitor-native-biometric" target="_blank">@capgo/capacitor-native-biometric</a> reports Face ID, Touch ID or Android biometrics. `verify(opts)` resolves `{ verified: true }`, or `{ verified: false, error, code }` with the plugin's error code (for example `userCancel`). The web has no equivalent: `available()` is `false` and `verify()` reports `unsupported`.
+`available()` resolves `true` when <a href="https://github.com/aparajita/capacitor-biometric-auth" target="_blank">@aparajita/capacitor-biometric-auth</a> or <a href="https://github.com/Cap-go/capacitor-native-biometric" target="_blank">@capgo/capacitor-native-biometric</a> reports Face ID, Touch ID or Android biometrics. `verify(opts)` resolves `{ verified: true }`, or `{ verified: false, error, code }` with the plugin's own error code: strings such as `userCancel` from aparajita, numeric strings from capgo. The web has no equivalent: `available()` is `false` and `verify()` reports `unsupported`.
 
 <div x-code-group>
 
 ```html copy
-<div x-data="{ can: null }" x-init="can = await $biometric.available()">
-    <button x-show="can" @click="$biometric.verify({ reason: 'Confirm payment' })">Pay with Face ID</button>
+<div x-data="{ can: null, confirmed: false }" x-init="can = await $biometric.available()">
+    <button x-show="can" @click="confirmed = (await $biometric.verify({ reason: 'Confirm payment' })).verified">Pay with Face ID</button>
+    <span x-show="confirmed">Payment confirmed.</span>
     <span x-show="can === false">Biometrics are not available here.</span>
 </div>
 ```
@@ -336,7 +337,7 @@ Inside a Capacitor app (`PushNotifications`), `register()` registers with APNs o
 | `title`, `subtitle` | Prompt heading (Android) |
 | `cancelTitle` | Cancel button label |
 | `fallbackTitle` | Passcode fallback button label (iOS) |
-| `allowDeviceCredential` | Let the device passcode stand in for biometrics |
+| `allowDeviceCredential` | Let the device passcode stand in for biometrics (no effect on Android with capgo) |
 
 ---
 
