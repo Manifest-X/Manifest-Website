@@ -289,6 +289,8 @@ Database tables automatically sync changes in realtime across all active session
 
 Realtime is multiplexed over one connection per tab: however many data sources subscribe, Manifest opens a single Appwrite Realtime client and one channel subscription per distinct table or bucket. Sources sharing a table each receive every event once.
 
+Where the project's Appwrite version supports Realtime queries (Web SDK 22.4+, server 1.8+), Manifest also filters events server-side by your `scope` configuration — Appwrite then only delivers (and bills) events in your scope — while your own `queries` continue filtering client-side, preserving instant removal of rows that stop matching. Set `realtime: { "serverFilter": "all" }`{copy} to push all expressible filters server-side (rows that stop matching then drop on the next load instead of instantly), or `"serverFilter": false`{copy} for no server filtering. Filters Appwrite can't evaluate in realtime (`search`, `contains`, pagination and ordering) always stay client-side, and Manifest's event matcher runs in every mode as defense in depth.
+
 Events are filtered by the source's own `queries` before touching `$x`: a created or updated row that doesn't match the configured filters is ignored (or removed if it stops matching). Filters that can't be evaluated client-side (`search`, unresolved `$auth.` values) are treated as matching, so live data is never silently dropped.
 
 Growth is bounded by default. Realtime appends stop at max(500, 2× the initially loaded rows); skipped events are counted in `$x.<source>.$realtimeOverflow` (reset on each load), so a UI can show "N new rows — refresh". Configure per source with a `realtime` key on the data source:
