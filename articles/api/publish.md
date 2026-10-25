@@ -60,7 +60,7 @@ With `x-mnfst-async: 1`{copy} the upload answers `202` with `"status": "ingestin
 { "status": "done", "ok": true, "deployment_id": "dep_…", "env": "staging", "files": 42, "bytes": 318211, "url": "https://acme-docs-staging.manifestx.ai" }
 ```
 
-Without the header the upload waits and answers with the same outcome. The site is live on that environment's URL the moment the status is `done`{copy}. `.env` files, `.git`, `node_modules`, and `.claude` are never published, even when they are in the zip.
+Without the header the upload waits and answers with the same outcome. The site is live on that environment's URL the moment the status is `done`{copy}. `.env` files, `.git`, `node_modules`, and `.claude` are never published, even when they are in the zip. Manifest stores each file's content once per project, so a publish only stores files that changed since what's live.
 
 | **Limit**             | **Value** |
 |-----------------------|-----------|
@@ -105,7 +105,7 @@ The answer lists the files, sorted by path:
 }
 ```
 
-Paths start at the site root, inside `output_dir`{copy} when the build has one, exactly as a file update takes them. `etag`{copy} changes whenever a file's content does, so compare it to tell which files changed since your last read. `precache.json`{copy} and `manifest.utilities.css`{copy} are left out because Manifest writes them on every publish. A file with `compiled_from`{copy} is compiled from that source file, so edit the source instead. If nothing is live yet, `deployment_id`{copy} is `null`{copy} and `files`{copy} is empty.
+Paths start at the site root, inside `output_dir`{copy} when the build has one, exactly as a file update takes them. `etag`{copy} changes whenever a file's content does, so compare it to tell which files changed since your last read. Treat it as opaque: the same content can carry a different `etag`{copy} in versions published different ways. `precache.json`{copy} and `manifest.utilities.css`{copy} are left out because Manifest writes them on every publish. A file with `compiled_from`{copy} is compiled from that source file, so edit the source instead. If nothing is live yet, `deployment_id`{copy} is `null`{copy} and `files`{copy} is empty.
 
 When `next_cursor`{copy} isn't `null`{copy}, send it as `cursor`{copy} for the next page. A cursor keeps reading the same deployment even if a new one goes live in the meantime, so every page comes from one version of the site.
 
@@ -218,7 +218,7 @@ Promote ships exactly what is live on staging to production, with no rebuild:
 }
 ```
 
-Each promote creates a new production deployment, so send an `Idempotency-Key`{copy}: a retry with the same key returns the first result and creates nothing. A site changed through file updates promotes without copying its files, however large it is.
+Each promote creates a new production deployment, so send an `Idempotency-Key`{copy}: a retry with the same key returns the first result and creates nothing. Promote doesn't copy the site's files, so even large sites promote in seconds.
 
 ---
 
