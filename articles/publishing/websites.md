@@ -67,6 +67,8 @@ With the `/blog/*` route above, this renders `/blog/releases/version-1`. For loc
 
 The base can also be nested: a key matches a wildcard route ending in that key, so a `framework` source fills `x-route="docs/framework/*"`, and the render prints a notice naming the mount. A route named exactly after the key takes precedence over nested ones. If several nested routes end in the same key (e.g. `a/docs/*` and `b/docs/*`), the source mounts under neither and the render prints a warning. Rename the key or one of the routes to resolve it.
 
+A plain route can be a base too, since it also shows the paths below it: a `docs` or `/docs` route mounts the data source named `docs`, so its entries render under `/docs`. An exact route like `=docs` doesn't mount anything. Without wildcard routes, a data path renders only when some route shows it, including routes inside components loaded by name from `components/`. If any `x-route` is bound (e.g. `:x-route`), every data path renders. To render a path that discovery misses, add it to `render.paths`.
+
 By default, output is generated in a `/website` folder which includes:
 
 - Copies of all folders and assets from the project, preserving path references. In a Capacitor project (a `capacitor.config.*` file at the root), the native `ios/` and `android/` projects and the Capacitor config are left out.
