@@ -6,7 +6,7 @@ Share sheets, secure storage, deep links, push, lifecycle, haptics, biometrics a
 
 ## Overview
 
-Each magic talks to Capacitor inside a Capacitor app and to a web equivalent, or an honest no-op, in a browser. The same markup runs as a website, an installed PWA and a packaged app.
+Each magic talks to Capacitor inside a Capacitor app and to a web equivalent, or an honest no-op, in a browser. The same markup runs as a website, an installed PWA and a packaged app. A web build that bundles Capacitor plugins uses the same web equivalents, never the plugins' web stubs, and inside the app a plugin counts only once it is synced to the native project.
 
 <div x-code-group>
 
