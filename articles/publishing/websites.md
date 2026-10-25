@@ -71,7 +71,7 @@ A plain route can be a base too, since it also shows the paths below it: a `docs
 
 By default, output is generated in a `/website` folder which includes:
 
-- Copies of all folders and assets from the project, preserving path references. In a Capacitor project (a `capacitor.config.*` file at the root), the native `ios/` and `android/` projects and the Capacitor config are left out.
+- Copies of all folders and assets from the project, preserving path references. In a Capacitor project (a `capacitor.config.*` file at the root), the native `ios/` and `android/` projects and the Capacitor config are left out. Top-level dot-files and dot-folders are skipped, except `.well-known/` (for `apple-app-site-association`, `assetlinks.json` and the like).
 - Folders for each route containing its compiled `index.html` page.
 - Folders for each locale (e.g. `/fr`, `/zh`), and page sub-folder as applicable.
 - Translated text content on locale pages (from CSV or YAML/JSON data sources).

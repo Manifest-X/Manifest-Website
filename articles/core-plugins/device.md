@@ -6,7 +6,7 @@ Share sheets, secure storage, deep links, push, lifecycle, haptics, biometrics a
 
 ## Overview
 
-Each magic talks to Capacitor inside a Capacitor app and to a web equivalent, or an honest no-op, in a browser. The same markup runs as a website, an installed PWA and a packaged app.
+Each magic talks to Capacitor inside a Capacitor app and to a web equivalent, or an honest no-op, in a browser. The same markup runs as a website, an installed PWA and a packaged app. A web build that bundles Capacitor plugins uses the same web equivalents, never the plugins' web stubs, and inside the app a plugin counts only once `npx cap sync` has added it to the native project and the app is rebuilt. `$secure` is the exception: if its plugin is bundled but not added to the native project, it rejects rather than falling back to `localStorage`.
 
 <div x-code-group>
 
@@ -180,7 +180,7 @@ The same state is stamped on `<html>` as `data-os`, `data-platform`, `data-onlin
 
 ## $secure
 
-Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore through a plugin registered as `SecureStorage`. On the web it is `localStorage` under an `mnfst:` prefix, which is not encrypted. `get()` resolves a string or `null`.
+Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore through <a href="https://github.com/aparajita/capacitor-secure-storage" target="_blank">@aparajita/capacitor-secure-storage</a>, under that plugin's default `capacitor-storage_` prefix. On the web it is `localStorage` under an `mnfst:` prefix, which is not encrypted. `get()` resolves a string or `null`. In the app, a failed Keychain or Keystore call rejects with the plugin's error. Values are plain strings, so they read back through the plugin's own `getItem()`/`setItem()` but not its JSON-encoding `get()`/`set()`, and `setKeyPrefix()` has no effect on `$secure`.
 
 <div x-code-group>
 
@@ -208,7 +208,7 @@ Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore throu
 
 </div>
 
-`keys()` lists stored keys and `clear()` removes them all. If your plugin's method names differ, hand it over once with `$secure.use(adapter)`.
+`keys()` lists stored keys and `clear()` removes them all. A different plugin registered as `SecureStorage` works if it has `getItem`/`setItem`/`removeItem` or `get`/`set`/`remove` with `{ key, value }`; if the latter rejects for a missing key, so does `get()`. For anything else, hand over an object with async `get`, `set`, `remove`, `keys` and `clear` once with `$secure.use(adapter)`.
 
 ---
 
@@ -270,6 +270,8 @@ Inside a Capacitor app (`App`) a tapped universal link like `https://app.example
 
 `$links.on(fn)` replaces the default routing; `fn` receives `{ url, path }`.
 
+Universal links and Android App Links need `apple-app-site-association` and `assetlinks.json` on your domain. Put them in a `.well-known/` folder at the project root; it publishes from SPA and prerendered projects alike.
+
 ---
 
 ## $push
@@ -303,13 +305,14 @@ Inside a Capacitor app (`PushNotifications`), `register()` registers with APNs o
 
 ## $biometric
 
-`available()` resolves `true` when a Capacitor biometric plugin (`BiometricAuth` or `NativeBiometric`) reports Face ID or Touch ID. `verify({ reason })` resolves `{ verified: true }`, or `{ verified: false, error }`. The web has no equivalent: `available()` is `false` and `verify()` reports `unsupported`.
+`available()` resolves `true` when <a href="https://github.com/aparajita/capacitor-biometric-auth" target="_blank">@aparajita/capacitor-biometric-auth</a> or <a href="https://github.com/Cap-go/capacitor-native-biometric" target="_blank">@capgo/capacitor-native-biometric</a> reports Face ID, Touch ID or Android biometrics. `verify(opts)` resolves `{ verified: true }`, or `{ verified: false, error, code }` with the plugin's own error code: strings such as `userCancel` from aparajita, numeric strings from capgo. The web has no equivalent: `available()` is `false` and `verify()` reports `unsupported`.
 
 <div x-code-group>
 
 ```html copy
-<div x-data="{ can: null }" x-init="can = await $biometric.available()">
-    <button x-show="can" @click="$biometric.verify({ reason: 'Confirm payment' })">Pay with Face ID</button>
+<div x-data="{ can: null, confirmed: false }" x-init="can = await $biometric.available()">
+    <button x-show="can" @click="confirmed = (await $biometric.verify({ reason: 'Confirm payment' })).verified">Pay with Face ID</button>
+    <span x-show="confirmed">Payment confirmed.</span>
     <span x-show="can === false">Biometrics are not available here.</span>
 </div>
 ```
@@ -328,6 +331,14 @@ Inside a Capacitor app (`PushNotifications`), `register()` registers with APNs o
 
 </div>
 
+| Option | Description |
+|---|---|
+| `reason` | Why you are asking; shown in the prompt |
+| `title`, `subtitle` | Prompt heading (Android) |
+| `cancelTitle` | Cancel button label |
+| `fallbackTitle` | Passcode fallback button label (iOS) |
+| `allowDeviceCredential` | Let the device passcode stand in for biometrics (no effect on Android with capgo) |
+
 ---
 
 ## Reference
@@ -338,11 +349,11 @@ Inside a Capacitor app (`PushNotifications`), `register()` registers with APNs o
 | `$share(opts)` | `{ shared, method, cancelled? }` | Web Share, then clipboard | `Share` |
 | `$camera` | `photo()`, `pick()` | File picker | `Camera` |
 | `$app` | `active`, `onChange(fn)` | Page visibility | `App` |
-| `$secure` | `get`, `set`, `remove`, `keys`, `clear`, `use(adapter)` | Prefixed `localStorage` | `SecureStorage` |
+| `$secure` | `get`, `set`, `remove`, `keys`, `clear`, `use(adapter)` | Prefixed `localStorage` | `@aparajita/capacitor-secure-storage` |
 | `$haptics` | `impact`, `notification`, `selection`, `vibrate` | `navigator.vibrate` | `Haptics` |
 | `$links` | `open(url)`, `on(fn)`, `last` | `open()` only | `App` |
 | `$push` | `permission`, `token`, `request`, `register`, `onToken`, `onReceive`, `onTap` | Permission only | `PushNotifications` |
-| `$biometric` | `available()`, `verify(opts)` | `false` / `unsupported` | `BiometricAuth`, `NativeBiometric` |
+| `$biometric` | `available()`, `verify(opts)` | `false` / `unsupported` | `@aparajita/capacitor-biometric-auth`, `@capgo/capacitor-native-biometric` |
 
 ---
 
