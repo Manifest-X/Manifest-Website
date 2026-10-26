@@ -125,6 +125,7 @@ Render settings can be configured in `manifest.json`. Most projects don't need t
 | `localeRouteExclude`{copy} | `string[]` | `[]` | Route prefixes that should not receive locale variants (e.g. `["legal"]` keeps `/legal/terms` as-is without generating `/fr/legal/terms`). |
 | `redirects`{copy} | `object[]` | `[]` | Redirect rules written to the output. Each entry is `{ "from": "/old", "to": "/new", "status": 301 }` |
 | `wait`{copy} | `number` | auto | Milliseconds to wait for a page to finish rendering before snapshot. When omitted the renderer waits for a `manifest:render-ready` signal from the data plugin. |
+| `waitAfterIdle`{copy} | `number` | `0` | Extra milliseconds to wait after a page has settled, before its snapshot and image are taken. Use it when a widget fills in seconds after load without any network or page activity first (a timer-driven embed, for example) and comes out empty in the rendered page. Also `--wait-after-idle <ms>`. |
 | `concurrency`{copy} | `number` | `2` | Number of pages rendered in parallel. Increase for faster builds on high-core machines; decrease if memory is constrained. |
 | `retries`{copy} | `number` | `2` | Number of retry attempts for pages that fail to render. |
 | `browserRecycleEvery`{copy} | `number` | `50` | Recycle the browser after this many pages to prevent memory buildup on large sites. |
