@@ -42,7 +42,7 @@ The answer is `201 Created`:
 }
 ```
 
-The upload URL works once and expires after 15 minutes. If the build takes longer, keep the URL alive with `POST $UPLOAD_URL/renew`{copy} before it expires: each renewal gives it another 15 minutes, up to 3 hours after the publish started, and answers `200` with `"status": "pending"`{copy} and `expires_in_seconds`{copy}. A URL that was already used or has expired answers `410` and can't be renewed. The token in the URL is its own authority, so the upload, the renewals, and the status checks need no `Authorization`{copy} header, and the machine that uploads never needs your API key. With an `Idempotency-Key`{copy}, a retried start returns the same URL instead of opening a second deployment.
+The upload URL works once and expires after 15 minutes. If the build takes longer, keep the URL alive with `POST $UPLOAD_URL/renew`{copy} before it expires: each renewal keeps it working for 15 more minutes from then, up to 3 hours after the publish started, and answers `200` with `"status": "pending"`{copy} and `expires_in_seconds`{copy}. A URL that was already used or has expired answers `410` and can't be renewed. Renewals are limited to 30 a minute per IP address; over that they answer `429`. Renewing every few minutes is plenty. The token in the URL is its own authority, so the upload, the renewals, and the status checks need no `Authorization`{copy} header, and the machine that uploads never needs your API key. With an `Idempotency-Key`{copy}, a retried start returns the same URL instead of opening a second deployment.
 
 ---
 

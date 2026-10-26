@@ -17,6 +17,7 @@ Caps on requests, projects, uploads, content, file reads and updates, and retrie
 | Zip upload                               | 80 MB zipped, 250 MB unzipped, 25 MB per file, 10,000 files |
 | File list                                | 1,000 files per page; follow `next_cursor`{copy} for the rest |
 | File update request                      | 12 MB body, 8 MB per file, 1,000 changes. The updated site stays within the zip limits. |
-| Upload URL lifetime                      | 15 minutes, one upload. Each renewal adds 15 minutes, up to 3 hours. |
+| Upload URL lifetime                      | 15 minutes, one upload. Each renewal keeps it working for 15 more minutes from then, up to 3 hours. |
+| Upload URL renewals                      | 30 a minute per IP address. Over it: `429 rate_limited`{copy}. |
 | `Idempotency-Key`{copy}                        | 1 to 200 characters, kept 24 hours                 |
 | Deployments kept                         | The 5 most recent per environment, plus the live one |
