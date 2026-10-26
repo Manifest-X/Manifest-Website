@@ -34,6 +34,8 @@ Both render your Manifest UI, so your app code doesn't change between them. The 
 
 A Capacitor app ships a prerendered copy of the project, so the shell paints without a network. Point `webDir` in `capacitor.config.json` at a dot-folder such as `.app-www`, and fill it with `npx mnfst-render --out .app-www` before each `npx cap sync`. When a `capacitor.config.*` file is at the project root, the render leaves `ios/`, `android/` and the Capacitor config out of its output, and an `--out` render leaves out the regular `website/` output too. A starter config and step-by-step guide are in the framework's <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/capacitor" target="_blank">Capacitor template</a>.
 
+Universal links on iOS and App Links on Android need a verification file on your domain. Put `apple-app-site-association` and `assetlinks.json` in a `.well-known/` folder at the project root; it publishes as-is with mnfst-render 0.5.56 or later, and Manifest hosting serves the Apple file as JSON.
+
 ---
 
 ## Apps by OS
