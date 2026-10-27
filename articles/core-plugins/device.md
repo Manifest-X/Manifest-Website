@@ -180,7 +180,7 @@ The same state is stamped on `<html>` as `data-os`, `data-platform`, `data-onlin
 
 ## $secure
 
-Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore through <a href="https://github.com/aparajita/capacitor-secure-storage" target="_blank">@aparajita/capacitor-secure-storage</a>, under that plugin's default `capacitor-storage_` prefix. On the web it is `localStorage` under an `mnfst:` prefix, which is not encrypted. `get()` resolves a string or `null`. In the app, a failed Keychain or Keystore call rejects with the plugin's error. Values are plain strings, so they read back through the plugin's own `getItem()`/`setItem()` but not its JSON-encoding `get()`/`set()`, and `setKeyPrefix()` has no effect on `$secure`.
+Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore through <a href="https://github.com/aparajita/capacitor-secure-storage" target="_blank">@aparajita/capacitor-secure-storage</a>, under that plugin's default `capacitor-storage_` prefix. In an app with no such plugin installed, every call rejects rather than falling back to unencrypted storage: install it and run `npx cap sync`, or provide one with `$secure.use(adapter)`. On the web it is `localStorage` under an `mnfst:` prefix, which is not encrypted. `get()` resolves a string or `null`. In the app, a failed Keychain or Keystore call rejects with the plugin's error. Values are plain strings, so they read back through the plugin's own `getItem()`/`setItem()` but not its JSON-encoding `get()`/`set()`, and `setKeyPrefix()` has no effect on `$secure`.
 
 <div x-code-group>
 
