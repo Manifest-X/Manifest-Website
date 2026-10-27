@@ -724,3 +724,18 @@ nav[aria-label="On this page"] > small {
 :root {
     --color-claude: #D97757
 }
+
+/* Inverted highlight card — full contrast in light mode, softened in dark */
+.card-invert {
+    background: var(--color-accent-surface);
+    color: var(--color-accent-inverse);
+
+    & small {
+        color: var(--color-accent-inverse);
+        opacity: 0.75
+    }
+}
+
+.dark .card-invert {
+    background: color-mix(in oklch, var(--color-accent-surface) 86%, var(--color-page))
+}
