@@ -236,6 +236,8 @@ You can override the default in `manifest.json` or when starting:
 
 Switching teams moves your status with you: it disappears from the old team's rosters and appears in the new one. The scope is enforced twice — Appwrite only delivers presence updates to people allowed to read them, and the plugin also drops anything outside the current scope before it reaches the roster.
 
+Until a person's team is known — however long that takes — their status stays private to them; it is never shared project-wide while a team is loading. This also means people who never resolve a team (such as guests outside any team) stay invisible to each other on team-scoped projects; if you want everyone visible regardless of teams, set the scope to `global`.
+
 ::: brand icon="lucide:info"
 If some visitors are on an older release of Manifest, their statuses are shared globally rather than per team, so scoped rosters won't show them (and theirs show everyone). This resolves itself within about half a minute of them updating, as each status refresh adopts the current rules.
 :::
