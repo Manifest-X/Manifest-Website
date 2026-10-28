@@ -47,13 +47,16 @@
   <x-docs-search></x-docs-search>
   <x-docs-nav></x-docs-nav>
 
-  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="['/', '/framework'].includes($route) || $route.startsWith('/compare') ? 'bg-surface-1' : ''">
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="['/', '/framework', '/pricing'].includes($route) || $route.startsWith('/compare') ? 'bg-surface-1' : ''">
 
     <!-- Home page -->
     <x-home x-route="/"></x-home>
 
     <!-- Framework -->
     <x-framework x-route="=framework"></x-framework>
+
+    <!-- Pricing -->
+    <x-pricing x-route="=pricing"></x-pricing>
 
     <!-- Compare -->
     <x-compare-lovable x-route="compare/lovable"></x-compare-lovable>
@@ -73,7 +76,7 @@
   </main>
 
   <!-- Footer (visible on every route) -->
-  <x-footer x-route="/, =support, =framework, compare"></x-footer>
+  <x-footer x-route="/, =support, =framework, =pricing, compare"></x-footer>
 
 </body>
 
