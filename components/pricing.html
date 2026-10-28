@@ -15,17 +15,15 @@
 <section class="col center w-full pb-12">
 
   <!-- Content -->
-  <div class="col gap-6 w-content-width max-w-full">
+  <div class="col gap-4 w-content-width max-w-full">
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
       <!-- Free -->
-      <div class="col gap-6 p-8 bg-surface-2 rounded-lg">
-        <div class="col gap-1">
-          <h2 class="h4">Free</h2>
-          <p class="text-sm text-content-neutral">Get online, free.</p>
-        </div>
-        <p class="row items-baseline gap-2"><span class="text-4xl font-semibold tracking-tight">$0</span><small class="text-content-subtle">forever</small></p>
+      <div class="col gap-6 p-10 bg-surface-2 rounded-lg">
+        <small class="text-content-subtle tracking-widest uppercase">Free</small>
+        <p class="row items-baseline gap-3"><span class="text-5xl font-semibold tracking-tight">$0</span><small class="text-content-subtle">forever</small></p>
+        <hr>
         <ul class="col gap-3 text-sm text-content-neutral">
           <li x-icon="lucide:check">Build with Claude and the full toolkit</li>
           <li x-icon="lucide:check">Publish to production and staging</li>
@@ -35,48 +33,54 @@
           <li x-icon="lucide:check">Manifest API access</li>
           <li x-icon="lucide:check">Carries the "Made with Manifest" badge</li>
         </ul>
-        <a role="button" href="/get-started" class="mt-auto accent rounded-full"><span x-icon="simple-icons:claude"></span><span>Add Manifest to Claude</span></a>
+        <a role="button" href="/get-started" class="mt-auto w-fit accent rounded-full"><span x-icon="simple-icons:claude"></span><span>Add Manifest to Claude</span></a>
       </div>
 
       <!-- Pro -->
-      <div class="card-invert col gap-6 p-8 rounded-lg">
-        <div class="col gap-1">
-          <h2 class="h4 text-accent-inverse">Pro</h2>
-          <p class="text-sm text-accent-inverse opacity-75">For sites that mean business.</p>
+      <div class="card-invert relative overflow-hidden rounded-lg">
+        <span class="grid-fade grid-fade-tl" aria-hidden="true"></span>
+        <div class="relative col gap-6 p-10 h-full">
+          <small class="tracking-widest uppercase">Pro</small>
+          <p class="row items-baseline gap-3"><span class="text-5xl font-semibold tracking-tight">$15</span><small>per project, monthly</small></p>
+          <hr class="opacity-30">
+          <ul class="col gap-3 text-sm opacity-85">
+            <li x-icon="lucide:check">Everything in Free</li>
+            <li x-icon="lucide:check">No badge on your site</li>
+            <li x-icon="lucide:check">Private, never listed in the showcase</li>
+            <li x-icon="lucide:check">Roll back and download recent deployments</li>
+            <li x-icon="lucide:check">Invite teammates and make admins</li>
+            <li x-icon="lucide:check">All-time visitor analytics</li>
+          </ul>
+          <a role="button" href="https://dash.manifestx.dev" class="mt-auto w-fit ghost outlined rounded-full text-accent-inverse hover:bg-accent-inverse/15 hover:text-accent-inverse">Upgrade a project</a>
         </div>
-        <p class="row items-baseline gap-2"><span class="text-4xl font-semibold tracking-tight">$15</span><small>per project, monthly</small></p>
-        <ul class="col gap-3 text-sm opacity-85">
-          <li x-icon="lucide:check">Everything in Free</li>
-          <li x-icon="lucide:check">No badge on your site</li>
-          <li x-icon="lucide:check">Private, never listed in the showcase</li>
-          <li x-icon="lucide:check">Roll back and download recent deployments</li>
-          <li x-icon="lucide:check">Invite teammates and make admins</li>
-          <li x-icon="lucide:check">All-time visitor analytics</li>
-        </ul>
-        <a role="button" href="https://dash.manifestx.dev" class="mt-auto ghost outlined rounded-full text-accent-inverse hover:bg-accent-inverse/15 hover:text-accent-inverse">Upgrade in Claude or the dashboard</a>
-      </div>
-
-      <!-- Enterprise -->
-      <div class="col gap-6 p-8 bg-surface-2 rounded-lg">
-        <div class="col gap-1">
-          <h2 class="h4">Enterprise</h2>
-          <p class="text-sm text-content-neutral">For teams and organizations.</p>
-        </div>
-        <p class="row items-baseline gap-2"><span class="text-4xl font-semibold tracking-tight">Custom</span></p>
-        <ul class="col gap-3 text-sm text-content-neutral">
-          <li x-icon="lucide:check">Everything in Pro</li>
-          <li x-icon="lucide:check">Direct invoicing</li>
-          <li x-icon="lucide:check">Data processing agreement</li>
-          <li x-icon="lucide:check">Security review and uptime statement</li>
-          <li x-icon="lucide:check">Dedicated support</li>
-        </ul>
-        <a role="button" href="mailto:team@manifestx.dev" class="mt-auto outlined rounded-full">Get in touch</a>
       </div>
 
     </div>
 
-    <small class="text-content-subtle">Billed per project, monthly or yearly, through Stripe as the merchant of record. Cancel anytime.</small>
+    <!-- Enterprise -->
+    <div class="col md:row md:items-center gap-6 justify-between px-10 py-12 bg-surface-2 rounded-lg">
+      <div class="col gap-2 w-2xl max-w-full">
+        <h2 class="h4">Enterprise</h2>
+        <p class="text-content-neutral">Everything in Pro, plus what organizations need on paper: direct invoicing, a data processing agreement, security review, an uptime statement, and dedicated support.</p>
+      </div>
+      <a role="button" href="mailto:team@manifestx.dev" class="outlined rounded-full shrink-0">Get in touch</a>
+    </div>
 
+    <small class="text-content-subtle">Billed per project through Stripe, monthly or yearly, cancel anytime. Upgrade from the dashboard, or just ask Claude.</small>
+
+  </div>
+</section>
+
+
+
+<!-- CALLOUT -->
+<section class="col center w-full py-16 text-center">
+  <div class="col center gap-3 w-content-width max-w-full">
+    <h2 class="md:col text-5xl leading-tight">
+      <span>Free isn't a trial.</span>
+      <span class="text-content-subtle">It's the plan.</span>
+    </h2>
+    <p class="text-content-neutral text-balance">Publish a production site on your own domain for $0, for as long as you like. Pro adds polish and control when a site starts to mean business.</p>
   </div>
 </section>
 
