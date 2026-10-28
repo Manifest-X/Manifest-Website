@@ -287,7 +287,7 @@ x-effect="(async () => {
 
 Database tables automatically sync changes in realtime across all active sessions. When one user creates, updates, or deletes an entry, all other users see the change immediately without page refresh.
 
-Realtime is multiplexed over one connection per tab: however many data sources subscribe, Manifest opens a single Appwrite Realtime client and one channel subscription per distinct table or bucket. Sources sharing a table each receive every event once.
+Realtime is multiplexed over one connection per tab: however many data sources subscribe, Manifest opens a single Appwrite Realtime client and one channel subscription per distinct table or bucket. Sources sharing a table each receive every event once. The [auth](/docs/framework/appwrite-plugins/auth) plugin's team and account subscriptions and [presence](/docs/framework/appwrite-plugins/presence) share the same connection, so N live features still count as one connection against your Appwrite plan.
 
 Where the project's Appwrite version supports Realtime queries (Web SDK 22.4+, server 1.8+), Manifest also filters events server-side by your `scope` configuration — Appwrite then only delivers (and bills) events in your scope — while your own `queries` continue filtering client-side, preserving instant removal of rows that stop matching. Set `realtime: { "serverFilter": "all" }`{copy} to push all expressible filters server-side (rows that stop matching then drop on the next load instead of instantly), or `"serverFilter": false`{copy} for no server filtering. Filters Appwrite can't evaluate in realtime (`search`, `contains`, pagination and ordering) always stay client-side, and Manifest's event matcher runs in every mode as defense in depth.
 

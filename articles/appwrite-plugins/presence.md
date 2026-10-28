@@ -215,6 +215,33 @@ Presence tidies up after itself: a person's status clears automatically when the
 
 ---
 
+## Scoping the Roster
+
+When your project uses [teams](/docs/framework/appwrite-plugins/teams), the roster automatically follows the person's current team: their status is shared with teammates only, and the roster only shows people from the same team. Without teams, everyone signed in to the project shares one global roster — the same behaviour as earlier releases.
+
+You can override the default in `manifest.json` or when starting:
+
+```json "manifest.json" copy
+{
+    "appwrite": {
+        "presence": { "scope": "global" }
+    }
+}
+```
+
+```html copy
+<!-- 'team' (default when teams are in use), 'global', or a specific team ID -->
+<div x-init="$presence.start({ scope: 'global' })"></div>
+```
+
+Switching teams moves your status with you: it disappears from the old team's rosters and appears in the new one. The scope is enforced twice — Appwrite only delivers presence updates to people allowed to read them, and the plugin also drops anything outside the current scope before it reaches the roster.
+
+::: brand icon="lucide:info"
+If some visitors are on an older release of Manifest, their statuses are shared globally rather than per team, so scoped rosters won't show them (and theirs show everyone). This resolves itself within about half a minute of them updating, as each status refresh adopts the current rules.
+:::
+
+---
+
 ## Properties
 
 Read these anywhere in your markup — each updates reactively as presence changes.
