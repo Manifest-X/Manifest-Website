@@ -106,7 +106,7 @@ The same state is stamped on `<html>` as `data-os`, `data-platform`, `data-onlin
 <div x-data="{ ready: false, r: null }" x-init="(function () { let n = 0; const tick = () => Alpine.store('links') ? ready = true : (n++ < 250 && setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device', document.querySelector('script[data-version]')?.dataset.version); tick(); })()">
 <template x-if="ready">
 <div class="row-wrap gap-3 center">
-    <button class="hug" @click="r = await $share({ title: 'Manifest', text: 'Supercharged HTML', url: 'https://manifestx.dev' })">Share</button>
+    <button @click="r = await $share({ title: 'Manifest', text: 'Supercharged HTML', url: 'https://manifestx.dev' })">Share</button>
     <small class="text-content-subtle" x-text="!r ? 'Share sheet, or the clipboard where there is none.' : r.shared ? 'Shared via ' + r.method : r.cancelled ? 'Cancelled' : 'Not shared'"></small>
 </div>
 </template>
@@ -135,8 +135,8 @@ The same state is stamped on `<html>` as `data-os`, `data-platform`, `data-onlin
 <template x-if="ready">
 <div class="col gap-3 w-full">
     <div class="row-wrap gap-2 center">
-        <button class="hug" @click="shot = await $camera.photo()">Take a photo</button>
-        <button class="hug" @click="shot = await $camera.pick()">Pick from library</button>
+        <button @click="shot = await $camera.photo()">Take a photo</button>
+        <button @click="shot = await $camera.pick()">Pick from library</button>
         <small class="text-content-subtle" x-text="!shot ? 'A file picker in this browser.' : shot.dataUrl ? 'Got a ' + shot.format : 'Cancelled'"></small>
     </div>
     <img x-show="shot?.dataUrl" :src="shot?.dataUrl" alt="" class="max-h-48 w-auto self-start rounded-lg">
@@ -197,9 +197,9 @@ Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore throu
 <div x-data="{ ready: false, value: null }" x-init="(function () { let n = 0; const tick = () => Alpine.store('links') ? ready = true : (n++ < 250 && setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device', document.querySelector('script[data-version]')?.dataset.version); tick(); })()">
 <template x-if="ready">
 <div class="row-wrap gap-2 center">
-    <button class="hug" @click="await $secure.set('token', 'abc123'); value = await $secure.get('token')">Set</button>
-    <button class="hug" @click="value = await $secure.get('token')">Get</button>
-    <button class="hug" @click="await $secure.remove('token'); value = await $secure.get('token')">Remove</button>
+    <button @click="await $secure.set('token', 'abc123'); value = await $secure.get('token')">Set</button>
+    <button @click="value = await $secure.get('token')">Get</button>
+    <button @click="await $secure.remove('token'); value = await $secure.get('token')">Remove</button>
     <code x-text="'token: ' + JSON.stringify(value)"></code>
 </div>
 </template>
@@ -228,9 +228,9 @@ Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore throu
 <div x-data="{ ready: false, last: '' }" x-init="(function () { let n = 0; const tick = () => Alpine.store('links') ? ready = true : (n++ < 250 && setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device', document.querySelector('script[data-version]')?.dataset.version); tick(); })()">
 <template x-if="ready">
 <div class="row-wrap gap-2 center">
-    <button class="hug" @click="$haptics.impact('LIGHT'); last = 'impact LIGHT'">Light</button>
-    <button class="hug" @click="$haptics.impact('HEAVY'); last = 'impact HEAVY'">Heavy</button>
-    <button class="hug" @click="$haptics.notification('SUCCESS'); last = 'notification SUCCESS'">Success</button>
+    <button @click="$haptics.impact('LIGHT'); last = 'impact LIGHT'">Light</button>
+    <button @click="$haptics.impact('HEAVY'); last = 'impact HEAVY'">Heavy</button>
+    <button @click="$haptics.notification('SUCCESS'); last = 'notification SUCCESS'">Success</button>
     <small class="text-content-subtle" x-text="(last ? last + '. ' : '') + ($device.touch ? 'A short buzz on Android; iOS Safari stays silent.' : 'No feedback on a desktop browser.')"></small>
 </div>
 </template>
@@ -258,7 +258,7 @@ Inside a Capacitor app (`App`) a tapped universal link like `https://app.example
 <div x-data="{ ready: false }" x-init="(function () { let n = 0; const tick = () => Alpine.store('links') ? ready = true : (n++ < 250 && setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device', document.querySelector('script[data-version]')?.dataset.version); tick(); })()">
 <template x-if="ready">
 <div class="row-wrap gap-3 center">
-    <button class="hug" @click="$links.open('myapp://docs/core-plugins/device')">Open a deep link</button>
+    <button @click="$links.open('myapp://docs/core-plugins/device')">Open a deep link</button>
     <code x-text="'last: ' + ($links.last || 'none')"></code>
     <small class="text-content-subtle">The scheme maps to this page's route.</small>
 </div>
@@ -290,7 +290,7 @@ Universal links and Android App Links need `apple-app-site-association` and `ass
 <template x-if="ready">
 <div class="row-wrap gap-3 center">
     <code x-text="'permission: ' + $push.permission"></code>
-    <button class="hug" @click="$push.request()">Enable notifications</button>
+    <button @click="$push.request()">Enable notifications</button>
     <small class="text-content-subtle">Opens the browser's permission prompt.</small>
 </div>
 </template>
@@ -322,7 +322,7 @@ Inside a Capacitor app (`PushNotifications`), `register()` registers with APNs o
 <template x-if="ready">
 <div class="row-wrap gap-3 center" x-init="can = await $biometric.available()">
     <code x-text="'available: ' + String(can)"></code>
-    <button class="hug" @click="r = await $biometric.verify({ reason: 'Confirm payment' })">Verify</button>
+    <button @click="r = await $biometric.verify({ reason: 'Confirm payment' })">Verify</button>
     <small class="text-content-subtle" x-text="r ? (r.verified ? 'Verified' : 'verify() returned ' + JSON.stringify(r)) : 'Not available in a browser.'"></small>
 </div>
 </template>

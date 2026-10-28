@@ -439,7 +439,7 @@ The bound value can be an array or a comma-separated string; the field keeps wha
 <div x-data="{ roles: ['Design', 'Research'] }" style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 30rem;">
 <input x-combobox.multiple.chips="cb-roles-bind" x-model="roles" placeholder="Roles">
 <datalist id="cb-roles-bind"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist>
-<button type="button" class="hug sm" @click="roles = ['Writing', 'Testing']">Load a different record</button>
+<button type="button" class="sm" @click="roles = ['Writing', 'Testing']">Load a different record</button>
 <code x-text="'roles = ' + JSON.stringify(roles)"></code>
 </div>
 :::
