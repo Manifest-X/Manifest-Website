@@ -4,7 +4,10 @@
   <!-- Content -->
   <div class="col gap-4 justify-start w-content-width max-w-full">
     <p class="h6 text-content-subtle tracking-widest uppercase">Pricing</p>
-    <h1 class="leading-tight">Per project. No seats. Cancel anytime.</h1>
+    <h1 class="md:col leading-tight">
+      <span>Per project. No seats.</span>
+      <span class="text-content-subtle">Cancel anytime.</span>
+    </h1>
     <p class="w-2xl max-w-full text-content-neutral text-balance">One plan per project. Teammates are always free. Payments are handled by Stripe, and the checkout shows the price before you pay.</p>
   </div>
 </section>
@@ -22,18 +25,20 @@
       <!-- Free -->
       <div class="col gap-6 p-10 bg-surface-2 rounded-lg">
         <small class="text-content-subtle tracking-widest uppercase">Free</small>
-        <p class="row items-baseline gap-3"><span class="text-5xl font-semibold tracking-tight">$0</span><small class="text-content-subtle">forever</small></p>
+        <p class="row items-baseline gap-3"><span class="text-6xl font-semibold tracking-tight">$0</span><small class="text-content-subtle">forever</small></p>
         <hr>
         <ul class="col gap-3 text-sm text-content-neutral">
-          <li x-icon="lucide:check">Build with Claude and the full toolkit</li>
-          <li x-icon="lucide:check">Publish to production and staging</li>
-          <li x-icon="lucide:check">Your you.manifestx.ai address</li>
-          <li x-icon="lucide:check">Custom domains with automatic certificates</li>
-          <li x-icon="lucide:check">Visitor analytics, last 7 days</li>
-          <li x-icon="lucide:check">Manifest API access</li>
-          <li x-icon="lucide:check">Carries the "Made with Manifest" badge</li>
+          <li x-icon="lucide:wand-sparkles">Build with Claude and the full toolkit</li>
+          <li x-icon="lucide:layers">Publish to production and staging</li>
+          <li x-icon="lucide:globe">Custom domains with automatic certificates</li>
+          <li x-icon="lucide:link">Your you.manifestx.ai address</li>
+          <li x-icon="lucide:chart-no-axes-column">Visitor analytics, last 7 days</li>
+          <li x-icon="lucide:braces">Manifest API access</li>
         </ul>
-        <a role="button" href="/get-started" class="mt-auto w-fit accent rounded-full"><span x-icon="simple-icons:claude"></span><span>Add Manifest to Claude</span></a>
+        <div class="row-wrap items-center gap-x-4 gap-y-2 mt-auto">
+          <a role="button" href="/get-started" class="accent rounded-full"><span x-icon="simple-icons:claude"></span><span>Add Manifest to Claude</span></a>
+          <small class="text-content-subtle">Shows a small Manifest badge</small>
+        </div>
       </div>
 
       <!-- Pro -->
@@ -41,15 +46,15 @@
         <span class="grid-fade grid-fade-tl" aria-hidden="true"></span>
         <div class="relative col gap-6 p-10 h-full">
           <small class="tracking-widest uppercase">Pro</small>
-          <p class="row items-baseline gap-3"><span class="text-5xl font-semibold tracking-tight">$15</span><small>per project, monthly</small></p>
+          <p class="row items-baseline gap-3 text-accent-inverse"><span class="text-6xl font-semibold tracking-tight">$15</span><small>per project, monthly</small></p>
           <hr class="opacity-30">
           <ul class="col gap-3 text-sm opacity-85">
-            <li x-icon="lucide:check">Everything in Free</li>
-            <li x-icon="lucide:check">No badge on your site</li>
-            <li x-icon="lucide:check">Private, never listed in the showcase</li>
-            <li x-icon="lucide:check">Roll back and download recent deployments</li>
-            <li x-icon="lucide:check">Invite teammates and make admins</li>
-            <li x-icon="lucide:check">All-time visitor analytics</li>
+            <li x-icon="lucide:plus">Everything in Free, and</li>
+            <li x-icon="lucide:badge-x">No badge on your site</li>
+            <li x-icon="lucide:eye-off">Private, never listed in the showcase</li>
+            <li x-icon="lucide:history">Roll back and download recent deployments</li>
+            <li x-icon="lucide:users">Invite teammates and make admins</li>
+            <li x-icon="lucide:chart-line">All-time visitor analytics</li>
           </ul>
           <a role="button" href="https://dash.manifestx.dev" class="mt-auto w-fit ghost outlined rounded-full text-accent-inverse hover:bg-accent-inverse/15 hover:text-accent-inverse">Upgrade a project</a>
         </div>
@@ -58,29 +63,183 @@
     </div>
 
     <!-- Enterprise -->
-    <div class="col md:row md:items-center gap-6 justify-between px-10 py-12 bg-surface-2 rounded-lg">
-      <div class="col gap-2 w-2xl max-w-full">
-        <h2 class="h4">Enterprise</h2>
-        <p class="text-content-neutral">Everything in Pro, plus what organizations need on paper: direct invoicing, a data processing agreement, security review, an uptime statement, and dedicated support.</p>
+    <div class="col md:row md:items-center gap-6 justify-between px-10 py-10 bg-surface-2 rounded-lg">
+      <div class="row items-start gap-4 w-2xl max-w-full">
+        <span class="row center shrink-0 size-10 bg-brand-surface/15 text-brand-content rounded-lg" x-icon="lucide:building-2" aria-hidden="true"></span>
+        <div class="col gap-1">
+          <h2 class="h4">Enterprise</h2>
+          <p class="text-content-neutral">Everything in Pro, plus what organizations need on paper: direct invoicing, a data processing agreement, security review, an uptime statement, and dedicated support.</p>
+        </div>
       </div>
       <a role="button" href="mailto:team@manifestx.dev" class="outlined rounded-full shrink-0">Get in touch</a>
     </div>
-
-    <small class="text-content-subtle">Billed per project through Stripe, monthly or yearly, cancel anytime. Upgrade from the dashboard, or just ask Claude.</small>
 
   </div>
 </section>
 
 
 
-<!-- CALLOUT -->
-<section class="col center w-full py-16 text-center">
-  <div class="col center gap-3 w-content-width max-w-full">
-    <h2 class="md:col text-5xl leading-tight">
-      <span>Free isn't a trial.</span>
-      <span class="text-content-subtle">It's the plan.</span>
-    </h2>
-    <p class="text-content-neutral text-balance">Publish a production site on your own domain for $0, for as long as you like. Pro adds polish and control when a site starts to mean business.</p>
+<!-- FREE VS PRO -->
+<section class="col center w-full py-24" x-data="{ pro: false }">
+
+  <!-- Content -->
+  <div class="col gap-10 w-content-width max-w-full">
+
+    <div class="col md:row md:items-end justify-between gap-6">
+      <div class="col gap-3 w-2xl max-w-full">
+        <h2 class="md:col leading-tight">
+          <span>Free isn't a trial.</span>
+          <span class="text-content-subtle">It's the plan.</span>
+        </h2>
+        <p class="text-content-neutral text-balance">A real site on your own domain for $0, for as long as you like. Switch to Pro to see what $15 adds.</p>
+      </div>
+      <div role="group" class="shrink-0 w-fit border border-line rounded-full" aria-label="Show plan">
+        <button class="rounded-s-full" :class="!pro && 'accent pointer-events-none'" :aria-pressed="!pro" @click="pro = false">Free</button>
+        <button class="rounded-e-full" :class="pro && 'accent pointer-events-none'" :aria-pressed="pro" @click="pro = true">Pro</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-[1.35fr_1fr] gap-4">
+
+      <!-- Site -->
+      <div class="hero-app relative col bg-page dark:bg-surface-2 border border-line rounded-lg shadow-2xl overflow-hidden" aria-label="A sample site on its own domain">
+
+        <!-- Browser bar -->
+        <div class="row items-center gap-3 px-4 py-2.5 bg-surface-2 dark:bg-surface-3 border-b border-line">
+          <span class="row gap-1.5 w-12" aria-hidden="true">
+            <span class="size-2.5 bg-surface-3 dark:bg-surface-1 rounded-full"></span>
+            <span class="size-2.5 bg-surface-3 dark:bg-surface-1 rounded-full"></span>
+            <span class="size-2.5 bg-surface-3 dark:bg-surface-1 rounded-full"></span>
+          </span>
+          <span class="row items-center gap-1.5 mx-auto px-3 py-1 text-xs text-content-neutral bg-page dark:bg-surface-2 rounded-full"><span x-icon="lucide:lock" aria-hidden="true"></span>solstice.studio</span>
+          <span class="w-12" aria-hidden="true"></span>
+        </div>
+
+        <!-- App bar -->
+        <div class="row items-center justify-between gap-4 px-5 py-3 border-b border-line">
+          <span class="row items-center gap-2.5">
+            <span class="app-logo size-2.5 rounded-full" aria-hidden="true"></span>
+            <b>Solstice Studio</b>
+          </span>
+          <span class="row items-center gap-4">
+            <span class="app-nav hidden sm:inline text-xs text-content-subtle">Schedule</span>
+            <span class="app-nav hidden sm:inline text-xs text-content-subtle">Members</span>
+            <span class="avatar"><img src="/assets/examples/user.jpg" alt="Studio owner"></span>
+          </span>
+        </div>
+
+        <!-- Body -->
+        <div class="col gap-4 p-5 pb-20">
+          <div class="col">
+            <b class="text-2xl tracking-tight">Find your flow.</b>
+            <small class="text-content-subtle">Classes this week</small>
+          </div>
+          <div class="app-row row items-center justify-between gap-3 p-3 border border-line rounded-lg">
+            <span class="app-thumb a" x-icon="lucide:sunrise" aria-hidden="true"></span>
+            <span class="col grow">
+              <b class="text-sm">Sunrise Flow</b>
+              <small class="text-content-subtle text-xs">Tomorrow · 7:00</small>
+            </span>
+            <button type="button" class="unstyle app-book px-3.5 py-1.5 rounded-full text-xs font-medium">Book</button>
+          </div>
+          <div class="app-row row items-center justify-between gap-3 p-3 border border-line rounded-lg">
+            <span class="app-thumb b" x-icon="lucide:flame" aria-hidden="true"></span>
+            <span class="col grow">
+              <b class="text-sm">Power Vinyasa</b>
+              <small class="text-content-subtle text-xs">Tomorrow · 18:30</small>
+            </span>
+            <button type="button" class="unstyle app-book px-3.5 py-1.5 rounded-full text-xs font-medium">Book</button>
+          </div>
+          <div class="app-row row items-center justify-between gap-3 p-3 border border-line rounded-lg">
+            <span class="app-thumb a" x-icon="lucide:moon" aria-hidden="true"></span>
+            <span class="col grow">
+              <b class="text-sm">Yin &amp; Restore</b>
+              <small class="text-content-subtle text-xs">Friday · 20:00</small>
+            </span>
+            <button type="button" class="unstyle app-book px-3.5 py-1.5 rounded-full text-xs font-medium">Book</button>
+          </div>
+        </div>
+
+        <!-- Badge -->
+        <span x-show="!pro" x-transition.opacity.duration.300ms class="absolute bottom-4 right-4 row items-center gap-1.5 p-2 text-xs font-medium bg-page border border-line rounded-lg shadow-lg"><span x-icon="lucide:wand-sparkles" aria-hidden="true"></span><span>Made with <b>Manifest</b></span></span>
+
+      </div>
+
+      <!-- Project -->
+      <div class="col gap-6 p-6 bg-surface-2 rounded-lg">
+
+        <div class="row items-center justify-between gap-3">
+          <b>solstice.studio</b>
+          <span class="px-2.5 py-0.5 text-xs font-medium rounded-full transition-colors" :class="pro ? 'bg-accent-surface text-accent-inverse' : 'bg-surface-3 text-content-neutral'" x-text="pro ? 'Pro · $15' : 'Free · $0'">Free · $0</span>
+        </div>
+
+        <!-- Visitors -->
+        <div class="col gap-3">
+          <span class="col">
+            <small class="text-content-subtle text-xs" x-text="pro ? 'Visitors, all time' : 'Visitors, last 7 days'">Visitors, last 7 days</small>
+            <b class="text-3xl tracking-tight" x-text="pro ? '48,920' : '1,284'">1,284</b>
+          </span>
+          <div class="row items-end gap-1 h-16" aria-hidden="true">
+            <span class="grow h-[22%] bg-content-neutral/50 rounded-sm transition-opacity duration-300" :class="!pro && 'opacity-15'"></span>
+            <span class="grow h-[30%] bg-content-neutral/50 rounded-sm transition-opacity duration-300" :class="!pro && 'opacity-15'"></span>
+            <span class="grow h-[26%] bg-content-neutral/50 rounded-sm transition-opacity duration-300" :class="!pro && 'opacity-15'"></span>
+            <span class="grow h-[38%] bg-content-neutral/50 rounded-sm transition-opacity duration-300" :class="!pro && 'opacity-15'"></span>
+            <span class="grow h-[34%] bg-content-neutral/50 rounded-sm transition-opacity duration-300" :class="!pro && 'opacity-15'"></span>
+            <span class="grow h-[46%] bg-content-neutral/50 rounded-sm transition-opacity duration-300" :class="!pro && 'opacity-15'"></span>
+            <span class="grow h-[42%] bg-content-neutral/50 rounded-sm transition-opacity duration-300" :class="!pro && 'opacity-15'"></span>
+            <span class="grow h-[55%] bg-content-neutral/50 rounded-sm transition-opacity duration-300" :class="!pro && 'opacity-15'"></span>
+            <span class="grow h-[50%] bg-content-neutral/50 rounded-sm transition-opacity duration-300" :class="!pro && 'opacity-15'"></span>
+            <span class="grow h-[62%] bg-content-neutral rounded-sm"></span>
+            <span class="grow h-[58%] bg-content-neutral rounded-sm"></span>
+            <span class="grow h-[74%] bg-content-neutral rounded-sm"></span>
+            <span class="grow h-[68%] bg-content-neutral rounded-sm"></span>
+            <span class="grow h-[80%] bg-content-neutral rounded-sm"></span>
+            <span class="grow h-[72%] bg-content-neutral rounded-sm"></span>
+            <span class="grow h-full bg-content-neutral rounded-sm"></span>
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- Settings -->
+        <ul class="col gap-3.5 text-sm">
+          <li class="row items-center justify-between gap-3">
+            <span class="row items-center gap-2.5 text-content-neutral"><span x-icon="lucide:globe" aria-hidden="true"></span>Custom domain</span>
+            <span>Connected</span>
+          </li>
+          <li class="row items-center justify-between gap-3">
+            <span class="row items-center gap-2.5 text-content-neutral"><span x-icon="lucide:layers" aria-hidden="true"></span>Environments</span>
+            <span>Production + staging</span>
+          </li>
+          <li class="row items-center justify-between gap-3">
+            <span class="row items-center gap-2.5 text-content-neutral"><span x-icon="lucide:wand-sparkles" aria-hidden="true"></span>Badge</span>
+            <span class="transition-colors" :class="pro ? 'font-semibold' : 'text-content-subtle'" x-text="pro ? 'Removed' : 'Shown'">Shown</span>
+          </li>
+          <li class="row items-center justify-between gap-3">
+            <span class="row items-center gap-2.5 text-content-neutral"><span x-icon="lucide:eye" aria-hidden="true"></span>Showcase</span>
+            <span class="transition-colors" :class="pro ? 'font-semibold' : 'text-content-subtle'" x-text="pro ? 'Private' : 'May be featured'">May be featured</span>
+          </li>
+          <li class="row items-center justify-between gap-3">
+            <span class="row items-center gap-2.5 text-content-neutral"><span x-icon="lucide:history" aria-hidden="true"></span>Rollback</span>
+            <span class="transition-colors" :class="pro ? 'font-semibold' : 'text-content-subtle'" x-text="pro ? 'Last 5 deploys' : 'Not included'">Not included</span>
+          </li>
+          <li class="row items-center justify-between gap-3 min-h-7">
+            <span class="row items-center gap-2.5 text-content-neutral"><span x-icon="lucide:users" aria-hidden="true"></span>Team</span>
+            <span x-show="!pro" class="text-content-subtle">Just you</span>
+            <span x-show="pro" x-cloak class="row items-center">
+              <img src="/assets/examples/user.jpg" alt="" class="size-7 object-cover rounded-full ring-2 ring-surface-2">
+              <span class="-ms-2 row center size-7 text-[10px] font-semibold bg-surface-3 text-content-stark rounded-full ring-2 ring-surface-2" aria-hidden="true">MK</span>
+              <span class="-ms-2 row center size-7 text-[10px] font-semibold bg-surface-3 text-content-stark rounded-full ring-2 ring-surface-2" aria-hidden="true">JL</span>
+              <span class="-ms-2 row center size-7 text-[10px] font-semibold bg-accent-surface text-accent-inverse rounded-full ring-2 ring-surface-2" aria-hidden="true">+4</span>
+              <span class="sr-only">You and six teammates</span>
+            </span>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+
   </div>
 </section>
 
@@ -90,35 +249,42 @@
 <section class="col center w-full py-24">
 
   <!-- Content -->
-  <div class="col gap-10 justify-start w-content-width max-w-full">
+  <div class="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-10 w-content-width max-w-full">
 
-    <h2 class="leading-tight">Common questions</h2>
+    <div class="col gap-3">
+      <h2 class="leading-tight">Common questions</h2>
+      <p class="text-content-neutral">Something else? <a href="mailto:team@manifestx.dev">Email the team</a>.</p>
+    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-      <div class="col gap-1">
-        <h3 class="h4">What counts as a project?</h3>
+    <div class="col">
+      <details class="border-b border-line">
+        <summary>What counts as a project?</summary>
         <p class="text-content-neutral">One site or app with its own URL and deployments. Plans apply per project.</p>
-      </div>
-      <div class="col gap-1">
-        <h3 class="h4">What happens if I cancel?</h3>
+      </details>
+      <details class="border-b border-line">
+        <summary>What happens if I cancel?</summary>
         <p class="text-content-neutral">Your site stays live. Pro runs to the end of the billing period you've paid for, then the project returns to Free: the badge comes back and Pro features lock. Nothing is deleted.</p>
-      </div>
-      <div class="col gap-1">
-        <h3 class="h4">Do teammates cost extra?</h3>
+      </details>
+      <details class="border-b border-line">
+        <summary>Do teammates cost extra?</summary>
         <p class="text-content-neutral">No. Pricing is per project, never per person.</p>
-      </div>
-      <div class="col gap-1">
-        <h3 class="h4">Can I use my own domain on Free?</h3>
+      </details>
+      <details class="border-b border-line">
+        <summary>Can I use my own domain on Free?</summary>
         <p class="text-content-neutral">Yes, with automatic certificates.</p>
-      </div>
-      <div class="col gap-1">
-        <h3 class="h4">What is the badge?</h3>
+      </details>
+      <details class="border-b border-line">
+        <summary>What is the badge?</summary>
         <p class="text-content-neutral">A small "Made with Manifest" link on Free sites. Pro removes it.</p>
-      </div>
-      <div class="col gap-1">
-        <h3 class="h4">Will my site appear in the showcase?</h3>
+      </details>
+      <details class="border-b border-line">
+        <summary>Will my site appear in the showcase?</summary>
         <p class="text-content-neutral">Free projects may be featured in the curated showcase. Pro projects are never listed.</p>
-      </div>
+      </details>
+      <details class="border-b border-line">
+        <summary>How is billing handled?</summary>
+        <p class="text-content-neutral">Per project through Stripe, monthly or yearly. Upgrade from the dashboard, or just ask Claude.</p>
+      </details>
     </div>
 
   </div>
