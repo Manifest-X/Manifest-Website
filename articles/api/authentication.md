@@ -58,7 +58,71 @@ Creating a project also returns that project's own key, `project_key`{copy}, onc
 
 ## Revoke a key
 
-On the [API page](https://dash.manifestx.dev/api), select the trash icon next to the key, then **Revoke key**. The key stops working on the next request and can't be restored. If a key leaks, revoke it and create a new one. To revoke a platform account key, [contact Manifest](/support).
+On the [API page](https://dash.manifestx.dev/api), select the trash icon next to the key, then **Revoke key**. The key stops working on the next request and can't be restored. If a key leaks, revoke it and create a new one. Platform accounts revoke their keys [with the API](#keys).
+
+---
+
+## Keys
+
+A key can create, list, and revoke the keys of its own API account. This is how a server rotates its key without the dashboard.
+
+### Create a key with the API
+
+```bash copy
+curl -X POST https://api.manifestx.dev/v1/keys \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"label": "CI 2026-11"}'
+```
+
+`label`{copy} is optional, 1 to 60 characters. The response is `201`{copy} and carries the new key once:
+
+```json
+{
+  "key": "mnfst_api_…",
+  "prefix": "mnfst_api_EfGh5678",
+  "label": "CI 2026-11",
+  "created_at": 1761868800,
+  "last_used_at": null,
+  "request_id": "…"
+}
+```
+
+An account holds up to 10 live keys, counting keys from the dashboard. Over that: `409 key_limit`{copy}.
+
+### List keys
+
+`GET /keys`{copy} lists the account's live keys, newest first. It never returns a key, only its prefix:
+
+```json
+{
+  "keys": [
+    { "prefix": "mnfst_api_EfGh5678", "label": "CI 2026-11", "created_at": 1761868800, "last_used_at": null, "current": false },
+    { "prefix": "mnfst_api_AbCd1234", "label": "CI", "created_at": 1760140800, "last_used_at": 1761868740, "current": true }
+  ],
+  "request_id": "…"
+}
+```
+
+`current`{copy} marks the key that made the request. `last_used_at`{copy} is accurate to the minute.
+
+### Revoke a key with the API
+
+```bash copy
+curl -X DELETE https://api.manifestx.dev/v1/keys/mnfst_api_AbCd1234 \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
+```
+
+The key stops working on the next request. A key can revoke itself. The account's last live key can't be revoked with the API (`409 last_key`{copy}), so the account always keeps a working key. Revoke it on the dashboard, or [contact Manifest](/support) for a platform account.
+
+### Rotate a key
+
+1. Create a new key with the old one.
+2. Deploy the new key to every service that uses the old one.
+3. Check `last_used_at`{copy} on the old key stops moving.
+4. Revoke the old key.
+
+Both keys work until step 4.
 
 ---
 
@@ -68,6 +132,9 @@ On the [API page](https://dash.manifestx.dev/api), select the trash icon next to
 |------------|------------------|--------------------------------------------------------------|
 | 401        | `unauthorized`{copy}   | The key is missing, malformed, or not an API key.            |
 | 401        | `key_revoked`{copy}    | The key was revoked. Use a current key or contact Manifest.  |
+| 404        | `not_found`{copy}      | `DELETE /keys/:prefix`{copy}: no live key with that prefix in this account. |
+| 409        | `key_limit`{copy}      | `POST /keys`{copy}: the account already has 10 live keys.          |
+| 409        | `last_key`{copy}       | `DELETE /keys/:prefix`{copy}: that is the account's only live key. |
 | 404        | `not_found`{copy}      | No such API route. Only `/v1/*` exists on `api.manifestx.dev`. |
 | 429        | `rate_limited`{copy}   | Too many requests with this key. Wait the seconds in `Retry-After`{copy}. See [Limits](/docs/api/reference/limits). |
 
@@ -78,3 +145,4 @@ The `message`{copy} says which key problem it is:
 | Missing   | `Send your API key as "Authorization: Bearer mnfst_api_…".`             |
 | Unknown   | `That API key is not recognised.`                                      |
 | Revoked   | `That API key has been revoked. Use a current key or contact Manifest.` |
+| Revoked, none left | `That API key has been revoked and this account has no live keys. Create one in the dashboard (Settings → API keys) or contact Manifest.` |
