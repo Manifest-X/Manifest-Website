@@ -228,6 +228,8 @@ export function report(result, { staging, production }) {
     lines.push(`  ${r.status.toUpperCase().padEnd(10)} ${r.kind.padEnd(7)} ${r.path}${who}`);
   }
   for (const e of result.errors) lines.push(`  ERROR ${e}`);
+  const docs = result.rows.filter((r) => /^\/articles\/.+\.md$/.test(r.path));
+  lines.push(`Docs shipping in this promote: ${docs.length ? docs.map((r) => `${r.path} (${r.kind})`).join(', ') : 'none'}`);
   const n = (s) => result.rows.filter((r) => r.status === s).length;
   lines.push(
     result.ok

@@ -163,12 +163,19 @@ test('main blocks an unapproved staged article and passes once approved by hash'
   const none = join(await mkdtemp(join(tmpdir(), 'pm-')), 'none.json');
   assert.equal(await main(['--staging', stag, '--production', prod, '--approvals', none], (s) => out.push(s)), 1);
   assert.match(out[0], /UNAPPROVED\s+added\s+\/docs\/connector\/index\.html/);
+  assert.match(out[0], /^Docs shipping in this promote: \/articles\/connector\.md \(added\)$/m);
   const t = [];
   await main(['--staging', stag, '--production', prod, '--template'], (s) => t.push(s));
   const approvals = JSON.parse(t[0]);
   for (const a of approvals.approvals) Object.assign(a, { approver: 'Andrew', date: '2026-10-16' });
   await writeFile(none, JSON.stringify(approvals));
   assert.equal(await main(['--staging', stag, '--production', prod, '--approvals', none], () => {}), 0);
+});
+
+test('report says when no docs ship', async () => {
+  const out = [];
+  await main(['--staging', await site(BASE), '--production', await site(BASE)], (s) => out.push(s));
+  assert.match(out[0], /^Docs shipping in this promote: none$/m);
 });
 
 // Hook
