@@ -57,9 +57,9 @@ The report lists the projects your API account created that existed at any time 
 | `starts_at`{copy}, `ends_at`{copy} | The month's bounds in Unix seconds: the first second of the month, and the first second of the next.      |
 | `complete`{copy}               | `false`{copy} while the month is still running; its numbers can still grow.                                   |
 | `active`{copy}                 | The project counts as active for the month: created before the month ended, and not deleted before it began. Every listed project is active. |
-| `publishes`{copy}              | Deployments that went live in the month, on staging or production. Promotes, rollbacks and file reads don't count. |
+| `publishes`{copy}              | Deployments that went live in the month, on staging or production. Each uploaded build, each [file update](/docs/api/projects/publish#update-individual-files) and each [content](/docs/api/projects/content) request that goes live counts as one. Promotes and rollbacks don't count. |
 | `domains_attached`{copy}       | Custom domains newly attached in the month. Updating an attached domain doesn't count again.             |
-| `domains_removed`{copy}        | Custom domains removed in the month.                                                                     |
+| `domains_removed`{copy}        | Custom domains removed in the month. Domains released because their project was deleted aren't counted. |
 
 `totals.active_projects`{copy} is the number of listed projects; the other totals add up the rows. A project created after the month, or deleted before it began, isn't listed. The report only covers projects your account created, not projects you were invited to.
 
@@ -83,7 +83,7 @@ period,project_id,source_id,name,created_at,deleted_at,active,publishes,domains_
 2026-09,,,Total,,,2,3,1,0
 ```
 
-One row per project, then a `Total` row. Times are ISO 8601 in UTC, and `active` is `1`. A name that starts with `=`, `+`, `-` or `@` is written with a leading `'` so spreadsheet apps show it as text.
+One row per project, then a `Total` row. Times are ISO 8601 in UTC, and `active` is `1`. Any text cell, including `source_id` and `name`, that starts with `=`, `+`, `-`, `@`, a tab or a carriage return is written with a leading `'`, so spreadsheet apps show it as text instead of running it as a formula. The JSON report always has the values unchanged.
 
 ---
 
