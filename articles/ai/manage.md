@@ -56,6 +56,8 @@ For teams that edit often, saving the project to [GitHub](/docs/ai/projects/gith
 
 Claude reports views, visits, top pages, where visitors came from, and their countries and devices: the last 7 days on Free, all time on [Pro](/docs/ai/setup/plans). You can also ask for a specific date range: any range on Pro, or one within the last 7 days on Free. Manifest's analytics don't use cookies or identify anyone. To switch them off, ask Claude to `turn off analytics`{.prompt copy}.
 
+To leave your own team's visits out, open the live project once with `?mnfst-team`{copy} added to the address (for example `https://example.com/?mnfst-team`). That browser isn't counted on that address from then on. Do it once per browser and device, and once for each address the project uses, such as `example.com` and `www.example.com`. Visits already recorded stay in the totals, clearing the browser's site data undoes it, and `?mnfst-team=off`{copy} starts counting it again.
+
 ---
 
 ## Plans and billing
