@@ -88,7 +88,9 @@ curl -X POST https://api.manifestx.dev/v1/keys \
 }
 ```
 
-An account holds up to 10 live keys, counting keys from the dashboard. Over that: `409 key_limit`{copy}.
+An account holds up to 10 live keys, counting keys from the dashboard. Over that: `409 key_limit`{copy}. An account can create up to 20 keys a day this way, counting keys created in the last 24 hours, revoked ones included. Over that: `429 mint_limit`{copy} with `Retry-After`{copy}. A bad `label`{copy}: `400 invalid_input`{copy}.
+
+`POST /keys`{copy} ignores `Idempotency-Key`{copy}, so a new key is never stored or replayed. If a request times out, list the keys and revoke any you didn't receive.
 
 ### List keys
 
@@ -113,6 +115,10 @@ curl -X DELETE https://api.manifestx.dev/v1/keys/mnfst_api_AbCd1234 \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
 ```
 
+```json
+{ "revoked": "mnfst_api_AbCd1234", "request_id": "…" }
+```
+
 The key stops working on the next request. A key can revoke itself. The account's last live key can't be revoked with the API (`409 last_key`{copy}), so the account always keeps a working key. Revoke it on the dashboard, or [contact Manifest](/support) for a platform account.
 
 ### Rotate a key
@@ -122,7 +128,7 @@ The key stops working on the next request. A key can revoke itself. The account'
 3. Check `last_used_at`{copy} on the old key stops moving.
 4. Revoke the old key.
 
-Both keys work until step 4.
+Both keys work until step 4. They share one request limit: more keys never add capacity. See [Limits](/docs/api/reference/limits).
 
 ---
 
@@ -132,11 +138,13 @@ Both keys work until step 4.
 |------------|------------------|--------------------------------------------------------------|
 | 401        | `unauthorized`{copy}   | The key is missing, malformed, or not an API key.            |
 | 401        | `key_revoked`{copy}    | The key was revoked. Use a current key or contact Manifest.  |
+| 400        | `invalid_input`{copy}  | `POST /keys`{copy}: `label`{copy} isn't a string of 1 to 60 characters. |
 | 404        | `not_found`{copy}      | `DELETE /keys/:prefix`{copy}: no live key with that prefix in this account. |
 | 409        | `key_limit`{copy}      | `POST /keys`{copy}: the account already has 10 live keys.          |
+| 429        | `mint_limit`{copy}     | `POST /keys`{copy}: 20 keys created in the last 24 hours. Wait the seconds in `Retry-After`{copy}. |
 | 409        | `last_key`{copy}       | `DELETE /keys/:prefix`{copy}: that is the account's only live key. |
 | 404        | `not_found`{copy}      | No such API route. Only `/v1/*` exists on `api.manifestx.dev`. |
-| 429        | `rate_limited`{copy}   | Too many requests with this key. Wait the seconds in `Retry-After`{copy}. See [Limits](/docs/api/reference/limits). |
+| 429        | `rate_limited`{copy}   | Too many requests with this account's keys. Wait the seconds in `Retry-After`{copy}. See [Limits](/docs/api/reference/limits). |
 
 The `message`{copy} says which key problem it is:
 
@@ -145,4 +153,5 @@ The `message`{copy} says which key problem it is:
 | Missing   | `Send your API key as "Authorization: Bearer mnfst_api_…".`             |
 | Unknown   | `That API key is not recognised.`                                      |
 | Revoked   | `That API key has been revoked. Use a current key or contact Manifest.` |
-| Revoked, none left | `That API key has been revoked and this account has no live keys. Create one in the dashboard (Settings → API keys) or contact Manifest.` |
+| Revoked, none left (free) | `That API key has been revoked and this account has no live keys. Create one on the dashboard API page (dash.manifestx.dev/api).` |
+| Revoked, none left (platform) | `That API key has been revoked and this account has no live keys. Contact Manifest (team@manifestx.dev) for a new one.` |
