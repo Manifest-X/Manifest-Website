@@ -25,3 +25,4 @@ Base URL `https://api.manifestx.dev/v1`{copy}, authenticated with your [API key]
 | `POST /projects/:id/domains`{copy} | Attach a custom domain; returns the DNS records | [Attach a domain](/docs/api/projects/domains#attach-a-domain) |
 | `GET /projects/:id/domains/:hostname`{copy} | Domain and certificate status | [Check status](/docs/api/projects/domains#check-status) |
 | `DELETE /projects/:id/domains/:hostname`{copy} | Detach a custom domain | [Remove a domain](/docs/api/projects/domains#remove-a-domain) |
+| `GET /usage?period=YYYY-MM`{copy} | Per-project usage for a month, as JSON or CSV | [Usage](/docs/api/projects/usage) |

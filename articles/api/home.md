@@ -30,6 +30,7 @@ Every Manifest account can use the API. [Create an API key](/docs/api/setup/auth
   <a href="/docs/api/projects/publish#promote-staging-to-production"><span x-icon="lucide:eye"></span><span><strong>Promote to production</strong><small>Ship what is on staging.</small></span></a>
   <a href="/docs/api/projects/publish#roll-back"><span x-icon="lucide:undo-2"></span><span><strong>Roll back</strong><small>Go back to an earlier deployment.</small></span></a>
   <a href="/docs/api/projects/domains"><span x-icon="lucide:globe"></span><span><strong>Custom domains</strong><small>Serve a site on its own domain.</small></span></a>
+  <a href="/docs/api/projects/usage"><span x-icon="lucide:chart-column"></span><span><strong>Usage report</strong><small>A month's usage per project, as JSON or CSV.</small></span></a>
 </div>
 
 ## Base URL
