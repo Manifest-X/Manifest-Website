@@ -138,11 +138,14 @@ Manifest adds the editor to the project's team and emails them a sign-in link. A
   "member": { "user_id": "…", "email": "editor@acme.com", "role": "member", "is_owner": false },
   "already_member": false,
   "email_sent": true,
+  "email_skipped": null,
   "request_id": "…"
 }
 ```
 
-Inviting someone already on the project answers `200 OK` with `"already_member": true`{copy}, their current role, and a fresh sign-in email; nothing else changes. `email_sent`{copy} is `false`{copy} when the email couldn't be sent: the editor is still added and can join by signing in with that address.
+Inviting someone already on the project answers `200 OK` with `"already_member": true`{copy} and their current role; their role never changes, and two invites for the same address at once seat them once. They get a fresh sign-in email at most once every 10 minutes. `email_skipped`{copy} says why no email was sent: `recently_sent`{copy} inside that window, or `self`{copy} when the address is the project owner's. `email_sent`{copy} is `false`{copy} when the email couldn't be sent: the editor is still added and can join by signing in with that address.
+
+Each project accepts 50 invites a day, on every plan; past that the API answers `429 invite_limit` with `Retry-After`{copy}.
 
 Inviting editors is part of Pro, so on a Free project it answers `402 pro_required`. Projects on a platform account include it.
 
@@ -183,13 +186,14 @@ An editor's access belongs to the project, not to the key that invited them. Rev
 | 403        | `owner_not_removable`{copy}       | The project owner can't be removed.                                                           |
 | 404        | `not_found`{copy}                 | No such project, or the key can't reach it.                                                   |
 | 404        | `member_not_found`{copy}          | No one with that `user_id`{copy} is on the project.                                                |
+| 429        | `invite_limit`{copy}              | The project's 50 invites for today are used. Retry after `Retry-After`{copy} seconds.              |
 | 409        | `source_id_conflict`{copy}        | `source_id`{copy} already names a project with a different `name`{copy} or `subdomain`{copy}.                   |
 | 409        | `source_id_deleted`{copy}         | `source_id`{copy} named a project that has since been deleted. Use a new `source_id`{copy}.               |
 | 409        | `subdomain_taken`{copy}           | The requested subdomain belongs to another project.                                           |
 | 409        | `idempotency_in_progress`{copy}   | The first request with this `Idempotency-Key`{copy} is still running. Retry shortly.                |
 | 422        | `subdomain_reserved`{copy}        | The requested subdomain is a reserved label (for example `login` or `billing`).               |
 | 422        | `idempotency_key_reused`{copy}    | `Idempotency-Key`{copy} was already used with a different request body.                             |
-| 422        | `invite_failed`{copy}             | The invite was refused. The message says why.                                                 |
+| 422        | `invite_failed`{copy}             | Manifest's team service refused the address. The message says why; fix it rather than retrying. |
 | 503        | `idempotency_unavailable`{copy}   | Idempotent requests are temporarily unavailable. Retry later, or without the header.          |
 | 503        | `membership_unverified`{copy}     | Manifest couldn't check your role on a team project just then. Nothing was done. Retry.       |
 | 503        | `team_unavailable`{copy}          | Manifest couldn't reach the project's team just then. No one was invited or removed. Retry.   |

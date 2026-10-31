@@ -28,7 +28,7 @@ curl -X POST https://api.manifestx.dev/v1/projects \
 | Same body, first request finished        | The stored response, byte for byte, with an `Idempotent-Replayed: true`{copy} header. Nothing runs twice.         |
 | Same body, first request still running   | `409 idempotency_in_progress`. Retry shortly.                                                               |
 | Different body                           | `422 idempotency_key_reused`. Nothing runs.                                                                 |
-| First request answered `409` or `5xx`    | Not stored: the retry runs the request again.                                                               |
+| First request answered `402`, `403`, `409`, `429`, or `5xx` | Not stored: the retry runs the request again, so it succeeds once the plan, role, cap, conflict, or limit allows it. |
 
 Responses are kept for 24 hours. JSON key order and whitespace don't change the match, and the header is ignored on `GET`. A replayed create returns the original `project_key`{copy}, so a retry after a dropped response still receives the project key.
 
