@@ -37,7 +37,7 @@ The `manifest.js` script tag accepts `data-*` attributes to control plugin loadi
 | `data-plugins`{copy} | (auto) | Comma-separated list of plugins to load |
 | `data-omit`{copy} | — | Comma-separated list to exclude from auto-loaded set |
 | `data-version`{copy} | `latest` | Plugin version to fetch from CDN |
-| `data-alpine`{copy} | `3` | Alpine version, or a full URL |
+| `data-alpine`{copy} | The version tested with this framework release | Alpine version, or a full URL |
 | `data-tailwind`{copy} | (off) | Boolean — load Manifest's Tailwind v4 build |
 | `data-plugin-base`{copy} | CDN | Base URL/path for plugin scripts (for self-hosted deployments) |
 | `data-defer`{copy} | (on) | `off` turns off automatic deferral of closed containers — see [performance](/docs/framework/getting-started/performance#x-defer-reference) |
