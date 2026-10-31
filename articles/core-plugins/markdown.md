@@ -163,6 +163,18 @@ The `$route('path')` function searches the data source for an item where an arbi
 
 ---
 
+## Untrusted Content
+
+By default, markdown renders its HTML as written, so authors can use components, directives, and styling. When the markdown comes from people you don't control, such as comments, chat messages, or AI replies that may repeat them, add the `.safe` modifier.
+
+```html copy
+<div class="prose" x-markdown.safe="$x.comments.body"></div>
+```
+
+`.safe` keeps text formatting, links, images, lists, tables, and callout colors. It removes scripts, event handlers, directives, components, `<style>`, inline styles, classes, SVG, forms, popovers, audio, and video, so the content can't run code, restyle the page, or submit a form. Code blocks show as plain code without highlighting.
+
+---
+
 ## Markdown Syntax
 
 See this <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Markdown Guide</a> for supported syntax in addition to HTML. Manifest also provides additional support for components, callouts, previews, and code blocks.
