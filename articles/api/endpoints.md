@@ -25,3 +25,6 @@ Base URL `https://api.manifestx.dev/v1`{copy}, authenticated with your [API key]
 | `POST /projects/:id/domains`{copy} | Attach a custom domain; returns the DNS records | [Attach a domain](/docs/api/projects/domains#attach-a-domain) |
 | `GET /projects/:id/domains/:hostname`{copy} | Domain and certificate status | [Check status](/docs/api/projects/domains#check-status) |
 | `DELETE /projects/:id/domains/:hostname`{copy} | Detach a custom domain | [Remove a domain](/docs/api/projects/domains#remove-a-domain) |
+| `POST /projects/:id/invites`{copy} | Invite an editor by email | [Invite an editor](/docs/api/projects/manage#invite-an-editor) |
+| `GET /projects/:id/members`{copy} | Who has access to the project | [List editors](/docs/api/projects/manage#list-editors) |
+| `DELETE /projects/:id/members/:user_id`{copy} | Remove an editor | [Remove an editor](/docs/api/projects/manage#remove-an-editor) |

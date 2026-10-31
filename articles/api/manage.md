@@ -1,6 +1,6 @@
 # Manage
 
-What a key can manage, and how to create, list, and look up projects.
+What a key can manage, how to create, list, and look up projects, and how to invite editors.
 
 ---
 
@@ -10,7 +10,7 @@ A key reaches two kinds of project:
 
 | **Project**                                   | **What the key can do**                                                                 |
 |-----------------------------------------------|-----------------------------------------------------------------------------------------|
-| Projects you own or admin                     | Publish, promote, roll back, list deployments, and manage custom domains.               |
+| Projects you own or admin                     | Publish, promote, roll back, list deployments, manage custom domains, and invite or remove editors. |
 | Projects your keys create through the API     | All of the above, plus [content](/docs/api/projects/content).                           |
 
 Your own projects are the ones you see in the dashboard, made with Claude, the Manifest plugin, or the API. On a team project you need the owner or admin role: as a member the key answers `403 forbidden`. A project created by another account's API keys is reachable only with that account's keys. A project you can't access answers `404 not_found`, the same as one that doesn't exist.
@@ -113,6 +113,63 @@ Returns `{ "project": { … }, "request_id": "…" }`. A project the key can't r
 
 ---
 
+## Inviting editors
+
+Give the people behind a site their own access to it. An invited editor signs in to Manifest with the invited email and the project appears in their own Claude, ready to edit and publish. They never see or need an API key.
+
+### Invite an editor
+
+```bash copy
+curl -X POST https://api.manifestx.dev/v1/projects/proj_…/invites \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "email": "editor@acme.com" }'
+```
+
+| **Field** | **Type** | **Required** | **Notes** |
+|---|---|---|---|
+| `email`{copy} | string | yes | The editor's email address. They sign in with this exact address. |
+| `role`{copy} | string | no | `member`{copy} (default) can edit and publish. `admin`{copy} can also invite and remove others; send it only when you mean to. |
+
+Manifest adds the editor to the project's team and emails them a sign-in link. A new editor answers `201 Created`:
+
+```json
+{
+  "member": { "user_id": "…", "email": "editor@acme.com", "role": "member", "is_owner": false },
+  "already_member": false,
+  "email_sent": true,
+  "request_id": "…"
+}
+```
+
+Inviting someone already on the project answers `200 OK` with `"already_member": true`{copy}, their current role, and a fresh sign-in email; nothing else changes. `email_sent`{copy} is `false`{copy} when the email couldn't be sent: the editor is still added and can join by signing in with that address.
+
+Inviting editors is part of Pro, so on a Free project it answers `402 pro_required`. Projects on a platform account include it.
+
+### List editors
+
+```bash copy
+curl https://api.manifestx.dev/v1/projects/proj_…/members \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
+```
+
+Returns `{ "members": [ … ], "complete": true, "request_id": "…" }`. Each member has `user_id`{copy}, `email`{copy}, `role`{copy} (`owner`{copy}, `admin`{copy}, or `member`{copy}), and `is_owner`{copy}. The owner is always listed first. `complete`{copy} is `false`{copy} when Manifest couldn't reach the team just then; the list then holds only the owner, so retry.
+
+### Remove an editor
+
+```bash copy
+curl -X DELETE https://api.manifestx.dev/v1/projects/proj_…/members/USER_ID \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
+```
+
+Use the `user_id`{copy} from the invite or the list. Access is revoked immediately; the editor keeps their own Manifest account. Listing and removing editors work on every plan, so access can always be taken away. The project owner can't be removed (`403 owner_not_removable`).
+
+### Editors outlive your keys
+
+An editor's access belongs to the project, not to the key that invited them. Revoking or rotating an API key doesn't remove anyone: to take access away, remove the editor. If a key leaks, list each project's editors and remove anyone you didn't invite.
+
+---
+
 ## Errors
 
 | **Status** | **`error`**                 | **Meaning**                                                                                   |
@@ -120,14 +177,19 @@ Returns `{ "project": { … }, "request_id": "…" }`. A project the key can't r
 | 400        | `invalid_input`{copy}             | Missing or malformed field, blank `source_id`{copy}, unknown field, or a body that isn't JSON.       |
 | 400        | `invalid_subdomain`{copy}         | `subdomain`{copy} isn't a clean label (lowercase letters, digits, single hyphens, 1–40 characters). |
 | 400        | `invalid_idempotency_key`{copy}   | `Idempotency-Key`{copy} is blank or longer than 200 characters.                                     |
+| 402        | `pro_required`{copy}              | Inviting editors is part of Pro. Upgrade the project in the dashboard.                        |
 | 403        | `project_cap_reached`{copy}       | Your account's project cap is reached. The message names the cap.                                  |
 | 403        | `forbidden`{copy}                 | You are a member of this project, not its owner or an admin.                                  |
+| 403        | `owner_not_removable`{copy}       | The project owner can't be removed.                                                           |
 | 404        | `not_found`{copy}                 | No such project, or the key can't reach it.                                                   |
+| 404        | `member_not_found`{copy}          | No one with that `user_id`{copy} is on the project.                                                |
 | 409        | `source_id_conflict`{copy}        | `source_id`{copy} already names a project with a different `name`{copy} or `subdomain`{copy}.                   |
 | 409        | `source_id_deleted`{copy}         | `source_id`{copy} named a project that has since been deleted. Use a new `source_id`{copy}.               |
 | 409        | `subdomain_taken`{copy}           | The requested subdomain belongs to another project.                                           |
 | 409        | `idempotency_in_progress`{copy}   | The first request with this `Idempotency-Key`{copy} is still running. Retry shortly.                |
 | 422        | `subdomain_reserved`{copy}        | The requested subdomain is a reserved label (for example `login` or `billing`).               |
 | 422        | `idempotency_key_reused`{copy}    | `Idempotency-Key`{copy} was already used with a different request body.                             |
+| 422        | `invite_failed`{copy}             | The invite was refused. The message says why.                                                 |
 | 503        | `idempotency_unavailable`{copy}   | Idempotent requests are temporarily unavailable. Retry later, or without the header.          |
 | 503        | `membership_unverified`{copy}     | Manifest couldn't check your role on a team project just then. Nothing was done. Retry.       |
+| 503        | `team_unavailable`{copy}          | Manifest couldn't reach the project's team just then. No one was invited or removed. Retry.   |

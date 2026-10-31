@@ -9,7 +9,7 @@ Retry any request safely.
 Creates are idempotent on your own id; everything else that changes something uses a header.
 
 - **Creates:** `source_id`{copy} is the key. Re-sending the same body returns the existing project (`200`), so a create needs no header. See [Idempotent creates](/docs/api/projects/manage#idempotent-creates).
-- **Everything else that changes something** (content, publish, promote, rollback, and domains): send an `Idempotency-Key`{copy} header, 1 to 200 characters, unique per operation and scoped to your API account. Derive it from your own job id, such as `help-center-sync-0193`, so a retry of the same job reuses it.
+- **Everything else that changes something** (content, publish, promote, rollback, domains, and editors): send an `Idempotency-Key`{copy} header, 1 to 200 characters, unique per operation and scoped to your API account. Derive it from your own job id, such as `help-center-sync-0193`, so a retry of the same job reuses it.
 
 ```bash copy
 curl -X POST https://api.manifestx.dev/v1/projects \
