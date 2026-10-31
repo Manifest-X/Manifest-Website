@@ -8,7 +8,7 @@ Manifest's security defaults and the places to opt in to more.
 
 Manifest hardens itself by default and gives you minimal surface to misconfigure. The framework verifies every script it loads, isolates dev tooling to your machine, prevents inlined credentials from shipping to production, and never interprets data-source values as code.
 
-Anything that renders rich HTML — markdown, SVG, tooltips, toasts — treats its input as developer-controlled. If you bind any of those to content sourced from a party you don't fully trust, sanitize at the source before binding.
+Markdown and SVG render their input as HTML and treat it as developer-controlled; use their `.safe` modifier for content from a party you don't fully trust. Tooltips and toasts show expression results as plain text unless you opt in to HTML.
 
 ---
 
@@ -34,7 +34,7 @@ Defaults that apply to every Manifest project, no setup required:
 These places execute code or render HTML by design. The framework doesn't sanitize them, because doing so would block the legitimate uses they exist for. Treat each as the same trust level as code you author in `index.html`:
 
 - **Inline scripts.** `<script>` tags execute as written wherever they appear: in `index.html`, inside component HTML files referenced from `manifest.json`, and inside `<template data-head>` blocks for per-route head injection. Don't compose their bodies from data-source values or URL parameters.
-- **HTML and SVG rendering.** `x-markdown`, `x-svg`, `x-tooltip`, `$toast`, and any custom `x-html` binding render their inputs as HTML so authors can include icons, formatting, and Manifest's custom-element extensions. If the content comes from a party you don't control — user-submitted markdown, uploaded avatars, third-party API responses — sanitize at the source before binding.
+- **HTML and SVG rendering.** `x-markdown`, `x-svg`, and any custom `x-html` binding render their inputs as HTML so authors can include icons, formatting, and Manifest's custom-element extensions, as do `x-tooltip.html`, `x-toast.html`, and `$toast(message, { html: true })`. If the content comes from a party you don't control — user-submitted markdown, uploaded avatars, third-party API responses — use `x-markdown.safe` or `x-svg.safe`, or sanitize at the source before binding.
 - **Component registry.** The `components` and `preloadedComponents` arrays in `manifest.json` are fetched and executed at runtime. Keep these static — don't generate paths from URL parameters or data-source values.
 - **URL parameters.** `$url` exposes the query string as reactive data. Use values via `x-text`, `x-show`, or attribute bindings (safe by default); don't feed them back into a directive that would re-evaluate them as expressions.
 

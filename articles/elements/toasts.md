@@ -167,7 +167,7 @@ Combine different modifiers for complex toast behaviors.
 
 ## Magic Method
 
-Use the `$toast` magic method for programmatic toast creation.
+Use the `$toast` magic method for programmatic toast creation. Messages show as plain text; pass `{ html: true }` to render your own markup, as in `$toast('Saved <b>draft</b>', { html: true })`.
 
 <div x-code-group>
 
@@ -193,7 +193,7 @@ Use the `$toast` magic method for programmatic toast creation.
 
 ## Rich Content
 
-Rich content supports HTML including [icons](/docs/framework/elements/icons) for enhanced formatting.
+Markup written directly in `x-toast` renders as HTML, including [icons](/docs/framework/elements/icons).
 
 <div x-code-group>
 
@@ -247,7 +247,7 @@ Toast content can be any Alpine.js expression, evaluated each time the toast is 
 
 A single word displays as text unless it names a value in scope, so `x-toast="count"` shows the current count while `x-toast="Saved"` shows `Saved`. Loop variables from `x-for` work the same way, as in `x-toast="item.message"`. Expressions read state after the element's click handlers run, so give `x-for` rows a `:key` when a click reorders or removes items. An expression that resolves to an empty string, `false`, or `null` shows no toast.
 
-Like static content, expression results render as HTML. Escape user-submitted values before showing them in a toast.
+Expression results show as plain text, so values from users or data sources can't inject markup. Add the `.html` modifier to render a result you control as HTML, as in `x-toast.html="draft.summary"`.
 
 ---
 

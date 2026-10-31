@@ -84,9 +84,8 @@ For those cases, prefer the safe variants when rendering into HTML or SVG sinks:
 |---|---|---|
 | User-submitted markdown | `<div x-markdown="$x.comments.body">` | `<div x-markdown.safe="$x.comments.body">` |
 | User-uploaded SVG | `<span x-svg="$x.profile.avatar">` | `<span x-svg.safe="$x.profile.avatar">` |
-| Plain text in toasts/tooltips | `$toast($x.errors.message)` | Escape at source, or render via `x-text` |
 
-`x-text`, attribute bindings (`:href`, `:src`, `:alt`), and the standard Alpine `x-show` / `x-if` always treat values as data — they're safe by default. The `.safe` opt-ins exist for the HTML/SVG sinks where the default has to be permissive so authors can render their own rich content.
+`x-text`, attribute bindings (`:href`, `:src`, `:alt`), toasts, tooltips, and the standard Alpine `x-show` / `x-if` always treat values as data — they're safe by default. The `.safe` opt-ins exist for the HTML/SVG sinks where the default has to be permissive so authors can render their own rich content.
 
 ---
 
