@@ -1,6 +1,6 @@
 # Limits
 
-Caps on requests, projects, uploads, content, file reads and updates, and retries.
+Caps on requests, writes, storage, projects, uploads, content, file reads and updates, and retries.
 
 ---
 
@@ -9,6 +9,8 @@ Caps on requests, projects, uploads, content, file reads and updates, and retrie
 | **Limit**                                | **Value**                                          |
 |------------------------------------------|----------------------------------------------------|
 | Requests per API key                     | 60 a minute on the free allowance, 600 on a platform account. A burst of that many at once is fine. Over it: `429 rate_limited` with `Retry-After`{copy}. |
+| Write requests per account               | 30 a minute on the free allowance, 120 on a platform account, across all the account's keys. Writes are `POST`{copy}, `PATCH`{copy} and `DELETE`{copy}; reads don't count. Over it: `429 rate_limited`{copy} with `Retry-After`{copy}, the seconds until the next minute. Your cap is `rate_limit.writes_per_minute`{copy} on `GET /me`{copy}. |
+| Storage per account                      | 500 MB on the free allowance, 10 GB on a platform account: the total size of the live staging and production sites of the projects the account created. A publish, content ingest or file update that would go over it answers `403 storage_cap_reached`{copy} and changes nothing. Promotes and rollbacks are not refused. Your cap is `max_storage_bytes`{copy} on `GET /me`{copy}. |
 | Projects created through the API         | 2 on the free allowance. A platform account's cap is `max_projects`{copy} on `GET /me`{copy}; ask [team@manifestx.dev](mailto:team@manifestx.dev) to raise it. |
 | API keys per account                     | 10                                                 |
 | Publishes per Free project               | 30 a day, counting publishes from Claude and file updates too. Over it: `429 publish_limit_reached` with `Retry-After`{copy}. |

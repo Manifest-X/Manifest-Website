@@ -151,6 +151,7 @@ A content problem answers `422` with a `field`{copy} that names the page and pro
 | **Status** | **`error`**              | **Meaning**                                                                                              |
 |------------|--------------------------|----------------------------------------------------------------------------------------------------------|
 | 400        | `invalid_input`{copy}          | The body isn't UTF-8 JSON, isn't an object, has an unknown top-level field, `template`{copy} isn't `docs`{copy}, or `env`{copy} is wrong.|
+| 403        | `storage_cap_reached`{copy}    | The site would take the account's live sites over its storage cap. Nothing changed. See [Limits](/docs/api/reference/limits). |
 | 404        | `not_found`{copy}              | No such project, or the key can't reach it.                                                              |
 | 413        | `payload_too_large`{copy}      | The body is over 12 MB.                                                                                  |
 | 422        | `invalid_content`{copy}        | A slug, size, theme value, or page field is invalid. `field`{copy} says which.                               |
