@@ -1,6 +1,6 @@
 # Manage
 
-What a key can manage, and how to create, list, and look up projects.
+What a key can manage, and how to create, list, look up, and delete projects.
 
 ---
 
@@ -109,7 +109,33 @@ curl https://api.manifestx.dev/v1/projects/proj_… \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
 ```
 
-Returns `{ "project": { … }, "request_id": "…" }`. A project the key can't reach answers `404 not_found`, the same as one that doesn't exist.
+Returns `{ "project": { … }, "request_id": "…" }`. A project the key can't reach answers `404 not_found`, the same as one that doesn't exist. A deleted project answers `410 project_deleted`.
+
+---
+
+## Deleting a project
+
+```bash copy
+curl -X DELETE https://api.manifestx.dev/v1/projects/proj_… \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
+```
+
+```json
+{
+  "deleted": "proj_…",
+  "deleted_at": 1762041600,
+  "purge_after": 1764633600,
+  "request_id": "…"
+}
+```
+
+The site goes dark at once: the staging and production URLs stop serving, the default subdomains are released, and custom domains are detached. The project's own key stops working, and the project leaves `GET /projects`{copy}. Any `/projects/:id`{copy} request for it answers `410 project_deleted`, and so does a second delete. On the free allowance, the project's place is freed straight away.
+
+Its files and deployment history are kept for **30 days**, until `purge_after`{copy}. Within that window Manifest can restore the project: contact [team@manifestx.dev](mailto:team@manifestx.dev) with its id. After 30 days the files are removed for good and the project can't be restored.
+
+A restore brings back what was live on staging and production and the default subdomains. Custom domains come back **pending**: their certificates were released on delete, so each one needs its DNS records checked again before it serves. The restore sends you the records, and the domain's [status](/docs/api/projects/domains#check-status) shows when it is active again. A subdomain another project took in the meantime can't be returned.
+
+Only the project's owner can delete a project you made outside the API; an admin answers `403 forbidden`. A project with a Pro subscription answers `409 subscription_active`: cancel the subscription in the [dashboard](https://dash.manifestx.dev) first. The `source_id`{copy} of a deleted project stays taken, so a create that reuses it answers `409 source_id_deleted`.
 
 ---
 
@@ -121,12 +147,14 @@ Returns `{ "project": { … }, "request_id": "…" }`. A project the key can't r
 | 400        | `invalid_subdomain`{copy}         | `subdomain`{copy} isn't a clean label (lowercase letters, digits, single hyphens, 1–40 characters). |
 | 400        | `invalid_idempotency_key`{copy}   | `Idempotency-Key`{copy} is blank or longer than 200 characters.                                     |
 | 403        | `project_cap_reached`{copy}       | Your account's project cap is reached. The message names the cap.                                  |
-| 403        | `forbidden`{copy}                 | You are a member of this project, not its owner or an admin.                                  |
+| 403        | `forbidden`{copy}                 | You are a member of this project, not its owner or an admin. Deleting a project made outside the API needs its owner. |
 | 404        | `not_found`{copy}                 | No such project, or the key can't reach it.                                                   |
 | 409        | `source_id_conflict`{copy}        | `source_id`{copy} already names a project with a different `name`{copy} or `subdomain`{copy}.                   |
+| 409        | `subscription_active`{copy}       | The project has a Pro subscription. Cancel it in the dashboard, then delete.                  |
 | 409        | `source_id_deleted`{copy}         | `source_id`{copy} named a project that has since been deleted. Use a new `source_id`{copy}.               |
 | 409        | `subdomain_taken`{copy}           | The requested subdomain belongs to another project.                                           |
 | 409        | `idempotency_in_progress`{copy}   | The first request with this `Idempotency-Key`{copy} is still running. Retry shortly.                |
+| 410        | `project_deleted`{copy}           | The project was deleted. The message says until when Manifest can restore it.                 |
 | 422        | `subdomain_reserved`{copy}        | The requested subdomain is a reserved label (for example `login` or `billing`).               |
 | 422        | `idempotency_key_reused`{copy}    | `Idempotency-Key`{copy} was already used with a different request body.                             |
 | 503        | `idempotency_unavailable`{copy}   | Idempotent requests are temporarily unavailable. Retry later, or without the header.          |
