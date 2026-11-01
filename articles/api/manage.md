@@ -129,11 +129,11 @@ curl -X DELETE https://api.manifestx.dev/v1/projects/proj_… \
 }
 ```
 
-The site goes dark at once: the staging and production URLs stop serving, the default subdomains are released, and custom domains are detached. The project's own key stops working, and the project leaves `GET /projects`{copy}. Any `/projects/:id`{copy} request for it answers `410 project_deleted`, and so does a second delete. On the free allowance, the project's place is freed straight away.
+The site goes dark at once: the staging and production URLs stop serving, the default subdomains are released, and custom domains are detached. The project's own key stops working, and the project leaves `GET /projects`{copy}. Any `/projects/:id`{copy} request for it from your key answers `410 project_deleted`, and so does a second delete. On the free allowance, the project's place is freed straight away.
 
 Its files and deployment history are kept for **30 days**, until `purge_after`{copy}. Within that window Manifest can restore the project: contact [team@manifestx.dev](mailto:team@manifestx.dev) with its id. After 30 days the files are removed for good and the project can't be restored.
 
-A restore brings back what was live on staging and production and the default subdomains. Custom domains come back **pending**: their certificates were released on delete, so each one needs its DNS records checked again before it serves. The restore sends you the records, and the domain's [status](/docs/api/projects/domains#check-status) shows when it is active again. A subdomain another project took in the meantime can't be returned.
+A restore brings back what was live on staging and production and the default subdomains. Custom domains come back **pending**: their certificates were released on delete, so each one needs its DNS records checked again before it serves. Manifest sends you the records with the restore, and the domain's [status](/docs/api/projects/domains#check-status) shows when it is active again. A subdomain or domain another project took in the meantime can't be returned.
 
 Only the project's owner can delete a project you made outside the API; an admin answers `403 forbidden`. A project with a Pro subscription answers `409 subscription_active`: cancel the subscription in the [dashboard](https://dash.manifestx.dev) first. The `source_id`{copy} of a deleted project stays taken, so a create that reuses it answers `409 source_id_deleted`.
 
