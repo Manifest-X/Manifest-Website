@@ -10,7 +10,7 @@ A key reaches two kinds of project:
 
 | **Project**                                   | **What the key can do**                                                                 |
 |-----------------------------------------------|-----------------------------------------------------------------------------------------|
-| Projects you own or admin                     | Publish, promote, roll back, list deployments, and manage custom domains.               |
+| Projects you own or admin                     | Publish, promote, roll back, rename, list deployments, and manage custom domains.       |
 | Projects your keys create through the API     | All of the above, plus [content](/docs/api/projects/content).                           |
 
 Your own projects are the ones you see in the dashboard, made with Claude, the Manifest plugin, or the API. On a team project you need the owner or admin role: as a member the key answers `403 forbidden`. A project created by another account's API keys is reachable only with that account's keys. A project you can't access answers `404 not_found`, the same as one that doesn't exist.
@@ -76,6 +76,8 @@ A new project answers `201 Created`:
 | Same `source_id`{copy}, same `name`{copy} (and `subdomain`{copy}, if sent) | `200 OK` with the existing project. No `project_key`{copy}: it was returned when the project was created. |
 | Same `source_id`{copy}, different `name`{copy} or `subdomain`{copy}        | `409 source_id_conflict`, naming the existing project id. Nothing is changed. To change the name, [rename the project](#rename-a-project). |
 | Two creates for the same `source_id`{copy} at the same moment  | One project. The first wins (`201`); the other sees it (`200`).                               |
+
+A sync that re-sends the create body every run breaks once a project is renamed. Look the project up first with [`GET /v1/projects?source_id=`](#find-a-project-by-source_id), and create only when nothing is returned.
 
 Every other request that changes something is made retry-safe with an `Idempotency-Key`{copy} header. See [Idempotency](/docs/api/reference/idempotency).
 
