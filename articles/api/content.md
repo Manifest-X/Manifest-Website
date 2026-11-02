@@ -81,7 +81,9 @@ Rarely, the site goes live but a follow-up step, such as setting up the default 
 { "warning": { "code": "post_publish_incomplete", "message": "The site is live, but a follow-up step …" } }
 ```
 
-The deployment is live and counts as published, so don't resend it. The step completes on the next publish, and `url`{copy} can be `null` until then.
+The deployment is live and counts as published, so don't resend it. The step completes on the next publish that changes the content, and `url`{copy} can be `null` until then.
+
+A page is served at `/docs/<group_slug>/<slug>`. [Promote](/docs/api/projects/publish#promote-staging-to-production), [rollback](/docs/api/projects/publish#roll-back), and the [deployment list](/docs/api/projects/publish#list-deployments) work exactly as for your own builds.
 
 ---
 
@@ -100,10 +102,6 @@ On staging, if the content is identical to what is already live there, the answe
 ```
 
 Content is compared field by field, so key order and whitespace don't matter, but the order of `articles`{copy} and `groups`{copy} does. The comparison is against what is live now, not against your last request: after a [file update](/docs/api/projects/publish#update-individual-files) or a [rollback](/docs/api/projects/publish#roll-back) to a version your content didn't build, the next ingest deploys even if its content is the same as before. Ingests to `production`{copy} always deploy.
-
----
-
-A page is served at `/docs/<group_slug>/<slug>`. [Promote](/docs/api/projects/publish#promote-staging-to-production), [rollback](/docs/api/projects/publish#roll-back), and the [deployment list](/docs/api/projects/publish#list-deployments) work exactly as for your own builds.
 
 ---
 
@@ -126,7 +124,7 @@ Slugs are lowercase letters and digits in words joined by single hyphens, such a
 
 ## Theme values
 
-Token names are the template's theme tokens, with or without the leading `--`. Values can be colors, numbers, lengths, quoted font names, and these functions: `rgb`, `rgba`, `hsl`, `hsla`, `hwb`, `lab`, `lch`, `oklab`, `oklch`, `color`, `color-mix`, `var`, `calc`, `min`, `max`, `clamp`, `light-dark`. `url()`, comments, semicolons, braces, unclosed quotes or parentheses, and values over 200 characters are refused. Up to 100 tokens each for light and dark.
+Token names are the template's theme tokens, with or without the leading `--`, but not both for the same token. Values can be colors, numbers, lengths, quoted font names, and these functions: `rgb`, `rgba`, `hsl`, `hsla`, `hwb`, `lab`, `lch`, `oklab`, `oklch`, `color`, `color-mix`, `var`, `calc`, `min`, `max`, `clamp`, `light-dark`. `url()`, comments, semicolons, braces, unclosed quotes or parentheses, and values over 200 characters are refused. Up to 100 tokens each for light and dark.
 
 ---
 
