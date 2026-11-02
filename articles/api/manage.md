@@ -1,6 +1,6 @@
 # Manage
 
-What a key can manage, and how to create, list, and look up projects.
+What a key can manage, and how to create, list, look up, and rename projects.
 
 ---
 
@@ -74,7 +74,7 @@ A new project answers `201 Created`:
 | **Request**                                              | **Response**                                                                                  |
 |----------------------------------------------------------|-----------------------------------------------------------------------------------------------|
 | Same `source_id`{copy}, same `name`{copy} (and `subdomain`{copy}, if sent) | `200 OK` with the existing project. No `project_key`{copy}: it was returned when the project was created. |
-| Same `source_id`{copy}, different `name`{copy} or `subdomain`{copy}        | `409 source_id_conflict`, naming the existing project id. Nothing is changed.                 |
+| Same `source_id`{copy}, different `name`{copy} or `subdomain`{copy}        | `409 source_id_conflict`, naming the existing project id. Nothing is changed. To change the name, [rename the project](#rename-a-project). |
 | Two creates for the same `source_id`{copy} at the same moment  | One project. The first wins (`201`); the other sees it (`200`).                               |
 
 Every other request that changes something is made retry-safe with an `Idempotency-Key`{copy} header. See [Idempotency](/docs/api/reference/idempotency).
@@ -100,6 +100,15 @@ Returns `{ "projects": [ … ], "complete": true, "request_id": "…" }` with ev
 
 `complete`{copy} is `false` when Manifest couldn't check your team roles just then. The list then holds only the projects you own; retry to see team projects too.
 
+### Find a project by source_id
+
+```bash copy
+curl "https://api.manifestx.dev/v1/projects?source_id=site_8231" \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
+```
+
+Returns the same shape as the list, with zero or one project: the live project your API account created with that `source_id`{copy}. URL-encode the value. A deleted project is never returned, and a blank `source_id`{copy} or one over 128 characters answers `400 invalid_input`.
+
 ---
 
 ## Get a project
@@ -110,6 +119,23 @@ curl https://api.manifestx.dev/v1/projects/proj_… \
 ```
 
 Returns `{ "project": { … }, "request_id": "…" }`. A project the key can't reach answers `404 not_found`, the same as one that doesn't exist.
+
+---
+
+## Rename a project
+
+```bash copy
+curl -X PATCH https://api.manifestx.dev/v1/projects/proj_… \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "Acme Help Center" }'
+```
+
+| **Field**     | **Type** | **Required** | **Notes**                                           |
+|---------------|----------|--------------|-----------------------------------------------------|
+| `name`{copy}  | string   | yes          | New display name (1–120 characters).                |
+
+Answers `200 OK` with `{ "project": { … }, "request_id": "…" }`. Only the name changes: `source_id`{copy}, subdomains, and custom domains stay as they are. Creates with the same `source_id`{copy} then match on the new name. Unknown fields, including `source_id`{copy}, are rejected with `400 invalid_input`. Send an `Idempotency-Key`{copy} to make a retry safe.
 
 ---
 
