@@ -6,7 +6,7 @@ Send the site's pages as Markdown, and Manifest builds a documentation site from
 
 ## Send content
 
-If you have the content but no site, send it in one JSON request: the site's pages, written in Markdown, plus site settings and theme. Manifest builds them into a documentation site from its docs template. There is no build step on your side and no zip. Each ingest is a new deployment of the whole site, so it replaces everything the previous ingest published.
+If you have the content but no site, send it in one JSON request: the site's pages, written in Markdown, plus site settings and theme. Manifest builds them into a documentation site from its docs template. There is no build step on your side and no zip. Each ingest is a new deployment of the whole site, so it replaces everything the previous ingest published. Content identical to what is live on staging creates nothing ([see below](#unchanged-content)).
 
 Content works on projects your keys created through the API. On your other projects it answers `422 not_api_project`, so it never replaces a site you built another way; [publish a zip](/docs/api/projects/publish) to those instead.
 
@@ -83,6 +83,26 @@ Rarely, the site goes live but a follow-up step, such as setting up the default 
 
 The deployment is live and counts as published, so don't resend it. The step completes on the next publish, and `url`{copy} can be `null` until then.
 
+---
+
+## Unchanged content
+
+On staging, if the content is identical to what is already live there, the answer is `200 OK` with `unchanged: true` and the live deployment. No deployment is created and nothing counts against the daily publish limit, so a scheduled sync can send the full content every time and only rebuilds the site when something changed.
+
+```json
+{
+  "unchanged": true,
+  "deployment": { "id": "dep_…", "env": "staging", "status": "ready", "files": 10, "bytes": 26676 },
+  "template": { "name": "docs", "version": "0.1.2" },
+  "url": "https://acme-docs-staging.manifestx.ai",
+  "request_id": "…"
+}
+```
+
+Content is compared field by field, so key order and whitespace don't matter, but the order of `articles`{copy} and `groups`{copy} does. The comparison is against what is live now, not against your last request: after a [file update](/docs/api/projects/publish#update-individual-files) or a [rollback](/docs/api/projects/publish#roll-back) to a version your content didn't build, the next ingest deploys even if its content is the same as before. Ingests to `production`{copy} always deploy.
+
+---
+
 A page is served at `/docs/<group_slug>/<slug>`. [Promote](/docs/api/projects/publish#promote-staging-to-production), [rollback](/docs/api/projects/publish#roll-back), and the [deployment list](/docs/api/projects/publish#list-deployments) work exactly as for your own builds.
 
 ---
@@ -131,7 +151,7 @@ Token names are the template's theme tokens, with or without the leading `--`. V
 
 ## Retrying an ingest
 
-Send an `Idempotency-Key`{copy} with every ingest. A retry with the same key and body returns the first response and creates no second deployment; the same key with a different body is `422 idempotency_key_reused`. A `5xx` is never stored, so a retry after one runs again.
+Send an `Idempotency-Key`{copy} with every ingest. A retry with the same key and body returns the first response and creates no second deployment, for 24 hours; the same key with a different body is `422 idempotency_key_reused`. A `5xx` is never stored, so a retry after one runs again.
 
 ---
 
