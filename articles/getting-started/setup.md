@@ -111,10 +111,10 @@ The script loads:
     - **Data, localization, components, status, payments, chat, device and the Appwrite plugins** load when `manifest.json` configures them.
     - **Rich text, submissions, chat, presence and device** also load when the page uses them (for example `x-submit` or `$chat`).
     - **Edit** never loads by itself. Add it with `data-plugins`.
-- **Alpine JS** v3 (the version tested with the framework release) from CDN, unless it's been added separately to your project. Override it with `data-alpine`.
+- **Alpine JS** v3 (the version tested with the framework release) from CDN, unless it's been added separately to your project. Override it with `data-alpine` (an Alpine version, a full URL, or a path starting with `/`).
 - **Tailwind CSS** (modified production version from our CDN) *if* the `data-tailwind` attribute is added.
 
-Scripts load the latest version from CDN by default. Load a specified version by referencing it in the URL and with a `data-version` attribute for plugins:
+Manifest scripts load the latest version from CDN by default. Load a specified version by referencing it in the URL and with a `data-version` attribute for plugins:
 
 ```html copy
 <script src="https://cdn.jsdelivr.net/npm/mnfst@<version>/lib/manifest.min.js"
