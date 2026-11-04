@@ -6,7 +6,7 @@ Multi-line text fields with auto-resize and validation.
 
 ## Setup
 
-Textareas styles are included in Manifest CSS or the standalone [inputs](/docs/framework/elements/inputs) stylesheet. Both reference [theme](/docs/framework/styles/theme) variables.
+Textarea styles are included in Manifest CSS or the standalone [inputs](/docs/framework/elements/inputs) stylesheet. Both reference [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -15,7 +15,6 @@ Textareas styles are included in Manifest CSS or the standalone [inputs](/docs/f
 ```
 
 ```html "Standalone"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.input.css" />
 ```
 
@@ -208,17 +207,17 @@ To horizontally inline the label text with the textarea, place the text in a `<d
 
 ## Validation
 
-Textareas support native HTML5 validation through `required`, `minlength`, and `maxlength` attributes. Style the invalid and valid states with Tailwind pseudo-class variants.
+Textareas support native HTML5 validation through `required`, `minlength`, and `maxlength` attributes. Invalid fields get a ring in the negative colour once the user has engaged with them. Tint the invalid and valid states further with Tailwind pseudo-class variants.
 
 <div x-code-group>
 
 ```html copy
 <textarea required minlength="10"
-    class="user-invalid:border-negative-surface user-valid:border-positive-surface"></textarea>
+    class="user-invalid:negative user-valid:positive"></textarea>
 ```
 
 ::: frame
-<textarea required minlength="10" placeholder="At least 10 characters" class="user-invalid:border-negative-surface user-valid:border-positive-surface"></textarea>
+<textarea required minlength="10" placeholder="At least 10 characters" class="user-invalid:negative user-valid:positive"></textarea>
 :::
 
 </div>
@@ -246,44 +245,28 @@ Default textareas use the following [theme](/docs/framework/styles/theme) variab
 
 ### Customization
 
-Modify base textarea styles with custom CSS for the `textarea` selector.
+Modify base textarea styles with custom CSS for the `textarea` selector. Overriding the field [theme](/docs/framework/styles/theme) variables keeps both color modes working.
 
 <div x-code-group>
 
 ```css copy
 textarea {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
-    border-radius: 8px;
-    color: #1e40af;
-
-    &::placeholder {
-        color: #60a5fa;
-    }
-
-    &:focus-visible {
-        border-color: #1d4ed8;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
+    --color-field-surface: color-mix(in oklch, var(--color-brand-surface) 12%, transparent);
+    --color-field-surface-hover: color-mix(in oklch, var(--color-brand-surface) 20%, transparent);
+    --color-field-inverse: var(--color-brand-content);
+    border: 1px solid var(--color-brand-surface);
+    border-radius: 1rem;
 }
 ```
 
 ::: frame
 <style>
 textarea.custom {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
-    border-radius: 8px;
-    color: #1e40af;
-}
-
-textarea.custom::placeholder {
-    color: #60a5fa;
-}
-
-textarea.custom:focus-visible {
-    border-color: #1d4ed8;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    --color-field-surface: color-mix(in oklch, var(--color-brand-surface) 12%, transparent);
+    --color-field-surface-hover: color-mix(in oklch, var(--color-brand-surface) 20%, transparent);
+    --color-field-inverse: var(--color-brand-content);
+    border: 1px solid var(--color-brand-surface);
+    border-radius: 1rem;
 }
 </style>
 
@@ -291,4 +274,3 @@ textarea.custom:focus-visible {
 :::
 
 </div>
-
