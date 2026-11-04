@@ -17,6 +17,7 @@ Base URL `https://api.manifestx.dev/v1`{copy}, authenticated with your [API key]
 | `POST /projects`{copy} | Create a project, idempotent on `source_id`{copy} | [Create a project](/docs/api/projects/manage#create-a-project) |
 | `GET /projects`{copy} | List the projects the key reaches | [List projects](/docs/api/projects/manage#list-projects) |
 | `GET /projects/:id`{copy} | One project, with its URLs and publish state | [Get a project](/docs/api/projects/manage#get-a-project) |
+| `DELETE /projects/:id`{copy} | Delete a project; restorable for 30 days | [Deleting a project](/docs/api/projects/manage#deleting-a-project) |
 | `POST /projects/:id/content`{copy} | Build a docs site from Markdown pages | [Content](/docs/api/projects/content) |
 | `POST /projects/:id/publish`{copy} | Start a publish: a one-time upload URL for a zip | [Start a publish](/docs/api/projects/publish#start-a-publish) |
 | `GET /projects/:id/files`{copy} | List the files of the live deployment | [Read files](/docs/api/projects/publish#read-files) |

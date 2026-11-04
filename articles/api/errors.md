@@ -30,6 +30,7 @@ Any path outside `/v1/*` answers `404` with `"error": "not_found"`{copy} and "No
 | 403        | A cap is reached (projects or domains), you are a member of the project but not its owner or an admin, or the request would remove the project owner. The message says which. |
 | 404        | The project, deployment, file, domain, member, or key doesn't exist or the key can't reach it, or the route doesn't exist. |
 | 409        | A conflict or an operation still running. The `error`{copy} code says which; retry the `_in_progress` ones shortly.  |
+| 410        | `project_deleted`{copy}: the project was deleted. See [Deleting a project](/docs/api/projects/manage#deleting-a-project). |
 | 413        | The body or a file is too large. See [Limits](/docs/api/reference/limits).                                      |
 | 429        | Too many requests. Wait the number of seconds in `Retry-After`{copy}, then retry.                                     |
 | 5xx        | Retry with the same `Idempotency-Key`{copy}. Failures are never stored, so the retry runs again.                      |
@@ -41,7 +42,7 @@ Any path outside `/v1/*` answers `404` with `"error": "not_found"`{copy} and "No
 Each article lists its own codes:
 
 - [Authentication](/docs/api/setup/authentication#errors): missing, invalid, and revoked keys, and the rate limit.
-- [Manage](/docs/api/projects/manage#errors): creates, `source_id`{copy} conflicts, the project cap, project roles, and editors.
+- [Manage](/docs/api/projects/manage#errors): creates, deletes, `source_id`{copy} conflicts, the project cap, project roles, and editors.
 - [Publish](/docs/api/projects/publish#errors): uploads, file reads and updates, promotes, rollbacks, and Pro features.
 - [Content](/docs/api/projects/content#errors): content ingest and `field`{copy} errors.
 - [Domains](/docs/api/projects/domains#errors): hostnames, certificates, and the domain cap.
