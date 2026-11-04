@@ -95,6 +95,7 @@ jobs:
             - run: npm ci
             - run: npx mnfst-test --json > check.json
             - run: cat check.json
+              if: always()
 ```
 
 A non-zero exit code fails the workflow, which most teams configure to block merges until it passes.
@@ -123,7 +124,7 @@ import { mountManifest } from 'mnfst-test';
 
 describe('cart', () => {
     it('adds a product and updates the total', async () => {
-        const { $, click } = await mountManifest({
+        const { $, click, tick } = await mountManifest({
             html: `
                 <div x-data="{ items: [], total: 0, add(p) { this.items.push(p); this.total += p.price; } }">
                     <button @click="add({ id: 'sku-1', price: 10 })">Add</button>
@@ -133,6 +134,7 @@ describe('cart', () => {
         });
 
         click('button');
+        await tick();
         expect($('[data-testid=total]').textContent).toBe('10');
     });
 });
@@ -170,7 +172,7 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
     webServer: {
-        command: 'npx mnfst-run',
+        command: 'npx mnfst-run --port 3000 --no-idle-shutdown --no-open',
         url: 'http://localhost:3000',
         reuseExistingServer: !process.env.CI
     },

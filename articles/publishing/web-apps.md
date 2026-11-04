@@ -103,7 +103,7 @@ Files loaded dynamically from script — canvas sprites, audio a game fetches on
 Hosting elsewhere? Add a two-line `sw.js` at the project root, pinned to the framework version your `index.html` loads:
 
 ```js "sw.js" copy
-try { importScripts('https://cdn.manifestx.dev/npm/mnfst@0.5.199/lib/manifest.sw.min.js'); } catch (e) { importScripts('https://cdn.jsdelivr.net/npm/mnfst@0.5.199/lib/manifest.sw.min.js'); }
+try { importScripts('https://cdn.manifestx.dev/npm/mnfst@0.5.272/lib/manifest.sw.min.js'); } catch (e) { importScripts('https://cdn.jsdelivr.net/npm/mnfst@0.5.272/lib/manifest.sw.min.js'); }
 if (!self.__mnfstSw) self.addEventListener('activate', function () { self.registration.unregister(); });
 ```
 
