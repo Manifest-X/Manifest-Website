@@ -9,7 +9,7 @@ Manifest's CLI commands, directives, magic properties, data-source operators, an
 | Command | Purpose | Reference |
 |---------|---------|-----------|
 | `npx mnfst-starter <name>`{copy} | Scaffold a new Manifest project | [Starter Project](/docs/framework/getting-started/starter-project) |
-| `npx mnfst-run`{copy} | Zero-dep dev server with live reload | [Setup](/docs/framework/getting-started/setup#run-a-project) |
+| `npx mnfst-run`{copy} | Zero-dependency dev server with live reload | [Setup](/docs/framework/getting-started/setup#run-a-project) |
 | `npx mnfst-render`{copy} | Prerender the SPA into a static MPA | [Websites](/docs/framework/publishing/websites) |
 | `npx mnfst-export`{copy} | Batch / CI exports — PDF, image, CSV, JSON, RSS | [Export](/docs/framework/core-plugins/import-export#batch-and-ci-exports) |
 | `npx mnfst-types`{copy} | Generate TypeScript ambient types from `manifest.json` | [TypeScript](/docs/framework/resources/typescript) |
