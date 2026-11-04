@@ -267,7 +267,7 @@ Expression results show as plain text, so values from users or data sources can'
 
 ---
 
-## Dynamic Data
+## Data Sources
 
 Toasts can retrieve content from [data sources](/docs/framework/core-plugins/local-data) using the `$x` syntax.
 

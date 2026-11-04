@@ -21,7 +21,7 @@ Icons are included in `manifest.js` with all core plugins, or can be selectively
 
 </div>
 
-Manifest makes icons easy, providing access to over 200,000 open source icons from every major library, courtesy of <a href="https://iconify.design/" target="_blank" rel="noopener">Iconify</a>. Iconify's lightweight script is bundled into the above Manifest scripts.
+Manifest makes icons easy, providing access to over 200,000 open source icons from every major library, courtesy of <a href="https://iconify.design/" target="_blank" rel="noopener">Iconify</a>. Iconify's lightweight script is bundled into the above Manifest scripts. Icon data is fetched on first use from Iconify's API and cached in the browser, so allow `api.iconify.design` in a Content Security Policy and expect icons to need a connection the first time they load.
 
 ---
 
@@ -54,12 +54,12 @@ When an icon renders, a child SVG is generated at runtime within the parent elem
 <div x-code-group>
 
 ```html copy
-<h3><i x-icon="lucide:house"></i> Lorem ipsum.</h3>
+<h3><i x-icon="lucide:house"></i> Home</h3>
 <button><span x-icon="lucide:house"></span> Home</button>
 ```
 
 ::: frame col !gap-6 text-base
-<div class="h3"><span x-icon="lucide:house"></span> Lorem ipsum</div>
+<div class="h3"><span x-icon="lucide:house"></span> Home</div>
 <button><span x-icon="lucide:house"></span> Home</button>
 :::
 
@@ -89,7 +89,7 @@ Icons can be switched dynamically with Alpine expressions. Click the example but
 
 ---
 
-### Collection Icons
+### Data Sources
 
 `x-icon` can get its value from a [data source](/docs/framework/core-plugins/local-data).
 

@@ -83,7 +83,7 @@ Alpine expressions can supply the SVG string or path at runtime (including templ
 
 ---
 
-## From Data Sources
+## Data Sources
 
 The SVG file's path can also be populated from a [data source](/docs/framework/core-plugins/local-data).
 
