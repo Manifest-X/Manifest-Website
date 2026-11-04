@@ -126,14 +126,14 @@ Inputs of `type="search"` work on their own, or can be placed in a label to faci
 <div x-code-group>
 
 ```html copy
-<label role="button">
+<label>
     <span x-icon="lucide:search"></span>
     <input type="search" placeholder="Search" aria-label="Search" />
 </label>
 ```
 
 ::: frame
-<label role="button">
+<label>
     <span x-icon="lucide:search"></span>
     <input type="search" placeholder="Search" aria-label="Search" />
 </label>
@@ -147,7 +147,7 @@ See the [local data](/docs/framework/core-plugins/local-data#search-query) plugi
 
 ### Copy
 
-Pair an input with a copy button by placing both in a label, and marking the button with `command="--copy"`. No wiring is required; clicking the button copies the field's value and flashes a confirmation [tooltip](/docs/framework/elements/tooltips), just like copyable code blocks.
+Pair an input with a copy button by placing both in a label, and marking the button with `command="--copy"`. No wiring is required with the [tooltips](/docs/framework/elements/tooltips) plugin loaded (included in `manifest.js` by default); clicking the button copies the field's value and flashes a confirmation [tooltip](/docs/framework/elements/tooltips), just like copyable code blocks.
 
 <div x-code-group>
 
@@ -169,7 +169,7 @@ Pair an input with a copy button by placing both in a label, and marking the but
 
 This works with any text-like input type (`text`, `email`, `tel`, `number`, `url`). The `--` prefix is native HTML syntax for custom button commands and carries no default browser behaviour, so Manifest uses it as the styling and behaviour hook. Use `commandfor` with an input's `id` when the button sits outside the label.
 
-Both tooltips are customizable. Set the button's `value` to replace the confirmation icon with text, or bind it for localized or dynamic phrasing. Add an `x-tooltip` to label the button on hover. The hover label steps aside for the confirmation flash, then returns on the next hover.
+Both tooltips are customizable. Set the button's `value` to replace the confirmation icon with text, or bind it for localized or dynamic phrasing (the example binds a value from a `content` [data source](/docs/framework/core-plugins/local-data)). Add an `x-tooltip` to label the button on hover. The hover label steps aside for the confirmation flash, then returns on the next hover.
 
 <div x-code-group>
 
@@ -298,17 +298,17 @@ When these elements are grouped, only the outer elements' outer corners retain t
 
 ## Validation
 
-Inputs support native HTML5 validation through attributes like `required`, `pattern`, `minlength`, `maxlength`, `min`, `max`, and `type="email"` / `type="url"`. Style the invalid and valid states with Tailwind pseudo-class variants.
+Inputs support native HTML5 validation through attributes like `required`, `pattern`, `minlength`, `maxlength`, `min`, `max`, and `type="email"` / `type="url"`. Invalid fields get a ring in the negative colour once the user has engaged with them. Tint the invalid and valid states further with Tailwind pseudo-class variants.
 
 <div x-code-group>
 
 ```html copy
 <input type="email" required
-    class="user-invalid:border-negative-surface user-valid:border-positive-surface" />
+    class="user-invalid:negative user-valid:positive" />
 ```
 
 ::: frame
-<input type="email" required placeholder="you@example.com" class="user-invalid:border-negative-surface user-valid:border-positive-surface" />
+<input type="email" required placeholder="you@example.com" class="user-invalid:negative user-valid:positive" />
 :::
 
 </div>
@@ -337,44 +337,28 @@ Default inputs use the following [theme](/docs/framework/styles/theme) variables
 
 ### Customization
 
-Modify base input styles with custom CSS for the `input` selector.
+Modify base input styles with custom CSS for the `input` selector. Exclude the input types that have their own styles, such as [checkboxes](/docs/framework/elements/checkboxes), [radios](/docs/framework/elements/radios) and [ranges](/docs/framework/elements/ranges). Overriding the field [theme](/docs/framework/styles/theme) variables keeps both color modes working.
 
 <div x-code-group>
 
 ```css copy
-input {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
-    border-radius: 8px;
-    color: #1e40af;
-
-    &::placeholder {
-        color: #60a5fa;
-    }
-
-    &:focus-visible {
-        border-color: #1d4ed8;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
+input:not([type=checkbox], [type=radio], [type=range], [type=file]) {
+    --color-field-surface: color-mix(in oklch, var(--color-brand-surface) 12%, transparent);
+    --color-field-surface-hover: color-mix(in oklch, var(--color-brand-surface) 20%, transparent);
+    --color-field-inverse: var(--color-brand-content);
+    border: 1px solid var(--color-brand-surface);
+    border-radius: 1rem;
 }
 ```
 
 ::: frame
 <style>
 input.custom {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
-    border-radius: 8px;
-    color: #1e40af;
-}
-
-input.custom::placeholder {
-    color: #60a5fa;
-}
-
-input.custom:focus-visible {
-    border-color: #1d4ed8;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    --color-field-surface: color-mix(in oklch, var(--color-brand-surface) 12%, transparent);
+    --color-field-surface-hover: color-mix(in oklch, var(--color-brand-surface) 20%, transparent);
+    --color-field-inverse: var(--color-brand-content);
+    border: 1px solid var(--color-brand-surface);
+    border-radius: 1rem;
 }
 </style>
 
@@ -382,4 +366,3 @@ input.custom:focus-visible {
 :::
 
 </div>
-

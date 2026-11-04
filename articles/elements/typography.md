@@ -93,7 +93,7 @@ See [code blocks](/docs/framework/elements/code) for use of the `<pre>` element.
 
 </div>
 
-See [badges](/docs/framework/elements/badges) for use of the `<mark>` tag.
+See [badges](/docs/framework/elements/badges) for compact status labels (the `badge` class).
 
 ---
 
@@ -108,32 +108,35 @@ List styles are carefully styled to keep markers aligned with content above and 
     <li>First level item
         <ul>
             <li>Second level item</li>
-            <li>Another second level</li>
-            <ol>
-                <li>Third level ordered</li>
-                <li>Another third level</li>
-            </ol>
+            <li>Another second level item
+                <ol>
+                    <li>Third level ordered item</li>
+                    <li>Another third level item</li>
+                </ol>
+            </li>
         </ul>
     </li>
-    <li>Another first level</li>
+    <li>Another first level item</li>
 </ul>
 ```
 
-::: frame !block text-base
-<p>This is a preceding paragraph.</p><br>
+::: frame col gap-3 text-base
+<p>This is a preceding paragraph.</p>
 <ul>
-    <li>First level item</li>
-    <ul>
-        <li>Second level item</li>
-        <li>Another second level item</li>
-        <ol>
-            <li>Third level ordered item</li>
-            <li>Another third level item</li>
-        </ol>
-    </ul>
+    <li>First level item
+        <ul>
+            <li>Second level item</li>
+            <li>Another second level item
+                <ol>
+                    <li>Third level ordered item</li>
+                    <li>Another third level item</li>
+                </ol>
+            </li>
+        </ul>
+    </li>
     <li>Another first level item</li>
-</ul><br>
-<p>This is a following paragraph</p>
+</ul>
+<p>This is a following paragraph.</p>
 :::
 
 </div>
@@ -239,7 +242,7 @@ These are all spans:
 
 ### Colors
 
-All text elements accept Manifest color utility classes, either directly or inherited from a parent.
+All text elements accept Manifest color utility classes directly. The `brand`, `accent`, `positive` and `negative` classes also reach descendants when set on a parent; `stark`, `neutral` and `subtle` apply only to the element that carries them.
 
 #### Direct
 
@@ -285,21 +288,6 @@ All text elements accept Manifest color utility classes, either directly or inhe
 <div x-code-group>
 
 ```html copy
-<!-- Stark variant -->
-<div class="stark">
-    <h3>Lorem ipsum dolor sit amet.</h3>
-</div>
-
-<!-- Neutral variant -->
-<div class="neutral">
-    <h3>Lorem ipsum dolor sit amet.</h3>
-</div>
-
-<!-- Subtle variant -->
-<div class="subtle">
-    <h3>Lorem ipsum dolor sit amet.</h3>
-</div>
-
 <!-- Brand variant -->
 <div class="brand">
     <h3>Lorem ipsum dolor sit amet.</h3>
@@ -322,26 +310,17 @@ All text elements accept Manifest color utility classes, either directly or inhe
 ```
 
 ::: frame col gap-3 text-base
-<div class="h3 stark">
-    <span>Lorem ipsum dolor sit amet.</span>
+<div class="brand">
+    <span class="h3">Lorem ipsum dolor sit amet.</span>
 </div>
-<div class="h3 neutral">
-    <span>Lorem ipsum dolor sit amet.</span>
+<div class="accent">
+    <span class="h3">Lorem ipsum dolor sit amet.</span>
 </div>
-<div class="h3 subtle">
-    <span>Lorem ipsum dolor sit amet.</span>
+<div class="positive">
+    <span class="h3">Lorem ipsum dolor sit amet.</span>
 </div>
-<div class="h3 brand">
-    <span>Lorem ipsum dolor sit amet.</span>
-</div>
-<div class="h3 accent">
-    <span>Lorem ipsum dolor sit amet.</span>
-</div>
-<div class="h3 positive">
-    <span>Lorem ipsum dolor sit amet.</span>
-</div>
-<div class="h3 negative">
-    <span>Lorem ipsum dolor sit amet.</span>
+<div class="negative">
+    <span class="h3">Lorem ipsum dolor sit amet.</span>
 </div>
 :::
 
@@ -360,6 +339,7 @@ Default text elements use the following [theme](/docs/framework/styles/theme) va
 | `--color-content-stark`{copy} | High contrast text color |
 | `--color-content-neutral`{copy} | Medium contrast text |
 | `--color-content-subtle`{copy} | Low contrast text color |
+| `--color-brand-content`{copy} | `h6` text color |
 | `--spacing`{copy} | Base spacing unit used for blockquote spacing |
 | `--radius`{copy} | Border radius for inline code and kbd elements |
 | `--transition`{copy} | Transition duration for link hover states |
@@ -381,9 +361,9 @@ Modify base text element styles with custom CSS for its respective selector.
 
 <div x-code-group>
 
-```css
+```css copy
 h3 {
-    font-family: Playfair Display, Abril Fatface;
+    font-family: Georgia, "Times New Roman", serif;
     font-style: italic;
 }
 ```
@@ -391,7 +371,7 @@ h3 {
 ::: frame text-base
 <style>
 .h3.custom {
-    font-family: Playfair Display, Abril Fatface;
+    font-family: Georgia, "Times New Roman", serif;
     font-style: italic;
 }
 </style>

@@ -27,7 +27,7 @@ Tabs draw their styles from any respective elements used, like [buttons](/docs/f
 
 ## Default
 
-Create tab menus with `x-tab` selectable targets and `x-tabpanel` content areas, using any HTML elements. Panels are targeted by matching the `x-tab` value with either the panel's `id` or `class` name.
+Create tab menus with `x-tab` selectable targets and `x-tabpanel` content areas, using any HTML elements. Panels are targeted by matching the `x-tab` value with either the panel's `id` or its first class name.
 
 <div x-code-group>
 
@@ -48,9 +48,9 @@ Create tab menus with `x-tab` selectable targets and `x-tabpanel` content areas,
 
 </div>
 
-The plugin works by automatically creating an Alpine `x-data` value called `tabs`, which uses the `x-tab` values to show the selected panel and hide the others.
+The plugin works by automatically creating an Alpine property named `tab` (or `tab_<group>` for a named `x-tabpanel` group), which uses the `x-tab` values to show the selected panel and hide the others.
 
-Wrap the buttons in an element with `role="tablist"` to opt into the full accessibility pattern — the plugin then adds `role="tab"`, roving focus, and arrow-key navigation, and the wrapper picks up the [tab bar styling](/docs/framework/elements/forms) with a sliding selected background.
+Wrap the buttons in an element with `role="tablist"` to opt into the full accessibility pattern — the plugin then adds `role="tab"`, roving focus, and arrow-key navigation, and the wrapper picks up the [tab bar styling](/docs/framework/elements/forms) with a sliding selected background. Plain buttons outside a tablist look the same whether selected or not; style `[aria-selected="true"]` to mark the active one (see [Styles](#styles)).
 
 ---
 
@@ -193,25 +193,25 @@ An unselected tab panel's contents are not initialized until the panel is first 
 
 ## Styles
 
-Tab buttons inherit from [buttons](/docs/framework/elements/buttons). The plugin syncs `aria-selected="true"` on the active tab and toggles panel visibility based on the `x-tab` ID match.
+Tab buttons inherit from [buttons](/docs/framework/elements/buttons). The plugin removes the `x-tab` and `x-tabpanel` attributes once it has wired them, so style tabs through the attributes it leaves in place.
 
 | Selector | Purpose |
 |---|---|
-| `[x-tab]` | Tab button base styles |
-| `[x-tab][aria-selected="true"]` | Selected tab |
-| `[x-tabpanel]` | Panel container — visible when its matching tab is selected |
+| `[aria-selected="true"]` | Selected tab button, synced by the plugin |
+| `[role=tablist] > [role=tab]` | Tab buttons inside a tablist |
+| `[role=tabpanel]` | Panels of a tablist |
 
 ### Customization
 
-Target any of the directive selectors directly. The `.custom` modifier class can scope rules to specific tab groups without affecting others on the page.
+Scope rules with a class of your own on the button wrapper so other tab groups are unaffected.
 
 ```css copy
-[x-tab] {
+.tabs-underline > button {
     border-bottom: 2px solid transparent;
     border-radius: 0;
 }
 
-[x-tab][aria-selected="true"] {
+.tabs-underline > button[aria-selected="true"] {
     border-bottom-color: var(--color-brand-content);
     color: var(--color-brand-content);
 }

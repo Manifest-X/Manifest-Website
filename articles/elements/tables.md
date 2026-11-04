@@ -112,32 +112,32 @@ Cells with multiple children will automatically inline and space those elements.
 <table>
     <thead>
         <tr>
-            <th><span x-icon="lucide:user"></span><span>User</span></th>
+            <th class="w-full"><span x-icon="lucide:user"></span><span>Users</span></th>
             <th>Status</th>
-            <th>Edit</th>
+            <th class="min-w-36">Edit</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>John Doe</td>
-            <td><mark class="brand">Active</mark></td>
+            <td><span class="badge brand">Active</span></td>
             <td>
-                <button class="sm" x-icon="lucide:edit-2" aria-label="Edit"></button>
+                <button class="sm ghost" x-icon="lucide:edit-2" aria-label="Edit"></button>
                 <button class="sm ghost">Deactivate</button>
             </td>
         </tr>
         <tr>
             <td>Jane Smith</td>
-            <td><mark class="neutral">Pending</mark></td>
+            <td><span class="badge">Pending</span></td>
             <td>
-                <button class="sm" x-icon="lucide:edit-2" aria-label="Edit"></button>
+                <button class="sm ghost" x-icon="lucide:edit-2" aria-label="Edit"></button>
             </td>
         </tr>
         <tr>
             <td>Mike Johnson</td>
-            <td><mark class="negative">Inactive</mark></td>
+            <td><span class="badge negative">Inactive</span></td>
             <td>
-                <button class="sm" x-icon="lucide:edit-2" aria-label="Edit"></button>
+                <button class="sm ghost" x-icon="lucide:edit-2" aria-label="Edit"></button>
                 <button class="sm ghost">Activate</button>
             </td>
         </tr>
@@ -157,7 +157,7 @@ Cells with multiple children will automatically inline and space those elements.
     <tbody>
         <tr>
             <td>John Doe</td>
-            <td><mark class="brand">Active</mark></td>
+            <td><span class="badge brand">Active</span></td>
             <td>
                 <button class="sm ghost" x-icon="lucide:edit-2" aria-label="Edit"></button>
                 <button class="sm ghost">Deactivate</button>
@@ -165,14 +165,14 @@ Cells with multiple children will automatically inline and space those elements.
         </tr>
         <tr>
             <td>Jane Smith</td>
-            <td><mark class="neutral">Pending</mark></td>
+            <td><span class="badge">Pending</span></td>
             <td>
                 <button class="sm ghost" x-icon="lucide:edit-2" aria-label="Edit"></button>
             </td>
         </tr>
         <tr>
             <td>Mike Johnson</td>
-            <td><mark class="negative">Inactive</mark></td>
+            <td><span class="badge negative">Inactive</span></td>
             <td>
                 <button class="sm ghost" x-icon="lucide:edit-2" aria-label="Edit"></button>
                 <button class="sm ghost">Activate</button>
@@ -193,7 +193,7 @@ If using a grid element instead of a `<table>`, the `grid-table` class applies t
 
 <div x-code-group>
 
-```html collapse="10"
+```html copy collapse="10"
 <div class="grid-table grid grid-cols-3">
     <div class="grid-header">
         <div>Item</div>
@@ -339,11 +339,11 @@ If using Tailwind, individual tables can be customized with utility classes.
     <tbody class="[&_tr:hover]:bg-surface-1">
         <tr>
             <td>John Doe</td>
-            <td><mark class="brand">Active</mark></td>
+            <td><span class="badge brand">Active</span></td>
         </tr>
         <tr>
             <td>Jane Smith</td>
-            <td><mark class="neutral">Pending</mark></td>
+            <td><span class="badge">Pending</span></td>
         </tr>
     </tbody>
 </table>
@@ -360,11 +360,11 @@ If using Tailwind, individual tables can be customized with utility classes.
     <tbody class="[&_tr:hover]:bg-surface-1">
         <tr>
             <td>John Doe</td>
-            <td><mark class="brand">Active</mark></td>
+            <td><span class="badge brand">Active</span></td>
         </tr>
         <tr>
             <td>Jane Smith</td>
-            <td><mark class="neutral">Pending</mark></td>
+            <td><span class="badge">Pending</span></td>
         </tr>
     </tbody>
 </table>
@@ -403,15 +403,15 @@ Table columns are automatically sized to fit the content of their cells. Add a c
     <tbody>
         <tr>
             <td>John Doe</td>
-            <td><mark class="brand">Active</mark></td>
+            <td><span class="badge brand">Active</span></td>
         </tr>
         <tr>
             <td>Jane Smith</td>
-            <td><mark class="neutral">Pending</mark></td>
+            <td><span class="badge">Pending</span></td>
         </tr>
         <tr>
             <td>Joe Johnson</td>
-            <td><mark class="negative">Inactive</mark></td>
+            <td><span class="badge negative">Inactive</span></td>
         </tr>
     </tbody>
 </table>
@@ -430,7 +430,7 @@ Modify base table styles with custom CSS for the `table` selector.
 ```css copy
 table {
     font-family: var(--font-mono);
-    border: 1px solid var(--color-line) !important;
+    border: 1px solid var(--color-line);
     border-radius: 1rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
@@ -455,7 +455,7 @@ table {
 <style>
 table.custom {
     font-family: var(--font-mono);
-    border: 1px solid var(--color-line) !important;
+    border: 1px solid var(--color-line);
     border-radius: 1rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
@@ -486,11 +486,11 @@ table.custom {
     <tbody>
         <tr>
             <td>John Doe</td>
-            <td><mark class="brand">Active</mark></td>
+            <td><span class="badge brand">Active</span></td>
         </tr>
         <tr>
             <td>Jane Smith</td>
-            <td><mark class="neutral">Pending</mark></td>
+            <td><span class="badge">Pending</span></td>
         </tr>
     </tbody>
 </table>

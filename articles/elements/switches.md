@@ -48,16 +48,16 @@ Switches accept Manifest [utility](/docs/framework/styles/utilities) classes, wh
 
 ```html copy
 <!-- Brand variant -->
-<input type="checkbox" role="switch" class="brand" />
+<input type="checkbox" role="switch" class="brand" checked />
 
 <!-- Accent variant -->
-<input type="checkbox" role="switch" class="accent" />
+<input type="checkbox" role="switch" class="accent" checked />
 
 <!-- Positive variant -->
 <input type="checkbox" role="switch" class="positive" />
 
 <!-- Negative variant -->
-<input type="checkbox" role="switch" class="negative" />
+<input type="checkbox" role="switch" class="negative" checked />
 ```
 
 ::: frame row-wrap gap-4
@@ -77,10 +77,10 @@ Switches accept Manifest [utility](/docs/framework/styles/utilities) classes, wh
 
 ```html copy
 <!-- Small variant -->
-<input type="checkbox" role="switch" class="sm" />
+<input type="checkbox" role="switch" class="sm" checked />
 
 <!-- Large variant -->
-<input type="checkbox" role="switch" class="lg" />
+<input type="checkbox" role="switch" class="lg" checked />
 ```
 
 ::: frame row-wrap gap-4
@@ -98,7 +98,7 @@ Switches accept Manifest [utility](/docs/framework/styles/utilities) classes, wh
 
 ```html copy
 <!-- Border variant -->
-<input type="checkbox" role="switch" class="outlined" />
+<input type="checkbox" role="switch" class="outlined" checked />
 
 <!-- Combined with colors -->
 <input type="checkbox" role="switch" class="outlined brand" />
@@ -134,7 +134,7 @@ Placing the switch and text inside a `<label>` automatically arranges them in a 
 
 ```html copy
 <label>
-    <input type="checkbox" role="switch" />
+    <input type="checkbox" role="switch" checked />
     Enable notifications
 </label>
 ```
@@ -159,7 +159,7 @@ Placing labelled switches inside a `<fieldset>` automatically arranges them in a
 ```html copy
 <fieldset>
     <label>
-        <input type="checkbox" role="switch" />
+        <input type="checkbox" role="switch" checked />
         Option A
     </label>
     <label>
@@ -197,39 +197,27 @@ Default switches use the following [theme](/docs/framework/styles/theme) variabl
 | `--color-field-surface`{copy} | Switch background |
 | `--color-field-surface-hover`{copy} | Switch background on hover |
 | `--color-field-inverse`{copy} | Marker color |
-| `--spacing-field-height`{copy} | Switch size |
-| `--radius`{copy} | Border radius for switch corners |
+| `--spacing-field-height`{copy} | Switch size and corner rounding |
 | `--transition`{copy} | Transition for interactive states |
 
 ---
 
 ### Customization
 
-Modify base switch styles with custom CSS for the `input[role=switch]` selector.
+Modify base switch styles with custom CSS for the `input[role=switch]` selector. Overriding the field [theme](/docs/framework/styles/theme) variables keeps both color modes working.
 
 <div x-code-group>
 
 ```css copy
 input[role=switch] {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
-    border-radius: 20px;
+    --color-field-surface: color-mix(in oklch, var(--color-brand-surface) 20%, transparent);
+    --color-field-inverse: var(--color-brand-content);
 
-    /* Marker */
-    &::before {
-        background-color: #1e40af;
-        box-shadow: 0 2px 4px rgba(30, 64, 175, 0.3);
-    }
-
-    /* Background when checked */
+    /* Checked */
     &:checked {
-        background-color: #3b82f6;
-    }
-
-    /* Marker when checked */
-    &:checked::before {
-        background-color: white;
-        left: calc(100% - 1.5rem + 0.125rem);
+        --color-field-surface: var(--color-brand-surface);
+        --color-field-surface-hover: var(--color-brand-surface-hover);
+        --color-field-inverse: var(--color-brand-inverse);
     }
 }
 ```
@@ -237,29 +225,18 @@ input[role=switch] {
 ::: frame row-wrap gap-4
 <style>
 input[role=switch].custom {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
-    border-radius: 20px;
-}
+    --color-field-surface: color-mix(in oklch, var(--color-brand-surface) 20%, transparent);
+    --color-field-inverse: var(--color-brand-content);
 
-/* Marker */
-input[role=switch].custom::before {
-    background-color: #1e40af;
-    box-shadow: 0 2px 4px rgba(30, 64, 175, 0.3);
-}
-
-/* Background when checked */
-input[role=switch].custom:checked {
-    background-color: #3b82f6;
-}
-
-/* Marker when checked */
-input[role=switch].custom:checked::before {
-    background-color: white;
-    left: calc(100% - 1.5rem + 0.125rem);
+    &:checked {
+        --color-field-surface: var(--color-brand-surface);
+        --color-field-surface-hover: var(--color-brand-surface-hover);
+        --color-field-inverse: var(--color-brand-inverse);
+    }
 }
 </style>
 
+<input type="checkbox" role="switch" class="custom" />
 <input type="checkbox" role="switch" class="custom" checked />
 :::
 

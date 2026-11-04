@@ -81,7 +81,7 @@ Color modifiers provide unique visual context.
 
 ### Duration
 
-A number sets how long the toast remains visible in milliseconds.
+A number sets how long the toast remains visible in milliseconds. The `long` modifier doubles the default to 6 seconds.
 
 <div x-code-group>
 
@@ -89,12 +89,14 @@ A number sets how long the toast remains visible in milliseconds.
 <button x-toast.1000="Dismisses after 1 second">1 Second</button>
 <button x-toast="Default 3 seconds">Default</button>
 <button x-toast.5000="Dismisses after 5 seconds">5 Seconds</button>
+<button x-toast.long="Dismisses after 6 seconds">Long</button>
 ```
 
 ::: frame row-wrap gap-4
 <button x-toast.1000="Dismisses after 1 second">1 Second</button>
 <button x-toast="Default 3 seconds">Default</button>
 <button x-toast.5000="Dismisses after 5 seconds">5 Seconds</button>
+<button x-toast.long="Dismisses after 6 seconds">Long</button>
 :::
 
 </div>
@@ -189,6 +191,20 @@ Use the `$toast` magic method for programmatic toast creation. Messages show as 
 
 </div>
 
+Each method takes an options object as its second argument.
+
+| Option | Default | Purpose |
+|---|---|---|
+| `duration` | `3000` | Milliseconds before the toast closes |
+| `dismissible` | `false` | Adds a dismiss button |
+| `fixed` | `false` | Stays until dismissed, with a dismiss button |
+| `icon` | none | [Icon](/docs/framework/elements/icons) name shown before the message |
+| `html` | `false` | Renders the message as HTML |
+
+```html copy
+<button @click="$toast.positive('Saved', { duration: 5000, icon: 'lucide:check' })">Save</button>
+```
+
 ---
 
 ## Rich Content
@@ -198,7 +214,7 @@ Markup written directly in `x-toast` renders as HTML, including [icons](/docs/fr
 <div x-code-group>
 
 ```html copy
-<button x-toast="<span x-icon='lucide:info'></span>Hello <b>bold</b> and <em>italic</em> world">Rich Content</button>
+<button x-toast.fixed="<span x-icon='lucide:info'></span>Hello <b>bold</b> and <em>italic</em> world">Rich Content</button>
 ```
 
 ::: frame
@@ -251,7 +267,7 @@ Expression results show as plain text, so values from users or data sources can'
 
 ---
 
-## Dynamic Data
+## Data Sources
 
 Toasts can retrieve content from [data sources](/docs/framework/core-plugins/local-data) using the `$x` syntax.
 
@@ -284,22 +300,25 @@ Default toasts use the following [theme](/docs/framework/styles/theme) variables
 | Variable | Purpose |
 |----------|----------|
 | `--color-popover-surface`{copy} | Default toast background color |
-| `--color-content-stark`{copy} | Default toast text color |
+| `--color-line`{copy} | Default toast border color |
+| `--color-field-surface`{copy} | Colored toast background (`brand`, `positive`, etc.) |
+| `--color-field-inverse`{copy} | Colored toast text and dismiss icon color |
+| `--shadow-lg`{copy} | Toast shadow |
 | `--spacing`{copy} | Base spacing unit for gaps and padding |
-| `--radius`{copy} | Border radius for toast corners |
+| `--radius`{copy} | Border radius for toast corners (doubled) |
 
 ---
 
 ### Dismiss Button Icon
 
-The dismiss button icon is an encoded SVG in the toast style's `--icon-toast-dismiss` variable. To modify it:
+The dismiss button icon is an encoded SVG in the `--icon-dismiss` variable, which is shared with the remove buttons in [forms](/docs/framework/elements/forms). Overriding it on `:root` changes both; set it on `.toast` to change toasts only. To modify it:
 1. Choose a desired icon from <a href="https://icon-sets.iconify.design/" target="_blank">Iconify</a> or other SVG icon source.
 2. Copy the encoded SVG string (in Iconify, go to an icon's CSS tab and find the `--svg` value). Otherwise, use an <a href="https://yoksel.github.io/url-encoder/" target="_blank">SVG encoder</a>.
-3. Overwrite the `--icon-toast-dismiss` variable value with the encoded SVG string.
+3. Overwrite the `--icon-dismiss` variable value with the encoded SVG string.
 
 ```css "Default toast dismiss icon" copy
 :root {
-    --icon-toast-dismiss: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E")
+    --icon-dismiss: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E")
 }
 ```
 
@@ -312,15 +331,17 @@ Modify styles with custom CSS for various toast classes.
 ```css numbers copy
 /* Parent wrapper for multiple toasts */
 .toast-container { 
-    position: fixed;
     top: 3rem;
+    bottom: auto;
     left: auto;
     right: 3rem;
+    transform: none;
+    flex-direction: column;
 }
 
 /* Toast */
 .toast { 
-    background: white;
+    background: var(--color-surface-1);
 
     /* Content area */
     .toast-content { 
@@ -329,7 +350,7 @@ Modify styles with custom CSS for various toast classes.
 
     /* Dismiss button */
     .toast-dismiss-button { 
-        color: gray; 
+        opacity: 0.6; 
     }
 }
 
