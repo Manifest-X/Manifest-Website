@@ -98,16 +98,16 @@ Badges accept Manifest [utility](/docs/framework/styles/utilities) classes, whic
 <div x-code-group>
 
 ```html copy
-<!-- No background until hover -->
+<!-- Transparent background, tinted on hover -->
 <span class="badge ghost">Ghost</span>
 
-<!-- Border included -->
+<!-- Border -->
 <span class="badge outlined">Outlined</span>
 
-<!-- No background at all -->
+<!-- No background -->
 <span class="badge transparent">Transparent</span>
 
-<!-- No padding for minimal target area, best paired with transparency -->
+<!-- No padding, sits flush with text -->
 <span class="badge hug transparent">Hug</span>
 ```
 
@@ -170,9 +170,10 @@ Default badges use the following [theme](/docs/framework/styles/theme) variables
 
 | Variable | Purpose |
 |----------|---------|
-| `--color-content-stark`{copy} | High contrast text color |
-| `--spacing`{copy} | Padding and margin factor in various elements |
-| `--radius`{copy} | Border radius for badge corners |
+| `--color-field-surface`{copy} | Badge background color |
+| `--color-field-inverse`{copy} | Badge text color |
+| `--spacing`{copy} | Padding factor |
+| `--radius`{copy} | Border radius factor (badges use 60% of it) |
 
 ---
 

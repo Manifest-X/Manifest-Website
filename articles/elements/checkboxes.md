@@ -138,14 +138,14 @@ Placing the checkbox and text inside a `<label>` automatically arranges them in 
 ```html copy
 <label>
     <input type="checkbox" />
-    Lorem ipsum
+    Remember me
 </label>
 ```
 
 ::: frame text-base
 <label>
     <input type="checkbox" />
-    Lorem ipsum
+    Remember me
 </label>
 :::
 
@@ -163,15 +163,15 @@ Placing labelled checkboxes inside a `<fieldset>` automatically arranges them in
 <fieldset>
     <label>
         <input type="checkbox" />
-        Lorem ipsum
+        Email updates
     </label>
     <label>
         <input type="checkbox" />
-        Dolor sit amet
+        Product news
     </label>
     <label>
         <input type="checkbox" />
-        Consectetur adipiscing elit
+        Weekly digest
     </label>
 </fieldset>
 ```
@@ -180,15 +180,15 @@ Placing labelled checkboxes inside a `<fieldset>` automatically arranges them in
 <fieldset>
     <label>
         <input type="checkbox" />
-        Lorem ipsum
+        Email updates
     </label>
     <label>
         <input type="checkbox" />
-        Dolor sit amet
+        Product news
     </label>
     <label>
         <input type="checkbox" />
-        Consectetur adipiscing elit
+        Weekly digest
     </label>
 </fieldset>
 :::
@@ -215,14 +215,14 @@ Default checkboxes use the following [theme](/docs/framework/styles/theme) varia
 
 ### Icon
 
-The checkbox icon is an encoded SVG in the checkbox style's `--icon-checkbox` variable. To modify it:
+The checkbox icon is an encoded SVG in the checkbox style's `--icon-check` variable. To modify it:
 1. Choose a desired icon from <a href="https://icon-sets.iconify.design/" target="_blank">Iconify</a> or other SVG icon source.
 2. Copy the encoded SVG string (in Iconify, go to an icon's CSS tab and find the `--svg` value). Otherwise, use an <a href="https://yoksel.github.io/url-encoder/" target="_blank">SVG encoder</a>.
-3. Overwrite the `--icon-checkbox` variable value with the encoded SVG string.
+3. Overwrite the `--icon-check` variable value with the encoded SVG string.
 
 ```css "Default checkmark icon" copy
 :root {
-    --icon-checkbox: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='currentColor' d='m0 11l2-2l5 5L18 3l2 2L7 18z'/%3E%3C/svg%3E")
+    --icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='currentColor' d='m0 11l2-2l5 5L18 3l2 2L7 18z'/%3E%3C/svg%3E")
 }
 ```
 
@@ -236,7 +236,7 @@ Modify base checkbox styles with custom CSS for the `input[type=checkbox]` selec
 
 ```css copy
 input[type=checkbox] {
-    color: white;
+    --color-field-inverse: white;
     background-color: aqua;
     border-radius: 0;
 }
@@ -245,7 +245,7 @@ input[type=checkbox] {
 ::: frame
 <style>
 input[type=checkbox].custom {
-    color: white;
+    --color-field-inverse: white;
     background-color: aqua;
     border-radius: 0;
 }

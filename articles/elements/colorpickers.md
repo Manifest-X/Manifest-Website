@@ -130,25 +130,7 @@ Add a `name` attribute to make a swatch submit with a `<form>`, just like any ot
 
 ### Applying Color
 
-To use a picker's value elsewhere, read it with the `$colorpicker(id)` magic method.
-
-::: frame text-base
-<div class="row-wrap items-center gap-4" x-data>
-    <button id="brand" x-colorpicker.swatch value="#3b82f6"></button>
-    <div class="col">
-        <span class="h3" :style="`color: ${$colorpicker('brand')}`">Brand Color</span>
-        <span x-text="$colorpicker('brand')"></span>
-    </div>
-</div>
-:::
-
-```html copy
-<div class="row-wrap items-center gap-4" x-data>
-    <button id="brand" x-colorpicker.swatch value="#3b82f6"></button>
-    <span class="h3" :style="`color: ${$colorpicker('brand')}`">Brand Color</span>
-    <span x-text="$colorpicker('brand')"></span>
-</div>
-```
+To use a picker's value elsewhere, read it with the [`$colorpicker(id)` magic method](#magic-method).
 
 ---
 
@@ -202,7 +184,7 @@ The wrapper element of an inline picker determines its presentation: `<menu popo
 
 By default, the picker menu shows three tabs: Solid, Gradient, and Library. You can hide tabs you don't need, change their order, or replace the entire menu with custom HTML.
 
-Limit which panels appear by passing them as a value in a bare swatch or a modified `x-colorpicker` attribute in a picker menu.
+Limit which panels appear by passing them as a value in a bare swatch, or by including only the panels you want inside a picker menu.
 
 <div x-code-group>
 
@@ -402,61 +384,77 @@ The library panel is where preset palettes live. There are three sources, each r
 </div>
 :::
 
-Build a custom library layout with a single root `x-colorpicker.library` container plus optional inner templates. The plugin clones the templates once per group / palette / swatch so you can fully control the visual structure while keeping the data-driven behavior.
+Build a custom library layout with a `<template x-colorpicker.library>` placed inside the picker, next to the `x-colorpicker.library` container. The plugin clones it into the container, then clones the inner templates once per group / palette / swatch, so you control the visual structure while keeping the data-driven behavior.
 
 | Directive                                              | Description                                                                  |
 | ------------------------------------------------------ | ---------------------------------------------------------------------------- |
-| `<div x-colorpicker.library>`{copy}                          | The library container. With no children, the plugin renders its default layout. With children, your markup is used verbatim. |
-| `<template x-colorpicker.library-group>`{copy}               | Cloned once per palette group. Inside, `x-text="group._name"` (or the group's key) is the group label. |
+| `<div x-colorpicker.library>`{copy}                          | The library container. The plugin fills it with your layout template, or the default layout if there is none. |
+| `<template x-colorpicker.library>`{copy}                     | Your library layout, cloned into the container. |
+| `<template x-colorpicker.library-group>`{copy}               | Cloned once per palette group. |
 | `<template x-colorpicker.library-palette>`{copy}             | Cloned once per palette inside a group.                                      |
 | `<template x-colorpicker.library-swatch>`{copy}              | Cloned once per color in a palette. Wire the click using `x-colorpicker.apply-color`{copy}. |
-| `<template x-colorpicker.library-recent-swatch>`{copy}       | Cloned once per Recent entry. Use `x-colorpicker.apply-color`{copy} for click and `x-colorpicker.remove-recent`{copy} for the per-swatch context menu. |
+| `<template x-colorpicker.library-recent-swatch>`{copy}       | Used instead of the swatch template for Recent entries. Use `x-colorpicker.apply-color`{copy} for click and `x-colorpicker.remove-recent`{copy} for the per-swatch context menu. |
 | `<button x-colorpicker.apply-color>`{copy}                   | When clicked, applies the swatch's current background as the picker's color (or the active stop's color in gradient context). |
 | `<li x-colorpicker.remove-recent>`{copy}                     | Removes the right-clicked Recent swatch from the list. Typically used inside a stop-style context menu. |
 
-Inside a library template, each clone exposes scope variables you can bind against (group name, palette key, swatch name, color value), and the plugin auto-flags swatches whose color matches the picker's current value with an `.active` class — so styling the selected swatch is just a CSS rule.
+Each clone exposes a scope variable to bind against:
+
+| Variable | Value |
+| -------- | ----- |
+| `group.name`{copy} | Group heading, e.g. Recent, Tailwind, iOS, or a custom group |
+| `palette.name`{copy} | Palette name, e.g. Red (empty for flat groups) |
+| `swatch.name`{copy} | Color name |
+| `swatch.value`{copy} | CSS color value |
+
+The plugin also flags swatches whose color matches the picker's current value with an `.active` class, so styling the selected swatch is just a CSS rule.
 
 ```html copy collapse="10"
-<!-- Custom library panel -->
-<div x-colorpicker.library>
+<!-- Library container -->
+<div x-colorpicker.library></div>
 
-    <!-- Template for each library group (e.g. Recent, Tailwind, iOS, each custom group) -->
-    <template x-colorpicker.library-group>
-        <section>
-            <h4 x-text="group._name || groupKey"></h4>
+<!-- Custom library layout -->
+<template x-colorpicker.library>
+    <div>
 
-            <!-- Template for each palette within a group -->
-            <template x-colorpicker.library-palette>
-                <div class="palette">
+        <!-- Template for each library group (e.g. Recent, Tailwind, iOS, each custom group) -->
+        <template x-colorpicker.library-group>
+            <section>
+                <h4 x-text="group.name"></h4>
 
-                    <!-- Template for each swatch in a palette -->
-                    <template x-colorpicker.library-swatch>
-                        <button x-colorpicker.apply-color :style="`background: ${color}`" :title="name"></button>
-                    </template>
+                <!-- Template for each palette within a group -->
+                <template x-colorpicker.library-palette>
+                    <div class="palette">
 
-                </div>
-            </template>
+                        <!-- Template for each swatch in a palette -->
+                        <template x-colorpicker.library-swatch>
+                            <button x-colorpicker.apply-color :style="`background: ${swatch.value}`" :title="swatch.name"></button>
+                        </template>
 
-        </section>
-    </template>
+                        <!-- Template for each recent swatch, with its context menu -->
+                        <template x-colorpicker.library-recent-swatch>
+                            <div>
+                                <button x-colorpicker.apply-color x-dropdown.context="recent-menu" :style="`background: ${swatch.value}`"></button>
+                                <menu popover id="recent-menu">
+                                    <li x-colorpicker.remove-recent>Remove from recent</li>
+                                </menu>
+                            </div>
+                        </template>
 
-    <!-- Template for each recent swatch -->
-    <template x-colorpicker.library-recent-swatch>
-        <button x-colorpicker.apply-color x-dropdown.context="recent-menu" :style="`background: ${color}`"></button>
-    </template>
+                    </div>
+                </template>
 
-    <!-- Recent swatch context menu -->
-    <menu popover id="recent-menu">
-        <li x-colorpicker.remove-recent>Remove from recent</li>
-    </menu>
-</div>
+            </section>
+        </template>
+
+    </div>
+</template>
 ```
 
 #### Recent Palette
 
 The plugin tracks the most recently committed colors per swatch and surfaces them for the library. Selecting a swatch from Recent restores both solid colors and full gradients exactly as they were committed. A color enters the recent palette only when the picker popover menu closes (or is focused out of for inline menus).
 
-Recent is per-swatch and persists in `localStorage`, which can be cleared programmatically. See [magic method](#magic-method).
+Recent is shared by every picker on the site, keeps the last 10 colors, and persists in a cookie. Clear it with `$colorpicker(id).clearRecent()`.
 
 #### Default & Custom Palettes
 
@@ -490,13 +488,13 @@ _ios:
 
 # Custom groups
 Primary:
-    _name: Primary Brand
+    _group: Primary Brand
     blue: "#3b82f6"
     indigo: "#6366f1"
     violet: "#8b5cf6"
 
 Accent:
-    _name: Accents
+    _group: Accents
     rose: "#f43f5e"
     amber: "#f59e0b"
     emerald: "#10b981"
@@ -504,7 +502,7 @@ Accent:
 
 </div>
 
-The contents of `_tailwind` or `_ios` will overwrite their respective default content. Any other top-level keys become custom palette groups. Each group is a flat map of `name: color`. The reserved `_name` key sets the displayed group label (otherwise the key itself is used). Colors can be any valid CSS color string, including gradients.
+The contents of `_tailwind` or `_ios` will overwrite their respective default content. Any other top-level keys become custom palette groups. Each group is a flat map of `name: color`. The reserved `_group` key sets the displayed group heading (otherwise the key itself is used). Colors can be any valid CSS color string, including gradients.
 
 </details>
 
@@ -672,7 +670,7 @@ Without an id, `$colorpicker` exposes a few helpers for working with palettes:
 | ----------------------- | -------------------------------------------------------- |
 | `$colorpicker.tailwind`{copy} | The bundled Tailwind palette.                            |
 | `$colorpicker.ios`{copy}      | The bundled iOS palette.                                 |
-| `$colorpicker.presets`{copy}  | All custom palettes from your registered color sources.  |
+| `$colorpicker.presets`{copy}  | The default library: Recent, Tailwind and iOS groups.    |
 | `$colorpicker.recent`{copy}   | The current Recent list, most-recent first.              |
 
 ---
@@ -699,6 +697,16 @@ The plugin sets two of its own variables on each swatch element to drive the liv
 | ----------------------- | ------------------------------------------------------------------ |
 | `--color-picker-swatch`{copy} | Swatch background (and border, derived from this color via `oklch`) |
 | `--color-picker-alpha`{copy}  | Alpha-slider tint behind the checkered alpha pattern                |
+
+Menu icons are encoded SVGs in the following variables, overridable like any other token:
+
+| Variable | Purpose |
+| -------- | ------- |
+| `--icon-color-solid`{copy} | Solid tab icon |
+| `--icon-color-gradient`{copy} | Gradient tab icon |
+| `--icon-color-library`{copy} | Library tab icon |
+| `--icon-color-grab`{copy} | Eyedropper button icon |
+| `--icon-alpha-pattern`{copy} | Checkered pattern behind transparent colors |
 
 ---
 

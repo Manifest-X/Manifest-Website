@@ -164,12 +164,12 @@ Modify base divider styles with custom CSS for the `.divider` selector.
 
 ```css copy
 .divider {
-    color: #ff6b6b;
+    color: var(--color-negative-content);
 
     /* Lines */
     &::before,
     &::after {
-        background-color: #ff6b6b;
+        background-color: var(--color-negative-content);
         height: 2px;
     }
 
@@ -185,11 +185,11 @@ Modify base divider styles with custom CSS for the `.divider` selector.
 ::: frame text-base
 <style>
 .divider.custom {
-    color: #ff6b6b;
+    color: var(--color-negative-content);
 
     &::before,
     &::after {
-        background-color: #ff6b6b;
+        background-color: var(--color-negative-content);
         height: 2px;
     }
 
@@ -203,6 +203,11 @@ Modify base divider styles with custom CSS for the `.divider` selector.
 </style>
 
 <div class="divider custom">Custom Divider</div>
+<div class="row items-center h-12">
+    <span>Start</span>
+    <div class="divider vertical custom"></div>
+    <span>End</span>
+</div>
 :::
 
 </div>

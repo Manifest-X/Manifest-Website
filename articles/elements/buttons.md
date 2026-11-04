@@ -52,7 +52,7 @@ The button's appearance is determined by these top-level factors:
 
 <!-- Truncate text -->
 <button class="flex-1">
-    <span>Truncated lorem ipsum dolor sit amet</span>
+    <span>A long label that truncates when it runs out of room</span>
 </button>
 ```
 
@@ -60,7 +60,7 @@ The button's appearance is determined by these top-level factors:
 <button>!</button>
 <button class="flex-1 justify-start">Starting Alignment</button>
 <button class="flex-1">
-    <span>Truncated lorem ipsum dolor sit amet</span>
+    <span>A long label that truncates when it runs out of room</span>
 </button>
 :::
 
@@ -136,18 +136,20 @@ Buttons accept Manifest [utility](/docs/framework/styles/utilities) classes, whi
 <!-- No background at all -->
 <button class="transparent">Transparent</button>
 
-<!-- No padding for minimal target area, best paired with transparency -->
-<button class="hug transparent">Hug</button>
+<!-- No padding, min-width or fixed height: only as big as its content -->
+<button class="hug transparent" x-icon="lucide:x" aria-label="Close"></button>
 ```
 
 ::: frame row-wrap items-center gap-2
 <button class="ghost">Ghost</button>
 <button class="outlined">Outlined</button>
 <button class="transparent">Transparent</button>
-<button class="hug transparent">Hug</button>
+<button class="hug transparent" x-icon="lucide:x" aria-label="Close"></button>
 :::
 
 </div>
+
+`hug` suits transparent icon or inline buttons, like a close ×. On a filled or outlined button the label touches the edges.
 
 ---
 

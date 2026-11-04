@@ -28,7 +28,7 @@ The `<form>` element arranges its contents in a column with gaps.
 
 <div x-code-group>
 
-```html
+```html copy
 <form>
     <label for="input1">Input 1</label>
     <input id="input1" placeholder="Insert" />
@@ -52,7 +52,7 @@ Place form elements inside a label for enhanced default styling, and to reduce c
 
 <div x-code-group>
 
-```html
+```html copy
 <form>
     <label>
         Input 1
@@ -163,21 +163,21 @@ This works for all types of form elements.
         Text input label
         <input placeholder="Input" />
     </label>
-    <div>
+    <fieldset>
         <label for="search">Search input label</label>
         <label>
             <i x-icon="lucide:search"></i>
             <input id="search" type="search" />
         </label>
-    </div>
-    <div>
+    </fieldset>
+    <fieldset>
         <label for="file">File input label</label>
         <label>
             <i x-icon="lucide:upload"></i>
             Upload
             <input id="file" type="file" />
         </label>
-    </div>
+    </fieldset>
     <label>
         Select label
         <select>
@@ -243,7 +243,7 @@ To horizontally inline the label text with its form element, place the text in a
         <data>Search input label</data>
         <div class="label">
             <i x-icon="lucide:search"></i>
-            <input id="search" type="search" />
+            <input type="search" />
         </div>
     </label>
     <label>
@@ -251,7 +251,7 @@ To horizontally inline the label text with its form element, place the text in a
         <div class="label">
             <i x-icon="lucide:upload"></i>
             Upload
-            <input id="file" type="file" />
+            <input type="file" />
         </div>
     </label>
 
@@ -308,7 +308,7 @@ To horizontally inline the label text with its form element, place the text in a
         <data>Search input label</data>
         <div class="label">
             <i x-icon="lucide:search"></i>
-            <input id="search" type="search" />
+            <input type="search" />
         </div>
     </label>
     <label>
@@ -316,7 +316,7 @@ To horizontally inline the label text with its form element, place the text in a
         <div class="label">
             <i x-icon="lucide:upload"></i>
             Upload
-            <input id="file" type="file" />
+            <input type="file" />
         </div>
     </label>
     <label>
@@ -373,11 +373,11 @@ Add a `<legend>` element to a `<fieldset>` with checkboxes or radios, to create 
     <legend>Preferences</legend>
     <label>
         <input type="checkbox" />
-        <data>Email notifications</data>
+        Email notifications
     </label>
     <label>
         <input type="checkbox" />
-        <data>SMS notifications</data>
+        SMS notifications
     </label>
 </fieldset>
 ```
@@ -387,11 +387,11 @@ Add a `<legend>` element to a `<fieldset>` with checkboxes or radios, to create 
 <legend>Preferences</legend>
 <label>
     <input type="checkbox" />
-    <data>Email notifications</data>
+    Email notifications
 </label>
 <label>
     <input type="checkbox" />
-    <data>SMS notifications</data>
+    SMS notifications
 </label>
 </fieldset>
 :::
@@ -486,7 +486,7 @@ A wrapper with `role="tablist"` instead becomes a tab bar. Mark the active butto
 
 [Tab](/docs/framework/elements/tabs) buttons sync `aria-selected` automatically, so adding `role="tablist"` to a wrapper of `x-tab` buttons gets this styling with no further markup.
 
-Button [utility classes](/docs/framework/elements/buttons#utilities) like `transparent`, `outlined`, `sm`, and `lg`, also apply at the wrapper level, styling the whole control as one.
+Button [utility classes](/docs/framework/elements/buttons#utilities) `outlined`, `sm`, and `lg` also apply at the wrapper level, styling the whole control as one. On a tab bar, `transparent` clears the bar's background.
 
 ---
 
@@ -558,7 +558,7 @@ Custom CSS or Tailwind pseudo-class variants can style the states further withou
         <input type="text" required minlength="8"
             class="user-invalid:negative user-valid:positive" />
     </label>
-    <button class="group-invalid:disabled accent">Submit</button>
+    <button class="accent">Submit</button>
 </form>
 ```
 
@@ -574,7 +574,7 @@ Custom CSS or Tailwind pseudo-class variants can style the states further withou
         <input type="text" required minlength="8"
             class="user-invalid:negative user-valid:positive" />
     </label>
-    <button class="group-invalid:disabled accent">Submit</button>
+    <button class="accent">Submit</button>
 </form>
 :::
 
@@ -623,7 +623,7 @@ Forms inherit styling from their child elements ([buttons](/docs/framework/eleme
 | Selector | Purpose |
 |---|---|
 | `form` | Default column layout with vertical gaps between children |
-| `fieldset` | Bordered grouping with column layout |
+| `fieldset` | Column layout; bordered when it has a `<legend>` |
 | `legend` | Fieldset title styling |
 | `label` | Stacks a label above its form control |
 | `label > data` | Inlines the label text horizontally with the control |

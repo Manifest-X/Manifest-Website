@@ -127,10 +127,10 @@ Default accordions use the following [theme](/docs/framework/styles/theme) varia
 | Variable | Purpose |
 |----------|---------|
 | `--color-content-stark`{copy} | Summary text color |
-| `--color-field-surface`{copy} | Icon background color |
-| `--color-field-inverse`{copy} | Icon color |
-| `--spacing-field-padding`{copy} | Content padding |
-| `--spacing`{copy} | Summary margin when open |
+| `--color-field-surface`{copy} | Icon color, mixed with `--color-field-inverse` |
+| `--color-field-inverse`{copy} | Icon color, mixed with `--color-field-surface` |
+| `--spacing-field-padding`{copy} | Summary vertical padding |
+| `--spacing`{copy} | Bottom margin after the content |
 | `--transition`{copy} | Transition for interactive states |
 
 ---
@@ -164,7 +164,7 @@ details.custom {
     
     & summary {
         padding: 0 1rem;
-        font-weight: regular;
+        font-weight: normal;
     }
 
     & summary + * {
@@ -183,7 +183,7 @@ details.custom {
     
     & summary {
         padding: 0 1rem;
-        font-weight: regular;
+        font-weight: normal;
     }
 
     & summary + * {

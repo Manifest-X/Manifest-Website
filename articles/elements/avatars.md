@@ -371,12 +371,14 @@ Default avatars use the following [theme](/docs/framework/styles/theme) variable
 
 | Variable | Purpose |
 |----------|---------|
-| `--color-field-surface`{copy} | Avatar background color |
-| `--color-field-surface-hover`{copy} | Button avatar hover/active background color |
+| `--color-surface-3`{copy} | Avatar and status indicator background color |
+| `--color-field-surface`{copy} | Background color of colored avatars and status indicators |
+| `--color-field-surface-hover`{copy} | Hover background color of colored button avatars |
 | `--color-field-inverse`{copy} | Avatar text color |
+| `--color-content-stark`{copy} | Tint mixed into the button avatar hover background |
+| `--color-page`{copy} | Ring around status indicators and grouped avatars |
 | `--spacing-field-height`{copy} | Avatar width and height |
-| `--radius`{copy} | Border radius for avatar corners |
-| `--transition`{copy} | Transition for interactive states |
+| `--transition`{copy} | Transition for profile pics |
 
 ---
 
@@ -388,7 +390,7 @@ Modify avatar styles with custom CSS.
 
 ```css copy
 .avatar {
-    border-radius: 50%;
+    border-radius: var(--radius);
     outline: 1px solid blue;
     outline-offset: 1px;
 }
@@ -397,7 +399,7 @@ Modify avatar styles with custom CSS.
 ::: frame
 <style>
 .avatar-custom {
-    border-radius: 50%;
+    border-radius: var(--radius);
     outline: 1px solid blue;
     outline-offset: 1px;
 }

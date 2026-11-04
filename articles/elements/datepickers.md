@@ -51,7 +51,7 @@ The simplest date field is a native `<input type="date">`, displaying the browse
 ```
 
 ::: frame
-<input type="date" style="max-width: 16rem;">
+<input type="date" class="max-w-64">
 :::
 
 </div>
@@ -69,7 +69,7 @@ For full control over content, format, and styling, add `x-date` to an input. Th
 ```
 
 ::: frame
-<input x-date placeholder="Select a date" style="max-width: 16rem;">
+<input x-date placeholder="Select a date" class="max-w-64">
 :::
 
 </div>
@@ -115,7 +115,7 @@ For two-way reactive binding, use `x-model` instead. When both are present, `x-m
 
 ::: frame
 <div class="row-wrap items-center gap-4" x-data="{ when: '' }">
-    <input x-date x-model="when" placeholder="Select a date" style="max-width: 16rem;">
+    <input x-date x-model="when" placeholder="Select a date" class="max-w-64">
     <p x-text="when || '—'"></p>
 </div>
 :::
@@ -150,8 +150,8 @@ The input's authored `type` declares what the field picks. `type="time"` makes a
 ```
 
 ::: frame row-wrap gap-6
-<input x-date type="time" placeholder="Pick a time" style="max-width: 12rem;">
-<input x-date type="datetime-local" placeholder="Pick date & time" style="max-width: 18rem;">
+<input x-date type="time" placeholder="Pick a time" class="max-w-48">
+<input x-date type="datetime-local" placeholder="Pick date & time" class="max-w-72">
 :::
 
 </div>
@@ -218,7 +218,7 @@ The `x-date.range` modifier selects a start and end date. Hovering previews the 
 
 ::: frame
 <div class="row-wrap items-center gap-4" x-data="{ stay: { start: '', end: '' } }">
-    <input x-date.range x-model="stay" placeholder="Select a range" style="max-width: 22rem;">
+    <input x-date.range x-model="stay" placeholder="Select a range" class="max-w-88">
     <p x-text="(stay.start || '—') + ' → ' + (stay.end || '—')"></p>
 </div>
 :::
@@ -294,24 +294,23 @@ Pass an object as the directive's value for reactive configuration. All keys are
 
 ### Presets
 
-Each preset is a labeled value matching the selection mode: `{ label, value }` for single dates, `{ label, start, end }` for ranges, `{ label, dates }` for multiples. Because the config is a live expression, preset values can be computed.
+Each preset is a labeled value matching the selection mode: `{ label, value }` for single dates, `{ label, start, end }` for ranges, `{ label, dates }` for multiples. Because the config is a live expression, preset values can be computed, like the relative ranges below. Date objects are accepted alongside ISO strings.
 
 <div x-code-group>
 
 ```html copy
-<div x-date.range="{
-    presets: [
-        { label: 'This weekend', start: '2026-06-13', end: '2026-06-14' },
-        { label: 'Next week', start: '2026-06-15', end: '2026-06-21' }
-    ]
-}"></div>
+<div x-date.range="{ months: 2, presets: [
+    { label: 'Next 7 days', start: new Date(), end: new Date(Date.now() + 6 * 86400000) },
+    { label: 'Next 30 days', start: new Date(), end: new Date(Date.now() + 29 * 86400000) },
+    { label: 'June 2026', start: '2026-06-01', end: '2026-06-30' }
+] }"></div>
 ```
 
 ::: frame
 <div x-date.range="{ months: 2, presets: [
-    { label: 'This weekend', start: '2026-06-13', end: '2026-06-14' },
-    { label: 'Next week', start: '2026-06-15', end: '2026-06-21' },
-    { label: 'One month', start: '2026-06-01', end: '2026-06-30' }
+    { label: 'Next 7 days', start: new Date(), end: new Date(Date.now() + 6 * 86400000) },
+    { label: 'Next 30 days', start: new Date(), end: new Date(Date.now() + 29 * 86400000) },
+    { label: 'June 2026', start: '2026-06-01', end: '2026-06-30' }
 ] }"></div>
 :::
 
@@ -423,7 +422,7 @@ Use the `$date(id)` magic method to read or change a picker from anywhere on the
 
 ::: frame
 <div class="row-wrap items-center gap-4">
-    <input id="doc-dp-magic" x-date placeholder="Choose…" style="max-width: 16rem;">
+    <input id="doc-dp-magic" x-date placeholder="Choose…" class="max-w-64">
     <p x-text="$date('doc-dp-magic').iso || '—'"></p>
     <p x-text="$date('doc-dp-magic').formatted || '—'"></p>
 </div>

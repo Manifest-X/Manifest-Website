@@ -134,6 +134,14 @@ Pie charts take a single series whose values become slices, colored from the the
 
 ```html copy
 <div x-chart="{
+    type: 'pie',
+    dataLabels: true,
+    labels: ['Direct','Search','Social','Referral'],
+    series: [{ data: [38, 27, 21, 14] }],
+    height: 220
+}"></div>
+
+<div x-chart="{
     type: 'donut',
     labels: ['Mobile','Desktop','Tablet'],
     series: [{ data: [55, 35, 10] }],
@@ -302,7 +310,17 @@ Set `dataLabels: true`{copy} to print each value in its tile, and `gap` to chang
 <div x-code-group>
 
 ```html copy
-<div x-chart="{ type: 'heatmap', dataLabels: true, gap: 0, ... }"></div>
+<div x-chart="{
+    type: 'heatmap',
+    dataLabels: true,
+    labels: ['Q1','Q2','Q3','Q4'],
+    series: [
+        { name: 'North', data: [12, 19, 24, 31] },
+        { name: 'South', data: [8, 14, 11, 22] },
+        { name: 'West', data: [20, 25, 28, 40] }
+    ],
+    height: 180
+}"></div>
 ```
 
 ::: frame row-wrap gap-10
@@ -320,15 +338,24 @@ Set `dataLabels: true`{copy} to print each value in its tile, and `gap` to chang
 ```html copy
 <div x-chart="{
     type: 'gantt',
+    min: '2026-06-25T00:00',
+    max: '2026-06-25T21:00',
     colors: { Online: 'var(--color-positive-content)', Away: 'var(--color-brand-content)', Offline: 'var(--color-surface-3)' },
     series: [
         { name: 'Bo-Chen', data: [
             { from: '2026-06-25T00:00', to: '2026-06-25T17:00', status: 'Online' },
             { from: '2026-06-25T17:00', to: '2026-06-25T21:00', status: 'Offline' } ] },
         { name: 'Ele', data: [
-            { from: '2026-06-25T00:00', to: '2026-06-25T13:00', status: 'Offline' },
+            { from: '2026-06-25T00:00', to: '2026-06-25T04:10', status: 'Offline' },
+            { from: '2026-06-25T04:10', to: '2026-06-25T04:25', status: 'Online' },
+            { from: '2026-06-25T04:25', to: '2026-06-25T13:00', status: 'Offline' },
             { from: '2026-06-25T13:00', to: '2026-06-25T17:20', status: 'Online' },
-            { from: '2026-06-25T17:20', to: '2026-06-25T21:00', status: 'Offline' } ] }
+            { from: '2026-06-25T17:20', to: '2026-06-25T21:00', status: 'Offline' } ] },
+        { name: 'Hakan', data: [
+            { from: '2026-06-25T00:00', to: '2026-06-25T03:00', status: 'Online' },
+            { from: '2026-06-25T03:00', to: '2026-06-25T03:20', status: 'Away' },
+            { from: '2026-06-25T03:20', to: '2026-06-25T13:30', status: 'Offline' },
+            { from: '2026-06-25T13:30', to: '2026-06-25T17:00', status: 'Online' } ] }
     ]
 }"></div>
 ```
@@ -355,10 +382,12 @@ The axis adapts to the segment values — no `type`-of-axis flag needed:
 
 ```html "Numeric" copy
 <div x-chart="{ type: 'gantt', unit: ' mi', min: 0, max: 26.2,
+    colors: { Easy: 'var(--color-positive-content)', Tempo: 'var(--color-brand-content)', Hard: 'var(--color-negative-content)' },
     series: [{ name: 'Pace', data: [
         { from: 0, to: 8, status: 'Easy' },
         { from: 8, to: 18, status: 'Tempo' },
-        { from: 18, to: 26.2, status: 'Hard' } ] }]
+        { from: 18, to: 23, status: 'Hard' },
+        { from: 23, to: 26.2, status: 'Easy' } ] }]
 }"></div>
 ```
 
@@ -370,8 +399,12 @@ The axis adapts to the segment values — no `type`-of-axis flag needed:
 }"></div>
 ```
 
-::: frame
+::: frame name="Numeric"
 <div x-chart="{ type: 'gantt', unit: ' mi', min: 0, max: 26.2, colors: { Easy: 'var(--color-positive-content)', Tempo: 'var(--color-brand-content)', Hard: 'var(--color-negative-content)' }, series: [{ name: 'Pace', data: [ { from: 0, to: 8, status: 'Easy' }, { from: 8, to: 18, status: 'Tempo' }, { from: 18, to: 23, status: 'Hard' }, { from: 23, to: 26.2, status: 'Easy' } ] }] }" class="max-w-full"></div>
+:::
+
+::: frame name="Category"
+<div x-chart="{ type: 'gantt', labels: ['Plan','Build','Beta','GA','Sunset'], series: [ { name: 'Core', data: [{ from: 'Plan', to: 'GA', status: 'On track' }] }, { name: 'Mobile', data: [{ from: 'Build', to: 'Beta', status: 'At risk' }] } ] }" class="max-w-full"></div>
 :::
 
 </div>
@@ -406,7 +439,8 @@ Leave `color` and `colors` unset and the palette colors the tracks for you.
 ```html copy
 <div x-chart="{
     type: 'map',
-    data: { US: 320, CN: 410, IN: 380, BR: 140, 'United Kingdom': 240, DE: 260, ZA: 60 }
+    data: { US: 320, CA: 70, BR: 140, FR: 210, DE: 260, 'United Kingdom': 240, CN: 410,
+        IN: 380, JP: 190, AU: 90, ZA: 60, NG: 110, RU: 130, MX: 95 }
 }"></div>
 ```
 
@@ -461,11 +495,21 @@ To reference a place by **name** instead of coordinates, supply a `places`{copy}
 ```html copy
 <div x-chart="{
     type: 'map',
-    places: { Tokyo: [35.69, 139.69], London: [51.5, -0.13], 'New York': [40.71, -74.01] },
+    places: {
+        'New York': [40.71, -74.01], London: [51.5, -0.13], Tokyo: [35.69, 139.69],
+        'São Paulo': [-23.55, -46.63], Lagos: [6.45, 3.39], Sydney: [-33.87, 151.21],
+        Mumbai: [19.08, 72.88], Paris: [48.85, 2.35], Singapore: [1.29, 103.85]
+    },
     points: [
-        { name: 'Tokyo', value: 95 },
+        { name: 'New York', value: 84 },
         { name: 'London', value: 71 },
-        { name: 'New York', value: 84 }
+        { name: 'Tokyo', value: 95 },
+        { name: 'São Paulo', value: 52 },
+        { name: 'Lagos', value: 38 },
+        { name: 'Sydney', value: 44 },
+        { name: 'Mumbai', value: 67 },
+        { name: 'Paris', value: 60 },
+        { name: 'Singapore', value: 55 }
     ]
 }"></div>
 ```
@@ -599,7 +643,7 @@ Series cycle through the `--color-chart-N` color variable palette in order. By d
 
 | Variable               | Purpose                                       |
 | ---------------------- | ---------------------------------------------- |
-| `--color-chart-1`{copy} … `--color-chart-8`{copy} | Series palette, applied in order. |
+| `--color-chart-1`{copy} … `--color-chart-9`{copy} | Series palette, applied in order. |
 | `--color-chart-grid`{copy}   | Grid line color.                              |
 | `--color-chart-label`{copy}  | Axis label color.                             |
 | `--color-positive-content`{copy} / `--color-negative-content`{copy} | Rising / falling candlesticks. |
