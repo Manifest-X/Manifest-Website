@@ -4,7 +4,7 @@ Every endpoint on one page.
 
 ---
 
-## Endpoints
+## All Endpoints
 
 Base URL `https://api.manifestx.dev/v1`{copy}, authenticated with your [API key](/docs/api/setup/authentication).
 

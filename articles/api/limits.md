@@ -4,7 +4,7 @@ Caps on requests, writes, storage, projects, uploads, content, file reads and up
 
 ---
 
-## Limits
+## All Limits
 
 | **Limit**                                | **Value**                                          |
 |------------------------------------------|----------------------------------------------------|

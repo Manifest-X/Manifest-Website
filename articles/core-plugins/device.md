@@ -53,7 +53,7 @@ Inside the app, a plugin counts only once `npx cap sync` has added it to the nat
 
 ---
 
-## $device
+## $device Properties
 
 `$device` is part of the core utilities and always available. This plugin only adds Capacitor's network and platform readings to it.
 

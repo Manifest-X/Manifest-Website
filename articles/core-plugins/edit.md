@@ -230,7 +230,7 @@ To allow headings, lists, and other blocks in part of a region, put [`x-rich-tex
 
 Some text can't be edited because it isn't written in the page: anything rendered by `x-text`, `x-html`, `x-markdown`, `x-icon`, or another directive that produces its own content, and the rows an `x-for` or `x-if` renders, unless the region is a [data list](/docs/framework/core-plugins/move#in-a-list-or-grid). The contents of `<script>`, `<style>`, `<textarea>`, and `<title>` are never editable.
 
-Such an element is still a piece, and its own attributes and classes can be changed: an icon's size and colour are classes, and a `<textarea>`'s `placeholder` is an attribute. Change them from your own controls with [`$edit.classes`](#edit) and [`$edit.attr()`](#edit), which record them in the history and publish them like any other edit.
+Such an element is still a piece, and its own attributes and classes can be changed: an icon's size and colour are classes, and a `<textarea>`'s `placeholder` is an attribute. Change them from your own controls with [`$edit.classes`](#edit-magic) and [`$edit.attr()`](#edit-magic), which record them in the history and publish them like any other edit.
 
 ::: brand icon="lucide:info"
 Edit's `.text` means *text can be edited*. Alpine's `x-text` is the opposite case: text rendered from an expression, which Edit leaves alone.
@@ -423,7 +423,7 @@ When published, a global value goes to the project's own `manifest.theme.css`, a
 | `.theme` | Any element | Declares a scope for `.cssvar`, named by its value |
 | `.cssvar` | An input | Binds the input to `--var` or `scope:--var` |
 
-### $edit
+### $edit Magic
 
 | Member | Description |
 |---|---|
@@ -554,7 +554,7 @@ A piece shows a thin outline on hover and a solid one when focused. Text shows i
 | `--edit-size-snap-distance`, `-x`, `-y` | none, always the nearest point | How close an edge must come to snap |
 | `--edit-size-close`, `-x`, `-y` | none | Below this, an `x-show` element closes |
 
-### Attributes
+### State Attributes
 
 | Attribute | Set on |
 |---|---|
