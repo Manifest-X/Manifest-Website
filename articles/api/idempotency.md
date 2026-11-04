@@ -13,11 +13,9 @@ Creates are idempotent on your own id; everything else that changes something us
 - **Creating a key** (`POST /keys`{copy}) ignores the header, so a new key is never stored or replayed. See [Keys](/docs/api/setup/authentication#create-a-key-with-the-api).
 
 ```bash copy
-curl -X POST https://api.manifestx.dev/v1/projects \
+curl -X POST https://api.manifestx.dev/v1/projects/proj_…/promote \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
-  -H "Idempotency-Key: 6f1c2a8e-create-site_8232" \
-  -H "Content-Type: application/json" \
-  -d '{ "source_id": "site_8232", "name": "Beta Docs" }'
+  -H "Idempotency-Key: help-center-sync-0193-promote"
 ```
 
 ---
