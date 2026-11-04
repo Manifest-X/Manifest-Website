@@ -8,13 +8,58 @@ Kickstart new websites and apps with a turnkey template.
 
 Install the starter project locally with the `npx` command:
 
-```bash copy
+<div x-code-group>
+
+```bash "New Folder" copy
 npx mnfst-starter Name
 ```
 
-"Name" is the modifiable root directory title — name it after your project.
+```bash "Current Folder" copy
+npx mnfst-starter --here
+```
+
+</div>
+
+`npx mnfst-starter Name` creates a `Name/` folder and sets it as the project name in `manifest.json`. It stops if that folder already exists.
+
+`npx mnfst-starter --here` installs into the current folder instead, using the folder's name as the project name. Add `--name` to set a different one:
+
+```bash copy
+npx mnfst-starter --here --name "My Site"
+```
+
+Names may contain letters, numbers, spaces, dots, underscores, and hyphens. If the current folder's name has other characters, pass `--name`.
 
 Alternatively, download the template directory from <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/starter" target="_blank">GitHub</a>.
+
+### Existing Files
+
+`--here` never overwrites files. If any template file already exists in the folder, nothing is written and the conflicts are listed:
+
+```
+Error: these files already exist in this folder and would be overwritten:
+  index.html
+  manifest.json
+  README.md
+Move them aside, or re-run with --force to overwrite them.
+```
+
+Move those files aside, or add `--force` to replace them with the template versions. Files that aren't part of the template are never touched.
+
+```bash copy
+npx mnfst-starter --here --force
+```
+
+### Merged Config
+
+Some files are merged with what's already in the folder rather than replaced, even with `--force`:
+
+- `.gitignore` keeps its existing rules. Any missing starter entries (such as `.env`) are appended under `# Added by Manifest`.
+- `.mcp.json` keeps its other servers. Only the `manifest` server entry is added or updated.
+- `.claude/settings.json` keeps its settings. `mcp__manifest` is added to `permissions.allow`.
+- `.env` keeps its other variables. Only `MANIFEST_API_KEY` is added or updated.
+
+The last three apply only when Manifest's [AI plugins](/docs/ai/setup/introduction) set up the project, which passes a project ID and key for you. If `.mcp.json` or `.claude/settings.json` isn't valid JSON, the starter stops before writing anything.
 
 ---
 
