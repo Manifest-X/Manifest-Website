@@ -108,7 +108,7 @@ If your project is not a downloadable web app, and does not include HTML compone
 The script loads:
 
 - **Manifest Plugins** (latest versions) from our CDN. The optional `data-plugins` or `data-omit` attributes will include or omit comma-separated plugins—otherwise all are loaded by default. Prefix a name with `+` to add it on top of the defaults (`data-plugins="+chat"`) instead of replacing them.
-- **Alpine JS** (the version tested with this framework release) from its CDN. Override it with a `data-alpine` attribute: an Alpine version (`3.14.1`), a range (`3` takes the latest 3.x), or a URL or path (`/vendor/alpine.js`, `./alpine.js`). If you add Alpine to the page yourself, set `data-alpine="none"` so the loader skips it.
+- **Alpine JS** (the version tested with this framework release) from its CDN, unless the page already has an `alpinejs` script tag or `window.Alpine`. Override it with a `data-alpine` attribute: an Alpine version (`3.14.1`), a range (`3` takes the latest 3.x), or a URL or path to a self-hosted copy (`/vendor/alpine.js`; relative paths resolve against each page, so prefer root-relative ones). `data-alpine="none"` (or `off`, `false`) loads no Alpine; the page then starts Alpine itself, after Manifest's plugins have loaded. ES module builds of Alpine need `none` plus your own module.
 - **Tailwind CSS** (modified production version from our CDN) *if* the `data-tailwind` attribute is added.
 
 Manifest scripts load the latest version from CDN by default. Load a specified version by referencing it in the URL and with a `data-version` attribute for plugins:
