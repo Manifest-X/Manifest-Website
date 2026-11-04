@@ -43,12 +43,12 @@ Components are included in `manifest.js` with all core plugins, or can be select
 
 ## Create Components
 
-Create an HTML file anywhere in your project directory, such as `/components/header.html`. Its filename must be distinct from other components.
+Create an HTML file such as `components/header.html` and use it as `<x-header>`; files in `components/` need no registration. Files elsewhere in the project are registered in `manifest.json` (see [Register Components](#register-components)). Each filename must be distinct from other components.
 
 <div x-code-group>
 
 ```html "header.html"
-<header class="w-full p-4 bg-page border-b border-line">
+<header class="w-full p-4 bg-surface-2 border-b border-line">
     <strong>Acme</strong>
 </header>
 ```
@@ -79,7 +79,7 @@ Provided that a circular reference is not created, components can be recursively
 <div x-code-group>
 
 ```html "header.html"
-<header class="row items-center gap-2 w-full p-4 bg-page border-b border-line">
+<header class="row items-center gap-2 w-full p-4 bg-surface-2 border-b border-line">
     <x-logo></x-logo>
 </header>
 ```
@@ -119,7 +119,7 @@ Components can include head content in a `<template data-head>` tag, which gets 
 ```html copy
 <template data-head>
     <script>
-        console.log('🔄 Component article script loaded');
+        console.log('Component article script loaded');
     </script>
 </template>
 ```
@@ -128,7 +128,7 @@ Check the console for this page and you should see the above log.
 
 <template data-head>
     <script>
-        console.log('🔄 Component article script loaded');
+        console.log('Component article script loaded');
     </script>
 </template>
 
@@ -260,10 +260,8 @@ Modifying just the parent element can be done immediately by adding any new attr
 <div x-code-group>
 
 ```html "special-page.html"
-<body>
-    <x-header id="specialHeader" class="text-slate-50 !bg-slate-500"></x-header>
-    ...
-</body>
+<x-header id="specialHeader" class="text-slate-50 !bg-slate-500"></x-header>
+...
 ```
 
 ::: frame "special-page.html"
@@ -286,7 +284,7 @@ These custom attributes are created in the component source file using Alpine di
 
 ```html "Empty Component"
 <header class="row items-center gap-2 w-full p-4 bg-stone-400 dark:bg-stone-800 text-stone-50" :class="$modify('colors')">
-    <span x-icon="$modify('icon')"></span>
+    <span x-icon="$modify('icon')" x-show="$modify('icon')"></span>
     <strong x-text="$modify('wordmark')"></strong>
 </header>
 ```
@@ -296,6 +294,8 @@ These custom attributes are created in the component source file using Alpine di
 :::
 
 </div>
+
+With no attributes passed, the frame shows only the static background.
 
 Each directive requires a `$modify('...')` value with the name of the custom attribute to be exposed. This attribute is subsequently available to all of the component's instances:
 
@@ -319,19 +319,19 @@ Each directive requires a `$modify('...')` value with the name of the custom att
 
 </div>
 
-If overrides with custom attributes are not required in every instance, place fallback logic in the component source to ensure optimal presentation.
+If overrides with custom attributes are not required in every instance, place fallback logic in the component source to ensure optimal presentation. Use `||` for a default value: a missing attribute becomes an empty value, which `??` doesn't replace.
 
 <div x-code-group>
 
 ```html "Component"
 <!-- Static classes apply if not overridden by the colors attribute -->
-<header class="row items-center gap-2 w-full p-4 bg-color-400 dark:bg-color-800 text-color-50" :class="$modify('colors')">
+<header class="row items-center gap-2 w-full p-4 bg-stone-400 dark:bg-stone-800 text-stone-50" :class="$modify('colors')">
 
     <!-- Doesn't render if the instance omits the icon attribute -->
     <span x-icon="$modify('icon')" x-show="$modify('icon')"></span>
 
     <!-- Sets "Acme" as a default value if the instance doesn't include the wordmark attribute -->
-    <strong x-text="$modify('wordmark') ?? 'Acme'"></strong>
+    <strong x-text="$modify('wordmark') || 'Acme'"></strong>
 
 </header>
 ```
