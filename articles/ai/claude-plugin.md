@@ -42,11 +42,11 @@ That's it. The plugin appears in the Code tab the next time you start a session 
 
 ## Where to do what
 
-The **Code** tab of the Claude desktop app is the best place to build: Claude works with files on your computer, previews your project, and handles projects of any size. Claude can also build and publish sites up to 10 MB right in a chat or Cowork, and you can manage any project from a chat, including on your phone.
+The **Code** tab of the Claude desktop app is the best place to build: Claude works with files on your computer, previews your project, and handles projects of any size. Claude can also build and publish projects up to 10 MB (2 MB per file) right in a chat or Cowork, and you can manage any project from a chat, including on your phone.
 
 | Claude Sessions | Code | Chat & Cowork |
 |---|---|---|
-| Build and publish | ✓ | Sites up to 10 MB |
+| Build and publish | ✓ | Projects up to 10 MB |
 | Preview in Claude app | ✓ | |
 | Publish live and roll back | ✓ | ✓ |
 | Connect domains | ✓ | ✓ |
@@ -88,16 +88,16 @@ You can also add Manifest to Claude as a custom connector. It connects to the sa
     Server URL
     <input value="https://mcp.manifestx.dev/mcp" readonly tabindex="-1" />
   </label>
-  <p class="text-xs text-content-2">Advanced settings — leave empty</p>
+  <p class="text-xs text-content-subtle">Advanced settings — leave empty</p>
   <div class="flex justify-end gap-2 pt-1">
-    <button class="ghost small" tabindex="-1">Cancel</button>
-    <button class="brand small" tabindex="-1">Add</button>
+    <button class="ghost text-sm" tabindex="-1">Cancel</button>
+    <button class="brand text-sm" tabindex="-1">Add</button>
   </div>
 </div>
 :::
 
 ::: icon="lucide:terminal"
-**Using Claude Code in a terminal?** Type `/plugin directory` and install Manifest from there.
+**Using Claude Code in a terminal?** Type `/plugin` and install Manifest from the directory.
 :::
 
 ::: icon="lucide:plug"
