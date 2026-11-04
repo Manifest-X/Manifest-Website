@@ -137,7 +137,7 @@ Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/f
 
 <!-- Open dialog from dropdown -->
 <button x-dropdown="dropdown-start">Dropdown</button>
-<menu id="dropdown-start">
+<menu popover id="dropdown-start">
     <button popovertarget="dialog-first">Open First Dialog</button>
 </menu>
 
@@ -157,7 +157,7 @@ Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/f
 
         <!-- Nested Dropdown -->
         <button x-dropdown="dropdown-internal">Dropdown</button>
-        <menu id="dropdown-internal">
+        <menu popover id="dropdown-internal">
             <button popovertarget="dialog-second">Open Second Dialog</button>
         </menu>
         <button popovertarget="dialog-first">Close</button>
@@ -185,7 +185,7 @@ Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/f
 
 <!-- Open dialog from dropdown -->
 <button x-dropdown="dropdown-start">Dropdown</button>
-<menu id="dropdown-start">
+<menu popover id="dropdown-start">
     <button popovertarget="dialog-first">Open First Dialog</button>
 </menu>
 
@@ -205,7 +205,7 @@ Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/f
 
         <!-- Nested Dropdown -->
         <button x-dropdown="dropdown-internal">Dropdown</button>
-        <menu id="dropdown-internal">
+        <menu popover id="dropdown-internal">
             <button popovertarget="dialog-second">Open Second Dialog</button>
         </menu>
         <button popovertarget="dialog-first">Close</button>
@@ -360,6 +360,7 @@ Default dialogs use the following [theme](/docs/framework/styles/theme) variable
 | `--color-content-stark`{copy} | Dialog text color |
 | `--color-popover-surface`{copy} | Dialog background color |
 | `--radius`{copy} | Dialog border radius (doubled for dialogs) |
+| `--shadow-lg`{copy} | Dialog shadow |
 | `--spacing`{copy} | Dialog layout gaps and padding |
 
 ---
@@ -406,69 +407,36 @@ dialog[popover].override::backdrop {
 
 ### Transitions
 
-Default open/close transitions for all popovers—including dialogs—are defined in [reset](/docs/framework/styles/reset) styles. Override them with custom CSS.
+Popovers, including dialogs, open with a short scale-in animation defined in [reset](/docs/framework/styles/reset) styles, and close instantly. Replace it by setting your own `animation` on the open state, or remove it with `animation: none`.
 
 <div x-code-group lines copy>
 
 ```css "All Popovers"
-[popover] {
-    display: none;
-    transition: opacity .15s ease-in, scale .15s ease-in, display .15s ease-in;
-    transition-behavior: allow-discrete;
+[popover]:popover-open {
+    animation: popover-fade-in .2s ease-out both;
+}
 
-    &:popover-open {
-        display: flex
-    }
-
-    /* Opening state */
-    @starting-style {
-        scale: .9;
-        opacity: 0
-    }
-
-    /* Closing state */
-    &:not(:popover-open) {
-        display: none !important;
-        scale: 1;
-        opacity: 0;
-        transition-duration: .15s;
-        transition-timing-function: ease-out
-    }
+@keyframes popover-fade-in {
+    from { opacity: 0; scale: .95 }
+    to { opacity: 1; scale: 1 }
 }
 ```
 
 ```css "Dialogs Only"
-dialog[popover] {
-    display: none;
-    transition: opacity .15s ease-in, scale .15s ease-in, display .15s ease-in;
-    transition-behavior: allow-discrete;
+dialog[popover]:popover-open {
+    animation: dialog-fade-in .2s ease-out both;
+}
 
-    &:popover-open {
-        display: flex
-    }
-
-    /* Opening state */
-    @starting-style {
-        scale: .9;
-        opacity: 0
-    }
-
-    /* Closing state */
-    &:not(:popover-open) {
-        display: none !important;
-        scale: 1;
-        opacity: 0;
-        transition-duration: .15s;
-        transition-timing-function: ease-out
-    }
+@keyframes dialog-fade-in {
+    from { opacity: 0; translate: 0 1rem }
+    to { opacity: 1; translate: 0 0 }
 }
 ```
 
 </div>
 
 ::: brand icon="lucide:info"
-Modifying `display` properties can result in popovers not working properly.
-Remember to update `transition` with any new properties.
+Leave `display` alone: closed popovers are hidden with `display: none`, and changing it can stop popovers from working properly.
 :::
 
 ---
@@ -523,8 +491,8 @@ Modify base dialog styles with custom CSS for the `dialog[popover]` selector.
 
 ```css copy
 dialog[popover], .dialog {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
+    background-color: var(--color-surface-1);
+    border: 2px solid var(--color-brand-surface);
     border-radius: 16px;
     box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
 
@@ -541,8 +509,8 @@ dialog[popover], .dialog {
 ::: frame text-base
 <style>
 dialog[popover].custom {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
+    background-color: var(--color-surface-1);
+    border: 2px solid var(--color-brand-surface);
     border-radius: 16px;
     box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
 }
