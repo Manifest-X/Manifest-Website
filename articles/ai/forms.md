@@ -48,6 +48,8 @@ Claude writes the form in your site's own style. A form needs only an `action` a
 
 The browser checks the fields before sending. To keep visitors on the page and show your own sent or error state, add [`x-submit`](/docs/framework/core-plugins/submissions) to the form.
 
+A form can post to `/_forms` on any of the project's own addresses, so a page on `www.example.com` can send to `https://example.com/_forms/contact`. Other sites can't post to it from a browser.
+
 Each form name keeps its submissions apart, so a site can have `/_forms/contact` and `/_forms/estimate`. Names use lowercase letters, digits, `-` and `_`. `/_forms` on its own is the form named `default`.
 
 ### Special fields
@@ -82,7 +84,7 @@ Manifest answers with a status code and a small JSON body, never a page:
 
 ## Spam
 
-Every form gets the `_gotcha` trap, per-visitor and per-site rate limits, and size limits. For more protection, add [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/): create a free widget in your own Cloudflare account with your site's addresses as its hostnames, then give Claude the site key and secret key:
+Every form gets the `_gotcha` trap, per-visitor and per-site rate limits, and size limits. These stop casual spam, but a determined bot can still use up a site's monthly submissions. For any public form, we recommend adding [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/): create a free widget in your own Cloudflare account with your site's addresses as its hostnames, then give Claude the site key and secret key:
 
 > `Turn on Turnstile for the forms with site key 0x4AAA… and secret key 0x4AAA…`{copy}
 
