@@ -19,7 +19,7 @@ These files are modular, designed to work alone or together to best suit your pr
 <link rel="manifest" href="/manifest.json">
 
 <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js" data-tailwind></script>
 
 <!-- Styles -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
@@ -35,37 +35,37 @@ Outside this framework, `manifest.json` is a <a href="https://en.wikipedia.org/w
 
 We leverage this file as a place to declare HTML components and local or cloud data sources. It can also be used as a data source itself to render content.
 
+Web-standard fields come first, followed by the declarations Manifest's plugins read — `components`, `preloadedComponents`, and `data`:
+
 ```json "manifest.json" copy collapse="10"
 {
-	// Web standard content
-	"name": "My Project",
-  	"short_name": "Project name",
-	"description": "Lorem ipsum dolor sit amet.",
-  	"start_url": "/",
-  	"scope": "/",
-  	"display": "standalone",
-  	"orientation": "any",
-  	"background_color": "#FFFFFF",
-  	"icons": [
-		{ "src": "/icons/192x192.png", "sizes": "192x192", "type": "image/png" },
-		{ "src": "/icons/512x512.png", "sizes": "512x512", "type": "image/png" }
-	],
-
-	// Declarations for Manifest plugins
-  	"components": [
-		"components/home.html",
-		"components/about.html"
-  	],
-  	"preloadedComponents": [
-		"components/footer.html",
-		"components/header.html",
-		"components/logo.html"
-  	],
-  	"data": {
-		"i18n": {
-			"locales": "/translations.csv"
-		}
-  	}
+    "$schema": "https://manifestx.dev/manifest.schema.json",
+    "name": "My Project",
+    "short_name": "Project name",
+    "description": "Lorem ipsum dolor sit amet.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#FFFFFF",
+    "icons": [
+        { "src": "/assets/icons/192x192.png", "sizes": "192x192", "type": "image/png" },
+        { "src": "/assets/icons/512x512.png", "sizes": "512x512", "type": "image/png" }
+    ],
+    "components": [
+        "components/home.html",
+        "components/about.html"
+    ],
+    "preloadedComponents": [
+        "components/footer.html",
+        "components/header.html",
+        "components/logo.html"
+    ],
+    "data": {
+        "content": {
+            "locales": "/locales.csv"
+        }
+    }
 }
 ```
 
@@ -107,15 +107,15 @@ If your project is not a downloadable web app, and does not include HTML compone
 
 The script loads:
 
-- **Manifest Plugins** (latest versions) from our CDN. The optional `data-plugins` or `data-omit` attributes will include or omit comma-separated plugins—otherwise all are loaded by default. Prefix a name with `+` to add it on top of the defaults (`data-plugins="+chat"`) instead of replacing them.
-- **Alpine JS** (latest version) from its CDN, unless it's been added separately to your project.
+- **Manifest Plugins** (latest versions) from our CDN. The optional `data-plugins` or `data-omit` attributes will include or omit comma-separated plugins. Otherwise all core plugins load by default, except data, localization, components and status, which load only when `manifest.json` uses them. Prefix a name with `+` to add it on top of the defaults (`data-plugins="+chat"`) instead of replacing them.
+- **Alpine JS** v3 (the version tested with the framework release) from CDN, unless it's been added separately to your project. Override it with `data-alpine`.
 - **Tailwind CSS** (modified production version from our CDN) *if* the `data-tailwind` attribute is added.
 
 Scripts load the latest version from CDN by default. Load a specified version by referencing it in the URL and with a `data-version` attribute for plugins:
 
 ```html copy
-<script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.17/lib/manifest.min.js"
-	data-version="0.5.17"></script>
+<script src="https://cdn.jsdelivr.net/npm/mnfst@<version>/lib/manifest.min.js"
+	data-version="<version>"></script>
 ```
 
 ---
@@ -129,16 +129,16 @@ Add the desired Manifest CSS files to the HTML head (within `index.html` if [rou
 
 <div x-code-group copy>
 
-```html "Bundled (47kb)"
+```html "Bundled (~22 kB gzipped)"
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
   <link rel="stylesheet" href="/manifest.theme.css">
 ```
 
-```html "Individual (<10kb)"
-  <link rel="stylesheet" href="/manifest.theme.css">
+```html "Individual"
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.reset.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.button.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.utilities.css">
+  <link rel="stylesheet" href="/manifest.theme.css">
 ```
 
 </div>
@@ -154,6 +154,7 @@ Manifest provides a handful of handy `npx` commands to assist with project devel
 | `npx mnfst-starter <name>`{copy} | Scaffold a new Manifest project | [Starter Project](/docs/framework/getting-started/starter-project) |
 | `npx mnfst-run`{copy} | Zero-dependency dev server with live reload | [Setup](#run-a-project) |
 | `npx mnfst-render`{copy} | Prerender the SPA into a static MPA | [Websites](/docs/framework/publishing/websites) |
+| `npx mnfst-export`{copy} | Batch / CI exports — PDF, image, CSV, JSON, RSS | [Export](/docs/framework/core-plugins/import-export#batch-and-ci-exports) |
 | `npx mnfst-types`{copy} | Generate TypeScript ambient types from `manifest.json` | [TypeScript](/docs/framework/resources/typescript) |
 | `npx mnfst-test`{copy} | Project linter + component-test harness | [Testing](/docs/framework/publishing/testing) |
 
@@ -171,3 +172,11 @@ The server provides the following conveniences:
 - **Auto reload** — refreshes when content edits are made to `html`, `css`, `json`, `yaml`, `csv`, or `md` files.
 - **Auto close** — kills the server instance if all its browser tabs are closed.
 - **No duplication** — on launch, provides an existing localhost URL if the project is already running on the device.
+
+| Option | Description |
+|---|---|
+| `--port <n>`, `-p <n>` | Preferred port (default `5001`, or the `PORT` environment variable); moves up if taken |
+| `--no-open` | Don't open a browser tab on start |
+| `--idle-shutdown <s>` | Seconds to wait after the last tab closes before exiting (default `30`) |
+| `--no-idle-shutdown` | Keep running when no tabs are open |
+| `--list`, `-l` | List the servers running on this device |

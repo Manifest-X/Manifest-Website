@@ -106,8 +106,8 @@ These CSS spacing variables are utilized by `page` descendants:
 
 | CSS Variable | Default | Description |
 |----------|---------|-------------|
-| `--spacing-content-width`{copy} | `68.75rem` | Maximum width for `nav` and `section` content areas |
-| `--spacing-viewport-padding`{copy} | `5vw` | Horizontal padding for viewport edges |
+| `--spacing-content-width`{copy} | `74rem` | Maximum width for `nav` and `section` content areas |
+| `--spacing-viewport-padding`{copy} | `2rem` (`5vw` without the theme) | Horizontal padding for viewport edges |
 
 ---
 
@@ -214,6 +214,9 @@ Color utilities also modify text directly or from a parent container. Utility cl
 | `accent`{copy} | Color | Accent color (content) |
 | `positive`{copy} | Color | Positive color (content) |
 | `negative`{copy} | Color | Negative color (content) |
+| `stark`{copy} | Color | High-contrast text color |
+| `neutral`{copy} | Color | Medium-contrast text color |
+| `subtle`{copy} | Color | Low-contrast text color |
 | `h1`{copy} | Appearance | Heading 1 styles |
 | `h2`{copy} | Appearance | Heading 2 styles |
 | `h3`{copy} | Appearance | Heading 3 styles |
@@ -267,7 +270,7 @@ Detected from the pointer itself, so it's correct **regardless of screen size** 
 | Class | Variant | Shows on | Tailwind Equivalent |
 |--------------|-----------|----------|-------------------|
 | `touch-only`{copy} | `touch:`{copy} | Phones & touch tablets | `pointer-fine:hidden` |
-| `cursor-only`{copy} | `cursor:`{copy} | Mouse / trackpad devices | `pointer-coarse:hidden` |
+| `cursor-only`{copy} | `cursor:`{copy} | Mouse / trackpad devices | `hidden` unless `(pointer: fine) and (hover: hover)` |
 | `pointer-only`{copy} | `pointer:`{copy} | Any device with a precise pointer available (mouse, trackpad, or stylus) | `not-any-pointer-fine:hidden` |
 
 <div x-code-group copy>
@@ -325,12 +328,28 @@ The `*-only` / `no-*` classes are for plain show/hide — combine them with othe
 
 ---
 
+### App state
+
+Connectivity and container, from the [`$device`](/docs/framework/core-plugins/device) signal stamped on `<html>`.
+
+| Class | Variant | Shows when |
+|--------------|-----------|----------|
+| `online-only`{copy} | `online:`{copy} | The device is online |
+| `offline-only`{copy} | `offline:`{copy} | The device is offline |
+| `standalone-only`{copy} | `standalone:`{copy} | Running as an installed web app |
+| `native-only`{copy} | `native:`{copy} | Running inside a native app shell |
+| `web-only`{copy} | `web:`{copy} | Running in a browser, not a native shell |
+
+---
+
 ## Miscellaneous
 
 | Class | Description |
 |--------------|--------------------------------|
+| `disabled` | Dims an element and blocks pointer events |
 | `no-focus` | Removes an element's focus outline |
 | `no-scrollbar` | Hides an element's scrollbar |
+| `no-spinner` | Hides a number input's up/down buttons |
 | `overlay-dark` | For banner elements with a dark overlay and light text |
 | `overlay-light` | For banner elements with a light overlay and dark text |
 | `prose` | Makes elements with long-form, child text content more readable (like this whole article) |
@@ -340,10 +359,10 @@ The `*-only` / `no-*` classes are for plain show/hide — combine them with othe
 ::: frame col gap-3
 <div class="row w-full aspect-video bg-[url(https://images.unsplash.com/photo-1754206352604-0a4f13ca2a22)] bg-cover rounded">
     <div class="flex grow center h-full h3 overlay-dark">
-        <span class="">Overlay Dark</span>
+        <span>Overlay Dark</span>
     </div>
-        <div class="flex grow center h-full h3 overlay-light">
-        <span class="">Overlay Light</span>
+    <div class="flex grow center h-full h3 overlay-light">
+        <span>Overlay Light</span>
     </div>
 </div>
 <button class="w-full">
@@ -351,3 +370,16 @@ The `*-only` / `no-*` classes are for plain show/hide — combine them with othe
     <span class="trailing" x-icon="lucide:ellipsis" aria-label="Trailing icon"></span>
 </button>
 :::
+
+---
+
+### Mobile
+
+| Class | Description |
+|--------------|--------------------------------|
+| `p-safe`, `px-safe`, `py-safe`, `pt-safe`, `pr-safe`, `pb-safe`, `pl-safe` | Padding that keeps content clear of the notch and home indicator (`0` unless the viewport uses `viewport-fit=cover`) |
+| `h-dvh`, `min-h-dvh` | Height from the dynamic viewport, so it doesn't jump as mobile browser bars show and hide |
+| `no-callout` | Turns off the long-press callout |
+| `no-select` | Turns off text selection |
+| `no-tap-zoom` | Turns off double-tap zoom |
+| `no-overscroll`, `no-overscroll-y` | Turns off overscroll bounce and scroll chaining |

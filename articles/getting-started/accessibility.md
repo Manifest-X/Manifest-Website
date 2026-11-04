@@ -22,7 +22,7 @@ All code snippets in these docs are intended to be semantically correct for scre
 
 ### Elements
 
-Manifest's advanced elements, including those supported by plugin scripts, implement the relevant <a href="https://www.w3.org/WAI/ARIA/apg/patterns/" target="_blank">WAI-ARIA Authoring Practices</a> patterns. No setup is required beyond using them:
+Manifest's advanced elements, including those supported by plugin scripts, implement the relevant <a href="https://www.w3.org/WAI/ARIA/apg/patterns/" target="_blank">WAI-ARIA Authoring Practices</a> patterns. No setup is required beyond using them as documented:
 
 | Element | Accessibility |
 |---|---|
@@ -32,7 +32,7 @@ Manifest's advanced elements, including those supported by plugin scripts, imple
 | [Dropdowns](/docs/framework/elements/dropdowns) | `aria-haspopup="menu"`, reactive `aria-expanded`, `aria-controls`, `role="menu"` / `"menuitem"`, arrow navigation, Escape to close with focus return to trigger, roving `tabindex` |
 | [Forms](/docs/framework/elements/forms) | Native HTML5 validation, error states, and semantic labeling |
 | [Sidebars](/docs/framework/elements/sidebars) | Native popover dismissal with Escape |
-| [Tabs](/docs/framework/elements/tabs) | `role="tablist"` / `"tab"` / `"tabpanel"`, reactive `aria-selected`, `aria-controls`, `aria-labelledby`, roving `tabindex`, Left / Right / Up / Down / Home / End arrow navigation |
+| [Tabs](/docs/framework/elements/tabs) | With a `role="tablist"` wrapper: `role="tab"` / `"tabpanel"`, reactive `aria-selected`, `aria-controls`, `aria-labelledby`, roving `tabindex`, Left / Right / Up / Down / Home / End arrow navigation |
 | [Toasts](/docs/framework/elements/toasts) | `role="status"` + `aria-live="polite"` for confirmations; `role="alert"` for negative / destructive types |
 | [Tooltips](/docs/framework/elements/tooltips) | `role="tooltip"`, `aria-describedby` linking the trigger to the tooltip content, fires on hover **and** keyboard focus (WCAG 2.1 SC 1.4.13) |
 

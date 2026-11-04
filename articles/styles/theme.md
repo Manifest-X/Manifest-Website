@@ -20,11 +20,11 @@ Apply the theme alongside `manifest.css` or standalone sheets. The default versi
 <div x-code-group copy>
 
 ```html "Manifest CSS"
-<!-- Theme -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css">
-
 <!-- manifest.css -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
+
+<!-- Theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css">
 ```
 
 ```html "Standalone"
@@ -45,6 +45,14 @@ Apply the theme alongside `manifest.css` or standalone sheets. The default versi
 Modify the theme by saving it as a local file from <a href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css" target="_blank">jsDelivr</a> or <a href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css" target="_blank">GitHub</a>, or copy it here:
 
 ```css "manifest.theme.css" copy lines collapse="10"
+/*  Manifest Theme CSS
+/*  By Andrew Matlock under MIT license
+/*  https://manifestx.dev/styles/theme
+/*  Modify values to customize your project theme
+*/
+
+@layer base, components, utilities;
+
 :root,
 ::selection {
 
@@ -60,7 +68,7 @@ Modify the theme by saving it as a local file from <a href="https://cdn.jsdelivr
     --color-field-surface-hover: var(--color-neutral-400);
     --color-field-inverse: var(--color-content-stark);
     --color-popover-surface: var(--color-page);
-    --color-line: color-mix(var(--color-content-stark) 11%, transparent);
+    --color-line: color-mix(in oklch, var(--color-content-stark) 11%, transparent);
     --color-brand-surface: var(--color-yellow-300);
     --color-brand-surface-hover: var(--color-yellow-400);
     --color-brand-inverse: var(--color-yellow-700);
@@ -89,18 +97,24 @@ Modify the theme by saving it as a local file from <a href="https://cdn.jsdelivr
     --spacing-field-height: calc(var(--spacing) * 9);
     --spacing-popover-offset: calc(var(--spacing) * 2);
     --spacing-resize-handle: 1rem;
-    --spacing-viewport-padding: 5vw;
+    --spacing-viewport-padding: 2rem;
 
     /* Effects */
     --transition: all .05s ease-in-out;
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
     --tooltip-hover-delay: .5s;
     --view-transition-duration: 200ms;
     --view-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
 
     /* Icons */
     --icon-accordion: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 256 256'%3E%3Cpath fill='%23000' d='m184.49 136.49l-80 80a12 12 0 0 1-17-17L159 128L87.51 56.49a12 12 0 1 1 17-17l80 80a12 12 0 0 1-.02 17'/%3E%3C/svg%3E");
-    --icon-checkbox: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='currentColor' d='m0 11l2-2l5 5L18 3l2 2L7 18z'/%3E%3C/svg%3E");
-    --icon-toast-dismiss: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E");
+    --icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='currentColor' d='m0 11l2-2l5 5L18 3l2 2L7 18z'/%3E%3C/svg%3E");
+    --icon-chevron-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    --icon-dismiss: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E");
+    --icon-previous: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m15 18-6-6 6-6'/%3E%3C/svg%3E");
+    --icon-next: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
 }
 
 /* Dark mode overrides */
@@ -153,13 +167,13 @@ Modify the theme by saving it as a local file from <a href="https://cdn.jsdelivr
 
     /* Text selection */
     ::selection {
-        background-color: color-mix(currentColor 25%, transparent)
+        background-color: color-mix(in oklch, currentColor 25%, transparent)
     }
 
     /* Focus state */
-    :where(:focus-visible, label:has(input[type=search], input[type=file]):focus-within) {
+    :where(:focus-visible, :is(label, .label):has(> input[type=search], > input[type=file], > button[command="--copy"]):focus-within) {
         outline: none;
-        box-shadow: 0 0 0 2px color-mix(var(--color-content-stark) 30%, transparent)
+        box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-content-stark) 30%, transparent)
     }
 }
 ```
@@ -206,24 +220,24 @@ See [color modes](/docs/framework/styles/color-modes) for more information on se
 ---
 
 ### Semantic Colors
-These semantic colors are easily applied to text, backgrounds, and certain form elements using the Manifest [utility](/docs/framework/styles/utilities) classes `brand`, `accent`, `positive`, and `negative`.
+These semantic colors are easily applied to text, backgrounds, and certain form elements using the Manifest [utility](/docs/framework/styles/utilities) classes `brand`, `accent`, `positive`, and `negative` — the shortcut for semantic coloring. Compiled utilities use the full variable name after `--color-`, as below.
 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
-| `--color-brand-surface`{copy} | Brand background color | `bg-brand`<br/>`border-brand` |
+| `--color-brand-surface`{copy} | Brand background color | `bg-brand-surface`<br/>`border-brand-surface` |
 | `--color-brand-surface-hover`{copy} | Brand hover state background | `hover:bg-brand-surface-hover` |
 | `--color-brand-inverse`{copy} | Content color on brand backgrounds | `text-brand-inverse` |
 | `--color-brand-content`{copy} | Brand text color | `text-brand-content` |
-| `--color-accent-surface`{copy} | Accent background color | `bg-accent`<br/>`border-accent` |
-| `--color-accent-surface-hover`{copy} | Accent hover state background | `hover:bg-accent-hover` |
+| `--color-accent-surface`{copy} | Accent background color | `bg-accent-surface`<br/>`border-accent-surface` |
+| `--color-accent-surface-hover`{copy} | Accent hover state background | `hover:bg-accent-surface-hover` |
 | `--color-accent-inverse`{copy} | Content color on accent backgrounds | `text-accent-inverse` |
 | `--color-accent-content`{copy} | Accent text color | `text-accent-content` |
-| `--color-positive-surface`{copy} | Positive background color | `bg-positive`<br/>`border-positive` |
-| `--color-positive-surface-hover`{copy} | Positive hover state background | `hover:bg-positive-hover` |
+| `--color-positive-surface`{copy} | Positive background color | `bg-positive-surface`<br/>`border-positive-surface` |
+| `--color-positive-surface-hover`{copy} | Positive hover state background | `hover:bg-positive-surface-hover` |
 | `--color-positive-inverse`{copy} | Content color on positive backgrounds | `text-positive-inverse` |
 | `--color-positive-content`{copy} | Positive text color | `text-positive-content` |
-| `--color-negative-surface`{copy} | Negative background color | `bg-negative`<br/>`border-negative` |
-| `--color-negative-surface-hover`{copy} | Negative hover state background | `hover:bg-negative-hover` |
+| `--color-negative-surface`{copy} | Negative background color | `bg-negative-surface`<br/>`border-negative-surface` |
+| `--color-negative-surface-hover`{copy} | Negative hover state background | `hover:bg-negative-surface-hover` |
 | `--color-negative-inverse`{copy} | Content color on negative backgrounds | `text-negative-inverse` |
 | `--color-negative-content`{copy} | Negative text color | `text-negative-content` |
 
@@ -237,7 +251,7 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 | `--spacing-content-width`{copy} | Maximum content width in [utility](/docs/framework/styles/utilities) styles | `max-w-content-width` |
 | `--spacing-field-padding`{copy} | Form field padding | `p-field-padding` |
 | `--spacing-field-height`{copy} | Form field height | `h-field-height` |
-| `--spacing-popover-offset`{copy} | Dropdown & tooltip positioning offset | `mt-dropdown-offset` |
+| `--spacing-popover-offset`{copy} | Dropdown & tooltip positioning offset | `my-popover-offset` |
 | `--edit-size-handle`{copy} | Grab area of [Edit](/docs/framework/core-plugins/resize) resize handles (default `1rem`); not in the theme file, set it on `:root` | — |
 | `--spacing-viewport-padding`{copy} | Viewport padding for responsive design  in [utility](/docs/framework/styles/utilities) styles | `px-viewport-padding` |
 
@@ -247,6 +261,7 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
 | `--transition`{copy} | Default form element transition timing | — |
+| `--shadow-sm`{copy}, `--shadow-md`{copy}, `--shadow-lg`{copy} | Box shadows | `shadow-sm` `shadow-md` `shadow-lg` |
 | `--tooltip-hover-delay`{copy} | [Tooltip](/docs/framework/elements/tooltips) hover delay timing | — |
 | `--view-transition-duration`{copy} | [Page transition](/docs/framework/publishing/websites) duration for prerendered MPAs | — |
 | `--view-transition-easing`{copy} | [Page transition](/docs/framework/publishing/websites) easing for prerendered MPAs | — |
@@ -264,8 +279,10 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 | Variable | Purpose | Ex. Tailwind Utilities |
 |----------|---------|-------------------|
 | `--icon-accordion`{copy} | [Accordion](/docs/framework/elements/accordions) expand/collapse icon | — |
-| `--icon-checkbox`{copy} | [Checkbox](/docs/framework/elements/checkboxes) checked state icon | — |
-| `--icon-toast-dismiss`{copy} | [Toast](/docs/framework/elements/toasts) notification dismiss icon | — |
+| `--icon-check`{copy} | [Checkbox](/docs/framework/elements/checkboxes) checked state icon | — |
+| `--icon-chevron-down`{copy} | [Select](/docs/framework/elements/selects), [combobox](/docs/framework/elements/comboboxes), and [date picker](/docs/framework/elements/date-pickers) chevron | — |
+| `--icon-dismiss`{copy} | [Toast](/docs/framework/elements/toasts) dismiss and field clear icon | — |
+| `--icon-previous`{copy}, `--icon-next`{copy} | [Date picker](/docs/framework/elements/date-pickers) month navigation | — |
 
 ---
 
@@ -300,14 +317,12 @@ Any declared CSS variables throughout your project can be compiled into utility 
 ...can compile into classes like:
 
 ```css
-.bg-brand { background-color: red; }
-.text-brand { color: red; }
-.border-brand { border-color: red; }
+.bg-brand-surface { background-color: red; }
+.text-brand-surface { color: red; }
+.border-brand-surface { border-color: red; }
 ```
 
-The runtime compiler is highly optimized for performance. Running concurrent to other page load events, it only generates styles for classes used in the current DOM view, and leverages caching to avoid redundant work.
-
-For performance optimization, any non-Manifest stylesheets served over CDN are ignored. As a result, updating the generated `<style>` tag in the head is nearly instantaneous, with average execution time being 30-60ms.
+The runtime compiler only generates styles for classes used in the current DOM view, and caches its work to avoid repeating it. Published sites get these classes pre-baked — see [utility classes](/docs/framework/getting-started/performance#utility-classes).
 
 ---
 

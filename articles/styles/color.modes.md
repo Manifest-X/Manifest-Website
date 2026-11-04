@@ -6,7 +6,7 @@ Apply light, dark, and system color modes.
 
 ## Overview
 
-Manifest applies color modes by toggling a `dark` class on the `<html>` tag. Any CSS variables or styles scoped under `.dark` override their light defaults. Users can switch modes through your UI with the `x-color` directive, or follow their operating system's preference.
+Manifest applies color modes by toggling a `dark` class on the `<html>` tag (and a `light` class otherwise). Any CSS variables or styles scoped under `.dark` override their light defaults. Users can switch modes through your UI with the `x-color` directive, or follow their operating system's preference. A chosen mode is saved in `localStorage` under the key `theme`.
 
 ---
 
@@ -116,7 +116,7 @@ Allow users to toggle color modes with the `x-color` directive, using the follow
 - `'light'` sets to light mode
 - `'dark'` sets to dark mode
 - `'system'` sets to system mode
-- `'toggle'` toggles between light and dark modes
+- `toggle` (unquoted) switches to the opposite of the mode currently showing
 
 ### Buttons
 
@@ -145,11 +145,11 @@ See [buttons](/docs/framework/elements/buttons) for details on the element.
 <div x-code-group>
 
 ::: frame
-<button x-color="'toggle'" x-icon="$color.current === 'light' ? 'ph:moon' : 'ph:sun'" aria-label="Toggle Color Mode"></button>
+<button x-color="toggle" x-icon="$color.current === 'dark' || ($color.current === 'system' && matchMedia('(prefers-color-scheme: dark)').matches) ? 'lucide:sun' : 'lucide:moon'" aria-label="Toggle Color Mode"></button>
 :::
 
 ```html copy
-<button x-color="'toggle'" x-icon="$color.current === 'light' ? 'ph:moon' : 'ph:sun'" aria-label="Toggle Color Mode"></button>
+<button x-color="toggle" x-icon="$color.current === 'dark' || ($color.current === 'system' && matchMedia('(prefers-color-scheme: dark)').matches) ? 'lucide:sun' : 'lucide:moon'" aria-label="Toggle Color Mode"></button>
 ```
 
 </div>
@@ -192,12 +192,12 @@ Display the current mode's title with `x-text="$color.current"`:
 
 <div x-code-group>
 
+::: frame text-base
+<p>Join the <strong x-text="$color.current"></strong> side</p>
+:::
+
 ```html copy
 <p>Join the <strong x-text="$color.current"></strong> side</p>
 ```
-
-::: frame text-base
-    <p>Join the <strong x-text="$color.current"></strong> side</p>
-:::
 
 </div>

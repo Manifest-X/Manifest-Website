@@ -141,6 +141,6 @@ When your project is slow, work through this checklist:
 
 For tooling and plugin authors:
 
-- `window.ManifestDefer.stats()`{copy} returns `{ pending, warm, cap, ready, armed, head, routes: { enabled, stashed, rendered } }`{copy}.
+- `window.ManifestDefer.stats()`{copy} returns `{ pending, warm, cap, ready, bootDrained, armed, observed, head, routes: { enabled, stashed, rendered } }`{copy}.
 - `ManifestDeferConfig.prewarmCap`{copy} sets how many containers warming may prepare (default `48`). `ManifestDeferConfig.routes = true`{copy} is the script-side form of `data-defer-routes`{copy}.
 - `manifest:defer-render`{copy} fires on a container after its contents initialize, for code that touches rendered children.

@@ -46,7 +46,7 @@ The project is provided with ready-made content for:
 - Header, footer, and logo components
 - Responsive layout with mobile sidebar
 - Color modes
-- Localization (English, Arabic, and Chinese examples)
+- Localization (English, Spanish, Arabic, and Chinese examples)
 - Markdown article injection
 
 ---
@@ -58,20 +58,21 @@ The project begins with this folder structure for both development and deploymen
 ```
 Project Name/
 ├── assets/                   # Visual files
-│   ├── fonts                 # Web fonts
+│   ├── fonts/                # Web fonts
 │   │   └── Inter.woff2
-│   └── icons                 # Web app icons               
+│   └── icons/                # Web app icons
 │       ├── 192x192.png
 │       └── 512x512.png
 ├── components/               # HTML components
 │   ├── header.html
 │   ├── footer.html
 │   └── logo.html
+├── .gitignore                # Files Git should skip
 ├── _redirects                # SPA routing support for modern static hosts
 ├── favicon.ico               # Browser tab icon
 ├── index.html                # Rendering entry point / main page
 ├── LICENSE.md                # MIT License
-├── locales.csv               # Translated content in English, Arabic, and Chinese
+├── locales.csv               # Translated content in English, Spanish, Arabic, and Chinese
 ├── manifest.json             # Project & web app manifest
 ├── manifest.theme.css        # Project theme variables
 ├── privacy.md                # Privacy policy template, required by most sites & apps

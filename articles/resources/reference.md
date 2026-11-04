@@ -9,7 +9,7 @@ Manifest's CLI commands, directives, magic properties, data-source operators, an
 | Command | Purpose | Reference |
 |---------|---------|-----------|
 | `npx mnfst-starter <name>`{copy} | Scaffold a new Manifest project | [Starter Project](/docs/framework/getting-started/starter-project) |
-| `npx mnfst-run`{copy} | Zero-dep dev server with live reload | [Setup](/docs/framework/getting-started/setup#run-a-project) |
+| `npx mnfst-run`{copy} | Zero-dependency dev server with live reload | [Setup](/docs/framework/getting-started/setup#run-a-project) |
 | `npx mnfst-render`{copy} | Prerender the SPA into a static MPA | [Websites](/docs/framework/publishing/websites) |
 | `npx mnfst-export`{copy} | Batch / CI exports — PDF, image, CSV, JSON, RSS | [Export](/docs/framework/core-plugins/import-export#batch-and-ci-exports) |
 | `npx mnfst-types`{copy} | Generate TypeScript ambient types from `manifest.json` | [TypeScript](/docs/framework/resources/typescript) |
@@ -17,12 +17,13 @@ Manifest's CLI commands, directives, magic properties, data-source operators, an
 
 Common conventions:
 
-| Convention | Description |
-|---|---|
-| `<path>` (positional) | First non-flag arg is the project root, relative or absolute |
-| `--manifest <path>` | Override `manifest.json` location |
-| `--json` | Machine-readable output (where applicable) |
-| `-h`, `--help` | Show usage |
+| Convention | Description | Supported by |
+|---|---|---|
+| `<path>` (positional) | Project root, relative or absolute | `mnfst-run`, `mnfst-test` |
+| `--root <path>` | Project root | `mnfst-render`, `mnfst-test`, `mnfst-export` |
+| `--manifest <path>` | Override `manifest.json` location | `mnfst-test`, `mnfst-types` |
+| `--json` | Machine-readable output | `mnfst-test` |
+| `-h`, `--help` | Show usage | `mnfst-starter`, `mnfst-test`, `mnfst-types`, `mnfst-export` |
 
 ---
 
@@ -34,7 +35,7 @@ The `manifest.js` script tag accepts `data-*` attributes to control plugin loadi
 
 | Attribute | Default | Description |
 |---|---|---|
-| `data-plugins`{copy} | (auto) | Comma-separated list of plugins to load |
+| `data-plugins`{copy} | (auto) | Comma-separated list of plugins to load; prefix a name with `+` to add it to the defaults instead of replacing them |
 | `data-omit`{copy} | — | Comma-separated list to exclude from auto-loaded set |
 | `data-version`{copy} | `latest` | Plugin version to fetch from CDN |
 | `data-alpine`{copy} | The version tested with this framework release | Alpine version, or a full URL |
@@ -42,6 +43,7 @@ The `manifest.js` script tag accepts `data-*` attributes to control plugin loadi
 | `data-plugin-base`{copy} | CDN | Base URL/path for plugin scripts (for self-hosted deployments) |
 | `data-defer`{copy} | (on) | `off` turns off automatic deferral of closed containers — see [performance](/docs/framework/getting-started/performance#x-defer-reference) |
 | `data-defer-routes`{copy} | (off) | Boolean — experimental; defer inactive `x-route` pages until first shown |
+| `data-sw`{copy} | (auto) | `off` never registers the app-shell service worker — see [web apps](/docs/framework/publishing/web-apps) |
 
 ---
 
@@ -109,6 +111,7 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-code`{copy}, `<div x-code-group>` | [code](/docs/framework/elements/code) | Code blocks with syntax highlights |
 | `x-colorpicker`{copy} | [color pickers](/docs/framework/elements/color-pickers) | Colorpicker menu element |
 | `x-color`{copy} | [color modes](/docs/framework/styles/color-modes) | Switches color mode on click |
+| `x-combobox`{copy} | [comboboxes](/docs/framework/elements/comboboxes) | Select-like field with filtering, chips, and multiple selection |
 | `x-computed:name`{copy} | [computed](/docs/framework/core-plugins/computed) | Named value readable inside the element, recalculated only when what it reads changes |
 | `x-date`{copy} | [date pickers](/docs/framework/elements/date-pickers) | Date, range, and time picker field or calendar |
 | `x-defer`{copy} | [core](/docs/framework/getting-started/performance#x-defer-reference) | Defer a container's contents until it is shown. Modifiers: `.lazy`, `.discard`, `.priority="n"`, `.off` |
@@ -117,7 +120,9 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-export`{copy} | [export](/docs/framework/core-plugins/import-export) | Download page / region / data source as PDF, image, CSV, or JSON |
 | `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/framework/core-plugins/local-data) | Bind file uploads |
 | `x-icon`{copy} | [icons](/docs/framework/elements/icons) | Render an icon by name |
+| `x-import`{copy} | [import](/docs/framework/core-plugins/import-export#import) | Open a JSON or CSV file from the visitor's device as data |
 | `x-markdown`{copy} | [markdown](/docs/framework/core-plugins/markdown) | Render markdown content from a source |
+| `x-pay`{copy} | [payments](/docs/framework/core-plugins/payments) | Open a checkout, payment link, or billing portal on click |
 | `x-rich-text`{copy} | [rich text](/docs/framework/core-plugins/rich-text) | Text field with formatting, bound to a value (markdown; `.html`, `.plain`, `.inline`); with a command modifier, a control for a field (`x-rich-text.strong`). Also `x-rich-text-for`, `x-rich-text-menu`. Loads on use |
 | `x-route`{copy} | [router](/docs/framework/core-plugins/router) | Applies element to specific routes |
 | `x-submit`{copy} | [submissions](/docs/framework/core-plugins/submissions) | On a `<form>`: send it in place to its own `action`/`method`; sets `data-state` (`sending`, `sent`, `error`) and fires `submit:sent` / `submit:error`. Loads on use |
@@ -178,9 +183,13 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 | `$date(id)`{copy} | datepicker | Read or set a picker's value, time, range, and open state |
 | `$device`{copy} | utilities | `os`, `platform`, `online`, `standalone`, `native`, `touch`; always available |
 | `$edit`{copy} | edit | Page editor: `on()`/`off()` for gated regions, `undo()`/`redo()`, `canUndo`/`canRedo`, `target`, `can()`, block actions (`copy`, `cut`, `paste`, `duplicate`, `remove`), `lock()`, `publish()`, `onPublish`, `patches()`, `stale`, `conflicts` |
+| `$export`{copy} | export | Same as `x-export`, from inside an expression |
 | `$haptics`{copy} | device | `impact(style)`, `notification(type)`, `selection()`, `vibrate(ms)`; `navigator.vibrate` on the web |
+| `$import`{copy} | import | Open the file picker from an expression; resolves the parsed data, or `null` if cancelled |
 | `$links`{copy} | device | Deep links: `open(url)`, `on(fn)`, `last` |
 | `$locale`{copy} | localization | Current locale, available locales, `set(code)` |
+| `$pay(ref)`{copy} | payments | Start a checkout from an expression; also `portal()`, `refresh()`, and reactive `state`, `loading`, `error` |
+| `$presence`{copy} | appwrite-presences | Who's online: `start()`, `stop()`, `ready`, `me`, `error` |
 | `$push`{copy} | device | `permission`, `token`, `request()`, `register()`, `onToken`, `onReceive`, `onTap`; Notification permission only on the web |
 | `$rich`{copy} | rich-text | The field the element sits in, or the one its controls act on: `value`, `all`, `link`, `selection`, `run(command)`, `can()`, `active()`, `markdown()`, `html()`, and every command as a method |
 | `$route`{copy} | router | Reactive string of the current logical route (e.g. `$route === '/'`); not a function |
@@ -190,7 +199,7 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 | `$toast`{copy} | toasts | Show a toast |
 | `$try(fn, errorVar?)`{copy} | data | `await` an async callback; on error returns `undefined` instead of throwing. If `errorVar` names a property on the current `x-data` scope, the error message is written there on failure and cleared to `null` on success |
 | `$url`{copy} | url-parameters | Read/write URL query parameters reactively |
-| `$x`{copy} | data | Project data sources by name (e.g. `$x.products`) |
+| `$x`{copy} | data | Project data sources by name (e.g. `$x.products`). `$x.$register(name, data)` installs or replaces a runtime source (array or object) |
 
 ---
 
@@ -216,9 +225,8 @@ Each `$x.<source>` returns an object or array. Standard JS array methods apply w
 |---|---|
 | `$search(term, ...fields)`{copy} | Substring match across the listed fields |
 | `$search(term, { field: weight })`{copy} | Ranked search — every term must match; higher-weight fields rank first |
-| `$x.$register(name, data)`{copy} | Install or replace a runtime data source (array or object) |
 | `$query([...exprs])`{copy} | Filter using query expressions. Local sources: synchronous filter. Appwrite sources: server-side, returns `Promise` |
-| `$route(path?)`{copy} | Look up a single row whose `id` matches the current route param |
+| `$route(field)`{copy} | The row whose `field` value matches a segment of the current URL (e.g. `$x.articles.$route('slug')`). Not the same as the `$route` magic, which is the current route string |
 
 ---
 
@@ -241,8 +249,9 @@ Available on cloud data sources.
 
 | Method | Description |
 |---|---|
-| `$firstPage(limit)`{copy} | Cursor-based first page. Returns `{ items, cursor, total, hasMore }` |
-| `$nextPage(cursor, limit)`{copy} | Cursor-based next page. Same shape as `$firstPage` |
+| `$first(limit)`{copy} | Cursor-based first page. Returns `{ items, cursor, total, hasMore }` |
+| `$next(cursor, limit)`{copy} | Cursor-based next page. Same shape as `$first` |
+| `$prev(cursor, limit)`{copy} | Cursor-based previous page. Same shape; `hasMore` is always `true` |
 | `$page(pageNumber, limit)`{copy} | Offset-based specific page. Returns `{ items, page, total, totalPages, hasMore }` |
 
 ---
@@ -283,23 +292,23 @@ Manifest-added properties exposed on every row returned by `$x.<source>`. Coexis
 
 ### Queries
 
-`$query` accepts an array of `[method, attribute, value]` query expressions. The same syntax works for local and cloud sources — local runs synchronously in the browser, cloud runs server-side and returns a `Promise`.
+`$query` accepts an array of `[method, attribute, value]` query expressions. The same syntax works for local and cloud sources (except `search`) — local runs synchronously in the browser, cloud runs server-side and returns a `Promise`.
 
 | Method | Form | Notes |
 |---|---|---|
 | `equal` | `['equal', 'attr', value]` | Exact match |
 | `notEqual` | `['notEqual', 'attr', value]` | Inverse of equal |
 | `greaterThan` | `['greaterThan', 'attr', value]` | `>` |
-| `greaterThanOrEqual` | `['greaterThanOrEqual', 'attr', value]` | `≥` |
+| `greaterThanOrEqual` | `['greaterThanOrEqual', 'attr', value]` | `≥` (`greaterThanEqual` also works) |
 | `lessThan` | `['lessThan', 'attr', value]` | `<` |
-| `lessThanOrEqual` | `['lessThanOrEqual', 'attr', value]` | `≤` |
+| `lessThanOrEqual` | `['lessThanOrEqual', 'attr', value]` | `≤` (`lessThanEqual` also works) |
 | `between` | `['between', 'attr', min, max]` | Inclusive range |
 | `isNull` | `['isNull', 'attr']` | Null check |
 | `isNotNull` | `['isNotNull', 'attr']` | Non-null check |
 | `contains` | `['contains', 'attr', 'value']` | Substring match (case-insensitive) |
 | `startsWith` | `['startsWith', 'attr', 'value']` | Prefix match |
 | `endsWith` | `['endsWith', 'attr', 'value']` | Suffix match |
-| `search` | `['search', 'attr', 'value']` | Full-text search (cloud sources require a fulltext index) |
+| `search` | `['search', 'attr', 'value']` | Full-text search — cloud sources only, and they need a fulltext index. Locally it doesn't filter; use `$search` |
 | `orderAsc` | `['orderAsc', 'attr']` | Sort ascending |
 | `orderDesc` | `['orderDesc', 'attr']` | Sort descending |
 | `orderRandom` | `['orderRandom']` | Random order |
@@ -379,7 +388,7 @@ Use `$x.<source>` for anything that lives in a file or backend. The data layer h
 
 ```html copy
 <div x-data>
-    <template x-for="p in $x.products.$query([Manifest.query.greaterThan('stock', 0)])">
+    <template x-for="p in $x.products.$query([['greaterThan', 'stock', 0]])">
         <div x-text="p.name"></div>
     </template>
 </div>
@@ -428,9 +437,12 @@ Theme tokens live in `manifest.theme.css` and can be customized per project. Com
 |---|---|
 | `--color-*` | Theme colors (background, content, brand, accent variants — light/dark) |
 | `--font-*` | Font families |
-| `--radius-*` | Border radii |
+| `--radius`{copy} | Default border radius |
 | `--shadow-*` | Box shadows |
 | `--spacing`{copy} | Base spacing unit |
+| `--spacing-*` | Content width, viewport padding, field sizes, popover offset |
+| `--icon-*` | Icons drawn by element styles (accordion, check, chevron, dismiss, previous, next) |
+| `--tooltip-hover-delay`{copy} | Delay before a tooltip shows on hover |
 | `--transition`{copy} | Default transition timing |
 | `--view-transition-*` | View transition tuning for SPA and MPA crossfades |
 
@@ -447,7 +459,7 @@ Custom events dispatched on `window` that any component can subscribe to via `@e
 | `manifest:route-change`{copy} | After SPA route change (and inside the view transition when active) | `{ from, to, normalizedPath }` |
 | `manifest:components-processed`{copy} | After components and templates have been registered | — |
 | `manifest:render-ready`{copy} | Signal from the data plugin that prerender can snapshot the page | — |
-| `manifest:dev-reload`{copy} | Dev-server hot-update of CSV / JSON / YAML data | `{ source, path }` |
+| `manifest:dev-reload`{copy} | Dev server (`mnfst-run`): a data or markdown file (`.csv`, `.json`, `.yaml`, `.md`) changed | — |
 | `submit:sent`{copy}, `submit:error`{copy} | On an `x-submit` form (not `window`; bubbles), when the endpoint answers or the request fails | `{ ok, status, data, response, error, message }` |
 | `manifest:defer-render`{copy} | On a deferred container (not `window`), after its contents initialise | — |
 | `alpine:init` | Alpine initialization (standard Alpine event) | — |
@@ -466,6 +478,6 @@ Window-level objects for diagnostics and configuration. See [performance](/docs/
 
 | Global | Description |
 |---|---|
-| `ManifestDefer.stats()`{copy} | Deferral counters: `{ pending, warm, cap, ready, armed, head, routes: { enabled, stashed, rendered } }` |
+| `ManifestDefer.stats()`{copy} | Deferral counters: `{ pending, warm, cap, ready, bootDrained, armed, observed, head, routes: { enabled, stashed, rendered } }` |
 | `ManifestDeferConfig.prewarmCap`{copy} | Maximum containers warming may prepare (default `48`) |
 | `ManifestDeferConfig.routes`{copy} | Experimental — `true` defers inactive `x-route` pages, same as `data-defer-routes` |
