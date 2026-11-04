@@ -91,7 +91,7 @@ Use the `<header>`, `<main>`, and/or `<footer>` elements as direct children of t
     </header>
 
     <main>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+        <p>Your changes are saved automatically.</p>
     </main>
 
     <footer>
@@ -111,7 +111,7 @@ Use the `<header>`, `<main>`, and/or `<footer>` elements as direct children of t
         <button popovertarget="dialog-formatted" aria-label="Close" x-icon="lucide:x"></button>
     </header>
     <main>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+        <p>Your changes are saved automatically.</p>
     </main>
     <footer>
         <button popovertarget="dialog-formatted">Cancel</button>

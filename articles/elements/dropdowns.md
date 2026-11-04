@@ -122,7 +122,7 @@ Add the `context` modifier to `x-dropdown` for right-click dropdowns. The menu a
 ```
 
 ::: frame text-base
-<div x-dropdown.context="context-menu-preview" style="padding: 2rem; border: 1px dashed var(--color-line, #ccc); border-radius: var(--radius, 0.5rem); text-align: center; color: var(--color-content-subtle);">Right-click this area</div>
+<div x-dropdown.context="context-menu-preview" class="p-8 border border-dashed border-line rounded-lg text-center text-content-subtle">Right-click this area</div>
 
 <menu popover id="context-menu-preview">
     <li>Cut</li>
@@ -269,7 +269,7 @@ Nested dropdowns automatically position themselves to avoid overlapping and main
 
 ## Positioning
 
-Menus have utility classes like `top` and `bottom` to position them in relation to their trigger buttons. If no class is set, menus default to `bottom-start`, or `end-start` if nested.
+Menus have utility classes like `top` and `bottom` to position them in relation to their trigger buttons. If no class is set, menus default to `bottom-start`, or `end-top` if nested.
 
 <div x-code-group>
 
@@ -470,6 +470,7 @@ Use `<li>` elements for generic options in a dropdown, with Alpine's `@click` di
     <li><span>Trailing</span><kbd class="trailing">⌘</kbd><kbd>D</kbd></li>
     <li class="brand">Brand</li>
     <li class="accent">Accent</li>
+    <li class="positive">Positive</li>
     <li class="negative">Negative</li>
 
     <hr>
@@ -487,8 +488,8 @@ Use `<li>` elements for generic options in a dropdown, with Alpine's `@click` di
     <hr>
 
     <small>Checkboxes</small>
-    <label><input type="checkbox" /><span>Lorem ipsum dolor sit amet</span></label>
-    <label><input type="checkbox" /><span>Consectetur adipiscing elit</span></label>
+    <label><input type="checkbox" /><span>Show hidden files</span></label>
+    <label><input type="checkbox" /><span>Show file extensions</span></label>
 
     <hr>
 
@@ -534,8 +535,8 @@ Use `<li>` elements for generic options in a dropdown, with Alpine's `@click` di
     <button><span x-icon="lucide:edit"></span><span>Edit</span></button>
     <hr>
     <small>Checkboxes</small>
-    <label><input type="checkbox" /><span>Lorem ipsum dolor sit amet</span></label>
-    <label><input type="checkbox" /><span>Consectetur adipiscing elit</span></label>
+    <label><input type="checkbox" /><span>Show hidden files</span></label>
+    <label><input type="checkbox" /><span>Show file extensions</span></label>
     <hr>
     <small>Radios</small>
     <label><input type="radio" id="option-a" name="group-preview" checked /><span>Option A</span></label>
@@ -655,18 +656,18 @@ If using Tailwind, individual menus can be customized with utility classes. Menu
 ```html copy
 <button x-dropdown="menu-wide-preview">Offset & Widen</button>
 <menu popover id="menu-wide-preview" class="w-100 !m-6">
-    <li>Lorem ipsum dolor sit amet</li>
-    <li>Consectetur adipiscing elit</li>
-    <li>Sed do eiusmod tempor incididunt</li>
+    <li>Duplicate</li>
+    <li>Archive</li>
+    <li>Move to another workspace</li>
 </menu>
 ```
 
 ::: frame text-base
 <button x-dropdown="menu-wide-preview">Offset & Widen</button>
 <menu popover id="menu-wide-preview" class="w-100 !m-6">
-    <li>Lorem ipsum dolor sit amet</li>
-    <li>Consectetur adipiscing elit</li>
-    <li>Sed do eiusmod tempor incididunt</li>
+    <li>Duplicate</li>
+    <li>Archive</li>
+    <li>Move to another workspace</li>
 </menu>
 :::
 

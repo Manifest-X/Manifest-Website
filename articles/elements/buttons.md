@@ -52,7 +52,7 @@ The button's appearance is determined by these top-level factors:
 
 <!-- Truncate text -->
 <button class="flex-1">
-    <span>Truncated lorem ipsum dolor sit amet</span>
+    <span>A long label that truncates when it runs out of room</span>
 </button>
 ```
 
@@ -60,7 +60,7 @@ The button's appearance is determined by these top-level factors:
 <button>!</button>
 <button class="flex-1 justify-start">Starting Alignment</button>
 <button class="flex-1">
-    <span>Truncated lorem ipsum dolor sit amet</span>
+    <span>A long label that truncates when it runs out of room</span>
 </button>
 :::
 
