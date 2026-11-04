@@ -14,25 +14,25 @@ There are two ways to use it. **Payment links** simply send buyers to a checkout
 
 ## Setup
 
-The payments plugin is included in `manifest.js` with all core plugins, or can be selectively loaded. It activates when `manifest.json` contains a `payments` block, or whenever it's declared in `data-plugins`.
+Payments isn't part of the default plugin set. It loads automatically when `manifest.json` contains a `payments` block, or it can be declared in `data-plugins`, where the `+` prefix adds it alongside the default plugins.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
-<!-- Meta -->
+```html "Auto-detect"
+<!-- Meta: manifest.json contains a "payments" block -->
 <link rel="manifest" href="/manifest.json">
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
-```html "Selective"
+```html "Declared"
 <!-- Meta -->
 <link rel="manifest" href="/manifest.json">
 
-<!-- Scripts -->
+<!-- Scripts: defaults plus payments -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="payments"></script>
+    data-plugins="+payments"></script>
 ```
 
 </div>

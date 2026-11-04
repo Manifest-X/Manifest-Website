@@ -21,20 +21,20 @@ Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json`
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
-```html "Selective"
+```html "Declared"
 <!-- Meta -->
 <link rel="manifest" href="/manifest.json">
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="appwrite-data"></script>
+    data-plugins="+appwrite-data"></script>
 ```
 
 </div>
 
 ::: brand icon="lucide:info"
-If the Manifest script uses selective loading but omits the core `data` plugin (with its `$x` magic method), it will be auto loaded to enable Appwrite database and storage operations in the frontend.
+If `data-plugins` lists plugins without the `+` prefix and leaves out the core `data` plugin (with its `$x` magic method), it is still loaded automatically to enable Appwrite database and storage operations in the frontend.
 :::
 
 ---

@@ -21,14 +21,14 @@ Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json`
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
-```html "Selective"
+```html "Declared"
 <!-- Meta -->
 <link rel="manifest" href="/manifest.json">
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="appwrite-auth"></script>
+    data-plugins="+appwrite-auth"></script>
 ```
 
 </div>
