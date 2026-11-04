@@ -35,7 +35,7 @@ Each event is one JSON body with `type`, `timestamp` (ISO 8601, when the event h
 }
 ```
 
-`publish.failed`{copy} carries `project_id`, `source_id`, `deployment_id`, `env`, and `error`, a short code such as `store_failed`{copy}, `ingest_failed`{copy}, `upload_expired`{copy}, or `publish_failed`{copy}. Start a new publish to recover. New fields and event types may be added, so ignore what you don't recognise.
+`publish.failed`{copy} carries `project_id`, `source_id`, `deployment_id`, `env`, and `error`, a short code such as `store_failed`{copy}, `ingest_failed`{copy}, `upload_expired`{copy}, `storage_cap_reached`{copy} (the account's storage cap, see [Limits](/docs/api/reference/limits)), or `publish_failed`{copy}. Start a new publish to recover. New fields and event types may be added, so ignore what you don't recognise.
 
 ---
 
