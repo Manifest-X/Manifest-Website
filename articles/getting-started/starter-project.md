@@ -28,7 +28,7 @@ npx mnfst-starter --here
 npx mnfst-starter --here --name "My Site"
 ```
 
-Names may contain letters, numbers, spaces, dots, underscores, and hyphens. If the current folder's name has other characters, pass `--name`.
+Names may contain letters, numbers, spaces, dots, underscores, and hyphens, and can't start or end with a dot or space. If the current folder's name has other characters, pass `--name`.
 
 Alternatively, download the template directory from <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/starter" target="_blank">GitHub</a>.
 
@@ -44,7 +44,7 @@ Error: these files already exist in this folder and would be overwritten:
 Move them aside, or re-run with --force to overwrite them.
 ```
 
-Move those files aside, or add `--force` to replace them with the template versions. Files that aren't part of the template are never touched.
+Move those files aside, or add `--force` to replace them with the template versions. Other files are never touched, apart from the config merges below.
 
 ```bash copy
 npx mnfst-starter --here --force
