@@ -68,9 +68,14 @@ curl https://api.manifestx.dev/v1/projects/proj_…/domains/docs.acme.com \
     "certificate_status": "pending_validation",
     "certificate_validation": { "method": "http", "expected_records": [], "errors": [] }
   },
+  "records": [
+    { "purpose": "Point the domain to the site", "type": "CNAME", "name": "docs", "value": "cname.manifestx.ai" }
+  ],
   "request_id": "…"
 }
 ```
+
+`records`{copy} repeats the DNS records to add, in the same shape as the attach response, so you can show them again without attaching again. With `txt`{copy} validation the TXT record is listed until the certificate is issued; after that only the CNAME remains.
 
 `status`{copy} is one of:
 

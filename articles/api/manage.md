@@ -1,6 +1,6 @@
 # Manage
 
-What a key can manage, how to create, list, look up, and delete projects, and how to invite editors.
+What a key can manage, how to create, list, look up, rename, and delete projects, and how to invite editors.
 
 ---
 
@@ -10,7 +10,7 @@ A key reaches two kinds of project:
 
 | **Project**                                   | **What the key can do**                                                                 |
 |-----------------------------------------------|-----------------------------------------------------------------------------------------|
-| Projects you own or admin                     | Publish, promote, roll back, list deployments, manage custom domains, and invite or remove editors. |
+| Projects you own or admin                     | Publish, promote, roll back, rename, list deployments, manage custom domains, and invite or remove editors. |
 | Projects your keys create through the API     | All of the above, plus [content](/docs/api/projects/content).                           |
 
 Your own projects are the ones you see in the dashboard, made with Claude, the Manifest plugin, or the API. On a team project you need the owner or admin role: as a member the key answers `403 forbidden`. A project created by another account's API keys is reachable only with that account's keys. A project you can't access answers `404 not_found`, the same as one that doesn't exist.
@@ -74,8 +74,10 @@ A new project answers `201 Created`:
 | **Request**                                              | **Response**                                                                                  |
 |----------------------------------------------------------|-----------------------------------------------------------------------------------------------|
 | Same `source_id`{copy}, same `name`{copy} (and `subdomain`{copy}, if sent) | `200 OK` with the existing project. No `project_key`{copy}: it was returned when the project was created. |
-| Same `source_id`{copy}, different `name`{copy} or `subdomain`{copy}        | `409 source_id_conflict`, naming the existing project id. Nothing is changed.                 |
+| Same `source_id`{copy}, different `name`{copy} or `subdomain`{copy}        | `409 source_id_conflict`, naming the existing project id. Nothing is changed. To change the name, [rename the project](#rename-a-project). |
 | Two creates for the same `source_id`{copy} at the same moment  | One project. The first wins (`201`); the other sees it (`200`).                               |
+
+A sync that re-sends the create body every run breaks once a project is renamed. Look the project up first with [`GET /v1/projects?source_id=`](#find-a-project-by-source_id), and create only when nothing is returned.
 
 Every other request that changes something is made retry-safe with an `Idempotency-Key`{copy} header. See [Idempotency](/docs/api/reference/idempotency).
 
@@ -99,6 +101,15 @@ curl https://api.manifestx.dev/v1/projects \
 Returns `{ "projects": [ … ], "complete": true, "request_id": "…" }` with every live project the key reaches, newest first, in the same shape as the create response (without `project_key`{copy}). Projects you made outside the API have `"source_id": null`. Deleted projects and projects the key can't reach are never included.
 
 `complete`{copy} is `false` when Manifest couldn't check your team roles just then. The list then holds only the projects you own; retry to see team projects too.
+
+### Find a project by source_id
+
+```bash copy
+curl "https://api.manifestx.dev/v1/projects?source_id=site_8231" \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
+```
+
+Returns the same shape as the list, with zero or one project: the live project your API account created with that `source_id`{copy}. URL-encode the value. A deleted project is never returned, and a blank `source_id`{copy} or one over 128 characters answers `400 invalid_input`.
 
 ---
 
@@ -196,6 +207,23 @@ Use the `user_id`{copy} from the invite or the list. Access is revoked immediate
 ### Editors outlive your keys
 
 An editor's access belongs to the project, not to the key that invited them. Revoking or rotating an API key doesn't remove anyone: to take access away, remove the editor. If a key leaks, list each project's editors and remove anyone you didn't invite.
+
+---
+
+## Rename a project
+
+```bash copy
+curl -X PATCH https://api.manifestx.dev/v1/projects/proj_… \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "Acme Help Center" }'
+```
+
+| **Field**     | **Type** | **Required** | **Notes**                                           |
+|---------------|----------|--------------|-----------------------------------------------------|
+| `name`{copy}  | string   | yes          | New display name (1–120 characters).                |
+
+Answers `200 OK` with `{ "project": { … }, "request_id": "…" }`. Only the name changes: `source_id`{copy}, subdomains, and custom domains stay as they are. Creates with the same `source_id`{copy} then match on the new name. Unknown fields, including `source_id`{copy}, are rejected with `400 invalid_input`. Send an `Idempotency-Key`{copy} to make a retry safe.
 
 ---
 
