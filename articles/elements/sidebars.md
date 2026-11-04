@@ -88,8 +88,9 @@ Default sidebars use the following [theme](/docs/framework/styles/theme) variabl
 | Variable | Purpose |
 |----------|----------|
 | `--color-popover-surface`{copy} | Sidebar background color |
-| `--spacing`{copy} | Sidebar padding and gaps |
-| `--spacing-content-width`{copy} | Maximum content width |
+| `--color-surface-1`{copy} | Sidebar background color in dark mode |
+
+Sidebars size to their content, between 20% and 80% of the viewport width.
 
 ---
 
@@ -113,7 +114,7 @@ If using Tailwind, individual sidebars can be customized with utility classes.
 <button popovertarget="sidebar-tailwind-preview">Custom Sidebar</button>
 <nav popover id="sidebar-tailwind-preview" class="w-100 bg-surface-2/80 border-s border-line rounded-s-2xl backdrop-blur">
     <div class="col gap-4 p-4">
-        <h4>Tailwind Sidebar</h4>
+        <span class="h4">Tailwind Sidebar</span>
         <p>This sidebar uses Tailwind utility classes with theme-aware colors.</p>
     </div>
 </nav>
@@ -158,14 +159,23 @@ nav[popover] {
     }
 
     /* Modifier class to originate sidebar from inline-start */
-    &.start {
-
+    &.appear-start {
         @starting-style {
             transform: translateX(-100%);
         }
 
         &:not(:popover-open) {
             transform: translateX(-100%);
+        }
+
+        [dir=rtl] & {
+            @starting-style {
+                transform: translateX(100%);
+            }
+
+            &:not(:popover-open) {
+                transform: translateX(100%);
+            }
         }
     }
 }
@@ -186,7 +196,6 @@ Modify base sidebar styles with custom CSS for the `nav[popover]` selector.
 
 ```css copy
 nav[popover] {
-    display: flex;
     flex-flow: column;
     gap: 1rem;
     width: 400px;
@@ -206,7 +215,6 @@ nav[popover] {
 ::: frame text-base
 <style>
 nav[popover].custom {
-    display: flex;
     flex-flow: column;
     gap: 1rem;
     width: 400px;
@@ -225,7 +233,7 @@ nav[popover].custom {
 
 <button popovertarget="sidebar-custom-preview">Custom Sidebar</button>
 <nav popover id="sidebar-custom-preview" class="custom">
-    <h4>Custom Sidebar</h4>
+    <span class="h4">Custom Sidebar</span>
     <p>This sidebar has custom styling with CSS variables and backdrop color.</p>
 </nav>
 :::
