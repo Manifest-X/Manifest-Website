@@ -120,7 +120,7 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-markdown`{copy} | [markdown](/docs/framework/core-plugins/markdown) | Render markdown content from a source |
 | `x-rich-text`{copy} | [rich text](/docs/framework/core-plugins/rich-text) | Text field with formatting, bound to a value (markdown; `.html`, `.plain`, `.inline`); with a command modifier, a control for a field (`x-rich-text.strong`). Also `x-rich-text-for`, `x-rich-text-menu`. Loads on use |
 | `x-route`{copy} | [router](/docs/framework/core-plugins/router) | Applies element to specific routes |
-| `x-submit`{copy} | [submissions](/docs/framework/core-plugins/submissions) | On a `<form>`: send it in place to its own `action`/`method`; sets `data-state` (`sending`, `sent`, `error`) and fires `submit-sent` / `submit-error`. Loads on use |
+| `x-submit`{copy} | [submissions](/docs/framework/core-plugins/submissions) | On a `<form>`: send it in place to its own `action`/`method`; sets `data-state` (`sending`, `sent`, `error`) and fires `submit:sent` / `submit:error`. Loads on use |
 | `x-svg`{copy} | [svgs](/docs/framework/elements/svgs) | Inlines an SVG file |
 | `x-tab`{copy}, `x-tabpanel`{copy} | [tabs](/docs/framework/elements/tabs) | Tab elements |
 | `x-toast`{copy} | [toasts](/docs/framework/elements/toasts) | Dispatches toast popover |
@@ -448,7 +448,7 @@ Custom events dispatched on `window` that any component can subscribe to via `@e
 | `manifest:components-processed`{copy} | After components and templates have been registered | — |
 | `manifest:render-ready`{copy} | Signal from the data plugin that prerender can snapshot the page | — |
 | `manifest:dev-reload`{copy} | Dev-server hot-update of CSV / JSON / YAML data | `{ source, path }` |
-| `submit-sent`{copy}, `submit-error`{copy} | On an `x-submit` form (not `window`; bubbles), when the endpoint answers or the request fails | `{ ok, status, data, response, error, message }` |
+| `submit:sent`{copy}, `submit:error`{copy} | On an `x-submit` form (not `window`; bubbles), when the endpoint answers or the request fails | `{ ok, status, data, response, error, message }` |
 | `manifest:defer-render`{copy} | On a deferred container (not `window`), after its contents initialise | — |
 | `alpine:init` | Alpine initialization (standard Alpine event) | — |
 

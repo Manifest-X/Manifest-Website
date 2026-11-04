@@ -130,8 +130,8 @@ The form dispatches an event when the answer comes back. Both bubble.
 
 | Event | Fired when |
 |---|---|
-| `submit-sent`{copy} | The endpoint accepted the form |
-| `submit-error`{copy} | The endpoint refused it, or the network failed |
+| `submit:sent`{copy} | The endpoint accepted the form |
+| `submit:error`{copy} | The endpoint refused it, or the network failed |
 
 `$event.detail` holds the answer:
 
@@ -147,8 +147,8 @@ The form dispatches an event when the answer comes back. Both bubble.
 ```html copy
 <div x-data="{ sent: false, problem: '' }">
     <form x-submit action="/_forms/contact" method="post" x-show="!sent"
-        @submit-sent="sent = true"
-        @submit-error="problem = $event.detail.error === 'rate_limited' ? 'Too many tries. Wait a minute.' : 'Something went wrong.'">
+        @submit:sent="sent = true"
+        @submit:error="problem = $event.detail.error === 'rate_limited' ? 'Too many tries. Wait a minute.' : 'Something went wrong.'">
         <!-- fields -->
         <button>Send</button>
         <p x-show="problem" x-text="problem"></p>
@@ -197,4 +197,4 @@ A <a href="https://developers.cloudflare.com/turnstile/" target="_blank">Cloudfl
 | `x-submit`{copy} | On a `<form>`: send it in place to its own `action` and `method` |
 | `data-state` | Set on the form: `sending`, `sent`, or `error` |
 | `aria-busy` | `true` on the form while sending |
-| `submit-sent`{copy}, `submit-error`{copy} | Events on the form, with the answer in `$event.detail` |
+| `submit:sent`{copy}, `submit:error`{copy} | Events on the form, with the answer in `$event.detail` |
