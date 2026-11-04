@@ -48,40 +48,20 @@ You can organize your translations using JSON, YAML, or CSV files. Choose the fo
 
 ### CSV
 
-CSV files offer flexible organization options for translations. You can store all languages and topics in a single CSV file, or across multiple.
+A CSV file holds every language for a data source, one column per language.
 
-<div x-code-group copy>
-
-```csv "features.csv (all)"
+```csv "features.csv" copy
 key,en,fr,ar,zh
-features.title,Features,Caractéristiques,الميزات,功能
-features.performance.name,Fast Performance,Performance Rapide,أداء سريع,快速性能
-features.performance.description,Lightning fast loading times,Temps de chargement ultra rapides,أوقات تحميل سريعة كالبرق,闪电般的加载速度
-features.ease.name,Easy to Use,Facile à Utiliser,سهل الاستخدام,易于使用
-features.ease.description,Simple and intuitive interface,Interface simple et intuitive,واجهة بسيطة وبديهية,简单直观的界面
-features.responsive.name,Responsive,Responsive,متجاوب,响应式
-features.responsive.description,Works on all devices,Fonctionne sur tous les appareils,يعمل على جميع الأجهزة,适用于所有设备
+title,Features,Caractéristiques,الميزات,功能
+content.0.name,Fast Performance,Performance Rapide,أداء سريع,快速性能
+content.0.description,Lightning fast loading times,Temps de chargement ultra rapides,أوقات تحميل سريعة كالبرق,闪电般的加载速度
+content.1.name,Easy to Use,Facile à Utiliser,سهل الاستخدام,易于使用
+content.1.description,Simple and intuitive interface,Interface simple et intuitive,واجهة بسيطة وبديهية,简单直观的界面
+content.2.name,Responsive,Responsive,متجاوب,响应式
+content.2.description,Works on all devices,Fonctionne sur tous les appareils,يعمل على جميع الأجهزة,适用于所有设备
 ```
 
-```csv "features-euro.csv"
-key,en,fr,de,es,it
-features.title,Features,Caractéristiques,Funktionen,Características,Funzionalità
-features.performance.name,Fast Performance,Performance Rapide,Schnelle Leistung,Rendimiento Rápido,Prestazioni Veloci
-features.performance.description,Lightning fast loading times,Temps de chargement ultra rapides,Blitzschnelle Ladezeiten,Tiempos de carga ultrarrápidos,Tempi di caricamento fulminei
-```
-
-```csv "features-asian.csv"
-key,zh,ja,ko
-features.title,功能,機能,기능
-features.performance.name,快速性能,高速パフォーマンス,빠른 성능
-features.performance.description,闪电般的加载速度,稲妻のように速い読み込み時間,번개처럼 빠른 로딩 시간
-```
-
-</div>
-
-The first column (`key`) contains dot-notation paths to nested values. Subsequent columns are locale codes (`en`, `fr`, `ar`, `zh`, etc.). The plugin automatically detects available locales from the CSV header.
-
-Each CSV file can contain one or more language columns.
+The first column (`key`) contains dot-notation paths to nested values; numeric segments like `content.0.name` build an array. Subsequent columns are locale codes (`en`, `fr`, `ar`, `zh`, etc.). The plugin automatically detects available locales from the CSV header.
 
 ---
 
@@ -92,7 +72,7 @@ Create language-specific JSON or YAML files for your content, named and located 
 <div x-code-group copy>
 
 ```yaml "features.en.yaml"
-features:
+content:
   - name: "Fast Performance"
     description: "Lightning fast loading times"
   - name: "Easy to Use"
@@ -102,7 +82,7 @@ features:
 ```
 
 ```yaml "features.fr.yaml"
-features:
+content:
   - name: "Performance Rapide"
     description: "Temps de chargement ultra rapides"
   - name: "Facile à Utiliser"
@@ -112,7 +92,7 @@ features:
 ```
 
 ```yaml "features.ar.yaml"
-features:
+content:
   - name: "أداء سريع"
     description: "أوقات تحميل سريعة كالبرق"
   - name: "سهل الاستخدام"
@@ -122,7 +102,7 @@ features:
 ```
 
 ```yaml "features.zh.yaml"
-features:
+content:
   - name: "快速性能"
     description: "闪电般的加载速度"
   - name: "易于使用"
@@ -149,10 +129,7 @@ Each file should have the same object/array hierarchy and keys. Only the values 
 {
   "data": {
     "features": {
-      "locales": [
-        "/translations-euro.csv",
-        "/translations-asian.csv"
-      ]
+      "locales": "/features.csv"
     }
   }
 }
@@ -187,14 +164,14 @@ Each file should have the same object/array hierarchy and keys. Only the values 
 
 #### CSV
 
-CSV files containing multiple languages are registered using the `locales` key, which point to a CSV file (or multiple files in an array). The locales are determined by the language codes in the CSV headers.
+CSV files containing multiple languages are registered using the `locales` key, which points to one CSV file. The locales are determined by the language codes in the CSV headers.
 
 #### JSON & YAML
 
 JSON and YAML declare each locale in an object using their language code as a nested key, like `en` or `fr`.
 
 ::: brand icon="lucide:info"
-Always set `<html lang="…">` to your project's default language. The plugin treats this attribute as the **declared default** — the locale a fresh visitor lands on when no URL prefix, stored preference, or matching browser language is in play, and the locale `$locale.reset()` returns to. If `<html lang>` is missing or doesn't match an available locale, the plugin falls through to the browser language, then to the first locale it discovers while scanning `manifest.json` (which is iteration-order dependent and not a reliable default).
+Always set `<html lang="…">` to your project's default language. The plugin treats this attribute as the **declared default** — the locale a fresh visitor lands on when there's no URL prefix or stored preference, and the locale `$locale.reset()` returns to. If `<html lang>` is missing or doesn't match an available locale, the plugin falls through to the browser language, then to the first locale it discovers while scanning `manifest.json` (which is iteration-order dependent and not a reliable default).
 :::
 
 ---
@@ -205,7 +182,7 @@ The plugin automatically detects the initial language using this priority order:
 
 1. **URL path:** If a first path segment matches a language code in `manifest.json` (e.g. `/fr/about`), it gets highest priority for direct linking.
 2. **UI toggles:** The user preference saved to local storage and persisting between sessions.
-3. **HTML lang attribute:** `<html lang="fr">` is the DOM's source of truth for the current locale, persisting between sessions and modifiable only by 1 or 2.
+3. **HTML lang attribute:** your declared default, e.g. `<html lang="en">`.
 4. **Browser language:** The `navigator.language` value.
 5. **Fallback:** First available locale from `manifest.json`.
 
@@ -213,13 +190,13 @@ The plugin automatically detects the initial language using this priority order:
 
 ## Translating
 
-Manifest has no build steps and is not a translation engine. To translate your content we recommend using AI tools like Cursor to autonomously update your locale files in any language.
+Manifest has no build steps and is not a translation engine. To translate your content we recommend using an AI assistant such as Claude to update your locale files in any language.
 
 ---
 
 ## URL Paths
 
-If a language code is detected as a slug anywhere in the URL path, that locale is automatically displayed.
+If the first segment of the URL path is a registered language code (e.g. `/fr/about`), that locale is displayed.
 
 <div x-code-group>
 
@@ -277,20 +254,20 @@ Like regular [local data](/docs/framework/core-plugins/local-data#display-conten
 
 ```csv "features.csv"
 key,en,fr,ar,zh
-features.title,Features,Caractéristiques,الميزات,功能
-features.performance.name,Fast Performance,Performance Rapide,أداء سريع,快速性能
-features.performance.description,Lightning fast loading times,Temps de chargement ultra rapides,أوقات تحميل سريعة كالبرق,闪电般的加载速度
-features.ease.name,Easy to Use,Facile à Utiliser,سهل الاستخدام,易于使用
-features.ease.description,Simple and intuitive interface,Interface simple et intuitive,واجهة بسيطة وبديهية,简单直观的界面
-features.responsive.name,Responsive,Responsive,متجاوب,响应式
-features.responsive.description,Works on all devices,Fonctionne sur tous les appareils,يعمل على جميع الأجهزة,适用于所有设备
+title,Features,Caractéristiques,الميزات,功能
+content.0.name,Fast Performance,Performance Rapide,أداء سريع,快速性能
+content.0.description,Lightning fast loading times,Temps de chargement ultra rapides,أوقات تحميل سريعة كالبرق,闪电般的加载速度
+content.1.name,Easy to Use,Facile à Utiliser,سهل الاستخدام,易于使用
+content.1.description,Simple and intuitive interface,Interface simple et intuitive,واجهة بسيطة وبديهية,简单直观的界面
+content.2.name,Responsive,Responsive,متجاوب,响应式
+content.2.description,Works on all devices,Fonctionne sur tous les appareils,يعمل على جميع الأجهزة,适用于所有设备
 ```
 
 ```json "manifest.json"
 {
   "data": {
     "features": {
-      "locales": [ "/features.csv" ]
+      "locales": "/features.csv"
     }
   }
 }
@@ -304,7 +281,7 @@ features.responsive.description,Works on all devices,Fonctionne sur tous les app
   <button @click="$locale.set('ar')">العربية</button>
 </div>
 <template x-for="feature in $x['feature-examples'].content">
-  <div class="col" :class="{ 'opacity-50': $store.data._localeChanging }">
+  <div class="col">
     <span class="h4" x-text="feature.name"></span>
     <span x-text="feature.description"></span>
   </div>
@@ -340,7 +317,7 @@ Display the current locale's language code with `$locale.current`{copy}, or its 
 ### Locale Toggles
 
 Allow users to toggle locales with Alpine's `@click` directive, using the `$locale` magic method:
-- `$locale.set('...')` sets the specified locale by its language code, e.g. `fr` for French
+- `$locale.set('...')` sets the specified locale by its language code, e.g. `fr` for French. Pass `true` as a second argument, `$locale.set('fr', true)`, to also add the language code to the URL (`/about` becomes `/fr/about`); a URL that already starts with a language code is always updated
 - `$locale.toggle()` toggles through all locales in the order set in `manifest.json`
 - `$locale.reset()` restores the project's default locale — clears the stored UI preference, re-applies the original `<html lang>` (or browser language, or first available), updates `$locale.current` reactively, and strips any leading locale segment from the URL
 
@@ -473,7 +450,7 @@ The plugin automatically detects and handles right-to-left languages like Arabic
 
 </div>
 
-If an RTL language is detected as the current locale, the plugin automatically adds `dir=rtl` to the `<html>` tag, reversing the inline flow of page content. Detectable RTL languages are:
+If an RTL language is detected as the current locale, the plugin automatically adds `dir=rtl` to the `<html>` tag, reversing the inline flow of page content. Detection matches the exact code, so use the bare language code (`ar`, not `ar-SA`). Detectable RTL languages are:
 
 **Arabic Script**
 - Arabic (`ar`)
@@ -501,6 +478,7 @@ If an RTL language is detected as the current locale, the plugin automatically a
 **Other Scripts**
 - Dhivehi/Maldivian (`dv`) - Thaana script
 - N'Ko (`nqo`) - N'Ko script
+- Manding (`man`) - N'Ko script
 - Syriac (`syr`) - Syriac script
 - Assyrian Neo-Aramaic (`aii`) - Syriac script
 - Aramaic (`arc`) - Syriac script

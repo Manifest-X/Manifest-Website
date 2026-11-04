@@ -3,6 +3,12 @@ Track the health of your services and display it with `$status`.
 
 ---
 
+## Overview
+
+The status plugin checks your services from the visitor's browser, by probing endpoints, reading status feeds, or mirroring third-party status pages, and rolls the results into reactive states you can show anywhere.
+
+---
+
 ## Setup
 
 The status plugin is included in `manifest.js` with all core plugins, or can be selectively loaded. It activates when `manifest.json` contains a `status` block.
@@ -62,9 +68,9 @@ A single project can mix sources freely, with the provider behind each signal is
 | `url`{copy} | HTTP probe | Fetches the endpoint; reads reachability and latency. |
 | `feed`{copy} | Status feed | Reads a normalized status JSON the endpoint returns. |
 | `static`{copy} | Literal | A fixed state — useful for placeholders or manual control. |
-| `appwriteService`{copy} | Appwrite | Resolves against your Appwrite endpoint's `/health`. |
+| `appwriteService`{copy} | Appwrite | Probes your Appwrite endpoint's overall `/health`, whichever service is named. |
 | `mirror`{copy} | Upstream | Reflects a known third party's own status. |
-| `heartbeat`{copy} | Dead-man's switch | A job calls `$status.beat(key)`; silence reads as down. |
+| `heartbeat`{copy} | Dead-man's switch | In-page only: code on the page calls `$status.beat(key)`, and no beat within `expectEvery` ms (default `60000`) reads as `major_outage`. Each visitor's tab starts at `unknown`. For server jobs, publish a `feed` instead. |
 | `mcp`{copy} | Manifest hosting | Hosted signal for projects published with Manifest AI. |
 
 ---
@@ -110,6 +116,20 @@ For a service you own, probe an endpoint directly or read a status feed it publi
 ```
 
 </div>
+
+Probes also accept `method` (default `GET`), `headers`, and `timeout` (default `8000` ms). A feed can return more than a state: `message`, `uptime` (a percentage), `history` (an array of states, oldest first) and `incidents` (each with a unique `id`), on the node at `path` or at the top level. These fill the matching [health object](#reading-status) properties.
+
+```json "Full feed response" copy
+{
+    "state": "degraded",
+    "message": "Elevated latency in the EU region",
+    "uptime": 99.9,
+    "history": ["operational", "operational", "degraded"],
+    "incidents": [
+        { "id": "2026-11-04-eu", "name": "api", "state": "degraded", "message": "Elevated latency in the EU region", "resolved": false }
+    ]
+}
+```
 
 A network error, timeout, or CORS block resolves a probe to `unknown` rather than a false outage. The plugin never reports "down" when it simply could not reach the endpoint.
 
@@ -217,7 +237,7 @@ Address a service by name, or iterate `$status` directly — each item is a heal
 <div x-code-group>
 
 ```html copy
-<p x-text="$status.API.state"></p>
+<p x-text="$status.api.state"></p>
 
 <template x-for="(service, name) in $status" :key="name">
     <span x-text="name + ': ' + service.state"></span>
@@ -246,14 +266,13 @@ The plugin gives you state; the presentation is yours. These templates range fro
 
     <!-- Headline banner -->
     <div class="row items-center gap-3 p-4 bg-page border border-line rounded-lg">
-        <figure style="size-6 rounded-full"
+        <figure class="size-6 rounded-full"
             :class="{
                 'bg-positive-content':$status.overall==='operational',
                 'bg-yellow-400':$status.overall==='degraded',
                 'bg-orange-400':$status.overall==='partial_outage',
                 'bg-negative-content':$status.overall==='major_outage',
-                'bg-surface-3':$status.overall==='maintenance',
-                'bg-surface-3':$status.overall==='unknown'
+                'bg-surface-3':['maintenance','unknown'].includes($status.overall)
             }"></figure>
         <p x-text="$status.overall==='operational' ? 'All systems operational' : 'Some systems are experiencing issues'"></p>
     </div>
@@ -269,7 +288,7 @@ The plugin gives you state; the presentation is yours. These templates range fro
             </div>
 
             <!-- Daily status -->
-            <div class="row" style="gap:2px;">
+            <div class="row gap-0.5">
                 <template x-for="(day,i) in service.history" :key="i">
                     <figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs"
                         :class="{
@@ -277,8 +296,7 @@ The plugin gives you state; the presentation is yours. These templates range fro
                             'bg-yellow-400':day==='degraded',
                             'bg-orange-400':day==='partial_outage',
                             'bg-negative-content':day==='major_outage',
-                            'bg-surface-3':day==='maintenance',
-                            'bg-surface-3':day==='unknown'
+                            'bg-surface-3':['maintenance','unknown'].includes(day)
                         }"></figure>
                 </template>
             </div>
@@ -305,14 +323,13 @@ The plugin gives you state; the presentation is yours. These templates range fro
 
     <!-- Headline banner -->
     <div class="row items-center gap-3 p-4 bg-page border border-line rounded-lg">
-        <figure style="size-6 rounded-full"
+        <figure class="size-6 rounded-full"
             :class="{
                 'bg-positive-content':$status.overall==='operational',
                 'bg-yellow-400':$status.overall==='degraded',
                 'bg-orange-400':$status.overall==='partial_outage',
                 'bg-negative-content':$status.overall==='major_outage',
-                'bg-surface-3':$status.overall==='maintenance',
-                'bg-surface-3':$status.overall==='unknown'
+                'bg-surface-3':['maintenance','unknown'].includes($status.overall)
             }"></figure>
         <p x-text="$status.overall==='operational' ? 'All systems operational' : 'Some systems are experiencing issues'"></p>
     </div>
@@ -328,7 +345,7 @@ The plugin gives you state; the presentation is yours. These templates range fro
             </div>
 
             <!-- Daily status -->
-            <div class="row" style="gap:2px;">
+            <div class="row gap-0.5">
                 <template x-for="(day,i) in service.history" :key="i">
                     <figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs"
                         :class="{
@@ -336,8 +353,7 @@ The plugin gives you state; the presentation is yours. These templates range fro
                             'bg-yellow-400':day==='degraded',
                             'bg-orange-400':day==='partial_outage',
                             'bg-negative-content':day==='major_outage',
-                            'bg-surface-3':day==='maintenance',
-                            'bg-surface-3':day==='unknown'
+                            'bg-surface-3':['maintenance','unknown'].includes(day)
                         }"></figure>
                 </template>
             </div>
@@ -362,9 +378,9 @@ The plugin gives you state; the presentation is yours. These templates range fro
 ```html "Service Cards"
 <div x-data class="grid grid-cols-1 sm:grid-cols-3 gap-3">
     <template x-for="(service, name) in $status" :key="name">
-        <div class="col gap-1 p-4 bg-page shadow rounded" style="min-width:150px;">
+        <div class="col gap-1 p-4 bg-page shadow rounded min-w-[150px]">
             <div class="row items-center gap-2">
-                <figure class="size-2 rounded-full" :class="{ 'bg-positive-content':service.state==='operational', 'bg-yellow-400':service.state==='degraded', 'bg-orange-400':service.state==='partial_outage', 'bg-negative-content':service.state==='major_outage', 'bg-slate-400':service.state==='maintenance', 'bg-slate-300':service.state==='unknown' }"></figure>
+                <figure class="size-2 rounded-full" :class="{ 'bg-positive-content':service.state==='operational', 'bg-yellow-400':service.state==='degraded', 'bg-orange-400':service.state==='partial_outage', 'bg-negative-content':service.state==='major_outage', 'bg-surface-3':['maintenance','unknown'].includes(service.state) }"></figure>
                 <span x-text="name"></span>
             </div>
             <small x-text="service.state.replace('_',' ')"></small>
@@ -376,9 +392,9 @@ The plugin gives you state; the presentation is yours. These templates range fro
 ::: frame "Service Cards"
 <div x-data class="grid grid-cols-1 sm:grid-cols-3 gap-3">
     <template x-for="(service, name) in $status" :key="name">
-        <div class="col gap-1 p-4 bg-page shadow rounded" style="min-width:150px;">
+        <div class="col gap-1 p-4 bg-page shadow rounded min-w-[150px]">
             <div class="row items-center gap-2">
-                <figure class="size-2 rounded-full" :class="{ 'bg-positive-content':service.state==='operational', 'bg-yellow-400':service.state==='degraded', 'bg-orange-400':service.state==='partial_outage', 'bg-negative-content':service.state==='major_outage', 'bg-slate-400':service.state==='maintenance', 'bg-slate-300':service.state==='unknown' }"></figure>
+                <figure class="size-2 rounded-full" :class="{ 'bg-positive-content':service.state==='operational', 'bg-yellow-400':service.state==='degraded', 'bg-orange-400':service.state==='partial_outage', 'bg-negative-content':service.state==='major_outage', 'bg-surface-3':['maintenance','unknown'].includes(service.state) }"></figure>
                 <span x-text="name"></span>
             </div>
             <small x-text="service.state.replace('_',' ')"></small>
@@ -403,13 +419,13 @@ The plugin gives you state; the presentation is yours. These templates range fro
 
 ::: frame "Banner" col gap-3
 <!-- Issues -->
-<p class="p-4 bg-page text-negative-content rounded-lg shadow">
+<p x-show="$status.overall !== 'operational'" class="p-4 bg-page text-negative-content rounded-lg shadow">
     <span x-icon="lucide:alert-triangle"></span>
     <span>Some services are experiencing issues.</span>
 </p>
 
 <!-- Operational -->
-<p class="p-4 bg-page text-positive-content rounded-lg shadow">
+<p x-show="$status.overall === 'operational'" class="p-4 bg-page text-positive-content rounded-lg shadow">
     <span x-icon="lucide:check-circle"></span>
     <span>All systems operational.</span>
 </p>
@@ -424,8 +440,7 @@ The plugin gives you state; the presentation is yours. These templates range fro
             'bg-yellow-400': $status.overall === 'degraded',
             'bg-orange-400': $status.overall === 'partial_outage',
             'bg-negative-content': $status.overall === 'major_outage',
-            'bg-surface-3': $status.overall === 'maintenance',
-            'bg-surface-3': $status.overall === 'unknown'
+            'bg-surface-3': ['maintenance', 'unknown'].includes($status.overall)
         }"
     ></figure>
     <span x-text="$status.overall === 'operational' ? 'All systems operational' : 'Service disruption'"></span>
@@ -441,8 +456,7 @@ The plugin gives you state; the presentation is yours. These templates range fro
             'bg-yellow-400': $status.overall === 'degraded',
             'bg-orange-400': $status.overall === 'partial_outage',
             'bg-negative-content': $status.overall === 'major_outage',
-            'bg-surface-3': $status.overall === 'maintenance',
-            'bg-surface-3': $status.overall === 'unknown'
+            'bg-surface-3': ['maintenance', 'unknown'].includes($status.overall)
         }"
     ></figure>
     <span x-text="$status.overall === 'operational' ? 'All systems operational' : 'Service disruption'"></span>
@@ -462,16 +476,16 @@ The magic exposes methods for operators and background systems.
 | `$status.set(name, state, message?)`{copy} | Force a state and an optional update message, overriding signals. |
 | `$status.clear(name)`{copy} | Remove an override and return to signal-derived state. |
 | `$status.refresh(name?)`{copy} | Re-resolve one entry, or all when called with no argument. |
-| `$status.beat(key)`{copy} | Pulse a `heartbeat` signal; absence past its window reads as down. |
+| `$status.beat(key)`{copy} | Pulse a `heartbeat` signal in this tab; absence past its `expectEvery` window reads as down. |
 
 <div x-code-group>
 
 ```html copy
-<button @click="$status.set('API', 'major_outage', 'Investigating elevated error rates')">Report outage</button>
-<button @click="$status.clear('API')">Resolve</button>
+<button @click="$status.set('api', 'major_outage', 'Investigating elevated error rates')">Report outage</button>
+<button @click="$status.clear('api')">Resolve</button>
 
-<small class="capitalize" x-text="$status.API.state"></small>
-<p x-show="$status.API.message" x-text="$status.API.message"></p>
+<small class="capitalize" x-text="$status.api.state"></small>
+<p x-show="$status.api.message" x-text="$status.api.message"></p>
 ```
 
 ::: frame row-wrap items-center gap-3

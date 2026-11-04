@@ -11,7 +11,7 @@ With the router plugin, Manifest turns your project into a single-page applicati
 See [website publishing](/docs/framework/publishing/websites) for generating static sites that are optimized for search engines and AI crawlers, also supported by this router.
 
 ::: brand icon="lucide:info"
-If applied, this router should be used independent of other routing systems or frameworks with routers.
+Don't combine this router with another client-side router; both would intercept links.
 :::
 
 ---
@@ -137,7 +137,7 @@ Use `!*` to show an element on a route that is not defined by any other `x-route
 <div x-route="!*">404 page not found</div>
 ```
 
-When using the prerender script, the 404 view is captured at build time and written to `dist/404.html` so static hosts can serve it for unknown paths.
+When using the prerender script, the 404 view is captured at build time and written to `404.html` in the render output folder (`website/` by default), so static hosts can serve it for unknown paths.
 
 ---
 
@@ -267,7 +267,7 @@ It also works for anchors in different routes.
 <a href="/about#team">About Our Team</a>
 ```
 
-The router also handles smooth scrolling to anchors within scrollable containers (not part of the page scroll). A default 100px scroll offset is added for better visibility on landing. Initial page loads with hash fragments are also handled automatically.
+The router also handles smooth scrolling to anchors within scrollable containers (not part of the page scroll). Initial page loads with hash fragments are also handled automatically. To keep targets clear of a sticky header, set `scroll-margin-top` on them (e.g. `[id] { scroll-margin-top: 5rem }`).
 
 ---
 
@@ -284,14 +284,18 @@ The `x-anchors` directive uses a pipeline syntax to specify the scope and target
 </template>
 ```
 
-The plugin auto-expands the template with an `anchor` property:
+Each match clones the template's `<a>` (inside an optional wrapping `<div>`), with `href` and text filled in. Other markup in the template is dropped, and only a `:class` binding is evaluated per link, with `anchor` in scope:
 
-```html copy
-<!-- Manifest automatically adds these attributes -->
-<template x-anchors=".prose | h2, h3" x-for="anchor in anchors || []" :key="anchor.id">
-  <a :href="anchor.link" x-text="anchor.text"></a>
-</template>
-```
+| Property | Description |
+|---|---|
+| `anchor.id` | The target's ID, without `#` |
+| `anchor.text` | The target's text |
+| `anchor.link` | `#` plus the ID |
+| `anchor.tag` | Lowercase tag name, e.g. `h2` |
+| `anchor.class` | The target's first class name |
+| `anchor.classes` | All of the target's class names |
+
+`$store.anchors.count` holds the number of matches.
 
 Multiple scopes and targets can be comma-separated:
 
@@ -325,11 +329,27 @@ Template tags can only have one child. Use a parent container to arrange the lin
         <a :href="anchor.link" 
             :class="{
                 'pl-0': anchor.tag === 'h2',
-                'bg-red-100': anchor.class === '.red',
-                'opacity-50': anchor.id === '#footnotes'
+                'bg-red-100': anchor.classes.includes('red'),
+                'opacity-50': anchor.id === 'footnotes'
             }"
             x-text="anchor.text">
         </a>
     </div>
 </template>
+```
+
+---
+
+## View Transitions
+
+Route changes crossfade with the browser's view transitions, on automatically for pages under about 3,000 elements. Add `data-view-transitions` or `data-no-view-transitions` to `<html>` to force them on or off. See [page transitions](/docs/framework/publishing/websites#page-transitions) for timing and styling.
+
+---
+
+## Events
+
+The router dispatches `manifest:route-change`{copy} on `window` after each route change, with `{ from, to, normalizedPath }` in `$event.detail`.
+
+```html copy
+<div x-data @manifest:route-change.window="console.log('route:', $event.detail.to)"></div>
 ```

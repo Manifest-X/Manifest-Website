@@ -1,6 +1,6 @@
 # Markdown
 
-Render markdown files into HTML with syntax highlighting and frontmatter.
+Render markdown into HTML, with callouts, frames, components, and highlighted code blocks.
 
 ---
 
@@ -118,28 +118,27 @@ The markdown file's path can also be populated from a [data source](/docs/framew
 
 ```json "blog.json"
 {
-  "title": "Burn Book",
-  "author": "Regina George",
-  "article": "/content/burn-book.md"
+  "title": "Rules of the Plastics",
+  "author": "Gretchen Wieners",
+  "article": "/content/plastics.md"
 },
 ...
 ```
 
-```markdown "burn-book.md"
-This girl is the nastiest skank bitch I've ever met.
-Do not trust her.
-She is a fugly slut!!
+```markdown "plastics.md"
+On Wednesdays we wear pink.
+You can only wear your hair in a ponytail once a week.
 ```
 
 ::: frame col text-base
-<span class="h3 mb-3">Burn Book</span>
-<small>By Regina George</small>
-<p>This girl is the nastiest skank bitch I've ever met.<br>Do not trust her.<br>She is a fugly slut!!</p>
+<span class="h3 mb-3">Rules of the Plastics</span>
+<small>By Gretchen Wieners</small>
+<p>On Wednesdays we wear pink.<br>You can only wear your hair in a ponytail once a week.</p>
 :::
 
 </div>
 
-This approach is ideal for blogs, articles, or any content managed through data sources that can leverage markdown files rather than large text blocks. It's also possible to make loading contingent on a URL route (e.g. `.../blog/burn-book`), use the `$route()` function:
+This approach is ideal for blogs, articles, or any content managed through data sources that can leverage markdown files rather than large text blocks. It's also possible to make loading contingent on a URL route (e.g. `.../blog/plastics`), use the `$route()` function:
 
 <div x-code-group copy>
 
@@ -149,10 +148,10 @@ This approach is ideal for blogs, articles, or any content managed through data 
 
 ```json "blog.json"
 {
-  "path": "burn-book",
-  "title": "Burn Book",
-  "author": "Regina George",
-  "article": "/content/burn-book.md"
+  "path": "plastics",
+  "title": "Rules of the Plastics",
+  "author": "Gretchen Wieners",
+  "article": "/content/plastics.md"
 },
 ...
 ```
@@ -323,7 +322,7 @@ The `frame` class within a `prose` container provides frame styles, which can be
 ```css copy
 .prose aside.frame {
   padding: 1rem;
-  background: var(--bg-surface-1);
+  background: var(--color-surface-1);
   border-radius: 0;
 }
 ```
@@ -336,6 +335,25 @@ The `frame` class within a `prose` container provides frame styles, which can be
 :::
 
 </div>
+
+Add `demo` to render the frame and also show its source as a code block below it:
+
+```html copy
+::: frame demo
+<button>Hello</button>
+:::
+```
+
+---
+
+### Task Lists
+
+`- [ ]` and `- [x]` list items render as checkboxes that visitors can tick. Ticks aren't saved.
+
+```markdown copy
+- [x] Write the article
+- [ ] Publish it
+```
 
 ---
 
@@ -356,3 +374,11 @@ Code blocks support useful attributes in the opening marker's line:
 - **Collapse="#"** - add `collapse` with an integer value representing the number of lines visible by default, with an expand/collapse button below.
 
 Tab indents are typically preserved. If the language is HTML, HTML tags will be preserved as strings and don't require escape characters.
+
+#### Inline Code
+
+Inline code accepts the same attributes in braces right after the closing backtick. A language highlights it, and `copy` makes it click-to-copy:
+
+```markdown copy
+Run `npm install`{bash copy} to get started.
+```

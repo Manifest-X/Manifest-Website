@@ -56,7 +56,7 @@ contact.phone,+1-555-0100
 
 ```csv "team.csv (tabular)"
 id,name,role,image
-1,Darth Vader,Lord,/assets/examples/vader.webp
+1,Darth Vader,Sith Lord,/assets/examples/vader.webp
 2,Admiral Piett,Fleet Commander,/assets/examples/piett.webp
 ```
 
@@ -64,7 +64,7 @@ id,name,role,image
 [
     {
         "name": "Darth Vader",
-        "role": "Lord",
+        "role": "Sith Lord",
         "image": "/assets/examples/vader.webp"
     },
     {
@@ -77,7 +77,7 @@ id,name,role,image
 
 ```yaml "team.yaml"
 -   name: Darth Vader
-    role: Lord
+    role: Sith Lord
     image: /assets/examples/vader.webp
 -   name: Admiral Piett
     role: Fleet Commander
@@ -141,18 +141,15 @@ For an endpoint with no auth or transformation, register the URL string directly
 }
 ```
 
-For headers, query params, or response shaping, use an object with git-ignored `.env` variable references as needed:
-
-<div x-code-group>
+For a method, headers, query params, or response shaping, use an object:
 
 ```json "manifest.json" copy
 {
     "data": {
         "products": {
-            "url": "${API_BASE_URL}/products",
+            "url": "https://api.example.com/products",
             "headers": {
-                "Authorization": "Bearer ${API_TOKEN}",
-                "Content-Type": "application/json"
+                "Accept": "application/json"
             },
             "params": {
                 "limit": 50,
@@ -165,17 +162,15 @@ For headers, query params, or response shaping, use an object with git-ignored `
 }
 ```
 
-```env ".env" copy
-API_BASE_URL=https://api.example.com
-API_TOKEN=sk_1234567890abcdef
-```
-
-</div>
+::: negative icon="lucide:shield-alert"
+API sources are fetched from the visitor's browser, so everything in the URL, headers and params is public. Never put a secret token in a data source; call the API from a server you control instead.
+:::
 
 | Property | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `url` | Yes | – | Endpoint URL |
-| `headers` | No | `{}` | Request headers for auth and content type |
+| `method` | No | `GET` | HTTP method |
+| `headers` | No | `{}` | Request headers |
 | `params` | No | `{}` | Query parameters appended to the URL |
 | `transform` | No | – | Dot-notation path to extract nested data (e.g. `"data.products"` unwraps `{ data: { products: [...] } }`) |
 | `defaultValue` | No | `[]` | Fallback if the request fails |
@@ -191,9 +186,9 @@ Any data source can keep its last rows on the visitor's device, so the next visi
 ```json "manifest.json" copy
 {
     "data": {
-        "chats": { "url": "${API_BASE_URL}/chats", "persist": true },
+        "chats": { "url": "https://api.example.com/chats", "persist": true },
         "contacts": {
-            "url": "${API_BASE_URL}/contacts",
+            "url": "https://api.example.com/contacts",
             "persist": { "tier": "lazy", "maxRows": 2000, "recent": "updatedAt", "ttl": "7d", "strip": ["email", "phone"] }
         }
     }
@@ -241,9 +236,9 @@ Data sources are accessed in HTML using our `$x` magic method with dot notation.
 
 **Examples:**
 - `$x.team` - Access the `team` data source
-- `$x.team.managers` - Access the `managers` array or object
-- `$x.team.managers[0].name` - Display the first manager's name
-- `$x.team.filter(p => p.role === 'Junior Vice President')` - Filter team members by role
+- `$x.team[0].name` - Display the first team member's name
+- `$x.contact.headquarters.location` - Read a nested property
+- `$x.team.filter(p => p.role === 'Fleet Commander')` - Filter team members by role
 
 ---
 
@@ -254,21 +249,19 @@ Use Alpine's <a href="https://alpinejs.dev/directives/text" target="_blank">x-te
 <div x-code-group copy>
 
 ```html "HTML"
-<h4 x-text="$x.team.managers[0].name"></h4>
-<p x-text="$x.team.managers[0].role"></p>
+<h4 x-text="$x.team[0].name"></h4>
+<p x-text="$x.team[0].role"></p>
 ```
 
 ```json "team.json"
-{
-    "managers": [
-        {
-            "name": "Darth Vader",
-            "role": "Lord",
-            "image": "/assets/examples/vader.webp"
-        },
-        ...
-    ]
-}
+[
+    {
+        "name": "Darth Vader",
+        "role": "Sith Lord",
+        "image": "/assets/examples/vader.webp"
+    },
+    ...
+]
 ```
 
 ::: frame
@@ -287,21 +280,19 @@ Use Alpine's <a href="https://alpinejs.dev/directives/html" target="_blank">x-ht
 <div x-code-group copy>
 
 ```html "HTML"
-<div x-html="$x.team.managers[0].content"></div>
+<div x-html="$x.team[0].content"></div>
 ```
 
 ```json "team.json"
-{
-    "managers": [
-        {
-            "name": "Darth Vader",
-            "role": "Lord",
-            "image": "/assets/examples/vader.webp",
-            "content": "<p>Dark Lord of the Sith with <strong>unlimited power</strong>.</p>"
-        },
-        ...
-    ]
-}
+[
+    {
+        "name": "Darth Vader",
+        "role": "Sith Lord",
+        "image": "/assets/examples/vader.webp",
+        "content": "<p>Dark Lord of the Sith with <strong>unlimited power</strong>.</p>"
+    },
+    ...
+]
 ```
 
 ::: frame
@@ -319,13 +310,13 @@ Use Alpine's <a href="https://alpinejs.dev/directives/bind" target="_blank">x-bi
 <div x-code-group copy>
 
 ```html "HTML"
-<img :src="$x.team.managers[0].image" :alt="$x.team.managers[0].name">
-<a :href="$x.headquarters.contact.email">Contact</a>
+<img :src="$x.team[0].image" :alt="$x.team[0].name">
+<a :href="'mailto:' + $x.contact.contact.email">Contact</a>
 ```
 
 ::: frame col gap-1 items-start
 <img :src="$x.example.team[0].image" :alt="$x.example.team[0].name" class="w-20 h-20 object-cover rounded">
-<a :href="$x.example.team[0].contact" x-text="$x.example.team[0].contact"></a>
+<a :href="'mailto:' + $x.example.team[0].contact" x-text="$x.example.team[0].contact"></a>
 :::
 
 </div>
@@ -339,7 +330,7 @@ Use Alpine's <a href="https://alpinejs.dev/directives/for" target="_blank">x-for
 <div x-code-group>
 
 ```html copy
-<template x-for="person in $x.team.managers" :key="person.name">
+<template x-for="person in $x.team" :key="person.name">
     <div class="card">
         <img :src="person.image" :alt="person.name">
         <div>
@@ -385,14 +376,11 @@ Use `$search` for real-time text filtering and `$query` for advanced filtering, 
 ```html copy
 <div x-data="{ 
     searchTerm: '', 
-    sortBy: 'name',
+    sortBy: 'all',
     get filteredTeam() {
-        if (!$x.team) return [];
-        let results = this.searchTerm 
-            ? $x.team.$search(this.searchTerm, 'name', 'role')
-            : $x.team;
-        return this.sortBy !== 'all' 
-            ? $x.team.$query([['orderAsc', this.sortBy]])
+        const results = $x.team.$search(this.searchTerm, 'name', 'role');
+        return this.sortBy !== 'all'
+            ? results.$query([['orderAsc', this.sortBy]])
             : results;
     }
 }">
@@ -424,17 +412,10 @@ Use `$search` for real-time text filtering and `$query` for advanced filtering, 
     searchTerm: '', 
     sortBy: 'all',
     get filteredTeam() {
-        if (!$x.example || !$x.example.team || !Array.isArray($x.example.team)) return [];
-        try {
-            let results = this.searchTerm && $x.example.team.$search
-                ? $x.example.team.$search(this.searchTerm, 'name', 'role')
-                : $x.example.team;
-            return this.sortBy !== 'all' && $x.example.team.$query
-                ? $x.example.team.$query([['orderAsc', this.sortBy]])
-                : results;
-        } catch (e) {
-            return $x.example?.team || [];
-        }
+        const results = $x.example.team.$search(this.searchTerm, 'name', 'role');
+        return this.sortBy !== 'all'
+            ? results.$query([['orderAsc', this.sortBy]])
+            : results;
     }
 }" class="col gap-4">
 
@@ -510,7 +491,7 @@ Each query is an array with the format `['method', 'attribute', 'value']`. Use t
 
 ```javascript "Patterns" copy
 // Comparison operators
-['equal', 'role', 'Lord']                    // role equals 'Lord'
+['equal', 'role', 'Sith Lord']               // role equals 'Sith Lord'
 ['notEqual', 'role', 'Commander']            // role does not equal 'Commander'
 ['greaterThan', 'priority', 5]              // priority greater than 5
 ['greaterThanOrEqual', 'priority', 5]       // priority greater than or equal to 5
@@ -533,12 +514,12 @@ Each query is an array with the format `['method', 'attribute', 'value']`. Use t
 ['orderRandom']                             // Random order
 
 // Pagination
-['limit', 10]                               // Return maximum 10 results
 ['offset', 20]                              // Skip first 20 results
+['limit', 10]                               // Return maximum 10 results
 
-// Combine multiple queries (all applied together)
+// Combine multiple queries (applied in order)
 [
-    ['equal', 'role', 'Lord'],
+    ['equal', 'role', 'Sith Lord'],
     ['orderAsc', 'name'],
     ['limit', 5]
 ]
@@ -547,9 +528,9 @@ Each query is an array with the format `['method', 'attribute', 'value']`. Use t
 ```html "Example"
 <!-- Filter, sort, limit: processes data in browser (client-side) -->
 <button @click="$x.team.$query([
-    ['equal', 'role', 'Lord'],
+    ['equal', 'role', 'Sith Lord'],
     ['orderAsc', 'name']
-])">Show Lords Only</button>
+])">Show Sith Lords Only</button>
 
 <!-- Multiple filters -->
 <button @click="$x.team.$query([
@@ -561,6 +542,8 @@ Each query is an array with the format `['method', 'attribute', 'value']`. Use t
 
 </div>
 
+Client-side queries run in the order given, so put `offset` before `limit` to page: `[['offset', 20], ['limit', 10]]`. `equal` is a strict match (`5` and `"5"` differ), and `isNull` also matches empty strings.
+
 ---
 
 ### Route-Specific
@@ -570,27 +553,25 @@ Use the `$route()` function to find content based on the current URL path like *
 <div x-code-group copy>
 
 ```html "HTML"
-<h1 x-text="$x.team.managers.$route('path').name"></h1>
-<p x-text="$x.team.managers.$route('path').role"></p>
+<h1 x-text="$x.team.$route('path').name"></h1>
+<p x-text="$x.team.$route('path').role"></p>
 ```
 
 ```json "team.json"
-{
-    "managers": [
-        {
-            "path": "darth-vader",
-            "name": "Darth Vader",
-            "role": "Lord",
-            "image": "/assets/examples/vader.webp"
-        },
-        {
-            "path": "admiral-piett",
-            "name": "Admiral Piett",
-            "role": "Fleet Commander",
-            "image": "/assets/examples/piett.webp"
-        }
-    ]
-}
+[
+    {
+        "path": "darth-vader",
+        "name": "Darth Vader",
+        "role": "Sith Lord",
+        "image": "/assets/examples/vader.webp"
+    },
+    {
+        "path": "admiral-piett",
+        "name": "Admiral Piett",
+        "role": "Fleet Commander",
+        "image": "/assets/examples/piett.webp"
+    }
+]
 ```
 
 ::: frame
@@ -626,8 +607,8 @@ Data sources support all standard JavaScript array methods for filtering, mappin
 :::
 
 ```html "HTML"
-<!-- Show only team members with "Lord" role -->
-<template x-for="person in $x.team.managers.filter(p => p.role === 'Lord')" :key="person.name">
+<!-- Show only team members with the "Sith Lord" role -->
+<template x-for="person in $x.team.filter(p => p.role === 'Sith Lord')" :key="person.name">
     <div x-text="person.name"></div>
 </template>
 ```
@@ -642,7 +623,7 @@ Data sources support all standard JavaScript array methods for filtering, mappin
 
 ```html "HTML"
 <!-- Transform team data to display names only -->
-<template x-for="name in $x.team.managers.map(p => p.name)" :key="name">
+<template x-for="name in $x.team.map(p => p.name)" :key="name">
     <div x-text="name"></div>
 </template>
 ```
@@ -663,7 +644,7 @@ Data sources support all standard JavaScript array methods for filtering, mappin
 
 ```html "HTML"
 <!-- Find specific team member -->
-<div x-text="$x.team.managers.find(p => p.role === 'Lord')?.name || 'Not found'"></div>
+<div x-text="$x.team.find(p => p.role === 'Sith Lord')?.name || 'Not found'"></div>
 ```
 
 ::: frame
@@ -685,7 +666,7 @@ Data sources support standard JavaScript array methods:
 - `slice()` — extract a portion of the array
 - `concat()` — combine with another array
 - `flat()` / `flatMap()` — flatten nested arrays
-- `sort()` / `reverse()` — return ordered copies
+- `toSorted()` / `toReversed()` — return ordered copies
 - `join()` — convert to string
 
 **Search:**
@@ -701,6 +682,7 @@ Data sources support standard JavaScript array methods:
 
 **Modification (in-memory only):**
 - `push()` / `pop()` / `shift()` / `unshift()` / `splice()`
+- `sort()` / `reverse()` — reorder the source itself; use `toSorted()`, `toReversed()` or `$query([['orderAsc', …]])` for an ordered copy
 
 ::: brand icon="lucide:info"
 Mutation methods on local data sources update the in-memory store and trigger reactivity, but **do not persist** — values reset to the file's contents on page reload. For persistence, use [Appwrite databases](/docs/framework/appwrite-plugins/databases).
@@ -754,7 +736,7 @@ If a source was loaded before, you see its cached rows immediately while fresh d
 
 ## Safe Async
 
-The `$try` magic wraps an async callback in try/catch and optionally routes the error message to a named property on the current `x-data` scope. Useful when calling cloud-data mutations or any other async operation that can fail.
+The `$try` magic wraps an async callback in try/catch and optionally routes the error message to a named property on the current `x-data` scope. Useful when calling cloud-data mutations or any other async operation that can fail. The example below creates a row in an [Appwrite table](/docs/framework/appwrite-plugins/databases).
 
 ```html copy
 <div x-data="{ saveError: null }">
@@ -768,6 +750,6 @@ The `$try` magic wraps an async callback in try/catch and optionally routes the 
 | Argument | Description |
 |---|---|
 | `fn` | Async callback to await. The callback's result is returned on success |
-| `errorVar` *(optional)* | Name of a property on the current `x-data` scope. On error, the error message is written there; on success it's cleared to `null` |
+| `errorVar` *(optional)* | Name of a property on the current `x-data` scope. It must already be declared there (e.g. `saveError: null`). On error, the error message is written there; on success it's cleared to `null` |
 
 On error, `$try` returns `undefined` instead of throwing.
