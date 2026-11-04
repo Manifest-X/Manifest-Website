@@ -77,6 +77,8 @@ Five hundred items are in the array, but only the visible window is rendered as 
 
 A single `<template>` child is supported per `x-virtual` container, and the template's `x-for` and `:key` are consumed by the plugin (Alpine doesn't double-render them). The template may be nested — for example inside `<table><tbody>` — and the plugin will still find it.
 
+Without `:key`, the key defaults to `item.id`, so items without an `id` don't render; give each item a stable key. The `(item, index)` form of `x-for` isn't supported, so name a single item.
+
 ---
 
 ## Layout
@@ -137,7 +139,7 @@ Stripe by a value from your data — here `user.id` — rather than `:nth-child`
 
 ### Grid
 
-Manifest's [`.grid-table`](/docs/framework/elements/tables) is a `display: grid` container with `display: contents` rows, so every cell shares one grid. Set the columns on the container and mark each row `.grid-row`.
+Manifest's [`.grid-table`](/docs/framework/elements/tables#grids) is a `display: grid` container with `display: contents` rows, so every cell shares one grid. Set the columns on the container and mark each row `.grid-row`.
 
 <div x-code-group>
 
@@ -241,7 +243,7 @@ Masonry packs items of independent sizes into the shortest column — the layout
 
 ::: frame
 <div x-data="{ blocks: Array.from({length: 1000}, (_, i) => ({ id: i, span: i % 11 === 0 ? 2 : 1, height: 80 + ((i * 61) % 160) + (i % 23 === 0 ? 140 : 0), color: `hsl(${(i * 53) % 360} 65% 58%)` })) }" class="w-full">
-    <div x-virtual="{ mode: 'masonry', columnWidth: 140, gap: 8, span: block => block.span, height: block => block.height }" class="border border-line rounded relative h-96 overflow-auto p-2">
+    <div x-virtual="{ mode: 'masonry', columnWidth: 140, gap: 8, span: block => block.span, height: block => block.height }" class="border border-line rounded relative h-96 overflow-auto">
         <template x-for="block in blocks" :key="block.id">
             <div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id"></div>
         </template>
@@ -256,7 +258,7 @@ Masonry positions items absolutely and sizes the container for you. Pass a `heig
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | **`columnWidth`** | Number | — | Target column width in px; the column count is derived from the container width. |
-| **`columns`** | Number | — | A fixed number of columns. Use this *or* `columnWidth`. |
+| **`columns`** | Number | `3` | A fixed number of columns. Use this *or* `columnWidth`; with neither, masonry uses 3 columns. |
 | **`gap`** | Number | CSS `gap` | Pixel gap between items. |
 | **`span`** | Function | `() => 1` | Maps an item to how many columns it spans, for wide showcase items. |
 | **`height`** | Function | — | Maps an item to its height in px. Supplying it skips measurement; otherwise heights are measured on first render. |
@@ -269,7 +271,7 @@ Pass options as an object expression on the directive.
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| **`estimate`** | Number or `{ width, height }` | `50` | Initial size for unmeasured items. A closer estimate produces less scroll-position drift on first paint. Galleries and masonry accept an object to seed both axes. |
+| **`estimate`** | Number or `{ width, height }` | `50` (`120` wide) | Initial size for unmeasured items. A closer estimate produces less scroll-position drift on first paint. Galleries and masonry accept an object to seed both axes. |
 | **`overscan`** | Number | `3` | Items (or lines) to render above and below the visible window. Higher values smooth out fast scrolling at the cost of more DOM. |
 | **`mode`** | String | auto | How items fill lines: `rows` (one per line — lists, tables, grids), `gallery` (many per line — flex-wrap or CSS grid), or `masonry`. Auto-detected from the container for all but `masonry`, which is always explicit. |
 
