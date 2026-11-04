@@ -13,7 +13,7 @@ Turn a live page into its own editor.
 ```html copy
 <section x-edit="poochie">
     <h2>Meet Poochie</h2>
-    <div class="grid grid-cols-3 gap-3">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <article>
             <h3>Loves pasta</h3>
             <p>And ice cream, whenever she can get it.</p>
@@ -38,7 +38,7 @@ Turn a live page into its own editor.
 <template x-if="ready">
 <section class="col gap-4 w-full" x-edit="poochie-demo">
     <h2 class="m-0">Meet Poochie</h2>
-    <div class="grid grid-cols-3 gap-3">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <article class="col gap-1 p-4 bg-surface-2 rounded">
             <h3 class="m-0 text-lg">Loves pasta</h3>
             <p class="m-0 text-sm">And ice cream, whenever she can get it.</p>
@@ -84,7 +84,7 @@ Edit is opt-in and never part of the default Manifest bundle, so visitors don't 
 
 </div>
 
-The examples on this page also use Tailwind utility classes, such as `grid-cols-3`, `h-48`, and `[&>*]:absolute`, which need the `data-tailwind` attribute shown here; see [Setup](/docs/framework/getting-started/setup). Without it, copy the markup and style it your own way.
+The examples on this page and on Move and Resize also use Tailwind utility classes, such as `grid-cols-3`, `h-48`, and `[&>*]:absolute`, which need the `data-tailwind` attribute shown here; see [Setup](/docs/framework/getting-started/setup). Without it, copy the markup and style it your own way.
 
 To load it only for signed-in editors, leave it out of `data-plugins` and call `Manifest.loadPlugin('edit')`{copy} once you know the visitor can edit. The regions already on the page become editable when it loads, except those marked [`.gated`](#regions), which stay switched off until `$edit.on()`. Until then, `$edit` is an idle stand-in, so bindings such as `:disabled="!$edit.canUndo"` work before Edit loads and pick up the real state once it has; anything assigned to it in the meantime, such as `onPublish`, is kept and carries over to Edit when it loads.
 
@@ -397,7 +397,9 @@ It's opt-in because the saved edits belong to one browser on one device, are inv
 
 </div>
 
-The variable changes live as the input moves, and is recorded as a step of the history when the input commits its value: when you let go of a slider or close the colour picker, and at each arrow-key step on a focused slider. Undo puts the previous value back. `.theme` on its own only declares a scope and makes nothing editable, so it can wrap regions safely. When published, a global value is written to the `manifest.theme.css` that `index.html` links, or `styles/core/manifest.theme.css` if none is. A scoped value is written into the scope element's own `style` attribute, never into a stylesheet, so it never reaches `:root`; a scope element inside content another plugin generates has no file to write to, so its values are refused by name. Publishing global values needs the project's own `manifest.theme.css`, linked from `index.html`. See [Publishing](/docs/framework/core-plugins/edit-publishing). `.persist` on the control, or on its scope element, keeps unpublished values across a reload.
+The variable changes live as the input moves, and is recorded as a step of the history when the input commits its value: when you let go of a slider or close the colour picker, and at each arrow-key step on a focused slider. Undo puts the previous value back. `.theme` on its own only declares a scope and makes nothing editable, so it can wrap regions safely. `.persist` on the control, or on its scope element, keeps unpublished values across a reload.
+
+When published, a global value goes to the project's own `manifest.theme.css`, and a scoped value into the scope element's `style` attribute, so it never reaches `:root`. See [Publishing](/docs/framework/core-plugins/edit-publishing#to-your-source-files) for which file each is written to.
 
 ---
 

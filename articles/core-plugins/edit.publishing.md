@@ -66,14 +66,14 @@ A text edit in markup produces one patch for its region. Rename Poochie and it l
 
 | Field | Means |
 |---|---|
-| `kind` | What was edited: `static-tree` for markup, `data-val` for a record field, `component` for a component's text and classes, `theme` for a theme value |
+| `kind` | What was edited: `static-tree` for markup, `data-val` for a record field, `data` for a data list's order, `component` for a component's text and classes, `theme` for a theme value |
 | `region` | The `x-edit` key the edits belong to |
 | `tree` | The changed elements, nested as in your markup; untouched elements are left out |
 | `key` | An element's identity in your source: its region, its tag, and the first 24 characters of its text when the page loaded |
 | `at` | Its position among its parent's children, as `0`, `1.2`, and so on |
 | `edits` | The final values: `text`, `class`, `style`, or another attribute; `null` removes it |
 
-Moves, nesting, and sizes show up in the same tree: a reordered container lists its children's keys in their new order, and a resize is a `style` edit. A data list produces one `data-val` patch per edited field, `{ kind, region, source, id, field, value }`, and a theme control one `theme` patch, `{ kind, scope, var, value }`.
+Moves, nesting, and sizes show up in the same tree: a reordered container lists its children's keys in their new order, and a resize is a `style` edit. A data list produces one `data-val` patch per edited field, `{ kind, region, source, id, field, value }`, and, when reordered, one `data` patch, `{ kind, region, op: 'reorderData', source, order }`. A component edit is `{ kind, scope, component, region, edits, reverts }`, where `scope` is `main` for the component file or `instance` for one instance, and only an instance carries `region` and `reverts`. A global theme value is one `theme` patch, `{ kind, scope, var, value, file }`, with `file` left `null` for the server to choose.
 
 ---
 
@@ -145,8 +145,8 @@ Rename Poochie in the page and publish, and `index.html` changes from the first 
 | Markup in a region | `index.html`, or the component's HTML file when the region is written in one |
 | A data list's order and record fields | The CSV or JSON file the data source names in `manifest.json` (a JSON file must hold an array of records) |
 | A component instance | The instance's attributes in `index.html`, or the component's HTML file in `main` scope |
-| Global theme values | The `manifest.theme.css` that `index.html` links, wherever it lives; with none linked, `styles/core/manifest.theme.css` |
-| Scoped theme values | The scope element's own `style` attribute, in the file it's written in |
+| Global theme values | The `manifest.theme.css` that `index.html` links, wherever it lives; with none linked, `styles/core/manifest.theme.css` if it exists |
+| Scoped theme values | The scope element's own `style` attribute, in the file it's written in; a scope inside content another plugin generates has no file, so its values are refused by name |
 
 `publish()` resolves with the server's report, one result per patch:
 
