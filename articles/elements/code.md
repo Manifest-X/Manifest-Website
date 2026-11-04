@@ -6,23 +6,25 @@ Syntax-highlighted code elements using standard HTML, with numerous configurable
 
 ## Setup
 
-Code block styles ship as a separate stylesheet (independent of `manifest.css`) and reference [theme](/docs/framework/styles/theme) variables.
+Code block styles ship as a separate stylesheet that references [theme](/docs/framework/styles/theme) variables. The block's border, corners and background come from the `pre` styles in `manifest.css` (standalone: `manifest.typography.css`).
 
 Code block functionality is included in `manifest.js` with all core plugins, or it can be loaded selectively.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
-<!-- Code block styles -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.min.css" />
+```html "Manifest CSS / JS"
+<!-- Manifest CSS, plus code block styles -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.css" />
 
 <!-- Manifest JS -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
-```html "Selective"
-<!-- Code block styles -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.min.css" />
+```html "Standalone"
+<!-- Code block styles, with pre styles dependency -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.typography.css" />
 
 <!-- Manifest JS: code plugin only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
@@ -218,7 +220,7 @@ In markdown, to render a demo and show its source in one go, add the `demo` modi
 
 ````markdown copy
 ::: frame demo
-<button class="primary">Click me</button>
+<button class="brand">Click me</button>
 :::
 ````
 
@@ -255,7 +257,7 @@ Group multiple panels into a tabbed interface with `x-code-group`{copy} on any w
 
 Direct children with a `name` attribute become tab panels. Children without `name` are always-visible ambient content.
 
-The `lines`, `copy`, `edit`, and `collapse` attributes can be set on the wrapper for panels that don't set them themselves. This avoids repeating the same feature across every tab:
+The `lines`, `edit`, and `collapse` attributes can be set on the wrapper for panels that don't set them themselves. This avoids repeating the same feature across every tab. `copy` on the wrapper adds one copy button for the whole group:
 
 <div x-code-group copy>
 
@@ -313,6 +315,7 @@ Similar to [HTML Source](#html-source) above, content can be visualized within a
 ```
 
 ````markdown "Markdown"
+<div x-code-group>
 
 ```html "HTML"
 ...
@@ -334,6 +337,7 @@ Similar to [HTML Source](#html-source) above, content can be visualized within a
 ...
 :::
 
+</div>
 ````
 
 </div>
@@ -369,13 +373,13 @@ Default code blocks use these [theme](/docs/framework/styles/theme) variables:
 |---|---|
 | `--color-page`{copy} | Code block background |
 | `--color-content-neutral`{copy} | Default code text color |
-| `--color-content-stark`{copy} | Inline code text color, editor caret |
+| `--color-content-stark`{copy} | Inline code text color, editor caret, header background tint |
 | `--color-content-subtle`{copy} | Line numbers, expand toggle text |
 | `--color-brand-content`{copy} | Active tab indicator |
-| `--color-field-surface`{copy} | Header (title or tab strip) background |
-| `--color-line`{copy} | Block border |
+| `--color-field-surface`{copy} | Tab hover background |
+| `--color-line`{copy} | Block border (from `pre` styles) |
 | `--spacing-field-height`{copy} | Header and expand-toggle height |
-| `--radius`{copy} | Border radius |
+| `--radius`{copy} | Border radius (from `pre` styles) |
 
 Plus the syntax-color set (`--color-code-keyword`, `--color-code-string`, `--color-code-comment`, etc.) defined in `manifest.code.css`. Override any of them in your project's theme stylesheet.
 
