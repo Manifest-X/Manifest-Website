@@ -529,7 +529,20 @@ A few notes:
 
 ## Validation
 
-Native HTML5 attributes like `required`, `type="email"`, `pattern`, `minlength`, and `maxlength` trigger the browser's built-in form validation on submit. Custom CSS or Tailwind pseudo-class variants can be used to style valid and invalid states without Javascript. Block the form's own validation messages with `novalidate`.
+Native HTML5 attributes like `required`, `type="email"`, `pattern`, `minlength`, and `maxlength` trigger the browser's built-in form validation on submit. Block the form's own validation messages with `novalidate`.
+
+Inputs, selects, and textareas show their state once the visitor has interacted with them or tried to submit, using the `:user-invalid` and `:user-valid` pseudo-classes. An invalid field gets a ring in the negative colour; valid fields stay unmarked. Change either colour with theme variables:
+
+```css copy
+:root {
+    --color-field-invalid: var(--color-negative-content);
+    --color-field-valid: var(--color-positive-content);
+}
+```
+
+`--color-field-invalid` defaults to `--color-negative-content`, and `--color-field-valid` to transparent. A field with the `unstyle` class opts out.
+
+Custom CSS or Tailwind pseudo-class variants can style the states further without Javascript.
 
 <div x-code-group>
 
@@ -584,6 +597,22 @@ Common Tailwind variants:
 | `focus:`{copy} | The field is currently focused |
 
 `user-invalid:` and `user-valid:` are better suited than the unprefixed `invalid:` and `valid:` for most cases. They wait until the user has actually engaged with the field, avoiding the awkward "everything is red on page load" effect.
+
+---
+
+## Sending
+
+A form with an `action` and `method="post"` sends itself, no script needed. To send it without leaving the page and show the result yourself, add `x-submit` from the [Submissions](/docs/framework/core-plugins/submissions) plugin.
+
+```html copy
+<form x-submit action="/_forms/contact" method="post">
+    <label>
+        Email
+        <input name="email" type="email" required>
+    </label>
+    <button>Send</button>
+</form>
+```
 
 ---
 
