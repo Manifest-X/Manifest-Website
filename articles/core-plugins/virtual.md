@@ -64,7 +64,7 @@ Wrap an `x-for` template in a scrolling container marked with `x-virtual`. The c
         <template x-for="member in team" :key="member.id">
             <div class="p-3 border-b border-line">
                 <p class="font-semibold" x-text="member.name"></p>
-                <small class="text-muted" x-text="member.role"></small>
+                <small class="text-content-subtle" x-text="member.role"></small>
             </div>
         </template>
     </div>
@@ -317,8 +317,8 @@ Items with variable content like multi-line descriptions, embedded images, or ex
     <div x-virtual class="border border-line rounded font-mono text-sm h-[300px] overflow-auto">
         <template x-for="log in logs" :key="log.id">
             <div class="row gap-3 p-2 border-b border-line">
-                <span class="text-muted shrink-0" x-text="log.time"></span>
-                <span class="shrink-0 uppercase text-xs font-bold" :class="log.level === 'error' ? 'text-error' : log.level === 'warn' ? 'text-warning' : 'text-muted'" x-text="log.level"></span>
+                <span class="text-content-subtle shrink-0" x-text="log.time"></span>
+                <span class="shrink-0 uppercase text-xs font-bold" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level"></span>
                 <span class="flex-1" x-text="log.message"></span>
             </div>
         </template>
@@ -377,7 +377,7 @@ That makes virtualization a natural pair with `$search` and `$query`: wire a sea
             </div>
         </template>
     </div>
-    <small class="text-muted">Showing <span x-text="filtered.length"></span> of 2000</small>
+    <small class="text-content-subtle">Showing <span x-text="filtered.length"></span> of 2000</small>
 </div>
 :::
 

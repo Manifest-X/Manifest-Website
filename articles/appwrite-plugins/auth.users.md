@@ -541,7 +541,7 @@ Current session details (null if not authenticated). The session object comes di
 
 Signing in or out in one tab updates every open tab, and every Appwrite table and bucket source reloads for the new user, so the previous user's entries never linger. With auto guest sessions, signing out moves every tab to a new guest session.
 
-If the app opens offline, it renders signed out (`$auth.isAuthenticated` is `false`) and restores the session on its own once Appwrite is reachable; no guest session is created over the real one. Only a genuine "no session" answer from Appwrite signs a user out. Listen for `manifest:auth:login` to react when the session returns.
+If the app opens offline, it renders signed out (`$auth.isAuthenticated` is `false`) and restores the session on its own once Appwrite is reachable (it rechecks on reconnect, on tab refocus, and after 2, 5, 15 and 60 seconds); no guest session is created over the real one. Only a genuine "no session" answer from Appwrite signs a user out. Listen for `manifest:auth:login` to react when the session returns.
 
 [Persisted](/docs/framework/core-plugins/local-data#persisted-data) rows saved for the user last signed in on this device are shown while offline, except from tables with a [scope](/docs/framework/appwrite-plugins/databases#scope) and sources whose queries reference `$auth.` values, which stay empty until the session is restored.
 

@@ -276,7 +276,7 @@ Storage buckets automatically sync changes in realtime across all active session
 | `$download(fileId, token?)` | `fileId` (string or object with `$id`), `token` (string, optional) | Get file download URL. Returns URL string |
 | `$preview(fileId, options?)` | `fileId` (string or object with `$id`), `options` (object, optional) | Get file preview URL (images only). Options: width, height, quality, output, etc. Returns preview URL string |
 | `$openUrl(fileId, token?)` | `fileId` (string or object with `$id`), `token` (string, optional) | Open file view URL in new tab |
-| `$openDownload(fileId, filename?, token?)` | `fileId` (string or object with `$id`), `filename` (string, optional), `token` (string, optional) | Download the file, saved as `filename` |
+| `$openDownload(fileId, filename?, token?)` | `fileId` (string or object with `$id`), `filename` (string, optional), `token` (string, optional) | Download the file; `filename` names it when the endpoint is on the same origin |
 | `$openPreview(fileId, options?)` | `fileId` (string or object with `$id`), `options` (object, optional) | Open file preview URL in new tab |
 | `$filesFor(table, entryId, column?)` | `table` (string), `entryId` (string), `column` (string, optional, default `fileIds`) | Get the files linked to a table entry |
 

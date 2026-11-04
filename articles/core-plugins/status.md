@@ -245,7 +245,7 @@ Address a service by name, or iterate `$status` directly — each item is a heal
 ```
 
 ::: frame col gap-1 items-start
-<p>API: <strong x-text="$status.API.state"></strong></p>
+<p>API: <strong x-text="$status.api.state"></strong></p>
 <template x-for="(service, name) in $status" :key="name">
     <small><span x-text="name"></span>: <span x-text="service.state.replace('_',' ')"></span></small>
 </template>
@@ -489,11 +489,11 @@ The magic exposes methods for operators and background systems.
 ```
 
 ::: frame row-wrap items-center gap-3
-<button class="sm" @click="$status.set('API', 'major_outage', 'Investigating elevated error rates')">Report outage</button>
-<button class="sm" @click="$status.clear('API')">Resolve</button>
+<button class="sm" @click="$status.set('api', 'major_outage', 'Investigating elevated error rates')">Report outage</button>
+<button class="sm" @click="$status.clear('api')">Resolve</button>
 
-<small class="ms-4 capitalize" x-text="$status.API.state.replace('_',' ')"></small>
-<small class="text-content-subtle" x-show="$status.API.message" x-text="$status.API.message"></small>
+<small class="ms-4 capitalize" x-text="$status.api.state.replace('_',' ')"></small>
+<small class="text-content-subtle" x-show="$status.api.message" x-text="$status.api.message"></small>
 :::
 
 </div>

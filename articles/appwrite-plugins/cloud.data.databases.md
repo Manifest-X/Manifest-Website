@@ -291,7 +291,7 @@ All live features share one connection per tab; see [Realtime Options](#realtime
 
 ## Search & Query Entries
 
-Use `$query` to filter and sort entries in Appwrite, and `$search` to filter rows already loaded in the browser. `$query` refetches from Appwrite and replaces the source's rows, so every place that shows `$x.projects` changes; `$query([])` restores the unfiltered list.
+Use `$query` to filter and sort entries in Appwrite, and `$search` to filter rows already loaded in the browser. `$query` refetches from Appwrite and replaces the source's rows, so every place that shows `$x.projects` changes; `$query([])` restores the list with only its scope applied; `$query('default')` returns to the configured default query.
 
 <div x-code-group>
 
@@ -494,7 +494,7 @@ Define reusable queries in `manifest.json` and reference them in HTML:
 
 </div>
 
-A query value can also reference the signed-in user or the active locale. Only these values are allowed: `$auth.user.$id`, `$auth.currentTeam.$id`, `$auth.session.$id` and `$locale.current`. Other `$auth.` paths are rejected and match nothing.
+A query value can also reference the signed-in user or the active locale. Only these values are allowed: `$auth.user.$id` (or `$auth.userId`), `$auth.currentTeam.$id` (or `.id`), `$auth.session.$id` (or `.id`) and `$locale.current`. Any other path resolves to an empty string.
 
 ```json "manifest.json" copy
 {

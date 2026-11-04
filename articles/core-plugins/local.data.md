@@ -445,10 +445,10 @@ Use `$search` for real-time text filtering and `$query` for advanced filtering, 
         <template x-for="person in filteredTeam" :key="person.name">
             <div class="p-2 border-t border-line">
                 <p x-text="person.name" class="font-semibold"></p>
-                <small x-text="person.role" class="text-muted"></small>
+                <small x-text="person.role" class="text-content-subtle"></small>
             </div>
         </template>
-        <small x-show="searchTerm && filteredTeam.length === 0" class="text-muted">No team members found</small>
+        <small x-show="searchTerm && filteredTeam.length === 0" class="text-content-subtle">No team members found</small>
     </div>
 </div>
 :::
@@ -704,7 +704,7 @@ Data sources expose state properties for UI reactivity:
 <div x-show="$x.team.$loading">Loading team data...</div>
 
 <!-- Error state -->
-<div x-show="$x.team.$error" x-text="$x.team.$error" class="text-error"></div>
+<div x-show="$x.team.$error" x-text="$x.team.$error" class="text-negative-content"></div>
 
 <!-- Ready state -->
 <div x-show="$x.team.$ready && !$x.team.$loading">
@@ -743,7 +743,7 @@ The `$try` magic wraps an async callback in try/catch and optionally routes the 
     <button @click="$try(() => $x.products.$create({ name: 'New' }), 'saveError')">
         Save
     </button>
-    <small x-show="saveError" x-text="saveError" class="text-error"></small>
+    <small x-show="saveError" x-text="saveError" class="text-negative-content"></small>
 </div>
 ```
 
