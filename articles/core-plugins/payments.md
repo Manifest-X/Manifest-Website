@@ -78,9 +78,13 @@ Register the payment provider in `manifest.json` under a `payments` block, point
 | `endpoint`{copy} | – | Your payment function's URL. Creates checkouts and confirms payments. |
 | `mode`{copy} | `"redirect"` | Preferred checkout style: `redirect` (provider's page) or `overlay` (popup). |
 | `publicKey`{copy} | – | A publishable key, if your provider's popup needs one. Safe to commit. |
-| `environment`{copy} | `"sandbox"` | `sandbox` or `live`: which of the provider's popup SDKs `overlay` checkouts load. Set `live` in production. Blocks provisioned by Manifest AI default to `live`. |
+| `environment`{copy} | `"live"` | `live` or `sandbox`: which of the provider's popup SDKs `overlay` checkouts load. Set `sandbox` while testing with the provider's test keys, and match the environment your payment function uses. |
 | `options`{copy} | `{}` | Provider-specific options passed to the adapter. |
 | `state.url`{copy} | – | Where to read payment state for `$pay.state`. Appwrite projects can use [databases](/docs/framework/appwrite-plugins/databases) and `$x` instead. |
+
+::: brand icon="lucide:info"
+Since mnfst 0.5.270, `environment` defaults to `live`. Sites that relied on the old sandbox default must now set `"environment": "sandbox"`.
+:::
 
 ::: brand icon="lucide:info"
 Your provider's <b>secret key</b> never goes in `manifest.json`, HTML, or anywhere else a browser can see. It lives only in the payment function's environment variables.
@@ -450,7 +454,7 @@ export default async ({ req, res, log }) => {
 ```env "Environment"
 REVOLUT_SECRET_KEY=sk_…          # provider SECRET key (sandbox to start)
 REVOLUT_WEBHOOK_SECRET=…         # returned when you register the webhook
-PAYMENTS_ENV=sandbox             # sandbox | live
+PAYMENTS_ENV=sandbox             # sandbox | live; set the same `environment` in manifest.json
 PAYMENTS_SUCCESS_URL=https://yourapp.com/thanks?checkout=1
 PAYMENTS_CONSUME_KEY=…           # any long random string; guards POST /consume
 APPWRITE_ENDPOINT=…
