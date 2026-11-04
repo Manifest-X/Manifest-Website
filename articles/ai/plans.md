@@ -17,6 +17,8 @@ Everything you need to build and publish is free. Pro adds history, teams, and c
 | Visitor analytics | Last 7 days | All time |
 | Undo changes and download past versions | | Last 5 versions |
 | Invite teammates and make admins | | ✓ |
+| [Form](/docs/ai/projects/forms) submissions per site, each month | 100 | 5,000 |
+| Forms to Slack, Discord, Teams, and webhooks | | ✓ |
 | "Made with Manifest" badge | Shown | Removed |
 | Manifest's showcase | May be featured | Your choice |
 
@@ -28,6 +30,7 @@ Everything you need to build and publish is free. Pro adds history, teams, and c
 - **Undo and download.** Go back to any of your last 5 versions of staging or live, or download one as a backup.
 - **Teams.** Invite people to work on the project from their own Claude, as members who can edit and publish, or admins who can also invite others.
 - **No badge.** The small "Made with Manifest" badge is removed from every page.
+- **More from forms.** 5,000 submissions a month per site, up to 10 destinations including Slack, Discord, Teams, and webhooks, and a year of history in the dashboard.
 - **Showcase control.** Keep the project out of Manifest's public gallery of projects. This doesn't affect search engines either way.
 
 ---
