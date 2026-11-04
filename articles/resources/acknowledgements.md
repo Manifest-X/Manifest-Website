@@ -30,10 +30,10 @@ Optional — used only when you opt in to Manifest's cloud features.
 
 ## Prerender & testing
 
-Pulled in as peer dependencies when a project installs `mnfst-render` (for static-site generation) or `mnfst-test` (for component testing and project linting).
+Installed in your project when you use `mnfst-render` (Puppeteer, or puppeteer-core with @sparticuz/chromium for serverless) or `mnfst-test` (Puppeteer, Vitest, happy-dom).
 
 - <a href="https://pptr.dev" target="_blank"><strong>Puppeteer</strong></a> — headless Chromium driver behind `mnfst-render` (static-site generation) and `mnfst-test` (linting and visual checks).
-- <a href="https://github.com/Sparticuz/chromium" target="_blank"><strong>@sparticuz/chromium</strong></a> — serverless-friendly Chromium binary for prerendering in Lambda and Cloudflare environments.
+- <a href="https://github.com/Sparticuz/chromium" target="_blank"><strong>@sparticuz/chromium</strong></a> — serverless-friendly Chromium binary for prerendering in AWS Lambda-style environments.
 - <a href="https://vitest.dev" target="_blank"><strong>Vitest</strong></a> — the test runner used by `mnfst-test`'s component-level testing API.
 - <a href="https://github.com/capricorn86/happy-dom" target="_blank"><strong>happy-dom</strong></a> — DOM implementation that lets `mountManifest()` run components in Node for unit tests.
 
