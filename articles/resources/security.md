@@ -19,7 +19,7 @@ Defaults that apply to every Manifest project, no setup required:
 | Protection | What it does |
 |---|---|
 | Loopback-only dev server | `mnfst-run` binds `127.0.0.1` and validates the `Host` header on every request. Closes both LAN exposure and DNS-rebinding attacks from third-party pages the developer visits. |
-| Env placeholders | `${VAR}` values in `manifest.json` resolve at runtime from `window.env`, which `mnfst-run` fills from `.env`. `mnfst-render` strips any unresolved placeholder from the published copy and never bakes `process.env` values into it. |
+| Env placeholders | `${VAR}` values in `manifest.json` resolve at runtime from `window.env`, which `mnfst-run` fills with the `PUBLIC_`-prefixed values in `.env`; other values are never sent to the browser. `mnfst-render` strips any unresolved placeholder from the published copy and never bakes `process.env` values into it. |
 | Prototype-pollution guards | CSV / JSON / YAML loaders refuse keys named `__proto__`, `constructor`, or `prototype` at any path depth — user-submitted data files cannot mutate `Object.prototype`. |
 | Path-traversal blocking | `mnfst-run` and `mnfst-test` static servers resolve every URL through a prefix check and reject `..` segments and NUL bytes. |
 | Session-secret isolation | For cross-tab sync, the auth plugin mirrors the signed-in user's profile and a session summary with secrets stripped to `localStorage`. Session secrets stay in the auth provider's cookie. |
@@ -59,7 +59,7 @@ Before deploying:
 - [ ] Confirm `manifest.json` contains no inlined credentials — it is published with the site
 - [ ] Confirm `.env` is in `.gitignore` and absent from the published directory
 - [ ] Serve the site over HTTPS
-- [ ] Configure a [Content Security Policy](https://developer.mozilla.org/docs/Web/HTTP/CSP) header. Alpine evaluates attribute expressions, so `script-src` needs `'unsafe-eval'`, plus `https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com` in `script-src`, `style-src`, and `connect-src`. Icons also need `https://api.iconify.design` in `connect-src`, and runtime utility classes need `style-src 'unsafe-inline'`
+- [ ] Configure a [Content Security Policy](https://developer.mozilla.org/docs/Web/HTTP/CSP) header. Alpine evaluates attribute expressions, so `script-src` needs `'unsafe-eval'`, plus `https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com` in `script-src`, `style-src`, and `connect-src`. Icons also need `https://api.iconify.design` in `connect-src` (plus its fallbacks `https://api.simplesvg.com` and `https://api.unisvg.com`), and runtime utility classes need `style-src 'unsafe-inline'`
 
 ---
 

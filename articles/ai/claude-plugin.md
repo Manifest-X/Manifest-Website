@@ -48,9 +48,10 @@ The **Code** tab of the Claude desktop app is the best place to build: Claude wo
 |---|---|---|
 | Build and publish | ✓ | Projects up to 10 MB |
 | Preview in Claude app | ✓ | |
-| Publish live and roll back | ✓ | ✓ |
+| Publish live | ✓ | ✓ |
+| Roll back (Pro) | ✓ | ✓ |
 | Connect domains | ✓ | ✓ |
-| Collaborate with teams | ✓ | ✓ |
+| Collaborate with teams (Pro) | ✓ | ✓ |
 | Get analytics | ✓ | ✓ |
 
 The **Code** tab is the part of the Claude desktop app where Claude can work with files on your computer. You pick a folder, and Claude creates and changes files there, runs your project, and shows it in a preview next to the chat.

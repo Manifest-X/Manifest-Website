@@ -59,7 +59,7 @@ The answer is `201 Created`. Keep `project.id`{copy} for the next steps:
 }
 ```
 
-`project_key`{copy} is the project's own key, shown once. It is not your API key, and you don't need it for the API (see [Create a project](/docs/api/projects/manage#create-a-project)).
+`project_key`{copy} is the project's own key, shown once (it starts `mfst_live_` on paid accounts). It is not your API key, and you don't need it for the API (see [Create a project](/docs/api/projects/manage#create-a-project)).
 
 ```bash copy
 export PROJECT_ID="proj_…"
