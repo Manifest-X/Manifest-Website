@@ -6,7 +6,9 @@ Collect entries or chips in filterable fields.
 
 ## Setup
 
-Combobox styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables. The plugin is included in `manifest.js`{copy} with all core plugins, or it can be loaded on its own.
+Combobox styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
+
+Combobox functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
 
 <div x-code-group copy>
 
