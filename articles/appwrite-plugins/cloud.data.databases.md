@@ -48,20 +48,7 @@ Register database tables in your `manifest.json` under the `data` property, same
 
 In this example, the "projects" data source name is arbitrary, used to later reference table content in the frontend. An Appwrite data source will automatically reference the `appwrite` property for credentials.
 
-Alternatively, credentials can be added directly to a data source:
-
-```json "manifest.json" copy
-{
-    "data": {
-        "projects": {
-            "projectId": "your-project-id",
-            "endpoint": "your-API-endpoint",
-            "appwriteDatabaseId": "your-database-id",
-            "appwriteTableId": "your-table-id"
-        }
-    }
-}
-```
+`appwriteDatabaseId` falls back to `appwrite.databaseId`, then to `main`, so later examples omit it.
 
 ### Scope
 
@@ -154,11 +141,11 @@ Database tables work identically to local data sources. Access entries using the
 <!-- Display single entry -->
 <p x-text="$x.projects[0]?.name"></p>
 
-<!-- Display within teams -->
+<!-- Display within teams ("scope": "teams") -->
 <template x-for="team in $auth.teams" :key="team.$id">
     <div>
         <p x-text="team.name"></p>
-        <template x-for="project in $x.projects" :key="project.$id">
+        <template x-for="project in $x.projects.filter(p => p.teamId === team.$id)" :key="project.$id">
             <p x-text="project.name"></p>
         </template>
     </div>
@@ -167,10 +154,12 @@ Database tables work identically to local data sources. Access entries using the
 
 ```html "Create" copy
 <!-- Basic create -->
-<input type="text" placeholder="Project name" aria-label="Project name" x-model="newName" />
-<button @click="$x.projects.$create({ name: newName }).then(() => { newName = ''; })">
-    Create Project
-</button>
+<div x-data="{ newName: '' }">
+    <input type="text" placeholder="Project name" aria-label="Project name" x-model="newName" />
+    <button @click="$x.projects.$create({ name: newName }).then(() => { newName = ''; })">
+        Create Project
+    </button>
+</div>
 
 <!-- With explicit ID -->
 <button @click="$x.projects.$create({ name: 'My Project' }, 'custom-id')">
@@ -277,33 +266,17 @@ x-effect="(async () => {
                 <button class="sm" @click="$x.projects.$delete(project.$id)" x-icon="lucide:trash" aria-label="Delete" title="Delete"></button>
             </div>
         </template>
-        <small x-show="!$x.projects || $x.projects.length === 0" class="text-muted">No projects yet</small>
+        <small x-show="!$x.projects || $x.projects.length === 0" class="text-content-subtle">No projects yet</small>
     </div>
 </div>
-<small x-show="!$auth.teams || $auth.teams.length === 0" class="text-muted">No teams available</small>
+<small x-show="!$auth.teams || $auth.teams.length === 0" class="text-content-subtle">No teams available</small>
 :::
 
 </div>
 
 Database tables automatically sync changes in realtime across all active sessions. When one user creates, updates, or deletes an entry, all other users see the change immediately without page refresh.
 
-Realtime is multiplexed over one connection per tab: however many data sources subscribe, Manifest opens a single Appwrite Realtime client and one channel subscription per distinct table or bucket. Sources sharing a table each receive every event once. The [auth](/docs/framework/appwrite-plugins/auth) plugin's team and account subscriptions and [presence](/docs/framework/appwrite-plugins/presence) share the same connection, so N live features still count as one connection against your Appwrite plan.
-
-Where the project's Appwrite version supports Realtime queries (Web SDK 22.4+, server 1.8+), Manifest also filters events server-side by your `scope` configuration — Appwrite then only delivers (and bills) events in your scope — while your own `queries` continue filtering client-side, preserving instant removal of rows that stop matching. Set `realtime: { "serverFilter": "all" }`{copy} to push all expressible filters server-side (rows that stop matching then drop on the next load instead of instantly), or `"serverFilter": false`{copy} for no server filtering. Filters Appwrite can't evaluate in realtime (`search`, `contains`, pagination and ordering) always stay client-side, and Manifest's event matcher runs in every mode as defense in depth.
-
-Events are filtered by the source's own `queries` before touching `$x`: a created or updated row that doesn't match the configured filters is ignored (or removed if it stops matching). Filters that can't be evaluated client-side (`search`, unresolved `$auth.` values) are treated as matching, so live data is never silently dropped.
-
-Growth is bounded by default. Realtime appends stop at max(500, 2× the initially loaded rows); skipped events are counted in `$x.<source>.$realtimeOverflow` (reset on each load), so a UI can show "N new rows — refresh". Configure per source with a `realtime` key on the data source:
-
-| Value | Behavior |
-|---|---|
-| *(omitted)* | Subscribed; append mode, cap max(500, 2× initial rows) |
-| `false` | No realtime subscription for this source |
-| `{ "mode": "append", "maxRows": 200 }`{copy} | Appends until 200 rows, then counts overflow |
-| `{ "mode": "window" }`{copy} | Holds the initial window size (the `limit` query if present), evicting the oldest realtime-appended rows first — initially loaded rows are never evicted. A window that is already full admits no live appends; watch `$realtimeOverflow` and reload to pull new rows into the window. |
-| `{ "mode": "append", "maxRows": 0 }`{copy} | Legacy unbounded growth (explicit opt-in; ignored in window mode, which falls back to the default cap) |
-
-Updates and deletes to rows already held always apply, regardless of caps. For programmatic control, `window.ManifestDataRealtime.setFilter('<source>', (eventType, row) => boolean)`{copy} runs per event per source before any merge work; return `false` to drop the event, pass `null` to clear.
+All live features share one connection per tab; see [Realtime Options](#realtime-options) to filter or cap live updates.
 
 **Method details:**
 
@@ -318,7 +291,7 @@ Updates and deletes to rows already held always apply, regardless of caps. For p
 
 ## Search & Query Entries
 
-Use `$query` to search, filter, and sort entries:
+Use `$query` to filter and sort entries in Appwrite, and `$search` to filter rows already loaded in the browser. `$query` refetches from Appwrite and replaces the source's rows, so every place that shows `$x.projects` changes; `$query([])` restores the unfiltered list.
 
 <div x-code-group>
 
@@ -352,7 +325,7 @@ Use `$query` to search, filter, and sort entries:
                 <p x-text="project.name"></p>
             </div>
         </template>
-        <small x-show="!$x.projects || $x.projects.$search(searchTerm, 'name').length === 0" class="text-muted">No projects found</small>
+        <small x-show="!$x.projects || $x.projects.$search(searchTerm, 'name').length === 0" class="text-content-subtle">No projects found</small>
     </div>
 </div>
 ```
@@ -409,7 +382,7 @@ Use `$query` to search, filter, and sort entries:
         <template x-for="project in $x.projects.$search(searchTerm, 'name')" :key="project.$id">
             <div class="p-2 border-t border-line" x-text="project.name"></div>
         </template>
-        <small x-show="!$x.projects || $x.projects.$search(searchTerm, 'name').length === 0" class="text-muted">No projects found</small>
+        <small x-show="!$x.projects || $x.projects.$search(searchTerm, 'name').length === 0" class="text-content-subtle">No projects found</small>
     </div>
 </div>
 :::
@@ -521,7 +494,7 @@ Define reusable queries in `manifest.json` and reference them in HTML:
 
 </div>
 
-A query value can also reference the signed-in user via `$auth.<path>` (e.g. `$auth.currentTeam.$id`, `$auth.userId`) or the active locale via `$locale.current`:
+A query value can also reference the signed-in user or the active locale. Only these values are allowed: `$auth.user.$id`, `$auth.currentTeam.$id`, `$auth.session.$id` and `$locale.current`. Other `$auth.` paths are rejected and match nothing.
 
 ```json "manifest.json" copy
 {
@@ -609,7 +582,7 @@ Use the `$files` property to access files linked to an entry:
 <!-- Display files for an entry -->
 <template x-for="file in project.$files" :key="file.$id">
     <div>
-        <img :src="file.$url" :alt="file.name" />
+        <img x-show="file.$isImage" :src="file.$thumbnailUrl" :alt="file.name" />
         <p x-text="file.name"></p>
     </div>
 </template>
@@ -663,7 +636,7 @@ Check data source loading state, errors, and readiness:
 <small x-show="$x.projects.$loading">Loading projects...</small>
 
 <!-- Error state -->
-<small x-show="$x.projects.$error" x-text="$x.projects.$error" class="text-error"></small>
+<small x-show="$x.projects.$error" x-text="$x.projects.$error" class="text-negative-content"></small>
 
 <!-- Ready state -->
 <small x-show="$x.projects.$ready && !$x.projects.$loading">
@@ -778,8 +751,8 @@ A source can be `$ready` with no entries because its [scope](#scope) can't apply
 
 | Method | Parameters | Description |
 |--------|------------|-------------|
-| `$query(queriesOrName)` | `queriesOrName` (array or string) | Query entries with filters, sorting, and pagination. Accepts an array of query arrays or a pre-configured query name from `manifest.json`. Returns filtered results |
-| `$search(term, field)` | `term` (string), `field` (string) | Frontend text search. Filters data already loaded in browser (no network request). Returns filtered array |
+| `$query(queriesOrName)` | `queriesOrName` (array or string) | Query entries with filters, sorting, and pagination. Accepts an array of query arrays or a pre-configured query name from `manifest.json`. Replaces the source's rows with the result |
+| `$search(term, ...fields)` | `term` (string), `fields` (one or more strings, or a weights object like `{ title: 3, body: 1 }`) | Frontend text search. Filters data already loaded in browser (no network request). Returns filtered array |
 
 ---
 
@@ -787,9 +760,9 @@ A source can be `$ready` with no entries because its [scope](#scope) can't apply
 
 <div x-code-group>
 
-```html "$firstPage" copy
+```html "$first" copy
 <!-- Get first page (cursor-based) -->
-<button @click="$x.projects.$firstPage(10).then(result => {
+<button @click="$x.projects.$first(10).then(result => {
     console.log(result.items);    // Array of entries
     console.log(result.cursor);   // Cursor for next page
     console.log(result.total);    // Total count
@@ -799,10 +772,10 @@ A source can be `$ready` with no entries because its [scope](#scope) can't apply
 </button>
 ```
 
-```html "$nextPage" copy
+```html "$next" copy
 <!-- Get next page (cursor-based) -->
-<button @click="$x.projects.$nextPage(cursor, 10).then(result => {
-    // Same structure as $firstPage
+<button @click="$x.projects.$next(cursor, 10).then(result => {
+    // Same structure as $first
 })">
     Load Next Page
 </button>
@@ -827,9 +800,32 @@ A source can be `$ready` with no entries because its [scope](#scope) can't apply
 
 | Method | Parameters | Description |
 |--------|------------|-------------|
-| `$firstPage(limit)` | `limit` (number) | Get first page (cursor-based). Returns `{ items, cursor, total, hasMore }` |
-| `$nextPage(cursor, limit)` | `cursor` (string), `limit` (number) | Get next page (cursor-based). Returns `{ items, cursor, total, hasMore }` |
-| `$page(pageNumber, limit)` | `pageNumber` (number), `limit` (number) | Get specific page (offset-based). Returns `{ items, page, total, totalPages, hasMore }` |
+| `$first(limit?)` | `limit` (number, default `10`) | Get first page (cursor-based). Returns `{ items, cursor, total, hasMore }` |
+| `$next(cursor, limit?)` | `cursor` (string), `limit` (number, default `10`) | Get the page after `cursor`. Returns `{ items, cursor, total, hasMore }` |
+| `$prev(cursor, limit?)` | `cursor` (string), `limit` (number, default `10`) | Get the page before `cursor`. Returns `{ items, cursor, total, hasMore }` |
+| `$page(pageNumber, limit?)` | `pageNumber` (number), `limit` (number, default `10`) | Get specific page (offset-based). Returns `{ items, page, total, totalPages, hasMore }` |
+
+---
+
+### Realtime Options
+
+Realtime is multiplexed over one connection per tab: however many data sources subscribe, Manifest opens a single Appwrite Realtime client and one channel subscription per distinct table or bucket. Sources sharing a table each receive every event once. The [auth](/docs/framework/appwrite-plugins/auth) plugin's team and account subscriptions and [presence](/docs/framework/appwrite-plugins/presence) share the same connection, so N live features still count as one connection against your Appwrite plan.
+
+Where the project's Appwrite version supports Realtime queries (Web SDK 22.4+, server 1.8+), Manifest also filters events server-side by your `scope` configuration — Appwrite then only delivers (and bills) events in your scope — while your own `queries` continue filtering client-side, preserving instant removal of rows that stop matching. Set `realtime: { "serverFilter": "all" }`{copy} to push all expressible filters server-side (rows that stop matching then drop on the next load instead of instantly), or `"serverFilter": false`{copy} for no server filtering. Filters Appwrite can't evaluate in realtime (`search`, `contains`, pagination and ordering) always stay client-side, and Manifest's event matcher runs in every mode as defense in depth.
+
+Events are filtered by the source's own `queries` before touching `$x`: a created or updated row that doesn't match the configured filters is ignored (or removed if it stops matching). Filters that can't be evaluated client-side (`search`, unresolved `$auth.` values) are treated as matching, so live data is never silently dropped.
+
+Growth is bounded by default. Realtime appends stop at max(500, 2× the initially loaded rows); skipped events are counted in `$x.<source>.$realtimeOverflow` (reset on each load), so a UI can show "N new rows — refresh". Configure per source with a `realtime` key on the data source:
+
+| Value | Behavior |
+|---|---|
+| *(omitted)* | Subscribed; append mode, cap max(500, 2× initial rows) |
+| `false` | No realtime subscription for this source |
+| `{ "mode": "append", "maxRows": 200 }`{copy} | Appends until 200 rows, then counts overflow |
+| `{ "mode": "window" }`{copy} | Holds the initial window size (the `limit` query if present), evicting the oldest realtime-appended rows first — initially loaded rows are never evicted. A window that is already full admits no live appends; watch `$realtimeOverflow` and reload to pull new rows into the window. |
+| `{ "mode": "append", "maxRows": 0 }`{copy} | Legacy unbounded growth (explicit opt-in; ignored in window mode, which falls back to the default cap) |
+
+Updates and deletes to rows already held always apply, regardless of caps. For advanced programmatic control, `window.ManifestDataRealtime.setFilter('<source>', (eventType, row) => boolean)`{copy} runs per event per source before any merge work; return `false` to drop the event, pass `null` to clear.
 
 ---
 

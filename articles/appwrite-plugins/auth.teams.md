@@ -73,7 +73,7 @@ Every user can generate custom teams, view all teams, and manage them with the r
 ```html "List & Manage Teams"
 <!-- List teams -->
 <template x-for="team in $auth.teams" :key="team.$id">
-    <div>
+    <div x-data="{ editingTeamName: team.name }">
 
         <!-- Team details -->
         <p x-text="team.name">Team name</p>
@@ -146,7 +146,7 @@ Every user can generate custom teams, view all teams, and manage them with the r
 
 ## Roles & Permissions
 
-By default, Appwrite assigns all members of a team an "owner" role, with top-level permissions to manage the team and its members. To override this behaviour, define default roles and their permissions in `manifest.json`, which are made available to every new team.
+Without roles configured, every team member holds Appwrite's `owner` role, with full permission to manage the team and its members. To override this behaviour, define default roles and their permissions in `manifest.json`, which are made available to every new team.
 
 ```json "manifest.json" copy
 {
@@ -176,7 +176,7 @@ Like default teams, default roles are established by their name in one of two ob
 | `permanent`{copy} | Permanent roles cannot be modified or deleted by anyone |
 | `template`{copy} | Template roles can be modified and deleted by users with the `manageRoles`{copy} permission |
 
-Each role can have permissions. Appwrite offers these default options:
+Each role can have permissions. Manifest provides these built-in permissions:
 
 | Permission | Description |
 |-----------|-------------|
@@ -187,11 +187,9 @@ Each role can have permissions. Appwrite offers these default options:
 | `renameTeam`{copy} | Change the team name |
 | `deleteTeam`{copy} | Delete the team |
 
-Custom permissions can be added to the array with unique names, such as `manageBilling`. These can be used in your frontend Alpine directives like `x-show="$auth.hasTeamPermission('manageBilling')"`. Users can also generate custom permissions if you expose the inputs to do so.
+Custom permissions can be added to the array with unique names, such as `manageBilling`. Check them in Alpine directives such as `x-show` with `$auth.hasTeamPermissionSync('manageBilling')`. Users can also generate custom permissions if you expose the inputs to do so.
 
-Role names are display names and may contain spaces or any characters (for example `Live Agent`). The plugin stores an internal, storage-safe token on each membership and translates it back to the display name wherever roles are returned, so there are no naming restrictions to worry about.
-
-A member's stored tokens can intentionally differ from the roles you requested: role names are stored in slug form, and a role whose permissions include owner-level capabilities (such as `manageRoles` or `deleteTeam`) is normalized to also carry Appwrite's `owner` token. This is by design, not a failed write — `inviteMember` and `updateMembership` return `normalized: true` (alongside `requestedRoles` and `normalizedRoles`) whenever such a transform was applied.
+Role names can contain spaces or any characters, such as `Live Agent`.
 
 The `creatorRole` is the role assigned to the team creator. It must reference a role defined in the `permanent` or `template` roles. If the `creatorRole` property is absent or does not reference a defined role, the creator is assigned the first defined role.
 
@@ -244,6 +242,7 @@ Owner-only is the safest choice for a creator who should have full, future-proof
 ```
 
 ```html "Manage Roles"
+<!-- Inside <template x-for="team in $auth.teams"> -->
 <!-- List roles -->
 <template x-for="(permissions, roleName) in $auth.allTeamRoles(team)" :key="roleName">
     <!-- Wrapper enabling inputs -->
@@ -335,7 +334,7 @@ Owner-only is the safest choice for a creator who should have full, future-proof
 </div>
 
 ::: brand icon="lucide:info"
-**Editing role permissions from JavaScript?** Use `await $auth.updateRolePermissions(teamId, roleName, ['records.read', ...])` — it persists straight to team prefs with a plain array and refreshes `$auth.allTeamRoles()`. Don't assign to `$auth.editingRole.permissions` programmatically: that object is reactive and is meant for `x-model`-bound inputs (as above). For a mid-edit flow, call `$auth.setEditingPermissions([...])` then `$auth.saveEditingRole()`.
+**Editing role permissions from JavaScript?** Use `await $auth.updateRolePermissions(teamId, roleName, ['manageBilling', ...])` — it persists straight to team prefs with a plain array and refreshes `$auth.allTeamRoles()`. Don't assign to `$auth.editingRole.permissions` programmatically: that object is reactive and is meant for `x-model`-bound inputs (as above). For a mid-edit flow, call `$auth.setEditingPermissions([...])` then `$auth.saveEditingRole()`.
 :::
 
 ---
@@ -349,6 +348,7 @@ In your Appwrite project under <b>Auth</b> > <b>Settings</b>, ensure <b>Team inv
 <div x-code-group numbers copy  collapse="10">
 
 ```html "Invite Members"
+<!-- Inside <template x-for="team in $auth.teams"> -->
 <!-- Email input -->
 <input type="email" placeholder="Email" aria-label="Email to invite" x-model="$auth.inviteEmail" :disabled="$auth.isActionDisabled('inviteMembers')" required />
 
@@ -369,6 +369,7 @@ In your Appwrite project under <b>Auth</b> > <b>Settings</b>, ensure <b>Team inv
 ```
 
 ```html "List & Manage Members"
+<!-- Inside <template x-for="team in $auth.teams"> -->
 <!-- List members -->
 <template x-for="membership in $auth.currentTeamMemberships" :key="membership.$id">
     <div>
@@ -547,6 +548,7 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 | `$auth.createTeamFromName()`{copy} | None | Create a team using `newTeamName` property |
 | `$auth.viewTeam(...)`{copy} | `team` (object) | Load team details and memberships |
 | `$auth.updateCurrentTeamName()`{copy} | None | Update current team name using `updateTeamNameInput` property |
+| `$auth.updateTeamName(...)`{copy} | `teamId` (string), `name` (string) | Rename a team |
 | `$auth.deleteTeam(...)`{copy} | `teamId` (string) | Delete a team |
 | `$auth.duplicateTeam(...)`{copy} | `teamId` (string), `options` (object, optional) | Duplicate a team. Options: `newName`, `copyMembers`, `copyRoles`. Returns `{ success: boolean, team?: object, error?: string }`. Defaults: `copyMembers: false`, `copyRoles: false`, `newName: '{originalName} copy'` |
 | `$auth.reapplyTemplateTeam(...)`{copy} | `teamName` (string) | Reapply a deleted template team |
@@ -558,6 +560,8 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 | Method | Parameters | Description |
 |--------|------------|-------------|
 | `$auth.inviteToCurrentTeam()`{copy} | None | Invite member using `inviteEmail` and `inviteRoles` properties |
+| `$auth.inviteMember(...)`{copy} | `teamId` (string), `roles` (array), `email` (string) | Invite a member by email. Returns `{ success, membership, normalized }`; `normalized` is `true` when the stored roles differ from those requested (for example, a role with owner-level permissions also gets Appwrite's `owner` role) |
+| `$auth.updateMembership(...)`{copy} | `teamId` (string), `membershipId` (string), `roles` (array) | Set a member's roles. Returns the same `normalized` flag as `inviteMember` |
 | `$auth.startEditingMember(...)`{copy} | `teamId` (string), `membershipId` (string), `currentRoles` (array) | Start editing a member |
 | `$auth.saveEditingMember()`{copy} | None | Save member edits |
 | `$auth.cancelEditingMember()`{copy} | None | Cancel member editing |
@@ -584,7 +588,7 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 
 | Method | Parameters | Description |
 |--------|------------|-------------|
-| `$auth.hasTeamPermission(...)`{copy} | `permission` (string) | Check if user has a team permission (async) |
+| `$auth.hasTeamPermission(...)`{copy} | `permission` (string) | Check if user has a team permission (async, for JavaScript; use `hasTeamPermissionSync` in bindings) |
 | `$auth.hasTeamPermissionSync(...)`{copy} | `permission` (string) | Check if user has a team permission (synchronous) |
 | `$auth.hasRole(...)`{copy} | `roleName` (string) | Check if user has a specific role |
 | `$auth.getUserRole()`{copy} | None | Get user's primary role (async) |
@@ -613,7 +617,7 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 | `$auth.getMemberEmail(...)`{copy} | `membership` (object) | Get member email |
 | `$auth.isRoleBeingEdited(...)`{copy} | `teamId` (string), `roleName` (string) | Check if a role is being edited |
 | `$auth.isRoleDeletable(...)`{copy} | `teamId` (string), `roleName` (string) | Check if a role can be deleted |
-| `$auth.isRolePermanentSync(...)`{copy} | `teamId` (string), `roleName` (string) | Check if a role is permanent (synchronous) |
+| `$auth.isRolePermanentSync(...)`{copy} | `teamId` (string), `roleName` (string) | Check if a role is permanent (synchronous). Returns `false` until the team's roles have loaded, such as after `viewTeam` |
 
 ---
 

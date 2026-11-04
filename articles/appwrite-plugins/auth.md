@@ -8,11 +8,11 @@ Implement a complete authentication solution for your app with a connected <a hr
 
 Complete the [Appwrite setup](/docs/framework/appwrite-plugins/appwrite-setup) steps to connect your Appwrite and Manifest projects.
 
-Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json` is also required for Appwrite credentials and configuring auth details.
+Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json` is also required for Appwrite credentials and configuring auth details. The auth plugin auto-loads when the `appwrite` object includes `auth`, even an empty `"auth": {}`.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "Auto-detect"
 <!-- Meta -->
 <link rel="manifest" href="/manifest.json">
 

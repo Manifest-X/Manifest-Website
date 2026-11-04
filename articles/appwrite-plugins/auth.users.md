@@ -29,14 +29,13 @@ With Manifest and Appwrite, a frontend user registration flow (vs. a login flow)
 Interactive examples on this page demonstrate real authentication with **you** as the user. Each example reflects the most recent auth state you've set (e.g. signed-in or out). Example styles and layouts may differ from code snippets.
 :::
 
-In `manifest.json`, use the auth `methods` array to define your project's sign-in methods. At least one must be specified here, and enabled in the connected Appwrite project.
+In `manifest.json`, use the auth `methods` array to define your project's sign-in methods, and enable each one in the connected Appwrite project. Without `methods`, magic URLs and OAuth are enabled (`["magic", "oauth"]`). The `auth` object itself is what loads the auth plugin, so include it even when empty (`"auth": {}`).
 
 ```json "manifest.json" copy
 {
     "appwrite": {
         "projectId": "your-project-id",
         "endpoint": "your-API-endpoint",
-        "devKey": "your-dev-key",
         "auth": {
             "methods": [ "oauth", "magic", "guest-manual" ]
         }
@@ -139,7 +138,7 @@ Magic URLs provide passwordless authentication via email. Users enter their emai
 ::: frame col gap-4 text-base
 <!-- Form -->
 <div class="row-wrap gap-2">
-    <input class="flex-1 max-w-full" type="email" pattern=".*@.*\..*" required autocomplete="on" placeholder="Input email" aria-label="Email" class="peer" @keyup.enter="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress" />
+    <input class="flex-1 max-w-full peer" type="email" pattern=".*@.*\..*" required autocomplete="on" placeholder="Input email" aria-label="Email" @keyup.enter="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress" />
     <button class="peer-invalid:disabled" @click="$auth.sendMagicLink()" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress">Send Magic URL</button>
     <button @click="$auth.logout()" :disabled="!$auth.isAuthenticated || $auth.inProgress" class="!w-fit">Logout</button>
 </div>
@@ -222,10 +221,6 @@ After a code is sent, `$auth.otpSent` becomes `true`; `$auth.submitOTP()` reads 
 
 Email content and code length can be customized in Appwrite under <b>Auth</b> > <b>Templates</b> > <b>OTP</b>.
 
-::: brand icon="lucide:info"
-Unlike OAuth and magic links, email OTP cannot convert a guest's account in place. This is an Appwrite limitation, so an OTP sign-in always creates a fresh account. You can still carry a guest's teams over to that new account with [Guest Team Carryover](#guest-team-carryover-otp).
-:::
-
 ---
 
 ### Phone OTP
@@ -265,17 +260,20 @@ The code-entry step is shared with email OTP: the same `$auth.submitOTP()` and `
 
 Phone OTP requires an SMS provider (Twilio, Vonage, MSG91, or Telesign) connected in Appwrite under <b>Messaging</b> > <b>Providers</b>, and the Phone method enabled under <b>Auth</b> > <b>Settings</b>.
 
-::: brand icon="lucide:info"
-Like email OTP, phone OTP cannot convert a guest's account in place — a phone sign-in always creates a fresh account. [Guest Team Carryover](#guest-team-carryover-otp) covers phone OTP too.
-:::
-
 ---
 
 ### Guest Sessions
 
 Guest sessions allow visitors to browse your app without creating an account, with each session registered in the Appwrite userbase (including repeat visits from the same user). With Manifest, guest sessions can begin automatically or by a user action.
 
-By default, when a guest signs in, a fresh account is created and the guest session is discarded. To instead **preserve** the guest's account and data when they sign in, enable [Guest Upgrade](#guest-upgrade).
+By default, when a guest signs in, a fresh account is created and the guest session is discarded, along with anything tied to it (such as guest-created [teams](/docs/framework/appwrite-plugins/teams)). To keep them:
+
+| Sign-in method | Keep the guest's data with |
+|---|---|
+| OAuth, magic URL | [`guestUpgrade`](#guest-upgrade): converts the guest's account in place |
+| Email OTP, phone OTP | [`guestMigration`](#guest-team-carryover-otp): moves the guest's teams to the new account |
+
+OTP sign-ins can't convert a guest in place (an Appwrite limitation), so they always create a fresh account.
 
 <br>
 
@@ -319,7 +317,7 @@ When `guest-manual` is enabled, visitors must explicitly choose to continue as a
 
 <!-- Status -->
 <p x-show="$auth.isAnonymous">You're a guest</p>
-<p x-show="!$auth.isAnonymous && $auth.isAuthenticated">You're signed in - logout to test guest mode</p>
+<p x-show="!$auth.isAnonymous && $auth.isAuthenticated">You're already signed in</p>
 <p x-show="!$auth.isAuthenticated">You're not signed in</p>
 ```
 
@@ -339,7 +337,7 @@ When `guest-manual` is enabled, visitors must explicitly choose to continue as a
 
 #### Guest Upgrade
 
-By default a guest who signs in gets a brand-new account, and anything tied to the guest session (such as guest-created [teams](/docs/framework/appwrite-plugins/teams)) is left behind. Set `guestUpgrade` to `true` to instead convert the guest's existing account in place, preserving its data and team memberships.
+Set `guestUpgrade` to `true` to convert a guest's existing account in place when they sign in with OAuth or a magic URL, preserving its data and team memberships.
 
 ```json "manifest.json" copy
 {
@@ -355,15 +353,11 @@ By default a guest who signs in gets a brand-new account, and anything tied to t
 
 No markup changes are needed — `$auth.sendMagicLink()` and `$auth.loginOAuth()` handle the upgrade automatically when a guest signs in. `guestUpgrade` defaults to the value of `teams.guests`, so enabling guest teams turns it on for you.
 
-::: brand icon="lucide:info"
-Guest upgrade only works with OAuth and magic links, while email and phone OTP sign-ins always create a fresh account.
-:::
-
 <br>
 
 #### Guest Team Carryover (OTP)
 
-Because email and phone OTP can't convert a guest in place, `guestUpgrade` can't preserve a guest's teams for OTP sign-ins. `guestMigration` covers this case: it carries the guest's teams over to the new account by reassigning team membership. It's the OTP-friendly counterpart to `guestUpgrade`.
+For email and phone OTP sign-ins, `guestMigration` carries the guest's teams over to the new account by reassigning team membership.
 
 Reassigning team ownership between accounts is privileged — it needs a server API key, so it has to run on a server, not in the browser. To make that turnkey, Manifest provides a ready-to-deploy <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/guest-migration-function" target="_blank" rel="noopener">guest-migration function template</a>. Deploy it to your Appwrite project and point the plugin at it:
 
@@ -434,7 +428,7 @@ Sign-in methods can be stacked to provide optionality to users.
 ```
 
 ::: frame text-base
-<div class="col center gap-2 w-sm max-w-100% mx-auto py-10 text-center [&_button]:w-full">
+<div class="col center gap-2 w-sm max-w-full mx-auto py-10 text-center [&_button]:w-full">
     <!-- OAuth Buttons -->
     <button  @click="$auth.loginOAuth('google')" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress"><i x-icon="simple-icons:google"></i> <span>Sign in with Google</span></button>
     <button @click="$auth.loginOAuth('github')" :disabled="($auth.isAuthenticated && !$auth.isAnonymous) || $auth.inProgress"><i x-icon="simple-icons:github"></i> <span>Sign in with GitHub</span></button>
@@ -491,7 +485,7 @@ Current session details (null if not authenticated). The session object comes di
 | `$auth.session?.$id`{copy} | string | Session ID |
 | `$auth.session?.userId`{copy} | string | User ID associated with session |
 | `$auth.session?.expire`{copy} | string | Session expiration timestamp |
-| `$auth.session?.provider`{copy} | string | Authentication provider used (`'anonymous'`, `'magic-url'`, or OAuth provider name) |
+| `$auth.session?.provider`{copy} | string | Authentication provider used (`'anonymous'`, `'magic-url'`, `'email'` or `'token'` for email OTP, `'phone'`, or the OAuth provider name) |
 | `$auth.session?.ip`{copy} | string | IP address of session |
 | `$auth.session?.osCode`{copy} | string | Operating system code |
 | `$auth.session?.osName`{copy} | string | Operating system name |
@@ -545,19 +539,30 @@ Current session details (null if not authenticated). The session object comes di
 
 ## Session Recovery
 
-Sessions are checked against Appwrite on every page load, and the plugin distinguishes a real sign-out from a connection problem.
+Signing in or out in one tab updates every open tab, and every Appwrite table and bucket source reloads for the new user, so the previous user's entries never linger. With auto guest sessions, signing out moves every tab to a new guest session.
 
-### Sign-out Across Tabs
+If the app opens offline, it renders signed out (`$auth.isAuthenticated` is `false`) and restores the session on its own once Appwrite is reachable; no guest session is created over the real one. Only a genuine "no session" answer from Appwrite signs a user out. Listen for `manifest:auth:login` to react when the session returns.
 
-Logging out in one tab signs out every open tab (or moves them to the new guest session, with auto guest sessions), as does a session check finding the session gone (a 401). Every Appwrite table and bucket source clears and reloads in every tab, so the previous user's entries never linger. Signing in or switching accounts from another tab reloads them too, and loads that user's [teams](/docs/framework/appwrite-plugins/teams) (see [cloud data](/docs/framework/appwrite-plugins/cloud-data)).
+[Persisted](/docs/framework/core-plugins/local-data#persisted-data) rows saved for the user last signed in on this device are shown while offline, except from tables with a [scope](/docs/framework/appwrite-plugins/databases#scope) and sources whose queries reference `$auth.` values, which stay empty until the session is restored.
 
-### Offline Starts
+---
 
-When a signed-in user opens the app without a connection, the session check fails with a network error rather than a "no session" answer. The tab renders signed out (`$auth.isAuthenticated` is `false`) but other tabs are left untouched — only a genuine "no session" answer from Appwrite signs them out. Auto guest sessions are also held back, so no guest account is created over the real one.
+## Events
 
-The session is rechecked when the connection returns, when the user returns to the tab, and on a timer (2s, 5s, 15s, then every 60s). Once Appwrite answers, either the session is restored — the usual sign-in events fire, and every table and bucket source reloads for the user, including those showing saved rows — or a genuine "no session" answer signs the user out everywhere.
+The auth plugin dispatches these events on `window`:
 
-Meanwhile, [persisted](/docs/framework/core-plugins/local-data#persisted-data) rows saved for the user last signed in on this device are shown, except from tables with a [scope](/docs/framework/appwrite-plugins/databases#scope) and sources whose queries reference `$auth.` values, which end up empty while the tab is signed out. A "no session" answer clears them.
+| Event | Fires when |
+|-------|------------|
+| `manifest:auth:initialized`{copy} | The session check on page load has finished, signed in or not (`detail.isAuthenticated`, `detail.isAnonymous`) |
+| `manifest:auth:login`{copy} | A user signs in, or a session is restored (`detail.user` holds the user) |
+| `manifest:auth:anonymous`{copy} | A guest session starts |
+| `manifest:auth:logout`{copy} | The user signs out, or the session has expired |
+| `manifest:auth:session-cleared`{copy} | The session ended or changed elsewhere, such as in another tab |
+| `manifest:auth:teams-loaded`{copy} | The user's [teams](/docs/framework/appwrite-plugins/teams) have loaded |
+
+```html copy
+<div x-data @manifest:auth:login.window="$toast('Welcome back')"></div>
+```
 
 ---
 

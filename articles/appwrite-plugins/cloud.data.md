@@ -12,7 +12,7 @@ Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json`
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "Auto-detect"
 <!-- Meta -->
 <link rel="manifest" href="/manifest.json">
 
@@ -48,11 +48,17 @@ Appwrite's cloud data sources work identically to local data sources in the fron
 - **Realtime Updates**: Changes sync automatically across all active sessions
 - **Permission-Aware**: Respects Appwrite permissions and scopes
 - **CRUD Operations**: Create, read, update, and delete using intuitive methods
-- **Team Scoping**: Automatically scope queries by team, user, or role
+- **Scoping**: Automatically scope queries by user, current team, or all of the user's teams
 
 ---
 
-What a visitor can read depends on who they are, through scopes, `$auth` queries, or the row and file permissions set in Appwrite. Every table and bucket source therefore follows the identity: when someone signs in, signs out, or switches accounts (a guest signing in included), in any tab, the source reloads for the new identity. The previous user's or guest's rows are cleared at once; rows read while signed out stay on screen until the new ones arrive. Buckets open to everyone list their public files to signed-out visitors. Table reads need a session whenever the [auth](/docs/framework/appwrite-plugins/auth) plugin is loaded: a signed-out visitor's table source reports a "not authenticated" `$error` (enable guest sessions to read public rows without signing in), and scoped or `$auth.` tables settle empty. Sources that need a signed-in user show nothing until someone signs in.
+## Who Sees What
+
+What a visitor can read depends on who they are: through [scopes](/docs/framework/appwrite-plugins/databases#scope), `$auth.` queries, or the row and file permissions set in Appwrite.
+
+- **Identity changes reload sources.** When someone signs in, signs out, or switches accounts (a guest signing in included), in any tab, every table and bucket source reloads for the new identity. The previous user's or guest's rows are cleared at once; rows read while signed out stay on screen until the new ones arrive.
+- **Unscoped sources follow Appwrite permissions.** Tables and buckets without a scope or `$auth.` queries read whatever Appwrite allows, including rows and files open to everyone (`read("any")`) for signed-out visitors.
+- **Scoped sources wait for a user.** Scoped tables, and sources whose queries use `$auth.` values, stay empty until someone signs in.
 
 Cloud sources can keep their last rows on the visitor's device with the same `persist` option as any other source, so a return visit shows data before the network answers. See [persisted data](/docs/framework/core-plugins/local-data#persisted-data).
 
