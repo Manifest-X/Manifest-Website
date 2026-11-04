@@ -36,7 +36,7 @@ Import/Export is included in `manifest.js` with all core plugins, or can be sele
 
 ## Export
 
-The `x-export` directive and `$export` magic save the page, a section of it, or a data source as a file. PDFs go through the browser's own print dialog — the familiar "Save as PDF" flow — so text stays selectable and copy-pasteable, long content flows across pages properly, and the page's own `@media print` styles apply. Exporting the whole page prints the whole page; exporting a target section temporarily narrows the print to just that section. Image formats (PNG, JPEG, WebP) use <a href="https://github.com/yorickshen/html2canvas-pro" target="_blank">html2canvas-pro</a>, fetched from the jsDelivr CDN only when someone first clicks.
+The `x-export` directive and `$export` magic save the page, a section of it, or a data source as a file. PDFs go through the browser's own print dialog — the familiar "Save as PDF" flow — so text stays selectable and copy-pasteable, long content flows across pages properly, and the page's own `@media print` styles apply. Exporting the whole page prints the whole page; exporting a target section temporarily narrows the print to just that section.
 
 ### Triggers
 
@@ -117,7 +117,7 @@ For more control, pass an options object. `target`{copy} is a CSS selector point
 ::: frame col gap-4 p-10 font-sans
 <div id="quarterly-report" class="col gap-2 p-4 border border-line rounded">
     <span class="h3">Quarterly Report</span>
-    <p class="text-muted">Revenue grew 14% year-over-year. New customers accounted for 38% of bookings.</p>
+    <p class="text-content-subtle">Revenue grew 14% year-over-year. New customers accounted for 38% of bookings.</p>
 </div>
 <button x-export="{ format: 'pdf', target: '#quarterly-report', filename: 'q3-report.pdf' }">Download PDF report</button>
 :::
@@ -139,7 +139,7 @@ When `x-export` sits on a link whose `href` starts with `#`, that fragment becom
 ::: frame col gap-4 p-10
 <div id="chart-region" class="col gap-2 p-4 border border-line rounded">
     <span class="h3">Sales Chart</span>
-    <p class="text-muted">Q1 · Q2 · Q3 · Q4</p>
+    <p class="text-content-subtle">Q1 · Q2 · Q3 · Q4</p>
 </div>
 <a x-export.png href="#chart-region" class="underline">Save chart as PNG</a>
 :::
@@ -211,7 +211,7 @@ For tables and structured data, point at a `$x` source by name. The plugin write
     { id: 4, name: 'Umbrella Inc', plan: 'Enterprise', mrr: 1200 }
 ] }" class="col gap-3 w-full">
     <table class="w-full text-sm">
-        <thead><tr class="text-muted text-left"><th>Name</th><th>Plan</th><th>MRR</th></tr></thead>
+        <thead><tr class="text-content-subtle text-left"><th>Name</th><th>Plan</th><th>MRR</th></tr></thead>
         <tbody>
             <template x-for="c in customers" :key="c.id">
                 <tr class="border-t border-line">
@@ -243,7 +243,7 @@ CSV quoting is handled automatically to the standard rules (RFC 4180): values co
 
 ```html copy
 <!-- Validate, then export -->
-<form @submit.prevent="$refs.form.checkValidity() && await $export({ format: 'csv', data: rows })">
+<form x-data="{ rows: [] }" @submit.prevent="$el.checkValidity() && await $export({ format: 'csv', data: rows })">
     ...
 </form>
 
@@ -257,7 +257,7 @@ CSV quoting is handled automatically to the standard rules (RFC 4180): values co
 <form x-data="{ agreed: false }" @submit.prevent="$export({ format: 'pdf', target: '#terms-doc', filename: 'terms.pdf' })" class="col gap-3">
     <div id="terms-doc" class="col gap-2 p-4 border border-line rounded">
         <span class="h3">Terms of Service</span>
-        <p class="text-muted">By proceeding you agree to the terms outlined herein.</p>
+        <p class="text-content-subtle">By proceeding you agree to the terms outlined herein.</p>
     </div>
     <label class="row gap-2 items-center">
         <input type="checkbox" x-model="agreed">
@@ -292,8 +292,10 @@ All of `$export`'s options are identical to those of `x-export`.
 | **`urlParam`{copy}** | String | `'export'` | Name of the URL parameter to watch when `trigger: 'url'` |
 | **`delay`{copy}** | Number | `0` | Milliseconds to wait after a `url` trigger before saving. Useful when charts or animations need a moment to settle. |
 
+A failed export fires `manifest:export-error` on `window`, with `format` and `error` in its `detail`.
+
 ::: brand icon="lucide:info"
-**Images from other sites**: saving a section that contains images hosted on another domain needs those images served with permissive CORS headers (`Access-Control-Allow-Origin: *`), or they'll come out blank. Images hosted with the site itself work without any configuration.
+**Image formats** (PNG, JPEG, WebP) use <a href="https://github.com/yorickshen/html2canvas-pro" target="_blank">html2canvas-pro</a>, fetched from the jsDelivr CDN only when someone first clicks. Saving a section that contains images hosted on another domain needs those images served with permissive CORS headers (`Access-Control-Allow-Origin: *`), or they'll come out blank. Images hosted with the site itself work without any configuration.
 :::
 
 ---
@@ -348,7 +350,7 @@ npm i -D puppeteer
 
 The `x-import` directive and `$import` magic bring files back in. The visitor picks a **JSON** or **CSV** file, the plugin reads it right there in the browser (the file never leaves their device), and the content arrives as an event, a promise, or straight into an `$x` data source. Restoring an exported backup, loading a saved document, or accepting user-made content packs is one attribute.
 
-With no options the picker accepts JSON or CSV and tells them apart by the file's extension; a modifier pins one format.
+With no options the picker accepts JSON or CSV (including tab-separated `.tsv`) and tells them apart by the file's extension; a modifier pins one format.
 
 ```html copy
 <button x-import>Open file</button>
@@ -413,7 +415,7 @@ Here's the whole loop in one place. Download the table as a CSV, then import the
     { name: 'Priya', role: 'Research',    hours: 14 }
 ], imported: null, filename: '' }" class="col gap-3 w-full">
     <table class="w-full text-sm">
-        <thead><tr class="text-muted text-left"><th>Name</th><th>Role</th><th>Hours</th></tr></thead>
+        <thead><tr class="text-content-subtle text-left"><th>Name</th><th>Role</th><th>Hours</th></tr></thead>
         <tbody>
             <template x-for="(m, i) in team" :key="i">
                 <tr class="border-t border-line">
@@ -429,13 +431,13 @@ Here's the whole loop in one place. Download the table as a CSV, then import the
         <button x-import.csv @manifest:import="imported = $event.detail.data; filename = $event.detail.file.name" class="outlined">Import a CSV</button>
     </div>
     <template x-if="!imported">
-        <small class="text-muted">Nothing imported yet — the file's contents will appear here.</small>
+        <small class="text-content-subtle">Nothing imported yet — the file's contents will appear here.</small>
     </template>
     <template x-if="imported">
         <div class="col gap-2 p-4 border border-line rounded">
-            <small class="text-muted" x-text="'From ' + filename + ':'"></small>
+            <small class="text-content-subtle" x-text="'From ' + filename + ':'"></small>
             <table class="w-full text-sm">
-                <thead><tr class="text-muted text-left"><th>Name</th><th>Role</th><th>Hours</th></tr></thead>
+                <thead><tr class="text-content-subtle text-left"><th>Name</th><th>Role</th><th>Hours</th></tr></thead>
                 <tbody>
                     <template x-for="(m, i) in imported" :key="i">
                         <tr class="border-t border-line">
@@ -471,7 +473,7 @@ Together with export, backup and restore is a few lines — no server, no accoun
 
 ### Import Magic
 
-`$import(opts)` opens the picker from inside an expression and hands back the parsed data — or `null` when the visitor closes the dialog without choosing. Same options as the directive.
+`$import(opts)` opens the picker from inside an expression and hands back the parsed data — or `null` when the visitor closes the dialog without choosing, in browsers that report a cancelled picker. Elsewhere the promise stays pending. Same options as the directive.
 
 ```html copy
 <button @click="save = await $import({ format: 'json' })">Load save</button>
