@@ -114,6 +114,7 @@ ANTHROPIC_API_KEY=sk-ant-your-key-here
 | About 20 requests per minute per visitor | `429` |
 | 1000 requests per day per project, shared by staging and production (adjustable through the connector) | `429` |
 | 5 MB per request, including attachments | `413` |
+| An attachment that isn't a JPEG, PNG, GIF or WebP image or a PDF (SVG and other files aren't supported) | `400` `invalid_messages` |
 | More than 100 messages of history | Older messages are dropped automatically |
 | A request from another site | `403` `forbidden_origin` |
 | No `ai` block in the published `manifest.json` | `404` `ai_not_enabled` |
