@@ -44,20 +44,6 @@ Register storage buckets in your `manifest.json` under the `data` property, same
 
 In this example, the "assets" data source name is arbitrary, used to later reference bucket content in the frontend. An Appwrite data source will automatically reference the `appwrite` property for credentials.
 
-Alternatively, credentials can be added directly to a data source:
-
-```json "manifest.json" copy
-{
-    "data": {
-        "assets": {
-            "projectId": "your-project-id",
-            "endpoint": "your-API-endpoint",
-            "appwriteBucketId": "your-bucket-id"
-        }
-    }
-}
-```
-
 ### Scope
 
 Scoping automatically filters file access by user or team, ensuring users only see files they're permitted to access. Configure scope in `manifest.json`:
@@ -133,12 +119,12 @@ Storage buckets work identically to local data sources and database tables. Acce
 <!-- Display single file -->
 <div x-show="$x.assets && $x.assets.length > 0">
     <p x-text="$x.assets[0].name"></p>
-    <img :src="$x.assets[0].$url" :alt="$x.assets[0].name" />
+    <img x-show="$x.assets[0].$isImage" :src="$x.assets[0].$thumbnailUrl" :alt="$x.assets[0].name" />
 </div>
 
 <!-- Display image files only -->
 <template x-for="file in $x.assets" :key="file.$id">
-    <img x-show="file.$isImage" :src="file.$url" :alt="file.name" />
+    <img x-show="file.$isImage" :src="file.$thumbnailUrl" :alt="file.name" />
 </template>
 ```
 
@@ -188,7 +174,7 @@ Storage buckets work identically to local data sources and database tables. Acce
     Download File
 </button>
 
-<!-- Open download in new tab -->
+<!-- Download the file -->
 <button @click="$x.assets.$openDownload(file.$id, file.name)">
     Download
 </button>
@@ -252,7 +238,7 @@ x-effect="(async () => {
         <!-- Upload -->
         <div class="row-wrap gap-2 mb-2">
             <label role="button" class="flex-1">
-                <input type="file" @change="if ($event.target.files.length > 0) { $x.assets.$create($event.target.files[0]).then(() => { $event.target.value = ''; }).catch(err => alert('Upload failed: ' + err.message)); }" accept="*/*" />
+                <input type="file" @change="if ($event.target.files.length > 0) { $x.assets.$create($event.target.files[0]).then(() => { $event.target.value = ''; }).catch(err => $toast.negative('Upload failed: ' + err.message)); }" accept="*/*" />
                 <span>Choose File</span>
             </label>
         </div>
@@ -262,17 +248,17 @@ x-effect="(async () => {
             <div class="row gap-2 py-1 items-center border-t border-line">
                 <div class="flex-1 col gap-1">
                     <figcaption class="text-sm font-semibold" x-text="file.name || 'Unnamed file'"></figcaption>
-                    <small class="text-muted" x-text="file.$formattedSize"></small>
+                    <small class="text-content-subtle" x-text="file.$formattedSize"></small>
                 </div>
                 <button class="sm" @click="$x.assets.$openUrl(file.$id)" x-icon="lucide:external-link" aria-label="View" title="View"></button>
                 <button class="sm" @click="$x.assets.$duplicate(file.$id)" x-icon="lucide:copy" aria-label="Duplicate" title="Duplicate"></button>
                 <button class="sm" @click="if (confirm('Delete ' + file.name + '?')) { $x.assets.$delete(file.$id); }" x-icon="lucide:trash" aria-label="Delete" title="Delete"></button>
             </div>
         </template>
-        <small x-show="!$x.assets || $x.assets.length === 0" class="text-muted">No files yet</small>
+        <small x-show="!$x.assets || $x.assets.length === 0" class="text-content-subtle">No files yet</small>
     </div>
 </div>
-<small x-show="!$auth.teams || $auth.teams.length === 0" class="text-muted">No teams available</small>
+<small x-show="!$auth.teams || $auth.teams.length === 0" class="text-content-subtle">No teams available</small>
 :::
 
 </div>
@@ -288,10 +274,11 @@ Storage buckets automatically sync changes in realtime across all active session
 | `$delete(fileIdOrArray)` | `fileIdOrArray` (string, object with `$id`, or array) | Delete file(s). Returns deleted file(s) |
 | `$url(fileId, token?)` | `fileId` (string or object with `$id`), `token` (string, optional) | Get file view URL. Returns URL string |
 | `$download(fileId, token?)` | `fileId` (string or object with `$id`), `token` (string, optional) | Get file download URL. Returns URL string |
-| `$preview(fileId, options?, token?)` | `fileId` (string or object with `$id`), `options` (object, optional), `token` (string, optional) | Get file preview URL (images only). Options: width, height, quality, output, etc. Returns preview URL string |
+| `$preview(fileId, options?)` | `fileId` (string or object with `$id`), `options` (object, optional) | Get file preview URL (images only). Options: width, height, quality, output, etc. Returns preview URL string |
 | `$openUrl(fileId, token?)` | `fileId` (string or object with `$id`), `token` (string, optional) | Open file view URL in new tab |
-| `$openDownload(fileId, filename?, token?)` | `fileId` (string or object with `$id`), `filename` (string, optional), `token` (string, optional) | Open file download URL in new tab |
-| `$openPreview(fileId, options?, token?)` | `fileId` (string or object with `$id`), `options` (object, optional), `token` (string, optional) | Open file preview URL in new tab |
+| `$openDownload(fileId, filename?, token?)` | `fileId` (string or object with `$id`), `filename` (string, optional), `token` (string, optional) | Download the file, saved as `filename` |
+| `$openPreview(fileId, options?)` | `fileId` (string or object with `$id`), `options` (object, optional) | Open file preview URL in new tab |
+| `$filesFor(table, entryId, column?)` | `table` (string), `entryId` (string), `column` (string, optional, default `fileIds`) | Get the files linked to a table entry |
 
 ---
 
@@ -359,25 +346,27 @@ Each file includes standard Appwrite properties plus computed properties:
 |----------|------|-------------|
 | `$id` | string | Unique identifier |
 | `name` | string | File name |
-| `size` | number | File size in bytes |
+| `sizeOriginal` | number | File size in bytes |
 | `$formattedSize` | string | Human-readable size (e.g., "2.5 MB") |
 | `mimeType` | string | MIME type (e.g., "image/png") |
 | `$createdAt` | string | Upload timestamp (ISO format) |
 | `$updatedAt` | string | Last update timestamp (ISO format) |
-| `$url` | string | View URL |
+| `$formattedDate` | string | Human-readable upload date |
 | `$isImage` | boolean | `true` if image file |
-| `$thumbnailUrl` | string | Thumbnail URL (images only) |
+| `$isPdf` | boolean | `true` if PDF file |
+| `$thumbnailUrl` | string \| null | Full-size view URL for images (not resized); `null` for other files and while it loads |
+| `$thumbnailLoading` | boolean | `true` while `$thumbnailUrl` loads |
+| `$thumbnailError` | string \| null | Error if `$thumbnailUrl` failed to load |
 
 ```html
 <!-- Access file properties -->
 <div x-text="file.$id"></div>              <!-- Unique identifier -->
 <div x-text="file.name"></div>             <!-- File name -->
-<div x-text="file.size"></div>             <!-- File size in bytes -->
+<div x-text="file.sizeOriginal"></div>     <!-- File size in bytes -->
 <div x-text="file.$formattedSize"></div>   <!-- Human-readable size (e.g., "2.5 MB") -->
 <div x-text="file.mimeType"></div>         <!-- MIME type (e.g., "image/png") -->
 <div x-text="file.$createdAt"></div>       <!-- Upload timestamp (ISO) -->
 <div x-text="file.$updatedAt"></div>       <!-- Last update timestamp (ISO) -->
-<div x-text="file.$url"></div>             <!-- View URL -->
 <div x-text="file.$isImage"></div>         <!-- Boolean: true if image file -->
 <div x-text="file.$thumbnailUrl"></div>    <!-- Thumbnail URL (images only) -->
 ```
@@ -399,7 +388,7 @@ Check data source loading state, errors, and readiness:
 <small x-show="$x.assets.$loading">Loading files...</small>
 
 <!-- Error state -->
-<small x-show="$x.assets.$error" x-text="$x.assets.$error" class="text-error"></small>
+<small x-show="$x.assets.$error" x-text="$x.assets.$error" class="text-negative-content"></small>
 
 <!-- Ready state -->
 <small x-show="$x.assets.$ready && !$x.assets.$loading">
@@ -528,7 +517,7 @@ A source can be `$ready` while no one is signed in (see [Signed out](#scope)), s
 ```
 
 ```html "$openDownload" copy
-<!-- Open download in new tab -->
+<!-- Download the file -->
 <button @click="$x.assets.$openDownload(file.$id, file.name)">
     Download File
 </button>
@@ -549,7 +538,7 @@ See the **Method details** table near the top of this article for the full signa
 
 ## Image Handling
 
-Image files receive special handling with automatic thumbnail generation and preview support:
+Image files get a `$thumbnailUrl` (the full-size view URL) for display, and `$preview` / `$openPreview` for resized versions:
 
 ```html
 <!-- Display image with thumbnail -->
@@ -559,9 +548,6 @@ Image files receive special handling with automatic thumbnail generation and pre
         <p x-text="file.name"></p>
     </div>
 </template>
-
-<!-- Display full-size image -->
-<img :src="file.$url" :alt="file.name" />
 
 <!-- Preview with custom dimensions -->
 <button @click="$x.assets.$openPreview(file.$id, { 
