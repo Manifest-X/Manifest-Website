@@ -56,7 +56,7 @@ Each version's hashes are published alongside it in `lib/manifest.integrity.json
 Before deploying:
 
 - [ ] Run `npx mnfst-test`{copy} to catch stale data-source references, broken routes, accessibility regressions, and console errors
-- [ ] Confirm `manifest.json` contains no inlined credentials — keep secrets in `.env` and reference them as `${VAR}`
+- [ ] Confirm `manifest.json` contains no inlined credentials — it is published with the site
 - [ ] Confirm `.env` is in `.gitignore` and absent from the published directory
 - [ ] Serve the site over HTTPS
 - [ ] Configure a [Content Security Policy](https://developer.mozilla.org/docs/Web/HTTP/CSP) header. Alpine evaluates attribute expressions, so `script-src` needs `'unsafe-eval'`, plus `https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com` in `script-src`, `style-src`, and `connect-src`. Icons also need `https://api.iconify.design` in `connect-src`, and runtime utility classes need `style-src 'unsafe-inline'`
