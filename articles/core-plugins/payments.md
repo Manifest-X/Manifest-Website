@@ -194,10 +194,10 @@ return res.json({ mode: 'redirect', url: order.checkout_url })
 
 </div>
 
-If the signed-in user and active team are available from [auth](/docs/framework/appwrite-plugins/auth), the plugin sends them along automatically — so your function knows which account to credit without extra wiring. The payload also suits quantities, coupon codes, or anything else your function wants at checkout time — it travels as-is.
+If the signed-in user and active team are available from [auth](/docs/framework/appwrite-plugins/auth), the plugin sends them along automatically — so your function knows which account to credit without extra wiring. The payload also suits quantities, coupon codes, or anything else your function wants at checkout time — it travels as-is. Two keys are also read by the plugin: `mode` overrides the configured checkout style for this call, and `context` is merged into the identity context sent alongside.
 
 ::: brand icon="lucide:info"
-Full checkouts need a <b>signed-in buyer</b> — the grant is credited to their workspace, so the function refuses anonymous checkouts rather than taking money it can't assign. For anonymous purchases (donations, one-off sales), use [payment links](#payment-links). Buttons also handle themselves during a checkout: they disable while the flow opens (no double-charges from double-clicks), and failures surface automatically as a toast when the toasts plugin is loaded.
+The [template function](#appwrite-template) needs a <b>signed-in buyer</b> — the grant is credited to their workspace, so it refuses anonymous checkouts rather than taking money it can't assign. A function you write yourself decides its own rule. For anonymous purchases (donations, one-off sales), use [payment links](#payment-links). Buttons also handle themselves during a checkout: they disable while the flow opens (no double-charges from double-clicks), and failures surface automatically as a toast when the toasts plugin is loaded.
 :::
 
 ---
@@ -241,6 +241,8 @@ return res.json(e ? { plan: e.plan, status: e.status, credits: e.credits } : {})
 | `$pay.state`{copy} | reactive | Your function's payment record — shaped however you like. |
 | `$pay.loading`{copy} | reactive | `true` while a checkout is opening. |
 | `$pay.error`{copy} | reactive | The last error message, or `null`. |
+| `$pay.last`{copy} | reactive | Your function's response to the last checkout request. |
+| `$pay.register(name, adapter)`{copy} | method | Add or replace a popup adapter (see [providers](#providers)). |
 
 Appwrite-enabled projects can skip `state.url` and store the payment record in a [database](/docs/framework/appwrite-plugins/databases) instead. The function writes it, and your pages read it reactively through `$x` with realtime updates.
 
@@ -258,7 +260,7 @@ Two checkout styles are supported, and every provider gets at least one:
 | Overlay popup | `revolut`{copy}, `paddle`{copy}, `lemonsqueezy`{copy}, `polar`{copy}, `razorpay`{copy} |
 | Redirect | `stripe`{copy}, `square`{copy}, `paypal`{copy}, `braintree`{copy}, `adyen`{copy}, `mollie`{copy}, and any provider with a hosted checkout |
 
-If a popup isn't available, the plugin automatically falls back to redirect so clickthroughs never dead-end. Popup SDKs load on demand from the provider's own CDN — sites with a strict Content Security Policy should allow that provider's domain in `script-src`. Providers outside the list can add popup support without touching the framework:
+If a popup isn't available, the plugin falls back to redirect when your function also returned a checkout `url`. Popup SDKs load on demand from the provider's own CDN — sites with a strict Content Security Policy should allow that provider's domain in `script-src`. Providers outside the list can add popup support without touching the framework:
 
 ```html "Custom overlay" copy
 <script>
@@ -296,7 +298,7 @@ The webhook deserves a plain-language note: when someone finishes paying, the pr
 
 ### Appwrite Template
 
-Appwrite-enabled projects can use an <a href="https://appwrite.io/docs/products/functions" target="_blank" rel="noopener">Appwrite Function</a>. The template function below is complete and ready to deploy — edit `PRODUCTS` to match what you sell, deploy it as an Appwrite Function (Node runtime, `node-appwrite` dependency), and set the environment variables. The full multi-file template with tests lives in the <a href="https://github.com/Manifest-X/Manifest/tree/main/templates/payments-function" target="_blank" rel="noopener">Manifest repository</a>.
+Appwrite-enabled projects can use an <a href="https://appwrite.io/docs/products/functions" target="_blank" rel="noopener">Appwrite Function</a>. The template function below is complete and ready to deploy — edit `PRODUCTS` to match what you sell, deploy it as an Appwrite Function (Node runtime, `node-appwrite` dependency), and set the environment variables. The full multi-file template with tests lives in the <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/payments-function" target="_blank" rel="noopener">Manifest repository</a>.
 
 <div x-code-group lines collapse="10" copy>
 
