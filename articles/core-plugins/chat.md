@@ -18,7 +18,7 @@ The plugin renders nothing itself. See the [chats](/docs/framework/elements/chat
 
 ## Setup
 
-The chat plugin is included in `manifest.js` with all core plugins. It loads automatically when `$chat` appears in your page's markup, or when `manifest.json` contains an `ai` or `chat` entry (a config block, or `"chat": true`). It can also be declared in `data-plugins`, where the `+` prefix adds it alongside the default plugins.
+Chat is opt-in. It loads automatically when `$chat` appears in your page's markup, or when `manifest.json` contains an `ai` or `chat` entry (a config block, or `"chat": true`). It can also be declared in `data-plugins`, where the `+` prefix adds it alongside the default plugins.
 
 <div x-code-group copy>
 
@@ -183,7 +183,7 @@ Three details complete the UI. Style your own messages by comparing each message
 
 </div>
 
-This frame uses the `demo` adapter, which plays the model's part so this page doesn't need an API key. With an `ai` block configured, change the adapter name to `claude` and the same markup talks to the real model. The layout comes from the [chats](/docs/framework/elements/chats) element styles; the plugin only supplies the data.
+This frame uses the `demo` adapter, which plays the model's part so this page doesn't need an API key. It serves fixed seeded conversations by ID (`dm-ai`, `grp-1`, `forum-1`, `hist-em-1`), so another ID opens empty, and `$chat.sim.aiReply(id, text)` streams a fake reply into one. With an `ai` block configured, change the adapter name to `claude` and the same markup talks to the real model. The layout comes from the [chats](/docs/framework/elements/chats) element styles; the plugin only supplies the data.
 
 Replies stream in live. A reply appears with `status: 'streaming'` and grows until it's done. Conversation history is kept in the visitor's browser per conversation ID, so an open conversation picks up where it left off after a reload.
 
@@ -226,7 +226,7 @@ The frame below lays these fields out for a seeded support thread. Each row show
     <template x-for="m in c.messages" :key="m.id">
         <p>
             <b :style="`color:${m.author?.color}`" x-text="m.author?.displayName"></b>
-            <small class="chip" x-text="m.author?.kind"></small>
+            <small class="px-2 rounded bg-surface-2" x-text="m.author?.kind"></small>
             <span x-text="m.body.text"></span>
             <small x-text="m.status"></small>
         </p>
@@ -255,7 +255,7 @@ Sends are optimistic. Your message appears instantly as `pending` and settles wh
 
 ## Groups & Reactions
 
-A conversation can hold any number of participants, human or AI. The handle exposes the participant list reactively. Reactions toggle with one call: `react` adds yours, and calling it again removes it.
+A conversation can hold any number of participants, human or AI. The handle exposes the participant list reactively. `react(id, emoji)` adds your reaction and `unreact(id, emoji)` removes it. An adapter may also toggle on a repeat `react`, as the demo below does.
 
 In the frame, invite Cy and the participant list updates. Ask the assistant and its reply streams into the conversation.
 
@@ -386,8 +386,8 @@ Configure it in the same `chat` block that activates the plugin:
 
 | Property | Default | Description |
 |---|---|---|
-| `appwriteDatabaseId`{copy} | – | The database holding the messages table. |
-| `appwriteTableId`{copy} | `"chat_messages"` | A table with columns `conversationId` (indexed), `text`, `authorId`, `authorName`, and optional `authorColor`, `replyTo`. Permissions: read `any`, create `users` + `guests`. |
+| `appwriteDatabaseId`{copy} | – | Required. The database holding the messages table. |
+| `appwriteTableId`{copy} | – | Required. A table with columns `conversationId` (indexed), `text`, `authorId`, `authorName`, and optional `authorColor`, `replyTo`. Permissions: read `any`, create `users` + `guests`. |
 | `ttlHours`{copy} | – | Optional: only load messages younger than this, making conversations ephemeral. Pair with the <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/chat-prune-function" target="_blank" rel="noopener">prune function</a> to physically delete the rest on a schedule. |
 
 The frame below is this page's real comment thread. Comments come from other readers, live, and disappear after 24 hours:
@@ -408,7 +408,7 @@ The frame below is this page's real comment thread. Comments come from other rea
     </div>
 
     <form class="row gap-2" @submit.prevent="if (draft.trim()) { c.send({ text: draft }); draft = '' }">
-        <input type="text" x-model="draft" placeholder="Leave an anonymous comment…">
+        <input type="text" x-model="draft" placeholder="Leave an anonymous comment…" class="grow">
         <button>Comment</button>
     </form>
 
@@ -427,7 +427,7 @@ The frame below is this page's real comment thread. Comments come from other rea
         <small x-show="!c.messages.length">No comments in the last 24 hours — leave the first.</small>
     </div>
     <form class="row gap-2" @submit.prevent="if (draft.trim()) { c.send({ text: draft }); draft = '' }">
-        <input type="text" x-model="draft" placeholder="Leave an anonymous comment…" style="flex:1">
+        <input type="text" x-model="draft" placeholder="Leave an anonymous comment…" class="grow">
         <button>Comment</button>
     </form>
 </div>
@@ -488,7 +488,7 @@ A conversation window can keep its recent messages on the visitor's device, so r
 }
 ```
 
-`"persist": true`{copy} uses those defaults. `messages` is how many recent messages each conversation keeps, `conversations` how many conversations are kept before the least recently active is dropped, and `strip` removes fields from every message before it is saved. A conversation is saved once it has messages; one that never receives any takes no space. To leave a particular window out, open it with `$chat.open(id, { persistWindow: false })`{copy}. Fields matching `*secret*`, `*token*`, `*password*` and `credentials*` are always removed, and messages that haven't been acknowledged yet are never saved.
+`"persist": true`{copy} uses those defaults. `messages` is how many recent messages each conversation keeps, `conversations` how many conversations are kept before the least recently active is dropped, `ttl` how long a saved conversation stays valid (default `7d`), and `strip` removes fields from every message before it is saved. A conversation is saved once it has messages; one that never receives any takes no space. To leave a particular window out, open it with `$chat.open(id, { persistWindow: false })`{copy}. Fields matching `*secret*`, `*token*`, `*password*` and `credentials*` are always removed, and messages that haven't been acknowledged yet are never saved.
 
 Restored messages are marked stale: `$chat.stale`{copy} is `true` until the adapter's response replaces them. Messages missing from that response are dropped, messages you send in the meantime are kept, and a failed load leaves the restored window in place with the usual `error` status. Group and threaded views built with `aggregate` are not saved.
 
@@ -505,7 +505,10 @@ The `$chat` magic:
 |---|---|---|
 | `$chat.open(id, options)`{copy} | method | Open a conversation. Returns a reactive handle. |
 | `$chat.merge(handles)`{copy} | method | Merge several conversations into one time-ordered read view. |
-| `$chat.adapter(name, factory)`{copy} | method | Register a custom adapter. |
+| `$chat.adapter(name, factory)`{copy} | method | Register a custom adapter; same as `ManifestChatAdapters.register`. |
+| `$chat.flatten(tree)`{copy} | method | Flatten a `tree()` result into a depth-tagged list, as `flatTree` does. |
+| `$chat.stale`{copy} | reactive | `true` while any open conversation still shows persisted messages. |
+| `$chat.persistence()`{copy} | method | Report what is saved on this device. |
 | `$chat.version`{copy} | reactive | Shared integer that increments on every update across all conversations, readable before any handle exists. If a list expression looks its handle up through a key that may not be set yet (`threads[key]?.messages ?? []`), start it with `void $chat.version;` so the list still re-renders when the handle arrives and loads. |
 
 The handle returned by `$chat.open`:
@@ -514,15 +517,20 @@ The handle returned by `$chat.open`:
 |---|---|---|
 | `messages`{copy} | reactive | The conversation, oldest first. |
 | `participants`{copy} | reactive | Who's in the conversation. |
+| `me`{copy} | reactive | The current visitor's identity, as the adapter reports it. |
 | `typing`{copy} | reactive | Participants typing right now. |
 | `status`{copy} | reactive | `idle` → `loading` → `ready`, or `error`. |
+| `error`{copy} | reactive | The load error message when `status` is `error`. |
+| `stale`{copy} | reactive | `true` while the conversation shows persisted messages. |
 | `live`{copy} | reactive | `false` while the connection is re-establishing. |
 | `version`{copy} | reactive | Integer that increments on every conversation update. Reading any list above already tracks it; read `version` itself when an effect needs an explicit dependency on "anything changed". Merged views expose it too. |
-| `can`{copy} | reactive | What this conversation supports: `can.send`, `can.react`, `can.edit`, … Hide affordances the adapter doesn't offer. |
+| `can`{copy} | reactive | What the adapter supports: `send`, `edit`, `retract`, `react`, `transfer`, `addParticipants`, `typingIndicators`, `readReceipts`, `loadOlder`, `loadNewer`, `loadReplies`, `loadReactions`. Hide affordances the adapter doesn't offer. |
 | `send(draft)`{copy} | method | Send a message: `{ text }`, or `{ body: { text, media }, replyTo }`. |
-| `react(id, emoji)`{copy} / `edit(id, body)`{copy} / `retract(id)`{copy} | method | Act on a message, where supported. |
+| `react(id, emoji)`{copy} / `unreact(id, emoji)`{copy} / `edit(id, body)`{copy} / `retract(id)`{copy} | method | Act on a message, where supported. |
 | `setTyping(on)`{copy} / `markRead(upToId)`{copy} | method | Report typing and read state. |
-| `loadOlder()`{copy} / `loadNewer()`{copy} | method | Page through history; `atStart`/`atEnd` flag the boundaries. |
+| `loadOlder()`{copy} / `loadNewer()`{copy} | method | Page through history. |
+| `atStart`{copy} / `atEnd`{copy} | reactive | `true` once the oldest or newest message is loaded. |
+| `loadReplies(parentId)`{copy} / `loadReactions(id)`{copy} | method | Fetch a message's replies or reactions, where supported. |
 | `tree(options)`{copy} / `flatTree(options)`{copy} | method | Nested or flattened reply-tree projection; `{ maxDepth }` caps indentation. |
 | `addParticipant(p)`{copy} / `removeParticipant(id)`{copy} / `transfer(from, to)`{copy} | method | Change who's in the conversation, where supported. |
 | `close()`{copy} | method | Disconnect this handle. Call it when the UI unmounts. |
