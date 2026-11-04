@@ -178,14 +178,14 @@ Loop variables from `x-for` work the same way.
 </template>
 ```
 
-```yaml "example.yaml"
-tooltipList:
-    - name: "Mercury"
-      tooltip: "The hottest planet"
-    - name: "Venus"
-      tooltip: "The second hottest planet"
-    - name: "Earth"
-      tooltip: "The planet with the hottest parties"
+```json "example.json"
+{
+    "tooltipList": [
+        { "name": "Mercury", "tooltip": "The closest planet to the Sun" },
+        { "name": "Venus", "tooltip": "The hottest planet" },
+        { "name": "Earth", "tooltip": "The planet with the hottest parties" }
+    ]
+}
 ```
 
 ::: frame row-wrap gap-4
@@ -226,6 +226,18 @@ Tooltips can retrieve content from [data sources](/docs/framework/core-plugins/l
 
 Although tooltips are popovers, they can coexist in buttons that trigger other popovers—like Manifest's [dropdowns](/docs/framework/elements/dropdowns) and [dialogs](/docs/framework/elements/dialogs), or your custom popovers.
 
+<div x-code-group>
+
+```html copy
+<button x-tooltip="Tooltip" popovertarget="dialog">Dialog</button>
+<dialog popover id="dialog">
+    <header>Dialog</header>
+</dialog>
+
+<button x-tooltip="Tooltip" popovertarget="custom">Custom Popover</button>
+<div popover id="custom" class="m-auto p-10 border">Custom Popover</div>
+```
+
 ::: frame row-wrap gap-4
 <button x-tooltip="Tooltip" popovertarget="dialog">Dialog</button>
 <dialog popover id="dialog">
@@ -235,6 +247,8 @@ Although tooltips are popovers, they can coexist in buttons that trigger other p
 <button x-tooltip="Tooltip" popovertarget="custom">Custom Popover</button>
 <div popover id="custom" class="m-auto p-10 border">Custom Popover</div>
 :::
+
+</div>
 
 ::: brand icon="lucide:info"
 Avoid mixing `x-dropdown.hover` and `x-tooltip` on the same trigger button, since they both use the hover state.
@@ -250,15 +264,17 @@ Default tooltips use the following [theme](/docs/framework/styles/theme) variabl
 
 | Variable | Purpose |
 |----------|----------|
-| `--color-popover-surface`{copy} | Tooltip background color |
-| `--color-content-stark`{copy} | Tooltip text color |
+| `--color-content-stark`{copy} | Tooltip background color |
+| `--color-page`{copy} | Tooltip text color |
 | `--spacing-popover-offset`{copy} | Distance from trigger element |
+| `--radius`{copy} | Border radius for tooltip corners |
+| `--shadow-sm`{copy} | Tooltip shadow |
 
 ---
 
 ### Delay
 
-Tooltips appear after a default 500ms hover delay, and disappear immediately when the mouse leaves the trigger element. They're automatically dismissed when the trigger is clicked or pressed. Change the duration in the [theme](/docs/framework/styles/theme) or with custom CSS that overwrites the `--tooltip-hover-delay` value:
+Tooltips appear after a default 500ms hover delay, and disappear as soon as the pointer leaves the trigger element. They're automatically dismissed when the trigger is clicked or pressed. Change the duration in the [theme](/docs/framework/styles/theme) or with custom CSS that overwrites the `--tooltip-hover-delay` value:
 
 ```css copy
 :root {
@@ -274,6 +290,7 @@ Modify styles with custom CSS for the `.tooltip` classes.
 
 ```css copy
 .tooltip { 
-    background: red;
+    background: var(--color-brand-surface);
+    color: var(--color-brand-inverse);
 }
 ```
