@@ -35,6 +35,8 @@ Responses are kept for 24 hours. JSON key order and whitespace don't change the 
 
 ## Errors
 
+Every error has the [same shape](/docs/api/reference/errors#error-shape).
+
 | **Status** | **`error`**                 | **Meaning**                                                                          |
 |------------|-----------------------------|--------------------------------------------------------------------------------------|
 | 400        | `invalid_idempotency_key`{copy}   | `Idempotency-Key`{copy} is blank or longer than 200 characters.                            |

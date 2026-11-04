@@ -89,6 +89,8 @@ One row per project, then a `Total` row. Times are ISO 8601 in UTC, and `active`
 
 ## Errors
 
+Every error has the [same shape](/docs/api/reference/errors#error-shape).
+
 | **Status** | **`error`**     | **Meaning**                                          |
 |------------|-----------------|------------------------------------------------------|
 | 400        | `invalid_input`{copy} | `period`{copy} is missing or isn't a month as `YYYY-MM`{copy}. |

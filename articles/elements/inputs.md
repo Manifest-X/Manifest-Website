@@ -337,7 +337,7 @@ Default inputs use the following [theme](/docs/framework/styles/theme) variables
 
 ### Customization
 
-Modify base input styles with custom CSS for the `input` selector. Exclude the input types that have their own styles, such as [checkboxes](/docs/framework/elements/checkboxes), [radios](/docs/framework/elements/radios) and [ranges](/docs/framework/elements/ranges). Overriding the field [theme](/docs/framework/styles/theme) variables keeps both color modes working.
+Modify base input styles with custom CSS for the `input` selector. Exclude the input types that have their own styles, such as [checkboxes](/docs/framework/elements/checkboxes), [switches](/docs/framework/elements/switches), [radios](/docs/framework/elements/radios) and [ranges](/docs/framework/elements/ranges). Overriding the field [theme](/docs/framework/styles/theme) variables keeps both color modes working.
 
 <div x-code-group>
 

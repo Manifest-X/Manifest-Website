@@ -531,7 +531,7 @@ A few notes:
 
 Native HTML5 attributes like `required`, `type="email"`, `pattern`, `minlength`, and `maxlength` trigger the browser's built-in form validation on submit. Block the form's own validation messages with `novalidate`.
 
-Inputs, selects, and textareas show their state once the visitor has interacted with them or tried to submit, using the `:user-invalid` and `:user-valid` pseudo-classes. An invalid field gets a ring in the negative colour; valid fields stay unmarked. Change either colour with theme variables:
+[Inputs](/docs/framework/elements/inputs), [selects](/docs/framework/elements/selects), and [textareas](/docs/framework/elements/textareas) show their state once the visitor has interacted with them or tried to submit, using the `:user-invalid` and `:user-valid` pseudo-classes. An invalid field gets a ring in the negative colour; valid fields stay unmarked. Change either colour with theme variables:
 
 ```css copy
 :root {
