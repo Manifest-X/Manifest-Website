@@ -64,7 +64,7 @@ The `chat-wrapper` class is a column shell that fills its container — give tha
     <form class="bg-popover-surface border border-line focus-within:outlined rounded-lg" @submit.prevent="send()">
         <textarea class="transparent no-focus" placeholder="Message…" x-model="draft"
             @keydown.enter="if (!$event.shiftKey) { $event.preventDefault(); send() }"></textarea>
-        <button type="submit" class="transparent" x-icon="lucide:corner-down-left" aria-label="Send"></button>
+        <button type="submit" class="transparent me-1 mb-1" x-icon="lucide:corner-down-left" aria-label="Send"></button>
     </form>
 
 </div>
@@ -180,7 +180,7 @@ Media inside a message is styled by element: images and videos are capped to a c
 
 ## Composer
 
-The chat form is a wrapping row aligned to the reading column. A textarea inside it flexes to fill the row and grows with its content (`field-sizing: content`), while buttons sit at the row's end. Two named buttons carry the conventions: `type="submit"` sends, and `name="attach"` triggers the file picker (see [forms](/docs/framework/elements/forms) for name-based buttons).
+The chat form is a wrapping row aligned to the reading column. A textarea inside it flexes to fill the row and grows with its content (`field-sizing: content`), while buttons sit at the row's end. A `type="submit"` button sends. In the demo below, the paperclip button opens a hidden file input through its `@click`.
 
 Pending attachments live in an `<output>` element, the native element for showing the result of a user action. Screen readers announce its additions politely. Its children can be any elements: an `<img>` renders as a square thumbnail, a `<span>` as a file chip, and each can carry a [remove button](/docs/framework/elements/forms#remove-buttons).
 
@@ -204,19 +204,19 @@ Placement is flexible. The strip and the buttons are styled anywhere inside `cha
 
     <!-- File picker -->
     <input type="file" multiple x-ref="picker" hidden @change="add($event.target.files); $event.target.value = ''">
-    <button type="button" name="attach" class="transparent" x-icon="lucide:paperclip" aria-label="Attach files" @click="$refs.picker.click()"></button>
+    <button type="button" name="attach" class="transparent ms-1 mb-1" x-icon="lucide:paperclip" aria-label="Attach files" @click="$refs.picker.click()"></button>
 
     <!-- Draft -->
     <textarea class="transparent no-focus" placeholder="Message…" x-model="draft"></textarea>
 
     <!-- Send -->
-    <button type="submit" class="transparent" x-icon="lucide:corner-down-left" aria-label="Send"></button>
+    <button type="submit" class="transparent me-1 mb-1" x-icon="lucide:corner-down-left" aria-label="Send"></button>
 
 </form>
 ```
 
 ::: frame p-0
-<div class="chat-wrapper" x-data="{
+<div class="chat-wrapper h-auto" x-data="{
     draft: '', files: [],
     add(list) {
         for (const f of [...list]) {
@@ -225,7 +225,7 @@ Placement is flexible. The strip and the buttons are styled anywhere inside `cha
         }
     },
     remove(i) { URL.revokeObjectURL(this.files[i].url); this.files.splice(i, 1); }
-}" style="height: auto">
+}">
     <form class="bg-popover-surface border border-line focus-within:outlined rounded-lg" @submit.prevent="draft = ''; files = []">
         <output x-show="files.length">
             <template x-for="(f, i) in files" :key="f.url">
@@ -259,11 +259,10 @@ Chat layouts use the following [theme](/docs/framework/styles/theme) variables:
 | Variable | Purpose |
 |----------|---------|
 | `--spacing-content-width`{copy} | Reading-column and composer width |
-| `--color-surface-2`{copy} | Own-message bubble and file chips |
+| `--color-surface-2`{copy} | Own-message bubble and in-message file chips |
+| `--color-line`{copy} | Pending-attachment file chips |
 | `--radius`{copy} | Bubbles, media, and chip corners |
 | `--spacing-field-height`{copy} | Composer minimum height and thumbnail size |
-| `--shadow`{copy} | Wrapper shadow |
-| `--transition`{copy} | Interactive states |
 
 ---
 
@@ -282,7 +281,6 @@ Everything inside the wrapper is addressed by element or attribute:
 | `form` | Composer row at reading width |
 | `textarea` | Growing draft field |
 | `output` | Pending-attachments strip |
-| `button[name="attach"]` | File picker trigger |
 | `button[name="remove"]` | Floating dismiss affordance, from [form](/docs/framework/elements/forms#remove-buttons) styles |
 
 ---
@@ -293,8 +291,6 @@ Target any of the selectors above with custom CSS.
 
 ```css copy
 .chat-wrapper {
-    box-shadow: none;
-
     [role="log"] > div {
         gap: 1rem;
     }
