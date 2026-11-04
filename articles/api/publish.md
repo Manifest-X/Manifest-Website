@@ -177,9 +177,11 @@ The answer is `201 Created`:
 
 The new version is live on the staging URL as soon as the answer arrives. Send its `deployment.id`{copy} as `base`{copy} on your next update. That way two editors working from the same version can't overwrite each other: the second update gets `409 base_mismatch`{copy} with the `live_deployment_id`{copy}, so [read the current files](#read-files) from staging, apply the change again, and send it with that id as `base`{copy}. Without `base`{copy}, the changes apply to whatever is live on staging. Either way, if another publish lands on staging while an update is running, the update is refused with the same `409`, and you can send it again.
 
-Every update is a new deployment, so [rollback](#roll-back) works as for any publish. Staging keeps its five most recent deployments, so frequent updates push older versions out of reach. Send an `Idempotency-Key`{copy} so a retried update doesn't publish twice.
+Every update is a new deployment, so [rollback](#roll-back) works as for any publish. Staging keeps its five most recent deployments plus the live one, so frequent updates push older versions out of reach. Send an `Idempotency-Key`{copy} so a retried update doesn't publish twice.
 
 If nothing is live on staging yet, the files start a new site and must include `index.html`{copy}. A change that would remove `index.html`{copy} is refused. `.env` files, `.git`, `node_modules`, and `.claude` are refused, and so are `precache.json`{copy} and `manifest.utilities.css`{copy}, which Manifest writes on every publish. When the site has a `_redirects`{copy} or `_headers`{copy} file, Manifest compiles it to `_redirects.json`{copy} or `_headers.json`{copy}, so update the source file instead, or delete it in the same update. Each file update counts as a publish toward a Free project's daily limit.
+
+Rarely, the update goes live but a follow-up step doesn't finish. The answer is still `201`, with a `warning`{copy}, as for [content](/docs/api/projects/content#send-content). Don't resend it: the step completes on the next publish.
 
 HTML read back from the staging URL can be sent as is: the analytics and badge tags Manifest adds when serving a page are removed before the file is stored.
 
@@ -227,6 +229,7 @@ Each promote creates a new production deployment, so send an `Idempotency-Key`{c
 ```bash copy
 curl -X POST https://api.manifestx.dev/v1/projects/proj_…/rollback \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
+  -H "Idempotency-Key: rollback-build-4182" \
   -H "Content-Type: application/json" \
   -d '{ "env": "production" }'
 ```

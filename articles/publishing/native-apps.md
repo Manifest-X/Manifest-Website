@@ -44,9 +44,9 @@ A Capacitor app ships a prerendered copy of the project, so the shell paints wit
 |----------------|----------------------|--------------------------------------|----------------------------------|
 | [**Web App**](/docs/framework/publishing/web-apps) | — | —                                 | Yes                              |        
 | **iOS & iPadOS**   | Capacitor (PWABuilder risks 4.2) | App Store ($99/yr)         | —                                |
-| **macOS**          | Capacitor or Mac Catalyst | Mac App Store ($99/yr)          | Yes                              |
+| **macOS**          | Mac Catalyst (from the iOS project) | Mac App Store ($99/yr) | Yes                              |
 | **Android**        | AAB / APK            | Google Play ($25)                    | Yes                              |
-| **Windows**        | MSIX                 | Microsoft Store ($19+)               | Yes                              |
+| **Windows**        | MSIX                 | Microsoft Store (free for individuals) | Yes                              |
 | **ChromeOS**       | Android TWA        | Google Play (via Android)            | —                                |
 | **Linux**          | Snap, Flatpak, AppImage | Snap Store, Flathub               | Yes                              |
 
@@ -83,7 +83,7 @@ A valid build is not an approved one. Reviewers check two things: the app feels 
 
 ## macOS
 
-- **Packaging:** PWABuilder generates the same Xcode wrapper as iOS, compiled for macOS via Mac Catalyst.
+- **Packaging:** Build the iOS Xcode project for macOS with Mac Catalyst.
 - **App Store:** Mac App Store submissions go through App Store Connect alongside iOS, on the same $99/yr Apple Developer account.
 - **Open Distribution:** Bundle as a notarized `.dmg` or `.pkg` and distribute from your own site, or publish through <a href="https://brew.sh" target="_blank">Homebrew Cask</a>.
 
@@ -100,7 +100,7 @@ A valid build is not an approved one. Reviewers check two things: the app feels 
 ## Windows
 
 - **Packaging:** PWABuilder produces an MSIX package.
-- **App Store:** Submit the MSIX through <a href="https://partner.microsoft.com/dashboard" target="_blank">Microsoft Partner Center</a>. Requires a developer account (one-time $19 individual, $99 company).
+- **App Store:** Submit the MSIX through <a href="https://partner.microsoft.com/dashboard" target="_blank">Microsoft Partner Center</a>. Requires a developer account, free for individuals. Check Partner Center for company account fees.
 - **Open Distribution:** Distribute the MSIX directly from your site, or wrap as a traditional `.exe` installer.
 
 ---

@@ -80,14 +80,14 @@ By default, output is generated in a `/website` folder which includes:
 - `og:locale`/`og:locale:alternate` for localized builds when Open Graph tags exist.
 - Compiled Tailwind CSS (when `data-tailwind` is used).
 - `sitemap.xml`, `robots.txt`, `llms.txt`, and `llms-full.txt` files for crawler discovery.
-- Per-route `og:image` PNG snapshots under `/og/`, plus injected OpenGraph, Twitter Card, and JSON-LD meta tags for rich social previews and structured-data search results.
+- Per-route `og:image` PNG snapshots under `/og/`, plus injected OpenGraph and Twitter Card meta tags for rich social previews. JSON-LD structured data is added when `render.structuredData` is set.
 - `.prettierignore`, `.gitattributes`, `.editorconfig`, and `.vscode/settings.json` to help preserve whitespace in code blocks.
 
 ---
 
 ### SEO & AEO
 
-The render automatically generates page titles, descriptions, social-share images, structured data, `sitemap.xml`, `robots.txt`, and the `llms.txt` family for AI crawlers. No configuration is needed for most sites. See [SEO & AEO](/docs/framework/publishing/seo-aeo) for what's generated, when to customize it, and how.
+The render automatically generates page titles, descriptions, social-share images, `sitemap.xml`, `robots.txt`, and the `llms.txt` family for AI crawlers. No configuration is needed for most sites. Structured data (JSON-LD) is opt-in. See [SEO & AEO](/docs/framework/publishing/seo-aeo) for what's generated, when to customize it, and how.
 
 ---
 
@@ -127,7 +127,7 @@ Render settings can be configured in `manifest.json`. Most projects don't need t
 | `wait`{copy} | `number` | auto | Milliseconds to wait for a page to finish rendering before snapshot. When omitted the renderer waits for a `manifest:render-ready` signal from the data plugin. |
 | `concurrency`{copy} | `number` | `2` | Number of pages rendered in parallel. Increase for faster builds on high-core machines; decrease if memory is constrained. |
 | `retries`{copy} | `number` | `2` | Number of retry attempts for pages that fail to render. |
-| `browserRecycleEvery`{copy} | `number` | `50` | Recycle the browser after this many pages to prevent memory buildup on large sites. |
+| `browserRecycleEvery`{copy} | `number` | `40` | Recycle the browser after this many pages to prevent memory buildup on large sites. |
 | `incremental`{copy} | `boolean` | `false` | Skip re-rendering pages whose inputs are provably unchanged since the last successful run. See [Incremental renders](#incremental-renders). |
 | `blockRequests`{copy} | `string[]` | `[]` | URL patterns (substring match, `*` glob supported) whose requests are aborted during prerender — e.g. a custom analytics tracker the built-in list doesn't cover. A short pattern can block more than intended. |
 | `blockTelemetry`{copy} | `boolean` | `true` | Block well-known analytics and error-reporting collection endpoints during prerender so renders never register as visitors or file crash reports. Set `false` to allow. |

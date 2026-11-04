@@ -44,8 +44,9 @@ The answer is `201 Created`. Keep `project.id`{copy} for the next steps:
     "id": "proj_…",
     "source_id": "site_8231",
     "name": "Acme Docs",
+    "plan": "free",
     "status": "active",
-    "project_key_prefix": "mfst_live_AbCd1234",
+    "project_key_prefix": "mfst_free_AbCd1234",
     "created_at": 1792138921,
     "urls": {
       "production": "https://acme-docs.manifestx.ai",
@@ -53,7 +54,7 @@ The answer is `201 Created`. Keep `project.id`{copy} for the next steps:
     },
     "published": { "production": false, "staging": false }
   },
-  "project_key": "mfst_live_…",
+  "project_key": "mfst_free_…",
   "request_id": "…"
 }
 ```
