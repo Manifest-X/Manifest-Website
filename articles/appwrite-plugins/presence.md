@@ -13,7 +13,7 @@ It's the mechanism behind the little green dots in a chat app, the "3 people vie
 Presence is built on <a href="https://appwrite.io/" target="_blank" rel="noopener">Appwrite</a>'s native realtime service. Statuses are held in memory and expire automatically, so there's nothing to clean up and no database table to manage.
 
 ::: brand icon="lucide:info"
-Presence identifies people by their [auth](/docs/framework/appwrite-plugins/auth) session — a signed-in account **or** a guest both work equally well. What doesn't work is a visitor with no session at all; they can watch the roster but can't publish a status. Statuses are shared within the current [team](/docs/framework/appwrite-plugins/teams), so each workspace sees only its own members.
+Presence identifies people by their [auth](/docs/framework/appwrite-plugins/auth) session — a signed-in account **or** a guest both work equally well. What doesn't work is a visitor with no session at all; they can watch the roster but can't publish a status. When your project uses [teams](/docs/framework/appwrite-plugins/teams), statuses are shared within the current team, so each workspace sees only its own members.
 :::
 
 ---
@@ -26,7 +26,7 @@ Add the Appwrite SDK and `manifest.js` scripts to the HTML head, then turn prese
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "Auto-detect"
 <!-- Meta -->
 <link rel="manifest" href="/manifest.json">
 
@@ -106,6 +106,7 @@ By default, tracking is automatic: a person is marked `away` when they switch to
 | `auto`{copy} | `true` | Automatically flip between `online` and `away` as the tab loses and regains focus. |
 | `status`{copy} | `"online"` | The status to publish when tracking begins. |
 | `heartbeatMs`{copy} | `25000` | How often, in milliseconds, to refresh the status so it doesn't expire. |
+| `scope`{copy} | `'team'` with teams, otherwise `'global'` | Who sees the status: the current team, everyone (`'global'`), or a specific team ID. See [Scoping the Roster](#scoping-the-roster). |
 
 ```html "Manual control" copy
 <!-- Start with a custom status and no automatic away-detection -->
@@ -132,7 +133,7 @@ By default, tracking is automatic: a person is marked `away` when they switch to
 ```
 
 ::: frame col gap-3 text-base
-<small x-show="!$auth.isAuthenticated" class="text-muted">Sign in using the first example above to try this.</small>
+<small x-show="!$auth.isAuthenticated" class="text-content-subtle">Sign in using the first example above to try this.</small>
 
 <div x-show="$auth.isAuthenticated && $presence.ready" x-data="{ custom: '' }" class="col gap-3">
     <div class="row-wrap gap-2">
@@ -146,7 +147,7 @@ By default, tracking is automatic: a person is marked `away` when they switch to
     </div>
     <small>Your status: <b x-text="$presence.me"></b></small>
 </div>
-<small x-show="$auth.isAuthenticated && !$presence.ready" class="text-muted">Press <b>Go online</b> in the example above first.</small>
+<small x-show="$auth.isAuthenticated && !$presence.ready" class="text-content-subtle">Press <b>Go online</b> in the example above first.</small>
 :::
 
 </div>
@@ -174,17 +175,17 @@ Each person carries a `color` for easy visual distinction and a `metadata.name`.
 ```
 
 ::: frame col gap-3 text-base
-<small x-show="!$auth.isAuthenticated" class="text-muted">Sign in using the first example above to try this.</small>
+<small x-show="!$auth.isAuthenticated" class="text-content-subtle">Sign in using the first example above to try this.</small>
 
 <div x-show="$auth.isAuthenticated" class="col gap-2">
     <template x-for="person in $presence.list" :key="person.userId">
         <div class="row items-center gap-2 py-1 border-t border-line">
             <figure class="size-2 rounded-full" :style="`background:${person.color}`"></figure>
             <span class="flex-1" x-text="person.metadata?.name || 'Guest'"></span>
-            <small class="capitalize text-muted" x-text="person.status"></small>
+            <small class="capitalize text-content-subtle" x-text="person.status"></small>
         </div>
     </template>
-    <small x-show="!$presence.list.length" class="text-muted">No one here yet — press <b>Go online</b> above.</small>
+    <small x-show="!$presence.list.length" class="text-content-subtle">No one here yet — press <b>Go online</b> above.</small>
 </div>
 :::
 
@@ -217,7 +218,7 @@ Presence tidies up after itself: a person's status clears automatically when the
 
 ## Scoping the Roster
 
-When your project uses [teams](/docs/framework/appwrite-plugins/teams), the roster automatically follows the person's current team: their status is shared with teammates only, and the roster only shows people from the same team. Without teams, everyone signed in to the project shares one global roster — the same behaviour as earlier releases.
+When your project uses [teams](/docs/framework/appwrite-plugins/teams), the roster automatically follows the person's current team: their status is shared with teammates only, and the roster only shows people from the same team. Without teams, everyone signed in to the project shares one global roster.
 
 You can override the default in `manifest.json` or when starting:
 
@@ -262,7 +263,7 @@ Read these anywhere in your markup — each updates reactively as presence chang
 
 | Method | Parameters | Description |
 |---|---|---|
-| `$presence.start(options?)`{copy} | `options` (object, optional) | Begin tracking and publish your status. Options: `auto`, `status`, `heartbeatMs`. |
+| `$presence.start(options?)`{copy} | `options` (object, optional) | Begin tracking and publish your status. Options: `auto`, `status`, `heartbeatMs`, `scope`. |
 | `$presence.set(status, metadata?)`{copy} | `status` (string), `metadata` (object, optional) | Publish a status label with optional details. |
 | `$presence.of(userId)`{copy} | `userId` (string) | Get one person's presence record, or `null` if they aren't present. |
 | `$presence.all()`{copy} | None | Return the full roster as an array (same as `list`). |

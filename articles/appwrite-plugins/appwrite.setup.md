@@ -10,7 +10,7 @@ Appwrite provides turnkey backend infrastructure, available <a href="https://git
 
 ---
 
-## Appwrite Setup
+## In Appwrite
 
 Establish a project with any name and region in <a href="https://appwrite.io/" target="_blank" rel="noopener">Appwrite</a>. Once created you'll access the project console:
 
@@ -46,11 +46,11 @@ An optional <b>Dev Key</b> can also be used during Manifest project development 
 
 Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json` is also required to register Appwrite credentials and data sources.
 
-Appwrite plugins can be loaded in two ways: explicitly via the `data-plugins` attribute, or automatically when Appwrite credentials are declared in `manifest.json`. When auto-detected, only the relevant Appwrite plugins are loaded based on the credentials and data sources present. The supporting core data plugin will also be loaded whether or not it's declared.
+Appwrite plugins can be loaded in two ways: explicitly via the `data-plugins` attribute, or automatically from `manifest.json`. When auto-detected, the data plugin loads when an `appwrite` object is present, the auth plugin when that object includes `auth` (even `"auth": {}`), and [presence](/docs/framework/appwrite-plugins/presence) when it includes `presence`. The supporting core data plugin will also be loaded whether or not it's declared.
 
 <div x-code-group>
 
-```html "All Plugins (default)" copy
+```html "Auto-detect" copy
 <!-- Meta -->
 <link rel="manifest" href="/manifest.json">
 
@@ -77,7 +77,7 @@ Appwrite plugins can be loaded in two ways: explicitly via the `data-plugins` at
 
 Add the Appwrite project credentials detailed [above](#credentials) to `manifest.json` under an `appwrite` property. These are inherited by any other objects in the manifest that reference Appwrite, like database or storage sources.
 
-The Project ID and API Endpoint are public and safe to commit — Appwrite enforces access via its own project-level permissions. The Dev Key is sensitive (it bypasses rate limits) and must not be committed. Reference it via `${APPWRITE_DEV_KEY}` and put the value in a gitignored `.env` file. The same `${VAR}` syntax is also supported for the Project ID and API Endpoint if you prefer to keep them out of source.
+The Project ID and API Endpoint are public and safe to commit — Appwrite enforces access via its own project-level permissions. The Dev Key is sensitive (it bypasses rate limits) and must not be committed. Reference it via `${PUBLIC_APPWRITE_DEV_KEY}` and put the value in a gitignored `.env` file. Only variables prefixed `PUBLIC_` reach the browser, so the name needs that prefix. The same `${VAR}` syntax is also supported for the Project ID and API Endpoint if you prefer to keep them out of source.
 
 <div x-code-group>
 
@@ -86,47 +86,26 @@ The Project ID and API Endpoint are public and safe to commit — Appwrite enfor
     "appwrite": {
         "projectId": "your-project-id",
         "endpoint": "your-API-endpoint",
-        "devKey": "${APPWRITE_DEV_KEY}"
+        "devKey": "${PUBLIC_APPWRITE_DEV_KEY}"
     }
 }
 ```
 
 ```env ".env" copy
-APPWRITE_DEV_KEY=your-appwrite-dev-key
+PUBLIC_APPWRITE_DEV_KEY=your-appwrite-dev-key
 ```
 
 </div>
 
 ::: brand icon="lucide:info"
-**How `${VAR}` resolution works.** The framework substitutes `${VAR}` placeholders in `manifest.json` against `window.env` at runtime. The `npx mnfst-run`{copy} dev server reads your project's `.env` at startup and injects a `window.env = {…}` block into served HTML automatically — so the substitution just works in local development. If you serve the project with your own local server (Python's `http.server`, `live-server`, `serve`, etc.), it won't inject `window.env` for you; you'll need to add a `<script>window.env = {…}</script>` block to `index.html` before the `manifest.min.js` tag, or your placeholders will reach the plugin unresolved and the auth/data plugins will refuse to initialize.
+**How `${VAR}` resolution works.** The framework substitutes `${VAR}` placeholders in `manifest.json` against `window.env` at runtime. The `npx mnfst-run`{copy} dev server reads your project's `.env` at startup and injects its `PUBLIC_` variables as a `window.env = {…}` block into served HTML. Other variables stay on the server, so a placeholder without the prefix is left unresolved, and an unresolved Dev Key turns the auth plugin off. If you serve the project with your own local server (Python's `http.server`, `live-server`, `serve`, etc.), it won't inject `window.env` for you; you'll need to add a `<script>window.env = {…}</script>` block to `index.html` before the `manifest.min.js` tag, or your placeholders will reach the plugin unresolved and the auth/data plugins will refuse to initialize.
 :::
 
 ::: brand icon="lucide:info"
 **Production deployments.** Static hosts (Netlify, Vercel, Cloudflare Pages, GitHub Pages, S3, etc.) serve `manifest.json` verbatim — no runtime substitution. The Dev Key should not ship to production in the first place: it's strictly a development-time convenience for bypassing Appwrite's rate limits, and Appwrite enforces real auth through project-level permissions for live users. For any other `${VAR}` values you actually need in production, either hardcode them directly in `manifest.json` (acceptable for public values like Project ID and API Endpoint), bake them into the prerendered HTML at build time, or use your host's env-var injection feature.
 :::
 
-Alternatively, credentials can be added directly into specific [database](/docs/framework/appwrite-plugins/databases) or [storage](/docs/framework/appwrite-plugins/storage) sources, declared within the `data` object.
-
-```json "manifest.json" copy
-{
-    "data": {
-        "projects": {
-            "projectId": "your-project-id",
-            "endpoint": "your-API-endpoint",
-            "appwriteDatabaseId": "your-database-id",
-            "appwriteTableId": "your-table-id"
-        },
-        "assets": {
-            "projectId": "your-project-id",
-            "endpoint": "your-API-endpoint",
-            "appwriteBucketId": "your-bucket-id"
-        },
-        "other-content": "/local/whatever.csv"
-    }
-}
-```
-
-If credentials are declared in both `appwrite` and `data` objects, the `data` credentials take precedence for their own items.
+Data sources always connect with these `appwrite` credentials. A [database](/docs/framework/appwrite-plugins/databases) source can name its own database with `appwriteDatabaseId`; without it, the source uses `appwrite.databaseId`, then `main`.
 
 ---
 
