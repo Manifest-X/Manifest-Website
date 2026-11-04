@@ -47,7 +47,7 @@ To pin the loader itself, load a specific version of the unminified `manifest.js
 	data-version="<version>"></script>
 ```
 
-Each version's hashes are published alongside it in `lib/manifest.integrity.json` (`https://cdn.jsdelivr.net/npm/mnfst@<version>/lib/manifest.integrity.json`); use the `manifest.js` entry. The hash covers the unminified file only — `manifest.min.js` is minified by the CDN and won't match. The plugin scripts the loader fetches afterwards are not hash-checked.
+Each version's hashes are published alongside it in `lib/manifest.integrity.json`; use the `manifest.js` entry. The hash covers the unminified file only — `manifest.min.js` is minified by the CDN and won't match. The plugin scripts the loader fetches afterwards are not hash-checked.
 
 ---
 
