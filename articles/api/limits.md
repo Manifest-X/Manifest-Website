@@ -14,6 +14,8 @@ Caps on requests, projects, uploads, content, file reads and updates, and retrie
 | Keys created with `POST /keys`{copy}            | 20 a day per account, counting every key created in the last 24 hours. Over it: `429 mint_limit` with `Retry-After`{copy}. |
 | Publishes per Free project               | 30 a day, counting publishes from Claude and file updates too. Over it: `429 publish_limit_reached` with `Retry-After`{copy}. |
 | Custom domains per project               | 25                                                 |
+| Editor invites per project               | 50 a day (UTC), on every plan. Over it: `429 invite_limit` with `Retry-After`{copy}. |
+| Invite emails to an existing editor      | One every 10 minutes. A re-invite inside that window answers `"email_skipped": "recently_sent"`{copy} and sends nothing. |
 | Content ingest request body              | 12 MB. Per-article and per-field limits are in [Content limits](/docs/api/projects/content#content-limits). |
 | Zip upload                               | 80 MB zipped, 250 MB unzipped, 25 MB per file, 10,000 files |
 | File list                                | 1,000 files per page; follow `next_cursor`{copy} for the rest |
