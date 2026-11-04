@@ -45,4 +45,5 @@ Each article lists its own codes:
 - [Publish](/docs/api/projects/publish#errors): uploads, file reads and updates, promotes, rollbacks, and Pro features.
 - [Content](/docs/api/projects/content#errors): content ingest and `field`{copy} errors.
 - [Domains](/docs/api/projects/domains#errors): hostnames, certificates, and the domain cap.
+- [Usage](/docs/api/projects/usage#errors): the `period`{copy} parameter.
 - [Idempotency](/docs/api/reference/idempotency#errors): `Idempotency-Key`{copy} reuse and retries.
