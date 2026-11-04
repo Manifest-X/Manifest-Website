@@ -21,7 +21,7 @@ Icons are included in `manifest.js` with all core plugins, or can be selectively
 
 </div>
 
-Manifest makes icons easy, providing access to over 200,000 open source icons from every major library, courtesy of <a href="https://iconify.design/" target="_blank" rel="noopener">Iconify</a>. Iconify's lightweight script is bundled into the above Manifest scripts. Icon data is fetched on first use from Iconify's API and cached in the browser, so allow `api.iconify.design` in a Content Security Policy and expect icons to need a connection the first time they load.
+Manifest makes icons easy, providing access to over 200,000 open source icons from every major library, courtesy of <a href="https://iconify.design/" target="_blank" rel="noopener">Iconify</a>. Iconify's lightweight script is bundled into the above Manifest scripts. Icon data is fetched on first use from Iconify's API and cached in the browser, so allow Iconify's API hosts (`api.iconify.design`, `api.simplesvg.com`, `api.unisvg.com`) in a Content Security Policy and expect icons to need a connection the first time they load.
 
 ---
 

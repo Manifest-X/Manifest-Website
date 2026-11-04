@@ -257,7 +257,7 @@ Group multiple panels into a tabbed interface with `x-code-group`{copy} on any w
 
 Direct children with a `name` attribute become tab panels. Children without `name` are always-visible ambient content.
 
-The `lines`, `edit`, and `collapse` attributes can be set on the wrapper for panels that don't set them themselves. This avoids repeating the same feature across every tab. `copy` on the wrapper adds one copy button for the whole group:
+The `lines`, `edit`, and `collapse` attributes can be set on the wrapper for panels that don't set them themselves. This avoids repeating the same feature across every tab. `copy` on the wrapper adds one copy button that copies the active tab:
 
 <div x-code-group copy>
 

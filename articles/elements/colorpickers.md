@@ -139,7 +139,7 @@ To use a picker's value elsewhere, read it with the [`$colorpicker(id)` magic me
 The color picker menu offers solid and gradient editing, four color spaces with alpha (Hex, RGB, HSL, OKLCH), custom and recent palettes, and a screen eyedropper. Manifest produces a swatch button's menu in this order:
 
 1. **Inline picker** — a live element on the page whose `id` matches the swatch's value.
-2. **Default template** — a single `<template x-colorpicker>` (see [Customization](#customization)).
+2. **Default template** — a single `<template x-colorpicker>` (see [Custom Menu](#custom-menu)).
 3. **Plugin fallback** — used when neither of the above exists.
 
 The wrapper element of an inline picker determines its presentation: `<menu popover>` anchors to the swatch as a dropdown, `<dialog popover>` opens centered as a modal, and `<div>` renders in the page flow.

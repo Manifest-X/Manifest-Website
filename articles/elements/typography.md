@@ -242,7 +242,7 @@ These are all spans:
 
 ### Colors
 
-All text elements accept Manifest color utility classes directly. The `brand`, `accent`, `positive` and `negative` classes also reach descendants when set on a parent; `stark`, `neutral` and `subtle` apply only to the element that carries them.
+All text elements accept Manifest color utility classes directly. The `brand`, `accent`, `positive` and `negative` classes also reach descendants when set on a parent; `stark`, `neutral` and `subtle` set the color directly, so headings and other text elements inside don't pick them up.
 
 #### Direct
 
