@@ -540,7 +540,7 @@ Inputs, selects, and textareas show their state once the visitor has interacted 
 }
 ```
 
-`--color-field-invalid` defaults to `--color-negative-content`, and `--color-field-valid` to transparent. A field with the `unstyle` class opts out.
+`--color-field-invalid` defaults to `--color-negative-content`. Valid fields get a ring only once `--color-field-valid` is set. A field with the `unstyle` class opts out.
 
 Custom CSS or Tailwind pseudo-class variants can style the states further without Javascript.
 
