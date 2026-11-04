@@ -26,7 +26,7 @@ Reset styles are available in the full Manifest CSS library, or as a standalone 
 
 </div>
 
-Reset styles have no dependencies, and can be used as-is in any project or framework.
+Reset styles have no required dependencies, and can be used as-is in any project or framework. When the [theme](/docs/framework/styles/theme) is present, they pick up `--color-line` and the view-transition variables from it.
 
 ---
 
@@ -36,6 +36,8 @@ Reset styles have no dependencies, and can be used as-is in any project or frame
 - **Form Normalization** - Standardizes buttons, inputs, selects, and form controls.
 - **Typography Optimization** - Optimizes text rendering, font smoothing, and size adjustments.
 - **Modern Feature Support** - Handles popovers and other contemporary CSS features.
-- **Performance & UX** - Prevents page load flicker and supports reduced motion preferences.
+- **Performance & UX** - Hides `[x-cloak]` elements until Alpine starts, and cuts animations and transitions short under `prefers-reduced-motion`.
 - **Cross-Browser Compatibility** - Normalizes rendering across all major browsers.
-- **Accessibility** - Includes ARIA support and focus management improvements.
+- **Accessibility** - Dims and blocks `[disabled]` and `[aria-disabled=true]` elements, and gives `[aria-controls]` triggers a pointer cursor.
+
+Add the `unstyle` class to an element to opt it out of Manifest styles — see [utilities](/docs/framework/styles/utilities#miscellaneous).
