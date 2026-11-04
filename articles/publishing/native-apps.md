@@ -19,7 +19,7 @@ There are two ways to wrap a Manifest app, and the right one depends on the stor
 
 ---
 
-## Packaging paths
+## Packaging Paths
 
 <div class="overflow-x-auto">
 
@@ -61,7 +61,7 @@ A Capacitor app ships a prerendered copy of the project, so the shell paints wit
 - **Review:** Apple reviews iOS apps by hand and rejects "repackaged website" wrappers under <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2</a>. Ship genuine native capability (Face ID, push, haptics, share) and native feel (safe-area layout, no browser chrome). See [Passing review](#passing-review) below.
 - **Open Distribution:** Limited. As of iOS 17.4, EU users can install from alternative app marketplaces. Elsewhere, the App Store is the only path.
 
-### Passing review
+### Passing Review
 
 A valid build is not an approved one. Reviewers check two things: the app feels native, and it does something a browser tab can't.
 

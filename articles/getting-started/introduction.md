@@ -33,7 +33,7 @@ HTML is read more times each day than any human language is spoken — and writt
 
 ---
 
-## What's included
+## What's Included
 
 - **Pure HTML.** A script tag and a stylesheet — that's the install.
 - **Universal data.** One reactive syntax for files, APIs, and cloud databases.

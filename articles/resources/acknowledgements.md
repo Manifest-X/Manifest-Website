@@ -20,7 +20,7 @@ Manifest is modular: the loader script includes a set of core plugins by default
 
 ---
 
-## Cloud backend
+## Cloud Backend
 
 Optional — used only when you opt in to Manifest's cloud features.
 
@@ -28,7 +28,7 @@ Optional — used only when you opt in to Manifest's cloud features.
 
 ---
 
-## Prerender & testing
+## Prerender & Testing
 
 Installed in your project when you use `mnfst-render` (Puppeteer, or puppeteer-core with @sparticuz/chromium for serverless) or `mnfst-test` (Puppeteer, Vitest, happy-dom).
 
@@ -39,7 +39,7 @@ Installed in your project when you use `mnfst-render` (Puppeteer, or puppeteer-c
 
 ---
 
-## A note from the author
+## A Note from the Author
 
 Manifest was created by <a href="https://andrewmatlock.com" target="_blank">Andrew Matlock</a> to simplify website and app development for developers and AI — with gratitude to the maintainers of the resources above.
 

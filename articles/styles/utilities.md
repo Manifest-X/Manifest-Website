@@ -263,7 +263,7 @@ A `640px` boundary, independent of input or OS.
 
 ---
 
-### Input device
+### Input Device
 
 Detected from the pointer itself, so it's correct **regardless of screen size** — a large high-res tablet is still "touch", a small desktop window is still "cursor".
 
@@ -293,7 +293,7 @@ To serve a desktop layout to tablets while excluding phones, use the viewport `d
 
 ---
 
-### Operating system
+### Operating System
 
 CSS has no OS media feature, so Manifest detects the OS once on load and stamps it on the page as `html[data-os="macos|windows|linux|ios|android"]`; these classes and variants key off it.
 
@@ -328,7 +328,7 @@ The `*-only` / `no-*` classes are for plain show/hide — combine them with othe
 
 ---
 
-### App state
+### App State
 
 Connectivity and container, from the [`$device`](/docs/framework/core-plugins/device) signal stamped on `<html>`.
 
