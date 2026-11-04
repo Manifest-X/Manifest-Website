@@ -63,16 +63,16 @@ The simplest swatch is a native `<input type="color">`, displaying the browser's
 
 ### Picker Button
 
-Manifest provides a more nuanced color picker menu, opened by default as a [dropdown](/docs/framework/elements/dropdowns) from a button swatch with `x-colorpicker.swatch`.
+Manifest provides a more nuanced color picker menu, opened by default as a [dropdown](/docs/framework/elements/dropdowns) from a button swatch with `x-colorpicker.swatch`. The swatch has no text, so give it an `aria-label`.
 
 <div x-code-group>
 
 ```html copy
-<button x-colorpicker.swatch></button>
+<button x-colorpicker.swatch aria-label="Choose color"></button>
 ```
 
 ::: frame
-<button x-colorpicker.swatch></button>
+<button x-colorpicker.swatch aria-label="Choose color"></button>
 :::
 
 </div>
@@ -84,11 +84,11 @@ Set a default color with the swatch's `value` attribute — the same attribute a
 <div x-code-group>
 
 ```html copy
-<button x-colorpicker.swatch value="#ff0000"></button>
+<button x-colorpicker.swatch aria-label="Choose color" value="#ff0000"></button>
 ```
 
 ::: frame
-<button x-colorpicker.swatch value="#ff0000"></button>
+<button x-colorpicker.swatch aria-label="Choose color" value="#ff0000"></button>
 :::
 
 </div>
@@ -99,7 +99,7 @@ For two-way reactive binding, use `x-model` instead. When both are present, `x-m
 
 ```html copy
 <div x-data="{ color: '#22c55e' }">
-    <button x-colorpicker.swatch x-model="color"></button>
+    <button x-colorpicker.swatch aria-label="Choose color" x-model="color"></button>
     <button @click="color = '#22c55e'">Green</button>
     <button @click="color = '#3b82f6'">Blue</button>
 </div>
@@ -107,7 +107,7 @@ For two-way reactive binding, use `x-model` instead. When both are present, `x-m
 
 ::: frame
 <div class="row-wrap items-center gap-4" x-data="{ color: '#22c55e' }">
-    <button x-colorpicker.swatch x-model="color"></button>
+    <button x-colorpicker.swatch aria-label="Choose color" x-model="color"></button>
     <button @click="color = '#22c55e'">Green</button>
     <button @click="color = '#3b82f6'" >Blue</button>
 </div>
@@ -121,7 +121,7 @@ Add a `name` attribute to make a swatch submit with a `<form>`, just like any ot
 
 ```html copy
 <form>
-    <button x-colorpicker.swatch name="background" value="#3b82f6"></button>
+    <button x-colorpicker.swatch aria-label="Choose color" name="background" value="#3b82f6"></button>
     <button type="submit">Save</button>
 </form>
 ```
@@ -148,11 +148,11 @@ The wrapper element of an inline picker determines its presentation: `<menu popo
 
 ```html copy
 <!-- Dropdown -->
-<button x-colorpicker.swatch="dropdown-picker"></button>
+<button x-colorpicker.swatch="dropdown-picker" aria-label="Choose color"></button>
 <menu id="dropdown-picker" popover x-colorpicker></menu>
 
 <!-- Dialog -->
-<button x-colorpicker.swatch="dialog-picker"></button>
+<button x-colorpicker.swatch="dialog-picker" aria-label="Choose color"></button>
 <dialog id="dialog-picker" popover x-colorpicker></dialog>
 
 <!-- Inline menu without swatch -->
@@ -162,12 +162,12 @@ The wrapper element of an inline picker determines its presentation: `<menu popo
 ::: frame row-wrap gap-10
 <div class="col gap-2">
 <p>Dropdown</p>
-<button x-colorpicker.swatch="dropdown-picker"></button>
+<button x-colorpicker.swatch="dropdown-picker" aria-label="Choose color"></button>
 <menu id="dropdown-picker" popover x-colorpicker></menu>
 </div>
 <div class="col gap-2">
 <p>Dialog</p>
-<button x-colorpicker.swatch="dialog-picker"></button>
+<button x-colorpicker.swatch="dialog-picker" aria-label="Choose color"></button>
 <dialog id="dialog-picker" popover x-colorpicker></dialog>
 </div>
 <div class="col gap-2">
@@ -190,17 +190,17 @@ Limit which panels appear by passing them as a value in a bare swatch, or by inc
 
 ```html "Bare swatches" copy
 <!-- Solids only -->
-<button x-colorpicker.swatch="['solid']"></button>
+<button x-colorpicker.swatch="['solid']" aria-label="Choose color"></button>
 
 <!-- Solids and gradients, no library -->
-<button x-colorpicker.swatch="['solid', 'gradient']"></button>
+<button x-colorpicker.swatch="['solid', 'gradient']" aria-label="Choose color"></button>
 
 <!-- Library first -->
-<button x-colorpicker.swatch="['library', 'solid', 'gradient']"></button>
+<button x-colorpicker.swatch="['library', 'solid', 'gradient']" aria-label="Choose color"></button>
 ```
 
 ```html "Modified picker menus" copy
-<button x-colorpicker.swatch="my-picker"></button>
+<button x-colorpicker.swatch="my-picker" aria-label="Choose color"></button>
 
 <!-- Modified menu -->
 <menu id="my-picker" popover x-colorpicker>
@@ -213,7 +213,7 @@ Limit which panels appear by passing them as a value in a bare swatch, or by inc
 
 When only one panel is allowed, the tab bar is hidden automatically.
 
-### Customization
+### Custom Menu
 
 To replace the fallback menu page-wide, declare a single `<template x-colorpicker>` (no `id`, no value) anywhere in your markup. Every bare swatch on the page that would otherwise auto-create the plugin's default menu instead clones from your template — preserving its wrapper element (`<menu>`, `<dialog>`, or `<div>`) and any attributes you put on it.
 
@@ -226,8 +226,8 @@ To replace the fallback menu page-wide, declare a single `<template x-colorpicke
 </template>
 
 <!-- Every bare swatch on the page now uses your template -->
-<button x-colorpicker.swatch></button>
-<button x-colorpicker.swatch></button>
+<button x-colorpicker.swatch aria-label="Choose color"></button>
+<button x-colorpicker.swatch aria-label="Choose color"></button>
 ```
 
 To componentize the default across multiple pages or routes, wrap the template in a Manifest [HTML component](/docs/framework/core-plugins/components) and drop it into your layout.
@@ -627,14 +627,14 @@ Use the `$colorpicker(id)` magic method to read or change a picker's value from 
 
 ::: frame text-base
 <div class="row-wrap items-center gap-4">
-    <button id="hero" x-colorpicker.swatch value="#3b82f6"></button>
+    <button id="hero" x-colorpicker.swatch aria-label="Choose color" value="#3b82f6"></button>
     <span class="h3" :style="`color: ${$colorpicker('hero')}`">Brand Color</span>
     <span x-text="$colorpicker('hero')"></span>
 </div>
 :::
 
 ```html copy
-<button id="hero" x-colorpicker.swatch value="#3b82f6"></button>
+<button id="hero" x-colorpicker.swatch aria-label="Choose color" value="#3b82f6"></button>
 <h3 :style="`color: ${$colorpicker('hero')}`">Brand Color</h3>
 <span x-text="$colorpicker('hero')"></span>
 ```
@@ -717,12 +717,12 @@ If using Tailwind, individual swatches and menus can be customized with utility 
 <div x-code-group>
 
 ```html copy
-<button x-colorpicker.swatch="custom-tw-picker" class="size-14 max-w-none rounded-full" value="#3b82f6"></button>
+<button x-colorpicker.swatch="custom-tw-picker" aria-label="Choose color" class="size-14 max-w-none rounded-full" value="#3b82f6"></button>
 <menu id="custom-tw-picker" popover x-colorpicker class="w-100 max-w-none max-h-none"></menu>
 ```
 
 ::: frame
-<button x-colorpicker.swatch="custom-tw-picker" class="size-14 max-w-none rounded-full" value="#3b82f6"></button>
+<button x-colorpicker.swatch="custom-tw-picker" aria-label="Choose color" class="size-14 max-w-none rounded-full" value="#3b82f6"></button>
 <menu id="custom-tw-picker" popover x-colorpicker class="w-100 max-w-none max-h-none"></menu>
 :::
 

@@ -59,14 +59,14 @@ Appwrite plugins can be loaded in two ways: explicitly via the `data-plugins` at
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
-```html "Selective" copy
+```html "Declared" copy
 <!-- Meta -->
 <link rel="manifest" href="/manifest.json">
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="appwrite-auth,appwrite-data"></script>
+    data-plugins="+appwrite-auth,+appwrite-data"></script>
 ```
 
 </div>

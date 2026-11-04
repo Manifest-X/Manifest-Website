@@ -135,6 +135,8 @@ Both keys work until step 4. They share one request limit: more keys never add c
 
 ## Errors
 
+Every error has the [same shape](/docs/api/reference/errors#error-shape).
+
 | **Status** | **`error`**      | **Meaning**                                                  |
 |------------|------------------|--------------------------------------------------------------|
 | 401        | `unauthorized`{copy}   | The key is missing, malformed, or not an API key.            |

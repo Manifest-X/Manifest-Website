@@ -683,18 +683,18 @@ Modify base dropdown styles with custom CSS for the `menu[popover]` selector.
 
 ```css copy
 menu[popover] {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
+    background-color: var(--color-surface-1);
+    border: 2px solid var(--color-brand-surface);
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 8px 25px color-mix(in oklch, var(--color-brand-surface) 30%, transparent);
 
     /* Any relevant options */
     & :where(li, a, button, label) {
-        color: #1e40af;
+        color: var(--color-brand-content);
         border-radius: 8px;
 
         &:hover {
-            background-color: #dbeafe;
+            background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent);
         }
     }
 }
@@ -703,18 +703,18 @@ menu[popover] {
 ::: frame text-base
 <style>
 menu[popover].custom {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
+    background-color: var(--color-surface-1);
+    border: 2px solid var(--color-brand-surface);
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 8px 25px color-mix(in oklch, var(--color-brand-surface) 30%, transparent);
 
     & :where(li, a, button, label) {
-        color: #1e40af;
+        color: var(--color-brand-content);
         border-radius: 8px;
     }
 
     & :where(li, a, button, label):hover {
-        background-color: #dbeafe;
+        background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent);
     }
 }
 </style>

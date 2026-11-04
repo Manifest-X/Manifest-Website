@@ -102,6 +102,8 @@ Answers `{ "removed": "docs.acme.com", "request_id": "…" }`. The site stops an
 
 ## Errors
 
+Every error has the [same shape](/docs/api/reference/errors#error-shape).
+
 | **Status** | **`error`**                   | **Meaning**                                                                       |
 |------------|-------------------------------|-----------------------------------------------------------------------------------|
 | 400        | `invalid_input`{copy}               | Missing or malformed field, or an unknown field.                                  |

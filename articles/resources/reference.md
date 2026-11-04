@@ -75,7 +75,7 @@ The `npx mnfst-render` command compiles MPA websites optimized for SEO/AEO, and 
 
 Directives are custom HTML attributes from Alpine that provide reactive functionality. Manifest extends these to cover a wide variety of application use cases.
 
-### Alpine
+### Alpine Directives
 
 See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> for details.
 
@@ -102,7 +102,7 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 
 ---
 
-### Manifest
+### Manifest Directives
 
 | Directive | Plugin | Description |
 |---|---|---|
@@ -151,7 +151,7 @@ Values for `x-route` are:
 
 Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 
-### Alpine
+### Alpine Magics
 
 | Magic | Description |
 |---|---|
@@ -167,7 +167,7 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 
 ---
 
-### Manifest
+### Manifest Magics
 
 | Magic | Plugin | Description |
 |---|---|---|

@@ -229,6 +229,8 @@ Answers `200 OK` with `{ "project": { … }, "request_id": "…" }`. Only the na
 
 ## Errors
 
+Every error has the [same shape](/docs/api/reference/errors#error-shape).
+
 | **Status** | **`error`**                 | **Meaning**                                                                                   |
 |------------|-----------------------------|-----------------------------------------------------------------------------------------------|
 | 400        | `invalid_input`{copy}             | Missing or malformed field, blank `source_id`{copy}, unknown field, or a body that isn't JSON.       |

@@ -155,6 +155,8 @@ Send an `Idempotency-Key`{copy} with every ingest. A retry with the same key and
 
 ## Errors
 
+Every error has the [same shape](/docs/api/reference/errors#error-shape).
+
 A content problem answers `422` with a `field`{copy} that names the page and property, and no deployment is created:
 
 ```json

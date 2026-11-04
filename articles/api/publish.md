@@ -270,6 +270,8 @@ curl "https://api.manifestx.dev/v1/projects/proj_…/deployments?env=staging" \
 
 ## Errors
 
+Every error has the [same shape](/docs/api/reference/errors#error-shape).
+
 | **Status** | **`error`**             | **Meaning**                                                                                  |
 |------------|-------------------------|----------------------------------------------------------------------------------------------|
 | 400        | `invalid_input`{copy}         | Missing or malformed field, unknown field, or an `env`{copy} that isn't `staging`{copy} or `production`{copy}. |

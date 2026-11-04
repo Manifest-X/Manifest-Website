@@ -14,25 +14,25 @@ There are two ways to use it. **Payment links** simply send buyers to a checkout
 
 ## Setup
 
-The payments plugin is included in `manifest.js` with all core plugins, or can be selectively loaded. It activates when `manifest.json` contains a `payments` block, or whenever it's declared in `data-plugins`.
+Payments isn't part of the default plugin set. It loads automatically when `manifest.json` contains a `payments` block, or it can be declared in `data-plugins`, where the `+` prefix adds it alongside the default plugins.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
-<!-- Meta -->
+```html "Auto-detect"
+<!-- Meta: manifest.json contains a "payments" block -->
 <link rel="manifest" href="/manifest.json">
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
-```html "Selective"
+```html "Declared"
 <!-- Meta -->
 <link rel="manifest" href="/manifest.json">
 
-<!-- Scripts -->
+<!-- Scripts: defaults plus payments -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="payments"></script>
+    data-plugins="+payments"></script>
 ```
 
 </div>
@@ -194,10 +194,10 @@ return res.json({ mode: 'redirect', url: order.checkout_url })
 
 </div>
 
-If the signed-in user and active team are available from [auth](/docs/framework/appwrite-plugins/auth), the plugin sends them along automatically — so your function knows which account to credit without extra wiring. The payload also suits quantities, coupon codes, or anything else your function wants at checkout time — it travels as-is. Two keys are also read by the plugin: `mode` overrides the configured checkout style for this call, and `context` is merged into the identity context sent alongside.
+If the signed-in user and active team are available from [auth](/docs/framework/appwrite-plugins/auth), the plugin sends them along automatically as `userId` (`$auth.user.$id`) and `workspaceId` (`$auth.currentTeam.$id`) — so your function knows which account to credit without extra wiring. The payload also suits quantities, coupon codes, or anything else your function wants at checkout time — it travels as-is. Two keys are also read by the plugin: `mode` overrides the configured checkout style for this call, and `context` is merged into the identity context sent alongside.
 
 ::: brand icon="lucide:info"
-The [template function](#appwrite-template) needs a <b>signed-in buyer</b> — the grant is credited to their workspace, so it refuses anonymous checkouts rather than taking money it can't assign. A function you write yourself decides its own rule. For anonymous purchases (donations, one-off sales), use [payment links](#payment-links). Buttons also handle themselves during a checkout: they disable while the flow opens (no double-charges from double-clicks), and failures surface automatically as a toast when the toasts plugin is loaded.
+The [template function](#appwrite-template) needs a <b>signed-in buyer</b> — the grant is credited to their active team (the template stores it as `workspace_id`), so it refuses anonymous checkouts rather than taking money it can't assign. A function you write yourself decides its own rule. For anonymous purchases (donations, one-off sales), use [payment links](#payment-links). Buttons also handle themselves during a checkout: they disable while the flow opens (no double-charges from double-clicks), and failures surface automatically as a toast when the toasts plugin is loaded.
 :::
 
 ---

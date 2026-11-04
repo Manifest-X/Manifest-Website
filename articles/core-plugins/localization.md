@@ -162,11 +162,11 @@ Each file should have the same object/array hierarchy and keys. Only the values 
 
 </div>
 
-#### CSV
+#### Registering CSV
 
 CSV files containing multiple languages are registered using the `locales` key, which points to one CSV file. The locales are determined by the language codes in the CSV headers.
 
-#### JSON & YAML
+#### Registering JSON & YAML
 
 JSON and YAML declare each locale in an object using their language code as a nested key, like `en` or `fr`.
 
