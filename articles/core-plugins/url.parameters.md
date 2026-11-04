@@ -1,6 +1,6 @@
 # URL Parameters
 
-Display content with modified URL strings.
+Keep filters, search, and view state in the URL with `$url`.
 
 ---
 
@@ -8,7 +8,7 @@ Display content with modified URL strings.
 
 URL parameters provide a reactive `$url` magic method for storing application state in the URL with common URL characters like `?` and `&`. This preserves user interactions like search queries, filters, and view preferences, and the generated URLs can be further shared or bookmarked.
 
-Parameters are fully reactive: any binding that reads a parameter (`x-text`, `x-show`, `x-for`, etc) re-renders when it changes — whether from `.set()`, `.add()`, `.remove()`, browser back/forward, or [router](/docs/framework/core-plugins/router) navigation. Mutations apply instantly; only the address bar update is debounced to prevent excessive history entries during rapid input. Parameters persist across page reloads.
+Parameters are fully reactive: any binding that reads a parameter (`x-text`, `x-show`, `x-for`, etc) re-renders when it changes — whether from `.set()`, `.add()`, `.remove()`, browser back/forward, or [router](/docs/framework/core-plugins/router) navigation. Mutations apply instantly; the address bar updates after a short pause, so rapid input is coalesced, and each update adds a browser history entry. Every change also dispatches a `url-updated` event on `document`, with `{ updates, action }` in its detail. Parameters persist across page reloads.
 
 ---
 
@@ -48,7 +48,7 @@ Reading a parameter offers three shapes:
 - **`.first`** — always a single value, or `null` when unset
 - **`.all`** — always an array, empty when unset
 
-`.value` mirrors what's in the URL and is settable (for `x-model`), while `.first` and `.all` guarantee a stable shape regardless of how many values the parameter holds.
+`.value` mirrors what's in the URL and is settable (for `x-model`), while `.first` and `.all` guarantee a stable shape regardless of how many values the parameter holds. Because commas separate values, typed text containing a comma is read back as several values: `pro, air` becomes `['pro', ' air']`.
 
 Alpine's <a href="https://alpinejs.dev/directives/model" target="_blank">x-model</a> directive is used to bind with form elements, e.g. `x-model="$url.paramName.value"`.
 
@@ -95,7 +95,7 @@ Handle multiple values stored as comma-separated parameters in the URL.
 <div x-code-group>
 
 ```html copy
-<p>Tags: <span x-text="$url.tags.value ? $url.tags.value.join(', ') : 'None'"></span></p>
+<p>Tags: <span x-text="$url.tags.all.join(', ') || 'None'"></span></p>
 <button @click="$url.tags.add('javascript')">Add JavaScript</button>
 <button @click="$url.tags.remove('javascript')">Remove JavaScript</button>
 <button @click="$url.tags.clear()">Clear All</button>
@@ -109,7 +109,7 @@ Handle multiple values stored as comma-separated parameters in the URL.
     <button @click="$url.tags.remove('javascript')">Remove JS</button>
     <button @click="$url.tags.clear()">Clear All</button>
 </div>
-<p>Tags: <strong x-text="$url.tags.value && Array.isArray($url.tags.value) ? $url.tags.value.join(', ') : ($url.tags.value || 'None')"></strong></p>
+<p>Tags: <strong x-text="$url.tags.all.join(', ') || 'None'"></strong></p>
 :::
 
 </div>
@@ -123,7 +123,7 @@ Remove specific values from parameters. Calling `.remove()` with no argument rem
 <div x-code-group>
 
 ```html copy
-<p>Categories: <span x-text="$url.categories.value ? $url.categories.value.join(', ') : 'None'"></span></p>
+<p>Categories: <span x-text="$url.categories.all.join(', ') || 'None'"></span></p>
 <button @click="$url.categories.add('frontend')">Add Frontend</button>
 <button @click="$url.categories.remove('frontend')">Remove Frontend</button>
 ```
@@ -135,7 +135,7 @@ Remove specific values from parameters. Calling `.remove()` with no argument rem
     <button @click="$url.categories.remove('frontend')">Remove Frontend</button>
     <button @click="$url.categories.remove('backend')">Remove Backend</button>
 </div>
-<p>Categories: <strong x-text="$url.categories.value && Array.isArray($url.categories.value) ? $url.categories.value.join(', ') : ($url.categories.value || 'None')"></strong></p>
+<p>Categories: <strong x-text="$url.categories.all.join(', ') || 'None'"></strong></p>
 :::
 
 </div>
@@ -231,7 +231,7 @@ This example demonstrates unified search using `$search` for key searches and `$
 ```html "HTML" collapse="10"
 <div x-data="{
     get filteredProducts() {
-        return ($x.example.products || []).$search($url.search.value, 'name').$query([
+        return $x.example.products.$search($url.search.value, 'name').$query([
             ...($url.category.value ? [['equal', 'category', $url.category.value]] : []),
             ...($url.brand.value ? [['equal', 'brand', $url.brand.value]] : [])
         ]);
@@ -282,7 +282,7 @@ This example demonstrates unified search using `$search` for key searches and `$
 ::: frame
 <div class="col" x-data="{
     get filteredProducts() {
-        return ($x.example.products || []).$search($url.search.value, 'name').$query([
+        return $x.example.products.$search($url.search.value, 'name').$query([
             ...($url.category.value ? [['equal', 'category', $url.category.value]] : []),
             ...($url.brand.value ? [['equal', 'brand', $url.brand.value]] : [])
         ]);
