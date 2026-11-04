@@ -32,7 +32,7 @@ Combobox styles are included in Manifest CSS or a standalone stylesheet, both re
 </div>
 
 ::: brand icon="lucide:info"
-The suggestion list uses [dropdowns](/docs/framework/elements/dropdowns), with its respective plugins and styles as dependencies.
+The suggestion list reuses [dropdown](/docs/framework/elements/dropdowns) styles; the dropdowns plugin isn't needed.
 :::
 
 ---
@@ -52,7 +52,7 @@ Type to filter or to enter free text.
 ```
 
 ::: frame
-<input x-combobox="cb-countries-t" placeholder="Country" style="max-width: 22rem;">
+<input x-combobox="cb-countries-t" placeholder="Country" class="max-w-88">
 <datalist id="cb-countries-t"><option>Australia</option><option>Brazil</option><option>Canada</option><option>Denmark</option><option>France</option><option>Germany</option><option>Japan</option><option>Mexico</option><option>Spain</option><option>Sweden</option></datalist>
 :::
 
@@ -60,7 +60,7 @@ Type to filter or to enter free text.
 
 ### Textarea
 
-Textareas are effectively the same as inputs in style and function. The `.multiple` modifier enabled both inputs and textareas to support multiple entries, which wrap and grow the field's height on overflow.
+Textareas are effectively the same as inputs in style and function. The `.multiple` modifier enables both inputs and textareas to support multiple entries, which wrap and grow the field's height on overflow.
 
 <div x-code-group>
 
@@ -69,7 +69,7 @@ Textareas are effectively the same as inputs in style and function. The `.multip
 ```
 
 ::: frame
-<textarea x-combobox.multiple.chips="cb-skills-t" placeholder="Add skills" style="max-width: 30rem;"></textarea>
+<textarea x-combobox.multiple.chips="cb-skills-t" placeholder="Add skills" class="max-w-120"></textarea>
 <datalist id="cb-skills-t"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist>
 :::
 
@@ -91,7 +91,7 @@ Buttons behave like a select menu trigger, with no typing input. A single field 
 ```
 
 ::: frame
-<button x-combobox="cb-priority-t" style="max-width: 16rem;">Select priority</button>
+<button x-combobox="cb-priority-t" class="max-w-64">Select priority</button>
 <menu popover id="cb-priority-t"><li>Low</li><li>Medium</li><li>High</li><li>Urgent</li></menu>
 :::
 
@@ -110,7 +110,7 @@ Add `.chips`{copy} to show selections as removable chips, and `.multiple`{copy} 
 ```
 
 ::: frame
-<input x-combobox.multiple.chips placeholder="Add emails" style="max-width: 30rem;">
+<input x-combobox.multiple.chips placeholder="Add emails" class="max-w-120">
 :::
 
 </div>
@@ -126,7 +126,7 @@ Set your own commit keys with the `separators`{copy} option, where each characte
 ```
 
 ::: frame
-<input x-combobox.multiple.chips="{ separators: ', ' }" placeholder="Add tags" style="max-width: 30rem;">
+<input x-combobox.multiple.chips="{ separators: ', ' }" placeholder="Add tags" class="max-w-120">
 :::
 
 </div>
@@ -142,7 +142,7 @@ Seed the field with a starting set using the `value`{copy} attribute, written wi
 ```
 
 ::: frame
-<input x-combobox.multiple.chips value="ana@acme.com, sam@acme.com" placeholder="Add emails" style="max-width: 30rem;">
+<input x-combobox.multiple.chips value="ana@acme.com, sam@acme.com" placeholder="Add emails" class="max-w-120">
 :::
 
 </div>
@@ -167,7 +167,7 @@ A single field lets the user pick one option or type their own. Re-opening it sh
 ```
 
 ::: frame
-<input x-combobox="cb-countries" placeholder="Country" style="max-width: 22rem;">
+<input x-combobox="cb-countries" placeholder="Country" class="max-w-88">
 <datalist id="cb-countries"><option>Australia</option><option>Brazil</option><option>Canada</option><option>Denmark</option><option>France</option><option>Germany</option><option>Japan</option><option>Mexico</option><option>Spain</option><option>Sweden</option></datalist>
 :::
 
@@ -189,7 +189,7 @@ Add `.multiple.chips`{copy} to choose several. Chosen options drop out of the li
 ```
 
 ::: frame
-<input x-combobox.multiple.chips="cb-skills" placeholder="Skills" style="max-width: 30rem;">
+<input x-combobox.multiple.chips="cb-skills" placeholder="Skills" class="max-w-120">
 <datalist id="cb-skills"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist>
 :::
 
@@ -214,7 +214,7 @@ Your authored `<menu>`{copy} stays hidden — it's the source template, never th
 ```
 
 ::: frame
-<input x-combobox.multiple.chips="cb-people" placeholder="Assign people" style="max-width: 30rem;">
+<input x-combobox.multiple.chips="cb-people" placeholder="Assign people" class="max-w-120">
 <menu popover id="cb-people">
     <li data-value="ana" data-label="Ana Ruiz">Ana Ruiz <span class="trailing">ana@acme.com</span></li>
     <li data-value="sam" data-label="Sam Cole">Sam Cole <span class="trailing">sam@acme.com</span></li>
@@ -243,8 +243,8 @@ Keep `data-label`{copy} set alongside it. That plain-text name is what the field
     <template x-for="t in tagList" :key="t.id">
         <li :data-value="t.id" :data-label="t.name">
             <!-- Shown on the chip -->
-            <span data-chip>
-                <span :style="`background: ${t.color}`" class="dot"></span>
+            <span data-chip class="row items-center gap-2">
+                <span class="inline-block size-2.5 rounded-full" :style="`background: ${t.color}`"></span>
                 <span x-text="t.name"></span>
             </span>
             <!-- Menu row only -->
@@ -256,11 +256,11 @@ Keep `data-label`{copy} set alongside it. That plain-text name is what the field
 
 ::: frame
 <div x-data="{ picked: ['bug'], tagList: [{ id: 'bug', name: 'Bug', color: '#e5484d' }, { id: 'feature', name: 'Feature', color: '#30a46c' }, { id: 'docs', name: 'Docs', color: '#0091ff' }] }">
-<input x-combobox.multiple.chips="cb-tags" x-model="picked" placeholder="Add tags" style="max-width: 30rem;">
+<input x-combobox.multiple.chips="cb-tags" x-model="picked" placeholder="Add tags" class="max-w-120">
 <menu popover id="cb-tags">
 <template x-for="t in tagList" :key="t.id">
 <li :data-value="t.id" :data-label="t.name">
-<span data-chip class="row items-center gap-2"><span :style="`background: ${t.color}; width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block;`"></span><span x-text="t.name"></span></span>
+<span data-chip class="row items-center gap-2"><span class="inline-block size-2.5 rounded-full" :style="`background: ${t.color}`"></span><span x-text="t.name"></span></span>
 <span class="small trailing" x-text="t.id"></span>
 </li>
 </template>
@@ -274,7 +274,7 @@ Keep `data-label`{copy} set alongside it. That plain-text name is what the field
 
 ## Options
 
-Beyond modes, settings are passed as an object in the directive value. The bare id form is shorthand for the `source`{copy} key, so `x-combobox="people"`{copy} and `x-combobox="{ source: 'people' }"`{copy} are the same.
+Beyond modifiers, settings are passed as an object in the directive value. The bare id form is shorthand for the `source`{copy} key, so `x-combobox="people"`{copy} and `x-combobox="{ source: 'people' }"`{copy} are the same.
 
 | Option | Purpose |
 |--------|---------|
@@ -317,7 +317,7 @@ A field accepts anything the user types by default. Add `.create`{copy} to show 
 ```
 
 ::: frame
-<input x-combobox.multiple.chips.create="cb-skills-create" placeholder="Skills" style="max-width: 30rem;">
+<input x-combobox.multiple.chips.create="cb-skills-create" placeholder="Skills" class="max-w-120">
 <datalist id="cb-skills-create"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option></datalist>
 :::
 
@@ -338,7 +338,7 @@ Cap the number of selections with the `max`{copy} option. Once the limit is reac
 ```
 
 ::: frame
-<input x-combobox.multiple.chips="{ source: 'cb-skills-max', max: 3 }" placeholder="Pick up to 3" style="max-width: 30rem;">
+<input x-combobox.multiple.chips="{ source: 'cb-skills-max', max: 3 }" placeholder="Pick up to 3" class="max-w-120">
 <datalist id="cb-skills-max"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist>
 :::
 
@@ -362,7 +362,7 @@ Mark a value as locked to keep it in the field but block its removal — its × 
 ```
 
 ::: frame
-<div x-data="{ plan: ['SSL', 'Backups'] }" style="max-width: 30rem;">
+<div x-data="{ plan: ['SSL', 'Backups'] }" class="max-w-120">
 <input x-combobox.multiple.chips="cb-plan-lock" x-model="plan" placeholder="Add features">
 <datalist id="cb-plan-lock"><option data-locked>SSL</option><option>Backups</option><option>Analytics</option><option>Priority support</option></datalist>
 </div>
@@ -389,7 +389,7 @@ Add `.async`{copy} to fetch options as the user types instead of filtering a fix
 
 ::: frame
 <div x-data="{ search(e) { const all = ['Ada Lovelace','Alan Turing','Grace Hopper','Katherine Johnson','Linus Torvalds','Margaret Hamilton']; const v = e.detail.value.toLowerCase(); clearTimeout(this._t); this._t = setTimeout(() => e.detail.setOptions(all.filter(n => n.toLowerCase().includes(v))), 400) } }">
-<input x-combobox.async="{ min: 1 }" placeholder="Search users" @combobox-filter="search($event)" style="max-width: 26rem;">
+<input x-combobox.async="{ min: 1 }" placeholder="Search users" @combobox-filter="search($event)" class="max-w-104">
 </div>
 :::
 
@@ -436,7 +436,7 @@ The bound value can be an array or a comma-separated string; the field keeps wha
 ```
 
 ::: frame
-<div x-data="{ roles: ['Design', 'Research'] }" style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 30rem;">
+<div x-data="{ roles: ['Design', 'Research'] }" class="col gap-3 max-w-120">
 <input x-combobox.multiple.chips="cb-roles-bind" x-model="roles" placeholder="Roles">
 <datalist id="cb-roles-bind"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist>
 <button type="button" class="sm" @click="roles = ['Writing', 'Testing']">Load a different record</button>
@@ -446,7 +446,7 @@ The bound value can be an array or a comma-separated string; the field keeps wha
 
 </div>
 
-When the list carries separate values and labels — a [dropdown menu](#dropdown-menu) with `data-value`{copy}/`data-label`{copy} — the chip shows the label while the bound value holds the token. Pick "Owner" and `roles` stores `owner`, keeping value mapping clean for editing.
+When the list carries separate values and labels — a [dropdown menu](#dropdown-menu) with `data-value`{copy}/`data-label`{copy} — the chip shows the label while the bound value holds the token. An option with `data-value="owner"`{copy} and `data-label="Owner"`{copy} shows "Owner" on its chip and stores `owner` in `roles`, keeping value mapping clean for editing.
 
 The bound value is only ever written on an explicit selection or removal. Loading, focusing, filtering, and abandoned typing leave it untouched, so persisting the model (or saving on `change`{copy}) is safe in an editor.
 
