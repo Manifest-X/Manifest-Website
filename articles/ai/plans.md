@@ -49,4 +49,4 @@ Ask Claude for a link where you can change or cancel the plan, update your payme
 
 > `Manage my billing`{copy}
 
-If a payment fails or you cancel, Pro features keep working for 14 days. Then the project moves to Free and stays online.
+If you cancel, Pro keeps working until the end of the period you've paid for. If a payment fails, Pro features keep working for 14 days while you update your payment method. Either way, the project then moves to Free and stays online.

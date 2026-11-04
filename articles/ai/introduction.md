@@ -42,8 +42,8 @@ Manifest hosts projects that run in the browser, and native apps are packaged fr
 
 - **Publish** to a web address, and **preview changes** on a separate staging address first.
 - **Use your own domain**, with the security certificate handled for you.
-- **Undo** a change by going back to an earlier version.
-- **Work as a team**, each person from their own Claude chats.
+- **Undo** a change by going back to an earlier version, on [Pro](/docs/ai/setup/plans).
+- **Work as a team**, each person from their own Claude chats, on [Pro](/docs/ai/setup/plans).
 - **View analytics**, like how many users came, which pages they visited, and where from.
 - **Keep track of everything** in the Manifest [dashboard](/docs/ai/projects/manage).
 

@@ -6,7 +6,7 @@ Keep a backup and a full history of your project on GitHub. Optional.
 
 ## Do you need it?
 
-No. You can build, publish, and work as a team with Manifest alone. GitHub is a free service that keeps a copy of your project's files online, which helps if you want:
+No. You can build, publish, and work as a team (on Pro) with Manifest alone. GitHub is a free service that keeps a copy of your project's files online, which helps if you want:
 
 - **A backup** of your working files, not just what you've published.
 - **A full history** of every change, by everyone.
@@ -31,7 +31,7 @@ From then on, `/manifest:staging` and `/manifest:publish` also save to GitHub, a
 
 > `Add sam to the project on GitHub`{copy}
 
-Claude asks for their GitHub username and email address, then sends them both a GitHub invite and a Manifest invite. Your teammate accepts both, opens a new folder in the **Code** tab, and asks Claude to `join the Manifest project`{.prompt copy}.
+Inviting teammates to Manifest is part of [Pro](/docs/ai/setup/plans). Claude asks for their GitHub username and email address, then sends them both a GitHub invite and a Manifest invite. Your teammate accepts both, opens a new folder in the **Code** tab, and asks Claude to `join the Manifest project`{.prompt copy}.
 
 ---
 
