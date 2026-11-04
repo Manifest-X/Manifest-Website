@@ -80,7 +80,7 @@ Buttons accept the `avatar` class and can be used to trigger an action like open
 <button class="avatar">W</button>
 
 <!-- Background image -->
-<button class="avatar bg-[url(/assets/examples/user.jpg)]"></button>
+<button class="avatar bg-[url(/assets/examples/user.jpg)]" aria-label="Profile"></button>
 
 <!-- Initials and/or profile image -->
 <button class="avatar">
@@ -92,7 +92,7 @@ Buttons accept the `avatar` class and can be used to trigger an action like open
 ::: frame row-wrap gap-2
 <button class="avatar" x-icon="lucide:user" aria-label="User menu"></button>
 <button class="avatar">W</button>
-<button class="avatar bg-[url(/assets/examples/user.jpg)]"></button>
+<button class="avatar bg-[url(/assets/examples/user.jpg)]" aria-label="Profile"></button>
 <button class="avatar"><span>W</span><img src="/assets/examples/user.jpg" alt=""></button>
 :::
 
