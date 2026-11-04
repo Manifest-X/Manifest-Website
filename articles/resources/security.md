@@ -6,7 +6,7 @@ Manifest's security defaults and the places to opt in to more.
 
 ## Overview
 
-Manifest hardens itself by default and gives you minimal surface to misconfigure. The framework verifies every script it loads, isolates dev tooling to your machine, prevents inlined credentials from shipping to production, and never interprets data-source values as code.
+Manifest hardens itself by default and gives you minimal surface to misconfigure. The framework isolates dev tooling to your machine, keeps unresolved `.env` placeholders out of published builds, and never interprets data-source values as code.
 
 Markdown and SVG render their input as HTML and treat it as developer-controlled; use their `.safe` modifier for content from a party you don't fully trust. Tooltips and toasts show expression results as plain text unless you opt in to HTML.
 
@@ -18,14 +18,12 @@ Defaults that apply to every Manifest project, no setup required:
 
 | Protection | What it does |
 |---|---|
-| Subresource Integrity | The loader injects every plugin script with a SHA-384 hash baked in at build time. If a CDN response doesn't match, the browser refuses to execute it — defends against CDN poisoning and npm package hijack. |
 | Loopback-only dev server | `mnfst-run` binds `127.0.0.1` and validates the `Host` header on every request. Closes both LAN exposure and DNS-rebinding attacks from third-party pages the developer visits. |
-| Credential relocation | `mnfst-render` scans `manifest.json` for credential-shaped fields holding literal values, moves them to `.env`, and rewrites the source to use `${VAR}` placeholders. Secrets cannot ship. |
-| Sandboxed prerenderer | Puppeteer launches with Chrome's process sandbox enabled. A renderer exploit can't escape the sandbox to reach the developer's filesystem. |
+| Env placeholders | `${VAR}` values in `manifest.json` resolve at runtime from `window.env`, which `mnfst-run` fills from `.env`. `mnfst-render` strips any unresolved placeholder from the published copy and never bakes `process.env` values into it. |
 | Prototype-pollution guards | CSV / JSON / YAML loaders refuse keys named `__proto__`, `constructor`, or `prototype` at any path depth — user-submitted data files cannot mutate `Object.prototype`. |
 | Path-traversal blocking | `mnfst-run` and `mnfst-test` static servers resolve every URL through a prefix check and reject `..` segments and NUL bytes. |
-| Session-secret isolation | The auth plugin syncs only non-sensitive fields (user ID, expiry, provider) across tabs. Bearer secrets stay in the cookie scope of the auth provider, not in `localStorage`. |
-| No dynamic eval | The framework never `eval`s, `Function`-constructs, or otherwise interprets data-source values, URL parameters, or DOM text as code. |
+| Session-secret isolation | For cross-tab sync, the auth plugin mirrors the signed-in user's profile and a session summary with secrets stripped to `localStorage`. Session secrets stay in the auth provider's cookie. |
+| No data evaluation | Data-source values, URL parameters, and text content are never evaluated as code — only expressions you write in attributes and component scripts are. |
 
 ---
 
@@ -40,16 +38,16 @@ These places execute code or render HTML by design. The framework doesn't saniti
 
 ### CDN Resource Integrity
 
-When loading a Manifest script from CDN, apply additional security by pinning a version and adding an `integrity` hash plus `crossorigin="anonymous"`. The browser will then refuse to execute the script if the bytes don't match, defending against any CDN compromise.
+To pin the loader itself, load a specific version of the unminified `manifest.js` with an `integrity` hash plus `crossorigin="anonymous"`. The browser refuses to run the script if its bytes don't match.
 
 ```html copy
-<script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.17/lib/manifest.min.js"
+<script src="https://cdn.jsdelivr.net/npm/mnfst@<version>/lib/manifest.js"
 	integrity="sha384-..."
 	crossorigin="anonymous"
-	data-version="0.5.17"></script>
+	data-version="<version>"></script>
 ```
 
-The loader's hash for each version is published alongside it as `lib/manifest.integrity.json` (e.g. `https://cdn.jsdelivr.net/npm/mnfst@0.5.83/lib/manifest.integrity.json`). Once the loader is verified, it applies SRI automatically to every plugin it injects.
+Each version's hashes are published alongside it in `lib/manifest.integrity.json` (`https://cdn.jsdelivr.net/npm/mnfst@<version>/lib/manifest.integrity.json`); use the `manifest.js` entry. The hash covers the unminified file only — `manifest.min.js` is minified by the CDN and won't match. The plugin scripts the loader fetches afterwards are not hash-checked.
 
 ---
 
@@ -58,10 +56,10 @@ The loader's hash for each version is published alongside it as `lib/manifest.in
 Before deploying:
 
 - [ ] Run `npx mnfst-test`{copy} to catch stale data-source references, broken routes, accessibility regressions, and console errors
-- [ ] Confirm `manifest.json` contains no inlined credentials (`mnfst-render` enforces this, but verify your build output)
+- [ ] Confirm `manifest.json` contains no inlined credentials — keep secrets in `.env` and reference them as `${VAR}`
 - [ ] Confirm `.env` is in `.gitignore` and absent from the published directory
 - [ ] Serve the site over HTTPS
-- [ ] Configure a [Content Security Policy](https://developer.mozilla.org/docs/Web/HTTP/CSP) header that allows `https://cdn.jsdelivr.net` for scripts, styles, and fonts; Manifest's runtime utility-class generation requires `style-src 'unsafe-inline'`
+- [ ] Configure a [Content Security Policy](https://developer.mozilla.org/docs/Web/HTTP/CSP) header. Alpine evaluates attribute expressions, so `script-src` needs `'unsafe-eval'`, plus `https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com` in `script-src`, `style-src`, and `connect-src`. Icons also need `https://api.iconify.design` in `connect-src`, and runtime utility classes need `style-src 'unsafe-inline'`
 
 ---
 
