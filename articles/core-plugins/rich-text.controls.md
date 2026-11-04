@@ -340,7 +340,7 @@ Each field has its own value, history, and selection. Controls follow the [toolb
 <div x-data="{ a: 'First **draft**', b: 'Second draft' }">
     <button x-rich-text.strong aria-label="Bold"><span x-icon="lucide:bold"></span></button>
     <span x-rich-text-for="#notes-second">
-        <button x-rich-text.em aria-label="Italic, second field only">
+        <button x-rich-text.em aria-label="Italic, second only">
             <span x-icon="lucide:italic"></span> Second only
         </button>
     </span>
@@ -355,7 +355,7 @@ Each field has its own value, history, and selection. Controls follow the [toolb
     <div class="row gap-1">
         <button class="ghost sm" x-rich-text.strong aria-label="Bold"><span x-icon="lucide:bold"></span></button>
         <span x-rich-text-for="#rich-notes-second">
-            <button class="ghost sm" x-rich-text.em aria-label="Italic, second field only"><span x-icon="lucide:italic"></span> Second only</button>
+            <button class="ghost sm" x-rich-text.em aria-label="Italic, second only"><span x-icon="lucide:italic"></span> Second only</button>
         </span>
     </div>
     <div x-rich-text="a" aria-label="First field" style="--rich-text-min-height: 3rem"></div>
