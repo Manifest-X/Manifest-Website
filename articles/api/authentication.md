@@ -34,15 +34,16 @@ curl https://api.manifestx.dev/v1/me \
     "name": "Sam Rivera",
     "plan": "free",
     "max_projects": 2,
+    "max_storage_bytes": 524288000,
     "created_at": 1760140800
   },
-  "rate_limit": { "requests_per_minute": 60 },
+  "rate_limit": { "requests_per_minute": 60, "writes_per_minute": 30 },
   "key": { "prefix": "mnfst_api_AbCd1234" },
   "request_id": "…"
 }
 ```
 
-`plan`{copy} is `free`{copy} for the free allowance that comes with every Manifest account, or `platform`{copy} for a platform account. `max_projects`{copy} is how many projects the key can create through the API. See [Manage](/docs/api/projects/manage#what-a-key-can-manage) for what the key can do.
+`plan`{copy} is `free`{copy} for the free allowance that comes with every Manifest account, or `platform`{copy} for a platform account. `max_projects`{copy} is how many projects the key can create through the API. `max_storage_bytes`{copy} and `rate_limit`{copy} are the account's other caps; see [Limits](/docs/api/reference/limits). See [Manage](/docs/api/projects/manage#what-a-key-can-manage) for what the key can do.
 
 Keep the key on your server. It can act on every project it reaches, so never ship it to a browser or a site's repository.
 
@@ -144,7 +145,7 @@ Both keys work until step 4. They share one request limit: more keys never add c
 | 429        | `mint_limit`{copy}     | `POST /keys`{copy}: 20 keys created in the last 24 hours. Wait the seconds in `Retry-After`{copy}. |
 | 409        | `last_key`{copy}       | `DELETE /keys/:prefix`{copy}: that is the account's only live key. |
 | 404        | `not_found`{copy}      | No such API route. Only `/v1/*` exists on `api.manifestx.dev`. |
-| 429        | `rate_limited`{copy}   | Too many requests with this account's keys. Wait the seconds in `Retry-After`{copy}. See [Limits](/docs/api/reference/limits). |
+| 429        | `rate_limited`{copy}   | Too many requests with this account's keys, or too many writes from the account. Wait the seconds in `Retry-After`{copy}. See [Limits](/docs/api/reference/limits). |
 
 The `message`{copy} says which key problem it is:
 

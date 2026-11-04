@@ -275,6 +275,7 @@ curl "https://api.manifestx.dev/v1/projects/proj_…/deployments?env=staging" \
 | 400        | `invalid_path`{copy}          | A file read's path doesn't name a file, for example it ends in `/`{copy} or contains `..`{copy}.       |
 | 402        | `pro_required`{copy}          | Rollback on a Free project. Upgrade the project to Pro in the dashboard.                     |
 | 403        | `forbidden`{copy}             | You are a member of this project, not its owner or an admin.                                 |
+| 403        | `storage_cap_reached`{copy}   | The upload or file update would take the account's live sites over its storage cap. Nothing changed. See [Limits](/docs/api/reference/limits). |
 | 404        | `not_found`{copy}             | No such project, or the key can't reach it.                                                  |
 | 404        | `unknown_deployment`{copy}    | `deployment_id`{copy} isn't one of this project's deployments for that environment.                |
 | 404        | `file_not_found`{copy}        | A file read names a file that isn't in the live site, or nothing is live on that environment yet. |

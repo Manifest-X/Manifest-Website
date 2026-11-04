@@ -27,7 +27,7 @@ Any path outside `/v1/*` answers `404` with `"error": "not_found"`{copy} and "No
 | 400, 422   | Fix the request. The `message`{copy} says what is wrong; don't retry unchanged.                                       |
 | 401        | Check the key. A revoked key stays revoked.                                                                     |
 | 402        | `pro_required`{copy}: the feature is part of Pro. Upgrade the project in the dashboard, then retry.                   |
-| 403        | A cap is reached (projects or domains), you are a member of the project but not its owner or an admin, or the request would remove the project owner. The message says which. |
+| 403        | A cap is reached (projects, domains or storage), you are a member of the project but not its owner or an admin, or the request would remove the project owner. The message says which. |
 | 404        | The project, deployment, file, domain, member, or key doesn't exist or the key can't reach it, or the route doesn't exist. |
 | 409        | A conflict or an operation still running. The `error`{copy} code says which; retry the `_in_progress` ones shortly.  |
 | 410        | `project_deleted`{copy}: the project was deleted. See [Deleting a project](/docs/api/projects/manage#deleting-a-project). |
