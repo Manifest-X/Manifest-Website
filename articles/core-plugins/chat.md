@@ -81,13 +81,21 @@ Register the model in `manifest.json` under an `ai` block:
 
 The relay reads the `ai` block from your published `manifest.json`, so changes take effect when you publish. The model and instructions are always set here: a visitor's browser can't change them.
 
+A `grounding` URL is read once per published version and cached for up to a day. Publish again to pick up changes to it.
+
+::: brand icon="lucide:info"
+Treat `system` and `grounding` as public. Anyone can open `manifest.json`, and a model can be talked into repeating its instructions, so never put secrets there.
+:::
+
 Long `system` and `grounding` text is sent as a cacheable prompt. After the first message, Anthropic serves it from cache at a fraction of the price.
 
 ### API Key
 
 Replies use your own Anthropic API key, so usage bills to your Anthropic account. AI chat is free on every Manifest plan.
 
-Give the key to Manifest through the connector by asking your agent, for example: "set up AI chat with my Anthropic key". Manifest stores it encrypted. Ask again to replace the key, change the daily request limit, or remove it.
+Give the key to Manifest through the connector by asking your agent, for example: "set up AI chat with my Anthropic key". Manifest stores it encrypted. Ask again to replace the key, change the daily request limit, or remove it. A project's staging and production sites share one key and one daily limit.
+
+The daily request limit is your cost ceiling. For a small site, ask for a lower limit than the default.
 
 ::: brand icon="lucide:info"
 Never put the key in `manifest.json` or a `PUBLIC_` environment variable. Both are sent to every visitor's browser.
@@ -104,11 +112,14 @@ ANTHROPIC_API_KEY=sk-ant-your-key-here
 | Limit or error | Response |
 |---|---|
 | About 20 requests per minute per visitor | `429` |
-| 1000 requests per day per project (adjustable through the connector) | `429` |
+| 1000 requests per day per project, shared by staging and production (adjustable through the connector) | `429` |
+| 5 MB per request, including attachments | `413` |
+| More than 100 messages of history | Older messages are dropped automatically |
+| A request from another site | `403` `forbidden_origin` |
 | No `ai` block in the published `manifest.json` | `404` `ai_not_enabled` |
 | No API key set up | `503` `ai_not_configured` |
 
-The `claude` adapter shows the relay's error message in the conversation.
+Requests the relay rejects as invalid don't count toward the daily limit. The `claude` adapter shows the relay's error message in the conversation.
 
 ---
 
