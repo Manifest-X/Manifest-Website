@@ -11,6 +11,9 @@ Base URL `https://api.manifestx.dev/v1`{copy}, authenticated with your [API key]
 | **Endpoint** | **Purpose** | **Reference** |
 |---|---|---|
 | `GET /me`{copy} | The API account the key belongs to | [Authentication](/docs/api/setup/authentication#send-the-key) |
+| `POST /keys`{copy} | Create another key for the account, shown once | [Keys](/docs/api/setup/authentication#create-a-key-with-the-api) |
+| `GET /keys`{copy} | The account's live keys, with when each was last used | [Keys](/docs/api/setup/authentication#list-keys) |
+| `DELETE /keys/:prefix`{copy} | Revoke a key; never the last one | [Keys](/docs/api/setup/authentication#revoke-a-key-with-the-api) |
 | `POST /projects`{copy} | Create a project, idempotent on `source_id`{copy} | [Create a project](/docs/api/projects/manage#create-a-project) |
 | `GET /projects`{copy} | List the projects the key reaches | [List projects](/docs/api/projects/manage#list-projects) |
 | `GET /projects/:id`{copy} | One project, with its URLs and publish state | [Get a project](/docs/api/projects/manage#get-a-project) |

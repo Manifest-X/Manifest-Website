@@ -8,9 +8,10 @@ Caps on requests, projects, uploads, content, file reads and updates, and retrie
 
 | **Limit**                                | **Value**                                          |
 |------------------------------------------|----------------------------------------------------|
-| Requests per API key                     | 60 a minute on the free allowance, 600 on a platform account. A burst of that many at once is fine. Over it: `429 rate_limited` with `Retry-After`{copy}. |
+| Requests per API account                 | 60 a minute on the free allowance, 600 on a platform account, across all the account's keys together. A burst of that many at once is fine. Over it: `429 rate_limited` with `Retry-After`{copy}. |
 | Projects created through the API         | 2 on the free allowance. A platform account's cap is `max_projects`{copy} on `GET /me`{copy}; ask [team@manifestx.dev](mailto:team@manifestx.dev) to raise it. |
-| API keys per account                     | 10                                                 |
+| API keys per account                     | 10 live                                            |
+| Keys created with `POST /keys`{copy}            | 20 a day per account, counting every key created in the last 24 hours. Over it: `429 mint_limit` with `Retry-After`{copy}. |
 | Publishes per Free project               | 30 a day, counting publishes from Claude and file updates too. Over it: `429 publish_limit_reached` with `Retry-After`{copy}. |
 | Custom domains per project               | 25                                                 |
 | Content ingest request body              | 12 MB. Per-article and per-field limits are in [Content limits](/docs/api/projects/content#content-limits). |
