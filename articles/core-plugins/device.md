@@ -6,7 +6,7 @@ Share sheets, secure storage, deep links, push, lifecycle, haptics, biometrics a
 
 ## Overview
 
-Each magic talks to Capacitor inside a Capacitor app and to a web equivalent, or an honest no-op, in a browser. The same markup runs as a website, an installed PWA and a packaged app. A web build that bundles Capacitor plugins uses the same web equivalents, never the plugins' web stubs, and inside the app a plugin counts only once `npx cap sync` has added it to the native project and the app is rebuilt. `$secure` is the exception: if its plugin is bundled but not added to the native project, it rejects rather than falling back to `localStorage`.
+Each magic talks to Capacitor inside a Capacitor app and to a web equivalent, or an honest no-op, in a browser. The same markup runs as a website, an installed PWA and a packaged app.
 
 <div x-code-group>
 
@@ -49,6 +49,8 @@ Device is opt-in. It loads on its own when a page uses one of its magics, when `
 
 Capacitor plugins are read from `window.Capacitor.Plugins`. Install the ones you use when [packaging the app](/docs/framework/publishing/native-apps).
 
+Inside the app, a plugin counts only once `npx cap sync` has added it to the native project and the app is rebuilt. A web build that bundles Capacitor plugins uses the same web equivalents, never the plugins' web stubs. `$secure` is the exception: if its plugin is bundled but not added to the native project, it rejects rather than falling back to `localStorage`.
+
 ---
 
 ## $device
@@ -57,19 +59,18 @@ Capacitor plugins are read from `window.Capacitor.Plugins`. Install the ones you
 
 | Property | Value |
 |---|---|
-| `$device.os` | `macos`, `windows`, `linux`, `ios`, `android` |
+| `$device.os` | `macos`, `windows`, `linux`, `ios`, `android`, or `''` if unknown |
 | `$device.platform` | `web`, `ios`, `android`: the container, not the OS |
 | `$device.online` | Connectivity, reactive |
 | `$device.standalone` | Installed as a PWA |
 | `$device.native` | Inside a Capacitor app |
-| `$device.touch` | Coarse pointer |
+| `$device.touch` | A touch screen or coarse pointer |
 
 <div x-code-group>
 
 ```html copy
 <p x-show="!$device.online">You're offline. Changes sync when you're back.</p>
-<button x-show="$device.native">Pay with Face ID</button>
-<button x-show="!$device.native">Pay</button>
+<a x-show="!$device.native" href="/download">Get the app</a>
 ```
 
 ::: frame
@@ -88,13 +89,13 @@ Capacitor plugins are read from `window.Capacitor.Plugins`. Install the ones you
 
 </div>
 
-The same state is stamped on `<html>` as `data-os`, `data-platform`, `data-online`, `data-standalone` and `data-native`, which drive the `.native-only`, `.web-only`, `.offline-only`, `.online-only` and `.standalone-only` classes and the [OS classes](/docs/framework/styles/utilities#operating-system).
+The same state is stamped on `<html>` as `data-os`, `data-online`, `data-standalone` and `data-native` (plus `data-platform` inside an app), which drive the `.native-only`, `.web-only`, `.offline-only`, `.online-only` and `.standalone-only` classes and the [OS classes](/docs/framework/styles/utilities#operating-system).
 
 ---
 
 ## $share
 
-`$share()` opens the native share sheet inside a Capacitor app (`Share`) and the Web Share sheet in a browser. Without Web Share it copies the URL, or the text, to the clipboard. It resolves `{ shared, method, cancelled? }`; `method` is `native`, `web`, `clipboard` or `none`.
+`$share()` opens the native share sheet inside a Capacitor app (`Share`) and the Web Share sheet in a browser. Without Web Share it copies the URL, or the text, to the clipboard. It resolves `{ shared, method, cancelled?, error? }`; `method` is `native`, `web`, `clipboard` or `none`.
 
 <div x-code-group>
 
@@ -119,7 +120,7 @@ The same state is stamped on `<html>` as `data-os`, `data-platform`, `data-onlin
 
 ## $camera
 
-`photo()` captures and `pick()` chooses from the library (`Camera`). Both resolve `{ dataUrl, format }`, or `{ cancelled: true }`. On the web both open a file picker; on a phone `photo()` asks for the camera.
+`photo()` captures and `pick()` chooses from the library (`Camera`). Both resolve `{ dataUrl, format }`, or `{ cancelled: true }` with an `error` when something failed. Inside an app, `photo({ quality })` sets the JPEG quality (default 90). On the web both open a file picker; on a phone `photo()` asks for the camera.
 
 <div x-code-group>
 
@@ -239,7 +240,7 @@ Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore throu
 
 </div>
 
-`impact` takes `LIGHT`, `MEDIUM` (default) or `HEAVY`; `notification` takes `SUCCESS` (default), `WARNING` or `ERROR`. `vibrate(ms)` is a plain buzz.
+`impact` takes `LIGHT`, `MEDIUM` (default) or `HEAVY`; `notification` takes `SUCCESS` (default), `WARNING` or `ERROR`. `vibrate(ms)` is a plain buzz (default 300ms).
 
 ---
 
