@@ -494,10 +494,10 @@ dialog[popover], .dialog {
     background-color: var(--color-surface-1);
     border: 2px solid var(--color-brand-surface);
     border-radius: 16px;
-    box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+    box-shadow: 0 25px 50px -12px color-mix(in oklch, var(--color-brand-surface) 25%, transparent);
 
     &::backdrop {
-        background-color: rgba(59, 130, 246, 0.1);
+        background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent);
     }
 
     & :where(header, main, footer) {
@@ -512,11 +512,11 @@ dialog[popover].custom {
     background-color: var(--color-surface-1);
     border: 2px solid var(--color-brand-surface);
     border-radius: 16px;
-    box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+    box-shadow: 0 25px 50px -12px color-mix(in oklch, var(--color-brand-surface) 25%, transparent);
 }
 
 dialog[popover].custom::backdrop {
-    background-color: rgba(59, 130, 246, 0.1);
+    background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent);
 }
 
 dialog[popover].custom :where(header, main, footer) {
