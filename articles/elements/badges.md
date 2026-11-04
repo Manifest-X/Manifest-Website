@@ -61,7 +61,7 @@ Badges accept Manifest [utility](/docs/framework/styles/utilities) classes, whic
 <span class="badge negative">Negative</span>
 ```
 
-::: frame text-base
+::: frame row-wrap items-center gap-2 text-base
 <span class="badge brand">Brand</span>
 <span class="badge accent">Accent</span>
 <span class="badge positive">Positive</span>
@@ -84,7 +84,7 @@ Badges accept Manifest [utility](/docs/framework/styles/utilities) classes, whic
 <span class="badge lg">Large</span>
 ```
 
-::: frame text-base
+::: frame row-wrap items-center gap-2 text-base
 <span class="badge sm">Small</span>
 <span class="badge lg">Large</span>
 :::
@@ -111,7 +111,7 @@ Badges accept Manifest [utility](/docs/framework/styles/utilities) classes, whic
 <span class="badge hug transparent">Hug</span>
 ```
 
-::: frame items-center text-base
+::: frame row-wrap items-center gap-2 text-base
 <span class="badge ghost">Ghost</span>
 <span class="badge outlined">Outlined</span>
 <span class="badge transparent">Transparent</span>
@@ -153,7 +153,7 @@ Any number of icons and text can be nested in any order. Place icons in `<span>`
 <span class="badge"><span x-icon="lucide:thumbs-down"></span><span>21</span></span>
 ```
 
-::: frame text-base
+::: frame row-wrap items-center gap-2 text-base
 <span class="badge"><span x-icon="lucide:heart"></span> 79</span>
 <span class="badge"><span x-icon="lucide:thumbs-down"></span><span>21</span></span>
 :::

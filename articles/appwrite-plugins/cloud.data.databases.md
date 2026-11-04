@@ -442,6 +442,9 @@ These are Appwrite query methods. Each query is an array with the format `['meth
 | | `orderRandom` | `['orderRandom']` | `['orderRandom']` |
 | **Pagination** | `limit` | `['limit', number]` | `['limit', 10]` |
 | | `offset` | `['offset', number]` | `['offset', 20]` |
+| | `cursorAfter` | `['cursorAfter', 'rowId']` | `['cursorAfter', lastId]` |
+| | `cursorBefore` | `['cursorBefore', 'rowId']` | `['cursorBefore', firstId]` |
+| **Logic** | `or` | `['or', [query, query, ...]]` | `['or', [['equal', 'status', 'active'], ['equal', 'status', 'draft']]]` |
 
 ```javascript
 // Comparison operators
@@ -471,6 +474,10 @@ These are Appwrite query methods. Each query is an array with the format `['meth
 // Pagination
 ['limit', 10]                                    // Return maximum 10 results
 ['offset', 20]                                   // Skip first 20 results
+['cursorAfter', lastId]                          // Rows after this row ID
+
+// Either condition
+['or', [['equal', 'status', 'active'], ['equal', 'status', 'draft']]]
 
 // Combine multiple queries (all applied together with AND logic)
 [
@@ -530,6 +537,8 @@ A query value can also reference the signed-in user via `$auth.<path>` (e.g. `$a
 ```
 
 If the referenced value isn't available yet (auth still loading, no current team selected), the read is skipped rather than sent with a broken value — it retries automatically once auth settles.
+
+`queries` is either an array, applied at load, or an object of named queries whose `default` key is applied at load; the others run when you call `$query('name')`. Scope applies to both. An unknown name throws instead of loading unfiltered.
 
 ---
 

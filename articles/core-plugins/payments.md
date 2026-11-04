@@ -78,6 +78,8 @@ Register the payment provider in `manifest.json` under a `payments` block, point
 | `endpoint`{copy} | – | Your payment function's URL. Creates checkouts and confirms payments. |
 | `mode`{copy} | `"redirect"` | Preferred checkout style: `redirect` (provider's page) or `overlay` (popup). |
 | `publicKey`{copy} | – | A publishable key, if your provider's popup needs one. Safe to commit. |
+| `environment`{copy} | `"sandbox"` | `sandbox` or `live`: which of the provider's popup SDKs `overlay` checkouts load. Set `live` in production. Blocks provisioned by Manifest AI default to `live`. |
+| `options`{copy} | `{}` | Provider-specific options passed to the adapter. |
 | `state.url`{copy} | – | Where to read payment state for `$pay.state`. Appwrite projects can use [databases](/docs/framework/appwrite-plugins/databases) and `$x` instead. |
 
 ::: brand icon="lucide:info"

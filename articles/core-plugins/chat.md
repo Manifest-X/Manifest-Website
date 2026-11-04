@@ -80,6 +80,10 @@ ANTHROPIC_API_KEY=sk-ant-your-key-here
 
 Long `system` and `grounding` text is sent as a cacheable prompt. After the first message, Anthropic serves it from cache at a fraction of the price.
 
+::: brand icon="lucide:info"
+The `ai` block and `.env` key are read by the local development server (`npx mnfst-run`), which relays requests on `/_ai/chat`. A published project needs its own relay: set the adapter's `endpoint` to a server you run that holds the key.
+:::
+
 ---
 
 ### Markup
@@ -148,7 +152,7 @@ Replies stream in live. A reply appears with `status: 'streaming'` and grows unt
 | Option | Description |
 |---|---|
 | `adapter: 'claude'`{copy} | Use the built-in Claude adapter. |
-| `endpoint`{copy} | Override the relay URL (defaults to `/_ai/chat`). Point this at a self-hosted proxy. |
+| `endpoint`{copy} | The relay URL. Defaults to `/_ai/chat`, which only the local development server serves; a published project points this at its own relay. |
 | `system`{copy} | Per-conversation instructions, replacing the `ai` block's for this handle. |
 | `model`{copy} | Per-conversation model override. |
 

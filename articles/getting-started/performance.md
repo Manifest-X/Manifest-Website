@@ -88,7 +88,7 @@ Blocks toggled with `x-show` are not deferred automatically. Add `x-defer` to on
 |---|---|
 | `x-defer.lazy`{copy} | No warming — contents render on open only |
 | `x-defer.discard`{copy} | Throw the contents away when the container closes; they initialize again on the next open |
-| `x-defer.priority="n"`{copy} | Warm this container earlier (lower `n` first). The modifier is part of the attribute name and the number is its value; `x-defer="priority:1"` does nothing |
+| `x-defer.priority="n"`{copy} | Warm this container before any container without a priority (lower `n` first). The modifier is part of the attribute name and the number is its value; `x-defer="priority:1"` does nothing |
 | `x-defer.off`{copy} | Never defer this container |
 
 ---
