@@ -47,7 +47,14 @@ Markup detection covers `$chat` written in the page itself. If your only usage l
 
 ## AI Chat
 
-Manifest supports turnkey AI integration using Anthropic's Claude, grounded in your own content.
+Manifest supports turnkey AI integration using Anthropic's Claude, grounded in your own content. Published Manifest sites serve the AI relay on `/_ai/chat` themselves, so the API key never reaches the browser and there is no server to run.
+
+Setup takes four steps:
+
+1. Add an `ai` block to `manifest.json`.
+2. Give Manifest your Anthropic API key.
+3. Use the `claude` adapter in your chat markup.
+4. Publish.
 
 ### Configuration
 
@@ -69,20 +76,51 @@ Register the model in `manifest.json` under an `ai` block:
 | `provider`{copy} | `"anthropic"` | The AI provider; more may be added in the future. |
 | `model`{copy} | `"claude-haiku-4-5"` | Any Claude model ID. Haiku is fast and inexpensive; larger models reason more deeply. |
 | `system`{copy} | – | Instructions that shape every reply, like the assistant's role, tone, and boundaries. |
-| `grounding`{copy} | – | A URL or project file whose text is added to the instructions, so answers come from your content instead of the model's general knowledge. Loaded once at server start. |
-| `maxTokens`{copy} | `1024` | The maximum length of a single reply. |
+| `grounding`{copy} | – | An `https` URL or project file whose text is added to the instructions, so answers come from your content instead of the model's general knowledge. |
+| `maxTokens`{copy} | `1024` | The maximum length of a single reply, up to `4096`. |
 
-Then put your API key in the project's `.env` file:
+The relay reads the `ai` block from your published `manifest.json`, so changes take effect when you publish. The model and instructions are always set here: a visitor's browser can't change them.
+
+A `grounding` URL is read once per published version and cached for up to a day. Publish again to pick up changes to it.
+
+::: brand icon="lucide:info"
+Treat `system` and `grounding` as public. Anyone can open `manifest.json`, and a model can be talked into repeating its instructions, so never put secrets there.
+:::
+
+Long `system` and `grounding` text is sent as a cacheable prompt. After the first message, Anthropic serves it from cache at a fraction of the price.
+
+### API Key
+
+Replies use your own Anthropic API key, so usage bills to your Anthropic account. AI chat is free on every Manifest plan.
+
+Give the key to Manifest through the connector by asking your agent, for example: "set up AI chat with my Anthropic key". Manifest stores it encrypted. Ask again to replace the key, change the daily request limit, or remove it. A project's staging and production sites share one key and one daily limit.
+
+The daily request limit is your cost ceiling. For a small site, ask for a lower limit than the default.
+
+::: brand icon="lucide:info"
+Never put the key in `manifest.json` or a `PUBLIC_` environment variable. Both are sent to every visitor's browser.
+:::
+
+For local work, `npx mnfst-run` serves the same `/_ai/chat` route using `ANTHROPIC_API_KEY` from the project's `.env` file. Without a key it streams mock replies, so you can build the interface first. The same markup works locally and once published.
 
 ```env ".env" copy
 ANTHROPIC_API_KEY=sk-ant-your-key-here
 ```
 
-Long `system` and `grounding` text is sent as a cacheable prompt. After the first message, Anthropic serves it from cache at a fraction of the price.
+### Limits
 
-::: brand icon="lucide:info"
-The `ai` block and `.env` key are read by the local development server (`npx mnfst-run`), which relays requests on `/_ai/chat`. A published project needs its own relay: set the adapter's `endpoint` to a server you run that holds the key.
-:::
+| Limit or error | Response |
+|---|---|
+| About 20 requests per minute per visitor | `429` |
+| 1000 requests per day per project, shared by staging and production (adjustable through the connector) | `429` |
+| 5 MB per request, including attachments | `413` |
+| An attachment that isn't a JPEG, PNG, GIF or WebP image or a PDF (SVG and other files aren't supported) | `400` `invalid_messages` |
+| More than 100 messages of history | Older messages are dropped automatically |
+| A request from another site | `403` `forbidden_origin` |
+| No `ai` block in the published `manifest.json` | `404` `ai_not_enabled` |
+| No API key set up | `503` `ai_not_configured` |
+
+Requests the relay rejects as invalid don't count toward the daily limit. The `claude` adapter shows the relay's error message in the conversation.
 
 ---
 
@@ -152,9 +190,9 @@ Replies stream in live. A reply appears with `status: 'streaming'` and grows unt
 | Option | Description |
 |---|---|
 | `adapter: 'claude'`{copy} | Use the built-in Claude adapter. |
-| `endpoint`{copy} | The relay URL. Defaults to `/_ai/chat`, which only the local development server serves; a published project points this at its own relay. |
-| `system`{copy} | Per-conversation instructions, replacing the `ai` block's for this handle. |
-| `model`{copy} | Per-conversation model override. |
+| `endpoint`{copy} | The relay URL. Defaults to `/_ai/chat`. Only needed for sites hosted outside Manifest, pointed at a relay you run. |
+| `system`{copy} | Per-conversation instructions, sent to a custom `endpoint`. Manifest's relay uses the `ai` block instead. |
+| `model`{copy} | Per-conversation model, sent to a custom `endpoint`. Manifest's relay uses the `ai` block instead. |
 
 Image and PDF attachments ride along on `send`:
 
