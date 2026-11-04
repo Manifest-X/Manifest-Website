@@ -157,8 +157,8 @@ Wrap tab buttons in a [group wrapper](/docs/framework/elements/forms) to style t
     <button x-tab="daily">Daily</button>
     <button x-tab="weekly">Weekly</button>
 </div>
-<div class="daily" x-tabpanel="bar">Daily content</div>
-<div class="weekly" x-tabpanel="bar">Weekly content</div>
+<div class="daily" x-tabpanel="period">Daily content</div>
+<div class="weekly" x-tabpanel="period">Weekly content</div>
 ```
 
 ::: frame row-wrap gap-12 items-center
@@ -176,8 +176,8 @@ Wrap tab buttons in a [group wrapper](/docs/framework/elements/forms) to style t
         <button x-tab="daily">Daily</button>
         <button x-tab="weekly">Weekly</button>
     </div>
-    <div class="daily" x-tabpanel="bar">Daily content</div>
-    <div class="weekly" x-tabpanel="bar">Weekly content</div>
+    <div class="daily" x-tabpanel="period">Daily content</div>
+    <div class="weekly" x-tabpanel="period">Weekly content</div>
 </div>
 :::
 

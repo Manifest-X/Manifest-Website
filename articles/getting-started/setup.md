@@ -42,7 +42,7 @@ Web-standard fields come first, followed by the declarations Manifest's plugins 
     "$schema": "https://manifestx.dev/manifest.schema.json",
     "name": "My Project",
     "short_name": "Project name",
-    "description": "Lorem ipsum dolor sit amet.",
+    "description": "A short description of your project.",
     "start_url": "/",
     "scope": "/",
     "display": "standalone",
