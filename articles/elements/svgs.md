@@ -27,7 +27,7 @@ Use `x-svg` to load a local SVG file's `<svg>` element within it. Fetched files 
 
 ## File Content
 
-Pass a path to an `.svg` file in the project directory, wrapped in apostrophes.
+Pass a path to an `.svg` file in the project directory. Apostrophes are optional for plain paths.
 
 <div x-code-group>
 
@@ -90,7 +90,7 @@ The SVG file's path can also be populated from a [data source](/docs/framework/c
 <div x-code-group copy>
 
 ```html "HTML"
-<span class="size-10" x-svg="$x.example.sampleSvg"></span>
+<span class="size-10 block" x-svg="$x.example.sampleSvg"></span>
 ```
 
 ```json "example.json"
@@ -114,7 +114,7 @@ Modify an SVG's appearance either within the SVG file itself, or using CSS on th
 <div x-code-group copy>
 
 ```html "HTML"
-<div class="size-12 text-brand-content parent" x-svg="'/assets/examples/icon-star.svg'"></div>
+<div class="size-12 text-brand-content svg-fill" x-svg="'/assets/examples/icon-star.svg'"></div>
 ```
 
 ```svg "icon-star.svg"
@@ -124,22 +124,34 @@ Modify an SVG's appearance either within the SVG file itself, or using CSS on th
 ```
 
 ```css "CSS"
-.parent svg {
+.svg-fill svg {
     width: 100%;
     height: 100%;
-    background: var(--color-brand-surface)
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
 }
 ```
 
 ::: frame
 <style>
-    .parent svg {
+.svg-fill svg {
     width: 100%;
     height: 100%;
-    background: var(--color-brand-surface)
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
 }
 </style>
-<div class="size-12 text-brand-content parent" x-svg="'/assets/examples/icon-star.svg'"></div>
+<div class="size-12 text-brand-content svg-fill" x-svg="'/assets/examples/icon-star.svg'"></div>
 :::
 
 </div>
+
+---
+
+## Untrusted Content
+
+`x-svg` injects SVG markup as-is, including any scripts and event handlers it contains. Add the `.safe` modifier when the SVG comes from users or third parties. It sanitizes the markup with <a href="https://github.com/cure53/DOMPurify" target="_blank">DOMPurify</a>, loaded on first use, removing scripts, `on*` handlers and `<foreignObject>` content.
+
+```html copy
+<div class="size-10" x-svg.safe="$x.uploads.avatarSvg"></div>
+```
