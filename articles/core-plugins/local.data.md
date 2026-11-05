@@ -168,7 +168,7 @@ API sources are fetched from the visitor's browser, so everything in the URL, he
 
 | Property | Required | Default | Description |
 |----------|----------|---------|-------------|
-| `url` | Yes | – | Endpoint URL |
+| `url` | Yes | – | Endpoint URL; a relative path like `/api/products` resolves against the page |
 | `method` | No | `GET` | HTTP method |
 | `headers` | No | `{}` | Request headers |
 | `params` | No | `{}` | Query parameters appended to the URL |

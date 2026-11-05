@@ -50,6 +50,10 @@ In this example, the "projects" data source name is arbitrary, used to later ref
 
 `appwriteDatabaseId` falls back to `appwrite.databaseId`, then to `main`, so later examples omit it.
 
+::: brand icon="lucide:info"
+Appwrite returns 25 rows when a request sets no limit, so a table source without a `limit` query shows at most 25 rows. Add `["limit", 100]` (up to 5000) to its `queries` to load more, or page through larger tables with the [pagination methods](#pagination-methods).
+:::
+
 ### Scope
 
 Scoping automatically filters queries by user or team, ensuring users only see data they're permitted to access. Configure scope in `manifest.json`:
@@ -513,6 +517,8 @@ If the referenced value isn't available yet (auth still loading, no current team
 
 `queries` is either an array, applied at load, or an object of named queries whose `default` key is applied at load; the others run when you call `$query('name')`. Scope applies to both. An unknown name throws instead of loading unfiltered.
 
+`$query` replaces the source's rows with its result. If you call it again before an earlier call returns, only the latest call's rows land, so a fast filter change never shows a slower, older result. Until the next default load, realtime events and the [pagination methods](#pagination-methods) follow the active `$query`: its filters decide which live rows join, and its order decides where they go.
+
 ---
 
 ## Storage File References
@@ -670,9 +676,14 @@ A source can be `$ready` with no entries because its [scope](#scope) can't apply
     Update
 </button>
 
-<!-- Update multiple entries -->
+<!-- Update multiple entries with the same change -->
 <button @click="$x.projects.$update([id1, id2], { status: 'archived' })">
     Archive Selected
+</button>
+
+<!-- Update multiple entries with different changes -->
+<button @click="$x.projects.$update([{ id: id1, data: { rank: 1 } }, { id: id2, data: { rank: 2 } }])">
+    Reorder
 </button>
 ```
 
@@ -805,6 +816,8 @@ A source can be `$ready` with no entries because its [scope](#scope) can't apply
 | `$prev(cursor, limit?)` | `cursor` (string), `limit` (number, default `10`) | Get the page before `cursor`. Returns `{ items, cursor, total, hasMore }` |
 | `$page(pageNumber, limit?)` | `pageNumber` (number), `limit` (number, default `10`) | Get specific page (offset-based). Returns `{ items, page, total, totalPages, hasMore }` |
 
+Pages use the active `$query` if one is set, otherwise the source's default queries, with their own `limit` and position in place of any in the queries. `hasMore` says whether another page exists in that direction: after the last page it is `false`, and for `$prev` it is `false` once you reach the start. Page results are returned to you; they don't replace `$x.<source>` and don't receive realtime updates. `total` is Appwrite's count, which Appwrite caps (5000 by default).
+
 ---
 
 ### Realtime Options
@@ -825,7 +838,11 @@ Growth is bounded by default. Realtime appends stop at max(500, 2× the initiall
 | `{ "mode": "window" }`{copy} | Holds the initial window size (the `limit` query if present), evicting the oldest realtime-appended rows first — initially loaded rows are never evicted. A window that is already full admits no live appends; watch `$realtimeOverflow` and reload to pull new rows into the window. |
 | `{ "mode": "append", "maxRows": 0 }`{copy} | Legacy unbounded growth (explicit opt-in; ignored in window mode, which falls back to the default cap) |
 
-Updates and deletes to rows already held always apply, regardless of caps. For advanced programmatic control, `window.ManifestDataRealtime.setFilter('<source>', (eventType, row) => boolean)`{copy} runs per event per source before any merge work; return `false` to drop the event, pass `null` to clear.
+Updates and deletes to rows already held always apply, regardless of caps.
+
+On a sorted source (an `orderAsc` or `orderDesc` query), live rows join at their sort position and a row whose sort value changes moves to its new place; unsorted sources add live rows at the end. A row you create appears once, whether its realtime event arrives before or after Appwrite's reply.
+
+Events sent while the browser is offline or asleep are not replayed by Appwrite. When the connection comes back, or the tab returns after a minute or more in the background, live sources fetch again (the active `$query`, if one is set) and merge the result into the existing rows. For advanced programmatic control, `window.ManifestDataRealtime.setFilter('<source>', (eventType, row) => boolean)`{copy} runs per event per source before any merge work; return `false` to drop the event, pass `null` to clear.
 
 ---
 
