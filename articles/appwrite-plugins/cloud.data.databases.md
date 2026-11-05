@@ -51,7 +51,7 @@ In this example, the "projects" data source name is arbitrary, used to later ref
 `appwriteDatabaseId` falls back to `appwrite.databaseId`, then to `main`, so later examples omit it.
 
 ::: brand icon="lucide:info"
-Appwrite returns 25 rows when a request sets no limit, so a table source without a `limit` query shows at most 25 rows. Add `["limit", 100]` (up to 5000) to its `queries` to load more, or page through larger tables with the [pagination methods](#pagination-methods).
+Appwrite returns 25 rows when a request sets no limit, so a table source without a `limit` query shows at most 25 rows. Add a `["limit", N]` query to its `queries` to load more, or page through larger tables with the [pagination methods](#pagination-methods).
 :::
 
 ### Scope
