@@ -68,9 +68,9 @@ The parts of the page that read `$x.products` follow only the `products` source.
 
 Rows keep their identity. When new data arrives for rows you already have, the existing rows are updated in place, so lists don't flicker and edits you are making are not disturbed. Fields you add to a row yourself (a `_pending` flag on a placeholder, say) survive too — the network never sends them, so nothing clears them for you; clear them explicitly once the real data has landed.
 
-Your own changes show immediately. `$create`, `$update`, `$delete` and direct assignments appear on the page at once, even while data is still arriving from the network. Until Appwrite confirms a change, it stays on screen through any reload or update that arrives meanwhile, so data fetched before the change never shows the old values again. `$x.products.$saving(id)` is `true` while a row has a change waiting, and `$x.products.$pending` counts those rows.
+Your own changes show immediately. `$create`, `$update`, `$delete` and direct assignments appear on the page at once, even while data is still arriving from the network. Until Appwrite confirms a change, it stays on screen through any reload or update that arrives meanwhile, and data fetched before the change never shows the old values again, even when it arrives after Appwrite confirms. `$x.products.$saving(id)` is `true` while a row has a change waiting, and `$x.products.$pending` counts those rows.
 
-If Appwrite refuses a change, it is undone: a failed update restores only the fields it changed (unless someone else has changed them since), a failed delete puts the row back where it was, and a failed create removes its placeholder. The call rejects, `$error` is set, and the window receives a `manifest:data-mutation-error` event with `{ type, dataSourceName, entryId, error }`.
+If Appwrite refuses a change, it is undone: a failed update restores only the fields it changed (unless someone else has changed them since), back to their values before any of your unconfirmed changes, a failed delete puts the row back where it was, and a failed create removes its placeholder. The call rejects, `$error` is set, and the window receives a `manifest:data-mutation-error` event with `{ type, dataSourceName, entryId, error }`.
 
 Network updates are batched. Many arriving at once are applied together, once per frame.
 
