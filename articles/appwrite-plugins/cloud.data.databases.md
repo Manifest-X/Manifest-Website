@@ -51,7 +51,7 @@ In this example, the "projects" data source name is arbitrary, used to later ref
 `appwriteDatabaseId` falls back to `appwrite.databaseId`, then to `main`, so later examples omit it.
 
 ::: brand icon="lucide:info"
-Appwrite returns 25 rows when a request sets no limit, so a table source without a `limit` query shows at most 25 rows. Add a `["limit", N]` query to its `queries` to load more, or page through larger tables with the [pagination methods](#pagination-methods).
+Appwrite returns 25 rows when a request sets no limit, so a table source without a `limit` query shows at most 25 rows. Add a `["limit", N]` query to its `queries` to load more, or set [`paging`](#large-tables) to load every row or a window you extend as people scroll.
 :::
 
 ### Scope
@@ -521,6 +521,56 @@ If the referenced value isn't available yet (auth still loading, no current team
 
 ---
 
+## Large Tables
+
+Set `paging` on a table source to go past one request's rows. Every page lands in `$x.<source>` like any other load, so realtime, `$query`, [persistence](/docs/framework/core-plugins/local-data#persisted-data) and `$stale` all keep working.
+
+```json "manifest.json" copy
+{
+    "data": {
+        "teams": {
+            "appwriteTableId": "teams",
+            "queries": [["orderAsc", "name"]],
+            "paging": "all"
+        },
+        "contacts": {
+            "appwriteTableId": "contacts",
+            "queries": [["orderDesc", "$createdAt"]],
+            "paging": { "mode": "window", "size": 100 }
+        }
+    }
+}
+```
+
+| Option | Default | Description |
+|---|---|---|
+| `mode` | – | `"all"` loads every row, page by page, up to `max`. `"window"` loads `size` rows; `$more()` adds the next page. A string value sets the mode with the defaults. |
+| `size` | `100` | Rows per request |
+| `max` | `5000` | The most rows the source holds through paging |
+
+Use `"all"` for tables that stay small enough to hold in the browser, like settings, teams or tags. Use `"window"` for tables that grow without bound, like contacts, messages or orders: people scroll, and the source loads more as they reach the end.
+
+`$x.<source>.$more()` loads the next page after the rows already held, and resolves with the number of rows added. `$hasMore` says whether another page exists. `$total` is Appwrite's count of matching rows; Appwrite stops counting at 5000, so when `$totalCapped` is `true` show it as "5000+".
+
+[Virtual](/docs/framework/core-plugins/virtual#dynamic-data) lists fire `virtual-end` when the last loaded row is shown, which is the moment to ask for more:
+
+```html copy
+<div x-virtual class="h-[600px] overflow-auto" @virtual-end="$x.contacts.$more()">
+    <template x-for="contact in $x.contacts" :key="contact.$id">
+        <p x-text="contact.name"></p>
+    </template>
+</div>
+<small x-show="$x.contacts.$hasMore">
+    <span x-text="$x.contacts.length"></span> of <span x-text="$x.contacts.$totalCapped ? '5000+' : $x.contacts.$total"></span>
+</small>
+```
+
+`$query` on a paged source starts the new filter at its first window (or loads all of it), and `$more()` then continues within that filter. A `limit` in the queries is ignored, because paging sets its own.
+
+Live updates follow the rows you have loaded. A new row that sorts within them appears in its place; one that sorts after the last loaded row, or any new row on an unsorted source, arrives with the page that contains it. Paged sources aren't capped by the realtime growth limit, since paging already bounds them; set `realtime.maxRows` to cap them anyway. After the connection comes back, the source fetches again as many rows as it held.
+
+---
+
 ## Storage File References
 
 Database entries can reference files stored in Appwrite storage buckets, such as a project (the entry) with files. When duplicating entries, you can control how file references are handled.
@@ -636,6 +686,11 @@ Check data source loading state, errors, and readiness:
 | `$loading` | boolean | Indicates if data is currently being loaded |
 | `$error` | string \| null | Error message if an operation failed (null if no error) |
 | `$ready` | boolean | Indicates if the source has settled: loaded at least once, or resolved as empty because its [scope](#scope) can't apply (signed out, or no team) |
+| `$pending` | number | Rows with a change still waiting for Appwrite to confirm it |
+| `$saving(id)` | boolean | Whether that row has a change waiting for Appwrite |
+| `$hasMore` | boolean | [Paged sources](#large-tables): another page exists |
+| `$total` | number \| null | [Paged sources](#large-tables): Appwrite's count of matching rows |
+| `$totalCapped` | boolean | [Paged sources](#large-tables): the count reached Appwrite's limit of 5000, so there may be more |
 
 ```html
 <!-- Loading state -->
@@ -643,6 +698,11 @@ Check data source loading state, errors, and readiness:
 
 <!-- Error state -->
 <small x-show="$x.projects.$error" x-text="$x.projects.$error" class="text-negative-content"></small>
+
+<!-- A row's save in progress -->
+<template x-for="project in $x.projects" :key="project.$id">
+    <p x-text="project.name + ($x.projects.$saving(project.$id) ? ' · saving' : '')"></p>
+</template>
 
 <!-- Ready state -->
 <small x-show="$x.projects.$ready && !$x.projects.$loading">

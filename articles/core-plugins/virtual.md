@@ -12,7 +12,7 @@ Items render with the layout you already use — a stacked list, a native `<tabl
 
 Each item is measured as it renders, so tall items (multi-line text, embedded media, expanded details) coexist with short ones without configuration. There's no fixed-size requirement.
 
-Virtualization is a *rendering* optimization, not a data-fetching one. The full data array stays in memory, and only its DOM representation is windowed. For server-side pagination see [databases](/docs/framework/appwrite-plugins/databases#pagination-methods).
+Virtualization is a *rendering* optimization, not a data-fetching one. The data array stays in memory, and only its DOM representation is windowed. To load a large table a page at a time as people scroll, pair it with a [paged source](/docs/framework/appwrite-plugins/databases#large-tables) and the `virtual-end` event.
 
 ::: brand icon="lucide:info"
 **SEO & AEO** (Answer Engine Optimization): virtualized content is rendered client-side at scroll time, so it isn't visible to search engines or AI crawlers by default. Virtualization is best applied to interactive data like dashboard content, where discoverability isn't the goal.
@@ -382,6 +382,20 @@ That makes virtualization a natural pair with `$search` and `$query`: wire a sea
 :::
 
 </div>
+
+### Loading More at the End
+
+When the last item in the data is rendered, the `x-virtual` element fires a `virtual-end` event (once for each length the data reaches). Use it to load the next page:
+
+```html copy
+<div x-virtual class="h-[600px] overflow-auto" @virtual-end="$x.contacts.$more()">
+    <template x-for="contact in $x.contacts" :key="contact.$id">
+        <p x-text="contact.name"></p>
+    </template>
+</div>
+```
+
+`event.detail.length` is the number of items rendered so far.
 
 ---
 
