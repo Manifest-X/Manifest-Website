@@ -567,7 +567,7 @@ Use `"all"` for tables that stay small enough to hold in the browser, like setti
 
 `$query` on a paged source starts the new filter at its first window (or loads all of it), and `$more()` then continues within that filter. A `limit` in the queries is ignored, because paging sets its own.
 
-Live updates follow the rows you have loaded. A new row that sorts within them appears in its place; one that sorts after the last loaded row (rows with equal sort values follow Appwrite's own order), or any new row on an unsorted source, arrives with the page that contains it. A loaded row whose sort value changes past the last loaded row leaves until its page loads. Rows you create yourself always appear straight away, in sort order. Paged sources aren't capped by the realtime growth limit, since paging already bounds them; set `realtime.maxRows` to cap them anyway. After the connection comes back, the source fetches again as many rows as it held.
+Live updates follow the rows you have loaded. A new row that sorts within them appears in its place; one that sorts after the last loaded row, or any new row on an unsorted source, arrives with the page that contains it. A loaded row whose sort value changes past the last loaded row leaves until its page loads. Rows you create yourself always appear straight away, in sort order. Paged sources aren't capped by the realtime growth limit, since paging already bounds them; set `realtime.maxRows` to cap them anyway. After the connection comes back, the source fetches again as many rows as it held.
 
 ---
 
