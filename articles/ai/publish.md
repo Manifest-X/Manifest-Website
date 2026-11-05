@@ -48,7 +48,7 @@ In chats, there's nothing to type: just ask, and Claude does the same thing.
 > `Put the previous version back`{copy}
 > `Show me recent versions`{copy}
 
-Pro projects keep their last 5 versions of both staging and live, so you can go back to any of them or download a copy. See [plans](/docs/ai/setup/plans).
+Manifest keeps the last 5 versions of both staging and live. Any project can download a copy of one, and Pro projects can go back to any of them. See [plans](/docs/ai/setup/plans).
 
 ---
 
