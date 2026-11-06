@@ -174,6 +174,7 @@ API sources are fetched from the visitor's browser, so everything in the URL, he
 | `params` | No | `{}` | Query parameters appended to the URL |
 | `transform` | No | – | Dot-notation path to extract nested data (e.g. `"data.products"` unwraps `{ data: { products: [...] } }`) |
 | `defaultValue` | No | `[]` | Fallback if the request fails |
+| `retry` | No | `{ "attempts": 3, "delay": 500 }` | Retries for a failed request (see [state properties](#state-properties)); `false` turns them off |
 
 API sources behave the same as local sources, accessed via `$x.sourceName` with the same loading/error/ready state and `$search` / `$query` / `$route` helpers (see [Display Content](#display-content) below).
 
@@ -698,6 +699,7 @@ Data sources expose state properties for UI reactivity:
 - `$x.sourceName.$error` - Error message string (null if no error)
 - `$x.sourceName.$ready` - Boolean indicating if data has loaded successfully
 - `$x.sourceName.$stale` - Boolean indicating cached rows are showing while fresh data loads (see [how data updates](#how-data-updates))
+- `$x.sourceName.$reload()` - Fetches the source again; rows stay on screen and merge in place, and it resolves when the fresh data has landed
 
 ```html copy
 <!-- Loading state -->
@@ -714,6 +716,21 @@ Data sources expose state properties for UI reactivity:
 
 These properties are reactive and update automatically as data loads or errors occur.
 
+A request that fails for a passing reason (no network response, a server error, a rate limit) is tried again before `$error` shows: three more times by default, waiting 0.5s, then 1s, then 2s. Requests the server refuses outright, such as a 403 or 404, fail at once, and nothing is retried while the browser is offline (the source fetches again when the connection comes back). Set `retry` on a source to change this:
+
+```json "manifest.json" copy
+{
+    "data": {
+        "prices": { "url": "https://api.example.com/prices", "retry": { "attempts": 5, "delay": 1000 } },
+        "status": { "url": "https://api.example.com/status", "retry": false }
+    }
+}
+```
+
+```html copy
+<button x-show="$x.team.$error" @click="$x.team.$reload()">Try again</button>
+```
+
 ---
 
 ## How Data Updates
@@ -725,6 +742,8 @@ Rows keep their identity. When new data arrives for rows you already have, the e
 Your own changes show immediately. Direct assignments and array mutations (and `$create`, `$update` and `$delete` on [cloud sources](/docs/framework/appwrite-plugins/cloud-data)) appear on the page at once, even while data is still arriving from the network.
 
 Network updates are batched. Many arriving at once are applied together, once per frame.
+
+`$x.team` is the same array every time you read it until the source changes, then a new one. You can keep results computed from it keyed on the array itself and they stay valid until the next update.
 
 If a source was loaded before, you see its cached rows immediately while fresh data loads. `$x.team.$stale` is `true` until the fresh data has landed, and `$x.team.$fresh` is a promise that resolves at that moment, for a single reveal. A reload keeps the rows on screen and merges the fresh data in place; a failed reload keeps the old rows and sets `$error`. Identical concurrent loads make one request.
 

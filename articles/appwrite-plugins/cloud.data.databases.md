@@ -517,7 +517,7 @@ If the referenced value isn't available yet (auth still loading, no current team
 
 `queries` is either an array, applied at load, or an object of named queries whose `default` key is applied at load; the others run when you call `$query('name')`. Scope applies to both. An unknown name throws instead of loading unfiltered.
 
-`$query` replaces the source's rows with its result. If you call it again before an earlier call returns, only the latest call's rows land, so a fast filter change never shows a slower, older result. Until the next default load, realtime events and the [pagination methods](#pagination-methods) follow the active `$query`: its filters decide which live rows join, and its order decides where they go.
+`$query` replaces the source's rows with its result, and `$loading` is `true` while it runs. If its queries use a `$auth.` value that isn't available yet, it waits for sign-in to settle and then runs, and after a sign-in a source showing a `$query` shows it again for the signed-in user. If you call it again before an earlier call returns, only the latest call's rows land, so a fast filter change never shows a slower, older result. Until the next default load, realtime events and the [pagination methods](#pagination-methods) follow the active `$query`: its filters decide which live rows join, and its order decides where they go.
 
 ---
 

@@ -74,6 +74,10 @@ If Appwrite refuses a change, it is undone: a failed update restores only the fi
 
 Network updates are batched. Many arriving at once are applied together, once per frame.
 
+`$x.products` is the same array every time you read it until the source changes, then a new one, so results computed from it can be kept against the array itself.
+
+Failed loads are retried before `$error` shows, and `$x.products.$reload()` fetches the source again, both as for [local sources](/docs/framework/core-plugins/local-data#state-properties). On a cloud source, `$reload()` keeps an active `$query` and, on a [paged source](/docs/framework/appwrite-plugins/databases#large-tables), as many rows as are loaded.
+
 If a source was loaded before, you see its cached rows immediately while fresh data loads. `$x.products.$stale` is `true` until the fresh data has landed, and `$x.products.$fresh` is a promise that resolves at that moment, for a single reveal. A reload keeps the rows on screen and merges the fresh data in place; a failed reload keeps the old rows and sets `$error`. Identical concurrent loads make one request.
 
 ```html copy
