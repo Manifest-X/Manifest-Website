@@ -743,7 +743,7 @@ Your own changes show immediately. Direct assignments and array mutations (and `
 
 Network updates are batched. Many arriving at once are applied together, once per frame.
 
-`$x.team` is the same array every time you read it until the source changes, then a new one. You can keep results computed from it keyed on the array itself and they stay valid until the next update.
+`$x.team` is the same array every time you read it until the source changes, then a new one. You can keep results computed from it keyed on the array itself and they stay valid until the next update. Changes made through the data methods count as updates; assigning to a row directly in a template (`$x.team[0].name = 'x'`) changes the row in place without one.
 
 If a source was loaded before, you see its cached rows immediately while fresh data loads. `$x.team.$stale` is `true` until the fresh data has landed, and `$x.team.$fresh` is a promise that resolves at that moment, for a single reveal. A reload keeps the rows on screen and merges the fresh data in place; a failed reload keeps the old rows and sets `$error`. Identical concurrent loads make one request.
 
