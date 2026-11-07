@@ -167,7 +167,7 @@ npx mnfst-types --tsc
 js/cart-summary.js(1,10): error TS2724: '"@js/money.js"' has no exported member named 'formatPrise'. Did you mean 'formatPrice'?
 ```
 
-It checks the scripts your page loads and everything they import, and knows the shape of your data sources. See [TypeScript](/docs/framework/resources/typescript).
+It checks the scripts your page loads and everything they import. See [TypeScript](/docs/framework/resources/typescript).
 
 ---
 
