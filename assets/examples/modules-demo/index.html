@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-transparent">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Modules demo</title>
+  <link rel="manifest" href="/assets/examples/modules-demo/manifest.json">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.272/lib/manifest.min.css">
+  <link rel="stylesheet" href="/manifest.theme.css">
+  <script type="importmap">
+    { "imports": { "@js/": "/assets/examples/modules-demo/js/" } }
+  </script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.272/lib/manifest.min.js" data-tailwind data-version="0.5.272"></script>
+  <script type="module" src="/assets/examples/modules-demo/js/main.js"></script>
+</head>
+<body class="bg-transparent">
+  <main class="col gap-4 p-4">
+    <header x-data="cartSummary" class="row items-center justify-between">
+      <strong>Shopping list</strong>
+      <small x-text="label"></small>
+    </header>
+    <ul x-data="itemList" class="col gap-2 list-none p-0 m-0">
+      <template x-for="item in items" :key="item.id">
+        <li class="row items-center justify-between gap-3">
+          <span x-text="item.name"></span>
+          <span class="row items-center gap-2">
+            <small x-text="price(item)"></small>
+            <button class="sm" :class="inCart(item) ? 'brand' : 'outlined'" @click="toggle(item)" x-text="inCart(item) ? 'Added' : 'Add'"></button>
+          </span>
+        </li>
+      </template>
+    </ul>
+  </main>
+</body>
+</html>
