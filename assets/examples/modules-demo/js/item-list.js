@@ -1,4 +1,4 @@
-import { formatPrice } from '@js/lib/money.js'
+import { formatPrice } from '@js/money.js'
 
 export function itemList() {
   return {

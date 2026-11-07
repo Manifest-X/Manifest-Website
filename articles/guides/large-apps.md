@@ -99,7 +99,7 @@ export function cartSummary() {
 
 </div>
 
-Register inside `alpine:init` when a module first runs, and import each file by one URL: adding `?v=2` loads a second copy with its own state.
+Register components and stores in an `alpine:init` listener. Import each file by a single URL: the same file at a different URL, such as with `?v=2`, loads a second copy with its own state.
 
 ---
 
@@ -148,7 +148,11 @@ An Appwrite table shows its first 25 rows unless you ask for more. Set `paging` 
 ```
 
 ```json "manifest.json" copy
-"tasks": { "appwriteTableId": "tasks", "paging": { "mode": "window", "size": 100 } }
+{
+  "data": {
+    "tasks": { "appwriteTableId": "tasks", "paging": { "mode": "window", "size": 100 } }
+  }
+}
 ```
 
 See [large tables](/docs/framework/appwrite-plugins/databases#large-tables) for every option.
@@ -160,8 +164,11 @@ See [large tables](/docs/framework/appwrite-plugins/databases#large-tables) for 
 A misspelt name often fails only when someone clicks. `mnfst-types` reads your scripts, without changing them, and points at the mistake first.
 
 ```bash copy
+npx mnfst-types
 npx mnfst-types --tsc
 ```
+
+The first command writes `manifest.d.ts`, the types for Manifest itself; run it again when your data sources change. The second checks:
 
 ```text
 js/cart-summary.js(1,10): error TS2724: '"@js/money.js"' has no exported member named 'formatPrise'. Did you mean 'formatPrice'?
@@ -173,7 +180,7 @@ It checks the scripts your page loads and everything they import. See [type chec
 
 ## Test Like a User
 
-List the few things people must always be able to do, like signing in or adding an item, and let `mnfst-test` do them in a real browser (it uses <a href="https://pptr.dev" target="_blank">puppeteer</a>). It saves a screenshot of each step and fails when one changes.
+List the few things people must always be able to do, like signing in or adding an item, and let `mnfst-test` do them in a real browser (it uses <a href="https://pptr.dev" target="_blank">puppeteer</a>). It saves a screenshot wherever you call `snap` and fails when one changes. Install it with `npm install -D mnfst-test puppeteer`.
 
 ```js "journeys.mjs" copy
 export default {

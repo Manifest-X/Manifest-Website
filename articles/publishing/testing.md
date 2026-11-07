@@ -179,7 +179,6 @@ it('lists open tasks', async () => {
     });
 
     expect($$('li')).toHaveLength(1);
-    fake.table('tasks').insert({ title: 'Ship it' }); // another user, arrives by realtime
 });
 ```
 
@@ -296,6 +295,7 @@ Options for `npx mnfst-test journeys [file]`:
 | `--base-url <url>` | Run against a deployed site instead of serving `root` |
 | `--ci` | Fail when a baseline is missing (on automatically in CI) |
 | `--filter <text>` | Run only journeys whose name contains the text |
+| `--root <dir>` | Serve this directory instead of the config's `root` |
 | `--json` | Machine-readable results |
 
 ### After Each Landing

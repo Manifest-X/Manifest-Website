@@ -1,4 +1,4 @@
-import { formatPrice, total } from '@js/lib/money.js'
+import { formatPrice, total } from '@js/money.js'
 
 export function cartSummary() {
   return {

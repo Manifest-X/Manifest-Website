@@ -25,7 +25,7 @@ Re-run whenever a data source is added or its shape changes.
 | `--manifest <path>`   | Path to `manifest.json`                                   | `./manifest.json`              |
 | `--out <path>`        | Output `.d.ts` path                                       | `./manifest.d.ts`              |
 | `--init`              | Also write a baseline `jsconfig.json` (only if missing)   | —                              |
-| `--tsc`               | Type-check the scripts the page loads (see [type checks](#type-checks)) | —                |
+| `--tsc`               | Type-check the scripts the page loads instead of writing `manifest.d.ts` (see [type checks](#type-checks)) | — |
 | `--check`             | Exit 1 if `manifest.d.ts` is out of date; write nothing   | —                              |
 | `--ci`                | Also write `.github/workflows/types.yml` (only if missing) | —                             |
 | `-h`, `--help`        | Show usage                                                | —                              |
@@ -42,13 +42,13 @@ To find mistakes before anyone clicks, run the TypeScript checker over your scri
 npx mnfst-types --tsc
 ```
 
-It checks the local scripts your `index.html` and component files load, everything they import, and the project's `.d.ts` files. Import-map paths are read on every run. A `jsconfig.json` or `tsconfig.json` of your own is extended, and its `include` or `files` win.
+Run `npx mnfst-types` first, since `--tsc` reads `manifest.d.ts` but doesn't write it. It checks the local scripts your `index.html` and component files load, everything they import, and the project's `.d.ts` files. Import-map paths are read on every run. A `jsconfig.json` or `tsconfig.json` of your own is extended, and its `include` or `files` win.
 
 ```text
 cart.js(1,10): error TS2724: '"./money.js"' has no exported member named 'formatPrise'. Did you mean 'formatPrice'?
 ```
 
-Inside a component, the checker doesn't know what `this` is. A one-line helper of your own tells it, so fields of `$x` rows and stores are checked too. Call it whatever you like:
+Inside a component, the checker doesn't know what `this` is. A one-line helper of your own tells it, so fields of `$x` rows and stores are checked too. Call it whatever you like. Here `products` is a local JSON source, so its fields are known:
 
 ```js "typed.js" copy
 /**

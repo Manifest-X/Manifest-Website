@@ -395,7 +395,7 @@ When the last item in the data is rendered, the `x-virtual` element fires a `vir
 </div>
 ```
 
-`event.detail.length` is the number of items rendered so far.
+`event.detail.length` is the number of items in the data when it fired.
 
 ---
 

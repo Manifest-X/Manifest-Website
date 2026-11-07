@@ -716,7 +716,7 @@ Data sources expose state properties for UI reactivity:
 
 These properties are reactive and update automatically as data loads or errors occur.
 
-A request that fails for a passing reason (no network response, a server error, a rate limit) is tried again before `$error` shows: three more times by default, waiting 0.5s, then 1s, then 2s. Requests the server refuses outright, such as a 403 or 404, fail at once, and nothing is retried while the browser is offline (the source fetches again when the connection comes back). Set `retry` on a source to change this:
+An API source's request that fails for a passing reason (no network response, a server error, a rate limit) is tried again before `$error` shows: three more times by default, waiting about 0.5s, then 1s, then 2s. Local files aren't retried. Requests the server refuses outright, such as a 403 or 404, fail at once, and nothing is retried while the browser is offline (the source fetches again when the connection comes back). Set `retry` on a source to change this:
 
 ```json "manifest.json" copy
 {
