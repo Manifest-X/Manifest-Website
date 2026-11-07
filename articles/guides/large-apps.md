@@ -151,7 +151,7 @@ An Appwrite table shows its first 25 rows unless you ask for more. Set `paging` 
 "tasks": { "appwriteTableId": "tasks", "paging": { "mode": "window", "size": 100 } }
 ```
 
-See [databases](/docs/framework/appwrite-plugins/databases) for every option.
+See [large tables](/docs/framework/appwrite-plugins/databases#large-tables) for every option.
 
 ---
 
@@ -167,7 +167,7 @@ npx mnfst-types --tsc
 js/cart-summary.js(1,10): error TS2724: '"@js/money.js"' has no exported member named 'formatPrise'. Did you mean 'formatPrice'?
 ```
 
-It checks the scripts your page loads and everything they import. See [TypeScript](/docs/framework/resources/typescript).
+It checks the scripts your page loads and everything they import. See [type checks](/docs/framework/resources/typescript#type-checks).
 
 ---
 
@@ -192,4 +192,4 @@ export default {
 npx mnfst-test journeys journeys.mjs
 ```
 
-See [testing](/docs/framework/publishing/testing).
+See [golden journeys](/docs/framework/publishing/testing#golden-journeys).
