@@ -1,4 +1,4 @@
-# Best Practices
+# Large Apps
 
 Building something big on Manifest — a product with many screens, sign-in, lots of data? Here's how to set it up so it stays fast and easy to change.
 
