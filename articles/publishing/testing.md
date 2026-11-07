@@ -149,17 +149,170 @@ Options for `mountManifest(opts)`:
 | `manifest` | `object` | In-memory `manifest.json`. Defaults to `{}`. |
 | `data` | `object` | In-memory data sources, keyed by name. Each becomes `$x.<key>`. |
 | `plugins` | `string[]` | Paths to Manifest plugin files to evaluate after Alpine. |
+| `appwrite` | `object` | A fake data backend or its options (see [test data](#test-data)). Returned as `fake`. |
 | `settle` | `number` | Milliseconds to wait after mount for Alpine to render. Default `50`. |
 
 Returns: `{ window, document, body, $, $$, getByText, getByRole, getById, click, type, tick, unmount }`
 
-happy-dom approximates layout but isn't a real browser. For visual regressions or true cross-browser checks, use Playwright.
+happy-dom approximates layout but isn't a real browser. For what users actually see, use [golden journeys](#golden-journeys).
+
+---
+
+## Test Data
+
+Tests for a data-driven app need data that behaves like the real backend. Instead of writing a fake database for each test file, import Manifest's: an in-memory Appwrite backend that Manifest's own data plugins run on, so `$x`, `$query`, pagination, `$create`/`$update`/`$delete`, `$search` and realtime updates behave as they do in production.
+
+```js "tasks.test.js" copy
+import { it, expect } from 'vitest';
+import { mountManifest } from 'mnfst-test';
+
+it('lists open tasks', async () => {
+    const { $$, fake } = await mountManifest({
+        appwrite: { databases: { main: { tasks: [{ title: 'Write docs', done: false }] } } },
+        manifest: {
+            appwrite: { projectId: 'demo', endpoint: 'https://example.test/v1' },
+            data: { tasks: { appwriteDatabaseId: 'main', appwriteTableId: 'tasks' } }
+        },
+        plugins: ['node_modules/mnfst/lib/manifest.data.js', 'node_modules/mnfst/lib/manifest.appwrite.data.js'],
+        html: `<ul x-data><template x-for="t in $x.tasks" :key="t.$id"><li x-text="t.title"></li></template></ul>`,
+        settle: 200
+    });
+
+    expect($$('li')).toHaveLength(1);
+    fake.table('tasks').insert({ title: 'Ship it' }); // another user, arrives by realtime
+});
+```
+
+The fake behaves like Appwrite rather than an ideal database, so tests catch what production would do:
+
+- Queries use Appwrite's own format and operators, including `or`, `search`, sorting, `limit`, `offset` and cursors. An unknown operator fails.
+- A list without a `limit` returns 25 rows, a `limit` over 5,000 fails, and totals stop counting at 5,000.
+- Text matching and sorting ignore case.
+- Every write sends a realtime event with Appwrite's event names, filtered the way Appwrite filters subscriptions.
+
+To test a store or helper that talks to Appwrite directly, use the fake on its own:
+
+```js copy
+import { createFakeAppwrite } from 'mnfst-test/fake';
+
+const fake = createFakeAppwrite({ databases: { main: { tasks: [] } } });
+await fake.tablesDB.createRow({ databaseId: 'main', tableId: 'tasks', rowId: 'a', data: { title: 'One' } });
+fake.lastQueries('tasks');               // queries of the latest list
+fake.failNext('listRows', { code: 503 }); // the next list fails
+```
+
+| Member | Description |
+|---|---|
+| `sdk` | Stands in for `window.Appwrite` (`Client`, `TablesDB`, `Storage`, `Realtime`, `Query`, `ID`, and more) |
+| `tablesDB` | A ready table client |
+| `table(id)` | Read and change rows as another user: `rows()`, `get()`, `count()`, `insert()`, `update()`, `remove()`, `seed()`, `clear()` |
+| `calls`, `lastQueries(table)` | Every call the app made, and the queries of the latest list |
+| `failNext(method, error)` | Make the next call fail |
+
+### Fixtures
+
+Two tenants cover most bugs: one with thousands of rows and one with none. The fixture helpers build both from one description, with the same rows every run so screenshots stay stable:
+
+```js copy
+import { heavyTenant, emptyTenant } from 'mnfst-test/fixtures';
+
+const schema = { main: { tasks: (i, { words, int }) => ({ title: words(2), priority: int(1, 5) }) } };
+const heavy = heavyTenant(schema, { rows: 5000 });
+const empty = emptyTenant(schema);
+```
+
+Pass either one wherever the fake takes options.
+
+---
+
+## Golden Journeys
+
+A golden journey is a path a user must always be able to walk, such as signing in, finding a record or adding one. `mnfst-test journeys` walks each one in a real browser on fixture data and compares screenshots with saved baselines, catching layout, data and realtime bugs that component tests miss.
+
+Journeys need <a href="https://pptr.dev" target="_blank">puppeteer</a>:
+
+```bash copy
+npm install -D mnfst-test puppeteer
+```
+
+```js "journeys.mjs" copy
+import { heavyTenant, emptyTenant } from 'mnfst-test/fixtures';
+
+const schema = { main: { tasks: (i, { words }) => ({ title: words(2) }) } };
+
+export default {
+    root: '.',
+    viewport: { width: 1280, height: 800 },
+    journeys: [
+        {
+            name: 'empty workspace',
+            fake: emptyTenant(schema),
+            async steps(j) {
+                await j.waitForData('tasks');
+                await j.snap('empty');
+            }
+        },
+        {
+            name: 'busy workspace',
+            fake: heavyTenant(schema),
+            async steps(j) {
+                await j.waitForData('tasks');
+                await j.snap('list');
+                await j.fake.table('tasks').insert({ title: 'Live row' });
+                await j.page.waitForFunction(() => document.body.textContent.includes('Live row'));
+            }
+        }
+    ]
+};
+```
+
+Save baselines once, then compare on every run:
+
+```bash copy
+npx mnfst-test journeys journeys.mjs --update
+```
+
+```bash copy
+npx mnfst-test journeys journeys.mjs
+```
+
+A journey fails when a step throws, a screenshot differs from its baseline, or the page logs a console error. Failed screenshots save the actual image and a diff highlighting the changed pixels in `__screenshots__/__diff__/`. Commit the baselines. They are saved per operating system, because fonts render slightly differently on each.
+
+Each journey's `steps` receives:
+
+| Member | Description |
+|---|---|
+| `page` | The <a href="https://pptr.dev/api/puppeteer.page" target="_blank">puppeteer page</a>, for clicking and typing |
+| `fake` | The page's fake backend: `table()`, `calls()`, `lastQueries()`, `failNext()` |
+| `waitForData(source)` | Wait until `$x.<source>` has loaded |
+| `x(expression)` | Evaluate an Alpine expression in the page, e.g. `x('$x.tasks.length')` |
+| `snap(name, options)` | Compare a screenshot. Options: `selector`, `fullPage`, `mask` (selectors to hide) |
+
+Options for `npx mnfst-test journeys [file]`:
+
+| Option | Description |
+|---|---|
+| `--update` | Rewrite the baselines |
+| `--base-url <url>` | Run against a deployed site instead of serving `root` |
+| `--ci` | Fail when a baseline is missing (on automatically in CI) |
+| `--filter <text>` | Run only journeys whose name contains the text |
+| `--json` | Machine-readable results |
+
+### After Each Landing
+
+Run the journeys against staging every time a change lands there, before promoting it to production:
+
+```bash copy
+npx mnfst-test journeys journeys.mjs --base-url https://staging.example.com --ci
+```
+
+Journeys with fixture data still use it on staging, so the screenshots check the deployed code against the baselines. Journeys without `fake` use the real staging backend: keep those to behaviour checks without screenshots, since real data changes. In CI, add the command as a step after the staging deploy.
 
 ---
 
 ## End-to-end
 
-End-to-end tests simulate a real user moving through your live project, clicking buttons and filling forms to confirm whole flows still work — useful for guarding checkout paths, signup funnels, and other multi-step interactions. <a href="https://playwright.dev" target="_blank">Playwright</a> is the standard tool, with nothing Manifest-specific to install:
+For flows beyond golden journeys, such as cross-browser runs or third-party checkouts, <a href="https://playwright.dev" target="_blank">Playwright</a> is the standard tool, with nothing Manifest-specific to install:
 
 ```bash copy
 npm init playwright@latest
