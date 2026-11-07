@@ -120,6 +120,8 @@ Scripts load the latest version from CDN by default. Load a specified version by
 
 To have the browser check the loader against a hash as well, see [Security](/docs/framework/resources/security#cdn-resource-integrity).
 
+Your own scripts can be native modules (`<script type="module">`), with an import map for short import paths. Manifest starts Alpine after they run, so components and stores registered in an `alpine:init` listener are always in time. See [Large Apps](/docs/framework/guides/large-apps#organize-your-code).
+
 ---
 
 ## Styles

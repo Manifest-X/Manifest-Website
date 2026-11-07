@@ -25,9 +25,58 @@ Re-run whenever a data source is added or its shape changes.
 | `--manifest <path>`   | Path to `manifest.json`                                   | `./manifest.json`              |
 | `--out <path>`        | Output `.d.ts` path                                       | `./manifest.d.ts`              |
 | `--init`              | Also write a baseline `jsconfig.json` (only if missing)   | —                              |
+| `--tsc`               | Type-check the scripts the page loads (see [type checks](#type-checks)) | —                |
+| `--check`             | Exit 1 if `manifest.d.ts` is out of date; write nothing   | —                              |
+| `--ci`                | Also write `.github/workflows/types.yml` (only if missing) | —                             |
 | `-h`, `--help`        | Show usage                                                | —                              |
 
 `--init` is for projects that want JSDoc errors surfaced as squiggles in `.js` files. Without it, the declarations still power autocomplete and inline type info.
+
+---
+
+## Type Checks
+
+To find mistakes before anyone clicks, run the TypeScript checker over your scripts. Nothing is compiled; your files stay as they are.
+
+```bash copy
+npx mnfst-types --tsc
+```
+
+It checks the local scripts your `index.html` and component files load, everything they import, and the project's `.d.ts` files. Import-map paths are read on every run. A `jsconfig.json` or `tsconfig.json` of your own is extended, and its `include` or `files` win.
+
+```text
+cart.js(1,10): error TS2724: '"./money.js"' has no exported member named 'formatPrise'. Did you mean 'formatPrice'?
+```
+
+Inside a component, the checker doesn't know what `this` is. A one-line helper of your own tells it, so fields of `$x` rows and stores are checked too. Call it whatever you like:
+
+```js "typed.js" copy
+/**
+ * @template T
+ * @param {(...args: any[]) => import('mnfst').ManifestComponent<T>} factory
+ * @returns {(...args: any[]) => T}
+ */
+export const typed = (factory) => factory
+```
+
+```js "shelf.js" copy
+import { typed } from './typed.js'
+
+export const shelf = typed(() => ({
+  get first() { return this.$x.products[0].nmae } // Property 'nmae' does not exist
+}))
+```
+
+Appwrite rows accept any field until you describe them by augmenting `ManifestRows` (and stores with `ManifestStores`) in a `.d.ts` file:
+
+```ts "types.d.ts" copy
+declare module 'mnfst' {
+  interface ManifestRows { tasks: { title: string, done: boolean } }
+}
+export {}
+```
+
+`npx mnfst-types --ci` adds a GitHub workflow that runs `--check` and `--tsc` on every push.
 
 ---
 
