@@ -18,7 +18,7 @@ Everything you need to build and publish is free. Pro adds history, teams, and c
 | Download a copy of any of the last 5 versions | ✓ | ✓ |
 | Undo changes by going back to an earlier version | | Last 5 versions |
 | Invite teammates and make admins | | ✓ |
-| [Form](/docs/ai/projects/forms) submissions per site, each month | 100 | 5,000 |
+| [Form](/docs/platform/projects/forms) submissions per site, each month | 100 | 5,000 |
 | Forms to Slack, Discord, Teams, and webhooks | | ✓ |
 | "Made with Manifest" badge | Shown | Removed |
 | Manifest's showcase | May be featured | Your choice |

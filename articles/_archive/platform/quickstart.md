@@ -10,7 +10,7 @@ From an idea to a live project in a few minutes.
 - **About five minutes.** Manifest's Free plan covers everything below.
 
 ::: icon="lucide:info"
-**On Claude's Free plan?** Use a regular chat instead of the **Code** tab. Claude builds and publishes projects up to 10 MB (2 MB per file) there, and you check changes on a staging address instead of a preview. The Code tab comes with paid Claude plans and handles projects of any size.
+**On Claude's Free plan?** Use a regular chat instead of the **Code** tab. Claude builds and publishes projects up to 10 MB and 300 files (2 MB per file) there, and you check changes on a staging address instead of a preview. The Code tab comes with paid Claude plans and handles projects of any size.
 :::
 
 ---
@@ -19,7 +19,7 @@ From an idea to a live project in a few minutes.
 
 ## Add Manifest to Claude
 
-In **Customize > Plugins**, add **Manifest**, then select **Connect** in its **Connectors** tab and sign in. [How to add it on each plan](/docs/ai/setup/claude-plugin#install).
+In **Customize > Plugins**, add the **Manifest** plugin, then select **Connect** in its **Connectors** tab and sign in. [How to add it on each plan](/docs/platform/setup/claude-plugin#install).
 
 </div>
 
@@ -63,8 +63,8 @@ Claude may need a free tool called **Node.js** on your computer. If it's missing
 
 ## Next steps
 
-- **Check changes before they go live** on [staging](/docs/ai/projects/publish#staging-then-live).
-- **Connect a domain** you own. See [Custom domains](/docs/ai/projects/publish#custom-domains).
+- **Check changes before they go live** on [staging](/docs/platform/projects/publish#staging-then-live).
+- **Connect a domain** you own. See [Custom domains](/docs/platform/projects/publish#custom-domains).
 - **Bring an existing project.** Open its folder in the Code tab and ask Claude to `publish this project`{.prompt copy}.
 
 ::: icon="lucide:life-buoy"

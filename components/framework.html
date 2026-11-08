@@ -1,5 +1,5 @@
 <!-- HERO -->
-<section id="home" class="col center gap-6 w-full py-24">
+<section id="home" class="col center gap-6 w-full pb-24">
 
   <!-- Content -->
   <div class="col gap-10 justify-start w-content-width max-w-full">
@@ -11,12 +11,6 @@
         <span>The website & app framework</span>
         <span class="text-content-subtle">that thinks like you do.</span>
       </h1>
-    </div>
-
-    <!-- CTA -->
-    <div class="row gap-4">
-      <a role="button" href="/docs/framework/getting-started/introduction" class="accent lg rounded-full"><span x-icon="lucide:book-open"></span><span>Get started</span></a>
-      <!-- <a role="button" class="lg outlined transparent rounded-full" x-icon="lucide:book-open" x-tooltip="Documentation"></a> -->
     </div>
 
     <x-hero-editor></x-hero-editor>
@@ -87,66 +81,6 @@
 
   </div>
 </section>
-
-<!-- SHOWCASE -->
-<section class="col center gap-6 w-full py-24">
-
-  <!-- Content -->
-  <div class="col gap-10 justify-start w-content-width max-w-full">
-
-    <!-- Text -->
-    <h2 class="md:col leading-tight">
-      <span>Trusted by AI and developers.</span>
-      <span class="text-content-subtle">Powering products in production.</span>
-    </h2>
-
-    <!-- Graphic -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-
-      <!-- Card -->
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/Playcom.webp" alt="Screenshot of the Playcom website homepage" width="600" height="375" loading="lazy" />
-        </div>
-        <a href="https://playcom.ai" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Playcom</span>
-          <span x-icon="lucide:arrow-up-right"></span></a>
-      </div>
-
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/Ortus.webp" alt="Screenshot of the Ortus Advisors website homepage" width="600" height="375" loading="lazy" />
-        </div>
-        <a href="https://ortusadvisors.com" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Ortus Advisors</span>
-          <span x-icon="lucide:arrow-up-right"></span></a>
-      </div>
-
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/AndrewMatlock.webp" alt="Screenshot of Andrew Matlock's personal website homepage" width="600" height="375" loading="lazy" />
-        </div>
-        <a href="https://andrewmatlock.com" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Andrew Matlock</span>
-          <span x-icon="lucide:arrow-up-right"></span></a>
-      </div>
-
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="col center w-full aspect-[1440/900] bg-surface-2 rounded-lg pattern">
-          <p class="">Your Next Project</p>
-        </div>
-        <a href="/docs/framework/getting-started/starter-project" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Get the Starter Project</span>
-          <span x-icon="lucide:arrow-right"></span></a>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
 
 <!-- COMPARISONS -->
 <section id="comparisons" class="col center gap-6 w-full py-24">
@@ -355,7 +289,7 @@
     <h2 class="w-2xl max-w-full leading-tight">Common questions</h2>
 
     <!-- Graphic -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 w-full">
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10 w-full">
       <template x-for="item in $x.faq" :key="item.question">
         <div class="col gap-1 w-full h-full">
           <h3 class="h4" x-text="item.question"></h3>
@@ -365,18 +299,4 @@
     </div>
 
   </div>
-</section>
-
-
-
-<!-- CTA -->
-<section class="col center gap-6 w-full pt-50 pb-70 text-center">
-
-  <!-- Content -->
-  <div class="col center gap-13 justify-start w-content-width max-w-full">
-    <h2 class="text-6xl">Start your project</h2>
-    <a role="button" href="/docs/framework/getting-started/introduction" class="accent lg rounded-full">Introduction to
-      Manifest</a>
-  </div>
-
 </section>

@@ -1,0 +1,238 @@
+<!-- Hub -->
+<template x-if="$route.startsWith('/compare') && !$x.compare?.$route('slug')?.slug">
+  <section class="col center w-full pt-24 pb-50">
+    <div class="col gap-10 w-content-width max-w-full">
+      <div class="col gap-3 w-2xl max-w-full">
+        <p class="h6 text-content-subtle tracking-widest uppercase">Compare</p>
+        <h1 class="leading-tight">Manifest compared</h1>
+        <p class="text-content-neutral text-balance">How building and publishing with Manifest in Claude compares with other AI app builders, on pricing, features, and ownership.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <template x-for="c in $x.compare" :key="c.slug">
+          <a :href="'/compare/' + c.slug" class="col gap-2 p-6 bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 rounded-xl no-underline transition-colors">
+            <span class="h4 text-content-stark" x-text="c.title || 'Manifest vs ' + c.name"></span>
+            <span class="text-sm text-content-neutral" x-text="c.blurb || c.summary"></span>
+          </a>
+        </template>
+      </div>
+    </div>
+  </section>
+</template>
+
+<!-- Comparison -->
+<template x-if="$route.startsWith('/compare') && $x.compare?.$route('slug')?.slug">
+  <div class="col w-full" x-data="{ get c() { return $x.compare.$route('slug') } }">
+
+    <!-- Header -->
+    <section class="col center w-full pt-24 pb-16">
+      <div class="col gap-12 w-content-width max-w-full">
+        <div class="col gap-4 w-2xl max-w-full">
+          <a href="/compare" class="h6 w-fit text-content-subtle tracking-widest uppercase no-underline hover:text-content-stark">Compare</a>
+          <h1 class="leading-tight" x-text="c.title || 'Manifest vs ' + c.name"></h1>
+          <p class="text-lg text-content-neutral text-balance" x-text="c.summary"></p>
+        </div>
+        <div class="col gap-4">
+          <p class="h6 text-content-subtle tracking-widest uppercase">With Manifest</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <template x-for="h in c.highlights" :key="h.value">
+            <div class="col gap-2 p-6 bg-popover-surface rounded-xl">
+              <span class="text-4xl font-semibold tracking-tight text-content-stark" x-text="h.value"></span>
+              <span class="text-content-neutral" x-text="h.text"></span>
+            </div>
+          </template>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Meter -->
+    <section x-show="c.prompts" class="col center w-full py-16" x-data="creditMeter">
+      <div class="col gap-10 w-content-width max-w-full">
+        <div class="col gap-2 w-2xl max-w-full">
+          <h2 class="md:col leading-tight">
+            <span>No credits.</span>
+            <span class="text-content-subtle">Just Claude.</span>
+          </h2>
+          <p class="mt-2 text-content-neutral text-balance" x-text="c.meter?.text"></p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" aria-hidden="true">
+
+          <div class="col gap-5 p-6 md:p-8 bg-surface-2 rounded-xl">
+            <div class="row items-center justify-between gap-3">
+              <span class="font-semibold" x-text="c.name"></span>
+              <span class="text-sm text-content-neutral tabular-nums" x-text="!left ? c.meter?.out : c.meter?.percent ? pct + '% ' + c.meter.left : left + ' ' + (left === 1 ? c.meter?.unit : c.meter?.units) + ' left ' + c.meter?.period"></span>
+            </div>
+            <div class="meter-track" :data-pct="Math.round(pct / 10) * 10"><span class="meter-fill"></span></div>
+            <ul class="unstyle col gap-2 list-none ps-0 text-sm">
+              <template x-for="(p, i) in c.prompts" :key="p.text">
+                <li class="meter-row row items-center justify-between gap-3 px-3.5 py-2 bg-popover-surface dark:bg-surface-3 rounded-lg" :class="[i < step && 'on', p.them !== 'credit' && 'is-no']">
+                  <span x-text="p.text"></span>
+                  <span class="shrink-0 text-xs text-content-subtle" x-text="p.them === 'no' ? 'Not available' : p.them === 'out' ? c.meter?.none : (c.meter?.spend || '−1 ' + c.meter?.unit)"></span>
+                </li>
+              </template>
+            </ul>
+          </div>
+
+          <div class="col gap-5 p-6 md:p-8 bg-popover-surface rounded-xl">
+            <div class="row items-center justify-between gap-3">
+              <span class="font-semibold">Manifest</span>
+              <span class="text-sm text-content-neutral">Your Claude plan</span>
+            </div>
+            <div class="meter-track"><span class="meter-fill meter-full"></span></div>
+            <ul class="unstyle col gap-2 list-none ps-0 text-sm">
+              <template x-for="(p, i) in c.prompts" :key="p.text">
+                <li class="meter-row row items-center justify-between gap-3 px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-lg" :class="i < step && 'on'">
+                  <span x-text="p.text"></span><span class="shrink-0" x-icon="lucide:check"></span>
+                </li>
+              </template>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Choose -->
+    <section class="col center w-full py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-content-width max-w-full">
+        <div class="relative col gap-6 p-6 md:p-10 bg-surface-2 rounded-xl overflow-hidden">
+          <span class="grid-fade" aria-hidden="true"></span>
+          <h2 class="relative h3" x-text="c.chooseThemTitle || 'Choose ' + c.name + ' if…'"></h2>
+          <ul class="relative unstyle col gap-3 list-none ps-0 text-lg">
+            <template x-for="t in c.chooseThem" :key="t"><li class="row items-start gap-3"><span class="shrink-0 mt-1 text-content-subtle" x-icon="lucide:arrow-right"></span><span x-text="t"></span></li></template>
+          </ul>
+        </div>
+        <div class="card-invert relative col gap-6 p-6 md:p-10 rounded-xl overflow-hidden">
+          <span class="grid-fade grid-fade-tl" aria-hidden="true"></span>
+          <h2 class="relative h3 text-accent-inverse">Choose Manifest if…</h2>
+          <ul class="relative unstyle col gap-3 list-none ps-0 text-lg">
+            <template x-for="t in c.chooseUs" :key="t"><li class="row items-start gap-3"><span class="shrink-0 mt-1 text-brand-content" x-icon="lucide:arrow-right"></span><span x-text="t"></span></li></template>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plans table -->
+    <section class="col center w-full pt-16 pb-6">
+      <div class="col gap-8 w-content-width max-w-full">
+        <div class="col gap-2">
+          <h2 class="leading-tight">Side by side</h2>
+          <p class="text-content-neutral">Free plan against free plan, and paid against paid.</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="compare-table w-full min-w-xl">
+            <thead>
+              <tr><th>Free plans</th><th x-text="c.name"></th><th class="is-us">Manifest</th></tr>
+            </thead>
+            <tbody>
+                <template x-for="r in c.free" :key="r[0]">
+                  <tr>
+                    <td x-text="r[0]"></td>
+                    <template x-for="(v, i) in [r[1], r[2]]" :key="i">
+                      <td :class="i && 'is-us'">
+                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
+                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" aria-label="No"></span>
+                        <span x-show="v !== '✓' && v !== '—'" x-text="v"></span>
+                      </td>
+                    </template>
+                  </tr>
+                </template>
+            </tbody>
+          </table>
+          <details class="compare-more">
+            <summary>Paid plans</summary>
+            <table class="compare-table w-full min-w-xl">
+              <thead>
+                <tr><th></th><th x-text="c.paidName || c.name + ' Pro'"></th><th class="is-us">Manifest Pro</th></tr>
+              </thead>
+              <tbody>
+                <template x-for="r in c.paid" :key="r[0]">
+                  <tr>
+                    <td x-text="r[0]"></td>
+                    <template x-for="(v, i) in [r[1], r[2]]" :key="i">
+                      <td :class="i && 'is-us'">
+                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
+                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" aria-label="No"></span>
+                        <span x-show="v !== '✓' && v !== '—'" x-text="v"></span>
+                      </td>
+                    </template>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="col center w-full">
+      <small class="w-content-width max-w-full text-content-subtle">
+        <span x-text="'Verified ' + c.verified + ' from each company\'s published pages: '"></span>
+        <template x-for="(s, i) in c.sources" :key="s.url"><span><a :href="s.url" target="_blank" rel="nofollow noopener" x-text="s.label"></a><span x-show="i < c.sources.length - 1">, </span></span></template>.
+      </small>
+    </section>
+
+    <!-- Switch -->
+    <section class="col center w-full py-24">
+      <div class="col gap-8 w-content-width max-w-full">
+        <div class="col gap-2 w-2xl max-w-full">
+          <h2 class="leading-tight" x-text="c.switch.title || 'Switching from ' + c.name"></h2>
+          <p class="text-content-neutral text-balance" x-text="c.switch.intro"></p>
+        </div>
+        <template x-for="p in c.switch.prompts" :key="p">
+          <button type="button" class="prompt-copy unstyle group col gap-2 my-4 p-5 bg-popover-surface rounded-xl text-start cursor-pointer" x-data="{ copied: false }" aria-label="Copy this prompt" @click="navigator.clipboard.writeText(p); copied = true; setTimeout(() => copied = false, 1600)">
+            <span class="row items-center justify-between gap-3">
+              <span class="text-xs tracking-widest uppercase text-content-subtle">Prompt idea</span>
+              <span class="row items-center gap-1.5 text-sm text-content-subtle transition-colors group-hover:text-content-stark">
+                <span x-icon="copied ? 'lucide:check' : 'lucide:copy'" aria-hidden="true"></span><span x-text="copied ? 'Copied' : 'Copy'">Copy</span>
+              </span>
+            </span>
+            <span class="text-lg leading-snug text-content-stark" x-text="p"></span>
+          </button>
+        </template>
+        <ol class="unstyle grid grid-cols-1 sm:grid-cols-3 gap-8 list-none ps-0">
+          <template x-for="(s, i) in c.switch.steps" :key="s.title">
+            <li class="col gap-3 pt-5 border-t border-line">
+              <span class="row center size-8 bg-accent-surface text-accent-inverse rounded-full text-sm font-semibold" aria-hidden="true" x-text="i + 1"></span>
+              <h3 class="h4" x-text="s.title"></h3>
+              <p class="text-content-neutral" x-text="s.text"></p>
+            </li>
+          </template>
+        </ol>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="col center w-full py-16">
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-10 w-content-width max-w-full">
+        <div class="col gap-3">
+          <h2 class="leading-tight">Common questions</h2>
+          <p class="text-content-neutral">Something else? <a href="/support#contact">Contact the team</a>.</p>
+        </div>
+        <div class="col">
+          <template x-for="f in c.faq" :key="f.q">
+            <details class="border-b border-line">
+              <summary x-text="f.q"></summary>
+              <p class="text-content-neutral" x-text="f.a"></p>
+            </details>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="col center w-full pt-24 pb-50 text-center">
+      <div class="col center gap-10 w-content-width max-w-full">
+        <h2 class="md:col text-5xl md:text-6xl leading-tight text-balance">
+          <span x-text="c.cta?.[0] || 'Your next project,'"></span>
+          <span class="text-content-subtle" x-text="c.cta?.[1] || 'without the credit meter.'"></span>
+        </h2>
+        <div class="col center gap-3">
+          <a role="button" href="/#setup" class="accent lg rounded-full px-8">Get started free</a>
+          <small class="text-content-subtle">Publishing is free, on your own domain</small>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</template>

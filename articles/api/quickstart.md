@@ -1,42 +1,84 @@
 # Quickstart
 
-From an API key to a live documentation site in five requests.
+Go from an API key to a live documentation site in a few minutes.
 
 ---
 
-## Before you start
+## Before You Start
 
-You need an API key. See [Authentication](/docs/api/setup/authentication). Each step below is a request you can paste into a terminal.
+You need an API key from the dashboard. See [Authentication](/docs/api/reference/authentication). The cURL steps use `jq` to read ids from responses. The JavaScript steps build one script, such as `quickstart.mjs`, for Node 18 or later.
+
+::: brand icon="lucide:info"
+The project you create here uses one of the two projects your free allowance can create through the API, until you delete it. The last step deletes it.
+:::
 
 ---
 
-## 1. Check the key
+<div class="step">
 
-Put your API key in an environment variable and ask the API who you are:
+## Check the Key
 
-```bash copy
+Put your key in an environment variable, then ask the API who you are.
+
+<div x-code-group copy>
+
+```bash "cURL"
 export MANIFEST_ACCOUNT_KEY="mnfst_api_…"
 
 curl https://api.manifestx.dev/v1/me \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
 ```
 
-A `200` with your API account's name means the key works.
+```js "JavaScript"
+const API = 'https://api.manifestx.dev/v1'
+const headers = {
+  Authorization: `Bearer ${process.env.MANIFEST_ACCOUNT_KEY}`,
+  'Content-Type': 'application/json',
+}
 
----
-
-## 2. Create a project
-
-`source_id`{copy} is your own id for this site, such as a record id in your system:
-
-```bash copy
-curl -X POST https://api.manifestx.dev/v1/projects \
-  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{ "source_id": "site_8231", "name": "Acme Docs", "subdomain": "acme-docs" }'
+const me = await fetch(`${API}/me`, { headers }).then((r) => r.json())
+console.log(me.account.name)
 ```
 
-The answer is `201 Created`. Keep `project.id`{copy} for the next steps:
+</div>
+
+A `200` with your account's name means the key works.
+
+</div>
+
+<div class="step">
+
+## Create a Project
+
+`source_id` is your own id for this project, such as a record id in your system. Keep the new project's id for the next steps.
+
+Subdomains are unique across all of Manifest, so `acme-docs` may already be taken. Replace it with your own, or leave `subdomain` out to get a free one made from `name`.
+
+<div x-code-group copy>
+
+```bash "cURL"
+PROJECT_ID=$(curl -s -X POST https://api.manifestx.dev/v1/projects \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "source_id": "site_8231", "name": "Acme Docs", "subdomain": "acme-docs" }' \
+  | jq -r .project.id)
+
+echo $PROJECT_ID
+```
+
+```js "JavaScript"
+const { project } = await fetch(`${API}/projects`, {
+  method: 'POST',
+  headers,
+  body: JSON.stringify({ source_id: 'site_8231', name: 'Acme Docs', subdomain: 'acme-docs' }),
+}).then((r) => r.json())
+
+const projectId = project.id
+```
+
+</div>
+
+The answer is `201 Created`:
 
 ```json
 {
@@ -59,19 +101,21 @@ The answer is `201 Created`. Keep `project.id`{copy} for the next steps:
 }
 ```
 
-`project_key`{copy} is the project's own key, shown once (it starts `mfst_live_` on paid accounts). It is not your API key, and you don't need it for the API (see [Create a project](/docs/api/projects/manage#create-a-project)).
+You can ignore `project_key` for now. See [Projects](/docs/api/guides/projects#create-a-project).
 
-```bash copy
-export PROJECT_ID="proj_…"
-```
+A `409 subdomain_taken` means someone else has that subdomain. Pick another and send the create again. If any step answers an error, see [Common Problems](/docs/api/reference/errors#common-problems).
 
----
+</div>
 
-## 3. Send the content
+<div class="step">
 
-Two Markdown pages, listed under two groups, become a documentation site:
+## Send the Content
 
-```bash copy
+Two Markdown pages, listed under two groups, become a documentation site.
+
+<div x-code-group copy>
+
+```bash "cURL"
 curl -X POST https://api.manifestx.dev/v1/projects/$PROJECT_ID/content \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
   -H "Idempotency-Key: acme-help-sync-1" \
@@ -86,6 +130,25 @@ curl -X POST https://api.manifestx.dev/v1/projects/$PROJECT_ID/content \
   }'
 ```
 
+```js "JavaScript"
+const content = await fetch(`${API}/projects/${projectId}/content`, {
+  method: 'POST',
+  headers: { ...headers, 'Idempotency-Key': 'acme-help-sync-1' },
+  body: JSON.stringify({
+    template: 'docs',
+    site: { name: 'Acme Help', description: 'Answers for Acme customers.' },
+    articles: [
+      { group: 'Getting started', title: 'Welcome', slug: 'welcome', markdown: 'Hello from Acme.' },
+      { group: 'Billing', title: 'Invoices', slug: 'invoices', markdown: '## Download\n\nUse the portal.' },
+    ],
+  }),
+}).then((r) => r.json())
+
+console.log(content.url)
+```
+
+</div>
+
 ```json
 {
   "deployment": { "id": "dep_…", "env": "staging", "status": "ready", "files": 10, "bytes": 26537 },
@@ -95,39 +158,87 @@ curl -X POST https://api.manifestx.dev/v1/projects/$PROJECT_ID/content \
 }
 ```
 
----
+</div>
 
-## 4. Open the staging URL
+<div class="step">
 
-The site is live at `url`{copy} as soon as the request returns. The Invoices article is at `/docs/billing/invoices` on that URL. Production still answers "This site hasn't been published yet."
+## Open Staging
 
----
+The site is live at `url` as soon as the request returns. The Invoices page is at `/docs/billing/invoices` on that address. The production address still says "This site hasn't been published yet."
 
-## 5. Promote to production
+Staging isn't private. Search engines skip it, but anyone with its address can open it, so treat it as a preview, not a place for secrets.
 
-Once the staging site looks right:
+</div>
 
-```bash copy
+<div class="step">
+
+## Promote
+
+Once staging looks right, make it live.
+
+<div x-code-group copy>
+
+```bash "cURL"
 curl -X POST https://api.manifestx.dev/v1/projects/$PROJECT_ID/promote \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
   -H "Idempotency-Key: acme-help-promote-1"
 ```
 
+```js "JavaScript"
+const promoted = await fetch(`${API}/projects/${projectId}/promote`, {
+  method: 'POST',
+  headers: { ...headers, 'Idempotency-Key': 'acme-help-promote-1' },
+}).then((r) => r.json())
+
+console.log(promoted.url)
+```
+
+</div>
+
 ```json
 {
-  "deployment": { "id": "dep_…", "env": "production", "files": 12 },
+  "deployment": { "id": "dep_…", "env": "production", "files": 10 },
   "live_deployment_id": "dep_…",
   "url": "https://acme-docs.manifestx.ai",
+  "prerender": { "status": "pending" },
   "request_id": "…"
 }
 ```
 
-The same site now answers at `https://acme-docs.manifestx.ai`.
+The site now answers at the production `url`. In the background, Manifest also prerenders its pages to static HTML, and swaps that version in when it's done. See [Publish](/docs/api/guides/publish).
+
+</div>
+
+<div class="step">
+
+## Clean Up
+
+When you're done trying it, delete the project to free its place in your allowance.
+
+<div x-code-group copy>
+
+```bash "cURL"
+curl -X DELETE https://api.manifestx.dev/v1/projects/$PROJECT_ID \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
+```
+
+```js "JavaScript"
+await fetch(`${API}/projects/${projectId}`, { method: 'DELETE', headers })
+```
+
+</div>
+
+::: negative icon="lucide:triangle-alert"
+Deleting takes both addresses offline at once. The `source_id` `site_8231` stays taken, so use a new one next time. See [Delete a Project](/docs/api/guides/projects#delete-a-project).
+:::
+
+</div>
 
 ---
 
-## Next steps
+## Next Steps
 
-- Send new [content](/docs/api/projects/content) whenever the pages change. Each request replaces the whole site on staging.
-- Point a domain of your own at the site with [Domains](/docs/api/projects/domains).
-- Publish a build of your own instead with [Publish](/docs/api/projects/publish).
+- **Update the site** by sending new [content](/docs/api/guides/docs-template) whenever the pages change. Each request replaces the whole site on staging.
+- **Use your own domain** with [Domains](/docs/api/guides/domains).
+- **Publish your own build** instead with [Publish](/docs/api/guides/publish).
+- **Get notified** when a publish finishes with [Webhooks](/docs/api/guides/webhooks).

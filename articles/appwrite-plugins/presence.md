@@ -13,7 +13,7 @@ It's the mechanism behind the little green dots in a chat app, the "3 people vie
 Presence is built on <a href="https://appwrite.io/" target="_blank" rel="noopener">Appwrite</a>'s native realtime service. Statuses are held in memory and expire automatically, so there's nothing to clean up and no database table to manage.
 
 ::: brand icon="lucide:info"
-Presence identifies people by their [auth](/docs/framework/appwrite-plugins/auth) session — a signed-in account **or** a guest both work equally well. What doesn't work is a visitor with no session at all; they can watch the roster but can't publish a status. When your project uses [teams](/docs/framework/appwrite-plugins/teams), statuses are shared within the current team, so each workspace sees only its own members.
+Presence identifies people by their [auth](/docs/framework/appwrite-plugins/auth) session — a signed-in account **or** a guest both work equally well. A visitor with no session at all sees no roster and can't publish a status; use guest sessions to include them. When your project uses [teams](/docs/framework/appwrite-plugins/teams), statuses are shared within the current team, so each workspace sees only its own members.
 :::
 
 ---

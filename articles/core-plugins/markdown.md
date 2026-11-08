@@ -42,7 +42,7 @@ Markdown can be written directly inside elements using the `x-markdown` directiv
 ```
 
 ::: frame text-base
-<div>This is <strong>bold</strong> and <em>italic</em> text with a <a href="/">link</a>.</div>
+<div x-markdown="'This is **bold** and *italic* text with a [link](/).'"></div>
 :::
 
 </div>
@@ -57,17 +57,14 @@ Markdown content can use Alpine expressions for dynamic updates, including templ
 
 ```html copy
 <div x-data="{ title: 'Your Bank Account', count: 0 }">
-    <div x-markdown="`# ${title}
-      Your balance is $**${count}**.`"
-    ></div>
+    <div x-markdown="`### ${title}\nYour balance is $**${count}**.`"></div>
     <button @click="count++">Print Money</button>
 </div>
 ```
 
 ::: frame text-base
-<div x-data="{ title: 'Your Bank Account', count: 0 }" class="col gap-4">
-      <span class="h4" x-text="title"></span>
-      <p>Your balance is $<strong x-text="count"></strong></p>
+<div x-data="{ title: 'Your Bank Account', count: 0 }">
+    <div x-markdown="`### ${title}\nYour balance is $**${count}**.`"></div>
     <button @click="count++">Print Money</button>
 </div>
 :::
@@ -78,12 +75,12 @@ Markdown content can use Alpine expressions for dynamic updates, including templ
 
 ## File Content
 
-Load markdown content from external `.md` files by providing a file path like `x-markdown="/assets/menu.md"`. A path must be a single whitespace-free token — a `.md`/`.markdown` file or a slash path — so dynamic prose containing slashes is never mistaken for a file.
+Load markdown content from external `.md` files by providing a file path like `x-markdown="/assets/examples/menu.md"`. A path must be a single whitespace-free token — a `.md`/`.markdown` file or a slash path — so dynamic prose containing slashes is never mistaken for a file.
 
 <div x-code-group>
 
 ```html "HTML" copy
-<div x-markdown="'/assets/menu.md'"></div>
+<div x-markdown="'/assets/examples/menu.md'"></div>
 ```
 
 ```markdown "menu.md"
@@ -94,12 +91,7 @@ Load markdown content from external `.md` files by providing a file path like `x
 ```
 
 ::: frame col text-base
-<span class="h4 mb-3">Menù del Giornaliero</span>
-<ul>
-  <li>Vitello alla Milanese</li>
-  <li>Lasagna alla Bolognese Bianca</li>
-  <li>Grilled Cheese n' Taters</li>
-</ul>
+<div x-markdown="'/assets/examples/menu.md'"></div>
 :::
 
 </div>

@@ -129,7 +129,7 @@ With most modern container layouts making use of CSS flex properties, these util
     <legend>content</legend>
     <div class="row content w-80 h-40 -mt-4.5 p-4 bg-surface-3 border-x border-dashed border-line text-sm text-content-neutral">Look at that subtle off-white coloring. The tasteful thickness of it. Oh my God, it even has a watermark...</div>
 </fieldset>
-<div class="row gap-4 w-full">
+<div class="row-wrap gap-4 w-full">
     <div class="col gap-4">
         <fieldset class="row gap-2">
             <legend>row</legend>

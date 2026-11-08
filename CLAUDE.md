@@ -40,7 +40,7 @@ To tell which: look for a `prerender` block in `manifest.json` or a `/website/` 
 **Routing.** Routes are visibility-based, not navigation-based. A `<section x-route="pricing">` shows when the URL matches `/pricing`. Patterns:
 
 - `x-route="/"` — root only
-- `x-route="about"` — `/about` and any subroutes
+- `x-route="about"` — any path containing "about" (use `/about` for /about and its subroutes, `=about` for /about only)
 - `x-route="=about"` — exact `/about` only
 - `x-route="about/*"` — subroutes only
 - `x-route="!admin"` — everywhere except `/admin`

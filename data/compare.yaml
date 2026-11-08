@@ -1,0 +1,652 @@
+# One entry per comparison page, served at /compare/<slug>.
+# Table and plan cells: "✓" renders as a check, "—" as not offered, anything else as text.
+- slug: "lovable"
+  blurb: "Build without spending credits on every request."
+  name: "Lovable"
+  summary: "Both build apps by chatting with AI. Lovable spends credits on every request. Manifest builds through the Claude plan you already have, and publishing is free."
+  verified: "November 2026"
+  sources:
+    - label: "Lovable pricing"
+      url: "https://lovable.dev/pricing"
+    - label: "Lovable custom domains"
+      url: "https://docs.lovable.dev/features/custom-domain"
+    - label: "Lovable GitHub sync"
+      url: "https://docs.lovable.dev/integrations/github"
+
+  highlights:
+    - value: "No credits"
+      text: "Building runs on your Claude plan, so there's no meter to watch."
+    - value: "Free"
+      text: "Publish on your own domain, with staging, on the free plan."
+    - value: "$15"
+      text: "A month per project, only for projects that need Pro."
+
+  # Optional credit meter, for AI builders that meter usage.
+  # prompts[].them: "credit" spends one, "no" isn't available there.
+  meter:
+    text: "The same requests, made on both. Lovable spends a daily credit budget. Manifest builds through your Claude plan, with no meter to watch."
+    unit: "credit"
+    units: "credits"
+    period: "today"
+    out: "Out of credits today"
+    none: "No credits left"
+  prompts:
+    - text: "Build a booking site for my studio"
+      them: "credit"
+    - text: "Add member sign-in"
+      them: "credit"
+    - text: "Make the schedule a calendar"
+      them: "credit"
+    - text: "Fix the mobile menu"
+      them: "credit"
+    - text: "Try a darker theme"
+      them: "credit"
+    - text: "Add a members area"
+      them: "out"
+    - text: "Translate it into Spanish"
+      them: "out"
+    - text: "Publish my existing React site"
+      them: "no"
+
+  chooseThem:
+    - "You don't use Claude."
+    - "You want to start from community templates."
+    - "You run many small projects under one fee."
+  chooseUs:
+    - "You already use Claude."
+    - "You'd rather not ration credits."
+    - "You want a free custom domain and staging."
+
+  free:
+    - [ "Build by chatting", "5 credits a day", "Your Claude plan" ]
+    - [ "Publish publicly", "Invite only, up to 10 people", "✓" ]
+    - [ "Custom domain", "—", "✓" ]
+    - [ "Check changes before going live", "✓", "✓" ]
+    - [ "Sync code to GitHub", "✓", "✓" ]
+    - [ "Publish projects built elsewhere", "—", "✓" ]
+    - [ "Teammates", "✓", "—" ]
+    - [ "Branding badge", "Shown", "Shown" ]
+
+  paid:
+    - [ "Price", "From $25 a month", "$15 a month per project" ]
+    - [ "Build by chatting", "Monthly credits, plus top-ups", "Your Claude plan" ]
+    - [ "Custom domain", "✓", "✓" ]
+    - [ "Branding badge removed", "✓", "✓" ]
+    - [ "Roll back a release", "✓", "✓" ]
+    - [ "Teammates", "✓", "✓" ]
+    - [ "Sync code to GitHub", "✓", "✓" ]
+    - [ "Publish projects built elsewhere", "—", "✓" ]
+
+  switch:
+    intro: "There's nothing to export. Point Claude at your published Lovable app, and it copies it into a new Manifest project."
+    steps:
+      - title: "Connect Manifest"
+        text: "Add Manifest to Claude once, in a minute."
+      - title: "Point Claude at it"
+        text: "Give Claude your Lovable app's address and ask for a copy."
+      - title: "Publish"
+        text: "Check it on staging, then take it live on your own domain."
+    prompts:
+      - "Copy my-app.lovable.app into a new Manifest project, exactly as it is"
+
+  faq:
+    - q: "Is Manifest cheaper than Lovable?"
+      a: "Yes, and it stays that way. Manifest's free plan has no time limit: build your projects in Claude and publish them publicly on your own domains for $0, month after month. You only pay for Pro on a project that needs its extras, like teammates or rollback. On Lovable's free plan, only people you invite can open your site. Public sites and custom domains start at $25 a month, and building spends credits."
+    - q: "Does Manifest use credits?"
+      a: "No. Building happens in your Claude chats."
+    - q: "Can I move a Lovable project to Manifest?"
+      a: "Yes. Give Claude your Lovable app's address and ask for a copy in a new Manifest project. It's rebuilt as yours, ready to edit and publish."
+    - q: "Can I use my own domain for free?"
+      a: "Yes, on Manifest's free plan, with the certificate handled for you. Lovable connects new custom domains on paid plans."
+    - q: "Do I need to know how to code?"
+      a: "No, for either. You describe what you want in plain words, and the AI builds it."
+    - q: "Do I need Claude?"
+      a: "Yes. Manifest works through Claude, so one subscription covers building. Claude's free plan works too."
+
+- slug: "webflow"
+  blurb: "Design by chatting, without paying for seats."
+  cta: ["Your next site,", "without the seat fees."]
+  name: "Webflow"
+  summary: "Webflow is a visual design canvas, priced per site plus seats. Manifest builds by chatting in Claude, and publishes to your own domain for free, with teammates included on Pro."
+  verified: "November 2026"
+  sources:
+    - label: "Webflow pricing"
+      url: "https://webflow.com/pricing"
+    - label: "Webflow AI credits"
+      url: "https://help.webflow.com/hc/en-us/articles/51060121155347-Webflow-AI-credits"
+    - label: "Webflow custom domains"
+      url: "https://help.webflow.com/hc/en-us/articles/33961334343827-How-do-I-connect-my-domain-to-Webflow"
+
+  highlights:
+    - value: "Free"
+      text: "Publish on your own domain, with staging, on the free plan."
+    - value: "No seats"
+      text: "Teammates join a Pro project without a fee per person."
+    - value: "$15"
+      text: "A month per project, only for projects that need Pro."
+
+  chooseThem:
+    - "You want to design by hand on a canvas."
+    - "Your team already works in Webflow's Designer."
+    - "You already use Webflow's CMS."
+  chooseUs:
+    - "You'd rather describe changes than drag them."
+    - "You want a free custom domain and staging."
+    - "You want teammates without per-seat fees."
+
+  free:
+    - [ "Build with AI", "200 credits a month", "Your Claude plan" ]
+    - [ "Design and layout", "On a canvas", "By chatting" ]
+    - [ "Publish online", "✓", "✓" ]
+    - [ "Custom domain", "—", "✓" ]
+    - [ "Form submissions", "50", "100 a month" ]
+    - [ "Site analytics", "—", "Last 7 days" ]
+    - [ "Take your code elsewhere", "Paid plan only", "✓" ]
+    - [ "Branding badge", "Shown", "Shown" ]
+
+  paid:
+    - [ "Price", "From $25 a month", "$15 a month per project" ]
+    - [ "Build with AI", "Monthly credits, plus top-ups", "Your Claude plan" ]
+    - [ "Design and layout", "On a canvas", "By chatting" ]
+    - [ "Custom domain", "✓", "✓" ]
+    - [ "Branding badge removed", "✓", "✓" ]
+    - [ "Manage content", "CMS from $39 a month", "Ask Claude" ]
+    - [ "Teammates who edit", "From $19 a month each", "✓" ]
+    - [ "Site analytics", "Add-on, from $12 a month", "All time" ]
+
+  switch:
+    intro: "There's nothing to export. Point Claude at your published Webflow site, and it copies it into a new Manifest project."
+    steps:
+      - title: "Connect Manifest"
+        text: "Add Manifest to Claude once, in a minute."
+      - title: "Point Claude at it"
+        text: "Give Claude your Webflow site's address and ask for a copy."
+      - title: "Publish"
+        text: "Check it on staging, then take it live on your own domain."
+    prompts:
+      - "Copy my-site.webflow.io into a new Manifest project, exactly as it is"
+
+  faq:
+    - q: "Is Manifest cheaper than Webflow?"
+      a: "Yes, and it stays that way. Manifest's free plan has no time limit: build in Claude and publish on your own domain for $0, month after month. Pro is $15 a month per project, with teammates included. On Webflow, a custom domain needs a paid site plan, from $25 a month, or $15 billed yearly, its CMS starts at $39 a month, and each teammate who edits is a paid seat."
+    - q: "Does Manifest use credits?"
+      a: "No. Building happens in your Claude chats."
+    - q: "Can I move a Webflow site to Manifest?"
+      a: "Yes. Give Claude your Webflow site's address and ask for a copy in a new Manifest project. It's rebuilt as yours, ready to edit and publish. A Webflow code export can also be published as it is."
+    - q: "Does Manifest have a visual editor like Webflow?"
+      a: "Claude is the designer. Describe the change, and see it in a live preview, then publish. Teammates you invite do the same, from their own Claude. If you'd rather drag and style every element by hand, Webflow is built for that."
+    - q: "Can I use my own domain for free?"
+      a: "Yes, on Manifest's free plan, with the certificate handled for you. Webflow needs a paid site plan for each site on a custom domain."
+    - q: "What happens to my Webflow CMS content?"
+      a: "Claude copies it, blog posts and other lists included, into data your new project reads, stored with the project or in the cloud. From then on, Claude is your CMS: ask it to add a post or change a price. Need a dashboard for others? Claude can build you a custom CMS in minutes, hosted on Manifest, that updates your site."
+
+- slug: "bolt"
+  blurb: "Build without a daily token limit."
+  name: "Bolt"
+  summary: "Both build sites and apps by chatting with AI. Bolt spends tokens on every request and keeps custom domains for paid plans. Manifest builds through your Claude plan and publishes free."
+  verified: "November 2026"
+  sources:
+    - label: "Bolt pricing"
+      url: "https://bolt.new/pricing"
+    - label: "Bolt tokens"
+      url: "https://support.bolt.new/account-and-subscription/tokens"
+    - label: "Bolt custom domains"
+      url: "https://support.bolt.new/cloud/domains"
+    - label: "Bolt FAQ"
+      url: "https://support.bolt.new/concepts/faq"
+
+  highlights:
+    - value: "No tokens"
+      text: "Building runs on your Claude plan, so there's no meter to watch."
+    - value: "Free"
+      text: "Publish on your own domain, with staging, on the free plan."
+    - value: "$15"
+      text: "A month per project, only for projects that need Pro."
+
+  meter:
+    text: "The same requests, made on both. Bolt's free plan spends from a daily token limit. Manifest builds through your Claude plan, with no meter to watch."
+    percent: true
+    left: "of today's tokens left"
+    spend: "Uses tokens"
+    out: "Out of tokens today"
+    none: "No tokens left"
+  prompts:
+    - text: "Build a booking site for my studio"
+      them: "credit"
+    - text: "Add a gallery page"
+      them: "credit"
+    - text: "Make the schedule a calendar"
+      them: "credit"
+    - text: "Fix the mobile menu"
+      them: "credit"
+    - text: "Try a darker theme"
+      them: "credit"
+    - text: "Add a members area"
+      them: "out"
+    - text: "Translate it into Spanish"
+      them: "out"
+
+  chooseThem:
+    - "You don't use Claude."
+    - "You want built-in databases and backend hosting."
+    - "You want to buy a domain in the same place."
+  chooseUs:
+    - "You already use Claude."
+    - "You'd rather not ration tokens."
+    - "You want a free custom domain and staging."
+
+  free:
+    - [ "Build by chatting", "300K tokens a day", "Your Claude plan" ]
+    - [ "Monthly building limit", "1M tokens", "Your Claude plan" ]
+    - [ "Publish online", "✓", "✓" ]
+    - [ "Custom domain", "—", "✓" ]
+    - [ "Restore an earlier version", "✓", "—" ]
+    - [ "Teammates", "✓", "—" ]
+    - [ "Branding badge", "Shown", "Shown" ]
+
+  paid:
+    - [ "Price", "From $25 a month", "$15 a month per project" ]
+    - [ "Build by chatting", "10M tokens a month", "Your Claude plan" ]
+    - [ "Unused building allowance", "Rolls over two months", "No allowance to lose" ]
+    - [ "Custom domain", "✓", "✓" ]
+    - [ "Branding badge removed", "✓", "✓" ]
+    - [ "Restore an earlier version", "✓", "✓" ]
+    - [ "Teammates", "$30 per member", "✓" ]
+
+  switch:
+    intro: "There's nothing to export. Point Claude at your published Bolt site, and it copies it into a new Manifest project."
+    steps:
+      - title: "Connect Manifest"
+        text: "Add Manifest to Claude once, in a minute."
+      - title: "Point Claude at it"
+        text: "Give Claude your Bolt site's address and ask for a copy."
+      - title: "Publish"
+        text: "Check it on staging, then take it live on your own domain."
+    prompts:
+      - "Copy my-site.bolt.host into a new Manifest project, exactly as it is"
+
+  faq:
+    - q: "Is Manifest cheaper than Bolt?"
+      a: "Yes, and it stays that way. Manifest's free plan has no time limit: build your projects in Claude and publish them on your own domains for $0, month after month. You only pay for Pro on a project that needs its extras, like teammates or rollback. On Bolt, a custom domain needs a paid plan, from $25 a month, and building spends tokens. If you build many projects under one account, a single Bolt plan can cost less than Pro on each."
+    - q: "Does Manifest use credits?"
+      a: "No. Building happens in your Claude chats."
+    - q: "Can I move a Bolt project to Manifest?"
+      a: "Yes. Give Claude your Bolt site's address and ask for a copy in a new Manifest project. It's rebuilt as yours, ready to edit and publish."
+    - q: "Can I use my own domain for free?"
+      a: "Yes, on Manifest's free plan, with the certificate handled for you. Bolt connects custom domains on paid plans only; free sites use a bolt.host address."
+    - q: "What happens when Bolt runs out of tokens?"
+      a: "On Bolt's free plan, AI building pauses until the daily limit resets, or you upgrade. Manifest has no token limit of its own: you build within your Claude plan."
+    - q: "Do I need to know how to code?"
+      a: "No, for either. You describe what you want in plain words, and the AI builds it."
+
+- slug: "v0"
+  blurb: "Build without a daily message cap or per-user plan."
+  name: "v0"
+  summary: "Both build sites by chatting with AI. v0 spends credits on every message and hosts on Vercel. Manifest builds through the Claude plan you already have, and publishing is free."
+  verified: "November 2026"
+  sources:
+    - label: "v0 pricing"
+      url: "https://v0.app/pricing"
+    - label: "v0 publishing"
+      url: "https://v0.app/docs/deployments"
+    - label: "v0 custom domains"
+      url: "https://v0.app/docs/custom-domains"
+    - label: "Vercel pricing"
+      url: "https://vercel.com/pricing"
+
+  highlights:
+    - value: "No credits"
+      text: "Building runs on your Claude plan, so there's no meter to watch."
+    - value: "Free"
+      text: "Publish on your own domain, with staging, on the free plan."
+    - value: "$15"
+      text: "A month per project, with teammates included, only when you need Pro."
+
+  meter:
+    text: "The same requests, made on both. v0's free plan stops at 7 messages a day, and every message spends credits. Manifest builds through your Claude plan, with no meter to watch."
+    unit: "message"
+    units: "messages"
+    period: "today"
+    out: "Out of messages today"
+    none: "No messages left"
+  prompts:
+    - text: "Build a landing page for my bakery"
+      them: "credit"
+    - text: "Add a contact form"
+      them: "credit"
+    - text: "Turn the menu into a photo gallery"
+      them: "credit"
+    - text: "Fix the mobile menu"
+      them: "credit"
+    - text: "Try a darker theme"
+      them: "credit"
+    - text: "Make the headline bigger"
+      them: "credit"
+    - text: "Add our opening hours to the footer"
+      them: "credit"
+    - text: "Add a members area"
+      them: "out"
+    - text: "Translate it into Spanish"
+      them: "out"
+
+  chooseThem:
+    - "You don't use Claude."
+    - "You want to tweak designs visually."
+    - "Your team already works on Vercel."
+  chooseUs:
+    - "You already use Claude."
+    - "You'd rather not ration credits."
+    - "Teammates shouldn't each need a paid seat."
+
+  free:
+    - [ "Build by chatting", "7 messages a day", "Your Claude plan" ]
+    - [ "When you hit the limit", "Wait a day or upgrade", "No limit of its own" ]
+    - [ "Publish online", "✓", "✓" ]
+    - [ "Custom domain", "Personal sites only", "✓" ]
+    - [ "Check changes before going live", "✓", "✓" ]
+    - [ "Sync code to GitHub", "✓", "✓" ]
+    - [ "Bring a site you already have", "✓", "✓" ]
+    - [ "Edit visually", "✓", "—" ]
+
+  paid:
+    - [ "Price", "$30 a month per user", "$15 a month per project" ]
+    - [ "Build by chatting", "Monthly credits, plus top-ups", "Your Claude plan" ]
+    - [ "Host a business site", "Vercel Pro, $20 more", "✓" ]
+    - [ "Custom domain", "✓", "✓" ]
+    - [ "Roll back a release", "✓", "✓" ]
+    - [ "Teammates", "Each pays per month", "✓" ]
+    - [ "Sync code to GitHub", "✓", "✓" ]
+    - [ "Edit visually", "✓", "—" ]
+
+  switch:
+    intro: "There's nothing to export. Point Claude at your published v0 site, and it copies it into a new Manifest project."
+    steps:
+      - title: "Connect Manifest"
+        text: "Add Manifest to Claude once, in a minute."
+      - title: "Point Claude at it"
+        text: "Give Claude your v0 site's address and ask for a copy."
+      - title: "Publish"
+        text: "Check it on staging, then take it live on your own domain."
+    prompts:
+      - "Copy my-site.vercel.app into a new Manifest project, exactly as it is"
+
+  faq:
+    - q: "Is Manifest cheaper than v0?"
+      a: "Yes, and it stays that way. Manifest's free plan has no time limit: build your projects in Claude and publish them on your own domains for $0, month after month. Pro is $15 a month per project, only when a project needs it, and teammates don't add seats. v0's paid plan is $30 a month per user, building spends credits, and a business site on Vercel needs a paid Vercel plan too, from $20 a month. For a small personal site, v0's free plan can also cost $0, if 7 messages a day is enough."
+    - q: "Does Manifest use credits?"
+      a: "No. Building happens in your Claude chats."
+    - q: "Can I move a v0 site to Manifest?"
+      a: "Yes. Give Claude your published v0 site's address and ask for a copy in a new Manifest project. It's rebuilt as yours, ready to edit and publish."
+    - q: "Can I use my own domain for free?"
+      a: "Yes, on Manifest's free plan, with the certificate handled for you. v0 publishes to Vercel, whose free plan is for personal, non-commercial sites."
+    - q: "Do I need to know how to code?"
+      a: "No, for either. You describe what you want in plain words, and the AI builds it."
+    - q: "Do I need Claude?"
+      a: "Yes. Manifest works through Claude, so one subscription covers building. Claude's free plan works too."
+
+- slug: "framer"
+  blurb: "Design by chatting, with a free custom domain and staging."
+  name: "Framer"
+  summary: "Framer is a visual site builder whose AI agent spends monthly credits. Manifest builds by chatting in Claude, and publishes to your own domain on the free plan."
+  verified: "November 2026"
+  sources:
+    - label: "Framer pricing"
+      url: "https://www.framer.com/pricing"
+    - label: "Framer AI credits"
+      url: "https://www.framer.com/help/articles/how-ai-credits-and-agents-pricing-work/"
+    - label: "Framer badge"
+      url: "https://www.framer.com/help/articles/how-do-i-remove-the-made-in-framer-badge-from-my-website"
+    - label: "Framer staging and versions"
+      url: "https://www.framer.com/help/articles/staging-and-versions/"
+
+  highlights:
+    - value: "No credits"
+      text: "Building runs on your Claude plan, so there's no meter to watch."
+    - value: "Free"
+      text: "Publish on your own domain, with staging, on the free plan."
+    - value: "$15"
+      text: "A month per project, with teammates included."
+
+  meter:
+    text: "The same requests, made on both. Framer's AI agent spends a monthly credit allowance. Manifest builds through your Claude plan, with no meter to watch."
+    percent: true
+    left: "of this month's credits left"
+    spend: "Uses credits"
+    out: "Out of credits this month"
+    none: "No credits left"
+  prompts:
+    - text: "Build a landing page for my studio"
+      them: "credit"
+    - text: "Add a pricing section"
+      them: "credit"
+    - text: "Make the headline warmer"
+      them: "credit"
+    - text: "Make the menu work on phones"
+      them: "credit"
+    - text: "Try a darker theme"
+      them: "credit"
+    - text: "Add a members area"
+      them: "out"
+    - text: "Translate it into Spanish"
+      them: "out"
+    - text: "Publish my existing React site"
+      them: "no"
+
+  chooseThem:
+    - "You want to design visually on a canvas."
+    - "You already design in Framer."
+    - "You only need the badge off, for $10."
+  chooseUs:
+    - "You'd rather describe changes than drag them."
+    - "You'd rather not ration AI credits."
+    - "You want a free custom domain and staging."
+
+  free:
+    - [ "Build by chatting", "500 credits to try", "Your Claude plan" ]
+    - [ "Design and layout", "On a canvas", "By chatting" ]
+    - [ "Publish online", "✓", "✓" ]
+    - [ "Custom domain", "—", "✓" ]
+    - [ "Try changes before they go live", "—", "✓" ]
+    - [ "Manage content", "CMS", "Ask Claude" ]
+    - [ "Teammates", "Up to 3 editors", "—" ]
+    - [ "Branding badge", "Shown", "Shown" ]
+
+  paid:
+    - [ "Price", "$10 a month (Basic)", "$15 a month per project" ]
+    - [ "Build by chatting", "1,000 credits a month", "Your Claude plan" ]
+    - [ "Custom domain", "✓", "✓" ]
+    - [ "Branding badge removed", "✓", "✓" ]
+    - [ "Try changes before they go live", "From $30 a month", "✓" ]
+    - [ "Teammates", "$20 a month per extra editor", "✓" ]
+    - [ "Visitor stats history", "30 days", "All time" ]
+    - [ "Design and layout", "On a canvas", "By chatting" ]
+
+  switch:
+    intro: "There's nothing to export. Point Claude at your published Framer site, and it copies it into a new Manifest project."
+    steps:
+      - title: "Connect Manifest"
+        text: "Add Manifest to Claude once, in a minute."
+      - title: "Point Claude at it"
+        text: "Give Claude your Framer site's address and ask for a copy."
+      - title: "Publish"
+        text: "Check it on staging, then take it live on your own domain."
+    prompts:
+      - "Copy my-site.framer.app into a new Manifest project, exactly as it is"
+
+  faq:
+    - q: "Is Manifest cheaper than Framer?"
+      a: "For most sites, yes. Manifest's free plan has no time limit: build in Claude and publish on your own domain for $0, month after month, with staging included. On Framer, a custom domain needs a paid plan. If you only want the badge off, Framer's Basic plan is cheaper at $10 a month against Manifest Pro's $15, but staging there starts at $30, and each extra editor is $20 a month."
+    - q: "Does Manifest use credits?"
+      a: "No. Building happens in your Claude chats."
+    - q: "Does Manifest have a visual editor like Framer?"
+      a: "Claude is the designer. Describe the change, and see it in a live preview, then publish. If you love arranging every element by hand on a canvas, Framer is built for that."
+    - q: "Can I move a Framer site to Manifest?"
+      a: "Yes. Give Claude your Framer site's address and ask for a copy in a new Manifest project. It's rebuilt as yours, ready to edit and publish."
+    - q: "Can I use my own domain for free?"
+      a: "Yes, on Manifest's free plan, with the certificate handled for you. Framer connects custom domains on paid plans."
+    - q: "Do I need Claude?"
+      a: "Yes. Manifest works through Claude, so one subscription covers building. Claude's free plan works too."
+
+- slug: "wordpress"
+  blurb: "A site that's yours alone, with no themes or plugins to maintain."
+  cta: ["Your next site,", "without the upkeep."]
+  name: "WordPress"
+  summary: "WordPress sites start from themes many other sites share, with plugins to keep updated. With Manifest, you describe a site that's yours alone, and publish it free on your own domain."
+  verified: "November 2026"
+  sources:
+    - label: "WordPress.com pricing"
+      url: "https://wordpress.com/pricing/"
+    - label: "WordPress.com plugins"
+      url: "https://wordpress.com/support/plugins/"
+    - label: "WordPress.com staging sites"
+      url: "https://wordpress.com/support/how-to-create-a-staging-site/"
+    - label: "WordPress.com vs WordPress.org"
+      url: "https://wordpress.com/support/com-vs-org/"
+
+  highlights:
+    - value: "Yours alone"
+      text: "Describe the site you want, instead of starting from a theme others use."
+    - value: "Nothing to update"
+      text: "No plugins to patch. Claude makes the changes, and Manifest hosts the site."
+    - value: "Free"
+      text: "Publish on your own domain, with staging, on the free plan."
+
+  chooseThem:
+    - "You want a plugin for almost anything."
+    - "You blog a lot in a familiar editor."
+    - "You want to pick from thousands of themes."
+  chooseUs:
+    - "You want a design that's yours, not a theme."
+    - "You'd rather ask than install and update plugins."
+    - "You want a free custom domain and staging."
+
+  free:
+    - [ "Build with AI", "20 AI requests", "Your Claude plan" ]
+    - [ "Design", "Shared themes", "Made for you" ]
+    - [ "Publish online", "✓", "✓" ]
+    - [ "Custom domain", "—", "✓" ]
+    - [ "Ads on your site", "Shown", "None" ]
+    - [ "Add plugins or themes", "—", "Ask Claude" ]
+    - [ "Try changes before they go live", "—", "✓" ]
+    - [ "Site analytics", "Last 7 days", "Last 7 days" ]
+
+  paid:
+    - [ "Price", "$9 a month (Personal)", "$15 a month per project" ]
+    - [ "Custom domain", "✓", "✓" ]
+    - [ "No ads on your site", "✓", "✓" ]
+    - [ "Add features", "60,000+ plugins", "Ask Claude" ]
+    - [ "Try changes before they go live", "From $40 a month", "✓" ]
+    - [ "Restore an earlier version", "From $40 a month", "✓" ]
+    - [ "Online store", "From $70 a month", "Your own payment provider" ]
+    - [ "Build with AI", "Usage limits apply", "Your Claude plan" ]
+
+  switch:
+    intro: "There's nothing to export. Point Claude at your WordPress site, and it copies it, pages and posts included, into a new Manifest project."
+    steps:
+      - title: "Connect Manifest"
+        text: "Add Manifest to Claude once, in a minute."
+      - title: "Point Claude at it"
+        text: "Give Claude your WordPress site's address and ask for a copy."
+      - title: "Publish"
+        text: "Check it on staging, then take it live on your own domain."
+    prompts:
+      - "Copy my-site.wordpress.com into a new Manifest project, exactly as it is"
+
+  faq:
+    - q: "Is Manifest cheaper than WordPress?"
+      a: "For most small sites, yes. Manifest's free plan has no time limit: build in Claude and publish on your own domain for $0, month after month, with staging included and no ads. WordPress.com's free plan has no custom domain and shows ads. Its Personal plan adds a domain from $9 a month, or $4 billed yearly, which is cheaper than Manifest Pro's $15. Staging and restoring backups start on its Business plan, $40 a month or $25 billed yearly. Self-hosted WordPress is free software, but you pay for hosting yourself."
+    - q: "Can I move my WordPress site to Manifest?"
+      a: "Yes. Give Claude your site's address and ask for a copy in a new Manifest project. Pages and blog posts are rebuilt as yours, ready to edit and publish. From then on, ask Claude to add a post or change a price."
+    - q: "Will my site look like other WordPress sites?"
+      a: "On WordPress, most sites start from a theme that many others use too, so they tend to look alike. With Manifest, you describe what you want, and Claude designs it for you, so your site looks like yours, not a template."
+    - q: "Does Manifest have plugins like WordPress?"
+      a: "No, there's no plugin store. Instead, ask Claude for what you need, like a contact form, a gallery or a booking button, and it builds it into your site. There's nothing to install, and nothing to keep updated."
+    - q: "Can I run an online store on Manifest?"
+      a: "Yes. Bring the payment provider or store account you already use, like Stripe, and Claude connects it, from a simple checkout link to a fully built-in shop. On WordPress.com, a full store starts on the $70-a-month Commerce plan."
+    - q: "Who keeps my site updated and secure?"
+      a: "On Manifest, there are no plugins or servers for you to look after. Claude makes the changes, and Manifest hosts the site. WordPress.com manages its own hosting and updates. On self-hosted WordPress, you or your host keep WordPress, its plugins and its security up to date."
+    - q: "Can I use my own domain for free?"
+      a: "Yes, on Manifest's free plan, with the certificate handled for you. WordPress.com connects custom domains on paid plans only."
+
+- slug: "ai-chat-apps"
+  blurb: "Turn what you made in a chat into a real site on your domain."
+  cta: ["From your chat", "to your own domain."]
+  title: "Publishing from AI chat apps"
+  name: "Chat app alone"
+  summary: "Chat apps share what they make as a link on their own address. Add Manifest to Claude, and it becomes a real site on your own domain, with staging, ready to install like an app."
+  verified: "November 2026"
+  sources:
+    - label: "Claude: publish and share artifacts"
+      url: "https://support.claude.com/en/articles/9547008"
+    - label: "Gemini: create apps with Canvas"
+      url: "https://support.google.com/gemini/answer/16047321"
+    - label: "ChatGPT Sites"
+      url: "https://chatgpt.com/features/sites/"
+    - label: "ChatGPT Sites: manage a site"
+      url: "https://learn.chatgpt.com/docs/sites/managing-a-site"
+
+  highlights:
+    - value: "Same chat"
+      text: "Keep building by chatting, in the Claude you already use."
+    - value: "Your domain"
+      text: "Check changes on staging, then go live on your own address, free."
+    - value: "An app, too"
+      text: "Visitors can install it like an app, or you can package it for the app stores."
+
+  chooseThemTitle: "Stay in the chat if…"
+  chooseThem:
+    - "You just need a quick link to share."
+    - "It's a prototype or a one-off tool."
+    - "You want nothing at all to set up."
+  chooseUs:
+    - "You want it on your own domain."
+    - "You want staging before changes go live."
+    - "It's a real site people will visit."
+
+  free:
+    - [ "Nothing to set up", "✓", "Connect once" ]
+    - [ "Build by chatting", "✓", "In Claude" ]
+    - [ "Share a public link", "✓", "✓" ]
+    - [ "Custom domain", "—", "✓" ]
+    - [ "Staging, then go live", "—", "✓" ]
+    - [ "Visitor analytics", "—", "Last 7 days" ]
+
+  paidName: "Paid chat plan"
+  paid:
+    - [ "Price", "A monthly subscription", "$15 a month per project" ]
+    - [ "More AI use each day", "✓", "Your Claude plan" ]
+    - [ "Custom domain", "ChatGPT Sites only, in beta", "✓" ]
+    - [ "Staging, then go live", "—", "✓" ]
+    - [ "Teammates edit the same site", "ChatGPT Sites only", "✓" ]
+    - [ "Visitor analytics", "ChatGPT Sites only", "All time" ]
+
+  switch:
+    title: "Publish what you made"
+    intro: "Keep chatting the way you do now. Connect Manifest to Claude, then ask it to publish what you made."
+    steps:
+      - title: "Connect Manifest"
+        text: "Add Manifest to Claude once, in a minute."
+      - title: "Ask Claude to publish"
+        text: "Give Claude your share link, or ask in the chat where you made it."
+      - title: "Go live"
+        text: "Check it on staging, then take it live on your own domain."
+    prompts:
+      - "Publish this artifact on my own domain with Manifest"
+
+  faq:
+    - q: "How do I publish a Claude artifact on my own domain?"
+      a: "Connect Manifest to Claude, then, in the same chat or with your artifact's share link, ask: \"Publish this artifact on my own domain with Manifest.\" Claude publishes it to staging for you to check, then takes it live on your domain, with the certificate handled for you. It's free, with no time limit."
+    - q: "Can I host a ChatGPT canvas app on my own domain?"
+      a: "Yes. Give Claude the share link, or paste the code, and ask it to publish with Manifest on your domain. ChatGPT's own Sites feature, in beta on paid plans, can also connect a domain you own."
+    - q: "Can I put a Gemini canvas app on my own domain?"
+      a: "Yes, the same way. Give Claude the share link, or paste the code, and ask it to publish with Manifest on your domain."
+    - q: "What does Manifest add to how Claude builds?"
+      a: "Manifest's skills guide Claude through building websites, apps, games, and platforms. For projects on the Manifest framework, routing, data, sign-ins, and forms are built in, so Claude doesn't have to piece together outside tools. Sign-ins and cloud data use your own Appwrite account."
+    - q: "Can it become a phone app?"
+      a: "Yes, for projects built with the Manifest framework. Visitors can install it from the browser like an app, and Claude can set it up for the App Store and Google Play. You build and submit it with your own developer accounts."
+    - q: "Does Manifest replace Claude?"
+      a: "No. Manifest works inside Claude. You keep building by chatting, exactly as you do now, and Manifest adds the publishing: hosting, your own domain, and staging. Claude's free plan works too."
+    - q: "Is Manifest free?"
+      a: "Yes. The free plan has no time limit: publish to staging and live on your own domain, with 7 days of visitor analytics and 100 form submissions a month, plus a small \"Made with Manifest\" badge. Pro is $15 a month per project, and only for projects that need it: it removes the badge and adds teammates, rollback and all-time analytics."
+    - q: "When is a chat app's share link enough?"
+      a: "For a prototype, a quick tool, or something to show a few people, a share link is instant and needs nothing set up. When it's a site people should find at your own address, with changes checked before they go live, publish it with Manifest."

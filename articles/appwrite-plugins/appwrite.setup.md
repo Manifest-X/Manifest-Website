@@ -30,6 +30,17 @@ Your Manifest project will need the Appwrite project's <b>Project ID</b> and <b>
 
 ---
 
+### Web Platform
+
+Appwrite only accepts browser requests from hostnames registered with the project. From the project <b>Overview</b>, select <b>Add platform</b> > <b>Web</b> and enter each hostname that will run your Manifest project:
+
+- `localhost` for local development
+- Each staging and production domain, such as `example.com`
+
+Without this, sign-in and data requests are blocked by the browser.
+
+---
+
 ### Dev Key
 
 An optional <b>Dev Key</b> can also be used during Manifest project development to bypass Appwrite's rate limits. It should not be included in production. Get one from <b>Overview</b> > <b>Dev keys</b>:

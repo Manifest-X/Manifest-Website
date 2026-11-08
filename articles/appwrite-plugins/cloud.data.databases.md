@@ -20,6 +20,8 @@ The database must have at least one table.
 
 Add columns to the table matching your data structure. Appwrite automatically applies `$id`, `$createdAt`, and `$updatedAt` columns to every table. In the example above, we've established a table that will store fictitious "projects".
 
+To [scope](#scope) rows to users or teams, also add a `userId` and/or `teamId` string column. Manifest fills them in on `$create`. The examples on this page use a table with `name`, `type`, `userId` and `teamId` string columns.
+
 ::: brand icon="lucide:info"
 In a table's **Settings** tab, ensure any permissions required by your frontend user experience (**Create**, **Read**, **Update**, **Delete**) are checked.
 :::
@@ -109,31 +111,54 @@ All interactive examples below require you to be logged into a dummy account via
 
 ## Display & Manage Entries
 
-Database tables work identically to local data sources. Access entries using the `$x` magic method and perform all CRUD operations:
+Database tables work identically to local data sources. Access entries using the `$x` magic method and perform all CRUD operations. Team-scoped rows are read and created for `$auth.currentTeam`, so the "All" example first selects the user's [permanent team](/docs/framework/appwrite-plugins/teams#team-management):
 
 <div x-code-group numbers copy>
 
 ```html "All"
-<div x-data="{ newName: '' }">
-    <!-- Create -->
-    <input type="text" placeholder="Project name" aria-label="Project name" x-model="newName" />
-    <button @click="$x.projects.$create({ name: newName, type: 'demo' }).then(() => { newName = ''; })" :disabled="!newName || $x.projects.$error">
-        Create
-    </button>
+<!-- Manage projects for permanent team -->
+<div x-data="{ 
+    permanentTeam: null,
+    newName: ''
+}"
+x-effect="(async () => {
+    if (permanentTeam || !$auth.teams || $auth.teams.length === 0) return;
+    for (const team of $auth.teams) {
+        if (await $auth.isTeamImmutable(team.$id)) {
+            permanentTeam = team;
+            $auth.currentTeam = team;
+            $auth.viewTeam(team);
+            break;
+        }
+    }
+})()">
     
-    <!-- List with inline edit, duplicate, and delete -->
-    <template x-for="project in $x.projects" :key="project.$id">
-        <div>
-            <input 
-                type="text" 
-                :value="project.name" 
-                @blur="$x.projects.$update(project.$id, { name: $event.target.value })"
-            />
-            <button @click="$x.projects.$duplicate(project.$id, { files: 'same' })" x-icon="lucide:copy" aria-label="Duplicate"></button>
-            <button @click="$x.projects.$delete(project.$id)" x-icon="lucide:trash" aria-label="Delete"></button>
+    <div class="col">
+        <!-- Create -->
+        <div class="row-wrap gap-2 mb-2">
+            <input type="text" placeholder="Project name" aria-label="Project name" x-model="newName" :disabled="!$auth.currentTeam" class="flex-1" />
+            <button @click="$x.projects.$create({ name: newName, type: 'demo' }).then(() => { newName = ''; })" :disabled="!newName || !$auth.currentTeam || $x.projects.$error">
+                Create
+            </button>
         </div>
-    </template>
+        
+        <!-- List with inline edit, duplicate, and delete -->
+        <template x-for="project in $x.projects" :key="project.$id">
+            <div class="row gap-2 py-1 items-center border-t border-line">
+                <input 
+                    type="text" 
+                    :value="project.name" 
+                    @blur="$x.projects.$update(project.$id, { name: $event.target.value })" 
+                    class="ghost flex-1"
+                />
+                <button class="sm" @click="$x.projects.$duplicate(project.$id, { files: 'same' })" x-icon="lucide:copy" aria-label="Duplicate" title="Duplicate"></button>
+                <button class="sm" @click="$x.projects.$delete(project.$id)" x-icon="lucide:trash" aria-label="Delete" title="Delete"></button>
+            </div>
+        </template>
+        <small x-show="!$x.projects || $x.projects.length === 0" class="text-content-subtle">No projects yet</small>
+    </div>
 </div>
+<small x-show="!$auth.teams || $auth.teams.length === 0" class="text-content-subtle">No teams available</small>
 ```
 
 ```html "Display" copy

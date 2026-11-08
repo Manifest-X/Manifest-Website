@@ -22,7 +22,7 @@ The plugin works on every Claude plan, including Free.
 
 1. In the Claude app or at <a href="https://claude.ai" target="_blank">claude.ai</a>, go to **Customize > Plugins**.
 2. Add Manifest:
-   - **On Claude Pro, Max, Team, or Enterprise:** open **Discover**, search for **Manifest**, and add it.
+   - **On Claude Pro, Max, Team, or Enterprise:** open **Discover**, search for **Manifest**, and add the **Manifest** plugin.
    - **On Claude's Free plan:** select **Add > Add marketplace > Add from a repository**, paste `https://github.com/Manifest-X/claude-plugin`{copy}, then add **Manifest**.
 3. In the plugin's **Connectors** tab, select **Connect** next to Manifest.
 
@@ -34,6 +34,10 @@ A Manifest page opens in your browser:
 
 That's it. The plugin appears in the Code tab the next time you start a session there. You never share a password or API key with Claude.
 
+::: brand icon="lucide:info"
+Claude's connector directory lists Manifest's connector on its own as **Manifest X**. The plugin already includes it, so you don't need to add it separately.
+:::
+
 ::: icon="lucide:building-2"
 **On a Team or Enterprise plan**, an Owner can make the plugin available to everyone, or install it for everyone, from the organization's plugin settings. Each person still connects their own Manifest account.
 :::
@@ -42,11 +46,11 @@ That's it. The plugin appears in the Code tab the next time you start a session 
 
 ## Where to do what
 
-The **Code** tab of the Claude desktop app is the best place to build: Claude works with files on your computer, previews your project, and handles projects of any size. Claude can also build and publish projects up to 10 MB (2 MB per file) right in a chat or Cowork, and you can manage any project from a chat, including on your phone.
+The **Code** tab of the Claude desktop app is the best place to build: Claude works with files on your computer, previews your project, and handles projects of any size. Claude can also build and publish projects up to 10 MB and 300 files (2 MB per file) right in a chat or Cowork, and you can manage any project from a chat, including on your phone.
 
 | Claude Sessions | Code | Chat & Cowork |
 |---|---|---|
-| Build and publish | ✓ | Projects up to 10 MB |
+| Build and publish | ✓ | Projects up to 10 MB and 300 files |
 | Preview in Claude app | ✓ | |
 | Publish live | ✓ | ✓ |
 | Roll back (Pro) | ✓ | ✓ |
@@ -68,7 +72,9 @@ If Manifest stops responding, your sign-in may have lapsed. Open the plugin's **
 
 ## Connect without the plugin
 
-You can also add Manifest to Claude as a custom connector. It connects to the same Manifest account and gives Claude the same abilities. Instead of being built in, Manifest's skills and commands are added to each project's folder when Claude sets the project up.
+You can also add Manifest's connector without the plugin, either from **Customize > Connectors**, where it's listed as **Manifest X**, or as a custom connector. It connects to the same Manifest account and gives Claude the same abilities. Instead of being built in, Manifest's skills and commands are added to each project's folder when Claude sets the project up.
+
+To add it as a custom connector:
 
 1. Go to **Customize > Connectors**, select **+**, then **Add custom connector**.
 2. Enter the details below, leave **Advanced settings** empty, and select **Add**, then **Connect**.

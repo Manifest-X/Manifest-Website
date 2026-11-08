@@ -257,7 +257,7 @@ Address a service by name, or iterate `$status` directly — each item is a heal
 
 ## UI Templates
 
-The plugin gives you state; the presentation is yours. These templates range from a full status page down to a single indicator — each reads the same `$status` values, including the built-in `service.uptime`, the `service.history` meter, and `$status.incidents`. History accrues live as the plugin polls (or is hydrated from a feed); incidents are logged whenever you post an update with `$status.set`.
+The plugin gives you state; the presentation is yours. These templates range from a full status page down to a single indicator — each reads the same `$status` values, including the built-in `service.uptime`, the `service.history` meter, and `$status.incidents`. History accrues live as the plugin polls (or is hydrated from a feed); incidents come from a feed, and `$status.set` also logs them in the current tab.
 
 <div x-code-group lines collapse="10" copy>
 
@@ -469,7 +469,11 @@ The plugin gives you state; the presentation is yours. These templates range fro
 
 ## Manual Control
 
-The magic exposes methods for operators and background systems.
+The magic exposes methods to override a status on the current page, for previews and testing.
+
+::: negative icon="lucide:triangle-alert"
+`$status.set` changes only the current visitor's tab, until it reloads. Nothing is saved or sent to other visitors. To tell every visitor about an incident, publish it from your backend as a [feed](#probes-feeds).
+:::
 
 | Method | Description |
 |---|---|
@@ -504,7 +508,7 @@ The magic exposes methods for operators and background systems.
 
 A message is a human note attached to a status — the line you post during an incident, like "Investigating elevated error rates". It rides alongside the state and surfaces as `$status.<name>.message`, or `null` when there is none. It can be set one of two ways:
 
-- **Manually**, as the third argument to `$status.set` — for operator actions and incident updates:
+- **Manually**, as the third argument to `$status.set`. This shows only in the current tab:
 
 ```html copy
 <button @click="$status.set('api', 'degraded', 'Investigating elevated error rates')">Post update</button>

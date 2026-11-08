@@ -1,31 +1,42 @@
 # Authentication
 
-Send your API key with every request.
+Send your API key with every request, and rotate it without downtime.
 
 ---
 
-## Create an API key
+## Create an API Key
 
-1. Open the [API page](https://dash.manifestx.dev/api) of the dashboard. It's also in the account menu, under **API**.
-2. Select **New key**, name it after the service that will use it, such as "CI" or "Docs sync", and select **Create key**.
-3. Copy the key. It is shown once, so store it in your secrets manager right away.
+1. Open the <a href="https://dash.manifestx.dev/api" target="_blank">API page</a> of the dashboard. It's also in the account menu, under **API**. New to Manifest? Signing in creates your free account.
+2. Select **New key**, name it after the service that will use it, like "CI" or "Docs sync", then select **Create key**.
+3. Copy the key and store it in your secrets manager.
 
-Keys start with `mnfst_api_`{copy}. You can hold up to 10 keys. Give each service its own key, so you can revoke one without touching the others. The API page lists each key's prefix, name, creation date, and when it was last used.
+::: negative icon="lucide:triangle-alert"
+The key is shown once. If you lose it, revoke it and create another.
+:::
 
-Platform account keys are issued by Manifest when the account is set up.
+Your first key also sets up your **API account**, which holds your keys, your project allowance, and your caps. Keys start with `mnfst_api_`. An account can hold up to 10 live keys. Give each service its own, so you can revoke one without touching the others. Enterprise keys are issued by Manifest when the account is set up.
 
 ---
 
-## Send the key
+## Send the Key
 
-Send the key on every request as a bearer token, `Authorization: Bearer <key>`{copy}:
+Send the key on every request as a bearer token, `Authorization: Bearer <key>`{copy}. `GET /me` checks that it works.
 
-```bash copy
+<div x-code-group copy>
+
+```bash "cURL"
 curl https://api.manifestx.dev/v1/me \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
 ```
 
-`GET /me`{copy} confirms the key works and returns the API account it belongs to:
+```js "JavaScript"
+const res = await fetch('https://api.manifestx.dev/v1/me', {
+  headers: { Authorization: `Bearer ${process.env.MANIFEST_ACCOUNT_KEY}` },
+})
+const me = await res.json()
+```
+
+</div>
 
 ```json
 {
@@ -43,40 +54,68 @@ curl https://api.manifestx.dev/v1/me \
 }
 ```
 
-`plan`{copy} is `free`{copy} for the free allowance that comes with every Manifest account, or `platform`{copy} for a platform account. `max_projects`{copy} is how many projects the key can create through the API. `max_storage_bytes`{copy} and `rate_limit`{copy} are the account's other caps; see [Limits](/docs/api/reference/limits). See [Manage](/docs/api/projects/manage#what-a-key-can-manage) for what the key can do.
+- **`plan`** is `free` for the allowance every account gets, or `platform` for an Enterprise account.
+- **`max_projects`** is how many projects your keys can create through the API.
+- **`max_storage_bytes`** and **`rate_limit`** are the account's other caps. See [Limits](/docs/api/reference/limits).
 
-Keep the key on your server. It can act on every project it reaches, so never ship it to a browser or a site's repository.
+The examples name the key `MANIFEST_ACCOUNT_KEY`, so it's never mixed up with a project's own `MANIFEST_API_KEY`.
 
-**No CORS:** call the API from your server, never from a browser.
-
----
-
-## Project keys
-
-Creating a project also returns that project's own key, `project_key`{copy}, once. It is a normal Manifest project key for publishing that one project headless, for example from its CI with `mnfst-publish`. The API doesn't need it: your API key already reaches the project. See [Create a project](/docs/api/projects/manage#create-a-project).
+::: negative icon="lucide:shield-alert"
+A key acts on every project it reaches. Call the API from your server only: browsers are refused (no CORS). Never put the key in code that runs in a browser, or in a repository.
+:::
 
 ---
 
-## Revoke a key
+## Project Keys
 
-On the [API page](https://dash.manifestx.dev/api), select the trash icon next to the key, then **Revoke key**. The key stops working on the next request and can't be restored. If a key leaks, revoke it and create a new one. Platform accounts revoke their keys [with the API](#keys).
+Creating a project also returns that project's own key, `project_key`, once. It publishes that one project headless, for example from its CI with `mnfst-publish`.
+
+The API doesn't need it: your API key already reaches the project. See [Create a Project](/docs/api/guides/projects#create-a-project).
 
 ---
 
-## Keys
+## Revoke a Key
 
-A key can create, list, and revoke the keys of its own API account. This is how a server rotates its key without the dashboard.
+On the <a href="https://dash.manifestx.dev/api" target="_blank">API page</a>, select the trash icon next to the key, then **Revoke key**. The key stops working on the next request and can't be restored.
 
-### Create a key with the API
+If a key leaks, revoke it and create a new one. Enterprise accounts revoke keys [with the API](#revoke-a-key-with-the-api).
 
-```bash copy
+---
+
+## Manage Keys With the API
+
+A key can create, list, and revoke its own account's keys. This is how a server rotates its key without the dashboard.
+
+### Create a Key With the API
+
+<div x-code-group copy>
+
+```bash "cURL"
 curl -X POST https://api.manifestx.dev/v1/keys \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"label": "CI 2026-11"}'
+  -d '{ "label": "CI 2026-11" }'
 ```
 
-`label`{copy} is optional, 1 to 60 characters. The response is `201`{copy} and carries the new key once:
+```js "JavaScript"
+const res = await fetch('https://api.manifestx.dev/v1/keys', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.MANIFEST_ACCOUNT_KEY}`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ label: 'CI 2026-11' }),
+})
+const { key } = await res.json()
+```
+
+</div>
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `label` | string | no | 1 to 60 characters. |
+
+The answer is `201 Created`, with the new key shown once:
 
 ```json
 {
@@ -89,13 +128,31 @@ curl -X POST https://api.manifestx.dev/v1/keys \
 }
 ```
 
-An account holds up to 10 live keys, counting keys from the dashboard. Over that: `409 key_limit`{copy}. An account can create up to 20 keys a day this way, counting keys created in the last 24 hours, revoked ones included. Over that: `429 mint_limit`{copy} with `Retry-After`{copy}. A bad `label`{copy}: `400 invalid_input`{copy}.
+Good to know:
 
-`POST /keys`{copy} ignores `Idempotency-Key`{copy}, so a new key is never stored or replayed. If a request times out, list the keys and revoke any you didn't receive.
+- The 10-key cap counts dashboard keys too. Over it: `409 key_limit`.
+- An account can create 20 keys a day this way, revoked ones included. Over that: `429 mint_limit`, with `Retry-After`.
+- `Idempotency-Key` is ignored here, so a key is never stored or replayed. If a request times out, list the keys and revoke any you didn't receive.
 
-### List keys
+### List Keys
 
-`GET /keys`{copy} lists the account's live keys, newest first. It never returns a key, only its prefix:
+`GET /keys` lists the account's live keys, newest first. It shows each key's prefix, never the key itself.
+
+<div x-code-group copy>
+
+```bash "cURL"
+curl https://api.manifestx.dev/v1/keys \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
+```
+
+```js "JavaScript"
+const res = await fetch('https://api.manifestx.dev/v1/keys', {
+  headers: { Authorization: `Bearer ${process.env.MANIFEST_ACCOUNT_KEY}` },
+})
+const { keys } = await res.json()
+```
+
+</div>
 
 ```json
 {
@@ -107,54 +164,56 @@ An account holds up to 10 live keys, counting keys from the dashboard. Over that
 }
 ```
 
-`current`{copy} marks the key that made the request. `last_used_at`{copy} is accurate to the minute.
+`current` marks the key that made the request. `last_used_at` is accurate to the minute.
 
-### Revoke a key with the API
+### Revoke a Key With the API
 
-```bash copy
+<div x-code-group copy>
+
+```bash "cURL"
 curl -X DELETE https://api.manifestx.dev/v1/keys/mnfst_api_AbCd1234 \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
 ```
+
+```js "JavaScript"
+await fetch('https://api.manifestx.dev/v1/keys/mnfst_api_AbCd1234', {
+  method: 'DELETE',
+  headers: { Authorization: `Bearer ${process.env.MANIFEST_ACCOUNT_KEY}` },
+})
+```
+
+</div>
 
 ```json
 { "revoked": "mnfst_api_AbCd1234", "request_id": "…" }
 ```
 
-The key stops working on the next request. A key can revoke itself. The account's last live key can't be revoked with the API (`409 last_key`{copy}), so the account always keeps a working key. Revoke it on the dashboard, or [contact Manifest](/support) for a platform account.
+The key stops working on the next request, and a key can revoke itself. The account's last live key can't be revoked with the API (`409 last_key`), so there's always a working key. Create another key first.
 
-### Rotate a key
+### Rotate a Key
 
 1. Create a new key with the old one.
 2. Deploy the new key to every service that uses the old one.
-3. Check `last_used_at`{copy} on the old key stops moving.
+3. Check that `last_used_at` on the old key stops moving.
 4. Revoke the old key.
 
-Both keys work until step 4. They share one request limit: more keys never add capacity. See [Limits](/docs/api/reference/limits).
+Both keys work until step 4. They share one request limit, so extra keys never add capacity. See [Limits](/docs/api/reference/limits).
 
 ---
 
 ## Errors
 
-Every error has the [same shape](/docs/api/reference/errors#error-shape).
+Every error has the [same shape](/docs/api/reference/errors).
 
-| **Status** | **`error`**      | **Meaning**                                                  |
-|------------|------------------|--------------------------------------------------------------|
-| 401        | `unauthorized`{copy}   | The key is missing, malformed, or not an API key.            |
-| 401        | `key_revoked`{copy}    | The key was revoked. Use a current key or contact Manifest.  |
-| 400        | `invalid_input`{copy}  | `POST /keys`{copy}: `label`{copy} isn't a string of 1 to 60 characters. |
-| 404        | `not_found`{copy}      | `DELETE /keys/:prefix`{copy}: no live key with that prefix in this account. |
-| 409        | `key_limit`{copy}      | `POST /keys`{copy}: the account already has 10 live keys.          |
-| 429        | `mint_limit`{copy}     | `POST /keys`{copy}: 20 keys created in the last 24 hours. Wait the seconds in `Retry-After`{copy}. |
-| 409        | `last_key`{copy}       | `DELETE /keys/:prefix`{copy}: that is the account's only live key. |
-| 404        | `not_found`{copy}      | No such API route. Only `/v1/*` exists on `api.manifestx.dev`. |
-| 429        | `rate_limited`{copy}   | Too many requests with this account's keys, or too many writes from the account. Wait the seconds in `Retry-After`{copy}. See [Limits](/docs/api/reference/limits). |
+| Status | `error` | Meaning |
+|---|---|---|
+| 400 | `invalid_input` | `POST /keys`: `label` isn't a string of 1 to 60 characters. |
+| 401 | `unauthorized` | The key is missing, malformed, or not recognised. |
+| 401 | `key_revoked` | The key was revoked. If the account has no live keys left, create one on the dashboard, or contact Manifest for an Enterprise account. |
+| 404 | `not_found` | `DELETE /keys/:prefix`: no live key with that prefix in this account. |
+| 409 | `key_limit` | `POST /keys`: the account already has 10 live keys. |
+| 409 | `last_key` | `DELETE /keys/:prefix`: that's the account's only live key. |
+| 429 | `mint_limit` | `POST /keys`: 20 keys created in the last 24 hours. Wait the seconds in `Retry-After`. |
+| 429 | `rate_limited` | Too many requests or writes from this account. Wait the seconds in `Retry-After`. |
 
-The `message`{copy} says which key problem it is:
-
-| **Key**   | **`message`**                                                          |
-|-----------|------------------------------------------------------------------------|
-| Missing   | `Send your API key as "Authorization: Bearer mnfst_api_…".`             |
-| Unknown   | `That API key is not recognised.`                                      |
-| Revoked   | `That API key has been revoked. Use a current key or contact Manifest.` |
-| Revoked, none left (free) | `That API key has been revoked and this account has no live keys. Create one on the dashboard API page (dash.manifestx.dev/api).` |
-| Revoked, none left (platform) | `That API key has been revoked and this account has no live keys. Contact Manifest (team@manifestx.dev) for a new one.` |
+The `message` on a `401` says which key problem it is.

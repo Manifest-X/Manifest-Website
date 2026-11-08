@@ -107,7 +107,10 @@ If your project is not a downloadable web app, and does not include HTML compone
 
 The script loads:
 
-- **Manifest Plugins** (latest versions) from our CDN. The optional `data-plugins` or `data-omit` attributes will include or omit comma-separated plugins. Otherwise all core plugins load by default, except data, localization, components and status, which load only when `manifest.json` uses them. Prefix a name with `+` to add it on top of the defaults (`data-plugins="+chat"`) instead of replacing them. See [Reference](/docs/framework/resources/reference#data-attributes) for every loader attribute.
+- **Manifest Plugins** (latest versions) from our CDN. The optional `data-plugins` or `data-omit` attributes will include or omit comma-separated plugins. Prefix a name with `+` to add it on top of the defaults (`data-plugins="+chat"`) instead of replacing them. See [Reference](/docs/framework/resources/reference#data-attributes) for every loader attribute. Without these attributes, most core plugins load by default, and the rest load when needed:
+    - **Data, localization, components, status, payments, chat, device and the Appwrite plugins** load when `manifest.json` configures them.
+    - **Rich text, submissions, chat, presence and device** also load when the page uses them (for example `x-submit` or `$chat`).
+    - **Edit** never loads by itself. Add it with `data-plugins`.
 - **Alpine JS** v3 (the version tested with the framework release) from CDN, unless it's been added separately to your project. Override it with `data-alpine`.
 - **Tailwind CSS** (modified production version from our CDN) *if* the `data-tailwind` attribute is added.
 

@@ -4,6 +4,7 @@
     heading: $modify('heading') ?? 'Docs',
     intro: $modify('intro') ?? '',
     home: $modify('home') ?? '',
+    landing: $modify('landing') ?? '',
     canonical: 'https://manifestx.dev',
     copied: false,
     get pages() {
@@ -39,7 +40,7 @@
       for (const g of this.groups) {
         const items = (g.items || []).filter(i => i.name);
         if (g.group) out.push({ href: this.href(g), icon: g.icon || items[0]?.icon, title: g.group, sub: items.length + (items.length === 1 ? ' article' : ' articles') });
-        else items.forEach(i => out.push({ href: this.href(g, i), icon: i.icon, title: i.name, sub: 'Start here' }));
+        else items.forEach(i => out.push({ href: this.href(g, i), icon: i.icon, title: i.name, sub: i.description || 'Start here' }));
       }
       return out;
     },
@@ -130,7 +131,29 @@
       </template>
 
       <!-- Docs home -->
-      <template x-if="at(base) && !home">
+      <template x-if="at(base) && landing">
+        <div class="col gap-8 pb-12">
+          <template x-if="landing === 'framework'"><x-framework></x-framework></template>
+          <template x-if="landing === 'platform'"><x-docs-platform></x-docs-platform></template>
+          <template x-if="landing === 'api'"><x-docs-api></x-docs-api></template>
+          <div class="col gap-4 w-content-width max-w-full mx-auto">
+            <h2 class="h4">Explore the docs</h2>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <template x-for="card in cards" :key="card.href">
+                <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                  <span x-icon="card.icon" class="text-brand-content"></span>
+                  <span class="col">
+                    <span class="text-content-stark font-medium" x-text="card.title"></span>
+                    <small class="text-content-subtle" x-text="card.sub"></small>
+                  </span>
+                </a>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template x-if="at(base) && !home && !landing">
         <div class="col gap-8 w-2xl max-w-full">
           <div class="col gap-3">
             <h1 x-text="heading"></h1>
@@ -138,7 +161,7 @@
           </div>
           <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <template x-for="card in cards" :key="card.href">
-              <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
+              <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
                 <span x-icon="card.icon" class="text-brand-content"></span>
                 <span class="col">
                   <span class="text-content-stark font-medium" x-text="card.title"></span>
@@ -159,7 +182,7 @@
           </div>
           <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <template x-for="(item, index) in group?.items.filter(i => i.name) || []" :key="item.path || index">
-              <a :href="href(group, item)" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
+              <a :href="href(group, item)" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
                 <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
                 <span class="text-content-stark" x-text="item.name"></span>
               </a>
@@ -183,7 +206,7 @@
   </div>
 
   <!-- Anchor links -->
-  <nav aria-label="On this page" data-static style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
+  <nav aria-label="On this page" x-show="!(at(base) && landing)" data-static style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
 
     <small class="mb-2" x-show="$store.anchors?.count > 0">
       <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>

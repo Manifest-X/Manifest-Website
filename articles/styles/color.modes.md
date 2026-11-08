@@ -163,7 +163,7 @@ See [icons](/docs/framework/elements/icons) for details on conditional icons.
 <div x-code-group>
 
 ::: frame
-<button x-dropdown.bottom="color-mode-preview" aria-label="Color Mode Menu" x-icon="$color.current === 'light' ? 'lucide:sun' : $color.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'"></button>
+<button x-dropdown="color-mode-preview" aria-label="Color Mode Menu" x-icon="$color.current === 'light' ? 'lucide:sun' : $color.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'"></button>
 <menu popover id="color-mode-preview" class="min-w-0">
     <li x-color="'light'" :disabled="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light"></li>
     <li x-color="'dark'" :disabled="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark"></li>
@@ -172,7 +172,7 @@ See [icons](/docs/framework/elements/icons) for details on conditional icons.
 :::
 
 ```html copy
-<button x-dropdown.bottom="color-mode" aria-label="Color Mode Menu" x-icon="$color.current === 'light' ? 'lucide:sun' : $color.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'"></button>
+<button x-dropdown="color-mode" aria-label="Color Mode Menu" x-icon="$color.current === 'light' ? 'lucide:sun' : $color.current === 'dark' ? 'lucide:moon' : 'lucide:sun-moon'"></button>
 <menu popover id="color-mode" class="min-w-0">
     <li x-color="'light'" :disabled="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light"></li>
     <li x-color="'dark'" :disabled="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark"></li>

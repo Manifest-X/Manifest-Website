@@ -1,0 +1,63 @@
+<!-- HERO -->
+<section class="col center w-full pb-20">
+  <div class="col gap-10 w-content-width max-w-full">
+
+    <div class="col w-2xl max-w-full">
+      <p class="h6 text-content-subtle tracking-widest uppercase mb-1">The Manifest API</p>
+      <h1 class="leading-tight text-balance">
+        <span>Publishing, built into your product.</span>
+        <span class="text-content-subtle">Straight from your code.</span>
+      </h1>
+      <p class="mt-4 text-content-neutral text-balance">Create, update, and publish Manifest projects from your own systems, whether for your own content or for your customers. Manifest handles hosting, staging, domains, and history.</p>
+    </div>
+
+    <!-- Sample -->
+    <div class="col gap-4 p-5 md:p-6 bg-popover-surface dark:bg-surface-2 rounded-xl font-mono text-xs leading-relaxed text-content-stark overflow-x-auto" aria-hidden="true">
+      <div>
+        <p><span class="text-content-subtle">POST</span> /v1/projects</p>
+        <p class="text-content-neutral">{ "source_id": "store_8231", "name": "Acme Store" }</p>
+      </div>
+      <div>
+        <p><span class="text-content-subtle">PATCH</span> /v1/projects/proj_7Hc2/files</p>
+        <p class="text-content-neutral">{ "files": [{ "path": "index.html", "content": "…" }] }</p>
+      </div>
+      <div>
+        <p><span class="text-content-subtle">POST</span> /v1/projects/proj_7Hc2/promote</p>
+      </div>
+      <p class="row items-center gap-2 pt-4 border-t border-line"><span class="api-live"></span>shop.acme.com is live</p>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- HOW IT WORKS -->
+<section class="col center w-full pb-20">
+  <div class="col gap-8 w-content-width max-w-full">
+
+    <h2 class="h3">How it works</h2>
+
+    <ol class="unstyle grid grid-cols-1 sm:grid-cols-3 gap-8 list-none ps-0">
+      <li class="col gap-3 pt-5 border-t border-line">
+        <span class="row center size-8 bg-accent-surface text-accent-inverse rounded-full text-sm font-semibold" aria-hidden="true">1</span>
+        <h3 class="h4">Create a project</h3>
+        <p class="text-content-neutral">Make a project for anything you want to publish, tagged with your own ID so you can find it again.</p>
+        <a href="/docs/api/guides/projects" class="brand row items-center gap-1 hover:gap-1.5 w-fit text-sm no-underline"><span>Projects</span><span x-icon="lucide:arrow-right"></span></a>
+      </li>
+      <li class="col gap-3 pt-5 border-t border-line">
+        <span class="row center size-8 bg-accent-surface text-accent-inverse rounded-full text-sm font-semibold" aria-hidden="true">2</span>
+        <h3 class="h4">Send updates</h3>
+        <p class="text-content-neutral">Upload a full build, or change just the files you need. Every update lands on staging first.</p>
+        <a href="/docs/api/guides/edit" class="brand row items-center gap-1 hover:gap-1.5 w-fit text-sm no-underline"><span>Editing</span><span x-icon="lucide:arrow-right"></span></a>
+      </li>
+      <li class="col gap-3 pt-5 border-t border-line">
+        <span class="row center size-8 bg-accent-surface text-accent-inverse rounded-full text-sm font-semibold" aria-hidden="true">3</span>
+        <h3 class="h4">Go live</h3>
+        <p class="text-content-neutral">Promote what you checked on staging to the live address, and add a custom domain if you like.</p>
+        <a href="/docs/api/guides/publish" class="brand row items-center gap-1 hover:gap-1.5 w-fit text-sm no-underline"><span>Publishing</span><span x-icon="lucide:arrow-right"></span></a>
+      </li>
+    </ol>
+
+  </div>
+</section>

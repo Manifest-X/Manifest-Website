@@ -1,28 +1,54 @@
 # Domains
 
-Serve a site on a domain of its own.
+Serve a project on a domain of its own.
 
 ---
 
-## Attach a domain
+## How It Works
 
-A site can answer on its own domain as well as its `manifestx.ai` address. You attach the domain, the domain's owner adds a DNS record at their DNS provider, and the HTTPS certificate is issued automatically. Manifest doesn't register or sell domains.
+A project can answer on its own domain as well as its `manifestx.ai` address. Manifest doesn't register or sell domains.
 
-```bash copy
+1. [Add the domain](#add-a-domain). The answer lists the DNS record to create.
+2. The domain's owner adds that record where the domain's DNS is managed, usually the registrar.
+3. Manifest issues the HTTPS certificate. [Check the status](#check-the-status) until it reads `active`{copy}.
+
+---
+
+## Add a Domain
+
+Attach a hostname to a project and get the DNS records to add.
+
+<div x-code-group copy>
+
+```bash "cURL"
 curl -X POST https://api.manifestx.dev/v1/projects/proj_…/domains \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
   -H "Idempotency-Key: domain-site_8231-docs" \
   -H "Content-Type: application/json" \
-  -d '{ "hostname": "docs.acme.com", "env": "production", "validation": "http" }'
+  -d '{ "hostname": "docs.acme.com" }'
 ```
 
-| **Field**    | **Type** | **Required** | **Notes**                                                                                                                         |
-|--------------|----------|--------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| `hostname`{copy}   | string   | yes          | The hostname, such as `docs.acme.com`. No scheme or path.                                                                 |
-| `env`{copy}        | string   | no           | `production`{copy} (default) or `staging`{copy}: the environment the domain serves.                                                          |
-| `validation`{copy} | string   | no           | `http`{copy} (default) issues the certificate once the routing record is in place. `txt`{copy} issues it first, for a domain that is live elsewhere. |
+```js "JavaScript"
+const res = await fetch('https://api.manifestx.dev/v1/projects/proj_…/domains', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.MANIFEST_ACCOUNT_KEY}`,
+    'Idempotency-Key': 'domain-site_8231-docs',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ hostname: 'docs.acme.com' }),
+})
+```
 
-A new domain answers `201 Created` with the DNS records to add:
+</div>
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `hostname`{copy} | string | yes | Such as `docs.acme.com`. No scheme or path. |
+| `env`{copy} | string | no | The environment it serves: `production`{copy} (default) or `staging`{copy}. |
+| `validation`{copy} | string | no | `http`{copy} (default) or `txt`{copy}. See [Moving a Live Domain](#moving-a-live-domain). |
+
+A new domain answers `201 Created`:
 
 ```json
 {
@@ -42,21 +68,41 @@ A new domain answers `201 Created` with the DNS records to add:
 }
 ```
 
-`name`{copy} is the label to type into the DNS provider's Name/Host field, which adds the domain itself. These are the same records the Manifest connector gives for the same domain.
+Each item in `records`{copy} is one DNS record to create. Put `type`{copy} in the record type, `name`{copy} in the Name or Host field, and `value`{copy} in the value or target. These are the same records the Manifest connector gives.
 
-- **Root domains.** A root such as `acme.com` is served at `www.acme.com` (`domain.hostname`{copy}), because most DNS providers can't put a CNAME on a root. `root_redirect`{copy} then describes the forwarding to set up at the registrar so `acme.com` goes to `https://www.acme.com`.
-- **Moving a live domain.** With `"validation": "txt"`{copy}, `records`{copy} starts with a TXT record. Add only that one first: the certificate is issued while the old site keeps serving. Add the CNAME once the status shows the certificate `active`{copy}, and traffic moves with HTTPS on both sides.
+Sending the same hostname again updates it in place, for example to switch `validation`{copy}, and answers `200`. A project can have up to 25 custom domains, and a hostname can belong to only one project.
 
-Sending the same hostname again updates it in place (for example, to switch `validation`{copy}) and answers `200`. A hostname already attached to another project is refused.
+### Root Domains
+
+A root domain such as `acme.com` is served at `www.acme.com`, shown in `domain.hostname`{copy}. Most DNS providers can't point a root domain with a CNAME. `root_redirect`{copy} then describes the forwarding to set up at the registrar, so `acme.com` goes to `https://www.acme.com`.
+
+### Moving a Live Domain
+
+For a domain already in use elsewhere, send `"validation": "txt"`{copy}. `records`{copy} then starts with a TXT record.
+
+1. Add only the TXT record. The certificate is issued while the old site keeps serving.
+2. Once the status shows the certificate `active`{copy}, add the CNAME. Traffic moves with HTTPS on both sides.
 
 ---
 
-## Check status
+## Check the Status
 
-```bash copy
+See whether the domain is live, and which records are still needed.
+
+<div x-code-group copy>
+
+```bash "cURL"
 curl https://api.manifestx.dev/v1/projects/proj_…/domains/docs.acme.com \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
 ```
+
+```js "JavaScript"
+const res = await fetch('https://api.manifestx.dev/v1/projects/proj_…/domains/docs.acme.com', {
+  headers: { Authorization: `Bearer ${process.env.MANIFEST_ACCOUNT_KEY}` },
+})
+```
+
+</div>
 
 ```json
 {
@@ -75,45 +121,50 @@ curl https://api.manifestx.dev/v1/projects/proj_…/domains/docs.acme.com \
 }
 ```
 
-`records`{copy} repeats the DNS records to add, in the same shape as the attach response, so you can show them again without attaching again. With `txt`{copy} validation the TXT record is listed until the certificate is issued; after that only the CNAME remains.
+| `status` | Meaning |
+|---|---|
+| `pending`{copy} | Waiting for the DNS record or the certificate. Usually a few minutes after the record is added. |
+| `active`{copy} | Verified, with its certificate, and serving the project. |
+| `error`{copy} | Validation failed or timed out, or the domain was removed at the provider. Check the records and add the domain again. |
 
-`status`{copy} is one of:
+Poll about once a minute while `status`{copy} is `pending`{copy}. `records`{copy} repeats what to add, so you can show it again. With `txt`{copy} validation, the TXT record is listed until the certificate is issued.
 
-| **`status`** | **Meaning**                                                                                                   |
-|--------------|---------------------------------------------------------------------------------------------------------------|
-| `pending`{copy}    | Waiting for the DNS record or the certificate. Usually a few minutes after the record is added.               |
-| `active`{copy}     | The domain is verified, has its certificate, and serves the site.                                             |
-| `error`{copy}      | Validation failed or timed out, or the domain was removed at the provider. Check the records and attach again. |
+`hostname_status`{copy} and `certificate_status`{copy} are the underlying states. `certificate_validation`{copy} lists what's still expected until the certificate is active.
 
-`hostname_status`{copy} and `certificate_status`{copy} are the underlying states; `certificate_validation`{copy} appears until the certificate is active and lists what is still expected. Poll every minute or so while `status`{copy} is `pending`{copy}. The domain serves the site from the first check that reads `active`{copy}. After that, a later `error`{copy} (for example a certificate renewal that timed out, or the CNAME removed) is reported but doesn't take the site off the domain; fix the records and attach again. The exception is a domain whose `hostname_status`{copy} reads `deleted`{copy}: it has no certificate or routing left, so it stops serving. Attaching it again issues a new certificate, and the domain reads `pending`{copy} until it validates.
+::: brand icon="lucide:info"
+Once `active`{copy}, a later `error`{copy}, such as a failed renewal, doesn't take the project off the domain. Fix the records and add it again. The exception is `hostname_status`{copy} `deleted`{copy}: that domain stops serving until it's added again and validates.
+:::
 
 ---
 
-## Remove a domain
+## Remove a Domain
 
-```bash copy
+Detach a domain from the project.
+
+<div x-code-group copy>
+
+```bash "cURL"
 curl -X DELETE https://api.manifestx.dev/v1/projects/proj_…/domains/docs.acme.com \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
 ```
 
-Answers `{ "removed": "docs.acme.com", "request_id": "…" }`. The site stops answering on that domain at once and the domain is free to attach elsewhere. The CNAME can then be deleted at the DNS provider.
+```js "JavaScript"
+const res = await fetch('https://api.manifestx.dev/v1/projects/proj_…/domains/docs.acme.com', {
+  method: 'DELETE',
+  headers: { Authorization: `Bearer ${process.env.MANIFEST_ACCOUNT_KEY}` },
+})
+```
+
+</div>
+
+```json
+{ "removed": "docs.acme.com", "request_id": "…" }
+```
+
+The project stops answering on that domain at once, and the domain is free to add elsewhere. The CNAME can then be deleted at the DNS provider.
 
 ---
 
 ## Errors
 
-Every error has the [same shape](/docs/api/reference/errors#error-shape).
-
-| **Status** | **`error`**                   | **Meaning**                                                                       |
-|------------|-------------------------------|-----------------------------------------------------------------------------------|
-| 400        | `invalid_input`{copy}               | Missing or malformed field, or an unknown field.                                  |
-| 400        | `invalid_hostname`{copy}            | `hostname`{copy} isn't a hostname, for example it has spaces, no dot, or is an IP address.     |
-| 403        | `domain_cap_reached`{copy}          | The project has 25 custom domains. Remove one first.                              |
-| 403        | `forbidden`{copy}                   | You are a member of this project, not its owner or an admin.                      |
-| 404        | `not_found`{copy}                   | No such project, the key can't reach it, or no such domain on the project.    |
-| 409        | `hostname_taken`{copy}              | The hostname is attached to another project.                                      |
-| 422        | `hostname_reserved`{copy}           | The hostname is on a Manifest domain (`manifestx.ai`, `manifestx.dev`).           |
-| 502        | `domain_attach_failed`{copy}        | The domain couldn't be attached. Check the hostname and retry.                    |
-| 503        | `domain_status_unavailable`{copy}   | The status couldn't be read just now. Retry shortly.                              |
-| 503        | `domains_unavailable`{copy}         | Custom domains are temporarily unavailable. Retry later.                          |
-
+Domain errors, such as `hostname_taken`{copy} and `domain_cap_reached`{copy}, are in [Errors](/docs/api/reference/errors), with what to do.

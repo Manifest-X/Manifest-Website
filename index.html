@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Manifest</title>
-  <meta name="description" content="Supercharge HTML for rapid, feature-rich website and web app development.">
+  <meta name="description" content="Build, publish, and run websites and apps by chatting with Claude.">
   <meta name="author" content="Andrew Matlock">
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
@@ -29,6 +29,7 @@
   <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.272/lib/manifest.min.js" data-tailwind data-version="0.5.272"></script>
   <script src="/scripts/payments-demo.js" defer></script>
   <script src="/scripts/hero-editor.js" defer></script>
+  <script src="/scripts/hero-demo.js" defer></script>
   <script src="/scripts/console-message.js" defer></script>
 
 </head>
@@ -46,25 +47,21 @@
   <x-docs-search></x-docs-search>
   <x-docs-nav></x-docs-nav>
 
-  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="['/', '/framework', '/pricing'].includes($route) || $route.startsWith('/compare') ? 'bg-surface-1' : ''">
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''">
 
     <!-- Home page -->
     <x-home x-route="/"></x-home>
 
     <!-- Framework -->
-    <x-framework x-route="=framework"></x-framework>
-
-    <!-- Pricing -->
-    <x-pricing x-route="=pricing"></x-pricing>
 
     <!-- Compare -->
-    <x-compare-lovable x-route="compare/lovable"></x-compare-lovable>
+    <x-compare x-route="compare"></x-compare>
 
     <!-- Documentation -->
     <x-docs-index x-route="=docs"></x-docs-index>
-    <x-docs x-route="docs/ai" base="/docs/ai" source="ai" home="/articles/ai/home.md" heading="AI Plugin" intro="Build and publish websites, platforms, games, and native apps from your AI app. No coding required."></x-docs>
-    <x-docs x-route="docs/api" base="/docs/api" source="api" home="/articles/api/home.md" heading="API" intro="Create, publish, and manage Manifest-hosted sites from your own code."></x-docs>
-    <x-docs x-route="docs/framework" base="/docs/framework" source="framework" heading="Framework" intro="Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference."></x-docs>
+    <x-docs x-route="docs/platform" base="/docs/platform" source="platform" landing="platform" heading="Platform" intro="Build, publish, and run websites, apps, and games from Claude. No coding required."></x-docs>
+    <x-docs x-route="docs/api" base="/docs/api" source="api" landing="api" heading="API" intro="Create, publish, and manage Manifest-hosted projects from your own code."></x-docs>
+    <x-docs x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with Manifest — setup guides, plugins, pre-styled elements, and reference."></x-docs>
 
     <!-- Legal pages -->
     <x-legal x-route="legal"></x-legal>
@@ -75,7 +72,7 @@
   </main>
 
   <!-- Footer (visible on every route) -->
-  <x-footer x-route="/, =support, =framework, =pricing, compare"></x-footer>
+  <x-footer x-route="/, =support, compare"></x-footer>
 
 </body>
 

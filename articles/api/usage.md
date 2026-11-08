@@ -1,21 +1,31 @@
 # Usage
 
-What your API account used in a month, per project.
+See what your API account used in a month, per project.
 
 ---
 
-## Get a usage report
+## Get a Usage Report
 
-```bash copy
+Use it for your own reporting or billing, or to check what Manifest counts.
+
+<div x-code-group copy>
+
+```bash "cURL"
 curl "https://api.manifestx.dev/v1/usage?period=2026-09" \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY"
 ```
 
-| **Parameter** | **Type** | **Required** | **Notes**                                              |
-|---------------|----------|--------------|--------------------------------------------------------|
-| `period`{copy}      | string   | yes          | A calendar month in UTC, as `YYYY-MM`{copy}, such as `2026-09`. |
+```js "JavaScript"
+const res = await fetch('https://api.manifestx.dev/v1/usage?period=2026-09', {
+  headers: { Authorization: `Bearer ${process.env.MANIFEST_ACCOUNT_KEY}` },
+})
+```
 
-The report lists the projects your API account created that existed at any time during the month, with what happened to each:
+</div>
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `period`{copy} | string | yes | A calendar month in UTC, as `YYYY-MM`{copy}, such as `2026-09`. |
 
 ```json
 {
@@ -24,17 +34,6 @@ The report lists the projects your API account created that existed at any time 
   "ends_at": 1790812800,
   "complete": true,
   "projects": [
-    {
-      "id": "proj_…",
-      "source_id": "site_8107",
-      "name": "Acme Help",
-      "created_at": 1785751200,
-      "deleted_at": 1789893000,
-      "active": true,
-      "publishes": 0,
-      "domains_attached": 0,
-      "domains_removed": 0
-    },
     {
       "id": "proj_…",
       "source_id": "site_8231",
@@ -47,50 +46,62 @@ The report lists the projects your API account created that existed at any time 
       "domains_removed": 0
     }
   ],
-  "totals": { "active_projects": 2, "publishes": 3, "domains_attached": 1, "domains_removed": 0 },
+  "totals": { "active_projects": 1, "publishes": 3, "domains_attached": 1, "domains_removed": 0 },
   "request_id": "…"
 }
 ```
 
-| **Field**                | **Meaning**                                                                                              |
-|--------------------------|----------------------------------------------------------------------------------------------------------|
-| `starts_at`{copy}, `ends_at`{copy} | The month's bounds in Unix seconds: the first second of the month, and the first second of the next.      |
-| `complete`{copy}               | `false`{copy} while the month is still running; its numbers can still grow.                                   |
-| `active`{copy}                 | The project counts as active for the month: created before the month ended, and not deleted before it began. Every listed project is active. |
-| `publishes`{copy}              | Deployments that went live in the month, on staging or production. Each uploaded build, each [file update](/docs/api/projects/publish#update-individual-files) and each [content](/docs/api/projects/content) request that goes live counts as one. Promotes and rollbacks don't count. |
-| `domains_attached`{copy}       | Custom domains newly attached in the month. Updating an attached domain doesn't count again.             |
-| `domains_removed`{copy}        | Custom domains removed in the month. Domains released because their project was deleted aren't counted. |
+The report lists every project your API account created that existed at any time in the month. Projects you were only invited to aren't included.
 
-`totals.active_projects`{copy} is the number of listed projects; the other totals add up the rows. A project created after the month, or deleted before it began, isn't listed. The report only covers projects your account created, not projects you were invited to.
+---
+
+## Fields
+
+| Field | Meaning |
+|---|---|
+| `starts_at`{copy}, `ends_at`{copy} | The month's bounds in Unix seconds: its first second, and the first second of the next month. |
+| `complete`{copy} | `false`{copy} while the month is still running, so its numbers can still grow. |
+| `active`{copy} | Created before the month ended, and not deleted before it began. Every listed project is active, including one deleted during the month. |
+| `publishes`{copy} | Deployments that went live in the month, on staging or production. Each zip, [file update](/docs/api/guides/edit#update-files), and [content](/docs/api/guides/docs-template) request counts once. Promotes and rollbacks don't. |
+| `domains_attached`{copy} | Custom domains newly added in the month. Updating one doesn't count again. |
+| `domains_removed`{copy} | Custom domains removed in the month. Domains released by deleting their project aren't counted. |
+| `totals`{copy} | `active_projects`{copy} is the number of listed projects. The other totals add up the rows. |
+
+A `period`{copy} that is missing or isn't `YYYY-MM`{copy} answers `400 invalid_input`{copy}.
 
 ---
 
 ## CSV
 
-Send `Accept: text/csv` for the same report as a spreadsheet file:
+Send `Accept: text/csv` for the same report as a spreadsheet file.
 
-```bash copy
+<div x-code-group copy>
+
+```bash "cURL"
 curl "https://api.manifestx.dev/v1/usage?period=2026-09" \
   -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
   -H "Accept: text/csv" \
   -o manifest-usage-2026-09.csv
 ```
 
-```text
-period,project_id,source_id,name,created_at,deleted_at,active,publishes,domains_attached,domains_removed
-2026-09,proj_…,site_8107,Acme Help,2026-08-03T10:00:00.000Z,2026-09-20T08:30:00.000Z,1,0,0,0
-2026-09,proj_…,site_8231,Acme Docs,2026-09-12T11:00:05.000Z,,1,3,1,0
-2026-09,,,Total,,,2,3,1,0
+```js "JavaScript"
+const res = await fetch('https://api.manifestx.dev/v1/usage?period=2026-09', {
+  headers: {
+    Authorization: `Bearer ${process.env.MANIFEST_ACCOUNT_KEY}`,
+    Accept: 'text/csv',
+  },
+})
+const csv = await res.text()
 ```
 
-One row per project, then a `Total` row. Times are ISO 8601 in UTC, and `active` is `1`. Any text cell, including `source_id` and `name`, that starts with `=`, `+`, `-`, `@`, a tab or a carriage return is written with a leading `'`, so spreadsheet apps show it as text instead of running it as a formula. The JSON report always has the values unchanged.
+</div>
 
----
+```text
+period,project_id,source_id,name,created_at,deleted_at,active,publishes,domains_attached,domains_removed
+2026-09,proj_…,site_8231,Acme Docs,2026-09-12T11:00:05.000Z,,1,3,1,0
+2026-09,,,Total,,,1,3,1,0
+```
 
-## Errors
+There's one row per project, then a `Total` row. Times are ISO 8601 in UTC, and `active` is `1`.
 
-Every error has the [same shape](/docs/api/reference/errors#error-shape).
-
-| **Status** | **`error`**     | **Meaning**                                          |
-|------------|-----------------|------------------------------------------------------|
-| 400        | `invalid_input`{copy} | `period`{copy} is missing or isn't a month as `YYYY-MM`{copy}. |
+A text cell starting with `=`, `+`, `-`, `@`, a tab, or a carriage return gets a leading `'`. That way spreadsheet apps show it as text instead of running it as a formula. The JSON report always has the values unchanged.

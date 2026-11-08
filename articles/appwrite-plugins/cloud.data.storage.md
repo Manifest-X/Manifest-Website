@@ -83,28 +83,52 @@ All interactive examples below require you to be logged into a dummy account via
 
 ## Display & Manage Files
 
-Storage buckets work identically to local data sources and database tables. Access files using the `$x` magic method and perform all CRUD operations:
+Storage buckets work identically to local data sources and database tables. Access files using the `$x` magic method and perform all CRUD operations. Team-scoped files are uploaded for `$auth.currentTeam`, so the "All" example first selects the user's [permanent team](/docs/framework/appwrite-plugins/teams#team-management):
 
 <div x-code-group numbers copy>
 
 ```html "All"
-<div>
-    <!-- Upload file -->
-    <label role="button">
-        <input type="file" @change="if ($event.target.files.length > 0) { $x.assets.$create($event.target.files[0]).then(() => { $event.target.value = ''; }); }" accept="*/*" />
-        <span>Upload File</span>
-    </label>
+<!-- Manage files -->
+<div x-data="{ 
+    permanentTeam: null
+}"
+x-effect="(async () => {
+    if (permanentTeam || !$auth.teams || $auth.teams.length === 0) return;
+    for (const team of $auth.teams) {
+        if (await $auth.isTeamImmutable(team.$id)) {
+            permanentTeam = team;
+            $auth.currentTeam = team;
+            $auth.viewTeam(team);
+            break;
+        }
+    }
+})()">
     
-    <!-- List files -->
-    <template x-for="file in $x.assets" :key="file.$id">
-        <div class="row gap-2 items-center">
-            <span x-text="file.name"></span>
-            <button @click="$x.assets.$openUrl(file.$id)" x-icon="lucide:external-link" aria-label="View"></button>
-            <button @click="$x.assets.$duplicate(file.$id)" x-icon="lucide:copy" aria-label="Duplicate"></button>
-            <button @click="$x.assets.$delete(file.$id)" x-icon="lucide:trash" aria-label="Delete"></button>
+    <div class="col">
+        <!-- Upload -->
+        <div class="row-wrap gap-2 mb-2">
+            <label role="button" class="flex-1">
+                <input type="file" @change="if ($event.target.files.length > 0) { $x.assets.$create($event.target.files[0]).then(() => { $event.target.value = ''; }).catch(err => $toast.negative('Upload failed: ' + err.message)); }" accept="*/*" />
+                <span>Choose File</span>
+            </label>
         </div>
-    </template>
+        
+        <!-- List with actions -->
+        <template x-for="file in $x.assets" :key="file.$id">
+            <div class="row gap-2 py-1 items-center border-t border-line">
+                <div class="flex-1 col gap-1">
+                    <figcaption class="text-sm font-semibold" x-text="file.name || 'Unnamed file'"></figcaption>
+                    <small class="text-content-subtle" x-text="file.$formattedSize"></small>
+                </div>
+                <button class="sm" @click="$x.assets.$openUrl(file.$id)" x-icon="lucide:external-link" aria-label="View" title="View"></button>
+                <button class="sm" @click="$x.assets.$duplicate(file.$id)" x-icon="lucide:copy" aria-label="Duplicate" title="Duplicate"></button>
+                <button class="sm" @click="if (confirm('Delete ' + file.name + '?')) { $x.assets.$delete(file.$id); }" x-icon="lucide:trash" aria-label="Delete" title="Delete"></button>
+            </div>
+        </template>
+        <small x-show="!$x.assets || $x.assets.length === 0" class="text-content-subtle">No files yet</small>
+    </div>
 </div>
+<small x-show="!$auth.teams || $auth.teams.length === 0" class="text-content-subtle">No teams available</small>
 ```
 
 ```html "Display" copy

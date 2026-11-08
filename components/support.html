@@ -1,54 +1,117 @@
-<div class="col gap-10 w-2xl max-w-full mx-auto pt-12 pb-[30vh]">
+<div class="col gap-14 w-2xl max-w-full mx-auto pt-12 pb-[30vh]" x-data="{
+  topics: [
+    { key: 'project', name: 'Help with a project' },
+    { key: 'connector', name: 'The Claude connector or plugin' },
+    { key: 'billing', name: 'Plans and billing' },
+    { key: 'expert', name: 'Hire an expert' },
+    { key: 'enterprise', name: 'Enterprise and the API' },
+    { key: 'other', name: 'Something else' },
+  ],
+  topic: 'project',
+  get topicName() { return this.topics.find(t => t.key === this.topic)?.name },
+  init() { const t = $url.topic.value; if (this.topics.some(x => x.key === t)) this.topic = t },
+  ask(key) { this.topic = key; document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); document.querySelector('#contact textarea').focus({ preventScroll: true }) },
+}">
 
   <!-- Intro -->
   <div class="col gap-3">
-    <h1>Support</h1>
-    <p class="text-content-neutral">Help with the Manifest plugin, hosting, and the framework.</p>
+    <h1>Get in touch</h1>
+    <p class="text-content-neutral text-balance">Get help with Manifest, ask about plans, or talk to us about your project.</p>
   </div>
 
   <!-- Contact -->
-  <div class="col gap-3">
-    <h2 class="h4">Contact us</h2>
-    <a href="mailto:team@manifestx.dev" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
-      <span x-icon="lucide:mail" class="text-brand-content"></span>
-      <span class="text-content-stark font-medium">team@manifestx.dev</span>
-    </a>
-    <p class="text-sm text-content-neutral">Include your project name, its staging or live address, what you asked Claude, and what happened. Never send API keys or passwords.</p>
-  </div>
+  <form id="contact" x-submit action="/_forms/contact" method="post" class="contact-form col gap-4 p-6 md:p-8 bg-popover-surface rounded-xl scroll-mt-24">
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label>Name<input name="name" required autocomplete="name"></label>
+      <label>Email<input name="email" type="email" required autocomplete="email"></label>
+    </div>
+    <label>Topic
+      <button type="button" x-dropdown="contact-topic" class="justify-between w-full font-normal">
+        <span x-text="topicName">Help with a project</span>
+        <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
+      </button>
+    </label>
+    <menu popover id="contact-topic">
+      <template x-for="t in topics" :key="t.key">
+        <button type="button" close @click="topic = t.key">
+          <span x-text="t.name"></span>
+          <span x-show="topic === t.key" x-icon="lucide:check" class="trailing"></span>
+        </button>
+      </template>
+    </menu>
+    <input type="hidden" name="topic" value="project" :value="topic">
+    <label>Message<textarea name="message" rows="5" required minlength="10" placeholder="For help with a project, include its name and address, what you asked Claude, and what happened."></textarea></label>
+    <input name="_gotcha" tabindex="-1" autocomplete="off" hidden>
+    <input type="hidden" name="_redirect" value="/support?sent=1#contact">
+    <button class="accent rounded-full w-fit px-6">Send</button>
+    <p class="contact-sent row items-center gap-2 text-sm"><span x-icon="lucide:circle-check" class="text-brand-content"></span>Thanks, we'll reply by email.</p>
+    <p class="contact-failed text-sm text-negative-content">That didn't go through. Please try again, or email <a href="mailto:team@manifestx.dev">team@manifestx.dev</a>.</p>
+  </form>
 
-  <!-- Self-serve -->
-  <div class="col gap-3">
-    <h2 class="h4">Find an answer</h2>
-    <div class="grid gap-3 sm:grid-cols-2">
-      <a href="/docs/ai" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
-        <span x-icon="lucide:book-open" class="text-brand-content"></span>
-        <span class="text-content-stark font-medium">AI Plugin docs</span>
-      </a>
-      <a href="/docs/framework" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
-        <span x-icon="lucide:code" class="text-brand-content"></span>
-        <span class="text-content-stark font-medium">Framework docs</span>
-      </a>
-      <a href="https://github.com/Manifest-X/Manifest/issues" target="_blank" rel="noopener" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
-        <span x-icon="meteor-icons:github" class="text-brand-content"></span>
-        <span class="text-content-stark font-medium">Report a framework bug</span>
-        <span x-icon="lucide:arrow-up-right" class="trailing text-content-subtle"></span>
-      </a>
-      <a href="/legal" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-page hover:bg-surface-2 no-underline">
-        <span x-icon="lucide:scale" class="text-brand-content"></span>
-        <span class="text-content-stark font-medium">Privacy and terms</span>
-      </a>
+  <!-- Expert help -->
+  <div class="card-invert relative overflow-hidden rounded-xl">
+    <span class="grid-fade" aria-hidden="true"></span>
+    <div class="relative row-wrap items-center justify-between gap-6 p-6 md:p-8">
+      <div class="col gap-1">
+        <h2 class="h4 text-accent-inverse">Rather we do it?</h2>
+        <p class="text-accent-inverse opacity-75">Tell us what you need, and the Manifest team can build it.</p>
+      </div>
+      <button type="button" class="brand rounded-full px-6" @click="ask('expert')">Hire an expert</button>
     </div>
   </div>
 
   <!-- From Claude -->
-  <div class="col gap-3">
-    <h2 class="h4">Ask from Claude</h2>
-    <p class="text-content-neutral">With the Manifest plugin, you can also ask Claude directly:</p>
-    <ul class="col gap-2 text-content-neutral">
-      <li><strong class="text-content-stark">"What's the status of my site?"</strong> for publishing, domains, and plan details.</li>
-      <li><strong class="text-content-stark">"Manage my billing"</strong> to change or cancel a plan.</li>
-      <li><strong class="text-content-stark">"I'd like someone to build this for me"</strong> to have the Manifest team build, finish, or fix your project. Nothing is charged until you agree. See <a href="/docs/ai/projects/manage#expert-help">Expert help</a>.</li>
-    </ul>
+  <div class="col gap-4">
+    <div class="col gap-1">
+      <h2 class="h4">Or just ask Claude</h2>
+      <p class="text-content-neutral text-balance">With Manifest connected, Claude can check your project, open billing, or bring in our team.</p>
+    </div>
+    <div class="col bg-popover-surface rounded-xl text-sm text-content-stark">
+      <div class="row items-center gap-2 p-4 border-b border-line/60">
+        <span class="text-claude" x-icon="simple-icons:claude" aria-hidden="true"></span>
+        <span class="font-medium">Claude</span>
+        <span class="-mx-0.5 text-content-subtle" aria-hidden="true">·</span>
+        <span class="text-content-subtle">with Manifest</span>
+      </div>
+      <div class="col gap-6 p-6">
+        <div class="col gap-3">
+          <p class="self-end max-w-[85%] px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md">What's the status of my site?</p>
+          <p>solstice.studio is live on Pro, and staging matches it.</p>
+        </div>
+        <div class="col gap-3">
+          <p class="self-end max-w-[85%] px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md">Manage my billing</p>
+          <p>Here's your billing page: <span class="underline underline-offset-2">billing.stripe.com/p/session/…</span></p>
+        </div>
+        <div class="col gap-3">
+          <p class="self-end max-w-[85%] px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md">I'd like someone to build this for me</p>
+          <p>Sent to the Manifest team. They'll reply by email.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Self-serve -->
+  <div class="col gap-4">
+    <h2 class="h4">Find an answer</h2>
+    <div class="grid gap-3 sm:grid-cols-2">
+      <a href="/docs/platform" class="row items-center gap-3 px-4 py-3 rounded-lg bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+        <span x-icon="lucide:book-open" class="text-brand-content"></span>
+        <span class="text-content-stark font-medium">Platform docs</span>
+      </a>
+      <a href="/docs/framework" class="row items-center gap-3 px-4 py-3 rounded-lg bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+        <span x-icon="lucide:code" class="text-brand-content"></span>
+        <span class="text-content-stark font-medium">Framework docs</span>
+      </a>
+      <a href="https://github.com/Manifest-X/Manifest/issues" target="_blank" rel="noopener" class="row items-center gap-3 px-4 py-3 rounded-lg bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+        <span x-icon="meteor-icons:github" class="text-brand-content"></span>
+        <span class="text-content-stark font-medium">Report a framework bug</span>
+        <span x-icon="lucide:arrow-up-right" class="trailing text-content-subtle"></span>
+      </a>
+      <a href="/legal" class="row items-center gap-3 px-4 py-3 rounded-lg bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+        <span x-icon="lucide:scale" class="text-brand-content"></span>
+        <span class="text-content-stark font-medium">Privacy and terms</span>
+      </a>
+    </div>
   </div>
 
 </div>

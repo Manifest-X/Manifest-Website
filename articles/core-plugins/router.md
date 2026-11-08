@@ -103,7 +103,18 @@ A wildcard route can be used to match any route that starts with the given path.
 <div x-route="about/*">...</div>
 ```
 
-This will match any route that has a subpage after `/about/`, such as `/about/location` or `/about/team`. It will not render for `/about` on its own. Conversely, `x-route="about"` will render for `/about` *and* all subpages, since the value always matches one of the slugs.
+This will match any route that has a subpage after `/about/`, such as `/about/location` or `/about/team`. It will not render for `/about` on its own.
+
+A bare value like `x-route="about"` matches any path that contains the text, so it also renders on `/about/team`, `/team/about-us` and `/blog/what-about`. Where precise matching matters, use `/about` (the route and its subpages) or `=about` (the route only).
+
+| Value | Renders on |
+|---|---|
+| `about` | any path containing "about" |
+| `/about` | `/about` and its subpages |
+| `=about` | `/about` only |
+| `about/*` | subpages of `/about` only |
+| `!about` | every path not containing "about" |
+| `!*` | routes no other `x-route` defines (404) |
 
 A bare, top-level wildcard (`x-route="*"`) matches all routes, and is redundant since it's the same as having no `x-route` attribute at all.
 

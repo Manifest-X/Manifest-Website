@@ -1,11 +1,11 @@
 <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl">
 
     <!-- Content Area -->
-    <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4" :class="$route === '/' ? 'w-content-width' : 'w-full'">
+    <nav class="row justify-between items-center gap-4 max-w-full mx-auto py-4" :class="$route === '/' ? 'w-content-width' : 'w-full'">
 
         <!-- Start -->
         <div class="row items-center gap-3" x-data="{
-            get family() { return $route.startsWith('/docs/ai') ? 'ai' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+            get family() { return $route.startsWith('/docs/platform') ? 'platform' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
         }">
 
             <!-- Logo -->
@@ -29,11 +29,11 @@
             </menu>
 
             <!-- Docs Breadcrumbs-->
-            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/ai/*">
-                <template x-if="$x.ai.$route('path')?.group">
-                    <span class="row items-center"><span x-text="$x.ai.$route('path')?.group"></span><span class="mx-1.5" x-icon="lucide:chevron-right"></span></span>
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/platform/*">
+                <template x-if="$x.platform.$route('path')?.group">
+                    <span class="row items-center"><span x-text="$x.platform.$route('path')?.group"></span><span class="mx-1.5" x-icon="lucide:chevron-right"></span></span>
                 </template>
-                <span class="text-content-stark" x-text="$x.ai.$route('path')?.name || 'No article'"></span>
+                <span class="text-content-stark" x-text="$x.platform.$route('path')?.name || 'No article'"></span>
             </small>
             <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/api/*">
                 <template x-if="$x.api.$route('path')?.group">
@@ -48,19 +48,6 @@
             </small>
 
         </div>
-
-        <!-- Middle -->
-        <div class="hidden md:row justify-center items-center gap-6 no-underline" x-route="/">
-            <a href="/framework" class="text-sm no-underline">Framework</a>
-            <a href="/docs/ai" class="text-sm no-underline">AI Plugin</a>
-            <a href="/pricing" class="text-sm no-underline">Pricing</a>
-        </div>
-        <div class="hidden md:row justify-center items-center gap-6 no-underline" x-route="=framework">
-            <template x-for="s in $x.site.sections" :key="s.anchor">
-                <a :href="'#' + s.anchor" class="text-sm no-underline" x-text="s.name"></a>
-            </template>
-        </div>
-        <div x-route="!/" :class="$route === '/framework' && 'hidden'"></div>
 
         <!-- End -->
         <div class="row justify-end items-center gap-2">

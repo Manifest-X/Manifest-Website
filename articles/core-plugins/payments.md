@@ -292,10 +292,6 @@ Your function answers three requests:
 
 The webhook deserves a plain-language note: when someone finishes paying, the provider's servers send your function a cryptographically signed message. That message — not the buyer returning to your site — is what the template trusts before granting anything. It's the difference between "the buyer's browser says they paid" and "the provider says they paid."
 
-::: brand icon="lucide:sparkles"
-**Manifest AI can wire this up for you.** Projects connected to <a href="https://manifestx.dev" target="_blank" rel="noopener">Manifest AI</a> can skip the function entirely: ask for payments, share your provider key and product list, and it provisions a managed payment function — webhook registration included — and hands back the `payments` block for `manifest.json`.
-:::
-
 ### Appwrite Template
 
 Appwrite-enabled projects can use an <a href="https://appwrite.io/docs/products/functions" target="_blank" rel="noopener">Appwrite Function</a>. The template function below is complete and ready to deploy — edit `PRODUCTS` to match what you sell, deploy it as an Appwrite Function (Node runtime, `node-appwrite` dependency), and set the environment variables. The full multi-file template with tests lives in the <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/payments-function" target="_blank" rel="noopener">Manifest repository</a>.

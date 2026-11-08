@@ -576,11 +576,13 @@ Use the `$route()` function to find content based on the current URL path like *
 ```
 
 ::: frame
-<h1 x-text="$x.example.team[0].name"></h1>
-<p x-text="$x.example.team[0].role"></p>
+<h1 x-text="$x.framework.$route('path').name"></h1>
+<p x-text="$x.framework.$route('path').doc"></p>
 :::
 
 </div>
+
+The frame runs `$route('path')` on this site's docs navigation, so it finds the entry for this article.
 
 The `$route('path')` function searches the collection for an item where the specified property (e.g., `path`) matches any segment of the current URL path. When found, it returns a reactive proxy to that item, allowing access to its properties.
 

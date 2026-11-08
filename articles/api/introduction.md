@@ -1,32 +1,61 @@
 # Introduction
 
-Create, publish, and manage Manifest-hosted sites from your own code.
+Create, update, and publish projects from your own code.
 
 ---
 
-## What the API does
+## What the API Is For
 
-The Manifest API lets your backend create sites and keep them published without a person in the loop. Each site is an ordinary Manifest project, so it has its own deployments, staging and production environments, domains, and team. Your API key also reaches the projects you already have, so you can publish them from your own code.
+The API does from code what Claude does in a session: it creates projects, updates them, and publishes them. A project can be anything that runs in a browser, like a website, app, dashboard, or game. Manifest hosts it, with staging, HTTPS, and custom domains.
 
-There are two ways to publish a site today:
+For example, you could:
 
-- **Send content for a Manifest template.** Send the site's pages, written in Markdown, plus its settings and theme, and Manifest builds the site from one of its templates. Today that is the docs template, for documentation and help sites. See [Content](/docs/api/projects/content).
-- **Upload your own site files** as a zip: a Manifest project, custom or from any template, or any other static build. Any static build works from frameworks like Manifest, React, Vite, Astro, or just plain HTML. See [Publish](/docs/api/projects/publish).
+- **Publish at scale**, like a page for every product, location, or event.
+- **Give your customers projects**, like a help center or portal for each one.
+- **Publish from your own tools**, like a content system or a build pipeline.
 
-Either way, the site goes to staging first and moves to production when you [promote](/docs/api/projects/publish#promote-staging-to-production) it.
+Your API key also reaches the projects you already have.
 
 ---
 
-## Getting access
+## How It Works
 
-Every Manifest account can use the API. Create an API key on the dashboard's [API page](https://dash.manifestx.dev/api). See [Authentication](/docs/api/setup/authentication#create-an-api-key).
+1. **Create a project**, tagged with your own ID so you can find it again.
+2. **Send updates**: a full build, or just the files that changed. Updates land on staging.
+3. **Check staging**, a separate address each project has for checking changes.
+4. **Promote**, so the exact version you checked goes live.
+5. **Add a domain**, if you want one, like `help.example.com`.
 
-A key works on two kinds of project:
+Each publish creates a **deployment**, one saved version of the project. Manifest keeps recent ones, so a Pro project can roll back.
 
-- **Your own projects.** It can publish, promote, roll back, and manage domains on every project you own or admin. Each project keeps its own plan, so a Pro feature such as rollback needs that project on Pro.
-- **Projects it creates.** Your keys share a free allowance of 2 projects created through the API, on the Free plan.
+Both addresses are public, but staging is kept out of search results. It's for checking a change before visitors see it on production, not for keeping it private.
 
-For more projects, ask about a platform account at [team@manifestx.dev](mailto:team@manifestx.dev). Platform accounts are set up by contract, with a higher project cap and projects created without the Manifest badge. See [Manage](/docs/api/projects/manage#what-a-key-can-manage).
+The [Quickstart](/docs/api/getting-started/quickstart) runs through all of this in a few minutes.
+
+---
+
+## Ways to Update
+
+- **Upload a build.** Zip your project's files and upload them. Any static build works, from the Manifest framework or any other. See [Publish](/docs/api/guides/publish).
+- **Change files.** Send only the files that changed: pages, data, settings, styles, or images. See [Edit](/docs/api/guides/edit).
+- **Use the docs template.** Send Markdown pages and get a documentation site, with no build of your own. See [Docs Template](/docs/api/guides/docs-template).
+
+---
+
+## What's Included
+
+Every Manifest account can use the API. Create a key on the dashboard's <a href="https://dash.manifestx.dev/api" target="_blank">API page</a>; see [Authentication](/docs/api/reference/authentication). No account yet? Signing in to the dashboard creates a free one.
+
+Projects your key creates are ordinary Manifest projects. They show in your dashboard and in Claude, and can be upgraded to Pro there.
+
+| | Every account | Enterprise |
+|---|---|---|
+| Projects created through the API | Two, on the Free plan | A higher cap, by contract |
+| Your existing projects | ✓ | |
+| "Made with Manifest" badge | Shown | None |
+| How to get it | Dashboard | <a href="/support?topic=enterprise#contact" target="_blank">Talk to us</a> |
+
+Each project keeps its own plan, so a Pro feature such as rollback needs that project on Pro. An Enterprise account's keys reach only the projects that account creates. Rate limits and storage caps are on [Limits](/docs/api/reference/limits).
 
 ---
 
@@ -38,17 +67,18 @@ All requests go to one versioned base URL:
 https://api.manifestx.dev/v1
 ```
 
-Requests and responses are JSON. Every response carries a `request_id`{copy}; quote it when you contact Manifest.
+Only `/v1` paths exist on this host.
 
 ---
 
-## How it works
+## Conventions
 
-1. **Get an API key** from the dashboard. See [Authentication](/docs/api/setup/authentication).
-2. **Create a project** for each site, keyed by your own id for it. See [Manage](/docs/api/projects/manage).
-3. **Publish to staging**, either a zip or content, and check the staging URL.
-4. **Promote to production.** Attach a custom domain whenever you like with [Domains](/docs/api/projects/domains).
+- **JSON.** Requests and responses are JSON.
+- **Bearer key.** Every request sends `Authorization: Bearer <key>`{copy}. See [Authentication](/docs/api/reference/authentication).
+- **Server only.** Call the API from your server. Browsers are refused.
+- **Timestamps** are Unix seconds, like `1760140800`.
+- **Ids** start with a prefix: `acct_` for accounts, `proj_` for projects, `dep_` for deployments.
+- **`request_id`** is on every response. Quote it when you contact Manifest.
+- **Safe retries.** Every request that changes something can be retried safely. See [Idempotency](/docs/api/reference/errors#idempotency).
 
-Every request that changes something is safe to retry. See [Idempotency](/docs/api/reference/idempotency).
-
-The [Quickstart](/docs/api/setup/quickstart) runs through all of this in five requests.
+Stuck? [Common Problems](/docs/api/reference/errors#common-problems) maps symptoms to fixes.

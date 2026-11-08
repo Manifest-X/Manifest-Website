@@ -1,7 +1,7 @@
 {
     "name": "Manifest",
     "short_name": "Manifest",
-    "description": "Supercharge HTML for rapid, feature-rich website and web app development.",
+    "description": "Build, publish, and run websites and apps by chatting with Claude.",
     "live_url": "https://manifestx.dev",
     "publishIgnore": [
         "tools/",
@@ -22,6 +22,31 @@
             }
         },
         "redirects": [
+            {
+                "from": "/ai",
+                "to": "/",
+                "status": 301
+            },
+            {
+                "from": "/pricing",
+                "to": "/#pricing",
+                "status": 301
+            },
+            {
+                "from": "/get-started",
+                "to": "/#setup",
+                "status": 301
+            },
+            {
+                "from": "/framework",
+                "to": "/docs/framework",
+                "status": 301
+            },
+            {
+                "from": "/platforms",
+                "to": "/docs/api",
+                "status": 301
+            },
             {
                 "from": "/docs/framework/publishing/partner-api",
                 "to": "/docs/api",
@@ -59,12 +84,147 @@
             },
             {
                 "from": "/docs/platform/connector",
-                "to": "/docs/ai/setup/claude-plugin",
+                "to": "/docs/platform/introduction#connect-claude",
                 "status": 301
             },
             {
-                "from": "/docs/platform",
-                "to": "/docs/ai",
+                "from": "/docs/platform/setup/quickstart",
+                "to": "/docs/platform/introduction",
+                "status": 301
+            },
+            {
+                "from": "/docs/platform/setup/claude-plugin",
+                "to": "/docs/platform/introduction#connect-claude",
+                "status": 301
+            },
+            {
+                "from": "/docs/platform/setup/plans",
+                "to": "/docs/platform/manage#plans",
+                "status": 301
+            },
+            {
+                "from": "/docs/platform/projects/forms",
+                "to": "/docs/framework/core-plugins/submissions",
+                "status": 301
+            },
+            {
+                "from": "/docs/platform/setup/*",
+                "to": "/docs/platform/:splat",
+                "status": 301
+            },
+            {
+                "from": "/docs/platform/projects/*",
+                "to": "/docs/platform/:splat",
+                "status": 301
+            },
+            {
+                "from": "/docs/ai/setup/quickstart",
+                "to": "/docs/platform/introduction",
+                "status": 301
+            },
+            {
+                "from": "/docs/ai/setup/claude-plugin",
+                "to": "/docs/platform/introduction#connect-claude",
+                "status": 301
+            },
+            {
+                "from": "/docs/ai/setup/plans",
+                "to": "/docs/platform/manage#plans",
+                "status": 301
+            },
+            {
+                "from": "/docs/ai/projects/forms",
+                "to": "/docs/framework/core-plugins/submissions",
+                "status": 301
+            },
+            {
+                "from": "/docs/ai/setup/*",
+                "to": "/docs/platform/:splat",
+                "status": 301
+            },
+            {
+                "from": "/docs/ai/projects/*",
+                "to": "/docs/platform/:splat",
+                "status": 301
+            },
+            {
+                "from": "/docs/api/setup/introduction",
+                "to": "/docs/api/getting-started/introduction",
+                "status": 301
+            },
+            {
+                "from": "/docs/api/setup/quickstart",
+                "to": "/docs/api/getting-started/quickstart",
+                "status": 301
+            },
+            {
+                "from": "/docs/api/setup/authentication",
+                "to": "/docs/api/reference/authentication",
+                "status": 301
+            },
+            {
+                "from": "/docs/api/projects/manage",
+                "to": "/docs/api/guides/projects",
+                "status": 301
+            },
+            {
+                "from": "/docs/api/projects/content",
+                "to": "/docs/api/guides/docs-template",
+                "status": 301
+            },
+            {
+                "from": "/docs/api/guides/content",
+                "to": "/docs/api/guides/docs-template",
+                "status": 301
+            },
+            {
+                "from": "/docs/api/reference/docs-template",
+                "to": "/docs/api/guides/docs-template",
+                "status": 301
+            },
+            {
+                "from": "/docs/api/introduction",
+                "to": "/docs/api/getting-started/introduction",
+                "status": 301
+            },
+            {
+                "from": "/docs/api/quickstart",
+                "to": "/docs/api/getting-started/quickstart",
+                "status": 301
+            },
+            {
+                "from": "/docs/api/projects/*",
+                "to": "/docs/api/guides/:splat",
+                "status": 301
+            },
+            {
+                "from": "/docs/api/reference/idempotency",
+                "to": "/docs/api/reference/errors#idempotency",
+                "status": 301
+            },
+            {
+                "from": "/docs/api/reference/webhooks",
+                "to": "/docs/api/guides/webhooks",
+                "status": 301
+            },
+            {
+                "from": "/docs/api/setup",
+                "to": "/docs/api",
+                "status": 301
+            },
+            {
+                "from": "/docs/api/projects",
+                "to": "/docs/api/guides",
+                "status": 301
+            },
+            {
+                "from": "/docs/ai/*",
+                "to": "/docs/platform/:splat",
+                "status": 301
+            },
+            {
+                "from": "/docs/ai",
+                "to": "/docs/platform",
                 "status": 301
             },
             {
@@ -183,11 +343,13 @@
     ],
     "components": [
         "components/pricing.html",
-        "components/compare-lovable.html",
-        "components/manifest-ai.html",
+        "components/compare.html",
+        "components/showcase.html",
         "components/legal.html",
         "components/support.html",
         "components/docs-index.html",
+        "components/docs-platform.html",
+        "components/docs-api.html",
         "assets/example-components/disclaimer.html",
         "assets/example-components/header-basic.html",
         "assets/example-components/header-nested.html",
@@ -211,12 +373,13 @@
     ],
     "data": {
         "framework": "/data/docs.yaml",
-        "ai": "/data/ai.yaml",
+        "platform": "/data/platform.yaml",
         "api": "/data/api.yaml",
         "site": "/data/site.yaml",
         "faq": "/data/faq.yaml",
         "features": "/data/features.yaml",
         "comparisons": "/data/comparisons.yaml",
+        "compare": "/data/compare.yaml",
         "example": "/data/example.json",
         "feature-examples": {
             "ar": "/data/ar.locale.yaml",

@@ -274,7 +274,7 @@ Default tooltips use the following [theme](/docs/framework/styles/theme) variabl
 
 ### Delay
 
-Tooltips appear after a default 500ms hover delay, and disappear as soon as the pointer leaves the trigger element. They're automatically dismissed when the trigger is clicked or pressed. Change the duration in the [theme](/docs/framework/styles/theme) or with custom CSS that overwrites the `--tooltip-hover-delay` value:
+Tooltips appear after a default 500ms hover delay, and disappear as soon as the pointer leaves the trigger element. They also appear when the trigger gets keyboard focus, and close on blur. They're automatically dismissed when the trigger is clicked or pressed. Change the duration in the [theme](/docs/framework/styles/theme) or with custom CSS that overwrites the `--tooltip-hover-delay` value:
 
 ```css copy
 :root {

@@ -1,7 +1,7 @@
 <!-- Mobile navigation -->
-<nav aria-label="Menu" popover id="docs-nav" data-no-view-transition class="col w-64 h-full pt-8 pb-64 px-4 shadow-xl overflow-y-auto no-scrollbar" x-data="{
+<nav aria-label="Menu" popover id="docs-nav" data-no-view-transition class="col w-64 h-full pt-8 pb-64 px-4 bg-popover-surface shadow-xl overflow-y-auto no-scrollbar" x-data="{
         view: null,
-        get current() { return $route.match(/^\/docs\/(ai|api|framework)(\/|$)/)?.[1] || null },
+        get current() { return $route.match(/^\/docs\/(platform|api|framework)(\/|$)/)?.[1] || null },
         get src() { return this.view || this.current },
         get base() { return '/docs/' + this.src },
         get groups() { return this.src ? $x[this.src] || [] : [] },
@@ -40,10 +40,10 @@
 
     <!-- Site -->
     <div class="col py-4">
-        <template x-for="s in $x.site.sections" :key="s.anchor">
-            <a role="button" :href="($route === '/' ? '#' : '/#') + s.anchor" class="ghost justify-start w-full text-content-neutral">
-                <span x-icon="s.icon"></span>
-                <span x-text="s.name"></span>
+        <template x-for="n in $x.site.nav" :key="n.href">
+            <a role="button" :href="n.href" :aria-current="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="n.icon"></span>
+                <span x-text="n.name"></span>
             </a>
         </template>
     </div>

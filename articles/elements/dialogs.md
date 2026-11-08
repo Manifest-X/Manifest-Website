@@ -1,6 +1,6 @@
 # Dialogs
 
-Modal and non-modal overlays for focused interactions.
+Popover overlays for focused interactions.
 
 ---
 
@@ -56,7 +56,7 @@ Popovers operate by default as lightboxes, and clicking anywhere outside the dia
 <button popovertarget="dialog-manual">Open Dialog</button>
 <dialog popover="manual" id="dialog-manual" class="col center gap-2">
     <p>Click outside, I dare you.</p>
-    <button popovertarget="dialog-manual" popoveraction="hide">Close</button>
+    <button popovertarget="dialog-manual" popovertargetaction="hide">Close</button>
 </dialog>
 ```
 
@@ -64,13 +64,13 @@ Popovers operate by default as lightboxes, and clicking anywhere outside the dia
 <button popovertarget="dialog-manual">Open Dialog</button>
 <dialog popover="manual" id="dialog-manual" class="col center gap-2">
     <p>Click outside, I dare you.</p>
-    <button popovertarget="dialog-manual" popoveraction="hide">Close</button>
+    <button popovertarget="dialog-manual" popovertargetaction="hide">Close</button>
 </dialog>
 :::
 
 </div>
 
-Manual popovers require internal close buttons, with a `popovertarget` ID'ing the dialog and `popoveraction="hide"` to close it.
+Manual popovers require internal close buttons, with a `popovertarget` ID'ing the dialog and `popovertargetaction="hide"` to close it.
 
 ---
 
@@ -174,8 +174,8 @@ Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/f
         <p>This dialog opens above the first one. The Close All button targets the first dialog, automatically closing both.</p>
     </main>
     <footer>
-        <button popovertarget="dialog-second" popoveraction="hide">Go Back</button>
-        <button popovertarget="dialog-first" popoveraction="hide">Close All</button>
+        <button popovertarget="dialog-second" popovertargetaction="hide">Go Back</button>
+        <button popovertarget="dialog-first" popovertargetaction="hide">Close All</button>
     </footer>
 </dialog>
 ```
@@ -222,8 +222,8 @@ Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/f
         <p>This dialog opens above the first one. The Close All button targets the first dialog, automatically closing both.</p>
     </main>
     <footer>
-        <button popovertarget="dialog-second" popoveraction="hide">Go Back</button>
-        <button popovertarget="dialog-first" popoveraction="hide">Close All</button>
+        <button popovertarget="dialog-second" popovertargetaction="hide">Go Back</button>
+        <button popovertarget="dialog-first" popovertargetaction="hide">Close All</button>
     </footer>
 </dialog>
 :::

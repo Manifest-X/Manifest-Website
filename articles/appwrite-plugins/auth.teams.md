@@ -348,7 +348,7 @@ In your Appwrite project under <b>Auth</b> > <b>Settings</b>, ensure <b>Team inv
 <div x-code-group numbers copy  collapse="10">
 
 ```html "Invite Members"
-<!-- Inside <template x-for="team in $auth.teams"> -->
+<!-- Inside the team <details> from "List & Manage Members" -->
 <!-- Email input -->
 <input type="email" placeholder="Email" aria-label="Email to invite" x-model="$auth.inviteEmail" :disabled="$auth.isActionDisabled('inviteMembers')" required />
 
@@ -369,39 +369,44 @@ In your Appwrite project under <b>Auth</b> > <b>Settings</b>, ensure <b>Team inv
 ```
 
 ```html "List & Manage Members"
-<!-- Inside <template x-for="team in $auth.teams"> -->
-<!-- List members -->
-<template x-for="membership in $auth.currentTeamMemberships" :key="membership.$id">
-    <div>
+<template x-for="team in $auth.teams" :key="team.$id">
+    <!-- Load members when a team opens -->
+    <details @toggle="if ($event.target.open) $auth.viewTeam(team)">
+        <summary x-text="team.name"></summary>
+        <!-- List members -->
+        <template x-for="membership in $auth.currentTeamMemberships" :key="membership.$id">
+            <div>
 
-        <!-- Member name -->
-        <p x-text="$auth.getMemberDisplayName(membership)">Name</p>
+                <!-- Member name -->
+                <p x-text="$auth.getMemberDisplayName(membership)">Name</p>
 
-        <!-- Member email -->
-        <p x-text="$auth.getMemberEmail(membership)">Email</p>
+                <!-- Member email -->
+                <p x-text="$auth.getMemberEmail(membership)">Email</p>
 
-        <!-- Member role -->
-        <p x-text="(membership.displayRoles && membership.displayRoles.length > 0) ? membership.displayRoles.join(', ') : 'No roles'">Role</p>
+                <!-- Member role -->
+                <p x-text="(membership.displayRoles && membership.displayRoles.length > 0) ? membership.displayRoles.join(', ') : 'No roles'">Role</p>
         
-        <!-- Role dropdown (enabled for users with updateMembers permission) -->
-        <button x-dropdown="`member-role-menu-${team.$id}-${membership.$id}`" :disabled="(membership.userId !== $auth.user?.$id && ($auth.isActionDisabled('updateMembers') || !$auth.canUpdateMembers())) || $auth.isUpdatingMember(membership.$id)" x-show="membership.userId === $auth.user?.$id || $auth.canUpdateMembers()" x-text="(membership.displayRoles && membership.displayRoles.length > 0) ? membership.displayRoles[0] : 'No role'"></button>
-        <menu popover :id="`member-role-menu-${team.$id}-${membership.$id}`">
-            <!-- List roles -->
-            <template x-for="(permissions, roleName) in $auth.allTeamRoles(team)" :key="roleName">
-                <label>
-                    <input type="radio" :name="`member-role-${team.$id}-${membership.$id}`" :value="roleName" :checked="(membership.displayRoles && membership.displayRoles.length > 0 && membership.displayRoles[0] === roleName)" @change="$auth.updateMembership(team.$id, membership.$id, [roleName])" :disabled="$auth.isUpdatingMember(membership.$id) || (membership.userId !== $auth.user?.$id && $auth.isActionDisabled('updateMembers'))" />
-                    <span x-text="roleName">Role name</span>
-                </label>
-            </template>
-        </menu>
+                <!-- Role dropdown (enabled for users with updateMembers permission) -->
+                <button x-dropdown="`member-role-menu-${team.$id}-${membership.$id}`" :disabled="(membership.userId !== $auth.user?.$id && ($auth.isActionDisabled('updateMembers') || !$auth.canUpdateMembers())) || $auth.isUpdatingMember(membership.$id)" x-show="membership.userId === $auth.user?.$id || $auth.canUpdateMembers()" x-text="(membership.displayRoles && membership.displayRoles.length > 0) ? membership.displayRoles[0] : 'No role'"></button>
+                <menu popover :id="`member-role-menu-${team.$id}-${membership.$id}`">
+                    <!-- List roles -->
+                    <template x-for="(permissions, roleName) in $auth.allTeamRoles(team)" :key="roleName">
+                        <label>
+                            <input type="radio" :name="`member-role-${team.$id}-${membership.$id}`" :value="roleName" :checked="(membership.displayRoles && membership.displayRoles.length > 0 && membership.displayRoles[0] === roleName)" @change="$auth.updateMembership(team.$id, membership.$id, [roleName])" :disabled="$auth.isUpdatingMember(membership.$id) || (membership.userId !== $auth.user?.$id && $auth.isActionDisabled('updateMembers'))" />
+                            <span x-text="roleName">Role name</span>
+                        </label>
+                    </template>
+                </menu>
         
-        <!-- Delete button (enabled for users with removeMembers permission) -->
-        <button @click="$auth.deleteMember(team.$id, membership.$id)" :disabled="$auth.isActionDisabled('removeMembers') || $auth.isDeletingMember(membership.$id)" x-show="membership.userId !== $auth.user?.$id && $auth.canRemoveMembers()">Remove</button>
+                <!-- Delete button (enabled for users with removeMembers permission) -->
+                <button @click="$auth.deleteMember(team.$id, membership.$id)" :disabled="$auth.isActionDisabled('removeMembers') || $auth.isDeletingMember(membership.$id)" x-show="membership.userId !== $auth.user?.$id && $auth.canRemoveMembers()">Remove</button>
         
-        <!-- Leave button (for current user) -->
-        <button @click="$auth.leaveTeam(team.$id, membership.$id)" :disabled="$auth.isDeletingMember(membership.$id)" x-show="membership.userId === $auth.user?.$id">Leave</button>
+                <!-- Leave button (for current user) -->
+                <button @click="$auth.leaveTeam(team.$id, membership.$id)" :disabled="$auth.isDeletingMember(membership.$id)" x-show="membership.userId === $auth.user?.$id">Leave</button>
 
-    </div>
+            </div>
+        </template>
+    </details>
 </template>
 ```
 
@@ -409,7 +414,7 @@ In your Appwrite project under <b>Auth</b> > <b>Settings</b>, ensure <b>Team inv
 <!-- Team list -->
 <template x-for="team in $auth.teams" :key="team.$id"> 
     <!-- Team accordion-->
-    <details class="pb-4 border-b border-line" x-data="{ loaded: false }" @toggle="if ($event.target.open && !loaded) { $auth.currentTeam = team; $auth.viewTeam(team); loaded = true; }">
+    <details class="pb-4 border-b border-line" @toggle="if ($event.target.open) $auth.viewTeam(team)">
         <!-- Team name / expand button -->
         <summary x-text="team.name">Team Name</summary>
         <!-- Members-->

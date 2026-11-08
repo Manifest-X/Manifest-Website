@@ -1,22 +1,18 @@
-# Submissions
+# Form Submissions
 
-Send a form without leaving the page.
+Send contact forms to your email or any endpoint.
 
 ---
 
 ## Overview
 
-A form is plain HTML first. With an `action` and `method="post"`, the browser checks the fields and sends them, no script involved. `x-submit` on the same `<form>` keeps everything the browser does and changes one thing: the form is sent in the background, so the visitor stays on the page.
-
-The plugin renders nothing. It adds no messages, styles, or success screens, and it doesn't validate fields. Your page owns how the form looks, what counts as valid, and how a sent or failed form is shown. The plugin only reports what happened.
-
-It works with any endpoint that accepts a form post: a [Manifest-hosted form](/docs/ai/projects/forms), your own server, or a form service.
+Add `x-submit` to a regular form, and it's sent in the background while the visitor stays on the page. It works with any endpoint that accepts form posts, including a Manifest-hosted form that emails you. The plugin adds no styles or messages: your page decides how sending, sent, and failed look.
 
 ---
 
 ## Setup
 
-Submissions isn't in the default bundle. With the default plugins, or a `data-plugins` list starting with `+`, it loads by itself as soon as the page uses `x-submit`, including in components and markdown added later. A `data-plugins` list without `+` loads only what it names, so add `submissions` to it.
+Form Submissions isn't in the default bundle. With the default plugins, or a `data-plugins` list starting with `+`, it loads by itself as soon as the page uses `x-submit`, including in components and markdown added later. A `data-plugins` list without `+` loads only what it names, so add `submissions` to it.
 
 <div x-code-group copy>
 
