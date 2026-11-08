@@ -24,5 +24,6 @@ Caps on requests, writes, storage, projects, uploads, content, file reads and up
 | File update request                      | 12 MB body, 8 MB per file, 1,000 changes. The updated site stays within the zip limits. |
 | Upload URL lifetime                      | 15 minutes, one upload                             |
 | `Idempotency-Key`{copy}                        | 1 to 200 characters, kept 24 hours                 |
-| Webhook delivery                         | 10-second timeout per attempt; retried for 24 hours |
+| Webhook endpoints per account            | 3 on the free allowance, 10 on a platform account. Over it: `409 webhook_limit`{copy}. |
+| Webhook delivery                         | 10-second timeout per attempt; retried for 24 hours. An endpoint failing every attempt for 3 days is disabled. |
 | Deployments kept                         | The 5 most recent per environment, plus the live one |

@@ -140,7 +140,7 @@ curl -X DELETE https://api.manifestx.dev/v1/projects/proj_… \
 }
 ```
 
-The site goes dark at once: the staging and production URLs stop serving, the default subdomains are released, and custom domains are detached. The project's own key stops working, and the project leaves `GET /projects`{copy}. Any `/projects/:id`{copy} request for it from your key answers `410 project_deleted`, and so does a second delete. On the free allowance, the project's place is freed straight away.
+The site goes dark at once: the staging and production URLs stop serving, the default subdomains are released, and custom domains are detached. The project's own key stops working, and the project leaves `GET /projects`{copy}. Any `/projects/:id`{copy} request for it from your key answers `410 project_deleted`, and so does a second delete. On the free allowance, the project's place is freed straight away. A [`project.deleted` webhook](/docs/api/reference/webhooks#events) is sent once.
 
 Its files and deployment history are kept for **30 days**, until `purge_after`{copy}. Within that window Manifest can restore the project: contact [team@manifestx.dev](mailto:team@manifestx.dev) with its id. After 30 days the files are removed for good and the project can't be restored.
 

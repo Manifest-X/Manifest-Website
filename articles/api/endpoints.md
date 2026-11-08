@@ -34,3 +34,8 @@ Base URL `https://api.manifestx.dev/v1`{copy}, authenticated with your [API key]
 | `GET /projects/:id/members`{copy} | Who has access to the project | [List editors](/docs/api/projects/manage#list-editors) |
 | `DELETE /projects/:id/members/:user_id`{copy} | Remove an editor | [Remove an editor](/docs/api/projects/manage#remove-an-editor) |
 | `GET /usage?period=YYYY-MM`{copy} | Per-project usage for a month, as JSON or CSV | [Usage](/docs/api/projects/usage) |
+| `POST /webhooks`{copy} | Add a webhook endpoint; its secret is shown once | [Create an endpoint](/docs/api/reference/webhooks#create-an-endpoint) |
+| `GET /webhooks`{copy} | The account's webhook endpoints, with delivery health | [List endpoints](/docs/api/reference/webhooks#list-endpoints) |
+| `GET /webhooks/:id`{copy} | One webhook endpoint | [List endpoints](/docs/api/reference/webhooks#list-endpoints) |
+| `DELETE /webhooks/:id`{copy} | Remove a webhook endpoint | [Delete an endpoint](/docs/api/reference/webhooks#delete-an-endpoint) |
+| `POST /webhooks/:id/test`{copy} | Send a signed test event to one endpoint | [Send a test event](/docs/api/reference/webhooks#send-a-test-event) |
