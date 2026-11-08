@@ -330,6 +330,7 @@
 
     <!-- Demo -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4" aria-label="Three people on one project, each in their own Claude chat, inviting teammates, editing, publishing, checking visitors and rolling back" x-data="teamDemo">
+      <template x-if="!window.__manifestRender">
       <template x-for="p in people" :key="p.name">
         <div class="col gap-4 p-4 bg-popover-surface rounded-xl text-sm text-content-stark">
           <div class="row items-center gap-2 -mx-4 px-4 pb-3 border-b border-line/60">
@@ -353,6 +354,7 @@
             </template>
           </div>
         </div>
+      </template>
       </template>
     </div>
 
