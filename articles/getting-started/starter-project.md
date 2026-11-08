@@ -60,7 +60,7 @@ Move those files aside, or add `--force` to replace them with the template versi
 npx mnfst-starter --here --force
 ```
 
-`--force` lists every file it overwrote. It keeps the project name already in `manifest.json` unless `--name` is also given. Outside `--here`, `--force` has no effect and the starter prints a warning; likewise a folder name passed alongside `--here` is ignored with a warning.
+`--force` lists every file it overwrote. It keeps the project name already in `manifest.json` unless `--name` is also given; everything else in `manifest.json` is replaced by the template. Outside `--here`, `--force` has no effect and the starter prints a warning; likewise a folder name passed alongside `--here` is ignored with a warning.
 
 ### Merged Config
 

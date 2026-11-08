@@ -25,7 +25,7 @@ Common conventions:
 | `--manifest <path>` | Override `manifest.json` location | `mnfst-test`, `mnfst-types` |
 | `--json` | Machine-readable output | `mnfst-test` |
 | `-h`, `--help` | Show usage | `mnfst-starter`, `mnfst-test`, `mnfst-types`, `mnfst-export` |
-| `--name "<name>"` | Project name in `manifest.json` (defaults to the folder name) | `mnfst-starter` |
+| `--name "<name>"` | Project name in `manifest.json` (defaults to the folder name; `--here --force` keeps the existing name) | `mnfst-starter` |
 
 ---
 
