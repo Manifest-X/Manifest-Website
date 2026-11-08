@@ -6,7 +6,7 @@ Get told when a publish goes live or fails, a promote or rollback lands, or a pr
 
 ## Endpoints
 
-A webhook endpoint is an `https` URL on your side that receives a `POST` for each event on your API account's projects. Each endpoint has its own signing secret, starting `whsec_`{copy}, shown once when the endpoint is created. An endpoint can list the events it receives; without a list it receives every event. A free account can have 3 endpoints and a platform account 10.
+A webhook endpoint is an `https` URL on your side that receives a `POST` for each event on the projects your API account created. Projects made outside the API don't send events. Each endpoint has its own signing secret, starting `whsec_`{copy}, shown once when the endpoint is created. An endpoint can list the events it receives; without a list it receives every event. An account can have 3 endpoints on the free allowance and 10 on a platform account, disabled endpoints included.
 
 ### Create an endpoint
 
@@ -45,7 +45,7 @@ curl -X POST https://api.manifestx.dev/v1/webhooks \
 }
 ```
 
-Store the secret where your receiver reads it, for example `MANIFEST_WEBHOOK_SECRET`{copy}. It is never shown again; to replace it, create a new endpoint and delete the old one. Send an `Idempotency-Key`{copy} so a retried request returns the same endpoint and secret instead of creating a second. See [Idempotency](/docs/api/reference/idempotency).
+Store the secret where your receiver reads it, for example `MANIFEST_WEBHOOK_SECRET`{copy}. It is never shown again. To replace it, delete the endpoint, then create a new one. Send an `Idempotency-Key`{copy} so a retried request returns the same endpoint and secret instead of creating a second. See [Idempotency](/docs/api/reference/idempotency).
 
 The URL must be `https`{copy} on the default port, name a public host (such as `hooks.example.com`{copy}), and carry no username or password. IP addresses, `localhost`{copy}, and `.local`{copy} or `.internal`{copy} names are refused with `400 invalid_url`{copy}.
 
@@ -201,7 +201,7 @@ Each endpoint's `delivery`{copy} shows how sending to it is going:
 | `pending`{copy}                 | Events not yet delivered and still being retried.                                            |
 | `dead`{copy}                    | Events dropped in the last 30 days after 24 hours of failures.                               |
 
-An endpoint that has failed every attempt for 3 days, at least 10 attempts in a row, is disabled: `status`{copy} becomes `disabled`{copy}, with `disabled_at`{copy} and `disabled_reason: "failing"`{copy}. A disabled endpoint receives nothing and can't be tested. Once your receiver is fixed, create a new endpoint and delete the disabled one. A single success resets the count, so a short outage never disables an endpoint.
+An endpoint that has failed at least 10 attempts in a row, over 3 days of continuous retries, is disabled: `status`{copy} becomes `disabled`{copy}, with `disabled_at`{copy} and `disabled_reason: "failing"`{copy}. A disabled endpoint receives nothing and can't be tested. Once your receiver is fixed, delete the disabled endpoint, then create a new one: a disabled endpoint still counts toward the cap. A single success resets the count, and so does a gap of more than 24 hours with no attempts, so neither a short outage nor a quiet spell disables an endpoint.
 
 ---
 
@@ -212,6 +212,6 @@ An endpoint that has failed every attempt for 3 days, at least 10 attempts in a 
 | 400        | `invalid_input`{copy}         | `POST /webhooks`{copy}: the body isn't `{"url", "events"?}`{copy}, or `events`{copy} names an unknown event. |
 | 400        | `invalid_url`{copy}           | `POST /webhooks`{copy}: the URL isn't a public `https`{copy} address on the default port. |
 | 404        | `not_found`{copy}             | No endpoint with that id in this account.                                |
-| 409        | `webhook_limit`{copy}         | `POST /webhooks`{copy}: the account has 3 endpoints (free) or 10 (platform). Delete one first. |
+| 409        | `webhook_limit`{copy}         | `POST /webhooks`{copy}: the account has 3 endpoints on the free allowance or 10 on a platform account, disabled ones included. Delete one first. |
 | 409        | `endpoint_disabled`{copy}     | `POST /webhooks/:id/test`{copy}: the endpoint is disabled.               |
 | 503        | `webhooks_unavailable`{copy}  | Webhooks can't be set up right now. Retry later.                         |
