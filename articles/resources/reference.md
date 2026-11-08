@@ -9,6 +9,7 @@ Manifest's CLI commands, directives, magic properties, data-source operators, an
 | Command | Purpose | Reference |
 |---------|---------|-----------|
 | `npx mnfst-starter <name>`{copy} | Scaffold a new Manifest project | [Starter Project](/docs/framework/getting-started/starter-project) |
+| `npx mnfst-starter --here`{copy} | Scaffold into the current folder; add `--name "<name>"` to set the project name, `--force` to overwrite template files | [Starter Project](/docs/framework/getting-started/starter-project#existing-files) |
 | `npx mnfst-run`{copy} | Zero-dependency dev server with live reload | [Setup](/docs/framework/getting-started/setup#run-a-project) |
 | `npx mnfst-render`{copy} | Prerender the SPA into a static MPA | [Websites](/docs/framework/publishing/websites) |
 | `npx mnfst-export`{copy} | Batch / CI exports — PDF, image, CSV, JSON, RSS | [Export](/docs/framework/core-plugins/import-export#batch-and-ci-exports) |
@@ -24,6 +25,7 @@ Common conventions:
 | `--manifest <path>` | Override `manifest.json` location | `mnfst-test`, `mnfst-types` |
 | `--json` | Machine-readable output | `mnfst-test` |
 | `-h`, `--help` | Show usage | `mnfst-starter`, `mnfst-test`, `mnfst-types`, `mnfst-export` |
+| `--name "<name>"` | Project name in `manifest.json` (defaults to the folder name) | `mnfst-starter` |
 
 ---
 

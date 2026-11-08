@@ -22,11 +22,21 @@ npx mnfst-starter --here
 
 `npx mnfst-starter Name` creates a `Name/` folder and sets it as the project name in `manifest.json`. It stops if that folder already exists.
 
-`npx mnfst-starter --here` installs into the current folder instead, using the folder's name as the project name. Add `--name` to set a different one:
+`npx mnfst-starter --here` installs into the current folder instead, using the folder's name as the project name.
 
-```bash copy
+Add `--name` to either command to set a different project name:
+
+<div x-code-group>
+
+```bash "New Folder" copy
+npx mnfst-starter my-site --name "My Site"
+```
+
+```bash "Current Folder" copy
 npx mnfst-starter --here --name "My Site"
 ```
+
+</div>
 
 Names may contain letters, numbers, spaces, dots, underscores, and hyphens, and can't start or end with a dot or space. If the current folder's name has other characters, pass `--name`.
 
@@ -49,6 +59,8 @@ Move those files aside, or add `--force` to replace them with the template versi
 ```bash copy
 npx mnfst-starter --here --force
 ```
+
+`--force` lists every file it overwrote. It keeps the project name already in `manifest.json` unless `--name` is also given. Outside `--here`, `--force` has no effect and the starter prints a warning; likewise a folder name passed alongside `--here` is ignored with a warning.
 
 ### Merged Config
 

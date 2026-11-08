@@ -154,6 +154,7 @@ Manifest provides a handful of handy `npx` commands to assist with project devel
 | Command | Purpose | Reference |
 |---------|---------|-----------|
 | `npx mnfst-starter <name>`{copy} | Scaffold a new Manifest project | [Starter Project](/docs/framework/getting-started/starter-project) |
+| `npx mnfst-starter --here`{copy} | Scaffold into the current folder; add `--name "<name>"` to set the project name, `--force` to overwrite template files | [Starter Project](/docs/framework/getting-started/starter-project#existing-files) |
 | `npx mnfst-run`{copy} | Zero-dependency dev server with live reload | [Setup](#run-a-project) |
 | `npx mnfst-render`{copy} | Prerender the SPA into a static MPA | [Websites](/docs/framework/publishing/websites) |
 | `npx mnfst-export`{copy} | Batch / CI exports — PDF, image, CSV, JSON, RSS | [Export](/docs/framework/core-plugins/import-export#batch-and-ci-exports) |
