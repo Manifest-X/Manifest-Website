@@ -25,6 +25,16 @@ If you don't say which, Claude publishes live.
 
 ---
 
+## Search-Ready Pages
+
+> `Make my site ready for search engines`{copy}
+
+Search engines and AI assistants read little more than a page's first HTML, so a site built in the browser can look nearly empty to them. With search-ready pages on, Manifest turns each live release into finished pages that they read in full, with titles, descriptions, a sitemap and link previews. Nothing is installed on your computer, and it's free on every plan.
+
+Claude turns it on for sites meant to be found, like a business site, blog or portfolio, and sets the site's real address so links point to it. Staging is served as built; each live release takes a few minutes to finish.
+
+---
+
 ## Rollbacks
 
 > `Put the previous version back`{copy}
