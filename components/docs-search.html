@@ -1,6 +1,8 @@
 <!-- Docs search: Cmd/Ctrl-K dialog, filters all articles by title, headings, and content -->
 <div x-data="{
         sources: [['platform', '/docs/platform'], ['framework', '/docs/framework'], ['api', '/docs/api']],
+        labels: { platform: 'Platform', framework: 'Framework', api: 'API' },
+        scope: 'all',
         q: '',
         items: [],
         ready: false,
@@ -33,7 +35,7 @@
                                 .replace(/-{2,}/g, ' ')
                                 .replace(/\s+/g, ' ');
                             this.items.push({
-                                name: it.name, group: g.group, icon: it.icon, href, desc,
+                                name: it.name, group: g.group, icon: it.icon, href, desc, src,
                                 headings,
                                 hhay: headings.join(' · ').toLowerCase(),
                                 body, bhay: body.toLowerCase(),
@@ -48,11 +50,23 @@
             this.loading = false;
         },
 
-        results() {
+        // Every match across families, ranked; results() narrows to the chosen family.
+        matches() {
             const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
             if (!terms.length) return this.items.map(it => ({ ...it, caption: it.desc }));
             const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
-            return ranked.slice(0, 20).map(it => ({ ...it, caption: this.caption(it, terms[0]) }));
+            return ranked.map(it => ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        results() {
+            const all = this.matches();
+            return (this.scope === 'all' ? all : all.filter(it => it.src === this.scope)).slice(0, 20);
+        },
+
+        count(src) {
+            if (!this.q.trim()) return '';
+            const all = this.matches();
+            return src === 'all' ? all.length : all.filter(it => it.src === src).length;
         },
 
         // Matched heading, content excerpt, or the article description.
@@ -72,6 +86,7 @@
         closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
         async onToggle(e) {
             if (e.newState !== 'open') return;
+            this.scope = $route.match(/^\/docs\/(platform|framework|api)(\/|$)/)?.[1] || 'all';
             this.$nextTick(() => { this.$refs.input.focus(); this.$refs.input.select(); });
             await this.build();
             this.$nextTick(() => { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
@@ -84,7 +99,7 @@
         },
         go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
     }"
-    x-init="$watch('q', () => active = 0)"
+    x-init="$watch('q', () => active = 0); $watch('scope', () => active = 0)"
     @keydown.window.meta.k.prevent="openDialog()"
     @keydown.window.ctrl.k.prevent="openDialog()"
     @manifest:route-change.window="closeDialog()">
@@ -99,6 +114,14 @@
                 <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
                 <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
             </label>
+            <div role="tablist" aria-label="Docs to search" class="sm rounded-full mt-3">
+                <template x-for="s in ['all', 'platform', 'framework', 'api']" :key="s">
+                    <button type="button" role="tab" :aria-selected="scope === s" @click="scope = s; $refs.input.focus()">
+                        <span x-text="s === 'all' ? 'All' : labels[s]"></span>
+                        <span x-show="count(s) !== ''" class="opacity-60" x-text="count(s)"></span>
+                    </button>
+                </template>
+            </div>
         </div>
 
         <!-- Results -->
@@ -106,7 +129,8 @@
             <div class="h-2 shrink-0"></div>
             <p x-show="loading && !ready" class="px-3 py-2 text-sm text-content-subtle">Indexing articles…</p>
             <p x-show="ready && q.trim() && !results().length" class="px-3 py-2 text-sm text-content-subtle">
-                No matches for “<span x-text="q.trim()"></span>”.
+                No matches for “<span x-text="q.trim()"></span>”<span x-show="scope !== 'all'"> in <span x-text="labels[scope]"></span></span>.
+                <button type="button" x-show="scope !== 'all' && count('all')" class="unstyle brand underline cursor-pointer" @click="scope = 'all'; $refs.input.focus()">Search all docs</button>
             </p>
             <template x-for="(r, i) in results()" :key="r.href">
                 <div :data-active="i === active ? '' : null" @mouseenter="active = i">
@@ -117,8 +141,10 @@
                             <span class="row items-center gap-2">
                                 <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
                                 <span class="text-content-stark" x-text="r.name"></span>
-                                <span class="text-content-subtle font-normal">·</span>
-                                <small class="text-content-subtle font-normal" x-text="r.group"></small>
+                                <template x-if="r.group">
+                                    <small class="text-content-subtle font-normal" x-text="'· ' + r.group"></small>
+                                </template>
+                                <small class="badge sm ms-auto shrink-0 font-normal" x-text="labels[r.src]"></small>
                             </span>
                             <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
                         </span>
