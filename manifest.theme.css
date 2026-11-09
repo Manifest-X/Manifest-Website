@@ -1157,3 +1157,9 @@ nav[aria-label="On this page"] > small {
 
 /* Pill tab bars: concentric tabs and slider */
 [role=tablist].rounded-full { --radius: 999px }
+
+/* Discoverability demo: three columns from 56rem */
+@media (min-width: 56rem) {
+    .found-demo { grid-template-columns: 4fr 3.5fr 4.5fr }
+    .found-demo > :nth-child(3) { grid-column: auto }
+}
