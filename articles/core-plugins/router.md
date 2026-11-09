@@ -81,6 +81,13 @@ Routing accounts for URL content that does not affect the path:
 - **URL parameters**: `features?filter=active` matches `features` (query parameters are ignored)
 - **Anchors**: `features#section` matches `features` (hash fragments are ignored)
 
+An element can combine `x-route` with `x-show`, rendering only when both the route matches and the expression is true. An inline `display` set on a routed element is kept when its route hides and shows it again.
+
+```html
+<!-- Shows on /settings, and only while advanced is true -->
+<div x-route="settings" x-show="advanced">...</div>
+```
+
 ---
 
 ### Exact Routes
@@ -155,6 +162,12 @@ When using the prerender script, the 404 view is captured at build time and writ
 ### Other Paths
 
 The router supports non-navigation paths. See [data](/docs/framework/core-plugins/local-data), [localization](/docs/framework/core-plugins/localization), and [URL parameters](/docs/framework/core-plugins/url-parameters) for plugins that apply additional path segments to the URL for content purposes.
+
+---
+
+### Links
+
+The router handles same-origin links without reloading the page. A link with `target="_blank"` opens its resolved URL (base path and language included) in a new tab, with `noopener` applied. Clicks with a modifier key or the middle mouse button, and links targeting a named frame or window, are left to the browser.
 
 ---
 
