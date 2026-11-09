@@ -22,11 +22,11 @@
 
     <!-- Billing toggles -->
     <div class="row-wrap items-center justify-end gap-3">
-      <div role="tablist" aria-label="Billing period">
+      <div role="tablist" aria-label="Billing period" class="sm rounded-full">
         <button type="button" role="tab" :aria-selected="!yearly" @click="yearly = false">Monthly</button>
         <button type="button" role="tab" :aria-selected="yearly" @click="yearly = true">Yearly<span class="opacity-70">· 2 months free</span></button>
       </div>
-      <div role="tablist" aria-label="Currency">
+      <div role="tablist" aria-label="Currency" class="sm rounded-full">
         <button type="button" role="tab" :aria-selected="!eur" @click="setEur(false)">USD</button>
         <button type="button" role="tab" :aria-selected="eur" @click="setEur(true)">EUR</button>
       </div>

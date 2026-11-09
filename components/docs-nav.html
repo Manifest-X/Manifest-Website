@@ -12,7 +12,7 @@
     <!-- Docs -->
     <template x-if="src">
         <div class="col">
-            <div role="tablist" aria-label="Docs" class="w-full my-4">
+            <div role="tablist" aria-label="Docs" class="sm rounded-full w-full my-4">
                 <template x-for="d in $x.site.docs" :key="d.key">
                     <button type="button" role="tab" :aria-selected="src === d.key" @click="view = d.key" x-text="d.name"></button>
                 </template>

@@ -1128,14 +1128,32 @@ nav[aria-label="On this page"] > small {
 .docs-pop {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding-block: 0.5rem;
-    border-top: 1px solid var(--color-line);
-    font-size: var(--text-sm);
-    color: var(--color-content-neutral);
+    gap: 0.75rem;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
     text-decoration: none;
+    transition: background-color 0.2s var(--ease-soft), border-color 0.2s var(--ease-soft);
 
-    & [x-icon], & svg { opacity: 0; translate: -0.25rem 0; transition: opacity 0.2s var(--ease-soft), translate 0.2s var(--ease-soft) }
+    &>:first-child {
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        width: 2rem;
+        height: 2rem;
+        border-radius: var(--radius-md);
+        background: var(--color-surface-1);
+        color: var(--color-brand-content)
+    }
 
-    &:hover { color: var(--color-content-stark); & [x-icon], & svg { opacity: 1; translate: 0 0 } }
+    &>:last-child { display: flex; flex-direction: column; min-width: 0 }
+
+    & b { font-weight: 500; font-size: var(--text-sm); color: var(--color-content-stark) }
+
+    & small { color: var(--color-content-subtle) }
+
+    &:hover { background: var(--color-surface-1); &>:first-child { background: var(--color-surface-2) } }
 }
+
+/* Pill tab bars: concentric tabs and slider */
+[role=tablist].rounded-full { --radius: 999px }
