@@ -38,7 +38,9 @@ npx mnfst-starter --here --name "My Site"
 
 </div>
 
-Names may contain letters, numbers, spaces, dots, underscores, and hyphens, and can't start or end with a dot or space. If the current folder's name has other characters, pass `--name`.
+Folder names may contain letters, numbers, spaces, dots, underscores, and hyphens, and can't start or end with a dot or space. The `--name` value can be any text, so use it for names with other characters.
+
+The starter stops with an error on an option it doesn't recognise, such as a misspelt `--frce`, or on an empty value like `--name=`. Run `npx mnfst-starter --help` to list the options.
 
 Alternatively, download the template directory from <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/starter" target="_blank">GitHub</a>.
 
@@ -60,7 +62,7 @@ Move those files aside, or add `--force` to replace them with the template versi
 npx mnfst-starter --here --force
 ```
 
-`--force` lists every file it overwrote. It keeps the project name already in `manifest.json` unless `--name` is also given; everything else in `manifest.json` is replaced by the template. Outside `--here`, `--force` has no effect and the starter prints a warning; likewise a folder name passed alongside `--here` is ignored with a warning.
+`--force` lists every file it overwrote. It keeps the project name already in `manifest.json` unless `--name` is also given; everything else in `manifest.json` is replaced by the template. If the existing `manifest.json` can't be read, the starter warns and uses the folder name instead. Outside `--here`, `--force` has no effect and the starter prints a warning; likewise a folder name passed alongside `--here` is ignored with a warning.
 
 ### Merged Config
 
