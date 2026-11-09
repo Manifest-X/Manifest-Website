@@ -35,10 +35,10 @@
 
       <!-- Chat -->
       <div class="col gap-2 min-h-80 p-6 md:p-8 text-sm">
-        <p x-show="t >= 1" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="self-end max-w-[90%] px-3.5 py-2 bg-popover-surface rounded-2xl rounded-br-md">Build a booking app for my yoga studio, with member sign-in</p>
+        <p x-show="t >= 1" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="self-end max-w-[90%] px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md">Build a booking app for my yoga studio, with member sign-in</p>
         <p x-show="t >= 2" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="row items-center gap-1 mt-3 text-xs text-content-subtle"><span x-text="activity">Published to staging</span><span x-icon="lucide:chevron-right" aria-hidden="true"></span></p>
         <p x-show="t >= 7" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from">Done. Review it on the staging link.</p>
-        <p x-show="t >= 8" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="self-end max-w-[90%] mt-5 px-3.5 py-2 bg-popover-surface rounded-2xl rounded-br-md">Love it. Put it on solstice.studio</p>
+        <p x-show="t >= 8" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="self-end max-w-[90%] mt-5 px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md">Love it. Put it on solstice.studio</p>
         <p x-show="t >= 9" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="row items-center gap-1 mt-3 text-xs text-content-subtle"><span x-text="publish">Published live</span><span x-icon="lucide:chevron-right" aria-hidden="true"></span></p>
         <p x-show="t >= 11" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from">It's live.</p>
       </div>
@@ -182,7 +182,7 @@
     </div>
 
     <!-- Demo -->
-    <div class="found-demo grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[4fr_3fr_5fr] gap-4" x-data="foundDemo">
+    <div class="found-demo grid grid-cols-1 md:grid-cols-2 min-[56rem]:grid-cols-[4fr_3.5fr_4.5fr] gap-4" x-data="foundDemo">
 
       <!-- Page -->
       <figure class="col gap-3 p-4 bg-surface-2 rounded-xl">
@@ -224,7 +224,7 @@
       </figure>
 
       <!-- Results -->
-      <figure class="col gap-3 p-4 bg-surface-2 rounded-xl md:col-span-2 lg:col-span-1">
+      <figure class="col gap-3 p-4 bg-surface-2 rounded-xl md:col-span-2 min-[56rem]:col-span-1">
         <figcaption class="small w-full text-start text-content-subtle">Where it shows up</figcaption>
 
         <div class="found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm" :class="t >= 3 && 'on'">

@@ -12,9 +12,9 @@
     <!-- Docs -->
     <template x-if="src">
         <div class="col">
-            <div role="group" class="row w-full border border-line rounded-full my-4">
+            <div role="tablist" aria-label="Docs" class="w-full my-4">
                 <template x-for="d in $x.site.docs" :key="d.key">
-                    <button type="button" class="sm grow rounded-full" :class="src === d.key ? 'accent' : 'transparent'" :aria-pressed="src === d.key" @click="view = d.key" x-text="d.name"></button>
+                    <button type="button" role="tab" :aria-selected="src === d.key" @click="view = d.key" x-text="d.name"></button>
                 </template>
             </div>
             <a role="button" :href="base" :aria-current="here(base) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="here(base) ? 'selected brand !text-content-stark pointer-events-none' : ''">

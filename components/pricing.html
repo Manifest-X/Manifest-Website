@@ -22,13 +22,13 @@
 
     <!-- Billing toggles -->
     <div class="row-wrap items-center justify-end gap-3">
-      <div role="group" aria-label="Billing period" class="row p-1 bg-surface-2 rounded-full">
-        <button type="button" class="sm rounded-full" :class="yearly ? 'ghost' : 'accent'" :aria-pressed="!yearly" @click="yearly = false">Monthly</button>
-        <button type="button" class="sm rounded-full" :class="yearly ? 'accent' : 'ghost'" :aria-pressed="yearly" @click="yearly = true">Yearly<span class="opacity-70">· 2 months free</span></button>
+      <div role="tablist" aria-label="Billing period">
+        <button type="button" role="tab" :aria-selected="!yearly" @click="yearly = false">Monthly</button>
+        <button type="button" role="tab" :aria-selected="yearly" @click="yearly = true">Yearly<span class="opacity-70">· 2 months free</span></button>
       </div>
-      <div role="group" aria-label="Currency" class="row p-1 bg-surface-2 rounded-full">
-        <button type="button" class="sm rounded-full" :class="eur ? 'ghost' : 'accent'" :aria-pressed="!eur" @click="setEur(false)">USD</button>
-        <button type="button" class="sm rounded-full" :class="eur ? 'accent' : 'ghost'" :aria-pressed="eur" @click="setEur(true)">EUR</button>
+      <div role="tablist" aria-label="Currency">
+        <button type="button" role="tab" :aria-selected="!eur" @click="setEur(false)">USD</button>
+        <button type="button" role="tab" :aria-selected="eur" @click="setEur(true)">EUR</button>
       </div>
     </div>
 

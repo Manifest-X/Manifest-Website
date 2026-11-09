@@ -61,10 +61,10 @@
       <div class="row-wrap items-center gap-4">
 
         <!-- Color mode -->
-        <div role="group" class="border border-line rounded-full">
-          <button x-color="'light'" class="sm rounded-s-full" :class="{ 'accent pointer-events-none': $color.current === 'light' }" x-icon="lucide:sun" aria-label="Light mode"></button>
-          <button x-color="'dark'" class="sm" :class="{ 'accent pointer-events-none': $color.current === 'dark' }" x-icon="lucide:moon" aria-label="Dark mode"></button>
-          <button x-color="'system'" class="sm rounded-e-full" :class="{ 'accent pointer-events-none': $color.current === 'system' }" x-icon="lucide:sun-moon" aria-label="Auto mode"></button>
+        <div role="tablist" aria-label="Color mode">
+          <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode"></button>
+          <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode"></button>
+          <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode"></button>
         </div>
 
       </div>

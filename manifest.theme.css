@@ -1123,3 +1123,19 @@ nav[aria-label="On this page"] > small {
 /* Docs: long inline code wraps instead of widening the page */
 .prose td code, .prose th code { overflow-wrap: anywhere; white-space: normal }
 .prose :not(pre) > code { overflow-wrap: anywhere }
+
+/* Docs landing */
+.docs-pop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 0.5rem;
+    border-top: 1px solid var(--color-line);
+    font-size: var(--text-sm);
+    color: var(--color-content-neutral);
+    text-decoration: none;
+
+    & [x-icon], & svg { opacity: 0; translate: -0.25rem 0; transition: opacity 0.2s var(--ease-soft), translate 0.2s var(--ease-soft) }
+
+    &:hover { color: var(--color-content-stark); & [x-icon], & svg { opacity: 1; translate: 0 0 } }
+}

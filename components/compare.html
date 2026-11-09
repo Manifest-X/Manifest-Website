@@ -9,7 +9,7 @@
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <template x-for="c in $x.compare" :key="c.slug">
-          <a :href="'/compare/' + c.slug" class="col gap-2 p-6 bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 rounded-xl no-underline transition-colors">
+          <a :href="'/compare/' + c.slug" class="col gap-2 p-6 border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 rounded-xl no-underline transition-colors">
             <span class="h4 text-content-stark" x-text="c.title || 'Manifest vs ' + c.name"></span>
             <span class="text-sm text-content-neutral" x-text="c.blurb || c.summary"></span>
           </a>
