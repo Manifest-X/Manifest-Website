@@ -81,11 +81,11 @@ Routing accounts for URL content that does not affect the path:
 - **URL parameters**: `features?filter=active` matches `features` (query parameters are ignored)
 - **Anchors**: `features#section` matches `features` (hash fragments are ignored)
 
-An element can combine `x-route` with `x-show`, rendering only when both the route matches and the expression is true. An inline `display` set on a routed element is kept when its route hides and shows it again.
+An element can combine `x-route` with `x-show`, rendering only when both the route matches and the expression is true. An inline `display` on a routed element without `x-show` is kept when its route hides and shows it again. With `x-show`, Alpine manages the element's inline display.
 
 ```html
-<!-- Shows on /settings, and only while advanced is true -->
-<div x-route="settings" x-show="advanced">...</div>
+<!-- Shows on /settings and its subpages, only while advanced is true -->
+<div x-route="/settings" x-show="advanced">...</div>
 ```
 
 ---
@@ -167,7 +167,9 @@ The router supports non-navigation paths. See [data](/docs/framework/core-plugin
 
 ### Links
 
-The router handles same-origin links without reloading the page. A link with `target="_blank"` opens its resolved URL (base path and language included) in a new tab, with `noopener` applied. Clicks with a modifier key or the middle mouse button, and links targeting a named frame or window, are left to the browser.
+In a single-page app, the router handles same-origin links without reloading the page. On prerendered static pages, links load each page in full, keeping the language prefix.
+
+A link with `target="_blank"` opens in a new tab, resolved the same way, with `noopener`. Clicks with a modifier key or the middle mouse button, and links with any other `target` (a named frame or window, `_parent`, `_top`), are left to the browser. Links with a `download` attribute, hash-only links (see [Anchor Navigation](#anchor-navigation)), and links inside editable text are also left to the browser.
 
 ---
 
