@@ -8,7 +8,7 @@ import { createServer } from 'node:http';
 import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { normalize, refs, source, crawl, diff, gate, validateApprovals, template, main } from './promote-manifest.mjs';
-import { classify } from '../.claude/hooks/promote-gate.mjs';
+import { classify, chatApproved } from '../.claude/hooks/promote-gate.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const HOOK = join(ROOT, '.claude/hooks/promote-gate.mjs');
@@ -403,7 +403,7 @@ test('hook blocks an unapproved promote, tells the agent not to self-approve, an
   const r = promote({ PROMOTE_STAGING: dirty });
   assert.equal(r.status, 2);
   assert.match(r.stderr, /UNAPPROVED\s+changed \/articles\/reset\.md/);
-  assert.match(r.stderr, /Do not add approvals yourself; ask Andrew/);
+  assert.match(r.stderr, /Ask Andrew in chat.*Do not add approvals yourself/);
   assert.doesNotMatch(r.stderr, /--template/);
   const clean = promote({ PROMOTE_STAGING: await site(BASE) });
   assert.equal(clean.status, 0);
@@ -503,4 +503,41 @@ test('binary files compare by content, using a HEAD etag on live hosts', async (
   } finally {
     s.close();
   }
+});
+
+test('chat approval: only Andrew\'s latest short typed message approves', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'pm-chat-'));
+  const human = (content) => ({ type: 'user', origin: { kind: 'human' }, message: { role: 'user', content } });
+  const tool = { type: 'user', message: { role: 'user', content: [{ type: 'tool_result', content: 'ok' }] } };
+  const asst = { type: 'assistant', message: { role: 'assistant', content: [{ type: 'text', text: 'Promote?' }] } };
+  const at = async (rows) => {
+    const p = join(dir, `${Math.random()}.jsonl`);
+    await writeFile(p, rows.map((r) => JSON.stringify(r)).join('\n') + '\n');
+    return chatApproved({ transcript_path: p });
+  };
+  assert.equal(await at([asst, human('promote'), tool, tool]), 'promote');
+  assert.equal(await at([human('Approvals done, promote')]), 'Approvals done, promote');
+  assert.equal(await at([human([{ type: 'text', text: 'Yes' }])]), 'Yes');
+  assert.equal(await at([human('<system-reminder>x</system-reminder>go ahead')]), 'go ahead');
+  assert.equal(await at([human('not yet')]), null);
+  assert.equal(await at([human("don't promote")]), null);
+  assert.equal(await at([human('fix the footer')]), null);
+  assert.equal(await at([human('promote'), human('wait, hold on')]), null);
+  assert.equal(await at([human('promote'), { type: 'user', origin: { kind: 'peer' }, isMeta: true, message: { content: 'yes promote' } }]), 'promote');
+  assert.equal(await at([human('fix it'), { type: 'user', origin: { kind: 'task-notification' }, message: { content: 'promote' } }]), null);
+  assert.equal(await at([human(`You are the release session. ${'x'.repeat(300)} Then promote.`)]), null);
+  assert.equal(await at([human('<side-sessions-event>promote</side-sessions-event>')]), null);
+  assert.equal(chatApproved({}), null);
+  assert.equal(chatApproved({ transcript_path: join(dir, 'missing.jsonl') }), null);
+});
+
+test('hook passes a promote approved in chat without reading committed approvals', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'pm-chat-'));
+  const p = join(dir, 't.jsonl');
+  await writeFile(p, JSON.stringify({ type: 'user', origin: { kind: 'human' }, message: { content: 'yes, promote' } }) + '\n');
+  const r = spawnSync(process.execPath, [HOOK], { input: JSON.stringify({ tool_name: 'mcp__x__manifest_promote', tool_input: { project_id: 'proj_manifest_website' }, transcript_path: p, cwd: ROOT }), encoding: 'utf8' });
+  assert.equal(r.status, 0, r.stderr);
+  assert.match(JSON.parse(r.stdout).systemMessage, /approved in chat by Andrew \("yes, promote"\)/);
+  const pub = spawnSync(process.execPath, [HOOK], { input: JSON.stringify({ tool_name: 'mcp__x__manifest_publish', tool_input: { project_id: 'proj_manifest_website' }, transcript_path: p, cwd: ROOT }), encoding: 'utf8' });
+  assert.equal(pub.status, 2);
 });

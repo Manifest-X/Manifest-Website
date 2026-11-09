@@ -6,7 +6,7 @@
 // - the dashboard promote button and other clients bypass this hook;
 // - live-vs-live crawls trust host ETags for binaries and see only linked files.
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, realpathSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { closeSync, existsSync, fstatSync, mkdtempSync, openSync, readFileSync, readSync, realpathSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { homedir, tmpdir } from 'node:os';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -20,7 +20,59 @@ const START = Date.now();
 const SHELL_TOOLS = /^(?:Bash|Monitor|mcp__terminal__run_in_terminal)$/;
 const PUBLISH_MSG =
   "Blocked: Manifest-Website production is reached only by promote. Publish to staging (manifest_publish env='staging', or `npx mnfst-publish --staging`), then promote; the promote gate compares the served staging bytes with production.";
-const APPROVAL_MSG = "Blocked: these files need Andrew's approval in promote-manifest.json on origin/staging. Do not add approvals yourself; ask Andrew or file a queue row.";
+const APPROVAL_MSG = "Blocked: no approval. Ask Andrew in chat; his reply approving the promote (e.g. \"promote\", \"yes\") passes this gate. Committed promote-manifest.json entries also pass. Do not add approvals yourself.";
+
+// Chat approval: Andrew's latest typed message approves. Briefs, peers and notifications don't count.
+const APPROVE = /\b(promote|approved?|approve it|yes|yep|yeah|go ahead|do it|ship it|go live|roll ?back|lgtm|ok(ay)?|proceed)\b/i;
+const DENY = /\b(no|not|don'?t|do not|wait|hold|stop|never|cancel)\b/i;
+const CHAT_MAX = 200;
+const TAIL_BYTES = 4 * 1024 * 1024;
+
+function tail(path) {
+  const fd = openSync(path, 'r');
+  try {
+    const size = fstatSync(fd).size;
+    const len = Math.min(size, TAIL_BYTES);
+    const buf = Buffer.alloc(len);
+    readSync(fd, buf, 0, len, size - len);
+    const text = buf.toString('utf8');
+    return len < size ? text.slice(text.indexOf('\n') + 1) : text;
+  } finally {
+    closeSync(fd);
+  }
+}
+
+const promptText = (c) => (typeof c === 'string' ? c : Array.isArray(c) ? c.filter((b) => b?.type === 'text').map((b) => b.text).join('\n') : '');
+
+export function latestPrompt(path) {
+  if (!path || !existsSync(path)) return null;
+  const lines = tail(path).split('\n');
+  for (let i = lines.length - 1; i >= 0; i--) {
+    let r;
+    try {
+      r = JSON.parse(lines[i]);
+    } catch {
+      continue;
+    }
+    if (r?.type !== 'user' || r.isMeta || r.isSidechain) continue;
+    const c = r.message?.content;
+    if (Array.isArray(c) && !c.some((b) => b?.type === 'text')) continue;
+    if (r.origin?.kind !== 'human') return null;
+    return promptText(c).replace(/<system-reminder>[\s\S]*?<\/system-reminder>/g, '').trim();
+  }
+  return null;
+}
+
+export function chatApproved(input) {
+  let text;
+  try {
+    text = latestPrompt(input.transcript_path);
+  } catch {
+    return null;
+  }
+  if (!text || text.length > CHAT_MAX || text.startsWith('<') || DENY.test(text) || !APPROVE.test(text)) return null;
+  return text;
+}
 
 // Exit 2 once stderr drains; pipes are async on macOS, so process.exit would truncate.
 class Halt extends Error {}
@@ -374,6 +426,12 @@ export function run(input) {
   const c = classify(input);
   if (!c) return;
   if (c.kind === 'publish') block(PUBLISH_MSG);
+  const said = chatApproved(input);
+  if (said) {
+    const msg = `Promote gate: approved in chat by Andrew ("${said}").`;
+    process.stdout.write(JSON.stringify({ systemMessage: msg, hookSpecificOutput: { hookEventName: 'PreToolUse', additionalContext: msg } }));
+    return;
+  }
   const text = approvals();
   if (text == null) block('promote-gate: could not read promote-manifest.json from the remote staging branch (git ls-remote origin refs/heads/staging); blocking.');
   if (c.kind === 'rollback') {
