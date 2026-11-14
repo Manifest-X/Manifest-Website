@@ -295,7 +295,7 @@ Storage buckets automatically sync changes in realtime across all active session
 |--------|------------|-------------|
 | `$create(file, fileId?, permissions?, onProgress \| options?)` | `file` (File object), `fileId` (string, optional), `permissions` (array, optional). The 4th argument is either an `onProgress` callback function **or** an options object `{ entryId, table, fileIdsColumn? }` for linking the file to another table's entry. | Upload a new file. Returns uploaded file. If `scope` is configured, permissions are automatically set based on user/team |
 | `$duplicate(fileId, options?)` | `fileId` (string or object with `$id`), `options` (object, optional) | Duplicate a file. Options: `newName`, `newFileId`. Returns duplicated file. If `newName` is not provided, the file name will be "{originalName} copy" |
-| `$delete(fileIdOrArray)` | `fileIdOrArray` (string, object with `$id`, or array) | Delete file(s) and remove them from the list and from any linked entries. Returns the result, or one per file for an array. If some files in an array fail, the rest stay deleted and the call rejects with the first error |
+| `$delete(fileIdOrArray)` | `fileIdOrArray` (string, object with `$id`, or array) | Delete file(s) and remove them from the list and from any linked entries. Resolves once Appwrite confirms, with Appwrite's (empty) delete response, or an array of them for an array. If some files in an array fail, the rest stay deleted and the call rejects with the first error |
 | `$url(fileId, token?)` | `fileId` (string or object with `$id`), `token` (string, optional) | Get file view URL. Returns URL string |
 | `$download(fileId, token?)` | `fileId` (string or object with `$id`), `token` (string, optional) | Get file download URL. Returns URL string |
 | `$preview(fileId, options?)` | `fileId` (string or object with `$id`), `options` (object, optional) | Get file preview URL (images only). Options: width, height, quality, output, etc. Returns preview URL string |
@@ -356,7 +356,7 @@ Alternatively, link files manually after upload:
 </button>
 ```
 
-Deleting a file with `$delete` also removes its id from every loaded entry that links it: the `fileIds` column, the columns named in a table's `storage` mapping, and a bucket's `belongsTo.fileIdsColumn`. The links are removed only after Appwrite confirms the delete, so a delete that fails (for example, no permission) leaves the file and its links as they were.
+Deleting a file with `$delete` also removes its id from every loaded entry that links it: the columns named for that bucket in a table's `storage` mapping or a bucket's `belongsTo.fileIdsColumn`, and `fileIds` unless the mapping gives `fileIds` to another bucket. A column you only passed when uploading (the `fileIdsColumn` option) and never named in `manifest.json` is not unlinked; remove those ids yourself with the table's `$update`. The links are removed only after Appwrite confirms the delete, so a delete that fails (for example, no permission) leaves the file and its links as they were.
 
 See [databases](/docs/framework/appwrite-plugins/databases#storage-file-references) for more details on file references.
 
