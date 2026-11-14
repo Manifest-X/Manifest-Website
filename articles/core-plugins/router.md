@@ -156,6 +156,8 @@ When using the prerender script, the 404 view is captured at build time and writ
 
 The router supports non-navigation paths. See [data](/docs/framework/core-plugins/local-data), [localization](/docs/framework/core-plugins/localization), and [URL parameters](/docs/framework/core-plugins/url-parameters) for plugins that apply additional path segments to the URL for content purposes.
 
+Link clicks keep the query string, so `<a href="/support?topic=billing">` arrives with `?topic=billing` intact. Links with `target="_blank"` open in a new tab, and `rel="noreferrer"` is honoured there too.
+
 ---
 
 ## Component Prefetching
