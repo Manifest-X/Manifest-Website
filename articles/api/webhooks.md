@@ -114,7 +114,7 @@ Each event is one JSON body with `type`{copy}, `timestamp`{copy} (ISO 8601, when
 
 On `publish.failed`{copy}, `error`{copy} is a short code: `store_failed`{copy}, `ingest_failed`{copy}, `upload_expired`{copy}, `storage_cap_reached`{copy} (see [Limits](/docs/api/reference/limits)), or `publish_failed`{copy}. Start a new publish to recover.
 
-On `domain.error`{copy}, `previous_status`{copy} is `pending`{copy} or `active`{copy}. `reason`{copy} names what failed: `hostname_`{copy} and the hostname state (such as `hostname_deleted`{copy} or `hostname_blocked`{copy}), or `certificate_`{copy} and the certificate state (such as `certificate_pending_validation_timed_out`{copy} or `certificate_expired`{copy}). `message`{copy} is the provider's first error text, or `null`{copy}. Check the records and [add the domain again](/docs/api/guides/domains#add-a-domain) to recover.
+On `domain.error`{copy}, `previous_status`{copy} is `pending`{copy} or `active`{copy}. `reason`{copy} names what failed: `hostname_`{copy} and the hostname state (such as `hostname_blocked`{copy}), or `certificate_`{copy} and the certificate state (such as `certificate_pending_validation_timed_out`{copy}). An active domain ends only when it is removed at the provider, with `previous_status`{copy} `active`{copy} and `reason`{copy} `hostname_deleted`{copy}. `message`{copy} is the provider's first error text, or `null`{copy}. Check the records and [add the domain again](/docs/api/guides/domains#add-a-domain) to recover.
 
 ---
 
