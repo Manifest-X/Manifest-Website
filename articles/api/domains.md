@@ -127,7 +127,7 @@ const res = await fetch('https://api.manifestx.dev/v1/projects/proj_…/domains/
 | `active`{copy} | Verified, with its certificate, and serving the project. |
 | `error`{copy} | Validation failed or timed out, or the domain was removed at the provider. Check the records and add the domain again. |
 
-Poll about once a minute while `status`{copy} is `pending`{copy}. `records`{copy} repeats what to add, so you can show it again. With `txt`{copy} validation, the TXT record is listed until the certificate is issued.
+Poll about once a minute while `status`{copy} is `pending`{copy}, or let [webhooks](/docs/api/guides/webhooks#events) tell you: `certificate.issued`{copy}, `domain.active`{copy} and `domain.error`{copy}. `records`{copy} repeats what to add, so you can show it again. With `txt`{copy} validation, the TXT record is listed until the certificate is issued.
 
 `hostname_status`{copy} and `certificate_status`{copy} are the underlying states. `certificate_validation`{copy} lists what's still expected until the certificate is active.
 

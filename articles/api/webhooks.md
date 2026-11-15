@@ -22,8 +22,13 @@ Once the endpoint is set up, publish to staging on a project your keys created. 
 |---|---|
 | `publish.ready`{copy} | A publish, content request, or file update is live on its environment. |
 | `publish.failed`{copy} | A publish stopped before going live, including an upload not finished within a day. What was live is unchanged. |
+| `certificate.issued`{copy} | A custom domain's HTTPS certificate is issued. With `txt`{copy} validation this can come before the domain is active. |
+| `domain.active`{copy} | A custom domain is verified, has its certificate, and serves the project. |
+| `domain.error`{copy} | A custom domain's validation failed or timed out, or the domain was removed at the provider. |
 
 Events come from every publish of those projects, including ones made from Claude. Promotes and rollbacks send no event. New fields and event types may be added, so ignore what you don't recognise.
+
+Domain events are sent once per change. Manifest checks a pending domain about every 10 minutes, then less often, up to hourly, while it stays pending. [Checking the status](/docs/api/guides/domains#check-the-status) picks up a change straight away, and sends its event.
 
 ---
 
@@ -63,9 +68,53 @@ Each event is one JSON body with `type`{copy}, `timestamp`{copy} (ISO 8601, when
 }
 ```
 
+```json "certificate.issued"
+{
+  "type": "certificate.issued",
+  "timestamp": "2026-10-31T09:14:05.000Z",
+  "data": {
+    "project_id": "proj_…",
+    "source_id": "site_8232",
+    "hostname": "docs.acme.com",
+    "env": "production"
+  }
+}
+```
+
+```json "domain.active"
+{
+  "type": "domain.active",
+  "timestamp": "2026-10-31T09:14:05.000Z",
+  "data": {
+    "project_id": "proj_…",
+    "source_id": "site_8232",
+    "hostname": "docs.acme.com",
+    "env": "production"
+  }
+}
+```
+
+```json "domain.error"
+{
+  "type": "domain.error",
+  "timestamp": "2026-10-31T09:14:05.000Z",
+  "data": {
+    "project_id": "proj_…",
+    "source_id": "site_8232",
+    "hostname": "docs.acme.com",
+    "env": "production",
+    "previous_status": "pending",
+    "reason": "certificate_pending_validation_timed_out",
+    "message": "TXT record not found"
+  }
+}
+```
+
 </div>
 
 On `publish.failed`{copy}, `error`{copy} is a short code: `store_failed`{copy}, `ingest_failed`{copy}, `upload_expired`{copy}, `storage_cap_reached`{copy} (see [Limits](/docs/api/reference/limits)), or `publish_failed`{copy}. Start a new publish to recover.
+
+On `domain.error`{copy}, `previous_status`{copy} is `pending`{copy} or `active`{copy}. `reason`{copy} names what failed: `hostname_`{copy} and the hostname state (such as `hostname_deleted`{copy} or `hostname_blocked`{copy}), or `certificate_`{copy} and the certificate state (such as `certificate_pending_validation_timed_out`{copy} or `certificate_expired`{copy}). `message`{copy} is the provider's first error text, or `null`{copy}. Check the records and [add the domain again](/docs/api/guides/domains#add-a-domain) to recover.
 
 ---
 
