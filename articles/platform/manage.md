@@ -10,6 +10,8 @@ Sign in at <a href="https://dash.manifestx.dev" target="_blank">dash.manifestx.d
 
 When you have several projects, Claude asks which one you mean before changing anything.
 
+Working on two projects at once in separate Claude windows? Claude names the project in each request, so each window stays on its own site. If a window ever gets an answer about a project it didn't choose, Claude says so and asks rather than reporting the other site's details as yours.
+
 > `Which Manifest projects do I have?`{copy}
 
 ---
