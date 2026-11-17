@@ -371,6 +371,7 @@ After a delete:
 - Any request for it answers `410 project_deleted`, including a second delete.
 - On the free allowance, its place is freed straight away.
 - A create that reuses its `source_id` answers `409 source_id_deleted`.
+- A [`project.deleted` webhook](/docs/api/guides/webhooks#events) is sent once.
 
 **Restoring.** Files and history are kept for 30 days, until `purge_after`. Within that window, email [team@manifestx.dev](mailto:team@manifestx.dev) with the project id and Manifest can restore it. A restore brings back staging, production, and the default subdomains.
 

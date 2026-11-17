@@ -47,4 +47,8 @@ Every `POST`{copy}, `PATCH`{copy}, and `DELETE`{copy} accepts an [`Idempotency-K
 | **Usage** | | |
 | `GET`{copy} | `/usage?period=YYYY-MM`{copy} | [Per-project usage for a month, as JSON or CSV](/docs/api/guides/usage) |
 | **Webhooks** | | |
-| | | [Endpoints are set up by emailing Manifest](/docs/api/guides/webhooks#set-up-an-endpoint), not through the API. |
+| `POST`{copy} | `/webhooks`{copy} | [Add a webhook endpoint, with its secret shown once](/docs/api/guides/webhooks#create-an-endpoint) |
+| `GET`{copy} | `/webhooks`{copy} | [List webhook endpoints, with delivery health](/docs/api/guides/webhooks#list-endpoints) |
+| `GET`{copy} | `/webhooks/:id`{copy} | [One webhook endpoint](/docs/api/guides/webhooks#list-endpoints) |
+| `DELETE`{copy} | `/webhooks/:id`{copy} | [Remove a webhook endpoint](/docs/api/guides/webhooks#delete-an-endpoint) |
+| `POST`{copy} | `/webhooks/:id/test`{copy} | [Send a signed test event to one endpoint](/docs/api/guides/webhooks#test-it) |

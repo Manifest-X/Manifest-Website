@@ -29,11 +29,13 @@ Every cap the API enforces, and what it answers when you reach one.
 | Storage | 500 MB | 10 GB |
 | Live API keys | 10 | 10 |
 | Custom domains per project | 25 | 25 |
+| Webhook endpoints | 3 | 10 |
 | Deployments kept per environment | 5 plus the live one | 5 plus the live one |
 
 - **Projects.** Your cap is `max_projects`{copy} on `GET /me`{copy}. Over it, a create answers `403 project_cap_reached`{copy}.
 - **Storage** is the total size of the live staging and production versions of the projects the account created. Your cap is `max_storage_bytes`{copy} on `GET /me`{copy}.
 - **Over the storage cap**, a publish, content request, or file update answers `403 storage_cap_reached`{copy} and changes nothing. Promotes and rollbacks are never refused.
+- **Webhook endpoints** count disabled ones too. Over the cap, a create answers `409 webhook_limit`{copy}. See [Webhooks](/docs/api/guides/webhooks#set-up-an-endpoint).
 - **Deployments.** Production on a prerendered project keeps ten. Older deployments can't be [rolled back](/docs/api/guides/publish#roll-back) to.
 
 To raise an Enterprise cap, <a href="/support?topic=enterprise#contact" target="_blank">talk to us</a>.
@@ -55,4 +57,4 @@ These are the same on every plan.
 | Content request body | 12 MB. See [Docs Template](/docs/api/guides/docs-template#limits) for per-page limits. |
 | File list page | 1,000 files. Follow `next_cursor`{copy} for the rest. |
 | `Idempotency-Key`{copy} | 1 to 200 characters, kept 24 hours |
-| Webhook delivery | 10 seconds per attempt, retried for 24 hours |
+| Webhook delivery | 10 seconds per attempt, retried for 24 hours. An endpoint that fails at least 10 attempts in a row over 3 days is [disabled](/docs/api/guides/webhooks#disabled-endpoints). |
