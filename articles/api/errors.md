@@ -53,6 +53,7 @@ Upload and status URL errors carry `error`{copy} and `message`{copy}, but no `re
 | 400 | `invalid_input`{copy} | A field is missing, malformed or unknown, `env`{copy} is wrong, or the body isn't JSON. Fix the request. |
 | 400 | `invalid_idempotency_key`{copy} | `Idempotency-Key`{copy} is blank or over 200 characters. |
 | 400 | `invalid_subdomain`{copy} | Use lowercase letters, digits, and single hyphens, 1 to 40 characters. |
+| 400 | `invalid_url`{copy} | A webhook URL isn't a public `https`{copy} address on the default port. The message says why. |
 | 400 | `invalid_hostname`{copy} | The hostname has spaces, no dot, or is an IP address. |
 | 400 | `invalid_cursor`{copy} | The file list cursor isn't valid, or its deployment is gone. List again without it. |
 | 400 | `invalid_path`{copy} | A file read's path doesn't name a file, for example it ends in `/`{copy} or contains `..`{copy}. |
@@ -69,7 +70,7 @@ Upload and status URL errors carry `error`{copy} and `message`{copy}, but no `re
 | 403 | `domain_cap_reached`{copy} | The project has 25 custom domains. Remove one first. |
 | 403 | `storage_cap_reached`{copy} | The publish would take the account over its storage cap. Nothing changed. See [Limits](/docs/api/reference/limits). |
 | 403 | `owner_not_removable`{copy} | The project owner can't be removed. |
-| 404 | `not_found`{copy} | No such project, domain, or key, or the key can't reach it. Also any unknown route. |
+| 404 | `not_found`{copy} | No such project, domain, key, or webhook endpoint, or the key can't reach it. Also any unknown route. |
 | 404 | `member_not_found`{copy} | No one with that `user_id`{copy} is on the project. |
 | 404 | `unknown_deployment`{copy} | That `deployment_id`{copy} isn't one of this project's deployments for that environment. |
 | 404 | `file_not_found`{copy} | A file read names a file that isn't live, or nothing is live on that environment yet. |
@@ -80,6 +81,8 @@ Upload and status URL errors carry `error`{copy} and `message`{copy}, but no `re
 | 409 | `subscription_active`{copy} | The project has a Pro subscription. Cancel it in the dashboard, then delete. |
 | 409 | `hostname_taken`{copy} | Another project has that hostname. |
 | 409 | `key_limit`{copy} | The account has 10 live keys. Revoke one first. |
+| 409 | `webhook_limit`{copy} | The account has its 3 webhook endpoints on the free allowance, or 10 on Enterprise, counting disabled ones. Delete one first. |
+| 409 | `endpoint_disabled`{copy} | A test was sent to a disabled webhook endpoint. Create a new one. See [Webhooks](/docs/api/guides/webhooks#disabled-endpoints). |
 | 409 | `last_key`{copy} | That's the account's only live key. Create another before revoking it. |
 | 409 | `nothing_on_staging`{copy} | Nothing is live on staging to promote. Publish to staging first. |
 | 409 | `no_earlier_version`{copy} | There's no earlier version to roll back to. |
@@ -121,6 +124,7 @@ Upload and status URL errors carry `error`{copy} and `message`{copy}, but no `re
 | 503 | `domains_unavailable`{copy} | Custom domains are briefly unavailable. Retry later. |
 | 503 | `membership_unverified`{copy} | Your role on a team project couldn't be checked. Nothing was done. Retry. |
 | 503 | `team_unavailable`{copy} | The project's team couldn't be reached. No one was invited or removed. Retry. |
+| 503 | `webhooks_unavailable`{copy} | Webhooks are briefly unavailable. Retry later. |
 | 503 | `idempotency_unavailable`{copy} | Idempotent requests are briefly unavailable. Retry later. Retrying without the header loses its duplicate protection. |
 
 ---
