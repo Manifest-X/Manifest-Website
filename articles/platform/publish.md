@@ -45,12 +45,14 @@ Manifest keeps the last 5 versions of staging and live. On Pro, Claude can put a
 
 ## Custom Domains
 
-> `Connect www.example.com to my project`{copy}
+> `Connect example.com to my project`{copy}
 
-Claude tells you the one record to add where you bought the domain. Manifest then sets up the security certificate and renews it for you.
+Claude tells you what to add where you bought the domain, and there's no need to move your DNS anywhere. Manifest then sets up the security certificate and renews it for you.
 
+- **A domain on its own, like `example.com`:** two records, an address record and a short code that proves the domain is yours.
+- **A subdomain, like `shop.example.com`:** one record.
+- **Visitors typing `www`?** Add the extra record Claude gives you and they're sent to `example.com`.
 - **Moving a live domain?** Tell Claude first, and nothing goes offline during the move.
-- **Without www?** Projects are served at `www` by default, and Claude shows you how to send `example.com` there.
 - **To change the `.manifestx.ai` address**, ask Claude to `change my address to acme-launch`{.prompt copy}. The old address stops working.
 
 ---
