@@ -316,7 +316,7 @@ Each event is one JSON body with `type`{copy}, `timestamp`{copy} (ISO 8601, when
     "hostname": "docs.acme.com",
     "env": "production",
     "previous_status": "pending",
-    "reason": "certificate_pending_validation_timed_out",
+    "reason": "certificate_validation_timed_out",
     "message": "TXT record not found"
   }
 }
@@ -338,7 +338,7 @@ Each event is one JSON body with `type`{copy}, `timestamp`{copy} (ISO 8601, when
 - **`promote.done`{copy}:** `deployment_id`{copy} is the new production deployment, and `from_deployment_id`{copy} is the staging deployment it was made from. `files`{copy} is the number of files the production deployment serves.
 - **`rollback.done`{copy}:** `deployment_id`{copy} is live now, and `previous_deployment_id`{copy} was live before. `env`{copy} is `production`{copy} or `staging`{copy}.
 - **`project.deleted`{copy}:** `deleted_at`{copy} and `restorable_until`{copy} are Unix seconds. It is sent once per delete.
-- **`domain.error`{copy}:** `previous_status`{copy} is `pending`{copy} or `active`{copy}. `reason`{copy} names what failed: `hostname_`{copy} and the hostname state (such as `hostname_blocked`{copy}), or `certificate_`{copy} and the certificate state (such as `certificate_pending_validation_timed_out`{copy}). An active domain ends only when it is removed at the provider, with `previous_status`{copy} `active`{copy} and `reason`{copy} `hostname_deleted`{copy}. `message`{copy} is the provider's first error text, or `null`{copy}. Check the records and [add the domain again](/docs/api/guides/domains#add-a-domain) to recover.
+- **`domain.error`{copy}:** `previous_status`{copy} is `pending`{copy} or `active`{copy}. `reason`{copy} names what failed: `hostname_`{copy} and the hostname state (such as `hostname_blocked`{copy}), or `certificate_`{copy} and the certificate state (such as `certificate_validation_timed_out`{copy}). An active domain ends only when it is removed at the provider, with `previous_status`{copy} `active`{copy} and `reason`{copy} `hostname_deleted`{copy}. `message`{copy} is the provider's first error text, or `null`{copy}. Check the records and [add the domain again](/docs/api/guides/domains#add-a-domain) to recover.
 - **`url`{copy}** can be `null`{copy} when the address couldn't be read at that moment.
 
 ---
