@@ -1,6 +1,6 @@
 # Webhooks
 
-Get told when a publish goes live or fails, a promote or rollback lands, or a project is deleted, instead of polling.
+Get told when a publish goes live or fails, a promote or rollback lands, a custom domain goes live or fails, or a project is deleted, instead of polling.
 
 ---
 
@@ -189,9 +189,14 @@ The response is `202`: a `webhook.test`{copy} event is on its way to that endpoi
 | `promote.done`{copy} | What was live on staging is live on production. |
 | `rollback.done`{copy} | An environment points at an earlier deployment again. |
 | `project.deleted`{copy} | A project was deleted. Its sites are offline, and Manifest can restore it for 30 days. |
+| `certificate.issued`{copy} | A custom domain's HTTPS certificate is issued. With `txt`{copy} validation this can come before the domain is active. |
+| `domain.active`{copy} | A custom domain is verified, has its certificate, and serves the project. |
+| `domain.error`{copy} | A custom domain's validation failed or timed out, or the domain was removed at the provider. |
 | `webhook.test`{copy} | You [asked for a test event](#test-it). Only that endpoint receives it, and it can't be listed in `events`{copy}. |
 
 Publishes, promotes, and rollbacks send their events whether they're made through the API, from Claude, or in the dashboard. Deletes send theirs from the API or the dashboard. New fields and event types may be added, so ignore what you don't recognise.
+
+Domain events are sent once per change. Manifest checks a pending domain about every 10 minutes, then less often, up to hourly, while it stays pending. [Checking the status](/docs/api/guides/domains#check-the-status) picks up a change straight away, and sends its event.
 
 ---
 
@@ -275,6 +280,48 @@ Each event is one JSON body with `type`{copy}, `timestamp`{copy} (ISO 8601, when
 }
 ```
 
+```json "certificate.issued"
+{
+  "type": "certificate.issued",
+  "timestamp": "2026-10-31T09:14:05.000Z",
+  "data": {
+    "project_id": "proj_…",
+    "source_id": "site_8232",
+    "hostname": "docs.acme.com",
+    "env": "production"
+  }
+}
+```
+
+```json "domain.active"
+{
+  "type": "domain.active",
+  "timestamp": "2026-10-31T09:14:05.000Z",
+  "data": {
+    "project_id": "proj_…",
+    "source_id": "site_8232",
+    "hostname": "docs.acme.com",
+    "env": "production"
+  }
+}
+```
+
+```json "domain.error"
+{
+  "type": "domain.error",
+  "timestamp": "2026-10-31T09:14:05.000Z",
+  "data": {
+    "project_id": "proj_…",
+    "source_id": "site_8232",
+    "hostname": "docs.acme.com",
+    "env": "production",
+    "previous_status": "pending",
+    "reason": "certificate_pending_validation_timed_out",
+    "message": "TXT record not found"
+  }
+}
+```
+
 ```json "webhook.test"
 {
   "type": "webhook.test",
@@ -291,6 +338,7 @@ Each event is one JSON body with `type`{copy}, `timestamp`{copy} (ISO 8601, when
 - **`promote.done`{copy}:** `deployment_id`{copy} is the new production deployment, and `from_deployment_id`{copy} is the staging deployment it was made from. `files`{copy} is the number of files the production deployment serves.
 - **`rollback.done`{copy}:** `deployment_id`{copy} is live now, and `previous_deployment_id`{copy} was live before. `env`{copy} is `production`{copy} or `staging`{copy}.
 - **`project.deleted`{copy}:** `deleted_at`{copy} and `restorable_until`{copy} are Unix seconds. It is sent once per delete.
+- **`domain.error`{copy}:** `previous_status`{copy} is `pending`{copy} or `active`{copy}. `reason`{copy} names what failed: `hostname_`{copy} and the hostname state (such as `hostname_blocked`{copy}), or `certificate_`{copy} and the certificate state (such as `certificate_pending_validation_timed_out`{copy}). An active domain ends only when it is removed at the provider, with `previous_status`{copy} `active`{copy} and `reason`{copy} `hostname_deleted`{copy}. `message`{copy} is the provider's first error text, or `null`{copy}. Check the records and [add the domain again](/docs/api/guides/domains#add-a-domain) to recover.
 - **`url`{copy}** can be `null`{copy} when the address couldn't be read at that moment.
 
 ---
