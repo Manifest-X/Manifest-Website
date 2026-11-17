@@ -12,6 +12,8 @@ Components in Manifest are HTML files representing pages, sections, or other UI 
 See the [router](/docs/framework/core-plugins/router) plugin for details on navigation, which can be used to show and hide components based on URL paths.
 :::
 
+A component with `x-route` on its own tag, like `<x-settings x-route="settings">`, loads only when that route is active. Put `x-route` on the component tag itself: a component inside a routed wrapper element still loads on every route.
+
 ---
 
 ## Setup
