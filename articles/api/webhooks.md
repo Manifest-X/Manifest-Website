@@ -76,7 +76,7 @@ The response is `201` and carries the secret once:
 - **Store the secret** where your receiver reads it, such as `MANIFEST_WEBHOOK_SECRET`{copy}. It is never shown again. To replace it, delete the endpoint, then create a new one.
 - **Send an `Idempotency-Key`{copy}** so a retried request returns the same endpoint and secret instead of creating a second. See [Idempotency](/docs/api/reference/errors#idempotency).
 - **`events`{copy}** is `null`{copy} on an endpoint that receives every event.
-- **The URL** must be `https`{copy} on the default port, with no username or password. It must name a public host, such as `hooks.example.com`{copy}. IP addresses, single-label names, names ending in a dot, `localhost`{copy}, and names ending in `.localhost`{copy}, `.local`{copy} or `.internal`{copy} answer `400 invalid_url`{copy}.
+- **The URL** must be `https`{copy} on the default port, with no username or password. It must name a public host, such as `hooks.example.com`{copy}. IP addresses, single-label names, names ending in a dot, `localhost`{copy}, `localhost.localdomain`{copy}, and names ending in `.localhost`{copy}, `.local`{copy} or `.internal`{copy} answer `400 invalid_url`{copy}.
 
 ### List Endpoints
 
@@ -287,7 +287,7 @@ Each event is one JSON body with `type`{copy}, `timestamp`{copy} (ISO 8601, when
 
 </div>
 
-- **`publish.failed`{copy}:** `error`{copy} is a short code: `store_failed`{copy}, `ingest_failed`{copy}, `upload_expired`{copy}, `storage_cap_reached`{copy} (see [Limits](/docs/api/reference/limits)), or `publish_failed`{copy}. Start a new publish to recover.
+- **`publish.failed`{copy}:** `error`{copy} is a short code, such as `upload_expired`{copy}, `storage_cap_reached`{copy} (see [Limits](/docs/api/reference/limits)), `store_failed`{copy}, `ingest_failed`{copy}, `bad_zip`{copy}, `too_large`{copy}, or `publish_failed`{copy}. Treat any other code as a failure too. Start a new publish to recover.
 - **`promote.done`{copy}:** `deployment_id`{copy} is the new production deployment, and `from_deployment_id`{copy} is the staging deployment it was made from. `files`{copy} is the number of files the production deployment serves.
 - **`rollback.done`{copy}:** `deployment_id`{copy} is live now, and `previous_deployment_id`{copy} was live before. `env`{copy} is `production`{copy} or `staging`{copy}.
 - **`project.deleted`{copy}:** `deleted_at`{copy} and `restorable_until`{copy} are Unix seconds. It is sent once per delete.
