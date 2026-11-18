@@ -38,7 +38,7 @@ npx mnfst-starter --here --name "My Site"
 
 </div>
 
-Folder names may contain letters, numbers, spaces, dots, underscores, and hyphens, and can't start or end with a dot or space. The `--name` value can be any text, so use it for names with other characters.
+Folder names may contain letters, numbers, spaces, dots, underscores, and hyphens, and can't start or end with a dot or space or contain two dots in a row. The `--name` value can be any text, so use it for names with other characters.
 
 The starter stops with an error on an option it doesn't recognise, such as a misspelt `--frce`, or on an empty value like `--name=`. Run `npx mnfst-starter --help` to list the options.
 
