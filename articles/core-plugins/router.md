@@ -163,15 +163,13 @@ When using the prerender script, the 404 view is captured at build time and writ
 
 The router supports non-navigation paths. See [data](/docs/framework/core-plugins/local-data), [localization](/docs/framework/core-plugins/localization), and [URL parameters](/docs/framework/core-plugins/url-parameters) for plugins that apply additional path segments to the URL for content purposes.
 
-Link clicks keep the query string, so `<a href="/support?topic=billing">` arrives with `?topic=billing` intact. Links with `target="_blank"` open in a new tab, and `rel="noreferrer"` is honoured there too.
-
 ---
 
 ### Links
 
-In a single-page app, the router handles same-origin links without reloading the page. On prerendered static pages, links load each page in full, keeping the language prefix.
+In a single-page app, the router handles same-origin links without reloading the page. On prerendered static pages, links load each page in full, keeping the language prefix. Either way, link clicks keep the query string, so `<a href="/support?topic=billing">` arrives with `?topic=billing` intact.
 
-A link with `target="_blank"` opens in a new tab, resolved the same way, with `noopener`. Clicks with a modifier key or the middle mouse button, and links with any other `target` (a named frame or window, `_parent`, `_top`), are left to the browser. Links with a `download` attribute, hash-only links (see [Anchor Navigation](#anchor-navigation)), and links inside editable text are also left to the browser.
+A link with `target="_blank"` opens in a new tab, resolved the same way, with `noopener` (and `noreferrer` when the link's `rel` includes it). Clicks with a modifier key or the middle mouse button, and links with any other `target` (a named frame or window, `_parent`, `_top`), are left to the browser. Links with a `download` attribute, hash-only links (see [Anchor Navigation](#anchor-navigation)), and links inside editable text are also left to the browser.
 
 ---
 
