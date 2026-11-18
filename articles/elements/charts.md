@@ -561,14 +561,15 @@ _ui: {
 | `dataLabels`{copy} | boolean          | Static value labels on points, bars, slices, and heatmap tiles. Off for dense line and area charts. Default `false`. |
 | `title`{copy}      | string           | Accessible chart label (`aria-label` on the SVG).                             |
 | `value`{copy}      | number           | Gauge — the plotted value (or use a one-number `series`/`data`).              |
-| `min`{copy} / `max`{copy} | number \| string | Gauge range (default `0` / `100`); or a Gantt's fixed axis window (numeric or time). |
+| `min`{copy} / `max`{copy} | number \| string | Line, area, bar, combo, scatter, and candlestick: values the y-axis always includes, so several charts can share one scale. Data beyond them still extends the axis. Gauge: the range (default `0` / `100`). Gantt: a fixed axis window (numeric or time). See [Shared Scales and Formatting](#shared-scales-and-formatting). |
+| `format`{copy}     | object           | [`Intl.NumberFormat` options](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options) for tooltip values and data labels, in the active locale. Y-axis ticks use the same options in compact notation. Default: plain numbers. |
 | `unit`{copy}       | string           | Suffix on the gauge readout or a Gantt's numeric ticks (e.g. `'%'`, `' mi'`). |
 | `zones`{copy}      | array            | Gauge — threshold bands: `{ to, color }` segments behind the value arc.       |
 | `gap`{copy}        | number           | Heatmap — tile gutter in px. Default `1`; `0` for a seamless field.           |
 | `rowHeight`{copy}  | number           | Gantt — lane height in px. Default `28`.                                   |
 | `colors`{copy}     | object           | Gantt — a `status` → color map, shared across tracks.                      |
 | `markers`{copy}    | array            | Gantt — vertical reference lines: `{ at, label?, color? }`.                |
-| `points`{copy}     | array            | Map — location bubbles: `{ lat, lng, value?, label?, color? }` or a `name` resolved via `places`. |
+| `points`{copy}     | boolean \| array  | Line, area, and combo: `false` hides the per-point dots; hovering anywhere over a label shows every series' value in one tooltip. Default `true`. Map: location bubbles, `{ lat, lng, value?, label?, color? }` or a `name` resolved via `places`. |
 | `places`{copy}     | object           | Map — `name` → `[lat, lng]` gazetteer for positioning named `points`.       |
 
 ### Axis Ticks
@@ -585,6 +586,27 @@ Long category axes pick their own labels, keeping every nth one so the gaps stay
 ```
 
 Here `days` holds one label per point (`'Jan 1, 2026'`, `'Jan 2, 2026'`, and so on), and each tick's `at` is a point index. Plain indices (`ticks: [0, 31, 59]`) show those points' own labels.
+
+### Shared Scales and Formatting
+
+Charts compared side by side, such as scenario tabs, read best on one fixed scale. Give each the same `max` (and `min` for negative values), and add `format` to show values as currency, percentages, or units:
+
+```html copy
+<div x-chart="{
+    type: 'line',
+    points: false,
+    max: 300000,
+    format: { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 },
+    labels: months,
+    series: [
+        { name: 'Base', data: base },
+        { name: 'Low', data: low },
+        { name: 'High', data: high }
+    ]
+}"></div>
+```
+
+The y-axis runs to at least €300K on every chart that shares the setting, and hovering a month lists `Base: €112,000`, `Low: €67,000`, and `High: €192,250` in one tooltip. Axis ticks keep compact notation (`€50K`, `€100K`).
 
 ### Declarative Series
 
