@@ -562,7 +562,7 @@ _ui: {
 | `title`{copy}      | string           | Accessible chart label (`aria-label` on the SVG).                             |
 | `value`{copy}      | number           | Gauge — the plotted value (or use a one-number `series`/`data`).              |
 | `min`{copy} / `max`{copy} | number \| string | Line, area, bar, combo, scatter, and candlestick: values the y-axis always includes, so several charts can share one scale. Data beyond them still extends the axis. Gauge: the range (default `0` / `100`). Gantt: a fixed axis window (numeric or time). See [Shared Scales and Formatting](#shared-scales-and-formatting). |
-| `format`{copy}     | object           | [`Intl.NumberFormat` options](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options) for tooltip values and data labels, in the active locale. Y-axis ticks use the same options in compact notation. Default: plain numbers. |
+| `format`{copy}     | object           | [`Intl.NumberFormat` options](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options) for tooltip values, data labels, the gauge readout, and the heatmap legend, in the active locale. Y-axis ticks use the same options in compact notation. Default: plain numbers. |
 | `unit`{copy}       | string           | Suffix on the gauge readout or a Gantt's numeric ticks (e.g. `'%'`, `' mi'`). |
 | `zones`{copy}      | array            | Gauge — threshold bands: `{ to, color }` segments behind the value arc.       |
 | `gap`{copy}        | number           | Heatmap — tile gutter in px. Default `1`; `0` for a seamless field.           |
@@ -589,7 +589,7 @@ Here `days` holds one label per point (`'Jan 1, 2026'`, `'Jan 2, 2026'`, and so 
 
 ### Shared Scales and Formatting
 
-Charts compared side by side, such as scenario tabs, read best on one fixed scale. Give each the same `max` (and `min` for negative values), and add `format` to show values as currency, percentages, or units:
+Charts compared side by side, such as scenario tabs, read best on one fixed scale. Give each the same `max` (and `min` for negative values); data beyond them still extends the axis. Add `format` to show values as currency, percentages, or units, and `points: false` to drop the dots so hovering anywhere over a month lists every series:
 
 ```html copy
 <div x-chart="{
@@ -597,16 +597,16 @@ Charts compared side by side, such as scenario tabs, read best on one fixed scal
     points: false,
     max: 300000,
     format: { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 },
-    labels: months,
+    labels: ['Jan','Feb','Mar','Apr','May','Jun'],
     series: [
-        { name: 'Base', data: base },
-        { name: 'Low', data: low },
-        { name: 'High', data: high }
+        { name: 'Base', data: [42000, 58000, 71000, 88000, 104000, 112000] },
+        { name: 'Low', data: [30000, 38000, 45000, 52000, 60000, 67000] },
+        { name: 'High', data: [55000, 80000, 104000, 131000, 160000, 192250] }
     ]
 }"></div>
 ```
 
-The y-axis runs to at least €300K on every chart that shares the setting, and hovering a month lists `Base: €112,000`, `Low: €67,000`, and `High: €192,250` in one tooltip. Axis ticks keep compact notation (`€50K`, `€100K`).
+The y-axis runs to €300K even though no value reaches it, so every chart with the same `max` lines up. Hovering June lists `Base: €112,000`, `Low: €67,000`, and `High: €192,250` in one tooltip, while axis ticks keep compact notation (`€100K`, `€200K`). Formatting follows the active [locale](/docs/framework/core-plugins/localization), so the same chart in German reads `112.000 €`.
 
 ### Declarative Series
 
