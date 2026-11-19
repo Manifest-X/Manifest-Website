@@ -362,7 +362,7 @@ See [databases](/docs/framework/appwrite-plugins/databases#storage-file-referenc
 
 ### Upload From a Table
 
-A table with a `storage` mapping has its own `$upload(entryId, fileOrEvent, bucket?)`. It uploads to the mapped bucket and adds each new file id to that entry's mapped column (`fileIds` above). Pass a `File`, an array of files, or a file input's change event, which also clears the input. It returns the uploaded file, or an array when several files were sent. If the user signs out or switches accounts before the upload finishes, the file still uploads but isn't added to the entry.
+A table with a `storage` mapping has its own `$upload(entryId, fileOrEvent, bucket?)`. It uploads to the mapped bucket and adds each new file id to that entry's mapped column (`fileIds` above). Pass a `File`, an array of files (wrap a `FileList` in `Array.from`), or a file input's change event, which also clears the input. It returns a promise of the uploaded file, or an array when several files were sent, and rejects if the upload fails or the table has no matching bucket. If the user signs out or switches accounts before the upload finishes, the file still uploads but isn't added to the entry.
 
 ```html
 <!-- Upload to the project's mapped bucket -->
