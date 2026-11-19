@@ -532,6 +532,7 @@ Current session details (null if not authenticated). The session object comes di
 | `$auth.submitOTP(...)`{copy} | `codeInputOrRef` (selector or element, optional) | Verify the entered passcode and complete sign-in (email or phone). |
 | `$auth.requestGuest()`{copy} | None | Create a manual guest session. |
 | `$auth.logout()`{copy} | None | Delete current session and sign out. If automatic guest sessions are enabled, a new guest session will begin after logout. |
+| `$auth.clearSession()`{copy} | None | Delete the current session without starting a guest session, firing `manifest:auth:session-cleared` instead of `manifest:auth:logout`. |
 | `$auth.refresh()`{copy} | None | Refresh user data from Appwrite. |
 | `$auth.canAuthenticate()`{copy} | None | Check if user can authenticate (not already signed in or in progress). |
 
@@ -554,10 +555,10 @@ The auth plugin dispatches these events on `window`:
 | Event | Fires when |
 |-------|------------|
 | `manifest:auth:initialized`{copy} | The session check on page load has finished, signed in or not (`detail.isAuthenticated`, `detail.isAnonymous`) |
-| `manifest:auth:login`{copy} | A user signs in, in this tab or another, or a session that couldn't be checked offline is restored (`detail.user` holds the user). Not fired for a session already active on page load: use `manifest:auth:initialized` |
+| `manifest:auth:login`{copy} | A user signs in, or a session that couldn't be checked offline is restored (`detail.user` holds the user). A sign-in in another tab fires it only if this tab was signed out; if this tab already shows a user, including a guest, it fires `manifest:auth:session-cleared` instead. Not fired for a session already active on page load: use `manifest:auth:initialized` |
 | `manifest:auth:anonymous`{copy} | A guest session starts |
 | `manifest:auth:logout`{copy} | The user signs out with `$auth.logout()` |
-| `manifest:auth:session-cleared`{copy} | The session ended or changed without a sign-out in this tab: in another tab, or a session check (`$auth.refresh()` or the offline recheck) finds it gone, such as when it expired |
+| `manifest:auth:session-cleared`{copy} | The session ended or changed without a sign-out in this tab: in another tab, by `$auth.clearSession()`, after a failed OTP sign-in that had already ended the guest session (`detail.reason` is `'otp-failed'`), or when a session check (`$auth.refresh()` or the offline recheck) finds it gone, such as when it expired |
 | `manifest:auth:teams-loaded`{copy} | The user's [teams](/docs/framework/appwrite-plugins/teams) have loaded |
 
 ```html copy
