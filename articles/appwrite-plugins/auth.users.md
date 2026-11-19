@@ -273,7 +273,7 @@ By default, when a guest signs in, a fresh account is created and the guest sess
 | OAuth, magic URL | [`guestUpgrade`](#guest-upgrade): converts the guest's account in place |
 | Email OTP, phone OTP | [`guestMigration`](#guest-team-carryover-otp): moves the guest's teams to the new account |
 
-OTP sign-ins can't convert a guest in place (an Appwrite limitation), so they always create a fresh account.
+OTP sign-ins can't convert a guest in place (an Appwrite limitation), so they always end the guest session and sign in to a separate account.
 
 <br>
 
@@ -485,7 +485,7 @@ Current session details (null if not authenticated). The session object comes di
 | `$auth.session?.$id`{copy} | string | Session ID |
 | `$auth.session?.userId`{copy} | string | User ID associated with session |
 | `$auth.session?.expire`{copy} | string | Session expiration timestamp |
-| `$auth.session?.provider`{copy} | string | Authentication provider used (`'anonymous'`, `'magic-url'`, `'email'` or `'token'` for email OTP, `'phone'`, or the OAuth provider name) |
+| `$auth.session?.provider`{copy} | string | Authentication provider used (`'anonymous'`, `'magic-url'`, `'email'` or `'token'` for email OTP, `'phone'`, or `'oauth2'` for any OAuth provider; use `$auth.provider` for the provider's name) |
 | `$auth.session?.ip`{copy} | string | IP address of session |
 | `$auth.session?.osCode`{copy} | string | Operating system code |
 | `$auth.session?.osName`{copy} | string | Operating system name |
@@ -541,7 +541,7 @@ Current session details (null if not authenticated). The session object comes di
 
 Signing in or out in one tab updates every open tab, and every Appwrite table and bucket source reloads for the new user, so the previous user's entries never linger. With auto guest sessions, signing out moves every tab to a new guest session.
 
-If the app opens offline, it renders signed out (`$auth.isAuthenticated` is `false`) and restores the session on its own once Appwrite is reachable (it rechecks on reconnect, on tab refocus, and after 2, 5, 15 and 60 seconds); no guest session is created over the real one. Only a genuine "no session" answer from Appwrite signs a user out. Listen for `manifest:auth:login` to react when the session returns.
+If the app opens offline, it renders signed out (`$auth.isAuthenticated` is `false`) and restores the session on its own once Appwrite is reachable (it rechecks on reconnect, on tab refocus, and after 2, 5 and 15 seconds, then every 60 seconds); no guest session is created over the real one. Only a genuine "no session" answer from Appwrite signs a user out. Listen for `manifest:auth:login` (`manifest:auth:anonymous` for a guest) to react when the session returns.
 
 While offline, [persisted](/docs/framework/core-plugins/local-data#persisted-data) rows saved for the user last signed in on this device stay shown for every source, including tables with a [scope](/docs/framework/appwrite-plugins/databases#scope) and sources whose queries reference `$auth.` values, unless the persistence `scope` depends on the signed-in user or team, which can't be evaluated until the session is verified (the saved rows stay on the device until then). A restored session reloads them; a "no session" answer, a sign-out, or a different user clears them.
 
@@ -554,10 +554,10 @@ The auth plugin dispatches these events on `window`:
 | Event | Fires when |
 |-------|------------|
 | `manifest:auth:initialized`{copy} | The session check on page load has finished, signed in or not (`detail.isAuthenticated`, `detail.isAnonymous`) |
-| `manifest:auth:login`{copy} | A user signs in, or a session is restored (`detail.user` holds the user) |
+| `manifest:auth:login`{copy} | A user signs in, in this tab or another, or a session that couldn't be checked offline is restored (`detail.user` holds the user). Not fired for a session already active on page load: use `manifest:auth:initialized` |
 | `manifest:auth:anonymous`{copy} | A guest session starts |
-| `manifest:auth:logout`{copy} | The user signs out, or the session has expired |
-| `manifest:auth:session-cleared`{copy} | The session ended or changed elsewhere, such as in another tab |
+| `manifest:auth:logout`{copy} | The user signs out with `$auth.logout()` |
+| `manifest:auth:session-cleared`{copy} | The session ended or changed without a sign-out in this tab: in another tab, or a session check (`$auth.refresh()` or the offline recheck) finds it gone, such as when it expired |
 | `manifest:auth:teams-loaded`{copy} | The user's [teams](/docs/framework/appwrite-plugins/teams) have loaded |
 
 ```html copy
