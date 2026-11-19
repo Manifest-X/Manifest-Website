@@ -293,7 +293,7 @@ Storage buckets automatically sync changes in realtime across all active session
 
 | Method | Parameters | Description |
 |--------|------------|-------------|
-| `$create(file, fileId?, permissions?, onProgress \| options?)` | `file` (File object), `fileId` (string, optional), `permissions` (array, optional). The 4th argument is either an `onProgress` callback function **or** an options object `{ entryId, table, fileIdsColumn? }` for linking the file to another table's entry. | Upload a new file. Returns uploaded file. If `scope` is configured, permissions are automatically set based on user/team |
+| `$create(file, fileId?, permissions?, onProgress \| options?)` | `file` (File object), `fileId` (string, optional), `permissions` (array, optional). The 4th argument is either an `onProgress` callback function **or** an options object `{ entryId, table, fileIdsColumn? }` for linking the file to another table's entry. | Upload a new file. Returns uploaded file. If `scope` is configured, permissions are automatically set based on user/team. With `entryId`, the link is skipped if the user signs out or switches accounts before the upload finishes |
 | `$duplicate(fileId, options?)` | `fileId` (string or object with `$id`), `options` (object, optional) | Duplicate a file. Options: `newName`, `newFileId`. Returns duplicated file. If `newName` is not provided, the file name will be "{originalName} copy" |
 | `$delete(fileIdOrArray)` | `fileIdOrArray` (string, object with `$id`, or array) | Delete file(s) and remove them from the list and from any linked entries. Resolves once Appwrite confirms, with Appwrite's (empty) delete response, or an array of them for an array. If some files in an array fail, the rest stay deleted and the call rejects with the first error |
 | `$url(fileId, token?)` | `fileId` (string or object with `$id`), `token` (string, optional) | Get file view URL. Returns URL string |
@@ -331,7 +331,7 @@ Files can be automatically linked to database entries when uploaded. Configure t
 }
 ```
 
-When a file is uploaded with an `entryId` parameter, it's automatically added to that entry's `fileIds` array:
+When a file is uploaded with an `entryId` parameter, it's automatically added to that entry's `fileIds` array. If the user signs out or switches accounts before the upload finishes, the file still uploads but isn't added to the entry:
 
 ```html
 <!-- Upload file and link to project entry -->

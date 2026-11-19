@@ -313,7 +313,7 @@ All live features share one connection per tab; see [Realtime Options](#realtime
 |--------|------------|-------------|
 | `$create(data, rowId?)` | `data` (object), `rowId` (string, optional) | Create a new entry. Returns created entry. If `scope` is configured, `userId` and/or `teamId` are automatically injected |
 | `$update(idOrArray, data)` | `idOrArray` (string, object, or array), `data` (object) | Update entry(ies). Returns updated entry(ies) |
-| `$duplicate(entryId, options?)` | `entryId` (string or object with `$id`), `options` (object, optional) | Duplicate an entry. Options: `files`, `newRowId`, and any field overrides. Returns duplicated entry. The `files` option controls file handling: `'duplicate'` (create new files), `'same'` (share file references, default), or `'none'` (remove file references) |
+| `$duplicate(entryId, options?)` | `entryId` (string or object with `$id`), `options` (object, optional) | Duplicate an entry. Options: `files`, `newRowId`, and any field overrides. Returns duplicated entry. The `files` option controls file handling: `'duplicate'` (create new files), `'same'` (share file references, default), or `'none'` (remove file references). If the user signs out or switches accounts before the copy is created, `$duplicate` rejects and no new entry is created |
 | `$delete(idOrArray)` | `idOrArray` (string, object, or array) | Delete entry(ies). Returns deleted entry(ies) |
 
 ---
