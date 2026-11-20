@@ -1,4 +1,4 @@
-# Virtual
+# Virtual Lists
 
 Render long lists, tables, grids, and galleries efficiently with windowed scrolling.
 
@@ -6,7 +6,7 @@ Render long lists, tables, grids, and galleries efficiently with windowed scroll
 
 ## Overview
 
-When a list, table, or gallery grows past a few hundred items, rendering them all up front becomes slow — with initial paint stalls, scrolling stutters, and climbing memory. The Virtual plugin solves this by only mounting the items currently visible in the scroll viewport, plus a small overscan buffer for smooth scrolling. A collection of ten thousand items can keep just twenty or so in the DOM at any time while the user scrolls through smoothly.
+When a list, table, or gallery grows past a few hundred items, rendering them all up front becomes slow — with initial paint stalls, scrolling stutters, and climbing memory. The Virtual Lists plugin solves this by only mounting the items currently visible in the scroll viewport, plus a small overscan buffer for smooth scrolling. A collection of ten thousand items can keep just twenty or so in the DOM at any time while the user scrolls through smoothly.
 
 Items render with the layout you already use — a stacked list, a native `<table>`, a CSS grid, a flex-wrap gallery, or a masonry wall — so virtualizing doesn't change your markup or break column alignment, sticky headers, or shared cell styling.
 

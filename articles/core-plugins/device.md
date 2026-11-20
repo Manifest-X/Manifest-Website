@@ -1,4 +1,4 @@
-# Device
+# Devices
 
 Share sheets, secure storage, deep links, push, lifecycle, haptics, biometrics and the camera as Alpine magics that fall back to the web.
 

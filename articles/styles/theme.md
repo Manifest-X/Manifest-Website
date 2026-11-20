@@ -252,7 +252,7 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 | `--spacing-field-padding`{copy} | Form field padding | `p-field-padding` |
 | `--spacing-field-height`{copy} | Form field height | `h-field-height` |
 | `--spacing-popover-offset`{copy} | Dropdown & tooltip positioning offset | `my-popover-offset` |
-| `--edit-size-handle`{copy} | Grab area of [Edit](/docs/framework/core-plugins/resize) resize handles (default `1rem`); not in the theme file, set it on `:root` | — |
+| `--edit-size-handle`{copy} | Grab area of [Visual Editing](/docs/framework/core-plugins/resize) resize handles (default `1rem`); not in the theme file, set it on `:root` | — |
 | `--spacing-viewport-padding`{copy} | Viewport padding for responsive design  in [utility](/docs/framework/styles/utilities) styles | `px-viewport-padding` |
 
 ---

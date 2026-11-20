@@ -11,7 +11,7 @@ Edits are kept as a history of changes until you publish them. `$edit.patches()`
 - **Your own product**, where people edit content you store: set [`$edit.onPublish`](#to-your-own-backend) and the patches go to your code.
 - **Your own project**, which you edit in the browser while you build it: run [`mnfst-run --edit`](#to-your-source-files) and the patches are written into your source files.
 
-Publishing is part of [Edit](/docs/framework/core-plugins/edit): set it up there first.
+Publishing is part of [Visual Editing](/docs/framework/core-plugins/edit): set it up there first.
 
 ---
 
@@ -165,7 +165,7 @@ When the page loads, it reads from the server how each source file looks, and pu
 
 In a single-page app, a region that isn't on screen keeps its edits: they wait in the history, show again when the region comes back, and publish then.
 
-A region inside content another plugin generates, such as `x-markdown` or `x-html` output, edits on the page and reaches `onPublish`, but its markup isn't in a file, so `mnfst-run --edit` refuses it by name, keeps its edits, and publishes the other regions. Edit warns about it once in the console. The examples in these articles are regions of that kind, inside each article's markdown, so their patches are real but have no file to be written to.
+A region inside content another plugin generates, such as `x-markdown` or `x-html` output, edits on the page and reaches `onPublish`, but its markup isn't in a file, so `mnfst-run --edit` refuses it by name, keeps its edits, and publishes the other regions. Visual Editing warns about it once in the console. The examples in these articles are regions of that kind, inside each article's markdown, so their patches are real but have no file to be written to.
 
 The server only accepts edits from pages it serves on your machine, and its editing endpoints don't exist without `--edit`.
 
@@ -173,7 +173,7 @@ The server only accepts edits from pages it serves on your machine, and its edit
 
 ## Changed Source
 
-A publish checks that the source still matches what the page loaded. The development server reloads an open page whenever an HTML file changes, so the page normally shows the source as it is now. While edits that `.persist` doesn't keep are waiting to be published, including edits in a region that's off screen in a single-page app, that reload is held back so they aren't lost: Edit warns in the console, adds the files to `$edit.stale`, and fires `edit:stale`. Publish them with `rebase`, as below, and the page reloads itself afterwards. Typing still in progress in a `.persist` region is recorded before a reload, so it isn't lost either, and a publish includes typing in progress wherever it is.
+A publish checks that the source still matches what the page loaded. The development server reloads an open page whenever an HTML file changes, so the page normally shows the source as it is now. While edits that `.persist` doesn't keep are waiting to be published, including edits in a region that's off screen in a single-page app, that reload is held back so they aren't lost: Visual Editing warns in the console, adds the files to `$edit.stale`, and fires `edit:stale`. Publish them with `rebase`, as below, and the page reloads itself afterwards. Typing still in progress in a `.persist` region is recorded before a reload, so it isn't lost either, and a publish includes typing in progress wherever it is.
 
 If an HTML file the publish would rewrite has changed since the page loaded, the whole publish is refused, so a stale page can't overwrite newer work. Stylesheets and data files aren't checked this way, because their edits are written value by value: a CSS or data file saved in your code editor while the page is open doesn't block a publish.
 
@@ -193,7 +193,7 @@ The page also remembers each element it shows as it was when it loaded: its tag,
 
 ### Conflicts
 
-Edits kept from before, by `.persist` or by a region coming back on screen, can find the source changed under them. A text or attribute edit whose element changed can't be applied. Moves and other layout edits are kept when the only change was text in pieces they didn't move; if a piece they moved, added, or removed changed, the region's layout edits can't be applied, and if pieces swapped places, Edit reports it rather than guess which is which. Edits that can't be applied are dropped from the history and reported: `$edit.conflicts` lists them, `edit:conflict` fires on the document with `detail.conflicts`, and Edit warns in the console.
+Edits kept from before, by `.persist` or by a region coming back on screen, can find the source changed under them. A text or attribute edit whose element changed can't be applied. Moves and other layout edits are kept when the only change was text in pieces they didn't move; if a piece they moved, added, or removed changed, the region's layout edits can't be applied, and if pieces swapped places, Visual Editing reports it rather than guess which is which. Edits that can't be applied are dropped from the history and reported: `$edit.conflicts` lists them, `edit:conflict` fires on the document with `detail.conflicts`, and Visual Editing warns in the console.
 
 Each entry has a `reason` in words, its `region`, the element's `key` and its tag and text as `element`, the `prop` it edited, and the `value` it held. Layout entries have `prop: 'structure'`, and their `value` holds what was dropped, `{ changed, moved, copies }`, so typed content can be recovered. For a `.persist` region, the list survives reloads until you call `$edit.clearConflicts()`.
 
@@ -213,5 +213,5 @@ Each entry has a `reason` in words, its `region`, the element's `key` and its ta
 
 ## Related
 
-- [Edit](/docs/framework/core-plugins/edit) sets up regions, history, and the `$edit` reference.
+- [Visual Editing](/docs/framework/core-plugins/edit) sets up regions, history, and the `$edit` reference.
 - [Move](/docs/framework/core-plugins/move) and [Resize](/docs/framework/core-plugins/resize) cover the layout edits that publish here.

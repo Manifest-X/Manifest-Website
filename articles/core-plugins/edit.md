@@ -1,4 +1,4 @@
-# Edit
+# Visual Editing
 
 Turn a live page into its own editor.
 
@@ -68,11 +68,11 @@ Click a heading and type a new one. Drag a card from anywhere on it to put it so
 
 ## Setup
 
-Edit is opt-in and never part of the default Manifest bundle, so visitors don't download editor code. The `+` prefix keeps the default plugins and adds it; the selective tab loads Edit without the other default plugins. Edit has no script of its own to link: it needs the Manifest loader, which brings in Alpine and [Rich Text](/docs/framework/core-plugins/rich-text) with it. Either way, Rich Text loads automatically, because page text is edited with it.
+Visual Editing is opt-in and never part of the default Manifest bundle, so visitors don't download editor code. The `+` prefix keeps the default plugins and adds it; the selective tab loads Visual Editing without the other default plugins. Visual Editing has no script of its own to link: it needs the Manifest loader, which brings in Alpine and [Rich Text](/docs/framework/core-plugins/rich-text) with it. Either way, Rich Text loads automatically, because page text is edited with it.
 
 <div x-code-group copy>
 
-```html "All Plugins + Edit"
+```html "All Plugins + Visual Editing"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
     data-plugins="+edit" data-tailwind></script>
 ```
@@ -86,9 +86,9 @@ Edit is opt-in and never part of the default Manifest bundle, so visitors don't 
 
 The examples on this page and on Move and Resize also use Tailwind utility classes, such as `grid-cols-3`, `h-48`, and `[&>*]:absolute`, which need the `data-tailwind` attribute shown here; see [Setup](/docs/framework/getting-started/setup). Without it, copy the markup and style it your own way.
 
-To load it only for signed-in editors, leave it out of `data-plugins` and call `Manifest.loadPlugin('edit')`{copy} once you know the visitor can edit. The regions already on the page become editable when it loads, except those marked [`.gated`](#regions), which stay switched off until `$edit.on()`. Until then, `$edit` is an idle stand-in, so bindings such as `:disabled="!$edit.canUndo"` work before Edit loads and pick up the real state once it has; anything assigned to it in the meantime, such as `onPublish`, is kept and carries over to Edit when it loads.
+To load it only for signed-in editors, leave it out of `data-plugins` and call `Manifest.loadPlugin('edit')`{copy} once you know the visitor can edit. The regions already on the page become editable when it loads, except those marked [`.gated`](#regions), which stay switched off until `$edit.on()`. Until then, `$edit` is an idle stand-in, so bindings such as `:disabled="!$edit.canUndo"` work before Visual Editing loads and pick up the real state once it has; anything assigned to it in the meantime, such as `onPublish`, is kept and carries over to Visual Editing when it loads.
 
-Editor styles are included in Manifest CSS, or as standalone stylesheets for Edit and Rich Text. Both reference [theme](/docs/framework/styles/theme) variables, such as the brand colours the editing visuals and examples use. Link your project's own `manifest.theme.css`, which can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification, as in [Setup](/docs/framework/getting-started/setup#styles).
+Editor styles are included in Manifest CSS, or as standalone stylesheets for Visual Editing and Rich Text. Both reference [theme](/docs/framework/styles/theme) variables, such as the brand colours the editing visuals and examples use. Link your project's own `manifest.theme.css`, which can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification, as in [Setup](/docs/framework/getting-started/setup#styles).
 
 <div x-code-group copy>
 
@@ -109,7 +109,7 @@ Editor styles are included in Manifest CSS, or as standalone stylesheets for Edi
 
 ## Regions
 
-A region is an element marked with `x-edit`, together with everything inside it. Its value is a key that names the region's edits, so a publish knows where in your source they belong. Keep the key stable and unique on the page: renaming it strands edits already made under the old name, and a key that appears on the page more than once, from two regions sharing it or a component used several times, isn't editable anywhere (Edit warns in the console), because a publish couldn't tell which one is meant.
+A region is an element marked with `x-edit`, together with everything inside it. Its value is a key that names the region's edits, so a publish knows where in your source they belong. Keep the key stable and unique on the page: renaming it strands edits already made under the old name, and a key that appears on the page more than once, from two regions sharing it or a component used several times, isn't editable anywhere (Visual Editing warns in the console), because a publish couldn't tell which one is meant.
 
 A piece is any element directly inside the region, or inside a container in it, that can be picked up and moved. Modifiers say what a region allows. With no capability named, a region allows text and move; naming one or more replaces that default, so `x-edit.move` allows moving only.
 
@@ -170,7 +170,7 @@ A piece locked from moving can't be picked up, though other pieces can still be 
 
 ## Text
 
-Page text is edited with [Rich Text](/docs/framework/core-plugins/rich-text), Manifest's text editing plugin. Edit loads it automatically, so there's nothing to add: each piece of text in a region becomes an inline Rich Text field. That's why Rich Text's shortcuts and controls work on page text, as below, while headings, lists, and other blocks stay out of it, so a heading stays one heading.
+Page text is edited with [Rich Text](/docs/framework/core-plugins/rich-text), Manifest's text editing plugin. Visual Editing loads it automatically, so there's nothing to add: each piece of text in a region becomes an inline Rich Text field. That's why Rich Text's shortcuts and controls work on page text, as below, while headings, lists, and other blocks stay out of it, so a heading stays one heading.
 
 The first click on a piece of text selects all of it, so replacing a line is one click and typing; click again to place the caret. **Enter** starts a new line inside the same element, and **Escape** leaves the text. The change is recorded when the text loses focus, as one step of the history. A press on text that moves before you let go drags the piece instead; see [Move](/docs/framework/core-plugins/move). While you're typing in a piece, dragging across its text selects words as usual.
 
@@ -217,7 +217,7 @@ Text that holds only plain formatting, such as bold, italics, links, and line br
 
 Clicking a link in page text, with the middle button too, or pressing Enter on it, never follows it while its region is editable, so you can edit it without leaving the page; links inside an element marked `contenteditable="false"` still work. Links follow HTML's rule that a link can't hold another link: text that is itself a link or a button takes no links, and linking part of an existing link splits it, so the rest keeps its own address.
 
-To allow headings, lists, and other blocks in part of a region, put [`x-rich-text`](/docs/framework/core-plugins/rich-text) on that element, with no value of its own. It becomes a full Rich Text field, and Edit records the markup it produces as an ordinary text edit.
+To allow headings, lists, and other blocks in part of a region, put [`x-rich-text`](/docs/framework/core-plugins/rich-text) on that element, with no value of its own. It becomes a full Rich Text field, and Visual Editing records the markup it produces as an ordinary text edit.
 
 ```html copy
 <article x-edit="post">
@@ -233,7 +233,7 @@ Some text can't be edited because it isn't written in the page: anything rendere
 Such an element is still a piece, and its own attributes and classes can be changed: an icon's size and colour are classes, and a `<textarea>`'s `placeholder` is an attribute. Change them from your own controls with [`$edit.classes`](#edit-magic) and [`$edit.attr()`](#edit-magic), which record them in the history and publish them like any other edit.
 
 ::: brand icon="lucide:info"
-Edit's `.text` means *text can be edited*. Alpine's `x-text` is the opposite case: text rendered from an expression, which Edit leaves alone.
+Visual Editing's `.text` means *text can be edited*. Alpine's `x-text` is the opposite case: text rendered from an expression, which Visual Editing leaves alone.
 :::
 
 ---
@@ -307,7 +307,7 @@ In [Rich Text](/docs/framework/core-plugins/rich-text), *block* means a paragrap
 
 Every edit on the page joins one history, shared by every region, in the order the edits were made. **Cmd/Ctrl + Z** undoes the last one and **Shift + Cmd/Ctrl + Z** (or **Ctrl + Y**) redoes it, wherever you are on the page, except in form fields and in elements with their own `x-rich-text`, which keep their own undo. While you're in a piece of text, the shortcuts first step through what you've done in it since you clicked in, typing burst by typing burst, then through the page's history. Put `data-edit-hotkeys="off"` on a region, or on any element above it such as `<html>`, to leave the shortcuts to your own code.
 
-The browser's own undo can't do this: it only knows about typing in one field at a time, not about pieces moving, nesting, resizing, or closing. Edit replaces it with one history of its own, so moves, nesting, resizes, closes, locks, and text edits all step back in the order they were made.
+The browser's own undo can't do this: it only knows about typing in one field at a time, not about pieces moving, nesting, resizing, or closing. Visual Editing replaces it with one history of its own, so moves, nesting, resizes, closes, locks, and text edits all step back in the order they were made.
 
 There's no built-in toolbar. Build your own from buttons that call `$edit.undo()`, `$edit.redo()`, and `$edit.publish()`, and bind them to `$edit.canUndo` and `$edit.canRedo` so they disable themselves when there's nothing to step to.
 

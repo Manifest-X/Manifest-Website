@@ -12,7 +12,7 @@ A piece drags from anywhere on it, its text included: a press that moves a few p
 
 A drop the browser would rewrite is refused and the piece goes back: a `<div>` into a `<p>`, a `<li>` outside a list, a link inside a link, and anything else HTML doesn't allow.
 
-`x-edit.move` is part of [Edit](/docs/framework/core-plugins/edit): set it up there first. A region with no capability named, as in `x-edit="key"`, moves and edits text; `x-edit.move` moves only.
+`x-edit.move` is part of [Visual Editing](/docs/framework/core-plugins/edit): set it up there first. A region with no capability named, as in `x-edit="key"`, moves and edits text; `x-edit.move` moves only.
 
 ---
 
@@ -312,6 +312,6 @@ While you drag, the container a piece would land in gets a dashed outline, other
 
 ## Related
 
-- [Edit](/docs/framework/core-plugins/edit) sets up regions, text editing, history, and the `$edit` reference.
+- [Visual Editing](/docs/framework/core-plugins/edit) sets up regions, text editing, history, and the `$edit` reference.
 - [Resize](/docs/framework/core-plugins/resize) adds edge handles to an element.
 - [Publishing](/docs/framework/core-plugins/edit-publishing) writes moves back to your source.

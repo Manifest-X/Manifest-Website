@@ -372,4 +372,4 @@ Bold follows the field you're in, and is disabled while you're in neither. The i
 ## Related
 
 - [Rich Text](/docs/framework/core-plugins/rich-text) sets up fields, links, tables, and the `$rich` reference.
-- [Edit](/docs/framework/core-plugins/edit) uses these controls for page text.
+- [Visual Editing](/docs/framework/core-plugins/edit) uses these controls for page text.

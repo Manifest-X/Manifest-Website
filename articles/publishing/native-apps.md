@@ -30,7 +30,7 @@ There are two ways to wrap a Manifest app, and the right one depends on the stor
 
 </div>
 
-Both render your Manifest UI, so your app code doesn't change between them. The difference is what surrounds it: PWABuilder drops your PWA into a stock web view, while Capacitor gives you a native project with a plugin bridge — which is what makes real native features (and iOS review) achievable. Capacitor's plugins are surfaced through Manifest's [Device plugin](/docs/framework/core-plugins/device), so you reach them with Alpine-friendly attributes instead of writing Swift.
+Both render your Manifest UI, so your app code doesn't change between them. The difference is what surrounds it: PWABuilder drops your PWA into a stock web view, while Capacitor gives you a native project with a plugin bridge — which is what makes real native features (and iOS review) achievable. Capacitor's plugins are surfaced through Manifest's [Devices plugin](/docs/framework/core-plugins/device), so you reach them with Alpine-friendly attributes instead of writing Swift.
 
 A Capacitor app ships a prerendered copy of the project, so the shell paints without a network. Point `webDir` in `capacitor.config.json` at a dot-folder such as `.app-www`, and fill it with `npx mnfst-render --out .app-www` before each `npx cap sync`. When a `capacitor.config.*` file is at the project root, the render leaves `ios/`, `android/` and the Capacitor config out of its output, and an `--out` render leaves out the regular `website/` output too. A starter config and step-by-step guide are in the framework's <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/capacitor" target="_blank">Capacitor template</a>.
 
@@ -75,7 +75,7 @@ A valid build is not an approved one. Reviewers check two things: the app feels 
 - Suppress the web tells on tappable UI: double-tap zoom, the long-press callout, stray text selection, and rubber-band overscroll.
 - Set a branded splash screen and a status bar that matches your theme, so launch never flashes white.
 
-**Do something native.** Ship at least one real device capability, such as Face ID, push, haptics, share, or camera, through the [Device plugin](/docs/framework/core-plugins/device). Name it in your review notes so the reviewer finds it.
+**Do something native.** Ship at least one real device capability, such as Face ID, push, haptics, share, or camera, through the [Devices plugin](/docs/framework/core-plugins/device). Name it in your review notes so the reviewer finds it.
 
 **Payments.** Physical goods and services may be sold in-app through the [Payments plugin](/docs/framework/core-plugins/payments); digital goods and subscriptions consumed in the app must use Apple's <a href="https://developer.apple.com/app-store/review/guidelines/#in-app-purchase" target="_blank">In-App Purchase</a>.
 

@@ -45,7 +45,7 @@ The buttons stay disabled until the caret is in the field, then light up for the
 
 ## Setup
 
-Rich Text isn't in the default bundle. With the default plugins, or a `data-plugins` list starting with `+`, it loads by itself as soon as the page uses `x-rich-text` or `$rich`, including in components and markdown added later. A `data-plugins` list without `+` loads only what it names, so add `rich-text` to it. [Edit](/docs/framework/core-plugins/edit) loads Rich Text too, because page text is edited with it.
+Rich Text isn't in the default bundle. With the default plugins, or a `data-plugins` list starting with `+`, it loads by itself as soon as the page uses `x-rich-text` or `$rich`, including in components and markdown added later. A `data-plugins` list without `+` loads only what it names, so add `rich-text` to it. [Visual Editing](/docs/framework/core-plugins/edit) loads Rich Text too, because page text is edited with it.
 
 <div x-code-group copy>
 
@@ -456,7 +456,7 @@ The browser's own undo can't do this: it doesn't know about the changes the plug
 
 </div>
 
-The history starts again whenever the value is set from outside the field, by your own code or by assigning `$rich.value`, because the steps before no longer describe the text. It lives as long as the page does: a reload starts fresh. Inside an [Edit](/docs/framework/core-plugins/edit#history) region, the page's history takes over from the field's once you leave the text.
+The history starts again whenever the value is set from outside the field, by your own code or by assigning `$rich.value`, because the steps before no longer describe the text. It lives as long as the page does: a reload starts fresh. Inside an [Visual Editing](/docs/framework/core-plugins/edit#history) region, the page's history takes over from the field's once you leave the text.
 
 ---
 
@@ -715,7 +715,7 @@ The field's own states are attributes too: style the empty state's placeholder, 
 | `data-rich-text-resizing` | A field while a table border is dragged: `x` or `y` |
 
 ::: brand icon="lucide:info"
-Some words mean different things in [Edit](/docs/framework/core-plugins/edit). Here, `size` sets font size and a *block* is a paragraph-level tag; in Edit, `.size` resizes an element and a block is any piece of the page.
+Some words mean different things in [Visual Editing](/docs/framework/core-plugins/edit). Here, `size` sets font size and a *block* is a paragraph-level tag; in Visual Editing, `.size` resizes an element and a block is any piece of the page.
 :::
 
 ---
@@ -724,4 +724,4 @@ Some words mean different things in [Edit](/docs/framework/core-plugins/edit). H
 
 - [Controls](/docs/framework/core-plugins/rich-text-controls) builds buttons, dropdowns, toolbars, and menus for fields.
 - [Markdown](/docs/framework/core-plugins/markdown) displays a stored value.
-- [Edit](/docs/framework/core-plugins/edit) edits the page itself, and uses Rich Text for its text.
+- [Visual Editing](/docs/framework/core-plugins/edit) edits the page itself, and uses Rich Text for its text.

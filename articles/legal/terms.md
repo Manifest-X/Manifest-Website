@@ -4,13 +4,15 @@ The agreement between you and Manifest when you use our services.
 
 ---
 
-*Updated September 25, 2026*
+*Updated November 19, 2026*
 
-These Terms of Service (**"Terms"**) govern your access to and use of the services offered by MNFST OÜ (**"Manifest"**, **"we"**, **"us"** or **"our"**): the Manifest website (manifestx.dev), the Manifest account dashboard (dash.manifestx.dev), the Manifest connector for AI assistants, the Manifest command-line tools, Manifest-managed hosting (including sites served on manifestx.ai and connected custom domains), and any related product, application, or service we offer (collectively, the **"Service"**).
+These Terms of Service (**"Terms"**) govern your access to and use of the services offered by MNFST OÜ (**"Manifest"**, **"we"**, **"us"** or **"our"**): the Manifest website (manifestx.dev), the Manifest account dashboard (dash.manifestx.dev), the Manifest connector for AI agents, the Manifest command-line tools, Manifest-managed hosting (including sites served on manifestx.ai and connected custom domains), and any related product, application, or service we offer (collectively, the **"Service"**).
 
 MNFST OÜ is a private limited company (osaühing) incorporated in Estonia, registry code 17606632, with its registered address at Tornimäe tn 5, Kesklinna linnaosa, Tallinn, Harju maakond, 10145, Estonia. Contact: [team@manifestx.dev](mailto:team@manifestx.dev).
 
-By creating an account, connecting the Service to an AI assistant, publishing a project, or otherwise using the Service, you (**"User"**, **"you"** or **"your"**) agree to these Terms and to our [Privacy Policy](/legal/privacy). If you do not agree, do not use the Service. If you use the Service on behalf of an organization, you represent that you are authorized to bind that organization, and "you" includes it.
+By creating an account, connecting the Service to an AI agent, publishing a project, or otherwise using the Service, you (**"User"**, **"you"** or **"your"**) agree to these Terms and to our [Privacy Policy](/legal/privacy). If you do not agree, do not use the Service. If you use the Service on behalf of an organization, you represent that you are authorized to bind that organization, and "you" includes it.
+
+Some parts of these Terms differ for consumers. You are a consumer only if you are an individual using the Service for purposes outside any business, trade, or profession. If you use the Service for a business, or to build projects for others in the course of your work, you use it as a business.
 
 The open-source Manifest framework is separate from the Service: it is licensed under the [MIT License](/docs/framework/resources/license), which alone governs your use of the framework's code. These Terms apply to the hosted Service, not to the framework code itself.
 
@@ -22,21 +24,39 @@ You must be at least sixteen (16) years old to use the Service. You may sign in 
 
 ---
 
-## Use through AI assistants
+## Use through AI agents
 
-The Service can be operated through an AI assistant (such as Claude) via the Manifest connector. Actions your assistant takes through an authorized connection — publishing, promoting, inviting teammates, connecting domains, and the like — are treated as your actions. Review what your assistant does on your behalf; you are responsible for it. You can revoke a connection at any time from the assistant's settings.
+The Service can be operated through an AI agent (such as Claude) via the Manifest connector. Actions your agent takes through an authorized connection — publishing, promoting, inviting teammates, connecting domains, and the like — are treated as your actions. Review what your agent does on your behalf; you are responsible for it. You can revoke a connection at any time from the agent's or its application's settings.
+
+The AI agent is not part of the Service. It is a product of its own provider, used under that provider's terms, and we do not control what it produces or does. Check its output before you publish or rely on it, and do not rely on it for medical, legal, financial, or safety-critical purposes without appropriate safeguards and human review.
 
 ---
 
 ## Your content
 
-**Ownership.** You retain all rights to the content you create and publish through the Service (**"User Content"**). We claim no ownership of it.
+**Ownership.** As between you and us, you keep all rights in the content you publish through the Service (**"User Content"**). We claim no ownership of it.
 
 **License to us.** So that we can operate the Service, you grant us a worldwide, non-exclusive, royalty-free license to host, store, reproduce, transmit, and publicly serve your User Content, and to make incidental technical copies (such as caching, backups, and format adaptation for delivery). This license exists solely to provide the Service and ends when your User Content is removed from the Service, except for backup copies retired on our normal schedule.
 
-**Responsibility.** You are solely responsible for your User Content, including having all rights necessary to publish it and its compliance with law. Published sites are publicly accessible; anything you publish may be viewed, copied, or indexed by others.
+**Responsibility.** You are responsible for the User Content you publish, including having the rights and permissions needed to publish it and its compliance with law. Published sites are publicly accessible; anything you publish may be viewed, copied, or indexed by others.
 
-**Teams.** When you invite someone to a project, you authorize them to access and modify that project as permitted by their role. You are responsible for whom you invite.
+**Teams.** When you invite someone to a project, you authorize them to access and modify that project as permitted by their role. You are responsible for whom you invite, and everyone with access to a project is responsible for what they do in it.
+
+---
+
+## Building for others
+
+You may use the Service to build, publish, and host projects for other people, such as clients or an employer, paid or unpaid, under your brand or theirs. This applies on every plan and to every part of the Service, including the API.
+
+Any arrangement between you and the people you build for, including who owns the work, is for you and them to agree. We are not a party to it. These Terms apply to those projects as to any other.
+
+---
+
+## Visitors to your projects
+
+People who visit or use a project you publish (**"Visitors"**), such as those who browse a site, submit a form, or sign in to an app, deal with you and not with us. They are not parties to these Terms and have no rights under them.
+
+You are responsible for your relationship with your Visitors: your own terms, your privacy notice, any consents the law requires (including for cookies and similar technologies), and how you collect and use their information. Where the Service handles Visitors' personal data for your project, we do so on your behalf and on your instructions, as described in our [Privacy Policy](/legal/privacy).
 
 ---
 
@@ -49,11 +69,12 @@ You agree not to use the Service to:
 - send spam or unsolicited bulk communications, including through project invitations;
 - probe, disrupt, or overload the Service or bypass its usage limits, quotas, or security measures;
 - infringe intellectual-property or privacy rights of others;
-- resell or white-label the Service itself without our written agreement.
+- collect or store payment card numbers, health records, or other data that the law subjects to special security or handling rules, unless we have agreed to it in writing;
+- violate export-control or sanctions laws.
 
 We may set and revise reasonable technical limits (such as storage, bandwidth, and request rates) per plan to keep the Service reliable for everyone. Content published to sites hosted on the Service must also comply with the acceptable-use requirements of our infrastructure providers.
 
-We may remove or disable access to User Content, or suspend or terminate accounts, that we reasonably believe violate these Terms or applicable law, or that create risk or possible legal exposure for us, our Users, or others. Where practicable we will notify you and give you an opportunity to remedy the issue.
+We may remove or disable access to User Content, or suspend or terminate accounts, that we reasonably believe violate these Terms or applicable law, or that create risk or possible legal exposure for us, our Users, or others. Where practicable we will notify you and give you an opportunity to remedy the issue. We close the accounts of Users who repeatedly infringe the rights of others.
 
 To report content that violates these Terms, or an intellectual-property complaint, contact [team@manifestx.dev](mailto:team@manifestx.dev) with the site address and a description of the issue. We respond to valid notices under applicable law, including the EU Digital Services Act and the US Digital Millennium Copyright Act, and may pass complaints to the responsible User.
 
@@ -62,6 +83,8 @@ To report content that violates these Terms, or an intellectual-property complai
 ## Plans, payment, and cancellation
 
 Core publishing features are available on a free plan. Some features require a paid subscription; current prices and inclusions are shown at the point of purchase. Free-plan projects may carry a small Manifest attribution badge.
+
+Purchases may be sold by our payment partner acting as reseller and merchant of record. Where that is the case, its checkout terms also apply to the purchase, and it issues your receipts and handles the taxes on the sale.
 
 Subscriptions are billed in advance on a recurring basis through our payment processor and renew automatically until cancelled. You can cancel at any time, effective at the end of the current billing period; amounts already paid are non-refundable except where the law of your country requires otherwise. If a renewal payment fails or a subscription lapses, paid features may remain available for a short transition period, after which the project reverts to the free plan; content exceeding free-plan limits may become inaccessible until you export it, resubscribe, or reduce usage.
 
@@ -87,15 +110,23 @@ If you send us feedback or suggestions, you grant us a perpetual, irrevocable, r
 
 ## Service changes and availability
 
-We work to keep the Service available and reliable, but it is provided without a guaranteed level of availability. We may change, add, or discontinue features. If we discontinue the Service as a whole or materially reduce core functionality you have paid for, we will give you reasonable advance notice and a means to export your published content.
+We work to keep the Service available and reliable, but it is provided without a guaranteed level of availability. We may change, add, or discontinue features. Features marked as beta, preview, or experimental are offered for evaluation as they are, and may change or end at any time. If we discontinue the Service as a whole or materially reduce core functionality you have paid for, we will give you reasonable advance notice and a means to export your published content.
 
 Your published projects can be exported through the Service; keeping an independent copy of your source files is your responsibility.
+
+We may remove free-plan projects that have had no publishing activity and no meaningful traffic for twelve (12) months, and release their manifestx.ai addresses for reuse. We will email the account holder at least thirty (30) days beforehand.
+
+---
+
+## Third-party services
+
+The Service works with products we do not operate: the AI agent you connect, the identity providers you sign in with, our payment partner, domain registrars and DNS providers, and any backend or other service your project uses. Each is governed by its own provider's terms. We are not responsible for those products, for their availability, or for what they do with information you give them.
 
 ---
 
 ## Disclaimers
 
-THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE". TO THE FULLEST EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE, OR THAT CONTENT PRODUCED WITH THE ASSISTANCE OF AN AI ASSISTANT WILL BE ACCURATE OR FIT FOR ANY PURPOSE. NOTHING IN THESE TERMS EXCLUDES WARRANTIES OR RIGHTS THAT CANNOT BE EXCLUDED UNDER APPLICABLE LAW, INCLUDING MANDATORY CONSUMER RIGHTS.
+THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE". TO THE FULLEST EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE, OR THAT CONTENT PRODUCED WITH THE ASSISTANCE OF AN AI AGENT WILL BE ACCURATE OR FIT FOR ANY PURPOSE. NOTHING IN THESE TERMS EXCLUDES WARRANTIES OR RIGHTS THAT CANNOT BE EXCLUDED UNDER APPLICABLE LAW, INCLUDING MANDATORY CONSUMER RIGHTS.
 
 ---
 
@@ -103,13 +134,17 @@ THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE". TO THE FULLEST EXTENT PERMIT
 
 TO THE FULLEST EXTENT PERMITTED BY LAW, MANIFEST WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR FOR LOST PROFITS, REVENUE, DATA, OR GOODWILL, ARISING OUT OF OR RELATING TO THE SERVICE. OUR AGGREGATE LIABILITY FOR ALL CLAIMS RELATING TO THE SERVICE IS LIMITED TO THE GREATER OF THE AMOUNTS YOU PAID US IN THE TWELVE (12) MONTHS BEFORE THE CLAIM AROSE OR ONE HUNDRED EUROS (€100).
 
+TO THE FULLEST EXTENT PERMITTED BY LAW, MANIFEST IS NOT LIABLE FOR LOSS CAUSED BY: (A) THIRD-PARTY SERVICES, INCLUDING ANY AI AGENT AND ITS OUTPUT OR ACTIONS; (B) YOUR USER CONTENT, YOUR PROJECTS, OR CLAIMS BY YOUR VISITORS OR THE PEOPLE YOU BUILD FOR; (C) LOSS OF CONTENT THAT YOU COULD HAVE AVOIDED BY KEEPING YOUR OWN COPY; OR (D) EVENTS OUTSIDE OUR REASONABLE CONTROL.
+
 THESE LIMITATIONS DO NOT APPLY TO LIABILITY THAT CANNOT BE LIMITED UNDER APPLICABLE LAW, INCLUDING LIABILITY FOR INTENTIONAL MISCONDUCT OR GROSS NEGLIGENCE, OR FOR DEATH OR PERSONAL INJURY.
 
 ---
 
 ## Indemnity
 
-If you are not a consumer, you will defend and indemnify Manifest against claims, damages, and reasonable expenses (including legal fees) arising from your User Content, your use of the Service in violation of these Terms, or your violation of law or third-party rights.
+If you are not a consumer, you will defend and indemnify Manifest against claims, damages, and reasonable expenses (including legal fees) arising from your User Content, your projects and your Visitors' use of them, your use of the Service in violation of these Terms, or your violation of law or third-party rights. We will tell you promptly about any such claim and will not settle it in a way that binds you without your agreement.
+
+If you are a consumer, you are responsible for loss we suffer because you breached these Terms or the law, to the extent the law of your country provides.
 
 ---
 
@@ -121,13 +156,27 @@ You may stop using the Service and delete your account at any time. We may suspe
 
 ## Governing law and disputes
 
-These Terms are governed by the laws of the Republic of Estonia, excluding its conflict-of-law rules. Disputes arising out of or in connection with these Terms are subject to the jurisdiction of Harju County Court (Harju Maakohus) in Estonia as the court of first instance. If you are a consumer, this does not deprive you of the protection of mandatory provisions of the law of your country of residence, or of the right to bring proceedings there. Consumers in the EU may also use the European Commission's [Online Dispute Resolution platform](https://ec.europa.eu/consumers/odr/).
+These Terms are governed by the laws of the Republic of Estonia, excluding its conflict-of-law rules. Disputes arising out of or in connection with these Terms are subject to the jurisdiction of Harju County Court (Harju Maakohus) in Estonia as the court of first instance. If you are a consumer, this does not deprive you of the protection of mandatory provisions of the law of your country of residence, or of the right to bring proceedings there. Consumers may also take an unresolved complaint to the Consumer Disputes Committee at the Estonian Consumer Protection and Technical Regulatory Authority ([ttja.ee](https://www.ttja.ee)), or to the equivalent body in their country of residence.
 
 ---
 
 ## Changes to these Terms
 
 We may update these Terms from time to time. We will revise the date at the top of this page and give reasonable advance notice of material changes through the Service or by email. Changes apply prospectively; if you do not agree to a change, stop using the Service and, for paid plans, cancel before the change takes effect. Continued use after a change takes effect constitutes acceptance.
+
+---
+
+## General
+
+**Events outside our control.** We are not responsible for a failure or delay caused by events outside our reasonable control, such as failures of infrastructure providers or networks, attacks on the Service, acts of government, or natural disasters.
+
+**Sanctions.** You confirm that you are not subject to sanctions of the European Union, the United Nations, the United Kingdom, or the United States, and that you will not use the Service for anyone who is.
+
+**Transfer.** You may not transfer your rights or obligations under these Terms without our written consent. We may transfer ours to an affiliate or to a successor to our business, and will tell you if we do.
+
+**Whole agreement.** These Terms and the [Privacy Policy](/legal/privacy) are the whole agreement between you and us about the Service, unless you have a separate signed agreement with us, which then prevails where it differs.
+
+**Severability and waiver.** If part of these Terms is found invalid, the rest remains in force. If we do not enforce a term, that is not a waiver of it.
 
 ---
 
