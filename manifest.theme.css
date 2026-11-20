@@ -600,7 +600,13 @@ nav[aria-label="On this page"] > small {
     text-underline-offset: 0.3em
 }
 
-.tooltip { outline: 1px solid color-mix(in oklch, currentColor 18%, transparent) }
+.tooltip {
+    max-width: min(18rem, calc(100vw - 2rem));
+    outline: 1px solid color-mix(in oklch, currentColor 18%, transparent);
+
+    & ul { margin: 0.5em 0 0; padding-inline-start: 1.1em }
+    & li + li { margin-top: 0.35em }
+}
 
 .contact-form :is(.contact-sent, .contact-failed) { display: none }
 .contact-form[data-state=sent] .contact-sent,
