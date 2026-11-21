@@ -120,7 +120,6 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-dropdown`{copy} | [dropdowns](/docs/framework/elements/dropdowns) | Dropdown menu element |
 | `x-edit`{copy} | [edit](/docs/framework/core-plugins/edit) | Editable region: text in place, moving and nesting pieces, resizing, theme variables. Opt-in plugin; capabilities `.text`, `.move`, `.size`, `.data` (none named: text and move), plus `.lock` and `.lock.<action>`, `.gated`, `.persist`, `.bare`, `.theme`, `.cssvar` |
 | `x-export`{copy} | [export](/docs/framework/core-plugins/import-export) | Download page / region / data source as PDF, image, CSV, or JSON |
-| `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/framework/core-plugins/local-data) | Bind file uploads |
 | `x-icon`{copy} | [icons](/docs/framework/elements/icons) | Render an icon by name |
 | `x-import`{copy} | [import](/docs/framework/core-plugins/import-export#import) | Open a JSON or CSV file from the visitor's device as data |
 | `x-markdown`{copy} | [markdown](/docs/framework/core-plugins/markdown) | Render markdown content from a source |
