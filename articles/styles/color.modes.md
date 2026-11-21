@@ -154,7 +154,7 @@ See [buttons](/docs/framework/elements/buttons) for details on the element.
 
 </div>
 
-The icon reads the `dark` class on `<html>`, so it also resolves system mode. Referencing `$color.current` re-renders it on each change.
+The icon reads the `dark` class on `<html>`, so it resolves system mode whenever the mode changes. It won't refresh if the operating system preference changes while in system mode.
 
 See [icons](/docs/framework/elements/icons) for details on conditional icons.
 
@@ -204,7 +204,9 @@ Display the current mode's title with `x-text="$color.current"`:
 
 </div>
 
-Set the mode from script by assigning `$color.current`, with the same values as `x-color`, plus `'toggle'` for the opposite of the mode currently showing. The choice is saved like a click.
+### Set the Mode
+
+Set the mode from an Alpine expression by assigning `$color.current`, with the same values as `x-color`. Write toggle as the string `'toggle'`. The choice is saved like a click.
 
 ```html copy
 <button @click="$color.current = 'toggle'">Switch mode</button>
