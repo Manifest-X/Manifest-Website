@@ -145,14 +145,16 @@ See [buttons](/docs/framework/elements/buttons) for details on the element.
 <div x-code-group>
 
 ::: frame
-<button x-color="toggle" x-icon="$color.current === 'dark' || ($color.current === 'system' && matchMedia('(prefers-color-scheme: dark)').matches) ? 'lucide:sun' : 'lucide:moon'" aria-label="Toggle Color Mode"></button>
+<button x-color="toggle" x-icon="$color.current && document.documentElement.classList.contains('dark') ? 'lucide:sun' : 'lucide:moon'" aria-label="Toggle Color Mode"></button>
 :::
 
 ```html copy
-<button x-color="toggle" x-icon="$color.current === 'dark' || ($color.current === 'system' && matchMedia('(prefers-color-scheme: dark)').matches) ? 'lucide:sun' : 'lucide:moon'" aria-label="Toggle Color Mode"></button>
+<button x-color="toggle" x-icon="$color.current && document.documentElement.classList.contains('dark') ? 'lucide:sun' : 'lucide:moon'" aria-label="Toggle Color Mode"></button>
 ```
 
 </div>
+
+The icon reads the `dark` class on `<html>`, so it also resolves system mode. Referencing `$color.current` re-renders it on each change.
 
 See [icons](/docs/framework/elements/icons) for details on conditional icons.
 
@@ -201,3 +203,9 @@ Display the current mode's title with `x-text="$color.current"`:
 ```
 
 </div>
+
+Set the mode from script by assigning `$color.current`, with the same values as `x-color`, plus `'toggle'` for the opposite of the mode currently showing. The choice is saved like a click.
+
+```html copy
+<button @click="$color.current = 'toggle'">Switch mode</button>
+```
