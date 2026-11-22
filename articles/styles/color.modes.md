@@ -102,7 +102,7 @@ Using Tailwind, dark colors can also be set in HTML using the `dark:` variant on
 <div class="bg-page dark:bg-surface-1">We're going dark</div>
 ```
 
-`dark:` follows the active color mode (the `dark` class on `<html>`), not the operating system, including on pages using `data-tailwind`. To point Tailwind's own utilities elsewhere, declare your own `@custom-variant dark` in a `<style type="text/tailwindcss">` tag; Manifest's utilities, like `dark:bg-surface-1`, still follow the `dark` class. Without the color plugin nothing sets the `dark` class, so `dark:` styles don't apply.
+`dark:` follows the active color mode, meaning the `dark` class the color plugin sets on `<html>`. It doesn't read the operating system setting itself; in system mode, the plugin sets the class from it. This includes Tailwind's own utilities on pages using [`data-tailwind`](/docs/framework/styles/theme#tailwind-integration). To give Tailwind's utilities a different dark condition, declare your own `@custom-variant dark` in a `<style type="text/tailwindcss">` tag; Manifest's utilities, like `dark:bg-surface-1`, still follow the `dark` class. If the color plugin isn't loaded, nothing sets the `dark` class, so `dark:` styles don't apply.
 
 ---
 
