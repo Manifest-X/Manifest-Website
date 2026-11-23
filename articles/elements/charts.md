@@ -570,6 +570,7 @@ _ui: {
 | `colors`{copy}     | object           | Gantt — a `status` → color map, shared across tracks.                      |
 | `markers`{copy}    | array            | Gantt — vertical reference lines: `{ at, label?, color? }`.                |
 | `points`{copy}     | boolean \| array  | Line, area, and combo: `false` hides the per-point dots; hovering anywhere over a label shows every series' value in one tooltip. Default `true`. Map: location bubbles, `{ lat, lng, value?, label?, color? }` or a `name` resolved via `places`. |
+| `dashFrom`{copy}   | number           | Line, area, and combo: a label index from which each series' line is dashed and its area fill lighter, such as the forecast part of a series. Ignored when missing, out of range, or not a whole number. See [Forecasts](#forecasts). |
 | `places`{copy}     | object           | Map — `name` → `[lat, lng]` gazetteer for positioning named `points`.       |
 
 ### Axis Ticks
@@ -607,6 +608,26 @@ Charts compared side by side, such as scenario tabs, read best on one fixed scal
 ```
 
 The y-axis runs to at least €300K on every chart that shares the setting, and hovering a month lists `Base: €112,000`, `Low: €67,000`, and `High: €192,250` in one tooltip. Axis ticks keep compact notation (`€50K`, `€100K`).
+
+### Forecasts
+
+To mark where actuals end and a forecast begins, set `dashFrom` to that label's index. Each line stays solid up to and including that point and continues dashed to the end, and area fills turn lighter from the same point:
+
+```html copy
+<div x-chart="{
+    type: 'area',
+    points: false,
+    dashFrom: 6,
+    labels: months,
+    series: [
+        { name: 'Base', data: base },
+        { name: 'Low', data: low },
+        { name: 'High', data: high }
+    ]
+}"></div>
+```
+
+Here July (index `6`) is the last actual month. Tooltips, legend entries, and hover dots are unchanged: each series is still one line. Restyle the dashes and the lighter fill with `--chart-dash` and `--chart-dash-opacity` (see [Theme](#theme)).
 
 ### Declarative Series
 
@@ -670,6 +691,8 @@ Series cycle through the `--color-chart-N` color variable palette in order. By d
 | `--color-chart-label`{copy}  | Axis label color.                             |
 | `--color-positive-content`{copy} / `--color-negative-content`{copy} | Rising / falling candlesticks. |
 | `--color-chart-heat-low`{copy} / `--color-chart-heat-high`{copy} | Heatmap ramp endpoints (low → high value). |
+| `--chart-dash`{copy}         | Dash pattern for lines past `dashFrom`, as a `stroke-dasharray` value. Default `4 6`. |
+| `--chart-dash-opacity`{copy} | Area fill opacity past `dashFrom`. Default `0.06` (the solid fill is `0.15`). |
 
 ```css copy
 /* Extend the palette past 9 */
