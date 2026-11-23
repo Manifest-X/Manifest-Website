@@ -1,9 +1,9 @@
 <!-- Hub -->
 <template x-if="$route.startsWith('/compare') && !$x.compare?.$route('slug')?.slug">
-  <section class="col center w-full pt-24 pb-50">
+  <section class="dot-page col center w-full pt-24 pb-50">
     <div class="col gap-10 w-content-width max-w-full">
       <div class="col gap-3 w-2xl max-w-full">
-        <p class="h6 text-content-subtle tracking-widest uppercase">Compare</p>
+        <p class="eyebrow">Compare</p>
         <h1 class="leading-tight">Manifest compared</h1>
         <p class="text-content-neutral text-balance">How building and publishing with Manifest in Claude compares with other AI app builders, on pricing, features, and ownership.</p>
       </div>
@@ -21,18 +21,18 @@
 
 <!-- Comparison -->
 <template x-if="$route.startsWith('/compare') && $x.compare?.$route('slug')?.slug">
-  <div class="col w-full" x-data="{ get c() { return $x.compare.$route('slug') } }">
+  <div class="dot-page col w-full" x-data="{ get c() { return $x.compare.$route('slug') } }">
 
     <!-- Header -->
     <section class="col center w-full pt-24 pb-16">
       <div class="col gap-12 w-content-width max-w-full">
         <div class="col gap-4 w-2xl max-w-full">
-          <a href="/compare" class="h6 w-fit text-content-subtle tracking-widest uppercase no-underline hover:text-content-stark">Compare</a>
+          <a href="/compare" class="eyebrow w-fit no-underline hover:text-content-stark">Compare</a>
           <h1 class="leading-tight" x-text="c.title || 'Manifest vs ' + c.name"></h1>
           <p class="text-lg text-content-neutral text-balance" x-text="c.summary"></p>
         </div>
         <div class="col gap-4">
-          <p class="h6 text-content-subtle tracking-widest uppercase">With Manifest</p>
+          <p class="eyebrow">With Manifest</p>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <template x-for="h in c.highlights" :key="h.value">
             <div class="col gap-2 p-6 bg-popover-surface rounded-xl">
@@ -182,7 +182,7 @@
         <template x-for="p in c.switch.prompts" :key="p">
           <button type="button" class="prompt-copy unstyle group col gap-2 my-4 p-5 bg-popover-surface rounded-xl text-start cursor-pointer" x-data="{ copied: false }" aria-label="Copy this prompt" @click="navigator.clipboard.writeText(p); copied = true; setTimeout(() => copied = false, 1600)">
             <span class="row items-center justify-between gap-3">
-              <span class="text-xs tracking-widest uppercase text-content-subtle">Prompt idea</span>
+              <span class="eyebrow">Prompt idea</span>
               <span class="row items-center gap-1.5 text-sm text-content-subtle transition-colors group-hover:text-content-stark">
                 <span x-icon="copied ? 'lucide:check' : 'lucide:copy'" aria-hidden="true"></span><span x-text="copied ? 'Copied' : 'Copy'">Copy</span>
               </span>

@@ -1,3 +1,12 @@
+// Home page shows the Made with Manifest badge
+if (location.pathname === '/' && !window.__manifestRender) {
+  document.documentElement.dataset.badge = '';
+  const badge = document.createElement('script');
+  badge.src = '/__mnfst/badge.js';
+  badge.defer = true;
+  document.head.append(badge);
+}
+
 // Home hero demo: a looping chat-to-live-site sequence
 document.addEventListener('alpine:init', () => {
   const END = 16;
@@ -81,10 +90,11 @@ document.addEventListener('alpine:init', () => {
     },
   }));
 
-  // Home discoverability demo: items light up, then hold and restart
+  // Home discoverability demo: plays once when first seen, replays on request
   Alpine.data('foundDemo', () => ({
-    t: 6,
+    t: 7,
     visible: false,
+    played: false,
     timer: null,
 
     get page() { return { on: this.t === 6, scan: this.t === 4 || this.t === 5 } },
@@ -92,12 +102,51 @@ document.addEventListener('alpine:init', () => {
 
     init() {
       if (window.__manifestRender || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      new IntersectionObserver(([e]) => { this.visible = e.isIntersecting }, { threshold: 0.2 }).observe(this.$el);
+      this.t = 0;
+      new IntersectionObserver(([e]) => {
+        this.visible = e.isIntersecting;
+        if (this.visible && !this.played) this.replay();
+      }, { threshold: 0.2 }).observe(this.$el);
+    },
+
+    replay() {
+      this.played = true;
+      clearInterval(this.timer);
       this.t = 0;
       this.timer = setInterval(() => {
         if (!this.visible || document.hidden) return;
-        this.t = this.t >= 9 ? 0 : this.t + 1;
+        if (this.t >= 7) return clearInterval(this.timer);
+        this.t++;
       }, 800);
+    },
+
+    destroy() { clearInterval(this.timer) },
+  }));
+
+  // Home setup cards: one example prompt at a time, click to copy
+  Alpine.data('promptCycle', (list, delay = 0) => ({
+    list,
+    i: 0,
+    fading: false,
+    hover: false,
+    copied: false,
+    timer: null,
+
+    init() {
+      if (window.__manifestRender || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      setTimeout(() => {
+        this.timer = setInterval(() => {
+          if (this.hover || document.hidden) return;
+          this.fading = true;
+          setTimeout(() => { this.i = (this.i + 1) % this.list.length; this.fading = false }, 300);
+        }, 3600);
+      }, delay);
+    },
+
+    copy() {
+      navigator.clipboard.writeText(this.list[this.i]);
+      this.copied = true;
+      setTimeout(() => this.copied = false, 1400);
     },
 
     destroy() { clearInterval(this.timer) },

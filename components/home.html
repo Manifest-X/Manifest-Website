@@ -15,14 +15,14 @@
 </nav>
 
 <!-- HERO -->
-<section id="home" class="col center w-full pt-20 pb-12">
+<section id="home" class="hero-backdrop col center w-full pt-28 pb-20">
 
   <div class="col items-center gap-14 w-content-width max-w-full">
 
     <!-- Text -->
     <div class="col items-center gap-5 w-full text-center">
-      <small class="px-3 py-1 bg-surface-2 rounded-full text-xs text-content-neutral">Free forever. Runs on your Claude plan, no credits.</small>
-      <h1 class="max-md:text-4xl leading-tight">
+      <small class="row items-center gap-2 px-3 py-1 bg-popover-surface border border-line rounded-full sm:font-mono text-xs text-content-neutral"><span class="shrink-0 size-1.5 bg-positive-content rounded-full" aria-hidden="true"></span>Free forever. Runs on your Claude plan, no credits.</small>
+      <h1 class="text-4xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
         <span class="text-content-subtle">Claude builds your <br class="sm:hidden"><span class="hero-noun text-content-stark"><span>app.</span><span aria-hidden="true">website.</span><span aria-hidden="true">dashboard.</span><span aria-hidden="true">platform.</span><span aria-hidden="true">game.</span></span></span>
         <span class="block text-balance">Manifest makes it real.</span>
       </h1>
@@ -31,7 +31,7 @@
     </div>
 
     <!-- Demo -->
-    <div class="hero-demo grid grid-cols-1 md:grid-cols-[3fr_5fr] w-full border-2 border-surface-2 rounded-xl overflow-hidden" aria-label="A Claude chat building a yoga studio booking app and publishing it to solstice.studio" x-data="heroDemo">
+    <div class="hero-demo lift bg-page dark:bg-surface-2 grid grid-cols-1 md:grid-cols-[3fr_5fr] w-full p-1 md:p-1 border border-1 border-transparent dark:border-surface-3/50 rounded-2xl overflow-hidden" aria-label="A Claude chat building a yoga studio booking app and publishing it to solstice.studio" x-data="heroDemo">
 
       <!-- Chat -->
       <div class="col gap-2 min-h-80 p-6 md:p-8 text-sm">
@@ -44,7 +44,7 @@
       </div>
 
       <!-- Browser -->
-      <div class="relative col bg-surface-2 rounded-t-xl md:rounded-none md:rounded-s-xl overflow-hidden">
+      <div class="relative col bg-surface-2 dark:bg-surface-3 rounded-xl md:rounded-[0.875rem] overflow-hidden">
         <div class="row items-center gap-3 px-3 py-2 text-content-subtle">
           <span x-icon="lucide:arrow-left" aria-hidden="true"></span>
           <span x-icon="lucide:arrow-right" aria-hidden="true"></span>
@@ -102,34 +102,33 @@
   <div class="col gap-10 w-content-width max-w-full">
 
     <div class="col gap-1">
-      <p class="h6 text-content-subtle tracking-widest uppercase">Setup</p>
+      <p class="eyebrow">Setup</p>
       <h2 class="leading-tight">From idea to online in three steps.</h2>
     </div>
 
     <ol class="unstyle grid grid-cols-1 md:grid-cols-2 gap-4">
 
       <!-- Connect -->
-      <li class="md:col-span-2 col gap-8 p-6 md:p-8 bg-popover-surface rounded-xl">
+      <li class="md:col-span-2 col gap-6 p-6 md:p-8 bg-popover-surface rounded-xl" x-data="{ steps: false }">
         <div class="row items-center gap-3">
           <span class="row center shrink-0 size-8 bg-accent-surface text-accent-inverse rounded-full text-sm font-semibold" aria-hidden="true">1</span>
           <h3 class="h4">Add Manifest to Claude</h3>
         </div>
         <ol class="unstyle col list-none ps-0 text-content-neutral">
-          <li class="py-4 border-t border-line">In Claude, go to <b class="text-content-stark">Customize</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Connectors</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">+&nbsp;Add</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Add custom connector</b>.</li>
-          <li class="row-wrap items-center gap-x-2 gap-y-2 py-4 border-t border-line">
-            <span>Name it <b class="text-content-stark">Manifest</b> and paste this server URL:</span>
-            <button type="button" class="url-copy unstyle group row items-center gap-3 max-w-full ps-3 pe-2.5 py-1.5 rounded-lg cursor-pointer" x-data="{ copied: false }" aria-label="Copy the server URL" @click="navigator.clipboard.writeText('https://mcp.manifestx.dev/mcp'); copied = true; setTimeout(() => copied = false, 1600)">
-              <code class="unstyle text-xs sm:text-sm text-content-stark">https://mcp.manifestx.dev/mcp</code>
-              <span class="row items-center gap-1.5 text-sm text-content-subtle transition-colors group-hover:text-content-stark">
-                <span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span>
-                <span x-show="copied" x-cloak x-icon="lucide:check" aria-hidden="true"></span>
-                <span class="hidden sm:inline" x-text="copied ? 'Copied' : 'Copy'">Copy</span>
-              </span>
-            </button>
+          <li x-show="steps" x-cloak class="py-4 border-t border-line">In Claude, go to <b class="text-content-stark">Customize</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Connectors</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">+&nbsp;Add</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Add custom connector</b>.</li>
+          <li class="row-wrap items-baseline gap-x-8 gap-y-2 py-4 border-t border-line">
+            <span>Name: <button type="button" class="copy-text unstyle" x-data="{ copied: false }" aria-label="Copy the connector name" @click="navigator.clipboard.writeText('Manifest'); copied = true; setTimeout(() => copied = false, 1600)"><span>Manifest</span><span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span><span x-show="copied" x-cloak x-icon="lucide:check" aria-hidden="true"></span></button></span>
+            <span>Server URL: <button type="button" class="copy-text unstyle" x-data="{ copied: false }" aria-label="Copy the server URL" @click="navigator.clipboard.writeText('https://mcp.manifestx.dev/mcp'); copied = true; setTimeout(() => copied = false, 1600)"><span>https://mcp.manifestx.dev/mcp</span><span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span><span x-show="copied" x-cloak x-icon="lucide:check" aria-hidden="true"></span></button></span>
           </li>
-          <li class="py-4 border-t border-line">Select <b class="text-content-stark">Add</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Connect</b>, and complete the connection steps.</li>
+          <li x-show="steps" x-cloak class="py-4 border-t border-line">Select <b class="text-content-stark">Add</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Connect</b>, and complete the connection steps.</li>
         </ol>
-        <a href="/docs/platform/introduction#connect-claude" class="row items-center gap-1 w-fit text-sm no-underline text-content-neutral hover:text-content-stark">Read more<span x-icon="lucide:arrow-right" aria-hidden="true"></span></a>
+        <div class="row-wrap items-center gap-x-6 gap-y-2">
+          <button type="button" class="unstyle row items-center gap-1 w-fit text-sm text-content-neutral hover:text-content-stark cursor-pointer" :aria-expanded="steps" @click="steps = !steps">
+            <span x-text="steps ? 'Hide the steps' : 'Show where to add it'">Show where to add it</span>
+            <span class="transition-transform" :class="steps && 'rotate-180'" x-icon="lucide:chevron-down" aria-hidden="true"></span>
+          </button>
+          <a href="/docs/platform/introduction#connect-claude" class="row items-center gap-1 w-fit text-sm no-underline text-content-neutral hover:text-content-stark">Read more<span x-icon="lucide:arrow-right" aria-hidden="true"></span></a>
+        </div>
       </li>
 
       <!-- Ask -->
@@ -138,13 +137,15 @@
           <span class="row center shrink-0 size-8 bg-accent-surface text-accent-inverse rounded-full text-sm font-semibold" aria-hidden="true">2</span>
           <h3 class="h4">Ask for anything</h3>
         </div>
-        <p class="text-content-neutral">Build pages, add sign-ins and data, edit content, invite teammates, check your visitors, or change your plan, <span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Ask any Claude session to start or continue a Manifest project.<ul><li><b>Chat</b> sessions handle the project in the cloud, up to 10 MB, with previews pushed to a URL.</li><li><b>Code</b> sessions handle the project of any size in a folder on your computer, showing live previews in Claude.</li></ul>">all in the chat</span>.</p>
-        <div class="row-wrap gap-2 mt-auto">
-          <span class="px-3.5 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-content-stark">Add a members-only area</span>
-          <span class="px-3.5 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-content-stark">Invite sam@solstice.studio to edit</span>
-          <span class="px-3.5 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-content-stark">How many visitors this week?</span>
-          <span class="px-3.5 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-content-stark">Upgrade this project to Pro</span>
-        </div>
+        <p class="text-content-neutral">Build pages, add logins and data, invite teammates, and check your visitors, <span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Ask any Claude session to start or continue a Manifest project.<ul><li><b>Chat</b> sessions handle the project in the cloud, up to 10 MB, with previews pushed to a URL.</li><li><b>Code</b> sessions handle the project of any size in a folder on your computer, showing live previews in Claude.</li></ul>">all in the chat</span>.</p>
+        <figure class="prompt-panel row-wrap items-center justify-between gap-x-4 gap-y-2 mt-auto ps-4 pe-2 py-2 border border-1 border-line rounded-lg cursor-pointer" @click="copy()" @mouseenter="hover = true" @mouseleave="hover = false" x-data="promptCycle(['Add a members-only area', 'Invite sam@solstice.studio to edit', 'How many visitors this week?', 'Upgrade this project to Pro'], 0)">
+          <figcaption class="eyebrow m-0">Try asking</figcaption>
+          <button type="button" class="prompt-chip unstyle row items-center gap-2 ms-auto max-w-full ps-3.5 pe-3 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-start text-content-stark cursor-pointer transition-opacity duration-300" :class="fading && 'opacity-0'" :aria-label="'Copy the prompt: ' + list[i]" @focus="hover = true" @blur="hover = false">
+            <span x-text="list[i]">Add a members-only area</span>
+            <span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span>
+            <span x-show="copied" x-cloak x-icon="lucide:check" aria-hidden="true"></span>
+          </button>
+        </figure>
       </li>
 
       <!-- Publish -->
@@ -153,11 +154,15 @@
           <span class="row center shrink-0 size-8 bg-accent-surface text-accent-inverse rounded-full text-sm font-semibold" aria-hidden="true">3</span>
           <h3 class="h4">Publish anywhere</h3>
         </div>
-        <p class="text-content-neutral">Review every change on a staging link, then go live on your own domain. Ship a website or web app, or package it for iPhone, Android, and desktop.</p>
-        <div class="row-wrap gap-2 mt-auto">
-          <span class="px-3.5 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-content-stark">Put it live on solstice.studio</span>
-          <span class="px-3.5 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-content-stark">Make it an iPhone app</span>
-        </div>
+        <p class="text-content-neutral">Review every change on a preview link, then go live on your own domain. Ship a website or web app, or package it for iPhone, Android, and desktop.</p>
+        <figure class="prompt-panel row-wrap items-center justify-between gap-x-4 gap-y-2 mt-auto ps-4 pe-2 py-2 border border-1 border-line rounded-lg cursor-pointer" @click="copy()" @mouseenter="hover = true" @mouseleave="hover = false" x-data="promptCycle(['Put it live on my domain', 'Make it an iPhone app'], 1800)">
+          <figcaption class="eyebrow m-0">Try asking</figcaption>
+          <button type="button" class="prompt-chip unstyle row items-center gap-2 ms-auto max-w-full ps-3.5 pe-3 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-start text-content-stark cursor-pointer transition-opacity duration-300" :class="fading && 'opacity-0'" :aria-label="'Copy the prompt: ' + list[i]" @focus="hover = true" @blur="hover = false">
+            <span x-text="list[i]">Put it live on my domain</span>
+            <span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span>
+            <span x-show="copied" x-cloak x-icon="lucide:check" aria-hidden="true"></span>
+          </button>
+        </figure>
       </li>
 
     </ol>
@@ -174,7 +179,7 @@
   <div class="col gap-10 justify-start w-content-width max-w-full">
 
     <div class="col gap-1 w-2xl max-w-full">
-      <p class="h6 text-content-subtle tracking-widest uppercase">Discoverability</p>
+      <p class="eyebrow">Discoverability</p>
       <h2 class="md:col leading-tight">
         <span>Built to be found</span>
         <span class="text-content-subtle">by search and AI.</span>
@@ -186,7 +191,7 @@
 
       <!-- Page -->
       <figure class="col gap-3 p-4 bg-surface-2 rounded-xl">
-        <figcaption class="small w-full text-start text-content-subtle">Your page</figcaption>
+        <figcaption class="row items-center justify-between w-full small text-content-subtle">Your page<button type="button" class="unstyle row center text-content-subtle hover:text-content-stark cursor-pointer" aria-label="Replay the demo" x-tooltip="Replay" @click="replay()" x-icon="lucide:rotate-cw"></button></figcaption>
         <div class="solstice found-page found-mark col grow gap-5 p-5 rounded-lg" :class="page">
           <div class="row items-center justify-between gap-3">
             <span class="serif tracking-wide">Solstice</span>
@@ -268,6 +273,7 @@
     <span class="grid-fade" aria-hidden="true"></span>
 
     <div class="col gap-4 items-start z-1">
+      <p class="eyebrow">Framework</p>
       <h2 class="h3 leading-tight text-balance">The Manifest framework makes it all automatic.</h2>
       <p class="text-content-neutral text-balance">Optional and open source. Built with something else? Manifest publishes that too.</p>
       <div class="row-wrap items-center gap-3 mt-2">
@@ -320,7 +326,7 @@
   <div class="col gap-10 justify-start w-content-width max-w-full">
 
     <div class="col gap-1 w-2xl max-w-full">
-      <p class="h6 text-content-subtle tracking-widest uppercase">Collaboration</p>
+      <p class="eyebrow">Collaboration</p>
       <h2 class="md:col leading-tight">
         <span>One project.</span>
         <span class="text-content-subtle">Everyone's Claude.</span>
@@ -332,7 +338,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4" aria-label="Three people on one project, each in their own Claude chat, inviting teammates, editing, publishing, checking visitors and rolling back" x-data="teamDemo">
       <template x-if="!window.__manifestRender">
       <template x-for="p in people" :key="p.name">
-        <div class="col gap-4 p-4 bg-popover-surface rounded-xl text-sm text-content-stark">
+        <div class="lift-sm col gap-4 p-4 bg-popover-surface rounded-xl text-sm text-content-stark">
           <div class="row items-center gap-2 -mx-4 px-4 pb-3 border-b border-line/60">
             <img class="shrink-0 size-7 rounded-full object-cover" :src="p.pic" alt="" width="28" height="28">
             <span class="font-medium" x-text="p.name"></span>
@@ -378,11 +384,12 @@
   <div class="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-10 w-content-width max-w-full">
 
     <div class="col gap-3">
+      <p class="eyebrow">Questions</p>
       <h2 class="leading-tight">Common questions</h2>
       <p class="text-content-neutral">Something else? <a href="/support#contact">Contact the team</a>.</p>
     </div>
 
-    <div class="col">
+    <div class="col border-t border-line">
       <details class="border-b border-line">
         <summary>What counts as a project?</summary>
         <p class="text-content-neutral">One site or app with its own address and versions. Plans are per project, so teammates never cost extra; inviting them comes with Pro.</p>

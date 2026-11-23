@@ -1,9 +1,9 @@
 <!-- HEADER -->
-<section id="pricing" class="col center w-full py-24">
+<section id="pricing" class="col center w-full pt-24 pb-10">
 
   <!-- Content -->
   <div class="col gap-4 justify-start w-content-width max-w-full">
-    <p class="h6 text-content-subtle tracking-widest uppercase">Pricing</p>
+    <p class="eyebrow">Pricing</p>
     <h2 class="md:col leading-tight">
       <span>One plan per project.</span>
       <span class="text-content-subtle">Never per seat.</span>
@@ -18,7 +18,7 @@
 <section class="col center w-full pb-24" x-data="planPrices">
 
   <!-- Content -->
-  <div class="col gap-4 w-content-width max-w-full">
+  <div class="col gap-4 w-content-width max-w-full" x-data="{ more: false }">
 
     <!-- Billing toggles -->
     <div class="row-wrap items-center justify-end gap-3">
@@ -32,90 +32,72 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
       <!-- Free -->
-      <div class="relative col gap-6 p-6 md:p-10 bg-surface-2 rounded-lg overflow-hidden">
+      <div class="relative grid grid-rows-subgrid row-span-4 gap-6 p-6 md:p-8 bg-surface-2 rounded-lg overflow-hidden">
         <span class="grid-fade text-brand-content" aria-hidden="true"></span>
         <div class="relative col gap-1">
           <p class="text-xl font-semibold text-content-stark">Free</p>
           <small class="text-content-neutral">For launching anything</small>
         </div>
-        <p class="relative row items-baseline gap-3"><span class="text-6xl font-semibold tracking-tight" x-text="cur + '0'">$0</span><small class="text-content-subtle">forever</small></p>
+        <p class="relative row-wrap items-baseline gap-x-3 gap-y-1"><span class="text-5xl font-semibold tracking-tight" x-text="cur + '0'">$0</span><small class="leading-tight whitespace-nowrap text-content-subtle">forever</small></p>
         <ul class="plan-list relative col gap-3 text-sm">
-          <li><span x-icon="lucide:rocket" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Claude builds on your own Claude plan. Manifest hosts what it publishes, with a staging copy to check before it goes live.">Publish from Claude to staging and live</span></li>
+          <li><span x-icon="lucide:rocket" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Claude builds on your own Claude plan. Manifest hosts what it publishes, with a staging copy to check before it goes live.">Preview and publish from Claude</span></li>
           <li><span x-icon="lucide:globe" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Point domains you own at your site. Manifest sets up the certificates.">Connect your own domains</span></li>
           <li><span x-icon="lucide:chart-no-axes-column" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Views, visits, top pages, where visitors came from, and their countries and devices. No cookies, and no one is identified.">Last 7 days' analytics</span></li>
-          <li><span x-icon="lucide:inbox" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Messages sent through your site's contact and other forms, emailed to you and kept in your dashboard for 30 days.">100 form submissions per month</span></li>
-          <li><span x-icon="lucide:braces" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Publish, promote, and manage domains for this project from your own code, with an API key from your dashboard.">API access</span></li>
-          <li><span x-icon="lucide:badge-check" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="A small &quot;Made with Manifest&quot; link on your site. The project could be featured on manifestx.dev.">Manifest badge &amp; public showcase</span></li>
+          <li x-show="more" x-cloak><span x-icon="lucide:inbox" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Messages sent through your site's contact and other forms, emailed to you and kept in your dashboard for 30 days.">100 form submissions per month</span></li>
+          <li x-show="more" x-cloak><span x-icon="lucide:braces" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Publish, promote, and manage domains for this project from your own code, with an API key from your dashboard.">API access</span></li>
+          <li x-show="more" x-cloak><span x-icon="lucide:badge-check" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="A small &quot;Made with Manifest&quot; link on your site. The project could be featured on manifestx.dev.">Manifest badge &amp; public showcase</span></li>
         </ul>
-        <a role="button" href="#setup" class="group relative mt-auto w-fit accent rounded-full ps-4"><span>Add Manifest to Claude</span><span class="transition-colors group-hover:text-claude" x-icon="simple-icons:claude"></span></a>
+        <a role="button" href="#setup" class="group relative self-end w-fit accent rounded-full ps-4"><span>Add Manifest to Claude</span><span class="transition-colors group-hover:text-claude" x-icon="simple-icons:claude"></span></a>
       </div>
 
       <!-- Pro -->
-      <div class="card-invert relative overflow-hidden rounded-lg">
+      <div class="card-invert relative grid grid-rows-subgrid row-span-4 gap-6 p-6 md:p-8 rounded-lg overflow-hidden [&_p]:text-accent-inverse">
         <span class="grid-fade grid-fade-tl" aria-hidden="true"></span>
-        <div class="relative col gap-6 p-6 md:p-10 h-full [&_p]:text-accent-inverse">
-          <div class="col gap-1">
-            <p class="text-xl font-semibold">Pro</p>
-            <small>For businesses and teams</small>
-          </div>
-          <p class="row items-baseline gap-3"><span class="text-6xl font-semibold tracking-tight" x-text="cur + pro">$15</span><small x-text="yearly ? 'per project, yearly' : 'per project, monthly'">per project, monthly</small></p>
-          <ul class="plan-list col gap-3 text-sm">
-            <li x-icon="lucide:plus">Everything in Free, plus</li>
-            <li><span x-icon="lucide:badge-x" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="The badge comes off every page, and the showcase is your choice.">No badge, showcase optional</span></li>
-            <li><span x-icon="lucide:users" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Invite people by email to work on the project from their own Claude. Members edit and publish; admins can also invite others.">Invite your team</span></li>
-            <li><span x-icon="lucide:history" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Put staging or live back to any of its last 5 versions in seconds.">Rollback to your last 5 versions</span></li>
-            <li><span x-icon="lucide:chart-line" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="The same visitor insights for the whole life of the project, over any date range.">All-time analytics</span></li>
-            <li><span x-icon="lucide:inbox" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Room for busy forms, with every submission kept in your dashboard for a year.">5,000 form submissions per month</span></li>
-          </ul>
-          <a role="button" href="#setup" class="mt-auto w-fit ghost outlined rounded-full text-accent-inverse hover:bg-accent-inverse/15 hover:text-accent-inverse">Start free, upgrade anytime</a>
+        <div class="relative col gap-1">
+          <p class="text-xl font-semibold">Pro</p>
+          <small>For businesses and teams</small>
         </div>
-      </div>
-
-    </div>
-
-    <!-- Enterprise -->
-    <div id="platforms" class="relative grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-10 p-6 md:p-10 bg-surface-2 rounded-lg overflow-hidden">
-      <span class="grid-fade text-brand-content" aria-hidden="true"></span>
-
-      <div class="relative col gap-6">
-        <div class="col gap-1">
-          <p class="text-xl font-semibold text-content-stark">Enterprise</p>
-          <h3 class="h3 leading-tight text-content-subtle">Publishing, built into your product.</h3>
-        </div>
-        <p class="text-content-neutral text-balance">Custom arrangements for teams publishing at scale, priced by contract.</p>
-        <ul class="plan-list grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-          <li><span x-icon="lucide:layers-3" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Create and publish sites at volume through the API, with limits sized to the arrangement.">Bulk projects through the API</span></li>
-          <li><span x-icon="lucide:file-text" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Generate and publish complete sites from templates, in bulk, through the API.">Sites generated from templates</span></li>
-          <li><span x-icon="lucide:wrench" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Templates, integrations, and tools built around your workflow.">Bespoke tools and templates</span></li>
-          <li><span x-icon="lucide:life-buoy" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="A direct line to the people who build Manifest, from setup and integration onward.">Support from the Manifest team</span></li>
+        <p class="relative row-wrap items-baseline gap-x-3 gap-y-1"><span class="text-5xl font-semibold tracking-tight" x-text="cur + pro">$15</span><small class="leading-tight whitespace-nowrap" x-text="yearly ? 'per project, yearly' : 'per project, monthly'">per project, monthly</small></p>
+        <ul class="relative plan-list col gap-3 text-sm">
+          <li x-icon="lucide:plus">Everything in Free, plus</li>
+          <li><span x-icon="lucide:badge-x" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="The badge comes off every page, and the showcase is your choice.">No badge, showcase optional</span></li>
+          <li><span x-icon="lucide:users" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Invite people by email to work on the project from their own Claude. Members edit and publish; admins can also invite others.">Invite your team</span></li>
+          <li x-show="more" x-cloak><span x-icon="lucide:history" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Put staging or live back to any of its last 5 versions in seconds.">Rollback to your last 5 versions</span></li>
+          <li x-show="more" x-cloak><span x-icon="lucide:chart-line" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="The same visitor insights for the whole life of the project, over any date range.">All-time analytics</span></li>
+          <li x-show="more" x-cloak><span x-icon="lucide:inbox" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Room for busy forms, with every submission kept in your dashboard for a year.">5,000 form submissions per month</span></li>
         </ul>
-        <div class="row-wrap items-center gap-3 mt-auto">
-          <a role="button" href="/support?topic=enterprise#contact" class="accent rounded-full px-6">Talk to us</a>
-          <a role="button" href="/docs/api" class="ghost rounded-full ps-5">Read the API docs<span x-icon="lucide:arrow-right"></span></a>
-        </div>
+        <a role="button" href="#setup" class="relative self-end w-fit ghost outlined rounded-full text-accent-inverse hover:bg-accent-inverse/15 hover:text-accent-inverse">Start free, upgrade anytime</a>
       </div>
 
-      <!-- API sample -->
-      <div class="relative col gap-4 self-center p-6 bg-popover-surface dark:bg-surface-1 rounded-lg font-mono text-xs leading-relaxed text-content-stark overflow-x-auto" aria-hidden="true">
-        <div class="row items-center gap-1.5 opacity-40"><i class="api-dot"></i><i class="api-dot"></i><i class="api-dot"></i></div>
-        <div>
-          <p><span class="opacity-50">POST</span> /v1/projects</p>
-          <p class="opacity-60">{ "source_id": "site_8231", "name": "Acme Docs" }</p>
+      <!-- Enterprise -->
+      <div id="platforms" class="relative grid grid-rows-subgrid row-span-4 gap-6 sm:col-span-2 lg:col-span-1 p-6 md:p-8 bg-surface-2 rounded-lg overflow-hidden">
+        <span class="grid-fade text-brand-content" aria-hidden="true"></span>
+        <div class="relative col gap-1">
+          <p class="text-xl font-semibold text-content-stark">Enterprise</p>
+          <small class="text-content-neutral">Publishing, built into your product</small>
         </div>
-        <div>
-          <p><span class="opacity-50">POST</span> /v1/projects/proj_7Hc2/content</p>
-          <p class="opacity-60">{ "template": "docs", "articles": [ … ] }</p>
+        <p class="relative row-wrap items-baseline gap-x-3 gap-y-1"><span class="text-5xl font-semibold tracking-tight">Custom</span><small class="leading-tight whitespace-nowrap text-content-subtle">by contract</small></p>
+        <ul class="plan-list relative col gap-3 sm:max-lg:grid sm:max-lg:grid-cols-2 text-sm">
+          <li><span x-icon="lucide:layers-3" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Create and publish sites at volume on Manifest's infrastructure through the API, from your templates or built one by one.">Bulk projects through the API</span></li>
+          <li><span x-icon="lucide:compass" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="The Manifest team guides your projects from start to launch and beyond, with best practices built in.">Managed projects</span></li>
+          <li><span x-icon="lucide:life-buoy" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="A direct line to the people who build Manifest, with agreed response times and uptime.">Full support &amp; SLA</span></li>
+          <li x-show="more" x-cloak><span x-icon="lucide:wrench" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Templates, integrations, and tools built around your workflow.">Bespoke tools and templates</span></li>
+        </ul>
+        <div class="relative self-end row-wrap items-center gap-x-5 gap-y-3">
+          <a role="button" href="/support?topic=enterprise#contact" class="accent rounded-full px-6">Talk to us</a>
+          <a href="/docs/api" target="_blank" rel="noopener" class="row items-center gap-1 text-sm">API docs<span x-icon="lucide:arrow-up-right" class="text-content-subtle" aria-hidden="true"></span></a>
         </div>
-        <div>
-          <p><span class="opacity-50">POST</span> /v1/projects/proj_7Hc2/promote</p>
-        </div>
-        <p class="row items-center gap-2 pt-4 border-t border-current/15"><span class="api-live"></span>docs.acme.com is live</p>
       </div>
 
     </div>
+
+    <button type="button" class="ghost self-center rounded-full" :aria-expanded="more" @click="more = !more">
+      <span x-text="more ? 'Show less' : 'Compare everything included'">Compare everything included</span>
+      <span class="transition-transform" :class="more && 'rotate-180'" x-icon="lucide:chevron-down" aria-hidden="true"></span>
+    </button>
 
   </div>
 </section>

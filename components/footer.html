@@ -1,4 +1,7 @@
-<footer class="px-viewport-padding pt-20 pb-10 bg-surface-2" style="view-transition-name: site-footer">
+<footer class="relative isolate px-viewport-padding pt-20 pb-10 bg-surface-2 overflow-hidden" style="view-transition-name: site-footer">
+
+  <span class="dot-field" aria-hidden="true"></span>
+  <span class="footer-mark" aria-hidden="true">{Manifest}</span>
 
   <!-- Content -->
   <nav class="col gap-4 w-content-width max-w-full mx-auto">
@@ -8,7 +11,7 @@
 
       <!-- Product -->
       <div class="col gap-3">
-        <small>Product</small>
+        <small class="eyebrow">Product</small>
         <a href="/#setup">Add to Claude</a>
         <a href="/#showcase">Showcase</a>
         <a href="/#pricing">Pricing</a>
@@ -17,7 +20,7 @@
 
       <!-- Docs -->
       <div class="col gap-3">
-        <small>Docs</small>
+        <small class="eyebrow">Docs</small>
         <a href="/docs/platform">Platform</a>
         <a href="/docs/framework">Framework</a>
         <a href="/docs/api">API</a>
@@ -25,7 +28,7 @@
 
       <!-- Comparisons -->
       <div class="col gap-3">
-        <small>Comparisons</small>
+        <small class="eyebrow">Comparisons</small>
         <a href="/compare/lovable">vs Lovable</a>
         <a href="/compare/webflow">vs Webflow</a>
         <a href="/compare/wordpress">vs WordPress</a>
@@ -34,14 +37,14 @@
 
       <!-- Resources -->
       <div class="col gap-3">
-        <small>Resources</small>
+        <small class="eyebrow">Resources</small>
         <a href="/support">Support</a>
         <a href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="row items-center gap-1"><span>GitHub</span><span x-icon="lucide:arrow-up-right" class="text-content-subtle" aria-hidden="true"></span></a>
       </div>
 
       <!-- Legal -->
       <div class="col gap-3">
-        <small>Legal</small>
+        <small class="eyebrow">Legal</small>
         <a href="/legal/terms">Terms</a>
         <a href="/legal/privacy">Privacy</a>
         <a href="/docs/framework/resources/license">License</a>
@@ -61,7 +64,7 @@
       <div class="row-wrap items-center gap-4">
 
         <!-- Color mode -->
-        <div role="tablist" aria-label="Color mode" class="sm rounded-full">
+        <div role="tablist" aria-label="Color mode" class="color-modes sm rounded-full">
           <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode"></button>
           <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode"></button>
           <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode"></button>

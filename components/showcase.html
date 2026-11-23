@@ -10,41 +10,41 @@
       { name: 'Tower', type: 'Web game', about: 'A building sim in the browser', url: 'https://tower-game-staging.manifestx.ai', img: '/assets/showcase/wall/tower.webp' },
     ],
   ],
-  phone: { name: 'Nurvana', type: 'iOS app', about: 'A private membership for people connected by taste', img: '/assets/showcase/wall/nurvana-app.webp' },
+  phone: { name: 'Nurvana', type: 'iOS app', about: 'A private membership for people connected by taste', url: 'https://apps.apple.com/ca/app/nurvana/id6829128241', img: '/assets/showcase/wall/nurvana-app.webp' },
 }">
   <div class="col gap-10 w-content-width max-w-full">
 
     <div class="col gap-1">
-      <p class="h6 text-content-subtle tracking-widest uppercase">Showcase</p>
+      <p class="eyebrow">Showcase</p>
       <h2 class="md:col leading-tight">
         <span>Built with Manifest.</span>
         <span class="text-content-subtle">Real products, in production.</span>
       </h2>
     </div>
 
-    <div class="grid grid-cols-[1fr_0.58fr_1fr] gap-1.5 sm:gap-3 md:gap-4">
+    <div class="grid grid-cols-[1fr_0.58fr_1fr] gap-1 sm:gap-1.5 md:gap-2 p-1 sm:p-1.5 md:p-2 bg-surface-2/60 dark:bg-surface-2/50 rounded-lg md:rounded-2xl">
 
       <template x-for="(col, c) in side" :key="c">
-        <div class="col gap-1.5 sm:gap-3 md:gap-4" :class="c ? 'order-3' : ''">
+        <div class="col gap-1 sm:gap-1.5 md:gap-2" :class="c ? 'order-3' : ''">
           <template x-for="s in col" :key="s.type">
             <a :href="s.url" target="_blank" rel="noopener" class="showcase-tile group unstyle relative block aspect-[16/10] bg-surface-2 rounded-md md:rounded-xl overflow-hidden">
               <img :src="s.img" :alt="s.name + ' ' + s.type.toLowerCase()" width="1600" height="1000" loading="lazy" class="size-full object-cover object-top">
               <span class="showcase-info">
-                <span class="row items-center gap-2"><b class="truncate" x-text="s.name"></b><span class="showcase-badge" x-text="s.type"></span><span class="ms-auto text-content-subtle" x-icon="lucide:arrow-up-right" aria-hidden="true"></span></span>
-                <small class="text-content-neutral" x-text="s.about"></small>
+                <span class="row items-center gap-2"><b class="truncate" x-text="s.name"></b><span class="showcase-badge" x-text="s.type"></span><span class="ms-auto opacity-60" x-icon="lucide:arrow-up-right" aria-hidden="true"></span></span>
+                <small x-text="s.about"></small>
               </span>
             </a>
           </template>
         </div>
       </template>
 
-      <figure class="showcase-tile group relative order-2 m-0 bg-surface-2 rounded-lg md:rounded-2xl overflow-hidden" tabindex="0">
+      <a :href="phone.url" target="_blank" rel="noopener" class="showcase-tile group unstyle relative block order-2 bg-surface-2 rounded-lg md:rounded-2xl overflow-hidden">
         <img :src="phone.img" :alt="phone.name + ' ' + phone.type" width="780" height="1688" loading="lazy" class="absolute inset-0 size-full object-cover object-top">
-        <figcaption class="showcase-info">
-          <span class="row items-center gap-2"><b class="truncate" x-text="phone.name"></b><span class="showcase-badge" x-text="phone.type"></span></span>
-          <small class="text-content-neutral" x-text="phone.about"></small>
-        </figcaption>
-      </figure>
+        <span class="showcase-info">
+          <span class="row items-center gap-2"><b class="truncate" x-text="phone.name"></b><span class="showcase-badge" x-text="phone.type"></span><span class="ms-auto opacity-60" x-icon="lucide:arrow-up-right" aria-hidden="true"></span></span>
+          <small x-text="phone.about"></small>
+        </span>
+      </a>
 
     </div>
 
