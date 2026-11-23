@@ -8,7 +8,7 @@ Anchored menus for actions and selections.
 
 Dropdown styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
-Dropdown functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
+Dropdown functionality is included in `manifest.js` with all core modules, or it can be selectively loaded.
 
 <div x-code-group copy>
 
@@ -24,9 +24,9 @@ Dropdown functionality is included in `manifest.js` with all core plugins, or it
 <!-- Dropdown styles only -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.dropdown.css" />
 
-<!-- Manifest JS: dropdowns plugin only -->
+<!-- Manifest JS: dropdowns module only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugins="dropdowns"></script>
+  data-modules="dropdowns"></script>
 ```
 
 </div>
@@ -592,7 +592,7 @@ Three optional knobs on the `<menu>` element:
 The modifier is part of the attribute name and the number is its value: `x-defer.priority="1"`. Writing `x-defer="priority:1"` does nothing.
 
 ::: brand icon="lucide:info"
-If a menu lists more than ~100 items, put the list in [`x-virtual`](/docs/framework/core-plugins/virtual#inside-menus-and-dialogs). Deferral makes the closed menu free; virtualization makes the open menu fast.
+If a menu lists more than ~100 items, put the list in [`x-virtual`](/docs/framework/core-modules/virtual#inside-menus-and-dialogs). Deferral makes the closed menu free; virtualization makes the open menu fast.
 :::
 
 <div x-code-group>

@@ -6,7 +6,7 @@ Render markdown into HTML, with callouts, frames, components, and highlighted co
 
 ## Overview
 
-The markdown plugin uses <a href="https://marked.js.org/" target="_blank">marked.js</a>, which is automatically loaded from its CDN when an `x-markdown` directive is encountered in the current view. Parsed markdown content is cached to avoid re-processing if unchanged.
+The markdown module uses <a href="https://marked.js.org/" target="_blank">marked.js</a>, which is automatically loaded from its CDN when an `x-markdown` directive is encountered in the current view. Parsed markdown content is cached to avoid re-processing if unchanged.
 
 All headings generated from markdown content (`<h1>` to `<h6>` elements) will have IDs automatically generated for anchor linking.
 
@@ -14,17 +14,17 @@ All headings generated from markdown content (`<h1>` to `<h6>` elements) will ha
 
 ## Setup
 
-Markdown is included in `manifest.js` with all core plugins, or can be selectively loaded.
+Markdown is included in `manifest.js` with all core modules, or can be selectively loaded.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="markdown"></script>
+    data-modules="markdown"></script>
 ```
 
 </div>
@@ -98,7 +98,7 @@ Load markdown content from external `.md` files by providing a file path like `x
 
 ### From Data Source
 
-The markdown file's path can also be populated from a [data source](/docs/framework/core-plugins/local-data).
+The markdown file's path can also be populated from a [data source](/docs/framework/core-modules/local-data).
 
 <div x-code-group copy>
 
@@ -172,7 +172,7 @@ See this <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">M
 
 ### Components
 
-A [component tag](/docs/framework/core-plugins/components) placed in a markdown file will render the component in position.
+A [component tag](/docs/framework/core-modules/components) placed in a markdown file will render the component in position.
 
 
 <div x-code-group>

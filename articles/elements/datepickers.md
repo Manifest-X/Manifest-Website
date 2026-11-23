@@ -8,7 +8,7 @@ Calendar dates, ranges, and times with native fallbacks and full localization.
 
 Date picker styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
-Date picker functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
+Date picker functionality is included in `manifest.js` with all core modules, or it can be selectively loaded.
 
 <div x-code-group copy>
 
@@ -25,15 +25,15 @@ Date picker functionality is included in `manifest.js` with all core plugins, or
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.datepicker.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.dropdown.css" />
 
-<!-- Manifest JS: datepicker plugin only -->
+<!-- Manifest JS: datepicker module only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugins="datepicker"></script>
+  data-modules="datepicker"></script>
 ```
 
 </div>
 
 ::: brand icon="lucide:info"
-Calendar menus piggyback on [dropdown](/docs/framework/elements/dropdowns) styles and popover behavior, so the dropdown stylesheet loads as a dependency. Navigation chevrons are baked into the CSS as the `--icon-previous` / `--icon-next` [theme](/docs/framework/styles/theme) variables — no icons plugin needed, and overridable like any other token.
+Calendar menus piggyback on [dropdown](/docs/framework/elements/dropdowns) styles and popover behavior, so the dropdown stylesheet loads as a dependency. Navigation chevrons are baked into the CSS as the `--icon-previous` / `--icon-next` [theme](/docs/framework/styles/theme) variables — no icons module needed, and overridable like any other token.
 :::
 
 ---
@@ -42,7 +42,7 @@ Calendar menus piggyback on [dropdown](/docs/framework/elements/dropdowns) style
 
 ### Native Input
 
-The simplest date field is a native `<input type="date">`, displaying the browser's built-in picker when pressed. No plugin required.
+The simplest date field is a native `<input type="date">`, displaying the browser's built-in picker when pressed. No module required.
 
 <div x-code-group>
 
@@ -60,7 +60,7 @@ The simplest date field is a native `<input type="date">`, displaying the browse
 
 ### Picker Field
 
-For full control over content, format, and styling, add `x-date` to an input. The plugin renders a themed calendar dropdown under the field and writes the selection back as a localized display value.
+For full control over content, format, and styling, add `x-date` to an input. The module renders a themed calendar dropdown under the field and writes the selection back as a localized display value.
 
 <div x-code-group>
 
@@ -88,7 +88,7 @@ Triggers aren't input-specific — a `<button x-date>` opens the same dropdown, 
 
 </div>
 
-Keep the authored `type="date"` for graceful degradation: until the plugin loads (or if JavaScript is disabled), the browser's native picker serves as the fallback, and its `min`/`max` attributes carry over.
+Keep the authored `type="date"` for graceful degradation: until the module loads (or if JavaScript is disabled), the browser's native picker serves as the fallback, and its `min`/`max` attributes carry over.
 
 ```html copy
 <input x-date type="date" min="2026-01-01" max="2026-12-31">
@@ -124,7 +124,7 @@ For two-way reactive binding, use `x-model` instead. When both are present, `x-m
 
 #### Form Participation
 
-Add a `name` attribute to submit with a `<form>`. The plugin synthesizes a paired hidden input carrying the ISO value and keeps it in sync. The visible field holds the human-readable format while the form receives the machine-readable one.
+Add a `name` attribute to submit with a `<form>`. The module synthesizes a paired hidden input carrying the ISO value and keeps it in sync. The visible field holds the human-readable format while the form receives the machine-readable one.
 
 ```html copy
 <form>
@@ -373,9 +373,9 @@ The day grid is fully keyboard-operable with a single tab stop (the selection, o
 
 ## Localization
 
-Calendars localize themselves from the active [locale](/docs/framework/core-plugins/localization): month and weekday names, first day of the week, date display formats, and the 12/24-hour clock all come from `Intl`. Switching locale re-renders every calendar, with no configuration needed.
+Calendars localize themselves from the active [locale](/docs/framework/core-modules/localization): month and weekday names, first day of the week, date display formats, and the 12/24-hour clock all come from `Intl`. Switching locale re-renders every calendar, with no configuration needed.
 
-The few built-in UI strings are overridable through the universal `_ui` block — namespaced under `date` — in any [local data](/docs/framework/core-plugins/local-data) file your project loads. Override only the keys you want; anything omitted stays in English.
+The few built-in UI strings are overridable through the universal `_ui` block — namespaced under `date` — in any [local data](/docs/framework/core-modules/local-data) file your project loads. Override only the keys you want; anything omitted stays in English.
 
 <div x-code-group copy>
 
@@ -489,7 +489,7 @@ If using Tailwind, individual fields and calendars can be customized with utilit
 
 ### Customization
 
-Modify base styles with custom CSS targeting `[x-date]` (or the `.date-picker` marker class the plugin stamps on every calendar root, which also covers modified directives like `x-date.range`). The generated markup is semantic HTML, so the inner parts are plain element selectors:
+Modify base styles with custom CSS targeting `[x-date]` (or the `.date-picker` marker class the module stamps on every calendar root, which also covers modified directives like `x-date.range`). The generated markup is semantic HTML, so the inner parts are plain element selectors:
 
 | Selector                          | Part                                          |
 | --------------------------------- | --------------------------------------------- |

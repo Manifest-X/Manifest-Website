@@ -58,7 +58,7 @@ Each panel below has a handle on its inner edge. Drag it near 12rem or 16rem and
 
 Everything is set with `--edit-size-*` variables, on the element or anywhere above it, so a theme file can set project-wide defaults. Snapping and closing are off unless you set them. `none` on any of the variables cancels a value inherited from above.
 
-`x-edit.size` is part of [Visual Editing](/docs/framework/core-plugins/edit): set it up there first. It can go on its own element, or on a region that also moves and edits text.
+`x-edit.size` is part of [Visual Editing](/docs/framework/core-modules/edit): set it up there first. It can go on its own element, or on a region that also moves and edits text.
 
 ---
 
@@ -72,7 +72,7 @@ Everything is set with `--edit-size-*` variables, on the element or anywhere abo
 
 A handle shows when you hover the element, and it can be focused with Tab: the arrow keys then resize by 8 pixels, or 32 with Shift. `edit:size` fires on the element throughout a resize, and once more when it's recorded, with `detail.done` set.
 
-Handles are drawn inside the element, so an image, video, or other element that can't hold children is resized through a wrapper, like the `<figure>` in the [Visual Editing overview](/docs/framework/core-plugins/edit#overview).
+Handles are drawn inside the element, so an image, video, or other element that can't hold children is resized through a wrapper, like the `<figure>` in the [Visual Editing overview](/docs/framework/core-modules/edit#overview).
 
 ## Snap Points
 
@@ -84,7 +84,7 @@ While an edge sits on a snap point, the element and its handle carry `data-edit-
 
 `--edit-size-close` (or `-close-x`, `-close-y`) closes the element as soon as the edge is dragged past that size, while you're still holding it, and reopens it if you drag back out. Closing rides `x-show`: its `x-show` variable is set to `false`, so Alpine hides it. Let go while it's closed and the close is recorded: the element keeps its minimum size, or the size it had if it has no minimum, ready to reopen. Reopen it with your own button that sets the variable back, or undo: one undo restores both the size and the visibility. Pressing Escape mid-drag, or any cancelled drag, reopens it.
 
-The `x-show` value must be something that can be assigned, such as `left` or `panels.left`. Without one, Visual Editing warns in the console and a resize dragged below the close size goes back to the size it had when released. Closing and reopening are part of the page state, not the content: they aren't kept by [`.persist`](/docs/framework/core-plugins/edit#history) or published.
+The `x-show` value must be something that can be assigned, such as `left` or `panels.left`. Without one, Visual Editing warns in the console and a resize dragged below the close size goes back to the size it had when released. Closing and reopening are part of the page state, not the content: they aren't kept by [`.persist`](/docs/framework/core-modules/edit#history) or published.
 
 ---
 
@@ -136,6 +136,6 @@ Each handle is a `<span data-edit-handle>` inside the element, valued by its edg
 
 ## Related
 
-- [Visual Editing](/docs/framework/core-plugins/edit) sets up regions, history, and the `$edit` reference.
-- [Move](/docs/framework/core-plugins/move) drags pieces to new places.
-- [Publishing](/docs/framework/core-plugins/edit-publishing) writes sizes back to your source.
+- [Visual Editing](/docs/framework/core-modules/edit) sets up regions, history, and the `$edit` reference.
+- [Move](/docs/framework/core-modules/move) drags pieces to new places.
+- [Publishing](/docs/framework/core-modules/edit-publishing) writes sizes back to your source.

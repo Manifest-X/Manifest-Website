@@ -252,7 +252,7 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 | `--spacing-field-padding`{copy} | Form field padding | `p-field-padding` |
 | `--spacing-field-height`{copy} | Form field height | `h-field-height` |
 | `--spacing-popover-offset`{copy} | Dropdown & tooltip positioning offset | `my-popover-offset` |
-| `--edit-size-handle`{copy} | Grab area of [Visual Editing](/docs/framework/core-plugins/resize) resize handles (default `1rem`); not in the theme file, set it on `:root` | — |
+| `--edit-size-handle`{copy} | Grab area of [Visual Editing](/docs/framework/core-modules/resize) resize handles (default `1rem`); not in the theme file, set it on `:root` | — |
 | `--spacing-viewport-padding`{copy} | Viewport padding for responsive design  in [utility](/docs/framework/styles/utilities) styles | `px-viewport-padding` |
 
 ---
@@ -288,17 +288,17 @@ These semantic colors are easily applied to text, backgrounds, and certain form 
 
 ## Custom Utilities
 
-Theme variables can be compiled into Tailwind-style custom utility classes using Manifest's utilities plugin. It's included in `manifest.js` with all core plugins, or can be selectively loaded.
+Theme variables can be compiled into Tailwind-style custom utility classes using Manifest's utilities module. It's included in `manifest.js` with all core modules, or can be selectively loaded.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="utilities"></script>
+    data-modules="utilities"></script>
 ```
 
 </div>
@@ -328,7 +328,7 @@ The runtime compiler only generates styles for classes used in the current DOM v
 
 ### Tailwind Integration
 
-The utility plugin operates independently, but follows Tailwind naming patterns and is designed to pair well with <a href="https://tailwindcss.com/docs/installation/play-cdn" target="_blank" rel="noopener">Play CDN</a>, a client-side version of Tailwind.
+The utility module operates independently, but follows Tailwind naming patterns and is designed to pair well with <a href="https://tailwindcss.com/docs/installation/play-cdn" target="_blank" rel="noopener">Play CDN</a>, a client-side version of Tailwind.
 
 While it's not advertised for production use, Play CDN aligns with Manifest's ethos of being plug-and-play with no build steps, and has a typically negligible performance impact.
 
@@ -351,4 +351,4 @@ While it's not advertised for production use, Play CDN aligns with Manifest's et
 
 </div>
 
-Alternatively, Tailwind can be <a href="https://tailwindcss.com/docs/installation/using-vite" target="_blank" rel="noopener">directly installed</a>. It uses a build step to compile CSS variables (from `@theme { ... }` rules) into CSS utility classes, making Manifest's utility plugin redundant.
+Alternatively, Tailwind can be <a href="https://tailwindcss.com/docs/installation/using-vite" target="_blank" rel="noopener">directly installed</a>. It uses a build step to compile CSS variables (from `@theme { ... }` rules) into CSS utility classes, making Manifest's utility module redundant.

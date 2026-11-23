@@ -68,25 +68,25 @@ Click a heading and type a new one. Drag a card from anywhere on it to put it so
 
 ## Setup
 
-Visual Editing is opt-in and never part of the default Manifest bundle, so visitors don't download editor code. The `+` prefix keeps the default plugins and adds it; the selective tab loads Visual Editing without the other default plugins. Visual Editing has no script of its own to link: it needs the Manifest loader, which brings in Alpine and [Rich Text](/docs/framework/core-plugins/rich-text) with it. Either way, Rich Text loads automatically, because page text is edited with it.
+Visual Editing is opt-in and never part of the default Manifest bundle, so visitors don't download editor code. The `+` prefix keeps the default modules and adds it; the selective tab loads Visual Editing without the other default modules. Visual Editing has no script of its own to link: it needs the Manifest loader, which brings in Alpine and [Rich Text](/docs/framework/core-modules/rich-text) with it. Either way, Rich Text loads automatically, because page text is edited with it.
 
 <div x-code-group copy>
 
-```html "All Plugins + Visual Editing"
+```html "All Modules + Visual Editing"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="+edit" data-tailwind></script>
+    data-modules="+edit" data-tailwind></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="edit" data-tailwind></script>
+    data-modules="edit" data-tailwind></script>
 ```
 
 </div>
 
 The examples on this page and on Move and Resize also use Tailwind utility classes, such as `grid-cols-3`, `h-48`, and `[&>*]:absolute`, which need the `data-tailwind` attribute shown here; see [Setup](/docs/framework/getting-started/setup). Without it, copy the markup and style it your own way.
 
-To load it only for signed-in editors, leave it out of `data-plugins` and call `Manifest.loadPlugin('edit')`{copy} once you know the visitor can edit. The regions already on the page become editable when it loads, except those marked [`.gated`](#regions), which stay switched off until `$edit.on()`. Until then, `$edit` is an idle stand-in, so bindings such as `:disabled="!$edit.canUndo"` work before Visual Editing loads and pick up the real state once it has; anything assigned to it in the meantime, such as `onPublish`, is kept and carries over to Visual Editing when it loads.
+To load it only for signed-in editors, leave it out of `data-modules` and call `Manifest.loadModule('edit')`{copy} once you know the visitor can edit. The regions already on the page become editable when it loads, except those marked [`.gated`](#regions), which stay switched off until `$edit.on()`. Until then, `$edit` is an idle stand-in, so bindings such as `:disabled="!$edit.canUndo"` work before Visual Editing loads and pick up the real state once it has; anything assigned to it in the meantime, such as `onPublish`, is kept and carries over to Visual Editing when it loads.
 
 Editor styles are included in Manifest CSS, or as standalone stylesheets for Visual Editing and Rich Text. Both reference [theme](/docs/framework/styles/theme) variables, such as the brand colours the editing visuals and examples use. Link your project's own `manifest.theme.css`, which can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification, as in [Setup](/docs/framework/getting-started/setup#styles).
 
@@ -117,8 +117,8 @@ A piece is any element directly inside the region, or inside a container in it, 
 |---|---|
 | `x-edit="key"` | This region can be edited: its text, and its pieces moved |
 | `.text` | Its text can be rewritten in place |
-| `.move` | Its pieces can be dragged to new places; see [Move](/docs/framework/core-plugins/move) |
-| `.size` | This element can be resized by its edges; see [Resize](/docs/framework/core-plugins/resize) |
+| `.move` | Its pieces can be dragged to new places; see [Move](/docs/framework/core-modules/move) |
+| `.size` | This element can be resized by its edges; see [Resize](/docs/framework/core-modules/resize) |
 | `.data` | Fields of the records in its `x-for` list can be edited |
 | `.gated` | Editing stays off until `$edit.on()` |
 | `.persist` | Unpublished edits survive a reload in this browser |
@@ -130,7 +130,7 @@ A region inside another region sets its own capabilities for what it holds, and 
 What a region holds decides where its edits go when published:
 
 - **Markup** you wrote, in the page or in a component's HTML file: text, order, nesting, sizes, and attributes are written back into that markup. A component's root element is the exception: its own attributes and classes come partly from where the component is used, so they aren't editable.
-- **A list from data**, an `x-for` directly inside the region: moving reorders the array and `.data` edits record fields, see [In a List or Grid](/docs/framework/core-plugins/move#in-a-list-or-grid).
+- **A list from data**, an `x-for` directly inside the region: moving reorders the array and `.data` edits record fields, see [In a List or Grid](/docs/framework/core-modules/move#in-a-list-or-grid).
 - **A component**, such as `<x-card>`, among other content: it's one piece, moved as a whole. Like any piece, it drags, steps with Alt + arrows, nests, locks, duplicates into a new instance, and deletes. It can also move into another region, in this file or another, but it can't be copied or cut. Its own markup isn't edited from here. A region written inside the component's file is edited there, in its own right; duplicating such a component puts that region on the page twice, so it stops being editable.
 - **Exactly one component** and nothing else, with no region of its own: its text and classes can be edited, and with `.size` the region resized, as overrides for this instance. `$edit.scope('main')` makes edits apply to the component itself, and so to every instance, and `$edit.revert()` drops an instance's own edits.
 
@@ -170,11 +170,11 @@ A piece locked from moving can't be picked up, though other pieces can still be 
 
 ## Text
 
-Page text is edited with [Rich Text](/docs/framework/core-plugins/rich-text), Manifest's text editing plugin. Visual Editing loads it automatically, so there's nothing to add: each piece of text in a region becomes an inline Rich Text field. That's why Rich Text's shortcuts and controls work on page text, as below, while headings, lists, and other blocks stay out of it, so a heading stays one heading.
+Page text is edited with [Rich Text](/docs/framework/core-modules/rich-text), Manifest's text editing module. Visual Editing loads it automatically, so there's nothing to add: each piece of text in a region becomes an inline Rich Text field. That's why Rich Text's shortcuts and controls work on page text, as below, while headings, lists, and other blocks stay out of it, so a heading stays one heading.
 
-The first click on a piece of text selects all of it, so replacing a line is one click and typing; click again to place the caret. **Enter** starts a new line inside the same element, and **Escape** leaves the text. The change is recorded when the text loses focus, as one step of the history. A press on text that moves before you let go drags the piece instead; see [Move](/docs/framework/core-plugins/move). While you're typing in a piece, dragging across its text selects words as usual.
+The first click on a piece of text selects all of it, so replacing a line is one click and typing; click again to place the caret. **Enter** starts a new line inside the same element, and **Escape** leaves the text. The change is recorded when the text loses focus, as one step of the history. A press on text that moves before you let go drags the piece instead; see [Move](/docs/framework/core-modules/move). While you're typing in a piece, dragging across its text selects words as usual.
 
-To format it, use **Cmd/Ctrl + B**, **I**, and **U** for bold, italic, and underline, or any [Rich Text button](/docs/framework/core-plugins/rich-text-controls#buttons) for inline formatting. The buttons don't take focus, so they act on whichever text you're in.
+To format it, use **Cmd/Ctrl + B**, **I**, and **U** for bold, italic, and underline, or any [Rich Text button](/docs/framework/core-modules/rich-text-controls#buttons) for inline formatting. The buttons don't take focus, so they act on whichever text you're in.
 
 <div x-code-group>
 
@@ -217,7 +217,7 @@ Text that holds only plain formatting, such as bold, italics, links, and line br
 
 Clicking a link in page text, with the middle button too, or pressing Enter on it, never follows it while its region is editable, so you can edit it without leaving the page; links inside an element marked `contenteditable="false"` still work. Links follow HTML's rule that a link can't hold another link: text that is itself a link or a button takes no links, and linking part of an existing link splits it, so the rest keeps its own address.
 
-To allow headings, lists, and other blocks in part of a region, put [`x-rich-text`](/docs/framework/core-plugins/rich-text) on that element, with no value of its own. It becomes a full Rich Text field, and Visual Editing records the markup it produces as an ordinary text edit.
+To allow headings, lists, and other blocks in part of a region, put [`x-rich-text`](/docs/framework/core-modules/rich-text) on that element, with no value of its own. It becomes a full Rich Text field, and Visual Editing records the markup it produces as an ordinary text edit.
 
 ```html copy
 <article x-edit="post">
@@ -228,7 +228,7 @@ To allow headings, lists, and other blocks in part of a region, put [`x-rich-tex
 </article>
 ```
 
-Some text can't be edited because it isn't written in the page: anything rendered by `x-text`, `x-html`, `x-markdown`, `x-icon`, or another directive that produces its own content, and the rows an `x-for` or `x-if` renders, unless the region is a [data list](/docs/framework/core-plugins/move#in-a-list-or-grid). The contents of `<script>`, `<style>`, `<textarea>`, and `<title>` are never editable.
+Some text can't be edited because it isn't written in the page: anything rendered by `x-text`, `x-html`, `x-markdown`, `x-icon`, or another directive that produces its own content, and the rows an `x-for` or `x-if` renders, unless the region is a [data list](/docs/framework/core-modules/move#in-a-list-or-grid). The contents of `<script>`, `<style>`, `<textarea>`, and `<title>` are never editable.
 
 Such an element is still a piece, and its own attributes and classes can be changed: an icon's size and colour are classes, and a `<textarea>`'s `placeholder` is an attribute. Change them from your own controls with [`$edit.classes`](#edit-magic) and [`$edit.attr()`](#edit-magic), which record them in the history and publish them like any other edit.
 
@@ -298,7 +298,7 @@ Right-click a toy, copy it, then right-click another and paste. Lock deleting on
 `$edit.can()` answers for `move`, `remove`, `duplicate`, `text`, `attrs`, `class`, `size`, `copy`, `cut`, and `paste`, taking the region's capabilities and every lock into account. A component piece answers `false` for `copy` and `cut`. Other actions for menus and panels are in the [reference](#reference): `$edit.move()`, `nest()`, and `unnest()` move a piece by script, and `$edit.attr()` and `$edit.classes` change attributes and classes as recorded edits.
 
 ::: brand icon="lucide:info"
-In [Rich Text](/docs/framework/core-plugins/rich-text), *block* means a paragraph-level tag such as a heading or a list. Here it means any piece of the page.
+In [Rich Text](/docs/framework/core-modules/rich-text), *block* means a paragraph-level tag such as a heading or a list. Here it means any piece of the page.
 :::
 
 ---
@@ -352,7 +352,7 @@ There's no built-in toolbar. Build your own from buttons that call `$edit.undo()
 
 </div>
 
-The undo and redo buttons step through the whole page's history, so they also undo edits made in the other examples on this page. Publish sends the edits and clears the history; here they only go to a handler that shows the time, see [Publishing](/docs/framework/core-plugins/edit-publishing).
+The undo and redo buttons step through the whole page's history, so they also undo edits made in the other examples on this page. Publish sends the edits and clears the history; here they only go to a handler that shows the time, see [Publishing](/docs/framework/core-modules/edit-publishing).
 
 ### What a Reload Keeps
 
@@ -399,7 +399,7 @@ It's opt-in because the saved edits belong to one browser on one device, are inv
 
 The variable changes live as the input moves, and is recorded as a step of the history when the input commits its value: when you let go of a slider or close the colour picker, and at each arrow-key step on a focused slider. Undo puts the previous value back. `.theme` on its own only declares a scope and makes nothing editable, so it can wrap regions safely. `.persist` on the control, or on its scope element, keeps unpublished values across a reload.
 
-When published, a global value goes to the project's own `manifest.theme.css`, and a scoped value into the scope element's `style` attribute, so it never reaches `:root`. See [Publishing](/docs/framework/core-plugins/edit-publishing#to-your-source-files) for which file each is written to.
+When published, a global value goes to the project's own `manifest.theme.css`, and a scoped value into the scope element's `style` attribute, so it never reaches `:root`. See [Publishing](/docs/framework/core-modules/edit-publishing#to-your-source-files) for which file each is written to.
 
 ---
 
@@ -419,7 +419,7 @@ When published, a global value goes to the project's own `manifest.theme.css`, a
 | `.bare` | A region | No editing visuals; everything else works |
 | `.lock` | An element in a region | No edits to it or anything inside it |
 | `.lock.move` `.lock.remove` `.lock.duplicate` `.lock.text` `.lock.attrs` `.lock.size` | An element in a region | Blocks one action; combine as needed |
-| `.grab` | An element inside a piece | Makes it the piece's handle: the piece drags only from it. See [Grab Handles](/docs/framework/core-plugins/move#grab-handles) |
+| `.grab` | An element inside a piece | Makes it the piece's handle: the piece drags only from it. See [Grab Handles](/docs/framework/core-modules/move#grab-handles) |
 | `.theme` | Any element | Declares a scope for `.cssvar`, named by its value |
 | `.cssvar` | An input | Binds the input to `--var` or `scope:--var` |
 
@@ -471,7 +471,7 @@ Methods that take `el` use `$edit.target` when it's left out, and return `true` 
 
 ## Styles
 
-Every editing visual is drawn by CSS on the elements being edited, keyed off `data-edit-*` attributes the plugin sets, and wrapped in `:where()` so your own rules win without a fight. No box is ever drawn around a region: a page being edited still looks like the page. `.bare` turns all of it off.
+Every editing visual is drawn by CSS on the elements being edited, keyed off `data-edit-*` attributes the module sets, and wrapped in `:where()` so your own rules win without a fight. No box is ever drawn around a region: a page being edited still looks like the page. `.bare` turns all of it off.
 
 ### Accent
 
@@ -547,7 +547,7 @@ A piece shows a thin outline on hover and a solid one when focused. Text shows i
 | `--edit-accent` | `--color-brand-content` | Colour of every editing visual |
 | `--edit-ghost-opacity` | `0.4` | Opacity of the stand-in during a drag |
 | `--edit-drop-reach` | `48px` | How far outside another region a drop still lands in it |
-| `--edit-size` | `both` | Resize axes: `both`, `x`, `y`, `none`; see [Resize](/docs/framework/core-plugins/resize) |
+| `--edit-size` | `both` | Resize axes: `both`, `x`, `y`, `none`; see [Resize](/docs/framework/core-modules/resize) |
 | `--edit-size-edges` | every edge and corner of those axes | Which handles to draw |
 | `--edit-size-handle` | `1rem` | Grab area of each handle |
 | `--edit-size-snap`, `-x`, `-y` | none | Snap points |
@@ -573,8 +573,8 @@ A piece shows a thin outline on hover and a solid one when focused. Text shows i
 
 ## Related
 
-- [Move](/docs/framework/core-plugins/move) drags pieces within and between regions.
-- [Resize](/docs/framework/core-plugins/resize) adds edge handles, snap points, and closing.
-- [Publishing](/docs/framework/core-plugins/edit-publishing) sends the edits to your backend or writes them into your source files.
-- [Rich Text](/docs/framework/core-plugins/rich-text) edits a field's text with formatting, and powers page text here.
+- [Move](/docs/framework/core-modules/move) drags pieces within and between regions.
+- [Resize](/docs/framework/core-modules/resize) adds edge handles, snap points, and closing.
+- [Publishing](/docs/framework/core-modules/edit-publishing) sends the edits to your backend or writes them into your source files.
+- [Rich Text](/docs/framework/core-modules/rich-text) edits a field's text with formatting, and powers page text here.
 - [Dropdowns](/docs/framework/elements/dropdowns#context-menu) build the right-click menus.

@@ -1,6 +1,6 @@
 # Controls
 
-Buttons, dropdowns, toolbars, and menus that format [Rich Text](/docs/framework/core-plugins/rich-text) fields.
+Buttons, dropdowns, toolbars, and menus that format [Rich Text](/docs/framework/core-modules/rich-text) fields.
 
 ---
 
@@ -14,7 +14,7 @@ A control acts on the field it [resolves to](#toolbars). It's disabled until the
 
 ## Buttons
 
-A button runs its command when clicked, without taking focus from the field, so the selection stays where it was. Inline commands toggle: Bold on bold text removes it. Block commands switch the block: Heading on a heading turns it back into a paragraph. The plugin sets `aria-pressed` and `data-rich-text-active` while the command is active at the caret.
+A button runs its command when clicked, without taking focus from the field, so the selection stays where it was. Inline commands toggle: Bold on bold text removes it. Block commands switch the block: Heading on a heading turns it back into a paragraph. The module sets `aria-pressed` and `data-rich-text-active` while the command is active at the caret.
 
 <div x-code-group>
 
@@ -43,13 +43,13 @@ A button runs its command when clicked, without taking focus from the field, so 
 
 </div>
 
-Every icon-only button in these examples has an `aria-label`: an icon has no text, so without one a screen reader announces only "button", and the pressed state the plugin sets would have nothing to describe.
+Every icon-only button in these examples has an `aria-label`: an icon has no text, so without one a screen reader announces only "button", and the pressed state the module sets would have nothing to describe.
 
 An inline command clicked with nothing selected is armed: the button shows it as active, and it applies to the characters you type next at that spot. Inside text that already has it, it ends there instead, so what you type next is plain. Moving the caret first cancels it.
 
 A toolbar that serves one field keeps that field's selection after you click away: pressing a control puts you back in the field and acts on the selection it had. A toolbar shared by several fields works differently; see [Toolbars](#toolbars).
 
-A button can also run a command from script with [`$rich`](/docs/framework/core-plugins/rich-text#reference), as in `@click="$rich.strong()"`. A plain button takes focus when pressed, though, and with more than one field near it, `$rich` then can't tell which field you meant and does nothing. Add `@mousedown.prevent` so the click leaves focus in the field, or use a command modifier, which does that for you.
+A button can also run a command from script with [`$rich`](/docs/framework/core-modules/rich-text#reference), as in `@click="$rich.strong()"`. A plain button takes focus when pressed, though, and with more than one field near it, `$rich` then can't tell which field you meant and does nothing. Add `@mousedown.prevent` so the click leaves focus in the field, or use a command modifier, which does that for you.
 
 ```html copy
 <button @mousedown.prevent @click="$rich.strong(); $rich.em()">Bold italic</button>
@@ -133,7 +133,7 @@ A command that takes a value gets it from, in order: the modifier after the comm
 | `font` | A `font-family` value |
 | `size` | A number of pixels, or any CSS length such as `1.25rem` |
 | `color`, `background` | Any CSS colour; a colour input gives `#rrggbb` |
-| `a` | The address; see [Links](/docs/framework/core-plugins/rich-text#links) |
+| `a` | The address; see [Links](/docs/framework/core-modules/rich-text#links) |
 | `img` | The source, or an array of source and alt text; a `data:` source must be a PNG, JPEG, GIF, WebP, or AVIF image |
 | `table` | Columns × rows: `3x2`, `[3, 2]`, or `3` for 3 × 3 |
 | `abbr`, `dfn` | The `title`: the expansion or definition |
@@ -273,7 +273,7 @@ Commands are HTML tag names, so the name says what it makes. **Markdown** marks 
 
 | Command | Makes | Markdown |
 |---|---|---|
-| `a` | A link; see [Links](/docs/framework/core-plugins/rich-text#links) | Yes |
+| `a` | A link; see [Links](/docs/framework/core-modules/rich-text#links) | Yes |
 | `unlink` | Removes the link at the caret | Yes |
 | `br` | A line break within the block | Yes, as two spaces at the end of the line |
 | `wbr` | A place a long word may break | No |
@@ -299,7 +299,7 @@ Commands are HTML tag names, so the name says what it makes. **Markdown** marks 
 | `dt`, `dd` | Switches between term and description, inside a description list | No |
 | `block` | Any of the above by name, for a dropdown | Each tag as above |
 
-**Layout and style.** `.all` applies the style to the whole document instead; see [Whole Document Styles](/docs/framework/core-plugins/rich-text#whole-document-styles).
+**Layout and style.** `.all` applies the style to the whole document instead; see [Whole Document Styles](/docs/framework/core-modules/rich-text#whole-document-styles).
 
 | Command | Does | Markdown |
 |---|---|---|
@@ -308,7 +308,7 @@ Commands are HTML tag names, so the name says what it makes. **Markdown** marks 
 | `leading` | Sets the block's line height | No, unless `.all` |
 | `font`, `size`, `color`, `background` | Styles the selected text | No, unless `.all` |
 
-**Tables.** All need `.html`; see [Tables](/docs/framework/core-plugins/rich-text#tables).
+**Tables.** All need `.html`; see [Tables](/docs/framework/core-modules/rich-text#tables).
 
 | Command | Does |
 |---|---|
@@ -371,5 +371,5 @@ Bold follows the field you're in, and is disabled while you're in neither. The i
 
 ## Related
 
-- [Rich Text](/docs/framework/core-plugins/rich-text) sets up fields, links, tables, and the `$rich` reference.
-- [Visual Editing](/docs/framework/core-plugins/edit) uses these controls for page text.
+- [Rich Text](/docs/framework/core-modules/rich-text) sets up fields, links, tables, and the `$rich` reference.
+- [Visual Editing](/docs/framework/core-modules/edit) uses these controls for page text.

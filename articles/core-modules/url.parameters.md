@@ -8,23 +8,23 @@ Keep filters, search, and view state in the URL with `$url`.
 
 URL parameters provide a reactive `$url` magic method for storing application state in the URL with common URL characters like `?` and `&`. This preserves user interactions like search queries, filters, and view preferences, and the generated URLs can be further shared or bookmarked.
 
-Parameters are fully reactive: any binding that reads a parameter (`x-text`, `x-show`, `x-for`, etc) re-renders when it changes — whether from `.set()`, `.add()`, `.remove()`, browser back/forward, or [router](/docs/framework/core-plugins/router) navigation. Mutations apply instantly; the address bar updates after a short pause, so rapid input is coalesced, and each update adds a browser history entry. Every change also dispatches a `url-updated` event on `document`, with `{ updates, action }` in its detail. Parameters persist across page reloads.
+Parameters are fully reactive: any binding that reads a parameter (`x-text`, `x-show`, `x-for`, etc) re-renders when it changes — whether from `.set()`, `.add()`, `.remove()`, browser back/forward, or [router](/docs/framework/core-modules/router) navigation. Mutations apply instantly; the address bar updates after a short pause, so rapid input is coalesced, and each update adds a browser history entry. Every change also dispatches a `url-updated` event on `document`, with `{ updates, action }` in its detail. Parameters persist across page reloads.
 
 ---
 
 ## Setup
 
-URL parameters are included in `manifest.js` with all core plugins, or can be selectively loaded.
+URL parameters are included in `manifest.js` with all core modules, or can be selectively loaded.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="url-parameters"></script>
+    data-modules="url-parameters"></script>
 ```
 
 </div>
@@ -170,7 +170,7 @@ Remove a parameter entirely from the URL with `.clear()` or a no-argument `.remo
 
 ## Data Sources
 
-Content from a [data source](/docs/framework/core-plugins/local-data) can be the subject of a URL parameter.
+Content from a [data source](/docs/framework/core-modules/local-data) can be the subject of a URL parameter.
 
 <div x-code-group copy>
 

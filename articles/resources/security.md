@@ -22,7 +22,7 @@ Defaults that apply to every Manifest project, no setup required:
 | Env placeholders | `${VAR}` values in `manifest.json` resolve at runtime from `window.env`, which `mnfst-run` fills with the `PUBLIC_`-prefixed values in `.env`; other values are never sent to the browser. `mnfst-render` strips any unresolved placeholder from the published copy and never bakes `process.env` values into it. |
 | Prototype-pollution guards | CSV / JSON / YAML loaders refuse keys named `__proto__`, `constructor`, or `prototype` at any path depth — user-submitted data files cannot mutate `Object.prototype`. |
 | Path-traversal blocking | `mnfst-run` and `mnfst-test` static servers resolve every URL through a prefix check and reject `..` segments and NUL bytes. |
-| Session-secret isolation | For cross-tab sync, the auth plugin mirrors the signed-in user's profile and a session summary with secrets stripped to `localStorage`. Session secrets stay in the auth provider's cookie. |
+| Session-secret isolation | For cross-tab sync, the auth module mirrors the signed-in user's profile and a session summary with secrets stripped to `localStorage`. Session secrets stay in the auth provider's cookie. |
 | No data evaluation | Data-source values, URL parameters, and text content are never evaluated as code — only expressions you write in attributes and component scripts are. |
 
 ---
@@ -47,7 +47,7 @@ To pin the loader itself, load a specific version of the unminified `manifest.js
 	data-version="<version>"></script>
 ```
 
-Each version's hashes are published alongside it in `lib/manifest.integrity.json`; use the `manifest.js` entry. The hash covers the unminified file only — `manifest.min.js` is minified by the CDN and won't match. The plugin scripts the loader fetches afterwards are not hash-checked.
+Each version's hashes are published alongside it in `lib/manifest.integrity.json`; use the `manifest.js` entry. The hash covers the unminified file only — `manifest.min.js` is minified by the CDN and won't match. The module scripts the loader fetches afterwards are not hash-checked.
 
 ---
 

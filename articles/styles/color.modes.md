@@ -12,17 +12,17 @@ Manifest applies color modes by toggling a `dark` class on the `<html>` tag (and
 
 ## Setup
 
-Color modes are included in `manifest.js` with all core plugins, or can be selectively loaded.
+Color modes are included in `manifest.js` with all core modules, or can be selectively loaded.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="color"></script>
+    data-modules="color"></script>
 ```
 
 </div>
@@ -61,7 +61,7 @@ See [theme](/docs/framework/styles/theme) styles for Manifest's suggested color 
 
 ### Dark
 
-Use the `.dark` class to override light/default color values. The plugin operates by adding or removing the `dark` class in the `<html>` tag.
+Use the `.dark` class to override light/default color values. The module operates by adding or removing the `dark` class in the `<html>` tag.
 
 <div x-code-group>
 

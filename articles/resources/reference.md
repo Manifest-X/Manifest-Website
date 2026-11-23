@@ -12,7 +12,7 @@ Manifest's CLI commands, directives, magic properties, data-source operators, an
 | `npx mnfst-starter --here`{copy} | Scaffold into the current folder; add `--name "<name>"` to set the project name, `--force` to overwrite template files | [Starter Project](/docs/framework/getting-started/starter-project#existing-files) |
 | `npx mnfst-run`{copy} | Zero-dependency dev server with live reload | [Setup](/docs/framework/getting-started/setup#run-a-project) |
 | `npx mnfst-render`{copy} | Prerender the SPA into a static MPA | [Websites](/docs/framework/publishing/websites) |
-| `npx mnfst-export`{copy} | Batch / CI exports — PDF, image, CSV, JSON, RSS | [Export](/docs/framework/core-plugins/import-export#batch-and-ci-exports) |
+| `npx mnfst-export`{copy} | Batch / CI exports — PDF, image, CSV, JSON, RSS | [Export](/docs/framework/core-modules/import-export#batch-and-ci-exports) |
 | `npx mnfst-types`{copy} | Generate TypeScript ambient types from `manifest.json` | [TypeScript](/docs/framework/resources/typescript) |
 | `npx mnfst-test`{copy} | Project linter + component-test harness | [Testing](/docs/framework/publishing/testing) |
 
@@ -31,18 +31,18 @@ Common conventions:
 
 ## Data-* Attributes
 
-### Plugin Loading
+### Module Loading
 
-The `manifest.js` script tag accepts `data-*` attributes to control plugin loading:
+The `manifest.js` script tag accepts `data-*` attributes to control module loading:
 
 | Attribute | Default | Description |
 |---|---|---|
-| `data-plugins`{copy} | (auto) | Comma-separated list of plugins to load; prefix a name with `+` to add it to the defaults instead of replacing them |
+| `data-modules`{copy} | (auto) | Comma-separated list of modules to load; prefix a name with `+` to add it to the defaults instead of replacing them |
 | `data-omit`{copy} | — | Comma-separated list to exclude from auto-loaded set |
-| `data-version`{copy} | `latest` | Plugin version to fetch from CDN |
+| `data-version`{copy} | `latest` | Module version to fetch from CDN |
 | `data-alpine`{copy} | The version tested with this framework release | Alpine version, a full URL, or a path starting with `/` |
 | `data-tailwind`{copy} | (off) | Boolean — load Manifest's Tailwind v4 build |
-| `data-plugin-base`{copy} | CDN | Base URL/path for plugin scripts (for self-hosted deployments) |
+| `data-module-base`{copy} | CDN | Base URL/path for module scripts (for self-hosted deployments) |
 | `data-defer`{copy} | (on) | `off` turns off automatic deferral of closed containers — see [performance](/docs/framework/getting-started/performance#x-defer-reference) |
 | `data-defer-routes`{copy} | (off) | Boolean — experimental; defer inactive `x-route` pages until first shown |
 | `data-sw`{copy} | (auto) | `off` never registers the app-shell service worker — see [web apps](/docs/framework/publishing/web-apps) |
@@ -106,33 +106,33 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 
 ### Manifest Directives
 
-| Directive | Plugin | Description |
+| Directive | Module | Description |
 |---|---|---|
-| `x-anchors`{copy} | [router](/docs/framework/core-plugins/router) | Anchor links list |
+| `x-anchors`{copy} | [router](/docs/framework/core-modules/router) | Anchor links list |
 | `x-chart`{copy} | [charts](/docs/framework/elements/charts) | SVG chart from a config object or `<data>` series |
 | `x-code`{copy}, `<div x-code-group>` | [code](/docs/framework/elements/code) | Code blocks with syntax highlights |
 | `x-colorpicker`{copy} | [color pickers](/docs/framework/elements/color-pickers) | Colorpicker menu element |
 | `x-color`{copy} | [color modes](/docs/framework/styles/color-modes) | Switches color mode on click |
 | `x-combobox`{copy} | [comboboxes](/docs/framework/elements/comboboxes) | Select-like field with filtering, chips, and multiple selection |
-| `x-computed:name`{copy} | [computed](/docs/framework/core-plugins/computed) | Named value readable inside the element, recalculated only when what it reads changes |
+| `x-computed:name`{copy} | [computed](/docs/framework/core-modules/computed) | Named value readable inside the element, recalculated only when what it reads changes |
 | `x-date`{copy} | [date pickers](/docs/framework/elements/date-pickers) | Date, range, and time picker field or calendar |
 | `x-defer`{copy} | [core](/docs/framework/getting-started/performance#x-defer-reference) | Defer a container's contents until it is shown. Modifiers: `.lazy`, `.discard`, `.priority="n"`, `.off` |
 | `x-dropdown`{copy} | [dropdowns](/docs/framework/elements/dropdowns) | Dropdown menu element |
-| `x-edit`{copy} | [edit](/docs/framework/core-plugins/edit) | Editable region: text in place, moving and nesting pieces, resizing, theme variables. Opt-in plugin; capabilities `.text`, `.move`, `.size`, `.data` (none named: text and move), plus `.lock` and `.lock.<action>`, `.gated`, `.persist`, `.bare`, `.theme`, `.cssvar` |
-| `x-export`{copy} | [export](/docs/framework/core-plugins/import-export) | Download page / region / data source as PDF, image, CSV, or JSON |
-| `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/framework/core-plugins/local-data) | Bind file uploads |
+| `x-edit`{copy} | [edit](/docs/framework/core-modules/edit) | Editable region: text in place, moving and nesting pieces, resizing, theme variables. Opt-in module; capabilities `.text`, `.move`, `.size`, `.data` (none named: text and move), plus `.lock` and `.lock.<action>`, `.gated`, `.persist`, `.bare`, `.theme`, `.cssvar` |
+| `x-export`{copy} | [export](/docs/framework/core-modules/import-export) | Download page / region / data source as PDF, image, CSV, or JSON |
+| `x-files`, `x-data-files`, `x-files-field` | [local data](/docs/framework/core-modules/local-data) | Bind file uploads |
 | `x-icon`{copy} | [icons](/docs/framework/elements/icons) | Render an icon by name |
-| `x-import`{copy} | [import](/docs/framework/core-plugins/import-export#import) | Open a JSON or CSV file from the visitor's device as data |
-| `x-markdown`{copy} | [markdown](/docs/framework/core-plugins/markdown) | Render markdown content from a source |
-| `x-pay`{copy} | [payments](/docs/framework/core-plugins/payments) | Open a checkout, payment link, or billing portal on click |
-| `x-rich-text`{copy} | [rich text](/docs/framework/core-plugins/rich-text) | Text field with formatting, bound to a value (markdown; `.html`, `.plain`, `.inline`); with a command modifier, a control for a field (`x-rich-text.strong`). Also `x-rich-text-for`, `x-rich-text-menu`. Loads on use |
-| `x-route`{copy} | [router](/docs/framework/core-plugins/router) | Applies element to specific routes |
-| `x-submit`{copy} | [submissions](/docs/framework/core-plugins/submissions) | On a `<form>`: send it in place to its own `action`/`method`; sets `data-state` (`sending`, `sent`, `error`) and fires `submit:sent` / `submit:error`. Loads on use |
+| `x-import`{copy} | [import](/docs/framework/core-modules/import-export#import) | Open a JSON or CSV file from the visitor's device as data |
+| `x-markdown`{copy} | [markdown](/docs/framework/core-modules/markdown) | Render markdown content from a source |
+| `x-pay`{copy} | [payments](/docs/framework/core-modules/payments) | Open a checkout, payment link, or billing portal on click |
+| `x-rich-text`{copy} | [rich text](/docs/framework/core-modules/rich-text) | Text field with formatting, bound to a value (markdown; `.html`, `.plain`, `.inline`); with a command modifier, a control for a field (`x-rich-text.strong`). Also `x-rich-text-for`, `x-rich-text-menu`. Loads on use |
+| `x-route`{copy} | [router](/docs/framework/core-modules/router) | Applies element to specific routes |
+| `x-submit`{copy} | [submissions](/docs/framework/core-modules/submissions) | On a `<form>`: send it in place to its own `action`/`method`; sets `data-state` (`sending`, `sent`, `error`) and fires `submit:sent` / `submit:error`. Loads on use |
 | `x-svg`{copy} | [svgs](/docs/framework/elements/svgs) | Inlines an SVG file |
 | `x-tab`{copy}, `x-tabpanel`{copy} | [tabs](/docs/framework/elements/tabs) | Tab elements |
 | `x-toast`{copy} | [toasts](/docs/framework/elements/toasts) | Dispatches toast popover |
 | `x-tooltip`{copy} | [tooltips](/docs/framework/elements/tooltips) | Applies tooltip to element |
-| `x-virtual`{copy} | [virtual](/docs/framework/core-plugins/virtual) | Render only visible rows of a long list (wraps an `x-for` template) |
+| `x-virtual`{copy} | [virtual](/docs/framework/core-modules/virtual) | Render only visible rows of a long list (wraps an `x-for` template) |
 
 #### Route Patterns
 
@@ -171,7 +171,7 @@ Available inside Alpine expressions (`x-data`, `x-text`, `@click`, etc.).
 
 ### Manifest Magics
 
-| Magic | Plugin | Description |
+| Magic | Module | Description |
 |---|---|---|
 | `$app`{copy} | device | Foreground state: `active` (reactive), `onChange(fn)` |
 | `$auth`{copy} | appwrite-auth | Current user, login methods, team management |
@@ -407,7 +407,7 @@ Three options, in increasing decoupling:
 | Inline expression | `<span x-text="count * 2">` — re-evaluates automatically. Best for trivial cases. |
 | Computed getter | `get doubled() { return this.count * 2 }` on `x-data` or store. Best for component- or store-level computeds. |
 | `$watch('prop', cb)` | Side-effects on change (e.g. write to localStorage, call API). |
-| `x-computed:name` / `$computed(s => ...)` | Data-sized work (filtered or sorted lists, totals) recalculated only when its inputs change. See [computed values](/docs/framework/core-plugins/computed). |
+| `x-computed:name` / `$computed(s => ...)` | Data-sized work (filtered or sorted lists, totals) recalculated only when its inputs change. See [computed values](/docs/framework/core-modules/computed). |
 
 ```html copy
 <div x-data="{ count: 0 }"
@@ -460,7 +460,7 @@ Custom events dispatched on `window` that any component can subscribe to via `@e
 |---|---|---|
 | `manifest:route-change`{copy} | After SPA route change (and inside the view transition when active) | `{ from, to, normalizedPath }` |
 | `manifest:components-processed`{copy} | After components and templates have been registered | — |
-| `manifest:render-ready`{copy} | Signal from the data plugin that prerender can snapshot the page | — |
+| `manifest:render-ready`{copy} | Signal from the data module that prerender can snapshot the page | — |
 | `manifest:dev-reload`{copy} | Dev server (`mnfst-run`): a data or markdown file (`.csv`, `.json`, `.yaml`, `.md`) changed | — |
 | `submit:sent`{copy}, `submit:error`{copy} | On an `x-submit` form (not `window`; bubbles), when the endpoint answers or the request fails | `{ ok, status, data, response, error, message }` |
 | `manifest:defer-render`{copy} | On a deferred container (not `window`), after its contents initialise | — |

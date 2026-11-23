@@ -6,13 +6,13 @@ Render long lists, tables, grids, and galleries efficiently with windowed scroll
 
 ## Overview
 
-When a list, table, or gallery grows past a few hundred items, rendering them all up front becomes slow — with initial paint stalls, scrolling stutters, and climbing memory. The Virtual Lists plugin solves this by only mounting the items currently visible in the scroll viewport, plus a small overscan buffer for smooth scrolling. A collection of ten thousand items can keep just twenty or so in the DOM at any time while the user scrolls through smoothly.
+When a list, table, or gallery grows past a few hundred items, rendering them all up front becomes slow — with initial paint stalls, scrolling stutters, and climbing memory. The Virtual Lists module solves this by only mounting the items currently visible in the scroll viewport, plus a small overscan buffer for smooth scrolling. A collection of ten thousand items can keep just twenty or so in the DOM at any time while the user scrolls through smoothly.
 
 Items render with the layout you already use — a stacked list, a native `<table>`, a CSS grid, a flex-wrap gallery, or a masonry wall — so virtualizing doesn't change your markup or break column alignment, sticky headers, or shared cell styling.
 
 Each item is measured as it renders, so tall items (multi-line text, embedded media, expanded details) coexist with short ones without configuration. There's no fixed-size requirement.
 
-Virtualization is a *rendering* optimization, not a data-fetching one. The data array stays in memory, and only its DOM representation is windowed. To load a large table a page at a time as people scroll, pair it with a [paged source](/docs/framework/appwrite-plugins/databases#large-tables) and the `virtual-end` event.
+Virtualization is a *rendering* optimization, not a data-fetching one. The data array stays in memory, and only its DOM representation is windowed. To load a large table a page at a time as people scroll, pair it with a [paged source](/docs/framework/appwrite-modules/databases#large-tables) and the `virtual-end` event.
 
 ::: brand icon="lucide:info"
 **SEO & AEO** (Answer Engine Optimization): virtualized content is rendered client-side at scroll time, so it isn't visible to search engines or AI crawlers by default. Virtualization is best applied to interactive data like dashboard content, where discoverability isn't the goal.
@@ -22,17 +22,17 @@ Virtualization is a *rendering* optimization, not a data-fetching one. The data 
 
 ## Setup
 
-Virtual is included in `manifest.js` with all core plugins, or can be selectively loaded.
+Virtual is included in `manifest.js` with all core modules, or can be selectively loaded.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="virtual"></script>
+    data-modules="virtual"></script>
 ```
 
 </div>
@@ -73,9 +73,9 @@ Wrap an `x-for` template in a scrolling container marked with `x-virtual`. The c
 
 </div>
 
-Five hundred items are in the array, but only the visible window is rendered as you scroll. The plugin sets `overflow: auto` on the container automatically if it isn't already scrollable.
+Five hundred items are in the array, but only the visible window is rendered as you scroll. The module sets `overflow: auto` on the container automatically if it isn't already scrollable.
 
-A single `<template>` child is supported per `x-virtual` container, and the template's `x-for` and `:key` are consumed by the plugin (Alpine doesn't double-render them). The template may be nested — for example inside `<table><tbody>` — and the plugin will still find it.
+A single `<template>` child is supported per `x-virtual` container, and the template's `x-for` and `:key` are consumed by the module (Alpine doesn't double-render them). The template may be nested — for example inside `<table><tbody>` — and the module will still find it.
 
 Without `:key`, the key defaults to `item.id`, so items without an `id` don't render; give each item a stable key. The `(item, index)` form of `x-for` isn't supported, so name a single item.
 
@@ -83,7 +83,7 @@ Without `:key`, the key defaults to `item.id`, so items without an `id` don't re
 
 ## Layout
 
-The same `x-virtual` adapts to whatever markup fits your data — a native [table](/docs/framework/elements/tables), a CSS grid, a wrapping gallery, or a masonry wall. The plugin detects the layout automatically; masonry is the one mode you set explicitly.
+The same `x-virtual` adapts to whatever markup fits your data — a native [table](/docs/framework/elements/tables), a CSS grid, a wrapping gallery, or a masonry wall. The module detects the layout automatically; masonry is the one mode you set explicitly.
 
 ### Table
 
@@ -183,7 +183,7 @@ Manifest's [`.grid-table`](/docs/framework/elements/tables#grids) is a `display:
 
 ### Gallery
 
-A gallery packs many items per line. The plugin auto-detects a `flex-wrap` container; for a CSS grid, add `mode: 'gallery'` so it isn't read as a table. Either way only the visible items mount — ragged widths and heights are fine. Seed `estimate` with an approximate item size for a steadier first paint.
+A gallery packs many items per line. The module auto-detects a `flex-wrap` container; for a CSS grid, add `mode: 'gallery'` so it isn't read as a table. Either way only the visible items mount — ragged widths and heights are fine. Seed `estimate` with an approximate item size for a steadier first paint.
 
 <div x-code-group>
 
@@ -334,7 +334,7 @@ In this example, short and tall log lines coexist correctly. The scroll position
 
 ## Dynamic Data
 
-Point the template's `x-for` at any reactive source — a [local](/docs/framework/core-plugins/local-data) or [cloud](/docs/framework/appwrite-plugins/cloud-data) data source through `$x`, or plain Alpine state — and the window stays in sync. Adds, deletes, sorts, and filters update the visible items automatically, and items re-bind by key, so reordering the data never scrambles their content.
+Point the template's `x-for` at any reactive source — a [local](/docs/framework/core-modules/local-data) or [cloud](/docs/framework/appwrite-modules/cloud-data) data source through `$x`, or plain Alpine state — and the window stays in sync. Adds, deletes, sorts, and filters update the visible items automatically, and items re-bind by key, so reordering the data never scrambles their content.
 
 That makes virtualization a natural pair with `$search` and `$query`: wire a search input to `$x.<source>.$search()` and the list re-renders against the filtered results without rebuilding the whole DOM.
 

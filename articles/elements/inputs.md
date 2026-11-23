@@ -141,13 +141,13 @@ Inputs of `type="search"` work on their own, or can be placed in a label to faci
 
 </div>
 
-See the [local data](/docs/framework/core-plugins/local-data#search-query) plugin for wiring up search functionality. 
+See the [local data](/docs/framework/core-modules/local-data#search-query) module for wiring up search functionality. 
 
 ---
 
 ### Copy
 
-Pair an input with a copy button by placing both in a label, and marking the button with `command="--copy"`. No wiring is required with the [tooltips](/docs/framework/elements/tooltips) plugin loaded (included in `manifest.js` by default); clicking the button copies the field's value and flashes a confirmation [tooltip](/docs/framework/elements/tooltips), just like copyable code blocks.
+Pair an input with a copy button by placing both in a label, and marking the button with `command="--copy"`. No wiring is required with the [tooltips](/docs/framework/elements/tooltips) module loaded (included in `manifest.js` by default); clicking the button copies the field's value and flashes a confirmation [tooltip](/docs/framework/elements/tooltips), just like copyable code blocks.
 
 <div x-code-group>
 
@@ -169,7 +169,7 @@ Pair an input with a copy button by placing both in a label, and marking the but
 
 This works with any text-like input type (`text`, `email`, `tel`, `number`, `url`). The `--` prefix is native HTML syntax for custom button commands and carries no default browser behaviour, so Manifest uses it as the styling and behaviour hook. Use `commandfor` with an input's `id` when the button sits outside the label.
 
-Both tooltips are customizable. Set the button's `value` to replace the confirmation icon with text, or bind it for localized or dynamic phrasing (the example binds a value from a `content` [data source](/docs/framework/core-plugins/local-data)). Add an `x-tooltip` to label the button on hover. The hover label steps aside for the confirmation flash, then returns on the next hover.
+Both tooltips are customizable. Set the button's `value` to replace the confirmation icon with text, or bind it for localized or dynamic phrasing (the example binds a value from a `content` [data source](/docs/framework/core-modules/local-data)). Add an `x-tooltip` to label the button on hover. The hover label steps aside for the confirmation flash, then returns on the next hover.
 
 <div x-code-group>
 

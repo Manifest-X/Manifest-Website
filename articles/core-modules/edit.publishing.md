@@ -11,7 +11,7 @@ Edits are kept as a history of changes until you publish them. `$edit.patches()`
 - **Your own product**, where people edit content you store: set [`$edit.onPublish`](#to-your-own-backend) and the patches go to your code.
 - **Your own project**, which you edit in the browser while you build it: run [`mnfst-run --edit`](#to-your-source-files) and the patches are written into your source files.
 
-Publishing is part of [Visual Editing](/docs/framework/core-plugins/edit): set it up there first.
+Publishing is part of [Visual Editing](/docs/framework/core-modules/edit): set it up there first.
 
 ---
 
@@ -146,7 +146,7 @@ Rename Poochie in the page and publish, and `index.html` changes from the first 
 | A data list's order and record fields | The CSV or JSON file the data source names in `manifest.json` (a JSON file must hold an array of records) |
 | A component instance | The instance's attributes in `index.html`, or the component's HTML file in `main` scope |
 | Global theme values | The `manifest.theme.css` that `index.html` links, wherever it lives; with none linked, `styles/core/manifest.theme.css` if it exists |
-| Scoped theme values | The scope element's own `style` attribute, in the file it's written in; a scope inside content another plugin generates has no file, so its values are refused by name |
+| Scoped theme values | The scope element's own `style` attribute, in the file it's written in; a scope inside content another module generates has no file, so its values are refused by name |
 
 `publish()` resolves with the server's report, one result per patch:
 
@@ -165,7 +165,7 @@ When the page loads, it reads from the server how each source file looks, and pu
 
 In a single-page app, a region that isn't on screen keeps its edits: they wait in the history, show again when the region comes back, and publish then.
 
-A region inside content another plugin generates, such as `x-markdown` or `x-html` output, edits on the page and reaches `onPublish`, but its markup isn't in a file, so `mnfst-run --edit` refuses it by name, keeps its edits, and publishes the other regions. Visual Editing warns about it once in the console. The examples in these articles are regions of that kind, inside each article's markdown, so their patches are real but have no file to be written to.
+A region inside content another module generates, such as `x-markdown` or `x-html` output, edits on the page and reaches `onPublish`, but its markup isn't in a file, so `mnfst-run --edit` refuses it by name, keeps its edits, and publishes the other regions. Visual Editing warns about it once in the console. The examples in these articles are regions of that kind, inside each article's markdown, so their patches are real but have no file to be written to.
 
 The server only accepts edits from pages it serves on your machine, and its editing endpoints don't exist without `--edit`.
 
@@ -213,5 +213,5 @@ Each entry has a `reason` in words, its `region`, the element's `key` and its ta
 
 ## Related
 
-- [Visual Editing](/docs/framework/core-plugins/edit) sets up regions, history, and the `$edit` reference.
-- [Move](/docs/framework/core-plugins/move) and [Resize](/docs/framework/core-plugins/resize) cover the layout edits that publish here.
+- [Visual Editing](/docs/framework/core-modules/edit) sets up regions, history, and the `$edit` reference.
+- [Move](/docs/framework/core-modules/move) and [Resize](/docs/framework/core-modules/resize) cover the layout edits that publish here.

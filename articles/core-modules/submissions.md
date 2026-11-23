@@ -6,28 +6,28 @@ Send contact forms to your email or any endpoint.
 
 ## Overview
 
-Add `x-submit` to a regular form, and it's sent in the background while the visitor stays on the page. It works with any endpoint that accepts form posts, including a Manifest-hosted form that emails you. The plugin adds no styles or messages: your page decides how sending, sent, and failed look.
+Add `x-submit` to a regular form, and it's sent in the background while the visitor stays on the page. It works with any endpoint that accepts form posts, including a Manifest-hosted form that emails you. The module adds no styles or messages: your page decides how sending, sent, and failed look.
 
 ---
 
 ## Setup
 
-Form Submissions isn't in the default bundle. With the default plugins, or a `data-plugins` list starting with `+`, it loads by itself as soon as the page uses `x-submit`, including in components and markdown added later. A `data-plugins` list without `+` loads only what it names, so add `submissions` to it.
+Form Submissions isn't in the default bundle. With the default modules, or a `data-modules` list starting with `+`, it loads by itself as soon as the page uses `x-submit`, including in components and markdown added later. A `data-modules` list without `+` loads only what it names, so add `submissions` to it.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="submissions,url-parameters"></script>
+    data-modules="submissions,url-parameters"></script>
 ```
 
 </div>
 
-Until the plugin has loaded, a submitted form is sent the plain HTML way, so nothing is lost.
+Until the module has loaded, a submitted form is sent the plain HTML way, so nothing is lost.
 
 ---
 
@@ -57,7 +57,7 @@ Fields the visitor has touched are styled as valid or invalid by Manifest's [for
 
 ### Confirming
 
-Where the browser goes after sending is the endpoint's answer. Endpoints that support it, including Manifest-hosted forms, accept a `_redirect` field and send the visitor back to a page of yours. Point it at the same page with a parameter, and show the confirmation with [`$url`](/docs/framework/core-plugins/url-parameters).
+Where the browser goes after sending is the endpoint's answer. Endpoints that support it, including Manifest-hosted forms, accept a `_redirect` field and send the visitor back to a page of yours. Point it at the same page with a parameter, and show the confirmation with [`$url`](/docs/framework/core-modules/url-parameters).
 
 ```html copy
 <form action="/_forms/contact" method="post" x-show="!$url.sent.value">

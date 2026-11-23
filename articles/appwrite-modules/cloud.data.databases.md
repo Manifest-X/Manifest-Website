@@ -30,7 +30,7 @@ In a table's **Settings** tab, ensure any permissions required by your frontend 
 
 ## Register Database Tables
 
-Register database tables in your `manifest.json` under the `data` property, same as [local data files](/docs/framework/core-plugins/local-data). Include the `appwriteDatabaseId` and `appwriteTableId` values provided by Appwrite.
+Register database tables in your `manifest.json` under the `data` property, same as [local data files](/docs/framework/core-modules/local-data). Include the `appwriteDatabaseId` and `appwriteTableId` values provided by Appwrite.
 
 
 ```json "manifest.json" copy
@@ -101,17 +101,17 @@ By default scope filters on the `userId`/`teamId` columns. If your table names t
 
 When using `["user", "team"]` scope, projects are shown for the current user OR the current team. If no team is selected (`$auth.currentTeam`), only user-scoped projects will display. Use `"teams"` (plural) instead of `"team"` (singular) to query all teams the user belongs to, not just the current team.
 
-**Signed out.** While no user is signed in, a scoped table (or one whose queries reference `$auth.` values) settles as empty: the source is `[]`, `$ready` is `true`, and no request is sent. It loads when the user signs in. An [offline start](/docs/framework/appwrite-plugins/users#session-recovery) is the exception: a [persisted](/docs/framework/core-plugins/local-data#persisted-data) table keeps the rows saved for the user last signed in on this device until the session is checked. Like every table source, it reloads whenever the identity changes, so one user's entries never carry over to the next (see [cloud data](/docs/framework/appwrite-plugins/cloud-data) and [session recovery](/docs/framework/appwrite-plugins/users#session-recovery)).
+**Signed out.** While no user is signed in, a scoped table (or one whose queries reference `$auth.` values) settles as empty: the source is `[]`, `$ready` is `true`, and no request is sent. It loads when the user signs in. An [offline start](/docs/framework/appwrite-modules/users#session-recovery) is the exception: a [persisted](/docs/framework/core-modules/local-data#persisted-data) table keeps the rows saved for the user last signed in on this device until the session is checked. Like every table source, it reloads whenever the identity changes, so one user's entries never carry over to the next (see [cloud data](/docs/framework/appwrite-modules/cloud-data) and [session recovery](/docs/framework/appwrite-modules/users#session-recovery)).
 
 ::: brand icon="lucide:info"
-All interactive examples below require you to be logged into a dummy account via the [users](/docs/framework/appwrite-plugins/users) article. The data entries you generate below use the `team` scope.
+All interactive examples below require you to be logged into a dummy account via the [users](/docs/framework/appwrite-modules/users) article. The data entries you generate below use the `team` scope.
 :::
 
 ---
 
 ## Display & Manage Entries
 
-Database tables work identically to local data sources. Access entries using the `$x` magic method and perform all CRUD operations. Team-scoped rows are read and created for `$auth.currentTeam`, so the "All" example first selects the user's [permanent team](/docs/framework/appwrite-plugins/teams#team-management):
+Database tables work identically to local data sources. Access entries using the `$x` magic method and perform all CRUD operations. Team-scoped rows are read and created for `$auth.currentTeam`, so the "All" example first selects the user's [permanent team](/docs/framework/appwrite-modules/teams#team-management):
 
 <div x-code-group numbers copy>
 
@@ -548,7 +548,7 @@ If the referenced value isn't available yet (auth still loading, no current team
 
 ## Large Tables
 
-Set `paging` on a table source to go past one request's rows. Every page lands in `$x.<source>` like any other load, so realtime, `$query`, [persistence](/docs/framework/core-plugins/local-data#persisted-data) and `$stale` all keep working.
+Set `paging` on a table source to go past one request's rows. Every page lands in `$x.<source>` like any other load, so realtime, `$query`, [persistence](/docs/framework/core-modules/local-data#persisted-data) and `$stale` all keep working.
 
 ```json "manifest.json" copy
 {
@@ -577,7 +577,7 @@ Use `"all"` for tables that stay small enough to hold in the browser, like setti
 
 `$x.<source>.$more()` loads the next page after the rows already held, and resolves with the number of rows added. Calling it again while a page is loading returns the same request, and calling it while a reload or `$query` is in flight loads the next page once that lands (that call resolves with 0). `$hasMore` says whether `$more()` can load another page: it turns `false` at the end of the table or at `max`. `$total` is Appwrite's count of matching rows, so `$total` above the number of rows held at `max` means more exist; Appwrite stops counting at 5000, so when `$totalCapped` is `true` show it as "5000+".
 
-[Virtual](/docs/framework/core-plugins/virtual#dynamic-data) lists fire `virtual-end` when the last loaded row is shown, which is the moment to ask for more:
+[Virtual](/docs/framework/core-modules/virtual#dynamic-data) lists fire `virtual-end` when the last loaded row is shown, which is the moment to ask for more:
 
 ```html copy
 <div x-virtual class="h-[600px] overflow-auto" @virtual-end="$x.contacts.$more()">
@@ -674,7 +674,7 @@ Use the `$files` property to access files linked to an entry:
 </small>
 ```
 
-See [storage](/docs/framework/appwrite-plugins/storage) for more details on file management.
+See [storage](/docs/framework/appwrite-modules/storage) for more details on file management.
 
 ---
 
@@ -907,7 +907,7 @@ Pages use the active `$query` if one is set, otherwise the source's default quer
 
 ### Realtime Options
 
-Realtime is multiplexed over one connection per tab: however many data sources subscribe, Manifest opens a single Appwrite Realtime client and one channel subscription per distinct table or bucket. Sources sharing a table each receive every event once. The [auth](/docs/framework/appwrite-plugins/auth) plugin's team and account subscriptions and [presence](/docs/framework/appwrite-plugins/presence) share the same connection, so N live features still count as one connection against your Appwrite plan.
+Realtime is multiplexed over one connection per tab: however many data sources subscribe, Manifest opens a single Appwrite Realtime client and one channel subscription per distinct table or bucket. Sources sharing a table each receive every event once. The [auth](/docs/framework/appwrite-modules/auth) module's team and account subscriptions and [presence](/docs/framework/appwrite-modules/presence) share the same connection, so N live features still count as one connection against your Appwrite plan.
 
 Where the project's Appwrite version supports Realtime queries (Web SDK 22.4+, server 1.8+), Manifest also filters events server-side by your `scope` configuration — Appwrite then only delivers (and bills) events in your scope — while your own `queries` continue filtering client-side, preserving instant removal of rows that stop matching. Set `realtime: { "serverFilter": "all" }`{copy} to push all expressible filters server-side (rows that stop matching then drop on the next load instead of instantly), or `"serverFilter": false`{copy} for no server filtering. Filters Appwrite can't evaluate in realtime (`search`, `contains`, pagination and ordering) always stay client-side, and Manifest's event matcher runs in every mode as defense in depth.
 
@@ -933,4 +933,4 @@ Events sent while the browser is offline or asleep are not replayed by Appwrite.
 
 ## Next Steps
 
-See [storage](/docs/framework/appwrite-plugins/storage) for managing file uploads and downloads.
+See [storage](/docs/framework/appwrite-modules/storage) for managing file uploads and downloads.

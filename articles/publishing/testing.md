@@ -106,7 +106,7 @@ A non-zero exit code fails the workflow, which most teams configure to block mer
 
 For developers writing automated unit tests, `mountManifest()` lets you boot a snippet of HTML in isolation and assert how it behaves when clicked, typed into, or otherwise interacted with — useful for verifying individual components work correctly without spinning up the whole project.
 
-The function boots the snippet in <a href="https://github.com/capricorn86/happy-dom" target="_blank">happy-dom</a> with Alpine and Manifest plugins active, and returns query and interaction helpers. Pair with <a href="https://vitest.dev" target="_blank">Vitest</a>:
+The function boots the snippet in <a href="https://github.com/capricorn86/happy-dom" target="_blank">happy-dom</a> with Alpine and Manifest modules active, and returns query and interaction helpers. Pair with <a href="https://vitest.dev" target="_blank">Vitest</a>:
 
 ```bash copy
 npm install -D mnfst-test happy-dom vitest
@@ -148,7 +148,7 @@ Options for `mountManifest(opts)`:
 | `page` | `string` | Path to a full HTML file to load as the document. |
 | `manifest` | `object` | In-memory `manifest.json`. Defaults to `{}`. |
 | `data` | `object` | In-memory data sources, keyed by name. Each becomes `$x.<key>`. |
-| `plugins` | `string[]` | Paths to Manifest plugin files to evaluate after Alpine. |
+| `plugins` | `string[]` | Paths to Manifest module files to evaluate after Alpine. |
 | `appwrite` | `object` | A fake data backend or its options (see [test data](#test-data)). Returned as `fake`. |
 | `settle` | `number` | Milliseconds to wait after mount for Alpine to render. Default `50`. |
 
@@ -160,7 +160,7 @@ happy-dom approximates layout but isn't a real browser. For what users actually 
 
 ## Test Data
 
-Tests for a data-driven app need data that behaves like the real backend. Instead of writing a fake database for each test file, import Manifest's: an in-memory Appwrite backend that Manifest's own data plugins run on, so `$x`, `$query`, pagination, `$create`/`$update`/`$delete`, `$search` and realtime updates behave as they do in production.
+Tests for a data-driven app need data that behaves like the real backend. Instead of writing a fake database for each test file, import Manifest's: an in-memory Appwrite backend that Manifest's own data modules run on, so `$x`, `$query`, pagination, `$create`/`$update`/`$delete`, `$search` and realtime updates behave as they do in production.
 
 ```js "tasks.test.js" copy
 import { it, expect } from 'vitest';
@@ -173,7 +173,7 @@ it('lists open tasks', async () => {
             appwrite: { projectId: 'demo', endpoint: 'https://example.test/v1' },
             data: { tasks: { appwriteDatabaseId: 'main', appwriteTableId: 'tasks' } }
         },
-        plugins: ['node_modules/mnfst/lib/manifest.data.js', 'node_modules/mnfst/lib/manifest.appwrite.data.js'],
+        modules: ['node_modules/mnfst/lib/manifest.data.js', 'node_modules/mnfst/lib/manifest.appwrite.data.js'],
         html: `<ul x-data><template x-for="t in $x.tasks" :key="t.$id"><li x-text="t.title"></li></template></ul>`,
         settle: 200
     });

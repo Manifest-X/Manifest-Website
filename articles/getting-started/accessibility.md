@@ -5,7 +5,7 @@ Allow your project to support all audiences.
 
 ## Overview
 
-Manifest is accessible by default. Its reset stylesheet, semantic element styles, and interactive plugins all align with <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank">WCAG 2.1 Level AA</a>. Keyboard navigation, focus management, ARIA attributes, and live-region announcements are handled automatically.
+Manifest is accessible by default. Its reset stylesheet, semantic element styles, and interactive modules all align with <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank">WCAG 2.1 Level AA</a>. Keyboard navigation, focus management, ARIA attributes, and live-region announcements are handled automatically.
 
 All code snippets in these docs are intended to be semantically correct for screen readers and SEO crawlers.
 
@@ -22,7 +22,7 @@ All code snippets in these docs are intended to be semantically correct for scre
 
 ### Elements
 
-Manifest's advanced elements, including those supported by plugin scripts, implement the relevant <a href="https://www.w3.org/WAI/ARIA/apg/patterns/" target="_blank">WAI-ARIA Authoring Practices</a> patterns. No setup is required beyond using them as documented:
+Manifest's advanced elements, including those supported by module scripts, implement the relevant <a href="https://www.w3.org/WAI/ARIA/apg/patterns/" target="_blank">WAI-ARIA Authoring Practices</a> patterns. No setup is required beyond using them as documented:
 
 | Element | Accessibility |
 |---|---|

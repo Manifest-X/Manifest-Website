@@ -6,17 +6,17 @@ Localize your project to different languages and regions.
 
 ## Overview
 
-The localization plugin provides automatic language detection, URL-based locale switching, and seamless integration with [local data](/docs/framework/core-plugins/local-data) for multilingual content.
+The localization module provides automatic language detection, URL-based locale switching, and seamless integration with [local data](/docs/framework/core-modules/local-data) for multilingual content.
 
 ---
 
 ## Setup
 
-Localization is included in `manifest.js` with all core plugins, or can be selectively loaded. `manifest.json` is required to register translation files as data sources.
+Localization is included in `manifest.js` with all core modules, or can be selectively loaded. `manifest.json` is required to register translation files as data sources.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <!-- Meta -->
 <link rel="manifest" href="/manifest.json">
 
@@ -30,13 +30,13 @@ Localization is included in `manifest.js` with all core plugins, or can be selec
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="router,data,localization"></script>
+    data-modules="router,data,localization"></script>
 ```
 
 </div>
 
 ::: brand icon="lucide:info"
-Localization requires the Manifest [router](/docs/framework/core-plugins/router) and [data](/docs/framework/core-plugins/local-data) plugins to operate.
+Localization requires the Manifest [router](/docs/framework/core-modules/router) and [data](/docs/framework/core-modules/local-data) modules to operate.
 :::
 
 ---
@@ -61,7 +61,7 @@ content.2.name,Responsive,Responsive,متجاوب,响应式
 content.2.description,Works on all devices,Fonctionne sur tous les appareils,يعمل على جميع الأجهزة,适用于所有设备
 ```
 
-The first column (`key`) contains dot-notation paths to nested values; numeric segments like `content.0.name` build an array. Subsequent columns are locale codes (`en`, `fr`, `ar`, `zh`, etc.). The plugin automatically detects available locales from the CSV header.
+The first column (`key`) contains dot-notation paths to nested values; numeric segments like `content.0.name` build an array. Subsequent columns are locale codes (`en`, `fr`, `ar`, `zh`, etc.). The module automatically detects available locales from the CSV header.
 
 ---
 
@@ -171,14 +171,14 @@ CSV files containing multiple languages are registered using the `locales` key, 
 JSON and YAML declare each locale in an object using their language code as a nested key, like `en` or `fr`.
 
 ::: brand icon="lucide:info"
-Always set `<html lang="…">` to your project's default language. The plugin treats this attribute as the **declared default** — the locale a fresh visitor lands on when there's no URL prefix or stored preference, and the locale `$locale.reset()` returns to. If `<html lang>` is missing or doesn't match an available locale, the plugin falls through to the browser language, then to the first locale it discovers while scanning `manifest.json` (which is iteration-order dependent and not a reliable default).
+Always set `<html lang="…">` to your project's default language. The module treats this attribute as the **declared default** — the locale a fresh visitor lands on when there's no URL prefix or stored preference, and the locale `$locale.reset()` returns to. If `<html lang>` is missing or doesn't match an available locale, the module falls through to the browser language, then to the first locale it discovers while scanning `manifest.json` (which is iteration-order dependent and not a reliable default).
 :::
 
 ---
 
 ## Language Detection
 
-The plugin automatically detects the initial language using this priority order:
+The module automatically detects the initial language using this priority order:
 
 1. **URL path:** If a first path segment matches a language code in `manifest.json` (e.g. `/fr/about`), it gets highest priority for direct linking.
 2. **UI toggles:** The user preference saved to local storage and persisting between sessions.
@@ -202,19 +202,19 @@ If the first segment of the URL path is a registered language code (e.g. `/fr/ab
 
 ```html lines copy
 <!-- Links -->
-<a href="/en/docs/framework/core-plugins/localization">English</a>
-<a href="/fr/docs/framework/core-plugins/localization">Français</a>
-<a href="/zh/docs/framework/core-plugins/localization">中文</a>
-<a href="/ar/docs/framework/core-plugins/localization">العربية</a>
+<a href="/en/docs/framework/core-modules/localization">English</a>
+<a href="/fr/docs/framework/core-modules/localization">Français</a>
+<a href="/zh/docs/framework/core-modules/localization">中文</a>
+<a href="/ar/docs/framework/core-modules/localization">العربية</a>
 <button class="link" @click="$locale.reset()">Base URL</button>
 ```
 
 ::: frame col gap-4 text-base [&_a]:underline
 <div class="row-wrap gap-4">
-  <a href="/en/docs/framework/core-plugins/localization#url-paths">English</a>
-  <a href="/fr/docs/framework/core-plugins/localization#url-paths">Français</a>
-  <a href="/zh/docs/framework/core-plugins/localization#url-paths">中文</a>
-  <a href="/ar/docs/framework/core-plugins/localization#url-paths">العربية</a>
+  <a href="/en/docs/framework/core-modules/localization#url-paths">English</a>
+  <a href="/fr/docs/framework/core-modules/localization#url-paths">Français</a>
+  <a href="/zh/docs/framework/core-modules/localization#url-paths">中文</a>
+  <a href="/ar/docs/framework/core-modules/localization#url-paths">العربية</a>
   <button class="link underline" @click="$locale.reset()">Base URL</button>
 </div>
 <template x-for="feature in $x['feature-examples'].content">
@@ -233,7 +233,7 @@ If the first segment of the URL path is a registered language code (e.g. `/fr/ab
 
 ### Localized Content
 
-Like regular [local data](/docs/framework/core-plugins/local-data#display-content), localizations are accessed using the `$x` magic method with dot notation. The structure follows this pattern:
+Like regular [local data](/docs/framework/core-modules/local-data#display-content), localizations are accessed using the `$x` magic method with dot notation. The structure follows this pattern:
 
 `$x.sourceName.property.subProperty`
 - `$x` — magic method prefix
@@ -290,7 +290,7 @@ content.2.description,Works on all devices,Fonctionne sur tous les appareils,ي�
 
 </div>
 
-See [local data](/docs/framework/core-plugins/local-data#display-content) for specifics on how to inject content as text, HTML, or attribute values like links and images.
+See [local data](/docs/framework/core-modules/local-data#display-content) for specifics on how to inject content as text, HTML, or attribute values like links and images.
 
 ---
 
@@ -413,7 +413,7 @@ Resetting the locale undoes the user's selection and returns the project to what
 
 ### RTL Support
 
-The plugin automatically detects and handles right-to-left languages like Arabic, Hebrew, and Persian:
+The module automatically detects and handles right-to-left languages like Arabic, Hebrew, and Persian:
 
 <div x-code-group>
 
@@ -450,7 +450,7 @@ The plugin automatically detects and handles right-to-left languages like Arabic
 
 </div>
 
-If an RTL language is detected as the current locale, the plugin automatically adds `dir=rtl` to the `<html>` tag, reversing the inline flow of page content. Detection matches the exact code, so use the bare language code (`ar`, not `ar-SA`). Detectable RTL languages are:
+If an RTL language is detected as the current locale, the module automatically adds `dir=rtl` to the `<html>` tag, reversing the inline flow of page content. Detection matches the exact code, so use the bare language code (`ar`, not `ar-SA`). Detectable RTL languages are:
 
 **Arabic Script**
 - Arabic (`ar`)

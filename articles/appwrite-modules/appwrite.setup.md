@@ -57,7 +57,7 @@ An optional <b>Dev Key</b> can also be used during Manifest project development 
 
 Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json` is also required to register Appwrite credentials and data sources.
 
-Appwrite plugins can be loaded in two ways: explicitly via the `data-plugins` attribute, or automatically from `manifest.json`. When auto-detected, the data plugin loads when an `appwrite` object is present, the auth plugin when that object includes `auth` (even `"auth": {}`), and [presence](/docs/framework/appwrite-plugins/presence) when it includes `presence`. The supporting core data plugin will also be loaded whether or not it's declared.
+Appwrite modules can be loaded in two ways: explicitly via the `data-modules` attribute, or automatically from `manifest.json`. When auto-detected, the data module loads when an `appwrite` object is present, the auth module when that object includes `auth` (even `"auth": {}`), and [presence](/docs/framework/appwrite-modules/presence) when it includes `presence`. The supporting core data module will also be loaded whether or not it's declared.
 
 <div x-code-group>
 
@@ -77,7 +77,7 @@ Appwrite plugins can be loaded in two ways: explicitly via the `data-plugins` at
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="+appwrite-auth,+appwrite-data"></script>
+    data-modules="+appwrite-auth,+appwrite-data"></script>
 ```
 
 </div>
@@ -109,14 +109,14 @@ PUBLIC_APPWRITE_DEV_KEY=your-appwrite-dev-key
 </div>
 
 ::: brand icon="lucide:info"
-**How `${VAR}` resolution works.** The framework substitutes `${VAR}` placeholders in `manifest.json` against `window.env` at runtime. The `npx mnfst-run`{copy} dev server reads your project's `.env` at startup and injects its `PUBLIC_` variables as a `window.env = {…}` block into served HTML. Other variables stay on the server, so a placeholder without the prefix is left unresolved, and an unresolved Dev Key turns the auth plugin off. If you serve the project with your own local server (Python's `http.server`, `live-server`, `serve`, etc.), it won't inject `window.env` for you; you'll need to add a `<script>window.env = {…}</script>` block to `index.html` before the `manifest.min.js` tag, or your placeholders will reach the plugin unresolved and the auth/data plugins will refuse to initialize.
+**How `${VAR}` resolution works.** The framework substitutes `${VAR}` placeholders in `manifest.json` against `window.env` at runtime. The `npx mnfst-run`{copy} dev server reads your project's `.env` at startup and injects its `PUBLIC_` variables as a `window.env = {…}` block into served HTML. Other variables stay on the server, so a placeholder without the prefix is left unresolved, and an unresolved Dev Key turns the auth module off. If you serve the project with your own local server (Python's `http.server`, `live-server`, `serve`, etc.), it won't inject `window.env` for you; you'll need to add a `<script>window.env = {…}</script>` block to `index.html` before the `manifest.min.js` tag, or your placeholders will reach the module unresolved and the auth/data modules will refuse to initialize.
 :::
 
 ::: brand icon="lucide:info"
 **Production deployments.** Static hosts (Netlify, Vercel, Cloudflare Pages, GitHub Pages, S3, etc.) serve `manifest.json` verbatim — no runtime substitution. The Dev Key should not ship to production in the first place: it's strictly a development-time convenience for bypassing Appwrite's rate limits, and Appwrite enforces real auth through project-level permissions for live users. For any other `${VAR}` values you actually need in production, either hardcode them directly in `manifest.json` (acceptable for public values like Project ID and API Endpoint), bake them into the prerendered HTML at build time, or use your host's env-var injection feature.
 :::
 
-Data sources always connect with these `appwrite` credentials. A [database](/docs/framework/appwrite-plugins/databases) source can name its own database with `appwriteDatabaseId`; without it, the source uses `appwrite.databaseId`, then `main`.
+Data sources always connect with these `appwrite` credentials. A [database](/docs/framework/appwrite-modules/databases) source can name its own database with `appwriteDatabaseId`; without it, the source uses `appwrite.databaseId`, then `main`.
 
 ---
 
@@ -124,5 +124,5 @@ Data sources always connect with these `appwrite` credentials. A [database](/doc
 
 After a successful setup above, your Manifest project should be paired with your Appwrite project(s). Proceed to configuring:
 
-- [Users](/docs/framework/appwrite-plugins/users) or [Teams](/docs/framework/appwrite-plugins/teams)
-- [Databases](/docs/framework/appwrite-plugins/databases) or [Storage](/docs/framework/appwrite-plugins/storage)
+- [Users](/docs/framework/appwrite-modules/users) or [Teams](/docs/framework/appwrite-modules/teams)
+- [Databases](/docs/framework/appwrite-modules/databases) or [Storage](/docs/framework/appwrite-modules/storage)

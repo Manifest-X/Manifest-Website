@@ -602,7 +602,7 @@ Common Tailwind variants:
 
 ## Sending
 
-A form with an `action` and `method="post"` sends itself, no script needed. To send it without leaving the page and show the result yourself, add `x-submit` from the [Form Submissions](/docs/framework/core-plugins/submissions) plugin.
+A form with an `action` and `method="post"` sends itself, no script needed. To send it without leaving the page and show the result yourself, add `x-submit` from the [Form Submissions](/docs/framework/core-modules/submissions) module.
 
 ```html copy
 <form x-submit action="/_forms/contact" method="post">

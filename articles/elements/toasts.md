@@ -8,7 +8,7 @@ Transient notifications anchored to the viewport.
 
 Toast styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
-Toast functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
+Toast functionality is included in `manifest.js` with all core modules, or it can be selectively loaded.
 
 <div x-code-group copy>
 
@@ -24,9 +24,9 @@ Toast functionality is included in `manifest.js` with all core plugins, or it ca
 <!-- Toast styles only -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.toast.css" />
 
-<!-- Manifest JS: toasts plugin only -->
+<!-- Manifest JS: toasts module only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugins="toasts"></script>
+  data-modules="toasts"></script>
 ```
 
 </div>
@@ -269,7 +269,7 @@ Expression results show as plain text, so values from users or data sources can'
 
 ## Data Sources
 
-Toasts can retrieve content from [data sources](/docs/framework/core-plugins/local-data) using the `$x` syntax.
+Toasts can retrieve content from [data sources](/docs/framework/core-modules/local-data) using the `$x` syntax.
 
 <div x-code-group copy>
 

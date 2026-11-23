@@ -124,7 +124,7 @@ Render settings can be configured in `manifest.json`. Most projects don't need t
 | `paths`{copy} | `string[]` | `[]` | Additional paths to render beyond those auto-discovered from `x-route` attributes (e.g. `["legal/privacy"]`). Each entry is expanded to all locale variants. |
 | `localeRouteExclude`{copy} | `string[]` | `[]` | Route prefixes that should not receive locale variants (e.g. `["legal"]` keeps `/legal/terms` as-is without generating `/fr/legal/terms`). |
 | `redirects`{copy} | `object[]` | `[]` | Redirect rules written to the output. Each entry is `{ "from": "/old", "to": "/new", "status": 301 }` |
-| `wait`{copy} | `number` | auto | Milliseconds to wait for a page to finish rendering before snapshot. When omitted the renderer waits for a `manifest:render-ready` signal from the data plugin. |
+| `wait`{copy} | `number` | auto | Milliseconds to wait for a page to finish rendering before snapshot. When omitted the renderer waits for a `manifest:render-ready` signal from the data module. |
 | `concurrency`{copy} | `number` | `2` | Number of pages rendered in parallel. Increase for faster builds on high-core machines; decrease if memory is constrained. |
 | `retries`{copy} | `number` | `2` | Number of retry attempts for pages that fail to render. |
 | `browserRecycleEvery`{copy} | `number` | `40` | Recycle the browser after this many pages to prevent memory buildup on large sites. |

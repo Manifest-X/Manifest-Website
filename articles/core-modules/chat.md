@@ -6,19 +6,19 @@ Add conversations with AI or people to your project.
 
 ## Overview
 
-The chat plugin adds conversations to your project. A conversation is a reactive object: its messages, participants, and typing indicators update live, and you render them with your own markup. The same markup can power an AI assistant, a support box, a group thread, or a comment section.
+The chat module adds conversations to your project. A conversation is a reactive object: its messages, participants, and typing indicators update live, and you render them with your own markup. The same markup can power an AI assistant, a support box, a group thread, or a comment section.
 
 Adapters decide where messages live. Built-in adapters cover AI models, an Appwrite backend, and an in-browser demo — or you can register your own. A conversation with an AI works the same as one between people.
 
 ::: brand icon="lucide:info"
-The plugin renders nothing itself. See the [chats](/docs/framework/elements/chats) element styles for ready-made conversation layouts. Each works without the other.
+The module renders nothing itself. See the [chats](/docs/framework/elements/chats) element styles for ready-made conversation layouts. Each works without the other.
 :::
 
 ---
 
 ## Setup
 
-Chat is opt-in. It loads automatically when `$chat` appears in your page's markup, or when `manifest.json` contains an `ai` or `chat` entry (a config block, or `"chat": true`). It can also be declared in `data-plugins`, where the `+` prefix adds it alongside the default plugins.
+Chat is opt-in. It loads automatically when `$chat` appears in your page's markup, or when `manifest.json` contains an `ai` or `chat` entry (a config block, or `"chat": true`). It can also be declared in `data-modules`, where the `+` prefix adds it alongside the default modules.
 
 <div x-code-group copy>
 
@@ -36,12 +36,12 @@ Chat is opt-in. It loads automatically when `$chat` appears in your page's marku
 
 <!-- Scripts: defaults plus chat -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="+chat"></script>
+    data-modules="+chat"></script>
 ```
 
 </div>
 
-Markup detection covers `$chat` written in the page itself. If your only usage lives inside a lazily loaded [component](/docs/framework/core-plugins/components), use one of the other two triggers.
+Markup detection covers `$chat` written in the page itself. If your only usage lives inside a lazily loaded [component](/docs/framework/core-modules/components), use one of the other two triggers.
 
 ---
 
@@ -128,7 +128,7 @@ Requests the relay rejects as invalid don't count toward the daily limit. The `c
 
 Open a conversation with `$chat.open` and render it. The call returns a reactive handle. Loop over its `messages`, bind a field to a draft, and call `send`.
 
-Three details complete the UI. Style your own messages by comparing each message's author to the handle's `me`. Render finished replies with the [markdown](/docs/framework/core-plugins/markdown) plugin, and show plain text with `x-text` while a reply streams. When the text comes from participants you don't control, use `x-markdown.safe` to sanitize it.
+Three details complete the UI. Style your own messages by comparing each message's author to the handle's `me`. Render finished replies with the [markdown](/docs/framework/core-modules/markdown) module, and show plain text with `x-text` while a reply streams. When the text comes from participants you don't control, use `x-markdown.safe` to sanitize it.
 
 <div x-code-group copy>
 
@@ -183,7 +183,7 @@ Three details complete the UI. Style your own messages by comparing each message
 
 </div>
 
-This frame uses the `demo` adapter, which plays the model's part so this page doesn't need an API key. It serves fixed seeded conversations by ID (`dm-ai`, `grp-1`, `forum-1`, `hist-em-1`), so another ID opens empty, and `$chat.sim.aiReply(id, text)` streams a fake reply into one. With an `ai` block configured, change the adapter name to `claude` and the same markup talks to the real model. The layout comes from the [chats](/docs/framework/elements/chats) element styles; the plugin only supplies the data.
+This frame uses the `demo` adapter, which plays the model's part so this page doesn't need an API key. It serves fixed seeded conversations by ID (`dm-ai`, `grp-1`, `forum-1`, `hist-em-1`), so another ID opens empty, and `$chat.sim.aiReply(id, text)` streams a fake reply into one. With an `ai` block configured, change the adapter name to `claude` and the same markup talks to the real model. The layout comes from the [chats](/docs/framework/elements/chats) element styles; the module only supplies the data.
 
 Replies stream in live. A reply appears with `status: 'streaming'` and grows until it's done. Conversation history is kept in the visitor's browser per conversation ID, so an open conversation picks up where it left off after a reload.
 
@@ -368,11 +368,11 @@ A reply whose parent isn't loaded still renders, flagged as an orphan, instead o
 
 ## Appwrite Adapter
 
-Conversations between real visitors need a real backend. Manifest integrates with <a href="https://appwrite.io" target="_blank" rel="noopener">Appwrite</a>, an open source backend platform, for [authentication](/docs/framework/appwrite-plugins/auth), [databases](/docs/framework/appwrite-plugins/databases), and more. See [Appwrite setup](/docs/framework/appwrite-plugins/appwrite-setup) to connect a project.
+Conversations between real visitors need a real backend. Manifest integrates with <a href="https://appwrite.io" target="_blank" rel="noopener">Appwrite</a>, an open source backend platform, for [authentication](/docs/framework/appwrite-modules/auth), [databases](/docs/framework/appwrite-modules/databases), and more. See [Appwrite setup](/docs/framework/appwrite-modules/appwrite-setup) to connect a project.
 
 The built-in `appwrite` adapter stores messages as rows in your Appwrite database, and new messages arrive over its realtime connection. Identity comes from auth. Visitors get a guest session on their first message, so commenting needs no signup.
 
-Configure it in the same `chat` block that activates the plugin:
+Configure it in the same `chat` block that activates the module:
 
 ```json "manifest.json" copy
 {
@@ -445,7 +445,7 @@ The same adapter serves support threads, project discussions, and small group ch
 
 ## Custom Adapters
 
-An adapter is where messages actually live. The plugin renders and drives the conversation; the adapter stores and transports it. Connect your own backend or messaging platform by registering one object:
+An adapter is where messages actually live. The module renders and drives the conversation; the adapter stores and transports it. Connect your own backend or messaging platform by registering one object:
 
 ```html "Custom adapter" copy
 <script>
@@ -472,13 +472,13 @@ An adapter is where messages actually live. The plugin renders and drives the co
 
 `identity`, `load`, and `subscribe` are required. Everything else — `send`, `react`, `edit`, `setTyping`, and more — is optional, and the handle's `can` flags reflect exactly what you implemented. A read-only transcript is just an adapter with no `send`. The full adapter guide, covering streaming, paging, reconnection, and a copyable skeleton, lives in the <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/chat-adapter" target="_blank" rel="noopener">Manifest repository</a>.
 
-Chat visibility in the browser is cosmetic, like all client-side gating. Real access control belongs to whatever backend the adapter talks to. As with [payments](/docs/framework/core-plugins/payments), secrets live server-side only: the adapter calls your API, and your API holds the keys.
+Chat visibility in the browser is cosmetic, like all client-side gating. Real access control belongs to whatever backend the adapter talks to. As with [payments](/docs/framework/core-modules/payments), secrets live server-side only: the adapter calls your API, and your API holds the keys.
 
 ---
 
 ## Persisted Conversations
 
-A conversation window can keep its recent messages on the visitor's device, so reopening it shows the last messages at once while the adapter loads. Off unless enabled, and it needs the [data](/docs/framework/core-plugins/local-data#persisted-data) plugin's persistence store.
+A conversation window can keep its recent messages on the visitor's device, so reopening it shows the last messages at once while the adapter loads. Off unless enabled, and it needs the [data](/docs/framework/core-modules/local-data#persisted-data) module's persistence store.
 
 ```json "manifest.json" copy
 {

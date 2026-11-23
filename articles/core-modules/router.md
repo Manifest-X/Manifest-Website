@@ -6,7 +6,7 @@ Set page navigation paths in your project.
 
 ## Overview
 
-With the router plugin, Manifest turns your project into a single-page application (SPA), where URL paths can be used to show or hide any element, including [components](/docs/framework/core-plugins/components).
+With the router module, Manifest turns your project into a single-page application (SPA), where URL paths can be used to show or hide any element, including [components](/docs/framework/core-modules/components).
 
 See [website publishing](/docs/framework/publishing/websites) for generating static sites that are optimized for search engines and AI crawlers, also supported by this router.
 
@@ -18,17 +18,17 @@ Don't combine this router with another client-side router; both would intercept 
 
 ## Setup
 
-The router is included in `manifest.js` with all core plugins, or can be selectively loaded.
+The router is included in `manifest.js` with all core modules, or can be selectively loaded.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="router"></script>
+    data-modules="router"></script>
 ```
 
 </div>
@@ -161,7 +161,7 @@ When using the prerender script, the 404 view is captured at build time and writ
 
 ### Other Paths
 
-The router supports non-navigation paths. See [data](/docs/framework/core-plugins/local-data), [localization](/docs/framework/core-plugins/localization), and [URL parameters](/docs/framework/core-plugins/url-parameters) for plugins that apply additional path segments to the URL for content purposes.
+The router supports non-navigation paths. See [data](/docs/framework/core-modules/local-data), [localization](/docs/framework/core-modules/localization), and [URL parameters](/docs/framework/core-modules/url-parameters) for modules that apply additional path segments to the URL for content purposes.
 
 ---
 
@@ -192,12 +192,12 @@ The router provides a `$route` magic property that returns the current route as 
 
 ```html copy
 <p>Current logical route: <span x-text="$route"></span></p>
-<p :class="$route === '/docs/framework/core-plugins/router' ? 'text-brand-content' : ''">I'm a brand color because of the route.</p>
+<p :class="$route === '/docs/framework/core-modules/router' ? 'text-brand-content' : ''">I'm a brand color because of the route.</p>
 ```
 
 ::: frame col text-base
 <p>Current logical route: <span class="font-bold" x-text="$route"></span></p>
-<p class="font-bold" :class="$route === '/docs/framework/core-plugins/router' ? 'text-brand-content' : ''">I'm a brand color because of the route.</p>
+<p class="font-bold" :class="$route === '/docs/framework/core-modules/router' ? 'text-brand-content' : ''">I'm a brand color because of the route.</p>
 :::
 
 </div>
@@ -299,7 +299,7 @@ The router also handles smooth scrolling to anchors within scrollable containers
 
 ## Anchor Lists
 
-Use `<template x-anchors="...">` to automatically list anchor links from any elements in your page content, like the "On this page" menu next to this article. Elements can be identified by tag name, class, or an existing ID. If an element does not have an existing ID, the plugin will auto-generate one from its text content, or otherwise apply a random one.
+Use `<template x-anchors="...">` to automatically list anchor links from any elements in your page content, like the "On this page" menu next to this article. Elements can be identified by tag name, class, or an existing ID. If an element does not have an existing ID, the module will auto-generate one from its text content, or otherwise apply a random one.
 
 The `x-anchors` directive uses a pipeline syntax to specify the scope and target elements: `scope | targets`.
 

@@ -13,16 +13,16 @@ It's the mechanism behind the little green dots in a chat app, the "3 people vie
 Presence is built on <a href="https://appwrite.io/" target="_blank" rel="noopener">Appwrite</a>'s native realtime service. Statuses are held in memory and expire automatically, so there's nothing to clean up and no database table to manage.
 
 ::: brand icon="lucide:info"
-Presence identifies people by their [auth](/docs/framework/appwrite-plugins/auth) session — a signed-in account **or** a guest both work equally well. A visitor with no session at all sees no roster and can't publish a status; use guest sessions to include them. When your project uses [teams](/docs/framework/appwrite-plugins/teams), statuses are shared within the current team, so each workspace sees only its own members.
+Presence identifies people by their [auth](/docs/framework/appwrite-modules/auth) session — a signed-in account **or** a guest both work equally well. A visitor with no session at all sees no roster and can't publish a status; use guest sessions to include them. When your project uses [teams](/docs/framework/appwrite-modules/teams), statuses are shared within the current team, so each workspace sees only its own members.
 :::
 
 ---
 
 ## Setup
 
-Complete the [Appwrite setup](/docs/framework/appwrite-plugins/appwrite-setup) and [auth](/docs/framework/appwrite-plugins/auth) steps to connect your project and give people a way in — a full sign-in, guest access, or both. Presence needs auth, since it identifies each person by their session.
+Complete the [Appwrite setup](/docs/framework/appwrite-modules/appwrite-setup) and [auth](/docs/framework/appwrite-modules/auth) steps to connect your project and give people a way in — a full sign-in, guest access, or both. Presence needs auth, since it identifies each person by their session.
 
-Add the Appwrite SDK and `manifest.js` scripts to the HTML head, then turn presence on by adding a `presence` block to your `appwrite` config in `manifest.json`. It loads automatically whenever that block is present or `$presence` appears in your page's markup (bringing auth along with it), or you can load it explicitly with `data-plugins` (`"+appwrite-presences"` adds it alongside the defaults).
+Add the Appwrite SDK and `manifest.js` scripts to the HTML head, then turn presence on by adding a `presence` block to your `appwrite` config in `manifest.json`. It loads automatically whenever that block is present or `$presence` appears in your page's markup (bringing auth along with it), or you can load it explicitly with `data-modules` (`"+appwrite-presences"` adds it alongside the defaults).
 
 <div x-code-group copy>
 
@@ -42,7 +42,7 @@ Add the Appwrite SDK and `manifest.js` scripts to the HTML head, then turn prese
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="+appwrite-presences"></script>
+    data-modules="+appwrite-presences"></script>
 ```
 
 </div>
@@ -158,7 +158,7 @@ By default, tracking is automatic: a person is marked `away` when they switch to
 
 `$presence.list` is the live roster — an array of everyone currently present, yourself included. It updates on its own as people arrive, change status, and leave. Loop over it to build whatever display you like.
 
-Each person carries a `color` for easy visual distinction and a `metadata.name`. The name is the person's real account name when they have one, or `null` when they don't — a guest, say. Because that fallback is `null`, **you** decide the label to show in its place, so it's yours to name and to [localize](/docs/framework/core-plugins/localization).
+Each person carries a `color` for easy visual distinction and a `metadata.name`. The name is the person's real account name when they have one, or `null` when they don't — a guest, say. Because that fallback is `null`, **you** decide the label to show in its place, so it's yours to name and to [localize](/docs/framework/core-modules/localization).
 
 <div x-code-group copy>
 
@@ -218,7 +218,7 @@ Presence tidies up after itself: a person's status clears automatically when the
 
 ## Scoping the Roster
 
-When your project uses [teams](/docs/framework/appwrite-plugins/teams), the roster automatically follows the person's current team: their status is shared with teammates only, and the roster only shows people from the same team. Without teams, everyone signed in to the project shares one global roster.
+When your project uses [teams](/docs/framework/appwrite-modules/teams), the roster automatically follows the person's current team: their status is shared with teammates only, and the roster only shows people from the same team. Without teams, everyone signed in to the project shares one global roster.
 
 You can override the default in `manifest.json` or when starting:
 
@@ -235,7 +235,7 @@ You can override the default in `manifest.json` or when starting:
 <div x-init="$presence.start({ scope: 'global' })"></div>
 ```
 
-Switching teams moves your status with you: it disappears from the old team's rosters and appears in the new one. The scope is enforced twice — Appwrite only delivers presence updates to people allowed to read them, and the plugin also drops anything outside the current scope before it reaches the roster.
+Switching teams moves your status with you: it disappears from the old team's rosters and appears in the new one. The scope is enforced twice — Appwrite only delivers presence updates to people allowed to read them, and the module also drops anything outside the current scope before it reaches the roster.
 
 Until a person's team is known — however long that takes — their status stays private to them; it is never shared project-wide while a team is loading. This also means people who never resolve a team (such as guests outside any team) stay invisible to each other on team-scoped projects; if you want everyone visible regardless of teams, set the scope to `global`.
 
@@ -289,4 +289,4 @@ Every entry in the roster has this shape.
 
 ## Next Steps
 
-See [teams](/docs/framework/appwrite-plugins/teams) to scope presence to a workspace, or [cloud data](/docs/framework/appwrite-plugins/cloud-data) to pair it with shared databases and files.
+See [teams](/docs/framework/appwrite-modules/teams) to scope presence to a workspace, or [cloud data](/docs/framework/appwrite-modules/cloud-data) to pair it with shared databases and files.

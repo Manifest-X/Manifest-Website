@@ -10,7 +10,7 @@ Enable guests and user accounts in your project.
 <img src="/assets/examples/appwrite.auth.settings.webp" alt="Appwrite auth settings"/>
 :::
 
-Your Appwrite project's Auth dashboard provides various options to customize the user experience. Go to <b>Auth</b> > <b>Settings</b> to enable your preferred sign-in methods. The auth plugin currently supports:
+Your Appwrite project's Auth dashboard provides various options to customize the user experience. Go to <b>Auth</b> > <b>Settings</b> to enable your preferred sign-in methods. The auth module currently supports:
 - OAuth2 Providers (Google, Apple, GitHub, Discord, and 35+ more)
 - Anonymous (guest sessions)
 - Magic URL
@@ -29,7 +29,7 @@ With Manifest and Appwrite, a frontend user registration flow (vs. a login flow)
 Interactive examples on this page demonstrate real authentication with **you** as the user. Each example reflects the most recent auth state you've set (e.g. signed-in or out). Example styles and layouts may differ from code snippets.
 :::
 
-In `manifest.json`, use the auth `methods` array to define your project's sign-in methods, and enable each one in the connected Appwrite project. Without `methods`, magic URLs and OAuth are enabled (`["magic", "oauth"]`). The `auth` object itself is what loads the auth plugin, so include it even when empty (`"auth": {}`).
+In `manifest.json`, use the auth `methods` array to define your project's sign-in methods, and enable each one in the connected Appwrite project. Without `methods`, magic URLs and OAuth are enabled (`["magic", "oauth"]`). The `auth` object itself is what loads the auth module, so include it even when empty (`"auth": {}`).
 
 ```json "manifest.json" copy
 {
@@ -156,7 +156,7 @@ Magic URLs provide passwordless authentication via email. Users enter their emai
 
 The button's `$auth.sendMagicLink()` method automatically finds the email input in the same parent element, form element, or otherwise finds the first email input on the page. To target a specific input, add its element ID like `$auth.sendMagicLink('#email-input')`. When activated, a magic URL is sent and the email input field is cleared.
 
-When users click the magic URL in their email, they're redirected back to your app. The plugin automatically handles the callback and creates the session.
+When users click the magic URL in their email, they're redirected back to your app. The module automatically handles the callback and creates the session.
 
 Email content can be customized in Appwrite under <b>Auth</b> > <b>Templates</b> > <b>Magic URL</b>.
 
@@ -266,7 +266,7 @@ Phone OTP requires an SMS provider (Twilio, Vonage, MSG91, or Telesign) connecte
 
 Guest sessions allow visitors to browse your app without creating an account, with each session registered in the Appwrite userbase (including repeat visits from the same user). With Manifest, guest sessions can begin automatically or by a user action.
 
-By default, when a guest signs in, a fresh account is created and the guest session is discarded, along with anything tied to it (such as guest-created [teams](/docs/framework/appwrite-plugins/teams)). To keep them:
+By default, when a guest signs in, a fresh account is created and the guest session is discarded, along with anything tied to it (such as guest-created [teams](/docs/framework/appwrite-modules/teams)). To keep them:
 
 | Sign-in method | Keep the guest's data with |
 |---|---|
@@ -359,7 +359,7 @@ No markup changes are needed — `$auth.sendMagicLink()` and `$auth.loginOAuth()
 
 For email and phone OTP sign-ins, `guestMigration` carries the guest's teams over to the new account by reassigning team membership.
 
-Reassigning team ownership between accounts is privileged — it needs a server API key, so it has to run on a server, not in the browser. To make that turnkey, Manifest provides a ready-to-deploy <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/guest-migration-function" target="_blank" rel="noopener">guest-migration function template</a>. Deploy it to your Appwrite project and point the plugin at it:
+Reassigning team ownership between accounts is privileged — it needs a server API key, so it has to run on a server, not in the browser. To make that turnkey, Manifest provides a ready-to-deploy <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/guest-migration-function" target="_blank" rel="noopener">guest-migration function template</a>. Deploy it to your Appwrite project and point the module at it:
 
 ```json "manifest.json" copy
 {
@@ -374,9 +374,9 @@ Reassigning team ownership between accounts is privileged — it needs a server 
 }
 ```
 
-No markup changes — after a guest verifies an OTP code, the plugin transparently moves their teams to the new account. The same function also garbage-collects abandoned guests and their orphaned teams on a schedule.
+No markup changes — after a guest verifies an OTP code, the module transparently moves their teams to the new account. The same function also garbage-collects abandoned guests and their orphaned teams on a schedule.
 
-The template is one ready-made implementation; the plugin just calls a function that speaks a small `prepare`/`commit` contract, so you can swap the function's internals for your own backend logic if you ever need to. Its <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/guest-migration-function#readme" target="_blank" rel="noopener">README</a> walks through deploying it.
+The template is one ready-made implementation; the module just calls a function that speaks a small `prepare`/`commit` contract, so you can swap the function's internals for your own backend logic if you ever need to. Its <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/guest-migration-function#readme" target="_blank" rel="noopener">README</a> walks through deploying it.
 
 ---
 
@@ -458,7 +458,7 @@ Sign-in methods can be stacked to provide optionality to users.
 
 ## Properties
 
-The auth plugin provides an `$auth` magic property that exposes authentication state and methods.
+The auth module provides an `$auth` magic property that exposes authentication state and methods.
 
 ### Authentication State
 
@@ -543,13 +543,13 @@ Signing in or out in one tab updates every open tab, and every Appwrite table an
 
 If the app opens offline, it renders signed out (`$auth.isAuthenticated` is `false`) and restores the session on its own once Appwrite is reachable (it rechecks on reconnect, on tab refocus, and after 2, 5, 15 and 60 seconds); no guest session is created over the real one. Only a genuine "no session" answer from Appwrite signs a user out. Listen for `manifest:auth:login` to react when the session returns.
 
-While offline, [persisted](/docs/framework/core-plugins/local-data#persisted-data) rows saved for the user last signed in on this device stay shown for every source, including tables with a [scope](/docs/framework/appwrite-plugins/databases#scope) and sources whose queries reference `$auth.` values, unless the persistence `scope` depends on the signed-in user or team, which can't be evaluated until the session is verified (the saved rows stay on the device until then). A restored session reloads them; a "no session" answer, a sign-out, or a different user clears them.
+While offline, [persisted](/docs/framework/core-modules/local-data#persisted-data) rows saved for the user last signed in on this device stay shown for every source, including tables with a [scope](/docs/framework/appwrite-modules/databases#scope) and sources whose queries reference `$auth.` values, unless the persistence `scope` depends on the signed-in user or team, which can't be evaluated until the session is verified (the saved rows stay on the device until then). A restored session reloads them; a "no session" answer, a sign-out, or a different user clears them.
 
 ---
 
 ## Events
 
-The auth plugin dispatches these events on `window`:
+The auth module dispatches these events on `window`:
 
 | Event | Fires when |
 |-------|------------|
@@ -558,7 +558,7 @@ The auth plugin dispatches these events on `window`:
 | `manifest:auth:anonymous`{copy} | A guest session starts |
 | `manifest:auth:logout`{copy} | The user signs out, or the session has expired |
 | `manifest:auth:session-cleared`{copy} | The session ended or changed elsewhere, such as in another tab |
-| `manifest:auth:teams-loaded`{copy} | The user's [teams](/docs/framework/appwrite-plugins/teams) have loaded |
+| `manifest:auth:teams-loaded`{copy} | The user's [teams](/docs/framework/appwrite-modules/teams) have loaded |
 
 ```html copy
 <div x-data @manifest:auth:login.window="$toast('Welcome back')"></div>
@@ -568,4 +568,4 @@ The auth plugin dispatches these events on `window`:
 
 ## Next Steps
 
-See [teams](/docs/framework/appwrite-plugins/teams) to enable shared workspaces between users, including roles and permissions.
+See [teams](/docs/framework/appwrite-modules/teams) to enable shared workspaces between users, including roles and permissions.

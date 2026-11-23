@@ -296,7 +296,7 @@
 
     <!-- All features -->
     <div id="framework-all" class="col gap-8 z-1 lg:col-span-2 max-h-[28rem] overflow-y-auto overscroll-contain sm:max-h-none sm:overflow-visible" x-show="all" x-cloak>
-      <template x-for="g in ($x.framework || []).filter(g => ['core-plugins', 'appwrite-plugins', 'elements', 'styles', 'publishing'].includes(g.slug))" :key="g.slug">
+      <template x-for="g in ($x.framework || []).filter(g => ['core-modules', 'appwrite-modules', 'elements', 'styles', 'publishing'].includes(g.slug))" :key="g.slug">
         <div class="col gap-3">
           <h3 class="h6 text-content-subtle" x-text="g.group"></h3>
           <ul class="unstyle grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">

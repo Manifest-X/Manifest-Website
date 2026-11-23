@@ -6,7 +6,7 @@ Move files out of the page and back in — downloads and uploads of documents an
 
 ## Overview
 
-One plugin covers both directions of file transfer, and everything happens in the visitor's browser — no server involved:
+One module covers both directions of file transfer, and everything happens in the visitor's browser — no server involved:
 
 - **[Export](#export)** — `x-export` turns any element into a download button. The whole page, a chosen section, or an `$x` data source can be saved as **PDF**, **PNG**, **JPEG**, **WebP**, **CSV**, or **JSON**.
 - **[Import](#import)** — `x-import` turns any element into an "open file" button. A **JSON** or **CSV** file from the visitor's device is read and handed back as usable data.
@@ -17,17 +17,17 @@ Together they close the loop: whatever a visitor exports, they (or anyone else) 
 
 ## Setup
 
-Import/Export is included in `manifest.js` with all core plugins, or can be selectively loaded. The plugin name is `export`; `import` also works and loads the same file.
+Import/Export is included in `manifest.js` with all core modules, or can be selectively loaded. The module name is `export`; `import` also works and loads the same file.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="export"></script>
+    data-modules="export"></script>
 ```
 
 </div>
@@ -182,7 +182,7 @@ The link says what the visitor wants; the destination page knows what it can han
 
 ### Data Sources
 
-For tables and structured data, point at a `$x` source by name. The plugin writes the source out as CSV or JSON and downloads it.
+For tables and structured data, point at a `$x` source by name. The module writes the source out as CSV or JSON and downloads it.
 
 <div x-code-group>
 
@@ -348,7 +348,7 @@ npm i -D puppeteer
 
 ## Import
 
-The `x-import` directive and `$import` magic bring files back in. The visitor picks a **JSON** or **CSV** file, the plugin reads it right there in the browser (the file never leaves their device), and the content arrives as an event, a promise, or straight into an `$x` data source. Restoring an exported backup, loading a saved document, or accepting user-made content packs is one attribute.
+The `x-import` directive and `$import` magic bring files back in. The visitor picks a **JSON** or **CSV** file, the module reads it right there in the browser (the file never leaves their device), and the content arrives as an event, a promise, or straight into an `$x` data source. Restoring an exported backup, loading a saved document, or accepting user-made content packs is one attribute.
 
 With no options the picker accepts JSON or CSV (including tab-separated `.tsv`) and tells them apart by the file's extension; a modifier pins one format.
 

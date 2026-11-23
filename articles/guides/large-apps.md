@@ -155,7 +155,7 @@ An Appwrite table shows its first 25 rows unless you ask for more. Set `paging` 
 }
 ```
 
-See [large tables](/docs/framework/appwrite-plugins/databases#large-tables) for every option.
+See [large tables](/docs/framework/appwrite-modules/databases#large-tables) for every option.
 
 ---
 

@@ -26,7 +26,7 @@ In a bucket's **Settings** tab, ensure any permissions required by your frontend
 
 ## Register Storage Buckets
 
-Register storage buckets in your `manifest.json` under the `data` property, same as [local data files](/docs/framework/core-plugins/local-data) and [database tables](/docs/framework/appwrite-plugins/databases). Include the `appwriteBucketId` value provided by Appwrite.
+Register storage buckets in your `manifest.json` under the `data` property, same as [local data files](/docs/framework/core-modules/local-data) and [database tables](/docs/framework/appwrite-modules/databases). Include the `appwriteBucketId` value provided by Appwrite.
 
 ```json "manifest.json" copy
 {
@@ -73,17 +73,17 @@ Scope filters are applied when listing files, ensuring users only see files they
 
 When using `["user", "team"]` scope, files are shown for the current user OR the current team. If no team is selected (`$auth.currentTeam`), only user-scoped files will display. Use `"teams"` (plural) instead of `"team"` (singular) to query all teams the user belongs to, not just the current team.
 
-**Signed out.** A bucket whose queries reference `$auth.` values settles as empty (`[]`, `$ready` `true`) without a request while no user is signed in, and loads on sign-in; after an [offline start](/docs/framework/appwrite-plugins/users#session-recovery), a [persisted](/docs/framework/core-plugins/local-data#persisted-data) bucket keeps the files saved for the user last signed in on this device while the listing can't be reached, until the session is checked; a scope-only bucket that is reachable before the session is verified can list as empty. A scope alone does not hold back the listing: the files are still requested, and any returned are filtered out. Like every bucket source, it reloads whenever the identity changes, so one user's files never carry over to the next (see [cloud data](/docs/framework/appwrite-plugins/cloud-data) and [session recovery](/docs/framework/appwrite-plugins/users#session-recovery)).
+**Signed out.** A bucket whose queries reference `$auth.` values settles as empty (`[]`, `$ready` `true`) without a request while no user is signed in, and loads on sign-in; after an [offline start](/docs/framework/appwrite-modules/users#session-recovery), a [persisted](/docs/framework/core-modules/local-data#persisted-data) bucket keeps the files saved for the user last signed in on this device while the listing can't be reached, until the session is checked; a scope-only bucket that is reachable before the session is verified can list as empty. A scope alone does not hold back the listing: the files are still requested, and any returned are filtered out. Like every bucket source, it reloads whenever the identity changes, so one user's files never carry over to the next (see [cloud data](/docs/framework/appwrite-modules/cloud-data) and [session recovery](/docs/framework/appwrite-modules/users#session-recovery)).
 
 ::: brand icon="lucide:info"
-All interactive examples below require you to be logged into a dummy account via the [users](/docs/framework/appwrite-plugins/users) article. The files you generate below use the `team` scope.
+All interactive examples below require you to be logged into a dummy account via the [users](/docs/framework/appwrite-modules/users) article. The files you generate below use the `team` scope.
 :::
 
 ---
 
 ## Display & Manage Files
 
-Storage buckets work identically to local data sources and database tables. Access files using the `$x` magic method and perform all CRUD operations. Team-scoped files are uploaded for `$auth.currentTeam`, so the "All" example first selects the user's [permanent team](/docs/framework/appwrite-plugins/teams#team-management):
+Storage buckets work identically to local data sources and database tables. Access files using the `$x` magic method and perform all CRUD operations. Team-scoped files are uploaded for `$auth.currentTeam`, so the "All" example first selects the user's [permanent team](/docs/framework/appwrite-modules/teams#team-management):
 
 <div x-code-group numbers copy>
 
@@ -358,7 +358,7 @@ Alternatively, link files manually after upload:
 
 Deleting a file with `$delete` also removes its id from every loaded entry that links it: the columns named for that bucket in a table's `storage` mapping or a bucket's `belongsTo.fileIdsColumn`, and `fileIds` unless the mapping gives `fileIds` to another bucket. A column you only passed when uploading (the `fileIdsColumn` option) and never named in `manifest.json` is not unlinked; remove those ids yourself with the table's `$update`. The links are removed only after Appwrite confirms the delete, so a delete that fails (for example, no permission) leaves the file and its links as they were.
 
-See [databases](/docs/framework/appwrite-plugins/databases#storage-file-references) for more details on file references.
+See [databases](/docs/framework/appwrite-modules/databases#storage-file-references) for more details on file references.
 
 ---
 
@@ -606,4 +606,4 @@ Image preview options:
 
 ## Next Steps
 
-See [databases](/docs/framework/appwrite-plugins/databases) for managing database entries and linking files to entries.
+See [databases](/docs/framework/appwrite-modules/databases) for managing database entries and linking files to entries.

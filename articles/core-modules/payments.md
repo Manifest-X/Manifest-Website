@@ -6,7 +6,7 @@ Integrate payment providers with your project.
 
 ## Overview
 
-The payments plugin connects your project to any payment provider, which are processors like <a href="https://stripe.com" target="_blank" rel="noopener">Stripe</a> or <a href="https://www.revolut.com/business/merchant-accounts/" target="_blank" rel="noopener">Revolut</a>, and merchants of record like <a href="https://www.paddle.com" target="_blank" rel="noopener">Paddle</a> or <a href="https://www.lemonsqueezy.com" target="_blank" rel="noopener">Lemon Squeezy</a> that also handle sales tax for you. Buyers check out on the provider's secure page or in a popup over yours, and your project never sees card numbers or secret keys.
+The payments module connects your project to any payment provider, which are processors like <a href="https://stripe.com" target="_blank" rel="noopener">Stripe</a> or <a href="https://www.revolut.com/business/merchant-accounts/" target="_blank" rel="noopener">Revolut</a>, and merchants of record like <a href="https://www.paddle.com" target="_blank" rel="noopener">Paddle</a> or <a href="https://www.lemonsqueezy.com" target="_blank" rel="noopener">Lemon Squeezy</a> that also handle sales tax for you. Buyers check out on the provider's secure page or in a popup over yours, and your project never sees card numbers or secret keys.
 
 There are two ways to use it. **Payment links** simply send buyers to a checkout or donation page you already have, with no backend needed. **Full checkout** adds a small [payment function](#payment-function) so you can sell by product name, confirm payments reliably, and unlock features the moment someone pays.
 
@@ -14,7 +14,7 @@ There are two ways to use it. **Payment links** simply send buyers to a checkout
 
 ## Setup
 
-Payments isn't part of the default plugin set. It loads automatically when `manifest.json` contains a `payments` block, or it can be declared in `data-plugins`, where the `+` prefix adds it alongside the default plugins.
+Payments isn't part of the default module set. It loads automatically when `manifest.json` contains a `payments` block, or it can be declared in `data-modules`, where the `+` prefix adds it alongside the default modules.
 
 <div x-code-group copy>
 
@@ -32,7 +32,7 @@ Payments isn't part of the default plugin set. It loads automatically when `mani
 
 <!-- Scripts: defaults plus payments -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="+payments"></script>
+    data-modules="+payments"></script>
 ```
 
 </div>
@@ -80,7 +80,7 @@ Register the payment provider in `manifest.json` under a `payments` block, point
 | `publicKey`{copy} | – | A publishable key, if your provider's popup needs one. Safe to commit. |
 | `environment`{copy} | `"live"` | `live` or `sandbox`: which of the provider's popup SDKs `overlay` checkouts load. Set `sandbox` while testing with the provider's test keys, and match the environment your payment function uses. |
 | `options`{copy} | `{}` | Provider-specific options passed to the adapter. |
-| `state.url`{copy} | – | Where to read payment state for `$pay.state`. Appwrite projects can use [databases](/docs/framework/appwrite-plugins/databases) and `$x` instead. |
+| `state.url`{copy} | – | Where to read payment state for `$pay.state`. Appwrite projects can use [databases](/docs/framework/appwrite-modules/databases) and `$x` instead. |
 
 ::: brand icon="lucide:info"
 Since mnfst 0.5.270, `environment` defaults to `live`. Sites that relied on the old sandbox default must now set `"environment": "sandbox"`.
@@ -194,10 +194,10 @@ return res.json({ mode: 'redirect', url: order.checkout_url })
 
 </div>
 
-If the signed-in user and active team are available from [auth](/docs/framework/appwrite-plugins/auth), the plugin sends them along automatically as `userId` (`$auth.user.$id`) and `workspaceId` (`$auth.currentTeam.$id`) — so your function knows which account to credit without extra wiring. The payload also suits quantities, coupon codes, or anything else your function wants at checkout time — it travels as-is. Two keys are also read by the plugin: `mode` is passed to your function as the preferred checkout style (`context.preferMode`), and `context` is merged into the identity context sent alongside, overriding `userId` or `workspaceId` if it sets them.
+If the signed-in user and active team are available from [auth](/docs/framework/appwrite-modules/auth), the module sends them along automatically as `userId` (`$auth.user.$id`) and `workspaceId` (`$auth.currentTeam.$id`) — so your function knows which account to credit without extra wiring. The payload also suits quantities, coupon codes, or anything else your function wants at checkout time — it travels as-is. Two keys are also read by the module: `mode` is passed to your function as the preferred checkout style (`context.preferMode`), and `context` is merged into the identity context sent alongside, overriding `userId` or `workspaceId` if it sets them.
 
 ::: brand icon="lucide:info"
-The [template function](#appwrite-template) needs a <b>signed-in buyer</b> — the grant is credited to their active team (the template stores it as `workspace_id`), so it refuses anonymous checkouts rather than taking money it can't assign. A function you write yourself decides its own rule. For anonymous purchases (donations, one-off sales), use [payment links](#payment-links). Buttons also handle themselves during a checkout: they disable while the flow opens (no double-charges from double-clicks), and failures surface automatically as a toast when the toasts plugin is loaded.
+The [template function](#appwrite-template) needs a <b>signed-in buyer</b> — the grant is credited to their active team (the template stores it as `workspace_id`), so it refuses anonymous checkouts rather than taking money it can't assign. A function you write yourself decides its own rule. For anonymous purchases (donations, one-off sales), use [payment links](#payment-links). Buttons also handle themselves during a checkout: they disable while the flow opens (no double-charges from double-clicks), and failures surface automatically as a toast when the toasts module is loaded.
 :::
 
 ---
@@ -244,7 +244,7 @@ return res.json(e ? { plan: e.plan, status: e.status, credits: e.credits } : {})
 | `$pay.last`{copy} | reactive | Your function's response to the last checkout request. |
 | `$pay.register(name, adapter)`{copy} | method | Add or replace a popup adapter (see [providers](#providers)). |
 
-Appwrite-enabled projects can skip `state.url` and store the payment record in a [database](/docs/framework/appwrite-plugins/databases) instead. The function writes it, and your pages read it reactively through `$x` with realtime updates.
+Appwrite-enabled projects can skip `state.url` and store the payment record in a [database](/docs/framework/appwrite-modules/databases) instead. The function writes it, and your pages read it reactively through `$x` with realtime updates.
 
 ---
 
@@ -260,7 +260,7 @@ Two checkout styles are supported, and every provider gets at least one:
 | Overlay popup | `revolut`{copy}, `paddle`{copy}, `lemonsqueezy`{copy}, `polar`{copy}, `razorpay`{copy} |
 | Redirect | `stripe`{copy}, `square`{copy}, `paypal`{copy}, `braintree`{copy}, `adyen`{copy}, `mollie`{copy}, and any provider with a hosted checkout |
 
-If a popup isn't available, the plugin falls back to redirect when your function also returned a checkout `url`. Popup SDKs load on demand from the provider's own CDN — sites with a strict Content Security Policy should allow that provider's domain in `script-src`. Providers outside the list can add popup support without touching the framework:
+If a popup isn't available, the module falls back to redirect when your function also returned a checkout `url`. Popup SDKs load on demand from the provider's own CDN — sites with a strict Content Security Policy should allow that provider's domain in `script-src`. Providers outside the list can add popup support without touching the framework:
 
 ```html "Custom overlay" copy
 <script>
@@ -469,13 +469,13 @@ This example uses <a href="https://help.revolut.com/business/help/merchant-accou
 
 ## Returning from Checkout
 
-After a checkout redirect, the provider sends the buyer back to a success URL you choose. Add `checkout=1` to it — when the buyer lands, the plugin refreshes `$pay.state` against your function and tidies the URL.
+After a checkout redirect, the provider sends the buyer back to a success URL you choose. Add `checkout=1` to it — when the buyer lands, the module refreshes `$pay.state` against your function and tidies the URL.
 
 ```text "Success URL" copy
 https://yourapp.com/thanks?checkout=1
 ```
 
-Popup checkouts stay on the page and refresh state automatically when the popup completes. Because the provider's confirmation can arrive a few seconds after the buyer does, the plugin re-checks state on a short backoff after the return — the page settles on the webhook-confirmed record without any author code, so what buyers see is what your function actually granted.
+Popup checkouts stay on the page and refresh state automatically when the popup completes. Because the provider's confirmation can arrive a few seconds after the buyer does, the module re-checks state on a short backoff after the return — the page settles on the webhook-confirmed record without any author code, so what buyers see is what your function actually granted.
 
 | Event | Fires when |
 |---|---|

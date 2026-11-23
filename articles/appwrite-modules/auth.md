@@ -6,9 +6,9 @@ Implement a complete authentication solution for your app with a connected <a hr
 
 ## Setup
 
-Complete the [Appwrite setup](/docs/framework/appwrite-plugins/appwrite-setup) steps to connect your Appwrite and Manifest projects.
+Complete the [Appwrite setup](/docs/framework/appwrite-modules/appwrite-setup) steps to connect your Appwrite and Manifest projects.
 
-Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json` is also required for Appwrite credentials and configuring auth details. The auth plugin auto-loads when the `appwrite` object includes `auth`, even an empty `"auth": {}`.
+Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json` is also required for Appwrite credentials and configuring auth details. The auth module auto-loads when the `appwrite` object includes `auth`, even an empty `"auth": {}`.
 
 <div x-code-group copy>
 
@@ -28,7 +28,7 @@ Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json`
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="+appwrite-auth"></script>
+    data-modules="+appwrite-auth"></script>
 ```
 
 </div>
@@ -39,5 +39,5 @@ Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json`
 
 Complete authentication support using the guides for:
 
-- [Users](/docs/framework/appwrite-plugins/users)
-- [Teams](/docs/framework/appwrite-plugins/teams) (optional)
+- [Users](/docs/framework/appwrite-modules/users)
+- [Teams](/docs/framework/appwrite-modules/teams) (optional)

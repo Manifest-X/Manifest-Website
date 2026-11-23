@@ -6,17 +6,17 @@ Inline SVG icons from Iconify via the `x-icon` directive.
 
 ## Setup
 
-Icons are included in `manifest.js` with all core plugins, or can be selectively loaded.
+Icons are included in `manifest.js` with all core modules, or can be selectively loaded.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="icons"></script>
+    data-modules="icons"></script>
 ```
 
 </div>
@@ -91,7 +91,7 @@ Icons can be switched dynamically with Alpine expressions. Click the example but
 
 ### Data Sources
 
-`x-icon` can get its value from a [data source](/docs/framework/core-plugins/local-data).
+`x-icon` can get its value from a [data source](/docs/framework/core-modules/local-data).
 
 <div x-code-group copy>
 

@@ -45,24 +45,24 @@ The buttons stay disabled until the caret is in the field, then light up for the
 
 ## Setup
 
-Rich Text isn't in the default bundle. With the default plugins, or a `data-plugins` list starting with `+`, it loads by itself as soon as the page uses `x-rich-text` or `$rich`, including in components and markdown added later. A `data-plugins` list without `+` loads only what it names, so add `rich-text` to it. [Visual Editing](/docs/framework/core-plugins/edit) loads Rich Text too, because page text is edited with it.
+Rich Text isn't in the default bundle. With the default modules, or a `data-modules` list starting with `+`, it loads by itself as soon as the page uses `x-rich-text` or `$rich`, including in components and markdown added later. A `data-modules` list without `+` loads only what it names, so add `rich-text` to it. [Visual Editing](/docs/framework/core-modules/edit) loads Rich Text too, because page text is edited with it.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="rich-text,markdown"></script>
+    data-modules="rich-text,markdown"></script>
 ```
 
 </div>
 
 Until Rich Text has loaded, `$rich` reads as an empty field that does nothing, so an expression that uses it never throws; once it loads, bindings that read it run again.
 
-Rich Text reads and writes markdown on its own. Showing a stored value as formatted text elsewhere on the page, as some examples here do, uses the [Markdown](/docs/framework/core-plugins/markdown) plugin's `x-markdown`, which is in the default bundle; a selective list needs `markdown` for that, as above.
+Rich Text reads and writes markdown on its own. Showing a stored value as formatted text elsewhere on the page, as some examples here do, uses the [Markdown](/docs/framework/core-modules/markdown) module's `x-markdown`, which is in the default bundle; a selective list needs `markdown` for that, as above.
 
 Field and control styles are included in Manifest CSS or as a standalone stylesheet. Both reference [theme](/docs/framework/styles/theme) variables, such as the surface, line, and brand colours fields and the style examples use. Link your project's own `manifest.theme.css`, which can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification, as in [Setup](/docs/framework/getting-started/setup#styles).
 
@@ -387,7 +387,7 @@ Here `look` holds the styles: `x-effect` applies them to the field, including th
 
 ## Editing Data
 
-A field can edit a value anywhere Alpine can reach: a list in `x-data`, a store, or a record from a [data source](/docs/framework/core-plugins/local-data) such as `$x.products`. Below, each field edits one product's `name`, and the text beside it is that value, updating as you type.
+A field can edit a value anywhere Alpine can reach: a list in `x-data`, a store, or a record from a [data source](/docs/framework/core-modules/local-data) such as `$x.products`. Below, each field edits one product's `name`, and the text beside it is that value, updating as you type.
 
 <div x-code-group>
 
@@ -427,7 +427,7 @@ The loop is keyed by each record's `id`. Keying it by the field being edited, as
 
 Each field keeps its own history. **Cmd/Ctrl + Z** undoes and **Shift + Cmd/Ctrl + Z** redoes, as does **Ctrl + Y** outside the Mac, and so do the browser's Undo and Redo menu items. Typing is grouped into one step once you pause for a moment, and every command, paste, and markdown conversion is a step of its own. A history holds the latest 200 steps.
 
-The browser's own undo can't do this: it doesn't know about the changes the plugin makes itself, such as a heading made from `## ` or a list made by a button, and it would undo only some of them. The field replaces it with a history of its own so every change steps back in order.
+The browser's own undo can't do this: it doesn't know about the changes the module makes itself, such as a heading made from `## ` or a list made by a button, and it would undo only some of them. The field replaces it with a history of its own so every change steps back in order.
 
 `x-rich-text.undo` and `.redo` controls disable themselves when there's nothing to step to, and unlike other commands they're ready without the caret in the field.
 
@@ -456,7 +456,7 @@ The browser's own undo can't do this: it doesn't know about the changes the plug
 
 </div>
 
-The history starts again whenever the value is set from outside the field, by your own code or by assigning `$rich.value`, because the steps before no longer describe the text. It lives as long as the page does: a reload starts fresh. Inside an [Visual Editing](/docs/framework/core-plugins/edit#history) region, the page's history takes over from the field's once you leave the text.
+The history starts again whenever the value is set from outside the field, by your own code or by assigning `$rich.value`, because the steps before no longer describe the text. It lives as long as the page does: a reload starts fresh. Inside an [Visual Editing](/docs/framework/core-modules/edit#history) region, the page's history takes over from the field's once you leave the text.
 
 ---
 
@@ -600,7 +600,7 @@ The variables set the field's look one field at a time, or for every field when 
 
 </div>
 
-Controls are styled through the attributes the plugin sets on them. Here active commands get the brand colour and disabled ones fade further.
+Controls are styled through the attributes the module sets on them. Here active commands get the brand colour and disabled ones fade further.
 
 <div x-code-group>
 
@@ -693,7 +693,7 @@ The field's own states are attributes too: style the empty state's placeholder, 
 | `--rich-text-padding` | `0.75rem` | Padding |
 | `--rich-text-background` | `--color-surface-1` | Background; also set by `background.all` |
 | `--rich-text-font`, `-size`, `-leading`, `-align`, `-color` | inherited; `start` for align | Document-wide styles, set by `.all` controls |
-| `--rich-text-selection-x`, `-y`, `-width`, `-height`, `-center` | — | Written by the plugin on `:root`: the selection's box, in viewport pixels |
+| `--rich-text-selection-x`, `-y`, `-width`, `-height`, `-center` | — | Written by the module on `:root`: the selection's box, in viewport pixels |
 
 ### Attributes
 
@@ -715,13 +715,13 @@ The field's own states are attributes too: style the empty state's placeholder, 
 | `data-rich-text-resizing` | A field while a table border is dragged: `x` or `y` |
 
 ::: brand icon="lucide:info"
-Some words mean different things in [Visual Editing](/docs/framework/core-plugins/edit). Here, `size` sets font size and a *block* is a paragraph-level tag; in Visual Editing, `.size` resizes an element and a block is any piece of the page.
+Some words mean different things in [Visual Editing](/docs/framework/core-modules/edit). Here, `size` sets font size and a *block* is a paragraph-level tag; in Visual Editing, `.size` resizes an element and a block is any piece of the page.
 :::
 
 ---
 
 ## Related
 
-- [Controls](/docs/framework/core-plugins/rich-text-controls) builds buttons, dropdowns, toolbars, and menus for fields.
-- [Markdown](/docs/framework/core-plugins/markdown) displays a stored value.
-- [Visual Editing](/docs/framework/core-plugins/edit) edits the page itself, and uses Rich Text for its text.
+- [Controls](/docs/framework/core-modules/rich-text-controls) builds buttons, dropdowns, toolbars, and menus for fields.
+- [Markdown](/docs/framework/core-modules/markdown) displays a stored value.
+- [Visual Editing](/docs/framework/core-modules/edit) edits the page itself, and uses Rich Text for its text.

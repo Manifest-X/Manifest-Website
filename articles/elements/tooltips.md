@@ -8,7 +8,7 @@ Hover and focus hints for inline annotations.
 
 Tooltip styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
-Tooltip functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
+Tooltip functionality is included in `manifest.js` with all core modules, or it can be selectively loaded.
 
 <div x-code-group copy>
 
@@ -24,9 +24,9 @@ Tooltip functionality is included in `manifest.js` with all core plugins, or it 
 <!-- Tooltip styles only -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.tooltip.css" />
 
-<!-- Manifest JS: tooltips plugin only -->
+<!-- Manifest JS: tooltips module only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugins="tooltips"></script>
+  data-modules="tooltips"></script>
 ```
 
 </div>
@@ -200,7 +200,7 @@ Loop variables from `x-for` work the same way.
 
 ## Data Sources
 
-Tooltips can retrieve content from [data sources](/docs/framework/core-plugins/local-data) using the `$x` syntax.
+Tooltips can retrieve content from [data sources](/docs/framework/core-modules/local-data) using the `$x` syntax.
 
 <div x-code-group copy>
 

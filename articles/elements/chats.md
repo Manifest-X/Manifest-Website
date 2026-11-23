@@ -8,7 +8,7 @@ Conversation layouts with message bubbles, attachments, and input composers.
 
 Chat styles turn semantic HTML into a full conversation surface: a message log that stays pinned to the newest message, bubbles for your own messages, media attachments, and a composer that grows as you type. There are only two class names to learn. Add `chat-wrapper` to the container and `own` to the user's own messages, and everything else is styled through native elements and attributes.
 
-The styles don't care where messages come from. They work with a static array, [local data](/docs/framework/core-plugins/local-data), your own backend, or the [chat plugin](/docs/framework/core-plugins/chat). The plugin renders nothing itself, so neither requires the other.
+The styles don't care where messages come from. They work with a static array, [local data](/docs/framework/core-modules/local-data), your own backend, or the [chat module](/docs/framework/core-modules/chat). The module renders nothing itself, so neither requires the other.
 
 ---
 
@@ -123,7 +123,7 @@ Pinning is pure CSS: the log lays out in reverse column order, which browsers na
 
 ## Messages
 
-Messages are plain elements inside the column — one `<div>` per message is typical. Paragraph spacing is tuned for rendered [markdown](/docs/framework/core-plugins/markdown). Add the `own` class to the current user's messages: they become right-aligned, fit-content bubbles on a surface tint.
+Messages are plain elements inside the column — one `<div>` per message is typical. Paragraph spacing is tuned for rendered [markdown](/docs/framework/core-modules/markdown). Add the `own` class to the current user's messages: they become right-aligned, fit-content bubbles on a surface tint.
 
 ```html copy
 <template x-for="m in messages" :key="m.id">
@@ -131,7 +131,7 @@ Messages are plain elements inside the column — one `<div>` per message is typ
 </template>
 ```
 
-With the [Chat plugin](/docs/framework/core-plugins/chat), the condition compares the author to the conversation's identity:
+With the [Chat module](/docs/framework/core-modules/chat), the condition compares the author to the conversation's identity:
 
 ```html copy
 <div :class="m.author?.id === chat.me?.id && 'own'"></div>

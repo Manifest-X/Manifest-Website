@@ -8,7 +8,7 @@ Collect entries or chips in filterable fields.
 
 Combobox styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
-Combobox functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
+Combobox functionality is included in `manifest.js` with all core modules, or it can be selectively loaded.
 
 <div x-code-group copy>
 
@@ -26,15 +26,15 @@ Combobox functionality is included in `manifest.js` with all core plugins, or it
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.input.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.dropdown.css" />
 
-<!-- Manifest JS: combobox plugin only -->
+<!-- Manifest JS: combobox module only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugins="combobox"></script>
+  data-modules="combobox"></script>
 ```
 
 </div>
 
 ::: brand icon="lucide:info"
-The suggestion list reuses [dropdown](/docs/framework/elements/dropdowns) styles; the dropdowns plugin isn't needed.
+The suggestion list reuses [dropdown](/docs/framework/elements/dropdowns) styles; the dropdowns module isn't needed.
 :::
 
 ---
@@ -427,7 +427,7 @@ tags=research
 
 Bind a field to state with `x-model`{copy} and it stays in sync both ways. The field renders one chip per value on load and re-renders whenever the bound value changes — so the same combobox both composes a new selection and edits an existing record (switch which record is selected and the chips follow). Adding or removing chips writes straight back to the bound value.
 
-The bound value can be an array or a comma-separated string; the field keeps whatever shape it started with. Any reactive source works, including [local](/docs/framework/core-plugins/local-data) and [cloud](/docs/framework/appwrite-plugins/cloud-data) data through `$x`{copy}.
+The bound value can be an array or a comma-separated string; the field keeps whatever shape it started with. Any reactive source works, including [local](/docs/framework/core-modules/local-data) and [cloud](/docs/framework/appwrite-modules/cloud-data) data through `$x`{copy}.
 
 <div x-code-group>
 
@@ -456,7 +456,7 @@ The bound value is only ever written on an explicit selection or removal. Loadin
 
 ## Localization
 
-The few built-in UI strings are overridable through the universal `_ui`{copy} block, namespaced under `combobox`{copy}, in any [local data](/docs/framework/core-plugins/local-data) file your project loads. Override only the keys you want. Anything omitted stays in English, and switching [locale](/docs/framework/core-plugins/localization) updates them live.
+The few built-in UI strings are overridable through the universal `_ui`{copy} block, namespaced under `combobox`{copy}, in any [local data](/docs/framework/core-modules/local-data) file your project loads. Override only the keys you want. Anything omitted stays in English, and switching [locale](/docs/framework/core-modules/localization) updates them live.
 
 <div x-code-group copy>
 

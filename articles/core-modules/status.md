@@ -5,17 +5,17 @@ Track the health of your services and display it with `$status`.
 
 ## Overview
 
-The status plugin checks your services from the visitor's browser, by probing endpoints, reading status feeds, or mirroring third-party status pages, and rolls the results into reactive states you can show anywhere.
+The status module checks your services from the visitor's browser, by probing endpoints, reading status feeds, or mirroring third-party status pages, and rolls the results into reactive states you can show anywhere.
 
 ---
 
 ## Setup
 
-The status plugin is included in `manifest.js` with all core plugins, or can be selectively loaded. It activates when `manifest.json` contains a `status` block.
+The status module is included in `manifest.js` with all core modules, or can be selectively loaded. It activates when `manifest.json` contains a `status` block.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <!-- Meta -->
 <link rel="manifest" href="/manifest.json">
 
@@ -29,7 +29,7 @@ The status plugin is included in `manifest.js` with all core plugins, or can be 
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="status"></script>
+    data-modules="status"></script>
 ```
 
 </div>
@@ -131,7 +131,7 @@ Probes also accept `method` (default `GET`), `headers`, and `timeout` (default `
 }
 ```
 
-A network error, timeout, or CORS block resolves a probe to `unknown` rather than a false outage. The plugin never reports "down" when it simply could not reach the endpoint.
+A network error, timeout, or CORS block resolves a probe to `unknown` rather than a false outage. The module never reports "down" when it simply could not reach the endpoint.
 
 ---
 
@@ -164,7 +164,7 @@ Every signal and entry resolves to one of these states.
 | `major_outage`{copy} | 3 | Down |
 | `unknown`{copy} | -1 | No signal yet, or could not be reached |
 
-A `feed` or `mirror` may return its own vocabulary (`up`, `down`, `pass`, `minor`, etc.) — the plugin maps common terms onto the table above.
+A `feed` or `mirror` may return its own vocabulary (`up`, `down`, `pass`, `minor`, etc.) — the module maps common terms onto the table above.
 
 ---
 
@@ -184,7 +184,7 @@ _ui:
       unknown: Inconnu
 ```
 
-`$status.label(state)` — and anything that uses it — then returns the localized string, reactive to the current [locale](/docs/framework/core-plugins/localization).
+`$status.label(state)` — and anything that uses it — then returns the localized string, reactive to the current [locale](/docs/framework/core-modules/localization).
 
 ---
 
@@ -257,7 +257,7 @@ Address a service by name, or iterate `$status` directly — each item is a heal
 
 ## UI Templates
 
-The plugin gives you state; the presentation is yours. These templates range from a full status page down to a single indicator — each reads the same `$status` values, including the built-in `service.uptime`, the `service.history` meter, and `$status.incidents`. History accrues live as the plugin polls (or is hydrated from a feed); incidents come from a feed, and `$status.set` also logs them in the current tab.
+The module gives you state; the presentation is yours. These templates range from a full status page down to a single indicator — each reads the same `$status` values, including the built-in `service.uptime`, the `service.history` meter, and `$status.incidents`. History accrues live as the module polls (or is hydrated from a feed); incidents come from a feed, and `$status.set` also logs them in the current tab.
 
 <div x-code-group lines collapse="10" copy>
 
@@ -514,7 +514,7 @@ A message is a human note attached to a status — the line you post during an i
 <button @click="$status.set('api', 'degraded', 'Investigating elevated error rates')">Post update</button>
 ```
 
-- **From a feed**, by returning a message next to the state. The plugin reads both:
+- **From a feed**, by returning a message next to the state. The module reads both:
 
 ```json "status.json" copy
 {

@@ -30,13 +30,13 @@ Each magic talks to Capacitor inside a Capacitor app and to a web equivalent, or
 
 ## Setup
 
-Device is opt-in. It loads on its own when a page uses one of its magics, when `manifest.json` has a `device` block, or inside a Capacitor app. The `+` prefix keeps the default plugins and adds it explicitly. `native` still works as an alias in both places.
+Device is opt-in. It loads on its own when a page uses one of its magics, when `manifest.json` has a `device` block, or inside a Capacitor app. The `+` prefix keeps the default modules and adds it explicitly. `native` still works as an alias in both places.
 
 <div x-code-group copy>
 
 ```html "Script Tag"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="+device"></script>
+    data-modules="+device"></script>
 ```
 
 ```json "manifest.json"
@@ -55,7 +55,7 @@ Inside the app, a plugin counts only once `npx cap sync` has added it to the nat
 
 ## $device Properties
 
-`$device` is part of the core utilities and always available. This plugin only adds Capacitor's network and platform readings to it.
+`$device` is part of the core utilities and always available. This module only adds Capacitor's network and platform readings to it.
 
 | Property | Value |
 |---|---|
@@ -209,7 +209,7 @@ Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore throu
 
 </div>
 
-`keys()` lists stored keys and `clear()` removes them all. A different plugin registered as `SecureStorage` works if it has `getItem`/`setItem`/`removeItem` or `get`/`set`/`remove` with `{ key, value }`; if the latter rejects for a missing key, so does `get()`. For anything else, hand over an object with async `get`, `set`, `remove`, `keys` and `clear` once with `$secure.use(adapter)`.
+`keys()` lists stored keys and `clear()` removes them all. A different module registered as `SecureStorage` works if it has `getItem`/`setItem`/`removeItem` or `get`/`set`/`remove` with `{ key, value }`; if the latter rejects for a missing key, so does `get()`. For anything else, hand over an object with async `get`, `set`, `remove`, `keys` and `clear` once with `$secure.use(adapter)`.
 
 ---
 
@@ -246,12 +246,12 @@ Key/value storage. Inside a Capacitor app it uses the Keychain or Keystore throu
 
 ## $links
 
-Inside a Capacitor app (`App`) a tapped universal link like `https://app.example.com/order/123`, or a custom scheme like `myapp://order/123`, is routed to `/order/123` through the [router](/docs/framework/core-plugins/router). `$links.open(url)` runs the same path by hand; `$links.last` keeps the latest inbound URL.
+Inside a Capacitor app (`App`) a tapped universal link like `https://app.example.com/order/123`, or a custom scheme like `myapp://order/123`, is routed to `/order/123` through the [router](/docs/framework/core-modules/router). `$links.open(url)` runs the same path by hand; `$links.last` keeps the latest inbound URL.
 
 <div x-code-group>
 
 ```html copy
-<button @click="$links.open('myapp://docs/core-plugins/device')">Open a deep link</button>
+<button @click="$links.open('myapp://docs/core-modules/device')">Open a deep link</button>
 <code x-text="$links.last"></code>
 ```
 
@@ -259,7 +259,7 @@ Inside a Capacitor app (`App`) a tapped universal link like `https://app.example
 <div x-data="{ ready: false }" x-init="(function () { let n = 0; const tick = () => Alpine.store('links') ? ready = true : (n++ < 250 && setTimeout(tick, 20)); Alpine.store('links') || Manifest.loadPlugin('device', document.querySelector('script[data-version]')?.dataset.version); tick(); })()">
 <template x-if="ready">
 <div class="row-wrap gap-3 center">
-    <button @click="$links.open('myapp://docs/core-plugins/device')">Open a deep link</button>
+    <button @click="$links.open('myapp://docs/core-modules/device')">Open a deep link</button>
     <code x-text="'last: ' + ($links.last || 'none')"></code>
     <small class="text-content-subtle">The scheme maps to this page's route.</small>
 </div>
@@ -361,5 +361,5 @@ Inside a Capacitor app (`PushNotifications`), `register()` registers with APNs o
 ## Related
 
 - [Native Apps](/docs/framework/publishing/native-apps) — packaging with Capacitor
-- [Router](/docs/framework/core-plugins/router) — where deep links and notification taps land
+- [Router](/docs/framework/core-modules/router) — where deep links and notification taps land
 - [Utilities](/docs/framework/styles/utilities#operating-system) — OS classes and variants

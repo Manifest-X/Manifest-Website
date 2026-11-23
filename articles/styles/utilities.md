@@ -330,7 +330,7 @@ The `*-only` / `no-*` classes are for plain show/hide — combine them with othe
 
 ### App State
 
-Connectivity and container, from the [`$device`](/docs/framework/core-plugins/device) signal stamped on `<html>`.
+Connectivity and container, from the [`$device`](/docs/framework/core-modules/device) signal stamped on `<html>`.
 
 | Class | Variant | Shows when |
 |--------------|-----------|----------|

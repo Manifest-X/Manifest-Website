@@ -14,17 +14,17 @@ Use it for filtered or sorted lists and anything built from a data source.
 
 ## Setup
 
-Computed values are included in `manifest.js` with all core plugins, or can be selectively loaded.
+Computed values are included in `manifest.js` with all core modules, or can be selectively loaded.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="computed"></script>
+    data-modules="computed"></script>
 ```
 
 </div>

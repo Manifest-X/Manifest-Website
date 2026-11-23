@@ -6,17 +6,17 @@ Sectioned content with switchable panels.
 
 ## Setup
 
-Tabs are included in `manifest.js` with all core plugins, or can be selectively loaded.
+Tabs are included in `manifest.js` with all core modules, or can be selectively loaded.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="tabs"></script>
+    data-modules="tabs"></script>
 ```
 
 </div>
@@ -48,9 +48,9 @@ Create tab menus with `x-tab` selectable targets and `x-tabpanel` content areas,
 
 </div>
 
-The plugin works by automatically creating an Alpine property named `tab` (or `tab_<group>` for a named `x-tabpanel` group), which uses the `x-tab` values to show the selected panel and hide the others.
+The module works by automatically creating an Alpine property named `tab` (or `tab_<group>` for a named `x-tabpanel` group), which uses the `x-tab` values to show the selected panel and hide the others.
 
-Wrap the buttons in an element with `role="tablist"` to opt into the full accessibility pattern — the plugin then adds `role="tab"`, roving focus, and arrow-key navigation, and the wrapper picks up the [tab bar styling](/docs/framework/elements/forms) with a sliding selected background. Plain buttons outside a tablist look the same whether selected or not; style `[aria-selected="true"]` to mark the active one (see [Styles](#styles)).
+Wrap the buttons in an element with `role="tablist"` to opt into the full accessibility pattern — the module then adds `role="tab"`, roving focus, and arrow-key navigation, and the wrapper picks up the [tab bar styling](/docs/framework/elements/forms) with a sliding selected background. Plain buttons outside a tablist look the same whether selected or not; style `[aria-selected="true"]` to mark the active one (see [Styles](#styles)).
 
 ---
 
@@ -193,11 +193,11 @@ An unselected tab panel's contents are not initialized until the panel is first 
 
 ## Styles
 
-Tab buttons inherit from [buttons](/docs/framework/elements/buttons). The plugin removes the `x-tab` and `x-tabpanel` attributes once it has wired them, so style tabs through the attributes it leaves in place.
+Tab buttons inherit from [buttons](/docs/framework/elements/buttons). The module removes the `x-tab` and `x-tabpanel` attributes once it has wired them, so style tabs through the attributes it leaves in place.
 
 | Selector | Purpose |
 |---|---|
-| `[aria-selected="true"]` | Selected tab button, synced by the plugin |
+| `[aria-selected="true"]` | Selected tab button, synced by the module |
 | `[role=tablist] > [role=tab]` | Tab buttons inside a tablist |
 | `[role=tabpanel]` | Panels of a tablist |
 
