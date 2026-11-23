@@ -4,9 +4,9 @@ A website and app framework built directly into HTML. No bundler, no build step,
 
 ---
 
-## What is Manifest?
+## What is the Manifest framework?
 
-Manifest lets you build complete websites and apps — from marketing pages to enterprise platforms — in plain HTML enhanced with a small set of attributes. Drop in two lines and you're set:
+The Manifest framework lets you build complete websites and apps — from marketing pages to enterprise platforms — in plain HTML enhanced with a small set of attributes. Drop in two lines and you're set:
 
 ```html "<head>" copy
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js" data-tailwind></script>

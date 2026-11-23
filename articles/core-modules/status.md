@@ -71,7 +71,7 @@ A single project can mix sources freely, with the provider behind each signal is
 | `appwriteService`{copy} | Appwrite | Probes your Appwrite endpoint's overall `/health`, whichever service is named. |
 | `mirror`{copy} | Upstream | Reflects a known third party's own status. |
 | `heartbeat`{copy} | Dead-man's switch | In-page only: code on the page calls `$status.beat(key)`, and no beat within `expectEvery` ms (default `60000`) reads as `major_outage`. Each visitor's tab starts at `unknown`. For server jobs, publish a `feed` instead. |
-| `mcp`{copy} | Manifest hosting | Hosted signal for projects published with Manifest AI. |
+| `mcp`{copy} | Manifest hosting | Hosting signal for projects published on the Manifest platform. |
 
 ---
 

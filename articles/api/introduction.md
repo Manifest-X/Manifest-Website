@@ -1,6 +1,6 @@
 # Introduction
 
-Create, update, and publish projects from your own code.
+The Manifest platform's API reference. Create, update, and publish projects from your own code.
 
 ---
 
