@@ -6,32 +6,34 @@ Syntax-highlighted code elements using standard HTML, with numerous configurable
 
 ## Setup
 
-Code block styles ship as a separate stylesheet (independent of `manifest.css`) and reference [theme](/docs/styles/theme) variables.
+Code block styles ship as a separate stylesheet that references [theme](/docs/framework/styles/theme) variables. The block's border, corners and background come from the `pre` styles in `manifest.css` (standalone: `manifest.typography.css`).
 
-Code block functionality is included in `manifest.js` with all core plugins, or it can be loaded selectively.
+Code block functionality is included in `manifest.js` with all core modules, or it can be loaded selectively.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
-<!-- Code block styles -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.min.css" />
+```html "Manifest CSS / JS"
+<!-- Manifest CSS, plus code block styles -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.css" />
 
 <!-- Manifest JS -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
-```html "Selective"
-<!-- Code block styles -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.min.css" />
+```html "Standalone"
+<!-- Code block styles, with pre styles dependency -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.code.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.typography.css" />
 
-<!-- Manifest JS: code plugin only -->
+<!-- Manifest JS: code module only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugins="code"></script>
+  data-modules="code"></script>
 ```
 
 </div>
 
-The plugin loads [highlight.js](https://highlightjs.org) on demand the first time an element with an `x-code`{copy} attribute scrolls into view. The code snippet's language may be auto-detected, or can be explicitly set with a value like `x-code="html"`{copy} or `x-code="javascript"`{copy}.
+The module loads [highlight.js](https://highlightjs.org) on demand the first time an element with an `x-code`{copy} attribute scrolls into view. The code snippet's language may be auto-detected, or can be explicitly set with a value like `x-code="html"`{copy} or `x-code="javascript"`{copy}.
 
 ---
 
@@ -57,7 +59,7 @@ If at first you don’t succeed, just `<del></del>`{copy} and pretend it never h
 
 The `copy`{copy} attribute on an inline element makes inline code click-copyable, triggered with Tab + Enter for keyboard users.
 
-If the [tooltip plugin](/docs/elements/tooltips) is loaded and the element has no `x-tooltip`{copy} of its own, a confirmation tooltip automatically appears on copy.
+If the [tooltip module](/docs/framework/elements/tooltips) is loaded and the element has no `x-tooltip`{copy} of its own, a confirmation tooltip automatically appears on copy.
 
 If writing the inline code in markdown (using backticks), a trailing brace can be used to specify the snippet's language, whether it's copyable, and to add any CSS classes, e.g. `` `npx mnfst-run`{copy} `` or `` `<button>Click Me</button>`{html copy .btn-red} ``.
 
@@ -76,7 +78,7 @@ Supported tokens inside the braces:
 
 Add `x-code`{copy} to any block text element to apply syntax highlighting.
 
-Use a `<pre x-code>`{copy} element to visualize the same line breaks and indents as the written snippet. In markdown files, fenced code blocks (```` ``` ````) are automatically compiled to `<pre x-code>`, with every character of the body landing in the rendered output unchanged. See the [markdown plugin](/docs/core-plugins/markdown) for the fence info-string syntax.
+Use a `<pre x-code>`{copy} element to visualize the same line breaks and indents as the written snippet. In markdown files, fenced code blocks (```` ``` ````) are automatically compiled to `<pre x-code>`, with every character of the body landing in the rendered output unchanged. See the [markdown module](/docs/framework/core-modules/markdown) for the fence info-string syntax.
 
 <div x-code-group copy>
 
@@ -160,7 +162,7 @@ Long blocks can be capped to a preview length with a toggle below. Use `collapse
 
 ### Edit
 
-Add `edit`{copy} to make the block text-editable. The editor uses <a href="https://github.com/antonmedv/codejar" target="_blank" rel="noopener">CodeJar</a> (~4 KB gzipped, loaded lazily), with highlight.js re-highlighting on every keystroke.
+Add `edit`{copy} to make the block text-editable. The editor uses <a href="https://github.com/antonmedv/codejar" target="_blank" rel="noopener">CodeJar</a> (~4 KB gzipped, loaded lazily), with highlight.js re-highlighting on every keystroke. This edits the code in the block only; to edit page content in place see [Edit](/docs/framework/core-modules/edit), and for a text field with formatting see [Rich Text](/docs/framework/core-modules/rich-text).
 
 ```html copy
 <pre x-code="javascript" edit>
@@ -214,11 +216,11 @@ When rendered HTML on the page is a snippet's source of truth, link a code block
 </div>
 ```
 
-In markdown, to render a demo and show its source in one go, add the `demo` modifier to the [frame](/docs/core-plugins/markdown#frames) fence. The plugin emits both the live frame contents and a sibling `<pre x-code="html" copy>` showing the same source.
+In markdown, to render a demo and show its source in one go, add the `demo` modifier to the [frame](/docs/framework/core-modules/markdown#frames) fence. The module emits both the live frame contents and a sibling `<pre x-code="html" copy>` showing the same source.
 
 ````markdown copy
 ::: frame demo
-<button class="primary">Click me</button>
+<button class="brand">Click me</button>
 :::
 ````
 
@@ -226,7 +228,7 @@ In markdown, to render a demo and show its source in one go, add the `demo` modi
 
 ## Tab Groups
 
-Group multiple panels into a tabbed interface with `x-code-group`{copy} on any wrapper element (`<pre>`, `<div>`, `<section>`, etc.). The plugin normalizes the wrapper to a `<pre>` at process time so the same CSS targets both standalone and grouped blocks. This tab group block is a rendered example of its own snippets:
+Group multiple panels into a tabbed interface with `x-code-group`{copy} on any wrapper element (`<pre>`, `<div>`, `<section>`, etc.). The module normalizes the wrapper to a `<pre>` at process time so the same CSS targets both standalone and grouped blocks. This tab group block is a rendered example of its own snippets:
 
 <div x-code-group copy>
 
@@ -255,7 +257,7 @@ Group multiple panels into a tabbed interface with `x-code-group`{copy} on any w
 
 Direct children with a `name` attribute become tab panels. Children without `name` are always-visible ambient content.
 
-The `lines`, `copy`, `edit`, and `collapse` attributes can be set on the wrapper for panels that don't set them themselves. This avoids repeating the same feature across every tab:
+The `lines`, `edit`, and `collapse` attributes can be set on the wrapper for panels that don't set them themselves. This avoids repeating the same feature across every tab. `copy` on the wrapper adds one copy button that copies the active tab:
 
 <div x-code-group copy>
 
@@ -313,6 +315,7 @@ Similar to [HTML Source](#html-source) above, content can be visualized within a
 ```
 
 ````markdown "Markdown"
+<div x-code-group>
 
 ```html "HTML"
 ...
@@ -334,6 +337,7 @@ Similar to [HTML Source](#html-source) above, content can be visualized within a
 ...
 :::
 
+</div>
 ````
 
 </div>
@@ -342,7 +346,7 @@ Similar to [HTML Source](#html-source) above, content can be visualized within a
 
 ## Accessibility
 
-The plugin applies ARIA attributes automatically when authors don't supply them:
+The module applies ARIA attributes automatically when authors don't supply them:
 
 | Element | Applied |
 |---|---|
@@ -355,7 +359,7 @@ The plugin applies ARIA attributes automatically when authors don't supply them:
 | Line numbers gutter | `aria-hidden="true"` |
 | Collapse toggle | `aria-expanded`, `aria-label` ("Show N more lines" / "Show less") |
 
-Any of these can be overridden by setting the attribute yourself before the plugin processes the element.
+Any of these can be overridden by setting the attribute yourself before the module processes the element.
 
 ---
 
@@ -363,19 +367,19 @@ Any of these can be overridden by setting the attribute yourself before the plug
 
 ### Theme
 
-Default code blocks use these [theme](/docs/styles/theme) variables:
+Default code blocks use these [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |---|---|
 | `--color-page`{copy} | Code block background |
 | `--color-content-neutral`{copy} | Default code text color |
-| `--color-content-stark`{copy} | Inline code text color, editor caret |
+| `--color-content-stark`{copy} | Inline code text color, editor caret, header background tint |
 | `--color-content-subtle`{copy} | Line numbers, expand toggle text |
 | `--color-brand-content`{copy} | Active tab indicator |
-| `--color-field-surface`{copy} | Header (title or tab strip) background |
-| `--color-line`{copy} | Block border |
+| `--color-field-surface`{copy} | Tab hover background |
+| `--color-line`{copy} | Block border (from `pre` styles) |
 | `--spacing-field-height`{copy} | Header and expand-toggle height |
-| `--radius`{copy} | Border radius |
+| `--radius`{copy} | Border radius (from `pre` styles) |
 
 Plus the syntax-color set (`--color-code-keyword`, `--color-code-string`, `--color-code-comment`, etc.) defined in `manifest.code.css`. Override any of them in your project's theme stylesheet.
 

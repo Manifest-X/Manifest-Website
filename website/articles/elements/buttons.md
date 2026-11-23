@@ -6,7 +6,7 @@ Interactive elements that trigger actions.
 
 ## Setup
 
-Button styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Button styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -52,7 +52,7 @@ The button's appearance is determined by these top-level factors:
 
 <!-- Truncate text -->
 <button class="flex-1">
-    <span>Truncated lorem ipsum dolor sit amet</span>
+    <span>A long label that truncates when it runs out of room</span>
 </button>
 ```
 
@@ -60,7 +60,7 @@ The button's appearance is determined by these top-level factors:
 <button>!</button>
 <button class="flex-1 justify-start">Starting Alignment</button>
 <button class="flex-1">
-    <span>Truncated lorem ipsum dolor sit amet</span>
+    <span>A long label that truncates when it runs out of room</span>
 </button>
 :::
 
@@ -70,7 +70,7 @@ The button's appearance is determined by these top-level factors:
 
 ## Utilities
 
-Buttons accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
+Buttons accept Manifest [utility](/docs/framework/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
 
@@ -136,18 +136,20 @@ Buttons accept Manifest [utility](/docs/styles/utilities) classes, which can be 
 <!-- No background at all -->
 <button class="transparent">Transparent</button>
 
-<!-- No padding for minimal target area, best paired with transparency -->
-<button class="hug transparent">Hug</button>
+<!-- No padding, min-width or fixed height: only as big as its content -->
+<button class="hug transparent" x-icon="lucide:x" aria-label="Close"></button>
 ```
 
 ::: frame row-wrap items-center gap-2
 <button class="ghost">Ghost</button>
 <button class="outlined">Outlined</button>
 <button class="transparent">Transparent</button>
-<button class="hug transparent">Hug</button>
+<button class="hug transparent" x-icon="lucide:x" aria-label="Close"></button>
 :::
 
 </div>
+
+`hug` suits transparent icon or inline buttons, like a close ×. On a filled or outlined button the label touches the edges.
 
 ---
 
@@ -155,7 +157,7 @@ Buttons accept Manifest [utility](/docs/styles/utilities) classes, which can be 
 
 ### Solo Icon
 
-Buttons containing a single [icon](/docs/elements/icons) are automatically squared. Add `aria-label` so screen readers can announce what the button does — icons alone have no accessible name.
+Buttons containing a single [icon](/docs/framework/elements/icons) are automatically squared. Add `aria-label` so screen readers can announce what the button does — icons alone have no accessible name.
 
 <div x-code-group>
 
@@ -317,7 +319,7 @@ When these elements are grouped, only the outer elements' outer corners retain t
 
 ### Theme
 
-Default buttons use the following [theme](/docs/styles/theme) variables:
+Default buttons use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|

@@ -6,7 +6,7 @@ Package a Manifest project as a native app for app stores or direct download.
 
 ## Overview
 
-A Manifest [progressive web app](/docs/publishing/web-apps) (PWA) can run as a native-feeling app on every modern operating system. On most platforms, users can [install the PWA directly](/docs/publishing/web-apps#installation) from their browser with no packaging required. For app store presence and other distribution channels, the PWA needs to be wrapped in a native bundle and submitted through each platform's store. This article covers those native packaging paths.
+A Manifest [progressive web app](/docs/framework/publishing/web-apps) (PWA) can run as a native-feeling app on every modern operating system. On most platforms, users can [install the PWA directly](/docs/framework/publishing/web-apps#installation) from their browser with no packaging required. For app store presence and other distribution channels, the PWA needs to be wrapped in a native bundle and submitted through each platform's store. This article covers those native packaging paths.
 
 There are two ways to wrap a Manifest app, and the right one depends on the store:
 
@@ -14,12 +14,12 @@ There are two ways to wrap a Manifest app, and the right one depends on the stor
 - **<a href="https://capacitorjs.com" target="_blank">Capacitor</a>** — generates a real native project you own, with a bridge to native device APIs (biometrics, push, camera, haptics, and more). It's more setup, but on iOS it's effectively required to pass App Store review.
 
 ::: brand icon="lucide:info"
-**iOS is stricter than the other stores.** Apple's <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2 (Minimum Functionality)</a> rejects apps that are just a repackaged website in a web view. Use **Capacitor** for the App Store, add genuine native capability, and work through [Passing review](/docs/publishing/native-apps#passing-review) before you submit.
+**iOS is stricter than the other stores.** Apple's <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2 (Minimum Functionality)</a> rejects apps that are just a repackaged website in a web view. Use **Capacitor** for the App Store, add genuine native capability, and work through [Passing review](/docs/framework/publishing/native-apps#passing-review) before you submit.
 :::
 
 ---
 
-## Packaging paths
+## Packaging Paths
 
 <div class="overflow-x-auto">
 
@@ -30,7 +30,11 @@ There are two ways to wrap a Manifest app, and the right one depends on the stor
 
 </div>
 
-Both render your Manifest UI, so your app code doesn't change between them. The difference is what surrounds it: PWABuilder drops your PWA into a stock web view, while Capacitor gives you a native project with a plugin bridge — which is what makes real native features (and iOS review) achievable. Capacitor's plugins are surfaced through Manifest's [Device plugin](/docs/core-plugins/device), so you reach them with Alpine-friendly attributes instead of writing Swift.
+Both render your Manifest UI, so your app code doesn't change between them. The difference is what surrounds it: PWABuilder drops your PWA into a stock web view, while Capacitor gives you a native project with a plugin bridge — which is what makes real native features (and iOS review) achievable. Capacitor's plugins are surfaced through Manifest's [Devices plugin](/docs/framework/core-modules/device), so you reach them with Alpine-friendly attributes instead of writing Swift.
+
+A Capacitor app ships a prerendered copy of the project, so the shell paints without a network. Point `webDir` in `capacitor.config.json` at a dot-folder such as `.app-www`, and fill it with `npx mnfst-render --out .app-www` before each `npx cap sync`. When a `capacitor.config.*` file is at the project root, the render leaves `ios/`, `android/` and the Capacitor config out of its output, and an `--out` render leaves out the regular `website/` output too. A starter config and step-by-step guide are in the framework's <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/capacitor" target="_blank">Capacitor template</a>.
+
+Universal links on iOS and App Links on Android need a verification file on your domain. Put `apple-app-site-association` and `assetlinks.json` in a `.well-known/` folder at the project root; it publishes as-is with mnfst-render 0.5.56 or later, and Manifest hosting serves the Apple file as JSON.
 
 ---
 
@@ -40,11 +44,11 @@ Both render your Manifest UI, so your app code doesn't change between them. The 
 
 | **Format**     | **Packaging**         | **App Store**                       | **Open Distribution**            |
 |----------------|----------------------|--------------------------------------|----------------------------------|
-| [**Web App**](/docs/publishing/web-apps) | — | —                                 | Yes                              |        
+| [**Web App**](/docs/framework/publishing/web-apps) | — | —                                 | Yes                              |        
 | **iOS & iPadOS**   | Capacitor (PWABuilder risks 4.2) | App Store ($99/yr)         | —                                |
-| **macOS**          | Capacitor or Mac Catalyst | Mac App Store ($99/yr)          | Yes                              |
+| **macOS**          | Mac Catalyst (from the iOS project) | Mac App Store ($99/yr) | Yes                              |
 | **Android**        | AAB / APK            | Google Play ($25)                    | Yes                              |
-| **Windows**        | MSIX                 | Microsoft Store ($19+)               | Yes                              |
+| **Windows**        | MSIX                 | Microsoft Store (free for individuals) | Yes                              |
 | **ChromeOS**       | Android TWA        | Google Play (via Android)            | —                                |
 | **Linux**          | Snap, Flatpak, AppImage | Snap Store, Flathub               | Yes                              |
 
@@ -59,7 +63,7 @@ Both render your Manifest UI, so your app code doesn't change between them. The 
 - **Review:** Apple reviews iOS apps by hand and rejects "repackaged website" wrappers under <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2</a>. Ship genuine native capability (Face ID, push, haptics, share) and native feel (safe-area layout, no browser chrome). See [Passing review](#passing-review) below.
 - **Open Distribution:** Limited. As of iOS 17.4, EU users can install from alternative app marketplaces. Elsewhere, the App Store is the only path.
 
-### Passing review
+### Passing Review
 
 A valid build is not an approved one. Reviewers check two things: the app feels native, and it does something a browser tab can't.
 
@@ -71,9 +75,9 @@ A valid build is not an approved one. Reviewers check two things: the app feels 
 - Suppress the web tells on tappable UI: double-tap zoom, the long-press callout, stray text selection, and rubber-band overscroll.
 - Set a branded splash screen and a status bar that matches your theme, so launch never flashes white.
 
-**Do something native.** Ship at least one real device capability, such as Face ID, push, haptics, share, or camera, through the [Device plugin](/docs/core-plugins/device). Name it in your review notes so the reviewer finds it.
+**Do something native.** Ship at least one real device capability, such as Face ID, push, haptics, share, or camera, through the [Devices module](/docs/framework/core-modules/device). Name it in your review notes so the reviewer finds it.
 
-**Payments.** Physical goods and services may be sold in-app through the [Payments plugin](/docs/core-plugins/payments); digital goods and subscriptions consumed in the app must use Apple's <a href="https://developer.apple.com/app-store/review/guidelines/#in-app-purchase" target="_blank">In-App Purchase</a>.
+**Payments.** Physical goods and services may be sold in-app through the [Payments module](/docs/framework/core-modules/payments); digital goods and subscriptions consumed in the app must use Apple's <a href="https://developer.apple.com/app-store/review/guidelines/#in-app-purchase" target="_blank">In-App Purchase</a>.
 
 **Compliance.** Read <a href="https://developer.apple.com/app-store/review/guidelines/#minimum-functionality" target="_blank">Guideline 4.2</a> in full, and ship a privacy manifest (`PrivacyInfo.xcprivacy`) that declares the data your app and its Capacitor plugins collect.
 
@@ -81,7 +85,7 @@ A valid build is not an approved one. Reviewers check two things: the app feels 
 
 ## macOS
 
-- **Packaging:** PWABuilder generates the same Xcode wrapper as iOS, compiled for macOS via Mac Catalyst.
+- **Packaging:** Build the iOS Xcode project for macOS with Mac Catalyst.
 - **App Store:** Mac App Store submissions go through App Store Connect alongside iOS, on the same $99/yr Apple Developer account.
 - **Open Distribution:** Bundle as a notarized `.dmg` or `.pkg` and distribute from your own site, or publish through <a href="https://brew.sh" target="_blank">Homebrew Cask</a>.
 
@@ -98,7 +102,7 @@ A valid build is not an approved one. Reviewers check two things: the app feels 
 ## Windows
 
 - **Packaging:** PWABuilder produces an MSIX package.
-- **App Store:** Submit the MSIX through <a href="https://partner.microsoft.com/dashboard" target="_blank">Microsoft Partner Center</a>. Requires a developer account (one-time $19 individual, $99 company).
+- **App Store:** Submit the MSIX through <a href="https://partner.microsoft.com/dashboard" target="_blank">Microsoft Partner Center</a>. Requires a developer account, free for individuals. Check Partner Center for company account fees.
 - **Open Distribution:** Distribute the MSIX directly from your site, or wrap as a traditional `.exe` installer.
 
 ---
@@ -107,7 +111,7 @@ A valid build is not an approved one. Reviewers check two things: the app feels 
 
 - **Packaging:** ChromeOS doesn't require its own native wrapper. To reach the Play Store, reuse the Android TWA package.
 - **App Store:** Google Play runs on ChromeOS, so the same Android submission reaches Chromebooks.
-- **Open Distribution:** None. Direct browser install (covered under [Web Apps](/docs/publishing/web-apps#installation)) is the only path outside the Play Store.
+- **Open Distribution:** None. Direct browser install (covered under [Web Apps](/docs/framework/publishing/web-apps#installation)) is the only path outside the Play Store.
 
 ---
 

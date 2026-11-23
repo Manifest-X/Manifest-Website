@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" data-online="true" data-os="macos" dir="auto"><head>
+  <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Query and manage Appwrite database tables.">
+  <meta name="author" content="Andrew Matlock">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="google" content="notranslate">
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="preload" as="font" type="font/woff2" href="../../../../assets/fonts/Manrope.woff2" crossorigin="">
+
+  <!-- Web App & Manifest -->
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../../../../manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="../../../../manifest.theme.css">
+
+  <!-- Scripts -->
+  <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="../../../../scripts/payments-demo.js" defer=""></script>
+  <script src="../../../../scripts/hero-editor.js" defer=""></script>
+  <script src="../../../../scripts/hero-demo.js" defer=""></script>
+  <script src="../../../../scripts/console-message.js" defer=""></script>
+
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+@custom-variant cursor (@media (pointer: fine) and (hover: hover));
+@custom-variant pointer (@media (any-pointer: fine));
+@custom-variant mac (&:where([data-os="macos"] *));
+@custom-variant windows (&:where([data-os="windows"] *));
+@custom-variant linux (&:where([data-os="linux"] *));
+@custom-variant ios (&:where([data-os="ios"] *));
+@custom-variant android (&:where([data-os="android"] *));
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));
+@custom-variant online (&:where([data-online="true"] *));
+@custom-variant offline (&:where([data-online="false"] *));
+@custom-variant standalone (&:where([data-standalone] *));
+@custom-variant native (&:where([data-native] *));
+@custom-variant web (&:where(html:not([data-native]) *));
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Databases — Manifest</title><meta property="og:title" content="Databases — Manifest"><meta property="og:description" content="Query and manage Appwrite database tables."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/appwrite-modules/databases"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-appwrite-modules-databases.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Databases — Manifest"><meta property="twitter:description" content="Query and manage Appwrite database tables."><meta property="twitter:image" content="/og/docs-framework-appwrite-modules-databases.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Databases — Manifest","description":"Query and manage Appwrite database tables.","image":"/og/docs-framework-appwrite-modules-databases.png","url":"https://manifestx.dev/docs/framework/appwrite-modules/databases"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Appwrite Modules","item":"https://manifestx.dev/docs/framework/appwrite-modules"},{"@type":"ListItem","position":5,"name":"Databases","item":"https://manifestx.dev/docs/framework/appwrite-modules/databases"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/framework/appwrite-modules/databases">
+<meta name="manifest:router-base" content="">
+<meta name="manifest:prerender-locales" content="en">
+<meta name="manifest:prerendered" content="1">
+<meta name="manifest:router-base-depth" content="4">
+</head>
+
+<body x-data="{
+  init() {
+    const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
+    document.documentElement.setAttribute('dir', savedDirection);
+  }
+}" class="bg-surface-1">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
+
+  <header style="view-transition-name: site-header" class="site-header fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
+
+    <!-- Content Area -->
+    <nav class="row justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+
+        <!-- Start -->
+        <div class="row items-center gap-3" x-data="{
+            get family() { return $route.startsWith('/docs/platform') ? 'platform' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+        }">
+
+            <!-- Logo -->
+            <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
+                <span class="hidden md:flex">{Manifest}</span>
+                <span class="md:hidden">{M}</span>
+            </a>
+
+            <!-- Docs family -->
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation" popovertarget="docs-family" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="docs-family" aria-expanded="false" data-hydrate-id="h1">
+                <span x-text="$x.site.docs.find(d =&gt; d.key === family)?.name">Framework</span>
+                <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
+            </button>
+            <menu popover="" id="docs-family" role="menu" style="position-anchor: --dropdown-p1">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a :href="'/docs/' + d.key" close="">
+                        <span x-text="d.name"></span>
+                        <span x-show="family === d.key" x-icon="lucide:check" class="trailing"></span>
+                    </a>
+                </template>
+            </menu>
+
+            <!-- Docs Breadcrumbs-->
+            
+            
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/framework/*">
+                <span x-text="$x.framework.$route('path')?.group || 'No group'">Appwrite Modules</span>
+                <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
+                <span class="text-content-stark" x-text="$x.framework.$route('path')?.name || 'No article'">Databases</span>
+            </small>
+
+        </div>
+
+        <!-- End -->
+        <div class="row justify-end items-center gap-2">
+
+            <!-- CTAs -->
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+                <span x-icon="lucide:search"></span>
+                <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
+            </button>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="sm transparent outlined rounded-full" aria-label="GitHub" x-tooltip="GitHub" x-icon="meteor-icons:github"></a>
+            <a role="button" href="/docs" class="sm transparent outlined rounded-full">Docs</a>
+            <a role="button" href="https://dash.manifestx.dev" class="sm accent rounded-full" x-text="/(^|;\s*)mnfst_signed_in=1(;|$)/.test(document.cookie) ? 'Dashboard' : 'Sign in'">Sign in</a>
+
+            <!-- Mobile Sidebar Button -->
+            <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
+
+        </div>
+
+    </nav>
+
+</header>
+  <div x-data="{
+        sources: [['platform', '/docs/platform'], ['framework', '/docs/framework'], ['api', '/docs/api']],
+        labels: { platform: 'Platform', framework: 'Framework', api: 'API' },
+        q: '',
+        items: [],
+        ready: false,
+        loading: false,
+        active: 0,
+
+        // Fetch every article's markdown once, on first open; index title, description, headings, body.
+        async build() {
+            if (this.ready || this.loading) return;
+            this.loading = true;
+            const jobs = [];
+            for (const [src, base] of this.sources) {
+            for (let i = 0; i &lt; 20 &amp;&amp; (!$x[src] || !$x[src].length); i++) await new Promise(r =&gt; setTimeout(r, 100));
+            for (const g of ($x[src] || [])) {
+                for (const it of (g.items || [])) {
+                    if (!it.name || !it.doc) continue;
+                    const href = base + (g.slug ? '/' + g.slug : '') + '/' + it.path;
+                    jobs.push(fetch(it.doc)
+                        .then(r =&gt; r.ok ? r.text() : '')
+                        .catch(() =&gt; '')
+                        .then(md =&gt; {
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/&lt;[^&gt;]+&gt;/g, '').replace(/[*_`\[\]]/g, '').trim();
+                            const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
+                            const body = md
+                                .replace(/```[\s\S]*?```/g, ' ')
+                                .replace(/:::[^\n]*/g, ' ')
+                                .replace(/&lt;[^&gt;]+&gt;/g, ' ')
+                                .replace(/[#&gt;*_`\[\]()|]/g, ' ')
+                                .replace(/-{2,}/g, ' ')
+                                .replace(/\s+/g, ' ');
+                            this.items.push({
+                                name: it.name, group: g.group, icon: it.icon, href, desc, src,
+                                headings,
+                                hhay: headings.join(' · ').toLowerCase(),
+                                body, bhay: body.toLowerCase(),
+                            });
+                        }));
+                }
+            }
+            }
+            await Promise.all(jobs);
+            $x.$register('searchIndex', this.items);
+            this.ready = true;
+            this.loading = false;
+        },
+
+        results() {
+            const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
+            return ranked.slice(0, 20).map(it =&gt; ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i &gt; -1) return (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
+            }
+            return it.desc;
+        },
+
+        openDialog() { document.getElementById('docs-search')?.showPopover(); },
+        // The router swallows result clicks before element handlers run, so the
+        // dialog closes on the route-change event rather than the click itself.
+        closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
+        async onToggle(e) {
+            if (e.newState !== 'open') return;
+            this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() =&gt; { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
+        },
+        move(d) {
+            const n = this.results().length;
+            if (!n) return;
+            this.active = (this.active + d + n) % n;
+            this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
+        },
+        go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+
+        <!-- Query -->
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
+
+        <!-- Results -->
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
+            <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
+            <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
+                No matches for “<span x-text="q.trim()"></span>”.
+            </p>
+            <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i">
+                    <a :href="r.href" role="button" :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'" class="ghost justify-start w-full h-auto py-2 no-underline">
+                        <span class="col gap-0.5 min-w-0 grow text-left">
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <template x-if="r.group">
+                                    <small class="text-content-subtle font-normal" x-text="'· ' + r.group"></small>
+                                </template>
+                                <small class="badge sm ms-auto shrink-0 font-normal" x-text="labels[r.src]"></small>
+                            </span>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
+                        </span>
+                    </a>
+                </div>
+            </template>
+            <div class="h-2 shrink-0"></div>
+        </div>
+
+    </dialog>
+</div>
+  <nav aria-label="Menu" popover="" id="docs-nav" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 bg-popover-surface shadow-xl overflow-y-auto no-scrollbar" x-data="{
+        view: null,
+        get current() { return $route.match(/^\/docs\/(platform|api|framework)(\/|$)/)?.[1] || null },
+        get src() { return this.view || this.current },
+        get base() { return '/docs/' + this.src },
+        get groups() { return this.src ? $x[this.src] || [] : [] },
+        get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
+        here(href) { return $route.replace(/\/$/, '') === href },
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+
+    <!-- Docs -->
+    <template x-if="src">
+        <div class="col">
+            <div role="tablist" aria-label="Docs" class="sm rounded-full w-full my-4">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <button type="button" role="tab" :aria-selected="src === d.key" @click="view = d.key" x-text="d.name"></button>
+                </template>
+            </div>
+            <a role="button" :href="base" :aria-current="here(base) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="here(base) ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                <span x-icon="lucide:house"></span>
+                <span>Overview</span>
+            </a>
+            <template x-for="group in groups" :key="group.group">
+                <div class="col gap-6 py-4">
+                    <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
+                    <div class="col">
+                        <template x-for="(item, index) in group.items" :key="item.path || index">
+                            <a x-show="item.name" role="button" :href="base + (group.slug ? '/' + group.slug : '') + '/' + item.path" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="article?.path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                                <span x-icon="item.icon"></span>
+                                <span x-text="item.name"></span>
+                            </a>
+                        </template>
+                    </div>
+                    <hr>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <!-- Site -->
+    <div class="col py-4">
+        <template x-for="n in $x.site.nav" :key="n.href">
+            <a role="button" :href="n.href" :aria-current="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="n.icon"></span>
+                <span x-text="n.name"></span>
+            </a>
+        </template>
+    </div>
+    <hr class="shrink-0">
+    <template x-if="!src">
+        <div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Docs</small>
+            <div class="col">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a role="button" :href="'/docs/' + d.key" class="ghost justify-start w-full text-content-neutral">
+                        <span x-icon="d.icon"></span>
+                        <span x-text="d.name"></span>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </template>
+    <hr class="shrink-0" x-show="!src" style="display: none">
+    <div class="col py-4">
+        <template x-for="p in $x.site.pages" :key="p.href">
+            <a role="button" :href="p.href" :aria-current="$route.startsWith(p.href) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="$route.startsWith(p.href) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="p.icon"></span>
+                <span x-text="p.name"></span>
+            </a>
+        </template>
+    </div>
+
+</nav>
+
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
+
+    <!-- Home page -->
+    
+
+    <!-- Framework -->
+
+    <!-- Compare -->
+    
+
+    <!-- Documentation -->
+    
+    
+    
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-data="{
+    base: '/docs/framework' ?? '/docs/framework',
+    src: 'framework' ?? 'framework',
+    heading: 'Framework' ?? 'Docs',
+    intro: 'Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.' ?? '',
+    home: null ?? '',
+    landing: 'framework' ?? '',
+    canonical: 'https://manifestx.dev',
+    copied: false,
+    get pages() {
+      const out = [];
+      for (const g of this.groups) for (const i of (g.items || [])) if (i.name) out.push({ href: this.href(g, i), name: i.name, group: g.group || '' });
+      return out;
+    },
+    get pageIndex() { return this.pages.findIndex(p =&gt; this.at(p.href)) },
+    get prev() { return this.pageIndex &gt; 0 ? this.pages[this.pageIndex - 1] : null },
+    get next() { const i = this.pageIndex; return i &gt; -1 &amp;&amp; i &lt; this.pages.length - 1 ? this.pages[i + 1] : null },
+    aiApps: [
+      { name: 'Claude', icon: 'simple-icons:claude', url: 'https://claude.ai/new?q=' },
+      { name: 'ChatGPT', icon: 'simple-icons:openai', url: 'https://chatgpt.com/?q=' },
+      { name: 'Gemini', icon: 'simple-icons:googlegemini', url: 'https://gemini.google.com/app', paste: true },
+      { name: 'Perplexity', icon: 'simple-icons:perplexity', url: 'https://www.perplexity.ai/search?q=' }
+    ],
+    get askPrompt() { return `Read ${this.canonical + $route.replace(/\/$/, '')} from the Manifest docs and help me with it.` },
+    askIn(app) { return app.paste ? app.url : app.url + encodeURIComponent(this.askPrompt) },
+    askCopy(app) { if (app.paste) navigator.clipboard.writeText(this.askPrompt).catch(() =&gt; {}) },
+    async copyPage() {
+      const md = await fetch(this.article.doc).then(r =&gt; r.text());
+      const clean = md.replace(/`([^`\n]+)`\{[^}\n]*\}/g, '`$1`');
+      await navigator.clipboard.writeText(`Source: ${this.canonical}${$route.replace(/\/$/, '')}\n\n${clean}`);
+      this.copied = true;
+      setTimeout(() =&gt; this.copied = false, 1500);
+    },
+    get groups() { return $x[this.src] || [] },
+    get article() { return $x[this.src].$route('path') },
+    get group() { const g = $x[this.src].$route('slug'); return g?.group &amp;&amp; this.at(this.base + '/' + g.slug) ? g : null },
+    href(group, item) { return this.base + (group.slug ? '/' + group.slug : '') + (item ? '/' + item.path : '') },
+    get cards() {
+      const out = [];
+      for (const g of this.groups) {
+        const items = (g.items || []).filter(i =&gt; i.name);
+        if (g.group) out.push({ href: this.href(g), icon: g.icon || items[0]?.icon, title: g.group, sub: items.length + (items.length === 1 ? ' article' : ' articles') });
+        else items.forEach(i =&gt; out.push({ href: this.href(g, i), icon: i.icon, title: i.name, sub: i.description || 'Start here' }));
+      }
+      return out;
+    },
+    at(path) { return $route.replace(/\/$/, '') === path },
+  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.">
+
+  <!-- Desktop navigation -->
+  <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
+    <div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Getting Started</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-open"></span>
+              <span>Introduction</span>
+            </a><a role="button" href="/docs/framework/getting-started/setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:terminal"></span>
+              <span>Setup</span>
+            </a><a role="button" href="/docs/framework/getting-started/starter-project" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:package"></span>
+              <span>Starter Project</span>
+            </a><a role="button" href="/docs/framework/getting-started/compatibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe-lock"></span>
+              <span>Compatibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:eye"></span>
+              <span>Accessibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Core Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/core-modules/chat" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:message-square"></span>
+              <span>Chat</span>
+            </a><a role="button" href="/docs/framework/core-modules/components" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panels-top-left"></span>
+              <span>Components</span>
+            </a><a role="button" href="/docs/framework/core-modules/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" href="/docs/framework/core-modules/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Devices</span>
+            </a><a role="button" href="/docs/framework/core-modules/submissions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:send-horizontal"></span>
+              <span>Form Submissions</span>
+            </a><a role="button" href="/docs/framework/core-modules/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
+            </a><a role="button" href="/docs/framework/core-modules/local-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-tree"></span>
+              <span>Local Data</span>
+            </a><a role="button" href="/docs/framework/core-modules/localization" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:languages"></span>
+              <span>Localization</span>
+            </a><a role="button" href="/docs/framework/core-modules/markdown" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-m"></span>
+              <span>Markdown</span>
+            </a><a role="button" href="/docs/framework/core-modules/payments" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:credit-card"></span>
+              <span>Payments</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Rich Text</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text-controls" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Controls</span>
+            </a><a role="button" href="/docs/framework/core-modules/router" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:route"></span>
+              <span>Router</span>
+            </a><a role="button" href="/docs/framework/core-modules/status" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:activity"></span>
+              <span>Status</span>
+            </a><a role="button" href="/docs/framework/core-modules/url-parameters" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:ampersand"></span>
+              <span>URL Parameters</span>
+            </a><a role="button" href="/docs/framework/core-modules/virtual" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-chevrons-up-down"></span>
+              <span>Virtual Lists</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Visual Editing</span>
+            </a><a role="button" href="/docs/framework/core-modules/move" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Move</span>
+            </a><a role="button" href="/docs/framework/core-modules/resize" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Resize</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit-publishing" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Publishing</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Appwrite Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/appwrite-modules/appwrite-setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="simple-icons:appwrite"></span>
+              <span>Appwrite Setup</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/auth" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:users"></span>
+              <span>Auth</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Users</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Teams</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/cloud-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:database"></span>
+              <span>Cloud Data</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/databases" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Databases</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Storage</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/presence" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:radio-tower"></span>
+              <span>Presence</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Publishing</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/publishing/testing" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-check"></span>
+              <span>Testing</span>
+            </a><a role="button" href="/docs/framework/publishing/websites" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe"></span>
+              <span>Websites</span>
+            </a><a role="button" href="/docs/framework/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>SEO &amp; AEO</span>
+            </a><a role="button" href="/docs/framework/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window"></span>
+              <span>Web Apps</span>
+            </a><a role="button" href="/docs/framework/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:monitor-smartphone"></span>
+              <span>Native Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Styles</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/styles/reset" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:scale"></span>
+              <span>Reset</span>
+            </a><a role="button" href="/docs/framework/styles/theme" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:paint-bucket"></span>
+              <span>Theme</span>
+            </a><a role="button" href="/docs/framework/styles/color-modes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sun-moon"></span>
+              <span>Color Modes</span>
+            </a><a role="button" href="/docs/framework/styles/utilities" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:swatch-book"></span>
+              <span>Utilities</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Elements</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/elements/accordions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-collapse"></span>
+              <span>Accordions</span>
+            </a><a role="button" href="/docs/framework/elements/avatars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-user-round"></span>
+              <span>Avatars</span>
+            </a><a role="button" href="/docs/framework/elements/badges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-star"></span>
+              <span>Badges</span>
+            </a><a role="button" href="/docs/framework/elements/buttons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-mouse-pointer"></span>
+              <span>Buttons</span>
+            </a><a role="button" href="/docs/framework/elements/charts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chart-line"></span>
+              <span>Charts</span>
+            </a><a role="button" href="/docs/framework/elements/chats" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:messages-square"></span>
+              <span>Chats</span>
+            </a><a role="button" href="/docs/framework/elements/checkboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-check"></span>
+              <span>Checkboxes</span>
+            </a><a role="button" href="/docs/framework/elements/code" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:code"></span>
+              <span>Code</span>
+            </a><a role="button" href="/docs/framework/elements/color-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:palette"></span>
+              <span>Color Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/comboboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-search"></span>
+              <span>Comboboxes</span>
+            </a><a role="button" href="/docs/framework/elements/date-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:calendar"></span>
+              <span>Date Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/dialogs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panel-top-dashed"></span>
+              <span>Dialogs</span>
+            </a><a role="button" href="/docs/framework/elements/dividers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:minus"></span>
+              <span>Dividers</span>
+            </a><a role="button" href="/docs/framework/elements/dropdowns" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chevron-down"></span>
+              <span>Dropdowns</span>
+            </a><a role="button" href="/docs/framework/elements/forms" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:rows-3"></span>
+              <span>Forms</span>
+            </a><a role="button" href="/docs/framework/elements/icons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smile"></span>
+              <span>Icons</span>
+            </a><a role="button" href="/docs/framework/elements/inputs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor-input"></span>
+              <span>Inputs</span>
+            </a><a role="button" href="/docs/framework/elements/radios" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-dot"></span>
+              <span>Radios</span>
+            </a><a role="button" href="/docs/framework/elements/ranges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sliders-horizontal"></span>
+              <span>Ranges</span>
+            </a><a role="button" href="/docs/framework/elements/selects" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:menu"></span>
+              <span>Selects</span>
+            </a><a role="button" href="/docs/framework/elements/sidebars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sidebar"></span>
+              <span>Sidebars</span>
+            </a><a role="button" href="/docs/framework/elements/svgs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:shapes"></span>
+              <span>SVGs</span>
+            </a><a role="button" href="/docs/framework/elements/switches" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:toggle-right"></span>
+              <span>Switches</span>
+            </a><a role="button" href="/docs/framework/elements/tables" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:table"></span>
+              <span>Tables</span>
+            </a><a role="button" href="/docs/framework/elements/tabs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window-mac"></span>
+              <span>Tabs</span>
+            </a><a role="button" href="/docs/framework/elements/textareas" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor"></span>
+              <span>Textareas</span>
+            </a><a role="button" href="/docs/framework/elements/toasts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-big-up-dash"></span>
+              <span>Toasts</span>
+            </a><a role="button" href="/docs/framework/elements/tooltips" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-help"></span>
+              <span>Tooltips</span>
+            </a><a role="button" href="/docs/framework/elements/typography" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:type"></span>
+              <span>Typography</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Guides</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/guides/large-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:layers"></span>
+              <span>Large Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Resources</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/resources/reference" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-marked"></span>
+              <span>Reference</span>
+            </a><a role="button" href="/docs/framework/resources/typescript" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="hugeicons:typescript-01"></span>
+              <span>TypeScript</span>
+            </a><a role="button" href="/docs/framework/resources/security" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:lock"></span>
+              <span>Security</span>
+            </a><a role="button" href="/docs/framework/resources/license" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:file-check"></span>
+              <span>MIT License</span>
+            </a><a role="button" href="/docs/framework/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:heart-handshake"></span>
+              <span>Acknowledgements</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div>
+  </nav>
+
+  <!-- Articles -->
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+
+    <div class="col grow w-full max-w-full mx-auto">
+
+      <!-- Article -->
+      <template x-if="article?.name">
+        <div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7">
+          <span class="h6" x-text="article?.group || ''"></span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'"></span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
+              <span x-icon="'lucide:asterisk'"></span>
+              <span>Ask AI</span>
+              <span x-icon="'lucide:chevron-down'"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src">
+              <template x-for="app in aiApps" :key="app.name">
+                <a :href="askIn(app)" target="_blank" rel="noopener" role="button" class="sm ghost justify-start" @click="askCopy(app)" :title="app.paste ? 'Opens ' + app.name + ' with the question copied, ready to paste' : null">
+                  <span x-icon="app.icon"></span>
+                  <span x-text="'Ask ' + app.name"></span>
+                </a>
+              </template>
+            </menu>
+          </div>
+        </div>
+      </template><div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7" data-mnfst-prerender-clone="1">
+          <span class="h6" x-text="article?.group || ''">Appwrite Modules</span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="lucide:copy"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'">Copy page</span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page" popovertarget="ask-ai-framework" style="anchor-name: --dropdown-p2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p2" aria-haspopup="menu" aria-controls="ask-ai-framework" aria-expanded="false" data-hydrate-id="h3">
+              <span x-icon="lucide:asterisk"></span>
+              <span>Ask AI</span>
+              <span x-icon="lucide:chevron-down"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src" role="menu" style="position-anchor: --dropdown-p2">
+              <a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://claude.ai/new?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fappwrite-modules%2Fdatabases%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:claude"></span>
+                  <span>Ask Claude</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://chatgpt.com/?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fappwrite-modules%2Fdatabases%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:openai"></span>
+                  <span>Ask ChatGPT</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://gemini.google.com/app" title="Opens Gemini with the question copied, ready to paste">
+                  <span x-icon="simple-icons:googlegemini"></span>
+                  <span>Ask Gemini</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://www.perplexity.ai/search?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fappwrite-modules%2Fdatabases%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:perplexity"></span>
+                  <span>Ask Perplexity</span>
+                </a>
+            </menu>
+          </div>
+        </div>
+      <template x-if="article?.name">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" x-markdown="article?.doc"></div>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" style="opacity: 1" data-mnfst-md-src="/articles/appwrite-modules/cloud.data.databases.md" data-mnfst-prerender-clone="1"><h1 id="databases">Databases</h1><p>Query and manage Appwrite database tables.</p>
+<hr>
+<h2 id="appwrite-configuration">Appwrite Configuration</h2><p>In your Appwrite project's <strong>Databases</strong> dashboard, create a database.</p>
+<aside class="frame"><img src="../../../../assets/examples/appwrite.database.webp" alt="Appwrite databases"></aside>
+<p>The database must have at least one table.</p>
+<aside class="frame"><img src="../../../../assets/examples/appwrite.table.webp" alt="Appwrite database table"></aside>
+<p>Add columns to the table matching your data structure. Appwrite automatically applies <code>$id</code>, <code>$createdAt</code>, and <code>$updatedAt</code> columns to every table. In the example above, we've established a table that will store fictitious "projects".</p>
+<p>To <a href="#scope">scope</a> rows to users or teams, also add a <code>userId</code> and/or <code>teamId</code> string column. Manifest fills them in on <code>$create</code>. The examples on this page use a table with <code>name</code>, <code>type</code>, <code>userId</code> and <code>teamId</code> string columns.</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p>In a table's <strong>Settings</strong> tab, ensure any permissions required by your frontend user experience (<strong>Create</strong>, <strong>Read</strong>, <strong>Update</strong>, <strong>Delete</strong>) are checked.</p>
+</aside>
+<hr>
+<h2 id="register-database-tables">Register Database Tables</h2><p>Register database tables in your <code>manifest.json</code> under the <code>data</code> property, same as <a href="/docs/framework/core-modules/local-data">local data files</a>. Include the <code>appwriteDatabaseId</code> and <code>appwriteTableId</code> values provided by Appwrite.</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"projects"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"appwriteDatabaseId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"your-database-id"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"appwriteTableId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"your-table-id"</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"appwrite"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"projectId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"your-project-id"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"endpoint"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"your-API-endpoint"</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>In this example, the "projects" data source name is arbitrary, used to later reference table content in the frontend. An Appwrite data source will automatically reference the <code>appwrite</code> property for credentials.</p>
+<p><code>appwriteDatabaseId</code> falls back to <code>appwrite.databaseId</code>, then to <code>main</code>, so later examples omit it.</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p>Appwrite returns 25 rows when a request sets no limit, so a table source without a <code>limit</code> query shows at most 25 rows. Add a <code>["limit", N]</code> query to its <code>queries</code> to load more, or set <a href="#large-tables"><code>paging</code></a> to load every row or a window you extend as people scroll.</p>
+</aside>
+<h3 id="scope">Scope</h3><p>Scoping automatically filters queries by user or team, ensuring users only see data they're permitted to access. Configure scope in <code>manifest.json</code>:</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"projects"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"appwriteTableId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"your-table-id"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"scope"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"user"</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Scope options are:</p>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Description</th>
+<th>Column Used</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>"user"</code></td>
+<td>Single user's data</td>
+<td><code>userId</code></td>
+</tr>
+<tr>
+<td><code>"team"</code></td>
+<td>Current team's data</td>
+<td><code>teamId</code></td>
+</tr>
+<tr>
+<td><code>"teams"</code></td>
+<td>All teams user belongs to</td>
+<td><code>teamId</code></td>
+</tr>
+<tr>
+<td><code>["user", "team"]</code></td>
+<td>User's data OR current team's data</td>
+<td><code>userId</code> OR <code>teamId</code></td>
+</tr>
+<tr>
+<td><code>["user", "teams"]</code></td>
+<td>User's data OR any team's data</td>
+<td><code>userId</code> OR <code>teamId</code></td>
+</tr>
+</tbody></table>
+<p>Scope queries are always prepended to user queries, ensuring scope restrictions cannot be bypassed.</p>
+<p>By default scope filters on the <code>userId</code>/<code>teamId</code> columns. If your table names them differently (e.g. a <code>workspaceId</code> column), set <code>scopeColumn</code>:</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"projects"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"appwriteTableId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"your-table-id"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"scope"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"team"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"scopeColumn"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"workspaceId"</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p><code>scopeColumn</code> can also be an object to name the user and team columns independently: <code>{ "team": "workspaceId", "user": "ownerId" }</code>.</p>
+<p>When using <code>["user", "team"]</code> scope, projects are shown for the current user OR the current team. If no team is selected (<code>$auth.currentTeam</code>), only user-scoped projects will display. Use <code>"teams"</code> (plural) instead of <code>"team"</code> (singular) to query all teams the user belongs to, not just the current team.</p>
+<p><strong>Signed out.</strong> While no user is signed in, a scoped table (or one whose queries reference <code>$auth.</code> values) settles as empty: the source is <code>[]</code>, <code>$ready</code> is <code>true</code>, and no request is sent. It loads when the user signs in. An <a href="/docs/framework/appwrite-modules/users#session-recovery">offline start</a> is the exception: a <a href="/docs/framework/core-modules/local-data#persisted-data">persisted</a> table keeps the rows saved for the user last signed in on this device until the session is checked. Like every table source, it reloads whenever the identity changes, so one user's entries never carry over to the next (see <a href="/docs/framework/appwrite-modules/cloud-data">cloud data</a> and <a href="/docs/framework/appwrite-modules/users#session-recovery">session recovery</a>).</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p>All interactive examples below require you to be logged into a dummy account via the <a href="/docs/framework/appwrite-modules/users">users</a> article. The data entries you generate below use the <code>team</code> scope.</p>
+</aside>
+<hr>
+<h2 id="display-manage-entries">Display &amp; Manage Entries</h2><p>Database tables work identically to local data sources. Access entries using the <code>$x</code> magic method and perform all CRUD operations. Team-scoped rows are read and created for <code>$auth.currentTeam</code>, so the "All" example first selects the user's <a href="/docs/framework/appwrite-modules/teams#team-management">permanent team</a>:</p>
+<pre x-code-group="" numbers="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-tab-0" aria-selected="true" tabindex="0">All</button><button type="button" role="tab" id="display-tab-1" aria-selected="false" tabindex="-1">Display</button><button type="button" role="tab" id="create-tab-2" aria-selected="false" tabindex="-1">Create</button><button type="button" role="tab" id="update-tab-3" aria-selected="false" tabindex="-1">Update</button><button type="button" role="tab" id="duplicate-tab-4" aria-selected="false" tabindex="-1">Duplicate</button><button type="button" role="tab" id="delete-tab-5" aria-selected="false" tabindex="-1">Delete</button></div></header>
+
+<pre x-code="html" name="All" data-code-block-built="yes" aria-label="All" role="tabpanel" data-code-processed="yes" id="all-panel-0" aria-labelledby="all-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Manage projects for permanent team --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ 
+    permanentTeam: null,
+    newName: ''
+}"</span>
+<span class="hljs-attr">x-effect</span>=<span class="hljs-string">"(async () =&gt; {
+    if (permanentTeam || !$auth.teams || $auth.teams.length === 0) return;
+    for (const team of $auth.teams) {
+        if (await $auth.isTeamImmutable(team.$id)) {
+            permanentTeam = team;
+            $auth.currentTeam = team;
+            $auth.viewTeam(team);
+            break;
+        }
+    }
+})()"</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- Create --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row-wrap gap-2 mb-2"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Project name"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Project name"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"newName"</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"!$auth.currentTeam"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"flex-1"</span> /&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$create({ name: newName, type: 'demo' }).then(() =&gt; { newName = ''; })"</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"!newName || !$auth.currentTeam || $x.projects.$error"</span>&gt;</span>
+                Create
+            <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        
+        <span class="hljs-comment">&lt;!-- List with inline edit, duplicate, and delete --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"project in $x.projects"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"project.$id"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row gap-2 py-1 items-center border-t border-line"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> 
+                    <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> 
+                    <span class="hljs-attr">:value</span>=<span class="hljs-string">"project.name"</span> 
+                    @<span class="hljs-attr">blur</span>=<span class="hljs-string">"$x.projects.$update(project.$id, { name: $event.target.value })"</span> 
+                    <span class="hljs-attr">class</span>=<span class="hljs-string">"ghost flex-1"</span>
+                /&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"sm"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$duplicate(project.$id, { files: 'same' })"</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:copy"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Duplicate"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Duplicate"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"sm"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$delete(project.$id)"</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:trash"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Delete"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Delete"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!$x.projects || $x.projects.length === 0"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-content-subtle"</span>&gt;</span>No projects yet<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!$auth.teams || $auth.teams.length === 0"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-content-subtle"</span>&gt;</span>No teams available<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span></code></pre>
+<pre x-code="html" name="Display" copy="" data-code-block-built="yes" aria-label="Display" role="tabpanel" data-code-processed="yes" id="display-panel-1" aria-labelledby="display-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Display all entries --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"project in $x.projects"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"project.$id"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"project.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Display single entry --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.projects[0]?.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Display within teams ("scope": "teams") --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"team in $auth.teams"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"team.$id"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"team.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"project in $x.projects.filter(p =&gt; p.teamId === team.$id)"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"project.$id"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"project.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+<pre x-code="html" name="Create" copy="" data-code-block-built="yes" aria-label="Create" role="tabpanel" data-code-processed="yes" id="create-panel-2" aria-labelledby="create-tab-2" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Basic create --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ newName: '' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Project name"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Project name"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"newName"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$create({ name: newName }).then(() =&gt; { newName = ''; })"</span>&gt;</span>
+        Create Project
+    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- With explicit ID --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$create({ name: 'My Project' }, 'custom-id')"</span>&gt;</span>
+    Create with Custom ID
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<pre x-code="html" name="Update" copy="" data-code-block-built="yes" aria-label="Update" role="tabpanel" data-code-processed="yes" id="update-panel-3" aria-labelledby="update-tab-3" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Single update (on blur) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"project in $x.projects"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"project.$id"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> 
+        <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> 
+        <span class="hljs-attr">:value</span>=<span class="hljs-string">"project.name"</span> 
+        @<span class="hljs-attr">blur</span>=<span class="hljs-string">"$x.projects.$update(project.$id, { name: $event.target.value })"</span> 
+    /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Batch update --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$update(
+    [$x.projects[0].$id, $x.projects[1].$id], 
+    { status: 'archived' }
+)"</span>&gt;</span>
+    Archive Selected
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<pre x-code="html" name="Duplicate" copy="" data-code-block-built="yes" aria-label="Duplicate" role="tabpanel" data-code-processed="yes" id="duplicate-panel-4" aria-labelledby="duplicate-tab-4" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Duplicate entry with same file references --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$duplicate(project.$id, { files: 'same' })"</span>&gt;</span>
+    Duplicate
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Duplicate entry and duplicate all files --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$duplicate(project.$id, { files: 'duplicate' })"</span>&gt;</span>
+    Duplicate with Files
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Duplicate entry without file references --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$duplicate(project.$id, { files: 'none' })"</span>&gt;</span>
+    Duplicate (No Files)
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Duplicate with custom name and file handling --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$duplicate(project.$id, { 
+    name: project.name + ' Copy',
+    files: 'same'
+})"</span>&gt;</span>
+    Duplicate with Custom Name
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<pre x-code="html" name="Delete" copy="" data-code-block-built="yes" aria-label="Delete" role="tabpanel" data-code-processed="yes" id="delete-panel-5" aria-labelledby="delete-tab-5" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Single delete --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"project in $x.projects"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"project.$id"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"project.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$delete(project.$id)"</span>&gt;</span>Delete<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Batch delete --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$delete([project1.$id, project2.$id])"</span>&gt;</span>
+    Delete Selected
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<aside class="frame col text-base"><!-- Manage projects for permanent team -->
+<div x-data="{ 
+    permanentTeam: null,
+    newName: ''
+}" x-effect="(async () =&gt; {
+    if (permanentTeam || !$auth.teams || $auth.teams.length === 0) return;
+    for (const team of $auth.teams) {
+        if (await $auth.isTeamImmutable(team.$id)) {
+            permanentTeam = team;
+            $auth.currentTeam = team;
+            $auth.viewTeam(team);
+            break;
+        }
+    }
+})()">
+    
+    <div class="col">
+        <!-- Create -->
+        <div class="row-wrap gap-2 mb-2">
+            <input type="text" placeholder="Project name" aria-label="Project name" x-model="newName" :disabled="!$auth.currentTeam" class="flex-1" disabled="disabled" data-hydrate-id="h4">
+            <button @click="$x.projects.$create({ name: newName, type: 'demo' }).then(() =&gt; { newName = ''; })" :disabled="!newName || !$auth.currentTeam || $x.projects.$error" disabled="disabled" data-hydrate-id="h5">
+                Create
+            </button>
+        </div>
+        
+        <!-- List with inline edit, duplicate, and delete -->
+        <template x-for="project in $x.projects" :key="project.$id">
+            <div class="row gap-2 py-1 items-center border-t border-line">
+                <input type="text" :value="project.name" @blur="$x.projects.$update(project.$id, { name: $event.target.value })" class="ghost flex-1">
+                <button class="sm" @click="$x.projects.$duplicate(project.$id, { files: 'same' })" x-icon="lucide:copy" aria-label="Duplicate" title="Duplicate"></button>
+                <button class="sm" @click="$x.projects.$delete(project.$id)" x-icon="lucide:trash" aria-label="Delete" title="Delete"></button>
+            </div>
+        </template><small x-show="!$x.projects || $x.projects.length === 0" class="text-content-subtle">No projects yet</small>
+        
+    </div>
+</div>
+<small x-show="!$auth.teams || $auth.teams.length === 0" class="text-content-subtle">No teams available</small></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Database tables automatically sync changes in realtime across all active sessions. When one user creates, updates, or deletes an entry, all other users see the change immediately without page refresh.</p>
+<p>All live features share one connection per tab; see <a href="#realtime-options">Realtime Options</a> to filter or cap live updates.</p>
+<p><strong>Method details:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Parameters</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$create(data, rowId?)</code></td>
+<td><code>data</code> (object), <code>rowId</code> (string, optional)</td>
+<td>Create a new entry. Returns created entry. If <code>scope</code> is configured, <code>userId</code> and/or <code>teamId</code> are automatically injected</td>
+</tr>
+<tr>
+<td><code>$update(idOrArray, data)</code></td>
+<td><code>idOrArray</code> (string, object, or array), <code>data</code> (object)</td>
+<td>Update entry(ies). Returns updated entry(ies)</td>
+</tr>
+<tr>
+<td><code>$duplicate(entryId, options?)</code></td>
+<td><code>entryId</code> (string or object with <code>$id</code>), <code>options</code> (object, optional)</td>
+<td>Duplicate an entry. Options: <code>files</code>, <code>newRowId</code>, and any field overrides. Returns duplicated entry. The <code>files</code> option controls file handling: <code>'duplicate'</code> (create new files), <code>'same'</code> (share file references, default), or <code>'none'</code> (remove file references)</td>
+</tr>
+<tr>
+<td><code>$delete(idOrArray)</code></td>
+<td><code>idOrArray</code> (string, object, or array)</td>
+<td>Delete entry(ies). Returns deleted entry(ies)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="search-query-entries">Search &amp; Query Entries</h2><p>Use <code>$query</code> to filter and sort entries in Appwrite, and <code>$search</code> to filter rows already loaded in the browser. <code>$query</code> refetches from Appwrite and replaces the source's rows, so every place that shows <code>$x.projects</code> changes; <code>$query([])</code> restores the list with only its scope applied; <code>$query('default')</code> returns to the configured default query.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-tab-0" aria-selected="true" tabindex="0">All</button><button type="button" role="tab" id="key-search-tab-1" aria-selected="false" tabindex="-1">Key Search</button><button type="button" role="tab" id="query-tab-2" aria-selected="false" tabindex="-1">Query</button></div></header>
+
+<pre x-code="html" name="All" copy="" data-code-block-built="yes" aria-label="All" role="tabpanel" data-code-processed="yes" id="all-panel-0" aria-labelledby="all-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ searchTerm: '', sortBy: 'newest' }"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-4"</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- Search Input --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> 
+        <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> 
+        <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Search projects..."</span> 
+        <span class="hljs-attr">x-model</span>=<span class="hljs-string">"searchTerm"</span>
+        <span class="hljs-attr">class</span>=<span class="hljs-string">"w-full"</span>
+    /&gt;</span>
+    
+    <span class="hljs-comment">&lt;!-- Sort Buttons --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row-wrap gap-2"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"sortBy = 'newest'; $x.projects.$query([['orderDesc', '$createdAt']])"</span>&gt;</span>
+            Sort by Newest
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"sortBy = 'name'; $x.projects.$query([['orderAsc', 'name']])"</span>&gt;</span>
+            Sort by Name
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"sortBy = 'all'; searchTerm = ''; $x.projects.$query([])"</span>&gt;</span>
+            Show All
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    
+    <span class="hljs-comment">&lt;!-- Results List --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-2"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"project in $x.projects.$search(searchTerm, 'name')"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"project.$id"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"p-2 bg-surface-2 rounded"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"project.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!$x.projects || $x.projects.$search(searchTerm, 'name').length === 0"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-content-subtle"</span>&gt;</span>No projects found<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<pre x-code="html" name="Key Search" copy="" data-code-block-built="yes" aria-label="Key Search" role="tabpanel" data-code-processed="yes" id="key-search-panel-1" aria-labelledby="key-search-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Text search: filters data already loaded in browser (no network request) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> 
+    <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> 
+    <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Search..."</span> 
+    <span class="hljs-attr">x-model</span>=<span class="hljs-string">"searchTerm"</span>
+/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"project in $x.projects.$search(searchTerm, 'name')"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"project.$id"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"project.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+<pre x-code="html" name="Query" copy="" data-code-block-built="yes" aria-label="Query" role="tabpanel" data-code-processed="yes" id="query-panel-2" aria-labelledby="query-tab-2" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Filter, sort, limit: sends query to Appwrite backend, returns filtered results --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$query([
+    ['equal', 'status', 'active'],
+    ['orderDesc', '$createdAt']
+])"</span>&gt;</span>
+    Load Active Projects
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<aside class="frame col text-base"><div x-data="{ searchTerm: '', sortBy: 'newest' }" class="col">
+
+    <div class="row-wrap gap-2 mb-2">
+
+        <!-- Search Input -->
+        <input type="text" placeholder="Search projects..." x-model="searchTerm" class="grow w-fit">
+        
+        <!-- Sort Buttons -->
+        <button @click="sortBy = 'newest'; $x.projects.$query([['orderDesc', '$createdAt']])">
+            Sort by Newest
+        </button>
+        <button @click="sortBy = 'name'; $x.projects.$query([['orderAsc', 'name']])">
+            Sort by Name
+        </button>
+        <button @click="sortBy = 'all'; searchTerm = ''; $x.projects.$query([])">
+            Reset
+        </button>
+    </div>
+    
+    <!-- Results List -->
+    <div class="col">
+        <template x-for="project in $x.projects.$search(searchTerm, 'name')" :key="project.$id" data-prerender-collapsed="1">
+            <div class="p-2 border-t border-line" x-text="project.name"></div>
+        </template>
+        <small x-show="!$x.projects || $x.projects.$search(searchTerm, 'name').length === 0" class="text-content-subtle">No projects found</small>
+    </div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h3 id="query-syntax">Query Syntax</h3><p>These are Appwrite query methods. Each query is an array with the format <code>['method', 'attribute', 'value']</code>. Use these patterns to build query arrays:</p>
+<p><strong>Query Methods:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Method</th>
+<th>Format</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Comparison</strong></td>
+<td><code>equal</code></td>
+<td><code>['equal', 'attribute', 'value']</code></td>
+<td><code>['equal', 'status', 'active']</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>notEqual</code></td>
+<td><code>['notEqual', 'attribute', 'value']</code></td>
+<td><code>['notEqual', 'status', 'archived']</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>greaterThan</code></td>
+<td><code>['greaterThan', 'attribute', value]</code></td>
+<td><code>['greaterThan', 'priority', 5]</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>greaterThanOrEqual</code></td>
+<td><code>['greaterThanOrEqual', 'attribute', value]</code></td>
+<td><code>['greaterThanOrEqual', 'priority', 5]</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>lessThan</code></td>
+<td><code>['lessThan', 'attribute', value]</code></td>
+<td><code>['lessThan', '$createdAt', '2024-01-01']</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>lessThanOrEqual</code></td>
+<td><code>['lessThanOrEqual', 'attribute', value]</code></td>
+<td><code>['lessThanOrEqual', '$createdAt', '2024-01-01']</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>between</code></td>
+<td><code>['between', 'attribute', min, max]</code></td>
+<td><code>['between', 'price', 10, 50]</code></td>
+</tr>
+<tr>
+<td><strong>Null Checks</strong></td>
+<td><code>isNull</code></td>
+<td><code>['isNull', 'attribute']</code></td>
+<td><code>['isNull', 'deletedAt']</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>isNotNull</code></td>
+<td><code>['isNotNull', 'attribute']</code></td>
+<td><code>['isNotNull', 'email']</code></td>
+</tr>
+<tr>
+<td><strong>String Operations</strong></td>
+<td><code>contains</code></td>
+<td><code>['contains', 'attribute', 'value']</code></td>
+<td><code>['contains', 'name', 'keyword']</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>startsWith</code></td>
+<td><code>['startsWith', 'attribute', 'value']</code></td>
+<td><code>['startsWith', 'name', 'prefix']</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>endsWith</code></td>
+<td><code>['endsWith', 'attribute', 'value']</code></td>
+<td><code>['endsWith', 'name', 'suffix']</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>search</code></td>
+<td><code>['search', 'attribute', 'value']</code></td>
+<td><code>['search', 'name', 'keyword']</code> (requires fulltext index)</td>
+</tr>
+<tr>
+<td><strong>Sorting</strong></td>
+<td><code>orderAsc</code></td>
+<td><code>['orderAsc', 'attribute']</code></td>
+<td><code>['orderAsc', '$createdAt']</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>orderDesc</code></td>
+<td><code>['orderDesc', 'attribute']</code></td>
+<td><code>['orderDesc', '$updatedAt']</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>orderRandom</code></td>
+<td><code>['orderRandom']</code></td>
+<td><code>['orderRandom']</code></td>
+</tr>
+<tr>
+<td><strong>Pagination</strong></td>
+<td><code>limit</code></td>
+<td><code>['limit', number]</code></td>
+<td><code>['limit', 10]</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>offset</code></td>
+<td><code>['offset', number]</code></td>
+<td><code>['offset', 20]</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>cursorAfter</code></td>
+<td><code>['cursorAfter', 'rowId']</code></td>
+<td><code>['cursorAfter', lastId]</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>cursorBefore</code></td>
+<td><code>['cursorBefore', 'rowId']</code></td>
+<td><code>['cursorBefore', firstId]</code></td>
+</tr>
+<tr>
+<td><strong>Logic</strong></td>
+<td><code>or</code></td>
+<td><code>['or', [query, query, ...]]</code></td>
+<td><code>['or', [['equal', 'status', 'active'], ['equal', 'status', 'draft']]]</code></td>
+</tr>
+</tbody></table>
+<pre x-code="javascript" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-comment">// Comparison operators</span>
+[<span class="hljs-string">'equal'</span>, <span class="hljs-string">'status'</span>, <span class="hljs-string">'active'</span>]                    <span class="hljs-comment">// status equals 'active'</span>
+[<span class="hljs-string">'notEqual'</span>, <span class="hljs-string">'status'</span>, <span class="hljs-string">'archived'</span>]               <span class="hljs-comment">// status does not equal 'archived'</span>
+[<span class="hljs-string">'greaterThan'</span>, <span class="hljs-string">'priority'</span>, <span class="hljs-number">5</span>]                  <span class="hljs-comment">// priority greater than 5</span>
+[<span class="hljs-string">'greaterThanOrEqual'</span>, <span class="hljs-string">'priority'</span>, <span class="hljs-number">5</span>]           <span class="hljs-comment">// priority greater than or equal to 5</span>
+[<span class="hljs-string">'lessThan'</span>, <span class="hljs-string">'$createdAt'</span>, <span class="hljs-string">'2024-01-01'</span>]        <span class="hljs-comment">// createdAt before date</span>
+[<span class="hljs-string">'lessThanOrEqual'</span>, <span class="hljs-string">'$createdAt'</span>, <span class="hljs-string">'2024-01-01'</span>] <span class="hljs-comment">// createdAt before or equal to date</span>
+[<span class="hljs-string">'between'</span>, <span class="hljs-string">'price'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">50</span>]                     <span class="hljs-comment">// price between 10 and 50 (inclusive)</span>
+
+<span class="hljs-comment">// Null checks</span>
+[<span class="hljs-string">'isNull'</span>, <span class="hljs-string">'deletedAt'</span>]                          <span class="hljs-comment">// deletedAt is null</span>
+[<span class="hljs-string">'isNotNull'</span>, <span class="hljs-string">'email'</span>]                           <span class="hljs-comment">// email is not null</span>
+
+<span class="hljs-comment">// String operations</span>
+[<span class="hljs-string">'contains'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'keyword'</span>]                  <span class="hljs-comment">// name contains 'keyword'</span>
+[<span class="hljs-string">'startsWith'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'prefix'</span>]                 <span class="hljs-comment">// name starts with 'prefix'</span>
+[<span class="hljs-string">'endsWith'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'suffix'</span>]                   <span class="hljs-comment">// name ends with 'suffix'</span>
+[<span class="hljs-string">'search'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'keyword'</span>]                     <span class="hljs-comment">// Full-text search (requires fulltext index)</span>
+
+<span class="hljs-comment">// Sorting</span>
+[<span class="hljs-string">'orderAsc'</span>, <span class="hljs-string">'$createdAt'</span>]                       <span class="hljs-comment">// Sort ascending by createdAt</span>
+[<span class="hljs-string">'orderDesc'</span>, <span class="hljs-string">'$updatedAt'</span>]                      <span class="hljs-comment">// Sort descending by updatedAt</span>
+[<span class="hljs-string">'orderRandom'</span>]                                  <span class="hljs-comment">// Random order</span>
+
+<span class="hljs-comment">// Pagination</span>
+[<span class="hljs-string">'limit'</span>, <span class="hljs-number">10</span>]                                    <span class="hljs-comment">// Return maximum 10 results</span>
+[<span class="hljs-string">'offset'</span>, <span class="hljs-number">20</span>]                                   <span class="hljs-comment">// Skip first 20 results</span>
+[<span class="hljs-string">'cursorAfter'</span>, lastId]                          <span class="hljs-comment">// Rows after this row ID</span>
+
+<span class="hljs-comment">// Either condition</span>
+[<span class="hljs-string">'or'</span>, [[<span class="hljs-string">'equal'</span>, <span class="hljs-string">'status'</span>, <span class="hljs-string">'active'</span>], [<span class="hljs-string">'equal'</span>, <span class="hljs-string">'status'</span>, <span class="hljs-string">'draft'</span>]]]
+
+<span class="hljs-comment">// Combine multiple queries (all applied together with AND logic)</span>
+[
+    [<span class="hljs-string">'equal'</span>, <span class="hljs-string">'status'</span>, <span class="hljs-string">'active'</span>],
+    [<span class="hljs-string">'orderDesc'</span>, <span class="hljs-string">'$createdAt'</span>],
+    [<span class="hljs-string">'limit'</span>, <span class="hljs-number">20</span>]
+]</code></pre>
+<p>See <a href="https://appwrite.io/docs/products/databases/queries">Appwrite's query documentation</a> for the complete list of query methods and operators.</p>
+<hr>
+<h3 id="reusable-queries">Reusable Queries</h3><p>Define reusable queries in <code>manifest.json</code> and reference them in HTML:</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id="html-tab-1" aria-selected="false" tabindex="-1">HTML</button></div></header>
+
+<pre x-code="json" name="manifest.json" data-code-block-built="yes" aria-label="manifest.json" role="tabpanel" data-code-processed="yes" id="manifest.json-panel-0" aria-labelledby="manifest.json-tab-0"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"projects"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"appwriteTableId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"your-table-id"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"queries"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"default"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span><span class="hljs-string">"orderDesc"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"$createdAt"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"active"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span><span class="hljs-string">"equal"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"status"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"active"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"orderDesc"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"$createdAt"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"recent"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span><span class="hljs-string">"orderDesc"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"$createdAt"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"limit"</span><span class="hljs-punctuation">,</span> <span class="hljs-number">10</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span>
+            <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-1" aria-labelledby="html-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Reference a query defined in manifest.json by name --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$query('active')"</span>&gt;</span>
+    Load Active Projects
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>A query value can also reference the signed-in user or the active locale. Only these values are allowed: <code>$auth.user.$id</code> (or <code>$auth.userId</code>), <code>$auth.currentTeam.$id</code> (or <code>.id</code>), <code>$auth.session.$id</code> (or <code>.id</code>) and <code>$locale.current</code>. Any other path resolves to an empty string.</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"projects"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"appwriteTableId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"your-table-id"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"queries"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"default"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span><span class="hljs-string">"equal"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"workspaceId"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"$auth.currentTeam.$id"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span>
+            <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>If the referenced value isn't available yet (auth still loading, no current team selected), the read is skipped rather than sent with a broken value — it retries automatically once auth settles.</p>
+<p><code>queries</code> is either an array, applied at load, or an object of named queries whose <code>default</code> key is applied at load; the others run when you call <code>$query('name')</code>. Scope applies to both. An unknown name throws instead of loading unfiltered.</p>
+<p><code>$query</code> replaces the source's rows with its result, and <code>$loading</code> is <code>true</code> while it runs. If its queries use a <code>$auth.</code> value that isn't available yet, it waits for sign-in to settle and then runs, and after a sign-in a source showing a <code>$query</code> shows it again for the signed-in user. If you call it again before an earlier call returns, only the latest call's rows land, so a fast filter change never shows a slower, older result. Until the next default load, realtime events and the <a href="#pagination-methods">pagination methods</a> follow the active <code>$query</code>: its filters decide which live rows join, and its order decides where they go.</p>
+<hr>
+<h2 id="large-tables">Large Tables</h2><p>Set <code>paging</code> on a table source to go past one request's rows. Every page lands in <code>$x.&lt;source&gt;</code> like any other load, so realtime, <code>$query</code>, <a href="/docs/framework/core-modules/local-data#persisted-data">persistence</a> and <code>$stale</code> all keep working.</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"teams"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"appwriteTableId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"teams"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"queries"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span><span class="hljs-string">"orderAsc"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"name"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"paging"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"all"</span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"contacts"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"appwriteTableId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"contacts"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"queries"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span><span class="hljs-string">"orderDesc"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"$createdAt"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"paging"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"mode"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"window"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"size"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">100</span> <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>mode</code></td>
+<td>–</td>
+<td><code>"all"</code> loads every row, page by page, up to <code>max</code>. <code>"window"</code> loads <code>size</code> rows; <code>$more()</code> adds the next page. A string value sets the mode with the defaults.</td>
+</tr>
+<tr>
+<td><code>size</code></td>
+<td><code>100</code></td>
+<td>Rows per request, up to 4999</td>
+</tr>
+<tr>
+<td><code>max</code></td>
+<td><code>5000</code></td>
+<td>The most rows the source holds through paging</td>
+</tr>
+</tbody></table>
+<p>Use <code>"all"</code> for tables that stay small enough to hold in the browser, like settings, teams or tags. Use <code>"window"</code> for tables that grow without bound, like contacts, messages or orders: people scroll, and the source loads more as they reach the end.</p>
+<p><code>$x.&lt;source&gt;.$more()</code> loads the next page after the rows already held, and resolves with the number of rows added. Calling it again while a page is loading returns the same request, and calling it while a reload or <code>$query</code> is in flight loads the next page once that lands (that call resolves with 0). <code>$hasMore</code> says whether <code>$more()</code> can load another page: it turns <code>false</code> at the end of the table or at <code>max</code>. <code>$total</code> is Appwrite's count of matching rows, so <code>$total</code> above the number of rows held at <code>max</code> means more exist; Appwrite stops counting at 5000, so when <code>$totalCapped</code> is <code>true</code> show it as "5000+".</p>
+<p><a href="/docs/framework/core-modules/virtual#dynamic-data">Virtual</a> lists fire <code>virtual-end</code> when the last loaded row is shown, which is the moment to ask for more:</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-virtual</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"h-[600px] overflow-auto"</span> @<span class="hljs-attr">virtual-end</span>=<span class="hljs-string">"$x.contacts.$more()"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"contact in $x.contacts"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"contact.$id"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"contact.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$x.contacts.$hasMore"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.contacts.length"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> of <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.contacts.$totalCapped ? '5000+' : $x.contacts.$total"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p><code>$query</code> on a paged source starts the new filter at its first window (or loads all of it), and <code>$more()</code> then continues within that filter. A <code>limit</code> in the queries is ignored, because paging sets its own.</p>
+<p>Live updates follow the rows you have loaded. A new row that sorts within them appears in its place; one that sorts after the last loaded row, or any new row on an unsorted source, arrives with the page that contains it while more pages remain. A loaded row whose sort value changes past the last loaded row leaves until its page loads. Rows you create yourself always appear straight away, in sort order. Paged sources aren't capped by the realtime growth limit, since paging already bounds them; set <code>realtime.maxRows</code> to cap them anyway. After the connection comes back, the source fetches again as many rows as it held.</p>
+<hr>
+<h2 id="storage-file-references">Storage File References</h2><p>Database entries can reference files stored in Appwrite storage buckets, such as a project (the entry) with files. When duplicating entries, you can control how file references are handled.</p>
+<h3 id="linking-files-to-entries">Linking Files to Entries</h3><p>Files are linked to entries via a <code>fileIds</code> column (or custom column name) that stores an array of file IDs:</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"projects"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"appwriteTableId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"your-table-id"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"storage"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"assets"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"fileIds"</span>
+            <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"assets"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"appwriteBucketId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"your-bucket-id"</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>The <code>storage</code> property maps bucket names to column names. In this example, files from the <code>assets</code> bucket are stored in the <code>fileIds</code> column.</p>
+<hr>
+<h3 id="file-reference-options">File Reference Options</h3><p>When duplicating an entry with <code>$duplicate</code>, use the <code>files</code> option to control file handling:</p>
+<pre x-code="html" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- 'same' (default): Share file references with original entry --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$duplicate(project.$id, { files: 'same' })"</span>&gt;</span>
+    Duplicate (Share Files)
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- 'duplicate': Create new copies of all files --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$duplicate(project.$id, { files: 'duplicate' })"</span>&gt;</span>
+    Duplicate (Copy Files)
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- 'none': Remove all file references --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$duplicate(project.$id, { files: 'none' })"</span>&gt;</span>
+    Duplicate (No Files)
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<p><strong>File handling options:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>'same'</code></td>
+<td>New entry shares the same file references as the original</td>
+<td>Templates, drafts, or when files don't need to be copied</td>
+</tr>
+<tr>
+<td><code>'duplicate'</code></td>
+<td>Creates new copies of all files and links them to the new entry</td>
+<td>When you need independent file copies</td>
+</tr>
+<tr>
+<td><code>'none'</code></td>
+<td>Removes all file references from the duplicated entry</td>
+<td>When duplicating structure without files</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="accessing-entry-files">Accessing Entry Files</h3><p>Use the <code>$files</code> property to access files linked to an entry:</p>
+<pre x-code="html" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Display files for an entry --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"file in project.$files"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"file.$id"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"file.$isImage"</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">"file.$thumbnailUrl"</span> <span class="hljs-attr">:alt</span>=<span class="hljs-string">"file.name"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"file.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Check if entry has files --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!project.$files || project.$files.length === 0"</span>&gt;</span>
+    No files attached
+<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span></code></pre>
+<p>See <a href="/docs/framework/appwrite-modules/storage">storage</a> for more details on file management.</p>
+<hr>
+<h2 id="properties">Properties</h2><h3 id="entry-properties">Entry Properties</h3><p>Each database entry includes standard Appwrite properties plus your table columns:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$id</code></td>
+<td>string</td>
+<td>Unique identifier</td>
+</tr>
+<tr>
+<td><code>$createdAt</code></td>
+<td>string</td>
+<td>Creation timestamp (ISO format)</td>
+</tr>
+<tr>
+<td><code>$updatedAt</code></td>
+<td>string</td>
+<td>Last update timestamp (ISO format)</td>
+</tr>
+<tr>
+<td><code>$files</code></td>
+<td>array</td>
+<td>Files linked to the entry (if storage is configured)</td>
+</tr>
+<tr>
+<td>Custom columns</td>
+<td>varies</td>
+<td>All columns defined in your Appwrite table</td>
+</tr>
+</tbody></table>
+<pre x-code="html" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Access entry properties --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"project.$id"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>          <span class="hljs-comment">&lt;!-- Unique identifier --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"project.$createdAt"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>   <span class="hljs-comment">&lt;!-- Creation timestamp (ISO) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"project.$updatedAt"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>   <span class="hljs-comment">&lt;!-- Last update timestamp (ISO) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"project.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>         <span class="hljs-comment">&lt;!-- Your table columns --&gt;</span></code></pre>
+<hr>
+<h3 id="state-properties">State Properties</h3><p>Check data source loading state, errors, and readiness:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$loading</code></td>
+<td>boolean</td>
+<td>Indicates if data is currently being loaded</td>
+</tr>
+<tr>
+<td><code>$error</code></td>
+<td>string | null</td>
+<td>Error message if an operation failed (null if no error)</td>
+</tr>
+<tr>
+<td><code>$ready</code></td>
+<td>boolean</td>
+<td>Indicates if the source has settled: loaded at least once, or resolved as empty because its <a href="#scope">scope</a> can't apply (signed out, or no team)</td>
+</tr>
+<tr>
+<td><code>$pending</code></td>
+<td>number</td>
+<td>Rows with a change still waiting for Appwrite to confirm it</td>
+</tr>
+<tr>
+<td><code>$saving(id)</code></td>
+<td>boolean</td>
+<td>Whether that row has a change waiting for Appwrite</td>
+</tr>
+<tr>
+<td><code>$hasMore</code></td>
+<td>boolean</td>
+<td><a href="#large-tables">Paged sources</a>: <code>$more()</code> can load another page</td>
+</tr>
+<tr>
+<td><code>$total</code></td>
+<td>number | null</td>
+<td><a href="#large-tables">Paged sources</a>: Appwrite's count of matching rows</td>
+</tr>
+<tr>
+<td><code>$totalCapped</code></td>
+<td>boolean</td>
+<td><a href="#large-tables">Paged sources</a>: the count reached Appwrite's limit of 5000, so there may be more</td>
+</tr>
+</tbody></table>
+<pre x-code="html" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Loading state --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$x.projects.$loading"</span>&gt;</span>Loading projects...<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Error state --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$x.projects.$error"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.projects.$error"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-negative-content"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- A row's save in progress --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"project in $x.projects"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"project.$id"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"project.name + ($x.projects.$saving(project.$id) ? ' · saving' : '')"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Ready state --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$x.projects.$ready &amp;&amp; !$x.projects.$loading"</span>&gt;</span>
+    Projects loaded: <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.projects.length"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span></code></pre>
+<p>A source can be <code>$ready</code> with no entries because its <a href="#scope">scope</a> can't apply yet (signed out, or no team), so check <code>$auth.isAuthenticated</code> to tell a signed-out visitor apart from a user with no entries.</p>
+<hr>
+<h3 id="crud-methods">CRUD Methods</h3><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="$create-tab-0" aria-selected="true" tabindex="0">$create</button><button type="button" role="tab" id="$update-tab-1" aria-selected="false" tabindex="-1">$update</button><button type="button" role="tab" id="$duplicate-tab-2" aria-selected="false" tabindex="-1">$duplicate</button><button type="button" role="tab" id="$delete-tab-3" aria-selected="false" tabindex="-1">$delete</button></div></header>
+
+<pre x-code="html" name="$create" copy="" data-code-block-built="yes" aria-label="$create" role="tabpanel" data-code-processed="yes" id="$create-panel-0" aria-labelledby="$create-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Create single entry --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$create({ name: 'New Project' })"</span>&gt;</span>
+    Create
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Create with custom ID --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$create({ name: 'Project' }, 'custom-id')"</span>&gt;</span>
+    Create with ID
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<pre x-code="html" name="$update" copy="" data-code-block-built="yes" aria-label="$update" role="tabpanel" data-code-processed="yes" id="$update-panel-1" aria-labelledby="$update-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Update single entry --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$update(project.$id, { name: 'Updated' })"</span>&gt;</span>
+    Update
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Update multiple entries with the same change --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$update([id1, id2], { status: 'archived' })"</span>&gt;</span>
+    Archive Selected
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Update multiple entries with different changes --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$update([{ id: id1, data: { rank: 1 } }, { id: id2, data: { rank: 2 } }])"</span>&gt;</span>
+    Reorder
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<pre x-code="html" name="$duplicate" copy="" data-code-block-built="yes" aria-label="$duplicate" role="tabpanel" data-code-processed="yes" id="$duplicate-panel-2" aria-labelledby="$duplicate-tab-2" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Duplicate entry with same file references (default) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$duplicate(project.$id)"</span>&gt;</span>
+    Duplicate
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Duplicate entry and duplicate all files --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$duplicate(project.$id, { files: 'duplicate' })"</span>&gt;</span>
+    Duplicate with Files
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Duplicate entry without file references --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$duplicate(project.$id, { files: 'none' })"</span>&gt;</span>
+    Duplicate (No Files)
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Duplicate with field overrides --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$duplicate(project.$id, { 
+    name: project.name + ' Copy',
+    status: 'draft',
+    files: 'same'
+})"</span>&gt;</span>
+    Duplicate as Draft
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<pre x-code="html" name="$delete" copy="" data-code-block-built="yes" aria-label="$delete" role="tabpanel" data-code-processed="yes" id="$delete-panel-3" aria-labelledby="$delete-tab-3" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Delete single entry --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$delete(project.$id)"</span>&gt;</span>
+    Delete
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Delete multiple entries --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$delete([id1, id2])"</span>&gt;</span>
+    Delete Selected
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h3 id="query-search-methods">Query &amp; Search Methods</h3><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="$query-tab-0" aria-selected="true" tabindex="0">$query</button><button type="button" role="tab" id="$search-tab-1" aria-selected="false" tabindex="-1">$search</button></div></header>
+
+<pre x-code="html" name="$query" copy="" data-code-block-built="yes" aria-label="$query" role="tabpanel" data-code-processed="yes" id="$query-panel-0" aria-labelledby="$query-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Query with filters and sorting --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$query([
+    ['equal', 'status', 'active'],
+    ['orderDesc', '$createdAt']
+])"</span>&gt;</span>
+    Load Active
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Use pre-configured query --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$query('active')"</span>&gt;</span>
+    Load Active
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<pre x-code="html" name="$search" copy="" data-code-block-built="yes" aria-label="$search" role="tabpanel" data-code-processed="yes" id="$search-panel-1" aria-labelledby="$search-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Frontend text search --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"searchTerm"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"project in $x.projects.$search(searchTerm, 'name')"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"project.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p><strong>Query &amp; Search Methods:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Parameters</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$query(queriesOrName)</code></td>
+<td><code>queriesOrName</code> (array or string)</td>
+<td>Query entries with filters, sorting, and pagination. Accepts an array of query arrays or a pre-configured query name from <code>manifest.json</code>. Replaces the source's rows with the result</td>
+</tr>
+<tr>
+<td><code>$search(term, ...fields)</code></td>
+<td><code>term</code> (string), <code>fields</code> (one or more strings, or a weights object like <code>{ title: 3, body: 1 }</code>)</td>
+<td>Frontend text search. Filters data already loaded in browser (no network request). Returns filtered array</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="pagination-methods">Pagination Methods</h3><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="$first-tab-0" aria-selected="true" tabindex="0">$first</button><button type="button" role="tab" id="$next-tab-1" aria-selected="false" tabindex="-1">$next</button><button type="button" role="tab" id="$page-tab-2" aria-selected="false" tabindex="-1">$page</button></div></header>
+
+<pre x-code="html" name="$first" copy="" data-code-block-built="yes" aria-label="$first" role="tabpanel" data-code-processed="yes" id="$first-panel-0" aria-labelledby="$first-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Get first page (cursor-based) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$first(10).then(result =&gt; {
+    console.log(result.items);    // Array of entries
+    console.log(result.cursor);   // Cursor for next page
+    console.log(result.total);    // Total count
+    console.log(result.hasMore);  // Boolean
+})"</span>&gt;</span>
+    Load First Page
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<pre x-code="html" name="$next" copy="" data-code-block-built="yes" aria-label="$next" role="tabpanel" data-code-processed="yes" id="$next-panel-1" aria-labelledby="$next-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Get next page (cursor-based) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$next(cursor, 10).then(result =&gt; {
+    // Same structure as $first
+})"</span>&gt;</span>
+    Load Next Page
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<pre x-code="html" name="$page" copy="" data-code-block-built="yes" aria-label="$page" role="tabpanel" data-code-processed="yes" id="$page-panel-2" aria-labelledby="$page-tab-2" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Get specific page (offset-based) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.projects.$page(2, 10).then(result =&gt; {
+    console.log(result.items);       // Array of entries
+    console.log(result.page);        // Current page number
+    console.log(result.total);       // Total count
+    console.log(result.totalPages);  // Total pages
+    console.log(result.hasMore);     // Boolean
+})"</span>&gt;</span>
+    Load Page 2
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p><strong>Pagination Methods:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Parameters</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$first(limit?)</code></td>
+<td><code>limit</code> (number, default <code>10</code>)</td>
+<td>Get first page (cursor-based). Returns <code>{ items, cursor, total, hasMore }</code></td>
+</tr>
+<tr>
+<td><code>$next(cursor, limit?)</code></td>
+<td><code>cursor</code> (string), <code>limit</code> (number, default <code>10</code>)</td>
+<td>Get the page after <code>cursor</code>. Returns <code>{ items, cursor, total, hasMore }</code></td>
+</tr>
+<tr>
+<td><code>$prev(cursor, limit?)</code></td>
+<td><code>cursor</code> (string), <code>limit</code> (number, default <code>10</code>)</td>
+<td>Get the page before <code>cursor</code>. Returns <code>{ items, cursor, total, hasMore }</code></td>
+</tr>
+<tr>
+<td><code>$page(pageNumber, limit?)</code></td>
+<td><code>pageNumber</code> (number), <code>limit</code> (number, default <code>10</code>)</td>
+<td>Get specific page (offset-based). Returns <code>{ items, page, total, totalPages, hasMore }</code></td>
+</tr>
+</tbody></table>
+<p>Pages use the active <code>$query</code> if one is set, otherwise the source's default queries, with their own <code>limit</code> and position in place of any in the queries. <code>hasMore</code> says whether another page exists in that direction: after the last page it is <code>false</code>, and for <code>$prev</code> it is <code>false</code> once you reach the start. Page results are returned to you; they don't replace <code>$x.&lt;source&gt;</code> and don't receive realtime updates. <code>total</code> is Appwrite's count, which Appwrite caps (5000 by default).</p>
+<hr>
+<h3 id="realtime-options">Realtime Options</h3><p>Realtime is multiplexed over one connection per tab: however many data sources subscribe, Manifest opens a single Appwrite Realtime client and one channel subscription per distinct table or bucket. Sources sharing a table each receive every event once. The <a href="/docs/framework/appwrite-modules/auth">auth</a> module's team and account subscriptions and <a href="/docs/framework/appwrite-modules/presence">presence</a> share the same connection, so N live features still count as one connection against your Appwrite plan.</p>
+<p>Where the project's Appwrite version supports Realtime queries (Web SDK 22.4+, server 1.8+), Manifest also filters events server-side by your <code>scope</code> configuration — Appwrite then only delivers (and bills) events in your scope — while your own <code>queries</code> continue filtering client-side, preserving instant removal of rows that stop matching. Set <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">realtime: { "serverFilter": "all" }</code> to push all expressible filters server-side (rows that stop matching then drop on the next load instead of instantly), or <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">"serverFilter": false</code> for no server filtering. Filters Appwrite can't evaluate in realtime (<code>search</code>, <code>contains</code>, pagination and ordering) always stay client-side, and Manifest's event matcher runs in every mode as defense in depth.</p>
+<p>Events are filtered by the source's own <code>queries</code> before touching <code>$x</code>: a created or updated row that doesn't match the configured filters is ignored (or removed if it stops matching). Filters that can't be evaluated client-side (<code>search</code>, unresolved <code>$auth.</code> values) are treated as matching, so live data is never silently dropped.</p>
+<p>Growth is bounded by default. Realtime appends stop at max(500, 2× the initially loaded rows); skipped events are counted in <code>$x.&lt;source&gt;.$realtimeOverflow</code> (reset on each load), so a UI can show "N new rows — refresh". Configure per source with a <code>realtime</code> key on the data source:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>(omitted)</em></td>
+<td>Subscribed; append mode, cap max(500, 2× initial rows)</td>
+</tr>
+<tr>
+<td><code>false</code></td>
+<td>No realtime subscription for this source</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">{ "mode": "append", "maxRows": 200 }</code></td>
+<td>Appends until 200 rows, then counts overflow</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">{ "mode": "window" }</code></td>
+<td>Holds the initial window size (the <code>limit</code> query if present), evicting the oldest realtime-appended rows first — initially loaded rows are never evicted. A window that is already full admits no live appends; watch <code>$realtimeOverflow</code> and reload to pull new rows into the window.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">{ "mode": "append", "maxRows": 0 }</code></td>
+<td>Legacy unbounded growth (explicit opt-in; ignored in window mode, which falls back to the default cap)</td>
+</tr>
+</tbody></table>
+<p>Updates and deletes to rows already held always apply, regardless of caps.</p>
+<p>On a sorted source (an <code>orderAsc</code> or <code>orderDesc</code> query), live rows join at their sort position and a row whose sort value changes moves to its new place; unsorted sources add live rows at the end. A row you create appears once, whether its realtime event arrives before or after Appwrite's reply.</p>
+<p>Events sent while the browser is offline or asleep are not replayed by Appwrite. When the connection comes back, or the tab returns after a minute or more in the background, live sources fetch again (the active <code>$query</code>, if one is set) and merge the result into the existing rows. For advanced programmatic control, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">window.ManifestDataRealtime.setFilter('&lt;source&gt;', (eventType, row) =&gt; boolean)</code> runs per event per source before any merge work; return <code>false</code> to drop the event, pass <code>null</code> to clear.</p>
+<hr>
+<h2 id="next-steps">Next Steps</h2><p>See <a href="/docs/framework/appwrite-modules/storage">storage</a> for managing file uploads and downloads.</p>
+</div>
+
+      <!-- Previous / next -->
+      <template x-if="article?.name &amp;&amp; (prev || next)">
+        <nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template>
+        </nav>
+      </template><nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="" data-mnfst-prerender-clone="1">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template><a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline" href="/docs/framework/appwrite-modules/cloud-data" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name">Cloud Data</span>
+            </a>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template><a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end" href="/docs/framework/appwrite-modules/storage" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name">Storage</span>
+            </a>
+        </nav>
+
+      <!-- Family home (markdown) -->
+      <template x-if="at(base) &amp;&amp; home">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="home"></div>
+      </template>
+
+      <!-- Docs home -->
+      <template x-if="at(base) &amp;&amp; landing">
+        <div class="col gap-8 pb-12">
+          <template x-if="landing === 'framework'"><x-framework></x-framework></template>
+          <template x-if="landing === 'platform'"><x-docs-platform></x-docs-platform></template>
+          <template x-if="landing === 'api'"><x-docs-api></x-docs-api></template>
+          <div class="col gap-4 w-content-width max-w-full mx-auto">
+            <h2 class="h4">Explore the docs</h2>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <template x-for="card in cards" :key="card.href">
+                <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                  <span x-icon="card.icon" class="text-brand-content"></span>
+                  <span class="col">
+                    <span class="text-content-stark font-medium" x-text="card.title"></span>
+                    <small class="text-content-subtle" x-text="card.sub"></small>
+                  </span>
+                </a>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template x-if="at(base) &amp;&amp; !home &amp;&amp; !landing">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="heading"></h1>
+            <p class="text-content-neutral" x-show="intro" x-text="intro"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="card in cards" :key="card.href">
+              <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="card.icon" class="text-brand-content"></span>
+                <span class="col">
+                  <span class="text-content-stark font-medium" x-text="card.title"></span>
+                  <small class="text-content-subtle" x-text="card.sub"></small>
+                </span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Group landing -->
+      <template x-if="group?.group">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="group?.group"></h1>
+            <p class="text-content-neutral" x-show="group?.description" x-text="group?.description"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
+              <a :href="href(group, item)" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
+                <span class="text-content-stark" x-text="item.name"></span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+    </div>
+
+    <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
+    <template x-if="!article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
+      <div class="max-w-full prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
+
+    <footer class="mt-20">
+  <hr>
+  <div class="row-wrap justify-between items-center gap-4 pt-4">
+
+    <figcaption class="text-content-subtle">© 2026 MNFST OÜ • <a href="/legal/terms">Terms</a> • <a href="/legal/privacy">Privacy</a><span x-show="$route.startsWith('/docs/framework')"> • Framework under the <a href="/docs/framework/resources/license">MIT License</a></span></figcaption>
+
+    <div class="row-wrap gap-3">
+
+      <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
+
+      <div role="tablist" aria-label="Color mode" class="sm rounded-full">
+        <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h6"></button>
+        <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h7"></button>
+        <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h8"></button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+
+  <!-- Anchor links -->
+  <nav aria-label="On this page" x-show="!(at(base) &amp;&amp; landing)" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
+
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+      <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
+      <span>On this page</span>
+    </small>
+
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#appwrite-configuration">Appwrite Configuration</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#register-database-tables">Register Database Tables</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#scope">Scope</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#display-manage-entries">Display &amp; Manage Entries</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#search-query-entries">Search &amp; Query Entries</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#query-syntax">Query Syntax</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#reusable-queries">Reusable Queries</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#large-tables">Large Tables</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#storage-file-references">Storage File References</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#linking-files-to-entries">Linking Files to Entries</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#file-reference-options">File Reference Options</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#accessing-entry-files">Accessing Entry Files</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#properties">Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#entry-properties">Entry Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#state-properties">State Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#crud-methods">CRUD Methods</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#query-search-methods">Query &amp; Search Methods</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#pagination-methods">Pagination Methods</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#realtime-options">Realtime Options</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#next-steps">Next Steps</a></div>
+
+  </nav>
+
+</div>
+
+    <!-- Legal pages -->
+    
+
+    <!-- Support -->
+    
+
+  </main>
+
+  <!-- Footer (visible on every route) -->
+  
+
+
+
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"data-order":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"disabled":null}},{"id":"h5","attrs":{"disabled":null}},{"id":"h6","attrs":{"aria-selected":null,"type":null}},{"id":"h7","attrs":{"aria-selected":null,"type":null}},{"id":"h8","attrs":{"aria-selected":null,"type":null}}]</script>
+</body></html>

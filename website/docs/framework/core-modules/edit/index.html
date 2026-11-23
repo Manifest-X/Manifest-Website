@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" data-online="true" data-os="macos" dir="auto"><head>
+  <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Turn a live page into its own editor.">
+  <meta name="author" content="Andrew Matlock">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="google" content="notranslate">
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="preload" as="font" type="font/woff2" href="../../../../assets/fonts/Manrope.woff2" crossorigin="">
+
+  <!-- Web App & Manifest -->
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../../../../manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="../../../../manifest.theme.css">
+
+  <!-- Scripts -->
+  <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="../../../../scripts/payments-demo.js" defer=""></script>
+  <script src="../../../../scripts/hero-editor.js" defer=""></script>
+  <script src="../../../../scripts/hero-demo.js" defer=""></script>
+  <script src="../../../../scripts/console-message.js" defer=""></script>
+
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+@custom-variant cursor (@media (pointer: fine) and (hover: hover));
+@custom-variant pointer (@media (any-pointer: fine));
+@custom-variant mac (&:where([data-os="macos"] *));
+@custom-variant windows (&:where([data-os="windows"] *));
+@custom-variant linux (&:where([data-os="linux"] *));
+@custom-variant ios (&:where([data-os="ios"] *));
+@custom-variant android (&:where([data-os="android"] *));
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));
+@custom-variant online (&:where([data-online="true"] *));
+@custom-variant offline (&:where([data-online="false"] *));
+@custom-variant standalone (&:where([data-standalone] *));
+@custom-variant native (&:where([data-native] *));
+@custom-variant web (&:where(html:not([data-native]) *));
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Visual Editing — Manifest</title><meta property="og:title" content="Visual Editing — Manifest"><meta property="og:description" content="Turn a live page into its own editor."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/edit"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-edit.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Visual Editing — Manifest"><meta property="twitter:description" content="Turn a live page into its own editor."><meta property="twitter:image" content="/og/docs-framework-core-modules-edit.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Visual Editing — Manifest","description":"Turn a live page into its own editor.","image":"/og/docs-framework-core-modules-edit.png","url":"https://manifestx.dev/docs/framework/core-modules/edit"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Edit","item":"https://manifestx.dev/docs/framework/core-modules/edit"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/framework/core-modules/edit">
+<meta name="manifest:router-base" content="">
+<meta name="manifest:prerender-locales" content="en">
+<meta name="manifest:prerendered" content="1">
+<meta name="manifest:router-base-depth" content="4">
+</head>
+
+<body x-data="{
+  init() {
+    const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
+    document.documentElement.setAttribute('dir', savedDirection);
+  }
+}" class="bg-surface-1">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
+
+  <header style="view-transition-name: site-header" class="site-header fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
+
+    <!-- Content Area -->
+    <nav class="row justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+
+        <!-- Start -->
+        <div class="row items-center gap-3" x-data="{
+            get family() { return $route.startsWith('/docs/platform') ? 'platform' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+        }">
+
+            <!-- Logo -->
+            <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
+                <span class="hidden md:flex">{Manifest}</span>
+                <span class="md:hidden">{M}</span>
+            </a>
+
+            <!-- Docs family -->
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation" popovertarget="docs-family" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="docs-family" aria-expanded="false" data-hydrate-id="h1">
+                <span x-text="$x.site.docs.find(d =&gt; d.key === family)?.name">Framework</span>
+                <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
+            </button>
+            <menu popover="" id="docs-family" role="menu" style="position-anchor: --dropdown-p1">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a :href="'/docs/' + d.key" close="">
+                        <span x-text="d.name"></span>
+                        <span x-show="family === d.key" x-icon="lucide:check" class="trailing"></span>
+                    </a>
+                </template>
+            </menu>
+
+            <!-- Docs Breadcrumbs-->
+            
+            
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/framework/*">
+                <span x-text="$x.framework.$route('path')?.group || 'No group'">Core Modules</span>
+                <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
+                <span class="text-content-stark" x-text="$x.framework.$route('path')?.name || 'No article'">Visual Editing</span>
+            </small>
+
+        </div>
+
+        <!-- End -->
+        <div class="row justify-end items-center gap-2">
+
+            <!-- CTAs -->
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+                <span x-icon="lucide:search"></span>
+                <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
+            </button>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="sm transparent outlined rounded-full" aria-label="GitHub" x-tooltip="GitHub" x-icon="meteor-icons:github"></a>
+            <a role="button" href="/docs" class="sm transparent outlined rounded-full">Docs</a>
+            <a role="button" href="https://dash.manifestx.dev" class="sm accent rounded-full" x-text="/(^|;\s*)mnfst_signed_in=1(;|$)/.test(document.cookie) ? 'Dashboard' : 'Sign in'">Sign in</a>
+
+            <!-- Mobile Sidebar Button -->
+            <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
+
+        </div>
+
+    </nav>
+
+</header>
+  <div x-data="{
+        sources: [['platform', '/docs/platform'], ['framework', '/docs/framework'], ['api', '/docs/api']],
+        labels: { platform: 'Platform', framework: 'Framework', api: 'API' },
+        q: '',
+        items: [],
+        ready: false,
+        loading: false,
+        active: 0,
+
+        // Fetch every article's markdown once, on first open; index title, description, headings, body.
+        async build() {
+            if (this.ready || this.loading) return;
+            this.loading = true;
+            const jobs = [];
+            for (const [src, base] of this.sources) {
+            for (let i = 0; i &lt; 20 &amp;&amp; (!$x[src] || !$x[src].length); i++) await new Promise(r =&gt; setTimeout(r, 100));
+            for (const g of ($x[src] || [])) {
+                for (const it of (g.items || [])) {
+                    if (!it.name || !it.doc) continue;
+                    const href = base + (g.slug ? '/' + g.slug : '') + '/' + it.path;
+                    jobs.push(fetch(it.doc)
+                        .then(r =&gt; r.ok ? r.text() : '')
+                        .catch(() =&gt; '')
+                        .then(md =&gt; {
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/&lt;[^&gt;]+&gt;/g, '').replace(/[*_`\[\]]/g, '').trim();
+                            const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
+                            const body = md
+                                .replace(/```[\s\S]*?```/g, ' ')
+                                .replace(/:::[^\n]*/g, ' ')
+                                .replace(/&lt;[^&gt;]+&gt;/g, ' ')
+                                .replace(/[#&gt;*_`\[\]()|]/g, ' ')
+                                .replace(/-{2,}/g, ' ')
+                                .replace(/\s+/g, ' ');
+                            this.items.push({
+                                name: it.name, group: g.group, icon: it.icon, href, desc, src,
+                                headings,
+                                hhay: headings.join(' · ').toLowerCase(),
+                                body, bhay: body.toLowerCase(),
+                            });
+                        }));
+                }
+            }
+            }
+            await Promise.all(jobs);
+            $x.$register('searchIndex', this.items);
+            this.ready = true;
+            this.loading = false;
+        },
+
+        results() {
+            const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
+            return ranked.slice(0, 20).map(it =&gt; ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i &gt; -1) return (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
+            }
+            return it.desc;
+        },
+
+        openDialog() { document.getElementById('docs-search')?.showPopover(); },
+        // The router swallows result clicks before element handlers run, so the
+        // dialog closes on the route-change event rather than the click itself.
+        closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
+        async onToggle(e) {
+            if (e.newState !== 'open') return;
+            this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() =&gt; { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
+        },
+        move(d) {
+            const n = this.results().length;
+            if (!n) return;
+            this.active = (this.active + d + n) % n;
+            this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
+        },
+        go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+
+        <!-- Query -->
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
+
+        <!-- Results -->
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
+            <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
+            <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
+                No matches for “<span x-text="q.trim()"></span>”.
+            </p>
+            <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i">
+                    <a :href="r.href" role="button" :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'" class="ghost justify-start w-full h-auto py-2 no-underline">
+                        <span class="col gap-0.5 min-w-0 grow text-left">
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <template x-if="r.group">
+                                    <small class="text-content-subtle font-normal" x-text="'· ' + r.group"></small>
+                                </template>
+                                <small class="badge sm ms-auto shrink-0 font-normal" x-text="labels[r.src]"></small>
+                            </span>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
+                        </span>
+                    </a>
+                </div>
+            </template>
+            <div class="h-2 shrink-0"></div>
+        </div>
+
+    </dialog>
+</div>
+  <nav aria-label="Menu" popover="" id="docs-nav" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 bg-popover-surface shadow-xl overflow-y-auto no-scrollbar" x-data="{
+        view: null,
+        get current() { return $route.match(/^\/docs\/(platform|api|framework)(\/|$)/)?.[1] || null },
+        get src() { return this.view || this.current },
+        get base() { return '/docs/' + this.src },
+        get groups() { return this.src ? $x[this.src] || [] : [] },
+        get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
+        here(href) { return $route.replace(/\/$/, '') === href },
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+
+    <!-- Docs -->
+    <template x-if="src">
+        <div class="col">
+            <div role="tablist" aria-label="Docs" class="sm rounded-full w-full my-4">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <button type="button" role="tab" :aria-selected="src === d.key" @click="view = d.key" x-text="d.name"></button>
+                </template>
+            </div>
+            <a role="button" :href="base" :aria-current="here(base) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="here(base) ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                <span x-icon="lucide:house"></span>
+                <span>Overview</span>
+            </a>
+            <template x-for="group in groups" :key="group.group">
+                <div class="col gap-6 py-4">
+                    <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
+                    <div class="col">
+                        <template x-for="(item, index) in group.items" :key="item.path || index">
+                            <a x-show="item.name" role="button" :href="base + (group.slug ? '/' + group.slug : '') + '/' + item.path" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="article?.path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                                <span x-icon="item.icon"></span>
+                                <span x-text="item.name"></span>
+                            </a>
+                        </template>
+                    </div>
+                    <hr>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <!-- Site -->
+    <div class="col py-4">
+        <template x-for="n in $x.site.nav" :key="n.href">
+            <a role="button" :href="n.href" :aria-current="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="n.icon"></span>
+                <span x-text="n.name"></span>
+            </a>
+        </template>
+    </div>
+    <hr class="shrink-0">
+    <template x-if="!src">
+        <div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Docs</small>
+            <div class="col">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a role="button" :href="'/docs/' + d.key" class="ghost justify-start w-full text-content-neutral">
+                        <span x-icon="d.icon"></span>
+                        <span x-text="d.name"></span>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </template>
+    <hr class="shrink-0" x-show="!src" style="display: none">
+    <div class="col py-4">
+        <template x-for="p in $x.site.pages" :key="p.href">
+            <a role="button" :href="p.href" :aria-current="$route.startsWith(p.href) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="$route.startsWith(p.href) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="p.icon"></span>
+                <span x-text="p.name"></span>
+            </a>
+        </template>
+    </div>
+
+</nav>
+
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
+
+    <!-- Home page -->
+    
+
+    <!-- Framework -->
+
+    <!-- Compare -->
+    
+
+    <!-- Documentation -->
+    
+    
+    
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-data="{
+    base: '/docs/framework' ?? '/docs/framework',
+    src: 'framework' ?? 'framework',
+    heading: 'Framework' ?? 'Docs',
+    intro: 'Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.' ?? '',
+    home: null ?? '',
+    landing: 'framework' ?? '',
+    canonical: 'https://manifestx.dev',
+    copied: false,
+    get pages() {
+      const out = [];
+      for (const g of this.groups) for (const i of (g.items || [])) if (i.name) out.push({ href: this.href(g, i), name: i.name, group: g.group || '' });
+      return out;
+    },
+    get pageIndex() { return this.pages.findIndex(p =&gt; this.at(p.href)) },
+    get prev() { return this.pageIndex &gt; 0 ? this.pages[this.pageIndex - 1] : null },
+    get next() { const i = this.pageIndex; return i &gt; -1 &amp;&amp; i &lt; this.pages.length - 1 ? this.pages[i + 1] : null },
+    aiApps: [
+      { name: 'Claude', icon: 'simple-icons:claude', url: 'https://claude.ai/new?q=' },
+      { name: 'ChatGPT', icon: 'simple-icons:openai', url: 'https://chatgpt.com/?q=' },
+      { name: 'Gemini', icon: 'simple-icons:googlegemini', url: 'https://gemini.google.com/app', paste: true },
+      { name: 'Perplexity', icon: 'simple-icons:perplexity', url: 'https://www.perplexity.ai/search?q=' }
+    ],
+    get askPrompt() { return `Read ${this.canonical + $route.replace(/\/$/, '')} from the Manifest docs and help me with it.` },
+    askIn(app) { return app.paste ? app.url : app.url + encodeURIComponent(this.askPrompt) },
+    askCopy(app) { if (app.paste) navigator.clipboard.writeText(this.askPrompt).catch(() =&gt; {}) },
+    async copyPage() {
+      const md = await fetch(this.article.doc).then(r =&gt; r.text());
+      const clean = md.replace(/`([^`\n]+)`\{[^}\n]*\}/g, '`$1`');
+      await navigator.clipboard.writeText(`Source: ${this.canonical}${$route.replace(/\/$/, '')}\n\n${clean}`);
+      this.copied = true;
+      setTimeout(() =&gt; this.copied = false, 1500);
+    },
+    get groups() { return $x[this.src] || [] },
+    get article() { return $x[this.src].$route('path') },
+    get group() { const g = $x[this.src].$route('slug'); return g?.group &amp;&amp; this.at(this.base + '/' + g.slug) ? g : null },
+    href(group, item) { return this.base + (group.slug ? '/' + group.slug : '') + (item ? '/' + item.path : '') },
+    get cards() {
+      const out = [];
+      for (const g of this.groups) {
+        const items = (g.items || []).filter(i =&gt; i.name);
+        if (g.group) out.push({ href: this.href(g), icon: g.icon || items[0]?.icon, title: g.group, sub: items.length + (items.length === 1 ? ' article' : ' articles') });
+        else items.forEach(i =&gt; out.push({ href: this.href(g, i), icon: i.icon, title: i.name, sub: i.description || 'Start here' }));
+      }
+      return out;
+    },
+    at(path) { return $route.replace(/\/$/, '') === path },
+  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.">
+
+  <!-- Desktop navigation -->
+  <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
+    <div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Getting Started</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-open"></span>
+              <span>Introduction</span>
+            </a><a role="button" href="/docs/framework/getting-started/setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:terminal"></span>
+              <span>Setup</span>
+            </a><a role="button" href="/docs/framework/getting-started/starter-project" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:package"></span>
+              <span>Starter Project</span>
+            </a><a role="button" href="/docs/framework/getting-started/compatibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe-lock"></span>
+              <span>Compatibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:eye"></span>
+              <span>Accessibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Core Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/core-modules/chat" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:message-square"></span>
+              <span>Chat</span>
+            </a><a role="button" href="/docs/framework/core-modules/components" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panels-top-left"></span>
+              <span>Components</span>
+            </a><a role="button" href="/docs/framework/core-modules/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" href="/docs/framework/core-modules/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Devices</span>
+            </a><a role="button" href="/docs/framework/core-modules/submissions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:send-horizontal"></span>
+              <span>Form Submissions</span>
+            </a><a role="button" href="/docs/framework/core-modules/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
+            </a><a role="button" href="/docs/framework/core-modules/local-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-tree"></span>
+              <span>Local Data</span>
+            </a><a role="button" href="/docs/framework/core-modules/localization" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:languages"></span>
+              <span>Localization</span>
+            </a><a role="button" href="/docs/framework/core-modules/markdown" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-m"></span>
+              <span>Markdown</span>
+            </a><a role="button" href="/docs/framework/core-modules/payments" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:credit-card"></span>
+              <span>Payments</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Rich Text</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text-controls" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Controls</span>
+            </a><a role="button" href="/docs/framework/core-modules/router" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:route"></span>
+              <span>Router</span>
+            </a><a role="button" href="/docs/framework/core-modules/status" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:activity"></span>
+              <span>Status</span>
+            </a><a role="button" href="/docs/framework/core-modules/url-parameters" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:ampersand"></span>
+              <span>URL Parameters</span>
+            </a><a role="button" href="/docs/framework/core-modules/virtual" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-chevrons-up-down"></span>
+              <span>Virtual Lists</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Visual Editing</span>
+            </a><a role="button" href="/docs/framework/core-modules/move" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Move</span>
+            </a><a role="button" href="/docs/framework/core-modules/resize" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Resize</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit-publishing" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Publishing</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Appwrite Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/appwrite-modules/appwrite-setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="simple-icons:appwrite"></span>
+              <span>Appwrite Setup</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/auth" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:users"></span>
+              <span>Auth</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Users</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Teams</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/cloud-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:database"></span>
+              <span>Cloud Data</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/databases" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Databases</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Storage</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/presence" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:radio-tower"></span>
+              <span>Presence</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Publishing</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/publishing/testing" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-check"></span>
+              <span>Testing</span>
+            </a><a role="button" href="/docs/framework/publishing/websites" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe"></span>
+              <span>Websites</span>
+            </a><a role="button" href="/docs/framework/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>SEO &amp; AEO</span>
+            </a><a role="button" href="/docs/framework/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window"></span>
+              <span>Web Apps</span>
+            </a><a role="button" href="/docs/framework/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:monitor-smartphone"></span>
+              <span>Native Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Styles</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/styles/reset" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:scale"></span>
+              <span>Reset</span>
+            </a><a role="button" href="/docs/framework/styles/theme" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:paint-bucket"></span>
+              <span>Theme</span>
+            </a><a role="button" href="/docs/framework/styles/color-modes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sun-moon"></span>
+              <span>Color Modes</span>
+            </a><a role="button" href="/docs/framework/styles/utilities" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:swatch-book"></span>
+              <span>Utilities</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Elements</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/elements/accordions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-collapse"></span>
+              <span>Accordions</span>
+            </a><a role="button" href="/docs/framework/elements/avatars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-user-round"></span>
+              <span>Avatars</span>
+            </a><a role="button" href="/docs/framework/elements/badges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-star"></span>
+              <span>Badges</span>
+            </a><a role="button" href="/docs/framework/elements/buttons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-mouse-pointer"></span>
+              <span>Buttons</span>
+            </a><a role="button" href="/docs/framework/elements/charts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chart-line"></span>
+              <span>Charts</span>
+            </a><a role="button" href="/docs/framework/elements/chats" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:messages-square"></span>
+              <span>Chats</span>
+            </a><a role="button" href="/docs/framework/elements/checkboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-check"></span>
+              <span>Checkboxes</span>
+            </a><a role="button" href="/docs/framework/elements/code" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:code"></span>
+              <span>Code</span>
+            </a><a role="button" href="/docs/framework/elements/color-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:palette"></span>
+              <span>Color Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/comboboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-search"></span>
+              <span>Comboboxes</span>
+            </a><a role="button" href="/docs/framework/elements/date-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:calendar"></span>
+              <span>Date Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/dialogs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panel-top-dashed"></span>
+              <span>Dialogs</span>
+            </a><a role="button" href="/docs/framework/elements/dividers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:minus"></span>
+              <span>Dividers</span>
+            </a><a role="button" href="/docs/framework/elements/dropdowns" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chevron-down"></span>
+              <span>Dropdowns</span>
+            </a><a role="button" href="/docs/framework/elements/forms" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:rows-3"></span>
+              <span>Forms</span>
+            </a><a role="button" href="/docs/framework/elements/icons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smile"></span>
+              <span>Icons</span>
+            </a><a role="button" href="/docs/framework/elements/inputs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor-input"></span>
+              <span>Inputs</span>
+            </a><a role="button" href="/docs/framework/elements/radios" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-dot"></span>
+              <span>Radios</span>
+            </a><a role="button" href="/docs/framework/elements/ranges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sliders-horizontal"></span>
+              <span>Ranges</span>
+            </a><a role="button" href="/docs/framework/elements/selects" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:menu"></span>
+              <span>Selects</span>
+            </a><a role="button" href="/docs/framework/elements/sidebars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sidebar"></span>
+              <span>Sidebars</span>
+            </a><a role="button" href="/docs/framework/elements/svgs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:shapes"></span>
+              <span>SVGs</span>
+            </a><a role="button" href="/docs/framework/elements/switches" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:toggle-right"></span>
+              <span>Switches</span>
+            </a><a role="button" href="/docs/framework/elements/tables" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:table"></span>
+              <span>Tables</span>
+            </a><a role="button" href="/docs/framework/elements/tabs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window-mac"></span>
+              <span>Tabs</span>
+            </a><a role="button" href="/docs/framework/elements/textareas" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor"></span>
+              <span>Textareas</span>
+            </a><a role="button" href="/docs/framework/elements/toasts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-big-up-dash"></span>
+              <span>Toasts</span>
+            </a><a role="button" href="/docs/framework/elements/tooltips" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-help"></span>
+              <span>Tooltips</span>
+            </a><a role="button" href="/docs/framework/elements/typography" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:type"></span>
+              <span>Typography</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Guides</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/guides/large-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:layers"></span>
+              <span>Large Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Resources</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/resources/reference" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-marked"></span>
+              <span>Reference</span>
+            </a><a role="button" href="/docs/framework/resources/typescript" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="hugeicons:typescript-01"></span>
+              <span>TypeScript</span>
+            </a><a role="button" href="/docs/framework/resources/security" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:lock"></span>
+              <span>Security</span>
+            </a><a role="button" href="/docs/framework/resources/license" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:file-check"></span>
+              <span>MIT License</span>
+            </a><a role="button" href="/docs/framework/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:heart-handshake"></span>
+              <span>Acknowledgements</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div>
+  </nav>
+
+  <!-- Articles -->
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+
+    <div class="col grow w-full max-w-full mx-auto">
+
+      <!-- Article -->
+      <template x-if="article?.name">
+        <div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7">
+          <span class="h6" x-text="article?.group || ''"></span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'"></span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
+              <span x-icon="'lucide:asterisk'"></span>
+              <span>Ask AI</span>
+              <span x-icon="'lucide:chevron-down'"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src">
+              <template x-for="app in aiApps" :key="app.name">
+                <a :href="askIn(app)" target="_blank" rel="noopener" role="button" class="sm ghost justify-start" @click="askCopy(app)" :title="app.paste ? 'Opens ' + app.name + ' with the question copied, ready to paste' : null">
+                  <span x-icon="app.icon"></span>
+                  <span x-text="'Ask ' + app.name"></span>
+                </a>
+              </template>
+            </menu>
+          </div>
+        </div>
+      </template><div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7" data-mnfst-prerender-clone="1">
+          <span class="h6" x-text="article?.group || ''">Core Modules</span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="lucide:copy"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'">Copy page</span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page" popovertarget="ask-ai-framework" style="anchor-name: --dropdown-p2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p2" aria-haspopup="menu" aria-controls="ask-ai-framework" aria-expanded="false" data-hydrate-id="h3">
+              <span x-icon="lucide:asterisk"></span>
+              <span>Ask AI</span>
+              <span x-icon="lucide:chevron-down"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src" role="menu" style="position-anchor: --dropdown-p2">
+              <a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://claude.ai/new?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fcore-modules%2Fedit%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:claude"></span>
+                  <span>Ask Claude</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://chatgpt.com/?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fcore-modules%2Fedit%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:openai"></span>
+                  <span>Ask ChatGPT</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://gemini.google.com/app" title="Opens Gemini with the question copied, ready to paste">
+                  <span x-icon="simple-icons:googlegemini"></span>
+                  <span>Ask Gemini</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://www.perplexity.ai/search?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fcore-modules%2Fedit%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:perplexity"></span>
+                  <span>Ask Perplexity</span>
+                </a>
+            </menu>
+          </div>
+        </div>
+      <template x-if="article?.name">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" x-markdown="article?.doc"></div>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" style="opacity: 1" data-mnfst-md-src="/articles/core-modules/edit.md" data-mnfst-prerender-clone="1"><h1 id="visual-editing">Visual Editing</h1><p>Turn a live page into its own editor.</p>
+<hr>
+<h2 id="overview">Overview</h2><p><code>x-edit</code> marks a region of the page as editable. Inside it, text can be rewritten in place, elements can be dragged to new spots, and elements you mark can be resized by their edges. Every change joins one undo history, and publishing writes the changes back to your source files or hands them to your own backend.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">x-edit</span>=<span class="hljs-string">"poochie"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Meet Poochie<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"grid grid-cols-1 sm:grid-cols-3 gap-3"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Loves pasta<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>And ice cream, whenever she can get it.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Always quiet<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Never barks at the mail carrier.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Well trained<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Knows sit, stay, and the way to the door.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">figure</span> <span class="hljs-attr">x-edit.size</span>=<span class="hljs-string">"poochie-photo"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"width: 14rem; height: 9rem; min-width: 8rem; max-width: 100%"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/assets/examples/poochie.webp"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Poochie the dog"</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">figure</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
+<template x-if="ready">
+<section class="col gap-4 w-full" x-edit="poochie-demo">
+    <h2 class="m-0">Meet Poochie</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <article class="col gap-1 p-4 bg-surface-2 rounded">
+            <h3 class="m-0 text-lg">Loves pasta</h3>
+            <p class="m-0 text-sm">And ice cream, whenever she can get it.</p>
+        </article>
+        <article class="col gap-1 p-4 bg-surface-2 rounded">
+            <h3 class="m-0 text-lg">Always quiet</h3>
+            <p class="m-0 text-sm">Never barks at the mail carrier.</p>
+        </article>
+        <article class="col gap-1 p-4 bg-surface-2 rounded">
+            <h3 class="m-0 text-lg">Well trained</h3>
+            <p class="m-0 text-sm">Knows sit, stay, and the way to the door.</p>
+        </article>
+    </div>
+    <figure class="m-0" x-edit.size="poochie-photo-demo" style="width: 14rem; height: 9rem; min-width: 8rem; max-width: 100%">
+        <img class="w-full h-full object-cover rounded m-0" src="../../../../assets/examples/poochie.webp" alt="Poochie the dog">
+    </figure>
+</section>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Click a heading and type a new one. Drag a card from anywhere on it to put it somewhere else, or drag the photo's edges and corners to resize it. <strong>Cmd/Ctrl + Z</strong> undoes each change and <strong>Shift + Cmd/Ctrl + Z</strong> redoes it.</p>
+<hr>
+<h2 id="setup">Setup</h2><p>Visual Editing is opt-in and never part of the default Manifest bundle, so visitors don't download editor code. The <code>+</code> prefix keeps the default modules and adds it; the selective tab loads Visual Editing without the other default modules. Visual Editing has no script of its own to link: it needs the Manifest loader, which brings in Alpine and <a href="/docs/framework/core-modules/rich-text">Rich Text</a> with it. Either way, Rich Text loads automatically, because page text is edited with it.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-modules-+-visual-editing-tab-0" aria-selected="true" tabindex="0">All Modules + Visual Editing</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+
+<pre x-code="html" name="All Modules + Visual Editing" data-code-block-built="yes" aria-label="All Modules + Visual Editing" role="tabpanel" data-code-processed="yes" id="all-modules-+-visual-editing-panel-0" aria-labelledby="all-modules-+-visual-editing-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+    <span class="hljs-attr">data-modules</span>=<span class="hljs-string">"+edit"</span> <span class="hljs-attr">data-tailwind</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre x-code="html" name="Selective" data-code-block-built="yes" aria-label="Selective" role="tabpanel" data-code-processed="yes" id="selective-panel-1" aria-labelledby="selective-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+    <span class="hljs-attr">data-modules</span>=<span class="hljs-string">"edit"</span> <span class="hljs-attr">data-tailwind</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The examples on this page and on Move and Resize also use Tailwind utility classes, such as <code>grid-cols-3</code>, <code>h-48</code>, and <code>[&amp;&gt;*]:absolute</code>, which need the <code>data-tailwind</code> attribute shown here; see <a href="/docs/framework/getting-started/setup">Setup</a>. Without it, copy the markup and style it your own way.</p>
+<p>To load it only for signed-in editors, leave it out of <code>data-modules</code> and call <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">Manifest.loadModule('edit')</code> once you know the visitor can edit. The regions already on the page become editable when it loads, except those marked <a href="#regions"><code>.gated</code></a>, which stay switched off until <code>$edit.on()</code>. Until then, <code>$edit</code> is an idle stand-in, so bindings such as <code>:disabled="!$edit.canUndo"</code> work before Visual Editing loads and pick up the real state once it has; anything assigned to it in the meantime, such as <code>onPublish</code>, is kept and carries over to Visual Editing when it loads.</p>
+<p>Editor styles are included in Manifest CSS, or as standalone stylesheets for Visual Editing and Rich Text. Both reference <a href="/docs/framework/styles/theme">theme</a> variables, such as the brand colours the editing visuals and examples use. Link your project's own <code>manifest.theme.css</code>, which can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification, as in <a href="/docs/framework/getting-started/setup#styles">Setup</a>.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+
+<pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.theme.css"</span>&gt;</span></code></pre>
+<pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.theme.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.edit.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.rich.text.css"</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="regions">Regions</h2><p>A region is an element marked with <code>x-edit</code>, together with everything inside it. Its value is a key that names the region's edits, so a publish knows where in your source they belong. Keep the key stable and unique on the page: renaming it strands edits already made under the old name, and a key that appears on the page more than once, from two regions sharing it or a component used several times, isn't editable anywhere (Visual Editing warns in the console), because a publish couldn't tell which one is meant.</p>
+<p>A piece is any element directly inside the region, or inside a container in it, that can be picked up and moved. Modifiers say what a region allows. With no capability named, a region allows text and move; naming one or more replaces that default, so <code>x-edit.move</code> allows moving only.</p>
+<table>
+<thead>
+<tr>
+<th>Write</th>
+<th>Means</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>x-edit="key"</code></td>
+<td>This region can be edited: its text, and its pieces moved</td>
+</tr>
+<tr>
+<td><code>.text</code></td>
+<td>Its text can be rewritten in place</td>
+</tr>
+<tr>
+<td><code>.move</code></td>
+<td>Its pieces can be dragged to new places; see <a href="/docs/framework/core-modules/move">Move</a></td>
+</tr>
+<tr>
+<td><code>.size</code></td>
+<td>This element can be resized by its edges; see <a href="/docs/framework/core-modules/resize">Resize</a></td>
+</tr>
+<tr>
+<td><code>.data</code></td>
+<td>Fields of the records in its <code>x-for</code> list can be edited</td>
+</tr>
+<tr>
+<td><code>.gated</code></td>
+<td>Editing stays off until <code>$edit.on()</code></td>
+</tr>
+<tr>
+<td><code>.persist</code></td>
+<td>Unpublished edits survive a reload in this browser</td>
+</tr>
+<tr>
+<td><code>.bare</code></td>
+<td>Editable, but draws none of the editing visuals</td>
+</tr>
+<tr>
+<td><code>.theme</code>, <code>.cssvar</code></td>
+<td><a href="#theme-controls">Theme controls</a></td>
+</tr>
+</tbody></table>
+<p>A region inside another region sets its own capabilities for what it holds, and is itself a piece of the outer one. That's how the photo above can be resized while its section moves.</p>
+<p>What a region holds decides where its edits go when published:</p>
+<ul>
+<li><strong>Markup</strong> you wrote, in the page or in a component's HTML file: text, order, nesting, sizes, and attributes are written back into that markup. A component's root element is the exception: its own attributes and classes come partly from where the component is used, so they aren't editable.</li>
+<li><strong>A list from data</strong>, an <code>x-for</code> directly inside the region: moving reorders the array and <code>.data</code> edits record fields, see <a href="/docs/framework/core-modules/move#in-a-list-or-grid">In a List or Grid</a>.</li>
+<li><strong>A component</strong>, such as <code>&lt;x-card&gt;</code>, among other content: it's one piece, moved as a whole. Like any piece, it drags, steps with Alt + arrows, nests, locks, duplicates into a new instance, and deletes. It can also move into another region, in this file or another, but it can't be copied or cut. Its own markup isn't edited from here. A region written inside the component's file is edited there, in its own right; duplicating such a component puts that region on the page twice, so it stops being editable.</li>
+<li><strong>Exactly one component</strong> and nothing else, with no region of its own: its text and classes can be edited, and with <code>.size</code> the region resized, as overrides for this instance. <code>$edit.scope('main')</code> makes edits apply to the component itself, and so to every instance, and <code>$edit.revert()</code> drops an instance's own edits.</li>
+</ul>
+<h3 id="lock">Lock</h3><p><code>x-edit.lock</code> on an element inside a region keeps it and everything inside it from being edited. Add an action to block only that one: <code>.lock.move</code>, <code>.lock.remove</code>, <code>.lock.duplicate</code>, <code>.lock.text</code>, <code>.lock.attrs</code> (attributes and classes), or <code>.lock.size</code>. Actions can be combined, as in <code>.lock.move.remove</code>.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">x-edit</span>=<span class="hljs-string">"rules"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Rewrite or drag me<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">x-edit.lock</span>&gt;</span>Locked: no edits at all<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">x-edit.lock.move</span>&gt;</span>Fixed in place, but you can rewrite me<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">x-edit.lock.text</span>&gt;</span>Read-only text, but you can drag me<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
+<template x-if="ready">
+<ul class="col gap-2 m-0 p-0 list-none w-full" x-edit="rules-demo">
+    <li class="m-0 p-3 bg-surface-2 rounded">Rewrite or drag me</li>
+    <li class="m-0 p-3 bg-surface-2 rounded" x-edit.lock="">Locked: no edits at all</li>
+    <li class="m-0 p-3 bg-surface-2 rounded" x-edit.lock.move="">Fixed in place, but you can rewrite me</li>
+    <li class="m-0 p-3 bg-surface-2 rounded" x-edit.lock.text="">Read-only text, but you can drag me</li>
+</ul>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>A piece locked from moving can't be picked up, though other pieces can still be dropped before or after it, and stepping a neighbour by keyboard skips over it. To let the people using your editor lock things themselves, see <a href="#blocks">Blocks</a>.</p>
+<hr>
+<h2 id="text">Text</h2><p>Page text is edited with <a href="/docs/framework/core-modules/rich-text">Rich Text</a>, Manifest's text editing module. Visual Editing loads it automatically, so there's nothing to add: each piece of text in a region becomes an inline Rich Text field. That's why Rich Text's shortcuts and controls work on page text, as below, while headings, lists, and other blocks stay out of it, so a heading stays one heading.</p>
+<p>The first click on a piece of text selects all of it, so replacing a line is one click and typing; click again to place the caret. <strong>Enter</strong> starts a new line inside the same element, and <strong>Escape</strong> leaves the text. The change is recorded when the text loses focus, as one step of the history. A press on text that moves before you let go drags the piece instead; see <a href="/docs/framework/core-modules/move">Move</a>. While you're typing in a piece, dragging across its text selects words as usual.</p>
+<p>To format it, use <strong>Cmd/Ctrl + B</strong>, <strong>I</strong>, and <strong>U</strong> for bold, italic, and underline, or any <a href="/docs/framework/core-modules/rich-text-controls#buttons">Rich Text button</a> for inline formatting. The buttons don't take focus, so they act on whichever text you're in.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row gap-1"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.strong</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Bold"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:bold"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.em</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Italic"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:italic"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.mark</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Highlight"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:highlighter"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">x-edit</span>=<span class="hljs-string">"story"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Every word here can be bold, even in the title<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Select some words and press Bold, or <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Cmd/Ctrl + B<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
+<template x-if="ready">
+<div class="col gap-3 w-full">
+    <div class="row gap-1">
+        <button class="ghost sm" x-rich-text.strong="" aria-label="Bold"><span x-icon="lucide:bold"></span></button>
+        <button class="ghost sm" x-rich-text.em="" aria-label="Italic"><span x-icon="lucide:italic"></span></button>
+        <button class="ghost sm" x-rich-text.mark="" aria-label="Highlight"><span x-icon="lucide:highlighter"></span></button>
+    </div>
+    <article class="col gap-2" x-edit="story-demo">
+        <h3 class="m-0">Every word here can be bold, even in the title</h3>
+        <p class="m-0">Select some words and press Bold, or <strong>Cmd/Ctrl + B</strong>.</p>
+    </article>
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The buttons stay disabled until the caret is in a piece of text, and block-level commands such as headings and lists never apply to page text. Each <code>aria-label</code> names an icon-only button for screen readers.</p>
+<p>Text that holds only plain formatting, such as bold, italics, links, and line breaks, is one piece: the paragraph above is edited as a whole, with its bold words inside. HTML comments inside the text are kept as written. An element inside the text with its own class or Alpine directive is left as a separate piece instead, so its styling and bindings survive.</p>
+<p>Clicking a link in page text, with the middle button too, or pressing Enter on it, never follows it while its region is editable, so you can edit it without leaving the page; links inside an element marked <code>contenteditable="false"</code> still work. Links follow HTML's rule that a link can't hold another link: text that is itself a link or a button takes no links, and linking part of an existing link splits it, so the rest keeps its own address.</p>
+<p>To allow headings, lists, and other blocks in part of a region, put <a href="/docs/framework/core-modules/rich-text"><code>x-rich-text</code></a> on that element, with no value of its own. It becomes a full Rich Text field, and Visual Editing records the markup it produces as an ordinary text edit.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">x-edit</span>=<span class="hljs-string">"post"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>A title, edited in place<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text.html</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"unstyle"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>A body that can hold <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>headings<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>, lists and quotes.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Some text can't be edited because it isn't written in the page: anything rendered by <code>x-text</code>, <code>x-html</code>, <code>x-markdown</code>, <code>x-icon</code>, or another directive that produces its own content, and the rows an <code>x-for</code> or <code>x-if</code> renders, unless the region is a <a href="/docs/framework/core-modules/move#in-a-list-or-grid">data list</a>. The contents of <code>&lt;script&gt;</code>, <code>&lt;style&gt;</code>, <code>&lt;textarea&gt;</code>, and <code>&lt;title&gt;</code> are never editable.</p>
+<p>Such an element is still a piece, and its own attributes and classes can be changed: an icon's size and colour are classes, and a <code>&lt;textarea&gt;</code>'s <code>placeholder</code> is an attribute. Change them from your own controls with <a href="#edit-magic"><code>$edit.classes</code></a> and <a href="#edit-magic"><code>$edit.attr()</code></a>, which record them in the history and publish them like any other edit.</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p>Visual Editing's <code>.text</code> means <em>text can be edited</em>. Alpine's <code>x-text</code> is the opposite case: text rendered from an expression, which Visual Editing leaves alone.</p>
+</aside>
+<hr>
+<h2 id="blocks">Blocks</h2><p>A block is a piece the person editing acts on as a whole: copy, cut, paste, duplicate, or delete it. With a piece focused, and not while typing in it, <strong>Cmd/Ctrl + C</strong>, <strong>X</strong>, <strong>V</strong>, and <strong>D</strong> copy, cut, paste, and duplicate it, and <strong>Delete</strong> or <strong>Backspace</strong> deletes it. A paste lands after the focused piece.</p>
+<p>For a right-click menu, put <a href="/docs/framework/elements/dropdowns#context-menu"><code>x-dropdown.context</code></a> on the region. Right-clicking a piece opens your menu, and <code>$edit.target</code> is the piece you clicked, set before the menu opens; every <code>$edit</code> action uses it when called without an element. <code>$edit.can(action)</code> says whether an action applies to it, so a button bound to it disables itself.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">x-edit.move</span>=<span class="hljs-string">"toys"</span> <span class="hljs-attr">x-dropdown.context</span>=<span class="hljs-string">"toy-menu"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Ball<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">x-edit.lock.remove</span>&gt;</span>Rope (can't be deleted)<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Squeaky duck<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"toy-menu"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$edit.copy()"</span>&gt;</span>Copy<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"!$edit.can('cut')"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$edit.cut()"</span>&gt;</span>Cut<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"!$edit.can('paste')"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$edit.paste()"</span>&gt;</span>Paste<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"!$edit.can('duplicate')"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$edit.duplicate()"</span>&gt;</span>Duplicate<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"!$edit.can('remove')"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$edit.remove()"</span>&gt;</span>Delete<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$edit.can('remove')"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$edit.lock($edit.target, 'remove')"</span>&gt;</span>Lock deleting<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!$edit.can('remove')"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$edit.unlock($edit.target, 'remove')"</span>&gt;</span>Unlock deleting<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
+<template x-if="ready">
+<div class="w-full">
+    <ul class="col gap-2 m-0 p-0 list-none" x-edit.move="toys-demo" x-dropdown.context="toy-menu-demo">
+        <li class="m-0 p-3 bg-surface-2 rounded">Ball</li>
+        <li class="m-0 p-3 bg-surface-2 rounded" x-edit.lock.remove="">Rope (can't be deleted)</li>
+        <li class="m-0 p-3 bg-surface-2 rounded">Squeaky duck</li>
+    </ul>
+    <menu popover="" id="toy-menu-demo">
+        <button @click="$edit.copy()">Copy</button>
+        <button :disabled="!$edit.can('cut')" @click="$edit.cut()">Cut</button>
+        <button :disabled="!$edit.can('paste')" @click="$edit.paste()">Paste</button>
+        <button :disabled="!$edit.can('duplicate')" @click="$edit.duplicate()">Duplicate</button>
+        <button :disabled="!$edit.can('remove')" @click="$edit.remove()">Delete</button>
+        <hr>
+        <button x-show="$edit.can('remove')" @click="$edit.lock($edit.target, 'remove')">Lock deleting</button>
+        <button x-show="!$edit.can('remove')" @click="$edit.unlock($edit.target, 'remove')">Unlock deleting</button>
+    </menu>
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Right-click a toy, copy it, then right-click another and paste. Lock deleting on one and the Delete button disables itself for it.</p>
+<p><code>$edit.lock(el, action)</code> and <code>$edit.unlock(el, action)</code> do at runtime what <code>.lock</code> does in markup, so the people using your editor can protect parts of a page from their own mistakes. Leave out the action to lock everything. A runtime lock is a step of the history, so it undoes, and <code>.persist</code> keeps it, but it's never written to your source: it belongs to the editing session, not the page. Unlocking also lifts a <code>.lock</code> written in the markup.</p>
+<p><code>$edit.can()</code> answers for <code>move</code>, <code>remove</code>, <code>duplicate</code>, <code>text</code>, <code>attrs</code>, <code>class</code>, <code>size</code>, <code>copy</code>, <code>cut</code>, and <code>paste</code>, taking the region's capabilities and every lock into account. A component piece answers <code>false</code> for <code>copy</code> and <code>cut</code>. Other actions for menus and panels are in the <a href="#reference">reference</a>: <code>$edit.move()</code>, <code>nest()</code>, and <code>unnest()</code> move a piece by script, and <code>$edit.attr()</code> and <code>$edit.classes</code> change attributes and classes as recorded edits.</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p>In <a href="/docs/framework/core-modules/rich-text">Rich Text</a>, <em>block</em> means a paragraph-level tag such as a heading or a list. Here it means any piece of the page.</p>
+</aside>
+<hr>
+<h2 id="history">History</h2><p>Every edit on the page joins one history, shared by every region, in the order the edits were made. <strong>Cmd/Ctrl + Z</strong> undoes the last one and <strong>Shift + Cmd/Ctrl + Z</strong> (or <strong>Ctrl + Y</strong>) redoes it, wherever you are on the page, except in form fields and in elements with their own <code>x-rich-text</code>, which keep their own undo. While you're in a piece of text, the shortcuts first step through what you've done in it since you clicked in, typing burst by typing burst, then through the page's history. Put <code>data-edit-hotkeys="off"</code> on a region, or on any element above it such as <code>&lt;html&gt;</code>, to leave the shortcuts to your own code.</p>
+<p>The browser's own undo can't do this: it only knows about typing in one field at a time, not about pieces moving, nesting, resizing, or closing. Visual Editing replaces it with one history of its own, so moves, nesting, resizes, closes, locks, and text edits all step back in the order they were made.</p>
+<p>There's no built-in toolbar. Build your own from buttons that call <code>$edit.undo()</code>, <code>$edit.redo()</code>, and <code>$edit.publish()</code>, and bind them to <code>$edit.canUndo</code> and <code>$edit.canRedo</code> so they disable themselves when there's nothing to step to.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ sent: '', init() { this.$edit.onPublish = patches =&gt; this.sent = 'Published at ' + new Date().toLocaleTimeString() } }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row gap-1"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"!$edit.canUndo"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$edit.undo()"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Undo"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:undo-2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"!$edit.canRedo"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$edit.redo()"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Redo"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:redo-2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$edit.publish()"</span>&gt;</span>Publish<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"sent"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">x-edit.persist</span>=<span class="hljs-string">"chores"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Fill the water bowl<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Buy kibble<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Book the groomer<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
+<template x-if="ready">
+<div class="col gap-3 w-full" x-data="{ sent: '', init() { this.$edit.onPublish = patches =&gt; this.sent = 'Published at ' + new Date().toLocaleTimeString() } }">
+    <div class="row items-center gap-1">
+        <button class="ghost sm" :disabled="!$edit.canUndo" @click="$edit.undo()" aria-label="Undo"><span x-icon="lucide:undo-2"></span></button>
+        <button class="ghost sm" :disabled="!$edit.canRedo" @click="$edit.redo()" aria-label="Redo"><span x-icon="lucide:redo-2"></span></button>
+        <button class="brand sm" @click="$edit.publish()">Publish</button>
+        <span class="text-sm text-content-subtle" x-text="sent"></span>
+    </div>
+    <ul class="col gap-2 m-0 p-0 list-none" x-edit.persist="chores-demo">
+        <li class="m-0 p-3 bg-surface-2 rounded">Fill the water bowl</li>
+        <li class="m-0 p-3 bg-surface-2 rounded">Buy kibble</li>
+        <li class="m-0 p-3 bg-surface-2 rounded">Book the groomer</li>
+    </ul>
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The undo and redo buttons step through the whole page's history, so they also undo edits made in the other examples on this page. Publish sends the edits and clears the history; here they only go to a handler that shows the time, see <a href="/docs/framework/core-modules/edit-publishing">Publishing</a>.</p>
+<h3 id="what-a-reload-keeps">What a Reload Keeps</h3><p>Edits live in memory, so a reload loses the ones not yet published. <code>.persist</code> keeps a region's unpublished edits, and their undo history, in this browser's <code>localStorage</code>, and replays them when the page loads again. Edit the list above, reload, and your changes are still there. A publish clears them.</p>
+<p>It's opt-in because the saved edits belong to one browser on one device, are invisible to everyone else, and go stale if the source changes underneath them; on a shared computer the next person would see them too. Use it for an editor where people work across reloads before they publish.</p>
+<p><code>.persist</code> keeps text, order, nesting, sizes, attributes and classes, runtime locks, and a data list's order and record fields. Theme values are kept when <code>.persist</code> is on their control or their <code>.theme</code> scope. It doesn't keep closes, which are page state, or rows added, duplicated, or deleted in a data list. The history is one for the whole document, so in a single-page app it carries across routes, and it's saved under every path the page has shown, capped at the latest 400 steps.</p>
+<hr>
+<h2 id="theme-controls">Theme Controls</h2><p><code>x-edit.cssvar</code> binds an input to a CSS variable, so a control panel can restyle the page live. A bare variable name writes it on <code>:root</code>, for the whole page. A name with a <code>scope:</code> prefix writes it on the element that declares that scope with <code>x-edit.theme</code>, so it applies only inside that element. <code>data-unit</code> adds a unit to a number or range input's value.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-edit.theme</span>=<span class="hljs-string">"card"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--color-brand-surface: #7c3aed; --color-brand-inverse: #ffffff; --radius: 0.5rem"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"brand"</span>&gt;</span>Give Poochie a treat<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Brand <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"color"</span> <span class="hljs-attr">x-edit.cssvar</span>=<span class="hljs-string">"card:--color-brand-surface"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Radius <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"range"</span> <span class="hljs-attr">min</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">max</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">step</span>=<span class="hljs-string">"0.125"</span> <span class="hljs-attr">data-unit</span>=<span class="hljs-string">"rem"</span> <span class="hljs-attr">x-edit.cssvar</span>=<span class="hljs-string">"card:--radius"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
+<template x-if="ready">
+<div class="col gap-4 w-full">
+    <div class="p-4 bg-surface-2 rounded" x-edit.theme="card-demo" style="--color-brand-surface: #7c3aed; --color-brand-inverse: #ffffff; --radius: 0.5rem">
+        <button class="brand">Give Poochie a treat</button>
+    </div>
+    <div class="row-wrap items-center gap-6">
+        <label class="row items-center gap-2">Brand <input type="color" x-edit.cssvar="card-demo:--color-brand-surface"></label>
+        <label class="row items-center gap-2 grow">Radius <input type="range" min="0" max="2" step="0.125" data-unit="rem" x-edit.cssvar="card-demo:--radius"></label>
+    </div>
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The variable changes live as the input moves, and is recorded as a step of the history when the input commits its value: when you let go of a slider or close the colour picker, and at each arrow-key step on a focused slider. Undo puts the previous value back. <code>.theme</code> on its own only declares a scope and makes nothing editable, so it can wrap regions safely. <code>.persist</code> on the control, or on its scope element, keeps unpublished values across a reload.</p>
+<p>When published, a global value goes to the project's own <code>manifest.theme.css</code>, and a scoped value into the scope element's <code>style</code> attribute, so it never reaches <code>:root</code>. See <a href="/docs/framework/core-modules/edit-publishing#to-your-source-files">Publishing</a> for which file each is written to.</p>
+<hr>
+<h2 id="reference">Reference</h2><h3 id="modifiers">Modifiers</h3><table>
+<thead>
+<tr>
+<th>Modifier</th>
+<th>On</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>(none)</em></td>
+<td>A region</td>
+<td>Text and move</td>
+</tr>
+<tr>
+<td><code>.text</code></td>
+<td>A region</td>
+<td>Text can be rewritten in place</td>
+</tr>
+<tr>
+<td><code>.move</code></td>
+<td>A region</td>
+<td>Pieces can be moved: reordered, nested, un-nested, between regions</td>
+</tr>
+<tr>
+<td><code>.size</code></td>
+<td>An element</td>
+<td>Resize handles on its edges and corners</td>
+</tr>
+<tr>
+<td><code>.data</code></td>
+<td>A region with an <code>x-for</code> list</td>
+<td>Record fields shown with <code>x-text</code> or <code>x-html</code>, in a row or as the row itself, can be edited</td>
+</tr>
+<tr>
+<td><code>.gated</code></td>
+<td>A region</td>
+<td>Off until <code>$edit.on()</code></td>
+</tr>
+<tr>
+<td><code>.persist</code></td>
+<td>A region, a <code>.cssvar</code> control, or a <code>.theme</code> scope</td>
+<td>Unpublished edits survive a reload in this browser</td>
+</tr>
+<tr>
+<td><code>.bare</code></td>
+<td>A region</td>
+<td>No editing visuals; everything else works</td>
+</tr>
+<tr>
+<td><code>.lock</code></td>
+<td>An element in a region</td>
+<td>No edits to it or anything inside it</td>
+</tr>
+<tr>
+<td><code>.lock.move</code> <code>.lock.remove</code> <code>.lock.duplicate</code> <code>.lock.text</code> <code>.lock.attrs</code> <code>.lock.size</code></td>
+<td>An element in a region</td>
+<td>Blocks one action; combine as needed</td>
+</tr>
+<tr>
+<td><code>.grab</code></td>
+<td>An element inside a piece</td>
+<td>Makes it the piece's handle: the piece drags only from it. See <a href="/docs/framework/core-modules/move#grab-handles">Grab Handles</a></td>
+</tr>
+<tr>
+<td><code>.theme</code></td>
+<td>Any element</td>
+<td>Declares a scope for <code>.cssvar</code>, named by its value</td>
+</tr>
+<tr>
+<td><code>.cssvar</code></td>
+<td>An input</td>
+<td>Binds the input to <code>--var</code> or <code>scope:--var</code></td>
+</tr>
+</tbody></table>
+<h3 id="edit-magic">$edit Magic</h3><table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>active</code>, <code>on()</code>, <code>off()</code>, <code>toggle()</code></td>
+<td>Whether <code>.gated</code> regions are on; switch them</td>
+</tr>
+<tr>
+<td><code>undo()</code>, <code>redo()</code></td>
+<td>Step through the history</td>
+</tr>
+<tr>
+<td><code>canUndo</code>, <code>canRedo</code></td>
+<td>Whether there's a step to undo or redo</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>A number that changes with every edit and target change; read it to make a binding re-evaluate</td>
+</tr>
+<tr>
+<td><code>target</code></td>
+<td>The piece last right-clicked; assignable</td>
+</tr>
+<tr>
+<td><code>can(action, el)</code></td>
+<td>Whether an action applies: <code>move</code>, <code>remove</code>, <code>duplicate</code>, <code>text</code>, <code>attrs</code>, <code>class</code>, <code>size</code>, <code>copy</code>, <code>cut</code>, <code>paste</code></td>
+</tr>
+<tr>
+<td><code>copy(el)</code>, <code>cut(el)</code>, <code>paste(el)</code>, <code>duplicate(el)</code>, <code>remove(el)</code></td>
+<td>Block actions; <code>paste</code> lands after <code>el</code></td>
+</tr>
+<tr>
+<td><code>move(el, dest, before)</code></td>
+<td>Move a piece into <code>dest</code>, a container element or a region's key, before <code>before</code> or at the end</td>
+</tr>
+<tr>
+<td><code>nest(el)</code>, <code>unnest(el)</code></td>
+<td>Move a piece into the container before it, or out one level</td>
+</tr>
+<tr>
+<td><code>lock(el, action)</code>, <code>unlock(el, action)</code></td>
+<td>Lock or unlock one action, or every action without one, a component piece included; recorded in the history</td>
+</tr>
+<tr>
+<td><code>block(node)</code></td>
+<td>The piece holding a node, or <code>null</code>; a component is one piece</td>
+</tr>
+<tr>
+<td><code>attr(name, value, el)</code></td>
+<td>Set an attribute: a string sets it, <code>true</code> sets it empty, <code>null</code> or <code>false</code> removes it</td>
+</tr>
+<tr>
+<td><code>classes.add(cls, el)</code>, <code>.remove()</code>, <code>.toggle(cls, el, force)</code>, <code>.set(value, el)</code>, <code>.has()</code>, <code>.list(el)</code></td>
+<td>Change and read an element's classes; classes from a <code>:class</code> binding are left to it</td>
+</tr>
+<tr>
+<td><code>scope(el)</code>, <code>scope(value, el)</code></td>
+<td>For a region wrapping exactly one component: <code>scope(el)</code> reads the scope of <code>el</code>'s region, <code>'instance'</code> or <code>'main'</code>; <code>scope(value, el)</code> sets it</td>
+</tr>
+<tr>
+<td><code>revert(el)</code></td>
+<td>Drop a component instance's edits to one element, or to all of them when <code>el</code> is the region</td>
+</tr>
+<tr>
+<td><code>patches()</code></td>
+<td>The patches a publish would send</td>
+</tr>
+<tr>
+<td><code>publish(options)</code></td>
+<td>Send the patches, after any publish still running; resolves with the response. <code>{ rebase: true }</code> writes over source that changed since the page loaded</td>
+</tr>
+<tr>
+<td><code>stale</code></td>
+<td>Files changed since the page loaded: from a refused publish, or a reload held back to keep unpublished edits</td>
+</tr>
+<tr>
+<td><code>conflicts</code></td>
+<td>Edits dropped because the source changed under them: <code>{ region, key, element, prop, value, before, reason }</code> each</td>
+</tr>
+<tr>
+<td><code>clearConflicts()</code></td>
+<td>Empty <code>conflicts</code>; for <code>.persist</code> regions they're kept across reloads until this is called</td>
+</tr>
+<tr>
+<td><code>onPublish</code></td>
+<td>A function that receives the patches instead of the development server</td>
+</tr>
+<tr>
+<td><code>export()</code></td>
+<td>The raw history, <code>{ log, cursor }</code></td>
+</tr>
+</tbody></table>
+<p>Methods that take <code>el</code> use <code>$edit.target</code> when it's left out, and return <code>true</code> when they made a change or <code>false</code> when they didn't apply.</p>
+<h3 id="events">Events</h3><table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Fires on</th>
+<th><code>detail</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>edit:size</code></td>
+<td>The resized element, throughout a resize and once when it's recorded</td>
+<td><code>width</code>, <code>height</code> (pixels), <code>css</code> (<code>{ width, height }</code> as written), <code>done</code></td>
+</tr>
+<tr>
+<td><code>edit:stale</code></td>
+<td><code>document</code>, when a publish is refused because source files changed, or a reload is held back</td>
+<td><code>files</code></td>
+</tr>
+<tr>
+<td><code>edit:conflict</code></td>
+<td><code>document</code>, when edits are dropped because their element changed in the source</td>
+<td><code>conflicts</code>, as in <code>$edit.conflicts</code></td>
+</tr>
+</tbody></table>
+<h3 id="attributes">Attributes</h3><table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>On</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>data-edit-hotkeys="off"</code></td>
+<td>A region or any element above it</td>
+<td>Turns off the undo and redo shortcuts there</td>
+</tr>
+<tr>
+<td><code>data-unit</code></td>
+<td>A <code>.cssvar</code> input</td>
+<td>A unit added to the input's value</td>
+</tr>
+<tr>
+<td><code>:data-key</code></td>
+<td>A row of a data list</td>
+<td>The record's <code>id</code>, bound as in <code>:data-key="walk.id"</code>, when the <code>x-for</code> has no <code>:key</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="styles">Styles</h2><p>Every editing visual is drawn by CSS on the elements being edited, keyed off <code>data-edit-*</code> attributes the module sets, and wrapped in <code>:where()</code> so your own rules win without a fight. No box is ever drawn around a region: a page being edited still looks like the page. <code>.bare</code> turns all of it off.</p>
+<h3 id="accent">Accent</h3><p><code>--edit-accent</code> colours every visual at once. Set it on a region to recolour that region, or on <code>:root</code> for everything.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">x-edit</span>=<span class="hljs-string">"treats"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--edit-accent: #db2777"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Peanut butter biscuits<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Carrot sticks<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
+<template x-if="ready">
+<ul class="col gap-2 m-0 p-0 list-none w-full" x-edit="treats-demo" style="--edit-accent: #db2777">
+    <li class="m-0 p-3 bg-surface-2 rounded">Peanut butter biscuits</li>
+    <li class="m-0 p-3 bg-surface-2 rounded">Carrot sticks</li>
+</ul>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h3 id="hover-and-focus">Hover and Focus</h3><p>A piece shows a thin outline on hover and a solid one when focused. Text shows its own outline while you edit it, and a text cursor over it, while the rest of a piece shows a grab cursor.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span>
+    .chunky [data-edit-piece]:hover {
+        outline: 2px dashed currentColor;
+        outline-offset: 6px;
+    }
+<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">x-edit.move</span>=<span class="hljs-string">"beds"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"chunky"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Basket<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Cushion<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ ready: false }" x-init="window.__manifestRender || (Alpine.store('edit') ? Promise.resolve() : Manifest.loadPlugin('edit', document.querySelector('script[data-version]')?.dataset.version)).then(() =&gt; setTimeout(() =&gt; { const t = $el.querySelector('template'), c = t &amp;&amp; t._x_currentIfEl; if (c &amp;&amp; !c._edit) { c.remove(); delete t._x_currentIfEl; } ready = true }))">
+<template x-if="ready">
+<div class="w-full">
+    <style>
+        .chunky [data-edit-piece]:hover {
+            outline: 2px dashed currentColor;
+            outline-offset: 6px;
+        }
+    </style>
+    <ul class="col gap-3 m-0 p-0 list-none chunky" x-edit.move="beds-demo">
+        <li class="m-0 p-3 bg-surface-2 rounded">Basket</li>
+        <li class="m-0 p-3 bg-surface-2 rounded">Cushion</li>
+    </ul>
+</div>
+</template>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h3 id="variables">Variables</h3><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Sets</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--edit-accent</code></td>
+<td><code>--color-brand-content</code></td>
+<td>Colour of every editing visual</td>
+</tr>
+<tr>
+<td><code>--edit-ghost-opacity</code></td>
+<td><code>0.4</code></td>
+<td>Opacity of the stand-in during a drag</td>
+</tr>
+<tr>
+<td><code>--edit-drop-reach</code></td>
+<td><code>48px</code></td>
+<td>How far outside another region a drop still lands in it</td>
+</tr>
+<tr>
+<td><code>--edit-size</code></td>
+<td><code>both</code></td>
+<td>Resize axes: <code>both</code>, <code>x</code>, <code>y</code>, <code>none</code>; see <a href="/docs/framework/core-modules/resize">Resize</a></td>
+</tr>
+<tr>
+<td><code>--edit-size-edges</code></td>
+<td>every edge and corner of those axes</td>
+<td>Which handles to draw</td>
+</tr>
+<tr>
+<td><code>--edit-size-handle</code></td>
+<td><code>1rem</code></td>
+<td>Grab area of each handle</td>
+</tr>
+<tr>
+<td><code>--edit-size-snap</code>, <code>-x</code>, <code>-y</code></td>
+<td>none</td>
+<td>Snap points</td>
+</tr>
+<tr>
+<td><code>--edit-size-snap-distance</code>, <code>-x</code>, <code>-y</code></td>
+<td>none, always the nearest point</td>
+<td>How close an edge must come to snap</td>
+</tr>
+<tr>
+<td><code>--edit-size-close</code>, <code>-x</code>, <code>-y</code></td>
+<td>none</td>
+<td>Below this, an <code>x-show</code> element closes</td>
+</tr>
+</tbody></table>
+<h3 id="state-attributes">State Attributes</h3><table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Set on</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>data-edit-area</code></td>
+<td>Every region; <code>bare</code> on a <code>.bare</code> one</td>
+</tr>
+<tr>
+<td><code>data-edit-piece</code></td>
+<td>Every piece that can be moved</td>
+</tr>
+<tr>
+<td><code>data-edit-grabbable</code></td>
+<td>A piece with its own <code>x-edit.grab</code> handle</td>
+</tr>
+<tr>
+<td><code>data-edit-text</code></td>
+<td>Page text being edited with Rich Text</td>
+</tr>
+<tr>
+<td><code>data-edit-dragging</code></td>
+<td>The piece being dragged; <code>keyboard</code> when picked up by keyboard</td>
+</tr>
+<tr>
+<td><code>data-edit-ghost</code></td>
+<td>The stand-in holding a dragged piece's place</td>
+</tr>
+<tr>
+<td><code>data-edit-drop-target</code></td>
+<td>Other regions a dragged piece can land in</td>
+</tr>
+<tr>
+<td><code>data-edit-handle</code></td>
+<td>A resize handle, valued by its edge</td>
+</tr>
+<tr>
+<td><code>data-edit-resizing</code></td>
+<td>The handle being dragged</td>
+</tr>
+<tr>
+<td><code>data-edit-snapped</code></td>
+<td>The element being resized, and its handle, while an edge sits on a snap point</td>
+</tr>
+<tr>
+<td><code>data-edit-key</code></td>
+<td>Source elements in a region, naming them for publishing; never set or change it</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="related">Related</h2><ul>
+<li><a href="/docs/framework/core-modules/move">Move</a> drags pieces within and between regions.</li>
+<li><a href="/docs/framework/core-modules/resize">Resize</a> adds edge handles, snap points, and closing.</li>
+<li><a href="/docs/framework/core-modules/edit-publishing">Publishing</a> sends the edits to your backend or writes them into your source files.</li>
+<li><a href="/docs/framework/core-modules/rich-text">Rich Text</a> edits a field's text with formatting, and powers page text here.</li>
+<li><a href="/docs/framework/elements/dropdowns#context-menu">Dropdowns</a> build the right-click menus.</li>
+</ul>
+</div>
+
+      <!-- Previous / next -->
+      <template x-if="article?.name &amp;&amp; (prev || next)">
+        <nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template>
+        </nav>
+      </template><nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="" data-mnfst-prerender-clone="1">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template><a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline" href="/docs/framework/core-modules/virtual" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name">Virtual Lists</span>
+            </a>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template><a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end" href="/docs/framework/core-modules/move" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name">Move</span>
+            </a>
+        </nav>
+
+      <!-- Family home (markdown) -->
+      <template x-if="at(base) &amp;&amp; home">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="home"></div>
+      </template>
+
+      <!-- Docs home -->
+      <template x-if="at(base) &amp;&amp; landing">
+        <div class="col gap-8 pb-12">
+          <template x-if="landing === 'framework'"><x-framework></x-framework></template>
+          <template x-if="landing === 'platform'"><x-docs-platform></x-docs-platform></template>
+          <template x-if="landing === 'api'"><x-docs-api></x-docs-api></template>
+          <div class="col gap-4 w-content-width max-w-full mx-auto">
+            <h2 class="h4">Explore the docs</h2>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <template x-for="card in cards" :key="card.href">
+                <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                  <span x-icon="card.icon" class="text-brand-content"></span>
+                  <span class="col">
+                    <span class="text-content-stark font-medium" x-text="card.title"></span>
+                    <small class="text-content-subtle" x-text="card.sub"></small>
+                  </span>
+                </a>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template x-if="at(base) &amp;&amp; !home &amp;&amp; !landing">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="heading"></h1>
+            <p class="text-content-neutral" x-show="intro" x-text="intro"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="card in cards" :key="card.href">
+              <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="card.icon" class="text-brand-content"></span>
+                <span class="col">
+                  <span class="text-content-stark font-medium" x-text="card.title"></span>
+                  <small class="text-content-subtle" x-text="card.sub"></small>
+                </span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Group landing -->
+      <template x-if="group?.group">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="group?.group"></h1>
+            <p class="text-content-neutral" x-show="group?.description" x-text="group?.description"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
+              <a :href="href(group, item)" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
+                <span class="text-content-stark" x-text="item.name"></span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+    </div>
+
+    <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
+    <template x-if="!article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
+      <div class="max-w-full prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
+
+    <footer class="mt-20">
+  <hr>
+  <div class="row-wrap justify-between items-center gap-4 pt-4">
+
+    <figcaption class="text-content-subtle">© 2026 MNFST OÜ • <a href="/legal/terms">Terms</a> • <a href="/legal/privacy">Privacy</a><span x-show="$route.startsWith('/docs/framework')"> • Framework under the <a href="/docs/framework/resources/license">MIT License</a></span></figcaption>
+
+    <div class="row-wrap gap-3">
+
+      <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
+
+      <div role="tablist" aria-label="Color mode" class="sm rounded-full">
+        <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h4"></button>
+        <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h5"></button>
+        <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h6"></button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+
+  <!-- Anchor links -->
+  <nav aria-label="On this page" x-show="!(at(base) &amp;&amp; landing)" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
+
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+      <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
+      <span>On this page</span>
+    </small>
+
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#regions">Regions</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#lock">Lock</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#text">Text</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#blocks">Blocks</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#history">History</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#what-a-reload-keeps">What a Reload Keeps</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#theme-controls">Theme Controls</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#reference">Reference</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#modifiers">Modifiers</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#edit-magic">$edit Magic</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#events">Events</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#attributes">Attributes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#accent">Accent</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#hover-and-focus">Hover and Focus</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#variables">Variables</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#state-attributes">State Attributes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#related">Related</a></div>
+
+  </nav>
+
+</div>
+
+    <!-- Legal pages -->
+    
+
+    <!-- Support -->
+    
+
+  </main>
+
+  <!-- Footer (visible on every route) -->
+  
+
+
+
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"data-order":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"aria-selected":null,"type":null}},{"id":"h5","attrs":{"aria-selected":null,"type":null}},{"id":"h6","attrs":{"aria-selected":null,"type":null}}]</script>
+</body></html>

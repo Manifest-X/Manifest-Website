@@ -6,28 +6,28 @@ Inline vector graphics with reactive styling.
 
 ## Setup
 
-The SVG plugin is included in `manifest.js` with all core plugins, or can be selectively loaded.
+The SVG module is included in `manifest.js` with all core modules, or can be selectively loaded.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="svg"></script>
+    data-modules="svg"></script>
 ```
 
 </div>
 
-Use `x-svg` to load a local SVG file's `<svg>` element within it. Fetched files are cached in memory for the page session, similar to the [markdown](/docs/core-plugins/markdown) plugin.
+Use `x-svg` to load a local SVG file's `<svg>` element within it. Fetched files are cached in memory for the page session, similar to the [markdown](/docs/framework/core-modules/markdown) module.
 
 ---
 
 ## File Content
 
-Pass a path to an `.svg` file in the project directory, wrapped in apostrophes.
+Pass a path to an `.svg` file in the project directory. Apostrophes are optional for plain paths.
 
 <div x-code-group>
 
@@ -63,7 +63,7 @@ The SVG tag itself can be applied within apostrophes, using `&quot;` for its int
 
 ## Dynamic Content
 
-Alpine expressions can supply the SVG string or path at runtime (including template literals), same as [dynamic markdown](/docs/core-plugins/markdown#dynamic-content).
+Alpine expressions can supply the SVG string or path at runtime (including template literals), same as [dynamic markdown](/docs/framework/core-modules/markdown#dynamic-content).
 
 <div x-code-group>
 
@@ -83,14 +83,14 @@ Alpine expressions can supply the SVG string or path at runtime (including templ
 
 ---
 
-## From Data Sources
+## Data Sources
 
-The SVG file's path can also be populated from a [data source](/docs/core-plugins/local-data).
+The SVG file's path can also be populated from a [data source](/docs/framework/core-modules/local-data).
 
 <div x-code-group copy>
 
 ```html "HTML"
-<span class="size-10" x-svg="$x.example.sampleSvg"></span>
+<span class="size-10 block" x-svg="$x.example.sampleSvg"></span>
 ```
 
 ```json "example.json"
@@ -114,7 +114,7 @@ Modify an SVG's appearance either within the SVG file itself, or using CSS on th
 <div x-code-group copy>
 
 ```html "HTML"
-<div class="size-12 text-brand-content parent" x-svg="'/assets/examples/icon-star.svg'"></div>
+<div class="size-12 text-brand-content svg-fill" x-svg="'/assets/examples/icon-star.svg'"></div>
 ```
 
 ```svg "icon-star.svg"
@@ -124,22 +124,34 @@ Modify an SVG's appearance either within the SVG file itself, or using CSS on th
 ```
 
 ```css "CSS"
-.parent svg {
+.svg-fill svg {
     width: 100%;
     height: 100%;
-    background: var(--color-brand-surface)
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
 }
 ```
 
 ::: frame
 <style>
-    .parent svg {
+.svg-fill svg {
     width: 100%;
     height: 100%;
-    background: var(--color-brand-surface)
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
 }
 </style>
-<div class="size-12 text-brand-content parent" x-svg="'/assets/examples/icon-star.svg'"></div>
+<div class="size-12 text-brand-content svg-fill" x-svg="'/assets/examples/icon-star.svg'"></div>
 :::
 
 </div>
+
+---
+
+## Untrusted Content
+
+`x-svg` injects SVG markup as-is, including any scripts and event handlers it contains. Add the `.safe` modifier when the SVG comes from users or third parties. It sanitizes the markup with <a href="https://github.com/cure53/DOMPurify" target="_blank">DOMPurify</a>, loaded on first use, removing scripts, `on*` handlers and `<foreignObject>` content.
+
+```html copy
+<div class="size-10" x-svg.safe="$x.uploads.avatarSvg"></div>
+```

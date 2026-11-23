@@ -6,7 +6,7 @@ Heading, paragraph, and inline text styling.
 
 ## Setup
 
-Typography styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Typography styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -70,7 +70,7 @@ Typography styles are included in Manifest CSS or a standalone stylesheet, both 
 
 </div>
 
-See [code blocks](/docs/elements/code) for use of the `<pre>` element.
+See [code blocks](/docs/framework/elements/code) for use of the `<pre>` element.
 
 ---
 
@@ -93,7 +93,7 @@ See [code blocks](/docs/elements/code) for use of the `<pre>` element.
 
 </div>
 
-See [badges](/docs/elements/badges) for use of the `<mark>` tag.
+See [badges](/docs/framework/elements/badges) for compact status labels (the `badge` class).
 
 ---
 
@@ -108,39 +108,42 @@ List styles are carefully styled to keep markers aligned with content above and 
     <li>First level item
         <ul>
             <li>Second level item</li>
-            <li>Another second level</li>
-            <ol>
-                <li>Third level ordered</li>
-                <li>Another third level</li>
-            </ol>
+            <li>Another second level item
+                <ol>
+                    <li>Third level ordered item</li>
+                    <li>Another third level item</li>
+                </ol>
+            </li>
         </ul>
     </li>
-    <li>Another first level</li>
+    <li>Another first level item</li>
 </ul>
 ```
 
-::: frame !block text-base
-<p>This is a preceding paragraph.</p><br>
+::: frame col gap-3 text-base
+<p>This is a preceding paragraph.</p>
 <ul>
-    <li>First level item</li>
-    <ul>
-        <li>Second level item</li>
-        <li>Another second level item</li>
-        <ol>
-            <li>Third level ordered item</li>
-            <li>Another third level item</li>
-        </ol>
-    </ul>
+    <li>First level item
+        <ul>
+            <li>Second level item</li>
+            <li>Another second level item
+                <ol>
+                    <li>Third level ordered item</li>
+                    <li>Another third level item</li>
+                </ol>
+            </li>
+        </ul>
+    </li>
     <li>Another first level item</li>
-</ul><br>
-<p>This is a following paragraph</p>
+</ul>
+<p>This is a following paragraph.</p>
 :::
 
 </div>
 
 ### Icon Markers
 
-List markers can be overwritten with inline [icons](/docs/elements/icons) using the `x-icon` attribute. The generated SVG is placed directly before any text content.
+List markers can be overwritten with inline [icons](/docs/framework/elements/icons) using the `x-icon` attribute. The generated SVG is placed directly before any text content.
 
 <div x-code-group>
 
@@ -188,7 +191,7 @@ Depending on your icon library's baked-in padding, you may wish to adjust marker
 
 ## Utilities
 
-Text elements accept [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
+Text elements accept [utility](/docs/framework/styles/utilities) classes, which can be stacked in any combination.
 
 ### Elements
 
@@ -239,7 +242,7 @@ These are all spans:
 
 ### Colors
 
-All text elements accept Manifest color utility classes, either directly or inherited from a parent.
+All text elements accept Manifest color utility classes directly. The `brand`, `accent`, `positive` and `negative` classes also reach descendants when set on a parent; `stark`, `neutral` and `subtle` set the color directly, so headings and other text elements inside don't pick them up.
 
 #### Direct
 
@@ -285,21 +288,6 @@ All text elements accept Manifest color utility classes, either directly or inhe
 <div x-code-group>
 
 ```html copy
-<!-- Stark variant -->
-<div class="stark">
-    <h3>Lorem ipsum dolor sit amet.</h3>
-</div>
-
-<!-- Neutral variant -->
-<div class="neutral">
-    <h3>Lorem ipsum dolor sit amet.</h3>
-</div>
-
-<!-- Subtle variant -->
-<div class="subtle">
-    <h3>Lorem ipsum dolor sit amet.</h3>
-</div>
-
 <!-- Brand variant -->
 <div class="brand">
     <h3>Lorem ipsum dolor sit amet.</h3>
@@ -322,26 +310,17 @@ All text elements accept Manifest color utility classes, either directly or inhe
 ```
 
 ::: frame col gap-3 text-base
-<div class="h3 stark">
-    <span>Lorem ipsum dolor sit amet.</span>
+<div class="brand">
+    <span class="h3">Lorem ipsum dolor sit amet.</span>
 </div>
-<div class="h3 neutral">
-    <span>Lorem ipsum dolor sit amet.</span>
+<div class="accent">
+    <span class="h3">Lorem ipsum dolor sit amet.</span>
 </div>
-<div class="h3 subtle">
-    <span>Lorem ipsum dolor sit amet.</span>
+<div class="positive">
+    <span class="h3">Lorem ipsum dolor sit amet.</span>
 </div>
-<div class="h3 brand">
-    <span>Lorem ipsum dolor sit amet.</span>
-</div>
-<div class="h3 accent">
-    <span>Lorem ipsum dolor sit amet.</span>
-</div>
-<div class="h3 positive">
-    <span>Lorem ipsum dolor sit amet.</span>
-</div>
-<div class="h3 negative">
-    <span>Lorem ipsum dolor sit amet.</span>
+<div class="negative">
+    <span class="h3">Lorem ipsum dolor sit amet.</span>
 </div>
 :::
 
@@ -353,13 +332,14 @@ All text elements accept Manifest color utility classes, either directly or inhe
 
 ### Theme
 
-Default text elements use the following [theme](/docs/styles/theme) variables:
+Default text elements use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
 | `--color-content-stark`{copy} | High contrast text color |
 | `--color-content-neutral`{copy} | Medium contrast text |
 | `--color-content-subtle`{copy} | Low contrast text color |
+| `--color-brand-content`{copy} | `h6` text color |
 | `--spacing`{copy} | Base spacing unit used for blockquote spacing |
 | `--radius`{copy} | Border radius for inline code and kbd elements |
 | `--transition`{copy} | Transition duration for link hover states |
@@ -369,9 +349,9 @@ Default text elements use the following [theme](/docs/styles/theme) variables:
 
 ### Fonts
 
-The global font and text color is set in the [theme](/docs/styles/theme), with the default value being the user's system UI font or fallbacks. To apply a different font to individual text elements, use custom CSS to modify its `font-family` property (like in the Customization example below).
+The global font and text color is set in the [theme](/docs/framework/styles/theme), with the default value being the user's system UI font or fallbacks. To apply a different font to individual text elements, use custom CSS to modify its `font-family` property (like in the Customization example below).
 
-`<pre>` and `<code>` elements have a specialty font set by separate [code styles](/docs/elements/code#styles), and otherwise use the user's system monospace font or other fallbacks.
+`<pre>` and `<code>` elements have a specialty font set by separate [code styles](/docs/framework/elements/code#styles), and otherwise use the user's system monospace font or other fallbacks.
 
 ---
 
@@ -381,9 +361,9 @@ Modify base text element styles with custom CSS for its respective selector.
 
 <div x-code-group>
 
-```css
+```css copy
 h3 {
-    font-family: Playfair Display, Abril Fatface;
+    font-family: Georgia, "Times New Roman", serif;
     font-style: italic;
 }
 ```
@@ -391,7 +371,7 @@ h3 {
 ::: frame text-base
 <style>
 .h3.custom {
-    font-family: Playfair Display, Abril Fatface;
+    font-family: Georgia, "Times New Roman", serif;
     font-style: italic;
 }
 </style>

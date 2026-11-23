@@ -4,9 +4,9 @@ A website and app framework built directly into HTML. No bundler, no build step,
 
 ---
 
-## What is Manifest?
+## What is the Manifest framework?
 
-Manifest lets you build complete websites and apps — from marketing pages to enterprise platforms — in plain HTML enhanced with a small set of attributes. Drop in two lines and you're set:
+The Manifest framework lets you build complete websites and apps — from marketing pages to enterprise platforms — in plain HTML enhanced with a small set of attributes. Drop in two lines and you're set:
 
 ```html "<head>" copy
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js" data-tailwind></script>
@@ -33,7 +33,7 @@ HTML is read more times each day than any human language is spoken — and writt
 
 ---
 
-## What's included
+## What's Included
 
 - **Pure HTML.** A script tag and a stylesheet — that's the install.
 - **Universal data.** One reactive syntax for files, APIs, and cloud databases.
@@ -46,5 +46,5 @@ HTML is read more times each day than any human language is spoken — and writt
 ---
 
 ::: brand icon="lucide:info"
-Manifest went public in 2026. Ideas, bug reports, and pull requests are welcome on <a href="https://github.com/Manifest-X/Manifest" target="_blank">GitHub</a>. Full credits live in the [Acknowledgements](/docs/resources/acknowledgements) article.
+Manifest went public in 2026. Ideas, bug reports, and pull requests are welcome on <a href="https://github.com/Manifest-X/Manifest" target="_blank">GitHub</a>. Full credits live in the [Acknowledgements](/docs/framework/resources/acknowledgements) article.
 :::

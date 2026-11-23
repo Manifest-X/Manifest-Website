@@ -1,367 +1,423 @@
-<!-- HERO -->
-<section id="home" class="col center gap-6 w-full py-24">
+<template data-head>
+  <title>Manifest — Build and publish with Claude</title>
+</template>
 
-  <!-- Content -->
-  <div class="col gap-10 justify-start w-content-width max-w-full">
+<!-- Section tracker -->
+<nav class="page-track" aria-label="Page sections" x-data="pageTrack">
+  <a href="#home" x-tooltip.start="Intro" :aria-current="at === 'home' && 'true'"><span class="sr-only">Intro</span></a>
+  <a href="#setup" x-tooltip.start="Setup" :aria-current="at === 'setup' && 'true'"><span class="sr-only">Setup</span></a>
+  <a href="#found" x-tooltip.start="Discoverability" :aria-current="at === 'found' && 'true'"><span class="sr-only">Discoverability</span></a>
+  <a href="#framework" x-tooltip.start="Framework" :aria-current="at === 'framework' && 'true'"><span class="sr-only">Framework</span></a>
+  <a href="#teams" x-tooltip.start="Collaboration" :aria-current="at === 'teams' && 'true'"><span class="sr-only">Collaboration</span></a>
+  <a href="#showcase" x-tooltip.start="Showcase" :aria-current="at === 'showcase' && 'true'"><span class="sr-only">Showcase</span></a>
+  <a href="#pricing" x-tooltip.start="Pricing" :aria-current="at === 'pricing' && 'true'"><span class="sr-only">Pricing</span></a>
+  <a href="#faq" x-tooltip.start="Questions" :aria-current="at === 'faq' && 'true'"><span class="sr-only">Questions</span></a>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero-backdrop col center w-full pt-28 pb-20">
+
+  <div class="col items-center gap-14 w-content-width max-w-full">
 
     <!-- Text -->
-    <div class="col w-2xl max-w-full">
-      <p class="h4 text-content-subtle mb-1">Introducing</p>
-      <h1 class="md:col leading-tight">
-        <span>The website & app framework</span>
-        <span class="text-content-subtle">that thinks like you do.</span>
+    <div class="col items-center gap-5 w-full text-center">
+      <small class="row items-center gap-2 px-3 py-1 bg-popover-surface border border-line rounded-full sm:font-mono text-xs text-content-neutral"><span class="shrink-0 size-1.5 bg-positive-content rounded-full" aria-hidden="true"></span>Free forever. Runs on your Claude plan, no credits.</small>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.05] tracking-tight">
+        <span class="text-content-subtle">Claude builds your <br class="sm:hidden"><span class="hero-noun text-content-stark"><span>app.</span><span aria-hidden="true">website.</span><span aria-hidden="true">dashboard.</span><span aria-hidden="true">platform.</span><span aria-hidden="true">game.</span></span></span>
+        <span class="block text-balance">Manifest makes it real.</span>
       </h1>
+      <p class="w-xl max-w-full text-content-neutral text-balance">Live on your own domain, with sign-ins and saved data built in. From a simple site to a full platform, without leaving Claude. No hosting accounts or API keys.</p>
+      <a role="button" href="#setup" class="group accent rounded-full mt-2 ps-4"><span>Add Manifest to Claude</span><span class="transition-colors group-hover:text-claude" x-icon="simple-icons:claude"></span></a>
     </div>
 
-    <!-- CTA -->
-    <div class="row gap-4">
-      <a role="button" href="/docs/getting-started/introduction" class="accent lg rounded-full"><span x-icon="lucide:book-open"></span><span>Get started</span></a>
-      <!-- <a role="button" class="lg outlined transparent rounded-full" x-icon="lucide:book-open" x-tooltip="Documentation"></a> -->
-    </div>
+    <!-- Demo -->
+    <div class="hero-demo lift bg-page dark:bg-surface-2 grid grid-cols-1 md:grid-cols-[3fr_5fr] w-full p-1 md:p-1 border border-1 border-transparent dark:border-surface-3/50 rounded-2xl overflow-hidden" aria-label="A Claude chat building a yoga studio booking app and publishing it to solstice.studio" x-data="heroDemo">
 
-    <x-hero-editor></x-hero-editor>
+      <!-- Chat -->
+      <div class="col gap-2 min-h-80 p-6 md:p-8 text-sm">
+        <p x-show="t >= 1" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="self-end max-w-[90%] px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md">Build a booking app for my yoga studio, with member sign-in</p>
+        <p x-show="t >= 2" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="row items-center gap-1 mt-3 text-xs text-content-subtle"><span x-text="activity">Published to staging</span><span x-icon="lucide:chevron-right" aria-hidden="true"></span></p>
+        <p x-show="t >= 7" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from">Done. Review it on the staging link.</p>
+        <p x-show="t >= 8" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="self-end max-w-[90%] mt-5 px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md">Love it. Put it on solstice.studio</p>
+        <p x-show="t >= 9" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="row items-center gap-1 mt-3 text-xs text-content-subtle"><span x-text="publish">Published live</span><span x-icon="lucide:chevron-right" aria-hidden="true"></span></p>
+        <p x-show="t >= 11" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from">It's live.</p>
+      </div>
+
+      <!-- Browser -->
+      <div class="relative col bg-surface-2 dark:bg-surface-3 rounded-xl md:rounded-[0.875rem] overflow-hidden">
+        <div class="row items-center gap-3 px-3 py-2 text-content-subtle">
+          <span x-icon="lucide:arrow-left" aria-hidden="true"></span>
+          <span x-icon="lucide:arrow-right" aria-hidden="true"></span>
+          <button type="button" class="unstyle row center text-content-subtle hover:text-content-stark cursor-pointer" aria-label="Replay the demo" x-tooltip="Replay" @click="replay()" x-icon="lucide:rotate-cw"></button>
+          <span class="row grow min-w-0 items-center gap-2 px-3 py-1 bg-popover-surface dark:bg-surface-3 rounded-md text-xs text-content-neutral whitespace-nowrap overflow-hidden">
+            <span x-show="env === 'local'" class="url-dot bg-content-subtle" x-tooltip="Local preview" aria-label="Local preview"></span>
+            <span x-show="env === 'staging'" class="url-dot bg-brand-surface" x-tooltip="Staging" aria-label="Staging"></span>
+            <span x-show="env === 'live'" class="url-dot bg-positive-surface" x-tooltip="Live" aria-label="Live"></span>
+            <span class="url-text" :class="editing && 'editing'" x-text="shownUrl">solstice.studio</span>
+          </span>
+        </div>
+
+        <!-- Generated site -->
+        <div class="solstice col grow gap-5 mx-1.5 mb-1.5 p-5 md:p-7 rounded-lg">
+          <div class="row items-center justify-between">
+            <span class="hd serif text-lg tracking-wide" :class="t >= 3 && 'on'">Solstice</span>
+            <span class="hd hd-d1 px-3 py-0.5 border border-(--s-muted) rounded-full text-xs text-(--s-muted)" :class="t >= 4 && 'on'">Member sign in</span>
+          </div>
+          <div class="hd hd-d1 col gap-1" :class="t >= 3 && 'on'">
+            <p class="serif text-3xl md:text-4xl leading-tight text-(--s-heading)">Find your flow.</p>
+            <p class="text-sm text-(--s-muted)">Morning and evening classes in the old town.</p>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="hd col gap-1 p-3 bg-(--s-card) rounded-xl" :class="t >= 5 && 'on'">
+              <span class="serif">Sunrise Flow</span>
+              <small class="text-(--s-muted)">Tomorrow 7:00 · <span x-text="seats">12</span>/16</small>
+              <span class="w-fit mt-2 px-3 py-0.5 bg-(--s-button) text-(--s-on) rounded-full text-xs">Book</span>
+            </div>
+            <div class="hd hd-d2 col gap-1 p-3 bg-(--s-card-2) rounded-xl" :class="t >= 5 && 'on'">
+              <span class="serif">Power Vinyasa</span>
+              <small class="text-(--s-heading)">Tomorrow 18:30 · 15/16</small>
+              <span class="w-fit mt-2 px-3 py-0.5 bg-(--s-heading) text-(--s-on) rounded-full text-xs">Book</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analytics -->
+        <div x-show="stats" x-cloak x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="absolute right-4 bottom-4 col gap-2 w-52 p-4 bg-popover-surface rounded-xl shadow-2xl">
+          <small class="row items-center gap-1.5 text-content-subtle"><span x-icon="lucide:chart-column" aria-hidden="true"></span>Visitors today</small>
+          <b class="text-3xl leading-none tabular-nums" x-text="shownVisitors.toLocaleString()">214</b>
+          <span class="hero-bars row items-end gap-1 h-10" :class="stats && 'on'" aria-hidden="true"><i class="h-[30%]"></i><i class="h-[45%]"></i><i class="h-[38%]"></i><i class="h-[60%]"></i><i class="h-[52%]"></i><i class="h-[75%]"></i><i class="h-[68%]"></i><i class="h-full"></i></span>
+        </div>
+      </div>
+
+    </div>
 
   </div>
 </section>
 
 
 
-<!-- FEATURES -->
-<section id="features" class="col center w-full py-24">
+<!-- SETUP -->
+<section id="setup" class="col center w-full py-24">
+
+  <div class="col gap-10 w-content-width max-w-full">
+
+    <div class="col gap-1">
+      <p class="eyebrow">Setup</p>
+      <h2 class="leading-tight">From idea to online in three steps.</h2>
+    </div>
+
+    <ol class="unstyle grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <!-- Connect -->
+      <li class="md:col-span-2 col gap-6 p-6 md:p-8 bg-popover-surface rounded-xl" x-data="{ steps: false }">
+        <div class="row items-center gap-3">
+          <span class="row center shrink-0 size-8 bg-accent-surface text-accent-inverse rounded-full text-sm font-semibold" aria-hidden="true">1</span>
+          <h3 class="h4">Add Manifest to Claude</h3>
+        </div>
+        <ol class="unstyle col list-none ps-0 text-content-neutral">
+          <li x-show="steps" x-cloak class="py-4 border-t border-line">In Claude, go to <b class="text-content-stark">Customize</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Connectors</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">+&nbsp;Add</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Add custom connector</b>.</li>
+          <li class="row-wrap items-baseline gap-x-8 gap-y-2 py-4 border-t border-line">
+            <span>Name: <button type="button" class="copy-text unstyle" x-data="{ copied: false }" aria-label="Copy the connector name" @click="navigator.clipboard.writeText('Manifest'); copied = true; setTimeout(() => copied = false, 1600)"><span>Manifest</span><span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span><span x-show="copied" x-cloak x-icon="lucide:check" aria-hidden="true"></span></button></span>
+            <span>Server URL: <button type="button" class="copy-text unstyle" x-data="{ copied: false }" aria-label="Copy the server URL" @click="navigator.clipboard.writeText('https://mcp.manifestx.dev/mcp'); copied = true; setTimeout(() => copied = false, 1600)"><span>https://mcp.manifestx.dev/mcp</span><span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span><span x-show="copied" x-cloak x-icon="lucide:check" aria-hidden="true"></span></button></span>
+          </li>
+          <li x-show="steps" x-cloak class="py-4 border-t border-line">Select <b class="text-content-stark">Add</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Connect</b>, and complete the connection steps.</li>
+        </ol>
+        <div class="row-wrap items-center gap-x-6 gap-y-2">
+          <button type="button" class="unstyle row items-center gap-1 w-fit text-sm text-content-neutral hover:text-content-stark cursor-pointer" :aria-expanded="steps" @click="steps = !steps">
+            <span x-text="steps ? 'Hide the steps' : 'Show where to add it'">Show where to add it</span>
+            <span class="transition-transform" :class="steps && 'rotate-180'" x-icon="lucide:chevron-down" aria-hidden="true"></span>
+          </button>
+          <a href="/docs/platform/introduction#connect-claude" class="row items-center gap-1 w-fit text-sm no-underline text-content-neutral hover:text-content-stark">Read more<span x-icon="lucide:arrow-right" aria-hidden="true"></span></a>
+        </div>
+      </li>
+
+      <!-- Ask -->
+      <li class="col gap-5 p-6 md:p-8 bg-popover-surface rounded-xl">
+        <div class="row items-center gap-3">
+          <span class="row center shrink-0 size-8 bg-accent-surface text-accent-inverse rounded-full text-sm font-semibold" aria-hidden="true">2</span>
+          <h3 class="h4">Ask for anything</h3>
+        </div>
+        <p class="text-content-neutral">Build pages, add logins and data, invite teammates, and check your visitors, <span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Ask any Claude session to start or continue a Manifest project.<ul><li><b>Chat</b> sessions handle the project in the cloud, up to 10 MB, with previews pushed to a URL.</li><li><b>Code</b> sessions handle the project of any size in a folder on your computer, showing live previews in Claude.</li></ul>">all in the chat</span>.</p>
+        <figure class="prompt-panel row-wrap items-center justify-between gap-x-4 gap-y-2 mt-auto px-3 pt-6 border-t border-line cursor-pointer" @click="copy()" @mouseenter="hover = true" @mouseleave="hover = false" x-data="promptCycle(['Add a members-only area', 'Invite sam@solstice.studio to edit', 'How many visitors this week?', 'Upgrade this project to Pro'], 0)">
+          <figcaption class="eyebrow m-0">Try asking</figcaption>
+          <button type="button" class="prompt-chip unstyle row items-center gap-2 ms-auto max-w-full ps-3.5 pe-3 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-start text-content-stark cursor-pointer transition-opacity duration-300" :class="fading && 'opacity-0'" :aria-label="'Copy the prompt: ' + list[i]" @focus="hover = true" @blur="hover = false">
+            <span x-text="list[i]">Add a members-only area</span>
+            <span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span>
+            <span x-show="copied" x-cloak x-icon="lucide:check" aria-hidden="true"></span>
+          </button>
+        </figure>
+      </li>
+
+      <!-- Publish -->
+      <li class="col gap-5 p-6 md:p-8 bg-popover-surface rounded-xl">
+        <div class="row items-center gap-3">
+          <span class="row center shrink-0 size-8 bg-accent-surface text-accent-inverse rounded-full text-sm font-semibold" aria-hidden="true">3</span>
+          <h3 class="h4">Publish anywhere</h3>
+        </div>
+        <p class="text-content-neutral">Review every change on a preview link, then go live on your own domain. Ship a website or web app, or package it for iPhone, Android, and desktop.</p>
+        <figure class="prompt-panel row-wrap items-center justify-between gap-x-4 gap-y-2 mt-auto px-3 pt-6 border-t border-line cursor-pointer" @click="copy()" @mouseenter="hover = true" @mouseleave="hover = false" x-data="promptCycle(['Put it live on my domain', 'Make it an iPhone app'], 1800)">
+          <figcaption class="eyebrow m-0">Try asking</figcaption>
+          <button type="button" class="prompt-chip unstyle row items-center gap-2 ms-auto max-w-full ps-3.5 pe-3 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-start text-content-stark cursor-pointer transition-opacity duration-300" :class="fading && 'opacity-0'" :aria-label="'Copy the prompt: ' + list[i]" @focus="hover = true" @blur="hover = false">
+            <span x-text="list[i]">Put it live on my domain</span>
+            <span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span>
+            <span x-show="copied" x-cloak x-icon="lucide:check" aria-hidden="true"></span>
+          </button>
+        </figure>
+      </li>
+
+    </ol>
+
+  </div>
+</section>
+
+
+
+<!-- FOUND -->
+<section id="found" class="col center w-full py-24">
 
   <!-- Content -->
-  <div class="col gap-6 justify-start w-content-width max-w-full">
+  <div class="col gap-10 justify-start w-content-width max-w-full">
 
-    <!-- Text -->
-    <h2 class="md:col mb-4 leading-tight">
-      <span>Everything a project needs.</span>
-      <span class="text-content-subtle">Nothing it doesn't.</span>
-    </h2>
+    <div class="col gap-1 w-2xl max-w-full">
+      <p class="eyebrow">Discoverability</p>
+      <h2 class="md:col leading-tight">
+        <span>Built to be found</span>
+        <span class="text-content-subtle">by search and AI.</span>
+      </h2>
+    </div>
 
-    <!-- Premier features -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- Demo -->
+    <div class="found-demo grid grid-cols-1 md:grid-cols-2 gap-4" x-data="foundDemo">
 
-      <template x-for="feature in $x.features.premier" :key="feature.name">
-        <div class="col gap-5 w-full h-full p-4 bg-surface-2 rounded-lg">
-          <div class="col gap-2 w-xl max-w-full">
-            <h3 class="h4"><span x-icon="feature.icon"></span><span x-text="feature.name"></span></h3>
-            <p class="text-content-neutral" x-text="feature.description"></p>
+      <!-- Page -->
+      <figure class="col gap-3 p-4 bg-surface-2 rounded-xl">
+        <figcaption class="row items-center justify-between w-full small text-content-subtle">Your page<button type="button" class="unstyle row center text-content-subtle hover:text-content-stark cursor-pointer" aria-label="Replay the demo" x-tooltip="Replay" @click="replay()" x-icon="lucide:rotate-cw"></button></figcaption>
+        <div class="solstice found-page found-mark col grow gap-5 p-5 rounded-lg" :class="page">
+          <div class="row items-center justify-between gap-3">
+            <span class="serif tracking-wide">Solstice</span>
+            <span class="found-mark row gap-3 text-xs text-(--s-muted)" :class="mark(3)"><span>Classes</span><span>Teachers</span><span>Visit</span></span>
           </div>
-          <a :href="feature.link" :aria-label="'Read more about ' + feature.name" class="brand gap-1 hover:gap-1.5 no-underline">
-            <span>Read more</span>
-            <span x-icon="lucide:arrow-right"></span></a>
-
-          <!-- Code example -->
-          <div class="grow col justify-end pt-6 ps-6 w-full bg-surface-3 rounded-lg overflow-hidden">
-            <div class="col w-full h-fit bg-page dark:bg-surface-1 rounded-ss-lg shadow-lg">
-              <div class="row gap-1 px-3 py-2 border-b border-surface-3 [&_figure]:size-3 [&_figure]:bg-surface-2 [&_figure]:rounded-full">
-                <figure></figure>
-                <figure></figure>
-                <figure></figure>
-              </div>
-              <div class="col gap-2 w-fit px-4 pt-4 pb-3 text-xs font-mono [&_div]:whitespace-pre opacity-85 pointer-events-none">
-                <template x-for="line in feature.codeLines" :key="line">
-                  <div x-html="$hl(line, feature.lang)"></div>
-                </template>
-              </div>
+          <div class="found-mark col gap-1" :class="mark(1)">
+            <p class="serif text-3xl leading-tight text-(--s-heading)">Find your flow.</p>
+            <p class="text-sm text-(--s-muted)">Morning and evening classes in the old town.</p>
+          </div>
+          <span class="w-fit px-4 py-1.5 bg-(--s-button) text-(--s-on) rounded-full text-xs">Book a class</span>
+          <div class="found-mark grid grid-cols-2 gap-3 mt-auto" :class="mark(2)">
+            <div class="col gap-1 p-3 bg-(--s-card) rounded-xl">
+              <span class="serif">Sunrise Flow</span>
+              <small class="text-(--s-muted)">Tomorrow 7:00</small>
+            </div>
+            <div class="col gap-1 p-3 bg-(--s-card-2) rounded-xl">
+              <span class="serif">Power Vinyasa</span>
+              <small class="text-(--s-heading)">Tomorrow 18:30</small>
             </div>
           </div>
+        </div>
+      </figure>
 
+      <!-- Added -->
+      <figure class="col gap-3 p-4 bg-surface-2 rounded-xl">
+        <figcaption class="small w-full text-start text-content-subtle">What Manifest adds</figcaption>
+        <ul class="unstyle col justify-between grow gap-2 text-sm">
+          <li class="found-item" :class="t >= 1 && 'on'"><span x-icon="lucide:heading" aria-hidden="true"></span>Titles and descriptions</li>
+          <li class="found-item" :class="t >= 2 && 'on'"><span x-icon="lucide:braces" aria-hidden="true"></span>Structured data</li>
+          <li class="found-item" :class="t >= 3 && 'on'"><span x-icon="lucide:network" aria-hidden="true"></span>sitemap.xml</li>
+          <li class="found-item" :class="t >= 4 && 'on'"><span x-icon="lucide:bot" aria-hidden="true"></span>AI crawlability</li>
+          <li class="found-item" :class="t >= 5 && 'on'"><span x-icon="lucide:file-text" aria-hidden="true"></span>llms.txt for AI</li>
+          <li class="found-item" :class="t >= 6 && 'on'"><span x-icon="lucide:image" aria-hidden="true"></span>Social images</li>
+        </ul>
+      </figure>
+
+      <!-- Results -->
+      <figure class="col gap-3 p-4 bg-surface-2 rounded-xl md:col-span-2">
+        <figcaption class="small w-full text-start text-content-subtle">Where it shows up</figcaption>
+
+        <div class="found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm" :class="t >= 3 && 'on'">
+          <small class="row gap-1.5 items-center text-content-subtle"><span x-icon="lucide:search" aria-hidden="true"></span>Search result</small>
+          <span class="text-xs text-content-neutral">solstice.studio</span>
+          <span class="font-medium text-(--color-found-link)">Solstice · Yoga classes in the old town</span>
+          <span class="text-content-neutral">Morning and evening classes. Book Sunrise Flow or Power Vinyasa online.</span>
+        </div>
+
+        <div class="found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm" :class="t >= 5 && 'on'">
+          <small class="row gap-1.5 items-center text-content-subtle"><span x-icon="lucide:sparkles" aria-hidden="true"></span>AI answer</small>
+          <span>Solstice runs Sunrise Flow at 7:00 tomorrow, with 4 spots left. <span class="text-(--color-found-link)">solstice.studio</span></span>
+        </div>
+
+        <div class="found-card row gap-3 items-center p-3 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm" :class="t >= 6 && 'on'">
+          <div class="solstice col justify-center shrink-0 w-32 aspect-[1200/630] px-3 rounded-md" aria-hidden="true">
+            <span class="serif text-[0.5rem] tracking-wide">Solstice</span>
+            <span class="serif text-sm leading-tight text-(--s-heading)">Find your flow.</span>
+          </div>
+          <div class="col gap-0.5 min-w-0">
+            <small class="row gap-1.5 items-center text-content-subtle"><span x-icon="lucide:link" aria-hidden="true"></span>Link preview</small>
+            <span class="font-medium">Solstice · Find your flow</span>
+            <span class="text-xs text-content-neutral">solstice.studio</span>
+          </div>
+        </div>
+      </figure>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- THE FRAMEWORK -->
+<section id="framework" class="col center w-full pb-24">
+
+  <!-- Content -->
+  <div class="relative grid grid-cols-1 lg:grid-cols-2 items-center gap-10 w-content-width max-w-full p-8 md:p-12 bg-surface-2 rounded-xl overflow-hidden" x-data="{ all: false }" :class="all && 'all-open'">
+
+    <span class="grid-fade" aria-hidden="true"></span>
+
+    <div class="col gap-4 items-start z-1">
+      <p class="eyebrow">Framework</p>
+      <h2 class="h3 leading-tight text-balance">The Manifest framework makes it all automatic.</h2>
+      <p class="text-content-neutral text-balance">Optional and open source. Built with something else? Manifest publishes that too.</p>
+      <div class="row-wrap items-center gap-3 mt-2">
+        <a role="button" href="/docs/framework" class="accent rounded-full ps-4">Explore the framework<span x-icon="lucide:arrow-right"></span></a>
+        <button type="button" class="ghost rounded-full" :aria-expanded="all" aria-controls="framework-all" @click="all = !all">
+          <span x-text="all ? 'Hide features' : 'See all features'">See all features</span>
+          <span class="transition-transform" :class="all && 'rotate-180'" x-icon="lucide:chevron-down" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+
+    <ul class="feature-tiles unstyle grid grid-cols-2 sm:grid-cols-3 gap-3 z-1" x-data="featureTiles" aria-hidden="true">
+      <template x-for="(s, i) in slots" :key="i">
+        <li class="col items-start gap-3 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm font-medium">
+          <span class="feature-tile text-xl text-content-neutral" :class="{ out: s.out, below: s.below }" x-icon="features[s.f][1]"></span>
+          <span class="feature-tile" :class="{ out: s.out, below: s.below }" x-text="features[s.f][0]"></span>
+        </li>
+      </template>
+    </ul>
+
+    <!-- All features -->
+    <div id="framework-all" class="col gap-8 z-1 lg:col-span-2 max-h-[28rem] overflow-y-auto overscroll-contain sm:max-h-none sm:overflow-visible" x-show="all" x-cloak>
+      <template x-for="g in ($x.framework || []).filter(g => ['core-modules', 'appwrite-modules', 'elements', 'styles', 'publishing'].includes(g.slug))" :key="g.slug">
+        <div class="col gap-3">
+          <h3 class="h6 text-content-subtle" x-text="g.group"></h3>
+          <ul class="unstyle grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+            <template x-for="i in g.items.filter(i => i.name && !i.indent)" :key="i.path">
+              <li class="col min-w-0">
+                <a :href="'/docs/framework/' + g.slug + '/' + i.path" target="_blank" rel="noopener" class="group unstyle grow row items-center gap-2.5 min-w-0 p-3 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm text-content-stark hover:shadow-md transition-shadow">
+                  <span class="shrink-0 text-content-neutral" x-icon="i.icon" aria-hidden="true"></span>
+                  <span class="min-w-0 break-words" x-text="i.name"></span>
+                  <span class="shrink-0 ms-auto text-content-subtle opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity" x-icon="lucide:book-open" aria-hidden="true"></span>
+                </a>
+              </li>
+            </template>
+          </ul>
         </div>
       </template>
     </div>
 
-    <!-- Noteworthy features -->
-    <div class="col gap-4 mt-4">
-      <div class="row-wrap gap-2 text-sm">
-        <span class="text-content-subtle">Plus</span>
-        <template x-for="feature in $x.features.noteworthy" :key="feature.name">
-          <div class="row gap-2">
-            <a :href="feature.link" class="text-content-neutral hover:text-content-stark" x-text="feature.name"></a>
-            <span aria-hidden="true">•</span>
-          </div>
-        </template>
-        <p class="text-content-subtle">And more</p>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<!-- SHOWCASE -->
-<section class="col center gap-6 w-full py-24">
+
+
+<!-- TEAMS -->
+<section id="teams" class="col center w-full py-24">
 
   <!-- Content -->
   <div class="col gap-10 justify-start w-content-width max-w-full">
 
-    <!-- Text -->
-    <h2 class="md:col leading-tight">
-      <span>Trusted by AI and developers.</span>
-      <span class="text-content-subtle">Powering products in production.</span>
-    </h2>
+    <div class="col gap-1 w-2xl max-w-full">
+      <p class="eyebrow">Collaboration</p>
+      <h2 class="md:col leading-tight">
+        <span>One project.</span>
+        <span class="text-content-subtle">Everyone's Claude.</span>
+      </h2>
+      <p class="mt-4 text-content-neutral text-balance">Invite anyone by email. No logins to share, no editor to learn.</p>
+    </div>
 
-    <!-- Graphic -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-
-      <!-- Card -->
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/Playcom.webp" alt="Screenshot of the Playcom website homepage" width="600" height="375" loading="lazy" />
+    <!-- Demo -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4" aria-label="Three people on one project, each in their own Claude chat, inviting teammates, editing, publishing, checking visitors and rolling back" x-data="teamDemo">
+      <template x-if="!window.__manifestRender">
+      <template x-for="p in people" :key="p.name">
+        <div class="lift-sm col gap-4 p-4 bg-popover-surface rounded-xl text-sm text-content-stark">
+          <div class="row items-center gap-2 -mx-4 px-4 pb-3 border-b border-line/60">
+            <img class="shrink-0 size-7 rounded-full object-cover" :src="p.pic" alt="" width="28" height="28">
+            <span class="font-medium" x-text="p.name"></span>
+            <span class="-mx-0.5 text-content-subtle" aria-hidden="true">·</span>
+            <span class="text-content-subtle" x-text="p.role"></span>
+          </div>
+          <div class="grid">
+            <template x-for="full in [true, false]">
+              <div class="col gap-2 [grid-area:1/1]" :class="full && 'invisible'" :aria-hidden="full">
+                <template x-for="e in p.ex" :key="e.at">
+                  <div x-show="full || t >= e.at" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" class="col gap-2" :class="e.next && 'mt-5'">
+                    <p class="self-end max-w-[90%] px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md" x-text="e.msg"></p>
+                    <p x-show="full || t >= e.at + 1" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" class="row items-center gap-1 mt-2 text-xs text-content-subtle"><span x-text="full || t >= e.at + 2 ? e.done : e.work"></span><span x-icon="lucide:chevron-right" aria-hidden="true"></span></p>
+                    <p x-show="full || t >= e.at + 3" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-text="e.reply"></p>
+                  </div>
+                </template>
+                <p x-show="!full && typing(p)" class="self-end px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md" :class="p.ex.some(e => t >= e.at) && 'mt-5'" aria-hidden="true"><span class="team-typing"><i></i><i></i><i></i></span></p>
+              </div>
+            </template>
+          </div>
         </div>
-        <a href="https://playcom.ai" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Playcom</span>
-          <span x-icon="lucide:arrow-up-right"></span></a>
-      </div>
-
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/Ortus.webp" alt="Screenshot of the Ortus Advisors website homepage" width="600" height="375" loading="lazy" />
-        </div>
-        <a href="https://ortusadvisors.com" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Ortus Advisors</span>
-          <span x-icon="lucide:arrow-up-right"></span></a>
-      </div>
-
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/AndrewMatlock.webp" alt="Screenshot of Andrew Matlock's personal website homepage" width="600" height="375" loading="lazy" />
-        </div>
-        <a href="https://andrewmatlock.com" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Andrew Matlock</span>
-          <span x-icon="lucide:arrow-up-right"></span></a>
-      </div>
-
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="col center w-full aspect-[1440/900] bg-surface-2 rounded-lg pattern">
-          <p class="">Your Next Project</p>
-        </div>
-        <a href="/docs/getting-started/starter-project" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Get the Starter Project</span>
-          <span x-icon="lucide:arrow-right"></span></a>
-      </div>
-
+      </template>
+      </template>
     </div>
 
   </div>
-
 </section>
 
 
 
-<!-- COMPARISONS -->
-<section id="comparisons" class="col center gap-6 w-full py-24">
+<x-showcase></x-showcase>
 
-  <!-- Content -->
-  <div class="col justify-start w-content-width max-w-full">
 
-    <!-- Text -->
-    <div class="col w-2xl max-w-full mb-10">
-      <p class="h4 text-content-subtle mb-1">Comparison</p>
-      <h2 class="md:col leading-tight">
-        <span>Familiar pieces.</span>
-        <span class="text-content-subtle">Fewer steps.</span>
-      </h2>
-      <p class="mt-4 text-content-neutral text-balance">Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required.</p>
-    </div>
 
-    <!-- Comparison tables -->
-    <div class="w-full" x-data="{
-        isBuiltIn(v) { return typeof v === 'string' && v.startsWith('✓'); },
-        detail(v) { return typeof v === 'string' ? v.slice(1).trim() : ''; }
-      }">
+<x-pricing></x-pricing>
 
-      <!-- Sticky header table -->
-      <div class="sticky top-[60px] z-1 overflow-hidden">
-        <table class="w-full min-w-3xl text-sm table-fixed [&_th]:text-center rounded-none" x-ref="headerTable">
-          <thead>
-            <tr class="bg-surface-2 dark:bg-surface-3 [&_th]:p-3 [&_th]:font-medium [&_th]:text-content-stark">
-              <th class="!text-start !text-neutral">Aspect</th>
-              <th class="bg-brand-surface !text-brand-inverse !font-bold">Manifest</th>
-              <th>React</th>
-              <th>Vue</th>
-              <th>HTMX</th>
-              <th>Astro</th>
-              <th>Alpine.js</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
-
-      <!-- Horizontal scroll wrapper -->
-      <div class="overflow-x-auto" @scroll.passive="$refs.headerTable.style.transform = `translateX(${-$event.target.scrollLeft}px)`">
-
-        <!-- Summary table -->
-        <table class="w-full min-w-3xl text-sm table-fixed">
-          <tbody class="font-medium [&_td:not(:first-child)]:text-center">
-            <template x-for="row in $x.comparisons.summaryRows" :key="row.aspect">
-              <tr class="border-b border-line">
-                <td class="p-3 text-content-stark" x-text="row.aspect"></td>
-
-                <td class="p-3 text-brand-content bg-brand-surface/10 border-b border-line">
-                  <template x-if="isBuiltIn(row.manifest)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.manifest)" x-text="detail(row.manifest)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.manifest)"><span x-text="row.manifest"></span></template>
-                </td>
-
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.react)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.react)" x-text="detail(row.react)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.react)"><span x-text="row.react"></span></template>
-                </td>
-
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.vue)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.vue)" x-text="detail(row.vue)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.vue)"><span x-text="row.vue"></span></template>
-                </td>
-
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.htmx)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.htmx)" x-text="detail(row.htmx)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.htmx)"><span x-text="row.htmx"></span></template>
-                </td>
-
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.astro)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.astro)" x-text="detail(row.astro)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.astro)"><span x-text="row.astro"></span></template>
-                </td>
-
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.alpine)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.alpine)" x-text="detail(row.alpine)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.alpine)"><span x-text="row.alpine"></span></template>
-                </td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-
-        <!-- Extended table -->
-        <details class="w-full">
-          <summary class="ps-3 text-sm text-content-subtle hover:text-content-stark border-b border-line">See more</summary>
-          <table class="w-full min-w-3xl text-sm table-fixed rounded-none [&_tbody_td:not(:first-child)]:text-center">
-            <template x-for="section in $x.comparisons.extendedSections" :key="section.title">
-              <tbody class="font-medium">
-                <tr class="bg-surface-2">
-                  <th colspan="7" class="p-3 font-semibold text-content-subtle text-xs uppercase tracking-wider" x-text="section.title"></th>
-                </tr>
-                <template x-for="row in section.rows" :key="row.aspect">
-                  <tr class="border-b border-line">
-                    <td class="p-3 text-content-stark" x-text="row.aspect"></td>
-
-                    <td class="p-3 text-brand-content bg-brand-surface/10">
-                      <template x-if="isBuiltIn(row.manifest)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.manifest)" x-text="detail(row.manifest)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.manifest)"><span x-text="row.manifest"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.react)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.react)" x-text="detail(row.react)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.react)"><span x-text="row.react"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.vue)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.vue)" x-text="detail(row.vue)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.vue)"><span x-text="row.vue"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.htmx)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.htmx)" x-text="detail(row.htmx)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.htmx)"><span x-text="row.htmx"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.astro)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.astro)" x-text="detail(row.astro)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.astro)"><span x-text="row.astro"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.alpine)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.alpine)" x-text="detail(row.alpine)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.alpine)"><span x-text="row.alpine"></span></template>
-                    </td>
-                  </tr>
-                </template>
-              </tbody>
-            </template>
-          </table>
-        </details>
-
-      </div>
-    </div>
-</section>
 
 
 <!-- FAQ -->
-<section id="faq" class="col center gap-6 w-full py-24">
+<section id="faq" class="col center w-full py-24">
 
   <!-- Content -->
-  <div class="col gap-10 justify-start w-content-width max-w-full">
+  <div class="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-10 w-content-width max-w-full">
 
-    <!-- Text -->
-    <h2 class="w-2xl max-w-full leading-tight">Common questions</h2>
+    <div class="col gap-3">
+      <p class="eyebrow">Questions</p>
+      <h2 class="leading-tight">Common questions</h2>
+      <p class="text-content-neutral">Something else? <a href="/support#contact">Contact the team</a>.</p>
+    </div>
 
-    <!-- Graphic -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 w-full">
-      <template x-for="item in $x.faq" :key="item.question">
-        <div class="col gap-1 w-full h-full">
-          <h3 class="h4" x-text="item.question"></h3>
-          <p class="text-content-neutral" x-html="item.answer"></p>
-        </div>
-      </template>
+    <div class="col border-t border-line">
+      <details class="border-b border-line">
+        <summary>What counts as a project?</summary>
+        <p class="text-content-neutral">One site or app with its own address and versions. Plans are per project, so teammates never cost extra; inviting them comes with Pro.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary>Should I use Claude chat or the Code tab?</summary>
+        <p class="text-content-neutral">Both publish to Manifest. A chat suits small sites: Claude sends the files with the conversation, which keeps projects to 10 MB (2 MB per file), and it works on Claude's Free plan. The Code tab, on paid Claude plans, keeps the project in a folder on your computer with no size limit, so it's the better start for apps and anything you'll keep working on.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary>How does Claude know a project uses Manifest?</summary>
+        <p class="text-content-neutral">Once Manifest is added to Claude, ask for it by name, like "build me a site with Manifest." In the Code tab, the project folder includes a CLAUDE.md file that tells every new session it's a Manifest project, so open the same folder to pick up where you left off. The folder works with Git like any code project, and GitHub is optional: handy for teams, never needed to publish.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary>Can I publish a site I already have?</summary>
+        <p class="text-content-neutral">Yes, if it builds to static files, like a React, Vite, Astro, or plain HTML site. Claude publishes the build as it is, without moving it to Manifest. Sites that need a server of their own, such as server-side rendering or API routes, aren't hosted; the published site can call a backend that runs elsewhere.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary>Who owns what I build?</summary>
+        <p class="text-content-neutral">You do. Any project can download its last 5 published versions on any plan. The <a href="/docs/framework">framework</a> is open source under the MIT License and runs anywhere, and the <a href="/docs/api">API</a> publishes from your own code, so Claude is optional.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary>What is the badge?</summary>
+        <p class="text-content-neutral">Free sites show a small "Made with Manifest" link, and Free projects may be featured in the showcase on manifestx.dev. Pro removes the badge and lets you choose whether the project is featured.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary>How does billing work?</summary>
+        <p class="text-content-neutral">Per project through Stripe, monthly or yearly. Upgrade or cancel from the dashboard, or just ask Claude. If you cancel, your site stays live: Pro runs to the end of the paid period, then the project moves to Free, the badge returns, and form submissions older than 30 days are removed.</p>
+      </details>
     </div>
 
   </div>
@@ -370,13 +426,17 @@
 
 
 <!-- CTA -->
-<section class="col center gap-6 w-full pt-50 pb-70 text-center">
-
-  <!-- Content -->
-  <div class="col center gap-13 justify-start w-content-width max-w-full">
-    <h2 class="text-6xl">Start your project</h2>
-    <a role="button" href="/docs/getting-started/introduction" class="accent lg rounded-full">Introduction to
-      Manifest</a>
+<section class="col center w-full pt-25 pb-50 text-center" x-data="ctaIdeas">
+  <div class="col center gap-10 w-content-width max-w-full">
+    <h2 class="text-5xl md:text-6xl leading-tight text-balance">What will you <span class="text-content-subtle">make real?</span></h2>
+    <a href="#setup" class="cta-prompt unstyle row items-center gap-3 w-xl max-w-full ps-5 pe-2 py-2 bg-popover-surface border border-line rounded-full text-start" aria-label="Add Manifest to Claude">
+      <span class="grow truncate text-content-neutral transition-opacity duration-500 ease-out" :class="out && 'opacity-0'" x-text="idea">A booking site for my yoga studio</span>
+      <span class="row center shrink-0 size-9 bg-claude text-page rounded-full" x-icon="lucide:arrow-up" aria-hidden="true"></span>
+    </a>
+    <div class="col center gap-3">
+      <a role="button" href="#setup" class="group accent lg rounded-full"><span>Add Manifest to Claude</span><span class="transition-colors group-hover:text-claude" x-icon="simple-icons:claude"></span></a>
+      <small class="text-content-subtle">Free, on any Claude plan</small>
+    </div>
   </div>
-
 </section>
+

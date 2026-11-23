@@ -6,7 +6,7 @@ Sliders for numeric input with optional steps.
 
 ## Setup
 
-Range styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Range styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -40,7 +40,7 @@ Range styles are included in Manifest CSS or a standalone stylesheet, both refer
 
 ## Utilities
 
-Ranges accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
+Ranges accept Manifest [utility](/docs/framework/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
 
@@ -131,7 +131,7 @@ Use a `<datalist>` element to add tick marks with option labels to your range in
 ## Labels
 
 ::: brand icon="lucide:info"
-Label styles are included in `manifest.css`, or the standalone [form](/docs/elements/forms) stylesheet.
+Label styles are included in `manifest.css`, or the standalone [form](/docs/framework/elements/forms) stylesheet.
 :::
 
 Placing the range and text inside a `<label>` automatically stacks them with spacing.
@@ -180,13 +180,13 @@ To horizontally inline the label text with the range, place the text in a `<data
 
 ### Theme
 
-Default ranges use the following [theme](/docs/styles/theme) variables:
+Default ranges use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
 | `--color-field-surface`{copy} | Track background color |
 | `--color-field-surface-hover`{copy} | Track hover background color |
-| `--color-field-inverse`{copy} | Thumb color |
+| `--color-field-inverse`{copy} | Thumb color (mixed with the field surface) |
 | `--spacing-field-height`{copy} | Thumb size |
 | `--spacing`{copy} | Track height |
 | `--radius`{copy} | Border radius for track corners |
@@ -196,32 +196,24 @@ Default ranges use the following [theme](/docs/styles/theme) variables:
 
 ### Customization
 
-Modify base range styles with custom CSS for the `input[type=range]` selector.
+Modify base range styles with custom CSS for the `input[type=range]` selector. Overriding the field [theme](/docs/framework/styles/theme) variables keeps both color modes working.
 
 <div x-code-group>
 
 ```css copy
 input[type=range] {
-    --color-field-surface: #f0f8ff;
-    --color-field-surface-hover: #dbeafe;
-
-    &::-webkit-slider-thumb {
-        background-color: #3b82f6;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
+    --color-field-surface: color-mix(in oklch, var(--color-brand-surface) 30%, transparent);
+    --color-field-surface-hover: color-mix(in oklch, var(--color-brand-surface) 45%, transparent);
+    --color-field-inverse: var(--color-brand-content);
 }
 ```
 
 ::: frame
 <style>
-    input[type=range].custom {
-        --color-field-surface: #f0f8ff;
-        --color-field-surface-hover: #dbeafe;
-    }
-
-    input[type=range].custom::-webkit-slider-thumb {
-        background-color: #3b82f6;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+input[type=range].custom {
+    --color-field-surface: color-mix(in oklch, var(--color-brand-surface) 30%, transparent);
+    --color-field-surface-hover: color-mix(in oklch, var(--color-brand-surface) 45%, transparent);
+    --color-field-inverse: var(--color-brand-content);
 }
 </style>
 

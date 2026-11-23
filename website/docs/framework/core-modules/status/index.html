@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" data-online="true" data-os="macos" dir="auto"><head>
+  <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Track the health of your services and display it with $status.">
+  <meta name="author" content="Andrew Matlock">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="google" content="notranslate">
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="preload" as="font" type="font/woff2" href="../../../../assets/fonts/Manrope.woff2" crossorigin="">
+
+  <!-- Web App & Manifest -->
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../../../../manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="../../../../manifest.theme.css">
+
+  <!-- Scripts -->
+  <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="../../../../scripts/payments-demo.js" defer=""></script>
+  <script src="../../../../scripts/hero-editor.js" defer=""></script>
+  <script src="../../../../scripts/hero-demo.js" defer=""></script>
+  <script src="../../../../scripts/console-message.js" defer=""></script>
+
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+@custom-variant cursor (@media (pointer: fine) and (hover: hover));
+@custom-variant pointer (@media (any-pointer: fine));
+@custom-variant mac (&:where([data-os="macos"] *));
+@custom-variant windows (&:where([data-os="windows"] *));
+@custom-variant linux (&:where([data-os="linux"] *));
+@custom-variant ios (&:where([data-os="ios"] *));
+@custom-variant android (&:where([data-os="android"] *));
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));
+@custom-variant online (&:where([data-online="true"] *));
+@custom-variant offline (&:where([data-online="false"] *));
+@custom-variant standalone (&:where([data-standalone] *));
+@custom-variant native (&:where([data-native] *));
+@custom-variant web (&:where(html:not([data-native]) *));
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Status — Manifest</title><meta property="og:title" content="Status — Manifest"><meta property="og:description" content="Track the health of your services and display it with $status."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/status"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-status.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Status — Manifest"><meta property="twitter:description" content="Track the health of your services and display it with $status."><meta property="twitter:image" content="/og/docs-framework-core-modules-status.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Status — Manifest","description":"Track the health of your services and display it with $status.","image":"/og/docs-framework-core-modules-status.png","url":"https://manifestx.dev/docs/framework/core-modules/status"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Status","item":"https://manifestx.dev/docs/framework/core-modules/status"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/framework/core-modules/status">
+<meta name="manifest:router-base" content="">
+<meta name="manifest:prerender-locales" content="en">
+<meta name="manifest:prerendered" content="1">
+<meta name="manifest:router-base-depth" content="4">
+</head>
+
+<body x-data="{
+  init() {
+    const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
+    document.documentElement.setAttribute('dir', savedDirection);
+  }
+}" class="bg-surface-1">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
+
+  <header style="view-transition-name: site-header" class="site-header fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
+
+    <!-- Content Area -->
+    <nav class="row justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+
+        <!-- Start -->
+        <div class="row items-center gap-3" x-data="{
+            get family() { return $route.startsWith('/docs/platform') ? 'platform' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+        }">
+
+            <!-- Logo -->
+            <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
+                <span class="hidden md:flex">{Manifest}</span>
+                <span class="md:hidden">{M}</span>
+            </a>
+
+            <!-- Docs family -->
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation" popovertarget="docs-family" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="docs-family" aria-expanded="false" data-hydrate-id="h1">
+                <span x-text="$x.site.docs.find(d =&gt; d.key === family)?.name">Framework</span>
+                <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
+            </button>
+            <menu popover="" id="docs-family" role="menu" style="position-anchor: --dropdown-p1">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a :href="'/docs/' + d.key" close="">
+                        <span x-text="d.name"></span>
+                        <span x-show="family === d.key" x-icon="lucide:check" class="trailing"></span>
+                    </a>
+                </template>
+            </menu>
+
+            <!-- Docs Breadcrumbs-->
+            
+            
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/framework/*">
+                <span x-text="$x.framework.$route('path')?.group || 'No group'">Core Modules</span>
+                <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
+                <span class="text-content-stark" x-text="$x.framework.$route('path')?.name || 'No article'">Status</span>
+            </small>
+
+        </div>
+
+        <!-- End -->
+        <div class="row justify-end items-center gap-2">
+
+            <!-- CTAs -->
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+                <span x-icon="lucide:search"></span>
+                <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
+            </button>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="sm transparent outlined rounded-full" aria-label="GitHub" x-tooltip="GitHub" x-icon="meteor-icons:github"></a>
+            <a role="button" href="/docs" class="sm transparent outlined rounded-full">Docs</a>
+            <a role="button" href="https://dash.manifestx.dev" class="sm accent rounded-full" x-text="/(^|;\s*)mnfst_signed_in=1(;|$)/.test(document.cookie) ? 'Dashboard' : 'Sign in'">Sign in</a>
+
+            <!-- Mobile Sidebar Button -->
+            <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
+
+        </div>
+
+    </nav>
+
+</header>
+  <div x-data="{
+        sources: [['platform', '/docs/platform'], ['framework', '/docs/framework'], ['api', '/docs/api']],
+        labels: { platform: 'Platform', framework: 'Framework', api: 'API' },
+        q: '',
+        items: [],
+        ready: false,
+        loading: false,
+        active: 0,
+
+        // Fetch every article's markdown once, on first open; index title, description, headings, body.
+        async build() {
+            if (this.ready || this.loading) return;
+            this.loading = true;
+            const jobs = [];
+            for (const [src, base] of this.sources) {
+            for (let i = 0; i &lt; 20 &amp;&amp; (!$x[src] || !$x[src].length); i++) await new Promise(r =&gt; setTimeout(r, 100));
+            for (const g of ($x[src] || [])) {
+                for (const it of (g.items || [])) {
+                    if (!it.name || !it.doc) continue;
+                    const href = base + (g.slug ? '/' + g.slug : '') + '/' + it.path;
+                    jobs.push(fetch(it.doc)
+                        .then(r =&gt; r.ok ? r.text() : '')
+                        .catch(() =&gt; '')
+                        .then(md =&gt; {
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/&lt;[^&gt;]+&gt;/g, '').replace(/[*_`\[\]]/g, '').trim();
+                            const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
+                            const body = md
+                                .replace(/```[\s\S]*?```/g, ' ')
+                                .replace(/:::[^\n]*/g, ' ')
+                                .replace(/&lt;[^&gt;]+&gt;/g, ' ')
+                                .replace(/[#&gt;*_`\[\]()|]/g, ' ')
+                                .replace(/-{2,}/g, ' ')
+                                .replace(/\s+/g, ' ');
+                            this.items.push({
+                                name: it.name, group: g.group, icon: it.icon, href, desc, src,
+                                headings,
+                                hhay: headings.join(' · ').toLowerCase(),
+                                body, bhay: body.toLowerCase(),
+                            });
+                        }));
+                }
+            }
+            }
+            await Promise.all(jobs);
+            $x.$register('searchIndex', this.items);
+            this.ready = true;
+            this.loading = false;
+        },
+
+        results() {
+            const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
+            return ranked.slice(0, 20).map(it =&gt; ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i &gt; -1) return (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
+            }
+            return it.desc;
+        },
+
+        openDialog() { document.getElementById('docs-search')?.showPopover(); },
+        // The router swallows result clicks before element handlers run, so the
+        // dialog closes on the route-change event rather than the click itself.
+        closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
+        async onToggle(e) {
+            if (e.newState !== 'open') return;
+            this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() =&gt; { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
+        },
+        move(d) {
+            const n = this.results().length;
+            if (!n) return;
+            this.active = (this.active + d + n) % n;
+            this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
+        },
+        go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+
+        <!-- Query -->
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
+
+        <!-- Results -->
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
+            <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
+            <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
+                No matches for “<span x-text="q.trim()"></span>”.
+            </p>
+            <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i">
+                    <a :href="r.href" role="button" :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'" class="ghost justify-start w-full h-auto py-2 no-underline">
+                        <span class="col gap-0.5 min-w-0 grow text-left">
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <template x-if="r.group">
+                                    <small class="text-content-subtle font-normal" x-text="'· ' + r.group"></small>
+                                </template>
+                                <small class="badge sm ms-auto shrink-0 font-normal" x-text="labels[r.src]"></small>
+                            </span>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
+                        </span>
+                    </a>
+                </div>
+            </template>
+            <div class="h-2 shrink-0"></div>
+        </div>
+
+    </dialog>
+</div>
+  <nav aria-label="Menu" popover="" id="docs-nav" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 bg-popover-surface shadow-xl overflow-y-auto no-scrollbar" x-data="{
+        view: null,
+        get current() { return $route.match(/^\/docs\/(platform|api|framework)(\/|$)/)?.[1] || null },
+        get src() { return this.view || this.current },
+        get base() { return '/docs/' + this.src },
+        get groups() { return this.src ? $x[this.src] || [] : [] },
+        get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
+        here(href) { return $route.replace(/\/$/, '') === href },
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+
+    <!-- Docs -->
+    <template x-if="src">
+        <div class="col">
+            <div role="tablist" aria-label="Docs" class="sm rounded-full w-full my-4">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <button type="button" role="tab" :aria-selected="src === d.key" @click="view = d.key" x-text="d.name"></button>
+                </template>
+            </div>
+            <a role="button" :href="base" :aria-current="here(base) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="here(base) ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                <span x-icon="lucide:house"></span>
+                <span>Overview</span>
+            </a>
+            <template x-for="group in groups" :key="group.group">
+                <div class="col gap-6 py-4">
+                    <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
+                    <div class="col">
+                        <template x-for="(item, index) in group.items" :key="item.path || index">
+                            <a x-show="item.name" role="button" :href="base + (group.slug ? '/' + group.slug : '') + '/' + item.path" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="article?.path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                                <span x-icon="item.icon"></span>
+                                <span x-text="item.name"></span>
+                            </a>
+                        </template>
+                    </div>
+                    <hr>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <!-- Site -->
+    <div class="col py-4">
+        <template x-for="n in $x.site.nav" :key="n.href">
+            <a role="button" :href="n.href" :aria-current="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="n.icon"></span>
+                <span x-text="n.name"></span>
+            </a>
+        </template>
+    </div>
+    <hr class="shrink-0">
+    <template x-if="!src">
+        <div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Docs</small>
+            <div class="col">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a role="button" :href="'/docs/' + d.key" class="ghost justify-start w-full text-content-neutral">
+                        <span x-icon="d.icon"></span>
+                        <span x-text="d.name"></span>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </template>
+    <hr class="shrink-0" x-show="!src" style="display: none">
+    <div class="col py-4">
+        <template x-for="p in $x.site.pages" :key="p.href">
+            <a role="button" :href="p.href" :aria-current="$route.startsWith(p.href) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="$route.startsWith(p.href) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="p.icon"></span>
+                <span x-text="p.name"></span>
+            </a>
+        </template>
+    </div>
+
+</nav>
+
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
+
+    <!-- Home page -->
+    
+
+    <!-- Framework -->
+
+    <!-- Compare -->
+    
+
+    <!-- Documentation -->
+    
+    
+    
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-data="{
+    base: '/docs/framework' ?? '/docs/framework',
+    src: 'framework' ?? 'framework',
+    heading: 'Framework' ?? 'Docs',
+    intro: 'Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.' ?? '',
+    home: null ?? '',
+    landing: 'framework' ?? '',
+    canonical: 'https://manifestx.dev',
+    copied: false,
+    get pages() {
+      const out = [];
+      for (const g of this.groups) for (const i of (g.items || [])) if (i.name) out.push({ href: this.href(g, i), name: i.name, group: g.group || '' });
+      return out;
+    },
+    get pageIndex() { return this.pages.findIndex(p =&gt; this.at(p.href)) },
+    get prev() { return this.pageIndex &gt; 0 ? this.pages[this.pageIndex - 1] : null },
+    get next() { const i = this.pageIndex; return i &gt; -1 &amp;&amp; i &lt; this.pages.length - 1 ? this.pages[i + 1] : null },
+    aiApps: [
+      { name: 'Claude', icon: 'simple-icons:claude', url: 'https://claude.ai/new?q=' },
+      { name: 'ChatGPT', icon: 'simple-icons:openai', url: 'https://chatgpt.com/?q=' },
+      { name: 'Gemini', icon: 'simple-icons:googlegemini', url: 'https://gemini.google.com/app', paste: true },
+      { name: 'Perplexity', icon: 'simple-icons:perplexity', url: 'https://www.perplexity.ai/search?q=' }
+    ],
+    get askPrompt() { return `Read ${this.canonical + $route.replace(/\/$/, '')} from the Manifest docs and help me with it.` },
+    askIn(app) { return app.paste ? app.url : app.url + encodeURIComponent(this.askPrompt) },
+    askCopy(app) { if (app.paste) navigator.clipboard.writeText(this.askPrompt).catch(() =&gt; {}) },
+    async copyPage() {
+      const md = await fetch(this.article.doc).then(r =&gt; r.text());
+      const clean = md.replace(/`([^`\n]+)`\{[^}\n]*\}/g, '`$1`');
+      await navigator.clipboard.writeText(`Source: ${this.canonical}${$route.replace(/\/$/, '')}\n\n${clean}`);
+      this.copied = true;
+      setTimeout(() =&gt; this.copied = false, 1500);
+    },
+    get groups() { return $x[this.src] || [] },
+    get article() { return $x[this.src].$route('path') },
+    get group() { const g = $x[this.src].$route('slug'); return g?.group &amp;&amp; this.at(this.base + '/' + g.slug) ? g : null },
+    href(group, item) { return this.base + (group.slug ? '/' + group.slug : '') + (item ? '/' + item.path : '') },
+    get cards() {
+      const out = [];
+      for (const g of this.groups) {
+        const items = (g.items || []).filter(i =&gt; i.name);
+        if (g.group) out.push({ href: this.href(g), icon: g.icon || items[0]?.icon, title: g.group, sub: items.length + (items.length === 1 ? ' article' : ' articles') });
+        else items.forEach(i =&gt; out.push({ href: this.href(g, i), icon: i.icon, title: i.name, sub: i.description || 'Start here' }));
+      }
+      return out;
+    },
+    at(path) { return $route.replace(/\/$/, '') === path },
+  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.">
+
+  <!-- Desktop navigation -->
+  <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
+    <div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Getting Started</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-open"></span>
+              <span>Introduction</span>
+            </a><a role="button" href="/docs/framework/getting-started/setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:terminal"></span>
+              <span>Setup</span>
+            </a><a role="button" href="/docs/framework/getting-started/starter-project" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:package"></span>
+              <span>Starter Project</span>
+            </a><a role="button" href="/docs/framework/getting-started/compatibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe-lock"></span>
+              <span>Compatibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:eye"></span>
+              <span>Accessibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Core Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/core-modules/chat" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:message-square"></span>
+              <span>Chat</span>
+            </a><a role="button" href="/docs/framework/core-modules/components" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panels-top-left"></span>
+              <span>Components</span>
+            </a><a role="button" href="/docs/framework/core-modules/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" href="/docs/framework/core-modules/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Devices</span>
+            </a><a role="button" href="/docs/framework/core-modules/submissions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:send-horizontal"></span>
+              <span>Form Submissions</span>
+            </a><a role="button" href="/docs/framework/core-modules/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
+            </a><a role="button" href="/docs/framework/core-modules/local-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-tree"></span>
+              <span>Local Data</span>
+            </a><a role="button" href="/docs/framework/core-modules/localization" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:languages"></span>
+              <span>Localization</span>
+            </a><a role="button" href="/docs/framework/core-modules/markdown" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-m"></span>
+              <span>Markdown</span>
+            </a><a role="button" href="/docs/framework/core-modules/payments" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:credit-card"></span>
+              <span>Payments</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Rich Text</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text-controls" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Controls</span>
+            </a><a role="button" href="/docs/framework/core-modules/router" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:route"></span>
+              <span>Router</span>
+            </a><a role="button" href="/docs/framework/core-modules/status" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+              <span x-icon="lucide:activity"></span>
+              <span>Status</span>
+            </a><a role="button" href="/docs/framework/core-modules/url-parameters" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:ampersand"></span>
+              <span>URL Parameters</span>
+            </a><a role="button" href="/docs/framework/core-modules/virtual" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-chevrons-up-down"></span>
+              <span>Virtual Lists</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Visual Editing</span>
+            </a><a role="button" href="/docs/framework/core-modules/move" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Move</span>
+            </a><a role="button" href="/docs/framework/core-modules/resize" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Resize</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit-publishing" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Publishing</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Appwrite Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/appwrite-modules/appwrite-setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="simple-icons:appwrite"></span>
+              <span>Appwrite Setup</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/auth" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:users"></span>
+              <span>Auth</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Users</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Teams</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/cloud-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:database"></span>
+              <span>Cloud Data</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/databases" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Databases</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Storage</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/presence" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:radio-tower"></span>
+              <span>Presence</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Publishing</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/publishing/testing" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-check"></span>
+              <span>Testing</span>
+            </a><a role="button" href="/docs/framework/publishing/websites" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe"></span>
+              <span>Websites</span>
+            </a><a role="button" href="/docs/framework/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>SEO &amp; AEO</span>
+            </a><a role="button" href="/docs/framework/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window"></span>
+              <span>Web Apps</span>
+            </a><a role="button" href="/docs/framework/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:monitor-smartphone"></span>
+              <span>Native Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Styles</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/styles/reset" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:scale"></span>
+              <span>Reset</span>
+            </a><a role="button" href="/docs/framework/styles/theme" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:paint-bucket"></span>
+              <span>Theme</span>
+            </a><a role="button" href="/docs/framework/styles/color-modes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sun-moon"></span>
+              <span>Color Modes</span>
+            </a><a role="button" href="/docs/framework/styles/utilities" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:swatch-book"></span>
+              <span>Utilities</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Elements</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/elements/accordions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-collapse"></span>
+              <span>Accordions</span>
+            </a><a role="button" href="/docs/framework/elements/avatars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-user-round"></span>
+              <span>Avatars</span>
+            </a><a role="button" href="/docs/framework/elements/badges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-star"></span>
+              <span>Badges</span>
+            </a><a role="button" href="/docs/framework/elements/buttons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-mouse-pointer"></span>
+              <span>Buttons</span>
+            </a><a role="button" href="/docs/framework/elements/charts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chart-line"></span>
+              <span>Charts</span>
+            </a><a role="button" href="/docs/framework/elements/chats" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:messages-square"></span>
+              <span>Chats</span>
+            </a><a role="button" href="/docs/framework/elements/checkboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-check"></span>
+              <span>Checkboxes</span>
+            </a><a role="button" href="/docs/framework/elements/code" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:code"></span>
+              <span>Code</span>
+            </a><a role="button" href="/docs/framework/elements/color-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:palette"></span>
+              <span>Color Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/comboboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-search"></span>
+              <span>Comboboxes</span>
+            </a><a role="button" href="/docs/framework/elements/date-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:calendar"></span>
+              <span>Date Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/dialogs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panel-top-dashed"></span>
+              <span>Dialogs</span>
+            </a><a role="button" href="/docs/framework/elements/dividers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:minus"></span>
+              <span>Dividers</span>
+            </a><a role="button" href="/docs/framework/elements/dropdowns" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chevron-down"></span>
+              <span>Dropdowns</span>
+            </a><a role="button" href="/docs/framework/elements/forms" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:rows-3"></span>
+              <span>Forms</span>
+            </a><a role="button" href="/docs/framework/elements/icons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smile"></span>
+              <span>Icons</span>
+            </a><a role="button" href="/docs/framework/elements/inputs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor-input"></span>
+              <span>Inputs</span>
+            </a><a role="button" href="/docs/framework/elements/radios" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-dot"></span>
+              <span>Radios</span>
+            </a><a role="button" href="/docs/framework/elements/ranges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sliders-horizontal"></span>
+              <span>Ranges</span>
+            </a><a role="button" href="/docs/framework/elements/selects" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:menu"></span>
+              <span>Selects</span>
+            </a><a role="button" href="/docs/framework/elements/sidebars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sidebar"></span>
+              <span>Sidebars</span>
+            </a><a role="button" href="/docs/framework/elements/svgs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:shapes"></span>
+              <span>SVGs</span>
+            </a><a role="button" href="/docs/framework/elements/switches" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:toggle-right"></span>
+              <span>Switches</span>
+            </a><a role="button" href="/docs/framework/elements/tables" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:table"></span>
+              <span>Tables</span>
+            </a><a role="button" href="/docs/framework/elements/tabs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window-mac"></span>
+              <span>Tabs</span>
+            </a><a role="button" href="/docs/framework/elements/textareas" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor"></span>
+              <span>Textareas</span>
+            </a><a role="button" href="/docs/framework/elements/toasts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-big-up-dash"></span>
+              <span>Toasts</span>
+            </a><a role="button" href="/docs/framework/elements/tooltips" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-help"></span>
+              <span>Tooltips</span>
+            </a><a role="button" href="/docs/framework/elements/typography" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:type"></span>
+              <span>Typography</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Guides</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/guides/large-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:layers"></span>
+              <span>Large Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Resources</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/resources/reference" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-marked"></span>
+              <span>Reference</span>
+            </a><a role="button" href="/docs/framework/resources/typescript" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="hugeicons:typescript-01"></span>
+              <span>TypeScript</span>
+            </a><a role="button" href="/docs/framework/resources/security" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:lock"></span>
+              <span>Security</span>
+            </a><a role="button" href="/docs/framework/resources/license" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:file-check"></span>
+              <span>MIT License</span>
+            </a><a role="button" href="/docs/framework/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:heart-handshake"></span>
+              <span>Acknowledgements</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div>
+  </nav>
+
+  <!-- Articles -->
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+
+    <div class="col grow w-full max-w-full mx-auto">
+
+      <!-- Article -->
+      <template x-if="article?.name">
+        <div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7">
+          <span class="h6" x-text="article?.group || ''"></span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'"></span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
+              <span x-icon="'lucide:asterisk'"></span>
+              <span>Ask AI</span>
+              <span x-icon="'lucide:chevron-down'"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src">
+              <template x-for="app in aiApps" :key="app.name">
+                <a :href="askIn(app)" target="_blank" rel="noopener" role="button" class="sm ghost justify-start" @click="askCopy(app)" :title="app.paste ? 'Opens ' + app.name + ' with the question copied, ready to paste' : null">
+                  <span x-icon="app.icon"></span>
+                  <span x-text="'Ask ' + app.name"></span>
+                </a>
+              </template>
+            </menu>
+          </div>
+        </div>
+      </template><div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7" data-mnfst-prerender-clone="1">
+          <span class="h6" x-text="article?.group || ''">Core Modules</span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="lucide:copy"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'">Copy page</span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page" popovertarget="ask-ai-framework" style="anchor-name: --dropdown-p2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p2" aria-haspopup="menu" aria-controls="ask-ai-framework" aria-expanded="false" data-hydrate-id="h3">
+              <span x-icon="lucide:asterisk"></span>
+              <span>Ask AI</span>
+              <span x-icon="lucide:chevron-down"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src" role="menu" style="position-anchor: --dropdown-p2">
+              <a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://claude.ai/new?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fcore-modules%2Fstatus%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:claude"></span>
+                  <span>Ask Claude</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://chatgpt.com/?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fcore-modules%2Fstatus%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:openai"></span>
+                  <span>Ask ChatGPT</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://gemini.google.com/app" title="Opens Gemini with the question copied, ready to paste">
+                  <span x-icon="simple-icons:googlegemini"></span>
+                  <span>Ask Gemini</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://www.perplexity.ai/search?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fcore-modules%2Fstatus%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:perplexity"></span>
+                  <span>Ask Perplexity</span>
+                </a>
+            </menu>
+          </div>
+        </div>
+      <template x-if="article?.name">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" x-markdown="article?.doc"></div>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" style="opacity: 1" data-mnfst-md-src="/articles/core-modules/status.md" data-mnfst-prerender-clone="1"><h1 id="status">Status</h1><p>Track the health of your services and display it with <code>$status</code>.</p>
+<hr>
+<h2 id="overview">Overview</h2><p>The status module checks your services from the visitor's browser, by probing endpoints, reading status feeds, or mirroring third-party status pages, and rolls the results into reactive states you can show anywhere.</p>
+<hr>
+<h2 id="setup">Setup</h2><p>The status module is included in <code>manifest.js</code> with all core modules, or can be selectively loaded. It activates when <code>manifest.json</code> contains a <code>status</code> block.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-modules-(default)-tab-0" aria-selected="true" tabindex="0">All Modules (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+
+<pre x-code="html" name="All Modules (default)" data-code-block-built="yes" aria-label="All Modules (default)" role="tabpanel" data-code-processed="yes" id="all-modules-(default)-panel-0" aria-labelledby="all-modules-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Scripts --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre x-code="html" name="Selective" data-code-block-built="yes" aria-label="Selective" role="tabpanel" data-code-processed="yes" id="selective-panel-1" aria-labelledby="selective-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Scripts --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+    <span class="hljs-attr">data-modules</span>=<span class="hljs-string">"status"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="configuration">Configuration</h2><p>Add a <code>status</code> block to <code>manifest.json</code>. Each key becomes a top-level status at <code>$status.&lt;name&gt;</code>, rolled up from its underlying signals. A value can be a string (a single probe), an array (several signals rolled up), or an object (a single signal, or an aggregate with options).</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"website"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://example.com"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"docs"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"https://docs.example.com"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"https://cdn.example.com"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"api"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://api.example.com/health"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"degradedAbove"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">800</span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"cloud"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"signals"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                <span class="hljs-punctuation">{</span> <span class="hljs-attr">"appwriteService"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"databases"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"label"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"database"</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-punctuation">{</span> <span class="hljs-attr">"mirror"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"appwrite"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"label"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"upstream"</span> <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"rollup"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"worst"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"refresh"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">30000</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>A single project can mix sources freely, with the provider behind each signal is inferred from which field is present.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Signal</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">url</code></td>
+<td>HTTP probe</td>
+<td>Fetches the endpoint; reads reachability and latency.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">feed</code></td>
+<td>Status feed</td>
+<td>Reads a normalized status JSON the endpoint returns.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">static</code></td>
+<td>Literal</td>
+<td>A fixed state — useful for placeholders or manual control.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">appwriteService</code></td>
+<td>Appwrite</td>
+<td>Probes your Appwrite endpoint's overall <code>/health</code>, whichever service is named.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">mirror</code></td>
+<td>Upstream</td>
+<td>Reflects a known third party's own status.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">heartbeat</code></td>
+<td>Dead-man's switch</td>
+<td>In-page only: code on the page calls <code>$status.beat(key)</code>, and no beat within <code>expectEvery</code> ms (default <code>60000</code>) reads as <code>major_outage</code>. Each visitor's tab starts at <code>unknown</code>. For server jobs, publish a <code>feed</code> instead.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">mcp</code></td>
+<td>Manifest hosting</td>
+<td>Hosting signal for projects published on the Manifest platform.</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="probes-feeds">Probes &amp; Feeds</h3><p>For a service you own, probe an endpoint directly or read a status feed it publishes.</p>
+<ul>
+<li><strong><code>url</code></strong> has the browser fetch the endpoint and infer state from the response (<code>2xx</code> is operational; a <code>degradedAbove</code> latency threshold marks it degraded). Simplest, but bound by CORS and run per visitor, so it suits same-origin or CORS-enabled endpoints.</li>
+<li><strong><code>feed</code></strong> reads a small JSON document your backend produces and maps its state onto the Manifest vocabulary. This avoids CORS and can represent what a probe cannot, such as background workers and queues.</li>
+</ul>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="probe-tab-0" aria-selected="true" tabindex="0">Probe</button><button type="button" role="tab" id="feed-tab-1" aria-selected="false" tabindex="-1">Feed</button><button type="button" role="tab" id="feed-response-tab-2" aria-selected="false" tabindex="-1">Feed response</button></div></header>
+
+<pre x-code="json" name="Probe" data-code-block-built="yes" aria-label="Probe" role="tabpanel" data-code-processed="yes" id="probe-panel-0" aria-labelledby="probe-tab-0"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"api"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://api.example.com/health"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"expect"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">200</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"degradedAbove"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">800</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+<pre x-code="json" name="Feed" data-code-block-built="yes" aria-label="Feed" role="tabpanel" data-code-processed="yes" id="feed-panel-1" aria-labelledby="feed-tab-1" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"api"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"feed"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://api.example.com/status.json"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"path"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"components.api"</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+<pre x-code="json" name="Feed response" data-code-block-built="yes" aria-label="Feed response" role="tabpanel" data-code-processed="yes" id="feed-response-panel-2" aria-labelledby="feed-response-tab-2" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"components"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"api"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"operational"</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Probes also accept <code>method</code> (default <code>GET</code>), <code>headers</code>, and <code>timeout</code> (default <code>8000</code> ms). A feed can return more than a state: <code>message</code>, <code>uptime</code> (a percentage), <code>history</code> (an array of states, oldest first) and <code>incidents</code> (each with a unique <code>id</code>), on the node at <code>path</code> or at the top level. These fill the matching <a href="#reading-status">health object</a> properties.</p>
+<pre x-code="json" name="Full feed response" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="Full feed response" role="region"><header><div>Full feed response</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"state"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"degraded"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"message"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Elevated latency in the EU region"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"uptime"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">99.9</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"history"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"operational"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"operational"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"degraded"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"incidents"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span> <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2026-11-04-eu"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"api"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"state"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"degraded"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"message"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Elevated latency in the EU region"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"resolved"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span> <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>A network error, timeout, or CORS block resolves a probe to <code>unknown</code> rather than a false outage. The module never reports "down" when it simply could not reach the endpoint.</p>
+<hr>
+<h3 id="mirrors">Mirrors</h3><p>A <code>mirror</code> reflects a third party's own published status. Common providers are built in by name — <code>github</code>, <code>cloudflare</code>, <code>stripe</code>, <code>openai</code>, <code>anthropic</code>, <code>discord</code>, <code>npm</code>, <code>vercel</code>, <code>netlify</code>, <code>appwrite</code> — and any service running an Atlassian Statuspage works by passing its base URL directly.</p>
+<pre x-code="json" name="Mirror examples" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="Mirror examples" role="region"><header><div>Mirror examples</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"payments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"mirror"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"stripe"</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"ai"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"mirror"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"anthropic"</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"custom"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"mirror"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://status.example.com"</span> <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h2 id="states">States</h2><p>Every signal and entry resolves to one of these states.</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Level</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">operational</code></td>
+<td>0</td>
+<td>Healthy</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">maintenance</code></td>
+<td>0.5</td>
+<td>Planned downtime</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">degraded</code></td>
+<td>1</td>
+<td>Working but impaired (e.g. slow)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">partial_outage</code></td>
+<td>2</td>
+<td>Some functionality unavailable</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">major_outage</code></td>
+<td>3</td>
+<td>Down</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">unknown</code></td>
+<td>-1</td>
+<td>No signal yet, or could not be reached</td>
+</tr>
+</tbody></table>
+<p>A <code>feed</code> or <code>mirror</code> may return its own vocabulary (<code>up</code>, <code>down</code>, <code>pass</code>, <code>minor</code>, etc.) — the module maps common terms onto the table above.</p>
+<hr>
+<h3 id="labels">Labels</h3><p><code>$status.label(state)</code> turns a state into a display string (<code>major_outage</code> → "Major Outage"). Labels default to English but localize through the <code>_ui</code> convention — the same mechanism as the datepicker (<code>_ui.date</code>) and <a href="/docs/framework/elements/color-pickers">colorpicker</a> (<code>_ui.colorpicker</code>). Provide overrides under <code>_ui.status.label</code> in any loaded data source, per locale:</p>
+<pre x-code="yaml" name="labels.fr.yaml" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="labels.fr.yaml" role="region"><header><div>labels.fr.yaml</div></header><code class="hljs language-yaml" data-highlighted="yes"><span class="hljs-attr">_ui:</span>
+  <span class="hljs-attr">status:</span>
+    <span class="hljs-attr">label:</span>
+      <span class="hljs-attr">operational:</span> <span class="hljs-string">Opérationnel</span>
+      <span class="hljs-attr">degraded:</span> <span class="hljs-string">Dégradé</span>
+      <span class="hljs-attr">partial_outage:</span> <span class="hljs-string">Panne</span> <span class="hljs-string">Partielle</span>
+      <span class="hljs-attr">major_outage:</span> <span class="hljs-string">Panne</span> <span class="hljs-string">Majeure</span>
+      <span class="hljs-attr">maintenance:</span> <span class="hljs-string">Maintenance</span>
+      <span class="hljs-attr">unknown:</span> <span class="hljs-string">Inconnu</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p><code>$status.label(state)</code> — and anything that uses it — then returns the localized string, reactive to the current <a href="/docs/framework/core-modules/localization">locale</a>.</p>
+<hr>
+<h2 id="rollup-options">Rollup &amp; Options</h2><p>Aggregate entries accept options alongside their <code>signals</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">rollup</code></td>
+<td><code>"worst"</code></td>
+<td>How children combine: <code>worst</code> takes the most severe, <code>best</code> the least.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">refresh</code></td>
+<td><code>30000</code></td>
+<td>Poll interval in milliseconds.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">confirmations</code></td>
+<td><code>1</code></td>
+<td>Consecutive observations required before a state change (debounce).</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">staleAfter</code></td>
+<td><code>refresh × 3</code></td>
+<td>Milliseconds without a known signal before <code>stale</code> becomes <code>true</code>.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">history</code></td>
+<td><code>90</code></td>
+<td>Number of recent checks retained for the uptime meter.</td>
+</tr>
+</tbody></table>
+<p>By default, blocks with no options set or a bare <code>"website": "https://example.com"</code> will poll every 30 seconds, rolls up worst-first, and goes stale after 90 seconds.</p>
+<hr>
+<h2 id="reading-status">Reading Status</h2><p><code>$status.&lt;name&gt;</code> returns a reactive health object. Read whatever you need; every read re-evaluates when the underlying signals update.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">state</code></td>
+<td>string</td>
+<td>Rolled-up state (see <a href="#states">States</a>).</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">up</code></td>
+<td>boolean</td>
+<td><code>true</code> only when <code>state</code> is <code>operational</code>.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">level</code></td>
+<td>number</td>
+<td>Severity, <code>0</code> (operational) to <code>3</code> (major outage), <code>-1</code> unknown.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">latencyMs</code></td>
+<td>number | null</td>
+<td>Average probe latency, when measured.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">message</code></td>
+<td>string | null</td>
+<td>A human update attached to the state (from a feed or <code>$status.set</code>), or <code>null</code>.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">stale</code></td>
+<td>boolean</td>
+<td><code>true</code> when no fresh signal has arrived within the stale window.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">updatedAt</code></td>
+<td>number</td>
+<td>Timestamp of the last resolution.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">signals</code></td>
+<td>array</td>
+<td>The underlying inputs, each with its own <code>label</code> and <code>state</code>.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">uptime</code></td>
+<td>number | null</td>
+<td>Percent operational over the retained history window.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">history</code></td>
+<td>array</td>
+<td>Recent observed states, oldest to newest.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">incidents</code></td>
+<td>array</td>
+<td>Open and recent incidents for this service.</td>
+</tr>
+</tbody></table>
+<p>The magic also exposes a few helpers:</p>
+<table>
+<thead>
+<tr>
+<th>Accessor</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$status.overall</code></td>
+<td>Worst state across every entry.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$status.all</code></td>
+<td>The map of all entries.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$status.ready</code></td>
+<td><code>true</code> once the first resolution pass has run.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$status.incidents</code></td>
+<td>All incidents across every service, newest first.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$status.label(state)</code></td>
+<td>Human label for a state string (<code>major_outage</code> → "Major Outage").</td>
+</tr>
+</tbody></table>
+<p>Address a service by name, or iterate <code>$status</code> directly — each item is a health object, so you read it with dot notation just like a <code>$x</code> source.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$status.api.state"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"(service, name) in $status"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"name"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"name + ': ' + service.state"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+<aside class="frame col gap-1 items-start"><p>API: <strong x-text="$status.api.state">operational</strong></p>
+<small><span>Website</span>: <span>operational</span></small><small><span>api</span>: <span>operational</span></small><small><span>Database</span>: <span>operational</span></small><small><span>CDN</span>: <span>operational</span></small><small><span>Search</span>: <span>maintenance</span></small><small><span>Workers</span>: <span>major outage</span></small></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="ui-templates">UI Templates</h2><p>The module gives you state; the presentation is yours. These templates range from a full status page down to a single indicator — each reads the same <code>$status</code> values, including the built-in <code>service.uptime</code>, the <code>service.history</code> meter, and <code>$status.incidents</code>. History accrues live as the module polls (or is hydrated from a feed); incidents come from a feed, and <code>$status.set</code> also logs them in the current tab.</p>
+<pre x-code-group="" lines="" collapse="10" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="status-page-tab-0" aria-selected="true" tabindex="0">Status Page</button><button type="button" role="tab" id="service-cards-tab-1" aria-selected="false" tabindex="-1">Service Cards</button><button type="button" role="tab" id="banner-tab-2" aria-selected="false" tabindex="-1">Banner</button><button type="button" role="tab" id="notification-dot-tab-3" aria-selected="false" tabindex="-1">Notification Dot</button></div></header>
+
+<pre x-code="html" name="Status Page" lines="" collapse="10" data-code-block-built="yes" aria-label="Status Page" role="tabpanel" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes" id="status-page-panel-0" aria-labelledby="status-page-tab-0"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span><span>40</span><span>41</span><span>42</span><span>43</span><span>44</span><span>45</span><span>46</span><span>47</span><span>48</span><span>49</span><span>50</span><span>51</span><span>52</span><span>53</span><span>54</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-10 w-full"</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Headline banner --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row items-center gap-3 p-4 bg-page border border-line rounded-lg"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">figure</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"size-6 rounded-full"</span>
+            <span class="hljs-attr">:class</span>=<span class="hljs-string">"{
+                'bg-positive-content':$status.overall==='operational',
+                'bg-yellow-400':$status.overall==='degraded',
+                'bg-orange-400':$status.overall==='partial_outage',
+                'bg-negative-content':$status.overall==='major_outage',
+                'bg-surface-3':['maintenance','unknown'].includes($status.overall)
+            }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">figure</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$status.overall==='operational' ? 'All systems operational' : 'Some systems are experiencing issues'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Status list --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"(service, name) in $status"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"name"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-1"</span>&gt;</span>
+
+            <span class="hljs-comment">&lt;!-- Title --&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row items-center justify-between"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">strong</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"service.uptime + '% uptime'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+            <span class="hljs-comment">&lt;!-- Daily status --&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row gap-0.5"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"(day,i) in service.history"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"i"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">figure</span> <span class="hljs-attr">x-tooltip</span>=<span class="hljs-string">"`${$status.label(day)}`"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"flex-1 h-6 rounded-xs"</span>
+                        <span class="hljs-attr">:class</span>=<span class="hljs-string">"{
+                            'bg-positive-content':day==='operational',
+                            'bg-yellow-400':day==='degraded',
+                            'bg-orange-400':day==='partial_outage',
+                            'bg-negative-content':day==='major_outage',
+                            'bg-surface-3':['maintenance','unknown'].includes(day)
+                        }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">figure</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Incident history --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-4"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Past Incidents<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"inc in $status.incidents"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"inc.id"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row items-center gap-3 p-2 border-t border-line"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"min-w-14 capitalize"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"inc.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"capitalize"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"inc.message || $status.label(inc.state)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> ∙ <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"inc.resolved ? 'resolved' : $status.label(inc.state)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!$status.incidents.length"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-content-subtle"</span>&gt;</span>No incidents reported<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="expand" type="button" aria-expanded="false" aria-label="Show 44 more lines">+44</button></pre>
+<aside class="frame" name="Status Page" id="status-page-panel-1" role="tabpanel" aria-labelledby="status-page-tab-0"><div class="col gap-10 w-full">
+
+    <!-- Headline banner -->
+    <div class="row items-center gap-3 p-4 bg-page border border-line rounded-lg">
+        <figure class="size-6 rounded-full bg-negative-content" :class="{
+                'bg-positive-content':$status.overall==='operational',
+                'bg-yellow-400':$status.overall==='degraded',
+                'bg-orange-400':$status.overall==='partial_outage',
+                'bg-negative-content':$status.overall==='major_outage',
+                'bg-surface-3':['maintenance','unknown'].includes($status.overall)
+            }" data-hydrate-id="h4"></figure>
+        <p x-text="$status.overall==='operational' ? 'All systems operational' : 'Some systems are experiencing issues'">Some systems are experiencing issues</p>
+    </div>
+
+    <!-- Status list -->
+    <div class="col gap-1">
+
+            <!-- Title -->
+            <div class="row items-center justify-between">
+                <strong>Website</strong>
+                <small>98.9% uptime</small>
+            </div>
+
+            <!-- Daily status -->
+            <div class="row gap-0.5">
+                <template x-for="(day,i) in service.history" :key="i">
+                    <figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs" :class="{
+                            'bg-positive-content':day==='operational',
+                            'bg-yellow-400':day==='degraded',
+                            'bg-orange-400':day==='partial_outage',
+                            'bg-negative-content':day==='major_outage',
+                            'bg-surface-3':['maintenance','unknown'].includes(day)
+                        }"></figure>
+                </template><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-yellow-400" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure>
+            </div>
+
+        </div><div class="col gap-1">
+
+            <!-- Title -->
+            <div class="row items-center justify-between">
+                <strong>api</strong>
+                <small>97.8% uptime</small>
+            </div>
+
+            <!-- Daily status -->
+            <div class="row gap-0.5">
+                <template x-for="(day,i) in service.history" :key="i">
+                    <figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs" :class="{
+                            'bg-positive-content':day==='operational',
+                            'bg-yellow-400':day==='degraded',
+                            'bg-orange-400':day==='partial_outage',
+                            'bg-negative-content':day==='major_outage',
+                            'bg-surface-3':['maintenance','unknown'].includes(day)
+                        }"></figure>
+                </template><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-orange-400" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-yellow-400" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure>
+            </div>
+
+        </div><div class="col gap-1">
+
+            <!-- Title -->
+            <div class="row items-center justify-between">
+                <strong>Database</strong>
+                <small>98.9% uptime</small>
+            </div>
+
+            <!-- Daily status -->
+            <div class="row gap-0.5">
+                <template x-for="(day,i) in service.history" :key="i">
+                    <figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs" :class="{
+                            'bg-positive-content':day==='operational',
+                            'bg-yellow-400':day==='degraded',
+                            'bg-orange-400':day==='partial_outage',
+                            'bg-negative-content':day==='major_outage',
+                            'bg-surface-3':['maintenance','unknown'].includes(day)
+                        }"></figure>
+                </template><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-surface-3" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure>
+            </div>
+
+        </div><div class="col gap-1">
+
+            <!-- Title -->
+            <div class="row items-center justify-between">
+                <strong>CDN</strong>
+                <small>100% uptime</small>
+            </div>
+
+            <!-- Daily status -->
+            <div class="row gap-0.5">
+                <template x-for="(day,i) in service.history" :key="i">
+                    <figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs" :class="{
+                            'bg-positive-content':day==='operational',
+                            'bg-yellow-400':day==='degraded',
+                            'bg-orange-400':day==='partial_outage',
+                            'bg-negative-content':day==='major_outage',
+                            'bg-surface-3':['maintenance','unknown'].includes(day)
+                        }"></figure>
+                </template><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure>
+            </div>
+
+        </div><div class="col gap-1">
+
+            <!-- Title -->
+            <div class="row items-center justify-between">
+                <strong>Search</strong>
+                <small>94.4% uptime</small>
+            </div>
+
+            <!-- Daily status -->
+            <div class="row gap-0.5">
+                <template x-for="(day,i) in service.history" :key="i">
+                    <figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs" :class="{
+                            'bg-positive-content':day==='operational',
+                            'bg-yellow-400':day==='degraded',
+                            'bg-orange-400':day==='partial_outage',
+                            'bg-negative-content':day==='major_outage',
+                            'bg-surface-3':['maintenance','unknown'].includes(day)
+                        }"></figure>
+                </template><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-yellow-400" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-surface-3" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-surface-3" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-surface-3" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-surface-3" data-mnfst-prerender-clone="1"></figure>
+            </div>
+
+        </div><div class="col gap-1">
+
+            <!-- Title -->
+            <div class="row items-center justify-between">
+                <strong>Workers</strong>
+                <small>94.4% uptime</small>
+            </div>
+
+            <!-- Daily status -->
+            <div class="row gap-0.5">
+                <template x-for="(day,i) in service.history" :key="i">
+                    <figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs" :class="{
+                            'bg-positive-content':day==='operational',
+                            'bg-yellow-400':day==='degraded',
+                            'bg-orange-400':day==='partial_outage',
+                            'bg-negative-content':day==='major_outage',
+                            'bg-surface-3':['maintenance','unknown'].includes(day)
+                        }"></figure>
+                </template><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-yellow-400" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-negative-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-positive-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-negative-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-negative-content" data-mnfst-prerender-clone="1"></figure><figure x-tooltip="`${$status.label(day)}`" class="flex-1 h-6 rounded-xs bg-negative-content" data-mnfst-prerender-clone="1"></figure>
+            </div>
+
+        </div>
+
+    <!-- Incident history -->
+    <div class="col gap-4">
+        <strong>Past Incidents</strong>
+        <div class="row items-center gap-3 p-2 border-t border-line">
+                <small class="min-w-14 capitalize">workers</small>
+                <div class="capitalize"><span>Investigating elevated error rates</span> ∙ <small>Major Outage</small></div>
+            </div><div class="row items-center gap-3 p-2 border-t border-line">
+                <small class="min-w-14 capitalize">search</small>
+                <div class="capitalize"><span>Scheduled maintenance window</span> ∙ <small>Maintenance</small></div>
+            </div><div class="row items-center gap-3 p-2 border-t border-line">
+                <small class="min-w-14 capitalize">API</small>
+                <div class="capitalize"><span>Elevated latency in the EU region</span> ∙ <small>resolved</small></div>
+            </div>
+        <small x-show="!$status.incidents.length" class="text-content-subtle" style="display: none">No incidents reported</small>
+    </div>
+</div></aside>
+<pre x-code="html" name="Service Cards" lines="" collapse="10" data-code-block-built="yes" aria-label="Service Cards" role="tabpanel" data-collapsed="" style="--collapse-lines: 10; display: none" data-code-processed="yes" id="service-cards-panel-2" aria-labelledby="service-cards-tab-1"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"grid grid-cols-1 sm:grid-cols-3 gap-3"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"(service, name) in $status"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"name"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-1 p-4 bg-page shadow rounded min-w-[150px]"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row items-center gap-2"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">figure</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"size-2 rounded-full"</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"{ 'bg-positive-content':service.state==='operational', 'bg-yellow-400':service.state==='degraded', 'bg-orange-400':service.state==='partial_outage', 'bg-negative-content':service.state==='major_outage', 'bg-surface-3':['maintenance','unknown'].includes(service.state) }"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">figure</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"service.state.replace('_',' ')"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="expand" type="button" aria-expanded="false" aria-label="Show 1 more line">+1</button></pre>
+<aside class="frame" name="Service Cards" id="service-cards-panel-3" role="tabpanel" aria-labelledby="service-cards-tab-1" style="display: none"><div x-data="" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+    <div class="col gap-1 p-4 bg-page shadow rounded min-w-[150px]">
+            <div class="row items-center gap-2">
+                <figure class="size-2 rounded-full bg-positive-content"></figure>
+                <span>Website</span>
+            </div>
+            <small>operational</small>
+        </div><div class="col gap-1 p-4 bg-page shadow rounded min-w-[150px]">
+            <div class="row items-center gap-2">
+                <figure class="size-2 rounded-full bg-positive-content"></figure>
+                <span>api</span>
+            </div>
+            <small>operational</small>
+        </div><div class="col gap-1 p-4 bg-page shadow rounded min-w-[150px]">
+            <div class="row items-center gap-2">
+                <figure class="size-2 rounded-full bg-positive-content"></figure>
+                <span>Database</span>
+            </div>
+            <small>operational</small>
+        </div><div class="col gap-1 p-4 bg-page shadow rounded min-w-[150px]">
+            <div class="row items-center gap-2">
+                <figure class="size-2 rounded-full bg-positive-content"></figure>
+                <span>CDN</span>
+            </div>
+            <small>operational</small>
+        </div><div class="col gap-1 p-4 bg-page shadow rounded min-w-[150px]">
+            <div class="row items-center gap-2">
+                <figure class="size-2 rounded-full bg-surface-3"></figure>
+                <span>Search</span>
+            </div>
+            <small>maintenance</small>
+        </div><div class="col gap-1 p-4 bg-page shadow rounded min-w-[150px]">
+            <div class="row items-center gap-2">
+                <figure class="size-2 rounded-full bg-negative-content"></figure>
+                <span>Workers</span>
+            </div>
+            <small>major outage</small>
+        </div>
+</div></aside>
+<pre x-code="html" name="Banner" lines="" collapse="10" data-code-block-built="yes" aria-label="Banner" role="tabpanel" data-collapsed="" style="--collapse-lines: 10; display: none" data-code-processed="yes" id="banner-panel-4" aria-labelledby="banner-tab-2"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Issues --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$status.overall !== 'operational'"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"p-4 bg-page text-negative-content rounded-lg shadow"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:alert-triangle"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Some services are experiencing issues.<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Operational --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$status.overall === 'operational'"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"p-4 bg-page text-positive-content rounded-lg shadow"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:check-circle"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>All systems operational.<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code><button class="expand" type="button" aria-expanded="false" aria-label="Show 1 more line">+1</button></pre>
+<aside class="frame col gap-3" name="Banner" id="banner-panel-5" role="tabpanel" aria-labelledby="banner-tab-2" style="display: none"><!-- Issues -->
+<p x-show="$status.overall !== 'operational'" class="p-4 bg-page text-negative-content rounded-lg shadow">
+    <span x-icon="lucide:alert-triangle"></span>
+    <span>Some services are experiencing issues.</span>
+</p>
+
+<!-- Operational -->
+<p x-show="$status.overall === 'operational'" class="p-4 bg-page text-positive-content rounded-lg shadow" style="display: none">
+    <span x-icon="lucide:check-circle"></span>
+    <span>All systems operational.</span>
+</p></aside>
+<pre x-code="html" name="Notification Dot" lines="" collapse="10" data-code-block-built="yes" aria-label="Notification Dot" role="tabpanel" data-collapsed="" style="--collapse-lines: 10; display: none" data-code-processed="yes" id="notification-dot-panel-6" aria-labelledby="notification-dot-tab-3"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row items-center gap-2"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">figure</span> 
+        <span class="hljs-attr">class</span>=<span class="hljs-string">"size-2 rounded-full"</span> 
+        <span class="hljs-attr">:class</span>=<span class="hljs-string">"{
+            'bg-positive-content': $status.overall === 'operational',
+            'bg-yellow-400': $status.overall === 'degraded',
+            'bg-orange-400': $status.overall === 'partial_outage',
+            'bg-negative-content': $status.overall === 'major_outage',
+            'bg-surface-3': ['maintenance', 'unknown'].includes($status.overall)
+        }"</span>
+    &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">figure</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$status.overall === 'operational' ? 'All systems operational' : 'Service disruption'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span></code><button class="expand" type="button" aria-expanded="false" aria-label="Show 3 more lines">+3</button></pre>
+<aside class="frame" name="Notification Dot" id="notification-dot-panel-7" role="tabpanel" aria-labelledby="notification-dot-tab-3" style="display: none"><small class="row items-center gap-2">
+    <figure class="size-2 rounded-full bg-negative-content" :class="{
+            'bg-positive-content': $status.overall === 'operational',
+            'bg-yellow-400': $status.overall === 'degraded',
+            'bg-orange-400': $status.overall === 'partial_outage',
+            'bg-negative-content': $status.overall === 'major_outage',
+            'bg-surface-3': ['maintenance', 'unknown'].includes($status.overall)
+        }" data-hydrate-id="h5"></figure>
+    <span x-text="$status.overall === 'operational' ? 'All systems operational' : 'Service disruption'">Service disruption</span>
+</small></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="manual-control">Manual Control</h2><p>The magic exposes methods to override a status on the current page, for previews and testing.</p>
+<aside class="negative"><span x-icon="lucide:triangle-alert"></span><p><code>$status.set</code> changes only the current visitor's tab, until it reloads. Nothing is saved or sent to other visitors. To tell every visitor about an incident, publish it from your backend as a <a href="#probes-feeds">feed</a>.</p>
+</aside>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$status.set(name, state, message?)</code></td>
+<td>Force a state and an optional update message, overriding signals.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$status.clear(name)</code></td>
+<td>Remove an override and return to signal-derived state.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$status.refresh(name?)</code></td>
+<td>Re-resolve one entry, or all when called with no argument.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$status.beat(key)</code></td>
+<td>Pulse a <code>heartbeat</code> signal in this tab; absence past its <code>expectEvery</code> window reads as down.</td>
+</tr>
+</tbody></table>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$status.set('api', 'major_outage', 'Investigating elevated error rates')"</span>&gt;</span>Report outage<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$status.clear('api')"</span>&gt;</span>Resolve<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"capitalize"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$status.api.state"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$status.api.message"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$status.api.message"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+<aside class="frame row-wrap items-center gap-3"><button class="sm" @click="$status.set('api', 'major_outage', 'Investigating elevated error rates')">Report outage</button>
+<button class="sm" @click="$status.clear('api')">Resolve</button>
+
+<small class="ms-4 capitalize" x-text="$status.api.state.replace('_',' ')">operational</small>
+<small class="text-content-subtle" x-show="$status.api.message" x-text="$status.api.message" style="display: none"></small></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="update-messages">Update Messages</h2><p>A message is a human note attached to a status — the line you post during an incident, like "Investigating elevated error rates". It rides alongside the state and surfaces as <code>$status.&lt;name&gt;.message</code>, or <code>null</code> when there is none. It can be set one of two ways:</p>
+<ul>
+<li><strong>Manually</strong>, as the third argument to <code>$status.set</code>. This shows only in the current tab:</li>
+</ul>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$status.set('api', 'degraded', 'Investigating elevated error rates')"</span>&gt;</span>Post update<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<ul>
+<li><strong>From a feed</strong>, by returning a message next to the state. The module reads both:</li>
+</ul>
+<pre x-code="json" name="status.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="status.json" role="region"><header><div>status.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"state"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"degraded"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"message"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Elevated latency in the EU region"</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Clearing the override (or the feed dropping its message) returns <code>message</code> to <code>null</code>.</p>
+</div>
+
+      <!-- Previous / next -->
+      <template x-if="article?.name &amp;&amp; (prev || next)">
+        <nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template>
+        </nav>
+      </template><nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="" data-mnfst-prerender-clone="1">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template><a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline" href="/docs/framework/core-modules/router" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name">Router</span>
+            </a>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template><a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end" href="/docs/framework/core-modules/url-parameters" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name">URL Parameters</span>
+            </a>
+        </nav>
+
+      <!-- Family home (markdown) -->
+      <template x-if="at(base) &amp;&amp; home">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="home"></div>
+      </template>
+
+      <!-- Docs home -->
+      <template x-if="at(base) &amp;&amp; landing">
+        <div class="col gap-8 pb-12">
+          <template x-if="landing === 'framework'"><x-framework></x-framework></template>
+          <template x-if="landing === 'platform'"><x-docs-platform></x-docs-platform></template>
+          <template x-if="landing === 'api'"><x-docs-api></x-docs-api></template>
+          <div class="col gap-4 w-content-width max-w-full mx-auto">
+            <h2 class="h4">Explore the docs</h2>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <template x-for="card in cards" :key="card.href">
+                <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                  <span x-icon="card.icon" class="text-brand-content"></span>
+                  <span class="col">
+                    <span class="text-content-stark font-medium" x-text="card.title"></span>
+                    <small class="text-content-subtle" x-text="card.sub"></small>
+                  </span>
+                </a>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template x-if="at(base) &amp;&amp; !home &amp;&amp; !landing">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="heading"></h1>
+            <p class="text-content-neutral" x-show="intro" x-text="intro"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="card in cards" :key="card.href">
+              <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="card.icon" class="text-brand-content"></span>
+                <span class="col">
+                  <span class="text-content-stark font-medium" x-text="card.title"></span>
+                  <small class="text-content-subtle" x-text="card.sub"></small>
+                </span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Group landing -->
+      <template x-if="group?.group">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="group?.group"></h1>
+            <p class="text-content-neutral" x-show="group?.description" x-text="group?.description"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
+              <a :href="href(group, item)" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
+                <span class="text-content-stark" x-text="item.name"></span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+    </div>
+
+    <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
+    <template x-if="!article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
+      <div class="max-w-full prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
+
+    <footer class="mt-20">
+  <hr>
+  <div class="row-wrap justify-between items-center gap-4 pt-4">
+
+    <figcaption class="text-content-subtle">© 2026 MNFST OÜ • <a href="/legal/terms">Terms</a> • <a href="/legal/privacy">Privacy</a><span x-show="$route.startsWith('/docs/framework')"> • Framework under the <a href="/docs/framework/resources/license">MIT License</a></span></figcaption>
+
+    <div class="row-wrap gap-3">
+
+      <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
+
+      <div role="tablist" aria-label="Color mode" class="sm rounded-full">
+        <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h6"></button>
+        <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h7"></button>
+        <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h8"></button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+
+  <!-- Anchor links -->
+  <nav aria-label="On this page" x-show="!(at(base) &amp;&amp; landing)" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
+
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+      <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
+      <span>On this page</span>
+    </small>
+
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#configuration">Configuration</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#probes-feeds">Probes &amp; Feeds</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#mirrors">Mirrors</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#states">States</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#labels">Labels</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#rollup-options">Rollup &amp; Options</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#reading-status">Reading Status</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#ui-templates">UI Templates</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#manual-control">Manual Control</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#update-messages">Update Messages</a></div>
+
+  </nav>
+
+</div>
+
+    <!-- Legal pages -->
+    
+
+    <!-- Support -->
+    
+
+  </main>
+
+  <!-- Footer (visible on every route) -->
+  
+
+
+
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"data-order":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"class":"size-6 rounded-full"}},{"id":"h5","attrs":{"class":"size-2 rounded-full"}},{"id":"h6","attrs":{"aria-selected":null,"type":null}},{"id":"h7","attrs":{"aria-selected":null,"type":null}},{"id":"h8","attrs":{"aria-selected":null,"type":null}}]</script>
+</body></html>

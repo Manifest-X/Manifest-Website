@@ -6,7 +6,7 @@ Compact labels for status, counts, and tags.
 
 ## Setup
 
-Badge styles are included in Manifest CSS or the standalone [typography](/docs/elements/typography) stylesheet. Both reference [theme](/docs/styles/theme) variables.
+Badge styles are included in Manifest CSS or the standalone [typography](/docs/framework/elements/typography) stylesheet. Both reference [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -42,7 +42,7 @@ Apply the `badge` class to any text element.
 
 ## Utilities
 
-Badges accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
+Badges accept Manifest [utility](/docs/framework/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
 <div x-code-group>
@@ -61,7 +61,7 @@ Badges accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 <span class="badge negative">Negative</span>
 ```
 
-::: frame text-base
+::: frame row-wrap items-center gap-2 text-base
 <span class="badge brand">Brand</span>
 <span class="badge accent">Accent</span>
 <span class="badge positive">Positive</span>
@@ -84,7 +84,7 @@ Badges accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 <span class="badge lg">Large</span>
 ```
 
-::: frame text-base
+::: frame row-wrap items-center gap-2 text-base
 <span class="badge sm">Small</span>
 <span class="badge lg">Large</span>
 :::
@@ -98,20 +98,20 @@ Badges accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 <div x-code-group>
 
 ```html copy
-<!-- No background until hover -->
+<!-- Transparent background, tinted on hover -->
 <span class="badge ghost">Ghost</span>
 
-<!-- Border included -->
+<!-- Border -->
 <span class="badge outlined">Outlined</span>
 
-<!-- No background at all -->
+<!-- No background -->
 <span class="badge transparent">Transparent</span>
 
-<!-- No padding for minimal target area, best paired with transparency -->
+<!-- No padding, sits flush with text -->
 <span class="badge hug transparent">Hug</span>
 ```
 
-::: frame items-center text-base
+::: frame row-wrap items-center gap-2 text-base
 <span class="badge ghost">Ghost</span>
 <span class="badge outlined">Outlined</span>
 <span class="badge transparent">Transparent</span>
@@ -126,7 +126,7 @@ Badges accept Manifest [utility](/docs/styles/utilities) classes, which can be s
 
 ### Solo Icon
 
-Badges containing a single [icon](/docs/elements/icons) are automatically squared.
+Badges containing a single [icon](/docs/framework/elements/icons) are automatically squared.
 
 <div x-code-group>
 
@@ -153,7 +153,7 @@ Any number of icons and text can be nested in any order. Place icons in `<span>`
 <span class="badge"><span x-icon="lucide:thumbs-down"></span><span>21</span></span>
 ```
 
-::: frame text-base
+::: frame row-wrap items-center gap-2 text-base
 <span class="badge"><span x-icon="lucide:heart"></span> 79</span>
 <span class="badge"><span x-icon="lucide:thumbs-down"></span><span>21</span></span>
 :::
@@ -166,13 +166,14 @@ Any number of icons and text can be nested in any order. Place icons in `<span>`
 
 ### Theme
 
-Default badges use the following [theme](/docs/styles/theme) variables:
+Default badges use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
-| `--color-content-stark`{copy} | High contrast text color |
-| `--spacing`{copy} | Padding and margin factor in various elements |
-| `--radius`{copy} | Border radius for badge corners |
+| `--color-field-surface`{copy} | Badge background color |
+| `--color-field-inverse`{copy} | Badge text color |
+| `--spacing`{copy} | Padding factor |
+| `--radius`{copy} | Border radius factor (badges use 60% of it) |
 
 ---
 

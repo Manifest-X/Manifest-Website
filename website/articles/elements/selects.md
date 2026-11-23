@@ -6,7 +6,7 @@ OS-native dropdown lists for choosing options.
 
 ## Setup
 
-Select styles are included in Manifest CSS or the standalone [buttons](/docs/elements/buttons) stylesheet. Both reference [theme](/docs/styles/theme) variables.
+Select styles are included in Manifest CSS or the standalone [buttons](/docs/framework/elements/buttons) stylesheet. Both reference [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -48,7 +48,7 @@ Select styles are included in Manifest CSS or the standalone [buttons](/docs/ele
 
 ## Utilities
 
-Selects accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
+Selects accept Manifest [utility](/docs/framework/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
 <div x-code-group>
@@ -312,7 +312,7 @@ When these elements are grouped, only the outer elements' outer corners retain t
 
 ### Theme
 
-Default selects use the following [theme](/docs/styles/theme) variables:
+Default selects use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
@@ -328,41 +328,28 @@ Default selects use the following [theme](/docs/styles/theme) variables:
 
 ### Customization
 
-Modify base select styles with custom CSS for the `select` selector.
+Modify base select styles with custom CSS for the `select` selector. Overriding the field [theme](/docs/framework/styles/theme) variables keeps both color modes working.
 
 <div x-code-group>
 
 ```css copy
 select {
-    color: white;
-    background-color: black;
-    border: 1px solid white;
+    --color-field-surface: var(--color-brand-surface);
+    --color-field-surface-hover: var(--color-brand-surface-hover);
+    --color-field-inverse: var(--color-brand-inverse);
+    --icon-chevron-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m7 15 5 5 5-5M7 9l5-5 5 5'/%3E%3C/svg%3E");
     border-radius: 100px;
-
-    /* Icon */
-    &::picker-icon {
-        content: "›";
-        transform: scaleY(1);
-        font-size: 20px;
-        line-height: 0.7;
-    }
 }
 ```
 
 ::: frame
 <style>
 select.custom {
-    color: white;
-    background-color: black;
-    border: 1px solid white;
+    --color-field-surface: var(--color-brand-surface);
+    --color-field-surface-hover: var(--color-brand-surface-hover);
+    --color-field-inverse: var(--color-brand-inverse);
+    --icon-chevron-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m7 15 5 5 5-5M7 9l5-5 5 5'/%3E%3C/svg%3E");
     border-radius: 100px;
-
-    &::picker-icon {
-        content: "›";
-        transform: scaleY(1);
-        font-size: 20px;
-        line-height: 0.7;
-    }
 }
 </style>
 
@@ -374,3 +361,5 @@ select.custom {
 :::
 
 </div>
+
+The `--icon-chevron-down`{copy} override applies in browsers with customizable selects (`appearance: base-select`); others keep a plain chevron.

@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" data-online="true" data-os="macos" dir="auto"><head>
+  <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Collect entries or chips in filterable fields.">
+  <meta name="author" content="Andrew Matlock">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="google" content="notranslate">
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="preload" as="font" type="font/woff2" href="../../../../assets/fonts/Manrope.woff2" crossorigin="">
+
+  <!-- Web App & Manifest -->
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../../../../manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="../../../../manifest.theme.css">
+
+  <!-- Scripts -->
+  <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="../../../../scripts/payments-demo.js" defer=""></script>
+  <script src="../../../../scripts/hero-editor.js" defer=""></script>
+  <script src="../../../../scripts/hero-demo.js" defer=""></script>
+  <script src="../../../../scripts/console-message.js" defer=""></script>
+
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+@custom-variant cursor (@media (pointer: fine) and (hover: hover));
+@custom-variant pointer (@media (any-pointer: fine));
+@custom-variant mac (&:where([data-os="macos"] *));
+@custom-variant windows (&:where([data-os="windows"] *));
+@custom-variant linux (&:where([data-os="linux"] *));
+@custom-variant ios (&:where([data-os="ios"] *));
+@custom-variant android (&:where([data-os="android"] *));
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));
+@custom-variant online (&:where([data-online="true"] *));
+@custom-variant offline (&:where([data-online="false"] *));
+@custom-variant standalone (&:where([data-standalone] *));
+@custom-variant native (&:where([data-native] *));
+@custom-variant web (&:where(html:not([data-native]) *));
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Comboboxes — Manifest</title><meta property="og:title" content="Comboboxes — Manifest"><meta property="og:description" content="Collect entries or chips in filterable fields."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/elements/comboboxes"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-elements-comboboxes.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Comboboxes — Manifest"><meta property="twitter:description" content="Collect entries or chips in filterable fields."><meta property="twitter:image" content="/og/docs-framework-elements-comboboxes.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Comboboxes — Manifest","description":"Collect entries or chips in filterable fields.","image":"/og/docs-framework-elements-comboboxes.png","url":"https://manifestx.dev/docs/framework/elements/comboboxes"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Elements","item":"https://manifestx.dev/docs/framework/elements"},{"@type":"ListItem","position":5,"name":"Comboboxes","item":"https://manifestx.dev/docs/framework/elements/comboboxes"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/framework/elements/comboboxes">
+<meta name="manifest:router-base" content="">
+<meta name="manifest:prerender-locales" content="en">
+<meta name="manifest:prerendered" content="1">
+<meta name="manifest:router-base-depth" content="4">
+</head>
+
+<body x-data="{
+  init() {
+    const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
+    document.documentElement.setAttribute('dir', savedDirection);
+  }
+}" class="bg-surface-1">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
+
+  <header style="view-transition-name: site-header" class="site-header fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
+
+    <!-- Content Area -->
+    <nav class="row justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+
+        <!-- Start -->
+        <div class="row items-center gap-3" x-data="{
+            get family() { return $route.startsWith('/docs/platform') ? 'platform' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+        }">
+
+            <!-- Logo -->
+            <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
+                <span class="hidden md:flex">{Manifest}</span>
+                <span class="md:hidden">{M}</span>
+            </a>
+
+            <!-- Docs family -->
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation" popovertarget="docs-family" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="docs-family" aria-expanded="false" data-hydrate-id="h1">
+                <span x-text="$x.site.docs.find(d =&gt; d.key === family)?.name">Framework</span>
+                <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
+            </button>
+            <menu popover="" id="docs-family" role="menu" style="position-anchor: --dropdown-p1">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a :href="'/docs/' + d.key" close="">
+                        <span x-text="d.name"></span>
+                        <span x-show="family === d.key" x-icon="lucide:check" class="trailing"></span>
+                    </a>
+                </template>
+            </menu>
+
+            <!-- Docs Breadcrumbs-->
+            
+            
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/framework/*">
+                <span x-text="$x.framework.$route('path')?.group || 'No group'">Elements</span>
+                <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
+                <span class="text-content-stark" x-text="$x.framework.$route('path')?.name || 'No article'">Comboboxes</span>
+            </small>
+
+        </div>
+
+        <!-- End -->
+        <div class="row justify-end items-center gap-2">
+
+            <!-- CTAs -->
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+                <span x-icon="lucide:search"></span>
+                <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
+            </button>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="sm transparent outlined rounded-full" aria-label="GitHub" x-tooltip="GitHub" x-icon="meteor-icons:github"></a>
+            <a role="button" href="/docs" class="sm transparent outlined rounded-full">Docs</a>
+            <a role="button" href="https://dash.manifestx.dev" class="sm accent rounded-full" x-text="/(^|;\s*)mnfst_signed_in=1(;|$)/.test(document.cookie) ? 'Dashboard' : 'Sign in'">Sign in</a>
+
+            <!-- Mobile Sidebar Button -->
+            <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
+
+        </div>
+
+    </nav>
+
+</header>
+  <div x-data="{
+        sources: [['platform', '/docs/platform'], ['framework', '/docs/framework'], ['api', '/docs/api']],
+        labels: { platform: 'Platform', framework: 'Framework', api: 'API' },
+        q: '',
+        items: [],
+        ready: false,
+        loading: false,
+        active: 0,
+
+        // Fetch every article's markdown once, on first open; index title, description, headings, body.
+        async build() {
+            if (this.ready || this.loading) return;
+            this.loading = true;
+            const jobs = [];
+            for (const [src, base] of this.sources) {
+            for (let i = 0; i &lt; 20 &amp;&amp; (!$x[src] || !$x[src].length); i++) await new Promise(r =&gt; setTimeout(r, 100));
+            for (const g of ($x[src] || [])) {
+                for (const it of (g.items || [])) {
+                    if (!it.name || !it.doc) continue;
+                    const href = base + (g.slug ? '/' + g.slug : '') + '/' + it.path;
+                    jobs.push(fetch(it.doc)
+                        .then(r =&gt; r.ok ? r.text() : '')
+                        .catch(() =&gt; '')
+                        .then(md =&gt; {
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/&lt;[^&gt;]+&gt;/g, '').replace(/[*_`\[\]]/g, '').trim();
+                            const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
+                            const body = md
+                                .replace(/```[\s\S]*?```/g, ' ')
+                                .replace(/:::[^\n]*/g, ' ')
+                                .replace(/&lt;[^&gt;]+&gt;/g, ' ')
+                                .replace(/[#&gt;*_`\[\]()|]/g, ' ')
+                                .replace(/-{2,}/g, ' ')
+                                .replace(/\s+/g, ' ');
+                            this.items.push({
+                                name: it.name, group: g.group, icon: it.icon, href, desc, src,
+                                headings,
+                                hhay: headings.join(' · ').toLowerCase(),
+                                body, bhay: body.toLowerCase(),
+                            });
+                        }));
+                }
+            }
+            }
+            await Promise.all(jobs);
+            $x.$register('searchIndex', this.items);
+            this.ready = true;
+            this.loading = false;
+        },
+
+        results() {
+            const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
+            return ranked.slice(0, 20).map(it =&gt; ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i &gt; -1) return (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
+            }
+            return it.desc;
+        },
+
+        openDialog() { document.getElementById('docs-search')?.showPopover(); },
+        // The router swallows result clicks before element handlers run, so the
+        // dialog closes on the route-change event rather than the click itself.
+        closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
+        async onToggle(e) {
+            if (e.newState !== 'open') return;
+            this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() =&gt; { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
+        },
+        move(d) {
+            const n = this.results().length;
+            if (!n) return;
+            this.active = (this.active + d + n) % n;
+            this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
+        },
+        go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+
+        <!-- Query -->
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
+
+        <!-- Results -->
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
+            <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
+            <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
+                No matches for “<span x-text="q.trim()"></span>”.
+            </p>
+            <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i">
+                    <a :href="r.href" role="button" :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'" class="ghost justify-start w-full h-auto py-2 no-underline">
+                        <span class="col gap-0.5 min-w-0 grow text-left">
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <template x-if="r.group">
+                                    <small class="text-content-subtle font-normal" x-text="'· ' + r.group"></small>
+                                </template>
+                                <small class="badge sm ms-auto shrink-0 font-normal" x-text="labels[r.src]"></small>
+                            </span>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
+                        </span>
+                    </a>
+                </div>
+            </template>
+            <div class="h-2 shrink-0"></div>
+        </div>
+
+    </dialog>
+</div>
+  <nav aria-label="Menu" popover="" id="docs-nav" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 bg-popover-surface shadow-xl overflow-y-auto no-scrollbar" x-data="{
+        view: null,
+        get current() { return $route.match(/^\/docs\/(platform|api|framework)(\/|$)/)?.[1] || null },
+        get src() { return this.view || this.current },
+        get base() { return '/docs/' + this.src },
+        get groups() { return this.src ? $x[this.src] || [] : [] },
+        get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
+        here(href) { return $route.replace(/\/$/, '') === href },
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+
+    <!-- Docs -->
+    <template x-if="src">
+        <div class="col">
+            <div role="tablist" aria-label="Docs" class="sm rounded-full w-full my-4">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <button type="button" role="tab" :aria-selected="src === d.key" @click="view = d.key" x-text="d.name"></button>
+                </template>
+            </div>
+            <a role="button" :href="base" :aria-current="here(base) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="here(base) ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                <span x-icon="lucide:house"></span>
+                <span>Overview</span>
+            </a>
+            <template x-for="group in groups" :key="group.group">
+                <div class="col gap-6 py-4">
+                    <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
+                    <div class="col">
+                        <template x-for="(item, index) in group.items" :key="item.path || index">
+                            <a x-show="item.name" role="button" :href="base + (group.slug ? '/' + group.slug : '') + '/' + item.path" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="article?.path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                                <span x-icon="item.icon"></span>
+                                <span x-text="item.name"></span>
+                            </a>
+                        </template>
+                    </div>
+                    <hr>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <!-- Site -->
+    <div class="col py-4">
+        <template x-for="n in $x.site.nav" :key="n.href">
+            <a role="button" :href="n.href" :aria-current="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="n.icon"></span>
+                <span x-text="n.name"></span>
+            </a>
+        </template>
+    </div>
+    <hr class="shrink-0">
+    <template x-if="!src">
+        <div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Docs</small>
+            <div class="col">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a role="button" :href="'/docs/' + d.key" class="ghost justify-start w-full text-content-neutral">
+                        <span x-icon="d.icon"></span>
+                        <span x-text="d.name"></span>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </template>
+    <hr class="shrink-0" x-show="!src" style="display: none">
+    <div class="col py-4">
+        <template x-for="p in $x.site.pages" :key="p.href">
+            <a role="button" :href="p.href" :aria-current="$route.startsWith(p.href) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="$route.startsWith(p.href) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="p.icon"></span>
+                <span x-text="p.name"></span>
+            </a>
+        </template>
+    </div>
+
+</nav>
+
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
+
+    <!-- Home page -->
+    
+
+    <!-- Framework -->
+
+    <!-- Compare -->
+    
+
+    <!-- Documentation -->
+    
+    
+    
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-data="{
+    base: '/docs/framework' ?? '/docs/framework',
+    src: 'framework' ?? 'framework',
+    heading: 'Framework' ?? 'Docs',
+    intro: 'Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.' ?? '',
+    home: null ?? '',
+    landing: 'framework' ?? '',
+    canonical: 'https://manifestx.dev',
+    copied: false,
+    get pages() {
+      const out = [];
+      for (const g of this.groups) for (const i of (g.items || [])) if (i.name) out.push({ href: this.href(g, i), name: i.name, group: g.group || '' });
+      return out;
+    },
+    get pageIndex() { return this.pages.findIndex(p =&gt; this.at(p.href)) },
+    get prev() { return this.pageIndex &gt; 0 ? this.pages[this.pageIndex - 1] : null },
+    get next() { const i = this.pageIndex; return i &gt; -1 &amp;&amp; i &lt; this.pages.length - 1 ? this.pages[i + 1] : null },
+    aiApps: [
+      { name: 'Claude', icon: 'simple-icons:claude', url: 'https://claude.ai/new?q=' },
+      { name: 'ChatGPT', icon: 'simple-icons:openai', url: 'https://chatgpt.com/?q=' },
+      { name: 'Gemini', icon: 'simple-icons:googlegemini', url: 'https://gemini.google.com/app', paste: true },
+      { name: 'Perplexity', icon: 'simple-icons:perplexity', url: 'https://www.perplexity.ai/search?q=' }
+    ],
+    get askPrompt() { return `Read ${this.canonical + $route.replace(/\/$/, '')} from the Manifest docs and help me with it.` },
+    askIn(app) { return app.paste ? app.url : app.url + encodeURIComponent(this.askPrompt) },
+    askCopy(app) { if (app.paste) navigator.clipboard.writeText(this.askPrompt).catch(() =&gt; {}) },
+    async copyPage() {
+      const md = await fetch(this.article.doc).then(r =&gt; r.text());
+      const clean = md.replace(/`([^`\n]+)`\{[^}\n]*\}/g, '`$1`');
+      await navigator.clipboard.writeText(`Source: ${this.canonical}${$route.replace(/\/$/, '')}\n\n${clean}`);
+      this.copied = true;
+      setTimeout(() =&gt; this.copied = false, 1500);
+    },
+    get groups() { return $x[this.src] || [] },
+    get article() { return $x[this.src].$route('path') },
+    get group() { const g = $x[this.src].$route('slug'); return g?.group &amp;&amp; this.at(this.base + '/' + g.slug) ? g : null },
+    href(group, item) { return this.base + (group.slug ? '/' + group.slug : '') + (item ? '/' + item.path : '') },
+    get cards() {
+      const out = [];
+      for (const g of this.groups) {
+        const items = (g.items || []).filter(i =&gt; i.name);
+        if (g.group) out.push({ href: this.href(g), icon: g.icon || items[0]?.icon, title: g.group, sub: items.length + (items.length === 1 ? ' article' : ' articles') });
+        else items.forEach(i =&gt; out.push({ href: this.href(g, i), icon: i.icon, title: i.name, sub: i.description || 'Start here' }));
+      }
+      return out;
+    },
+    at(path) { return $route.replace(/\/$/, '') === path },
+  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.">
+
+  <!-- Desktop navigation -->
+  <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
+    <div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Getting Started</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-open"></span>
+              <span>Introduction</span>
+            </a><a role="button" href="/docs/framework/getting-started/setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:terminal"></span>
+              <span>Setup</span>
+            </a><a role="button" href="/docs/framework/getting-started/starter-project" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:package"></span>
+              <span>Starter Project</span>
+            </a><a role="button" href="/docs/framework/getting-started/compatibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe-lock"></span>
+              <span>Compatibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:eye"></span>
+              <span>Accessibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Core Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/core-modules/chat" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:message-square"></span>
+              <span>Chat</span>
+            </a><a role="button" href="/docs/framework/core-modules/components" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panels-top-left"></span>
+              <span>Components</span>
+            </a><a role="button" href="/docs/framework/core-modules/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" href="/docs/framework/core-modules/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Devices</span>
+            </a><a role="button" href="/docs/framework/core-modules/submissions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:send-horizontal"></span>
+              <span>Form Submissions</span>
+            </a><a role="button" href="/docs/framework/core-modules/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
+            </a><a role="button" href="/docs/framework/core-modules/local-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-tree"></span>
+              <span>Local Data</span>
+            </a><a role="button" href="/docs/framework/core-modules/localization" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:languages"></span>
+              <span>Localization</span>
+            </a><a role="button" href="/docs/framework/core-modules/markdown" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-m"></span>
+              <span>Markdown</span>
+            </a><a role="button" href="/docs/framework/core-modules/payments" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:credit-card"></span>
+              <span>Payments</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Rich Text</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text-controls" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Controls</span>
+            </a><a role="button" href="/docs/framework/core-modules/router" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:route"></span>
+              <span>Router</span>
+            </a><a role="button" href="/docs/framework/core-modules/status" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:activity"></span>
+              <span>Status</span>
+            </a><a role="button" href="/docs/framework/core-modules/url-parameters" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:ampersand"></span>
+              <span>URL Parameters</span>
+            </a><a role="button" href="/docs/framework/core-modules/virtual" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-chevrons-up-down"></span>
+              <span>Virtual Lists</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Visual Editing</span>
+            </a><a role="button" href="/docs/framework/core-modules/move" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Move</span>
+            </a><a role="button" href="/docs/framework/core-modules/resize" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Resize</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit-publishing" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Publishing</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Appwrite Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/appwrite-modules/appwrite-setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="simple-icons:appwrite"></span>
+              <span>Appwrite Setup</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/auth" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:users"></span>
+              <span>Auth</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Users</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Teams</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/cloud-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:database"></span>
+              <span>Cloud Data</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/databases" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Databases</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Storage</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/presence" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:radio-tower"></span>
+              <span>Presence</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Publishing</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/publishing/testing" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-check"></span>
+              <span>Testing</span>
+            </a><a role="button" href="/docs/framework/publishing/websites" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe"></span>
+              <span>Websites</span>
+            </a><a role="button" href="/docs/framework/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>SEO &amp; AEO</span>
+            </a><a role="button" href="/docs/framework/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window"></span>
+              <span>Web Apps</span>
+            </a><a role="button" href="/docs/framework/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:monitor-smartphone"></span>
+              <span>Native Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Styles</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/styles/reset" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:scale"></span>
+              <span>Reset</span>
+            </a><a role="button" href="/docs/framework/styles/theme" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:paint-bucket"></span>
+              <span>Theme</span>
+            </a><a role="button" href="/docs/framework/styles/color-modes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sun-moon"></span>
+              <span>Color Modes</span>
+            </a><a role="button" href="/docs/framework/styles/utilities" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:swatch-book"></span>
+              <span>Utilities</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Elements</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/elements/accordions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-collapse"></span>
+              <span>Accordions</span>
+            </a><a role="button" href="/docs/framework/elements/avatars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-user-round"></span>
+              <span>Avatars</span>
+            </a><a role="button" href="/docs/framework/elements/badges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-star"></span>
+              <span>Badges</span>
+            </a><a role="button" href="/docs/framework/elements/buttons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-mouse-pointer"></span>
+              <span>Buttons</span>
+            </a><a role="button" href="/docs/framework/elements/charts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chart-line"></span>
+              <span>Charts</span>
+            </a><a role="button" href="/docs/framework/elements/chats" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:messages-square"></span>
+              <span>Chats</span>
+            </a><a role="button" href="/docs/framework/elements/checkboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-check"></span>
+              <span>Checkboxes</span>
+            </a><a role="button" href="/docs/framework/elements/code" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:code"></span>
+              <span>Code</span>
+            </a><a role="button" href="/docs/framework/elements/color-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:palette"></span>
+              <span>Color Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/comboboxes" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+              <span x-icon="lucide:text-search"></span>
+              <span>Comboboxes</span>
+            </a><a role="button" href="/docs/framework/elements/date-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:calendar"></span>
+              <span>Date Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/dialogs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panel-top-dashed"></span>
+              <span>Dialogs</span>
+            </a><a role="button" href="/docs/framework/elements/dividers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:minus"></span>
+              <span>Dividers</span>
+            </a><a role="button" href="/docs/framework/elements/dropdowns" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chevron-down"></span>
+              <span>Dropdowns</span>
+            </a><a role="button" href="/docs/framework/elements/forms" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:rows-3"></span>
+              <span>Forms</span>
+            </a><a role="button" href="/docs/framework/elements/icons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smile"></span>
+              <span>Icons</span>
+            </a><a role="button" href="/docs/framework/elements/inputs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor-input"></span>
+              <span>Inputs</span>
+            </a><a role="button" href="/docs/framework/elements/radios" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-dot"></span>
+              <span>Radios</span>
+            </a><a role="button" href="/docs/framework/elements/ranges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sliders-horizontal"></span>
+              <span>Ranges</span>
+            </a><a role="button" href="/docs/framework/elements/selects" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:menu"></span>
+              <span>Selects</span>
+            </a><a role="button" href="/docs/framework/elements/sidebars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sidebar"></span>
+              <span>Sidebars</span>
+            </a><a role="button" href="/docs/framework/elements/svgs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:shapes"></span>
+              <span>SVGs</span>
+            </a><a role="button" href="/docs/framework/elements/switches" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:toggle-right"></span>
+              <span>Switches</span>
+            </a><a role="button" href="/docs/framework/elements/tables" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:table"></span>
+              <span>Tables</span>
+            </a><a role="button" href="/docs/framework/elements/tabs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window-mac"></span>
+              <span>Tabs</span>
+            </a><a role="button" href="/docs/framework/elements/textareas" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor"></span>
+              <span>Textareas</span>
+            </a><a role="button" href="/docs/framework/elements/toasts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-big-up-dash"></span>
+              <span>Toasts</span>
+            </a><a role="button" href="/docs/framework/elements/tooltips" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-help"></span>
+              <span>Tooltips</span>
+            </a><a role="button" href="/docs/framework/elements/typography" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:type"></span>
+              <span>Typography</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Guides</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/guides/large-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:layers"></span>
+              <span>Large Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Resources</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/resources/reference" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-marked"></span>
+              <span>Reference</span>
+            </a><a role="button" href="/docs/framework/resources/typescript" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="hugeicons:typescript-01"></span>
+              <span>TypeScript</span>
+            </a><a role="button" href="/docs/framework/resources/security" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:lock"></span>
+              <span>Security</span>
+            </a><a role="button" href="/docs/framework/resources/license" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:file-check"></span>
+              <span>MIT License</span>
+            </a><a role="button" href="/docs/framework/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:heart-handshake"></span>
+              <span>Acknowledgements</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div>
+  </nav>
+
+  <!-- Articles -->
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+
+    <div class="col grow w-full max-w-full mx-auto">
+
+      <!-- Article -->
+      <template x-if="article?.name">
+        <div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7">
+          <span class="h6" x-text="article?.group || ''"></span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'"></span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
+              <span x-icon="'lucide:asterisk'"></span>
+              <span>Ask AI</span>
+              <span x-icon="'lucide:chevron-down'"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src">
+              <template x-for="app in aiApps" :key="app.name">
+                <a :href="askIn(app)" target="_blank" rel="noopener" role="button" class="sm ghost justify-start" @click="askCopy(app)" :title="app.paste ? 'Opens ' + app.name + ' with the question copied, ready to paste' : null">
+                  <span x-icon="app.icon"></span>
+                  <span x-text="'Ask ' + app.name"></span>
+                </a>
+              </template>
+            </menu>
+          </div>
+        </div>
+      </template><div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7" data-mnfst-prerender-clone="1">
+          <span class="h6" x-text="article?.group || ''">Elements</span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="lucide:copy"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'">Copy page</span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page" popovertarget="ask-ai-framework" style="anchor-name: --dropdown-p2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p2" aria-haspopup="menu" aria-controls="ask-ai-framework" aria-expanded="false" data-hydrate-id="h3">
+              <span x-icon="lucide:asterisk"></span>
+              <span>Ask AI</span>
+              <span x-icon="lucide:chevron-down"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src" role="menu" style="position-anchor: --dropdown-p2">
+              <a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://claude.ai/new?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Felements%2Fcomboboxes%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:claude"></span>
+                  <span>Ask Claude</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://chatgpt.com/?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Felements%2Fcomboboxes%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:openai"></span>
+                  <span>Ask ChatGPT</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://gemini.google.com/app" title="Opens Gemini with the question copied, ready to paste">
+                  <span x-icon="simple-icons:googlegemini"></span>
+                  <span>Ask Gemini</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://www.perplexity.ai/search?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Felements%2Fcomboboxes%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:perplexity"></span>
+                  <span>Ask Perplexity</span>
+                </a>
+            </menu>
+          </div>
+        </div>
+      <template x-if="article?.name">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" x-markdown="article?.doc"></div>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" style="opacity: 1" data-mnfst-md-src="/articles/elements/comboboxes.md" data-mnfst-prerender-clone="1"><h1 id="comboboxes">Comboboxes</h1><p>Collect entries or chips in filterable fields.</p>
+<hr>
+<h2 id="setup">Setup</h2><p>Combobox styles are included in Manifest CSS or a standalone stylesheet, both referencing <a href="/docs/framework/styles/theme">theme</a> variables.</p>
+<p>Combobox functionality is included in <code>manifest.js</code> with all core modules, or it can be selectively loaded.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-/-js-tab-0" aria-selected="true" tabindex="0">Manifest CSS / JS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+
+<pre x-code="html" name="Manifest CSS / JS" data-code-block-built="yes" aria-label="Manifest CSS / JS" role="tabpanel" data-code-processed="yes" id="manifest-css-/-js-panel-0" aria-labelledby="manifest-css-/-js-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Manifest CSS --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span> /&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Manifest JS --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Combobox styles, with field and dropdown dependencies --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.combobox.css"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.input.css"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.dropdown.css"</span> /&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Manifest JS: combobox module only --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+  <span class="hljs-attr">data-modules</span>=<span class="hljs-string">"combobox"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<aside class="brand"><span x-icon="lucide:info"></span><p>The suggestion list reuses <a href="/docs/framework/elements/dropdowns">dropdown</a> styles; the dropdowns module isn't needed.</p>
+</aside>
+<hr>
+<h2 id="triggers">Triggers</h2><p>Add <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-combobox</code> to the element that holds the selection and opens the list. Three elements work as triggers, and the rest of this guide uses an input.</p>
+<h3 id="input">Input</h3><p>Type to filter or to enter free text.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox</span>=<span class="hljs-string">"countries"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Country"</span>&gt;</span></code></pre>
+<aside class="frame"><div class="combobox" style="anchor-name: --combobox-paf9vz1"><input x-combobox="cb-countries-t" class="max-w-88" autocomplete="off" aria-controls="combobox-menu-89utz1s" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Country"><span role="status"></span></div>
+<datalist id="cb-countries-t" style="display: none !important"><option>Australia</option><option>Brazil</option><option>Canada</option><option>Denmark</option><option>France</option><option>Germany</option><option>Japan</option><option>Mexico</option><option>Spain</option><option>Sweden</option></datalist></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h3 id="textarea">Textarea</h3><p>Textareas are effectively the same as inputs in style and function. The <code>.multiple</code> modifier enables both inputs and textareas to support multiple entries, which wrap and grow the field's height on overflow.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"skills"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Add skills"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span></code></pre>
+<aside class="frame"><div class="combobox" style="anchor-name: --combobox-nohtu2o"><textarea x-combobox.multiple.chips="cb-skills-t" class="max-w-120" autocomplete="off" aria-controls="combobox-menu-ttl1kg7" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Add skills"></textarea><span role="status"></span></div>
+<datalist id="cb-skills-t" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h3 id="button">Button</h3><p>Buttons behave like a select menu trigger, with no typing input. A single field shows the choice as the button's text. A multiple field shows chips.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-combobox</span>=<span class="hljs-string">"priority"</span>&gt;</span>Select priority<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"priority"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Low<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Medium<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>High<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
+<aside class="frame"><div class="combobox" style="anchor-name: --combobox-ygiwptr"><button x-combobox="cb-priority-t" class="max-w-64" autocomplete="off" aria-controls="combobox-menu-pelh9la" aria-expanded="false" aria-haspopup="listbox">Select priority</button><span role="status"></span></div>
+<menu popover="" id="cb-priority-t" style="display: none !important"><li>Low</li><li>Medium</li><li>High</li><li>Urgent</li></menu></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="chips">Chips</h2><p>Add <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">.chips</code> to show selections as removable chips, and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">.multiple</code> to allow more than one. Type a value and press Enter, or a comma, to commit it as a chip. Press Backspace on an empty field to remove the last one.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Add emails"</span>&gt;</span></code></pre>
+<aside class="frame"><div class="combobox"><input x-combobox.multiple.chips="" class="max-w-120" autocomplete="off" placeholder="Add emails"><span role="status"></span></div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h3 id="separators">Separators</h3><p>Set your own commit keys with the <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">separators</code> option, where each character commits the current entry. So <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">", "</code> commits on a comma or a space. Pasting text that already contains a separator splits it into several chips at once.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"{ separators: ', ' }"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Add tags"</span>&gt;</span></code></pre>
+<aside class="frame"><div class="combobox"><input x-combobox.multiple.chips="{ separators: ', ' }" class="max-w-120" autocomplete="off" placeholder="Add tags"><span role="status"></span></div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h3 id="starting-values">Starting Values</h3><p>Seed the field with a starting set using the <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">value</code> attribute, written with the same separators.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"ana@acme.com, sam@acme.com"</span>&gt;</span></code></pre>
+<aside class="frame"><div class="combobox"><span class="combobox-chip" data-value="ana@acme.com"><span>ana@acme.com</span><button type="button" aria-label="Remove ana@acme.com">×</button></span><span class="combobox-chip" data-value="sam@acme.com"><span>sam@acme.com</span><button type="button" aria-label="Remove sam@acme.com">×</button></span><input x-combobox.multiple.chips="" class="max-w-120" autocomplete="off" placeholder=""><span role="status">sam@acme.com added</span></div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="suggestions-list">Suggestions List</h2><p>Point a field at a list of options to filter as the user types. Name the list by its <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">id</code> in the directive value, the same way <a href="/docs/framework/elements/dropdowns">dropdowns</a> reference their menu. The list is a <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">&lt;datalist&gt;</code> or <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">&lt;select&gt;</code> kept in the page as the source.</p>
+<p>A single field lets the user pick one option or type their own. Re-opening it shows the whole list again, so the choice can be swapped.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox</span>=<span class="hljs-string">"countries"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Country"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">datalist</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"countries"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Australia<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Brazil<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Canada<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">datalist</span>&gt;</span></code></pre>
+<aside class="frame"><div class="combobox" style="anchor-name: --combobox-2linnz7"><input x-combobox="cb-countries" class="max-w-88" autocomplete="off" aria-controls="combobox-menu-y4xj0bg" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Country"><span role="status"></span></div>
+<datalist id="cb-countries" style="display: none !important"><option>Australia</option><option>Brazil</option><option>Canada</option><option>Denmark</option><option>France</option><option>Germany</option><option>Japan</option><option>Mexico</option><option>Spain</option><option>Sweden</option></datalist></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>To store a different value than the option shows, use the native <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">value</code> and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">label</code> attributes — <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">&lt;option value="SE" label="Sweden"&gt;</code> keeps <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">SE</code> in the field while displaying "Sweden".</p>
+<p>Add <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">.multiple.chips</code> to choose several. Chosen options drop out of the list as they are picked.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"skills"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Skills"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">datalist</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"skills"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Design<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Writing<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Research<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">datalist</span>&gt;</span></code></pre>
+<aside class="frame"><div class="combobox" style="anchor-name: --combobox-cjk9z3t"><input x-combobox.multiple.chips="cb-skills" class="max-w-120" autocomplete="off" aria-controls="combobox-menu-zcppc2b" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Skills"><span role="status"></span></div>
+<datalist id="cb-skills" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h3 id="dropdown-menu">Dropdown Menu</h3><p>For richer rows, author the list as a <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">&lt;menu popover&gt;</code> instead of a datalist, same as dropdown menus. Give each item a <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-value</code> for the value to store and a <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-label</code> for the chip text. Everything inside the item is free to hold extra content.</p>
+<p>The list the combobox shows is a rendered copy of your rows: bound content (an <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-for</code> swatch, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-text</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">:style</code>) is captured as it looks and refreshed whenever your list changes, but the copies themselves aren't live Alpine elements — row interaction belongs to the combobox. Classes, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">aria-*</code>, and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-*</code> attributes on the <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">&lt;menu&gt;</code> element itself carry onto the list and stay in sync, including bound ones like <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">:aria-label</code>.</p>
+<p>Your authored <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">&lt;menu&gt;</code> stays hidden — it's the source template, never the popup the user sees. The live listbox is a separate generated element; find it through the input's <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">aria-controls</code> (its <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">id</code>). When testing that the list opens, assert on that element, not on your <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">&lt;menu id&gt;</code>, which stays hidden by design.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"people"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Assign people"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"people"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">data-value</span>=<span class="hljs-string">"ana"</span> <span class="hljs-attr">data-label</span>=<span class="hljs-string">"Ana Ruiz"</span>&gt;</span>Ana Ruiz <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"trailing"</span>&gt;</span>ana@acme.com<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">data-value</span>=<span class="hljs-string">"sam"</span> <span class="hljs-attr">data-label</span>=<span class="hljs-string">"Sam Cole"</span>&gt;</span>Sam Cole <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"trailing"</span>&gt;</span>sam@acme.com<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
+<aside class="frame"><div class="combobox" style="anchor-name: --combobox-4ye3kil"><input x-combobox.multiple.chips="cb-people" class="max-w-120" autocomplete="off" aria-controls="combobox-menu-jjte817" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Assign people"><span role="status"></span></div>
+<menu popover="" id="cb-people" style="display: none !important">
+    <li data-value="ana" data-label="Ana Ruiz">Ana Ruiz <span class="trailing">ana@acme.com</span></li>
+    <li data-value="sam" data-label="Sam Cole">Sam Cole <span class="trailing">sam@acme.com</span></li>
+    <li data-value="kim" data-label="Kim Park">Kim Park <span class="trailing">kim@acme.com</span></li>
+    <li data-value="lee" data-label="Lee Nash">Lee Nash <span class="trailing">lee@acme.com</span></li>
+</menu></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h3 id="chip-content">Chip Content</h3><p>A chip shows the option's label by default. To put something richer on it (a colored dot, an avatar, a status icon), mark that part of the option with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-chip</code>. The marked fragment becomes the chip; the rest of the row shows only in the list. This lets a menu row stay detailed while its chip stays compact.</p>
+<p>The chip mirrors your data. When a bound value inside the marked fragment changes, like a tag's color or name, the chip updates to match.</p>
+<p>Content stays interactive. A link (<code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">&lt;a href&gt;</code>) navigates, and an <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">@click</code> on the fragment runs against that row's own data, so a chip can act, not just display. The remove × is added for you and works on its own.</p>
+<p>Keep <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-label</code> set alongside it. That plain-text name is what the field stores for the value, what assistive tech announces, and what labels the remove button, so it stays meaningful whatever the chip shows.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"tags"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"picked"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Add tags"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"tags"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"t in tagList"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"t.id"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">:data-value</span>=<span class="hljs-string">"t.id"</span> <span class="hljs-attr">:data-label</span>=<span class="hljs-string">"t.name"</span>&gt;</span>
+            <span class="hljs-comment">&lt;!-- Shown on the chip --&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">data-chip</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row items-center gap-2"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"inline-block size-2.5 rounded-full"</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">"`background: ${t.color}`"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"t.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            <span class="hljs-comment">&lt;!-- Menu row only --&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"small trailing"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"t.id"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ picked: ['bug'], tagList: [{ id: 'bug', name: 'Bug', color: '#e5484d' }, { id: 'feature', name: 'Feature', color: '#30a46c' }, { id: 'docs', name: 'Docs', color: '#0091ff' }] }">
+<div class="combobox" style="anchor-name: --combobox-o3vagv8"><span class="combobox-chip" data-value="bug"><span><span data-chip="" class="row items-center gap-2"><span class="inline-block size-2.5 rounded-full" style="background: #e5484d"></span><span>Bug</span></span></span><button type="button" aria-label="Remove Bug">×</button></span><input x-combobox.multiple.chips="cb-tags" class="max-w-120" autocomplete="off" aria-controls="combobox-menu-5tnq3lk" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="" data-hydrate-id="h4"><span role="status"></span></div>
+<menu popover="" id="cb-tags" style="display: none !important">
+<li data-value="bug" data-label="Bug">
+<span data-chip="" class="row items-center gap-2"><span class="inline-block size-2.5 rounded-full" style="background: #e5484d"></span><span>Bug</span></span>
+<span class="small trailing">bug</span>
+</li><li data-value="feature" data-label="Feature">
+<span data-chip="" class="row items-center gap-2"><span class="inline-block size-2.5 rounded-full" style="background: #30a46c"></span><span>Feature</span></span>
+<span class="small trailing">feature</span>
+</li><li data-value="docs" data-label="Docs">
+<span data-chip="" class="row items-center gap-2"><span class="inline-block size-2.5 rounded-full" style="background: #0091ff"></span><span>Docs</span></span>
+<span class="small trailing">docs</span>
+</li>
+</menu>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="options">Options</h2><p>Beyond modifiers, settings are passed as an object in the directive value. The bare id form is shorthand for the <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">source</code> key, so <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-combobox="people"</code> and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-combobox="{ source: 'people' }"</code> are the same.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">source</code></td>
+<td>ID of the <code>&lt;datalist&gt;</code>, <code>&lt;select&gt;</code>, or <code>&lt;menu&gt;</code> holding the options</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">max</code></td>
+<td>Most selections allowed; omit for uncapped selections</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">filter</code></td>
+<td>How typed text matches options. See below</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">separators</code></td>
+<td>Characters that commit the current entry as a chip</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">min</code></td>
+<td>Characters to type before remote results are fetched</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">debounce</code></td>
+<td>Milliseconds to wait after typing before fetching. Default <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">200</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="filtering">Filtering</h3><p>Set how typed text matches options with the <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">filter</code> option.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Match</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">includes</code></td>
+<td>Text appears anywhere in the option (default mode)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">startswith</code></td>
+<td>Option begins with the text</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">none</code></td>
+<td>No filtering; always show every option</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">pattern</code></td>
+<td>Match each option's own <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-pattern</code> expression against the input</td>
+</tr>
+</tbody></table>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox</span>=<span class="hljs-string">"{ source: 'countries', filter: 'startswith' }"</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h2 id="modifiers">Modifiers</h2><h3 id="new-values">New Values</h3><p>A field accepts anything the user types by default. Add <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">.create</code> to show an explicit "Add …" row for the current text when it does not match an option.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips.create</span>=<span class="hljs-string">"skills"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Skills"</span>&gt;</span></code></pre>
+<aside class="frame"><div class="combobox" style="anchor-name: --combobox-lnubpd9"><input x-combobox.multiple.chips.create="cb-skills-create" class="max-w-120" autocomplete="off" aria-controls="combobox-menu-bukl1kj" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Skills"><span role="status"></span></div>
+<datalist id="cb-skills-create" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option></datalist></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>To restrict the field to the list and reject anything else, add <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">.strict</code> instead.</p>
+<hr>
+<h3 id="limit">Limit</h3><p>Cap the number of selections with the <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">max</code> option. Once the limit is reached the field stops accepting input until a chip is removed.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"{ source: 'skills', max: 3 }"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Pick up to 3"</span>&gt;</span></code></pre>
+<aside class="frame"><div class="combobox" style="anchor-name: --combobox-yp46n6v"><input x-combobox.multiple.chips="{ source: 'cb-skills-max', max: 3 }" class="max-w-120" autocomplete="off" aria-controls="combobox-menu-ftv24jf" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Pick up to 3"><span role="status"></span></div>
+<datalist id="cb-skills-max" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h3 id="locked-values">Locked Values</h3><p>Mark a value as locked to keep it in the field but block its removal — its × is hidden and the chip ignores delete while still showing as selected. Flag an option with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-locked</code>, or pass a <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">locked</code> list in the directive. Below, <strong>SSL</strong> is always included so its chip has no remove button, while the other features can be cleared.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"features"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"plan"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Add features"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">datalist</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"features"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">data-locked</span>&gt;</span>SSL<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Backups<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Analytics<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">datalist</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ plan: ['SSL', 'Backups'] }" class="max-w-120">
+<div class="combobox" style="anchor-name: --combobox-9nu9ufd"><span class="combobox-chip" data-value="SSL" data-locked=""><span>SSL</span></span><span class="combobox-chip" data-value="Backups"><span>Backups</span><button type="button" aria-label="Remove Backups">×</button></span><input x-combobox.multiple.chips="cb-plan-lock" autocomplete="off" aria-controls="combobox-menu-a57p3b1" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="" data-hydrate-id="h5"><span role="status"></span></div>
+<datalist id="cb-plan-lock" style="display: none !important"><option data-locked="">SSL</option><option>Backups</option><option>Analytics</option><option>Priority support</option></datalist>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Locking is reactive. Bind an option's flag with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">:data-locked="isRequired || null"</code> — Alpine adds the attribute when the value is truthy and removes it on <code>null</code> — and the chip locks or unlocks live as state changes (× hidden, delete ignored, still selected). The directive's <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">locked</code> list works the same way: pass <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">locked: &lt;expression&gt;</code> in the config object. So an Owner chip can lock only while it's the last owner, then unlock when another is added.</p>
+<hr>
+<h3 id="remote-suggestions">Remote Suggestions</h3><p>Add <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">.async</code> to fetch options as the user types instead of filtering a fixed list. On each keystroke the field sends a <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">combobox-filter</code> event carrying the typed <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">value</code> and a <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">setOptions</code> callback. Call <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">setOptions</code> with your results to fill the list.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.async</span>=<span class="hljs-string">"{ min: 1 }"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Search users"</span>
+    @<span class="hljs-attr">combobox-filter</span>=<span class="hljs-string">"
+        fetch('/api/users?q=' + $event.detail.value)
+            .then(r =&gt; r.json())
+            .then(users =&gt; $event.detail.setOptions(users))
+    "</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<aside class="frame"><div x-data="{ search(e) { const all = ['Ada Lovelace','Alan Turing','Grace Hopper','Katherine Johnson','Linus Torvalds','Margaret Hamilton']; const v = e.detail.value.toLowerCase(); clearTimeout(this._t); this._t = setTimeout(() =&gt; e.detail.setOptions(all.filter(n =&gt; n.toLowerCase().includes(v))), 400) } }">
+<div class="combobox" style="anchor-name: --combobox-omqdc3u"><input x-combobox.async="{ min: 1 }" @combobox-filter="search($event)" class="max-w-104" autocomplete="off" aria-controls="combobox-menu-bdgbdhc" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="Search users" data-hydrate-id="h6"><span role="status"></span></div>
+</div></aside>
+<p>Each result is <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">{ value, label }</code>, or a plain string when the two are the same. The field opens on focus, shows a brief loading state while it waits, and ignores out-of-date responses. Use <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">min</code> to set how many characters are needed before fetching, and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">debounce</code> to set the pause after typing.</p>
+<hr>
+<h2 id="form-participation">Form Participation</h2><p>Add a <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">name</code> attribute to submit with a <code>&lt;form&gt;</code>. A single text field submits its value directly. A field with chips, or any multiple field, submits one entry per value under that name, which arrives as a list on the server.</p>
+<p>The field fires a <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">change</code> event when a selection commits or a value is removed — and only then — so saving on <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">@change</code> is safe. Opening, focusing, filtering, and moving the highlight never commit anything, and pressing Enter only commits an option the user has navigated to or text they typed.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="markup-tab-0" aria-selected="true" tabindex="0">Markup</button><button type="button" role="tab" id="submitted-tab-1" aria-selected="false" tabindex="-1">Submitted</button></div></header>
+
+<pre x-code="html" name="Markup" copy="" data-code-block-built="yes" aria-label="Markup" role="tabpanel" data-code-processed="yes" id="markup-panel-0" aria-labelledby="markup-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">form</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"tags"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"tags"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"design, research"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>&gt;</span>Save<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code></pre>
+<pre x-code="txt" name="Submitted" data-code-block-built="yes" aria-label="Submitted" role="tabpanel" data-code-processed="yes" id="submitted-panel-1" aria-labelledby="submitted-tab-1" style="display: none"><code class="hljs language-plaintext" data-highlighted="yes">tags=design
+tags=research</code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="dynamic-data">Dynamic Data</h2><p>Bind a field to state with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-model</code> and it stays in sync both ways. The field renders one chip per value on load and re-renders whenever the bound value changes — so the same combobox both composes a new selection and edits an existing record (switch which record is selected and the chips follow). Adding or removing chips writes straight back to the bound value.</p>
+<p>The bound value can be an array or a comma-separated string; the field keeps whatever shape it started with. Any reactive source works, including <a href="/docs/framework/core-modules/local-data">local</a> and <a href="/docs/framework/appwrite-modules/cloud-data">cloud</a> data through <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$x</code>.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ member: { roles: ['Design', 'Research'] } }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"roles"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"member.roles"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Roles"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ roles: ['Design', 'Research'] }" class="col gap-3 max-w-120">
+<div class="combobox" style="anchor-name: --combobox-8966qj7"><span class="combobox-chip" data-value="Design"><span>Design</span><button type="button" aria-label="Remove Design">×</button></span><span class="combobox-chip" data-value="Research"><span>Research</span><button type="button" aria-label="Remove Research">×</button></span><input x-combobox.multiple.chips="cb-roles-bind" autocomplete="off" aria-controls="combobox-menu-5fq88fy" aria-expanded="false" role="combobox" aria-autocomplete="list" placeholder="" data-hydrate-id="h7"><span role="status"></span></div>
+<datalist id="cb-roles-bind" style="display: none !important"><option>Design</option><option>Writing</option><option>Research</option><option>Strategy</option><option>Testing</option></datalist>
+<button type="button" class="sm" @click="roles = ['Writing', 'Testing']">Load a different record</button>
+<code x-text="'roles = ' + JSON.stringify(roles)">roles = ["Design","Research"]</code>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>When the list carries separate values and labels — a <a href="#dropdown-menu">dropdown menu</a> with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-value</code>/<code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-label</code> — the chip shows the label while the bound value holds the token. An option with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-value="owner"</code> and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-label="Owner"</code> shows "Owner" on its chip and stores <code>owner</code> in <code>roles</code>, keeping value mapping clean for editing.</p>
+<p>The bound value is only ever written on an explicit selection or removal. Loading, focusing, filtering, and abandoned typing leave it untouched, so persisting the model (or saving on <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">change</code>) is safe in an editor.</p>
+<hr>
+<h2 id="localization">Localization</h2><p>The few built-in UI strings are overridable through the universal <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">_ui</code> block, namespaced under <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">combobox</code>, in any <a href="/docs/framework/core-modules/local-data">local data</a> file your project loads. Override only the keys you want. Anything omitted stays in English, and switching <a href="/docs/framework/core-modules/localization">locale</a> updates them live.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id="content.fr.yaml-tab-1" aria-selected="false" tabindex="-1">content.fr.yaml</button></div></header>
+
+<pre x-code="json" name="manifest.json" data-code-block-built="yes" aria-label="manifest.json" role="tabpanel" data-code-processed="yes" id="manifest.json-panel-0" aria-labelledby="manifest.json-tab-0"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"en"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/data/content.en.yaml"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"fr"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/data/content.fr.yaml"</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+<pre x-code="yaml" name="content.fr.yaml" data-code-block-built="yes" aria-label="content.fr.yaml" role="tabpanel" data-code-processed="yes" id="content.fr.yaml-panel-1" aria-labelledby="content.fr.yaml-tab-1" style="display: none"><code class="hljs language-yaml" data-highlighted="yes"><span class="hljs-attr">_ui:</span>
+    <span class="hljs-attr">combobox:</span>
+        <span class="hljs-attr">empty:</span> <span class="hljs-string">Aucun</span> <span class="hljs-string">résultat</span>
+        <span class="hljs-attr">add:</span> <span class="hljs-string">Ajouter</span> <span class="hljs-string">«</span> {<span class="hljs-string">value</span>} <span class="hljs-string">»</span>
+        <span class="hljs-attr">loading:</span> <span class="hljs-string">Recherche…</span>
+        <span class="hljs-attr">prompt:</span> <span class="hljs-string">Tapez</span> <span class="hljs-string">pour</span> <span class="hljs-string">rechercher</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">add</code> string places the typed text with a <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">{value}</code> token, so translations keep their own word order and punctuation.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">empty</code></td>
+<td>No matches</td>
+<td>Shown when nothing matches</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">add</code></td>
+<td>Add “{value}”</td>
+<td>The <code>.create</code> row label</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">loading</code></td>
+<td>Searching…</td>
+<td>Shown while remote results load</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">prompt</code></td>
+<td>Type to search</td>
+<td>Remote field before enough is typed</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="keyboard">Keyboard</h2><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>↑</code> <code>↓</code></td>
+<td>Move through the list</td>
+</tr>
+<tr>
+<td><code>Enter</code></td>
+<td>Select the highlighted option, or commit typed text</td>
+</tr>
+<tr>
+<td><code>Backspace</code></td>
+<td>Remove the last chip when the field is empty</td>
+</tr>
+<tr>
+<td>Separator</td>
+<td>Commit the current text as a chip</td>
+</tr>
+<tr>
+<td><code>Escape</code></td>
+<td>Close the list</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="styles">Styles</h2><h3 id="theme">Theme</h3><p>Comboboxes use the following <a href="/docs/framework/styles/theme">theme</a> variables.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-field-surface</code></td>
+<td>Field background, and the highlighted option</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-field-surface-hover</code></td>
+<td>Field hover background</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-field-inverse</code></td>
+<td>Field text</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-popover-surface</code></td>
+<td>Suggestion menu, and the default chip background</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-content-stark</code></td>
+<td>Default chip text and the focus ring</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-content-neutral</code></td>
+<td>Chip remove icon and the "Add …" row</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--combobox-chip-surface</code></td>
+<td>Set to recolor chip backgrounds (default: <code>--color-popover-surface</code>)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--combobox-chip-content</code></td>
+<td>Set to recolor chip text and remove icon (default: <code>--color-content-stark</code>)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-content-subtle</code></td>
+<td>Caret and empty-state text</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-negative-surface</code> / <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-negative-inverse</code></td>
+<td>Invalid chip</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--radius</code></td>
+<td>Field, chip, and menu corners</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--spacing-field-height</code></td>
+<td>Field height</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--spacing-field-padding</code></td>
+<td>Field padding</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--icon-chevron-down</code></td>
+<td>Button trigger caret</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--transition</code></td>
+<td>Interactive transitions</td>
+</tr>
+</tbody></table>
+<h3 id="customization">Customization</h3><p>The markup is semantic, so the parts are plain selectors.</p>
+<table>
+<thead>
+<tr>
+<th>Selector</th>
+<th>Part</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">.combobox</code></td>
+<td>The field shell</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">.combobox-chip</code></td>
+<td>A chip, with its label in a <code>span</code> and remove control in a <code>button</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">menu[role=listbox]</code></td>
+<td>The suggestion menu</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">[role=option]</code></td>
+<td>An option</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">[role=option][aria-selected=true]</code></td>
+<td>A chosen option</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">[role=option][aria-current=true]</code></td>
+<td>The highlighted option</td>
+</tr>
+</tbody></table>
+<pre x-code="css" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-comment">/* Pill-shaped chips */</span>
+<span class="hljs-selector-class">.combobox-chip</span> {
+    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">100px</span>;
+}</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>To recolor chips, set <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--combobox-chip-surface</code> and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--combobox-chip-content</code> rather than overriding the colors directly. Because they inherit, set them on one field or everywhere. The defaults stay until you do, and the invalid state keeps its own colors.</p>
+<pre x-code="css" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-comment">/* Brand-colored chips, everywhere */</span>
+<span class="hljs-selector-pseudo">:root</span> {
+    <span class="hljs-attr">--combobox-chip-surface</span>: <span class="hljs-built_in">var</span>(--color-brand-surface);
+    <span class="hljs-attr">--combobox-chip-content</span>: <span class="hljs-built_in">var</span>(--color-brand-content);
+}</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Just this field --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--combobox-chip-surface: #1e3a8a; --combobox-chip-content: #dbeafe"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-combobox.multiple.chips</span>=<span class="hljs-string">"tags"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"picked"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>The same two variables also work <strong>per option</strong> — put them on an option's <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">&lt;li&gt;</code> (or its <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">[data-chip]</code> fragment) and only that chip takes the color. The whole chip is tinted — background, label, and remove button — so each selected tag can carry its own color with no scripting. Options without the variables keep the field default.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"tags"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">data-value</span>=<span class="hljs-string">"urgent"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--combobox-chip-surface: #dc2626; --combobox-chip-content: #fff"</span>&gt;</span>Urgent<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">data-value</span>=<span class="hljs-string">"review"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--combobox-chip-surface: #0891b2; --combobox-chip-content: #fff"</span>&gt;</span>Review<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">data-value</span>=<span class="hljs-string">"later"</span>&gt;</span>Later<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Bind the color with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">:style</code> when it comes from your data (<code>:style="</code>--combobox-chip-surface: ${tag.color}<code>"</code>) — the chip re-tints whenever the value changes.</p>
+</div>
+
+      <!-- Previous / next -->
+      <template x-if="article?.name &amp;&amp; (prev || next)">
+        <nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template>
+        </nav>
+      </template><nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="" data-mnfst-prerender-clone="1">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template><a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline" href="/docs/framework/elements/color-pickers" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name">Color Pickers</span>
+            </a>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template><a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end" href="/docs/framework/elements/date-pickers" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name">Date Pickers</span>
+            </a>
+        </nav>
+
+      <!-- Family home (markdown) -->
+      <template x-if="at(base) &amp;&amp; home">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="home"></div>
+      </template>
+
+      <!-- Docs home -->
+      <template x-if="at(base) &amp;&amp; landing">
+        <div class="col gap-8 pb-12">
+          <template x-if="landing === 'framework'"><x-framework></x-framework></template>
+          <template x-if="landing === 'platform'"><x-docs-platform></x-docs-platform></template>
+          <template x-if="landing === 'api'"><x-docs-api></x-docs-api></template>
+          <div class="col gap-4 w-content-width max-w-full mx-auto">
+            <h2 class="h4">Explore the docs</h2>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <template x-for="card in cards" :key="card.href">
+                <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                  <span x-icon="card.icon" class="text-brand-content"></span>
+                  <span class="col">
+                    <span class="text-content-stark font-medium" x-text="card.title"></span>
+                    <small class="text-content-subtle" x-text="card.sub"></small>
+                  </span>
+                </a>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template x-if="at(base) &amp;&amp; !home &amp;&amp; !landing">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="heading"></h1>
+            <p class="text-content-neutral" x-show="intro" x-text="intro"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="card in cards" :key="card.href">
+              <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="card.icon" class="text-brand-content"></span>
+                <span class="col">
+                  <span class="text-content-stark font-medium" x-text="card.title"></span>
+                  <small class="text-content-subtle" x-text="card.sub"></small>
+                </span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Group landing -->
+      <template x-if="group?.group">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="group?.group"></h1>
+            <p class="text-content-neutral" x-show="group?.description" x-text="group?.description"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
+              <a :href="href(group, item)" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
+                <span class="text-content-stark" x-text="item.name"></span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+    </div>
+
+    <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
+    <template x-if="!article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
+      <div class="max-w-full prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
+
+    <footer class="mt-20">
+  <hr>
+  <div class="row-wrap justify-between items-center gap-4 pt-4">
+
+    <figcaption class="text-content-subtle">© 2026 MNFST OÜ • <a href="/legal/terms">Terms</a> • <a href="/legal/privacy">Privacy</a><span x-show="$route.startsWith('/docs/framework')"> • Framework under the <a href="/docs/framework/resources/license">MIT License</a></span></figcaption>
+
+    <div class="row-wrap gap-3">
+
+      <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
+
+      <div role="tablist" aria-label="Color mode" class="sm rounded-full">
+        <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h8"></button>
+        <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h9"></button>
+        <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h10"></button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+
+  <!-- Anchor links -->
+  <nav aria-label="On this page" x-show="!(at(base) &amp;&amp; landing)" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
+
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+      <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
+      <span>On this page</span>
+    </small>
+
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#triggers">Triggers</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#input">Input</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#textarea">Textarea</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#button">Button</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#chips">Chips</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#separators">Separators</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#starting-values">Starting Values</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#suggestions-list">Suggestions List</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#dropdown-menu">Dropdown Menu</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#chip-content">Chip Content</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#options">Options</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#filtering">Filtering</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#modifiers">Modifiers</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#new-values">New Values</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#limit">Limit</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#locked-values">Locked Values</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#remote-suggestions">Remote Suggestions</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#form-participation">Form Participation</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#dynamic-data">Dynamic Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#localization">Localization</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#keyboard">Keyboard</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#theme">Theme</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#customization">Customization</a></div>
+
+  </nav>
+
+</div>
+
+    <!-- Legal pages -->
+    
+
+    <!-- Support -->
+    
+
+  </main>
+
+  <!-- Footer (visible on every route) -->
+  
+
+
+
+<menu x-ignore="" popover="manual" x-defer.off="" id="combobox-menu-89utz1s" role="listbox" style="position-anchor: --combobox-paf9vz1"><li id="combobox-menu-89utz1s-opt-0" data-value="Australia" data-label="Australia" role="option" aria-selected="false">Australia</li><li id="combobox-menu-89utz1s-opt-1" data-value="Brazil" data-label="Brazil" role="option" aria-selected="false">Brazil</li><li id="combobox-menu-89utz1s-opt-2" data-value="Canada" data-label="Canada" role="option" aria-selected="false">Canada</li><li id="combobox-menu-89utz1s-opt-3" data-value="Denmark" data-label="Denmark" role="option" aria-selected="false">Denmark</li><li id="combobox-menu-89utz1s-opt-4" data-value="France" data-label="France" role="option" aria-selected="false">France</li><li id="combobox-menu-89utz1s-opt-5" data-value="Germany" data-label="Germany" role="option" aria-selected="false">Germany</li><li id="combobox-menu-89utz1s-opt-6" data-value="Japan" data-label="Japan" role="option" aria-selected="false">Japan</li><li id="combobox-menu-89utz1s-opt-7" data-value="Mexico" data-label="Mexico" role="option" aria-selected="false">Mexico</li><li id="combobox-menu-89utz1s-opt-8" data-value="Spain" data-label="Spain" role="option" aria-selected="false">Spain</li><li id="combobox-menu-89utz1s-opt-9" data-value="Sweden" data-label="Sweden" role="option" aria-selected="false">Sweden</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" x-defer.off="" id="combobox-menu-ttl1kg7" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-nohtu2o"><li id="combobox-menu-ttl1kg7-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-ttl1kg7-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-ttl1kg7-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-ttl1kg7-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-ttl1kg7-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" x-defer.off="" id="combobox-menu-pelh9la" role="listbox" style="position-anchor: --combobox-ygiwptr"><li id="combobox-menu-pelh9la-opt-0" data-value="Low" data-label="Low" role="option" aria-selected="false">Low</li><li id="combobox-menu-pelh9la-opt-1" data-value="Medium" data-label="Medium" role="option" aria-selected="false">Medium</li><li id="combobox-menu-pelh9la-opt-2" data-value="High" data-label="High" role="option" aria-selected="false">High</li><li id="combobox-menu-pelh9la-opt-3" data-value="Urgent" data-label="Urgent" role="option" aria-selected="false">Urgent</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" x-defer.off="" id="combobox-menu-y4xj0bg" role="listbox" style="position-anchor: --combobox-2linnz7"><li id="combobox-menu-y4xj0bg-opt-0" data-value="Australia" data-label="Australia" role="option" aria-selected="false">Australia</li><li id="combobox-menu-y4xj0bg-opt-1" data-value="Brazil" data-label="Brazil" role="option" aria-selected="false">Brazil</li><li id="combobox-menu-y4xj0bg-opt-2" data-value="Canada" data-label="Canada" role="option" aria-selected="false">Canada</li><li id="combobox-menu-y4xj0bg-opt-3" data-value="Denmark" data-label="Denmark" role="option" aria-selected="false">Denmark</li><li id="combobox-menu-y4xj0bg-opt-4" data-value="France" data-label="France" role="option" aria-selected="false">France</li><li id="combobox-menu-y4xj0bg-opt-5" data-value="Germany" data-label="Germany" role="option" aria-selected="false">Germany</li><li id="combobox-menu-y4xj0bg-opt-6" data-value="Japan" data-label="Japan" role="option" aria-selected="false">Japan</li><li id="combobox-menu-y4xj0bg-opt-7" data-value="Mexico" data-label="Mexico" role="option" aria-selected="false">Mexico</li><li id="combobox-menu-y4xj0bg-opt-8" data-value="Spain" data-label="Spain" role="option" aria-selected="false">Spain</li><li id="combobox-menu-y4xj0bg-opt-9" data-value="Sweden" data-label="Sweden" role="option" aria-selected="false">Sweden</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" x-defer.off="" id="combobox-menu-zcppc2b" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-cjk9z3t"><li id="combobox-menu-zcppc2b-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-zcppc2b-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-zcppc2b-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-zcppc2b-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-zcppc2b-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" x-defer.off="" id="combobox-menu-jjte817" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-4ye3kil"><li data-value="ana" data-label="Ana Ruiz" id="combobox-menu-jjte817-opt-0" role="option" aria-selected="false">Ana Ruiz <span class="trailing">ana@acme.com</span></li><li data-value="sam" data-label="Sam Cole" id="combobox-menu-jjte817-opt-1" role="option" aria-selected="false">Sam Cole <span class="trailing">sam@acme.com</span></li><li data-value="kim" data-label="Kim Park" id="combobox-menu-jjte817-opt-2" role="option" aria-selected="false">Kim Park <span class="trailing">kim@acme.com</span></li><li data-value="lee" data-label="Lee Nash" id="combobox-menu-jjte817-opt-3" role="option" aria-selected="false">Lee Nash <span class="trailing">lee@acme.com</span></li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" x-defer.off="" id="combobox-menu-5tnq3lk" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-o3vagv8"><li data-value="bug" data-label="Bug" id="combobox-menu-5tnq3lk-opt-0" role="option" aria-selected="true">
+<span data-chip="" class="row items-center gap-2"><span class="inline-block size-2.5 rounded-full" style="background: #e5484d"></span><span>Bug</span></span>
+<span class="small trailing">bug</span>
+</li><li data-value="feature" data-label="Feature" id="combobox-menu-5tnq3lk-opt-1" role="option" aria-selected="false">
+<span data-chip="" class="row items-center gap-2"><span class="inline-block size-2.5 rounded-full" style="background: #30a46c"></span><span>Feature</span></span>
+<span class="small trailing">feature</span>
+</li><li data-value="docs" data-label="Docs" id="combobox-menu-5tnq3lk-opt-2" role="option" aria-selected="false">
+<span data-chip="" class="row items-center gap-2"><span class="inline-block size-2.5 rounded-full" style="background: #0091ff"></span><span>Docs</span></span>
+<span class="small trailing">docs</span>
+</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" x-defer.off="" id="combobox-menu-bukl1kj" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-lnubpd9"><li id="combobox-menu-bukl1kj-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-bukl1kj-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-bukl1kj-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-bukl1kj-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li class="combobox-create" role="option" hidden=""></li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" x-defer.off="" id="combobox-menu-ftv24jf" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-yp46n6v"><li id="combobox-menu-ftv24jf-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="false">Design</li><li id="combobox-menu-ftv24jf-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-ftv24jf-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="false">Research</li><li id="combobox-menu-ftv24jf-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-ftv24jf-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" x-defer.off="" id="combobox-menu-a57p3b1" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-9nu9ufd"><li id="combobox-menu-a57p3b1-opt-0" data-value="SSL" data-label="SSL" role="option" aria-selected="true">SSL</li><li id="combobox-menu-a57p3b1-opt-1" data-value="Backups" data-label="Backups" role="option" aria-selected="true">Backups</li><li id="combobox-menu-a57p3b1-opt-2" data-value="Analytics" data-label="Analytics" role="option" aria-selected="false">Analytics</li><li id="combobox-menu-a57p3b1-opt-3" data-value="Priority support" data-label="Priority support" role="option" aria-selected="false">Priority support</li><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" x-defer.off="" id="combobox-menu-bdgbdhc" role="listbox" style="position-anchor: --combobox-omqdc3u"><div class="combobox-empty" hidden=""></div></menu><menu x-ignore="" popover="manual" x-defer.off="" id="combobox-menu-5fq88fy" role="listbox" aria-multiselectable="true" style="position-anchor: --combobox-8966qj7"><li id="combobox-menu-5fq88fy-opt-0" data-value="Design" data-label="Design" role="option" aria-selected="true">Design</li><li id="combobox-menu-5fq88fy-opt-1" data-value="Writing" data-label="Writing" role="option" aria-selected="false">Writing</li><li id="combobox-menu-5fq88fy-opt-2" data-value="Research" data-label="Research" role="option" aria-selected="true">Research</li><li id="combobox-menu-5fq88fy-opt-3" data-value="Strategy" data-label="Strategy" role="option" aria-selected="false">Strategy</li><li id="combobox-menu-5fq88fy-opt-4" data-value="Testing" data-label="Testing" role="option" aria-selected="false">Testing</li><div class="combobox-empty" hidden=""></div></menu><script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"data-order":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"x-model":"picked","placeholder":"Add tags","autocomplete":null,"aria-controls":null,"aria-expanded":null,"role":null,"aria-autocomplete":null}},{"id":"h5","attrs":{"x-model":"plan","placeholder":"Add features","autocomplete":null,"aria-controls":null,"aria-expanded":null,"role":null,"aria-autocomplete":null}},{"id":"h6","attrs":{"autocomplete":null,"aria-controls":null,"aria-expanded":null,"role":null,"aria-autocomplete":null}},{"id":"h7","attrs":{"x-model":"roles","placeholder":"Roles","autocomplete":null,"aria-controls":null,"aria-expanded":null,"role":null,"aria-autocomplete":null}},{"id":"h8","attrs":{"aria-selected":null,"type":null}},{"id":"h9","attrs":{"aria-selected":null,"type":null}},{"id":"h10","attrs":{"aria-selected":null,"type":null}}]</script>
+</body></html>

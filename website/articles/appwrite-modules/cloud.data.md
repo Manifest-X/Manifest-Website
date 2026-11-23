@@ -1,0 +1,111 @@
+# Cloud Data
+
+Access Appwrite databases and storage with the same `$x` API as [local data](/docs/framework/core-modules/local-data).
+
+---
+
+## Setup
+
+Complete the [Appwrite setup](/docs/framework/appwrite-modules/appwrite-setup) steps to connect your Appwrite and Manifest projects.
+
+Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json` is also required for Appwrite credentials and to register database tables or storage buckets.
+
+<div x-code-group copy>
+
+```html "Auto-detect"
+<!-- Meta -->
+<link rel="manifest" href="/manifest.json">
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
+```
+
+```html "Declared"
+<!-- Meta -->
+<link rel="manifest" href="/manifest.json">
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
+    data-modules="+appwrite-data"></script>
+```
+
+</div>
+
+::: brand icon="lucide:info"
+If `data-modules` lists modules without the `+` prefix and leaves out the core `data` module (with its `$x` magic method), it is still loaded automatically to enable Appwrite database and storage operations in the frontend.
+:::
+
+---
+
+## Overview
+
+Appwrite's cloud data sources work identically to local data sources in the frontend, using the same `$x` magic method syntax. The module automatically handles authentication, permissions, and realtime updates.
+
+**Key Features:**
+- **Unified Syntax**: Same `$x.sourceName` pattern for databases, storage, and local files
+- **Realtime Updates**: Changes sync automatically across all active sessions
+- **Permission-Aware**: Respects Appwrite permissions and scopes
+- **CRUD Operations**: Create, read, update, and delete using intuitive methods
+- **Scoping**: Automatically scope queries by user, current team, or all of the user's teams
+
+---
+
+## Who Sees What
+
+What a visitor can read depends on who they are: through [scopes](/docs/framework/appwrite-modules/databases#scope), `$auth.` queries, or the row and file permissions set in Appwrite.
+
+- **Identity changes reload sources.** When someone signs in, signs out, or switches accounts (a guest signing in included), in any tab, every table and bucket source reloads for the new identity. The previous user's or guest's rows are cleared at once; rows read while signed out stay on screen until the new ones arrive.
+- **Unscoped sources follow Appwrite permissions.** Tables and buckets without a scope or `$auth.` queries read whatever Appwrite allows, including rows and files open to everyone (`read("any")`) or to the `guests` role for signed-out visitors. When Appwrite refuses a signed-out visitor's table read outright, the source reports an "Authentication required" `$error`; with row security on and no rows readable by guests, it settles empty with no `$error`.
+- **Scoped sources wait for a user.** Scoped tables, and sources whose queries use `$auth.` values, stay empty until someone signs in. After an [offline start](/docs/framework/appwrite-modules/users#session-recovery), a persisted source keeps the rows saved for the user last signed in on this device until the session is checked.
+
+The [prerender](/docs/framework/publishing/websites) runs signed out. `x-for` lists over a table re-render from live rows at runtime; values bound directly (e.g. `x-text`) and `data-static` lists keep the rows readable by `any` or `guests` as rendered until the next render and publish. Mark such an element with [`data-hydrate`](/docs/framework/publishing/websites#hydration) to keep it live.
+
+Cloud sources can keep their last rows on the visitor's device with the same `persist` option as any other source, so a return visit shows data before the network answers. See [persisted data](/docs/framework/core-modules/local-data#persisted-data).
+
+## How Data Updates
+
+The parts of the page that read `$x.products` follow only the `products` source. When one source updates — including a realtime change from another session — only the parts of the page that read it are refreshed; everything else is left alone.
+
+Rows keep their identity. When new data arrives for rows you already have, the existing rows are updated in place, so lists don't flicker and edits you are making are not disturbed. Fields you add to a row yourself (a `_pending` flag on a placeholder, say) survive too — the network never sends them, so nothing clears them for you; clear them explicitly once the real data has landed.
+
+Your own changes show immediately. `$create`, `$update`, `$delete` and direct assignments appear on the page at once, even while data is still arriving from the network. Until Appwrite confirms a change, it stays on screen through any reload or update that arrives meanwhile, and data fetched before the change never shows the old values again, even when it arrives after Appwrite confirms. `$x.products.$saving(id)` is `true` while a row has a change waiting, and `$x.products.$pending` counts those rows.
+
+If Appwrite refuses a change, it is undone: a failed update restores only the fields it changed (unless someone else has changed them since), back to their values before any of your unconfirmed changes, a failed delete puts the row back where it was, and a failed create removes its placeholder. The call rejects, `$error` is set, and the window receives a `manifest:data-mutation-error` event with `{ type, dataSourceName, entryId, error }`.
+
+Network updates are batched. Many arriving at once are applied together, once per frame.
+
+`$x.products` is the same array every time you read it until the source changes, then a new one, so results computed from it can be kept against the array itself.
+
+Failed loads are retried before `$error` shows, and `$x.products.$reload()` fetches the source again, both as for [local sources](/docs/framework/core-modules/local-data#state-properties). On a cloud source, `$reload()` keeps an active `$query` and, on a [paged source](/docs/framework/appwrite-modules/databases#large-tables), as many rows as are loaded.
+
+If a source was loaded before, you see its cached rows immediately while fresh data loads. `$x.products.$stale` is `true` until the fresh data has landed, and `$x.products.$fresh` is a promise that resolves at that moment, for a single reveal. A reload keeps the rows on screen and merges the fresh data in place; a failed reload keeps the old rows and sets `$error`. Identical concurrent loads make one request.
+
+```html copy
+<small x-show="$x.products.$stale">Refreshing…</small>
+```
+
+---
+
+## Rendering Untrusted Content
+
+Cloud data is the case where Manifest's default-permissive rendering deserves a second thought: the values in an Appwrite table can be written by your end users (reviews, comments, bios, uploaded SVGs, etc.), not just by you.
+
+For those cases, prefer the safe variants when rendering into HTML or SVG sinks:
+
+| Source | Default render | Safe opt-in |
+|---|---|---|
+| User-submitted markdown | `<div x-markdown="$x.comments.body">` | `<div x-markdown.safe="$x.comments.body">` |
+| User-uploaded SVG | `<span x-svg="$x.profile.avatar">` | `<span x-svg.safe="$x.profile.avatar">` |
+
+`x-text`, attribute bindings (`:href`, `:src`, `:alt`), toasts, tooltips, and the standard Alpine `x-show` / `x-if` always treat values as data — they're safe by default. The `.safe` opt-ins exist for the HTML/SVG sinks where the default has to be permissive so authors can render their own rich content.
+
+---
+
+## Next Steps
+
+Complete cloud data support using the guides for:
+
+- [Databases](/docs/framework/appwrite-modules/databases) of cloud-hosted content
+- [Storage](/docs/framework/appwrite-modules/storage) of cloud-hosted files

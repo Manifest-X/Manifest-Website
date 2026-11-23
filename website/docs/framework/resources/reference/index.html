@@ -1,0 +1,2098 @@
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" data-online="true" data-os="macos" dir="auto"><head>
+  <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Manifest's CLI commands, directives, magic properties, data-source operators, and state-management patterns.">
+  <meta name="author" content="Andrew Matlock">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="google" content="notranslate">
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="preload" as="font" type="font/woff2" href="../../../../assets/fonts/Manrope.woff2" crossorigin="">
+
+  <!-- Web App & Manifest -->
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../../../../manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="../../../../manifest.theme.css">
+
+  <!-- Scripts -->
+  <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="../../../../scripts/payments-demo.js" defer=""></script>
+  <script src="../../../../scripts/hero-editor.js" defer=""></script>
+  <script src="../../../../scripts/hero-demo.js" defer=""></script>
+  <script src="../../../../scripts/console-message.js" defer=""></script>
+
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+@custom-variant cursor (@media (pointer: fine) and (hover: hover));
+@custom-variant pointer (@media (any-pointer: fine));
+@custom-variant mac (&:where([data-os="macos"] *));
+@custom-variant windows (&:where([data-os="windows"] *));
+@custom-variant linux (&:where([data-os="linux"] *));
+@custom-variant ios (&:where([data-os="ios"] *));
+@custom-variant android (&:where([data-os="android"] *));
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));
+@custom-variant online (&:where([data-online="true"] *));
+@custom-variant offline (&:where([data-online="false"] *));
+@custom-variant standalone (&:where([data-standalone] *));
+@custom-variant native (&:where([data-native] *));
+@custom-variant web (&:where(html:not([data-native]) *));
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Reference — Manifest</title><meta property="og:title" content="Reference — Manifest"><meta property="og:description" content="Manifest's CLI commands, directives, magic properties, data-source operators, and state-management patterns."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/resources/reference"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-resources-reference.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Reference — Manifest"><meta property="twitter:description" content="Manifest's CLI commands, directives, magic properties, data-source operators, and state-management patterns."><meta property="twitter:image" content="/og/docs-framework-resources-reference.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Reference — Manifest","description":"Manifest's CLI commands, directives, magic properties, data-source operators, and state-management patterns.","image":"/og/docs-framework-resources-reference.png","url":"https://manifestx.dev/docs/framework/resources/reference"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Resources","item":"https://manifestx.dev/docs/framework/resources"},{"@type":"ListItem","position":5,"name":"Reference","item":"https://manifestx.dev/docs/framework/resources/reference"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/framework/resources/reference">
+<meta name="manifest:router-base" content="">
+<meta name="manifest:prerender-locales" content="en">
+<meta name="manifest:prerendered" content="1">
+<meta name="manifest:router-base-depth" content="4">
+</head>
+
+<body x-data="{
+  init() {
+    const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
+    document.documentElement.setAttribute('dir', savedDirection);
+  }
+}" class="bg-surface-1">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
+
+  <header style="view-transition-name: site-header" class="site-header fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
+
+    <!-- Content Area -->
+    <nav class="row justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+
+        <!-- Start -->
+        <div class="row items-center gap-3" x-data="{
+            get family() { return $route.startsWith('/docs/platform') ? 'platform' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+        }">
+
+            <!-- Logo -->
+            <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
+                <span class="hidden md:flex">{Manifest}</span>
+                <span class="md:hidden">{M}</span>
+            </a>
+
+            <!-- Docs family -->
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation" popovertarget="docs-family" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="docs-family" aria-expanded="false" data-hydrate-id="h1">
+                <span x-text="$x.site.docs.find(d =&gt; d.key === family)?.name">Framework</span>
+                <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
+            </button>
+            <menu popover="" id="docs-family" role="menu" style="position-anchor: --dropdown-p1">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a :href="'/docs/' + d.key" close="">
+                        <span x-text="d.name"></span>
+                        <span x-show="family === d.key" x-icon="lucide:check" class="trailing"></span>
+                    </a>
+                </template>
+            </menu>
+
+            <!-- Docs Breadcrumbs-->
+            
+            
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/framework/*">
+                <span x-text="$x.framework.$route('path')?.group || 'No group'">Resources</span>
+                <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
+                <span class="text-content-stark" x-text="$x.framework.$route('path')?.name || 'No article'">Reference</span>
+            </small>
+
+        </div>
+
+        <!-- End -->
+        <div class="row justify-end items-center gap-2">
+
+            <!-- CTAs -->
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+                <span x-icon="lucide:search"></span>
+                <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
+            </button>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="sm transparent outlined rounded-full" aria-label="GitHub" x-tooltip="GitHub" x-icon="meteor-icons:github"></a>
+            <a role="button" href="/docs" class="sm transparent outlined rounded-full">Docs</a>
+            <a role="button" href="https://dash.manifestx.dev" class="sm accent rounded-full" x-text="/(^|;\s*)mnfst_signed_in=1(;|$)/.test(document.cookie) ? 'Dashboard' : 'Sign in'">Sign in</a>
+
+            <!-- Mobile Sidebar Button -->
+            <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
+
+        </div>
+
+    </nav>
+
+</header>
+  <div x-data="{
+        sources: [['platform', '/docs/platform'], ['framework', '/docs/framework'], ['api', '/docs/api']],
+        labels: { platform: 'Platform', framework: 'Framework', api: 'API' },
+        q: '',
+        items: [],
+        ready: false,
+        loading: false,
+        active: 0,
+
+        // Fetch every article's markdown once, on first open; index title, description, headings, body.
+        async build() {
+            if (this.ready || this.loading) return;
+            this.loading = true;
+            const jobs = [];
+            for (const [src, base] of this.sources) {
+            for (let i = 0; i &lt; 20 &amp;&amp; (!$x[src] || !$x[src].length); i++) await new Promise(r =&gt; setTimeout(r, 100));
+            for (const g of ($x[src] || [])) {
+                for (const it of (g.items || [])) {
+                    if (!it.name || !it.doc) continue;
+                    const href = base + (g.slug ? '/' + g.slug : '') + '/' + it.path;
+                    jobs.push(fetch(it.doc)
+                        .then(r =&gt; r.ok ? r.text() : '')
+                        .catch(() =&gt; '')
+                        .then(md =&gt; {
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/&lt;[^&gt;]+&gt;/g, '').replace(/[*_`\[\]]/g, '').trim();
+                            const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
+                            const body = md
+                                .replace(/```[\s\S]*?```/g, ' ')
+                                .replace(/:::[^\n]*/g, ' ')
+                                .replace(/&lt;[^&gt;]+&gt;/g, ' ')
+                                .replace(/[#&gt;*_`\[\]()|]/g, ' ')
+                                .replace(/-{2,}/g, ' ')
+                                .replace(/\s+/g, ' ');
+                            this.items.push({
+                                name: it.name, group: g.group, icon: it.icon, href, desc, src,
+                                headings,
+                                hhay: headings.join(' · ').toLowerCase(),
+                                body, bhay: body.toLowerCase(),
+                            });
+                        }));
+                }
+            }
+            }
+            await Promise.all(jobs);
+            $x.$register('searchIndex', this.items);
+            this.ready = true;
+            this.loading = false;
+        },
+
+        results() {
+            const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
+            return ranked.slice(0, 20).map(it =&gt; ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i &gt; -1) return (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
+            }
+            return it.desc;
+        },
+
+        openDialog() { document.getElementById('docs-search')?.showPopover(); },
+        // The router swallows result clicks before element handlers run, so the
+        // dialog closes on the route-change event rather than the click itself.
+        closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
+        async onToggle(e) {
+            if (e.newState !== 'open') return;
+            this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() =&gt; { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
+        },
+        move(d) {
+            const n = this.results().length;
+            if (!n) return;
+            this.active = (this.active + d + n) % n;
+            this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
+        },
+        go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+
+        <!-- Query -->
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
+
+        <!-- Results -->
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
+            <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
+            <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
+                No matches for “<span x-text="q.trim()"></span>”.
+            </p>
+            <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i">
+                    <a :href="r.href" role="button" :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'" class="ghost justify-start w-full h-auto py-2 no-underline">
+                        <span class="col gap-0.5 min-w-0 grow text-left">
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <template x-if="r.group">
+                                    <small class="text-content-subtle font-normal" x-text="'· ' + r.group"></small>
+                                </template>
+                                <small class="badge sm ms-auto shrink-0 font-normal" x-text="labels[r.src]"></small>
+                            </span>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
+                        </span>
+                    </a>
+                </div>
+            </template>
+            <div class="h-2 shrink-0"></div>
+        </div>
+
+    </dialog>
+</div>
+  <nav aria-label="Menu" popover="" id="docs-nav" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 bg-popover-surface shadow-xl overflow-y-auto no-scrollbar" x-data="{
+        view: null,
+        get current() { return $route.match(/^\/docs\/(platform|api|framework)(\/|$)/)?.[1] || null },
+        get src() { return this.view || this.current },
+        get base() { return '/docs/' + this.src },
+        get groups() { return this.src ? $x[this.src] || [] : [] },
+        get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
+        here(href) { return $route.replace(/\/$/, '') === href },
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+
+    <!-- Docs -->
+    <template x-if="src">
+        <div class="col">
+            <div role="tablist" aria-label="Docs" class="sm rounded-full w-full my-4">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <button type="button" role="tab" :aria-selected="src === d.key" @click="view = d.key" x-text="d.name"></button>
+                </template>
+            </div>
+            <a role="button" :href="base" :aria-current="here(base) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="here(base) ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                <span x-icon="lucide:house"></span>
+                <span>Overview</span>
+            </a>
+            <template x-for="group in groups" :key="group.group">
+                <div class="col gap-6 py-4">
+                    <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
+                    <div class="col">
+                        <template x-for="(item, index) in group.items" :key="item.path || index">
+                            <a x-show="item.name" role="button" :href="base + (group.slug ? '/' + group.slug : '') + '/' + item.path" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="article?.path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                                <span x-icon="item.icon"></span>
+                                <span x-text="item.name"></span>
+                            </a>
+                        </template>
+                    </div>
+                    <hr>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <!-- Site -->
+    <div class="col py-4">
+        <template x-for="n in $x.site.nav" :key="n.href">
+            <a role="button" :href="n.href" :aria-current="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="n.icon"></span>
+                <span x-text="n.name"></span>
+            </a>
+        </template>
+    </div>
+    <hr class="shrink-0">
+    <template x-if="!src">
+        <div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Docs</small>
+            <div class="col">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a role="button" :href="'/docs/' + d.key" class="ghost justify-start w-full text-content-neutral">
+                        <span x-icon="d.icon"></span>
+                        <span x-text="d.name"></span>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </template>
+    <hr class="shrink-0" x-show="!src" style="display: none">
+    <div class="col py-4">
+        <template x-for="p in $x.site.pages" :key="p.href">
+            <a role="button" :href="p.href" :aria-current="$route.startsWith(p.href) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="$route.startsWith(p.href) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="p.icon"></span>
+                <span x-text="p.name"></span>
+            </a>
+        </template>
+    </div>
+
+</nav>
+
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
+
+    <!-- Home page -->
+    
+
+    <!-- Framework -->
+
+    <!-- Compare -->
+    
+
+    <!-- Documentation -->
+    
+    
+    
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-data="{
+    base: '/docs/framework' ?? '/docs/framework',
+    src: 'framework' ?? 'framework',
+    heading: 'Framework' ?? 'Docs',
+    intro: 'Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.' ?? '',
+    home: null ?? '',
+    landing: 'framework' ?? '',
+    canonical: 'https://manifestx.dev',
+    copied: false,
+    get pages() {
+      const out = [];
+      for (const g of this.groups) for (const i of (g.items || [])) if (i.name) out.push({ href: this.href(g, i), name: i.name, group: g.group || '' });
+      return out;
+    },
+    get pageIndex() { return this.pages.findIndex(p =&gt; this.at(p.href)) },
+    get prev() { return this.pageIndex &gt; 0 ? this.pages[this.pageIndex - 1] : null },
+    get next() { const i = this.pageIndex; return i &gt; -1 &amp;&amp; i &lt; this.pages.length - 1 ? this.pages[i + 1] : null },
+    aiApps: [
+      { name: 'Claude', icon: 'simple-icons:claude', url: 'https://claude.ai/new?q=' },
+      { name: 'ChatGPT', icon: 'simple-icons:openai', url: 'https://chatgpt.com/?q=' },
+      { name: 'Gemini', icon: 'simple-icons:googlegemini', url: 'https://gemini.google.com/app', paste: true },
+      { name: 'Perplexity', icon: 'simple-icons:perplexity', url: 'https://www.perplexity.ai/search?q=' }
+    ],
+    get askPrompt() { return `Read ${this.canonical + $route.replace(/\/$/, '')} from the Manifest docs and help me with it.` },
+    askIn(app) { return app.paste ? app.url : app.url + encodeURIComponent(this.askPrompt) },
+    askCopy(app) { if (app.paste) navigator.clipboard.writeText(this.askPrompt).catch(() =&gt; {}) },
+    async copyPage() {
+      const md = await fetch(this.article.doc).then(r =&gt; r.text());
+      const clean = md.replace(/`([^`\n]+)`\{[^}\n]*\}/g, '`$1`');
+      await navigator.clipboard.writeText(`Source: ${this.canonical}${$route.replace(/\/$/, '')}\n\n${clean}`);
+      this.copied = true;
+      setTimeout(() =&gt; this.copied = false, 1500);
+    },
+    get groups() { return $x[this.src] || [] },
+    get article() { return $x[this.src].$route('path') },
+    get group() { const g = $x[this.src].$route('slug'); return g?.group &amp;&amp; this.at(this.base + '/' + g.slug) ? g : null },
+    href(group, item) { return this.base + (group.slug ? '/' + group.slug : '') + (item ? '/' + item.path : '') },
+    get cards() {
+      const out = [];
+      for (const g of this.groups) {
+        const items = (g.items || []).filter(i =&gt; i.name);
+        if (g.group) out.push({ href: this.href(g), icon: g.icon || items[0]?.icon, title: g.group, sub: items.length + (items.length === 1 ? ' article' : ' articles') });
+        else items.forEach(i =&gt; out.push({ href: this.href(g, i), icon: i.icon, title: i.name, sub: i.description || 'Start here' }));
+      }
+      return out;
+    },
+    at(path) { return $route.replace(/\/$/, '') === path },
+  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.">
+
+  <!-- Desktop navigation -->
+  <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
+    <div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Getting Started</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-open"></span>
+              <span>Introduction</span>
+            </a><a role="button" href="/docs/framework/getting-started/setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:terminal"></span>
+              <span>Setup</span>
+            </a><a role="button" href="/docs/framework/getting-started/starter-project" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:package"></span>
+              <span>Starter Project</span>
+            </a><a role="button" href="/docs/framework/getting-started/compatibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe-lock"></span>
+              <span>Compatibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:eye"></span>
+              <span>Accessibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Core Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/core-modules/chat" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:message-square"></span>
+              <span>Chat</span>
+            </a><a role="button" href="/docs/framework/core-modules/components" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panels-top-left"></span>
+              <span>Components</span>
+            </a><a role="button" href="/docs/framework/core-modules/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" href="/docs/framework/core-modules/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Devices</span>
+            </a><a role="button" href="/docs/framework/core-modules/submissions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:send-horizontal"></span>
+              <span>Form Submissions</span>
+            </a><a role="button" href="/docs/framework/core-modules/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
+            </a><a role="button" href="/docs/framework/core-modules/local-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-tree"></span>
+              <span>Local Data</span>
+            </a><a role="button" href="/docs/framework/core-modules/localization" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:languages"></span>
+              <span>Localization</span>
+            </a><a role="button" href="/docs/framework/core-modules/markdown" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-m"></span>
+              <span>Markdown</span>
+            </a><a role="button" href="/docs/framework/core-modules/payments" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:credit-card"></span>
+              <span>Payments</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Rich Text</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text-controls" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Controls</span>
+            </a><a role="button" href="/docs/framework/core-modules/router" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:route"></span>
+              <span>Router</span>
+            </a><a role="button" href="/docs/framework/core-modules/status" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:activity"></span>
+              <span>Status</span>
+            </a><a role="button" href="/docs/framework/core-modules/url-parameters" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:ampersand"></span>
+              <span>URL Parameters</span>
+            </a><a role="button" href="/docs/framework/core-modules/virtual" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-chevrons-up-down"></span>
+              <span>Virtual Lists</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Visual Editing</span>
+            </a><a role="button" href="/docs/framework/core-modules/move" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Move</span>
+            </a><a role="button" href="/docs/framework/core-modules/resize" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Resize</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit-publishing" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Publishing</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Appwrite Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/appwrite-modules/appwrite-setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="simple-icons:appwrite"></span>
+              <span>Appwrite Setup</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/auth" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:users"></span>
+              <span>Auth</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Users</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Teams</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/cloud-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:database"></span>
+              <span>Cloud Data</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/databases" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Databases</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Storage</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/presence" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:radio-tower"></span>
+              <span>Presence</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Publishing</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/publishing/testing" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-check"></span>
+              <span>Testing</span>
+            </a><a role="button" href="/docs/framework/publishing/websites" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe"></span>
+              <span>Websites</span>
+            </a><a role="button" href="/docs/framework/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>SEO &amp; AEO</span>
+            </a><a role="button" href="/docs/framework/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window"></span>
+              <span>Web Apps</span>
+            </a><a role="button" href="/docs/framework/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:monitor-smartphone"></span>
+              <span>Native Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Styles</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/styles/reset" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:scale"></span>
+              <span>Reset</span>
+            </a><a role="button" href="/docs/framework/styles/theme" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:paint-bucket"></span>
+              <span>Theme</span>
+            </a><a role="button" href="/docs/framework/styles/color-modes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sun-moon"></span>
+              <span>Color Modes</span>
+            </a><a role="button" href="/docs/framework/styles/utilities" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:swatch-book"></span>
+              <span>Utilities</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Elements</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/elements/accordions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-collapse"></span>
+              <span>Accordions</span>
+            </a><a role="button" href="/docs/framework/elements/avatars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-user-round"></span>
+              <span>Avatars</span>
+            </a><a role="button" href="/docs/framework/elements/badges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-star"></span>
+              <span>Badges</span>
+            </a><a role="button" href="/docs/framework/elements/buttons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-mouse-pointer"></span>
+              <span>Buttons</span>
+            </a><a role="button" href="/docs/framework/elements/charts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chart-line"></span>
+              <span>Charts</span>
+            </a><a role="button" href="/docs/framework/elements/chats" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:messages-square"></span>
+              <span>Chats</span>
+            </a><a role="button" href="/docs/framework/elements/checkboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-check"></span>
+              <span>Checkboxes</span>
+            </a><a role="button" href="/docs/framework/elements/code" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:code"></span>
+              <span>Code</span>
+            </a><a role="button" href="/docs/framework/elements/color-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:palette"></span>
+              <span>Color Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/comboboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-search"></span>
+              <span>Comboboxes</span>
+            </a><a role="button" href="/docs/framework/elements/date-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:calendar"></span>
+              <span>Date Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/dialogs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panel-top-dashed"></span>
+              <span>Dialogs</span>
+            </a><a role="button" href="/docs/framework/elements/dividers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:minus"></span>
+              <span>Dividers</span>
+            </a><a role="button" href="/docs/framework/elements/dropdowns" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chevron-down"></span>
+              <span>Dropdowns</span>
+            </a><a role="button" href="/docs/framework/elements/forms" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:rows-3"></span>
+              <span>Forms</span>
+            </a><a role="button" href="/docs/framework/elements/icons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smile"></span>
+              <span>Icons</span>
+            </a><a role="button" href="/docs/framework/elements/inputs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor-input"></span>
+              <span>Inputs</span>
+            </a><a role="button" href="/docs/framework/elements/radios" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-dot"></span>
+              <span>Radios</span>
+            </a><a role="button" href="/docs/framework/elements/ranges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sliders-horizontal"></span>
+              <span>Ranges</span>
+            </a><a role="button" href="/docs/framework/elements/selects" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:menu"></span>
+              <span>Selects</span>
+            </a><a role="button" href="/docs/framework/elements/sidebars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sidebar"></span>
+              <span>Sidebars</span>
+            </a><a role="button" href="/docs/framework/elements/svgs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:shapes"></span>
+              <span>SVGs</span>
+            </a><a role="button" href="/docs/framework/elements/switches" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:toggle-right"></span>
+              <span>Switches</span>
+            </a><a role="button" href="/docs/framework/elements/tables" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:table"></span>
+              <span>Tables</span>
+            </a><a role="button" href="/docs/framework/elements/tabs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window-mac"></span>
+              <span>Tabs</span>
+            </a><a role="button" href="/docs/framework/elements/textareas" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor"></span>
+              <span>Textareas</span>
+            </a><a role="button" href="/docs/framework/elements/toasts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-big-up-dash"></span>
+              <span>Toasts</span>
+            </a><a role="button" href="/docs/framework/elements/tooltips" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-help"></span>
+              <span>Tooltips</span>
+            </a><a role="button" href="/docs/framework/elements/typography" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:type"></span>
+              <span>Typography</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Guides</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/guides/large-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:layers"></span>
+              <span>Large Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Resources</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/resources/reference" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+              <span x-icon="lucide:book-marked"></span>
+              <span>Reference</span>
+            </a><a role="button" href="/docs/framework/resources/typescript" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="hugeicons:typescript-01"></span>
+              <span>TypeScript</span>
+            </a><a role="button" href="/docs/framework/resources/security" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:lock"></span>
+              <span>Security</span>
+            </a><a role="button" href="/docs/framework/resources/license" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:file-check"></span>
+              <span>MIT License</span>
+            </a><a role="button" href="/docs/framework/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:heart-handshake"></span>
+              <span>Acknowledgements</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div>
+  </nav>
+
+  <!-- Articles -->
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+
+    <div class="col grow w-full max-w-full mx-auto">
+
+      <!-- Article -->
+      <template x-if="article?.name">
+        <div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7">
+          <span class="h6" x-text="article?.group || ''"></span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'"></span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
+              <span x-icon="'lucide:asterisk'"></span>
+              <span>Ask AI</span>
+              <span x-icon="'lucide:chevron-down'"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src">
+              <template x-for="app in aiApps" :key="app.name">
+                <a :href="askIn(app)" target="_blank" rel="noopener" role="button" class="sm ghost justify-start" @click="askCopy(app)" :title="app.paste ? 'Opens ' + app.name + ' with the question copied, ready to paste' : null">
+                  <span x-icon="app.icon"></span>
+                  <span x-text="'Ask ' + app.name"></span>
+                </a>
+              </template>
+            </menu>
+          </div>
+        </div>
+      </template><div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7" data-mnfst-prerender-clone="1">
+          <span class="h6" x-text="article?.group || ''">Resources</span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="lucide:copy"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'">Copy page</span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page" popovertarget="ask-ai-framework" style="anchor-name: --dropdown-p2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p2" aria-haspopup="menu" aria-controls="ask-ai-framework" aria-expanded="false" data-hydrate-id="h3">
+              <span x-icon="lucide:asterisk"></span>
+              <span>Ask AI</span>
+              <span x-icon="lucide:chevron-down"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src" role="menu" style="position-anchor: --dropdown-p2">
+              <a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://claude.ai/new?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fresources%2Freference%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:claude"></span>
+                  <span>Ask Claude</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://chatgpt.com/?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fresources%2Freference%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:openai"></span>
+                  <span>Ask ChatGPT</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://gemini.google.com/app" title="Opens Gemini with the question copied, ready to paste">
+                  <span x-icon="simple-icons:googlegemini"></span>
+                  <span>Ask Gemini</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://www.perplexity.ai/search?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fresources%2Freference%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:perplexity"></span>
+                  <span>Ask Perplexity</span>
+                </a>
+            </menu>
+          </div>
+        </div>
+      <template x-if="article?.name">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" x-markdown="article?.doc"></div>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" style="opacity: 1" data-mnfst-md-src="/articles/resources/reference.md" data-mnfst-prerender-clone="1"><h1 id="reference">Reference</h1><p>Manifest's CLI commands, directives, magic properties, data-source operators, and state-management patterns.</p>
+<hr>
+<h2 id="cli-commands">CLI Commands</h2><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>Reference</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-starter &lt;name&gt;</code></td>
+<td>Scaffold a new Manifest project</td>
+<td><a href="/docs/framework/getting-started/starter-project">Starter Project</a></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-starter --here</code></td>
+<td>Scaffold into the current folder; add <code>--name "&lt;name&gt;"</code> to set the project name, <code>--force</code> to overwrite template files</td>
+<td><a href="/docs/framework/getting-started/starter-project#existing-files">Starter Project</a></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-run</code></td>
+<td>Zero-dependency dev server with live reload</td>
+<td><a href="/docs/framework/getting-started/setup#run-a-project">Setup</a></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-render</code></td>
+<td>Prerender the SPA into a static MPA</td>
+<td><a href="/docs/framework/publishing/websites">Websites</a></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-export</code></td>
+<td>Batch / CI exports — PDF, image, CSV, JSON, RSS</td>
+<td><a href="/docs/framework/core-modules/import-export#batch-and-ci-exports">Export</a></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-types</code></td>
+<td>Generate TypeScript ambient types from <code>manifest.json</code></td>
+<td><a href="/docs/framework/resources/typescript">TypeScript</a></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-test</code></td>
+<td>Project linter + component-test harness</td>
+<td><a href="/docs/framework/publishing/testing">Testing</a></td>
+</tr>
+</tbody></table>
+<p>Common conventions:</p>
+<table>
+<thead>
+<tr>
+<th>Convention</th>
+<th>Description</th>
+<th>Supported by</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;path&gt;</code> (positional)</td>
+<td>Project root, relative or absolute</td>
+<td><code>mnfst-run</code>, <code>mnfst-test</code></td>
+</tr>
+<tr>
+<td><code>--root &lt;path&gt;</code></td>
+<td>Project root</td>
+<td><code>mnfst-render</code>, <code>mnfst-test</code>, <code>mnfst-export</code></td>
+</tr>
+<tr>
+<td><code>--manifest &lt;path&gt;</code></td>
+<td>Override <code>manifest.json</code> location</td>
+<td><code>mnfst-test</code>, <code>mnfst-types</code></td>
+</tr>
+<tr>
+<td><code>--json</code></td>
+<td>Machine-readable output</td>
+<td><code>mnfst-test</code></td>
+</tr>
+<tr>
+<td><code>-h</code>, <code>--help</code></td>
+<td>Show usage</td>
+<td><code>mnfst-starter</code>, <code>mnfst-test</code>, <code>mnfst-types</code>, <code>mnfst-export</code></td>
+</tr>
+<tr>
+<td><code>--name "&lt;name&gt;"</code></td>
+<td>Project name in <code>manifest.json</code> (defaults to the folder name; <code>--here --force</code> keeps the existing name)</td>
+<td><code>mnfst-starter</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="data-attributes">Data-* Attributes</h2><h3 id="module-loading">Module Loading</h3><p>The <code>manifest.js</code> script tag accepts <code>data-*</code> attributes to control module loading:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-modules</code></td>
+<td>(auto)</td>
+<td>Comma-separated list of modules to load; prefix a name with <code>+</code> to add it to the defaults instead of replacing them</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-omit</code></td>
+<td>—</td>
+<td>Comma-separated list to exclude from auto-loaded set</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-version</code></td>
+<td><code>latest</code></td>
+<td>Module version to fetch from CDN</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-alpine</code></td>
+<td>The version tested with this framework release</td>
+<td>Alpine version, a full URL, or a path starting with <code>/</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-tailwind</code></td>
+<td>(off)</td>
+<td>Boolean — load Manifest's Tailwind v4 build</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-module-base</code></td>
+<td>CDN</td>
+<td>Base URL/path for module scripts (for self-hosted deployments)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-defer</code></td>
+<td>(on)</td>
+<td><code>off</code> turns off automatic deferral of closed containers — see <a href="/docs/framework/getting-started/performance#x-defer-reference">performance</a></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-defer-routes</code></td>
+<td>(off)</td>
+<td>Boolean — experimental; defer inactive <code>x-route</code> pages until first shown</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-sw</code></td>
+<td>(auto)</td>
+<td><code>off</code> never registers the app-shell service worker — see <a href="/docs/framework/publishing/web-apps">web apps</a></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="routing-view-transitions">Routing &amp; View Transitions</h3><p>Attributes for managing crossfades between routes:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>On</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-no-prefetch</code></td>
+<td><code>&lt;a&gt;</code> element</td>
+<td>Opt this link out of hover-based component prefetching</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-view-transitions</code></td>
+<td><code>&lt;html&gt;</code></td>
+<td>Force-on SPA view transitions, regardless of page size</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-no-view-transitions</code></td>
+<td><code>&lt;html&gt;</code></td>
+<td>Force-off SPA view transitions</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-no-view-transition</code></td>
+<td>any element</td>
+<td>Exclude this element from SPA/MPA view transition snapshots (sets <code>view-transition-name: none</code>)</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="rendering">Rendering</h3><p>The <code>npx mnfst-render</code> command compiles MPA websites optimized for SEO/AEO, and scans for these attributes:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>On</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-hydrate</code></td>
+<td>any element</td>
+<td>Preserve dynamic functionality so Alpine can re-initialize the subtree at runtime</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-static</code></td>
+<td>any element</td>
+<td>Bakes the subtree to its rendered output, which Alpine ignores at runtime</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="directives">Directives</h2><p>Directives are custom HTML attributes from Alpine that provide reactive functionality. Manifest extends these to cover a wide variety of application use cases.</p>
+<h3 id="alpine-directives">Alpine Directives</h3><p>See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> for details.</p>
+<table>
+<thead>
+<tr>
+<th>Directive</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>x-data</code></td>
+<td>Initialize a component scope with a JS object literal or factory call</td>
+</tr>
+<tr>
+<td><code>x-init</code></td>
+<td>Run a statement once when the element initializes</td>
+</tr>
+<tr>
+<td><code>x-show</code></td>
+<td>Toggle <code>display</code> based on a boolean expression</td>
+</tr>
+<tr>
+<td><code>x-if</code></td>
+<td>Render a <code>&lt;template&gt;</code> based on a boolean expression</td>
+</tr>
+<tr>
+<td><code>x-for</code></td>
+<td>Loop a <code>&lt;template&gt;</code> over an iterable. Syntax: <code>item in items</code></td>
+</tr>
+<tr>
+<td><code>x-text</code></td>
+<td>Set the element's text content from an expression</td>
+</tr>
+<tr>
+<td><code>x-html</code></td>
+<td>Set the element's <code>innerHTML</code> from an expression (use carefully)</td>
+</tr>
+<tr>
+<td><code>x-model</code></td>
+<td>Two-way bind a form input to state</td>
+</tr>
+<tr>
+<td><code>x-bind:&lt;attr&gt;</code> (<code>:&lt;attr&gt;</code>)</td>
+<td>Bind any attribute to an expression</td>
+</tr>
+<tr>
+<td><code>x-on:&lt;event&gt;</code> (<code>@&lt;event&gt;</code>)</td>
+<td>Listen for an event and run a statement</td>
+</tr>
+<tr>
+<td><code>x-effect</code></td>
+<td>Re-run a statement whenever its reactive dependencies change</td>
+</tr>
+<tr>
+<td><code>x-cloak</code></td>
+<td>Hide an element until Alpine has initialized</td>
+</tr>
+<tr>
+<td><code>x-ignore</code></td>
+<td>Skip Alpine processing inside this element</td>
+</tr>
+<tr>
+<td><code>x-ref</code></td>
+<td>Name an element for <code>$refs.&lt;name&gt;</code> access</td>
+</tr>
+<tr>
+<td><code>x-transition</code></td>
+<td>Apply CSS classes during enter/leave</td>
+</tr>
+<tr>
+<td><code>x-teleport</code></td>
+<td>Move the rendered element to another DOM location</td>
+</tr>
+<tr>
+<td><code>x-id</code></td>
+<td>Generate stable IDs for a11y (paired with <code>$id</code>)</td>
+</tr>
+<tr>
+<td><code>x-modelable</code></td>
+<td>Expose an Alpine state value via <code>x-model</code> from outside</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="manifest-directives">Manifest Directives</h3><table>
+<thead>
+<tr>
+<th>Directive</th>
+<th>Module</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-anchors</code></td>
+<td><a href="/docs/framework/core-modules/router">router</a></td>
+<td>Anchor links list</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-chart</code></td>
+<td><a href="/docs/framework/elements/charts">charts</a></td>
+<td>SVG chart from a config object or <code>&lt;data&gt;</code> series</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-code</code>, <code>&lt;div x-code-group&gt;</code></td>
+<td><a href="/docs/framework/elements/code">code</a></td>
+<td>Code blocks with syntax highlights</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-colorpicker</code></td>
+<td><a href="/docs/framework/elements/color-pickers">color pickers</a></td>
+<td>Colorpicker menu element</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-color</code></td>
+<td><a href="/docs/framework/styles/color-modes">color modes</a></td>
+<td>Switches color mode on click</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-combobox</code></td>
+<td><a href="/docs/framework/elements/comboboxes">comboboxes</a></td>
+<td>Select-like field with filtering, chips, and multiple selection</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-computed:name</code></td>
+<td><a href="/docs/framework/core-modules/computed">computed</a></td>
+<td>Named value readable inside the element, recalculated only when what it reads changes</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-date</code></td>
+<td><a href="/docs/framework/elements/date-pickers">date pickers</a></td>
+<td>Date, range, and time picker field or calendar</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-defer</code></td>
+<td><a href="/docs/framework/getting-started/performance#x-defer-reference">core</a></td>
+<td>Defer a container's contents until it is shown. Modifiers: <code>.lazy</code>, <code>.discard</code>, <code>.priority="n"</code>, <code>.off</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-dropdown</code></td>
+<td><a href="/docs/framework/elements/dropdowns">dropdowns</a></td>
+<td>Dropdown menu element</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-edit</code></td>
+<td><a href="/docs/framework/core-modules/edit">edit</a></td>
+<td>Editable region: text in place, moving and nesting pieces, resizing, theme variables. Opt-in module; capabilities <code>.text</code>, <code>.move</code>, <code>.size</code>, <code>.data</code> (none named: text and move), plus <code>.lock</code> and <code>.lock.&lt;action&gt;</code>, <code>.gated</code>, <code>.persist</code>, <code>.bare</code>, <code>.theme</code>, <code>.cssvar</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-export</code></td>
+<td><a href="/docs/framework/core-modules/import-export">export</a></td>
+<td>Download page / region / data source as PDF, image, CSV, or JSON</td>
+</tr>
+<tr>
+<td><code>x-files</code>, <code>x-data-files</code>, <code>x-files-field</code></td>
+<td><a href="/docs/framework/core-modules/local-data">local data</a></td>
+<td>Bind file uploads</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-icon</code></td>
+<td><a href="/docs/framework/elements/icons">icons</a></td>
+<td>Render an icon by name</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-import</code></td>
+<td><a href="/docs/framework/core-modules/import-export#import">import</a></td>
+<td>Open a JSON or CSV file from the visitor's device as data</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-markdown</code></td>
+<td><a href="/docs/framework/core-modules/markdown">markdown</a></td>
+<td>Render markdown content from a source</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-pay</code></td>
+<td><a href="/docs/framework/core-modules/payments">payments</a></td>
+<td>Open a checkout, payment link, or billing portal on click</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-rich-text</code></td>
+<td><a href="/docs/framework/core-modules/rich-text">rich text</a></td>
+<td>Text field with formatting, bound to a value (markdown; <code>.html</code>, <code>.plain</code>, <code>.inline</code>); with a command modifier, a control for a field (<code>x-rich-text.strong</code>). Also <code>x-rich-text-for</code>, <code>x-rich-text-menu</code>. Loads on use</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-route</code></td>
+<td><a href="/docs/framework/core-modules/router">router</a></td>
+<td>Applies element to specific routes</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-submit</code></td>
+<td><a href="/docs/framework/core-modules/submissions">submissions</a></td>
+<td>On a <code>&lt;form&gt;</code>: send it in place to its own <code>action</code>/<code>method</code>; sets <code>data-state</code> (<code>sending</code>, <code>sent</code>, <code>error</code>) and fires <code>submit:sent</code> / <code>submit:error</code>. Loads on use</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-svg</code></td>
+<td><a href="/docs/framework/elements/svgs">svgs</a></td>
+<td>Inlines an SVG file</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-tab</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-tabpanel</code></td>
+<td><a href="/docs/framework/elements/tabs">tabs</a></td>
+<td>Tab elements</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-toast</code></td>
+<td><a href="/docs/framework/elements/toasts">toasts</a></td>
+<td>Dispatches toast popover</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-tooltip</code></td>
+<td><a href="/docs/framework/elements/tooltips">tooltips</a></td>
+<td>Applies tooltip to element</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">x-virtual</code></td>
+<td><a href="/docs/framework/core-modules/virtual">virtual</a></td>
+<td>Render only visible rows of a long list (wraps an <code>x-for</code> template)</td>
+</tr>
+</tbody></table>
+<h4 id="route-patterns">Route Patterns</h4><p>Values for <code>x-route</code> are:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Matches</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>=path</code></td>
+<td>Exact match only</td>
+</tr>
+<tr>
+<td><code>path</code></td>
+<td>Prefix match (also matches sub-paths)</td>
+</tr>
+<tr>
+<td><code>path/*</code></td>
+<td>Wildcard (catches <code>/path/anything</code>)</td>
+</tr>
+<tr>
+<td><code>path1, path2</code></td>
+<td>Multi (any of the listed)</td>
+</tr>
+<tr>
+<td><code>!path</code></td>
+<td>Negation (matches anything except path)</td>
+</tr>
+<tr>
+<td><code>!*</code></td>
+<td>Catch-all (404) — matches when no other route did</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="magic-properties">Magic Properties</h2><p>Available inside Alpine expressions (<code>x-data</code>, <code>x-text</code>, <code>@click</code>, etc.).</p>
+<h3 id="alpine-magics">Alpine Magics</h3><table>
+<thead>
+<tr>
+<th>Magic</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$el</code></td>
+<td>The current element</td>
+</tr>
+<tr>
+<td><code>$refs</code></td>
+<td>Map of <code>x-ref</code> named elements</td>
+</tr>
+<tr>
+<td><code>$store</code></td>
+<td>Access an Alpine store</td>
+</tr>
+<tr>
+<td><code>$watch</code></td>
+<td>Subscribe to changes on a property</td>
+</tr>
+<tr>
+<td><code>$dispatch</code></td>
+<td>Dispatch a custom DOM event</td>
+</tr>
+<tr>
+<td><code>$nextTick</code></td>
+<td>Run a callback after Alpine flushes pending updates</td>
+</tr>
+<tr>
+<td><code>$root</code></td>
+<td>The closest ancestor with <code>x-data</code></td>
+</tr>
+<tr>
+<td><code>$id</code></td>
+<td>Generate a stable ID (paired with <code>x-id</code>)</td>
+</tr>
+<tr>
+<td><code>$data</code></td>
+<td>Reach across <code>x-data</code> boundaries to access data</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="manifest-magics">Manifest Magics</h3><table>
+<thead>
+<tr>
+<th>Magic</th>
+<th>Module</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$app</code></td>
+<td>device</td>
+<td>Foreground state: <code>active</code> (reactive), <code>onChange(fn)</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth</code></td>
+<td>appwrite-auth</td>
+<td>Current user, login methods, team management</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$biometric</code></td>
+<td>device</td>
+<td>Face ID / Touch ID inside a Capacitor app: <code>available()</code>, <code>verify({ reason })</code>; <code>false</code> / <code>unsupported</code> on the web</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$camera</code></td>
+<td>device</td>
+<td><code>photo()</code> and <code>pick()</code> resolve <code>{ dataUrl, format }</code> or <code>{ cancelled }</code>; a file picker on the web</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$chart(id)</code></td>
+<td>charts</td>
+<td>Read a chart's type/series, <code>update(cfg)</code>, <code>redraw()</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$chat</code></td>
+<td>chat</td>
+<td>Open conversations: <code>$chat.open(id, { adapter })</code> returns a reactive handle with <code>messages</code>, <code>send()</code>, and more</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$colorpicker</code></td>
+<td>colorpicker</td>
+<td>Open and configure a color picker UI</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$color</code></td>
+<td>color modes</td>
+<td>Read/write the current color mode. <code>$color.current</code> returns <code>'light'</code>, <code>'dark'</code>, or <code>'system'</code>; assign to switch</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$computed(s =&gt; ...)</code></td>
+<td>computed</td>
+<td>Derived value from a function that receives the scope; recalculated only when what it reads changes, read as a plain property. Also <code>window.$computed</code> in <code>Alpine.data</code> factories. Attribute form: <code>x-computed:name</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$date(id)</code></td>
+<td>datepicker</td>
+<td>Read or set a picker's value, time, range, and open state</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$device</code></td>
+<td>utilities</td>
+<td><code>os</code>, <code>platform</code>, <code>online</code>, <code>standalone</code>, <code>native</code>, <code>touch</code>; always available</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$edit</code></td>
+<td>edit</td>
+<td>Page editor: <code>on()</code>/<code>off()</code> for gated regions, <code>undo()</code>/<code>redo()</code>, <code>canUndo</code>/<code>canRedo</code>, <code>target</code>, <code>can()</code>, block actions (<code>copy</code>, <code>cut</code>, <code>paste</code>, <code>duplicate</code>, <code>remove</code>), <code>lock()</code>, <code>publish()</code>, <code>onPublish</code>, <code>patches()</code>, <code>stale</code>, <code>conflicts</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$export</code></td>
+<td>export</td>
+<td>Same as <code>x-export</code>, from inside an expression</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$haptics</code></td>
+<td>device</td>
+<td><code>impact(style)</code>, <code>notification(type)</code>, <code>selection()</code>, <code>vibrate(ms)</code>; <code>navigator.vibrate</code> on the web</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$import</code></td>
+<td>import</td>
+<td>Open the file picker from an expression; resolves the parsed data, or <code>null</code> if cancelled</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$links</code></td>
+<td>device</td>
+<td>Deep links: <code>open(url)</code>, <code>on(fn)</code>, <code>last</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$locale</code></td>
+<td>localization</td>
+<td>Current locale, available locales, <code>set(code)</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$pay(ref)</code></td>
+<td>payments</td>
+<td>Start a checkout from an expression; also <code>portal()</code>, <code>refresh()</code>, and reactive <code>state</code>, <code>loading</code>, <code>error</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$presence</code></td>
+<td>appwrite-presences</td>
+<td>Who's online: <code>start()</code>, <code>stop()</code>, <code>ready</code>, <code>me</code>, <code>error</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$push</code></td>
+<td>device</td>
+<td><code>permission</code>, <code>token</code>, <code>request()</code>, <code>register()</code>, <code>onToken</code>, <code>onReceive</code>, <code>onTap</code>; Notification permission only on the web</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$rich</code></td>
+<td>rich-text</td>
+<td>The field the element sits in, or the one its controls act on: <code>value</code>, <code>all</code>, <code>link</code>, <code>selection</code>, <code>run(command)</code>, <code>can()</code>, <code>active()</code>, <code>markdown()</code>, <code>html()</code>, and every command as a method</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$route</code></td>
+<td>router</td>
+<td>Reactive string of the current logical route (e.g. <code>$route === '/'</code>); not a function</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$secure</code></td>
+<td>device</td>
+<td>Key/value store: <code>get</code>, <code>set</code>, <code>remove</code>, <code>keys</code>, <code>clear</code>, <code>use(adapter)</code>; Keychain in a Capacitor app, prefixed <code>localStorage</code> on the web</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$share(opts)</code></td>
+<td>device</td>
+<td>Share sheet, Web Share or clipboard; resolves <code>{ shared, method, cancelled? }</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$status</code></td>
+<td>status</td>
+<td>Health of named services (e.g. <code>$status.api.state</code>, <code>$status.overall</code>)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$toast</code></td>
+<td>toasts</td>
+<td>Show a toast</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$try(fn, errorVar?)</code></td>
+<td>data</td>
+<td><code>await</code> an async callback; on error returns <code>undefined</code> instead of throwing. If <code>errorVar</code> names a property on the current <code>x-data</code> scope, the error message is written there on failure and cleared to <code>null</code> on success</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$url</code></td>
+<td>url-parameters</td>
+<td>Read/write URL query parameters reactively</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$x</code></td>
+<td>data</td>
+<td>Project data sources by name (e.g. <code>$x.products</code>). <code>$x.$register(name, data)</code> installs or replaces a runtime source (array or object)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="data-source-operators">Data Source Operators</h2><p>Each <code>$x.&lt;source&gt;</code> returns an object or array. Standard JS array methods apply when the source is an array. Manifest also exposes:</p>
+<h3 id="state">State</h3><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$loading</code></td>
+<td>boolean</td>
+<td>True during fetch / mutation</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$error</code></td>
+<td><code>Error | string | null</code></td>
+<td>Last error, or null</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$ready</code></td>
+<td>boolean</td>
+<td>True after initial load completes</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$stale</code></td>
+<td>boolean</td>
+<td>True while cached rows show and fresh data is still loading</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$fresh</code></td>
+<td><code>Promise</code></td>
+<td>Resolves once fresh data has landed</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="filtering">Filtering</h3><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$search(term, ...fields)</code></td>
+<td>Substring match across the listed fields</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$search(term, { field: weight })</code></td>
+<td>Ranked search — every term must match; higher-weight fields rank first</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$query([...exprs])</code></td>
+<td>Filter using query expressions. Local sources: synchronous filter. Appwrite sources: server-side, returns <code>Promise</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$route(field)</code></td>
+<td>The row whose <code>field</code> value matches a segment of the current URL (e.g. <code>$x.articles.$route('slug')</code>). Not the same as the <code>$route</code> magic, which is the current route string</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="mutations">Mutations</h3><p>Available on cloud data sources (Appwrite tables) and bucket sources where applicable.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$create(data, rowId?)</code></td>
+<td>Create a new entry. For buckets: <code>$create(file, fileId?, permissions?, onProgress?)</code> uploads a file. Returns the created entry / file</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$update(idOrArray, data)</code></td>
+<td>Update one or many entries by id. Returns the updated entry / entries</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$delete(idOrArray)</code></td>
+<td>Delete one or many entries by id. Returns the deleted entry / entries</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$duplicate(id, options?)</code></td>
+<td>Copy an entry / file. Table options: <code>newRowId</code>, <code>files</code> (<code>'duplicate'</code> | <code>'same'</code> | <code>'none'</code>), plus field overrides. Bucket options: <code>newName</code>, <code>newFileId</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="pagination">Pagination</h3><p>Available on cloud data sources.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$first(limit)</code></td>
+<td>Cursor-based first page. Returns <code>{ items, cursor, total, hasMore }</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$next(cursor, limit)</code></td>
+<td>Cursor-based next page. Same shape as <code>$first</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$prev(cursor, limit)</code></td>
+<td>Cursor-based previous page. Same shape; <code>hasMore</code> is always <code>true</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$page(pageNumber, limit)</code></td>
+<td>Offset-based specific page. Returns <code>{ items, page, total, totalPages, hasMore }</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="files">Files</h3><p>Available on bucket (storage) sources.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$url(fileId, token?)</code></td>
+<td>View URL for a file</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$download(fileId, token?)</code></td>
+<td>Download URL for a file</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$preview(fileId, options?, token?)</code></td>
+<td>Preview URL with image transforms (images only)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$openUrl(fileId, token?)</code></td>
+<td>Open the view URL in a new tab</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$openDownload(fileId, filename?, token?)</code></td>
+<td>Open the download URL in a new tab</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$openPreview(fileId, options?, token?)</code></td>
+<td>Open the preview URL in a new tab</td>
+</tr>
+</tbody></table>
+<p><code>$preview</code> options include <code>width</code>, <code>height</code>, <code>quality</code>, <code>output</code>, <code>gravity</code>, <code>borderWidth</code>, <code>borderColor</code>, <code>borderRadius</code>, <code>opacity</code>, <code>rotation</code>, and <code>background</code>.</p>
+<hr>
+<h3 id="row-properties">Row Properties</h3><p>Manifest-added properties exposed on every row returned by <code>$x.&lt;source&gt;</code>. Coexist with the source's own column values.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>On</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$id</code></td>
+<td>string</td>
+<td>any</td>
+<td>Unique identifier (Appwrite system field)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$createdAt</code></td>
+<td>string</td>
+<td>any</td>
+<td>Creation timestamp, ISO format</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$updatedAt</code></td>
+<td>string</td>
+<td>any</td>
+<td>Last update timestamp, ISO format</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$files</code></td>
+<td>array</td>
+<td>table rows</td>
+<td>Files linked to the entry when storage is configured</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$formattedSize</code></td>
+<td>string</td>
+<td>file rows</td>
+<td>Human-readable file size (e.g. <code>"2.5 MB"</code>)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$url</code></td>
+<td>string</td>
+<td>file rows</td>
+<td>View URL for the file</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$isImage</code></td>
+<td>boolean</td>
+<td>file rows</td>
+<td><code>true</code> if the file is an image</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$thumbnailUrl</code></td>
+<td>string</td>
+<td>file rows</td>
+<td>Thumbnail URL (images only)</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="queries">Queries</h3><p><code>$query</code> accepts an array of <code>[method, attribute, value]</code> query expressions. The same syntax works for local and cloud sources (except <code>search</code>) — local runs synchronously in the browser, cloud runs server-side and returns a <code>Promise</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Form</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>equal</code></td>
+<td><code>['equal', 'attr', value]</code></td>
+<td>Exact match</td>
+</tr>
+<tr>
+<td><code>notEqual</code></td>
+<td><code>['notEqual', 'attr', value]</code></td>
+<td>Inverse of equal</td>
+</tr>
+<tr>
+<td><code>greaterThan</code></td>
+<td><code>['greaterThan', 'attr', value]</code></td>
+<td><code>&gt;</code></td>
+</tr>
+<tr>
+<td><code>greaterThanOrEqual</code></td>
+<td><code>['greaterThanOrEqual', 'attr', value]</code></td>
+<td><code>≥</code> (<code>greaterThanEqual</code> also works)</td>
+</tr>
+<tr>
+<td><code>lessThan</code></td>
+<td><code>['lessThan', 'attr', value]</code></td>
+<td><code>&lt;</code></td>
+</tr>
+<tr>
+<td><code>lessThanOrEqual</code></td>
+<td><code>['lessThanOrEqual', 'attr', value]</code></td>
+<td><code>≤</code> (<code>lessThanEqual</code> also works)</td>
+</tr>
+<tr>
+<td><code>between</code></td>
+<td><code>['between', 'attr', min, max]</code></td>
+<td>Inclusive range</td>
+</tr>
+<tr>
+<td><code>isNull</code></td>
+<td><code>['isNull', 'attr']</code></td>
+<td>Null check</td>
+</tr>
+<tr>
+<td><code>isNotNull</code></td>
+<td><code>['isNotNull', 'attr']</code></td>
+<td>Non-null check</td>
+</tr>
+<tr>
+<td><code>contains</code></td>
+<td><code>['contains', 'attr', 'value']</code></td>
+<td>Substring match (case-insensitive)</td>
+</tr>
+<tr>
+<td><code>startsWith</code></td>
+<td><code>['startsWith', 'attr', 'value']</code></td>
+<td>Prefix match</td>
+</tr>
+<tr>
+<td><code>endsWith</code></td>
+<td><code>['endsWith', 'attr', 'value']</code></td>
+<td>Suffix match</td>
+</tr>
+<tr>
+<td><code>search</code></td>
+<td><code>['search', 'attr', 'value']</code></td>
+<td>Full-text search — cloud sources only, and they need a fulltext index. Locally it doesn't filter; use <code>$search</code></td>
+</tr>
+<tr>
+<td><code>orderAsc</code></td>
+<td><code>['orderAsc', 'attr']</code></td>
+<td>Sort ascending</td>
+</tr>
+<tr>
+<td><code>orderDesc</code></td>
+<td><code>['orderDesc', 'attr']</code></td>
+<td>Sort descending</td>
+</tr>
+<tr>
+<td><code>orderRandom</code></td>
+<td><code>['orderRandom']</code></td>
+<td>Random order</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td><code>['limit', n]</code></td>
+<td>Cap result count</td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td><code>['offset', n]</code></td>
+<td>Skip results</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="state-management">State Management</h2><p>Manifest projects have three options to manage state, distinguished by lifetime and audience.</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Tool</th>
+<th>Use for</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Component-local</td>
+<td><code>x-data</code></td>
+<td>UI toggles, form inputs, ephemeral interaction state</td>
+</tr>
+<tr>
+<td>Cross-component (global)</td>
+<td><code>Alpine.store(name, ...)</code></td>
+<td>Shopping cart, state shared across views</td>
+</tr>
+<tr>
+<td>Server / persistent</td>
+<td><code>$x.&lt;source&gt;</code></td>
+<td>Anything backed by a file, HTTP endpoint, or cloud database collection</td>
+</tr>
+</tbody></table>
+<h3 id="component-local">Component-Local</h3><p>Inline state per component. Resets when the element is destroyed. Most common.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ open: false }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"open = !open"</span>&gt;</span>Toggle<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"open"</span>&gt;</span>Hello<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>For non-trivial logic, extract to an <code>Alpine.data()</code> factory (still local, but easier to test):</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>
+document.addEventListener('alpine:init', () =&gt; {
+    Alpine.data('cart', () =&gt; ({
+        items: [],
+        add(p) { this.items.push(p); },
+        get total() { return this.items.reduce((s, i) =&gt; s + i.price, 0); }
+    }));
+});
+<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"cart()"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"add({ id: 1, price: 10 })"</span>&gt;</span>Add<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"total"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h3 id="global-alpine-stores">Global (Alpine Stores)</h3><p>Shared across all components. Define once, read anywhere via <code>$store.name</code>.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>
+document.addEventListener('alpine:init', () =&gt; {
+    Alpine.store('cart', {
+        items: [],
+        add(p) { this.items.push(p); },
+        get total() { return this.items.reduce((s, i) =&gt; s + i.price, 0); }
+    });
+});
+<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$store.cart.add({ id: 1, price: 10 })"</span>&gt;</span>Add<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$store.cart.total"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Stores live for the page's lifetime. They reset on full reload — no built-in persistence; pair with <code>localStorage</code> or Alpine's <code>persist</code> plugin if you need it.</p>
+<hr>
+<h3 id="server-persistent">Server / Persistent</h3><p>Use <code>$x.&lt;source&gt;</code> for anything that lives in a file or backend. The data layer handles loading state, querying, and (for Appwrite) mutations.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"p in $x.products.$query([['greaterThan', 'stock', 0]])"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"p.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h3 id="derived-state">Derived State</h3><p>Three options, in increasing decoupling:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Inline expression</td>
+<td><code>&lt;span x-text="count * 2"&gt;</code> — re-evaluates automatically. Best for trivial cases.</td>
+</tr>
+<tr>
+<td>Computed getter</td>
+<td><code>get doubled() { return this.count * 2 }</code> on <code>x-data</code> or store. Best for component- or store-level computeds.</td>
+</tr>
+<tr>
+<td><code>$watch('prop', cb)</code></td>
+<td>Side-effects on change (e.g. write to localStorage, call API).</td>
+</tr>
+<tr>
+<td><code>x-computed:name</code> / <code>$computed(s =&gt; ...)</code></td>
+<td>Data-sized work (filtered or sorted lists, totals) recalculated only when its inputs change. See <a href="/docs/framework/core-modules/computed">computed values</a>.</td>
+</tr>
+</tbody></table>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ count: 0 }"</span>
+     <span class="hljs-attr">x-init</span>=<span class="hljs-string">"$watch('count', v =&gt; localStorage.setItem('count', v))"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"count++"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"count"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"count * 2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Avoid <code>x-effect</code> unless you need imperative side-effects with reactive deps that can't be expressed inline.</p>
+<hr>
+<h3 id="cross-component-communication">Cross-Component Communication</h3><table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Shared <code>x-data</code> on a common parent</td>
+<td>Children read/write parent state directly. Tight coupling.</td>
+</tr>
+<tr>
+<td><code>Alpine.store('name', ...)</code></td>
+<td>All components access the same store. Loose coupling.</td>
+</tr>
+<tr>
+<td><code>$dispatch('event-name', detail)</code> + <code>@event-name.window</code></td>
+<td>Pub/sub across the DOM. Loosest coupling.</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="css-variables">CSS Variables</h2><p>Theme tokens live in <code>manifest.theme.css</code> and can be customized per project. Common families:</p>
+<table>
+<thead>
+<tr>
+<th>Variable family</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--color-*</code></td>
+<td>Theme colors (background, content, brand, accent variants — light/dark)</td>
+</tr>
+<tr>
+<td><code>--font-*</code></td>
+<td>Font families</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--radius</code></td>
+<td>Default border radius</td>
+</tr>
+<tr>
+<td><code>--shadow-*</code></td>
+<td>Box shadows</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--spacing</code></td>
+<td>Base spacing unit</td>
+</tr>
+<tr>
+<td><code>--spacing-*</code></td>
+<td>Content width, viewport padding, field sizes, popover offset</td>
+</tr>
+<tr>
+<td><code>--icon-*</code></td>
+<td>Icons drawn by element styles (accordion, check, chevron, dismiss, previous, next)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--tooltip-hover-delay</code></td>
+<td>Delay before a tooltip shows on hover</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--transition</code></td>
+<td>Default transition timing</td>
+</tr>
+<tr>
+<td><code>--view-transition-*</code></td>
+<td>View transition tuning for SPA and MPA crossfades</td>
+</tr>
+</tbody></table>
+<p>See <a href="/docs/framework/publishing/websites#page-transitions">page transitions</a> for the SPA on/off mechanism (<code>&lt;html data-view-transitions&gt;</code> / <code>&lt;html data-no-view-transitions&gt;</code>).</p>
+<hr>
+<h2 id="manifest-events">Manifest Events</h2><p>Custom events dispatched on <code>window</code> that any component can subscribe to via <code>@event-name.window</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>When fired</th>
+<th><code>event.detail</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:route-change</code></td>
+<td>After SPA route change (and inside the view transition when active)</td>
+<td><code>{ from, to, normalizedPath }</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:components-processed</code></td>
+<td>After components and templates have been registered</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:render-ready</code></td>
+<td>Signal from the data module that prerender can snapshot the page</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:dev-reload</code></td>
+<td>Dev server (<code>mnfst-run</code>): a data or markdown file (<code>.csv</code>, <code>.json</code>, <code>.yaml</code>, <code>.md</code>) changed</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">submit:sent</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">submit:error</code></td>
+<td>On an <code>x-submit</code> form (not <code>window</code>; bubbles), when the endpoint answers or the request fails</td>
+<td><code>{ ok, status, data, response, error, message }</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:defer-render</code></td>
+<td>On a deferred container (not <code>window</code>), after its contents initialise</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>alpine:init</code></td>
+<td>Alpine initialization (standard Alpine event)</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<p>Listen example:</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span> @<span class="hljs-attr">manifest:route-change.window</span>=<span class="hljs-string">"console.log('route:', $event.detail.to)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h2 id="globals">Globals</h2><p>Window-level objects for diagnostics and configuration. See <a href="/docs/framework/getting-started/performance#diagnostics">performance</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Global</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">ManifestDefer.stats()</code></td>
+<td>Deferral counters: <code>{ pending, warm, cap, ready, bootDrained, armed, observed, head, routes: { enabled, stashed, rendered } }</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">ManifestDeferConfig.prewarmCap</code></td>
+<td>Maximum containers warming may prepare (default <code>48</code>)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">ManifestDeferConfig.routes</code></td>
+<td>Experimental — <code>true</code> defers inactive <code>x-route</code> pages, same as <code>data-defer-routes</code></td>
+</tr>
+</tbody></table>
+</div>
+
+      <!-- Previous / next -->
+      <template x-if="article?.name &amp;&amp; (prev || next)">
+        <nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template>
+        </nav>
+      </template><nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="" data-mnfst-prerender-clone="1">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template><a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline" href="/docs/framework/guides/large-apps" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name">Large Apps</span>
+            </a>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template><a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end" href="/docs/framework/resources/typescript" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name">TypeScript</span>
+            </a>
+        </nav>
+
+      <!-- Family home (markdown) -->
+      <template x-if="at(base) &amp;&amp; home">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="home"></div>
+      </template>
+
+      <!-- Docs home -->
+      <template x-if="at(base) &amp;&amp; landing">
+        <div class="col gap-8 pb-12">
+          <template x-if="landing === 'framework'"><x-framework></x-framework></template>
+          <template x-if="landing === 'platform'"><x-docs-platform></x-docs-platform></template>
+          <template x-if="landing === 'api'"><x-docs-api></x-docs-api></template>
+          <div class="col gap-4 w-content-width max-w-full mx-auto">
+            <h2 class="h4">Explore the docs</h2>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <template x-for="card in cards" :key="card.href">
+                <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                  <span x-icon="card.icon" class="text-brand-content"></span>
+                  <span class="col">
+                    <span class="text-content-stark font-medium" x-text="card.title"></span>
+                    <small class="text-content-subtle" x-text="card.sub"></small>
+                  </span>
+                </a>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template x-if="at(base) &amp;&amp; !home &amp;&amp; !landing">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="heading"></h1>
+            <p class="text-content-neutral" x-show="intro" x-text="intro"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="card in cards" :key="card.href">
+              <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="card.icon" class="text-brand-content"></span>
+                <span class="col">
+                  <span class="text-content-stark font-medium" x-text="card.title"></span>
+                  <small class="text-content-subtle" x-text="card.sub"></small>
+                </span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Group landing -->
+      <template x-if="group?.group">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="group?.group"></h1>
+            <p class="text-content-neutral" x-show="group?.description" x-text="group?.description"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
+              <a :href="href(group, item)" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
+                <span class="text-content-stark" x-text="item.name"></span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+    </div>
+
+    <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
+    <template x-if="!article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
+      <div class="max-w-full prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
+
+    <footer class="mt-20">
+  <hr>
+  <div class="row-wrap justify-between items-center gap-4 pt-4">
+
+    <figcaption class="text-content-subtle">© 2026 MNFST OÜ • <a href="/legal/terms">Terms</a> • <a href="/legal/privacy">Privacy</a><span x-show="$route.startsWith('/docs/framework')"> • Framework under the <a href="/docs/framework/resources/license">MIT License</a></span></figcaption>
+
+    <div class="row-wrap gap-3">
+
+      <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
+
+      <div role="tablist" aria-label="Color mode" class="sm rounded-full">
+        <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h4"></button>
+        <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h5"></button>
+        <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h6"></button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+
+  <!-- Anchor links -->
+  <nav aria-label="On this page" x-show="!(at(base) &amp;&amp; landing)" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
+
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+      <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
+      <span>On this page</span>
+    </small>
+
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#cli-commands">CLI Commands</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#data-attributes">Data-* Attributes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#module-loading">Module Loading</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#routing-view-transitions">Routing &amp; View Transitions</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#rendering">Rendering</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#directives">Directives</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#alpine-directives">Alpine Directives</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#manifest-directives">Manifest Directives</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#magic-properties">Magic Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#alpine-magics">Alpine Magics</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#manifest-magics">Manifest Magics</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#data-source-operators">Data Source Operators</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#state">State</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#filtering">Filtering</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#mutations">Mutations</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#pagination">Pagination</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#files">Files</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#row-properties">Row Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#queries">Queries</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#state-management">State Management</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#component-local">Component-Local</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#global-alpine-stores">Global (Alpine Stores)</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#server-persistent">Server / Persistent</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#derived-state">Derived State</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#cross-component-communication">Cross-Component Communication</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#css-variables">CSS Variables</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#manifest-events">Manifest Events</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#globals">Globals</a></div>
+
+  </nav>
+
+</div>
+
+    <!-- Legal pages -->
+    
+
+    <!-- Support -->
+    
+
+  </main>
+
+  <!-- Footer (visible on every route) -->
+  
+
+
+
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"data-order":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"aria-selected":null,"type":null}},{"id":"h5","attrs":{"aria-selected":null,"type":null}},{"id":"h6","attrs":{"aria-selected":null,"type":null}}]</script>
+</body></html>

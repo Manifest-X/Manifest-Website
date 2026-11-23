@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" data-online="true" data-os="macos" dir="auto"><head>
+  <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Global colors, spacing, typography, and more via CSS custom properties.">
+  <meta name="author" content="Andrew Matlock">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="google" content="notranslate">
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="preload" as="font" type="font/woff2" href="../../../../assets/fonts/Manrope.woff2" crossorigin="">
+
+  <!-- Web App & Manifest -->
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../../../../manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="../../../../manifest.theme.css">
+
+  <!-- Scripts -->
+  <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="../../../../scripts/payments-demo.js" defer=""></script>
+  <script src="../../../../scripts/hero-editor.js" defer=""></script>
+  <script src="../../../../scripts/hero-demo.js" defer=""></script>
+  <script src="../../../../scripts/console-message.js" defer=""></script>
+
+<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+@custom-variant cursor (@media (pointer: fine) and (hover: hover));
+@custom-variant pointer (@media (any-pointer: fine));
+@custom-variant mac (&:where([data-os="macos"] *));
+@custom-variant windows (&:where([data-os="windows"] *));
+@custom-variant linux (&:where([data-os="linux"] *));
+@custom-variant ios (&:where([data-os="ios"] *));
+@custom-variant android (&:where([data-os="android"] *));
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));
+@custom-variant online (&:where([data-online="true"] *));
+@custom-variant offline (&:where([data-online="false"] *));
+@custom-variant standalone (&:where([data-standalone] *));
+@custom-variant native (&:where([data-native] *));
+@custom-variant web (&:where(html:not([data-native]) *));
+@custom-variant dark (&:where(.dark, .dark *));</style><title>Theme — Manifest</title><meta property="og:title" content="Theme — Manifest"><meta property="og:description" content="Global colors, spacing, typography, and more via CSS custom properties."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/styles/theme"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-styles-theme.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Theme — Manifest"><meta property="twitter:description" content="Global colors, spacing, typography, and more via CSS custom properties."><meta property="twitter:image" content="/og/docs-framework-styles-theme.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Theme — Manifest","description":"Global colors, spacing, typography, and more via CSS custom properties.","image":"/og/docs-framework-styles-theme.png","url":"https://manifestx.dev/docs/framework/styles/theme"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Styles","item":"https://manifestx.dev/docs/framework/styles"},{"@type":"ListItem","position":5,"name":"Theme","item":"https://manifestx.dev/docs/framework/styles/theme"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/framework/styles/theme">
+<meta name="manifest:router-base" content="">
+<meta name="manifest:prerender-locales" content="en">
+<meta name="manifest:prerendered" content="1">
+<meta name="manifest:router-base-depth" content="4">
+</head>
+
+<body x-data="{
+  init() {
+    const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
+    document.documentElement.setAttribute('dir', savedDirection);
+  }
+}" class="bg-surface-1">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
+
+  <header style="view-transition-name: site-header" class="site-header fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
+
+    <!-- Content Area -->
+    <nav class="row justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+
+        <!-- Start -->
+        <div class="row items-center gap-3" x-data="{
+            get family() { return $route.startsWith('/docs/platform') ? 'platform' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+        }">
+
+            <!-- Logo -->
+            <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
+                <span class="hidden md:flex">{Manifest}</span>
+                <span class="md:hidden">{M}</span>
+            </a>
+
+            <!-- Docs family -->
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation" popovertarget="docs-family" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="docs-family" aria-expanded="false" data-hydrate-id="h1">
+                <span x-text="$x.site.docs.find(d =&gt; d.key === family)?.name">Framework</span>
+                <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
+            </button>
+            <menu popover="" id="docs-family" role="menu" style="position-anchor: --dropdown-p1">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a :href="'/docs/' + d.key" close="">
+                        <span x-text="d.name"></span>
+                        <span x-show="family === d.key" x-icon="lucide:check" class="trailing"></span>
+                    </a>
+                </template>
+            </menu>
+
+            <!-- Docs Breadcrumbs-->
+            
+            
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/framework/*">
+                <span x-text="$x.framework.$route('path')?.group || 'No group'">Styles</span>
+                <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
+                <span class="text-content-stark" x-text="$x.framework.$route('path')?.name || 'No article'">Theme</span>
+            </small>
+
+        </div>
+
+        <!-- End -->
+        <div class="row justify-end items-center gap-2">
+
+            <!-- CTAs -->
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+                <span x-icon="lucide:search"></span>
+                <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
+            </button>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="sm transparent outlined rounded-full" aria-label="GitHub" x-tooltip="GitHub" x-icon="meteor-icons:github"></a>
+            <a role="button" href="/docs" class="sm transparent outlined rounded-full">Docs</a>
+            <a role="button" href="https://dash.manifestx.dev" class="sm accent rounded-full" x-text="/(^|;\s*)mnfst_signed_in=1(;|$)/.test(document.cookie) ? 'Dashboard' : 'Sign in'">Sign in</a>
+
+            <!-- Mobile Sidebar Button -->
+            <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
+
+        </div>
+
+    </nav>
+
+</header>
+  <div x-data="{
+        sources: [['platform', '/docs/platform'], ['framework', '/docs/framework'], ['api', '/docs/api']],
+        labels: { platform: 'Platform', framework: 'Framework', api: 'API' },
+        q: '',
+        items: [],
+        ready: false,
+        loading: false,
+        active: 0,
+
+        // Fetch every article's markdown once, on first open; index title, description, headings, body.
+        async build() {
+            if (this.ready || this.loading) return;
+            this.loading = true;
+            const jobs = [];
+            for (const [src, base] of this.sources) {
+            for (let i = 0; i &lt; 20 &amp;&amp; (!$x[src] || !$x[src].length); i++) await new Promise(r =&gt; setTimeout(r, 100));
+            for (const g of ($x[src] || [])) {
+                for (const it of (g.items || [])) {
+                    if (!it.name || !it.doc) continue;
+                    const href = base + (g.slug ? '/' + g.slug : '') + '/' + it.path;
+                    jobs.push(fetch(it.doc)
+                        .then(r =&gt; r.ok ? r.text() : '')
+                        .catch(() =&gt; '')
+                        .then(md =&gt; {
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/&lt;[^&gt;]+&gt;/g, '').replace(/[*_`\[\]]/g, '').trim();
+                            const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
+                            const body = md
+                                .replace(/```[\s\S]*?```/g, ' ')
+                                .replace(/:::[^\n]*/g, ' ')
+                                .replace(/&lt;[^&gt;]+&gt;/g, ' ')
+                                .replace(/[#&gt;*_`\[\]()|]/g, ' ')
+                                .replace(/-{2,}/g, ' ')
+                                .replace(/\s+/g, ' ');
+                            this.items.push({
+                                name: it.name, group: g.group, icon: it.icon, href, desc, src,
+                                headings,
+                                hhay: headings.join(' · ').toLowerCase(),
+                                body, bhay: body.toLowerCase(),
+                            });
+                        }));
+                }
+            }
+            }
+            await Promise.all(jobs);
+            $x.$register('searchIndex', this.items);
+            this.ready = true;
+            this.loading = false;
+        },
+
+        results() {
+            const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
+            return ranked.slice(0, 20).map(it =&gt; ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i &gt; -1) return (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
+            }
+            return it.desc;
+        },
+
+        openDialog() { document.getElementById('docs-search')?.showPopover(); },
+        // The router swallows result clicks before element handlers run, so the
+        // dialog closes on the route-change event rather than the click itself.
+        closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
+        async onToggle(e) {
+            if (e.newState !== 'open') return;
+            this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() =&gt; { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
+        },
+        move(d) {
+            const n = this.results().length;
+            if (!n) return;
+            this.active = (this.active + d + n) % n;
+            this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
+        },
+        go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+
+        <!-- Query -->
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
+
+        <!-- Results -->
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
+            <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
+            <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
+                No matches for “<span x-text="q.trim()"></span>”.
+            </p>
+            <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i">
+                    <a :href="r.href" role="button" :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'" class="ghost justify-start w-full h-auto py-2 no-underline">
+                        <span class="col gap-0.5 min-w-0 grow text-left">
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <template x-if="r.group">
+                                    <small class="text-content-subtle font-normal" x-text="'· ' + r.group"></small>
+                                </template>
+                                <small class="badge sm ms-auto shrink-0 font-normal" x-text="labels[r.src]"></small>
+                            </span>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
+                        </span>
+                    </a>
+                </div>
+            </template>
+            <div class="h-2 shrink-0"></div>
+        </div>
+
+    </dialog>
+</div>
+  <nav aria-label="Menu" popover="" id="docs-nav" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 bg-popover-surface shadow-xl overflow-y-auto no-scrollbar" x-data="{
+        view: null,
+        get current() { return $route.match(/^\/docs\/(platform|api|framework)(\/|$)/)?.[1] || null },
+        get src() { return this.view || this.current },
+        get base() { return '/docs/' + this.src },
+        get groups() { return this.src ? $x[this.src] || [] : [] },
+        get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
+        here(href) { return $route.replace(/\/$/, '') === href },
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+
+    <!-- Docs -->
+    <template x-if="src">
+        <div class="col">
+            <div role="tablist" aria-label="Docs" class="sm rounded-full w-full my-4">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <button type="button" role="tab" :aria-selected="src === d.key" @click="view = d.key" x-text="d.name"></button>
+                </template>
+            </div>
+            <a role="button" :href="base" :aria-current="here(base) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="here(base) ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                <span x-icon="lucide:house"></span>
+                <span>Overview</span>
+            </a>
+            <template x-for="group in groups" :key="group.group">
+                <div class="col gap-6 py-4">
+                    <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
+                    <div class="col">
+                        <template x-for="(item, index) in group.items" :key="item.path || index">
+                            <a x-show="item.name" role="button" :href="base + (group.slug ? '/' + group.slug : '') + '/' + item.path" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="article?.path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                                <span x-icon="item.icon"></span>
+                                <span x-text="item.name"></span>
+                            </a>
+                        </template>
+                    </div>
+                    <hr>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <!-- Site -->
+    <div class="col py-4">
+        <template x-for="n in $x.site.nav" :key="n.href">
+            <a role="button" :href="n.href" :aria-current="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="n.icon"></span>
+                <span x-text="n.name"></span>
+            </a>
+        </template>
+    </div>
+    <hr class="shrink-0">
+    <template x-if="!src">
+        <div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Docs</small>
+            <div class="col">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a role="button" :href="'/docs/' + d.key" class="ghost justify-start w-full text-content-neutral">
+                        <span x-icon="d.icon"></span>
+                        <span x-text="d.name"></span>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </template>
+    <hr class="shrink-0" x-show="!src" style="display: none">
+    <div class="col py-4">
+        <template x-for="p in $x.site.pages" :key="p.href">
+            <a role="button" :href="p.href" :aria-current="$route.startsWith(p.href) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="$route.startsWith(p.href) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="p.icon"></span>
+                <span x-text="p.name"></span>
+            </a>
+        </template>
+    </div>
+
+</nav>
+
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
+
+    <!-- Home page -->
+    
+
+    <!-- Framework -->
+
+    <!-- Compare -->
+    
+
+    <!-- Documentation -->
+    
+    
+    
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-data="{
+    base: '/docs/framework' ?? '/docs/framework',
+    src: 'framework' ?? 'framework',
+    heading: 'Framework' ?? 'Docs',
+    intro: 'Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.' ?? '',
+    home: null ?? '',
+    landing: 'framework' ?? '',
+    canonical: 'https://manifestx.dev',
+    copied: false,
+    get pages() {
+      const out = [];
+      for (const g of this.groups) for (const i of (g.items || [])) if (i.name) out.push({ href: this.href(g, i), name: i.name, group: g.group || '' });
+      return out;
+    },
+    get pageIndex() { return this.pages.findIndex(p =&gt; this.at(p.href)) },
+    get prev() { return this.pageIndex &gt; 0 ? this.pages[this.pageIndex - 1] : null },
+    get next() { const i = this.pageIndex; return i &gt; -1 &amp;&amp; i &lt; this.pages.length - 1 ? this.pages[i + 1] : null },
+    aiApps: [
+      { name: 'Claude', icon: 'simple-icons:claude', url: 'https://claude.ai/new?q=' },
+      { name: 'ChatGPT', icon: 'simple-icons:openai', url: 'https://chatgpt.com/?q=' },
+      { name: 'Gemini', icon: 'simple-icons:googlegemini', url: 'https://gemini.google.com/app', paste: true },
+      { name: 'Perplexity', icon: 'simple-icons:perplexity', url: 'https://www.perplexity.ai/search?q=' }
+    ],
+    get askPrompt() { return `Read ${this.canonical + $route.replace(/\/$/, '')} from the Manifest docs and help me with it.` },
+    askIn(app) { return app.paste ? app.url : app.url + encodeURIComponent(this.askPrompt) },
+    askCopy(app) { if (app.paste) navigator.clipboard.writeText(this.askPrompt).catch(() =&gt; {}) },
+    async copyPage() {
+      const md = await fetch(this.article.doc).then(r =&gt; r.text());
+      const clean = md.replace(/`([^`\n]+)`\{[^}\n]*\}/g, '`$1`');
+      await navigator.clipboard.writeText(`Source: ${this.canonical}${$route.replace(/\/$/, '')}\n\n${clean}`);
+      this.copied = true;
+      setTimeout(() =&gt; this.copied = false, 1500);
+    },
+    get groups() { return $x[this.src] || [] },
+    get article() { return $x[this.src].$route('path') },
+    get group() { const g = $x[this.src].$route('slug'); return g?.group &amp;&amp; this.at(this.base + '/' + g.slug) ? g : null },
+    href(group, item) { return this.base + (group.slug ? '/' + group.slug : '') + (item ? '/' + item.path : '') },
+    get cards() {
+      const out = [];
+      for (const g of this.groups) {
+        const items = (g.items || []).filter(i =&gt; i.name);
+        if (g.group) out.push({ href: this.href(g), icon: g.icon || items[0]?.icon, title: g.group, sub: items.length + (items.length === 1 ? ' article' : ' articles') });
+        else items.forEach(i =&gt; out.push({ href: this.href(g, i), icon: i.icon, title: i.name, sub: i.description || 'Start here' }));
+      }
+      return out;
+    },
+    at(path) { return $route.replace(/\/$/, '') === path },
+  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.">
+
+  <!-- Desktop navigation -->
+  <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
+    <div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Getting Started</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-open"></span>
+              <span>Introduction</span>
+            </a><a role="button" href="/docs/framework/getting-started/setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:terminal"></span>
+              <span>Setup</span>
+            </a><a role="button" href="/docs/framework/getting-started/starter-project" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:package"></span>
+              <span>Starter Project</span>
+            </a><a role="button" href="/docs/framework/getting-started/compatibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe-lock"></span>
+              <span>Compatibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:eye"></span>
+              <span>Accessibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Core Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/core-modules/chat" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:message-square"></span>
+              <span>Chat</span>
+            </a><a role="button" href="/docs/framework/core-modules/components" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panels-top-left"></span>
+              <span>Components</span>
+            </a><a role="button" href="/docs/framework/core-modules/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" href="/docs/framework/core-modules/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Devices</span>
+            </a><a role="button" href="/docs/framework/core-modules/submissions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:send-horizontal"></span>
+              <span>Form Submissions</span>
+            </a><a role="button" href="/docs/framework/core-modules/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
+            </a><a role="button" href="/docs/framework/core-modules/local-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-tree"></span>
+              <span>Local Data</span>
+            </a><a role="button" href="/docs/framework/core-modules/localization" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:languages"></span>
+              <span>Localization</span>
+            </a><a role="button" href="/docs/framework/core-modules/markdown" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-m"></span>
+              <span>Markdown</span>
+            </a><a role="button" href="/docs/framework/core-modules/payments" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:credit-card"></span>
+              <span>Payments</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Rich Text</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text-controls" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Controls</span>
+            </a><a role="button" href="/docs/framework/core-modules/router" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:route"></span>
+              <span>Router</span>
+            </a><a role="button" href="/docs/framework/core-modules/status" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:activity"></span>
+              <span>Status</span>
+            </a><a role="button" href="/docs/framework/core-modules/url-parameters" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:ampersand"></span>
+              <span>URL Parameters</span>
+            </a><a role="button" href="/docs/framework/core-modules/virtual" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-chevrons-up-down"></span>
+              <span>Virtual Lists</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Visual Editing</span>
+            </a><a role="button" href="/docs/framework/core-modules/move" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Move</span>
+            </a><a role="button" href="/docs/framework/core-modules/resize" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Resize</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit-publishing" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Publishing</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Appwrite Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/appwrite-modules/appwrite-setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="simple-icons:appwrite"></span>
+              <span>Appwrite Setup</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/auth" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:users"></span>
+              <span>Auth</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Users</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Teams</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/cloud-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:database"></span>
+              <span>Cloud Data</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/databases" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Databases</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Storage</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/presence" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:radio-tower"></span>
+              <span>Presence</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Publishing</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/publishing/testing" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-check"></span>
+              <span>Testing</span>
+            </a><a role="button" href="/docs/framework/publishing/websites" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe"></span>
+              <span>Websites</span>
+            </a><a role="button" href="/docs/framework/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>SEO &amp; AEO</span>
+            </a><a role="button" href="/docs/framework/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window"></span>
+              <span>Web Apps</span>
+            </a><a role="button" href="/docs/framework/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:monitor-smartphone"></span>
+              <span>Native Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Styles</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/styles/reset" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:scale"></span>
+              <span>Reset</span>
+            </a><a role="button" href="/docs/framework/styles/theme" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+              <span x-icon="lucide:paint-bucket"></span>
+              <span>Theme</span>
+            </a><a role="button" href="/docs/framework/styles/color-modes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sun-moon"></span>
+              <span>Color Modes</span>
+            </a><a role="button" href="/docs/framework/styles/utilities" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:swatch-book"></span>
+              <span>Utilities</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Elements</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/elements/accordions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-collapse"></span>
+              <span>Accordions</span>
+            </a><a role="button" href="/docs/framework/elements/avatars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-user-round"></span>
+              <span>Avatars</span>
+            </a><a role="button" href="/docs/framework/elements/badges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-star"></span>
+              <span>Badges</span>
+            </a><a role="button" href="/docs/framework/elements/buttons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-mouse-pointer"></span>
+              <span>Buttons</span>
+            </a><a role="button" href="/docs/framework/elements/charts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chart-line"></span>
+              <span>Charts</span>
+            </a><a role="button" href="/docs/framework/elements/chats" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:messages-square"></span>
+              <span>Chats</span>
+            </a><a role="button" href="/docs/framework/elements/checkboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-check"></span>
+              <span>Checkboxes</span>
+            </a><a role="button" href="/docs/framework/elements/code" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:code"></span>
+              <span>Code</span>
+            </a><a role="button" href="/docs/framework/elements/color-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:palette"></span>
+              <span>Color Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/comboboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-search"></span>
+              <span>Comboboxes</span>
+            </a><a role="button" href="/docs/framework/elements/date-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:calendar"></span>
+              <span>Date Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/dialogs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panel-top-dashed"></span>
+              <span>Dialogs</span>
+            </a><a role="button" href="/docs/framework/elements/dividers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:minus"></span>
+              <span>Dividers</span>
+            </a><a role="button" href="/docs/framework/elements/dropdowns" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chevron-down"></span>
+              <span>Dropdowns</span>
+            </a><a role="button" href="/docs/framework/elements/forms" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:rows-3"></span>
+              <span>Forms</span>
+            </a><a role="button" href="/docs/framework/elements/icons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smile"></span>
+              <span>Icons</span>
+            </a><a role="button" href="/docs/framework/elements/inputs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor-input"></span>
+              <span>Inputs</span>
+            </a><a role="button" href="/docs/framework/elements/radios" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-dot"></span>
+              <span>Radios</span>
+            </a><a role="button" href="/docs/framework/elements/ranges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sliders-horizontal"></span>
+              <span>Ranges</span>
+            </a><a role="button" href="/docs/framework/elements/selects" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:menu"></span>
+              <span>Selects</span>
+            </a><a role="button" href="/docs/framework/elements/sidebars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sidebar"></span>
+              <span>Sidebars</span>
+            </a><a role="button" href="/docs/framework/elements/svgs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:shapes"></span>
+              <span>SVGs</span>
+            </a><a role="button" href="/docs/framework/elements/switches" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:toggle-right"></span>
+              <span>Switches</span>
+            </a><a role="button" href="/docs/framework/elements/tables" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:table"></span>
+              <span>Tables</span>
+            </a><a role="button" href="/docs/framework/elements/tabs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window-mac"></span>
+              <span>Tabs</span>
+            </a><a role="button" href="/docs/framework/elements/textareas" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor"></span>
+              <span>Textareas</span>
+            </a><a role="button" href="/docs/framework/elements/toasts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-big-up-dash"></span>
+              <span>Toasts</span>
+            </a><a role="button" href="/docs/framework/elements/tooltips" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-help"></span>
+              <span>Tooltips</span>
+            </a><a role="button" href="/docs/framework/elements/typography" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:type"></span>
+              <span>Typography</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Guides</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/guides/large-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:layers"></span>
+              <span>Large Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Resources</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/resources/reference" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-marked"></span>
+              <span>Reference</span>
+            </a><a role="button" href="/docs/framework/resources/typescript" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="hugeicons:typescript-01"></span>
+              <span>TypeScript</span>
+            </a><a role="button" href="/docs/framework/resources/security" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:lock"></span>
+              <span>Security</span>
+            </a><a role="button" href="/docs/framework/resources/license" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:file-check"></span>
+              <span>MIT License</span>
+            </a><a role="button" href="/docs/framework/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:heart-handshake"></span>
+              <span>Acknowledgements</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div>
+  </nav>
+
+  <!-- Articles -->
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+
+    <div class="col grow w-full max-w-full mx-auto">
+
+      <!-- Article -->
+      <template x-if="article?.name">
+        <div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7">
+          <span class="h6" x-text="article?.group || ''"></span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'"></span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
+              <span x-icon="'lucide:asterisk'"></span>
+              <span>Ask AI</span>
+              <span x-icon="'lucide:chevron-down'"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src">
+              <template x-for="app in aiApps" :key="app.name">
+                <a :href="askIn(app)" target="_blank" rel="noopener" role="button" class="sm ghost justify-start" @click="askCopy(app)" :title="app.paste ? 'Opens ' + app.name + ' with the question copied, ready to paste' : null">
+                  <span x-icon="app.icon"></span>
+                  <span x-text="'Ask ' + app.name"></span>
+                </a>
+              </template>
+            </menu>
+          </div>
+        </div>
+      </template><div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7" data-mnfst-prerender-clone="1">
+          <span class="h6" x-text="article?.group || ''">Styles</span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="lucide:copy"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'">Copy page</span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page" popovertarget="ask-ai-framework" style="anchor-name: --dropdown-p2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p2" aria-haspopup="menu" aria-controls="ask-ai-framework" aria-expanded="false" data-hydrate-id="h3">
+              <span x-icon="lucide:asterisk"></span>
+              <span>Ask AI</span>
+              <span x-icon="lucide:chevron-down"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src" role="menu" style="position-anchor: --dropdown-p2">
+              <a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://claude.ai/new?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fstyles%2Ftheme%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:claude"></span>
+                  <span>Ask Claude</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://chatgpt.com/?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fstyles%2Ftheme%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:openai"></span>
+                  <span>Ask ChatGPT</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://gemini.google.com/app" title="Opens Gemini with the question copied, ready to paste">
+                  <span x-icon="simple-icons:googlegemini"></span>
+                  <span>Ask Gemini</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://www.perplexity.ai/search?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fstyles%2Ftheme%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:perplexity"></span>
+                  <span>Ask Perplexity</span>
+                </a>
+            </menu>
+          </div>
+        </div>
+      <template x-if="article?.name">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" x-markdown="article?.doc"></div>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" style="opacity: 1" data-mnfst-md-src="/articles/styles/theme.md" data-mnfst-prerender-clone="1"><h1 id="theme">Theme</h1><p>Global colors, spacing, typography, and more via CSS custom properties.</p>
+<hr>
+<h2 id="overview">Overview</h2><p>Manifest centralizes project theme management with a curated set of CSS variables, sometimes referred to as design tokens. These variables are referenced throughout Manifest's base HTML styles, utility classes, and can be compiled as custom utility classes—establishing your project's consistent visual identity with minimal code.</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p>Many Manifest styles reference the theme. If the theme file or a variable within is unavailable, affected styles use a static fallback value.</p>
+</aside>
+<hr>
+<h2 id="setup">Setup</h2><p>Apply the theme alongside <code>manifest.css</code> or standalone sheets. The default version is available through CDN for previewing:</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+
+<pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- manifest.css --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Theme --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css"</span>&gt;</span></code></pre>
+<pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Theme --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css"</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Tailwind color palette (red, orange, yellow, … as `--color-&lt;name&gt;-&lt;shade&gt;` variables) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.colors.css"</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Examples of standalone styles with theme references --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.button.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.utilities.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.typography.css"</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Modify the theme by saving it as a local file from <a href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.theme.css" target="_blank">jsDelivr</a> or <a href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css" target="_blank">GitHub</a>, or copy it here:</p>
+<pre x-code="css" name="manifest.theme.css" lines="" copy="" collapse="10" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.theme.css" role="region" data-collapsed="" style="--collapse-lines: 10"><header><div>manifest.theme.css</div></header><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span><span>40</span><span>41</span><span>42</span><span>43</span><span>44</span><span>45</span><span>46</span><span>47</span><span>48</span><span>49</span><span>50</span><span>51</span><span>52</span><span>53</span><span>54</span><span>55</span><span>56</span><span>57</span><span>58</span><span>59</span><span>60</span><span>61</span><span>62</span><span>63</span><span>64</span><span>65</span><span>66</span><span>67</span><span>68</span><span>69</span><span>70</span><span>71</span><span>72</span><span>73</span><span>74</span><span>75</span><span>76</span><span>77</span><span>78</span><span>79</span><span>80</span><span>81</span><span>82</span><span>83</span><span>84</span><span>85</span><span>86</span><span>87</span><span>88</span><span>89</span><span>90</span><span>91</span><span>92</span><span>93</span><span>94</span><span>95</span><span>96</span><span>97</span><span>98</span><span>99</span><span>100</span><span>101</span><span>102</span><span>103</span><span>104</span><span>105</span><span>106</span><span>107</span><span>108</span><span>109</span><span>110</span><span>111</span><span>112</span><span>113</span><span>114</span><span>115</span><span>116</span><span>117</span><span>118</span><span>119</span><span>120</span><span>121</span><span>122</span><span>123</span><span>124</span><span>125</span><span>126</span><span>127</span><span>128</span><span>129</span><span>130</span><span>131</span></div><code class="hljs language-css" data-highlighted="yes"><span class="hljs-comment">/*  Manifest Theme CSS
+/*  By Andrew Matlock under MIT license
+/*  https://manifestx.dev/styles/theme
+/*  Modify values to customize your project theme
+*/</span>
+
+<span class="hljs-keyword">@layer</span> base, components, utilities;
+
+<span class="hljs-selector-pseudo">:root</span>,
+<span class="hljs-selector-pseudo">::selection</span> {
+
+    <span class="hljs-comment">/* Light mode */</span>
+    <span class="hljs-attr">--color-page</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">50</span>);
+    <span class="hljs-attr">--color-surface-1</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">100</span>);
+    <span class="hljs-attr">--color-surface-2</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">200</span>);
+    <span class="hljs-attr">--color-surface-3</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">300</span>);
+    <span class="hljs-attr">--color-content-stark</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">900</span>);
+    <span class="hljs-attr">--color-content-neutral</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">600</span>);
+    <span class="hljs-attr">--color-content-subtle</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">500</span>);
+    <span class="hljs-attr">--color-field-surface</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">300</span>);
+    <span class="hljs-attr">--color-field-surface-hover</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">400</span>);
+    <span class="hljs-attr">--color-field-inverse</span>: <span class="hljs-built_in">var</span>(--color-content-stark);
+    <span class="hljs-attr">--color-popover-surface</span>: <span class="hljs-built_in">var</span>(--color-page);
+    <span class="hljs-attr">--color-line</span>: <span class="hljs-built_in">color-mix</span>(in oklch, <span class="hljs-built_in">var</span>(--color-content-stark) <span class="hljs-number">11%</span>, transparent);
+    <span class="hljs-attr">--color-brand-surface</span>: <span class="hljs-built_in">var</span>(--color-yellow-<span class="hljs-number">300</span>);
+    <span class="hljs-attr">--color-brand-surface-hover</span>: <span class="hljs-built_in">var</span>(--color-yellow-<span class="hljs-number">400</span>);
+    <span class="hljs-attr">--color-brand-inverse</span>: <span class="hljs-built_in">var</span>(--color-yellow-<span class="hljs-number">700</span>);
+    <span class="hljs-attr">--color-brand-content</span>: <span class="hljs-built_in">var</span>(--color-yellow-<span class="hljs-number">600</span>);
+    <span class="hljs-attr">--color-accent-surface</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">900</span>);
+    <span class="hljs-attr">--color-accent-surface-hover</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">700</span>);
+    <span class="hljs-attr">--color-accent-inverse</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">50</span>);
+    <span class="hljs-attr">--color-accent-content</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">900</span>);
+    <span class="hljs-attr">--color-positive-surface</span>: <span class="hljs-built_in">var</span>(--color-green-<span class="hljs-number">300</span>);
+    <span class="hljs-attr">--color-positive-surface-hover</span>: <span class="hljs-built_in">var</span>(--color-green-<span class="hljs-number">400</span>);
+    <span class="hljs-attr">--color-positive-inverse</span>: <span class="hljs-built_in">var</span>(--color-green-<span class="hljs-number">800</span>);
+    <span class="hljs-attr">--color-positive-content</span>: <span class="hljs-built_in">var</span>(--color-green-<span class="hljs-number">600</span>);
+    <span class="hljs-attr">--color-negative-surface</span>: <span class="hljs-built_in">var</span>(--color-red-<span class="hljs-number">300</span>);
+    <span class="hljs-attr">--color-negative-surface-hover</span>: <span class="hljs-built_in">var</span>(--color-red-<span class="hljs-number">400</span>);
+    <span class="hljs-attr">--color-negative-inverse</span>: <span class="hljs-built_in">var</span>(--color-red-<span class="hljs-number">800</span>);
+    <span class="hljs-attr">--color-negative-content</span>: <span class="hljs-built_in">var</span>(--color-red-<span class="hljs-number">600</span>);
+
+    <span class="hljs-comment">/* Fonts */</span>
+    <span class="hljs-attr">--font-sans</span>: Inter, ui-sans-serif, system-ui, sans-serif, <span class="hljs-string">'Apple Color Emoji'</span>, <span class="hljs-string">'Segoe UI Emoji'</span>, <span class="hljs-string">'Segoe UI Symbol'</span>, <span class="hljs-string">'Noto Color Emoji'</span>;
+
+    <span class="hljs-comment">/* Sizes */</span>
+    <span class="hljs-attr">--radius</span>: <span class="hljs-number">0.5rem</span>;
+    <span class="hljs-attr">--spacing</span>: <span class="hljs-number">0.25rem</span>;
+    <span class="hljs-attr">--spacing-content-width</span>: <span class="hljs-number">74rem</span>;
+    <span class="hljs-attr">--spacing-field-padding</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-built_in">var</span>(--spacing) * <span class="hljs-number">2.5</span>);
+    <span class="hljs-attr">--spacing-field-height</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-built_in">var</span>(--spacing) * <span class="hljs-number">9</span>);
+    <span class="hljs-attr">--spacing-popover-offset</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-built_in">var</span>(--spacing) * <span class="hljs-number">2</span>);
+    <span class="hljs-attr">--spacing-resize-handle</span>: <span class="hljs-number">1rem</span>;
+    <span class="hljs-attr">--spacing-viewport-padding</span>: <span class="hljs-number">2rem</span>;
+
+    <span class="hljs-comment">/* Effects */</span>
+    <span class="hljs-attr">--transition</span>: all .<span class="hljs-number">05s</span> ease-in-out;
+    <span class="hljs-attr">--shadow-sm</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">3px</span> <span class="hljs-number">0</span> <span class="hljs-built_in">rgb</span>(<span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> / <span class="hljs-number">0.1</span>), <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">2px</span> -<span class="hljs-number">1px</span> <span class="hljs-built_in">rgb</span>(<span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> / <span class="hljs-number">0.1</span>);
+    <span class="hljs-attr">--shadow-md</span>: <span class="hljs-number">0</span> <span class="hljs-number">4px</span> <span class="hljs-number">6px</span> -<span class="hljs-number">1px</span> <span class="hljs-built_in">rgb</span>(<span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> / <span class="hljs-number">0.1</span>), <span class="hljs-number">0</span> <span class="hljs-number">2px</span> <span class="hljs-number">4px</span> -<span class="hljs-number">2px</span> <span class="hljs-built_in">rgb</span>(<span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> / <span class="hljs-number">0.1</span>);
+    <span class="hljs-attr">--shadow-lg</span>: <span class="hljs-number">0</span> <span class="hljs-number">20px</span> <span class="hljs-number">25px</span> -<span class="hljs-number">5px</span> <span class="hljs-built_in">rgb</span>(<span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> / <span class="hljs-number">0.1</span>), <span class="hljs-number">0</span> <span class="hljs-number">8px</span> <span class="hljs-number">10px</span> -<span class="hljs-number">6px</span> <span class="hljs-built_in">rgb</span>(<span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> / <span class="hljs-number">0.1</span>);
+    <span class="hljs-attr">--tooltip-hover-delay</span>: .<span class="hljs-number">5s</span>;
+    <span class="hljs-attr">--view-transition-duration</span>: <span class="hljs-number">200ms</span>;
+    <span class="hljs-attr">--view-transition-easing</span>: <span class="hljs-built_in">cubic-bezier</span>(<span class="hljs-number">0.4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.2</span>, <span class="hljs-number">1</span>);
+
+    <span class="hljs-comment">/* Icons */</span>
+    <span class="hljs-attr">--icon-accordion</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 256 256'%3E%3Cpath fill='%23000' d='m184.49 136.49l-80 80a12 12 0 0 1-17-17L159 128L87.51 56.49a12 12 0 1 1 17-17l80 80a12 12 0 0 1-.02 17'/%3E%3C/svg%3E"</span>);
+    <span class="hljs-attr">--icon-check</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='currentColor' d='m0 11l2-2l5 5L18 3l2 2L7 18z'/%3E%3C/svg%3E"</span>);
+    <span class="hljs-attr">--icon-chevron-down</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9 6 6 6-6'/%3E%3C/svg%3E"</span>);
+    <span class="hljs-attr">--icon-dismiss</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E"</span>);
+    <span class="hljs-attr">--icon-previous</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m15 18-6-6 6-6'/%3E%3C/svg%3E"</span>);
+    <span class="hljs-attr">--icon-next</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m9 18 6-6-6-6'/%3E%3C/svg%3E"</span>);
+}
+
+<span class="hljs-comment">/* Dark mode overrides */</span>
+<span class="hljs-selector-class">.dark</span> {
+    <span class="hljs-attr">--color-page</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">950</span>);
+    <span class="hljs-attr">--color-surface-1</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">900</span>);
+    <span class="hljs-attr">--color-surface-2</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">800</span>);
+    <span class="hljs-attr">--color-surface-3</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">700</span>);
+    <span class="hljs-attr">--color-field-surface</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">700</span>);
+    <span class="hljs-attr">--color-field-surface-hover</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">600</span>);
+    <span class="hljs-attr">--color-popover-surface</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">800</span>);
+    <span class="hljs-attr">--color-content-stark</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">50</span>);
+    <span class="hljs-attr">--color-content-neutral</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">400</span>);
+    <span class="hljs-attr">--color-content-subtle</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">500</span>);
+    <span class="hljs-attr">--color-brand-surface</span>: <span class="hljs-built_in">var</span>(--color-yellow-<span class="hljs-number">400</span>);
+    <span class="hljs-attr">--color-brand-surface-hover</span>: <span class="hljs-built_in">var</span>(--color-yellow-<span class="hljs-number">500</span>);
+    <span class="hljs-attr">--color-brand-inverse</span>: <span class="hljs-built_in">var</span>(--color-yellow-<span class="hljs-number">800</span>);
+    <span class="hljs-attr">--color-brand-content</span>: <span class="hljs-built_in">var</span>(--color-yellow-<span class="hljs-number">500</span>);
+    <span class="hljs-attr">--color-accent-surface</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">50</span>);
+    <span class="hljs-attr">--color-accent-surface-hover</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">200</span>);
+    <span class="hljs-attr">--color-accent-inverse</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">900</span>);
+    <span class="hljs-attr">--color-accent-content</span>: <span class="hljs-built_in">var</span>(--color-neutral-<span class="hljs-number">50</span>);
+    <span class="hljs-attr">--color-positive-surface</span>: <span class="hljs-built_in">var</span>(--color-green-<span class="hljs-number">400</span>);
+    <span class="hljs-attr">--color-positive-surface-hover</span>: <span class="hljs-built_in">var</span>(--color-green-<span class="hljs-number">500</span>);
+    <span class="hljs-attr">--color-positive-inverse</span>: <span class="hljs-built_in">var</span>(--color-green-<span class="hljs-number">900</span>);
+    <span class="hljs-attr">--color-positive-content</span>: <span class="hljs-built_in">var</span>(--color-green-<span class="hljs-number">500</span>);
+    <span class="hljs-attr">--color-negative-surface</span>: <span class="hljs-built_in">var</span>(--color-red-<span class="hljs-number">400</span>);
+    <span class="hljs-attr">--color-negative-surface-hover</span>: <span class="hljs-built_in">var</span>(--color-red-<span class="hljs-number">500</span>);
+    <span class="hljs-attr">--color-negative-inverse</span>: <span class="hljs-built_in">var</span>(--color-red-<span class="hljs-number">900</span>);
+    <span class="hljs-attr">--color-negative-content</span>: <span class="hljs-built_in">var</span>(--color-red-<span class="hljs-number">500</span>);
+}
+
+<span class="hljs-keyword">@font-face</span> {
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">'Inter'</span>;
+    <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">'/assets/fonts/Inter.woff2'</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">'woff2'</span>);
+    <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">400</span> <span class="hljs-number">500</span> <span class="hljs-number">600</span> <span class="hljs-number">700</span>;
+    <span class="hljs-attribute">font-display</span>: swap
+}
+
+<span class="hljs-keyword">@layer</span> base {
+
+    <span class="hljs-comment">/* Default font and colors */</span>
+    <span class="hljs-selector-pseudo">:where</span>(<span class="hljs-selector-tag">html</span>),
+    <span class="hljs-selector-pseudo">:host</span> {
+        <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.5</span>;
+        <span class="hljs-attribute">font-family</span>: <span class="hljs-built_in">var</span>(--font-sans);
+        <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--color-content-stark, inherit);
+        <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--color-page, inherit)
+    }
+
+    <span class="hljs-comment">/* Text selection */</span>
+    <span class="hljs-selector-pseudo">::selection</span> {
+        <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">color-mix</span>(in oklch, currentColor <span class="hljs-number">25%</span>, transparent)
+    }
+
+    <span class="hljs-comment">/* Focus state */</span>
+    <span class="hljs-selector-pseudo">:where</span>(<span class="hljs-selector-pseudo">:focus-visible</span>, <span class="hljs-selector-pseudo">:is</span>(<span class="hljs-selector-tag">label</span>, <span class="hljs-selector-class">.label</span>)<span class="hljs-selector-pseudo">:has</span>(&gt; <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type=search]</span>, &gt; <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type=file]</span>, &gt; <span class="hljs-selector-tag">button</span><span class="hljs-selector-attr">[command=<span class="hljs-string">"--copy"</span>]</span>)<span class="hljs-selector-pseudo">:focus-within</span>) {
+        <span class="hljs-attribute">outline</span>: none;
+        <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">2px</span> <span class="hljs-built_in">color-mix</span>(in oklch, <span class="hljs-built_in">var</span>(--color-content-stark) <span class="hljs-number">30%</span>, transparent)
+    }
+}</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button><button class="expand" type="button" aria-expanded="false" aria-label="Show 121 more lines">+121</button></pre>
+<hr>
+<h2 id="theme-variables">Theme Variables</h2><aside class="brand"><span x-icon="lucide:info"></span><p>Certain variable names use namespace prefixes like <code>--color-</code> to automatically generate utility classes in projects using <a href="https://tailwindcss.com/docs/theme#theme-variable-namespaces">Tailwind v4+</a>. Examples are provided below.</p>
+</aside>
+<h3 id="color-palette">Color Palette</h3><p>In the default theme, all purpose-specific color variables reference downstream variables from the <a href="https://tailwindcss.com/docs/colors" target="_blank" rel="noopener">Tailwind palettes</a>, bundled into <code>manifest.min.css</code>. Reference any Tailwind color in your own CSS (e.g. <code>--color-neutral-500</code>) without re-declaring values. The default theme makes use of the following palettes:</p>
+<ul>
+<li><code>neutral</code> for content, surfaces, and accent colors.</li>
+<li><code>yellow</code> for brand colors.</li>
+<li><code>green</code> for positive colors.</li>
+<li><code>red</code> for negative colors.</li>
+</ul>
+<p>The fastest way to customize your theme is to find and replace these default color names with any others in the Tailwind palette. Alternatively, consider <a href="https://uicolors.app/generate" target="_blank" rel="noopener">generating your own</a> palettes.</p>
+<hr>
+<h3 id="theme-colors">Theme Colors</h3><p>See <a href="/docs/framework/styles/color-modes">color modes</a> for more information on setting up light and dark themes. Light/default color variables are established in a <code>:root</code>, while equivalent dark variable values go in a standalone  <code>.dark</code> style.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Purpose</th>
+<th>Ex. Tailwind Utilities</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-page</code></td>
+<td>Page background color</td>
+<td><code>bg-page</code><br><code>text-page</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-surface-1</code></td>
+<td>Initial surface background</td>
+<td><code>bg-surface-1</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-surface-2</code></td>
+<td>Next surface background</td>
+<td><code>bg-surface-2</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-surface-3</code></td>
+<td>Last surface background</td>
+<td><code>bg-surface-3</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-content-stark</code></td>
+<td>High contrast text color</td>
+<td><code>text-content-stark</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-content-neutral</code></td>
+<td>Medium contrast text color</td>
+<td><code>text-content-neutral</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-content-subtle</code></td>
+<td>Low contrast text color</td>
+<td><code>text-content-subtle</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-field-surface</code></td>
+<td>Background color for interactive elements</td>
+<td><code>bg-field-surface</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-field-surface-hover</code></td>
+<td>Hover state background for interactive elements</td>
+<td><code>hover:bg-field-surface-hover</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-field-inverse</code></td>
+<td>Content color for interactive elements</td>
+<td><code>text-field-inverse</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-popover-surface</code></td>
+<td>Dialog and dropdown background</td>
+<td><code>bg-popover-surface</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-line</code></td>
+<td>Border and divider color</td>
+<td><code>border-line</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="semantic-colors">Semantic Colors</h3><p>These semantic colors are easily applied to text, backgrounds, and certain form elements using the Manifest <a href="/docs/framework/styles/utilities">utility</a> classes <code>brand</code>, <code>accent</code>, <code>positive</code>, and <code>negative</code> — the shortcut for semantic coloring. Compiled utilities use the full variable name after <code>--color-</code>, as below.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Purpose</th>
+<th>Ex. Tailwind Utilities</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-brand-surface</code></td>
+<td>Brand background color</td>
+<td><code>bg-brand-surface</code><br><code>border-brand-surface</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-brand-surface-hover</code></td>
+<td>Brand hover state background</td>
+<td><code>hover:bg-brand-surface-hover</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-brand-inverse</code></td>
+<td>Content color on brand backgrounds</td>
+<td><code>text-brand-inverse</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-brand-content</code></td>
+<td>Brand text color</td>
+<td><code>text-brand-content</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-accent-surface</code></td>
+<td>Accent background color</td>
+<td><code>bg-accent-surface</code><br><code>border-accent-surface</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-accent-surface-hover</code></td>
+<td>Accent hover state background</td>
+<td><code>hover:bg-accent-surface-hover</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-accent-inverse</code></td>
+<td>Content color on accent backgrounds</td>
+<td><code>text-accent-inverse</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-accent-content</code></td>
+<td>Accent text color</td>
+<td><code>text-accent-content</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-positive-surface</code></td>
+<td>Positive background color</td>
+<td><code>bg-positive-surface</code><br><code>border-positive-surface</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-positive-surface-hover</code></td>
+<td>Positive hover state background</td>
+<td><code>hover:bg-positive-surface-hover</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-positive-inverse</code></td>
+<td>Content color on positive backgrounds</td>
+<td><code>text-positive-inverse</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-positive-content</code></td>
+<td>Positive text color</td>
+<td><code>text-positive-content</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-negative-surface</code></td>
+<td>Negative background color</td>
+<td><code>bg-negative-surface</code><br><code>border-negative-surface</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-negative-surface-hover</code></td>
+<td>Negative hover state background</td>
+<td><code>hover:bg-negative-surface-hover</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-negative-inverse</code></td>
+<td>Content color on negative backgrounds</td>
+<td><code>text-negative-inverse</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--color-negative-content</code></td>
+<td>Negative text color</td>
+<td><code>text-negative-content</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="spacing-sizing">Spacing &amp; Sizing</h3><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Purpose</th>
+<th>Ex. Tailwind Utilities</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--radius</code></td>
+<td>Default border radius</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--spacing</code></td>
+<td>Base spacing unit</td>
+<td><code>p-1</code> <code>m-1</code> <code>gap-1</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--spacing-content-width</code></td>
+<td>Maximum content width in <a href="/docs/framework/styles/utilities">utility</a> styles</td>
+<td><code>max-w-content-width</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--spacing-field-padding</code></td>
+<td>Form field padding</td>
+<td><code>p-field-padding</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--spacing-field-height</code></td>
+<td>Form field height</td>
+<td><code>h-field-height</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--spacing-popover-offset</code></td>
+<td>Dropdown &amp; tooltip positioning offset</td>
+<td><code>my-popover-offset</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--edit-size-handle</code></td>
+<td>Grab area of <a href="/docs/framework/core-modules/resize">Visual Editing</a> resize handles (default <code>1rem</code>); not in the theme file, set it on <code>:root</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--spacing-viewport-padding</code></td>
+<td>Viewport padding for responsive design  in <a href="/docs/framework/styles/utilities">utility</a> styles</td>
+<td><code>px-viewport-padding</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="effects">Effects</h3><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Purpose</th>
+<th>Ex. Tailwind Utilities</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--transition</code></td>
+<td>Default form element transition timing</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--shadow-sm</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--shadow-md</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--shadow-lg</code></td>
+<td>Box shadows</td>
+<td><code>shadow-sm</code> <code>shadow-md</code> <code>shadow-lg</code></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--tooltip-hover-delay</code></td>
+<td><a href="/docs/framework/elements/tooltips">Tooltip</a> hover delay timing</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--view-transition-duration</code></td>
+<td><a href="/docs/framework/publishing/websites">Page transition</a> duration for prerendered MPAs</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--view-transition-easing</code></td>
+<td><a href="/docs/framework/publishing/websites">Page transition</a> easing for prerendered MPAs</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="fonts">Fonts</h3><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Purpose</th>
+<th>Ex. Tailwind Utilities</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--font-sans</code></td>
+<td>Default sans-serif font stack</td>
+<td><code>font-sans</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="icons">Icons</h3><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Purpose</th>
+<th>Ex. Tailwind Utilities</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--icon-accordion</code></td>
+<td><a href="/docs/framework/elements/accordions">Accordion</a> expand/collapse icon</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--icon-check</code></td>
+<td><a href="/docs/framework/elements/checkboxes">Checkbox</a> checked state icon</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--icon-chevron-down</code></td>
+<td><a href="/docs/framework/elements/selects">Select</a>, <a href="/docs/framework/elements/comboboxes">combobox</a>, and <a href="/docs/framework/elements/date-pickers">date picker</a> chevron</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--icon-dismiss</code></td>
+<td><a href="/docs/framework/elements/toasts">Toast</a> dismiss and field clear icon</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--icon-previous</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">--icon-next</code></td>
+<td><a href="/docs/framework/elements/date-pickers">Date picker</a> month navigation</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="custom-utilities">Custom Utilities</h2><p>Theme variables can be compiled into Tailwind-style custom utility classes using Manifest's utilities module. It's included in <code>manifest.js</code> with all core modules, or can be selectively loaded.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-modules-(default)-tab-0" aria-selected="true" tabindex="0">All Modules (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+
+<pre x-code="html" name="All Modules (default)" data-code-block-built="yes" aria-label="All Modules (default)" role="tabpanel" data-code-processed="yes" id="all-modules-(default)-panel-0" aria-labelledby="all-modules-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre x-code="html" name="Selective" data-code-block-built="yes" aria-label="Selective" role="tabpanel" data-code-processed="yes" id="selective-panel-1" aria-labelledby="selective-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+    <span class="hljs-attr">data-modules</span>=<span class="hljs-string">"utilities"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+
+<h3 id="application">Application</h3><p>Any declared CSS variables throughout your project can be compiled into utility classes, provided they use Tailwind <a href="https://tailwindcss.com/docs/theme#theme-variable-namespaces" target="_blank" rel="noopener">namespace</a> prefixes like <code>--color-</code> or <code>--spacing-</code>. For example:</p>
+<pre x-code="css" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-pseudo">:root</span> {
+    <span class="hljs-attr">--color-brand-surface</span>: red;
+}</code></pre>
+<p>...can compile into classes like:</p>
+<pre x-code="css" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-css" data-highlighted="yes"><span class="hljs-selector-class">.bg-brand-surface</span> { <span class="hljs-attribute">background-color</span>: red; }
+<span class="hljs-selector-class">.text-brand-surface</span> { <span class="hljs-attribute">color</span>: red; }
+<span class="hljs-selector-class">.border-brand-surface</span> { <span class="hljs-attribute">border-color</span>: red; }</code></pre>
+<p>The runtime compiler only generates styles for classes used in the current DOM view, and caches its work to avoid repeating it. Published sites get these classes pre-baked — see <a href="/docs/framework/getting-started/performance#utility-classes">utility classes</a>.</p>
+<hr>
+<h3 id="tailwind-integration">Tailwind Integration</h3><p>The utility module operates independently, but follows Tailwind naming patterns and is designed to pair well with <a href="https://tailwindcss.com/docs/installation/play-cdn" target="_blank" rel="noopener">Play CDN</a>, a client-side version of Tailwind.</p>
+<p>While it's not advertised for production use, Play CDN aligns with Manifest's ethos of being plug-and-play with no build steps, and has a typically negligible performance impact.</p>
+<p><code>manifest.js</code> can load a modified version of Play CDN that removes Tailwind's Preflight styles in favor of our <a href="/docs/framework/styles/reset">reset</a> styles. It also removes a console warning about using Play CDN in production. Add the <code>data-tailwind</code> attribute to access it.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="with-manifest-tab-0" aria-selected="true" tabindex="0">With Manifest</button><button type="button" role="tab" id="with-play-cdn-tab-1" aria-selected="false" tabindex="-1">With Play CDN</button></div></header>
+
+<pre x-code="html" name="With Manifest" data-code-block-built="yes" aria-label="With Manifest" role="tabpanel" data-code-processed="yes" id="with-manifest-panel-0" aria-labelledby="with-manifest-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+    <span class="hljs-attr">data-tailwind</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre x-code="html" name="With Play CDN" data-code-block-built="yes" aria-label="With Play CDN" role="tabpanel" data-code-processed="yes" id="with-play-cdn-panel-1" aria-labelledby="with-play-cdn-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Tailwind Play CDN --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Manifest --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Alternatively, Tailwind can be <a href="https://tailwindcss.com/docs/installation/using-vite" target="_blank" rel="noopener">directly installed</a>. It uses a build step to compile CSS variables (from <code>@theme { ... }</code> rules) into CSS utility classes, making Manifest's utility module redundant.</p>
+</div>
+
+      <!-- Previous / next -->
+      <template x-if="article?.name &amp;&amp; (prev || next)">
+        <nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template>
+        </nav>
+      </template><nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="" data-mnfst-prerender-clone="1">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template><a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline" href="/docs/framework/styles/reset" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name">Reset</span>
+            </a>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template><a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end" href="/docs/framework/styles/color-modes" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name">Color Modes</span>
+            </a>
+        </nav>
+
+      <!-- Family home (markdown) -->
+      <template x-if="at(base) &amp;&amp; home">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="home"></div>
+      </template>
+
+      <!-- Docs home -->
+      <template x-if="at(base) &amp;&amp; landing">
+        <div class="col gap-8 pb-12">
+          <template x-if="landing === 'framework'"><x-framework></x-framework></template>
+          <template x-if="landing === 'platform'"><x-docs-platform></x-docs-platform></template>
+          <template x-if="landing === 'api'"><x-docs-api></x-docs-api></template>
+          <div class="col gap-4 w-content-width max-w-full mx-auto">
+            <h2 class="h4">Explore the docs</h2>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <template x-for="card in cards" :key="card.href">
+                <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                  <span x-icon="card.icon" class="text-brand-content"></span>
+                  <span class="col">
+                    <span class="text-content-stark font-medium" x-text="card.title"></span>
+                    <small class="text-content-subtle" x-text="card.sub"></small>
+                  </span>
+                </a>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template x-if="at(base) &amp;&amp; !home &amp;&amp; !landing">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="heading"></h1>
+            <p class="text-content-neutral" x-show="intro" x-text="intro"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="card in cards" :key="card.href">
+              <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="card.icon" class="text-brand-content"></span>
+                <span class="col">
+                  <span class="text-content-stark font-medium" x-text="card.title"></span>
+                  <small class="text-content-subtle" x-text="card.sub"></small>
+                </span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Group landing -->
+      <template x-if="group?.group">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="group?.group"></h1>
+            <p class="text-content-neutral" x-show="group?.description" x-text="group?.description"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
+              <a :href="href(group, item)" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
+                <span class="text-content-stark" x-text="item.name"></span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+    </div>
+
+    <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
+    <template x-if="!article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
+      <div class="max-w-full prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
+
+    <footer class="mt-20">
+  <hr>
+  <div class="row-wrap justify-between items-center gap-4 pt-4">
+
+    <figcaption class="text-content-subtle">© 2026 MNFST OÜ • <a href="/legal/terms">Terms</a> • <a href="/legal/privacy">Privacy</a><span x-show="$route.startsWith('/docs/framework')"> • Framework under the <a href="/docs/framework/resources/license">MIT License</a></span></figcaption>
+
+    <div class="row-wrap gap-3">
+
+      <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
+
+      <div role="tablist" aria-label="Color mode" class="sm rounded-full">
+        <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h4"></button>
+        <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h5"></button>
+        <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h6"></button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+
+  <!-- Anchor links -->
+  <nav aria-label="On this page" x-show="!(at(base) &amp;&amp; landing)" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
+
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+      <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
+      <span>On this page</span>
+    </small>
+
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#theme-variables">Theme Variables</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#color-palette">Color Palette</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#theme-colors">Theme Colors</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#semantic-colors">Semantic Colors</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#spacing-sizing">Spacing &amp; Sizing</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#effects">Effects</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#fonts">Fonts</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#icons">Icons</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#custom-utilities">Custom Utilities</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#application">Application</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#tailwind-integration">Tailwind Integration</a></div>
+
+  </nav>
+
+</div>
+
+    <!-- Legal pages -->
+    
+
+    <!-- Support -->
+    
+
+  </main>
+
+  <!-- Footer (visible on every route) -->
+  
+
+
+
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"data-order":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"aria-selected":null,"type":null}},{"id":"h5","attrs":{"aria-selected":null,"type":null}},{"id":"h6","attrs":{"aria-selected":null,"type":null}}]</script>
+</body></html>

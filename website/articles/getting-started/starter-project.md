@@ -8,13 +8,72 @@ Kickstart new websites and apps with a turnkey template.
 
 Install the starter project locally with the `npx` command:
 
-```bash copy
+<div x-code-group>
+
+```bash "New Folder" copy
 npx mnfst-starter Name
 ```
 
-"Name" is the modifiable root directory title — name it after your project.
+```bash "Current Folder" copy
+npx mnfst-starter --here
+```
+
+</div>
+
+`npx mnfst-starter Name` creates a `Name/` folder and sets it as the project name in `manifest.json`. It stops if that folder already exists.
+
+`npx mnfst-starter --here` installs into the current folder instead, using the folder's name as the project name.
+
+Add `--name` to either command to set a different project name:
+
+<div x-code-group>
+
+```bash "New Folder" copy
+npx mnfst-starter my-site --name "My Site"
+```
+
+```bash "Current Folder" copy
+npx mnfst-starter --here --name "My Site"
+```
+
+</div>
+
+A folder name given to `npx mnfst-starter Name` may contain ASCII letters, numbers, spaces, dots, underscores, and hyphens, and can't start or end with a dot or space or contain two dots in a row. The `--name` value can be any text, so use it for names with other characters.
+
+The starter stops with an error on an option it doesn't recognise, such as a misspelt `--frce`, or on an empty value like `--name=`. Run `npx mnfst-starter --help` to list the options.
 
 Alternatively, download the template directory from <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/starter" target="_blank">GitHub</a>.
+
+### Existing Files
+
+`--here` never overwrites files. If any template file already exists in the folder, nothing is written and the conflicts are listed:
+
+```
+Error: these files already exist in this folder and would be overwritten:
+  index.html
+  manifest.json
+  README.md
+Move them aside, or re-run with --force to overwrite them.
+```
+
+Move those files aside, or add `--force` to replace them with the template versions. Other files are never touched, apart from the config merges below.
+
+```bash copy
+npx mnfst-starter --here --force
+```
+
+`--force` lists every file it overwrote. It keeps the project name already in `manifest.json` unless `--name` is also given; everything else in `manifest.json` is replaced by the template. If the existing `manifest.json` can't be read, the starter warns and uses the folder name instead. Outside `--here`, `--force` has no effect and the starter prints a warning; likewise a folder name passed alongside `--here` is ignored with a warning.
+
+### Merged Config
+
+Some files are merged with what's already in the folder rather than replaced, even with `--force`:
+
+- `.gitignore` keeps its existing rules. Any missing starter entries (such as `.env`) are appended under `# Added by Manifest`.
+- `.mcp.json` keeps its other servers. Only the `manifest` server entry is added or updated.
+- `.claude/settings.json` keeps its settings. `mcp__manifest` is added to `permissions.allow`.
+- `.env` keeps its other variables. Only `MANIFEST_API_KEY` is added or updated.
+
+The last three apply only when [the Manifest plugin](/docs/platform/introduction) sets up the project, which passes the project ID for you (and, for headless setups, a key for `.env`). If `.mcp.json` or `.claude/settings.json` isn't valid JSON, the starter stops before writing anything.
 
 ---
 
@@ -34,7 +93,7 @@ npx mnfst-run path
 
 Run this project locally from the project root with `npx mnfst-run`{copy}, or any subdirectory with `npx mnfst-run path`{copy}, where "path" is the folder path. Alternatively, most local server solutions can run Manifest projects.
 
-See [websites](/docs/publishing/websites) for deploying live to production.
+See [websites](/docs/framework/publishing/websites) for deploying live to production.
 
 ---
 
@@ -46,7 +105,7 @@ The project is provided with ready-made content for:
 - Header, footer, and logo components
 - Responsive layout with mobile sidebar
 - Color modes
-- Localization (English, Arabic, and Chinese examples)
+- Localization (English, Spanish, Arabic, and Chinese examples)
 - Markdown article injection
 
 ---
@@ -58,20 +117,21 @@ The project begins with this folder structure for both development and deploymen
 ```
 Project Name/
 ├── assets/                   # Visual files
-│   ├── fonts                 # Web fonts
+│   ├── fonts/                # Web fonts
 │   │   └── Inter.woff2
-│   └── icons                 # Web app icons               
+│   └── icons/                # Web app icons
 │       ├── 192x192.png
 │       └── 512x512.png
 ├── components/               # HTML components
 │   ├── header.html
 │   ├── footer.html
 │   └── logo.html
+├── .gitignore                # Files Git should skip
 ├── _redirects                # SPA routing support for modern static hosts
 ├── favicon.ico               # Browser tab icon
 ├── index.html                # Rendering entry point / main page
 ├── LICENSE.md                # MIT License
-├── locales.csv               # Translated content in English, Arabic, and Chinese
+├── locales.csv               # Translated content in English, Spanish, Arabic, and Chinese
 ├── manifest.json             # Project & web app manifest
 ├── manifest.theme.css        # Project theme variables
 ├── privacy.md                # Privacy policy template, required by most sites & apps
@@ -89,9 +149,9 @@ The only mandatory file required is `index.html`. All other files and folders ar
 This main HTML file serves as the router's single-page application (SPA) entry point. It includes:
 
 - **Head tags** for Manifest framework loading (from CDN), SEO, and web app configuration.
-- **Component placeholders** (`<x-header>`, `<x-footer>`) of [HTML templates](/docs/core-plugins/components).
-- **Routing views** (`x-route="..."`) for [URL-specific content](/docs/core-plugins/router).
-- **Dynamic references** (`x-text="$x.content.page1"`) to localized [data source](/docs/core-plugins/local-data) values.
+- **Component placeholders** (`<x-header>`, `<x-footer>`) of [HTML templates](/docs/framework/core-modules/components).
+- **Routing views** (`x-route="..."`) for [URL-specific content](/docs/framework/core-modules/router).
+- **Dynamic references** (`x-text="$x.content.page1"`) to localized [data source](/docs/framework/core-modules/local-data) values.
 
 ---
 
@@ -99,4 +159,4 @@ This main HTML file serves as the router's single-page application (SPA) entry p
 
 This <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest" target="_blank">web application manifest</a> allows browsers to identify and export the website as an app to mobile and desktop devices. As a progressive web app (PWA), your project is often more portable, scalable, and popular than traditional native apps, and can be packaged for app store distribution.
 
-This project also uses the manifest to register its [components](/docs/core-plugins/components) and [localized](/docs/core-plugins/localization) content, and to define `author` and `email` fields referenced by the Privacy Policy.
+This project also uses the manifest to register its [components](/docs/framework/core-modules/components) and [localized](/docs/framework/core-modules/localization) content, and to define `author` and `email` fields referenced by the Privacy Policy.

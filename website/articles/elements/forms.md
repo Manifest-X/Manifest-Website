@@ -6,7 +6,7 @@ Structured input layouts with built-in validation.
 
 ## Setup
 
-Form styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Form styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -28,7 +28,7 @@ The `<form>` element arranges its contents in a column with gaps.
 
 <div x-code-group>
 
-```html
+```html copy
 <form>
     <label for="input1">Input 1</label>
     <input id="input1" placeholder="Insert" />
@@ -52,7 +52,7 @@ Place form elements inside a label for enhanced default styling, and to reduce c
 
 <div x-code-group>
 
-```html
+```html copy
 <form>
     <label>
         Input 1
@@ -163,21 +163,21 @@ This works for all types of form elements.
         Text input label
         <input placeholder="Input" />
     </label>
-    <div>
+    <fieldset>
         <label for="search">Search input label</label>
         <label>
             <i x-icon="lucide:search"></i>
             <input id="search" type="search" />
         </label>
-    </div>
-    <div>
+    </fieldset>
+    <fieldset>
         <label for="file">File input label</label>
         <label>
             <i x-icon="lucide:upload"></i>
             Upload
             <input id="file" type="file" />
         </label>
-    </div>
+    </fieldset>
     <label>
         Select label
         <select>
@@ -243,7 +243,7 @@ To horizontally inline the label text with its form element, place the text in a
         <data>Search input label</data>
         <div class="label">
             <i x-icon="lucide:search"></i>
-            <input id="search" type="search" />
+            <input type="search" />
         </div>
     </label>
     <label>
@@ -251,7 +251,7 @@ To horizontally inline the label text with its form element, place the text in a
         <div class="label">
             <i x-icon="lucide:upload"></i>
             Upload
-            <input id="file" type="file" />
+            <input type="file" />
         </div>
     </label>
 
@@ -308,7 +308,7 @@ To horizontally inline the label text with its form element, place the text in a
         <data>Search input label</data>
         <div class="label">
             <i x-icon="lucide:search"></i>
-            <input id="search" type="search" />
+            <input type="search" />
         </div>
     </label>
     <label>
@@ -316,7 +316,7 @@ To horizontally inline the label text with its form element, place the text in a
         <div class="label">
             <i x-icon="lucide:upload"></i>
             Upload
-            <input id="file" type="file" />
+            <input type="file" />
         </div>
     </label>
     <label>
@@ -373,11 +373,11 @@ Add a `<legend>` element to a `<fieldset>` with checkboxes or radios, to create 
     <legend>Preferences</legend>
     <label>
         <input type="checkbox" />
-        <data>Email notifications</data>
+        Email notifications
     </label>
     <label>
         <input type="checkbox" />
-        <data>SMS notifications</data>
+        SMS notifications
     </label>
 </fieldset>
 ```
@@ -387,11 +387,11 @@ Add a `<legend>` element to a `<fieldset>` with checkboxes or radios, to create 
 <legend>Preferences</legend>
 <label>
     <input type="checkbox" />
-    <data>Email notifications</data>
+    Email notifications
 </label>
 <label>
     <input type="checkbox" />
-    <data>SMS notifications</data>
+    SMS notifications
 </label>
 </fieldset>
 :::
@@ -484,15 +484,15 @@ A wrapper with `role="tablist"` instead becomes a tab bar. Mark the active butto
 
 </div>
 
-[Tab](/docs/elements/tabs) buttons sync `aria-selected` automatically, so adding `role="tablist"` to a wrapper of `x-tab` buttons gets this styling with no further markup.
+[Tab](/docs/framework/elements/tabs) buttons sync `aria-selected` automatically, so adding `role="tablist"` to a wrapper of `x-tab` buttons gets this styling with no further markup.
 
-Button [utility classes](/docs/elements/buttons#utilities) like `transparent`, `outlined`, `sm`, and `lg`, also apply at the wrapper level, styling the whole control as one.
+Button [utility classes](/docs/framework/elements/buttons#utilities) `outlined`, `sm`, and `lg` also apply at the wrapper level, styling the whole control as one. On a tab bar, `transparent` clears the bar's background.
 
 ---
 
 ## Remove Buttons
 
-A button named `remove` becomes a floating dismiss affordance for whatever contains it — a chip, an [avatar](/docs/elements/avatars), a pending [chat attachment](/docs/elements/chats#composer). The complete markup is one attribute pair; everything else is automatic.
+A button named `remove` becomes a floating dismiss affordance for whatever contains it — a chip, an [avatar](/docs/framework/elements/avatars), a pending [chat attachment](/docs/framework/elements/chats#composer). The complete markup is one attribute pair; everything else is automatic.
 
 <div x-code-group>
 
@@ -529,7 +529,20 @@ A few notes:
 
 ## Validation
 
-Native HTML5 attributes like `required`, `type="email"`, `pattern`, `minlength`, and `maxlength` trigger the browser's built-in form validation on submit. Custom CSS or Tailwind pseudo-class variants can be used to style valid and invalid states without Javascript. Block the form's own validation messages with `novalidate`.
+Native HTML5 attributes like `required`, `type="email"`, `pattern`, `minlength`, and `maxlength` trigger the browser's built-in form validation on submit. Block the form's own validation messages with `novalidate`.
+
+[Inputs](/docs/framework/elements/inputs), [selects](/docs/framework/elements/selects), and [textareas](/docs/framework/elements/textareas) show their state once the visitor has interacted with them or tried to submit, using the `:user-invalid` and `:user-valid` pseudo-classes. An invalid field gets a ring in the negative colour; valid fields stay unmarked. Change either colour with theme variables:
+
+```css copy
+:root {
+    --color-field-invalid: var(--color-negative-content);
+    --color-field-valid: var(--color-positive-content);
+}
+```
+
+`--color-field-invalid` defaults to `--color-negative-content`. Valid fields get a ring only once `--color-field-valid` is set. A field with the `unstyle` class opts out.
+
+Custom CSS or Tailwind pseudo-class variants can style the states further without Javascript.
 
 <div x-code-group>
 
@@ -545,7 +558,7 @@ Native HTML5 attributes like `required`, `type="email"`, `pattern`, `minlength`,
         <input type="text" required minlength="8"
             class="user-invalid:negative user-valid:positive" />
     </label>
-    <button class="group-invalid:disabled accent">Submit</button>
+    <button class="accent">Submit</button>
 </form>
 ```
 
@@ -561,7 +574,7 @@ Native HTML5 attributes like `required`, `type="email"`, `pattern`, `minlength`,
         <input type="text" required minlength="8"
             class="user-invalid:negative user-valid:positive" />
     </label>
-    <button class="group-invalid:disabled accent">Submit</button>
+    <button class="accent">Submit</button>
 </form>
 :::
 
@@ -587,14 +600,30 @@ Common Tailwind variants:
 
 ---
 
+## Sending
+
+A form with an `action` and `method="post"` sends itself, no script needed. To send it without leaving the page and show the result yourself, add `x-submit` from the [Form Submissions](/docs/framework/core-modules/submissions) module.
+
+```html copy
+<form x-submit action="/_forms/contact" method="post">
+    <label>
+        Email
+        <input name="email" type="email" required>
+    </label>
+    <button>Send</button>
+</form>
+```
+
+---
+
 ## Styles
 
-Forms inherit styling from their child elements ([buttons](/docs/elements/buttons), [inputs](/docs/elements/inputs), [selects](/docs/elements/selects)) and reference [theme](/docs/styles/theme) variables. The form, fieldset, label, and group elements layer in a small amount of layout structure on top.
+Forms inherit styling from their child elements ([buttons](/docs/framework/elements/buttons), [inputs](/docs/framework/elements/inputs), [selects](/docs/framework/elements/selects)) and reference [theme](/docs/framework/styles/theme) variables. The form, fieldset, label, and group elements layer in a small amount of layout structure on top.
 
 | Selector | Purpose |
 |---|---|
 | `form` | Default column layout with vertical gaps between children |
-| `fieldset` | Bordered grouping with column layout |
+| `fieldset` | Column layout; bordered when it has a `<legend>` |
 | `legend` | Fieldset title styling |
 | `label` | Stacks a label above its form control |
 | `label > data` | Inlines the label text horizontally with the control |

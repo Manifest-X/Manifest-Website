@@ -6,7 +6,7 @@ User profile images with status indicators and fallbacks.
 
 ## Setup
 
-Avatar styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Avatar styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -68,7 +68,7 @@ To display text or an icon by default while supporting an optional profile pic, 
 
 ## Interactive
 
-Buttons accept the `avatar` class and can be used to trigger an action like opening a [dropdown](/docs/elements/dropdowns) or [dialog](/docs/elements/dialogs).
+Buttons accept the `avatar` class and can be used to trigger an action like opening a [dropdown](/docs/framework/elements/dropdowns) or [dialog](/docs/framework/elements/dialogs).
 
 <div x-code-group>
 
@@ -80,7 +80,7 @@ Buttons accept the `avatar` class and can be used to trigger an action like open
 <button class="avatar">W</button>
 
 <!-- Background image -->
-<button class="avatar bg-[url(/assets/examples/user.jpg)]"></button>
+<button class="avatar bg-[url(/assets/examples/user.jpg)]" aria-label="Profile"></button>
 
 <!-- Initials and/or profile image -->
 <button class="avatar">
@@ -92,7 +92,7 @@ Buttons accept the `avatar` class and can be used to trigger an action like open
 ::: frame row-wrap gap-2
 <button class="avatar" x-icon="lucide:user" aria-label="User menu"></button>
 <button class="avatar">W</button>
-<button class="avatar bg-[url(/assets/examples/user.jpg)]"></button>
+<button class="avatar bg-[url(/assets/examples/user.jpg)]" aria-label="Profile"></button>
 <button class="avatar"><span>W</span><img src="/assets/examples/user.jpg" alt=""></button>
 :::
 
@@ -154,7 +154,7 @@ To create an avatar button that facilitates a profile pic upload, use an input o
 
 </div>
 
-In this example, Alpine is used to temporarily upload an image. The image can be overwritten with a new upload or removed. The remove button is the standard [dismiss affordance](/docs/elements/forms#remove-buttons) — `name="remove"` handles its position, glyph, and hover reveal. The spans and their Tailwind styles are arbitrary, shown here for visual demonstration purposes.
+In this example, Alpine is used to temporarily upload an image. The image can be overwritten with a new upload or removed. The remove button is the standard [dismiss affordance](/docs/framework/elements/forms#remove-buttons) — `name="remove"` handles its position, glyph, and hover reveal. The spans and their Tailwind styles are arbitrary, shown here for visual demonstration purposes.
 
 ---
 
@@ -204,7 +204,7 @@ Within the `avatar-wide` container, all elements besides `avatar` are completely
 
 ## Utilities
 
-Avatars accept Manifest [utility](/docs/styles/utilities) classes, which can be stacked in any combination.
+Avatars accept Manifest [utility](/docs/framework/styles/utilities) classes, which can be stacked in any combination.
 
 ### Colors
 <div x-code-group>
@@ -367,16 +367,18 @@ Grouped avatars are given a bunching effect with negative margins.
 
 ### Theme
 
-Default avatars use the following [theme](/docs/styles/theme) variables:
+Default avatars use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|---------|
-| `--color-field-surface`{copy} | Avatar background color |
-| `--color-field-surface-hover`{copy} | Button avatar hover/active background color |
+| `--color-surface-3`{copy} | Avatar and status indicator background color |
+| `--color-field-surface`{copy} | Background color of colored avatars and status indicators |
+| `--color-field-surface-hover`{copy} | Hover background color of colored button avatars |
 | `--color-field-inverse`{copy} | Avatar text color |
+| `--color-content-stark`{copy} | Tint mixed into the button avatar hover background |
+| `--color-page`{copy} | Ring around status indicators and grouped avatars |
 | `--spacing-field-height`{copy} | Avatar width and height |
-| `--radius`{copy} | Border radius for avatar corners |
-| `--transition`{copy} | Transition for interactive states |
+| `--transition`{copy} | Transition for profile pics |
 
 ---
 
@@ -388,7 +390,7 @@ Modify avatar styles with custom CSS.
 
 ```css copy
 .avatar {
-    border-radius: 50%;
+    border-radius: var(--radius);
     outline: 1px solid blue;
     outline-offset: 1px;
 }
@@ -397,7 +399,7 @@ Modify avatar styles with custom CSS.
 ::: frame
 <style>
 .avatar-custom {
-    border-radius: 50%;
+    border-radius: var(--radius);
     outline: 1px solid blue;
     outline-offset: 1px;
 }

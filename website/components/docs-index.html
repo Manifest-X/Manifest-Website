@@ -1,0 +1,92 @@
+<template data-head><title>Docs — Manifest</title></template>
+<section class="col gap-10 w-content-width max-w-full mx-auto pt-12 pb-24">
+
+  <!-- Header -->
+  <div class="col gap-5 w-2xl max-w-full">
+    <div class="col gap-3">
+      <h1 class="max-sm:text-4xl">Documentation</h1>
+      <p class="text-content-neutral text-balance">Build with Claude, write it yourself in HTML, or publish from your own code. Pick where to start.</p>
+    </div>
+    <button popovertarget="docs-search" class="row items-center gap-3 w-full max-w-md px-4 border border-line bg-popover-surface hover:bg-surface-1 rounded-full text-content-subtle">
+      <span x-icon="lucide:search"></span>
+      <span class="grow text-start">Search the docs</span>
+      <span class="hidden md:inline text-xs">⌘K</span>
+    </button>
+  </div>
+
+  <!-- Families -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+    <!-- Platform -->
+    <div class="col border border-line bg-popover-surface rounded-xl overflow-hidden">
+      <a href="/docs/platform" class="col items-start justify-center gap-3 h-48 px-6 bg-surface-1 text-sm text-content-stark no-underline" aria-label="Platform docs">
+        <p class="self-end max-w-[85%] px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md">Put it live on solstice.studio</p>
+        <p class="row items-center gap-1 text-xs text-content-subtle"><span>Published live</span><span x-icon="lucide:chevron-right"></span></p>
+        <p class="row-wrap items-center gap-2">Done. It's live at <span class="row items-center gap-2 px-2.5 py-1 bg-popover-surface rounded-full text-xs"><span class="url-dot bg-positive-surface"></span>solstice.studio</span></p>
+      </a>
+      <div class="col grow gap-5 p-6">
+        <div class="col gap-1">
+          <a href="/docs/platform" class="h5 text-content-stark no-underline hover:underline">Platform</a>
+          <p class="text-sm text-content-neutral">Build, publish, and run websites and apps by chatting with Claude. No coding required.</p>
+        </div>
+        <nav class="col gap-2 mt-auto" aria-label="Popular Platform articles">
+          <a href="/docs/platform/introduction" class="docs-pop"><span x-icon="lucide:book-open"></span><span><b>Introduction</b><small>Connect Claude and start a session.</small></span></a>
+          <a href="/docs/platform/publish" class="docs-pop"><span x-icon="lucide:globe"></span><span><b>Publish</b><small>Staging, live, and your own domain.</small></span></a>
+          <a href="/docs/platform/edit" class="docs-pop"><span x-icon="lucide:pencil"></span><span><b>Edit</b><small>Build and change a project.</small></span></a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Framework -->
+    <div class="col border border-line bg-popover-surface rounded-xl overflow-hidden">
+      <div class="grid grid-cols-[1fr_auto] items-center gap-4 h-48 px-6 bg-surface-1" x-data="{ period: 'weekly' }">
+        <pre class="unstyle m-0 font-mono text-xs leading-relaxed text-content-neutral" aria-hidden="true"><span class="text-content-subtle">&lt;div</span> <span class="text-brand-content">role</span>=<span class="text-content-stark">"tablist"</span><span class="text-content-subtle">&gt;</span>
+  <span class="text-content-subtle">&lt;button&gt;</span>Daily<span class="text-content-subtle">&lt;/button&gt;</span>
+  <span class="text-content-subtle">&lt;button&gt;</span>Weekly<span class="text-content-subtle">&lt;/button&gt;</span>
+<span class="text-content-subtle">&lt;/div&gt;</span></pre>
+        <div role="tablist" aria-label="Example tab bar" class="sm rounded-full">
+          <button type="button" role="tab" :aria-selected="period === 'daily'" @click="period = 'daily'">Daily</button>
+          <button type="button" role="tab" :aria-selected="period === 'weekly'" @click="period = 'weekly'">Weekly</button>
+        </div>
+      </div>
+      <div class="col grow gap-5 p-6">
+        <div class="col gap-1">
+          <a href="/docs/framework" class="h5 text-content-stark no-underline hover:underline">Framework</a>
+          <p class="text-sm text-content-neutral">Write websites and apps in plain HTML with the open-source Manifest framework.</p>
+        </div>
+        <nav class="col gap-2 mt-auto" aria-label="Popular Framework articles">
+          <a href="/docs/framework/getting-started/setup" class="docs-pop"><span x-icon="lucide:terminal"></span><span><b>Setup</b><small>Add Manifest to a project.</small></span></a>
+          <a href="/docs/framework/elements" class="docs-pop"><span x-icon="lucide:shapes"></span><span><b>Elements</b><small>Pre-styled HTML elements and widgets.</small></span></a>
+          <a href="/docs/framework/core-modules" class="docs-pop"><span x-icon="lucide:plug"></span><span><b>Core modules</b><small>Data, routing, components, and more.</small></span></a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- API -->
+    <div class="col border border-line bg-popover-surface rounded-xl overflow-hidden">
+      <a href="/docs/api" class="col justify-center gap-3 h-48 px-6 bg-surface-1 font-mono text-xs no-underline" aria-label="API docs">
+        <p class="row items-center gap-2 min-w-0"><span class="px-1.5 py-0.5 bg-brand-surface/40 text-brand-content rounded">POST</span><span class="truncate text-content-stark">/v1/projects/shop/promote</span></p>
+        <div class="col gap-1 p-3 bg-popover-surface rounded-lg text-content-neutral">
+          <p class="row items-center gap-2"><span class="url-dot bg-positive-surface"></span><span class="text-content-stark">200 OK</span></p>
+          <p>{ "live": true,</p>
+          <p class="ps-2">"url": "shop.acme.com" }</p>
+        </div>
+      </a>
+      <div class="col grow gap-5 p-6">
+        <div class="col gap-1">
+          <a href="/docs/api" class="h5 text-content-stark no-underline hover:underline">API</a>
+          <p class="text-sm text-content-neutral">The Manifest platform from your own code: create, edit, and publish projects.</p>
+        </div>
+        <nav class="col gap-2 mt-auto" aria-label="Popular API articles">
+          <a href="/docs/api/getting-started/quickstart" class="docs-pop"><span x-icon="lucide:square-arrow-up-right"></span><span><b>Quickstart</b><small>Publish your first project by API.</small></span></a>
+          <a href="/docs/api/reference/authentication" class="docs-pop"><span x-icon="lucide:key-round"></span><span><b>Authentication</b><small>API keys and how to send them.</small></span></a>
+          <a href="/docs/api/reference/endpoints" class="docs-pop"><span x-icon="lucide:list"></span><span><b>Endpoints</b><small>Every route at a glance.</small></span></a>
+        </nav>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Help -->
+  <p class="text-sm text-content-neutral">Can't find it? <a href="/support">Get in touch</a> or <a href="/compare">see how Manifest compares</a>.</p>
+</section>

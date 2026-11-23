@@ -6,9 +6,9 @@ Calendar dates, ranges, and times with native fallbacks and full localization.
 
 ## Setup
 
-Date picker styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Date picker styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
-Date picker functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
+Date picker functionality is included in `manifest.js` with all core modules, or it can be selectively loaded.
 
 <div x-code-group copy>
 
@@ -25,15 +25,15 @@ Date picker functionality is included in `manifest.js` with all core plugins, or
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.datepicker.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.dropdown.css" />
 
-<!-- Manifest JS: datepicker plugin only -->
+<!-- Manifest JS: datepicker module only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugins="datepicker"></script>
+  data-modules="datepicker"></script>
 ```
 
 </div>
 
 ::: brand icon="lucide:info"
-Calendar menus piggyback on [dropdown](/docs/elements/dropdowns) styles and popover behavior, so the dropdown stylesheet loads as a dependency. Navigation chevrons are baked into the CSS as the `--icon-previous` / `--icon-next` [theme](/docs/styles/theme) variables — no icons plugin needed, and overridable like any other token.
+Calendar menus piggyback on [dropdown](/docs/framework/elements/dropdowns) styles and popover behavior, so the dropdown stylesheet loads as a dependency. Navigation chevrons are baked into the CSS as the `--icon-previous` / `--icon-next` [theme](/docs/framework/styles/theme) variables — no icons module needed, and overridable like any other token.
 :::
 
 ---
@@ -42,7 +42,7 @@ Calendar menus piggyback on [dropdown](/docs/elements/dropdowns) styles and popo
 
 ### Native Input
 
-The simplest date field is a native `<input type="date">`, displaying the browser's built-in picker when pressed. No plugin required.
+The simplest date field is a native `<input type="date">`, displaying the browser's built-in picker when pressed. No module required.
 
 <div x-code-group>
 
@@ -51,7 +51,7 @@ The simplest date field is a native `<input type="date">`, displaying the browse
 ```
 
 ::: frame
-<input type="date" style="max-width: 16rem;">
+<input type="date" class="max-w-64">
 :::
 
 </div>
@@ -60,7 +60,7 @@ The simplest date field is a native `<input type="date">`, displaying the browse
 
 ### Picker Field
 
-For full control over content, format, and styling, add `x-date` to an input. The plugin renders a themed calendar dropdown under the field and writes the selection back as a localized display value.
+For full control over content, format, and styling, add `x-date` to an input. The module renders a themed calendar dropdown under the field and writes the selection back as a localized display value.
 
 <div x-code-group>
 
@@ -69,7 +69,7 @@ For full control over content, format, and styling, add `x-date` to an input. Th
 ```
 
 ::: frame
-<input x-date placeholder="Select a date" style="max-width: 16rem;">
+<input x-date placeholder="Select a date" class="max-w-64">
 :::
 
 </div>
@@ -88,7 +88,7 @@ Triggers aren't input-specific — a `<button x-date>` opens the same dropdown, 
 
 </div>
 
-Keep the authored `type="date"` for graceful degradation: until the plugin loads (or if JavaScript is disabled), the browser's native picker serves as the fallback, and its `min`/`max` attributes carry over.
+Keep the authored `type="date"` for graceful degradation: until the module loads (or if JavaScript is disabled), the browser's native picker serves as the fallback, and its `min`/`max` attributes carry over.
 
 ```html copy
 <input x-date type="date" min="2026-01-01" max="2026-12-31">
@@ -115,7 +115,7 @@ For two-way reactive binding, use `x-model` instead. When both are present, `x-m
 
 ::: frame
 <div class="row-wrap items-center gap-4" x-data="{ when: '' }">
-    <input x-date x-model="when" placeholder="Select a date" style="max-width: 16rem;">
+    <input x-date x-model="when" placeholder="Select a date" class="max-w-64">
     <p x-text="when || '—'"></p>
 </div>
 :::
@@ -124,7 +124,7 @@ For two-way reactive binding, use `x-model` instead. When both are present, `x-m
 
 #### Form Participation
 
-Add a `name` attribute to submit with a `<form>`. The plugin synthesizes a paired hidden input carrying the ISO value and keeps it in sync. The visible field holds the human-readable format while the form receives the machine-readable one.
+Add a `name` attribute to submit with a `<form>`. The module synthesizes a paired hidden input carrying the ISO value and keeps it in sync. The visible field holds the human-readable format while the form receives the machine-readable one.
 
 ```html copy
 <form>
@@ -150,8 +150,8 @@ The input's authored `type` declares what the field picks. `type="time"` makes a
 ```
 
 ::: frame row-wrap gap-6
-<input x-date type="time" placeholder="Pick a time" style="max-width: 12rem;">
-<input x-date type="datetime-local" placeholder="Pick date & time" style="max-width: 18rem;">
+<input x-date type="time" placeholder="Pick a time" class="max-w-48">
+<input x-date type="datetime-local" placeholder="Pick date & time" class="max-w-72">
 :::
 
 </div>
@@ -218,7 +218,7 @@ The `x-date.range` modifier selects a start and end date. Hovering previews the 
 
 ::: frame
 <div class="row-wrap items-center gap-4" x-data="{ stay: { start: '', end: '' } }">
-    <input x-date.range x-model="stay" placeholder="Select a range" style="max-width: 22rem;">
+    <input x-date.range x-model="stay" placeholder="Select a range" class="max-w-88">
     <p x-text="(stay.start || '—') + ' → ' + (stay.end || '—')"></p>
 </div>
 :::
@@ -268,9 +268,9 @@ Pass an object as the directive's value for reactive configuration. All keys are
 
 | Key        | Type                  | Description                                                                                     |
 | ---------- | --------------------- | ----------------------------------------------------------------------------------------------- |
-| `months`{copy}   | number (1–4)          | Calendar months displayed side by side. Default `1`.                                            |
+| `months`{copy}   | number (1–4)          | Calendar months displayed side by side. Default `1`. |
 | `firstDay`{copy} | string \| number      | First weekday override — a name (`'monday'`) or index (`0` = Sunday). Defaults to the locale's. |
-| `min`{copy} / `max`{copy} | ISO string   | Selectable bounds. Also read from the input's native `min`/`max` attributes.                    |
+| `min`{copy} / `max`{copy} | ISO string   | Selectable bounds. Also read from the input's native `min`/`max` attributes. If panels would fall past `max`, the calendar opens with the max month as the last panel. A future `min` opens on the min month, and a selected date stays in view. |
 | `disabled`{copy} | array \| function     | Unselectable dates — ISO strings, `{ from, to }` spans, or a `(date) => boolean` predicate.     |
 | `presets`{copy}  | array                 | Quick-pick chips shown in the footer (see below).                                               |
 | `now`{copy} / `clear`{copy} | boolean    | Set `false` to hide the Today/Now or Clear action. Both default `true`.                         |
@@ -294,24 +294,23 @@ Pass an object as the directive's value for reactive configuration. All keys are
 
 ### Presets
 
-Each preset is a labeled value matching the selection mode: `{ label, value }` for single dates, `{ label, start, end }` for ranges, `{ label, dates }` for multiples. Because the config is a live expression, preset values can be computed.
+Each preset is a labeled value matching the selection mode: `{ label, value }` for single dates, `{ label, start, end }` for ranges, `{ label, dates }` for multiples. Because the config is a live expression, preset values can be computed, like the relative ranges below. Date objects are accepted alongside ISO strings.
 
 <div x-code-group>
 
 ```html copy
-<div x-date.range="{
-    presets: [
-        { label: 'This weekend', start: '2026-06-13', end: '2026-06-14' },
-        { label: 'Next week', start: '2026-06-15', end: '2026-06-21' }
-    ]
-}"></div>
+<div x-date.range="{ months: 2, presets: [
+    { label: 'Next 7 days', start: new Date(), end: new Date(Date.now() + 6 * 86400000) },
+    { label: 'Next 30 days', start: new Date(), end: new Date(Date.now() + 29 * 86400000) },
+    { label: 'June 2026', start: '2026-06-01', end: '2026-06-30' }
+] }"></div>
 ```
 
 ::: frame
 <div x-date.range="{ months: 2, presets: [
-    { label: 'This weekend', start: '2026-06-13', end: '2026-06-14' },
-    { label: 'Next week', start: '2026-06-15', end: '2026-06-21' },
-    { label: 'One month', start: '2026-06-01', end: '2026-06-30' }
+    { label: 'Next 7 days', start: new Date(), end: new Date(Date.now() + 6 * 86400000) },
+    { label: 'Next 30 days', start: new Date(), end: new Date(Date.now() + 29 * 86400000) },
+    { label: 'June 2026', start: '2026-06-01', end: '2026-06-30' }
 ] }"></div>
 :::
 
@@ -374,9 +373,9 @@ The day grid is fully keyboard-operable with a single tab stop (the selection, o
 
 ## Localization
 
-Calendars localize themselves from the active [locale](/docs/core-plugins/localization): month and weekday names, first day of the week, date display formats, and the 12/24-hour clock all come from `Intl`. Switching locale re-renders every calendar, with no configuration needed.
+Calendars localize themselves from the active [locale](/docs/framework/core-modules/localization): month and weekday names, first day of the week, date display formats, and the 12/24-hour clock all come from `Intl`. Switching locale re-renders every calendar, with no configuration needed.
 
-The few built-in UI strings are overridable through the universal `_ui` block — namespaced under `date` — in any [local data](/docs/core-plugins/local-data) file your project loads. Override only the keys you want; anything omitted stays in English.
+The few built-in UI strings are overridable through the universal `_ui` block — namespaced under `date` — in any [local data](/docs/framework/core-modules/local-data) file your project loads. Override only the keys you want; anything omitted stays in English.
 
 <div x-code-group copy>
 
@@ -423,7 +422,7 @@ Use the `$date(id)` magic method to read or change a picker from anywhere on the
 
 ::: frame
 <div class="row-wrap items-center gap-4">
-    <input id="doc-dp-magic" x-date placeholder="Choose…" style="max-width: 16rem;">
+    <input id="doc-dp-magic" x-date placeholder="Choose…" class="max-w-64">
     <p x-text="$date('doc-dp-magic').iso || '—'"></p>
     <p x-text="$date('doc-dp-magic').formatted || '—'"></p>
 </div>
@@ -460,7 +459,7 @@ Use the `$date(id)` magic method to read or change a picker from anywhere on the
 
 ### Theme
 
-The default calendar uses the following [theme](/docs/styles/theme) variables:
+The default calendar uses the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable                  | Purpose                                          |
 | ------------------------- | ------------------------------------------------ |
@@ -490,7 +489,7 @@ If using Tailwind, individual fields and calendars can be customized with utilit
 
 ### Customization
 
-Modify base styles with custom CSS targeting `[x-date]` (or the `.date-picker` marker class the plugin stamps on every calendar root, which also covers modified directives like `x-date.range`). The generated markup is semantic HTML, so the inner parts are plain element selectors:
+Modify base styles with custom CSS targeting `[x-date]` (or the `.date-picker` marker class the module stamps on every calendar root, which also covers modified directives like `x-date.range`). The generated markup is semantic HTML, so the inner parts are plain element selectors:
 
 | Selector                          | Part                                          |
 | --------------------------------- | --------------------------------------------- |

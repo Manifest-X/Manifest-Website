@@ -19,7 +19,7 @@ These files are modular, designed to work alone or together to best suit your pr
 <link rel="manifest" href="/manifest.json">
 
 <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js" data-tailwind></script>
 
 <!-- Styles -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
@@ -35,41 +35,41 @@ Outside this framework, `manifest.json` is a <a href="https://en.wikipedia.org/w
 
 We leverage this file as a place to declare HTML components and local or cloud data sources. It can also be used as a data source itself to render content.
 
+Web-standard fields come first, followed by the declarations Manifest's modules read — `components`, `preloadedComponents`, and `data`:
+
 ```json "manifest.json" copy collapse="10"
 {
-	// Web standard content
-	"name": "My Project",
-  	"short_name": "Project name",
-	"description": "Lorem ipsum dolor sit amet.",
-  	"start_url": "/",
-  	"scope": "/",
-  	"display": "standalone",
-  	"orientation": "any",
-  	"background_color": "#FFFFFF",
-  	"icons": [
-		{ "src": "/icons/192x192.png", "sizes": "192x192", "type": "image/png" },
-		{ "src": "/icons/512x512.png", "sizes": "512x512", "type": "image/png" }
-	],
-
-	// Declarations for Manifest plugins
-  	"components": [
-		"components/home.html",
-		"components/about.html"
-  	],
-  	"preloadedComponents": [
-		"components/footer.html",
-		"components/header.html",
-		"components/logo.html"
-  	],
-  	"data": {
-		"i18n": {
-			"locales": "/translations.csv"
-		}
-  	}
+    "$schema": "https://manifestx.dev/manifest.schema.json",
+    "name": "My Project",
+    "short_name": "Project name",
+    "description": "A short description of your project.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#FFFFFF",
+    "icons": [
+        { "src": "/assets/icons/192x192.png", "sizes": "192x192", "type": "image/png" },
+        { "src": "/assets/icons/512x512.png", "sizes": "512x512", "type": "image/png" }
+    ],
+    "components": [
+        "components/home.html",
+        "components/about.html"
+    ],
+    "preloadedComponents": [
+        "components/footer.html",
+        "components/header.html",
+        "components/logo.html"
+    ],
+    "data": {
+        "content": {
+            "locales": "/locales.csv"
+        }
+    }
 }
 ```
 
-An optional `version` field acts as a release stamp that busts component caches on deploy — see [browser caching](/docs/core-plugins/components#browser-caching). Projects published through Manifest are stamped automatically.
+An optional `version` field acts as a release stamp that busts component caches on deploy — see [browser caching](/docs/framework/core-modules/components#browser-caching). Projects published through Manifest are stamped automatically.
 
 If your project is not a downloadable web app, and does not include HTML components or data sources, `manifest.json` can be omitted.
 
@@ -77,22 +77,22 @@ If your project is not a downloadable web app, and does not include HTML compone
 
 ## Script
 
-`manifest.js` dynamically loads <a href="https://alpinejs.dev" target="_blank">Alpine JS</a> and our plugins to make your project functional. Add the `<script>` tag anywhere in the HTML head or body (within `index.html` if [routing](/docs/core-plugins/router)).
+`manifest.js` dynamically loads <a href="https://alpinejs.dev" target="_blank">Alpine JS</a> and our modules to make your project functional. Add the `<script>` tag anywhere in the HTML head or body (within `index.html` if [routing](/docs/framework/core-modules/router)).
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
-```html "Select Plugins"
-<!-- Load only specified plugins -->
+```html "Select Modules"
+<!-- Load only specified modules -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-	data-plugins="components,router,utilities"></script>
+	data-modules="components,router,utilities"></script>
 ```
 
-```html "Omit Plugins"
-<!-- Load all core plugins except omitted ones -->
+```html "Omit Modules"
+<!-- Load all core modules except omitted ones -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
 	data-omit="markdown,charts"></script>
 ```
@@ -107,38 +107,45 @@ If your project is not a downloadable web app, and does not include HTML compone
 
 The script loads:
 
-- **Manifest Plugins** (latest versions) from our CDN. The optional `data-plugins` or `data-omit` attributes will include or omit comma-separated plugins—otherwise all are loaded by default. Prefix a name with `+` to add it on top of the defaults (`data-plugins="+chat"`) instead of replacing them.
-- **Alpine JS** (latest version) from its CDN, unless it's been added separately to your project.
+- **Manifest Modules** (latest versions) from our CDN. The optional `data-modules` or `data-omit` attributes will include or omit comma-separated modules. Prefix a name with `+` to add it on top of the defaults (`data-modules="+chat"`) instead of replacing them. See [Reference](/docs/framework/resources/reference#data-attributes) for every loader attribute. Without these attributes, most core modules load by default, and the rest load when needed:
+    - **Data, localization, components, status, payments, chat, device and the Appwrite modules** load when `manifest.json` configures them.
+    - **Rich text, submissions, chat, presence and device** also load when the page uses them (for example `x-submit` or `$chat`).
+    - **Edit** never loads by itself. Add it with `data-modules`.
+- **Alpine JS** v3 (the version tested with the framework release) from CDN, unless it's been added separately to your project. Override it with `data-alpine` (an Alpine version, a full URL, or a path starting with `/`).
 - **Tailwind CSS** (modified production version from our CDN) *if* the `data-tailwind` attribute is added.
 
-Scripts load the latest version from CDN by default. Load a specified version by referencing it in the URL and with a `data-version` attribute for plugins:
+Manifest scripts load the latest version from CDN by default. Load a specified version by referencing it in the URL and with a `data-version` attribute for modules:
 
 ```html copy
-<script src="https://cdn.jsdelivr.net/npm/mnfst@0.5.17/lib/manifest.min.js"
-	data-version="0.5.17"></script>
+<script src="https://cdn.jsdelivr.net/npm/mnfst@<version>/lib/manifest.min.js"
+	data-version="<version>"></script>
 ```
+
+To have the browser check the loader against a hash as well, see [Security](/docs/framework/resources/security#cdn-resource-integrity).
+
+Your own scripts can be native modules (`<script type="module">`), with an import map for short import paths. Manifest starts Alpine after the module scripts in `index.html` run, so components and stores they register in an `alpine:init` listener are always in time. See [Large Apps](/docs/framework/guides/large-apps#organize-your-code).
 
 ---
 
 ## Styles
 Stylesheets are divided by UI category, available individually or bundled in `manifest.css`.
 
-A separate `manifest.theme.css` can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification. It maintains CSS variables referenced by the other sheets if present, centralizing your project's visual identity. See [theme](/docs/styles/theme) for more.
+A separate `manifest.theme.css` can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification. It maintains CSS variables referenced by the other sheets if present, centralizing your project's visual identity. See [theme](/docs/framework/styles/theme) for more.
 
-Add the desired Manifest CSS files to the HTML head (within `index.html` if [routing](/docs/core-plugins/router)). 
+Add the desired Manifest CSS files to the HTML head (within `index.html` if [routing](/docs/framework/core-modules/router)). 
 
 <div x-code-group copy>
 
-```html "Bundled (47kb)"
-  <link rel="stylesheet" href="/manifest.theme.css">
+```html "Bundled (~22 kB gzipped)"
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css">
+  <link rel="stylesheet" href="/manifest.theme.css">
 ```
 
-```html "Individual (<10kb)"
-  <link rel="stylesheet" href="/manifest.theme.css">
+```html "Individual"
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.reset.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.buttons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.button.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.utilities.css">
+  <link rel="stylesheet" href="/manifest.theme.css">
 ```
 
 </div>
@@ -151,11 +158,13 @@ Manifest provides a handful of handy `npx` commands to assist with project devel
 
 | Command | Purpose | Reference |
 |---------|---------|-----------|
-| `npx mnfst-starter <name>`{copy} | Scaffold a new Manifest project | [Starter Project](/docs/getting-started/starter-project) |
+| `npx mnfst-starter <name>`{copy} | Scaffold a new Manifest project | [Starter Project](/docs/framework/getting-started/starter-project) |
+| `npx mnfst-starter --here`{copy} | Scaffold into the current folder; add `--name "<name>"` to set the project name, `--force` to overwrite template files | [Starter Project](/docs/framework/getting-started/starter-project#existing-files) |
 | `npx mnfst-run`{copy} | Zero-dependency dev server with live reload | [Setup](#run-a-project) |
-| `npx mnfst-render`{copy} | Prerender the SPA into a static MPA | [Websites](/docs/publishing/websites) |
-| `npx mnfst-types`{copy} | Generate TypeScript ambient types from `manifest.json` | [TypeScript](/docs/resources/typescript) |
-| `npx mnfst-test`{copy} | Project linter + component-test harness | [Testing](/docs/publishing/testing) |
+| `npx mnfst-render`{copy} | Prerender the SPA into a static MPA | [Websites](/docs/framework/publishing/websites) |
+| `npx mnfst-export`{copy} | Batch / CI exports — PDF, image, CSV, JSON, RSS | [Export](/docs/framework/core-modules/import-export#batch-and-ci-exports) |
+| `npx mnfst-types`{copy} | Generate TypeScript ambient types from `manifest.json` | [TypeScript](/docs/framework/resources/typescript) |
+| `npx mnfst-test`{copy} | Project linter + component-test harness | [Testing](/docs/framework/publishing/testing) |
 
 ### Run a Project
 
@@ -171,3 +180,11 @@ The server provides the following conveniences:
 - **Auto reload** — refreshes when content edits are made to `html`, `css`, `json`, `yaml`, `csv`, or `md` files.
 - **Auto close** — kills the server instance if all its browser tabs are closed.
 - **No duplication** — on launch, provides an existing localhost URL if the project is already running on the device.
+
+| Option | Description |
+|---|---|
+| `--port <n>`, `-p <n>` | Preferred port (default `5001`, or the `PORT` environment variable); moves up if taken |
+| `--no-open` | Don't open a browser tab on start |
+| `--idle-shutdown <s>` | Seconds to wait after the last tab closes before exiting (default `30`) |
+| `--no-idle-shutdown` | Keep running when no tabs are open |
+| `--list`, `-l` | List the servers running on this device |

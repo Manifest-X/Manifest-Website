@@ -1,12 +1,12 @@
 # Dialogs
 
-Modal and non-modal overlays for focused interactions.
+Popover overlays for focused interactions.
 
 ---
 
 ## Setup
 
-Dialog styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Dialog styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -56,7 +56,7 @@ Popovers operate by default as lightboxes, and clicking anywhere outside the dia
 <button popovertarget="dialog-manual">Open Dialog</button>
 <dialog popover="manual" id="dialog-manual" class="col center gap-2">
     <p>Click outside, I dare you.</p>
-    <button popovertarget="dialog-manual" popoveraction="hide">Close</button>
+    <button popovertarget="dialog-manual" popovertargetaction="hide">Close</button>
 </dialog>
 ```
 
@@ -64,13 +64,13 @@ Popovers operate by default as lightboxes, and clicking anywhere outside the dia
 <button popovertarget="dialog-manual">Open Dialog</button>
 <dialog popover="manual" id="dialog-manual" class="col center gap-2">
     <p>Click outside, I dare you.</p>
-    <button popovertarget="dialog-manual" popoveraction="hide">Close</button>
+    <button popovertarget="dialog-manual" popovertargetaction="hide">Close</button>
 </dialog>
 :::
 
 </div>
 
-Manual popovers require internal close buttons, with a `popovertarget` ID'ing the dialog and `popoveraction="hide"` to close it.
+Manual popovers require internal close buttons, with a `popovertarget` ID'ing the dialog and `popovertargetaction="hide"` to close it.
 
 ---
 
@@ -91,7 +91,7 @@ Use the `<header>`, `<main>`, and/or `<footer>` elements as direct children of t
     </header>
 
     <main>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+        <p>Your changes are saved automatically.</p>
     </main>
 
     <footer>
@@ -111,7 +111,7 @@ Use the `<header>`, `<main>`, and/or `<footer>` elements as direct children of t
         <button popovertarget="dialog-formatted" aria-label="Close" x-icon="lucide:x"></button>
     </header>
     <main>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+        <p>Your changes are saved automatically.</p>
     </main>
     <footer>
         <button popovertarget="dialog-formatted">Cancel</button>
@@ -128,7 +128,7 @@ The layout containers have default styles for padding, and the header will sprea
 
 ## Nesting
 
-Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/elements/dropdowns) are also popovers that can control dialogs and exist within them.
+Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/framework/elements/dropdowns) are also popovers that can control dialogs and exist within them.
 
 <div x-code-group>
 
@@ -137,7 +137,7 @@ Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/e
 
 <!-- Open dialog from dropdown -->
 <button x-dropdown="dropdown-start">Dropdown</button>
-<menu id="dropdown-start">
+<menu popover id="dropdown-start">
     <button popovertarget="dialog-first">Open First Dialog</button>
 </menu>
 
@@ -157,7 +157,7 @@ Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/e
 
         <!-- Nested Dropdown -->
         <button x-dropdown="dropdown-internal">Dropdown</button>
-        <menu id="dropdown-internal">
+        <menu popover id="dropdown-internal">
             <button popovertarget="dialog-second">Open Second Dialog</button>
         </menu>
         <button popovertarget="dialog-first">Close</button>
@@ -174,8 +174,8 @@ Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/e
         <p>This dialog opens above the first one. The Close All button targets the first dialog, automatically closing both.</p>
     </main>
     <footer>
-        <button popovertarget="dialog-second" popoveraction="hide">Go Back</button>
-        <button popovertarget="dialog-first" popoveraction="hide">Close All</button>
+        <button popovertarget="dialog-second" popovertargetaction="hide">Go Back</button>
+        <button popovertarget="dialog-first" popovertargetaction="hide">Close All</button>
     </footer>
 </dialog>
 ```
@@ -185,7 +185,7 @@ Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/e
 
 <!-- Open dialog from dropdown -->
 <button x-dropdown="dropdown-start">Dropdown</button>
-<menu id="dropdown-start">
+<menu popover id="dropdown-start">
     <button popovertarget="dialog-first">Open First Dialog</button>
 </menu>
 
@@ -205,7 +205,7 @@ Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/e
 
         <!-- Nested Dropdown -->
         <button x-dropdown="dropdown-internal">Dropdown</button>
-        <menu id="dropdown-internal">
+        <menu popover id="dropdown-internal">
             <button popovertarget="dialog-second">Open Second Dialog</button>
         </menu>
         <button popovertarget="dialog-first">Close</button>
@@ -222,8 +222,8 @@ Dialogs can open or close from each other in a visual stack. [Dropdowns](/docs/e
         <p>This dialog opens above the first one. The Close All button targets the first dialog, automatically closing both.</p>
     </main>
     <footer>
-        <button popovertarget="dialog-second" popoveraction="hide">Go Back</button>
-        <button popovertarget="dialog-first" popoveraction="hide">Close All</button>
+        <button popovertarget="dialog-second" popovertargetaction="hide">Go Back</button>
+        <button popovertarget="dialog-first" popovertargetaction="hide">Close All</button>
     </footer>
 </dialog>
 :::
@@ -345,7 +345,7 @@ The `dialog` utility class will apply a dialog element's styles to other element
 
 ## Closed Dialogs Cost Nothing
 
-A closed `<dialog>` costs nothing: its contents are not initialized until it opens, so a page can hold as many dialogs as it likes for free. Closed `<details>` [accordions](/docs/elements/accordions) behave the same way. A dialog opened once stays ready. The same knobs as [menus](/docs/elements/dropdowns#closed-menus-cost-nothing) apply: `x-defer.off` keeps a dialog eager, `x-defer.discard` throws its contents away when it closes, and `x-defer.priority="1"` prepares it early. See [performance](/docs/getting-started/performance#x-defer-reference) for the full reference.
+A closed `<dialog>` costs nothing: its contents are not initialized until it opens, so a page can hold as many dialogs as it likes for free. Closed `<details>` [accordions](/docs/framework/elements/accordions) behave the same way. A dialog opened once stays ready. The same knobs as [menus](/docs/framework/elements/dropdowns#closed-menus-cost-nothing) apply: `x-defer.off` keeps a dialog eager, `x-defer.discard` throws its contents away when it closes, and `x-defer.priority="1"` prepares it early. See [performance](/docs/framework/getting-started/performance#x-defer-reference) for the full reference.
 
 ---
 
@@ -353,13 +353,14 @@ A closed `<dialog>` costs nothing: its contents are not initialized until it ope
 
 ### Theme
 
-Default dialogs use the following [theme](/docs/styles/theme) variables:
+Default dialogs use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|----------|
 | `--color-content-stark`{copy} | Dialog text color |
 | `--color-popover-surface`{copy} | Dialog background color |
 | `--radius`{copy} | Dialog border radius (doubled for dialogs) |
+| `--shadow-lg`{copy} | Dialog shadow |
 | `--spacing`{copy} | Dialog layout gaps and padding |
 
 ---
@@ -406,69 +407,36 @@ dialog[popover].override::backdrop {
 
 ### Transitions
 
-Default open/close transitions for all popovers—including dialogs—are defined in [reset](/docs/styles/reset) styles. Override them with custom CSS.
+Popovers, including dialogs, open with a short scale-in animation defined in [reset](/docs/framework/styles/reset) styles, and close instantly. Replace it by setting your own `animation` on the open state, or remove it with `animation: none`.
 
 <div x-code-group lines copy>
 
 ```css "All Popovers"
-[popover] {
-    display: none;
-    transition: opacity .15s ease-in, scale .15s ease-in, display .15s ease-in;
-    transition-behavior: allow-discrete;
+[popover]:popover-open {
+    animation: popover-fade-in .2s ease-out both;
+}
 
-    &:popover-open {
-        display: flex
-    }
-
-    /* Opening state */
-    @starting-style {
-        scale: .9;
-        opacity: 0
-    }
-
-    /* Closing state */
-    &:not(:popover-open) {
-        display: none !important;
-        scale: 1;
-        opacity: 0;
-        transition-duration: .15s;
-        transition-timing-function: ease-out
-    }
+@keyframes popover-fade-in {
+    from { opacity: 0; scale: .95 }
+    to { opacity: 1; scale: 1 }
 }
 ```
 
 ```css "Dialogs Only"
-dialog[popover] {
-    display: none;
-    transition: opacity .15s ease-in, scale .15s ease-in, display .15s ease-in;
-    transition-behavior: allow-discrete;
+dialog[popover]:popover-open {
+    animation: dialog-fade-in .2s ease-out both;
+}
 
-    &:popover-open {
-        display: flex
-    }
-
-    /* Opening state */
-    @starting-style {
-        scale: .9;
-        opacity: 0
-    }
-
-    /* Closing state */
-    &:not(:popover-open) {
-        display: none !important;
-        scale: 1;
-        opacity: 0;
-        transition-duration: .15s;
-        transition-timing-function: ease-out
-    }
+@keyframes dialog-fade-in {
+    from { opacity: 0; translate: 0 1rem }
+    to { opacity: 1; translate: 0 0 }
 }
 ```
 
 </div>
 
 ::: brand icon="lucide:info"
-Modifying `display` properties can result in popovers not working properly.
-Remember to update `transition` with any new properties.
+Leave `display` alone: closed popovers are hidden with `display: none`, and changing it can stop popovers from working properly.
 :::
 
 ---
@@ -523,13 +491,13 @@ Modify base dialog styles with custom CSS for the `dialog[popover]` selector.
 
 ```css copy
 dialog[popover], .dialog {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
+    background-color: var(--color-surface-1);
+    border: 2px solid var(--color-brand-surface);
     border-radius: 16px;
-    box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+    box-shadow: 0 25px 50px -12px color-mix(in oklch, var(--color-brand-surface) 25%, transparent);
 
     &::backdrop {
-        background-color: rgba(59, 130, 246, 0.1);
+        background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent);
     }
 
     & :where(header, main, footer) {
@@ -541,14 +509,14 @@ dialog[popover], .dialog {
 ::: frame text-base
 <style>
 dialog[popover].custom {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
+    background-color: var(--color-surface-1);
+    border: 2px solid var(--color-brand-surface);
     border-radius: 16px;
-    box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+    box-shadow: 0 25px 50px -12px color-mix(in oklch, var(--color-brand-surface) 25%, transparent);
 }
 
 dialog[popover].custom::backdrop {
-    background-color: rgba(59, 130, 246, 0.1);
+    background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent);
 }
 
 dialog[popover].custom :where(header, main, footer) {

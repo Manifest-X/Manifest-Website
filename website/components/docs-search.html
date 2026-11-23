@@ -1,7 +1,7 @@
 <!-- Docs search: Cmd/Ctrl-K dialog, filters all articles by title, headings, and content -->
 <div x-data="{
-        base: $modify('base') ?? '/docs',
-        src: $modify('source') ?? 'docs',
+        sources: [['platform', '/docs/platform'], ['framework', '/docs/framework'], ['api', '/docs/api']],
+        labels: { platform: 'Platform', framework: 'Framework', api: 'API' },
         q: '',
         items: [],
         ready: false,
@@ -12,12 +12,13 @@
         async build() {
             if (this.ready || this.loading) return;
             this.loading = true;
-            for (let i = 0; i < 20 && (!$x[this.src] || !$x[this.src].length); i++) await new Promise(r => setTimeout(r, 100));
             const jobs = [];
-            for (const g of ($x[this.src] || [])) {
+            for (const [src, base] of this.sources) {
+            for (let i = 0; i < 20 && (!$x[src] || !$x[src].length); i++) await new Promise(r => setTimeout(r, 100));
+            for (const g of ($x[src] || [])) {
                 for (const it of (g.items || [])) {
                     if (!it.name || !it.doc) continue;
-                    const href = this.base + '/' + g.slug + '/' + it.path;
+                    const href = base + (g.slug ? '/' + g.slug : '') + '/' + it.path;
                     jobs.push(fetch(it.doc)
                         .then(r => r.ok ? r.text() : '')
                         .catch(() => '')
@@ -33,13 +34,14 @@
                                 .replace(/-{2,}/g, ' ')
                                 .replace(/\s+/g, ' ');
                             this.items.push({
-                                name: it.name, group: g.group, icon: it.icon, href, desc,
+                                name: it.name, group: g.group, icon: it.icon, href, desc, src,
                                 headings,
                                 hhay: headings.join(' · ').toLowerCase(),
                                 body, bhay: body.toLowerCase(),
                             });
                         }));
                 }
+            }
             }
             await Promise.all(jobs);
             $x.$register('searchIndex', this.items);
@@ -116,8 +118,10 @@
                             <span class="row items-center gap-2">
                                 <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
                                 <span class="text-content-stark" x-text="r.name"></span>
-                                <span class="text-content-subtle font-normal">·</span>
-                                <small class="text-content-subtle font-normal" x-text="r.group"></small>
+                                <template x-if="r.group">
+                                    <small class="text-content-subtle font-normal" x-text="'· ' + r.group"></small>
+                                </template>
+                                <small class="badge sm ms-auto shrink-0 font-normal" x-text="labels[r.src]"></small>
                             </span>
                             <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
                         </span>

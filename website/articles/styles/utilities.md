@@ -6,7 +6,7 @@ Maintain visual consistency with common utility classes.
 
 ## Setup
 
-Utilities are available in the full Manifest CSS library, or as a standalone stylesheet. Both reference [theme](/docs/styles/theme) variables.
+Utilities are available in the full Manifest CSS library, or as a standalone stylesheet. Both reference [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -22,7 +22,7 @@ Utilities are available in the full Manifest CSS library, or as a standalone sty
 
 This provides a curated set of utility classes for HTML elements encountering common use cases, particularly layouts and colors.
 
-See [custom utilities](/docs/styles/theme#custom-utilities) for classes generated from your CSS variables.
+See [custom utilities](/docs/framework/styles/theme#custom-utilities) for classes generated from your CSS variables.
 
 ---
 
@@ -106,8 +106,8 @@ These CSS spacing variables are utilized by `page` descendants:
 
 | CSS Variable | Default | Description |
 |----------|---------|-------------|
-| `--spacing-content-width`{copy} | `68.75rem` | Maximum width for `nav` and `section` content areas |
-| `--spacing-viewport-padding`{copy} | `5vw` | Horizontal padding for viewport edges |
+| `--spacing-content-width`{copy} | `74rem` | Maximum width for `nav` and `section` content areas |
+| `--spacing-viewport-padding`{copy} | `2rem` (`5vw` without the theme) | Horizontal padding for viewport edges |
 
 ---
 
@@ -129,7 +129,7 @@ With most modern container layouts making use of CSS flex properties, these util
     <legend>content</legend>
     <div class="row content w-80 h-40 -mt-4.5 p-4 bg-surface-3 border-x border-dashed border-line text-sm text-content-neutral">Look at that subtle off-white coloring. The tasteful thickness of it. Oh my God, it even has a watermark...</div>
 </fieldset>
-<div class="row gap-4 w-full">
+<div class="row-wrap gap-4 w-full">
     <div class="col gap-4">
         <fieldset class="row gap-2">
             <legend>row</legend>
@@ -214,6 +214,9 @@ Color utilities also modify text directly or from a parent container. Utility cl
 | `accent`{copy} | Color | Accent color (content) |
 | `positive`{copy} | Color | Positive color (content) |
 | `negative`{copy} | Color | Negative color (content) |
+| `stark`{copy} | Color | High-contrast text color |
+| `neutral`{copy} | Color | Medium-contrast text color |
+| `subtle`{copy} | Color | Low-contrast text color |
 | `h1`{copy} | Appearance | Heading 1 styles |
 | `h2`{copy} | Appearance | Heading 2 styles |
 | `h3`{copy} | Appearance | Heading 3 styles |
@@ -260,14 +263,14 @@ A `640px` boundary, independent of input or OS.
 
 ---
 
-### Input device
+### Input Device
 
 Detected from the pointer itself, so it's correct **regardless of screen size** — a large high-res tablet is still "touch", a small desktop window is still "cursor".
 
 | Class | Variant | Shows on | Tailwind Equivalent |
 |--------------|-----------|----------|-------------------|
 | `touch-only`{copy} | `touch:`{copy} | Phones & touch tablets | `pointer-fine:hidden` |
-| `cursor-only`{copy} | `cursor:`{copy} | Mouse / trackpad devices | `pointer-coarse:hidden` |
+| `cursor-only`{copy} | `cursor:`{copy} | Mouse / trackpad devices | `hidden` unless `(pointer: fine) and (hover: hover)` |
 | `pointer-only`{copy} | `pointer:`{copy} | Any device with a precise pointer available (mouse, trackpad, or stylus) | `not-any-pointer-fine:hidden` |
 
 <div x-code-group copy>
@@ -290,7 +293,7 @@ To serve a desktop layout to tablets while excluding phones, use the viewport `d
 
 ---
 
-### Operating system
+### Operating System
 
 CSS has no OS media feature, so Manifest detects the OS once on load and stamps it on the page as `html[data-os="macos|windows|linux|ios|android"]`; these classes and variants key off it.
 
@@ -325,12 +328,28 @@ The `*-only` / `no-*` classes are for plain show/hide — combine them with othe
 
 ---
 
+### App State
+
+Connectivity and container, from the [`$device`](/docs/framework/core-modules/device) signal stamped on `<html>`.
+
+| Class | Variant | Shows when |
+|--------------|-----------|----------|
+| `online-only`{copy} | `online:`{copy} | The device is online |
+| `offline-only`{copy} | `offline:`{copy} | The device is offline |
+| `standalone-only`{copy} | `standalone:`{copy} | Running as an installed web app |
+| `native-only`{copy} | `native:`{copy} | Running inside a native app shell |
+| `web-only`{copy} | `web:`{copy} | Running in a browser, not a native shell |
+
+---
+
 ## Miscellaneous
 
 | Class | Description |
 |--------------|--------------------------------|
+| `disabled` | Dims an element and blocks pointer events |
 | `no-focus` | Removes an element's focus outline |
 | `no-scrollbar` | Hides an element's scrollbar |
+| `no-spinner` | Hides a number input's up/down buttons |
 | `overlay-dark` | For banner elements with a dark overlay and light text |
 | `overlay-light` | For banner elements with a light overlay and dark text |
 | `prose` | Makes elements with long-form, child text content more readable (like this whole article) |
@@ -340,10 +359,10 @@ The `*-only` / `no-*` classes are for plain show/hide — combine them with othe
 ::: frame col gap-3
 <div class="row w-full aspect-video bg-[url(https://images.unsplash.com/photo-1754206352604-0a4f13ca2a22)] bg-cover rounded">
     <div class="flex grow center h-full h3 overlay-dark">
-        <span class="">Overlay Dark</span>
+        <span>Overlay Dark</span>
     </div>
-        <div class="flex grow center h-full h3 overlay-light">
-        <span class="">Overlay Light</span>
+    <div class="flex grow center h-full h3 overlay-light">
+        <span>Overlay Light</span>
     </div>
 </div>
 <button class="w-full">
@@ -351,3 +370,16 @@ The `*-only` / `no-*` classes are for plain show/hide — combine them with othe
     <span class="trailing" x-icon="lucide:ellipsis" aria-label="Trailing icon"></span>
 </button>
 :::
+
+---
+
+### Mobile
+
+| Class | Description |
+|--------------|--------------------------------|
+| `p-safe`, `px-safe`, `py-safe`, `pt-safe`, `pr-safe`, `pb-safe`, `pl-safe` | Padding that keeps content clear of the notch and home indicator (`0` unless the viewport uses `viewport-fit=cover`) |
+| `h-dvh`, `min-h-dvh` | Height from the dynamic viewport, so it doesn't jump as mobile browser bars show and hide |
+| `no-callout` | Turns off the long-press callout |
+| `no-select` | Turns off text selection |
+| `no-tap-zoom` | Turns off double-tap zoom |
+| `no-overscroll`, `no-overscroll-y` | Turns off overscroll bounce and scroll chaining |

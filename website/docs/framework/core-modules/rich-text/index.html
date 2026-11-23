@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" data-online="true" data-os="macos" dir="auto"><head>
+  <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="A text field with formatting, built from your own markup and storing markdown.">
+  <meta name="author" content="Andrew Matlock">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="google" content="notranslate">
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="preload" as="font" type="font/woff2" href="../../../../assets/fonts/Manrope.woff2" crossorigin="">
+
+  <!-- Web App & Manifest -->
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../../../../manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="../../../../manifest.theme.css">
+
+  <!-- Scripts -->
+  <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="../../../../scripts/payments-demo.js" defer=""></script>
+  <script src="../../../../scripts/hero-editor.js" defer=""></script>
+  <script src="../../../../scripts/hero-demo.js" defer=""></script>
+  <script src="../../../../scripts/console-message.js" defer=""></script>
+
+<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+@custom-variant cursor (@media (pointer: fine) and (hover: hover));
+@custom-variant pointer (@media (any-pointer: fine));
+@custom-variant mac (&:where([data-os="macos"] *));
+@custom-variant windows (&:where([data-os="windows"] *));
+@custom-variant linux (&:where([data-os="linux"] *));
+@custom-variant ios (&:where([data-os="ios"] *));
+@custom-variant android (&:where([data-os="android"] *));
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));
+@custom-variant online (&:where([data-online="true"] *));
+@custom-variant offline (&:where([data-online="false"] *));
+@custom-variant standalone (&:where([data-standalone] *));
+@custom-variant native (&:where([data-native] *));
+@custom-variant web (&:where(html:not([data-native]) *));
+@custom-variant dark (&:where(.dark, .dark *));</style><title>Rich Text — Manifest</title><meta property="og:title" content="Rich Text — Manifest"><meta property="og:description" content="A text field with formatting, built from your own markup and storing markdown."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/rich-text"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-rich-text.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Rich Text — Manifest"><meta property="twitter:description" content="A text field with formatting, built from your own markup and storing markdown."><meta property="twitter:image" content="/og/docs-framework-core-modules-rich-text.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Rich Text — Manifest","description":"A text field with formatting, built from your own markup and storing markdown.","image":"/og/docs-framework-core-modules-rich-text.png","url":"https://manifestx.dev/docs/framework/core-modules/rich-text"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Rich Text","item":"https://manifestx.dev/docs/framework/core-modules/rich-text"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/framework/core-modules/rich-text">
+<meta name="manifest:router-base" content="">
+<meta name="manifest:prerender-locales" content="en">
+<meta name="manifest:prerendered" content="1">
+<meta name="manifest:router-base-depth" content="4">
+</head>
+
+<body x-data="{
+  init() {
+    const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
+    document.documentElement.setAttribute('dir', savedDirection);
+  }
+}" class="bg-surface-1">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
+
+  <header style="view-transition-name: site-header" class="site-header fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
+
+    <!-- Content Area -->
+    <nav class="row justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+
+        <!-- Start -->
+        <div class="row items-center gap-3" x-data="{
+            get family() { return $route.startsWith('/docs/platform') ? 'platform' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+        }">
+
+            <!-- Logo -->
+            <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
+                <span class="hidden md:flex">{Manifest}</span>
+                <span class="md:hidden">{M}</span>
+            </a>
+
+            <!-- Docs family -->
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation" popovertarget="docs-family" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="docs-family" aria-expanded="false" data-hydrate-id="h1">
+                <span x-text="$x.site.docs.find(d =&gt; d.key === family)?.name">Framework</span>
+                <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
+            </button>
+            <menu popover="" id="docs-family" role="menu" style="position-anchor: --dropdown-p1">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a :href="'/docs/' + d.key" close="">
+                        <span x-text="d.name"></span>
+                        <span x-show="family === d.key" x-icon="lucide:check" class="trailing"></span>
+                    </a>
+                </template>
+            </menu>
+
+            <!-- Docs Breadcrumbs-->
+            
+            
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/framework/*">
+                <span x-text="$x.framework.$route('path')?.group || 'No group'">Core Modules</span>
+                <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
+                <span class="text-content-stark" x-text="$x.framework.$route('path')?.name || 'No article'">Rich Text</span>
+            </small>
+
+        </div>
+
+        <!-- End -->
+        <div class="row justify-end items-center gap-2">
+
+            <!-- CTAs -->
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+                <span x-icon="lucide:search"></span>
+                <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
+            </button>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="sm transparent outlined rounded-full" aria-label="GitHub" x-tooltip="GitHub" x-icon="meteor-icons:github"></a>
+            <a role="button" href="/docs" class="sm transparent outlined rounded-full">Docs</a>
+            <a role="button" href="https://dash.manifestx.dev" class="sm accent rounded-full" x-text="/(^|;\s*)mnfst_signed_in=1(;|$)/.test(document.cookie) ? 'Dashboard' : 'Sign in'">Sign in</a>
+
+            <!-- Mobile Sidebar Button -->
+            <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
+
+        </div>
+
+    </nav>
+
+</header>
+  <div x-data="{
+        sources: [['platform', '/docs/platform'], ['framework', '/docs/framework'], ['api', '/docs/api']],
+        labels: { platform: 'Platform', framework: 'Framework', api: 'API' },
+        q: '',
+        items: [],
+        ready: false,
+        loading: false,
+        active: 0,
+
+        // Fetch every article's markdown once, on first open; index title, description, headings, body.
+        async build() {
+            if (this.ready || this.loading) return;
+            this.loading = true;
+            const jobs = [];
+            for (const [src, base] of this.sources) {
+            for (let i = 0; i &lt; 20 &amp;&amp; (!$x[src] || !$x[src].length); i++) await new Promise(r =&gt; setTimeout(r, 100));
+            for (const g of ($x[src] || [])) {
+                for (const it of (g.items || [])) {
+                    if (!it.name || !it.doc) continue;
+                    const href = base + (g.slug ? '/' + g.slug : '') + '/' + it.path;
+                    jobs.push(fetch(it.doc)
+                        .then(r =&gt; r.ok ? r.text() : '')
+                        .catch(() =&gt; '')
+                        .then(md =&gt; {
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/&lt;[^&gt;]+&gt;/g, '').replace(/[*_`\[\]]/g, '').trim();
+                            const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
+                            const body = md
+                                .replace(/```[\s\S]*?```/g, ' ')
+                                .replace(/:::[^\n]*/g, ' ')
+                                .replace(/&lt;[^&gt;]+&gt;/g, ' ')
+                                .replace(/[#&gt;*_`\[\]()|]/g, ' ')
+                                .replace(/-{2,}/g, ' ')
+                                .replace(/\s+/g, ' ');
+                            this.items.push({
+                                name: it.name, group: g.group, icon: it.icon, href, desc, src,
+                                headings,
+                                hhay: headings.join(' · ').toLowerCase(),
+                                body, bhay: body.toLowerCase(),
+                            });
+                        }));
+                }
+            }
+            }
+            await Promise.all(jobs);
+            $x.$register('searchIndex', this.items);
+            this.ready = true;
+            this.loading = false;
+        },
+
+        results() {
+            const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
+            return ranked.slice(0, 20).map(it =&gt; ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i &gt; -1) return (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
+            }
+            return it.desc;
+        },
+
+        openDialog() { document.getElementById('docs-search')?.showPopover(); },
+        // The router swallows result clicks before element handlers run, so the
+        // dialog closes on the route-change event rather than the click itself.
+        closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
+        async onToggle(e) {
+            if (e.newState !== 'open') return;
+            this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() =&gt; { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
+        },
+        move(d) {
+            const n = this.results().length;
+            if (!n) return;
+            this.active = (this.active + d + n) % n;
+            this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
+        },
+        go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+
+        <!-- Query -->
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
+
+        <!-- Results -->
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
+            <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
+            <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
+                No matches for “<span x-text="q.trim()"></span>”.
+            </p>
+            <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i">
+                    <a :href="r.href" role="button" :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'" class="ghost justify-start w-full h-auto py-2 no-underline">
+                        <span class="col gap-0.5 min-w-0 grow text-left">
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <template x-if="r.group">
+                                    <small class="text-content-subtle font-normal" x-text="'· ' + r.group"></small>
+                                </template>
+                                <small class="badge sm ms-auto shrink-0 font-normal" x-text="labels[r.src]"></small>
+                            </span>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
+                        </span>
+                    </a>
+                </div>
+            </template>
+            <div class="h-2 shrink-0"></div>
+        </div>
+
+    </dialog>
+</div>
+  <nav aria-label="Menu" popover="" id="docs-nav" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 bg-popover-surface shadow-xl overflow-y-auto no-scrollbar" x-data="{
+        view: null,
+        get current() { return $route.match(/^\/docs\/(platform|api|framework)(\/|$)/)?.[1] || null },
+        get src() { return this.view || this.current },
+        get base() { return '/docs/' + this.src },
+        get groups() { return this.src ? $x[this.src] || [] : [] },
+        get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
+        here(href) { return $route.replace(/\/$/, '') === href },
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+
+    <!-- Docs -->
+    <template x-if="src">
+        <div class="col">
+            <div role="tablist" aria-label="Docs" class="sm rounded-full w-full my-4">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <button type="button" role="tab" :aria-selected="src === d.key" @click="view = d.key" x-text="d.name"></button>
+                </template>
+            </div>
+            <a role="button" :href="base" :aria-current="here(base) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="here(base) ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                <span x-icon="lucide:house"></span>
+                <span>Overview</span>
+            </a>
+            <template x-for="group in groups" :key="group.group">
+                <div class="col gap-6 py-4">
+                    <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
+                    <div class="col">
+                        <template x-for="(item, index) in group.items" :key="item.path || index">
+                            <a x-show="item.name" role="button" :href="base + (group.slug ? '/' + group.slug : '') + '/' + item.path" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="article?.path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                                <span x-icon="item.icon"></span>
+                                <span x-text="item.name"></span>
+                            </a>
+                        </template>
+                    </div>
+                    <hr>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <!-- Site -->
+    <div class="col py-4">
+        <template x-for="n in $x.site.nav" :key="n.href">
+            <a role="button" :href="n.href" :aria-current="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="n.icon"></span>
+                <span x-text="n.name"></span>
+            </a>
+        </template>
+    </div>
+    <hr class="shrink-0">
+    <template x-if="!src">
+        <div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Docs</small>
+            <div class="col">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a role="button" :href="'/docs/' + d.key" class="ghost justify-start w-full text-content-neutral">
+                        <span x-icon="d.icon"></span>
+                        <span x-text="d.name"></span>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </template>
+    <hr class="shrink-0" x-show="!src" style="display: none">
+    <div class="col py-4">
+        <template x-for="p in $x.site.pages" :key="p.href">
+            <a role="button" :href="p.href" :aria-current="$route.startsWith(p.href) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="$route.startsWith(p.href) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="p.icon"></span>
+                <span x-text="p.name"></span>
+            </a>
+        </template>
+    </div>
+
+</nav>
+
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
+
+    <!-- Home page -->
+    
+
+    <!-- Framework -->
+
+    <!-- Compare -->
+    
+
+    <!-- Documentation -->
+    
+    
+    
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-data="{
+    base: '/docs/framework' ?? '/docs/framework',
+    src: 'framework' ?? 'framework',
+    heading: 'Framework' ?? 'Docs',
+    intro: 'Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.' ?? '',
+    home: null ?? '',
+    landing: 'framework' ?? '',
+    canonical: 'https://manifestx.dev',
+    copied: false,
+    get pages() {
+      const out = [];
+      for (const g of this.groups) for (const i of (g.items || [])) if (i.name) out.push({ href: this.href(g, i), name: i.name, group: g.group || '' });
+      return out;
+    },
+    get pageIndex() { return this.pages.findIndex(p =&gt; this.at(p.href)) },
+    get prev() { return this.pageIndex &gt; 0 ? this.pages[this.pageIndex - 1] : null },
+    get next() { const i = this.pageIndex; return i &gt; -1 &amp;&amp; i &lt; this.pages.length - 1 ? this.pages[i + 1] : null },
+    aiApps: [
+      { name: 'Claude', icon: 'simple-icons:claude', url: 'https://claude.ai/new?q=' },
+      { name: 'ChatGPT', icon: 'simple-icons:openai', url: 'https://chatgpt.com/?q=' },
+      { name: 'Gemini', icon: 'simple-icons:googlegemini', url: 'https://gemini.google.com/app', paste: true },
+      { name: 'Perplexity', icon: 'simple-icons:perplexity', url: 'https://www.perplexity.ai/search?q=' }
+    ],
+    get askPrompt() { return `Read ${this.canonical + $route.replace(/\/$/, '')} from the Manifest docs and help me with it.` },
+    askIn(app) { return app.paste ? app.url : app.url + encodeURIComponent(this.askPrompt) },
+    askCopy(app) { if (app.paste) navigator.clipboard.writeText(this.askPrompt).catch(() =&gt; {}) },
+    async copyPage() {
+      const md = await fetch(this.article.doc).then(r =&gt; r.text());
+      const clean = md.replace(/`([^`\n]+)`\{[^}\n]*\}/g, '`$1`');
+      await navigator.clipboard.writeText(`Source: ${this.canonical}${$route.replace(/\/$/, '')}\n\n${clean}`);
+      this.copied = true;
+      setTimeout(() =&gt; this.copied = false, 1500);
+    },
+    get groups() { return $x[this.src] || [] },
+    get article() { return $x[this.src].$route('path') },
+    get group() { const g = $x[this.src].$route('slug'); return g?.group &amp;&amp; this.at(this.base + '/' + g.slug) ? g : null },
+    href(group, item) { return this.base + (group.slug ? '/' + group.slug : '') + (item ? '/' + item.path : '') },
+    get cards() {
+      const out = [];
+      for (const g of this.groups) {
+        const items = (g.items || []).filter(i =&gt; i.name);
+        if (g.group) out.push({ href: this.href(g), icon: g.icon || items[0]?.icon, title: g.group, sub: items.length + (items.length === 1 ? ' article' : ' articles') });
+        else items.forEach(i =&gt; out.push({ href: this.href(g, i), icon: i.icon, title: i.name, sub: i.description || 'Start here' }));
+      }
+      return out;
+    },
+    at(path) { return $route.replace(/\/$/, '') === path },
+  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.">
+
+  <!-- Desktop navigation -->
+  <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
+    <div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Getting Started</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-open"></span>
+              <span>Introduction</span>
+            </a><a role="button" href="/docs/framework/getting-started/setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:terminal"></span>
+              <span>Setup</span>
+            </a><a role="button" href="/docs/framework/getting-started/starter-project" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:package"></span>
+              <span>Starter Project</span>
+            </a><a role="button" href="/docs/framework/getting-started/compatibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe-lock"></span>
+              <span>Compatibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:eye"></span>
+              <span>Accessibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Core Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/core-modules/chat" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:message-square"></span>
+              <span>Chat</span>
+            </a><a role="button" href="/docs/framework/core-modules/components" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panels-top-left"></span>
+              <span>Components</span>
+            </a><a role="button" href="/docs/framework/core-modules/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" href="/docs/framework/core-modules/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Devices</span>
+            </a><a role="button" href="/docs/framework/core-modules/submissions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:send-horizontal"></span>
+              <span>Form Submissions</span>
+            </a><a role="button" href="/docs/framework/core-modules/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
+            </a><a role="button" href="/docs/framework/core-modules/local-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-tree"></span>
+              <span>Local Data</span>
+            </a><a role="button" href="/docs/framework/core-modules/localization" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:languages"></span>
+              <span>Localization</span>
+            </a><a role="button" href="/docs/framework/core-modules/markdown" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-m"></span>
+              <span>Markdown</span>
+            </a><a role="button" href="/docs/framework/core-modules/payments" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:credit-card"></span>
+              <span>Payments</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Rich Text</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text-controls" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Controls</span>
+            </a><a role="button" href="/docs/framework/core-modules/router" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:route"></span>
+              <span>Router</span>
+            </a><a role="button" href="/docs/framework/core-modules/status" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:activity"></span>
+              <span>Status</span>
+            </a><a role="button" href="/docs/framework/core-modules/url-parameters" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:ampersand"></span>
+              <span>URL Parameters</span>
+            </a><a role="button" href="/docs/framework/core-modules/virtual" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-chevrons-up-down"></span>
+              <span>Virtual Lists</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Visual Editing</span>
+            </a><a role="button" href="/docs/framework/core-modules/move" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Move</span>
+            </a><a role="button" href="/docs/framework/core-modules/resize" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Resize</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit-publishing" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Publishing</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Appwrite Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/appwrite-modules/appwrite-setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="simple-icons:appwrite"></span>
+              <span>Appwrite Setup</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/auth" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:users"></span>
+              <span>Auth</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Users</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Teams</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/cloud-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:database"></span>
+              <span>Cloud Data</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/databases" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Databases</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Storage</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/presence" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:radio-tower"></span>
+              <span>Presence</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Publishing</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/publishing/testing" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-check"></span>
+              <span>Testing</span>
+            </a><a role="button" href="/docs/framework/publishing/websites" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe"></span>
+              <span>Websites</span>
+            </a><a role="button" href="/docs/framework/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>SEO &amp; AEO</span>
+            </a><a role="button" href="/docs/framework/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window"></span>
+              <span>Web Apps</span>
+            </a><a role="button" href="/docs/framework/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:monitor-smartphone"></span>
+              <span>Native Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Styles</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/styles/reset" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:scale"></span>
+              <span>Reset</span>
+            </a><a role="button" href="/docs/framework/styles/theme" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:paint-bucket"></span>
+              <span>Theme</span>
+            </a><a role="button" href="/docs/framework/styles/color-modes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sun-moon"></span>
+              <span>Color Modes</span>
+            </a><a role="button" href="/docs/framework/styles/utilities" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:swatch-book"></span>
+              <span>Utilities</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Elements</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/elements/accordions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-collapse"></span>
+              <span>Accordions</span>
+            </a><a role="button" href="/docs/framework/elements/avatars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-user-round"></span>
+              <span>Avatars</span>
+            </a><a role="button" href="/docs/framework/elements/badges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-star"></span>
+              <span>Badges</span>
+            </a><a role="button" href="/docs/framework/elements/buttons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-mouse-pointer"></span>
+              <span>Buttons</span>
+            </a><a role="button" href="/docs/framework/elements/charts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chart-line"></span>
+              <span>Charts</span>
+            </a><a role="button" href="/docs/framework/elements/chats" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:messages-square"></span>
+              <span>Chats</span>
+            </a><a role="button" href="/docs/framework/elements/checkboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-check"></span>
+              <span>Checkboxes</span>
+            </a><a role="button" href="/docs/framework/elements/code" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:code"></span>
+              <span>Code</span>
+            </a><a role="button" href="/docs/framework/elements/color-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:palette"></span>
+              <span>Color Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/comboboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-search"></span>
+              <span>Comboboxes</span>
+            </a><a role="button" href="/docs/framework/elements/date-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:calendar"></span>
+              <span>Date Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/dialogs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panel-top-dashed"></span>
+              <span>Dialogs</span>
+            </a><a role="button" href="/docs/framework/elements/dividers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:minus"></span>
+              <span>Dividers</span>
+            </a><a role="button" href="/docs/framework/elements/dropdowns" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chevron-down"></span>
+              <span>Dropdowns</span>
+            </a><a role="button" href="/docs/framework/elements/forms" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:rows-3"></span>
+              <span>Forms</span>
+            </a><a role="button" href="/docs/framework/elements/icons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smile"></span>
+              <span>Icons</span>
+            </a><a role="button" href="/docs/framework/elements/inputs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor-input"></span>
+              <span>Inputs</span>
+            </a><a role="button" href="/docs/framework/elements/radios" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-dot"></span>
+              <span>Radios</span>
+            </a><a role="button" href="/docs/framework/elements/ranges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sliders-horizontal"></span>
+              <span>Ranges</span>
+            </a><a role="button" href="/docs/framework/elements/selects" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:menu"></span>
+              <span>Selects</span>
+            </a><a role="button" href="/docs/framework/elements/sidebars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sidebar"></span>
+              <span>Sidebars</span>
+            </a><a role="button" href="/docs/framework/elements/svgs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:shapes"></span>
+              <span>SVGs</span>
+            </a><a role="button" href="/docs/framework/elements/switches" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:toggle-right"></span>
+              <span>Switches</span>
+            </a><a role="button" href="/docs/framework/elements/tables" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:table"></span>
+              <span>Tables</span>
+            </a><a role="button" href="/docs/framework/elements/tabs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window-mac"></span>
+              <span>Tabs</span>
+            </a><a role="button" href="/docs/framework/elements/textareas" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor"></span>
+              <span>Textareas</span>
+            </a><a role="button" href="/docs/framework/elements/toasts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-big-up-dash"></span>
+              <span>Toasts</span>
+            </a><a role="button" href="/docs/framework/elements/tooltips" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-help"></span>
+              <span>Tooltips</span>
+            </a><a role="button" href="/docs/framework/elements/typography" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:type"></span>
+              <span>Typography</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Guides</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/guides/large-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:layers"></span>
+              <span>Large Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Resources</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/resources/reference" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-marked"></span>
+              <span>Reference</span>
+            </a><a role="button" href="/docs/framework/resources/typescript" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="hugeicons:typescript-01"></span>
+              <span>TypeScript</span>
+            </a><a role="button" href="/docs/framework/resources/security" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:lock"></span>
+              <span>Security</span>
+            </a><a role="button" href="/docs/framework/resources/license" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:file-check"></span>
+              <span>MIT License</span>
+            </a><a role="button" href="/docs/framework/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:heart-handshake"></span>
+              <span>Acknowledgements</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div>
+  </nav>
+
+  <!-- Articles -->
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+
+    <div class="col grow w-full max-w-full mx-auto">
+
+      <!-- Article -->
+      <template x-if="article?.name">
+        <div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7">
+          <span class="h6" x-text="article?.group || ''"></span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'"></span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
+              <span x-icon="'lucide:asterisk'"></span>
+              <span>Ask AI</span>
+              <span x-icon="'lucide:chevron-down'"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src">
+              <template x-for="app in aiApps" :key="app.name">
+                <a :href="askIn(app)" target="_blank" rel="noopener" role="button" class="sm ghost justify-start" @click="askCopy(app)" :title="app.paste ? 'Opens ' + app.name + ' with the question copied, ready to paste' : null">
+                  <span x-icon="app.icon"></span>
+                  <span x-text="'Ask ' + app.name"></span>
+                </a>
+              </template>
+            </menu>
+          </div>
+        </div>
+      </template><div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7" data-mnfst-prerender-clone="1">
+          <span class="h6" x-text="article?.group || ''">Core Modules</span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="lucide:copy"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'">Copy page</span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page" popovertarget="ask-ai-framework" style="anchor-name: --dropdown-p2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p2" aria-haspopup="menu" aria-controls="ask-ai-framework" aria-expanded="false" data-hydrate-id="h3">
+              <span x-icon="lucide:asterisk"></span>
+              <span>Ask AI</span>
+              <span x-icon="lucide:chevron-down"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src" role="menu" style="position-anchor: --dropdown-p2">
+              <a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://claude.ai/new?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fcore-modules%2Frich-text%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:claude"></span>
+                  <span>Ask Claude</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://chatgpt.com/?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fcore-modules%2Frich-text%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:openai"></span>
+                  <span>Ask ChatGPT</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://gemini.google.com/app" title="Opens Gemini with the question copied, ready to paste">
+                  <span x-icon="simple-icons:googlegemini"></span>
+                  <span>Ask Gemini</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://www.perplexity.ai/search?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fcore-modules%2Frich-text%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:perplexity"></span>
+                  <span>Ask Perplexity</span>
+                </a>
+            </menu>
+          </div>
+        </div>
+      <template x-if="article?.name">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" x-markdown="article?.doc"></div>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" style="opacity: 1" data-mnfst-md-src="/articles/core-modules/rich-text.md" data-mnfst-prerender-clone="1"><h1 id="rich-text">Rich Text</h1><p>A text field with formatting, built from your own markup and storing markdown.</p>
+<hr>
+<h2 id="overview">Overview</h2><p><code>x-rich-text</code> makes an element a text field that holds formatting: bold, headings, lists, links, and more. Point it at a value and the field reads and writes it, as markdown by default. There's no built-in toolbar; any button, dropdown, or input becomes a control with a command, so the toolbar looks like the rest of your page.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ post: '## Hello\n\nSelect a word, then press **Bold**.' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row gap-1"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.strong</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Bold"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:bold"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.em</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Italic"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:italic"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.h2</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Heading"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:heading-2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.ul</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Bulleted list"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:list"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text</span>=<span class="hljs-string">"post"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Post"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"post"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ post: '## Hello\n\nSelect a word, then press **Bold**.' }" class="col gap-2 w-full">
+    <div class="row gap-1">
+        <button class="ghost sm" x-rich-text.strong="" aria-label="Bold" data-rich-text-control="strong" type="button" aria-disabled="true" aria-pressed="false"><span x-icon="lucide:bold"></span></button>
+        <button class="ghost sm" x-rich-text.em="" aria-label="Italic" data-rich-text-control="em" type="button" aria-disabled="true" aria-pressed="false"><span x-icon="lucide:italic"></span></button>
+        <button class="ghost sm" x-rich-text.h2="" aria-label="Heading" data-rich-text-control="h2" type="button" aria-disabled="true" aria-pressed="false"><span x-icon="lucide:heading-2"></span></button>
+        <button class="ghost sm" x-rich-text.ul="" aria-label="Bulleted list" data-rich-text-control="ul" type="button" aria-disabled="true" aria-pressed="false"><span x-icon="lucide:list"></span></button>
+    </div>
+    <div x-rich-text="post" aria-label="Post" data-rich-text="markdown" data-rich-text-bound="" contenteditable="true" role="textbox" aria-multiline="true"><h2>Hello</h2><p>Select a word, then press <strong>Bold</strong>.</p></div>
+    <pre class="m-0 p-3 text-xs bg-surface-2 rounded whitespace-pre-wrap" x-text="post">## Hello
+
+Select a word, then press **Bold**.</pre>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The buttons stay disabled until the caret is in the field, then light up for the formatting under it. The box below the field is the stored value, updating as you type.</p>
+<hr>
+<h2 id="setup">Setup</h2><p>Rich Text isn't in the default bundle. With the default modules, or a <code>data-modules</code> list starting with <code>+</code>, it loads by itself as soon as the page uses <code>x-rich-text</code> or <code>$rich</code>, including in components and markdown added later. A <code>data-modules</code> list without <code>+</code> loads only what it names, so add <code>rich-text</code> to it. <a href="/docs/framework/core-modules/edit">Visual Editing</a> loads Rich Text too, because page text is edited with it.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-modules-(default)-tab-0" aria-selected="true" tabindex="0">All Modules (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+
+<pre x-code="html" name="All Modules (default)" data-code-block-built="yes" aria-label="All Modules (default)" role="tabpanel" data-code-processed="yes" id="all-modules-(default)-panel-0" aria-labelledby="all-modules-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre x-code="html" name="Selective" data-code-block-built="yes" aria-label="Selective" role="tabpanel" data-code-processed="yes" id="selective-panel-1" aria-labelledby="selective-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+    <span class="hljs-attr">data-modules</span>=<span class="hljs-string">"rich-text,markdown"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Until Rich Text has loaded, <code>$rich</code> reads as an empty field that does nothing, so an expression that uses it never throws; once it loads, bindings that read it run again.</p>
+<p>Rich Text reads and writes markdown on its own. Showing a stored value as formatted text elsewhere on the page, as some examples here do, uses the <a href="/docs/framework/core-modules/markdown">Markdown</a> module's <code>x-markdown</code>, which is in the default bundle; a selective list needs <code>markdown</code> for that, as above.</p>
+<p>Field and control styles are included in Manifest CSS or as a standalone stylesheet. Both reference <a href="/docs/framework/styles/theme">theme</a> variables, such as the surface, line, and brand colours fields and the style examples use. Link your project's own <code>manifest.theme.css</code>, which can be <a target="_blank" href="https://github.com/Manifest-X/Manifest/tree/master/lib/manifest.theme.css">downloaded from GitHub</a> for local modification, as in <a href="/docs/framework/getting-started/setup#styles">Setup</a>.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest-css-tab-0" aria-selected="true" tabindex="0">Manifest CSS</button><button type="button" role="tab" id="standalone-tab-1" aria-selected="false" tabindex="-1">Standalone</button></div></header>
+
+<pre x-code="html" name="Manifest CSS" data-code-block-built="yes" aria-label="Manifest CSS" role="tabpanel" data-code-processed="yes" id="manifest-css-panel-0" aria-labelledby="manifest-css-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.theme.css"</span>&gt;</span></code></pre>
+<pre x-code="html" name="Standalone" data-code-block-built="yes" aria-label="Standalone" role="tabpanel" data-code-processed="yes" id="standalone-panel-1" aria-labelledby="standalone-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.theme.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.rich.text.css"</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="text-elements">Text Elements</h2><p>A field stores its text in one of three formats, chosen by modifier. The value is a string in every case.</p>
+<table>
+<thead>
+<tr>
+<th>Write</th>
+<th>Stores</th>
+<th>Formatting available</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>x-rich-text="value"</code></td>
+<td>Markdown</td>
+<td>What markdown can hold: bold, italics, strikethrough, code, links, images, headings, lists, quotes, code blocks, and rules</td>
+</tr>
+<tr>
+<td><code>x-rich-text.html="value"</code></td>
+<td>HTML, cleaned of anything unsafe</td>
+<td>Every command</td>
+</tr>
+<tr>
+<td><code>x-rich-text.plain="value"</code></td>
+<td>Plain text, with line breaks</td>
+<td>None</td>
+</tr>
+</tbody></table>
+<p>An HTML value never ends with the empty paragraph the field keeps after a final list, table, or code block so there's a line to type on.</p>
+<p>Type in each field below and watch what it stores.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ md: 'A **bold** start', html: '&lt;p&gt;A &lt;strong&gt;bold&lt;/strong&gt; start&lt;/p&gt;', text: 'A plain start' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text</span>=<span class="hljs-string">"md"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Markdown"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"md"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text.html</span>=<span class="hljs-string">"html"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"HTML"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text.plain</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Plain text"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"text"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ md: 'A **bold** start', html: '&lt;p&gt;A &lt;strong&gt;bold&lt;/strong&gt; start&lt;/p&gt;', text: 'A plain start' }" class="grid grid-cols-3 gap-3 w-full">
+    <div class="col gap-2">
+        <div class="shrink-0" x-rich-text="md" aria-label="Markdown" style="--rich-text-min-height: 5rem" data-rich-text="markdown" data-rich-text-bound="" contenteditable="true" role="textbox" aria-multiline="true"><p>A <strong>bold</strong> start</p></div>
+        <code class="block w-full grow-0 basis-auto text-xs whitespace-pre-wrap break-all" x-text="md">A **bold** start</code>
+    </div>
+    <div class="col gap-2">
+        <div class="shrink-0" x-rich-text.html="html" aria-label="HTML" style="--rich-text-min-height: 5rem" data-rich-text="html" data-rich-text-bound="" contenteditable="true" role="textbox" aria-multiline="true"><p>A <strong>bold</strong> start</p></div>
+        <code class="block w-full grow-0 basis-auto text-xs whitespace-pre-wrap break-all" x-text="html">&lt;p&gt;A &lt;strong&gt;bold&lt;/strong&gt; start&lt;/p&gt;</code>
+    </div>
+    <div class="col gap-2">
+        <div class="shrink-0" x-rich-text.plain="text" aria-label="Plain text" style="--rich-text-min-height: 5rem" data-rich-text="plain" data-rich-text-bound="" contenteditable="plaintext-only" role="textbox" aria-multiline="true">A plain start</div>
+        <code class="block w-full grow-0 basis-auto text-xs whitespace-pre-wrap break-all" x-text="text">A plain start</code>
+    </div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Without a value, as in <code>&lt;div x-rich-text&gt;</code>, the element's own markup is the starting content, empty paragraphs and figures included, and the element itself holds the result; read it with <a href="#reference"><code>$rich</code></a>. Don't combine <code>x-rich-text</code> with <code>x-html</code> or <code>x-text</code> on the same element: both would write to it.</p>
+<p>Each field gets <code>role="textbox"</code>; give it an <code>aria-label</code>, or a <code>&lt;label&gt;</code> that points to it, so screen readers can name it. <code>placeholder</code> shows while the field is empty.</p>
+<h3 id="one-line-fields">One-Line Fields</h3><p><code>.inline</code> makes a one-line field, for a title or a product name. Words can still be bold, italic, or linked, but there are no paragraphs: Enter doesn't start a new line, and headings, lists, and quotes aren't available. Pasted or dropped text with several lines is joined into one. Tab moves to the next field as usual.</p>
+<p>Enter fires <code>rich-text:enter</code> on the field instead, with <code>detail.value</code> and <code>detail.shiftKey</code>, so you can treat it as submitting.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ title: 'Spring *sale*', saved: '' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text.inline</span>=<span class="hljs-string">"title"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Title"</span> @<span class="hljs-attr">rich-text:enter</span>=<span class="hljs-string">"saved = $event.detail.value"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Saved on Enter: <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"saved"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ title: 'Spring *sale*', saved: '' }" class="col gap-2 w-full">
+    <div x-rich-text.inline="title" aria-label="Title" @rich-text:enter="saved = $event.detail.value" data-rich-text="markdown" data-rich-text-bound="" data-rich-text-inline="" contenteditable="true" role="textbox" aria-multiline="false" data-hydrate-id="h4">Spring <em>sale</em></div>
+    <p class="m-0 text-sm">Saved on Enter: <code x-text="saved"></code></p>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h3 id="options">Options</h3><table>
+<thead>
+<tr>
+<th>Modifier</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>(none)</em></td>
+<td>Markdown</td>
+</tr>
+<tr>
+<td><code>.html</code></td>
+<td>HTML</td>
+</tr>
+<tr>
+<td><code>.plain</code></td>
+<td>Plain text, no formatting</td>
+</tr>
+<tr>
+<td><code>.inline</code></td>
+<td>One line, as above; combines with any format</td>
+</tr>
+<tr>
+<td><code>.literal</code></td>
+<td>No <a href="#typing-markdown">markdown shortcuts</a> while typing</td>
+</tr>
+<tr>
+<td><code>.autofocus</code></td>
+<td>Focus the field when it appears</td>
+</tr>
+</tbody></table>
+<h3 id="pasting">Pasting</h3><p>Pasting brings in the text and its structure, not the look of the page it came from. Colours, fonts, classes, and inline styles are dropped, and scripts and other unsafe content never get in.</p>
+<table>
+<thead>
+<tr>
+<th>Pasted into</th>
+<th>Keeps</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Markdown</td>
+<td>Headings, paragraphs, lists, quotes, code, links, images, and the bold, italic, strikethrough, and code marks. Other marks, such as underline or highlight, are dropped and their text kept. A table becomes one line per row with <code>·</code> between cells. Description lists, figures, and addresses become paragraphs</td>
+</tr>
+<tr>
+<td>HTML</td>
+<td>Every tag a command can make, tables included</td>
+</tr>
+<tr>
+<td>Plain text</td>
+<td>The text, one line per line</td>
+</tr>
+<tr>
+<td>One-line</td>
+<td>The formatting its format allows, on one line</td>
+</tr>
+</tbody></table>
+<p>Text without paragraphs of its own, such as a few copied words, goes in at the caret, inside the paragraph you're in. Pasting over a selection that spans paragraphs first deletes it as typing would: the paragraphs at either end join.</p>
+<h3 id="typing-markdown">Typing Markdown</h3><p>Type markdown and it turns into formatting as you go. Marks turn over the moment you type the closing character, and what you type next is outside the mark; block shortcuts at the start of a line turn over when you press Enter. <code>.literal</code> turns this off, and <code>.plain</code> never does it.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ draft: '' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text</span>=<span class="hljs-string">"draft"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Type ## Title and press Enter"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Draft"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">pre</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"draft"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ draft: '' }" class="col gap-2 w-full">
+    <div x-rich-text="draft" placeholder="Type ## Title and press Enter" aria-label="Draft" style="--rich-text-min-height: 6rem" data-rich-text="markdown" data-rich-text-bound="" contenteditable="true" role="textbox" aria-multiline="true" data-rich-text-empty=""><p><br></p></div>
+    <pre class="m-0 p-3 text-xs bg-surface-2 rounded whitespace-pre-wrap" x-show="draft" x-text="draft" style="display: none"></pre>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Get</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code># </code> to <code>###### </code></td>
+<td>Heading 1 to 6</td>
+<td>Enter</td>
+</tr>
+<tr>
+<td><code>- </code> <code>* </code> <code>+ </code></td>
+<td>Bulleted list</td>
+<td>Enter</td>
+</tr>
+<tr>
+<td><code>1. </code></td>
+<td>Numbered list</td>
+<td>Enter</td>
+</tr>
+<tr>
+<td><code>[ ] </code> <code>[x] </code></td>
+<td>Task list item</td>
+<td>Enter</td>
+</tr>
+<tr>
+<td><code>&gt; </code></td>
+<td>Quote</td>
+<td>Enter</td>
+</tr>
+<tr>
+<td><code>```</code> or <code>```ts</code></td>
+<td>Code block, with that language</td>
+<td>Enter</td>
+</tr>
+<tr>
+<td><code>---</code> <code>***</code> <code>___</code></td>
+<td>Rule</td>
+<td>Enter</td>
+</tr>
+<tr>
+<td><code>**bold**</code> <code>__bold__</code></td>
+<td>Bold</td>
+<td>Closing characters</td>
+</tr>
+<tr>
+<td><code>*italic*</code> <code>_italic_</code></td>
+<td>Italic</td>
+<td>Closing <code>*</code> or <code>_</code></td>
+</tr>
+<tr>
+<td><code>***both***</code></td>
+<td>Bold and italic</td>
+<td>Closing characters</td>
+</tr>
+<tr>
+<td><code>~~struck~~</code></td>
+<td>Strikethrough</td>
+<td>Closing <code>~~</code></td>
+</tr>
+<tr>
+<td><code>`code`</code></td>
+<td>Code</td>
+<td>Closing <code>`</code></td>
+</tr>
+<tr>
+<td><code>[text](url)</code></td>
+<td>Link</td>
+<td>Closing <code>)</code></td>
+</tr>
+<tr>
+<td><code>![alt](src)</code></td>
+<td>Image</td>
+<td>Closing <code>)</code></td>
+</tr>
+</tbody></table>
+<h3 id="markdown-written-elsewhere">Markdown Written Elsewhere</h3><p>A markdown field reads markdown by the same rules as CommonMark for the parts it supports. The first time it saves, after any edit at all, it rewrites the whole value in its own notation, not only the part you changed: <code>__bold__ text</code> and <code>* item</code>, with a character typed in the item, save as <code>**bold** text</code> and <code>- item!</code>. The text is never lost, but markdown written by hand or by another tool can change in these ways, or be read as plain text:</p>
+<table>
+<thead>
+<tr>
+<th>Written as</th>
+<th>Shown as</th>
+<th>Saved as</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>__bold__</code> or <code>_italic_</code></td>
+<td>Bold or italic; <code>snake_case</code> stays text</td>
+<td><code>**bold**</code> or <code>*italic*</code>: underscores are never written</td>
+</tr>
+<tr>
+<td><code>&lt;strong&gt;</code>, <code>&lt;b&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;i&gt;</code>, <code>&lt;s&gt;</code>, <code>&lt;del&gt;</code>, or <code>&lt;code&gt;</code></td>
+<td>That formatting</td>
+<td>Its markdown, <code>**…**</code>, <code>*…*</code>, <code>~~…~~</code>, or <code>`…`</code>, except as below</td>
+</tr>
+<tr>
+<td>Other HTML tags, such as <code>&lt;u&gt;</code>, <code>&lt;span&gt;</code>, or <code>&lt;mark&gt;</code></td>
+<td>The tags as text</td>
+<td>The tags with <code>&lt;</code> and <code>&gt;</code> escaped</td>
+</tr>
+<tr>
+<td>A lone <code>*</code> between characters, as in <code>2*1024</code></td>
+<td>The character</td>
+<td><code>2\*1024</code></td>
+</tr>
+<tr>
+<td>A link title in single quotes or parentheses, as in <code>[text](url 'title')</code></td>
+<td>A link with that title</td>
+<td>The title in double quotes</td>
+</tr>
+<tr>
+<td><code>* item</code> or <code>+ item</code></td>
+<td>A bulleted list</td>
+<td><code>- item</code></td>
+</tr>
+<tr>
+<td><code>3. item</code></td>
+<td>A numbered list</td>
+<td><code>1. item</code>: lists are renumbered from 1</td>
+</tr>
+<tr>
+<td>A list nested by 2 spaces</td>
+<td>One level, not nested</td>
+<td>Nesting needs 4 spaces or a tab per level</td>
+</tr>
+<tr>
+<td><code>***</code> or <code>___</code></td>
+<td>A rule</td>
+<td><code>---</code></td>
+</tr>
+<tr>
+<td>Pipe tables, setext headings (<code>===</code> underlines), reference links</td>
+<td>The characters as typed</td>
+<td>The same text, with <code>[</code>, <code>]</code>, <code>&lt;</code>, and <code>&gt;</code> escaped</td>
+</tr>
+<tr>
+<td>Indented code</td>
+<td>A paragraph</td>
+<td>The text without its indentation</td>
+</tr>
+<tr>
+<td>Several blank lines</td>
+<td>One gap</td>
+<td>One blank line</td>
+</tr>
+</tbody></table>
+<p>Links keep their titles, as a <code>title</code> on the link. Code fences keep their language (<code>```bash</code>), autolinks such as <code>&lt;https://example.com&gt;</code> read as links and save back as written, and link addresses with balanced parentheses, such as Wikipedia's, round-trip unchanged. Bold, italic, and strikethrough set off by spaces or punctuation, as in ordinary prose, save as <code>**</code>, <code>*</code>, and <code>~~</code>. Where a mark touches another mark or a letter with no space between them, in a way markdown renderers read differently, it's saved as an <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, or <code>&lt;s&gt;</code> tag instead, so it displays the same everywhere: <code>&lt;em&gt;a&lt;/em&gt;&lt;strong&gt;b&lt;/strong&gt;c</code> is saved as written. Code that contains a backtick is saved as a <code>&lt;code&gt;</code> tag. Markdown allows these tags, and the field reads them back.</p>
+<p>Characters that would otherwise read as formatting are escaped with a backslash when saved: <code>\ </code> <code>`</code> <code>*</code> <code>~</code> <code>[</code> <code>]</code> <code>&lt;</code> <code>&gt;</code>, <code>_</code> except between letters or digits, an <code>&amp;</code> that starts an entity, and <code>#</code>, <code>-</code>, <code>+</code>, or <code>1.</code> at the start of a line.</p>
+<hr>
+<h2 id="links">Links</h2><p>Typing <code>[text](url)</code> makes a link as you close it. A single <code>&lt;input&gt;</code> with <code>x-rich-text.a</code> handles links from a control: select some text, type an address into the input, and press Enter. With the caret in a link, the input shows that link's address, and editing it changes the address; clearing it removes the link. A link in a field is never followed, whether you click it, middle-click it, or press Enter on it, so it can be edited like any other text; links inside an element marked <code>contenteditable="false"</code> still work.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ post: 'Visit [Manifest](https://manifestx.dev) today.' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"url"</span> <span class="hljs-attr">x-rich-text.a</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"https://"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Link address"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.unlink</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Unlink"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:unlink"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text</span>=<span class="hljs-string">"post"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Post"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ post: 'Visit [Manifest](https://manifestx.dev) today.' }" class="col gap-2 w-full">
+    <div class="row items-center gap-1">
+        <input type="url" class="sm grow" x-rich-text.a="" placeholder="https://" aria-label="Link address" data-rich-text-control="a" aria-disabled="true">
+        <button class="ghost sm" x-rich-text.unlink="" aria-label="Unlink" data-rich-text-control="unlink" type="button" aria-disabled="true" aria-pressed="false"><span x-icon="lucide:unlink"></span></button>
+    </div>
+    <div x-rich-text="post" aria-label="Post" style="--rich-text-min-height: 4rem" data-rich-text="markdown" data-rich-text-bound="" contenteditable="true" role="textbox" aria-multiline="true"><p>Visit <a href="https://manifestx.dev">Manifest</a> today.</p></div>
+    <code class="text-xs" x-text="post">Visit [Manifest](https://manifestx.dev) today.</code>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The address can be a full URL, a <code>mailto:</code>, <code>tel:</code>, or <code>sms:</code> link, a path or <code>#anchor</code> on the site, or a bare domain such as <code>example.com</code>, which gets <code>https://</code> added. Anything else, a script address included, is refused and the text is left as it was. A button can link too, with the address as its value, as in <code>x-rich-text.a="url"</code>.</p>
+<p>Links can't hold links. Linking part of an existing link splits it: the selected words take the new address and the rest keep the old one. <code>unlink</code> removes the whole link at the caret, or only the selected part of one. A field that is itself a link or a button, or sits inside one, takes no links at all. <code>$rich.link</code> reads the address at the caret, and assigning to it links or unlinks like the input.</p>
+<p>Rich Text leaves <strong>Cmd/Ctrl + K</strong> to the page, where it often opens search.</p>
+<hr>
+<h2 id="tables">Tables</h2><p>Tables need <code>.html</code>. Every table command except <code>table</code> stays disabled while the caret is outside a table, and inserting a table while inside one puts the new one after it: tables never nest. Drag across cells to select a rectangle of them, and drag a cell's border to resize its column or row.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ doc: '&lt;table&gt;&lt;tr&gt;&lt;th&gt;Dog&lt;/th&gt;&lt;th&gt;Age&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Poochie&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.table.3x2</span>&gt;</span>Insert 3 × 2<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.row-after</span>&gt;</span>Row below<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.column-after</span>&gt;</span>Column after<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.merge</span>&gt;</span>Merge<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.split</span>&gt;</span>Split<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.table-header</span>&gt;</span>Header row<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.row-remove</span>&gt;</span>Remove row<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.table-remove</span>&gt;</span>Remove table<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text.html</span>=<span class="hljs-string">"doc"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Document"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ doc: '&lt;table&gt;&lt;tr&gt;&lt;th&gt;Dog&lt;/th&gt;&lt;th&gt;Age&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Poochie&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;' }" class="col gap-2 w-full">
+    <div class="row-wrap gap-1">
+        <button class="ghost sm" x-rich-text.table.3x2="" data-rich-text-control="table" type="button" aria-disabled="true" aria-pressed="false">Insert 3 × 2</button>
+        <button class="ghost sm" x-rich-text.row-after="" data-rich-text-control="row-after" type="button" aria-disabled="true" aria-pressed="false">Row below</button>
+        <button class="ghost sm" x-rich-text.column-after="" data-rich-text-control="column-after" type="button" aria-disabled="true" aria-pressed="false">Column after</button>
+        <button class="ghost sm" x-rich-text.merge="" data-rich-text-control="merge" type="button" aria-disabled="true" aria-pressed="false">Merge</button>
+        <button class="ghost sm" x-rich-text.split="" data-rich-text-control="split" type="button" aria-disabled="true" aria-pressed="false">Split</button>
+        <button class="ghost sm" x-rich-text.table-header="" data-rich-text-control="table-header" type="button" aria-disabled="true" aria-pressed="false">Header row</button>
+        <button class="ghost sm" x-rich-text.row-remove="" data-rich-text-control="row-remove" type="button" aria-disabled="true" aria-pressed="false">Remove row</button>
+        <button class="ghost sm" x-rich-text.table-remove="" data-rich-text-control="table-remove" type="button" aria-disabled="true" aria-pressed="false">Remove table</button>
+    </div>
+    <div x-rich-text.html="doc" aria-label="Document" style="--rich-text-min-height: 6rem" data-rich-text="html" data-rich-text-bound="" contenteditable="true" role="textbox" aria-multiline="true"><table><tbody><tr><th>Dog</th><th>Age</th></tr><tr><td>Poochie</td><td>4</td></tr></tbody></table><p><br></p></div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Sizes are columns × rows, so <code>x-rich-text.table.3x2</code> inserts three columns and two rows, and <code>$rich.table(3, 2)</code> does the same from script. <code>merge</code> joins the selected cells into one, or with no cells selected, the caret's cell and the one after it; <code>split</code> undoes it. Tab moves to the next cell and adds a row after the last one; the arrow keys move between cells at a cell's edge and keep the column. Column widths are saved on the table's <code>&lt;colgroup&gt;</code> and row heights on its rows.</p>
+<p>In a markdown field, a pasted table is kept as text, one line per row; see <a href="#pasting">Pasting</a>.</p>
+<hr>
+<h2 id="whole-document-styles">Whole Document Styles</h2><p>A style command with <code>.all</code> styles the whole field instead of the selection: <code>font</code>, <code>size</code>, <code>leading</code>, <code>align</code>, <code>color</code>, and <code>background</code>. These document-wide styles are CSS variables on the field, not tags in the content, so the stored value stays clean, and they work in markdown fields too. <code>.all</code> controls are ready as soon as their field can be found, without the caret being in it.</p>
+<p>Because they aren't part of the value, save them yourself. <code>$rich.all</code> reads them as an object, such as <code>{ font: 'Georgia', leading: '2' }</code>, and assigning an object sets them all at once (<code>{}</code> clears them). <code>rich-text:all</code> fires on the field with the same object whenever an <code>.all</code> control changes them; assigning <code>$rich.all</code> doesn't fire it.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ doc: 'The whole page follows these controls.', look: { font: 'Georgia' } }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">x-rich-text.font.all</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Page font"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span>&gt;</span>Default<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Georgia"</span>&gt;</span>Georgia<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"ui-monospace"</span>&gt;</span>Mono<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">x-rich-text.leading.all</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Line spacing"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span>&gt;</span>Default<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"2"</span>&gt;</span>Double<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">x-rich-text.align.all</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Page alignment"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span>&gt;</span>Start<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"center"</span>&gt;</span>Center<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text</span>=<span class="hljs-string">"doc"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Document"</span>
+         <span class="hljs-attr">x-effect</span>=<span class="hljs-string">"$rich.all = look"</span> @<span class="hljs-attr">rich-text:all</span>=<span class="hljs-string">"look = $event.detail"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"JSON.stringify(look)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ doc: 'The whole page follows these controls.', look: { font: 'Georgia' } }" class="col gap-2 w-full">
+    <div class="row-wrap gap-1">
+        <select class="sm" x-rich-text.font.all="" aria-label="Page font" data-rich-text-all="" data-rich-text-control="font" aria-disabled="false">
+            <option value="">Default</option>
+            <option value="Georgia">Georgia</option>
+            <option value="ui-monospace">Mono</option>
+        </select>
+        <select class="sm" x-rich-text.leading.all="" aria-label="Line spacing" data-rich-text-all="" data-rich-text-control="leading" aria-disabled="false">
+            <option value="">Default</option>
+            <option value="2">Double</option>
+        </select>
+        <select class="sm" x-rich-text.align.all="" aria-label="Page alignment" data-rich-text-all="" data-rich-text-control="align" aria-disabled="false">
+            <option value="">Start</option>
+            <option value="center">Center</option>
+        </select>
+    </div>
+    <div x-rich-text="doc" aria-label="Document" x-effect="$rich.all = look" @rich-text:all="look = $event.detail" style="--rich-text-min-height: 4rem; --rich-text-font: Georgia" data-rich-text="markdown" data-rich-text-bound="" contenteditable="true" role="textbox" aria-multiline="true" data-hydrate-id="h5"><p>The whole page follows these controls.</p></div>
+    <code class="text-xs" x-text="JSON.stringify(look)">{"font":"Georgia"}</code>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Here <code>look</code> holds the styles: <code>x-effect</code> applies them to the field, including the saved <code>Georgia</code> on load, and the event writes every change back. Store <code>look</code> next to the document, wherever you keep it. An <code>.all</code> style without a value, like the Default options, removes that style.</p>
+<hr>
+<h2 id="editing-data">Editing Data</h2><p>A field can edit a value anywhere Alpine can reach: a list in <code>x-data</code>, a store, or a record from a <a href="/docs/framework/core-modules/local-data">data source</a> such as <code>$x.products</code>. Below, each field edits one product's <code>name</code>, and the text beside it is that value, updating as you type.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ products: [
+    { id: 1, name: 'Peony bouquet' },
+    { id: 2, name: 'Tulip bunch' },
+    { id: 3, name: 'Rose box' }
+] }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"product in products"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"product.id"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text.inline</span>=<span class="hljs-string">"product.name"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Product name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"product.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div class="col gap-3 w-full" x-data="{ products: [{ id: 1, name: 'Peony bouquet' }, { id: 2, name: 'Tulip bunch' }, { id: 3, name: 'Rose box' }] }">
+    <div class="grid grid-cols-2 items-center gap-4">
+            <div x-rich-text.inline="product.name" aria-label="Product name" data-rich-text="markdown" data-rich-text-bound="" data-rich-text-inline="" contenteditable="true" role="textbox" aria-multiline="false">Peony bouquet</div>
+            <code class="text-xs">Peony bouquet</code>
+        </div><div class="grid grid-cols-2 items-center gap-4">
+            <div x-rich-text.inline="product.name" aria-label="Product name" data-rich-text="markdown" data-rich-text-bound="" data-rich-text-inline="" contenteditable="true" role="textbox" aria-multiline="false">Tulip bunch</div>
+            <code class="text-xs">Tulip bunch</code>
+        </div><div class="grid grid-cols-2 items-center gap-4">
+            <div x-rich-text.inline="product.name" aria-label="Product name" data-rich-text="markdown" data-rich-text-bound="" data-rich-text-inline="" contenteditable="true" role="textbox" aria-multiline="false">Rose box</div>
+            <code class="text-xs">Rose box</code>
+        </div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The loop is keyed by each record's <code>id</code>. Keying it by the field being edited, as in <code>:key="product.name"</code>, would make every keystroke look like a new record, so Alpine would rebuild the row and the field would lose the caret after one character. Key a list by something that doesn't change while you edit it.</p>
+<hr>
+<h2 id="history">History</h2><p>Each field keeps its own history. <strong>Cmd/Ctrl + Z</strong> undoes and <strong>Shift + Cmd/Ctrl + Z</strong> redoes, as does <strong>Ctrl + Y</strong> outside the Mac, and so do the browser's Undo and Redo menu items. Typing is grouped into one step once you pause for a moment, and every command, paste, and markdown conversion is a step of its own. A history holds the latest 200 steps.</p>
+<p>The browser's own undo can't do this: it doesn't know about the changes the module makes itself, such as a heading made from <code>## </code> or a list made by a button, and it would undo only some of them. The field replaces it with a history of its own so every change steps back in order.</p>
+<p><code>x-rich-text.undo</code> and <code>.redo</code> controls disable themselves when there's nothing to step to, and unlike other commands they're ready without the caret in the field.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ story: 'Change this text, then step back and forth.' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.undo</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Undo"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:undo-2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.redo</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Redo"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:redo-2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.strong</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Bold"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:bold"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text</span>=<span class="hljs-string">"story"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Story"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ story: 'Change this text, then step back and forth.' }" class="col gap-2 w-full">
+    <div class="row gap-1">
+        <button class="ghost sm" x-rich-text.undo="" aria-label="Undo" data-rich-text-control="undo" type="button" aria-disabled="true" aria-pressed="false"><span x-icon="lucide:undo-2"></span></button>
+        <button class="ghost sm" x-rich-text.redo="" aria-label="Redo" data-rich-text-control="redo" type="button" aria-disabled="true" aria-pressed="false"><span x-icon="lucide:redo-2"></span></button>
+        <button class="ghost sm" x-rich-text.strong="" aria-label="Bold" data-rich-text-control="strong" type="button" aria-disabled="true" aria-pressed="false"><span x-icon="lucide:bold"></span></button>
+    </div>
+    <div x-rich-text="story" aria-label="Story" style="--rich-text-min-height: 4rem" data-rich-text="markdown" data-rich-text-bound="" contenteditable="true" role="textbox" aria-multiline="true"><p>Change this text, then step back and forth.</p></div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The history starts again whenever the value is set from outside the field, by your own code or by assigning <code>$rich.value</code>, because the steps before no longer describe the text. It lives as long as the page does: a reload starts fresh. Inside an <a href="/docs/framework/core-modules/edit#history">Visual Editing</a> region, the page's history takes over from the field's once you leave the text.</p>
+<hr>
+<h2 id="keyboard">Keyboard</h2><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>In a field</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Enter</td>
+<td>A new paragraph. In a list, a new item; in an empty item, leaves the list. In a code block, a new line; on an empty last line, leaves the block. In a description list, alternates term and description. In a caption, a paragraph after the figure. A heading ends, and the next line is a paragraph. A quote made by typing <code>&gt; </code> ends the same way, while a quote holding paragraphs, such as one loaded from markdown, gets a new paragraph inside it; Enter on its empty last paragraph leaves the quote. In a one-line field, fires <code>rich-text:enter</code></td>
+</tr>
+<tr>
+<td>Shift + Enter</td>
+<td>A line break inside the block. In a one-line field, fires <code>rich-text:enter</code> with <code>shiftKey</code></td>
+</tr>
+<tr>
+<td>Tab, Shift + Tab</td>
+<td>In a table, the next or previous cell; past the last cell, a new row. In a list, nests or un-nests the item. In an HTML field, indents or outdents the block. In a multi-line field Tab never leaves it: press Escape first. One-line and plain fields keep Tab for moving between fields</td>
+</tr>
+<tr>
+<td>Backspace at the start of a block</td>
+<td>Joins the block to the one above: a list item to the item above, the first item out of its list, a paragraph into the last item of a list above it. Removes a rule just above. The field's first block becomes a paragraph if it isn't one</td>
+</tr>
+<tr>
+<td>Backspace in a table cell</td>
+<td>With the whole cell selected, or one character left in it, empties the cell and keeps the table</td>
+</tr>
+<tr>
+<td>Arrow keys in a table</td>
+<td>Move to the next cell at a cell's edge, keeping the column</td>
+</tr>
+<tr>
+<td>Escape</td>
+<td>Leaves the field</td>
+</tr>
+<tr>
+<td>Cmd/Ctrl + B, I, U</td>
+<td>Bold, italic, underline, where the field allows them; the browser's own formatting never applies</td>
+</tr>
+<tr>
+<td>Cmd/Ctrl + Z, Shift + Cmd/Ctrl + Z</td>
+<td>Undo, redo; Ctrl + Y also redoes outside the Mac</td>
+</tr>
+<tr>
+<td>Cmd/Ctrl + K</td>
+<td>Left to the page</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="reference">Reference</h2><h3 id="fields">Fields</h3><table>
+<thead>
+<tr>
+<th>Write</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>x-rich-text="value"</code></td>
+<td>A field bound to <code>value</code>, stored as markdown</td>
+</tr>
+<tr>
+<td><code>x-rich-text</code></td>
+<td>A field whose content is its own markup</td>
+</tr>
+<tr>
+<td><code>.html</code>, <code>.plain</code></td>
+<td>Store HTML or plain text instead</td>
+</tr>
+<tr>
+<td><code>.inline</code></td>
+<td>One line</td>
+</tr>
+<tr>
+<td><code>.literal</code></td>
+<td>No markdown shortcuts while typing</td>
+</tr>
+<tr>
+<td><code>.autofocus</code></td>
+<td>Focus the field when it appears</td>
+</tr>
+<tr>
+<td><code>placeholder</code></td>
+<td>Shown while the field is empty</td>
+</tr>
+</tbody></table>
+<h3 id="controls">Controls</h3><table>
+<thead>
+<tr>
+<th>Write</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>x-rich-text.&lt;command&gt;</code></td>
+<td>Makes the element a control for that command</td>
+</tr>
+<tr>
+<td><code>x-rich-text.&lt;command&gt;.&lt;value&gt;</code></td>
+<td>A fixed value, such as <code>.align.center</code> or <code>.table.3x2</code></td>
+</tr>
+<tr>
+<td><code>x-rich-text.&lt;command&gt;="expression"</code></td>
+<td>The value from an expression, read when the control runs</td>
+</tr>
+<tr>
+<td><code>x-rich-text.&lt;command&gt;.all</code></td>
+<td>For <code>font</code>, <code>size</code>, <code>leading</code>, <code>align</code>, <code>color</code>, <code>background</code>: style the whole field</td>
+</tr>
+<tr>
+<td><code>x-rich-text-for="selector"</code></td>
+<td>On a control or any element around it: pins controls to that field</td>
+</tr>
+<tr>
+<td><code>x-rich-text-menu</code></td>
+<td>On an element holding controls: shows it over the field's selection</td>
+</tr>
+</tbody></table>
+<p>On a button, dropdown, input, or link, a misspelt command logs a warning with the closest match and leaves the element alone.</p>
+<h3 id="rich">$rich</h3><p><code>$rich</code> is the field the expression's element sits in; outside a field, the field a control there would act on. With no field to act on, it reads as empty and does nothing.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>value</code></td>
+<td>The stored value; assigning replaces the document and restarts the history</td>
+</tr>
+<tr>
+<td><code>all</code></td>
+<td>Document-wide styles as an object; assign an object to set them, <code>{}</code> to clear</td>
+</tr>
+<tr>
+<td><code>link</code></td>
+<td>The address of the link at the caret; assign to link or unlink</td>
+</tr>
+<tr>
+<td><code>selection</code></td>
+<td>The last reported selection, as in <code>rich-text:selection</code>, in viewport coordinates, or <code>null</code></td>
+</tr>
+<tr>
+<td><code>run(command, value)</code></td>
+<td>Runs a command</td>
+</tr>
+<tr>
+<td><code>active(command)</code></td>
+<td>Whether a command is active at the caret</td>
+</tr>
+<tr>
+<td><code>can(command)</code></td>
+<td>Whether a command can run here now</td>
+</tr>
+<tr>
+<td><code>markdown()</code></td>
+<td>The content as markdown, whatever the format</td>
+</tr>
+<tr>
+<td><code>html()</code></td>
+<td>The content as cleaned HTML, whatever the format</td>
+</tr>
+<tr>
+<td><code>focus()</code></td>
+<td>Focuses the field</td>
+</tr>
+<tr>
+<td><code>selectAll()</code></td>
+<td>Focuses the field and selects everything</td>
+</tr>
+<tr>
+<td><code>strong()</code>, <code>h2()</code>, <code>table(3, 2)</code>, …</td>
+<td>Every command as a method; <code>table(columns, rows)</code> and <code>img(src, alt)</code> take two values</td>
+</tr>
+</tbody></table>
+<p><code>markdown()</code> escapes literal <code>*</code> and <code>_</code> and the other characters in <a href="#markdown-written-elsewhere">Markdown Written Elsewhere</a>: in an HTML field they're ordinary characters, and the escape keeps them ordinary if the markdown is read back in.</p>
+<h3 id="events">Events</h3><table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Fires on</th>
+<th><code>detail</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>input</code></td>
+<td>The field, on every change</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>rich-text:selection</code></td>
+<td>The field, whenever its selection changes</td>
+<td><code>{ collapsed, text, x, y, width, height, top, right, bottom, left }</code>, or <code>null</code> when the field lets go</td>
+</tr>
+<tr>
+<td><code>rich-text:all</code></td>
+<td>The field, when an <code>.all</code> control changes a document-wide style</td>
+<td>The <code>$rich.all</code> object</td>
+</tr>
+<tr>
+<td><code>rich-text:enter</code></td>
+<td>A one-line field, on Enter</td>
+<td><code>{ value, shiftKey }</code></td>
+</tr>
+</tbody></table>
+<h3 id="javascript">JavaScript</h3><p><code>window.ManifestRichText</code> gives the same engine to code outside Alpine.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>attach(el, options)</code></td>
+<td>Makes <code>el</code> a field and returns a handle: the <code>$rich</code> members, plus <code>el</code>, <code>detach()</code>, and <code>newest()</code></td>
+</tr>
+<tr>
+<td><code>toMarkdown(el)</code></td>
+<td>The markdown for an element's content</td>
+</tr>
+<tr>
+<td><code>fromMarkdown(markdown)</code></td>
+<td>Cleaned HTML for a markdown string</td>
+</tr>
+<tr>
+<td><code>sanitize(html, blocks, styles)</code></td>
+<td>Cleans HTML to what Rich Text allows: inline tags only unless <code>blocks</code> is true, and <code>style</code> attributes only when <code>styles</code> is true</td>
+</tr>
+<tr>
+<td><code>commands()</code></td>
+<td>Every command name</td>
+</tr>
+</tbody></table>
+<p><code>attach()</code> takes <code>{ format, mode, breaks, all, value, literal, onChange }</code>: <code>format</code> is <code>'markdown'</code> (default), <code>'html'</code>, or <code>'plain'</code>; <code>mode: 'inline'</code> makes a one-line field; <code>breaks: true</code> lets a one-line HTML field keep line breaks, with Shift + Enter adding one; <code>all: false</code> turns off document-wide styles, so <code>.all</code> controls stay disabled and <code>$rich.all</code> can't be set; <code>value</code> is the starting value, otherwise the element's markup; <code>literal</code> turns off markdown shortcuts; and <code>onChange(value)</code> is called after every change. <code>detach()</code> removes editing and restores the element's own attributes, and <code>newest()</code> returns the markup of the newest step in the field's history, recording any typing still in progress first.</p>
+<pre x-code="js" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">const</span> note = <span class="hljs-title class_">ManifestRichText</span>.<span class="hljs-title function_">attach</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">'#note'</span>), {
+    <span class="hljs-attr">format</span>: <span class="hljs-string">'html'</span>,
+    <span class="hljs-attr">value</span>: <span class="hljs-string">'&lt;p&gt;Hello&lt;/p&gt;'</span>,
+    <span class="hljs-attr">onChange</span>: <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> <span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">setItem</span>(<span class="hljs-string">'note'</span>, value)
+});
+note.<span class="hljs-title function_">strong</span>();
+note.<span class="hljs-title function_">detach</span>();</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h2 id="styles">Styles</h2><p>A field looks like an input by default, using the theme's surface, line, and radius. Add <code>unstyle</code> for a document that should look like the page itself: the background, border, padding, and minimum height drop away and the text takes its element's own type, while every command keeps working.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ page: '# A page, not a box\n\nEverything here is editable.' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text</span>=<span class="hljs-string">"page"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"unstyle"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Page"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ page: '# A page, not a box\n\nEverything here is editable.' }" class="w-full">
+    <div x-rich-text="page" class="unstyle" aria-label="Page" data-rich-text="markdown" data-rich-text-bound="" contenteditable="true" role="textbox" aria-multiline="true"><h1>A page, not a box</h1><p>Everything here is editable.</p></div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The variables set the field's look one field at a time, or for every field when set on <code>:root</code>.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ note: 'A roomier, tinted field that scrolls past 8rem.' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text</span>=<span class="hljs-string">"note"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Note"</span>
+         <span class="hljs-attr">style</span>=<span class="hljs-string">"--rich-text-padding: 1.5rem; --rich-text-min-height: 4rem; --rich-text-max-height: 8rem;
+                --rich-text-background: color-mix(in oklch, var(--color-brand-content) 8%, transparent)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ note: 'A roomier, tinted field that scrolls past 8rem.' }" class="w-full">
+    <div x-rich-text="note" aria-label="Note" style="--rich-text-padding: 1.5rem; --rich-text-min-height: 4rem; --rich-text-max-height: 8rem; --rich-text-background: color-mix(in oklch, var(--color-brand-content) 8%, transparent)" data-rich-text="markdown" data-rich-text-bound="" contenteditable="true" role="textbox" aria-multiline="true"><p>A roomier, tinted field that scrolls past 8rem.</p></div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Controls are styled through the attributes the module sets on them. Here active commands get the brand colour and disabled ones fade further.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span>
+    .brand-tools [data-rich-text-active] {
+        background: var(--color-brand-surface);
+        color: var(--color-brand-inverse);
+    }
+    .brand-tools [aria-disabled="true"] {
+        opacity: 0.25;
+    }
+<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ text: 'Put the caret in **bold** text.' }"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"brand-tools"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.strong</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Bold"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:bold"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-rich-text.em</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Italic"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"lucide:italic"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Text"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div class="w-full">
+    <style>
+        .brand-tools [data-rich-text-active] {
+            background: var(--color-brand-surface);
+            color: var(--color-brand-inverse);
+        }
+        .brand-tools [aria-disabled="true"] {
+            opacity: 0.25;
+        }
+    </style>
+    <div x-data="{ text: 'Put the caret in **bold** text.' }" class="col gap-2 brand-tools">
+        <div class="row gap-1">
+            <button class="ghost sm" x-rich-text.strong="" aria-label="Bold" data-rich-text-control="strong" type="button" aria-disabled="true" aria-pressed="false"><span x-icon="lucide:bold"></span></button>
+            <button class="ghost sm" x-rich-text.em="" aria-label="Italic" data-rich-text-control="em" type="button" aria-disabled="true" aria-pressed="false"><span x-icon="lucide:italic"></span></button>
+        </div>
+        <div x-rich-text="text" aria-label="Text" style="--rich-text-min-height: 3rem" data-rich-text="markdown" data-rich-text-bound="" contenteditable="true" role="textbox" aria-multiline="true"><p>Put the caret in <strong>bold</strong> text.</p></div>
+    </div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The field's own states are attributes too: style the empty state's placeholder, or the field while it has focus.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span>
+    .dashed[data-rich-text-empty]::before {
+        font-style: italic;
+    }
+    .dashed[data-rich-text-focused] {
+        border-style: dashed;
+        border-color: var(--color-brand-content);
+    }
+<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ text: '' }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-rich-text</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dashed"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Nothing yet…"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Text"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div class="w-full">
+    <style>
+        .dashed[data-rich-text-empty]::before {
+            font-style: italic;
+        }
+        .dashed[data-rich-text-focused] {
+            border-style: dashed;
+            border-color: var(--color-brand-content);
+        }
+    </style>
+    <div x-data="{ text: '' }">
+        <div x-rich-text="text" class="dashed" placeholder="Nothing yet…" aria-label="Text" style="--rich-text-min-height: 3rem" data-rich-text="markdown" data-rich-text-bound="" contenteditable="true" role="textbox" aria-multiline="true" data-rich-text-empty=""><p><br></p></div>
+    </div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<h3 id="variables">Variables</h3><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Sets</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--rich-text-min-height</code></td>
+<td><code>8rem</code>; <code>auto</code> in a one-line field</td>
+<td>Minimum height</td>
+</tr>
+<tr>
+<td><code>--rich-text-max-height</code></td>
+<td><code>none</code></td>
+<td>Height past which the field scrolls</td>
+</tr>
+<tr>
+<td><code>--rich-text-padding</code></td>
+<td><code>0.75rem</code></td>
+<td>Padding</td>
+</tr>
+<tr>
+<td><code>--rich-text-background</code></td>
+<td><code>--color-surface-1</code></td>
+<td>Background; also set by <code>background.all</code></td>
+</tr>
+<tr>
+<td><code>--rich-text-font</code>, <code>-size</code>, <code>-leading</code>, <code>-align</code>, <code>-color</code></td>
+<td>inherited; <code>start</code> for align</td>
+<td>Document-wide styles, set by <code>.all</code> controls</td>
+</tr>
+<tr>
+<td><code>--rich-text-selection-x</code>, <code>-y</code>, <code>-width</code>, <code>-height</code>, <code>-center</code></td>
+<td>—</td>
+<td>Written by the module on <code>:root</code>: the selection's box, in viewport pixels</td>
+</tr>
+</tbody></table>
+<h3 id="attributes">Attributes</h3><table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Set on</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>data-rich-text</code></td>
+<td>Every field; its value is the format</td>
+</tr>
+<tr>
+<td><code>data-rich-text-inline</code></td>
+<td>A one-line field</td>
+</tr>
+<tr>
+<td><code>data-rich-text-bound</code></td>
+<td>A field bound to a value</td>
+</tr>
+<tr>
+<td><code>data-rich-text-empty</code></td>
+<td>A field with no text</td>
+</tr>
+<tr>
+<td><code>data-rich-text-focused</code></td>
+<td>A field while it has the caret, kept while one of its dropdowns or inputs has focus</td>
+</tr>
+<tr>
+<td><code>data-rich-text-selected</code></td>
+<td>A field with text selected, and <code>&lt;html&gt;</code> while any field has</td>
+</tr>
+<tr>
+<td><code>data-rich-text-control</code></td>
+<td>Every control; its value is the command</td>
+</tr>
+<tr>
+<td><code>data-rich-text-active</code></td>
+<td>A control whose command is active at the caret</td>
+</tr>
+<tr>
+<td><code>data-rich-text-all</code></td>
+<td>An <code>.all</code> control</td>
+</tr>
+<tr>
+<td><code>aria-disabled</code>, <code>aria-pressed</code></td>
+<td>A control that can't run now; a button's active state</td>
+</tr>
+<tr>
+<td><code>data-rich-text-menu</code></td>
+<td>A selection menu</td>
+</tr>
+<tr>
+<td><code>data-rich-text-cell</code></td>
+<td>Table cells in a dragged selection</td>
+</tr>
+<tr>
+<td><code>data-rich-text-border</code></td>
+<td>A field while the pointer is on a table border: <code>x</code> or <code>y</code></td>
+</tr>
+<tr>
+<td><code>data-rich-text-resizing</code></td>
+<td>A field while a table border is dragged: <code>x</code> or <code>y</code></td>
+</tr>
+</tbody></table>
+<aside class="brand"><span x-icon="lucide:info"></span><p>Some words mean different things in <a href="/docs/framework/core-modules/edit">Visual Editing</a>. Here, <code>size</code> sets font size and a <em>block</em> is a paragraph-level tag; in Visual Editing, <code>.size</code> resizes an element and a block is any piece of the page.</p>
+</aside>
+<hr>
+<h2 id="related">Related</h2><ul>
+<li><a href="/docs/framework/core-modules/rich-text-controls">Controls</a> builds buttons, dropdowns, toolbars, and menus for fields.</li>
+<li><a href="/docs/framework/core-modules/markdown">Markdown</a> displays a stored value.</li>
+<li><a href="/docs/framework/core-modules/edit">Visual Editing</a> edits the page itself, and uses Rich Text for its text.</li>
+</ul>
+</div>
+
+      <!-- Previous / next -->
+      <template x-if="article?.name &amp;&amp; (prev || next)">
+        <nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template>
+        </nav>
+      </template><nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="" data-mnfst-prerender-clone="1">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template><a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline" href="/docs/framework/core-modules/payments" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name">Payments</span>
+            </a>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template><a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end" href="/docs/framework/core-modules/rich-text-controls" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name">Controls</span>
+            </a>
+        </nav>
+
+      <!-- Family home (markdown) -->
+      <template x-if="at(base) &amp;&amp; home">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="home"></div>
+      </template>
+
+      <!-- Docs home -->
+      <template x-if="at(base) &amp;&amp; landing">
+        <div class="col gap-8 pb-12">
+          <template x-if="landing === 'framework'"><x-framework></x-framework></template>
+          <template x-if="landing === 'platform'"><x-docs-platform></x-docs-platform></template>
+          <template x-if="landing === 'api'"><x-docs-api></x-docs-api></template>
+          <div class="col gap-4 w-content-width max-w-full mx-auto">
+            <h2 class="h4">Explore the docs</h2>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <template x-for="card in cards" :key="card.href">
+                <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                  <span x-icon="card.icon" class="text-brand-content"></span>
+                  <span class="col">
+                    <span class="text-content-stark font-medium" x-text="card.title"></span>
+                    <small class="text-content-subtle" x-text="card.sub"></small>
+                  </span>
+                </a>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template x-if="at(base) &amp;&amp; !home &amp;&amp; !landing">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="heading"></h1>
+            <p class="text-content-neutral" x-show="intro" x-text="intro"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="card in cards" :key="card.href">
+              <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="card.icon" class="text-brand-content"></span>
+                <span class="col">
+                  <span class="text-content-stark font-medium" x-text="card.title"></span>
+                  <small class="text-content-subtle" x-text="card.sub"></small>
+                </span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Group landing -->
+      <template x-if="group?.group">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="group?.group"></h1>
+            <p class="text-content-neutral" x-show="group?.description" x-text="group?.description"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
+              <a :href="href(group, item)" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
+                <span class="text-content-stark" x-text="item.name"></span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+    </div>
+
+    <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
+    <template x-if="!article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
+      <div class="max-w-full prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
+
+    <footer class="mt-20">
+  <hr>
+  <div class="row-wrap justify-between items-center gap-4 pt-4">
+
+    <figcaption class="text-content-subtle">© 2026 MNFST OÜ • <a href="/legal/terms">Terms</a> • <a href="/legal/privacy">Privacy</a><span x-show="$route.startsWith('/docs/framework')"> • Framework under the <a href="/docs/framework/resources/license">MIT License</a></span></figcaption>
+
+    <div class="row-wrap gap-3">
+
+      <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
+
+      <div role="tablist" aria-label="Color mode" class="sm rounded-full">
+        <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h6"></button>
+        <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h7"></button>
+        <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h8"></button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+
+  <!-- Anchor links -->
+  <nav aria-label="On this page" x-show="!(at(base) &amp;&amp; landing)" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
+
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+      <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
+      <span>On this page</span>
+    </small>
+
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#text-elements">Text Elements</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#one-line-fields">One-Line Fields</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#options">Options</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#pasting">Pasting</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#typing-markdown">Typing Markdown</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#markdown-written-elsewhere">Markdown Written Elsewhere</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#links">Links</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#tables">Tables</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#whole-document-styles">Whole Document Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#editing-data">Editing Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#history">History</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#keyboard">Keyboard</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#reference">Reference</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#fields">Fields</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#controls">Controls</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#rich">$rich</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#events">Events</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#javascript">JavaScript</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#styles">Styles</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#variables">Variables</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#attributes">Attributes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#related">Related</a></div>
+
+  </nav>
+
+</div>
+
+    <!-- Legal pages -->
+    
+
+    <!-- Support -->
+    
+
+  </main>
+
+  <!-- Footer (visible on every route) -->
+  
+
+
+
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"data-order":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"data-rich-text":null,"data-rich-text-bound":null,"data-rich-text-inline":null,"contenteditable":null,"role":null,"aria-multiline":null}},{"id":"h5","attrs":{"style":"--rich-text-min-height: 4rem","data-rich-text":null,"data-rich-text-bound":null,"contenteditable":null,"role":null,"aria-multiline":null}},{"id":"h6","attrs":{"aria-selected":null,"type":null}},{"id":"h7","attrs":{"aria-selected":null,"type":null}},{"id":"h8","attrs":{"aria-selected":null,"type":null}}]</script>
+</body></html>

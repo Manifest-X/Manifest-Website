@@ -6,28 +6,28 @@ Sectioned content with switchable panels.
 
 ## Setup
 
-Tabs are included in `manifest.js` with all core plugins, or can be selectively loaded.
+Tabs are included in `manifest.js` with all core modules, or can be selectively loaded.
 
 <div x-code-group copy>
 
-```html "All Plugins (default)"
+```html "All Modules (default)"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
 ```
 
 ```html "Selective"
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-    data-plugins="tabs"></script>
+    data-modules="tabs"></script>
 ```
 
 </div>
 
-Tabs draw their styles from any respective elements used, like [buttons](/docs/elements/buttons).
+Tabs draw their styles from any respective elements used, like [buttons](/docs/framework/elements/buttons).
 
 ---
 
 ## Default
 
-Create tab menus with `x-tab` selectable targets and `x-tabpanel` content areas, using any HTML elements. Panels are targeted by matching the `x-tab` value with either the panel's `id` or `class` name.
+Create tab menus with `x-tab` selectable targets and `x-tabpanel` content areas, using any HTML elements. Panels are targeted by matching the `x-tab` value with either the panel's `id` or its first class name.
 
 <div x-code-group>
 
@@ -48,9 +48,9 @@ Create tab menus with `x-tab` selectable targets and `x-tabpanel` content areas,
 
 </div>
 
-The plugin works by automatically creating an Alpine `x-data` value called `tabs`, which uses the `x-tab` values to show the selected panel and hide the others.
+The module works by automatically creating an Alpine property named `tab` (or `tab_<group>` for a named `x-tabpanel` group), which uses the `x-tab` values to show the selected panel and hide the others.
 
-Wrap the buttons in an element with `role="tablist"` to opt into the full accessibility pattern — the plugin then adds `role="tab"`, roving focus, and arrow-key navigation, and the wrapper picks up the [tab bar styling](/docs/elements/forms) with a sliding selected background.
+Wrap the buttons in an element with `role="tablist"` to opt into the full accessibility pattern — the module then adds `role="tab"`, roving focus, and arrow-key navigation, and the wrapper picks up the [tab bar styling](/docs/framework/elements/forms) with a sliding selected background. Plain buttons outside a tablist look the same whether selected or not; style `[aria-selected="true"]` to mark the active one (see [Styles](#styles)).
 
 ---
 
@@ -141,7 +141,7 @@ By default, `x-tabpanel` content is part of the same tab group on the page. For 
 
 ## Groups
 
-Wrap tab buttons in a [group wrapper](/docs/elements/forms) to style the set as one control. `role="group"` connects the buttons flush with shared borders. `role="tablist"` makes a tab bar with a background that slides behind the selected tab, and opts into the full ARIA tabs pattern with arrow-key navigation.
+Wrap tab buttons in a [group wrapper](/docs/framework/elements/forms) to style the set as one control. `role="group"` connects the buttons flush with shared borders. `role="tablist"` makes a tab bar with a background that slides behind the selected tab, and opts into the full ARIA tabs pattern with arrow-key navigation.
 
 <div x-code-group>
 
@@ -157,8 +157,8 @@ Wrap tab buttons in a [group wrapper](/docs/elements/forms) to style the set as 
     <button x-tab="daily">Daily</button>
     <button x-tab="weekly">Weekly</button>
 </div>
-<div class="daily" x-tabpanel="bar">Daily content</div>
-<div class="weekly" x-tabpanel="bar">Weekly content</div>
+<div class="daily" x-tabpanel="period">Daily content</div>
+<div class="weekly" x-tabpanel="period">Weekly content</div>
 ```
 
 ::: frame row-wrap gap-12 items-center
@@ -176,8 +176,8 @@ Wrap tab buttons in a [group wrapper](/docs/elements/forms) to style the set as 
         <button x-tab="daily">Daily</button>
         <button x-tab="weekly">Weekly</button>
     </div>
-    <div class="daily" x-tabpanel="bar">Daily content</div>
-    <div class="weekly" x-tabpanel="bar">Weekly content</div>
+    <div class="daily" x-tabpanel="period">Daily content</div>
+    <div class="weekly" x-tabpanel="period">Weekly content</div>
 </div>
 :::
 
@@ -187,31 +187,31 @@ Wrap tab buttons in a [group wrapper](/docs/elements/forms) to style the set as 
 
 ## Inactive Panels Cost Nothing
 
-An unselected tab panel's contents are not initialized until the panel is first shown, so nothing in it runs while another tab is selected. A panel shown once stays ready. The same knobs as [menus](/docs/elements/dropdowns#closed-menus-cost-nothing) apply to a panel: `x-defer.off` keeps it eager, `x-defer.discard` throws its contents away each time it is hidden, and `x-defer.priority="1"` prepares it early. See [performance](/docs/getting-started/performance#x-defer-reference) for the full reference.
+An unselected tab panel's contents are not initialized until the panel is first shown, so nothing in it runs while another tab is selected. A panel shown once stays ready. The same knobs as [menus](/docs/framework/elements/dropdowns#closed-menus-cost-nothing) apply to a panel: `x-defer.off` keeps it eager, `x-defer.discard` throws its contents away each time it is hidden, and `x-defer.priority="1"` prepares it early. See [performance](/docs/framework/getting-started/performance#x-defer-reference) for the full reference.
 
 ---
 
 ## Styles
 
-Tab buttons inherit from [buttons](/docs/elements/buttons). The plugin syncs `aria-selected="true"` on the active tab and toggles panel visibility based on the `x-tab` ID match.
+Tab buttons inherit from [buttons](/docs/framework/elements/buttons). The module removes the `x-tab` and `x-tabpanel` attributes once it has wired them, so style tabs through the attributes it leaves in place.
 
 | Selector | Purpose |
 |---|---|
-| `[x-tab]` | Tab button base styles |
-| `[x-tab][aria-selected="true"]` | Selected tab |
-| `[x-tabpanel]` | Panel container — visible when its matching tab is selected |
+| `[aria-selected="true"]` | Selected tab button, synced by the module |
+| `[role=tablist] > [role=tab]` | Tab buttons inside a tablist |
+| `[role=tabpanel]` | Panels of a tablist |
 
 ### Customization
 
-Target any of the directive selectors directly. The `.custom` modifier class can scope rules to specific tab groups without affecting others on the page.
+Scope rules with a class of your own on the button wrapper so other tab groups are unaffected.
 
 ```css copy
-[x-tab] {
+.tabs-underline > button {
     border-bottom: 2px solid transparent;
     border-radius: 0;
 }
 
-[x-tab][aria-selected="true"] {
+.tabs-underline > button[aria-selected="true"] {
     border-bottom-color: var(--color-brand-content);
     color: var(--color-brand-content);
 }

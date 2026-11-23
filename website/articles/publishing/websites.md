@@ -22,7 +22,7 @@ Manifest projects work as a single-page app by default. No build step required. 
 - Set the root to `./` if applicable
 - Set the fallback file to `./index.html` if applicable
 
-The [starter project](/docs/getting-started/starter-project) includes a `_redirects` file to assist the host with SPA routing.
+The [starter project](/docs/framework/getting-started/starter-project) includes a `_redirects` file to assist the host with SPA routing.
 
 ---
 
@@ -42,9 +42,36 @@ Routes with sub-pages driven by data (e.g. a page template component for blog ar
 <x-blog x-route="/blog, /blog/*"></x-blog>
 ```
 
+The wildcard's paths come from the data source whose key matches the route's base. The render reads each entry's `path` (or `slug`) from local YAML, JSON, or CSV sources and places it under the base. Grouped lists prefix each item's `path` with the group name, lowercased and hyphenated (grouped items need `path`, not `slug`).
+
+<div x-code-group>
+
+```json "manifest.json" copy
+{
+  "data": {
+    "blog": "/data/blog.yaml"
+  }
+}
+```
+
+```yaml "data/blog.yaml" copy
+- group: "Releases"
+  items:
+    - name: "Version 1"
+      path: "version-1"
+```
+
+</div>
+
+With the `/blog/*` route above, this renders `/blog/releases/version-1`. For locales defined in your data sources, the locale stays in front (e.g. `fr/releases/version-1` becomes `/fr/blog/releases/version-1`). When the project has wildcard routes, data paths that don't fall under one aren't rendered.
+
+The base can also be nested: a key matches a wildcard route ending in that key, so a `framework` source fills `x-route="docs/framework/*"`, and the render prints a notice naming the mount. A route named exactly after the key takes precedence over nested ones. If several nested routes end in the same key (e.g. `a/docs/*` and `b/docs/*`), the source mounts under neither and the render prints a warning. Rename the key or one of the routes to resolve it.
+
+A plain route can be a base too, since it also shows the paths below it: a `docs` or `/docs` route mounts the data source named `docs`, so its entries render under `/docs`. An exact route like `=docs` doesn't mount anything. Without wildcard routes, a data path renders only when some route shows it, including routes inside components loaded by name from `components/`. If any `x-route` is bound (e.g. `:x-route`), every data path renders. To render a path that discovery misses, add it to `render.paths`.
+
 By default, output is generated in a `/website` folder which includes:
 
-- Copies of all folders and assets from the project, preserving path references.
+- Copies of all folders and assets from the project, preserving path references. In a Capacitor project (a `capacitor.config.*` file at the root), the native `ios/` and `android/` projects and the Capacitor config are left out. Top-level dot-files and dot-folders are skipped, except `.well-known/` (for `apple-app-site-association`, `assetlinks.json` and the like).
 - Folders for each route containing its compiled `index.html` page.
 - Folders for each locale (e.g. `/fr`, `/zh`), and page sub-folder as applicable.
 - Translated text content on locale pages (from CSV or YAML/JSON data sources).
@@ -53,14 +80,14 @@ By default, output is generated in a `/website` folder which includes:
 - `og:locale`/`og:locale:alternate` for localized builds when Open Graph tags exist.
 - Compiled Tailwind CSS (when `data-tailwind` is used).
 - `sitemap.xml`, `robots.txt`, `llms.txt`, and `llms-full.txt` files for crawler discovery.
-- Per-route `og:image` PNG snapshots under `/og/`, plus injected OpenGraph, Twitter Card, and JSON-LD meta tags for rich social previews and structured-data search results.
+- Per-route `og:image` PNG snapshots under `/og/`, plus injected OpenGraph and Twitter Card meta tags for rich social previews. JSON-LD structured data is added when `render.structuredData` is set.
 - `.prettierignore`, `.gitattributes`, `.editorconfig`, and `.vscode/settings.json` to help preserve whitespace in code blocks.
 
 ---
 
 ### SEO & AEO
 
-The render automatically generates page titles, descriptions, social-share images, structured data, `sitemap.xml`, `robots.txt`, and the `llms.txt` family for AI crawlers. No configuration is needed for most sites. See [SEO & AEO](/docs/publishing/seo-aeo) for what's generated, when to customize it, and how.
+The render automatically generates page titles, descriptions, social-share images, `sitemap.xml`, `robots.txt`, and the `llms.txt` family for AI crawlers. No configuration is needed for most sites. Structured data (JSON-LD) is opt-in. See [SEO & AEO](/docs/framework/publishing/seo-aeo) for what's generated, when to customize it, and how.
 
 ---
 
@@ -97,11 +124,35 @@ Render settings can be configured in `manifest.json`. Most projects don't need t
 | `paths`{copy} | `string[]` | `[]` | Additional paths to render beyond those auto-discovered from `x-route` attributes (e.g. `["legal/privacy"]`). Each entry is expanded to all locale variants. |
 | `localeRouteExclude`{copy} | `string[]` | `[]` | Route prefixes that should not receive locale variants (e.g. `["legal"]` keeps `/legal/terms` as-is without generating `/fr/legal/terms`). |
 | `redirects`{copy} | `object[]` | `[]` | Redirect rules written to the output. Each entry is `{ "from": "/old", "to": "/new", "status": 301 }` |
-| `wait`{copy} | `number` | auto | Milliseconds to wait for a page to finish rendering before snapshot. When omitted the renderer waits for a `manifest:render-ready` signal from the data plugin. |
+| `wait`{copy} | `number` | auto | Milliseconds to wait for a page to finish rendering before snapshot. When omitted the renderer waits for a `manifest:render-ready` signal from the data module. |
 | `concurrency`{copy} | `number` | `2` | Number of pages rendered in parallel. Increase for faster builds on high-core machines; decrease if memory is constrained. |
 | `retries`{copy} | `number` | `2` | Number of retry attempts for pages that fail to render. |
-| `browserRecycleEvery`{copy} | `number` | `50` | Recycle the browser after this many pages to prevent memory buildup on large sites. |
+| `browserRecycleEvery`{copy} | `number` | `40` | Recycle the browser after this many pages to prevent memory buildup on large sites. |
+| `incremental`{copy} | `boolean` | `false` | Skip re-rendering pages whose inputs are provably unchanged since the last successful run. See [Incremental renders](#incremental-renders). |
+| `blockRequests`{copy} | `string[]` | `[]` | URL patterns (substring match, `*` glob supported) whose requests are aborted during prerender — e.g. a custom analytics tracker the built-in list doesn't cover. A short pattern can block more than intended. |
+| `blockTelemetry`{copy} | `boolean` | `true` | Block well-known analytics and error-reporting collection endpoints during prerender so renders never register as visitors or file crash reports. Set `false` to allow. |
+| `runCache`{copy} | `boolean` | `true` | Fetch each cross-origin URL at most once per render run and reuse the first successful response on every page — a prerender is a point-in-time snapshot, so run-level consistency is intended. Failures are never cached and retry on the next page. |
 | `tailwindInput`{copy} | `string` | — | Path to a custom Tailwind CSS entry file relative to the project root. Tailwind compilation is otherwise auto-detected via the `data-tailwind` attribute on the manifest script tag. |
+
+---
+
+### Incremental Renders
+
+Re-rendering a large site when little has changed is mostly wasted work. Opt in with `"incremental": true` in the `render` block, or pass `--incremental` once on the command line — from then on every render refreshes the record, so any later run can skip (the run says so: `incremental active from existing ledger`). `--no-incremental` turns skipping off for a run while still refreshing the record; `"incremental": false` in the config turns the feature fully off.
+
+While rendering, Manifest records every file and URL each page actually loads. On the next run a page is skipped — its files copied from the previous output — only when everything it depends on is provably unchanged: the files it fetched, the render configuration, the renderer version, and every external resource — verified by validators when origins behave, and by byte comparison when they don't (a changing Last-Modified over identical content still skips; an origin that stops sending validators moves to byte comparison). Anything that can't be verified re-renders; a page is never skipped on a guess, so an incremental run's output is always identical to a full render's. One caveat is inherent to any cache: values a page computes from the clock or from randomness stay frozen on skipped pages until something else triggers a re-render.
+
+The record lives in `.mnfst-cache/routes.json` in your project (keep `.mnfst-cache/` out of version control). It is only written after a fully successful run. To force a full render, pass `--no-incremental` or delete `.mnfst-cache/`.
+
+---
+
+### Analytics During Prerender
+
+Prerendering runs your pages in a real browser, so embedded third parties fire real events — analytics tags register page views, and error reporters file crash reports for exceptions that only happen in a headless browser. The renderer therefore blocks the well-known analytics and error/RUM collection endpoints by default (`blockTelemetry` — Google Analytics, Plausible, Segment, Mixpanel, Meta, Sentry, Bugsnag, Rollbar, Cloudflare RUM, New Relic, Datadog; collection endpoints only, never script loads), and each run reports how many requests it blocked. Add custom trackers to `blockRequests`. Belt and braces: gate your tag behind `navigator.webdriver` so no automated browser ever reports as a visitor.
+
+If routes come out non-cacheable on incremental runs, the end of the run lists every distinct cause with counts and the host involved (`prerender: non-cacheable causes —`), so a single render shows everything worth adding to `blockRequests`.
+
+Each external asset is fetched once per run and reused across pages (`runCache`), so large sites don't hammer CDNs and a third-party hiccup can't fail a long render. Pages that genuinely depend on partial (Range) responses, such as embedded media players, should set `runCache: false`.
 
 ---
 
@@ -135,6 +186,8 @@ Interactive directives like `x-color`, `x-model`, `@click`, and `:class` are aut
 ### Publishing
 
 To deploy an MPA on a host environment, set the root directory to the prerendered output directory (i.e. `./website`).
+
+To publish from Claude with Manifest hosting instead, see [Platform](/docs/platform/introduction).
 
 ---
 

@@ -1,10 +1,12 @@
-<header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl">
+<header style="view-transition-name: site-header" class="site-header fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl">
 
     <!-- Content Area -->
-    <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4" :class="$route === '/' ? 'w-content-width' : 'w-full'">
+    <nav class="row justify-between items-center gap-4 max-w-full mx-auto py-4" :class="$route === '/' ? 'w-content-width' : 'w-full'">
 
         <!-- Start -->
-        <div class="row items-center gap-3">
+        <div class="row items-center gap-3" x-data="{
+            get family() { return $route.startsWith('/docs/platform') ? 'platform' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+        }">
 
             <!-- Logo -->
             <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
@@ -12,33 +14,52 @@
                 <span class="md:hidden">{M}</span>
             </a>
 
+            <!-- Docs family -->
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation">
+                <span x-text="$x.site.docs.find(d => d.key === family)?.name"></span>
+                <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
+            </button>
+            <menu popover id="docs-family">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a :href="'/docs/' + d.key" close>
+                        <span x-text="d.name"></span>
+                        <span x-show="family === d.key" x-icon="lucide:check" class="trailing"></span>
+                    </a>
+                </template>
+            </menu>
+
             <!-- Docs Breadcrumbs-->
-            <small class="hidden sm:flex md:hidden truncate" x-route="/docs/*">
-                <span x-text="$x.docs.$route('path')?.group || 'No group'"></span>
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/platform/*">
+                <template x-if="$x.platform.$route('path')?.group">
+                    <span class="row items-center"><span x-text="$x.platform.$route('path')?.group"></span><span class="mx-1.5" x-icon="lucide:chevron-right"></span></span>
+                </template>
+                <span class="text-content-stark" x-text="$x.platform.$route('path')?.name || 'No article'"></span>
+            </small>
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/api/*">
+                <template x-if="$x.api.$route('path')?.group">
+                    <span class="row items-center"><span x-text="$x.api.$route('path')?.group"></span><span class="mx-1.5" x-icon="lucide:chevron-right"></span></span>
+                </template>
+                <span class="text-content-stark" x-text="$x.api.$route('path')?.name || 'No article'"></span>
+            </small>
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/framework/*">
+                <span x-text="$x.framework.$route('path')?.group || 'No group'"></span>
                 <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
-                <span class="text-content-stark" x-text="$x.docs.$route('path')?.name || 'No article'"></span>
+                <span class="text-content-stark" x-text="$x.framework.$route('path')?.name || 'No article'"></span>
             </small>
 
         </div>
-
-        <!-- Middle -->
-        <div class="hidden md:row justify-center items-center gap-6 no-underline" x-route="/">
-            <a href="#features" class="text-sm no-underline">Features</a>
-            <a href="#comparisons" class="text-sm no-underline">Comparisons</a>
-            <a href="#faq" class="text-sm no-underline">FAQ</a>
-        </div>
-        <div x-route="!/"></div>
 
         <!-- End -->
         <div class="row justify-end items-center gap-2">
 
             <!-- CTAs -->
-            <button popovertarget="docs-search" class="sm transparent outlined rounded-full" aria-label="Search docs">
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
                 <span x-icon="lucide:search"></span>
                 <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
             </button>
-            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" class="sm transparent outlined rounded-full"><span x-icon="meteor-icons:github"></span><span>GitHub</span></a>
-            <a role="button" href="/docs/getting-started/introduction" class="sm accent rounded-full">Docs</a>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="sm transparent outlined rounded-full" aria-label="GitHub" x-tooltip="GitHub" x-icon="meteor-icons:github"></a>
+            <a role="button" href="/docs" class="sm transparent outlined rounded-full">Docs</a>
+            <a role="button" href="https://dash.manifestx.dev" class="sm accent rounded-full" x-text="/(^|;\s*)mnfst_signed_in=1(;|$)/.test(document.cookie) ? 'Dashboard' : 'Sign in'">Sign in</a>
 
             <!-- Mobile Sidebar Button -->
             <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>

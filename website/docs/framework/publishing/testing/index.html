@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" data-online="true" data-os="macos" dir="auto"><head>
+  <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Verify project readiness with automated testing.">
+  <meta name="author" content="Andrew Matlock">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="google" content="notranslate">
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="preload" as="font" type="font/woff2" href="../../../../assets/fonts/Manrope.woff2" crossorigin="">
+
+  <!-- Web App & Manifest -->
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../../../../manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="../../../../manifest.theme.css">
+
+  <!-- Scripts -->
+  <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="../../../../scripts/payments-demo.js" defer=""></script>
+  <script src="../../../../scripts/hero-editor.js" defer=""></script>
+  <script src="../../../../scripts/hero-demo.js" defer=""></script>
+  <script src="../../../../scripts/console-message.js" defer=""></script>
+
+<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+@custom-variant cursor (@media (pointer: fine) and (hover: hover));
+@custom-variant pointer (@media (any-pointer: fine));
+@custom-variant mac (&:where([data-os="macos"] *));
+@custom-variant windows (&:where([data-os="windows"] *));
+@custom-variant linux (&:where([data-os="linux"] *));
+@custom-variant ios (&:where([data-os="ios"] *));
+@custom-variant android (&:where([data-os="android"] *));
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));
+@custom-variant online (&:where([data-online="true"] *));
+@custom-variant offline (&:where([data-online="false"] *));
+@custom-variant standalone (&:where([data-standalone] *));
+@custom-variant native (&:where([data-native] *));
+@custom-variant web (&:where(html:not([data-native]) *));
+@custom-variant dark (&:where(.dark, .dark *));</style><title>Testing — Manifest</title><meta property="og:title" content="Testing — Manifest"><meta property="og:description" content="Verify project readiness with automated testing."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/publishing/testing"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-publishing-testing.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Testing — Manifest"><meta property="twitter:description" content="Verify project readiness with automated testing."><meta property="twitter:image" content="/og/docs-framework-publishing-testing.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Testing — Manifest","description":"Verify project readiness with automated testing.","image":"/og/docs-framework-publishing-testing.png","url":"https://manifestx.dev/docs/framework/publishing/testing"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Publishing","item":"https://manifestx.dev/docs/framework/publishing"},{"@type":"ListItem","position":5,"name":"Testing","item":"https://manifestx.dev/docs/framework/publishing/testing"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/framework/publishing/testing">
+<meta name="manifest:router-base" content="">
+<meta name="manifest:prerender-locales" content="en">
+<meta name="manifest:prerendered" content="1">
+<meta name="manifest:router-base-depth" content="4">
+</head>
+
+<body x-data="{
+  init() {
+    const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
+    document.documentElement.setAttribute('dir', savedDirection);
+  }
+}" class="bg-surface-1">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
+
+  <header style="view-transition-name: site-header" class="site-header fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
+
+    <!-- Content Area -->
+    <nav class="row justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+
+        <!-- Start -->
+        <div class="row items-center gap-3" x-data="{
+            get family() { return $route.startsWith('/docs/platform') ? 'platform' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+        }">
+
+            <!-- Logo -->
+            <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
+                <span class="hidden md:flex">{Manifest}</span>
+                <span class="md:hidden">{M}</span>
+            </a>
+
+            <!-- Docs family -->
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation" popovertarget="docs-family" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="docs-family" aria-expanded="false" data-hydrate-id="h1">
+                <span x-text="$x.site.docs.find(d =&gt; d.key === family)?.name">Framework</span>
+                <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
+            </button>
+            <menu popover="" id="docs-family" role="menu" style="position-anchor: --dropdown-p1">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a :href="'/docs/' + d.key" close="">
+                        <span x-text="d.name"></span>
+                        <span x-show="family === d.key" x-icon="lucide:check" class="trailing"></span>
+                    </a>
+                </template>
+            </menu>
+
+            <!-- Docs Breadcrumbs-->
+            
+            
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/framework/*">
+                <span x-text="$x.framework.$route('path')?.group || 'No group'">Publishing</span>
+                <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
+                <span class="text-content-stark" x-text="$x.framework.$route('path')?.name || 'No article'">Testing</span>
+            </small>
+
+        </div>
+
+        <!-- End -->
+        <div class="row justify-end items-center gap-2">
+
+            <!-- CTAs -->
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+                <span x-icon="lucide:search"></span>
+                <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
+            </button>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="sm transparent outlined rounded-full" aria-label="GitHub" x-tooltip="GitHub" x-icon="meteor-icons:github"></a>
+            <a role="button" href="/docs" class="sm transparent outlined rounded-full">Docs</a>
+            <a role="button" href="https://dash.manifestx.dev" class="sm accent rounded-full" x-text="/(^|;\s*)mnfst_signed_in=1(;|$)/.test(document.cookie) ? 'Dashboard' : 'Sign in'">Sign in</a>
+
+            <!-- Mobile Sidebar Button -->
+            <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
+
+        </div>
+
+    </nav>
+
+</header>
+  <div x-data="{
+        sources: [['platform', '/docs/platform'], ['framework', '/docs/framework'], ['api', '/docs/api']],
+        labels: { platform: 'Platform', framework: 'Framework', api: 'API' },
+        q: '',
+        items: [],
+        ready: false,
+        loading: false,
+        active: 0,
+
+        // Fetch every article's markdown once, on first open; index title, description, headings, body.
+        async build() {
+            if (this.ready || this.loading) return;
+            this.loading = true;
+            const jobs = [];
+            for (const [src, base] of this.sources) {
+            for (let i = 0; i &lt; 20 &amp;&amp; (!$x[src] || !$x[src].length); i++) await new Promise(r =&gt; setTimeout(r, 100));
+            for (const g of ($x[src] || [])) {
+                for (const it of (g.items || [])) {
+                    if (!it.name || !it.doc) continue;
+                    const href = base + (g.slug ? '/' + g.slug : '') + '/' + it.path;
+                    jobs.push(fetch(it.doc)
+                        .then(r =&gt; r.ok ? r.text() : '')
+                        .catch(() =&gt; '')
+                        .then(md =&gt; {
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/&lt;[^&gt;]+&gt;/g, '').replace(/[*_`\[\]]/g, '').trim();
+                            const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
+                            const body = md
+                                .replace(/```[\s\S]*?```/g, ' ')
+                                .replace(/:::[^\n]*/g, ' ')
+                                .replace(/&lt;[^&gt;]+&gt;/g, ' ')
+                                .replace(/[#&gt;*_`\[\]()|]/g, ' ')
+                                .replace(/-{2,}/g, ' ')
+                                .replace(/\s+/g, ' ');
+                            this.items.push({
+                                name: it.name, group: g.group, icon: it.icon, href, desc, src,
+                                headings,
+                                hhay: headings.join(' · ').toLowerCase(),
+                                body, bhay: body.toLowerCase(),
+                            });
+                        }));
+                }
+            }
+            }
+            await Promise.all(jobs);
+            $x.$register('searchIndex', this.items);
+            this.ready = true;
+            this.loading = false;
+        },
+
+        results() {
+            const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
+            return ranked.slice(0, 20).map(it =&gt; ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i &gt; -1) return (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
+            }
+            return it.desc;
+        },
+
+        openDialog() { document.getElementById('docs-search')?.showPopover(); },
+        // The router swallows result clicks before element handlers run, so the
+        // dialog closes on the route-change event rather than the click itself.
+        closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
+        async onToggle(e) {
+            if (e.newState !== 'open') return;
+            this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() =&gt; { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
+        },
+        move(d) {
+            const n = this.results().length;
+            if (!n) return;
+            this.active = (this.active + d + n) % n;
+            this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
+        },
+        go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+
+        <!-- Query -->
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
+
+        <!-- Results -->
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
+            <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
+            <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
+                No matches for “<span x-text="q.trim()"></span>”.
+            </p>
+            <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i">
+                    <a :href="r.href" role="button" :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'" class="ghost justify-start w-full h-auto py-2 no-underline">
+                        <span class="col gap-0.5 min-w-0 grow text-left">
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <template x-if="r.group">
+                                    <small class="text-content-subtle font-normal" x-text="'· ' + r.group"></small>
+                                </template>
+                                <small class="badge sm ms-auto shrink-0 font-normal" x-text="labels[r.src]"></small>
+                            </span>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
+                        </span>
+                    </a>
+                </div>
+            </template>
+            <div class="h-2 shrink-0"></div>
+        </div>
+
+    </dialog>
+</div>
+  <nav aria-label="Menu" popover="" id="docs-nav" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 bg-popover-surface shadow-xl overflow-y-auto no-scrollbar" x-data="{
+        view: null,
+        get current() { return $route.match(/^\/docs\/(platform|api|framework)(\/|$)/)?.[1] || null },
+        get src() { return this.view || this.current },
+        get base() { return '/docs/' + this.src },
+        get groups() { return this.src ? $x[this.src] || [] : [] },
+        get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
+        here(href) { return $route.replace(/\/$/, '') === href },
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+
+    <!-- Docs -->
+    <template x-if="src">
+        <div class="col">
+            <div role="tablist" aria-label="Docs" class="sm rounded-full w-full my-4">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <button type="button" role="tab" :aria-selected="src === d.key" @click="view = d.key" x-text="d.name"></button>
+                </template>
+            </div>
+            <a role="button" :href="base" :aria-current="here(base) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="here(base) ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                <span x-icon="lucide:house"></span>
+                <span>Overview</span>
+            </a>
+            <template x-for="group in groups" :key="group.group">
+                <div class="col gap-6 py-4">
+                    <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
+                    <div class="col">
+                        <template x-for="(item, index) in group.items" :key="item.path || index">
+                            <a x-show="item.name" role="button" :href="base + (group.slug ? '/' + group.slug : '') + '/' + item.path" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="article?.path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                                <span x-icon="item.icon"></span>
+                                <span x-text="item.name"></span>
+                            </a>
+                        </template>
+                    </div>
+                    <hr>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <!-- Site -->
+    <div class="col py-4">
+        <template x-for="n in $x.site.nav" :key="n.href">
+            <a role="button" :href="n.href" :aria-current="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="n.icon"></span>
+                <span x-text="n.name"></span>
+            </a>
+        </template>
+    </div>
+    <hr class="shrink-0">
+    <template x-if="!src">
+        <div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Docs</small>
+            <div class="col">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a role="button" :href="'/docs/' + d.key" class="ghost justify-start w-full text-content-neutral">
+                        <span x-icon="d.icon"></span>
+                        <span x-text="d.name"></span>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </template>
+    <hr class="shrink-0" x-show="!src" style="display: none">
+    <div class="col py-4">
+        <template x-for="p in $x.site.pages" :key="p.href">
+            <a role="button" :href="p.href" :aria-current="$route.startsWith(p.href) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="$route.startsWith(p.href) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="p.icon"></span>
+                <span x-text="p.name"></span>
+            </a>
+        </template>
+    </div>
+
+</nav>
+
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
+
+    <!-- Home page -->
+    
+
+    <!-- Framework -->
+
+    <!-- Compare -->
+    
+
+    <!-- Documentation -->
+    
+    
+    
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-data="{
+    base: '/docs/framework' ?? '/docs/framework',
+    src: 'framework' ?? 'framework',
+    heading: 'Framework' ?? 'Docs',
+    intro: 'Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.' ?? '',
+    home: null ?? '',
+    landing: 'framework' ?? '',
+    canonical: 'https://manifestx.dev',
+    copied: false,
+    get pages() {
+      const out = [];
+      for (const g of this.groups) for (const i of (g.items || [])) if (i.name) out.push({ href: this.href(g, i), name: i.name, group: g.group || '' });
+      return out;
+    },
+    get pageIndex() { return this.pages.findIndex(p =&gt; this.at(p.href)) },
+    get prev() { return this.pageIndex &gt; 0 ? this.pages[this.pageIndex - 1] : null },
+    get next() { const i = this.pageIndex; return i &gt; -1 &amp;&amp; i &lt; this.pages.length - 1 ? this.pages[i + 1] : null },
+    aiApps: [
+      { name: 'Claude', icon: 'simple-icons:claude', url: 'https://claude.ai/new?q=' },
+      { name: 'ChatGPT', icon: 'simple-icons:openai', url: 'https://chatgpt.com/?q=' },
+      { name: 'Gemini', icon: 'simple-icons:googlegemini', url: 'https://gemini.google.com/app', paste: true },
+      { name: 'Perplexity', icon: 'simple-icons:perplexity', url: 'https://www.perplexity.ai/search?q=' }
+    ],
+    get askPrompt() { return `Read ${this.canonical + $route.replace(/\/$/, '')} from the Manifest docs and help me with it.` },
+    askIn(app) { return app.paste ? app.url : app.url + encodeURIComponent(this.askPrompt) },
+    askCopy(app) { if (app.paste) navigator.clipboard.writeText(this.askPrompt).catch(() =&gt; {}) },
+    async copyPage() {
+      const md = await fetch(this.article.doc).then(r =&gt; r.text());
+      const clean = md.replace(/`([^`\n]+)`\{[^}\n]*\}/g, '`$1`');
+      await navigator.clipboard.writeText(`Source: ${this.canonical}${$route.replace(/\/$/, '')}\n\n${clean}`);
+      this.copied = true;
+      setTimeout(() =&gt; this.copied = false, 1500);
+    },
+    get groups() { return $x[this.src] || [] },
+    get article() { return $x[this.src].$route('path') },
+    get group() { const g = $x[this.src].$route('slug'); return g?.group &amp;&amp; this.at(this.base + '/' + g.slug) ? g : null },
+    href(group, item) { return this.base + (group.slug ? '/' + group.slug : '') + (item ? '/' + item.path : '') },
+    get cards() {
+      const out = [];
+      for (const g of this.groups) {
+        const items = (g.items || []).filter(i =&gt; i.name);
+        if (g.group) out.push({ href: this.href(g), icon: g.icon || items[0]?.icon, title: g.group, sub: items.length + (items.length === 1 ? ' article' : ' articles') });
+        else items.forEach(i =&gt; out.push({ href: this.href(g, i), icon: i.icon, title: i.name, sub: i.description || 'Start here' }));
+      }
+      return out;
+    },
+    at(path) { return $route.replace(/\/$/, '') === path },
+  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.">
+
+  <!-- Desktop navigation -->
+  <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
+    <div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Getting Started</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-open"></span>
+              <span>Introduction</span>
+            </a><a role="button" href="/docs/framework/getting-started/setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:terminal"></span>
+              <span>Setup</span>
+            </a><a role="button" href="/docs/framework/getting-started/starter-project" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:package"></span>
+              <span>Starter Project</span>
+            </a><a role="button" href="/docs/framework/getting-started/compatibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe-lock"></span>
+              <span>Compatibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:eye"></span>
+              <span>Accessibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Core Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/core-modules/chat" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:message-square"></span>
+              <span>Chat</span>
+            </a><a role="button" href="/docs/framework/core-modules/components" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panels-top-left"></span>
+              <span>Components</span>
+            </a><a role="button" href="/docs/framework/core-modules/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" href="/docs/framework/core-modules/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Devices</span>
+            </a><a role="button" href="/docs/framework/core-modules/submissions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:send-horizontal"></span>
+              <span>Form Submissions</span>
+            </a><a role="button" href="/docs/framework/core-modules/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
+            </a><a role="button" href="/docs/framework/core-modules/local-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-tree"></span>
+              <span>Local Data</span>
+            </a><a role="button" href="/docs/framework/core-modules/localization" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:languages"></span>
+              <span>Localization</span>
+            </a><a role="button" href="/docs/framework/core-modules/markdown" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-m"></span>
+              <span>Markdown</span>
+            </a><a role="button" href="/docs/framework/core-modules/payments" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:credit-card"></span>
+              <span>Payments</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Rich Text</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text-controls" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Controls</span>
+            </a><a role="button" href="/docs/framework/core-modules/router" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:route"></span>
+              <span>Router</span>
+            </a><a role="button" href="/docs/framework/core-modules/status" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:activity"></span>
+              <span>Status</span>
+            </a><a role="button" href="/docs/framework/core-modules/url-parameters" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:ampersand"></span>
+              <span>URL Parameters</span>
+            </a><a role="button" href="/docs/framework/core-modules/virtual" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-chevrons-up-down"></span>
+              <span>Virtual Lists</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Visual Editing</span>
+            </a><a role="button" href="/docs/framework/core-modules/move" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Move</span>
+            </a><a role="button" href="/docs/framework/core-modules/resize" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Resize</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit-publishing" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Publishing</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Appwrite Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/appwrite-modules/appwrite-setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="simple-icons:appwrite"></span>
+              <span>Appwrite Setup</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/auth" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:users"></span>
+              <span>Auth</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Users</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Teams</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/cloud-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:database"></span>
+              <span>Cloud Data</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/databases" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Databases</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Storage</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/presence" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:radio-tower"></span>
+              <span>Presence</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Publishing</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/publishing/testing" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+              <span x-icon="lucide:circle-check"></span>
+              <span>Testing</span>
+            </a><a role="button" href="/docs/framework/publishing/websites" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe"></span>
+              <span>Websites</span>
+            </a><a role="button" href="/docs/framework/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>SEO &amp; AEO</span>
+            </a><a role="button" href="/docs/framework/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window"></span>
+              <span>Web Apps</span>
+            </a><a role="button" href="/docs/framework/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:monitor-smartphone"></span>
+              <span>Native Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Styles</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/styles/reset" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:scale"></span>
+              <span>Reset</span>
+            </a><a role="button" href="/docs/framework/styles/theme" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:paint-bucket"></span>
+              <span>Theme</span>
+            </a><a role="button" href="/docs/framework/styles/color-modes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sun-moon"></span>
+              <span>Color Modes</span>
+            </a><a role="button" href="/docs/framework/styles/utilities" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:swatch-book"></span>
+              <span>Utilities</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Elements</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/elements/accordions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-collapse"></span>
+              <span>Accordions</span>
+            </a><a role="button" href="/docs/framework/elements/avatars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-user-round"></span>
+              <span>Avatars</span>
+            </a><a role="button" href="/docs/framework/elements/badges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-star"></span>
+              <span>Badges</span>
+            </a><a role="button" href="/docs/framework/elements/buttons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-mouse-pointer"></span>
+              <span>Buttons</span>
+            </a><a role="button" href="/docs/framework/elements/charts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chart-line"></span>
+              <span>Charts</span>
+            </a><a role="button" href="/docs/framework/elements/chats" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:messages-square"></span>
+              <span>Chats</span>
+            </a><a role="button" href="/docs/framework/elements/checkboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-check"></span>
+              <span>Checkboxes</span>
+            </a><a role="button" href="/docs/framework/elements/code" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:code"></span>
+              <span>Code</span>
+            </a><a role="button" href="/docs/framework/elements/color-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:palette"></span>
+              <span>Color Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/comboboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-search"></span>
+              <span>Comboboxes</span>
+            </a><a role="button" href="/docs/framework/elements/date-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:calendar"></span>
+              <span>Date Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/dialogs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panel-top-dashed"></span>
+              <span>Dialogs</span>
+            </a><a role="button" href="/docs/framework/elements/dividers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:minus"></span>
+              <span>Dividers</span>
+            </a><a role="button" href="/docs/framework/elements/dropdowns" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chevron-down"></span>
+              <span>Dropdowns</span>
+            </a><a role="button" href="/docs/framework/elements/forms" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:rows-3"></span>
+              <span>Forms</span>
+            </a><a role="button" href="/docs/framework/elements/icons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smile"></span>
+              <span>Icons</span>
+            </a><a role="button" href="/docs/framework/elements/inputs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor-input"></span>
+              <span>Inputs</span>
+            </a><a role="button" href="/docs/framework/elements/radios" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-dot"></span>
+              <span>Radios</span>
+            </a><a role="button" href="/docs/framework/elements/ranges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sliders-horizontal"></span>
+              <span>Ranges</span>
+            </a><a role="button" href="/docs/framework/elements/selects" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:menu"></span>
+              <span>Selects</span>
+            </a><a role="button" href="/docs/framework/elements/sidebars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sidebar"></span>
+              <span>Sidebars</span>
+            </a><a role="button" href="/docs/framework/elements/svgs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:shapes"></span>
+              <span>SVGs</span>
+            </a><a role="button" href="/docs/framework/elements/switches" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:toggle-right"></span>
+              <span>Switches</span>
+            </a><a role="button" href="/docs/framework/elements/tables" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:table"></span>
+              <span>Tables</span>
+            </a><a role="button" href="/docs/framework/elements/tabs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window-mac"></span>
+              <span>Tabs</span>
+            </a><a role="button" href="/docs/framework/elements/textareas" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor"></span>
+              <span>Textareas</span>
+            </a><a role="button" href="/docs/framework/elements/toasts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-big-up-dash"></span>
+              <span>Toasts</span>
+            </a><a role="button" href="/docs/framework/elements/tooltips" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-help"></span>
+              <span>Tooltips</span>
+            </a><a role="button" href="/docs/framework/elements/typography" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:type"></span>
+              <span>Typography</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Guides</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/guides/large-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:layers"></span>
+              <span>Large Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Resources</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/resources/reference" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-marked"></span>
+              <span>Reference</span>
+            </a><a role="button" href="/docs/framework/resources/typescript" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="hugeicons:typescript-01"></span>
+              <span>TypeScript</span>
+            </a><a role="button" href="/docs/framework/resources/security" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:lock"></span>
+              <span>Security</span>
+            </a><a role="button" href="/docs/framework/resources/license" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:file-check"></span>
+              <span>MIT License</span>
+            </a><a role="button" href="/docs/framework/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:heart-handshake"></span>
+              <span>Acknowledgements</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div>
+  </nav>
+
+  <!-- Articles -->
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+
+    <div class="col grow w-full max-w-full mx-auto">
+
+      <!-- Article -->
+      <template x-if="article?.name">
+        <div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7">
+          <span class="h6" x-text="article?.group || ''"></span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'"></span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
+              <span x-icon="'lucide:asterisk'"></span>
+              <span>Ask AI</span>
+              <span x-icon="'lucide:chevron-down'"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src">
+              <template x-for="app in aiApps" :key="app.name">
+                <a :href="askIn(app)" target="_blank" rel="noopener" role="button" class="sm ghost justify-start" @click="askCopy(app)" :title="app.paste ? 'Opens ' + app.name + ' with the question copied, ready to paste' : null">
+                  <span x-icon="app.icon"></span>
+                  <span x-text="'Ask ' + app.name"></span>
+                </a>
+              </template>
+            </menu>
+          </div>
+        </div>
+      </template><div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7" data-mnfst-prerender-clone="1">
+          <span class="h6" x-text="article?.group || ''">Publishing</span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="lucide:copy"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'">Copy page</span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page" popovertarget="ask-ai-framework" style="anchor-name: --dropdown-p2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p2" aria-haspopup="menu" aria-controls="ask-ai-framework" aria-expanded="false" data-hydrate-id="h3">
+              <span x-icon="lucide:asterisk"></span>
+              <span>Ask AI</span>
+              <span x-icon="lucide:chevron-down"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src" role="menu" style="position-anchor: --dropdown-p2">
+              <a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://claude.ai/new?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fpublishing%2Ftesting%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:claude"></span>
+                  <span>Ask Claude</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://chatgpt.com/?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fpublishing%2Ftesting%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:openai"></span>
+                  <span>Ask ChatGPT</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://gemini.google.com/app" title="Opens Gemini with the question copied, ready to paste">
+                  <span x-icon="simple-icons:googlegemini"></span>
+                  <span>Ask Gemini</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://www.perplexity.ai/search?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fpublishing%2Ftesting%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:perplexity"></span>
+                  <span>Ask Perplexity</span>
+                </a>
+            </menu>
+          </div>
+        </div>
+      <template x-if="article?.name">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" x-markdown="article?.doc"></div>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" style="opacity: 1" data-mnfst-md-src="/articles/publishing/testing.md" data-mnfst-prerender-clone="1"><h1 id="testing">Testing</h1><p>Verify project readiness with automated testing.</p>
+<hr>
+<h2 id="overview">Overview</h2><p>Manifest's testing tool catches problems before your users do. A single command scans every page, component, and data source in your project, then reports anything that looks wrong: typos, broken links, missing translations, accessibility issues, dead references, and other regressions that are easy to introduce and easy to miss.</p>
+<p>Run it from your project root:</p>
+<pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npx mnfst-test</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Or target a subdirectory with a path like <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-test website</code> for <code>/website</code>.</p>
+<p>The test suite checks:</p>
+<ul>
+<li><strong>Configuration</strong> — every component file and data file declared in <code>manifest.json</code> actually exists on disk.</li>
+<li><strong>Web app completeness</strong> — the required and recommended fields for an <a href="/docs/framework/publishing/web-apps">installable web app</a>.</li>
+<li><strong>Component usage</strong> — every <code>&lt;x-component&gt;</code> tag in your project matches a registered component, and every registered component is actually used somewhere.</li>
+<li><strong>Data references</strong> — every <code>$x.&lt;name&gt;</code> in your HTML matches a registered data source, and any unused sources are flagged.</li>
+<li><strong>Alpine syntax</strong> — every Alpine attribute (<code>x-data</code>, <code>x-show</code>, <code>x-text</code>, <code>x-if</code>, <code>x-for</code>, <code>x-bind</code>, <code>@click</code>, etc.) parses as valid JavaScript.</li>
+<li><strong>Internal links</strong> — every <code>&lt;a href&gt;</code> in your project resolves to a registered route or a real file.</li>
+<li><strong>Localization parity</strong> — translated data sources have matching keys across every locale, so nothing is missing in any language.</li>
+<li><strong>Runtime checks</strong> <em>(optional)</em> — boots the project in a headless browser, captures any console errors, runs <a href="https://github.com/dequelabs/axe-core" target="_blank">axe-core</a> for accessibility violations, and validates links against the rendered page.</li>
+</ul>
+<h3 id="options">Options</h3><p><code>npx mnfst-test [path] [options]</code></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>path</code></td>
+<td>Project root (relative or absolute). Default: current dir.</td>
+</tr>
+<tr>
+<td><code>--manifest &lt;path&gt;</code></td>
+<td><code>manifest.json</code> relative to root.</td>
+</tr>
+<tr>
+<td><code>--only &lt;kind&gt;</code></td>
+<td>Run only <code>"static"</code> or <code>"runtime"</code>.</td>
+</tr>
+<tr>
+<td><code>--ignore &lt;dir&gt;</code></td>
+<td>Skip a directory (repeatable).</td>
+</tr>
+<tr>
+<td><code>--external</code></td>
+<td>Also fetch external <code>&lt;a href&gt;</code> links.</td>
+</tr>
+<tr>
+<td><code>--strict-a11y</code></td>
+<td>Surface axe "needs review" results.</td>
+</tr>
+<tr>
+<td><code>--json</code></td>
+<td>Machine-readable JSON output.</td>
+</tr>
+<tr>
+<td><code>--quiet</code>, <code>-q</code></td>
+<td>Suppress passing checks.</td>
+</tr>
+</tbody></table>
+<p>Exit codes: <code>0</code> clean, <code>1</code> errors, <code>2</code> setup failure.</p>
+<h4 id="ai-agents">AI agents</h4><p>AI agents should run with <code>--json</code> after generating or editing project files. Non-zero exit means there are issues to address. The JSON shape is stable and includes file paths and line numbers for every finding.</p>
+<hr>
+<h3 id="runtime-checks">Runtime Checks</h3><p>Console errors, axe-core a11y, and link validation require <a href="https://pptr.dev" target="_blank">puppeteer</a>. Without it, the runtime pass is skipped and the CLI prints install instructions:</p>
+<pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npm install -D puppeteer</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>If Chromium isn't found:</p>
+<pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npx puppeteer browsers install chrome</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h3 id="pre-commit">Pre-commit</h3><p>A pre-commit hook is a small script that runs automatically every time you try to commit code. It blocks the commit if anything fails, so problems get caught at the moment they're introduced instead of in review or in production. Wire one up with a tool like <a href="https://typicode.github.io/husky" target="_blank">Husky</a> and call the static checks below. They're fast and don't need Chromium installed:</p>
+<pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npx mnfst-test --only static --quiet</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h3 id="ci">CI</h3><p>Continuous integration (CI) runs commands automatically every time code is pushed to a hosting platform like <a href="https://github.com" target="_blank">GitHub</a> or <a href="https://gitlab.com" target="_blank">GitLab</a>, catching problems before they reach your live site. <a href="https://docs.github.com/en/actions" target="_blank">GitHub Actions</a> is GitHub's built-in CI: workflow files in <code>.github/workflows/</code> describe what to run and when.</p>
+<p>The workflow below runs on every push and pull request, installs dependencies, then runs <code>mnfst-test</code> and writes the results to a JSON file the workflow prints back out:</p>
+<pre x-code="yaml" name=".github/workflows/test.yml" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label=".github/workflows/test.yml" role="region"><header><div>.github/workflows/test.yml</div></header><code class="hljs language-yaml" data-highlighted="yes"><span class="hljs-attr">name:</span> <span class="hljs-string">Test</span>
+<span class="hljs-attr">on:</span> [<span class="hljs-string">push</span>, <span class="hljs-string">pull_request</span>]
+<span class="hljs-attr">jobs:</span>
+    <span class="hljs-attr">test:</span>
+        <span class="hljs-attr">runs-on:</span> <span class="hljs-string">ubuntu-latest</span>
+        <span class="hljs-attr">steps:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/checkout@v4</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/setup-node@v4</span>
+              <span class="hljs-attr">with:</span> { <span class="hljs-attr">node-version:</span> <span class="hljs-number">20</span> }
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">run:</span> <span class="hljs-string">npm</span> <span class="hljs-string">ci</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">run:</span> <span class="hljs-string">npx</span> <span class="hljs-string">mnfst-test</span> <span class="hljs-string">--json</span> <span class="hljs-string">&gt;</span> <span class="hljs-string">check.json</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">run:</span> <span class="hljs-string">cat</span> <span class="hljs-string">check.json</span>
+              <span class="hljs-attr">if:</span> <span class="hljs-string">always()</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>A non-zero exit code fails the workflow, which most teams configure to block merges until it passes.</p>
+<hr>
+<h2 id="component-tests">Component Tests</h2><p>For developers writing automated unit tests, <code>mountManifest()</code> lets you boot a snippet of HTML in isolation and assert how it behaves when clicked, typed into, or otherwise interacted with — useful for verifying individual components work correctly without spinning up the whole project.</p>
+<p>The function boots the snippet in <a href="https://github.com/capricorn86/happy-dom" target="_blank">happy-dom</a> with Alpine and Manifest modules active, and returns query and interaction helpers. Pair with <a href="https://vitest.dev" target="_blank">Vitest</a>:</p>
+<pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npm install -D mnfst-test happy-dom vitest</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Optionally install Alpine locally so the harness doesn't fetch it from the jsDelivr CDN at test time:</p>
+<pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npm install -D alpinejs</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<pre x-code="js" name="cart.test.js" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="cart.test.js" role="region"><header><div>cart.test.js</div></header><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">import</span> { describe, it, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'vitest'</span>;
+<span class="hljs-keyword">import</span> { mountManifest } <span class="hljs-keyword">from</span> <span class="hljs-string">'mnfst-test'</span>;
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'cart'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'adds a product and updates the total'</span>, <span class="hljs-title function_">async</span> () =&gt; {
+        <span class="hljs-keyword">const</span> { $, click, tick } = <span class="hljs-keyword">await</span> <span class="hljs-title function_">mountManifest</span>({
+            <span class="hljs-attr">html</span>: <span class="hljs-string">`
+                &lt;div x-data="{ items: [], total: 0, add(p) { this.items.push(p); this.total += p.price; } }"&gt;
+                    &lt;button @click="add({ id: 'sku-1', price: 10 })"&gt;Add&lt;/button&gt;
+                    &lt;span data-testid="total" x-text="total"&gt;&lt;/span&gt;
+                &lt;/div&gt;
+            `</span>
+        });
+
+        <span class="hljs-title function_">click</span>(<span class="hljs-string">'button'</span>);
+        <span class="hljs-keyword">await</span> <span class="hljs-title function_">tick</span>();
+        <span class="hljs-title function_">expect</span>($(<span class="hljs-string">'[data-testid=total]'</span>).<span class="hljs-property">textContent</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">'10'</span>);
+    });
+});</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Options for <code>mountManifest(opts)</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>html</code></td>
+<td><code>string</code></td>
+<td>HTML body to mount. Required unless <code>page</code> is set.</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td><code>string</code></td>
+<td>Path to a full HTML file to load as the document.</td>
+</tr>
+<tr>
+<td><code>manifest</code></td>
+<td><code>object</code></td>
+<td>In-memory <code>manifest.json</code>. Defaults to <code>{}</code>.</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td><code>object</code></td>
+<td>In-memory data sources, keyed by name. Each becomes <code>$x.&lt;key&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>plugins</code></td>
+<td><code>string[]</code></td>
+<td>Paths to Manifest module files to evaluate after Alpine.</td>
+</tr>
+<tr>
+<td><code>appwrite</code></td>
+<td><code>object</code></td>
+<td>A fake data backend or its options (see <a href="#test-data">test data</a>). Returned as <code>fake</code>.</td>
+</tr>
+<tr>
+<td><code>settle</code></td>
+<td><code>number</code></td>
+<td>Milliseconds to wait after mount for Alpine to render. Default <code>50</code>.</td>
+</tr>
+</tbody></table>
+<p>Returns: <code>{ window, document, body, $, $$, getByText, getByRole, getById, click, type, tick, unmount }</code></p>
+<p>happy-dom approximates layout but isn't a real browser. For what users actually see, use <a href="#golden-journeys">golden journeys</a>.</p>
+<hr>
+<h2 id="test-data">Test Data</h2><p>Tests for a data-driven app need data that behaves like the real backend. Instead of writing a fake database for each test file, import Manifest's: an in-memory Appwrite backend that Manifest's own data modules run on, so <code>$x</code>, <code>$query</code>, pagination, <code>$create</code>/<code>$update</code>/<code>$delete</code>, <code>$search</code> and realtime updates behave as they do in production.</p>
+<pre x-code="js" name="tasks.test.js" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="tasks.test.js" role="region"><header><div>tasks.test.js</div></header><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">import</span> { it, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'vitest'</span>;
+<span class="hljs-keyword">import</span> { mountManifest } <span class="hljs-keyword">from</span> <span class="hljs-string">'mnfst-test'</span>;
+
+<span class="hljs-title function_">it</span>(<span class="hljs-string">'lists open tasks'</span>, <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> { $$, fake } = <span class="hljs-keyword">await</span> <span class="hljs-title function_">mountManifest</span>({
+        <span class="hljs-attr">appwrite</span>: { <span class="hljs-attr">databases</span>: { <span class="hljs-attr">main</span>: { <span class="hljs-attr">tasks</span>: [{ <span class="hljs-attr">title</span>: <span class="hljs-string">'Write docs'</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span> }] } } },
+        <span class="hljs-attr">manifest</span>: {
+            <span class="hljs-attr">appwrite</span>: { <span class="hljs-attr">projectId</span>: <span class="hljs-string">'demo'</span>, <span class="hljs-attr">endpoint</span>: <span class="hljs-string">'https://example.test/v1'</span> },
+            <span class="hljs-attr">data</span>: { <span class="hljs-attr">tasks</span>: { <span class="hljs-attr">appwriteDatabaseId</span>: <span class="hljs-string">'main'</span>, <span class="hljs-attr">appwriteTableId</span>: <span class="hljs-string">'tasks'</span> } }
+        },
+        <span class="hljs-attr">modules</span>: [<span class="hljs-string">'node_modules/mnfst/lib/manifest.data.js'</span>, <span class="hljs-string">'node_modules/mnfst/lib/manifest.appwrite.data.js'</span>],
+        <span class="hljs-attr">html</span>: <span class="hljs-string">`&lt;ul x-data&gt;&lt;template x-for="t in $x.tasks" :key="t.$id"&gt;&lt;li x-text="t.title"&gt;&lt;/li&gt;&lt;/template&gt;&lt;/ul&gt;`</span>,
+        <span class="hljs-attr">settle</span>: <span class="hljs-number">200</span>
+    });
+
+    <span class="hljs-title function_">expect</span>($$(<span class="hljs-string">'li'</span>)).<span class="hljs-title function_">toHaveLength</span>(<span class="hljs-number">1</span>);
+});</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>The fake behaves like Appwrite rather than an ideal database, so tests catch what production would do:</p>
+<ul>
+<li>Queries use Appwrite's own format and operators, including <code>or</code>, <code>search</code>, sorting, <code>limit</code>, <code>offset</code> and cursors. An unknown operator fails.</li>
+<li>A list without a <code>limit</code> returns 25 rows, a <code>limit</code> over 5,000 fails, and totals stop counting at 5,000.</li>
+<li>Text matching and sorting ignore case.</li>
+<li>Every write sends a realtime event with Appwrite's event names, filtered the way Appwrite filters subscriptions.</li>
+</ul>
+<p>To test a store or helper that talks to Appwrite directly, use the fake on its own:</p>
+<pre x-code="js" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">import</span> { createFakeAppwrite } <span class="hljs-keyword">from</span> <span class="hljs-string">'mnfst-test/fake'</span>;
+
+<span class="hljs-keyword">const</span> fake = <span class="hljs-title function_">createFakeAppwrite</span>({ <span class="hljs-attr">databases</span>: { <span class="hljs-attr">main</span>: { <span class="hljs-attr">tasks</span>: [] } } });
+<span class="hljs-keyword">await</span> fake.<span class="hljs-property">tablesDB</span>.<span class="hljs-title function_">createRow</span>({ <span class="hljs-attr">databaseId</span>: <span class="hljs-string">'main'</span>, <span class="hljs-attr">tableId</span>: <span class="hljs-string">'tasks'</span>, <span class="hljs-attr">rowId</span>: <span class="hljs-string">'a'</span>, <span class="hljs-attr">data</span>: { <span class="hljs-attr">title</span>: <span class="hljs-string">'One'</span> } });
+fake.<span class="hljs-title function_">lastQueries</span>(<span class="hljs-string">'tasks'</span>);               <span class="hljs-comment">// queries of the latest list</span>
+fake.<span class="hljs-title function_">failNext</span>(<span class="hljs-string">'listRows'</span>, { <span class="hljs-attr">code</span>: <span class="hljs-number">503</span> }); <span class="hljs-comment">// the next list fails</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sdk</code></td>
+<td>Stands in for <code>window.Appwrite</code> (<code>Client</code>, <code>TablesDB</code>, <code>Storage</code>, <code>Realtime</code>, <code>Query</code>, <code>ID</code>, and more)</td>
+</tr>
+<tr>
+<td><code>tablesDB</code></td>
+<td>A ready table client</td>
+</tr>
+<tr>
+<td><code>table(id)</code></td>
+<td>Read and change rows as another user: <code>rows()</code>, <code>get()</code>, <code>count()</code>, <code>insert()</code>, <code>update()</code>, <code>remove()</code>, <code>seed()</code>, <code>clear()</code></td>
+</tr>
+<tr>
+<td><code>calls</code>, <code>lastQueries(table)</code></td>
+<td>Every call the app made, and the queries of the latest list</td>
+</tr>
+<tr>
+<td><code>failNext(method, error)</code></td>
+<td>Make the next call fail</td>
+</tr>
+</tbody></table>
+<h3 id="fixtures">Fixtures</h3><p>Two tenants cover most bugs: one with thousands of rows and one with none. The fixture helpers build both from one description, with the same rows every run so screenshots stay stable:</p>
+<pre x-code="js" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">import</span> { heavyTenant, emptyTenant } <span class="hljs-keyword">from</span> <span class="hljs-string">'mnfst-test/fixtures'</span>;
+
+<span class="hljs-keyword">const</span> schema = { <span class="hljs-attr">main</span>: { <span class="hljs-attr">tasks</span>: <span class="hljs-function">(<span class="hljs-params">i, { words, int }</span>) =&gt;</span> ({ <span class="hljs-attr">title</span>: <span class="hljs-title function_">words</span>(<span class="hljs-number">2</span>), <span class="hljs-attr">priority</span>: <span class="hljs-title function_">int</span>(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>) }) } };
+<span class="hljs-keyword">const</span> heavy = <span class="hljs-title function_">heavyTenant</span>(schema, { <span class="hljs-attr">rows</span>: <span class="hljs-number">5000</span> });
+<span class="hljs-keyword">const</span> empty = <span class="hljs-title function_">emptyTenant</span>(schema);</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Pass either one wherever the fake takes options.</p>
+<hr>
+<h2 id="golden-journeys">Golden Journeys</h2><p>A golden journey is a path a user must always be able to walk, such as signing in, finding a record or adding one. <code>mnfst-test journeys</code> walks each one in a real browser on fixture data and compares screenshots with saved baselines, catching layout, data and realtime bugs that component tests miss.</p>
+<p>Journeys need <a href="https://pptr.dev" target="_blank">puppeteer</a>:</p>
+<pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npm install -D mnfst-test puppeteer</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<pre x-code="js" name="journeys.mjs" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="journeys.mjs" role="region"><header><div>journeys.mjs</div></header><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">import</span> { heavyTenant, emptyTenant } <span class="hljs-keyword">from</span> <span class="hljs-string">'mnfst-test/fixtures'</span>;
+
+<span class="hljs-keyword">const</span> schema = { <span class="hljs-attr">main</span>: { <span class="hljs-attr">tasks</span>: <span class="hljs-function">(<span class="hljs-params">i, { words }</span>) =&gt;</span> ({ <span class="hljs-attr">title</span>: <span class="hljs-title function_">words</span>(<span class="hljs-number">2</span>) }) } };
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+    <span class="hljs-attr">root</span>: <span class="hljs-string">'.'</span>,
+    <span class="hljs-attr">viewport</span>: { <span class="hljs-attr">width</span>: <span class="hljs-number">1280</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">800</span> },
+    <span class="hljs-attr">journeys</span>: [
+        {
+            <span class="hljs-attr">name</span>: <span class="hljs-string">'empty workspace'</span>,
+            <span class="hljs-attr">fake</span>: <span class="hljs-title function_">emptyTenant</span>(schema),
+            <span class="hljs-keyword">async</span> <span class="hljs-title function_">steps</span>(<span class="hljs-params">j</span>) {
+                <span class="hljs-keyword">await</span> j.<span class="hljs-title function_">waitForData</span>(<span class="hljs-string">'tasks'</span>);
+                <span class="hljs-keyword">await</span> j.<span class="hljs-title function_">snap</span>(<span class="hljs-string">'empty'</span>);
+            }
+        },
+        {
+            <span class="hljs-attr">name</span>: <span class="hljs-string">'busy workspace'</span>,
+            <span class="hljs-attr">fake</span>: <span class="hljs-title function_">heavyTenant</span>(schema),
+            <span class="hljs-keyword">async</span> <span class="hljs-title function_">steps</span>(<span class="hljs-params">j</span>) {
+                <span class="hljs-keyword">await</span> j.<span class="hljs-title function_">waitForData</span>(<span class="hljs-string">'tasks'</span>);
+                <span class="hljs-keyword">await</span> j.<span class="hljs-title function_">snap</span>(<span class="hljs-string">'list'</span>);
+                <span class="hljs-keyword">await</span> j.<span class="hljs-property">fake</span>.<span class="hljs-title function_">table</span>(<span class="hljs-string">'tasks'</span>).<span class="hljs-title function_">insert</span>({ <span class="hljs-attr">title</span>: <span class="hljs-string">'Live row'</span> });
+                <span class="hljs-keyword">await</span> j.<span class="hljs-property">page</span>.<span class="hljs-title function_">waitForFunction</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-property">textContent</span>.<span class="hljs-title function_">includes</span>(<span class="hljs-string">'Live row'</span>));
+            }
+        }
+    ]
+};</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Save baselines once, then compare on every run:</p>
+<pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npx mnfst-test journeys journeys.mjs --update</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npx mnfst-test journeys journeys.mjs</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>A journey fails when a step throws, a screenshot differs from its baseline, or the page logs a console error. Failed screenshots save the actual image and a diff highlighting the changed pixels in <code>__screenshots__/__diff__/</code>. Commit the baselines. They are saved per operating system, because fonts render slightly differently on each.</p>
+<p>Each journey's <code>steps</code> receives:</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>page</code></td>
+<td>The <a href="https://pptr.dev/api/puppeteer.page" target="_blank">puppeteer page</a>, for clicking and typing</td>
+</tr>
+<tr>
+<td><code>fake</code></td>
+<td>The page's fake backend: <code>table()</code>, <code>calls()</code>, <code>lastQueries()</code>, <code>failNext()</code></td>
+</tr>
+<tr>
+<td><code>waitForData(source)</code></td>
+<td>Wait until <code>$x.&lt;source&gt;</code> has loaded</td>
+</tr>
+<tr>
+<td><code>x(expression)</code></td>
+<td>Evaluate an Alpine expression in the page, e.g. <code>x('$x.tasks.length')</code></td>
+</tr>
+<tr>
+<td><code>snap(name, options)</code></td>
+<td>Compare a screenshot. Options: <code>selector</code>, <code>fullPage</code>, <code>mask</code> (selectors to hide)</td>
+</tr>
+</tbody></table>
+<p>Options for <code>npx mnfst-test journeys [file]</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--update</code></td>
+<td>Rewrite the baselines</td>
+</tr>
+<tr>
+<td><code>--base-url &lt;url&gt;</code></td>
+<td>Run against a deployed site instead of serving <code>root</code></td>
+</tr>
+<tr>
+<td><code>--ci</code></td>
+<td>Fail when a baseline is missing (on automatically in CI)</td>
+</tr>
+<tr>
+<td><code>--filter &lt;text&gt;</code></td>
+<td>Run only journeys whose name contains the text</td>
+</tr>
+<tr>
+<td><code>--root &lt;dir&gt;</code></td>
+<td>Serve this directory instead of the config's <code>root</code></td>
+</tr>
+<tr>
+<td><code>--json</code></td>
+<td>Machine-readable results</td>
+</tr>
+</tbody></table>
+<h3 id="after-each-landing">After Each Landing</h3><p>Run the journeys against staging every time a change lands there, before promoting it to production:</p>
+<pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npx mnfst-test journeys journeys.mjs --base-url https://staging.example.com --ci</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Journeys with fixture data still use it on staging, so the screenshots check the deployed code against the baselines. Journeys without <code>fake</code> use the real staging backend: keep those to behaviour checks without screenshots, since real data changes. In CI, add the command as a step after the staging deploy.</p>
+<hr>
+<h2 id="end-to-end">End-to-end</h2><p>For flows beyond golden journeys, such as cross-browser runs or third-party checkouts, <a href="https://playwright.dev" target="_blank">Playwright</a> is the standard tool, with nothing Manifest-specific to install:</p>
+<pre x-code="bash" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-bash" data-highlighted="yes">npm init playwright@latest</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Boot the project with <code>mnfst-run</code> and point Playwright at it:</p>
+<pre x-code="ts" name="playwright.config.ts" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="playwright.config.ts" role="region"><header><div>playwright.config.ts</div></header><code class="hljs language-typescript" data-highlighted="yes"><span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'@playwright/test'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
+    <span class="hljs-attr">webServer</span>: {
+        <span class="hljs-attr">command</span>: <span class="hljs-string">'npx mnfst-run --port 3000 --no-idle-shutdown --no-open'</span>,
+        <span class="hljs-attr">url</span>: <span class="hljs-string">'http://localhost:3000'</span>,
+        <span class="hljs-attr">reuseExistingServer</span>: !process.<span class="hljs-property">env</span>.<span class="hljs-property">CI</span>
+    },
+    <span class="hljs-attr">use</span>: { <span class="hljs-attr">baseURL</span>: <span class="hljs-string">'http://localhost:3000'</span> }
+});</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<pre x-code="ts" name="tests/cart.spec.ts" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="tests/cart.spec.ts" role="region"><header><div>tests/cart.spec.ts</div></header><code class="hljs language-typescript" data-highlighted="yes"><span class="hljs-keyword">import</span> { test, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@playwright/test'</span>;
+
+<span class="hljs-title function_">test</span>(<span class="hljs-string">'adds a product to cart'</span>, <span class="hljs-title function_">async</span> ({ page }) =&gt; {
+    <span class="hljs-keyword">await</span> page.<span class="hljs-title function_">goto</span>(<span class="hljs-string">'/products'</span>);
+    <span class="hljs-keyword">await</span> page.<span class="hljs-title function_">getByRole</span>(<span class="hljs-string">'button'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-string">'Add to cart'</span> }).<span class="hljs-title function_">first</span>().<span class="hljs-title function_">click</span>();
+    <span class="hljs-keyword">await</span> page.<span class="hljs-title function_">goto</span>(<span class="hljs-string">'/cart'</span>);
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">expect</span>(page.<span class="hljs-title function_">getByTestId</span>(<span class="hljs-string">'total'</span>)).<span class="hljs-title function_">toHaveText</span>(<span class="hljs-string">'$10.00'</span>);
+});</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Manifest's data layer (<code>$x</code>), router, and components all behave normally. Playwright sees the page after Alpine has finished initialization.</p>
+</div>
+
+      <!-- Previous / next -->
+      <template x-if="article?.name &amp;&amp; (prev || next)">
+        <nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template>
+        </nav>
+      </template><nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="" data-mnfst-prerender-clone="1">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template><a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline" href="/docs/framework/appwrite-modules/presence" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name">Presence</span>
+            </a>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template><a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end" href="/docs/framework/publishing/websites" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name">Websites</span>
+            </a>
+        </nav>
+
+      <!-- Family home (markdown) -->
+      <template x-if="at(base) &amp;&amp; home">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="home"></div>
+      </template>
+
+      <!-- Docs home -->
+      <template x-if="at(base) &amp;&amp; landing">
+        <div class="col gap-8 pb-12">
+          <template x-if="landing === 'framework'"><x-framework></x-framework></template>
+          <template x-if="landing === 'platform'"><x-docs-platform></x-docs-platform></template>
+          <template x-if="landing === 'api'"><x-docs-api></x-docs-api></template>
+          <div class="col gap-4 w-content-width max-w-full mx-auto">
+            <h2 class="h4">Explore the docs</h2>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <template x-for="card in cards" :key="card.href">
+                <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                  <span x-icon="card.icon" class="text-brand-content"></span>
+                  <span class="col">
+                    <span class="text-content-stark font-medium" x-text="card.title"></span>
+                    <small class="text-content-subtle" x-text="card.sub"></small>
+                  </span>
+                </a>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template x-if="at(base) &amp;&amp; !home &amp;&amp; !landing">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="heading"></h1>
+            <p class="text-content-neutral" x-show="intro" x-text="intro"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="card in cards" :key="card.href">
+              <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="card.icon" class="text-brand-content"></span>
+                <span class="col">
+                  <span class="text-content-stark font-medium" x-text="card.title"></span>
+                  <small class="text-content-subtle" x-text="card.sub"></small>
+                </span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Group landing -->
+      <template x-if="group?.group">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="group?.group"></h1>
+            <p class="text-content-neutral" x-show="group?.description" x-text="group?.description"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
+              <a :href="href(group, item)" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
+                <span class="text-content-stark" x-text="item.name"></span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+    </div>
+
+    <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
+    <template x-if="!article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
+      <div class="max-w-full prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
+
+    <footer class="mt-20">
+  <hr>
+  <div class="row-wrap justify-between items-center gap-4 pt-4">
+
+    <figcaption class="text-content-subtle">© 2026 MNFST OÜ • <a href="/legal/terms">Terms</a> • <a href="/legal/privacy">Privacy</a><span x-show="$route.startsWith('/docs/framework')"> • Framework under the <a href="/docs/framework/resources/license">MIT License</a></span></figcaption>
+
+    <div class="row-wrap gap-3">
+
+      <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
+
+      <div role="tablist" aria-label="Color mode" class="sm rounded-full">
+        <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h4"></button>
+        <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h5"></button>
+        <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h6"></button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+
+  <!-- Anchor links -->
+  <nav aria-label="On this page" x-show="!(at(base) &amp;&amp; landing)" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
+
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+      <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
+      <span>On this page</span>
+    </small>
+
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#options">Options</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#runtime-checks">Runtime Checks</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#pre-commit">Pre-commit</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#ci">CI</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#component-tests">Component Tests</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#test-data">Test Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#fixtures">Fixtures</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#golden-journeys">Golden Journeys</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#after-each-landing">After Each Landing</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#end-to-end">End-to-end</a></div>
+
+  </nav>
+
+</div>
+
+    <!-- Legal pages -->
+    
+
+    <!-- Support -->
+    
+
+  </main>
+
+  <!-- Footer (visible on every route) -->
+  
+
+
+
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"data-order":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"aria-selected":null,"type":null}},{"id":"h5","attrs":{"aria-selected":null,"type":null}},{"id":"h6","attrs":{"aria-selected":null,"type":null}}]</script>
+</body></html>

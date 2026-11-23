@@ -6,9 +6,9 @@ Reactive SVG charts, from simple sparklines to live dashboards.
 
 ## Setup
 
-Chart styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Chart styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
-Chart functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
+Chart functionality is included in `manifest.js` with all core modules, or it can be selectively loaded.
 
 <div x-code-group copy>
 
@@ -25,15 +25,15 @@ Chart functionality is included in `manifest.js` with all core plugins, or it ca
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.chart.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.tooltip.css" />
 
-<!-- Manifest JS: charts plugin only -->
+<!-- Manifest JS: charts module only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugins="charts"></script>
+  data-modules="charts"></script>
 ```
 
 </div>
 
 ::: brand icon="lucide:info"
-Charts render as SVG, so they inherit theme colors, restyle with ordinary CSS, and survive [prerendering](/docs/publishing/websites) as real DOM. The geometry engine (d3's scale/shape micro-modules, ~22 KB) lazy-loads the first time a chart scrolls into view. Pages that never show a chart never pay for one.
+Charts render as SVG, so they inherit theme colors, restyle with ordinary CSS, and survive [prerendering](/docs/framework/publishing/websites) as real DOM. The geometry engine (d3's scale/shape micro-modules, ~22 KB) lazy-loads the first time a chart scrolls into view. Pages that never show a chart never pay for one.
 :::
 
 ---
@@ -133,6 +133,14 @@ Pie charts take a single series whose values become slices, colored from the the
 <div x-code-group>
 
 ```html copy
+<div x-chart="{
+    type: 'pie',
+    dataLabels: true,
+    labels: ['Direct','Search','Social','Referral'],
+    series: [{ data: [38, 27, 21, 14] }],
+    height: 220
+}"></div>
+
 <div x-chart="{
     type: 'donut',
     labels: ['Mobile','Desktop','Tablet'],
@@ -302,7 +310,17 @@ Set `dataLabels: true`{copy} to print each value in its tile, and `gap` to chang
 <div x-code-group>
 
 ```html copy
-<div x-chart="{ type: 'heatmap', dataLabels: true, gap: 0, ... }"></div>
+<div x-chart="{
+    type: 'heatmap',
+    dataLabels: true,
+    labels: ['Q1','Q2','Q3','Q4'],
+    series: [
+        { name: 'North', data: [12, 19, 24, 31] },
+        { name: 'South', data: [8, 14, 11, 22] },
+        { name: 'West', data: [20, 25, 28, 40] }
+    ],
+    height: 180
+}"></div>
 ```
 
 ::: frame row-wrap gap-10
@@ -320,15 +338,24 @@ Set `dataLabels: true`{copy} to print each value in its tile, and `gap` to chang
 ```html copy
 <div x-chart="{
     type: 'gantt',
+    min: '2026-06-25T00:00',
+    max: '2026-06-25T21:00',
     colors: { Online: 'var(--color-positive-content)', Away: 'var(--color-brand-content)', Offline: 'var(--color-surface-3)' },
     series: [
         { name: 'Bo-Chen', data: [
             { from: '2026-06-25T00:00', to: '2026-06-25T17:00', status: 'Online' },
             { from: '2026-06-25T17:00', to: '2026-06-25T21:00', status: 'Offline' } ] },
         { name: 'Ele', data: [
-            { from: '2026-06-25T00:00', to: '2026-06-25T13:00', status: 'Offline' },
+            { from: '2026-06-25T00:00', to: '2026-06-25T04:10', status: 'Offline' },
+            { from: '2026-06-25T04:10', to: '2026-06-25T04:25', status: 'Online' },
+            { from: '2026-06-25T04:25', to: '2026-06-25T13:00', status: 'Offline' },
             { from: '2026-06-25T13:00', to: '2026-06-25T17:20', status: 'Online' },
-            { from: '2026-06-25T17:20', to: '2026-06-25T21:00', status: 'Offline' } ] }
+            { from: '2026-06-25T17:20', to: '2026-06-25T21:00', status: 'Offline' } ] },
+        { name: 'Hakan', data: [
+            { from: '2026-06-25T00:00', to: '2026-06-25T03:00', status: 'Online' },
+            { from: '2026-06-25T03:00', to: '2026-06-25T03:20', status: 'Away' },
+            { from: '2026-06-25T03:20', to: '2026-06-25T13:30', status: 'Offline' },
+            { from: '2026-06-25T13:30', to: '2026-06-25T17:00', status: 'Online' } ] }
     ]
 }"></div>
 ```
@@ -355,10 +382,12 @@ The axis adapts to the segment values — no `type`-of-axis flag needed:
 
 ```html "Numeric" copy
 <div x-chart="{ type: 'gantt', unit: ' mi', min: 0, max: 26.2,
+    colors: { Easy: 'var(--color-positive-content)', Tempo: 'var(--color-brand-content)', Hard: 'var(--color-negative-content)' },
     series: [{ name: 'Pace', data: [
         { from: 0, to: 8, status: 'Easy' },
         { from: 8, to: 18, status: 'Tempo' },
-        { from: 18, to: 26.2, status: 'Hard' } ] }]
+        { from: 18, to: 23, status: 'Hard' },
+        { from: 23, to: 26.2, status: 'Easy' } ] }]
 }"></div>
 ```
 
@@ -370,8 +399,12 @@ The axis adapts to the segment values — no `type`-of-axis flag needed:
 }"></div>
 ```
 
-::: frame
+::: frame name="Numeric"
 <div x-chart="{ type: 'gantt', unit: ' mi', min: 0, max: 26.2, colors: { Easy: 'var(--color-positive-content)', Tempo: 'var(--color-brand-content)', Hard: 'var(--color-negative-content)' }, series: [{ name: 'Pace', data: [ { from: 0, to: 8, status: 'Easy' }, { from: 8, to: 18, status: 'Tempo' }, { from: 18, to: 23, status: 'Hard' }, { from: 23, to: 26.2, status: 'Easy' } ] }] }" class="max-w-full"></div>
+:::
+
+::: frame name="Category"
+<div x-chart="{ type: 'gantt', labels: ['Plan','Build','Beta','GA','Sunset'], series: [ { name: 'Core', data: [{ from: 'Plan', to: 'GA', status: 'On track' }] }, { name: 'Mobile', data: [{ from: 'Build', to: 'Beta', status: 'At risk' }] } ] }" class="max-w-full"></div>
 :::
 
 </div>
@@ -384,7 +417,7 @@ Every chart resolves a segment's (or series', or slice's) color through the same
 2. For Gantt charts, the config `colors`{copy} map (`status` → color) — so the same status is one color across every track, with one legend entry.
 3. Otherwise the `--color-chart-N`{copy} **palette**, assigned in first-seen order.
 
-Whatever you supply for `color` is passed straight to the SVG `fill`, so **any** CSS `<color>` or `var()` works — a fixed value, a chart palette variable, a [theme](/docs/styles/theme) token, or your own custom property:
+Whatever you supply for `color` is passed straight to the SVG `fill`, so **any** CSS `<color>` or `var()` works — a fixed value, a chart palette variable, a [theme](/docs/framework/styles/theme) token, or your own custom property:
 
 ```html copy
 <div x-chart="{ type: 'gantt', series: [{ name: 'Build', data: [
@@ -406,7 +439,8 @@ Leave `color` and `colors` unset and the palette colors the tracks for you.
 ```html copy
 <div x-chart="{
     type: 'map',
-    data: { US: 320, CN: 410, IN: 380, BR: 140, 'United Kingdom': 240, DE: 260, ZA: 60 }
+    data: { US: 320, CA: 70, BR: 140, FR: 210, DE: 260, 'United Kingdom': 240, CN: 410,
+        IN: 380, JP: 190, AU: 90, ZA: 60, NG: 110, RU: 130, MX: 95 }
 }"></div>
 ```
 
@@ -461,11 +495,21 @@ To reference a place by **name** instead of coordinates, supply a `places`{copy}
 ```html copy
 <div x-chart="{
     type: 'map',
-    places: { Tokyo: [35.69, 139.69], London: [51.5, -0.13], 'New York': [40.71, -74.01] },
+    places: {
+        'New York': [40.71, -74.01], London: [51.5, -0.13], Tokyo: [35.69, 139.69],
+        'São Paulo': [-23.55, -46.63], Lagos: [6.45, 3.39], Sydney: [-33.87, 151.21],
+        Mumbai: [19.08, 72.88], Paris: [48.85, 2.35], Singapore: [1.29, 103.85]
+    },
     points: [
-        { name: 'Tokyo', value: 95 },
+        { name: 'New York', value: 84 },
         { name: 'London', value: 71 },
-        { name: 'New York', value: 84 }
+        { name: 'Tokyo', value: 95 },
+        { name: 'São Paulo', value: 52 },
+        { name: 'Lagos', value: 38 },
+        { name: 'Sydney', value: 44 },
+        { name: 'Mumbai', value: 67 },
+        { name: 'Paris', value: 60 },
+        { name: 'Singapore', value: 55 }
     ]
 }"></div>
 ```
@@ -476,13 +520,13 @@ To reference a place by **name** instead of coordinates, supply a `places`{copy}
 
 </div>
 
-Because the whole config is a live Alpine expression, any field — including `name` — accepts a `$x` binding (`{ name: $x.site.label, value: $x.site.users }`), so points can come straight from [data](/docs/core-plugins/local-data). Point names are author text and aren't auto-translated (only region labels are); to localize them, bind to a locale-aware source.
+Because the whole config is a live Alpine expression, any field — including `name` — accepts a `$x` binding (`{ name: $x.site.label, value: $x.site.users }`), so points can come straight from [data](/docs/framework/core-modules/local-data). Point names are author text and aren't auto-translated (only region labels are); to localize them, bind to a locale-aware source.
 
 #### Localization
 
-Geographic labels translate automatically to ~30 languages, following the current [locale](/docs/core-plugins/localization). The translations are lazy-loaded on demand from the [`i18n-iso-countries`](https://www.npmjs.com/package/i18n-iso-countries) dataset (via jsDelivr) — only the active locale is fetched, and only when a map is shown. English is the default.
+Geographic labels translate automatically to ~30 languages, following the current [locale](/docs/framework/core-modules/localization). The translations are lazy-loaded on demand from the [`i18n-iso-countries`](https://www.npmjs.com/package/i18n-iso-countries) dataset (via jsDelivr) — only the active locale is fetched, and only when a map is shown. English is the default.
 
-Override or extend any name through the `_ui.map` block, exactly like the [color](/docs/elements/color-pickers) and [date](/docs/elements/date-pickers) pickers:
+Override or extend any name through the `_ui.map` block, exactly like the [color](/docs/framework/elements/color-pickers) and [date](/docs/framework/elements/date-pickers) pickers:
 
 ```js copy
 // in a locale data source
@@ -503,7 +547,9 @@ _ui: {
 | Key          | Type             | Description                                                                  |
 | ------------ | ---------------- | ---------------------------------------------------------------------------- |
 | `type`{copy}       | string           | `line`, `area`, `bar`, `pie`, `donut`, `scatter`, `combo`, `candlestick`, `gauge`, `heatmap`, `gantt` (alias `timeline`), `map`. Default `line`. |
-| `labels`{copy}     | array            | X-axis categories, slice labels, heatmap columns, or a Gantt's category-axis stages. |
+| `labels`{copy}     | array            | X-axis categories, slice labels, heatmap columns, or a Gantt's category-axis stages. Long category axes thin their labels to fit by a whole step, showing every second, third, or nth label so the gaps stay equal. |
+| `ticks`{copy}      | array            | Line, area, bar, combo, scatter, and candlestick x-axes: the labels to show, as indices or `{ at, label }`. Ticks that would overlap are thinned by a whole step, and `ticks: []` hides the labels. Tooltips still show the full `labels`. See [Axis Ticks](#axis-ticks). |
+| `tickAnchor`{copy} | string           | Which end thinned line, area, bar, combo, scatter, and candlestick x-axis labels count from: `'start'` always shows the first label, `'end'` always shows the last (handy when the latest day matters most). Default `'start'`. |
 | `series`{copy}     | array            | `{ name, data, color?, type? }` per series. `color` overrides the palette; `type` applies in combo charts; in a heatmap each series is a row; in a Gantt each series is a track and its `data` is `{ from, to, status?, color? }` segments. |
 | `data`{copy}       | array \| object  | Shorthand for a single unnamed series; for a map, the region values as `{ region: value }` or `[region, value]` rows. |
 | `height`{copy}     | number           | Chart height in pixels. Default `240`. Width tracks the container.            |
@@ -511,8 +557,8 @@ _ui: {
 | `curve`{copy}      | string           | Line interpolation — `monotone` (default), `linear`, `step`, `natural`.       |
 | `legend`{copy}     | boolean          | Show the legend (multi-series, pies, heatmap ramp). Default `true`.           |
 | `axis`{copy} / `grid`{copy} | boolean | Show axis labels / grid lines (heatmap: row & column labels). Default `true`. |
-| `tooltip`{copy}    | boolean          | Hover tooltips on segments. Default `true`.                                   |
-| `dataLabels`{copy} | boolean          | Static value labels on points, bars, slices, and heatmap tiles. Default `false`. |
+| `tooltip`{copy}    | boolean          | Hover tooltips on segments, with the point's label shown as the heading. Default `true`. |
+| `dataLabels`{copy} | boolean          | Static value labels on points, bars, slices, and heatmap tiles. Off for dense line and area charts. Default `false`. |
 | `title`{copy}      | string           | Accessible chart label (`aria-label` on the SVG).                             |
 | `value`{copy}      | number           | Gauge — the plotted value (or use a one-number `series`/`data`).              |
 | `min`{copy} / `max`{copy} | number \| string | Gauge range (default `0` / `100`); or a Gantt's fixed axis window (numeric or time). |
@@ -525,9 +571,24 @@ _ui: {
 | `points`{copy}     | array            | Map — location bubbles: `{ lat, lng, value?, label?, color? }` or a `name` resolved via `places`. |
 | `places`{copy}     | object           | Map — `name` → `[lat, lng]` gazetteer for positioning named `points`.       |
 
+### Axis Ticks
+
+Long category axes pick their own labels, keeping every nth one so the gaps stay equal. Set `tickAnchor: 'end'` to count from the last label instead of the first. To choose them yourself, pass `ticks`. For a year of daily data, label the start of each month and keep the full date in the tooltip:
+
+```html copy
+<div x-chart="{
+    type: 'area',
+    labels: days,
+    ticks: [{ at: 0, label: 'Jan' }, { at: 31, label: 'Feb' }, { at: 59, label: 'Mar' }],
+    series: [{ name: 'Visitors', data: visits }]
+}"></div>
+```
+
+Here `days` holds one label per point (`'Jan 1, 2026'`, `'Jan 2, 2026'`, and so on), and each tick's `at` is a point index. Plain indices (`ticks: [0, 31, 59]`) show those points' own labels.
+
 ### Declarative Series
 
-For content-first authoring, set the type as a modifier and declare each series as a `<data>` child — handy when values come from [local data](/docs/core-plugins/local-data) bindings.
+For content-first authoring, set the type as a modifier and declare each series as a `<data>` child — handy when values come from [local data](/docs/framework/core-modules/local-data) bindings.
 
 ```html copy
 <figure x-chart.bar labels="['Q1','Q2','Q3','Q4']">
@@ -540,7 +601,7 @@ For content-first authoring, set the type as a modifier and declare each series 
 
 ## Dynamic Data
 
-The config is a live Alpine expression: charts re-render whenever the data behind them changes. Bind series to [local data](/docs/core-plugins/local-data), [cloud data](/docs/appwrite-plugins/cloud-data), or any reactive state — dashboards assemble themselves from whatever `$x` holds.
+The config is a live Alpine expression: charts re-render whenever the data behind them changes. Bind series to [local data](/docs/framework/core-modules/local-data), [cloud data](/docs/framework/appwrite-modules/cloud-data), or any reactive state — dashboards assemble themselves from whatever `$x` holds.
 
 ```html copy
 <!-- Re-draws whenever $x.sales loads or updates -->
@@ -582,7 +643,7 @@ Series cycle through the `--color-chart-N` color variable palette in order. By d
 
 | Variable               | Purpose                                       |
 | ---------------------- | ---------------------------------------------- |
-| `--color-chart-1`{copy} … `--color-chart-8`{copy} | Series palette, applied in order. |
+| `--color-chart-1`{copy} … `--color-chart-9`{copy} | Series palette, applied in order. |
 | `--color-chart-grid`{copy}   | Grid line color.                              |
 | `--color-chart-label`{copy}  | Axis label color.                             |
 | `--color-positive-content`{copy} / `--color-negative-content`{copy} | Rising / falling candlesticks. |
@@ -630,7 +691,7 @@ Charts size to their container, so layout is ordinary utility work.
 
 ### Customization
 
-Modify base styles with custom CSS targeting `[x-chart]` (or the `.chart` marker class the plugin stamps on every chart, which also covers modified directives like `x-chart.bar`). The SVG output uses plain element selectors:
+Modify base styles with custom CSS targeting `[x-chart]` (or the `.chart` marker class the module stamps on every chart, which also covers modified directives like `x-chart.bar`). The SVG output uses plain element selectors:
 
 | Selector              | Part                                          |
 | --------------------- | --------------------------------------------- |
@@ -639,19 +700,21 @@ Modify base styles with custom CSS targeting `[x-chart]` (or the `.chart` marker
 | `path.line`{copy}           | Line series strokes                           |
 | `path.area`{copy}           | Area fills                                    |
 | `path.slice`{copy}          | Pie / donut slices                            |
-| `rect`{copy}                | Bars and candle bodies                        |
+| `rect`{copy}                | Bars and candle bodies (style with `rect:not(.hit)`) |
+| `rect.hit`{copy}            | Transparent hover columns on dense line and area charts |
 | `rect.heat-cell`{copy}      | Heatmap tiles (fill driven by the `--heat` percentage) |
 | `rect.gantt-segment`{copy} / `rect.gantt-point`{copy} | Gantt spans and point markers |
 | `path.map-region`{copy}     | Map countries (fill driven by `--color-chart-color`) |
 | `circle.map-point`{copy}    | Map location bubbles                          |
-| `circle`{copy}              | Line points and scatter dots (`.scatter`)     |
+| `circle`{copy}              | Line points and scatter dots (`.scatter`). Line points are dropped when points are under 10px apart. |
+| `circle.focus`{copy}        | The hover dot on dense charts                 |
 | `g.positive`{copy} / `g.negative`{copy} | Rising / falling candles          |
 | `path.gauge-track`{copy} / `path.gauge-value`{copy} | Gauge track and value arc         |
 | `line.gantt-marker`{copy} / `text.gantt-track`{copy} | Gantt reference lines and track labels |
 | `text.value`{copy}          | Data labels (`.inverse` when on a filled segment) |
 | `text.gauge-label`{copy}    | Gauge centered readout                        |
 | `footer`{copy}              | Legend — `<span>` items with `<i>` swatches (heatmap: `footer.heat-legend` gradient bar) |
-| `.tooltip`{copy}            | Cursor tooltip — chrome shared with [tooltips](/docs/elements/tooltips) |
+| `.tooltip`{copy}            | Cursor tooltip — chrome shared with [tooltips](/docs/framework/elements/tooltips) |
 
 Each series element carries its resolved color as `--color-chart-color`, so one rule can restyle any series-colored part.
 

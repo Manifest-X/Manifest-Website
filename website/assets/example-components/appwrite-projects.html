@@ -16,7 +16,7 @@
     <!-- Projects error message -->
     <small x-show="$x.projects.$loading">Projects loading...</small>
     <small x-show="$x.projects.$error" x-text="$x.projects.$error"></small>
-    <small x-show="$x.projects.$ready && !$x.projects.$loading && !$x.projects.$error">Projects
+    <small x-show="$auth.isAuthenticated && $x.projects.$ready && !$x.projects.$loading && !$x.projects.$error">Projects
         Ready</small>
 
     <!-- Projects list -->

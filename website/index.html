@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>The website &amp; app framework
-        that thinks like you do. — Manifest</title>
-  <meta name="description" content="Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required.">
+  <meta name="description" content="Live on your own domain, with sign-ins and saved data built in. From a simple site to a full platform, without leaving Claude. No hosting accounts or API keys.">
   <meta name="author" content="Andrew Matlock">
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
@@ -20,19 +18,19 @@
   <link rel="manifest" href="/manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.222/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.222/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
   <link rel="stylesheet" href="/manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.222/lib/manifest.min.js" data-version="0.5.222"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
   <script src="/scripts/payments-demo.js" defer=""></script>
   <script src="/scripts/hero-editor.js" defer=""></script>
+  <script src="/scripts/hero-demo.js" defer=""></script>
   <script src="/scripts/console-message.js" defer=""></script>
-  <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;:&quot;0aee08ae352b431ebdc403752ba2ac41&quot;}"></script>
 
-<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -45,9 +43,8 @@
 @custom-variant offline (&:where([data-online="false"] *));
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
-@custom-variant web (&:where(html:not([data-native]) *));</style><meta property="og:title" content="The website &amp; app framework
-        that thinks like you do. — Manifest"><meta property="og:description" content="Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required."><meta property="og:type" content="website"><meta property="og:url" content="https://manifestx.dev/"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/index.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="The website &amp; app framework
-        that thinks like you do. — Manifest"><meta property="twitter:description" content="Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required."><meta property="twitter:image" content="/og/index.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The website & app framework\n        that thinks like you do. — Manifest","description":"Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required.","image":"/og/index.png","url":"https://manifestx.dev/"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant web (&:where(html:not([data-native]) *));
+@custom-variant dark (&:where(.dark, .dark *));</style><title data-route-head="head-1">Manifest — Build and publish with Claude</title><style>@view-transition { navigation: none }</style><meta property="og:title" content="Manifest — Build and publish with Claude"><meta property="og:description" content="Live on your own domain, with sign-ins and saved data built in. From a simple site to a full platform, without leaving Claude. No hosting accounts or API keys."><meta property="og:type" content="website"><meta property="og:url" content="https://manifestx.dev/"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/index.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Manifest — Build and publish with Claude"><meta property="twitter:description" content="Live on your own domain, with sign-ins and saved data built in. From a simple site to a full platform, without leaving Claude. No hosting accounts or API keys."><meta property="twitter:image" content="/og/index.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Manifest — Build and publish with Claude","description":"Live on your own domain, with sign-ins and saved data built in. From a simple site to a full platform, without leaving Claude. No hosting accounts or API keys.","image":"/og/index.png","url":"https://manifestx.dev/"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -64,13 +61,15 @@
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
 
-  <header style="view-transition-name: site-header" class="fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
+  <header style="view-transition-name: site-header" class="site-header fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
 
     <!-- Content Area -->
-    <nav class="row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4 w-content-width" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+    <nav class="row justify-between items-center gap-4 max-w-full mx-auto py-4 w-content-width" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
 
         <!-- Start -->
-        <div class="row items-center gap-3">
+        <div class="row items-center gap-3" x-data="{
+            get family() { return $route.startsWith('/docs/platform') ? 'platform' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+        }">
 
             <!-- Logo -->
             <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
@@ -78,29 +77,35 @@
                 <span class="md:hidden">{M}</span>
             </a>
 
+            <!-- Docs family -->
+            
+            <menu popover="" id="docs-family" role="menu" style="position-anchor: --dropdown-p1">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a :href="'/docs/' + d.key" close="">
+                        <span x-text="d.name"></span>
+                        <span x-show="family === d.key" x-icon="lucide:check" class="trailing"></span>
+                    </a>
+                </template>
+            </menu>
+
             <!-- Docs Breadcrumbs-->
+            
+            
             
 
         </div>
-
-        <!-- Middle -->
-        <div class="hidden md:row justify-center items-center gap-6 no-underline" x-route="/">
-            <a href="#features" class="text-sm no-underline">Features</a>
-            <a href="#comparisons" class="text-sm no-underline">Comparisons</a>
-            <a href="#faq" class="text-sm no-underline">FAQ</a>
-        </div>
-        
 
         <!-- End -->
         <div class="row justify-end items-center gap-2">
 
             <!-- CTAs -->
-            <button popovertarget="docs-search" class="sm transparent outlined rounded-full" aria-label="Search docs">
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
                 <span x-icon="lucide:search"></span>
                 <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
             </button>
-            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" class="sm transparent outlined rounded-full"><span x-icon="meteor-icons:github"></span><span>GitHub</span></a>
-            <a role="button" href="/docs/getting-started/introduction" class="sm accent rounded-full">Docs</a>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="sm transparent outlined rounded-full" aria-label="GitHub" x-tooltip="GitHub" x-icon="meteor-icons:github"></a>
+            <a role="button" href="/docs" class="sm transparent outlined rounded-full">Docs</a>
+            <a role="button" href="https://dash.manifestx.dev" class="sm accent rounded-full" x-text="/(^|;\s*)mnfst_signed_in=1(;|$)/.test(document.cookie) ? 'Dashboard' : 'Sign in'">Sign in</a>
 
             <!-- Mobile Sidebar Button -->
             <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
@@ -111,8 +116,8 @@
 
 </header>
   <div x-data="{
-        base: null ?? '/docs',
-        src: null ?? 'docs',
+        sources: [['platform', '/docs/platform'], ['framework', '/docs/framework'], ['api', '/docs/api']],
+        labels: { platform: 'Platform', framework: 'Framework', api: 'API' },
         q: '',
         items: [],
         ready: false,
@@ -123,12 +128,13 @@
         async build() {
             if (this.ready || this.loading) return;
             this.loading = true;
-            for (let i = 0; i &lt; 20 &amp;&amp; (!$x[this.src] || !$x[this.src].length); i++) await new Promise(r =&gt; setTimeout(r, 100));
             const jobs = [];
-            for (const g of ($x[this.src] || [])) {
+            for (const [src, base] of this.sources) {
+            for (let i = 0; i &lt; 20 &amp;&amp; (!$x[src] || !$x[src].length); i++) await new Promise(r =&gt; setTimeout(r, 100));
+            for (const g of ($x[src] || [])) {
                 for (const it of (g.items || [])) {
                     if (!it.name || !it.doc) continue;
-                    const href = this.base + '/' + g.slug + '/' + it.path;
+                    const href = base + (g.slug ? '/' + g.slug : '') + '/' + it.path;
                     jobs.push(fetch(it.doc)
                         .then(r =&gt; r.ok ? r.text() : '')
                         .catch(() =&gt; '')
@@ -144,13 +150,14 @@
                                 .replace(/-{2,}/g, ' ')
                                 .replace(/\s+/g, ' ');
                             this.items.push({
-                                name: it.name, group: g.group, icon: it.icon, href, desc,
+                                name: it.name, group: g.group, icon: it.icon, href, desc, src,
                                 headings,
                                 hhay: headings.join(' · ').toLowerCase(),
                                 body, bhay: body.toLowerCase(),
                             });
                         }));
                 }
+            }
             }
             await Promise.all(jobs);
             $x.$register('searchIndex', this.items);
@@ -219,968 +226,742 @@
                             <span class="row items-center gap-2">
                                 <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
                                 <span class="text-content-stark" x-text="r.name"></span>
-                                <span class="text-content-subtle font-normal">·</span>
-                                <small class="text-content-subtle font-normal" x-text="r.group"></small>
+                                <template x-if="r.group">
+                                    <small class="text-content-subtle font-normal" x-text="'· ' + r.group"></small>
+                                </template>
+                                <small class="badge sm ms-auto shrink-0 font-normal" x-text="labels[r.src]"></small>
                             </span>
                             <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
                         </span>
                     </a>
                 </div>
             </template>
-            
+            <div class="h-2 shrink-0"></div>
         </div>
 
     </dialog>
 </div>
-  <nav aria-label="Documentation" data-static="" popover="" id="docs-nav" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 shadow-xl overflow-y-auto no-scrollbar" x-data="{
-        base: null ?? '/docs',
-        src: null ?? 'docs',
-        get groups() { return $x[this.src] || [] },
-        get article() { return $x[this.src].$route('path') },
-    }" @manifest:route-change.window="$el.hidePopover()" data-component="docs-nav-1" data-order="3">
-    <div class="col gap-6 py-4">
-            <small class="pl-2.5 text-content-subtle">Getting Started</small>
-            <div class="col">
-                <a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/introduction">
-                        <span x-icon="lucide:book-open"></span>
-                        <span>Introduction</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/setup">
-                        <span x-icon="lucide:terminal"></span>
-                        <span>Setup</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/starter-project">
-                        <span x-icon="lucide:package"></span>
-                        <span>Starter Project</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/compatibility">
-                        <span x-icon="lucide:globe-lock"></span>
-                        <span>Compatibility</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/accessibility">
-                        <span x-icon="lucide:eye"></span>
-                        <span>Accessibility</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/getting-started/performance">
-                        <span x-icon="lucide:gauge"></span>
-                        <span>Performance</span>
-                    </a>
+  <nav aria-label="Menu" popover="" id="docs-nav" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 bg-popover-surface shadow-xl overflow-y-auto no-scrollbar" x-data="{
+        view: null,
+        get current() { return $route.match(/^\/docs\/(platform|api|framework)(\/|$)/)?.[1] || null },
+        get src() { return this.view || this.current },
+        get base() { return '/docs/' + this.src },
+        get groups() { return this.src ? $x[this.src] || [] : [] },
+        get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
+        here(href) { return $route.replace(/\/$/, '') === href },
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+
+    <!-- Docs -->
+    <template x-if="src">
+        <div class="col">
+            <div role="tablist" aria-label="Docs" class="sm rounded-full w-full my-4">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <button type="button" role="tab" :aria-selected="src === d.key" @click="view = d.key" x-text="d.name"></button>
+                </template>
             </div>
-            <hr>
-        </div><div class="col gap-6 py-4">
-            <small class="pl-2.5 text-content-subtle">Core Plugins</small>
-            <div class="col">
-                <a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/chat">
-                        <span x-icon="lucide:message-square"></span>
-                        <span>Chat</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/components">
-                        <span x-icon="lucide:panels-top-left"></span>
-                        <span>Components</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/computed">
-                        <span x-icon="lucide:sigma"></span>
-                        <span>Computed Values</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/device">
-                        <span x-icon="lucide:smartphone"></span>
-                        <span>Device</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/edit">
-                        <span x-icon="lucide:pencil-ruler"></span>
-                        <span>Edit</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/import-export">
-                        <span x-icon="lucide:arrow-down-up"></span>
-                        <span>Import/Export</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/local-data">
-                        <span x-icon="lucide:list-tree"></span>
-                        <span>Local Data</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/localization">
-                        <span x-icon="lucide:languages"></span>
-                        <span>Localization</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/markdown">
-                        <span x-icon="lucide:square-m"></span>
-                        <span>Markdown</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/payments">
-                        <span x-icon="lucide:credit-card"></span>
-                        <span>Payments</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/router">
-                        <span x-icon="lucide:route"></span>
-                        <span>Router</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/status">
-                        <span x-icon="lucide:activity"></span>
-                        <span>Status</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/text-edit">
-                        <span x-icon="lucide:pilcrow"></span>
-                        <span>Text Edit</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/url-parameters">
-                        <span x-icon="lucide:ampersand"></span>
-                        <span>URL Parameters</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/core-plugins/virtual">
-                        <span x-icon="lucide:list-chevrons-up-down"></span>
-                        <span>Virtual</span>
-                    </a>
-            </div>
-            <hr>
-        </div><div class="col gap-6 py-4">
-            <small class="pl-2.5 text-content-subtle">Appwrite Plugins</small>
-            <div class="col">
-                <a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/appwrite-setup">
-                        <span x-icon="simple-icons:appwrite"></span>
-                        <span>Appwrite Setup</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/auth">
-                        <span x-icon="lucide:users"></span>
-                        <span>Auth</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/users">
-                        <span x-icon="lucide:dot"></span>
-                        <span>Users</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/teams">
-                        <span x-icon="lucide:dot"></span>
-                        <span>Teams</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/cloud-data">
-                        <span x-icon="lucide:database"></span>
-                        <span>Cloud Data</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/databases">
-                        <span x-icon="lucide:dot"></span>
-                        <span>Databases</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/storage">
-                        <span x-icon="lucide:dot"></span>
-                        <span>Storage</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/appwrite-plugins/presence">
-                        <span x-icon="lucide:radio-tower"></span>
-                        <span>Presence</span>
-                    </a>
-            </div>
-            <hr>
-        </div><div class="col gap-6 py-4">
-            <small class="pl-2.5 text-content-subtle">Publishing</small>
-            <div class="col">
-                <a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/testing">
-                        <span x-icon="lucide:circle-check"></span>
-                        <span>Testing</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/websites">
-                        <span x-icon="lucide:globe"></span>
-                        <span>Websites</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/seo-aeo">
-                        <span x-icon="lucide:dot"></span>
-                        <span>SEO &amp; AEO</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/web-apps">
-                        <span x-icon="lucide:app-window"></span>
-                        <span>Web Apps</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/publishing/native-apps">
-                        <span x-icon="lucide:monitor-smartphone"></span>
-                        <span>Native Apps</span>
-                    </a>
-            </div>
-            <hr>
-        </div><div class="col gap-6 py-4">
-            <small class="pl-2.5 text-content-subtle">Platform</small>
-            <div class="col">
-                <a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/platform/connector">
-                        <span x-icon="lucide:plug"></span>
-                        <span>Claude Connector</span>
-                    </a>
-            </div>
-            <hr>
-        </div><div class="col gap-6 py-4">
-            <small class="pl-2.5 text-content-subtle">Styles</small>
-            <div class="col">
-                <a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/reset">
-                        <span x-icon="lucide:scale"></span>
-                        <span>Reset</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/theme">
-                        <span x-icon="lucide:paint-bucket"></span>
-                        <span>Theme</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/color-modes">
-                        <span x-icon="lucide:sun-moon"></span>
-                        <span>Color Modes</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/styles/utilities">
-                        <span x-icon="lucide:swatch-book"></span>
-                        <span>Utilities</span>
-                    </a>
-            </div>
-            <hr>
-        </div><div class="col gap-6 py-4">
-            <small class="pl-2.5 text-content-subtle">Elements</small>
-            <div class="col">
-                <a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/accordions">
-                        <span x-icon="lucide:list-collapse"></span>
-                        <span>Accordions</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/avatars">
-                        <span x-icon="lucide:circle-user-round"></span>
-                        <span>Avatars</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/badges">
-                        <span x-icon="lucide:circle-star"></span>
-                        <span>Badges</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/buttons">
-                        <span x-icon="lucide:square-mouse-pointer"></span>
-                        <span>Buttons</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/charts">
-                        <span x-icon="lucide:chart-line"></span>
-                        <span>Charts</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/chats">
-                        <span x-icon="lucide:messages-square"></span>
-                        <span>Chats</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/checkboxes">
-                        <span x-icon="lucide:square-check"></span>
-                        <span>Checkboxes</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/code">
-                        <span x-icon="lucide:code"></span>
-                        <span>Code</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/color-pickers">
-                        <span x-icon="lucide:palette"></span>
-                        <span>Color Pickers</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/comboboxes">
-                        <span x-icon="lucide:text-search"></span>
-                        <span>Comboboxes</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/date-pickers">
-                        <span x-icon="lucide:calendar"></span>
-                        <span>Date Pickers</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dialogs">
-                        <span x-icon="lucide:panel-top-dashed"></span>
-                        <span>Dialogs</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dividers">
-                        <span x-icon="lucide:minus"></span>
-                        <span>Dividers</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/dropdowns">
-                        <span x-icon="lucide:chevron-down"></span>
-                        <span>Dropdowns</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/forms">
-                        <span x-icon="lucide:rows-3"></span>
-                        <span>Forms</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/icons">
-                        <span x-icon="lucide:smile"></span>
-                        <span>Icons</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/inputs">
-                        <span x-icon="lucide:text-cursor-input"></span>
-                        <span>Inputs</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/radios">
-                        <span x-icon="lucide:circle-dot"></span>
-                        <span>Radios</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/ranges">
-                        <span x-icon="lucide:sliders-horizontal"></span>
-                        <span>Ranges</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/selects">
-                        <span x-icon="lucide:menu"></span>
-                        <span>Selects</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/sidebars">
-                        <span x-icon="lucide:sidebar"></span>
-                        <span>Sidebars</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/svgs">
-                        <span x-icon="lucide:shapes"></span>
-                        <span>SVGs</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/switches">
-                        <span x-icon="lucide:toggle-right"></span>
-                        <span>Switches</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tables">
-                        <span x-icon="lucide:table"></span>
-                        <span>Tables</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tabs">
-                        <span x-icon="lucide:app-window-mac"></span>
-                        <span>Tabs</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/textareas">
-                        <span x-icon="lucide:text-cursor"></span>
-                        <span>Textareas</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/toasts">
-                        <span x-icon="lucide:arrow-big-up-dash"></span>
-                        <span>Toasts</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/tooltips">
-                        <span x-icon="lucide:circle-help"></span>
-                        <span>Tooltips</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/elements/typography">
-                        <span x-icon="lucide:type"></span>
-                        <span>Typography</span>
-                    </a>
-            </div>
-            <hr>
-        </div><div class="col gap-6 py-4">
-            <small class="pl-2.5 text-content-subtle">Resources</small>
-            <div class="col">
-                <a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/reference">
-                        <span x-icon="lucide:book-marked"></span>
-                        <span>Reference</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/typescript">
-                        <span x-icon="hugeicons:typescript-01"></span>
-                        <span>TypeScript</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/security">
-                        <span x-icon="lucide:lock"></span>
-                        <span>Security</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/license">
-                        <span x-icon="lucide:file-check"></span>
-                        <span>MIT License</span>
-                    </a><a role="button" class="ghost justify-start w-full text-content-neutral" href="/docs/resources/acknowledgements">
-                        <span x-icon="lucide:heart-handshake"></span>
-                        <span>Acknowledgements</span>
-                    </a>
-            </div>
-            <hr>
+            <a role="button" :href="base" :aria-current="here(base) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="here(base) ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                <span x-icon="lucide:house"></span>
+                <span>Overview</span>
+            </a>
+            <template x-for="group in groups" :key="group.group">
+                <div class="col gap-6 py-4">
+                    <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
+                    <div class="col">
+                        <template x-for="(item, index) in group.items" :key="item.path || index">
+                            <a x-show="item.name" role="button" :href="base + (group.slug ? '/' + group.slug : '') + '/' + item.path" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="article?.path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                                <span x-icon="item.icon"></span>
+                                <span x-text="item.name"></span>
+                            </a>
+                        </template>
+                    </div>
+                    <hr>
+                </div>
+            </template>
         </div>
+    </template>
+
+    <!-- Site -->
+    <div class="col py-4">
+        <template x-for="n in $x.site.nav" :key="n.href">
+            <a role="button" :href="n.href" :aria-current="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="n.icon"></span>
+                <span x-text="n.name"></span>
+            </a>
+        </template>
+    </div>
+    <hr class="shrink-0">
+    <template x-if="!src">
+        <div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Docs</small>
+            <div class="col">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a role="button" :href="'/docs/' + d.key" class="ghost justify-start w-full text-content-neutral">
+                        <span x-icon="d.icon"></span>
+                        <span x-text="d.name"></span>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </template>
+    <hr class="shrink-0" x-show="!src">
+    <div class="col py-4">
+        <template x-for="p in $x.site.pages" :key="p.href">
+            <a role="button" :href="p.href" :aria-current="$route.startsWith(p.href) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="$route.startsWith(p.href) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="p.icon"></span>
+                <span x-text="p.name"></span>
+            </a>
+        </template>
+    </div>
+
 </nav>
 
-  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1 bg-surface-1" :class="$route === '/' ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h1">
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1 bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
 
     <!-- Home page -->
-    <section id="home" class="col center gap-6 w-full py-24" x-route="/">
+    <template data-head="" x-route="/">
+  <title>Manifest — Build and publish with Claude</title>
+</template><nav class="page-track" aria-label="Page sections" x-data="pageTrack" x-route="/">
+  <a href="#home" x-tooltip.start="Intro" :aria-current="at === 'home' &amp;&amp; 'true'" aria-current="true"><span class="sr-only">Intro</span></a>
+  <a href="#setup" x-tooltip.start="Setup" :aria-current="at === 'setup' &amp;&amp; 'true'"><span class="sr-only">Setup</span></a>
+  <a href="#found" x-tooltip.start="Discoverability" :aria-current="at === 'found' &amp;&amp; 'true'"><span class="sr-only">Discoverability</span></a>
+  <a href="#framework" x-tooltip.start="Framework" :aria-current="at === 'framework' &amp;&amp; 'true'"><span class="sr-only">Framework</span></a>
+  <a href="#teams" x-tooltip.start="Collaboration" :aria-current="at === 'teams' &amp;&amp; 'true'"><span class="sr-only">Collaboration</span></a>
+  <a href="#showcase" x-tooltip.start="Showcase" :aria-current="at === 'showcase' &amp;&amp; 'true'"><span class="sr-only">Showcase</span></a>
+  <a href="#pricing" x-tooltip.start="Pricing" :aria-current="at === 'pricing' &amp;&amp; 'true'"><span class="sr-only">Pricing</span></a>
+  <a href="#faq" x-tooltip.start="Questions" :aria-current="at === 'faq' &amp;&amp; 'true'"><span class="sr-only">Questions</span></a>
+</nav><section id="home" class="hero-backdrop col center w-full pt-28 pb-20" x-route="/">
 
-  <!-- Content -->
-  <div class="col gap-10 justify-start w-content-width max-w-full">
+  <div class="col items-center gap-14 w-content-width max-w-full">
 
     <!-- Text -->
-    <div class="col w-2xl max-w-full">
-      <p class="h4 text-content-subtle mb-1">Introducing</p>
-      <h1 class="md:col leading-tight">
-        <span>The website &amp; app framework</span>
-        <span class="text-content-subtle">that thinks like you do.</span>
+    <div class="col items-center gap-5 w-full text-center">
+      <small class="row items-center gap-2 px-3 py-1 bg-popover-surface border border-line rounded-full sm:font-mono text-xs text-content-neutral"><span class="shrink-0 size-1.5 bg-positive-content rounded-full" aria-hidden="true"></span>Free forever. Runs on your Claude plan, no credits.</small>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.05] tracking-tight">
+        <span class="text-content-subtle">Claude builds your <br class="sm:hidden"><span class="hero-noun text-content-stark"><span>app.</span><span aria-hidden="true">website.</span><span aria-hidden="true">dashboard.</span><span aria-hidden="true">platform.</span><span aria-hidden="true">game.</span></span></span>
+        <span class="block text-balance">Manifest makes it real.</span>
       </h1>
+      <p class="w-xl max-w-full text-content-neutral text-balance">Live on your own domain, with sign-ins and saved data built in. From a simple site to a full platform, without leaving Claude. No hosting accounts or API keys.</p>
+      <a role="button" href="#setup" class="group accent rounded-full mt-2 ps-4"><span>Add Manifest to Claude</span><span class="transition-colors group-hover:text-claude" x-icon="simple-icons:claude"></span></a>
     </div>
 
-    <!-- CTA -->
-    <div class="row gap-4">
-      <a role="button" href="/docs/getting-started/introduction" class="accent lg rounded-full"><span x-icon="lucide:book-open"></span><span>Get started</span></a>
-      <!-- <a role="button" class="lg outlined transparent rounded-full" x-icon="lucide:book-open" x-tooltip="Documentation"></a> -->
-    </div>
+    <!-- Demo -->
+    <div class="hero-demo lift bg-page dark:bg-surface-2 grid grid-cols-1 md:grid-cols-[3fr_5fr] w-full p-1 md:p-1 border border-1 border-transparent dark:border-surface-3/50 rounded-2xl overflow-hidden" aria-label="A Claude chat building a yoga studio booking app and publishing it to solstice.studio" x-data="heroDemo">
 
-    <figure class="relative aspect-video w-full bg-surface-3 rounded-lg overflow-hidden m-0" x-data="heroEditor" aria-labelledby="hero-demo-caption">
-    <figcaption id="hero-demo-caption" class="sr-only">
-        Live Manifest editor — edit the HTML, theme variables, or component on the left and watch the preview update on the right.
-    </figcaption>
-
-    <!-- Scoped stylesheet from manifest.theme.css — all rules apply only under [data-preview] -->
-    <style x-html="themeStyleSheet">
-[data-preview] {
-  --color-page: white;
-  --color-surface-1: oklch(95% 0 0);
-  --color-content-stark: black;
-  --color-content-subtle: grey;
-  --color-line: silver;
-  --color-field-surface: oklch(92% 0 0);
-  --color-field-inverse: black;
-  --color-popover-surface: white;
-  --spacing: 0.25rem;
-  --radius: 0.5rem;
-}
-[data-preview].dark {
-  --color-page: black;
-  --color-surface-1: oklch(22% 0 0);
-  --color-content-stark: white;
-  --color-content-subtle: oklch(70% 0.01 60);
-  --color-line: oklch(30% 0.005 60);
-  --color-field-surface: oklch(28% 0 0);
-  --color-field-inverse: white;
-  --color-popover-surface: oklch(25% 0 0);
-}
-[data-preview] .card {
-  display: flex;
-  align-items: center;
-  gap: calc(var(--spacing) * 4);
-  width: 100%;
-
-  & figure {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    background: var(--color-surface-1);
-    border-radius: var(--radius);
-  }
-[data-preview] & div {
-    display: flex;
-    flex-direction: column;
-  }
-}
-[data-preview] { color: var(--color-content-stark); background-color: var(--color-page); }</style>
-
-    <!-- Layout wrapper: absolutely sized to the figure so the panel percentage heights below resolve against an explicit (inset-derived) container instead of the aspect-ratio+padding combo, which Safari miscomputes (children spill into the padding). -->
-    <div class="absolute inset-0 row justify-center items-end px-10 pt-10 lg:px-20 lg:pt-20">
-
-    <!-- Code editor -->
-    <div class="hidden md:col w-1/2 h-7/8 bg-page dark:bg-surface-2 rounded-ss-lg shadow-xl overflow-hidden" role="region" aria-label="Code editor">
-
-        <!-- Tabs header -->
-        <div class="shrink-0 row gap-2 p-2 border-b border-line overflow-x-auto">
-            <template x-for="[key, file] in Object.entries(files)" :key="key">
-                <button class="sm ghost shrink-0 hover:text-field-inverse" :class="tab === key ? 'text-content-stark' : 'text-content-subtle'" @click="tab = key" x-text="file?.label || ''"></button>
-            </template><button class="sm ghost shrink-0 hover:text-field-inverse text-content-stark" data-mnfst-prerender-clone="1">index.html</button><button class="sm ghost shrink-0 hover:text-field-inverse text-content-subtle" data-mnfst-prerender-clone="1">header.html</button><button class="sm ghost shrink-0 hover:text-field-inverse text-content-subtle" data-mnfst-prerender-clone="1">manifest.theme.css</button><button class="sm ghost shrink-0 hover:text-field-inverse text-content-subtle" data-mnfst-prerender-clone="1">products.en.yaml</button>
-        </div>
-
-        <!-- File body -->
-        <div class="w-full max-w-full max-h-[calc(100%-41px)] font-mono text-xs leading-relaxed overflow-auto no-scrollbar">
-
-            <div class="min-w-full w-fit min-h-full h-fit ps-4 pt-4 pb-10 pe-20 overflow-auto no-scrollbar">
-
-                <!-- Lead-in comment (read-only but full-opacity) — sits above the prefix so it isn't dimmed alongside the uneditable bracketing tags -->
-                <div x-show="files[tab].lead" class="whitespace-pre" x-html="hl(files[tab].lead, files[tab].lang)"><span class="hljs-comment">&lt;!-- Minimal code, maximum function --&gt;</span>
-
-</div>
-
-                <!-- Read-only prefix -->
-                <div x-show="files[tab].prefix" class="whitespace-pre disabled" x-html="hl(files[tab].prefix, files[tab].lang)"><span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"page"</span>&gt;</span></div>
-
-                <!-- Editable body (CodeJar) -->
-                <div x-show="!files[tab].readOnly" x-ref="editor" class="text-content-stark whitespace-pre no-focus" style="caret-color: var(--color-content-stark); outline: none; overflow-wrap: break-word; overflow-y: auto; white-space: pre" spellcheck="false" contenteditable="plaintext-only">
-  <span class="hljs-comment">&lt;!-- header.html component --&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">x-header</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-header</span>&gt;</span>
-
-  <span class="hljs-tag">&lt;<span class="hljs-name">main</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-4 p-4"</span>&gt;</span>
-
-    <span class="hljs-comment">&lt;!-- Greeting + search toggle --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row gap-2 items-center"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">strong</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!searchOpen"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"grow"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.t.greeting[$locale]"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"searchOpen"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"search"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"sm no-focus"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"search"</span> <span class="hljs-attr">:placeholder</span>=<span class="hljs-string">"$x.t.search[$locale]"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"sm ghost"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"searchOpen = !searchOpen; searchOpen ? $nextTick(() =&gt; $el.parentElement.querySelector('input').focus()) : (search = '')"</span> <span class="hljs-attr">:aria-label</span>=<span class="hljs-string">"searchOpen ? 'Close search' : 'Open search'"</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"searchOpen ? 'lucide:x' : 'lucide:search'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-
-    <span class="hljs-comment">&lt;!-- Products --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-4"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"p in $x.products.filter(p =&gt; !search || [p.name, p.price, String(p.stock)].some(f =&gt; f.toLowerCase().includes(search.toLowerCase())))"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"p.name"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card"</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">figure</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"p.icon"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">figure</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">strong</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"p.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"p.price"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"badge ms-auto"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"p.stock"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-
-  <span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span></div>
-
-                <!-- Read-only body -->
-                <div x-show="files[tab].readOnly" class="whitespace-pre" x-html="hl(files[tab].body, files[tab].lang)" style="display: none">
-  <span class="hljs-comment">&lt;!-- header.html component --&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">x-header</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-header</span>&gt;</span>
-
-  <span class="hljs-tag">&lt;<span class="hljs-name">main</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-4 p-4"</span>&gt;</span>
-
-    <span class="hljs-comment">&lt;!-- Greeting + search toggle --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row gap-2 items-center"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">strong</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!searchOpen"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"grow"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.t.greeting[$locale]"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"searchOpen"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"search"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"sm no-focus"</span> <span class="hljs-attr">x-model</span>=<span class="hljs-string">"search"</span> <span class="hljs-attr">:placeholder</span>=<span class="hljs-string">"$x.t.search[$locale]"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"sm ghost"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"searchOpen = !searchOpen; searchOpen ? $nextTick(() =&gt; $el.parentElement.querySelector('input').focus()) : (search = '')"</span> <span class="hljs-attr">:aria-label</span>=<span class="hljs-string">"searchOpen ? 'Close search' : 'Open search'"</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"searchOpen ? 'lucide:x' : 'lucide:search'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-
-    <span class="hljs-comment">&lt;!-- Products --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-4"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"p in $x.products.filter(p =&gt; !search || [p.name, p.price, String(p.stock)].some(f =&gt; f.toLowerCase().includes(search.toLowerCase())))"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"p.name"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card"</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">figure</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-icon</span>=<span class="hljs-string">"p.icon"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">figure</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">strong</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"p.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"p.price"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"badge ms-auto"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"p.stock"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-
-  <span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span></div>
-
-                <!-- Read-only suffix -->
-                <div x-show="files[tab].suffix" class="whitespace-pre disabled" x-html="hl(files[tab].suffix, files[tab].lang)"><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Preview -->
-    <div class="col grow w-full md:w-1/2 h-full bg-page dark:bg-surface-2 rounded-t-lg shadow-xl overflow-hidden" role="region" aria-label="Live preview">
-
-        <!-- Header -->
-        <div class="row gap-1 px-3 py-2 border-b border-line [&amp;_span]:size-2 [&amp;_span]:bg-surface-2 [&amp;_span]:rounded-full" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <!-- Page -->
-        <div class="page grow bg-page overflow-auto no-scrollbar" data-preview="" x-ref="preview" :dir="locale === 'ar' ? 'rtl' : 'ltr'" :class="darkMode &amp;&amp; 'dark'" dir="ltr" data-hydrate-id="h2">
-  <!-- header.html component -->
-  <!-- Compose interfaces from reusable HTML components -->
-
-<header>
-
-  <!-- Nav -->
-  <nav class="row items-center justify-between py-4 border-b border-line">
-
-    <!-- Logo -->
-    <strong>Universal Exports</strong>
-
-      <!-- Locales -->
-      <button class="sm ghost ms-auto" x-dropdown="locale-menu" x-icon="lucide:globe" aria-label="Language" popovertarget="locale-menu" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="locale-menu" aria-expanded="false" data-hydrate-id="h3"></button>
-      <menu popover="" id="locale-menu" class="min-w-0" role="menu" style="position-anchor: --dropdown-p1">
-        <li @click="locale = 'en'" :disabled="locale === 'en'" disabled="disabled" role="menuitem" data-hydrate-id="h4">English</li>
-        <li @click="locale = 'es'" :disabled="locale === 'es'" role="menuitem" data-hydrate-id="h5">Español</li>
-        <li @click="locale = 'zh'" :disabled="locale === 'zh'" role="menuitem" data-hydrate-id="h6">中文</li>
-        <li @click="locale = 'ar'" :disabled="locale === 'ar'" role="menuitem" data-hydrate-id="h7">العربية</li>
-      </menu>
-
-      <!-- Color modes -->
-      <button class="sm ghost" @click="darkMode = !darkMode" x-icon="lucide:moon" aria-label="Color mode"></button>
-
-      <!-- Profile -->
-      <button class="sm ghost disabled" x-icon="lucide:user-circle" aria-label="Profile"></button>
-
-  </nav>
-
-</header>
-
-  <main class="col gap-4 p-4">
-
-    <!-- Greeting + search toggle -->
-    <div class="row gap-2 items-center">
-      <strong x-show="!searchOpen" class="grow" x-text="x.t.greeting[locale]">Welcome back, James</strong>
-      <input x-show="searchOpen" type="search" class="sm no-focus" x-model="search" :placeholder="x.t.search[locale]" style="display: none">
-      <button class="sm ghost" @click="searchOpen = !searchOpen; searchOpen ? $nextTick(() =&gt; $el.parentElement.querySelector('input').focus()) : (search = '')" :aria-label="searchOpen ? 'Close search' : 'Open search'" x-icon="lucide:search" aria-label="Open search"></button>
-    </div>
-
-    <!-- Products -->
-    <div class="col gap-4">
-      <div class="card">
-          <figure><span x-icon="lucide:cylinder"></span></figure>
-          <div>
-            <strong>Steel rebar coil</strong>
-            <small>$4,200</small>
-          </div>
-          <span class="badge ms-auto">87</span>
-        </div><div class="card">
-          <figure><span x-icon="lucide:coffee"></span></figure>
-          <div>
-            <strong>Coffee beans</strong>
-            <small>$3,150</small>
-          </div>
-          <span class="badge ms-auto">215</span>
-        </div><div class="card">
-          <figure><span x-icon="lucide:scroll"></span></figure>
-          <div>
-            <strong>Cotton textile</strong>
-            <small>$890</small>
-          </div>
-          <span class="badge ms-auto">64</span>
-        </div><div class="card">
-          <figure><span x-icon="lucide:sun"></span></figure>
-          <div>
-            <strong>Solar panel</strong>
-            <small>$310</small>
-          </div>
-          <span class="badge ms-auto">412</span>
-        </div><div class="card">
-          <figure><span x-icon="lucide:cog"></span></figure>
-          <div>
-            <strong>Hydraulic pump</strong>
-            <small>$1,840</small>
-          </div>
-          <span class="badge ms-auto">36</span>
-        </div><div class="card">
-          <figure><span x-icon="lucide:cable"></span></figure>
-          <div>
-            <strong>Copper wire</strong>
-            <small>$670</small>
-          </div>
-          <span class="badge ms-auto">156</span>
-        </div>
-    </div>
-
-  </main></div>
-    </div>
-
-    </div>
-
-</figure>
-
-  </div>
-</section><section id="features" class="col center w-full py-24" x-route="/">
-
-  <!-- Content -->
-  <div class="col gap-6 justify-start w-content-width max-w-full">
-
-    <!-- Text -->
-    <h2 class="md:col mb-4 leading-tight">
-      <span>Everything a project needs.</span>
-      <span class="text-content-subtle">Nothing it doesn't.</span>
-    </h2>
-
-    <!-- Premier features -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-
-      <template x-for="feature in $x.features.premier" :key="feature.name">
-        <div class="col gap-5 w-full h-full p-4 bg-surface-2 rounded-lg">
-          <div class="col gap-2 w-xl max-w-full">
-            <h3 class="h4"><span x-icon="feature.icon"></span><span x-text="feature.name"></span></h3>
-            <p class="text-content-neutral" x-text="feature.description"></p>
-          </div>
-          <a :href="feature.link" :aria-label="'Read more about ' + feature.name" class="brand gap-1 hover:gap-1.5 no-underline">
-            <span>Read more</span>
-            <span x-icon="lucide:arrow-right"></span></a>
-
-          <!-- Code example -->
-          <div class="grow col justify-end pt-6 ps-6 w-full bg-surface-3 rounded-lg overflow-hidden">
-            <div class="col w-full h-fit bg-page dark:bg-surface-1 rounded-ss-lg shadow-lg">
-              <div class="row gap-1 px-3 py-2 border-b border-surface-3 [&amp;_figure]:size-3 [&amp;_figure]:bg-surface-2 [&amp;_figure]:rounded-full">
-                <figure></figure>
-                <figure></figure>
-                <figure></figure>
-              </div>
-              <div class="col gap-2 w-fit px-4 pt-4 pb-3 text-xs font-mono [&amp;_div]:whitespace-pre opacity-85 pointer-events-none">
-                <template x-for="line in feature.codeLines" :key="line">
-                  <div x-html="$hl(line, feature.lang)"></div>
-                </template>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </template>
-    </div>
-
-    <!-- Noteworthy features -->
-    <div class="col gap-4 mt-4">
-      <div class="row-wrap gap-2 text-sm">
-        <span class="text-content-subtle">Plus</span>
-        <template x-for="feature in $x.features.noteworthy" :key="feature.name">
-          <div class="row gap-2">
-            <a :href="feature.link" class="text-content-neutral hover:text-content-stark" x-text="feature.name"></a>
-            <span aria-hidden="true">•</span>
-          </div>
-        </template>
-        <p class="text-content-subtle">And more</p>
+      <!-- Chat -->
+      <div class="col gap-2 min-h-80 p-6 md:p-8 text-sm">
+        <p x-show="t &gt;= 1" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="self-end max-w-[90%] px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md">Build a booking app for my yoga studio, with member sign-in</p>
+        <p x-show="t &gt;= 2" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="row items-center gap-1 mt-3 text-xs text-content-subtle"><span x-text="activity">Published to staging</span><span x-icon="lucide:chevron-right" aria-hidden="true"></span></p>
+        <p x-show="t &gt;= 7" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from">Done. Review it on the staging link.</p>
+        <p x-show="t &gt;= 8" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="self-end max-w-[90%] mt-5 px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md">Love it. Put it on solstice.studio</p>
+        <p x-show="t &gt;= 9" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="row items-center gap-1 mt-3 text-xs text-content-subtle"><span x-text="publish">Published live</span><span x-icon="lucide:chevron-right" aria-hidden="true"></span></p>
+        <p x-show="t &gt;= 11" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from">It's live.</p>
       </div>
+
+      <!-- Browser -->
+      <div class="relative col bg-surface-2 dark:bg-surface-3 rounded-xl md:rounded-[0.875rem] overflow-hidden">
+        <div class="row items-center gap-3 px-3 py-2 text-content-subtle">
+          <span x-icon="lucide:arrow-left" aria-hidden="true"></span>
+          <span x-icon="lucide:arrow-right" aria-hidden="true"></span>
+          <button type="button" class="unstyle row center text-content-subtle hover:text-content-stark cursor-pointer" aria-label="Replay the demo" x-tooltip="Replay" @click="replay()" x-icon="lucide:rotate-cw"></button>
+          <span class="row grow min-w-0 items-center gap-2 px-3 py-1 bg-popover-surface dark:bg-surface-3 rounded-md text-xs text-content-neutral whitespace-nowrap overflow-hidden">
+            <span x-show="env === 'local'" class="url-dot bg-content-subtle" x-tooltip="Local preview" aria-label="Local preview" style="display: none"></span>
+            <span x-show="env === 'staging'" class="url-dot bg-brand-surface" x-tooltip="Staging" aria-label="Staging" style="display: none"></span>
+            <span x-show="env === 'live'" class="url-dot bg-positive-surface" x-tooltip="Live" aria-label="Live"></span>
+            <span class="url-text" :class="editing &amp;&amp; 'editing'" x-text="shownUrl">solstice.studio</span>
+          </span>
+        </div>
+
+        <!-- Generated site -->
+        <div class="solstice col grow gap-5 mx-1.5 mb-1.5 p-5 md:p-7 rounded-lg">
+          <div class="row items-center justify-between">
+            <span class="hd serif text-lg tracking-wide on" :class="t &gt;= 3 &amp;&amp; 'on'" data-hydrate-id="h3">Solstice</span>
+            <span class="hd hd-d1 px-3 py-0.5 border border-(--s-muted) rounded-full text-xs text-(--s-muted) on" :class="t &gt;= 4 &amp;&amp; 'on'" data-hydrate-id="h4">Member sign in</span>
+          </div>
+          <div class="hd hd-d1 col gap-1 on" :class="t &gt;= 3 &amp;&amp; 'on'" data-hydrate-id="h5">
+            <p class="serif text-3xl md:text-4xl leading-tight text-(--s-heading)">Find your flow.</p>
+            <p class="text-sm text-(--s-muted)">Morning and evening classes in the old town.</p>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="hd col gap-1 p-3 bg-(--s-card) rounded-xl on" :class="t &gt;= 5 &amp;&amp; 'on'" data-hydrate-id="h6">
+              <span class="serif">Sunrise Flow</span>
+              <small class="text-(--s-muted)">Tomorrow 7:00 · <span x-text="seats">12</span>/16</small>
+              <span class="w-fit mt-2 px-3 py-0.5 bg-(--s-button) text-(--s-on) rounded-full text-xs">Book</span>
+            </div>
+            <div class="hd hd-d2 col gap-1 p-3 bg-(--s-card-2) rounded-xl on" :class="t &gt;= 5 &amp;&amp; 'on'" data-hydrate-id="h7">
+              <span class="serif">Power Vinyasa</span>
+              <small class="text-(--s-heading)">Tomorrow 18:30 · 15/16</small>
+              <span class="w-fit mt-2 px-3 py-0.5 bg-(--s-heading) text-(--s-on) rounded-full text-xs">Book</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analytics -->
+        <div x-show="stats" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-transition:leave="motion-out" x-transition:leave-end="motion-from" class="absolute right-4 bottom-4 col gap-2 w-52 p-4 bg-popover-surface rounded-xl shadow-2xl" style="display: none">
+          <small class="row items-center gap-1.5 text-content-subtle"><span x-icon="lucide:chart-column" aria-hidden="true"></span>Visitors today</small>
+          <b class="text-3xl leading-none tabular-nums" x-text="shownVisitors.toLocaleString()">214</b>
+          <span class="hero-bars row items-end gap-1 h-10" :class="stats &amp;&amp; 'on'" aria-hidden="true"><i class="h-[30%]"></i><i class="h-[45%]"></i><i class="h-[38%]"></i><i class="h-[60%]"></i><i class="h-[52%]"></i><i class="h-[75%]"></i><i class="h-[68%]"></i><i class="h-full"></i></span>
+        </div>
+      </div>
+
     </div>
 
   </div>
-</section><section class="col center gap-6 w-full py-24" x-route="/">
+</section><section id="setup" class="col center w-full py-24" x-route="/">
+
+  <div class="col gap-10 w-content-width max-w-full">
+
+    <div class="col gap-1">
+      <p class="eyebrow">Setup</p>
+      <h2 class="leading-tight">From idea to online in three steps.</h2>
+    </div>
+
+    <ol class="unstyle grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <!-- Connect -->
+      <li class="md:col-span-2 col gap-6 p-6 md:p-8 bg-popover-surface rounded-xl" x-data="{ steps: false }">
+        <div class="row items-center gap-3">
+          <span class="row center shrink-0 size-8 bg-accent-surface text-accent-inverse rounded-full text-sm font-semibold" aria-hidden="true">1</span>
+          <h3 class="h4">Add Manifest to Claude</h3>
+        </div>
+        <ol class="unstyle col list-none ps-0 text-content-neutral">
+          <li x-show="steps" class="py-4 border-t border-line" style="display: none">In Claude, go to <b class="text-content-stark">Customize</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Connectors</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">+&nbsp;Add</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Add custom connector</b>.</li>
+          <li class="row-wrap items-baseline gap-x-8 gap-y-2 py-4 border-t border-line">
+            <span>Name: <button type="button" class="copy-text unstyle" x-data="{ copied: false }" aria-label="Copy the connector name" @click="navigator.clipboard.writeText('Manifest'); copied = true; setTimeout(() =&gt; copied = false, 1600)"><span>Manifest</span><span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span><span x-show="copied" x-icon="lucide:check" aria-hidden="true" style="display: none"></span></button></span>
+            <span>Server URL: <button type="button" class="copy-text unstyle" x-data="{ copied: false }" aria-label="Copy the server URL" @click="navigator.clipboard.writeText('https://mcp.manifestx.dev/mcp'); copied = true; setTimeout(() =&gt; copied = false, 1600)"><span>https://mcp.manifestx.dev/mcp</span><span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span><span x-show="copied" x-icon="lucide:check" aria-hidden="true" style="display: none"></span></button></span>
+          </li>
+          <li x-show="steps" class="py-4 border-t border-line" style="display: none">Select <b class="text-content-stark">Add</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Connect</b>, and complete the connection steps.</li>
+        </ol>
+        <div class="row-wrap items-center gap-x-6 gap-y-2">
+          <button type="button" class="unstyle row items-center gap-1 w-fit text-sm text-content-neutral hover:text-content-stark cursor-pointer" :aria-expanded="steps" @click="steps = !steps" aria-expanded="false" data-hydrate-id="h8">
+            <span x-text="steps ? 'Hide the steps' : 'Show where to add it'">Show where to add it</span>
+            <span class="transition-transform" :class="steps &amp;&amp; 'rotate-180'" x-icon="lucide:chevron-down" aria-hidden="true"></span>
+          </button>
+          <a href="/docs/platform/introduction#connect-claude" class="row items-center gap-1 w-fit text-sm no-underline text-content-neutral hover:text-content-stark">Read more<span x-icon="lucide:arrow-right" aria-hidden="true"></span></a>
+        </div>
+      </li>
+
+      <!-- Ask -->
+      <li class="col gap-5 p-6 md:p-8 bg-popover-surface rounded-xl">
+        <div class="row items-center gap-3">
+          <span class="row center shrink-0 size-8 bg-accent-surface text-accent-inverse rounded-full text-sm font-semibold" aria-hidden="true">2</span>
+          <h3 class="h4">Ask for anything</h3>
+        </div>
+        <p class="text-content-neutral">Build pages, add logins and data, invite teammates, and check your visitors, <span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Ask any Claude session to start or continue a Manifest project.&lt;ul&gt;&lt;li&gt;&lt;b&gt;Chat&lt;/b&gt; sessions handle the project in the cloud, up to 10 MB, with previews pushed to a URL.&lt;/li&gt;&lt;li&gt;&lt;b&gt;Code&lt;/b&gt; sessions handle the project of any size in a folder on your computer, showing live previews in Claude.&lt;/li&gt;&lt;/ul&gt;">all in the chat</span>.</p>
+        <figure class="prompt-panel row-wrap items-center justify-between gap-x-4 gap-y-2 mt-auto px-3 pt-6 border-t border-line cursor-pointer" @click="copy()" @mouseenter="hover = true" @mouseleave="hover = false" x-data="promptCycle(['Add a members-only area', 'Invite sam@solstice.studio to edit', 'How many visitors this week?', 'Upgrade this project to Pro'], 0)">
+          <figcaption class="eyebrow m-0">Try asking</figcaption>
+          <button type="button" class="prompt-chip unstyle row items-center gap-2 ms-auto max-w-full ps-3.5 pe-3 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-start text-content-stark cursor-pointer transition-opacity duration-300" :class="fading &amp;&amp; 'opacity-0'" :aria-label="'Copy the prompt: ' + list[i]" @focus="hover = true" @blur="hover = false" aria-label="Copy the prompt: Add a members-only area" data-hydrate-id="h9">
+            <span x-text="list[i]">Add a members-only area</span>
+            <span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span>
+            <span x-show="copied" x-icon="lucide:check" aria-hidden="true" style="display: none"></span>
+          </button>
+        </figure>
+      </li>
+
+      <!-- Publish -->
+      <li class="col gap-5 p-6 md:p-8 bg-popover-surface rounded-xl">
+        <div class="row items-center gap-3">
+          <span class="row center shrink-0 size-8 bg-accent-surface text-accent-inverse rounded-full text-sm font-semibold" aria-hidden="true">3</span>
+          <h3 class="h4">Publish anywhere</h3>
+        </div>
+        <p class="text-content-neutral">Review every change on a preview link, then go live on your own domain. Ship a website or web app, or package it for iPhone, Android, and desktop.</p>
+        <figure class="prompt-panel row-wrap items-center justify-between gap-x-4 gap-y-2 mt-auto px-3 pt-6 border-t border-line cursor-pointer" @click="copy()" @mouseenter="hover = true" @mouseleave="hover = false" x-data="promptCycle(['Put it live on my domain', 'Make it an iPhone app'], 1800)">
+          <figcaption class="eyebrow m-0">Try asking</figcaption>
+          <button type="button" class="prompt-chip unstyle row items-center gap-2 ms-auto max-w-full ps-3.5 pe-3 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-start text-content-stark cursor-pointer transition-opacity duration-300" :class="fading &amp;&amp; 'opacity-0'" :aria-label="'Copy the prompt: ' + list[i]" @focus="hover = true" @blur="hover = false" aria-label="Copy the prompt: Put it live on my domain" data-hydrate-id="h10">
+            <span x-text="list[i]">Put it live on my domain</span>
+            <span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span>
+            <span x-show="copied" x-icon="lucide:check" aria-hidden="true" style="display: none"></span>
+          </button>
+        </figure>
+      </li>
+
+    </ol>
+
+  </div>
+</section><section id="found" class="col center w-full py-24" x-route="/">
 
   <!-- Content -->
   <div class="col gap-10 justify-start w-content-width max-w-full">
 
-    <!-- Text -->
-    <h2 class="md:col leading-tight">
-      <span>Trusted by AI and developers.</span>
-      <span class="text-content-subtle">Powering products in production.</span>
-    </h2>
-
-    <!-- Graphic -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-
-      <!-- Card -->
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/Playcom.webp" alt="Screenshot of the Playcom website homepage" width="600" height="375" loading="lazy">
-        </div>
-        <a href="https://playcom.ai" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Playcom</span>
-          <span x-icon="lucide:arrow-up-right"></span></a>
-      </div>
-
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/Ortus.webp" alt="Screenshot of the Ortus Advisors website homepage" width="600" height="375" loading="lazy">
-        </div>
-        <a href="https://ortusadvisors.com" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Ortus Advisors</span>
-          <span x-icon="lucide:arrow-up-right"></span></a>
-      </div>
-
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="w-full aspect-[1440/900] bg-surface-2 rounded-lg">
-          <img class="rounded-lg" src="/assets/showcase/AndrewMatlock.webp" alt="Screenshot of Andrew Matlock's personal website homepage" width="600" height="375" loading="lazy">
-        </div>
-        <a href="https://andrewmatlock.com" target="_blank" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Andrew Matlock</span>
-          <span x-icon="lucide:arrow-up-right"></span></a>
-      </div>
-
-      <div class="col gap-2 w-full h-full border border-line/10 rounded-lg">
-        <div class="col center w-full aspect-[1440/900] bg-surface-2 rounded-lg pattern">
-          <p class="">Your Next Project</p>
-        </div>
-        <a href="/docs/getting-started/starter-project" class="brand gap-1 hover:gap-1.5 no-underline">
-          <span>Get the Starter Project</span>
-          <span x-icon="lucide:arrow-right"></span></a>
-      </div>
-
-    </div>
-
-  </div>
-
-</section><section id="comparisons" class="col center gap-6 w-full py-24" x-route="/">
-
-  <!-- Content -->
-  <div class="col justify-start w-content-width max-w-full">
-
-    <!-- Text -->
-    <div class="col w-2xl max-w-full mb-10">
-      <p class="h4 text-content-subtle mb-1">Comparison</p>
+    <div class="col gap-1 w-2xl max-w-full">
+      <p class="eyebrow">Discoverability</p>
       <h2 class="md:col leading-tight">
-        <span>Familiar pieces.</span>
-        <span class="text-content-subtle">Fewer steps.</span>
+        <span>Built to be found</span>
+        <span class="text-content-subtle">by search and AI.</span>
       </h2>
-      <p class="mt-4 text-content-neutral text-balance">Manifest is an HTML-native runtime with routing, components, reactive data, localization, and an optional cloud backend built in — no build step required.</p>
     </div>
 
-    <!-- Comparison tables -->
-    <div class="w-full" x-data="{
-        isBuiltIn(v) { return typeof v === 'string' &amp;&amp; v.startsWith('✓'); },
-        detail(v) { return typeof v === 'string' ? v.slice(1).trim() : ''; }
-      }">
+    <!-- Demo -->
+    <div class="found-demo grid grid-cols-1 md:grid-cols-2 gap-4" x-data="foundDemo">
 
-      <!-- Sticky header table -->
-      <div class="sticky top-[60px] z-1 overflow-hidden">
-        <table class="w-full min-w-3xl text-sm table-fixed [&amp;_th]:text-center rounded-none" x-ref="headerTable">
-          <thead>
-            <tr class="bg-surface-2 dark:bg-surface-3 [&amp;_th]:p-3 [&amp;_th]:font-medium [&amp;_th]:text-content-stark">
-              <th class="!text-start !text-neutral">Aspect</th>
-              <th class="bg-brand-surface !text-brand-inverse !font-bold">Manifest</th>
-              <th>React</th>
-              <th>Vue</th>
-              <th>HTMX</th>
-              <th>Astro</th>
-              <th>Alpine.js</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
+      <!-- Page -->
+      <figure class="col gap-3 p-4 bg-surface-2 rounded-xl">
+        <figcaption class="row items-center justify-between w-full small text-content-subtle">Your page<button type="button" class="unstyle row center text-content-subtle hover:text-content-stark cursor-pointer" aria-label="Replay the demo" x-tooltip="Replay" @click="replay()" x-icon="lucide:rotate-cw"></button></figcaption>
+        <div class="solstice found-page found-mark col grow gap-5 p-5 rounded-lg" :class="page">
+          <div class="row items-center justify-between gap-3">
+            <span class="serif tracking-wide">Solstice</span>
+            <span class="found-mark row gap-3 text-xs text-(--s-muted)" :class="mark(3)"><span>Classes</span><span>Teachers</span><span>Visit</span></span>
+          </div>
+          <div class="found-mark col gap-1" :class="mark(1)">
+            <p class="serif text-3xl leading-tight text-(--s-heading)">Find your flow.</p>
+            <p class="text-sm text-(--s-muted)">Morning and evening classes in the old town.</p>
+          </div>
+          <span class="w-fit px-4 py-1.5 bg-(--s-button) text-(--s-on) rounded-full text-xs">Book a class</span>
+          <div class="found-mark grid grid-cols-2 gap-3 mt-auto" :class="mark(2)">
+            <div class="col gap-1 p-3 bg-(--s-card) rounded-xl">
+              <span class="serif">Sunrise Flow</span>
+              <small class="text-(--s-muted)">Tomorrow 7:00</small>
+            </div>
+            <div class="col gap-1 p-3 bg-(--s-card-2) rounded-xl">
+              <span class="serif">Power Vinyasa</span>
+              <small class="text-(--s-heading)">Tomorrow 18:30</small>
+            </div>
+          </div>
+        </div>
+      </figure>
 
-      <!-- Horizontal scroll wrapper -->
-      <div class="overflow-x-auto" @scroll.passive="$refs.headerTable.style.transform = `translateX(${-$event.target.scrollLeft}px)`">
+      <!-- Added -->
+      <figure class="col gap-3 p-4 bg-surface-2 rounded-xl">
+        <figcaption class="small w-full text-start text-content-subtle">What Manifest adds</figcaption>
+        <ul class="unstyle col justify-between grow gap-2 text-sm">
+          <li class="found-item on" :class="t &gt;= 1 &amp;&amp; 'on'" data-hydrate-id="h11"><span x-icon="lucide:heading" aria-hidden="true"></span>Titles and descriptions</li>
+          <li class="found-item on" :class="t &gt;= 2 &amp;&amp; 'on'" data-hydrate-id="h12"><span x-icon="lucide:braces" aria-hidden="true"></span>Structured data</li>
+          <li class="found-item on" :class="t &gt;= 3 &amp;&amp; 'on'" data-hydrate-id="h13"><span x-icon="lucide:network" aria-hidden="true"></span>sitemap.xml</li>
+          <li class="found-item on" :class="t &gt;= 4 &amp;&amp; 'on'" data-hydrate-id="h14"><span x-icon="lucide:bot" aria-hidden="true"></span>AI crawlability</li>
+          <li class="found-item on" :class="t &gt;= 5 &amp;&amp; 'on'" data-hydrate-id="h15"><span x-icon="lucide:file-text" aria-hidden="true"></span>llms.txt for AI</li>
+          <li class="found-item on" :class="t &gt;= 6 &amp;&amp; 'on'" data-hydrate-id="h16"><span x-icon="lucide:image" aria-hidden="true"></span>Social images</li>
+        </ul>
+      </figure>
 
-        <!-- Summary table -->
-        <table class="w-full min-w-3xl text-sm table-fixed">
-          <tbody class="font-medium [&amp;_td:not(:first-child)]:text-center">
-            <template x-for="row in $x.comparisons.summaryRows" :key="row.aspect">
-              <tr class="border-b border-line">
-                <td class="p-3 text-content-stark" x-text="row.aspect"></td>
+      <!-- Results -->
+      <figure class="col gap-3 p-4 bg-surface-2 rounded-xl md:col-span-2">
+        <figcaption class="small w-full text-start text-content-subtle">Where it shows up</figcaption>
 
-                <td class="p-3 text-brand-content bg-brand-surface/10 border-b border-line">
-                  <template x-if="isBuiltIn(row.manifest)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.manifest)" x-text="detail(row.manifest)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.manifest)"><span x-text="row.manifest"></span></template>
-                </td>
+        <div class="found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm on" :class="t &gt;= 3 &amp;&amp; 'on'" data-hydrate-id="h17">
+          <small class="row gap-1.5 items-center text-content-subtle"><span x-icon="lucide:search" aria-hidden="true"></span>Search result</small>
+          <span class="text-xs text-content-neutral">solstice.studio</span>
+          <span class="font-medium text-(--color-found-link)">Solstice · Yoga classes in the old town</span>
+          <span class="text-content-neutral">Morning and evening classes. Book Sunrise Flow or Power Vinyasa online.</span>
+        </div>
 
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.react)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.react)" x-text="detail(row.react)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.react)"><span x-text="row.react"></span></template>
-                </td>
+        <div class="found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm on" :class="t &gt;= 5 &amp;&amp; 'on'" data-hydrate-id="h18">
+          <small class="row gap-1.5 items-center text-content-subtle"><span x-icon="lucide:sparkles" aria-hidden="true"></span>AI answer</small>
+          <span>Solstice runs Sunrise Flow at 7:00 tomorrow, with 4 spots left. <span class="text-(--color-found-link)">solstice.studio</span></span>
+        </div>
 
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.vue)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.vue)" x-text="detail(row.vue)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.vue)"><span x-text="row.vue"></span></template>
-                </td>
+        <div class="found-card row gap-3 items-center p-3 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm on" :class="t &gt;= 6 &amp;&amp; 'on'" data-hydrate-id="h19">
+          <div class="solstice col justify-center shrink-0 w-32 aspect-[1200/630] px-3 rounded-md" aria-hidden="true">
+            <span class="serif text-[0.5rem] tracking-wide">Solstice</span>
+            <span class="serif text-sm leading-tight text-(--s-heading)">Find your flow.</span>
+          </div>
+          <div class="col gap-0.5 min-w-0">
+            <small class="row gap-1.5 items-center text-content-subtle"><span x-icon="lucide:link" aria-hidden="true"></span>Link preview</small>
+            <span class="font-medium">Solstice · Find your flow</span>
+            <span class="text-xs text-content-neutral">solstice.studio</span>
+          </div>
+        </div>
+      </figure>
 
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.htmx)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.htmx)" x-text="detail(row.htmx)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.htmx)"><span x-text="row.htmx"></span></template>
-                </td>
-
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.astro)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.astro)" x-text="detail(row.astro)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.astro)"><span x-text="row.astro"></span></template>
-                </td>
-
-                <td class="p-3 text-content-neutral">
-                  <template x-if="isBuiltIn(row.alpine)">
-                    <span class="row justify-center gap-1.5 items-center">
-                      <span x-icon="lucide:check"></span>
-                      <span x-show="detail(row.alpine)" x-text="detail(row.alpine)"></span>
-                    </span>
-                  </template>
-                  <template x-if="!isBuiltIn(row.alpine)"><span x-text="row.alpine"></span></template>
-                </td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-
-        <!-- Extended table -->
-        <details class="w-full">
-          <summary class="ps-3 text-sm text-content-subtle hover:text-content-stark border-b border-line">See more</summary>
-          <table class="w-full min-w-3xl text-sm table-fixed rounded-none [&amp;_tbody_td:not(:first-child)]:text-center">
-            <template x-for="section in $x.comparisons.extendedSections" :key="section.title">
-              <tbody class="font-medium">
-                <tr class="bg-surface-2">
-                  <th colspan="7" class="p-3 font-semibold text-content-subtle text-xs uppercase tracking-wider" x-text="section.title"></th>
-                </tr>
-                <template x-for="row in section.rows" :key="row.aspect">
-                  <tr class="border-b border-line">
-                    <td class="p-3 text-content-stark" x-text="row.aspect"></td>
-
-                    <td class="p-3 text-brand-content bg-brand-surface/10">
-                      <template x-if="isBuiltIn(row.manifest)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.manifest)" x-text="detail(row.manifest)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.manifest)"><span x-text="row.manifest"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.react)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.react)" x-text="detail(row.react)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.react)"><span x-text="row.react"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.vue)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.vue)" x-text="detail(row.vue)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.vue)"><span x-text="row.vue"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.htmx)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.htmx)" x-text="detail(row.htmx)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.htmx)"><span x-text="row.htmx"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.astro)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.astro)" x-text="detail(row.astro)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.astro)"><span x-text="row.astro"></span></template>
-                    </td>
-
-                    <td class="p-3 text-content-neutral">
-                      <template x-if="isBuiltIn(row.alpine)">
-                        <span class="row justify-center gap-1.5 items-center">
-                          <span x-icon="lucide:check"></span>
-                          <span x-show="detail(row.alpine)" x-text="detail(row.alpine)"></span>
-                        </span>
-                      </template>
-                      <template x-if="!isBuiltIn(row.alpine)"><span x-text="row.alpine"></span></template>
-                    </td>
-                  </tr>
-                </template>
-              </tbody>
-            </template>
-          </table>
-        </details>
-
-      </div>
     </div>
-</div></section><section id="faq" class="col center gap-6 w-full py-24" x-route="/">
+
+  </div>
+</section><section id="framework" class="col center w-full pb-24" x-route="/">
 
   <!-- Content -->
-  <div class="col gap-10 justify-start w-content-width max-w-full">
+  <div class="relative grid grid-cols-1 lg:grid-cols-2 items-center gap-10 w-content-width max-w-full p-8 md:p-12 bg-surface-2 rounded-xl overflow-hidden" x-data="{ all: false }" :class="all &amp;&amp; 'all-open'">
 
-    <!-- Text -->
-    <h2 class="w-2xl max-w-full leading-tight">Common questions</h2>
+    <span class="grid-fade" aria-hidden="true"></span>
 
-    <!-- Graphic -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 w-full">
-      <template x-for="item in $x.faq" :key="item.question">
-        <div class="col gap-1 w-full h-full">
-          <h3 class="h4" x-text="item.question"></h3>
-          <p class="text-content-neutral" x-html="item.answer"></p>
+    <div class="col gap-4 items-start z-1">
+      <p class="eyebrow">Framework</p>
+      <h2 class="h3 leading-tight text-balance">The Manifest framework makes it all automatic.</h2>
+      <p class="text-content-neutral text-balance">Optional and open source. Built with something else? Manifest publishes that too.</p>
+      <div class="row-wrap items-center gap-3 mt-2">
+        <a role="button" href="/docs/framework" class="accent rounded-full ps-4">Explore the framework<span x-icon="lucide:arrow-right"></span></a>
+        <button type="button" class="ghost rounded-full" :aria-expanded="all" aria-controls="framework-all" @click="all = !all" aria-expanded="false" data-hydrate-id="h20">
+          <span x-text="all ? 'Hide features' : 'See all features'">See all features</span>
+          <span class="transition-transform" :class="all &amp;&amp; 'rotate-180'" x-icon="lucide:chevron-down" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+
+    <ul class="feature-tiles unstyle grid grid-cols-2 sm:grid-cols-3 gap-3 z-1" x-data="featureTiles" aria-hidden="true">
+      <li class="col items-start gap-3 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm font-medium">
+          <span class="feature-tile text-xl text-content-neutral" x-icon="lucide:user-round-check"></span>
+          <span class="feature-tile">Sign-ins</span>
+        </li><li class="col items-start gap-3 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm font-medium">
+          <span class="feature-tile text-xl text-content-neutral" x-icon="lucide:database"></span>
+          <span class="feature-tile">Cloud data</span>
+        </li><li class="col items-start gap-3 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm font-medium">
+          <span class="feature-tile text-xl text-content-neutral" x-icon="lucide:upload"></span>
+          <span class="feature-tile">File uploads</span>
+        </li><li class="col items-start gap-3 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm font-medium">
+          <span class="feature-tile text-xl text-content-neutral" x-icon="lucide:languages"></span>
+          <span class="feature-tile">Many languages</span>
+        </li><li class="col items-start gap-3 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm font-medium">
+          <span class="feature-tile text-xl text-content-neutral" x-icon="lucide:pen-line"></span>
+          <span class="feature-tile">Rich text editing</span>
+        </li><li class="col items-start gap-3 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm font-medium">
+          <span class="feature-tile text-xl text-content-neutral" x-icon="lucide:smartphone"></span>
+          <span class="feature-tile">Native apps</span>
+        </li>
+    </ul>
+
+    <!-- All features -->
+    <div id="framework-all" class="col gap-8 z-1 lg:col-span-2 max-h-[28rem] overflow-y-auto overscroll-contain sm:max-h-none sm:overflow-visible" x-show="all" style="display: none">
+      <template x-for="g in ($x.framework || []).filter(g =&gt; ['core-modules', 'appwrite-modules', 'elements', 'styles', 'publishing'].includes(g.slug))" :key="g.slug">
+        <div class="col gap-3">
+          <h3 class="h6 text-content-subtle" x-text="g.group"></h3>
+          <ul class="unstyle grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+            <template x-for="i in g.items.filter(i =&gt; i.name &amp;&amp; !i.indent)" :key="i.path">
+              <li class="col min-w-0">
+                <a :href="'/docs/framework/' + g.slug + '/' + i.path" target="_blank" rel="noopener" class="group unstyle grow row items-center gap-2.5 min-w-0 p-3 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm text-content-stark hover:shadow-md transition-shadow">
+                  <span class="shrink-0 text-content-neutral" x-icon="i.icon" aria-hidden="true"></span>
+                  <span class="min-w-0 break-words" x-text="i.name"></span>
+                  <span class="shrink-0 ms-auto text-content-subtle opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity" x-icon="lucide:book-open" aria-hidden="true"></span>
+                </a>
+              </li>
+            </template>
+          </ul>
         </div>
       </template>
     </div>
 
   </div>
-</section><section class="col center gap-6 w-full pt-50 pb-70 text-center" x-route="/">
+</section><section id="teams" class="col center w-full py-24" x-route="/">
 
   <!-- Content -->
-  <div class="col center gap-13 justify-start w-content-width max-w-full">
-    <h2 class="text-6xl">Start your project</h2>
-    <a role="button" href="/docs/getting-started/introduction" class="accent lg rounded-full">Introduction to
-      Manifest</a>
-  </div>
+  <div class="col gap-10 justify-start w-content-width max-w-full">
 
+    <div class="col gap-1 w-2xl max-w-full">
+      <p class="eyebrow">Collaboration</p>
+      <h2 class="md:col leading-tight">
+        <span>One project.</span>
+        <span class="text-content-subtle">Everyone's Claude.</span>
+      </h2>
+      <p class="mt-4 text-content-neutral text-balance">Invite anyone by email. No logins to share, no editor to learn.</p>
+    </div>
+
+    <!-- Demo -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4" aria-label="Three people on one project, each in their own Claude chat, inviting teammates, editing, publishing, checking visitors and rolling back" x-data="teamDemo">
+      <template x-if="!window.__manifestRender">
+      <template x-for="p in people" :key="p.name">
+        <div class="lift-sm col gap-4 p-4 bg-popover-surface rounded-xl text-sm text-content-stark">
+          <div class="row items-center gap-2 -mx-4 px-4 pb-3 border-b border-line/60">
+            <img class="shrink-0 size-7 rounded-full object-cover" :src="p.pic" alt="" width="28" height="28">
+            <span class="font-medium" x-text="p.name"></span>
+            <span class="-mx-0.5 text-content-subtle" aria-hidden="true">·</span>
+            <span class="text-content-subtle" x-text="p.role"></span>
+          </div>
+          <div class="grid">
+            <template x-for="full in [true, false]">
+              <div class="col gap-2 [grid-area:1/1]" :class="full &amp;&amp; 'invisible'" :aria-hidden="full">
+                <template x-for="e in p.ex" :key="e.at">
+                  <div x-show="full || t &gt;= e.at" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" class="col gap-2" :class="e.next &amp;&amp; 'mt-5'">
+                    <p class="self-end max-w-[90%] px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md" x-text="e.msg"></p>
+                    <p x-show="full || t &gt;= e.at + 1" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" class="row items-center gap-1 mt-2 text-xs text-content-subtle"><span x-text="full || t &gt;= e.at + 2 ? e.done : e.work"></span><span x-icon="lucide:chevron-right" aria-hidden="true"></span></p>
+                    <p x-show="full || t &gt;= e.at + 3" x-transition:enter="motion-in" x-transition:enter-start="motion-from" x-transition:enter-end="motion-to" x-text="e.reply"></p>
+                  </div>
+                </template>
+                <p x-show="!full &amp;&amp; typing(p)" class="self-end px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md" :class="p.ex.some(e =&gt; t &gt;= e.at) &amp;&amp; 'mt-5'" aria-hidden="true"><span class="team-typing"><i></i><i></i><i></i></span></p>
+              </div>
+            </template>
+          </div>
+        </div>
+      </template>
+      </template>
+    </div>
+
+  </div>
+</section><section id="showcase" class="col center w-full py-24" x-data="{
+  side: [
+    [
+      { name: 'Playcom', type: 'Website &amp; platform', about: 'One inbox for AI agents and teams', url: 'https://playcom.ai', img: '/assets/showcase/wall/playcom-home.webp' },
+      { name: 'Modular Energies', type: 'E-commerce site', about: 'Plug-in solar for gardens and farms', url: 'https://modularenergies.com', img: '/assets/showcase/wall/modular-energies.webp' },
+    ],
+    [
+      { name: 'Manifest', type: 'Docs site', about: 'The docs on this site', url: '/docs/framework', img: '/assets/showcase/wall/manifest-docs.webp' },
+      { name: 'Tower', type: 'Web game', about: 'A building sim in the browser', url: 'https://tower-game-staging.manifestx.ai', img: '/assets/showcase/wall/tower.webp' },
+    ],
+  ],
+  phone: { name: 'Nurvana', type: 'iOS app', about: 'A private membership for people connected by taste', url: 'https://apps.apple.com/ca/app/nurvana/id6829128241', img: '/assets/showcase/wall/nurvana-app.webp' },
+}" x-route="/">
+  <div class="col gap-10 w-content-width max-w-full">
+
+    <div class="col gap-1">
+      <p class="eyebrow">Showcase</p>
+      <h2 class="md:col leading-tight">
+        <span>Built with Manifest.</span>
+        <span class="text-content-subtle">Real products, in production.</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-[1fr_0.58fr_1fr] gap-1 sm:gap-1.5 md:gap-2 p-1 sm:p-1.5 md:p-2 bg-surface-2/60 dark:bg-surface-2/50 rounded-lg md:rounded-2xl">
+
+      <div class="col gap-1 sm:gap-1.5 md:gap-2">
+          <a target="_blank" rel="noopener" class="showcase-tile group unstyle relative block aspect-[16/10] bg-surface-2 rounded-md md:rounded-xl overflow-hidden" href="https://playcom.ai">
+              <img width="1600" height="1000" loading="lazy" class="size-full object-cover object-top" src="/assets/showcase/wall/playcom-home.webp" alt="Playcom website &amp; platform">
+              <span class="showcase-info">
+                <span class="row items-center gap-2"><b class="truncate">Playcom</b><span class="showcase-badge">Website &amp; platform</span><span class="ms-auto opacity-60" x-icon="lucide:arrow-up-right" aria-hidden="true"></span></span>
+                <small>One inbox for AI agents and teams</small>
+              </span>
+            </a><a target="_blank" rel="noopener" class="showcase-tile group unstyle relative block aspect-[16/10] bg-surface-2 rounded-md md:rounded-xl overflow-hidden" href="https://modularenergies.com">
+              <img width="1600" height="1000" loading="lazy" class="size-full object-cover object-top" src="/assets/showcase/wall/modular-energies.webp" alt="Modular Energies e-commerce site">
+              <span class="showcase-info">
+                <span class="row items-center gap-2"><b class="truncate">Modular Energies</b><span class="showcase-badge">E-commerce site</span><span class="ms-auto opacity-60" x-icon="lucide:arrow-up-right" aria-hidden="true"></span></span>
+                <small>Plug-in solar for gardens and farms</small>
+              </span>
+            </a>
+        </div><div class="col gap-1 sm:gap-1.5 md:gap-2 order-3">
+          <a target="_blank" rel="noopener" class="showcase-tile group unstyle relative block aspect-[16/10] bg-surface-2 rounded-md md:rounded-xl overflow-hidden" href="/docs/framework">
+              <img width="1600" height="1000" loading="lazy" class="size-full object-cover object-top" src="/assets/showcase/wall/manifest-docs.webp" alt="Manifest docs site">
+              <span class="showcase-info">
+                <span class="row items-center gap-2"><b class="truncate">Manifest</b><span class="showcase-badge">Docs site</span><span class="ms-auto opacity-60" x-icon="lucide:arrow-up-right" aria-hidden="true"></span></span>
+                <small>The docs on this site</small>
+              </span>
+            </a><a target="_blank" rel="noopener" class="showcase-tile group unstyle relative block aspect-[16/10] bg-surface-2 rounded-md md:rounded-xl overflow-hidden" href="https://tower-game-staging.manifestx.ai">
+              <img width="1600" height="1000" loading="lazy" class="size-full object-cover object-top" src="/assets/showcase/wall/tower.webp" alt="Tower web game">
+              <span class="showcase-info">
+                <span class="row items-center gap-2"><b class="truncate">Tower</b><span class="showcase-badge">Web game</span><span class="ms-auto opacity-60" x-icon="lucide:arrow-up-right" aria-hidden="true"></span></span>
+                <small>A building sim in the browser</small>
+              </span>
+            </a>
+        </div>
+
+      <a :href="phone.url" target="_blank" rel="noopener" class="showcase-tile group unstyle relative block order-2 bg-surface-2 rounded-lg md:rounded-2xl overflow-hidden" href="https://apps.apple.com/ca/app/nurvana/id6829128241">
+        <img :alt="phone.name + ' ' + phone.type" width="780" height="1688" loading="lazy" class="absolute inset-0 size-full object-cover object-top" src="/assets/showcase/wall/nurvana-app.webp">
+        <span class="showcase-info">
+          <span class="row items-center gap-2"><b class="truncate" x-text="phone.name">Nurvana</b><span class="showcase-badge" x-text="phone.type">iOS app</span><span class="ms-auto opacity-60" x-icon="lucide:arrow-up-right" aria-hidden="true"></span></span>
+          <small x-text="phone.about">A private membership for people connected by taste</small>
+        </span>
+      </a>
+
+    </div>
+
+  </div>
+</section><section id="pricing" class="col center w-full pt-24 pb-10" x-route="/">
+
+  <!-- Content -->
+  <div class="col gap-4 justify-start w-content-width max-w-full">
+    <p class="eyebrow">Pricing</p>
+    <h2 class="md:col leading-tight">
+      <span>One plan per project.</span>
+      <span class="text-content-subtle">Never per seat.</span>
+    </h2>
+    <p class="w-2xl max-w-full text-content-neutral text-balance">Publish free, for as long as you like. Upgrade a project when it needs more, and cancel anytime. The framework itself is always free and open source.</p>
+  </div>
+</section><section class="col center w-full pb-24" x-data="planPrices" x-route="/">
+
+  <!-- Content -->
+  <div class="col gap-4 w-content-width max-w-full" x-data="{ more: false }">
+
+    <!-- Billing toggles -->
+    <div class="row-wrap items-center justify-end gap-3">
+      <div role="tablist" aria-label="Billing period" class="sm rounded-full">
+        <button type="button" role="tab" :aria-selected="!yearly" @click="yearly = false" aria-selected="true" data-hydrate-id="h21">Monthly</button>
+        <button type="button" role="tab" :aria-selected="yearly" @click="yearly = true" aria-selected="false" data-hydrate-id="h22">Yearly<span class="opacity-70">· 2 months free</span></button>
+      </div>
+      <div role="tablist" aria-label="Currency" class="sm rounded-full">
+        <button type="button" role="tab" :aria-selected="!eur" @click="setEur(false)" aria-selected="true" data-hydrate-id="h23">USD</button>
+        <button type="button" role="tab" :aria-selected="eur" @click="setEur(true)" aria-selected="false" data-hydrate-id="h24">EUR</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <!-- Free -->
+      <div class="relative grid grid-rows-subgrid row-span-4 gap-6 p-6 md:p-8 bg-surface-2 rounded-lg overflow-hidden">
+        <span class="grid-fade text-brand-content" aria-hidden="true"></span>
+        <div class="relative col gap-1">
+          <p class="text-xl font-semibold text-content-stark">Free</p>
+          <small class="text-content-neutral">For launching anything</small>
+        </div>
+        <p class="relative row-wrap items-baseline gap-x-3 gap-y-1"><span class="text-5xl font-semibold tracking-tight" x-text="cur + '0'">$0</span><small class="leading-tight whitespace-nowrap text-content-subtle">forever</small></p>
+        <ul class="plan-list relative col gap-3 text-sm">
+          <li><span x-icon="lucide:rocket" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Claude builds on your own Claude plan. Manifest hosts what it publishes, with a staging copy to check before it goes live.">Preview and publish from Claude</span></li>
+          <li><span x-icon="lucide:globe" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Point domains you own at your site. Manifest sets up the certificates.">Connect your own domains</span></li>
+          <li><span x-icon="lucide:chart-no-axes-column" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Views, visits, top pages, where visitors came from, and their countries and devices. No cookies, and no one is identified.">Last 7 days' analytics</span></li>
+          <li x-show="more" style="display: none"><span x-icon="lucide:inbox" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Messages sent through your site's contact and other forms, emailed to you and kept in your dashboard for 30 days.">100 form submissions per month</span></li>
+          <li x-show="more" style="display: none"><span x-icon="lucide:braces" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Publish, promote, and manage domains for this project from your own code, with an API key from your dashboard.">API access</span></li>
+          <li x-show="more" style="display: none"><span x-icon="lucide:badge-check" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="A small &quot;Made with Manifest&quot; link on your site. The project could be featured on manifestx.dev.">Manifest badge &amp; public showcase</span></li>
+        </ul>
+        <a role="button" href="#setup" class="group relative self-end w-fit accent rounded-full ps-4"><span>Add Manifest to Claude</span><span class="transition-colors group-hover:text-claude" x-icon="simple-icons:claude"></span></a>
+      </div>
+
+      <!-- Pro -->
+      <div class="card-invert relative grid grid-rows-subgrid row-span-4 gap-6 p-6 md:p-8 rounded-lg overflow-hidden [&amp;_p]:text-accent-inverse">
+        <span class="grid-fade grid-fade-tl" aria-hidden="true"></span>
+        <div class="relative col gap-1">
+          <p class="text-xl font-semibold">Pro</p>
+          <small>For businesses and teams</small>
+        </div>
+        <p class="relative row-wrap items-baseline gap-x-3 gap-y-1"><span class="text-5xl font-semibold tracking-tight" x-text="cur + pro">$15</span><small class="leading-tight whitespace-nowrap" x-text="yearly ? 'per project, yearly' : 'per project, monthly'">per project, monthly</small></p>
+        <ul class="relative plan-list col gap-3 text-sm">
+          <li x-icon="lucide:plus" data-icon-processed="true"><span x-icon="lucide:plus"></span>Everything in Free, plus</li>
+          <li><span x-icon="lucide:badge-x" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="The badge comes off every page, and the showcase is your choice.">No badge, showcase optional</span></li>
+          <li><span x-icon="lucide:users" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Invite people by email to work on the project from their own Claude. Members edit and publish; admins can also invite others.">Invite your team</span></li>
+          <li x-show="more" style="display: none"><span x-icon="lucide:history" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Put staging or live back to any of its last 5 versions in seconds.">Rollback to your last 5 versions</span></li>
+          <li x-show="more" style="display: none"><span x-icon="lucide:chart-line" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="The same visitor insights for the whole life of the project, over any date range.">All-time analytics</span></li>
+          <li x-show="more" style="display: none"><span x-icon="lucide:inbox" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Room for busy forms, with every submission kept in your dashboard for a year.">5,000 form submissions per month</span></li>
+        </ul>
+        <a role="button" href="#setup" class="relative self-end w-fit ghost outlined rounded-full text-accent-inverse hover:bg-accent-inverse/15 hover:text-accent-inverse">Start free, upgrade anytime</a>
+      </div>
+
+      <!-- Enterprise -->
+      <div id="platforms" class="relative grid grid-rows-subgrid row-span-4 gap-6 sm:col-span-2 lg:col-span-1 p-6 md:p-8 bg-surface-2 rounded-lg overflow-hidden">
+        <span class="grid-fade text-brand-content" aria-hidden="true"></span>
+        <div class="relative col gap-1">
+          <p class="text-xl font-semibold text-content-stark">Enterprise</p>
+          <small class="text-content-neutral">Publishing, built into your product</small>
+        </div>
+        <p class="relative row-wrap items-baseline gap-x-3 gap-y-1"><span class="text-5xl font-semibold tracking-tight">Custom</span><small class="leading-tight whitespace-nowrap text-content-subtle">by contract</small></p>
+        <ul class="plan-list relative col gap-3 sm:max-lg:grid sm:max-lg:grid-cols-2 text-sm">
+          <li><span x-icon="lucide:layers-3" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Create and publish sites at volume on Manifest's infrastructure through the API, from your templates or built one by one.">Bulk projects through the API</span></li>
+          <li><span x-icon="lucide:compass" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="The Manifest team guides your projects from start to launch and beyond, with best practices built in.">Managed projects</span></li>
+          <li><span x-icon="lucide:life-buoy" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="A direct line to the people who build Manifest, with agreed response times and uptime.">Full support &amp; SLA</span></li>
+          <li x-show="more" style="display: none"><span x-icon="lucide:wrench" aria-hidden="true"></span><span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Templates, integrations, and tools built around your workflow.">Bespoke tools and templates</span></li>
+        </ul>
+        <div class="relative self-end row-wrap items-center gap-x-5 gap-y-3">
+          <a role="button" href="/support?topic=enterprise#contact" class="accent rounded-full px-6">Talk to us</a>
+          <a href="/docs/api" target="_blank" rel="noopener" class="row items-center gap-1 text-sm">API docs<span x-icon="lucide:arrow-up-right" class="text-content-subtle" aria-hidden="true"></span></a>
+        </div>
+      </div>
+
+    </div>
+
+    <button type="button" class="ghost self-center rounded-full" :aria-expanded="more" @click="more = !more" aria-expanded="false" data-hydrate-id="h25">
+      <span x-text="more ? 'Show less' : 'Compare everything included'">Compare everything included</span>
+      <span class="transition-transform" :class="more &amp;&amp; 'rotate-180'" x-icon="lucide:chevron-down" aria-hidden="true"></span>
+    </button>
+
+  </div>
+</section><section id="faq" class="col center w-full py-24" x-route="/">
+
+  <!-- Content -->
+  <div class="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-10 w-content-width max-w-full">
+
+    <div class="col gap-3">
+      <p class="eyebrow">Questions</p>
+      <h2 class="leading-tight">Common questions</h2>
+      <p class="text-content-neutral">Something else? <a href="/support#contact">Contact the team</a>.</p>
+    </div>
+
+    <div class="col border-t border-line">
+      <details class="border-b border-line">
+        <summary>What counts as a project?</summary>
+        <p class="text-content-neutral">One site or app with its own address and versions. Plans are per project, so teammates never cost extra; inviting them comes with Pro.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary>Should I use Claude chat or the Code tab?</summary>
+        <p class="text-content-neutral">Both publish to Manifest. A chat suits small sites: Claude sends the files with the conversation, which keeps projects to 10 MB (2 MB per file), and it works on Claude's Free plan. The Code tab, on paid Claude plans, keeps the project in a folder on your computer with no size limit, so it's the better start for apps and anything you'll keep working on.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary>How does Claude know a project uses Manifest?</summary>
+        <p class="text-content-neutral">Once Manifest is added to Claude, ask for it by name, like "build me a site with Manifest." In the Code tab, the project folder includes a CLAUDE.md file that tells every new session it's a Manifest project, so open the same folder to pick up where you left off. The folder works with Git like any code project, and GitHub is optional: handy for teams, never needed to publish.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary>Can I publish a site I already have?</summary>
+        <p class="text-content-neutral">Yes, if it builds to static files, like a React, Vite, Astro, or plain HTML site. Claude publishes the build as it is, without moving it to Manifest. Sites that need a server of their own, such as server-side rendering or API routes, aren't hosted; the published site can call a backend that runs elsewhere.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary>Who owns what I build?</summary>
+        <p class="text-content-neutral">You do. Any project can download its last 5 published versions on any plan. The <a href="/docs/framework">framework</a> is open source under the MIT License and runs anywhere, and the <a href="/docs/api">API</a> publishes from your own code, so Claude is optional.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary>What is the badge?</summary>
+        <p class="text-content-neutral">Free sites show a small "Made with Manifest" link, and Free projects may be featured in the showcase on manifestx.dev. Pro removes the badge and lets you choose whether the project is featured.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary>How does billing work?</summary>
+        <p class="text-content-neutral">Per project through Stripe, monthly or yearly. Upgrade or cancel from the dashboard, or just ask Claude. If you cancel, your site stays live: Pro runs to the end of the paid period, then the project moves to Free, the badge returns, and form submissions older than 30 days are removed.</p>
+      </details>
+    </div>
+
+  </div>
+</section><section class="col center w-full pt-25 pb-50 text-center" x-data="ctaIdeas" x-route="/">
+  <div class="col center gap-10 w-content-width max-w-full">
+    <h2 class="text-5xl md:text-6xl leading-tight text-balance">What will you <span class="text-content-subtle">make real?</span></h2>
+    <a href="#setup" class="cta-prompt unstyle row items-center gap-3 w-xl max-w-full ps-5 pe-2 py-2 bg-popover-surface border border-line rounded-full text-start" aria-label="Add Manifest to Claude">
+      <span class="grow truncate text-content-neutral transition-opacity duration-500 ease-out" :class="out &amp;&amp; 'opacity-0'" x-text="idea">A booking site for my yoga studio</span>
+      <span class="row center shrink-0 size-9 bg-claude text-page rounded-full" x-icon="lucide:arrow-up" aria-hidden="true"></span>
+    </a>
+    <div class="col center gap-3">
+      <a role="button" href="#setup" class="group accent lg rounded-full"><span>Add Manifest to Claude</span><span class="transition-colors group-hover:text-claude" x-icon="simple-icons:claude"></span></a>
+      <small class="text-content-subtle">Free, on any Claude plan</small>
+    </div>
+  </div>
 </section>
 
-    <!-- Documentation pages -->
+    <!-- Framework -->
+
+    <!-- Compare -->
+    
+
+    <!-- Documentation -->
+    
+    
+    
     
 
     <!-- Legal pages -->
     
 
+    <!-- Support -->
+    
+
   </main>
 
   <!-- Footer (visible on every route) -->
-  <footer class="px-viewport-padding pt-20 pb-10 bg-surface-2" style="view-transition-name: site-footer" x-route="/" data-order="5">
+  <footer class="relative isolate px-viewport-padding pt-20 pb-10 bg-surface-2 overflow-hidden" style="view-transition-name: site-footer" x-route="/, =support, compare" data-order="5">
+
+  <span class="dot-field" aria-hidden="true"></span>
+  <span class="footer-mark" aria-hidden="true">{Manifest}</span>
 
   <!-- Content -->
   <nav class="col gap-4 w-content-width max-w-full mx-auto">
 
     <!-- Top -->
-    <div class="columns-1 sm:columns-3 md:columns-5 gap-8 pb-10 [&amp;_a]:text-sm">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-8 pb-10 [&amp;_a]:text-sm [&amp;_a]:w-fit">
 
-      <!-- Brand block -->
-      <!-- <div class="col gap-4 col-span-1">
-        <a href="/" class="row items-center w-fit no-underline">
-          <x-logo class="text-content-subtle" data-pre-rendered="1"></x-logo>
-        </a>
-        <p class="w-60 max-w-full">The website & app framework that thinks like you do.</p>
-      </div> -->
+      <!-- Product -->
+      <div class="col gap-3">
+        <small class="eyebrow">Product</small>
+        <a href="/#setup">Add to Claude</a>
+        <a href="/#showcase">Showcase</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="https://dash.manifestx.dev" target="_blank" rel="noopener" class="row items-center gap-1"><span>Dashboard</span><span x-icon="lucide:arrow-up-right" class="text-content-subtle" aria-hidden="true"></span></a>
+      </div>
 
-      <!-- Docs columns -->
-      <template x-for="group in $x.docs" :key="group.group">
-        <div class="col gap-3 mb-8 break-inside-avoid">
-          <small x-text="group.group"></small>
+      <!-- Docs -->
+      <div class="col gap-3">
+        <small class="eyebrow">Docs</small>
+        <a href="/docs/platform">Platform</a>
+        <a href="/docs/framework">Framework</a>
+        <a href="/docs/api">API</a>
+      </div>
 
-          <!-- Group links -->
-          <template x-if="group.slug !== 'elements'">
-            <div class="col gap-3">
-              <template x-for="(item, index) in group.items" :key="item.path || index">
-                <a x-show="item.name" :href="'/docs/' + group.slug + '/' + item.path" :class="item.indent ? 'ps-3' : ''" x-text="item.name"></a>
-              </template>
-            </div>
-          </template>
+      <!-- Comparisons -->
+      <div class="col gap-3">
+        <small class="eyebrow">Comparisons</small>
+        <a href="/compare/lovable">vs Lovable</a>
+        <a href="/compare/webflow">vs Webflow</a>
+        <a href="/compare/wordpress">vs WordPress</a>
+        <a href="/compare">All comparisons</a>
+      </div>
 
-          <!-- Elements dropdown -->
-          <template x-if="group.slug === 'elements'">
-            <div class="col gap-3">
-              <button x-dropdown="elements-menu" class="link text-sm" aria-label="Browse all HTML elements" aria-haspopup="menu">
-                <span>20+ HTML Elements</span>
-                <span x-icon="lucide:chevron-down"></span>
-              </button>
-              <dialog popover="" id="elements-menu" class="col w-40 p-2 [&amp;_a]:justify-start [&amp;_a]:w-full [&amp;_a]:h-15 [&amp;_a]:ghost">
-                <template x-for="(item, index) in group.items" :key="item.path || index">
-                  <a role="button" :href="'/docs/' + group.slug + '/' + item.path"><span x-icon="item.icon"></span><span x-text="item.name"></span></a>
-                </template>
-              </dialog>
-            </div>
-          </template>
+      <!-- Resources -->
+      <div class="col gap-3">
+        <small class="eyebrow">Resources</small>
+        <a href="/support">Support</a>
+        <a href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="row items-center gap-1"><span>GitHub</span><span x-icon="lucide:arrow-up-right" class="text-content-subtle" aria-hidden="true"></span></a>
+      </div>
 
-          <!-- GitHub -->
-          <template x-if="group.slug === 'resources'">
-            <a href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener"><span x-icon="meteor-icons:github"></span><span>GitHub</span><span x-icon="lucide:arrow-up-right"></span></a>
-          </template>
-
-        </div>
-      </template>
+      <!-- Legal -->
+      <div class="col gap-3">
+        <small class="eyebrow">Legal</small>
+        <a href="/legal/terms">Terms</a>
+        <a href="/legal/privacy">Privacy</a>
+        <a href="/docs/framework/resources/license">License</a>
+      </div>
 
     </div>
 
@@ -1190,37 +971,26 @@
     <div class="row-wrap justify-between items-center gap-6">
 
       <!-- Attribution -->
-      <figcaption>Copyright © 2026 <a href="https://andrewmatlock.com" target="_blank" rel="noopener">Andrew
-          Matlock</a>.&nbsp; Manifest is open source under <a href="/docs/resources/license">MIT License</a>.&nbsp;
-        <a href="/legal/privacy">Privacy</a> · <a href="/legal/terms">Terms</a>
-      </figcaption>
+      <figcaption>© 2026 MNFST OÜ.&nbsp; The Manifest framework is open source under the <a href="/docs/framework/resources/license">MIT License</a>.</figcaption>
 
       <!-- Controls -->
       <div class="row-wrap items-center gap-4">
 
         <!-- Color mode -->
-        <div role="group" class="border border-line rounded-full">
-          <button x-color="'light'" class="sm rounded-s-full" :class="{ 'accent pointer-events-none': $color.current === 'light' }" x-icon="lucide:sun" aria-label="Light mode" type="button" data-hydrate-id="h12"></button>
-          <button x-color="'dark'" class="sm" :class="{ 'accent pointer-events-none': $color.current === 'dark' }" x-icon="lucide:moon" aria-label="Dark mode" type="button" data-hydrate-id="h13"></button>
-          <button x-color="'system'" class="sm rounded-e-full accent pointer-events-none" :class="{ 'accent pointer-events-none': $color.current === 'system' }" x-icon="lucide:sun-moon" aria-label="Auto mode" type="button" data-hydrate-id="h14"></button>
+        <div role="tablist" aria-label="Color mode" class="color-modes sm rounded-full">
+          <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h26"></button>
+          <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h27"></button>
+          <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h28"></button>
         </div>
-
-        <!-- Locale -->
-        <!-- <button class="sm rounded-full">
-          <span x-icon="lucide:globe"></span>
-          <span>English</span>
-        </button> -->
 
       </div>
     </div>
 
   </nav>
 
-
-
 </footer>
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row md:grid md:grid-cols-3 justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"class":"pt-[69px] px-viewport-padding dark:bg-surface-1","data-order":null}},{"id":"h2","attrs":{"dir":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"role":null}},{"id":"h5","attrs":{"role":null}},{"id":"h6","attrs":{"role":null}},{"id":"h7","attrs":{"role":null}},{"id":"h8","attrs":{"class":"sm rounded-s-full","type":null}},{"id":"h9","attrs":{"type":null}},{"id":"h10","attrs":{"class":"sm ghost rounded-e-full","type":null}},{"id":"h11","attrs":{"popovertarget":null,"style":null,"aria-controls":null,"aria-expanded":null}},{"id":"h12","attrs":{"type":null}},{"id":"h13","attrs":{"type":null}},{"id":"h14","attrs":{"class":"sm rounded-e-full","type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"hidden":null,"style":null,"popovertarget":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"class":"pt-[69px] px-viewport-padding dark:bg-surface-1","data-order":null}},{"id":"h3","attrs":{"class":"hd serif text-lg tracking-wide"}},{"id":"h4","attrs":{"class":"hd hd-d1 px-3 py-0.5 border border-(--s-muted) rounded-full text-xs text-(--s-muted)"}},{"id":"h5","attrs":{"class":"hd hd-d1 col gap-1"}},{"id":"h6","attrs":{"class":"hd col gap-1 p-3 bg-(--s-card) rounded-xl"}},{"id":"h7","attrs":{"class":"hd hd-d2 col gap-1 p-3 bg-(--s-card-2) rounded-xl"}},{"id":"h8","attrs":{"aria-expanded":null}},{"id":"h9","attrs":{"aria-label":null}},{"id":"h10","attrs":{"aria-label":null}},{"id":"h11","attrs":{"class":"found-item"}},{"id":"h12","attrs":{"class":"found-item"}},{"id":"h13","attrs":{"class":"found-item"}},{"id":"h14","attrs":{"class":"found-item"}},{"id":"h15","attrs":{"class":"found-item"}},{"id":"h16","attrs":{"class":"found-item"}},{"id":"h17","attrs":{"class":"found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm"}},{"id":"h18","attrs":{"class":"found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm"}},{"id":"h19","attrs":{"class":"found-card row gap-3 items-center p-3 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm"}},{"id":"h20","attrs":{"aria-expanded":null}},{"id":"h21","attrs":{"aria-selected":null}},{"id":"h22","attrs":{"aria-selected":null}},{"id":"h23","attrs":{"aria-selected":null}},{"id":"h24","attrs":{"aria-selected":null}},{"id":"h25","attrs":{"aria-expanded":null}},{"id":"h26","attrs":{"aria-selected":null,"type":null}},{"id":"h27","attrs":{"aria-selected":null,"type":null}},{"id":"h28","attrs":{"aria-selected":null,"type":null}}]</script>
 </body></html>

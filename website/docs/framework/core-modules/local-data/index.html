@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" data-online="true" data-os="macos" dir="auto"><head>
+  <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Load YAML, JSON, or CSV files as reactive data sources.">
+  <meta name="author" content="Andrew Matlock">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="google" content="notranslate">
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="preload" as="font" type="font/woff2" href="../../../../assets/fonts/Manrope.woff2" crossorigin="">
+
+  <!-- Web App & Manifest -->
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../../../../manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="../../../../manifest.theme.css">
+
+  <!-- Scripts -->
+  <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="../../../../scripts/payments-demo.js" defer=""></script>
+  <script src="../../../../scripts/hero-editor.js" defer=""></script>
+  <script src="../../../../scripts/hero-demo.js" defer=""></script>
+  <script src="../../../../scripts/console-message.js" defer=""></script>
+
+<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+@custom-variant cursor (@media (pointer: fine) and (hover: hover));
+@custom-variant pointer (@media (any-pointer: fine));
+@custom-variant mac (&:where([data-os="macos"] *));
+@custom-variant windows (&:where([data-os="windows"] *));
+@custom-variant linux (&:where([data-os="linux"] *));
+@custom-variant ios (&:where([data-os="ios"] *));
+@custom-variant android (&:where([data-os="android"] *));
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));
+@custom-variant online (&:where([data-online="true"] *));
+@custom-variant offline (&:where([data-online="false"] *));
+@custom-variant standalone (&:where([data-standalone] *));
+@custom-variant native (&:where([data-native] *));
+@custom-variant web (&:where(html:not([data-native]) *));
+@custom-variant dark (&:where(.dark, .dark *));</style><title>Local Data — Manifest</title><meta property="og:title" content="Local Data — Manifest"><meta property="og:description" content="Load YAML, JSON, or CSV files as reactive data sources."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/local-data"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-local-data.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Local Data — Manifest"><meta property="twitter:description" content="Load YAML, JSON, or CSV files as reactive data sources."><meta property="twitter:image" content="/og/docs-framework-core-modules-local-data.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Local Data — Manifest","description":"Load YAML, JSON, or CSV files as reactive data sources.","image":"/og/docs-framework-core-modules-local-data.png","url":"https://manifestx.dev/docs/framework/core-modules/local-data"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Local Data","item":"https://manifestx.dev/docs/framework/core-modules/local-data"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/framework/core-modules/local-data">
+<meta name="manifest:router-base" content="">
+<meta name="manifest:prerender-locales" content="en">
+<meta name="manifest:prerendered" content="1">
+<meta name="manifest:router-base-depth" content="4">
+</head>
+
+<body x-data="{
+  init() {
+    const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
+    document.documentElement.setAttribute('dir', savedDirection);
+  }
+}" class="bg-surface-1">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
+
+  <header style="view-transition-name: site-header" class="site-header fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
+
+    <!-- Content Area -->
+    <nav class="row justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+
+        <!-- Start -->
+        <div class="row items-center gap-3" x-data="{
+            get family() { return $route.startsWith('/docs/platform') ? 'platform' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+        }">
+
+            <!-- Logo -->
+            <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
+                <span class="hidden md:flex">{Manifest}</span>
+                <span class="md:hidden">{M}</span>
+            </a>
+
+            <!-- Docs family -->
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation" popovertarget="docs-family" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="docs-family" aria-expanded="false" data-hydrate-id="h1">
+                <span x-text="$x.site.docs.find(d =&gt; d.key === family)?.name">Framework</span>
+                <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
+            </button>
+            <menu popover="" id="docs-family" role="menu" style="position-anchor: --dropdown-p1">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a :href="'/docs/' + d.key" close="">
+                        <span x-text="d.name"></span>
+                        <span x-show="family === d.key" x-icon="lucide:check" class="trailing"></span>
+                    </a>
+                </template>
+            </menu>
+
+            <!-- Docs Breadcrumbs-->
+            
+            
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/framework/*">
+                <span x-text="$x.framework.$route('path')?.group || 'No group'">Core Modules</span>
+                <span class="mx-1.5" x-icon="lucide:chevron-right"></span>
+                <span class="text-content-stark" x-text="$x.framework.$route('path')?.name || 'No article'">Local Data</span>
+            </small>
+
+        </div>
+
+        <!-- End -->
+        <div class="row justify-end items-center gap-2">
+
+            <!-- CTAs -->
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+                <span x-icon="lucide:search"></span>
+                <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
+            </button>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="sm transparent outlined rounded-full" aria-label="GitHub" x-tooltip="GitHub" x-icon="meteor-icons:github"></a>
+            <a role="button" href="/docs" class="sm transparent outlined rounded-full">Docs</a>
+            <a role="button" href="https://dash.manifestx.dev" class="sm accent rounded-full" x-text="/(^|;\s*)mnfst_signed_in=1(;|$)/.test(document.cookie) ? 'Dashboard' : 'Sign in'">Sign in</a>
+
+            <!-- Mobile Sidebar Button -->
+            <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
+
+        </div>
+
+    </nav>
+
+</header>
+  <div x-data="{
+        sources: [['platform', '/docs/platform'], ['framework', '/docs/framework'], ['api', '/docs/api']],
+        labels: { platform: 'Platform', framework: 'Framework', api: 'API' },
+        q: '',
+        items: [],
+        ready: false,
+        loading: false,
+        active: 0,
+
+        // Fetch every article's markdown once, on first open; index title, description, headings, body.
+        async build() {
+            if (this.ready || this.loading) return;
+            this.loading = true;
+            const jobs = [];
+            for (const [src, base] of this.sources) {
+            for (let i = 0; i &lt; 20 &amp;&amp; (!$x[src] || !$x[src].length); i++) await new Promise(r =&gt; setTimeout(r, 100));
+            for (const g of ($x[src] || [])) {
+                for (const it of (g.items || [])) {
+                    if (!it.name || !it.doc) continue;
+                    const href = base + (g.slug ? '/' + g.slug : '') + '/' + it.path;
+                    jobs.push(fetch(it.doc)
+                        .then(r =&gt; r.ok ? r.text() : '')
+                        .catch(() =&gt; '')
+                        .then(md =&gt; {
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/&lt;[^&gt;]+&gt;/g, '').replace(/[*_`\[\]]/g, '').trim();
+                            const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
+                            const body = md
+                                .replace(/```[\s\S]*?```/g, ' ')
+                                .replace(/:::[^\n]*/g, ' ')
+                                .replace(/&lt;[^&gt;]+&gt;/g, ' ')
+                                .replace(/[#&gt;*_`\[\]()|]/g, ' ')
+                                .replace(/-{2,}/g, ' ')
+                                .replace(/\s+/g, ' ');
+                            this.items.push({
+                                name: it.name, group: g.group, icon: it.icon, href, desc, src,
+                                headings,
+                                hhay: headings.join(' · ').toLowerCase(),
+                                body, bhay: body.toLowerCase(),
+                            });
+                        }));
+                }
+            }
+            }
+            await Promise.all(jobs);
+            $x.$register('searchIndex', this.items);
+            this.ready = true;
+            this.loading = false;
+        },
+
+        results() {
+            const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
+            return ranked.slice(0, 20).map(it =&gt; ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i &gt; -1) return (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
+            }
+            return it.desc;
+        },
+
+        openDialog() { document.getElementById('docs-search')?.showPopover(); },
+        // The router swallows result clicks before element handlers run, so the
+        // dialog closes on the route-change event rather than the click itself.
+        closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
+        async onToggle(e) {
+            if (e.newState !== 'open') return;
+            this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() =&gt; { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
+        },
+        move(d) {
+            const n = this.results().length;
+            if (!n) return;
+            this.active = (this.active + d + n) % n;
+            this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
+        },
+        go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+
+        <!-- Query -->
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
+
+        <!-- Results -->
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
+            <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
+            <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
+                No matches for “<span x-text="q.trim()"></span>”.
+            </p>
+            <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i">
+                    <a :href="r.href" role="button" :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'" class="ghost justify-start w-full h-auto py-2 no-underline">
+                        <span class="col gap-0.5 min-w-0 grow text-left">
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <template x-if="r.group">
+                                    <small class="text-content-subtle font-normal" x-text="'· ' + r.group"></small>
+                                </template>
+                                <small class="badge sm ms-auto shrink-0 font-normal" x-text="labels[r.src]"></small>
+                            </span>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
+                        </span>
+                    </a>
+                </div>
+            </template>
+            <div class="h-2 shrink-0"></div>
+        </div>
+
+    </dialog>
+</div>
+  <nav aria-label="Menu" popover="" id="docs-nav" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 bg-popover-surface shadow-xl overflow-y-auto no-scrollbar" x-data="{
+        view: null,
+        get current() { return $route.match(/^\/docs\/(platform|api|framework)(\/|$)/)?.[1] || null },
+        get src() { return this.view || this.current },
+        get base() { return '/docs/' + this.src },
+        get groups() { return this.src ? $x[this.src] || [] : [] },
+        get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
+        here(href) { return $route.replace(/\/$/, '') === href },
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+
+    <!-- Docs -->
+    <template x-if="src">
+        <div class="col">
+            <div role="tablist" aria-label="Docs" class="sm rounded-full w-full my-4">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <button type="button" role="tab" :aria-selected="src === d.key" @click="view = d.key" x-text="d.name"></button>
+                </template>
+            </div>
+            <a role="button" :href="base" :aria-current="here(base) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="here(base) ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                <span x-icon="lucide:house"></span>
+                <span>Overview</span>
+            </a>
+            <template x-for="group in groups" :key="group.group">
+                <div class="col gap-6 py-4">
+                    <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
+                    <div class="col">
+                        <template x-for="(item, index) in group.items" :key="item.path || index">
+                            <a x-show="item.name" role="button" :href="base + (group.slug ? '/' + group.slug : '') + '/' + item.path" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="article?.path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                                <span x-icon="item.icon"></span>
+                                <span x-text="item.name"></span>
+                            </a>
+                        </template>
+                    </div>
+                    <hr>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <!-- Site -->
+    <div class="col py-4">
+        <template x-for="n in $x.site.nav" :key="n.href">
+            <a role="button" :href="n.href" :aria-current="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="n.icon"></span>
+                <span x-text="n.name"></span>
+            </a>
+        </template>
+    </div>
+    <hr class="shrink-0">
+    <template x-if="!src">
+        <div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Docs</small>
+            <div class="col">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a role="button" :href="'/docs/' + d.key" class="ghost justify-start w-full text-content-neutral">
+                        <span x-icon="d.icon"></span>
+                        <span x-text="d.name"></span>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </template>
+    <hr class="shrink-0" x-show="!src" style="display: none">
+    <div class="col py-4">
+        <template x-for="p in $x.site.pages" :key="p.href">
+            <a role="button" :href="p.href" :aria-current="$route.startsWith(p.href) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="$route.startsWith(p.href) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="p.icon"></span>
+                <span x-text="p.name"></span>
+            </a>
+        </template>
+    </div>
+
+</nav>
+
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
+
+    <!-- Home page -->
+    
+
+    <!-- Framework -->
+
+    <!-- Compare -->
+    
+
+    <!-- Documentation -->
+    
+    
+    
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-data="{
+    base: '/docs/framework' ?? '/docs/framework',
+    src: 'framework' ?? 'framework',
+    heading: 'Framework' ?? 'Docs',
+    intro: 'Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.' ?? '',
+    home: null ?? '',
+    landing: 'framework' ?? '',
+    canonical: 'https://manifestx.dev',
+    copied: false,
+    get pages() {
+      const out = [];
+      for (const g of this.groups) for (const i of (g.items || [])) if (i.name) out.push({ href: this.href(g, i), name: i.name, group: g.group || '' });
+      return out;
+    },
+    get pageIndex() { return this.pages.findIndex(p =&gt; this.at(p.href)) },
+    get prev() { return this.pageIndex &gt; 0 ? this.pages[this.pageIndex - 1] : null },
+    get next() { const i = this.pageIndex; return i &gt; -1 &amp;&amp; i &lt; this.pages.length - 1 ? this.pages[i + 1] : null },
+    aiApps: [
+      { name: 'Claude', icon: 'simple-icons:claude', url: 'https://claude.ai/new?q=' },
+      { name: 'ChatGPT', icon: 'simple-icons:openai', url: 'https://chatgpt.com/?q=' },
+      { name: 'Gemini', icon: 'simple-icons:googlegemini', url: 'https://gemini.google.com/app', paste: true },
+      { name: 'Perplexity', icon: 'simple-icons:perplexity', url: 'https://www.perplexity.ai/search?q=' }
+    ],
+    get askPrompt() { return `Read ${this.canonical + $route.replace(/\/$/, '')} from the Manifest docs and help me with it.` },
+    askIn(app) { return app.paste ? app.url : app.url + encodeURIComponent(this.askPrompt) },
+    askCopy(app) { if (app.paste) navigator.clipboard.writeText(this.askPrompt).catch(() =&gt; {}) },
+    async copyPage() {
+      const md = await fetch(this.article.doc).then(r =&gt; r.text());
+      const clean = md.replace(/`([^`\n]+)`\{[^}\n]*\}/g, '`$1`');
+      await navigator.clipboard.writeText(`Source: ${this.canonical}${$route.replace(/\/$/, '')}\n\n${clean}`);
+      this.copied = true;
+      setTimeout(() =&gt; this.copied = false, 1500);
+    },
+    get groups() { return $x[this.src] || [] },
+    get article() { return $x[this.src].$route('path') },
+    get group() { const g = $x[this.src].$route('slug'); return g?.group &amp;&amp; this.at(this.base + '/' + g.slug) ? g : null },
+    href(group, item) { return this.base + (group.slug ? '/' + group.slug : '') + (item ? '/' + item.path : '') },
+    get cards() {
+      const out = [];
+      for (const g of this.groups) {
+        const items = (g.items || []).filter(i =&gt; i.name);
+        if (g.group) out.push({ href: this.href(g), icon: g.icon || items[0]?.icon, title: g.group, sub: items.length + (items.length === 1 ? ' article' : ' articles') });
+        else items.forEach(i =&gt; out.push({ href: this.href(g, i), icon: i.icon, title: i.name, sub: i.description || 'Start here' }));
+      }
+      return out;
+    },
+    at(path) { return $route.replace(/\/$/, '') === path },
+  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.">
+
+  <!-- Desktop navigation -->
+  <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
+    <div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Getting Started</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-open"></span>
+              <span>Introduction</span>
+            </a><a role="button" href="/docs/framework/getting-started/setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:terminal"></span>
+              <span>Setup</span>
+            </a><a role="button" href="/docs/framework/getting-started/starter-project" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:package"></span>
+              <span>Starter Project</span>
+            </a><a role="button" href="/docs/framework/getting-started/compatibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe-lock"></span>
+              <span>Compatibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/accessibility" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:eye"></span>
+              <span>Accessibility</span>
+            </a><a role="button" href="/docs/framework/getting-started/performance" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Performance</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Core Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/core-modules/chat" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:message-square"></span>
+              <span>Chat</span>
+            </a><a role="button" href="/docs/framework/core-modules/components" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panels-top-left"></span>
+              <span>Components</span>
+            </a><a role="button" href="/docs/framework/core-modules/computed" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sigma"></span>
+              <span>Computed Values</span>
+            </a><a role="button" href="/docs/framework/core-modules/device" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smartphone"></span>
+              <span>Devices</span>
+            </a><a role="button" href="/docs/framework/core-modules/submissions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:send-horizontal"></span>
+              <span>Form Submissions</span>
+            </a><a role="button" href="/docs/framework/core-modules/import-export" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-down-up"></span>
+              <span>Import/Export</span>
+            </a><a role="button" href="/docs/framework/core-modules/local-data" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+              <span x-icon="lucide:list-tree"></span>
+              <span>Local Data</span>
+            </a><a role="button" href="/docs/framework/core-modules/localization" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:languages"></span>
+              <span>Localization</span>
+            </a><a role="button" href="/docs/framework/core-modules/markdown" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-m"></span>
+              <span>Markdown</span>
+            </a><a role="button" href="/docs/framework/core-modules/payments" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:credit-card"></span>
+              <span>Payments</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pilcrow"></span>
+              <span>Rich Text</span>
+            </a><a role="button" href="/docs/framework/core-modules/rich-text-controls" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Controls</span>
+            </a><a role="button" href="/docs/framework/core-modules/router" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:route"></span>
+              <span>Router</span>
+            </a><a role="button" href="/docs/framework/core-modules/status" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:activity"></span>
+              <span>Status</span>
+            </a><a role="button" href="/docs/framework/core-modules/url-parameters" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:ampersand"></span>
+              <span>URL Parameters</span>
+            </a><a role="button" href="/docs/framework/core-modules/virtual" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-chevrons-up-down"></span>
+              <span>Virtual Lists</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil-ruler"></span>
+              <span>Visual Editing</span>
+            </a><a role="button" href="/docs/framework/core-modules/move" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Move</span>
+            </a><a role="button" href="/docs/framework/core-modules/resize" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Resize</span>
+            </a><a role="button" href="/docs/framework/core-modules/edit-publishing" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Publishing</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Appwrite Modules</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/appwrite-modules/appwrite-setup" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="simple-icons:appwrite"></span>
+              <span>Appwrite Setup</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/auth" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:users"></span>
+              <span>Auth</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/users" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Users</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/teams" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Teams</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/cloud-data" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:database"></span>
+              <span>Cloud Data</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/databases" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Databases</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/storage" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>Storage</span>
+            </a><a role="button" href="/docs/framework/appwrite-modules/presence" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:radio-tower"></span>
+              <span>Presence</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Publishing</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/publishing/testing" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-check"></span>
+              <span>Testing</span>
+            </a><a role="button" href="/docs/framework/publishing/websites" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe"></span>
+              <span>Websites</span>
+            </a><a role="button" href="/docs/framework/publishing/seo-aeo" class="ghost text-content-neutral justify-start w-full text-content-subtle">
+              <span x-icon="lucide:dot"></span>
+              <span>SEO &amp; AEO</span>
+            </a><a role="button" href="/docs/framework/publishing/web-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window"></span>
+              <span>Web Apps</span>
+            </a><a role="button" href="/docs/framework/publishing/native-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:monitor-smartphone"></span>
+              <span>Native Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Styles</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/styles/reset" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:scale"></span>
+              <span>Reset</span>
+            </a><a role="button" href="/docs/framework/styles/theme" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:paint-bucket"></span>
+              <span>Theme</span>
+            </a><a role="button" href="/docs/framework/styles/color-modes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sun-moon"></span>
+              <span>Color Modes</span>
+            </a><a role="button" href="/docs/framework/styles/utilities" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:swatch-book"></span>
+              <span>Utilities</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Elements</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/elements/accordions" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list-collapse"></span>
+              <span>Accordions</span>
+            </a><a role="button" href="/docs/framework/elements/avatars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-user-round"></span>
+              <span>Avatars</span>
+            </a><a role="button" href="/docs/framework/elements/badges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-star"></span>
+              <span>Badges</span>
+            </a><a role="button" href="/docs/framework/elements/buttons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-mouse-pointer"></span>
+              <span>Buttons</span>
+            </a><a role="button" href="/docs/framework/elements/charts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chart-line"></span>
+              <span>Charts</span>
+            </a><a role="button" href="/docs/framework/elements/chats" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:messages-square"></span>
+              <span>Chats</span>
+            </a><a role="button" href="/docs/framework/elements/checkboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-check"></span>
+              <span>Checkboxes</span>
+            </a><a role="button" href="/docs/framework/elements/code" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:code"></span>
+              <span>Code</span>
+            </a><a role="button" href="/docs/framework/elements/color-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:palette"></span>
+              <span>Color Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/comboboxes" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-search"></span>
+              <span>Comboboxes</span>
+            </a><a role="button" href="/docs/framework/elements/date-pickers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:calendar"></span>
+              <span>Date Pickers</span>
+            </a><a role="button" href="/docs/framework/elements/dialogs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:panel-top-dashed"></span>
+              <span>Dialogs</span>
+            </a><a role="button" href="/docs/framework/elements/dividers" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:minus"></span>
+              <span>Dividers</span>
+            </a><a role="button" href="/docs/framework/elements/dropdowns" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chevron-down"></span>
+              <span>Dropdowns</span>
+            </a><a role="button" href="/docs/framework/elements/forms" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:rows-3"></span>
+              <span>Forms</span>
+            </a><a role="button" href="/docs/framework/elements/icons" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:smile"></span>
+              <span>Icons</span>
+            </a><a role="button" href="/docs/framework/elements/inputs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor-input"></span>
+              <span>Inputs</span>
+            </a><a role="button" href="/docs/framework/elements/radios" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-dot"></span>
+              <span>Radios</span>
+            </a><a role="button" href="/docs/framework/elements/ranges" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sliders-horizontal"></span>
+              <span>Ranges</span>
+            </a><a role="button" href="/docs/framework/elements/selects" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:menu"></span>
+              <span>Selects</span>
+            </a><a role="button" href="/docs/framework/elements/sidebars" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:sidebar"></span>
+              <span>Sidebars</span>
+            </a><a role="button" href="/docs/framework/elements/svgs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:shapes"></span>
+              <span>SVGs</span>
+            </a><a role="button" href="/docs/framework/elements/switches" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:toggle-right"></span>
+              <span>Switches</span>
+            </a><a role="button" href="/docs/framework/elements/tables" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:table"></span>
+              <span>Tables</span>
+            </a><a role="button" href="/docs/framework/elements/tabs" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:app-window-mac"></span>
+              <span>Tabs</span>
+            </a><a role="button" href="/docs/framework/elements/textareas" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:text-cursor"></span>
+              <span>Textareas</span>
+            </a><a role="button" href="/docs/framework/elements/toasts" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:arrow-big-up-dash"></span>
+              <span>Toasts</span>
+            </a><a role="button" href="/docs/framework/elements/tooltips" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:circle-help"></span>
+              <span>Tooltips</span>
+            </a><a role="button" href="/docs/framework/elements/typography" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:type"></span>
+              <span>Typography</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Guides</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/guides/large-apps" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:layers"></span>
+              <span>Large Apps</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Resources</small>
+        <div class="col">
+          <a role="button" href="/docs/framework/resources/reference" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-marked"></span>
+              <span>Reference</span>
+            </a><a role="button" href="/docs/framework/resources/typescript" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="hugeicons:typescript-01"></span>
+              <span>TypeScript</span>
+            </a><a role="button" href="/docs/framework/resources/security" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:lock"></span>
+              <span>Security</span>
+            </a><a role="button" href="/docs/framework/resources/license" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:file-check"></span>
+              <span>MIT License</span>
+            </a><a role="button" href="/docs/framework/resources/acknowledgements" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:heart-handshake"></span>
+              <span>Acknowledgements</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div>
+  </nav>
+
+  <!-- Articles -->
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+
+    <div class="col grow w-full max-w-full mx-auto">
+
+      <!-- Article -->
+      <template x-if="article?.name">
+        <div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7">
+          <span class="h6" x-text="article?.group || ''"></span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'"></span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
+              <span x-icon="'lucide:asterisk'"></span>
+              <span>Ask AI</span>
+              <span x-icon="'lucide:chevron-down'"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src">
+              <template x-for="app in aiApps" :key="app.name">
+                <a :href="askIn(app)" target="_blank" rel="noopener" role="button" class="sm ghost justify-start" @click="askCopy(app)" :title="app.paste ? 'Opens ' + app.name + ' with the question copied, ready to paste' : null">
+                  <span x-icon="app.icon"></span>
+                  <span x-text="'Ask ' + app.name"></span>
+                </a>
+              </template>
+            </menu>
+          </div>
+        </div>
+      </template><div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7" data-mnfst-prerender-clone="1">
+          <span class="h6" x-text="article?.group || ''">Core Modules</span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="lucide:copy"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'">Copy page</span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page" popovertarget="ask-ai-framework" style="anchor-name: --dropdown-p2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p2" aria-haspopup="menu" aria-controls="ask-ai-framework" aria-expanded="false" data-hydrate-id="h3">
+              <span x-icon="lucide:asterisk"></span>
+              <span>Ask AI</span>
+              <span x-icon="lucide:chevron-down"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src" role="menu" style="position-anchor: --dropdown-p2">
+              <a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://claude.ai/new?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fcore-modules%2Flocal-data%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:claude"></span>
+                  <span>Ask Claude</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://chatgpt.com/?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fcore-modules%2Flocal-data%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:openai"></span>
+                  <span>Ask ChatGPT</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://gemini.google.com/app" title="Opens Gemini with the question copied, ready to paste">
+                  <span x-icon="simple-icons:googlegemini"></span>
+                  <span>Ask Gemini</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://www.perplexity.ai/search?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fframework%2Fcore-modules%2Flocal-data%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:perplexity"></span>
+                  <span>Ask Perplexity</span>
+                </a>
+            </menu>
+          </div>
+        </div>
+      <template x-if="article?.name">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" x-markdown="article?.doc"></div>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" style="opacity: 1" data-mnfst-md-src="/articles/core-modules/local.data.md" data-mnfst-prerender-clone="1"><h1 id="local-data">Local Data</h1><p>Load YAML, JSON, or CSV files as reactive data sources.</p>
+<hr>
+<h2 id="overview">Overview</h2><p>Local data consists of CSV, JSON, or YAML files in your project directory. Their content can be used to organize and populate UI content. Files are loaded on-demand and cached in memory until the page reloads.</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p>Local files are maintained client-side and should not contain sensitive data. See <a href="/docs/framework/appwrite-modules/cloud-data">cloud data</a> for a securely hosted equivalent.</p>
+</aside>
+<hr>
+<h2 id="setup">Setup</h2><p>Data support is included in <code>manifest.js</code> with all core modules, or can be selectively loaded. <code>manifest.json</code> is required to register data sources.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-modules-(default)-tab-0" aria-selected="true" tabindex="0">All Modules (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
+
+<pre x-code="html" name="All Modules (default)" data-code-block-built="yes" aria-label="All Modules (default)" role="tabpanel" data-code-processed="yes" id="all-modules-(default)-panel-0" aria-labelledby="all-modules-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Scripts --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre x-code="html" name="Selective" data-code-block-built="yes" aria-label="Selective" role="tabpanel" data-code-processed="yes" id="selective-panel-1" aria-labelledby="selective-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Meta --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Scripts --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+    <span class="hljs-attr">data-modules</span>=<span class="hljs-string">"data"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h2 id="create-local-data">Create Local Data</h2><p>Create CSV, JSON, or YAML files anywhere in your project directory. Each format works identically—choose based on preference.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="contact.csv-(key-value)-tab-0" aria-selected="true" tabindex="0">contact.csv (key-value)</button><button type="button" role="tab" id="team.csv-(tabular)-tab-1" aria-selected="false" tabindex="-1">team.csv (tabular)</button><button type="button" role="tab" id="team.json-tab-2" aria-selected="false" tabindex="-1">team.json</button><button type="button" role="tab" id="team.yaml-tab-3" aria-selected="false" tabindex="-1">team.yaml</button></div></header>
+
+<pre x-code="csv" name="contact.csv (key-value)" data-code-block-built="yes" aria-label="contact.csv (key-value)" role="tabpanel" data-code-processed="yes" id="contact.csv-(key-value)-panel-0" aria-labelledby="contact.csv-(key-value)-tab-0"><code data-highlighted="yes" class="hljs language-undefined">key,value
+headquarters.name,Empire Headquarters
+headquarters.location,Death Star
+contact.email,forcechoke69@aol.com
+contact.phone,+1-555-0100</code></pre>
+<pre x-code="csv" name="team.csv (tabular)" data-code-block-built="yes" aria-label="team.csv (tabular)" role="tabpanel" data-code-processed="yes" id="team.csv-(tabular)-panel-1" aria-labelledby="team.csv-(tabular)-tab-1" style="display: none"><code data-highlighted="yes" class="hljs language-javascript">id,name,role,image
+<span class="hljs-number">1</span>,<span class="hljs-title class_">Darth</span> <span class="hljs-title class_">Vader</span>,<span class="hljs-title class_">Sith</span> <span class="hljs-title class_">Lord</span>,<span class="hljs-regexp">/assets/</span>examples/vader.<span class="hljs-property">webp</span>
+<span class="hljs-number">2</span>,<span class="hljs-title class_">Admiral</span> <span class="hljs-title class_">Piett</span>,<span class="hljs-title class_">Fleet</span> <span class="hljs-title class_">Commander</span>,<span class="hljs-regexp">/assets/</span>examples/piett.<span class="hljs-property">webp</span></code></pre>
+<pre x-code="json" name="team.json" data-code-block-built="yes" aria-label="team.json" role="tabpanel" data-code-processed="yes" id="team.json-panel-2" aria-labelledby="team.json-tab-2" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Darth Vader"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Sith Lord"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"image"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/assets/examples/vader.webp"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Admiral Piett"</span><span class="hljs-punctuation">,</span> 
+        <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Fleet Commander"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"image"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/assets/examples/piett.webp"</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">]</span></code></pre>
+<pre x-code="yaml" name="team.yaml" data-code-block-built="yes" aria-label="team.yaml" role="tabpanel" data-code-processed="yes" id="team.yaml-panel-3" aria-labelledby="team.yaml-tab-3" style="display: none"><code class="hljs language-yaml" data-highlighted="yes"><span class="hljs-bullet">-</span>   <span class="hljs-attr">name:</span> <span class="hljs-string">Darth</span> <span class="hljs-string">Vader</span>
+    <span class="hljs-attr">role:</span> <span class="hljs-string">Sith</span> <span class="hljs-string">Lord</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">/assets/examples/vader.webp</span>
+<span class="hljs-bullet">-</span>   <span class="hljs-attr">name:</span> <span class="hljs-string">Admiral</span> <span class="hljs-string">Piett</span>
+    <span class="hljs-attr">role:</span> <span class="hljs-string">Fleet</span> <span class="hljs-string">Commander</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">/assets/examples/piett.webp</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Local files can use any structure - arrays, objects, or nested combinations. See <a href="/docs/framework/core-modules/localization">localization</a> for details on language-specific data sources.</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p>Syntax errors will prevent usability. Use validators like <a href="https://jsonlint.com/" target="_blank">JSON Lint</a> or <a href="https://yamlchecker.com/" target="_blank">YAML Checker</a> to check your files.</p>
+</aside>
+<h3 id="csv-formatting">CSV Formatting</h3><p>CSV files support two parsing modes, automatically detected based on structure.</p>
+<p><strong>Key-Value Mode</strong> (nested object):</p>
+<ul>
+<li>First column is <code>key</code>, second column is <code>value</code></li>
+<li>Supports dot notation for nesting (<code>contact.name</code> → <code>{ contact: { name: "..." } }</code>)</li>
+<li>Returns a nested object structure</li>
+<li>Use for structured configuration or hierarchical data</li>
+<li>List-like (array of objects) use numeric path segments, e.g. <code>features.0.name</code>, <code>features.0.description</code>, <code>features.1.name</code>, <code>features.1.description</code>, interpreted as a real array and supporting <code>x-for="item in $x.sourceName.features"</code> in Alpine</li>
+</ul>
+<p><strong>Tabular Mode</strong> (array of objects):</p>
+<ul>
+<li>First column header is <code>id</code> (case-insensitive)</li>
+<li>Returns an array of objects, one per row</li>
+<li>Use for lists of similar items (team members, products, etc.)</li>
+</ul>
+<p>CSV files can also include locale columns for multilingual content. See <a href="/docs/framework/core-modules/localization">localization</a> for details.</p>
+<hr>
+<h2 id="register-local-data">Register Local Data</h2><p>Register local data in the project's <code>manifest.json</code>. Under the <code>data</code> property, declare each file with its custom filepath from the project root:</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"team"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/data/team.json"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"contact"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/data/contact.csv"</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h2 id="api-sources">API Sources</h2><p>Register an HTTP endpoint as a data source the same way as a file. Currently read-only, only <code>GET</code> requests are fully supported. For full CRUD with realtime sync, use <a href="/docs/framework/appwrite-modules/databases">Appwrite databases</a>.</p>
+<p>For an endpoint with no auth or transformation, register the URL string directly:</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"weather"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://api.example.com/weather"</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>For a method, headers, query params, or response shaping, use an object:</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"products"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://api.example.com/products"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"headers"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"Accept"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"application/json"</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"params"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"limit"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">50</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"active"</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"transform"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"data.products"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"defaultValue"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<aside class="negative"><span x-icon="lucide:shield-alert"></span><p>API sources are fetched from the visitor's browser, so everything in the URL, headers and params is public. Never put a secret token in a data source; call the API from a server you control instead.</p>
+</aside>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>url</code></td>
+<td>Yes</td>
+<td>–</td>
+<td>Endpoint URL; a relative path like <code>/api/products</code> resolves against the page</td>
+</tr>
+<tr>
+<td><code>method</code></td>
+<td>No</td>
+<td><code>GET</code></td>
+<td>HTTP method</td>
+</tr>
+<tr>
+<td><code>headers</code></td>
+<td>No</td>
+<td><code>{}</code></td>
+<td>Request headers</td>
+</tr>
+<tr>
+<td><code>params</code></td>
+<td>No</td>
+<td><code>{}</code></td>
+<td>Query parameters appended to the URL</td>
+</tr>
+<tr>
+<td><code>transform</code></td>
+<td>No</td>
+<td>–</td>
+<td>Dot-notation path to extract nested data (e.g. <code>"data.products"</code> unwraps <code>{ data: { products: [...] } }</code>)</td>
+</tr>
+<tr>
+<td><code>defaultValue</code></td>
+<td>No</td>
+<td><code>[]</code></td>
+<td>Fallback if the request fails</td>
+</tr>
+<tr>
+<td><code>retry</code></td>
+<td>No</td>
+<td><code>{ "attempts": 3, "delay": 500 }</code></td>
+<td>Retries for a failed request (see <a href="#state-properties">state properties</a>); <code>false</code> turns them off</td>
+</tr>
+</tbody></table>
+<p>API sources behave the same as local sources, accessed via <code>$x.sourceName</code> with the same loading/error/ready state and <code>$search</code> / <code>$query</code> / <code>$route</code> helpers (see <a href="#display-content">Display Content</a> below).</p>
+<hr>
+<h2 id="persisted-data">Persisted Data</h2><p>Any data source can keep its last rows on the visitor's device, so the next visit shows them before the network answers. Persistence is off unless a source asks for it, and it works for local, API and Appwrite sources alike.</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"chats"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://api.example.com/chats"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"persist"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"contacts"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://api.example.com/contacts"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"persist"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"tier"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"lazy"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"maxRows"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2000</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"recent"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"updatedAt"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"ttl"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"7d"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"strip"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"email"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"phone"</span><span class="hljs-punctuation">]</span> <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tier</code></td>
+<td><code>boot</code></td>
+<td><code>boot</code> restores rows before the first paint; <code>lazy</code> restores on the first read of the source</td>
+</tr>
+<tr>
+<td><code>maxRows</code></td>
+<td><code>1000</code></td>
+<td>How many rows to keep, most recent first</td>
+</tr>
+<tr>
+<td><code>recent</code></td>
+<td><code>$updatedAt</code></td>
+<td>The field that decides which rows are most recent</td>
+</tr>
+<tr>
+<td><code>ttl</code></td>
+<td><code>7d</code></td>
+<td>Saved rows older than this are ignored</td>
+</tr>
+<tr>
+<td><code>strip</code></td>
+<td><code>[]</code></td>
+<td>Fields removed from every row before it is saved. Names, or patterns like <code>credentials*</code>. Fields matching <code>*secret*</code>, <code>*token*</code>, <code>*password*</code> and <code>credentials*</code> are always removed</td>
+</tr>
+</tbody></table>
+<p>Restored rows are marked stale: <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$x.chats.$stale</code> is <code>true</code> until the first network response replaces them. Rows missing from that response are removed, so a deleted record never lingers. If the network fails, the restored rows stay and <code>$error</code> is set.</p>
+<p><strong>Scope.</strong> Sites where one visitor can see different data, such as a workspace switcher, set a scope so rows from one workspace never appear in another:</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"persistence"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"scope"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"$auth.currentTeam?.$id"</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>The expression is re-evaluated whenever authentication changes. While sign-in is still resolving, nothing is saved or cleared. When the scope changes, the previous scope's rows are removed from the device and from memory before anything renders. Signing out always clears saved rows.</p>
+<p><strong>Identity.</strong> Saved rows of Appwrite tables and buckets, and of any source with a scope or <code>$auth.</code> queries, carry the ID of the user who read them, and are only restored for that same user, never for a different user or a guest, even without a scope. Before the session is confirmed (while the page loads, or offline), they are restored for the user last signed in on this device, and cleared at once if the session turns out to be someone else or no one. Offline, they stay shown until the session is verified again, for every kind of source, including a table with a <a href="/docs/framework/appwrite-modules/databases#scope">scope</a> or a source whose queries reference <code>$auth.</code> values, unless the persistence <code>scope</code> depends on the signed-in user or team, which can't be evaluated until the session is verified (the saved rows stay on the device until then; see <a href="/docs/framework/appwrite-modules/users#session-recovery">session recovery</a>). A <code>boot</code>-tier source restores at startup and a <code>lazy</code>-tier source on its first read; if the device has no record of the last user, both wait until sign-in resolves.</p>
+<p><strong>Clearing.</strong> <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$x.$wipe()</code> removes every saved row for the current scope, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$x.$wipe('chats')</code> one source, and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$x.$wipe({ all: true })</code> everything. <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">ManifestData.persistence()</code> reports what is enabled and saved. Saving happens after data arrives, never during your own edits, and if the browser refuses storage the site simply runs without it.</p>
+<hr>
+<h2 id="display-content">Display Content</h2><p>Data sources are accessed in HTML using our <code>$x</code> magic method with dot notation. The structure follows this pattern:</p>
+<p><code>$x.sourceName.property.subProperty</code></p>
+<p><strong>Structure breakdown:</strong></p>
+<ul>
+<li><code>$x</code> - Magic method prefix</li>
+<li><code>sourceName</code> - Data source name from <code>manifest.json</code> (e.g., <code>team</code>, <code>features</code>, <code>pricing</code>)</li>
+<li><code>property</code> - Object property or array name</li>
+<li><code>subProperty</code> - Nested property (optional at any level)</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><code>$x.team</code> - Access the <code>team</code> data source</li>
+<li><code>$x.team[0].name</code> - Display the first team member's name</li>
+<li><code>$x.contact.headquarters.location</code> - Read a nested property</li>
+<li><code>$x.team.filter(p =&gt; p.role === 'Fleet Commander')</code> - Filter team members by role</li>
+</ul>
+<hr>
+<h3 id="text">Text</h3><p>Use Alpine's <a href="https://alpinejs.dev/directives/text" target="_blank">x-text</a> to display text from data sources:</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="team.json-tab-1" aria-selected="false" tabindex="-1">team.json</button></div></header>
+
+<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">h4</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.team[0].name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.team[0].role"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+<pre x-code="json" name="team.json" data-code-block-built="yes" aria-label="team.json" role="tabpanel" data-code-processed="yes" id="team.json-panel-1" aria-labelledby="team.json-tab-1" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Darth Vader"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Sith Lord"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"image"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/assets/examples/vader.webp"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    ...
+<span class="hljs-punctuation">]</span></code></pre>
+<aside class="frame"><h4>Darth Vader</h4>
+<p>Sith Lord</p></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h3 id="html">HTML</h3><p>Use Alpine's <a href="https://alpinejs.dev/directives/html" target="_blank">x-html</a> for content that includes HTML tags:</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="team.json-tab-1" aria-selected="false" tabindex="-1">team.json</button></div></header>
+
+<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-html</span>=<span class="hljs-string">"$x.team[0].content"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<pre x-code="json" name="team.json" data-code-block-built="yes" aria-label="team.json" role="tabpanel" data-code-processed="yes" id="team.json-panel-1" aria-labelledby="team.json-tab-1" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Darth Vader"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Sith Lord"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"image"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/assets/examples/vader.webp"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"&lt;p&gt;Dark Lord of the Sith with &lt;strong&gt;unlimited power&lt;/strong&gt;.&lt;/p&gt;"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    ...
+<span class="hljs-punctuation">]</span></code></pre>
+<aside class="frame"><div x-html="'&lt;p&gt;Dark Lord of the Sith with &lt;strong&gt;unlimited power&lt;/strong&gt;.&lt;/p&gt;'"><p>Dark Lord of the Sith with <strong>unlimited power</strong>.</p></div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h3 id="attributes">Attributes</h3><p>Use Alpine's <a href="https://alpinejs.dev/directives/bind" target="_blank">x-bind</a> to bind data to HTML attributes:</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
+
+<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">"$x.team[0].image"</span> <span class="hljs-attr">:alt</span>=<span class="hljs-string">"$x.team[0].name"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">:href</span>=<span class="hljs-string">"'mailto:' + $x.contact.contact.email"</span>&gt;</span>Contact<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></code></pre>
+<aside class="frame col gap-1 items-start"><img :alt="$x.example.team[0].name" class="w-20 h-20 object-cover rounded" src="../../../../assets/examples/vader.webp" alt="Darth Vader">
+<a :href="'mailto:' + $x.example.team[0].contact" href="mailto:forcechoke69@aol.com">forcechoke69@aol.com</a></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h3 id="lists">Lists</h3><p>Use Alpine's <a href="https://alpinejs.dev/directives/for" target="_blank">x-for</a> in a template to iterate through data arrays:</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"person in $x.team"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"person.name"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">"person.image"</span> <span class="hljs-attr">:alt</span>=<span class="hljs-string">"person.name"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"person.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"person.role"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+<aside class="frame row-wrap gap-6"><template x-for="person in $x.example.team" :key="person.name">
+    <div class="grow w-[160px] min-w-[160px] bg-page shadow">
+        <img :src="person.image" :alt="person.name" class="aspect-square object-cover mt-0 mb-xs">
+        <div class="p-4">
+            <p x-text="person.name"></p>
+            <small x-text="person.role"></small>
+        </div>
+    </div>
+</template></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The <code>&lt;template&gt;</code> tag (which can only have one child element) creates a loop through the data source array. Use <code>x-for="item in $x.sourceName"</code> where <code>item</code> is an arbitrary name for the current loop item.</p>
+<p><strong>Prerender (SEO):</strong> Static lists are kept in prerendered HTML for crawlers. The prerender script collapses lists it infers are dynamic (search/query, URL params, auth, or getter names like <code>filteredTeam</code>), or you can force collapse with <code>data-prerender="dynamic"</code> on the <code>&lt;template&gt;</code>.</p>
+<p><code>&lt;template x-for&gt;</code> iterating data-source values (e.g. <code>group in $x.docs</code>) defaults to client-side rendering — the baked clones are stripped and Alpine re-renders the list at runtime — so locale switches and other reactive updates work without producing duplicates. To freeze that list into the static HTML for SEO instead, add <code>data-static</code> to the <code>&lt;template&gt;</code> or any ancestor. Manifest will keep the baked clones, remove the template so Alpine has nothing left to iterate, and strip per-item loop bindings (the resolved values are already in the DOM). Element-level bindings that reference global state (e.g. <code>:class</code> using <code>$x.foo.$route('path')</code>) remain live; only the iteration is frozen.</p>
+<p><code>data-static</code> extends to other prerender-time templates too — anything that emits its rendered output as DOM siblings, such as <code>&lt;template x-anchors&gt;</code> for table-of-contents links. Without <code>data-static</code>, the runtime module re-runs and produces a duplicate render alongside the baked one. Wrapping the template in <code>[data-static]</code> removes the source <code>&lt;template&gt;</code> after prerender, so the runtime module sees nothing to render and the baked output stands alone.</p>
+<p>Use <code>data-hydrate</code> on any wrapper to preserve a subtree as-is during prerender transforms — bindings stay attached and Alpine hydrates them at runtime.</p>
+<hr>
+<h3 id="search-query">Search &amp; Query</h3><p>Use <code>$search</code> for real-time text filtering and <code>$query</code> for advanced filtering, sorting, and pagination. Both methods work client-side on data already loaded in the browser.</p>
+<pre x-code-group="" lines="" copy="" collapse="10" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" lines="" collapse="10" data-code-block-built="yes" role="region" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span></div><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ 
+    searchTerm: '', 
+    sortBy: 'all',
+    get filteredTeam() {
+        const results = $x.team.$search(this.searchTerm, 'name', 'role');
+        return this.sortBy !== 'all'
+            ? results.$query([['orderAsc', this.sortBy]])
+            : results;
+    }
+}"</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- Search Input --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> 
+        <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> 
+        <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Search team members..."</span> 
+        <span class="hljs-attr">x-model</span>=<span class="hljs-string">"searchTerm"</span>
+    /&gt;</span>
+    
+    <span class="hljs-comment">&lt;!-- Sort Buttons --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"sortBy = 'name'"</span>&gt;</span> Sort by Name <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"sortBy = 'role'"</span>&gt;</span> Sort by Role <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"sortBy = 'all'; searchTerm = ''"</span>&gt;</span> Reset <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    
+    <span class="hljs-comment">&lt;!-- Results List --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"person in filteredTeam"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"person.name"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"person.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"person.role"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"searchTerm &amp;&amp; filteredTeam.length === 0"</span>&gt;</span>No team members found<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="expand" type="button" aria-expanded="false" aria-label="Show 21 more lines">+21</button></pre>
+<aside class="frame col"><div x-data="{ 
+    searchTerm: '', 
+    sortBy: 'all',
+    get filteredTeam() {
+        const results = $x.example.team.$search(this.searchTerm, 'name', 'role');
+        return this.sortBy !== 'all'
+            ? results.$query([['orderAsc', this.sortBy]])
+            : results;
+    }
+}" class="col gap-4">
+
+    <div class="row-wrap gap-2">
+        <!-- Search Input -->
+        <input type="text" placeholder="Search team members..." x-model="searchTerm" class="grow w-fit">
+        
+        <!-- Sort Buttons -->
+        <button @click="sortBy = 'name'">
+            Sort by Name
+        </button>
+        <button @click="sortBy = 'role'">
+            Sort by Role
+        </button>
+        <button @click="sortBy = 'all'; searchTerm = ''">
+            Reset
+        </button>
+    </div>
+    
+    <!-- Results List -->
+    <div class="col gap-2">
+        <template x-for="person in filteredTeam" :key="person.name" data-prerender-collapsed="1">
+            <div class="p-2 border-t border-line">
+                <p x-text="person.name" class="font-semibold"></p>
+                <small x-text="person.role" class="text-content-subtle"></small>
+            </div>
+        </template>
+        <small x-show="searchTerm &amp;&amp; filteredTeam.length === 0" class="text-content-subtle" style="display: none">No team members found</small>
+    </div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Both <code>$search</code> and <code>$query</code> operate <strong>client-side</strong> (in the browser) for local data sources:</p>
+<ul>
+<li><strong><code>$search(term, ...attributes)</code></strong>: Real-time text filtering across specified attributes. Returns filtered array immediately.</li>
+<li><strong><code>$query(queries)</code></strong>: Advanced filtering, sorting, and pagination using query arrays. Processes data in browser.</li>
+</ul>
+<p>For cloud-hosted data with backend filtering, see <a href="/docs/framework/appwrite-modules/databases">Appwrite databases</a>.</p>
+<h4 id="weighted-search">Weighted Search</h4><p>Pass an object of field weights instead of field names and <code>$search</code> returns <strong>ranked</strong> results. Each whitespace-separated term must match at least one field; items score by the best-matching field's weight per term, with prefix matches boosted. Higher scores rank first.</p>
+<pre x-code="javascript" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-comment">// Title matches outrank body matches</span>
+$x.<span class="hljs-property">articles</span>.$search(<span class="hljs-string">'toast'</span>, { <span class="hljs-attr">title</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">headings</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">body</span>: <span class="hljs-number">1</span> })
+
+<span class="hljs-comment">// Multiple terms all must match somewhere</span>
+$x.<span class="hljs-property">articles</span>.$search(<span class="hljs-string">'cursor pagination'</span>, { <span class="hljs-attr">title</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">body</span>: <span class="hljs-number">1</span> })</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<h4 id="runtime-sources">Runtime Sources</h4><p><code>$x.$register(name, data)</code> installs (or replaces) a data source at runtime — an array or object built in the browser, such as fetched content or a derived index. It behaves like any <code>manifest.json</code> source: reactive, with the same <code>$search</code> / <code>$query</code> / <code>$route</code> helpers.</p>
+<pre x-code="javascript" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes">$x.$register(<span class="hljs-string">'searchIndex'</span>, records)
+$x.<span class="hljs-property">searchIndex</span>.$search(term, { <span class="hljs-attr">title</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">body</span>: <span class="hljs-number">1</span> })</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<h4 id="query-syntax">Query Syntax</h4><p>Each query is an array with the format <code>['method', 'attribute', 'value']</code>. Use these patterns:</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="patterns-tab-0" aria-selected="true" tabindex="0">Patterns</button><button type="button" role="tab" id="example-tab-1" aria-selected="false" tabindex="-1">Example</button></div></header>
+
+<pre x-code="javascript" name="Patterns" copy="" data-code-block-built="yes" aria-label="Patterns" role="tabpanel" data-code-processed="yes" id="patterns-panel-0" aria-labelledby="patterns-tab-0"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-comment">// Comparison operators</span>
+[<span class="hljs-string">'equal'</span>, <span class="hljs-string">'role'</span>, <span class="hljs-string">'Sith Lord'</span>]               <span class="hljs-comment">// role equals 'Sith Lord'</span>
+[<span class="hljs-string">'notEqual'</span>, <span class="hljs-string">'role'</span>, <span class="hljs-string">'Commander'</span>]            <span class="hljs-comment">// role does not equal 'Commander'</span>
+[<span class="hljs-string">'greaterThan'</span>, <span class="hljs-string">'priority'</span>, <span class="hljs-number">5</span>]              <span class="hljs-comment">// priority greater than 5</span>
+[<span class="hljs-string">'greaterThanOrEqual'</span>, <span class="hljs-string">'priority'</span>, <span class="hljs-number">5</span>]       <span class="hljs-comment">// priority greater than or equal to 5</span>
+[<span class="hljs-string">'lessThan'</span>, <span class="hljs-string">'priority'</span>, <span class="hljs-number">10</span>]                <span class="hljs-comment">// priority less than 10</span>
+[<span class="hljs-string">'lessThanOrEqual'</span>, <span class="hljs-string">'priority'</span>, <span class="hljs-number">10</span>]        <span class="hljs-comment">// priority less than or equal to 10</span>
+[<span class="hljs-string">'between'</span>, <span class="hljs-string">'priority'</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>]              <span class="hljs-comment">// priority between 5 and 10 (inclusive)</span>
+
+<span class="hljs-comment">// Null checks</span>
+[<span class="hljs-string">'isNull'</span>, <span class="hljs-string">'deletedAt'</span>]                     <span class="hljs-comment">// deletedAt is null</span>
+[<span class="hljs-string">'isNotNull'</span>, <span class="hljs-string">'email'</span>]                       <span class="hljs-comment">// email is not null</span>
+
+<span class="hljs-comment">// String operations</span>
+[<span class="hljs-string">'contains'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'Vader'</span>]               <span class="hljs-comment">// name contains 'Vader' (case-insensitive)</span>
+[<span class="hljs-string">'startsWith'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'Darth'</span>]             <span class="hljs-comment">// name starts with 'Darth' (case-insensitive)</span>
+[<span class="hljs-string">'endsWith'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'Vader'</span>]               <span class="hljs-comment">// name ends with 'Vader' (case-insensitive)</span>
+
+<span class="hljs-comment">// Sorting</span>
+[<span class="hljs-string">'orderAsc'</span>, <span class="hljs-string">'name'</span>]                        <span class="hljs-comment">// Sort ascending by name</span>
+[<span class="hljs-string">'orderDesc'</span>, <span class="hljs-string">'name'</span>]                       <span class="hljs-comment">// Sort descending by name</span>
+[<span class="hljs-string">'orderRandom'</span>]                             <span class="hljs-comment">// Random order</span>
+
+<span class="hljs-comment">// Pagination</span>
+[<span class="hljs-string">'offset'</span>, <span class="hljs-number">20</span>]                              <span class="hljs-comment">// Skip first 20 results</span>
+[<span class="hljs-string">'limit'</span>, <span class="hljs-number">10</span>]                               <span class="hljs-comment">// Return maximum 10 results</span>
+
+<span class="hljs-comment">// Combine multiple queries (applied in order)</span>
+[
+    [<span class="hljs-string">'equal'</span>, <span class="hljs-string">'role'</span>, <span class="hljs-string">'Sith Lord'</span>],
+    [<span class="hljs-string">'orderAsc'</span>, <span class="hljs-string">'name'</span>],
+    [<span class="hljs-string">'limit'</span>, <span class="hljs-number">5</span>]
+]</code></pre>
+<pre x-code="html" name="Example" data-code-block-built="yes" aria-label="Example" role="tabpanel" data-code-processed="yes" id="example-panel-1" aria-labelledby="example-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Filter, sort, limit: processes data in browser (client-side) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.team.$query([
+    ['equal', 'role', 'Sith Lord'],
+    ['orderAsc', 'name']
+])"</span>&gt;</span>Show Sith Lords Only<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Multiple filters --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.team.$query([
+    ['contains', 'name', 'Vader'],
+    ['orderDesc', 'name'],
+    ['limit', 5]
+])"</span>&gt;</span>Top 5 Vader Matches<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Client-side queries run in the order given, so put <code>offset</code> before <code>limit</code> to page: <code>[['offset', 20], ['limit', 10]]</code>. <code>equal</code> is a strict match (<code>5</code> and <code>"5"</code> differ), and <code>isNull</code> also matches empty strings.</p>
+<hr>
+<h3 id="route-specific">Route-Specific</h3><p>Use the <code>$route()</code> function to find content based on the current URL path like <strong>/team/darth-vader</strong>:</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="team.json-tab-1" aria-selected="false" tabindex="-1">team.json</button></div></header>
+
+<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-0" aria-labelledby="html-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.team.$route('path').name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.team.$route('path').role"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+<pre x-code="json" name="team.json" data-code-block-built="yes" aria-label="team.json" role="tabpanel" data-code-processed="yes" id="team.json-panel-1" aria-labelledby="team.json-tab-1" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"path"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"darth-vader"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Darth Vader"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Sith Lord"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"image"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/assets/examples/vader.webp"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"path"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"admiral-piett"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Admiral Piett"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Fleet Commander"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"image"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/assets/examples/piett.webp"</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">]</span></code></pre>
+<aside class="frame"><h1 x-text="$x.framework.$route('path').name">Local Data</h1>
+<p x-text="$x.framework.$route('path').doc">/articles/core-modules/local.data.md</p></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>The frame runs <code>$route('path')</code> on this site's docs navigation, so it finds the entry for this article.</p>
+<p>The <code>$route('path')</code> function searches the collection for an item where the specified property (e.g., <code>path</code>) matches any segment of the current URL path. When found, it returns a reactive proxy to that item, allowing access to its properties.</p>
+<p><strong>How it works:</strong></p>
+<ul>
+<li>Compares the property value against URL path segments (e.g., <code>/team/darth-vader</code> or <code>/team/mgmt/darth-vader/bio</code> → matches <code>"darth-vader"</code>)</li>
+<li>Automatically filters out language codes from the path (e.g., <code>/fr/team/darth-vader</code> → matches <code>"darth-vader"</code>)</li>
+<li>Searches recursively through nested arrays and objects</li>
+<li>Returns a reactive proxy that updates when the URL changes</li>
+<li>Returns empty values if no match is found (prevents errors)</li>
+</ul>
+<hr>
+<h3 id="array-methods">Array Methods</h3><p>Data sources support all standard JavaScript array methods for filtering, mapping, and transforming data:</p>
+<h4 id="filter">Filter</h4><pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
+
+<aside class="frame col items-start"><template x-for="person in $x.example.team.filter(p =&gt; p.role === 'Sith Lord')" :key="person.name">
+    <div x-text="person.name"></div>
+</template></aside>
+<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Show only team members with the "Sith Lord" role --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"person in $x.team.filter(p =&gt; p.role === 'Sith Lord')"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"person.name"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"person.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h4 id="map">Map</h4><pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
+
+<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Transform team data to display names only --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"name in $x.team.map(p =&gt; p.name)"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"name"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+<aside class="frame col items-start"><template x-for="name in $x.example.team.map(p =&gt; p.name)" :key="name">
+    <div x-text="name"></div>
+</template></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h4 id="find">Find</h4><pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
+
+<pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Find specific team member --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.team.find(p =&gt; p.role === 'Sith Lord')?.name || 'Not found'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div>Darth Vader</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<hr>
+<h4 id="other-methods">Other Methods</h4><p>Data sources support standard JavaScript array methods:</p>
+<p><strong>Transformation (return new array / value):</strong></p>
+<ul>
+<li><code>map()</code> — transform each item</li>
+<li><code>filter()</code> — filter items by condition</li>
+<li><code>reduce()</code> / <code>reduceRight()</code> — reduce to a single value</li>
+<li><code>slice()</code> — extract a portion of the array</li>
+<li><code>concat()</code> — combine with another array</li>
+<li><code>flat()</code> / <code>flatMap()</code> — flatten nested arrays</li>
+<li><code>toSorted()</code> / <code>toReversed()</code> — return ordered copies</li>
+<li><code>join()</code> — convert to string</li>
+</ul>
+<p><strong>Search:</strong></p>
+<ul>
+<li><code>find()</code> / <code>findIndex()</code> — locate the first matching item / its index</li>
+<li><code>includes()</code> — check whether the array includes a value</li>
+<li><code>indexOf()</code> / <code>lastIndexOf()</code> — find the index of a value</li>
+</ul>
+<p><strong>Iteration:</strong></p>
+<ul>
+<li><code>forEach()</code> — execute a function for each item</li>
+</ul>
+<p><strong>Testing:</strong></p>
+<ul>
+<li><code>some()</code> / <code>every()</code> — check whether any / all items match</li>
+</ul>
+<p><strong>Modification (in-memory only):</strong></p>
+<ul>
+<li><code>push()</code> / <code>pop()</code> / <code>shift()</code> / <code>unshift()</code> / <code>splice()</code></li>
+<li><code>sort()</code> / <code>reverse()</code> — reorder the source itself; use <code>toSorted()</code>, <code>toReversed()</code> or <code>$query([['orderAsc', …]])</code> for an ordered copy</li>
+</ul>
+<aside class="brand"><span x-icon="lucide:info"></span><p>Mutation methods on local data sources update the in-memory store and trigger reactivity, but <strong>do not persist</strong> — values reset to the file's contents on page reload. For persistence, use <a href="/docs/framework/appwrite-modules/databases">Appwrite databases</a>.</p>
+</aside>
+<hr>
+<h2 id="state-properties">State Properties</h2><p>Data sources expose state properties for UI reactivity:</p>
+<ul>
+<li><code>$x.sourceName.$loading</code> - Boolean indicating if data is loading</li>
+<li><code>$x.sourceName.$error</code> - Error message string (null if no error)</li>
+<li><code>$x.sourceName.$ready</code> - Boolean indicating if data has loaded successfully</li>
+<li><code>$x.sourceName.$stale</code> - Boolean indicating cached rows are showing while fresh data loads (see <a href="#how-data-updates">how data updates</a>)</li>
+<li><code>$x.sourceName.$reload()</code> - Fetches the source again; rows stay on screen and merge in place, and it resolves when the fresh data has landed</li>
+</ul>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Loading state --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$x.team.$loading"</span>&gt;</span>Loading team data...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Error state --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$x.team.$error"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.team.$error"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-negative-content"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Ready state --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$x.team.$ready &amp;&amp; !$x.team.$loading"</span>&gt;</span>
+    Team loaded: <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$x.team.length"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> members
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>These properties are reactive and update automatically as data loads or errors occur.</p>
+<p>An API source's request that fails for a passing reason (no network response, a server error, a rate limit) is tried again before <code>$error</code> shows: three more times by default, waiting about 0.5s, then 1s, then 2s. Local files aren't retried. Requests the server refuses outright, such as a 403 or 404, fail at once, and nothing is retried while the browser is offline (the source fetches again when the connection comes back). Set <code>retry</code> on a source to change this:</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"prices"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://api.example.com/prices"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"retry"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"attempts"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">5</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"delay"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1000</span> <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://api.example.com/status"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"retry"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span> <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$x.team.$error"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$x.team.$reload()"</span>&gt;</span>Try again<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h2 id="how-data-updates">How Data Updates</h2><p>The parts of the page that read <code>$x.team</code> follow only the <code>team</code> source. When one source updates, only the parts of the page that read it are refreshed — everything else is left alone.</p>
+<p>Rows keep their identity. When new data arrives for rows you already have, the existing rows are updated in place, so lists don't flicker and edits you are making are not disturbed. Fields you add to a row yourself (a <code>_pending</code> flag on a placeholder, say) survive too — the network never sends them, so nothing clears them for you; clear them explicitly once the real data has landed.</p>
+<p>Your own changes show immediately. Direct assignments and array mutations (and <code>$create</code>, <code>$update</code> and <code>$delete</code> on <a href="/docs/framework/appwrite-modules/cloud-data">cloud sources</a>) appear on the page at once, even while data is still arriving from the network.</p>
+<p>Network updates are batched. Many arriving at once are applied together, once per frame.</p>
+<p><code>$x.team</code> is the same array every time you read it until the source changes, then a new one. You can keep results computed from it keyed on the array itself and they stay valid until the next update. Changes made through the data methods count as updates; assigning to a row directly in a template (<code>$x.team[0].name = 'x'</code>) changes the row in place without one.</p>
+<p>If a source was loaded before, you see its cached rows immediately while fresh data loads. <code>$x.team.$stale</code> is <code>true</code> until the fresh data has landed, and <code>$x.team.$fresh</code> is a promise that resolves at that moment, for a single reveal. A reload keeps the rows on screen and merges the fresh data in place; a failed reload keeps the old rows and sets <code>$error</code>. Identical concurrent loads make one request.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$x.team.$stale"</span>&gt;</span>Refreshing…<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h2 id="safe-async">Safe Async</h2><p>The <code>$try</code> magic wraps an async callback in try/catch and optionally routes the error message to a named property on the current <code>x-data</code> scope. Useful when calling cloud-data mutations or any other async operation that can fail. The example below creates a row in an <a href="/docs/framework/appwrite-modules/databases">Appwrite table</a>.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ saveError: null }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$try(() =&gt; $x.products.$create({ name: 'New' }), 'saveError')"</span>&gt;</span>
+        Save
+    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"saveError"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"saveError"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-negative-content"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>fn</code></td>
+<td>Async callback to await. The callback's result is returned on success</td>
+</tr>
+<tr>
+<td><code>errorVar</code> <em>(optional)</em></td>
+<td>Name of a property on the current <code>x-data</code> scope. It must already be declared there (e.g. <code>saveError: null</code>). On error, the error message is written there; on success it's cleared to <code>null</code></td>
+</tr>
+</tbody></table>
+<p>On error, <code>$try</code> returns <code>undefined</code> instead of throwing.</p>
+</div>
+
+      <!-- Previous / next -->
+      <template x-if="article?.name &amp;&amp; (prev || next)">
+        <nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template>
+        </nav>
+      </template><nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="" data-mnfst-prerender-clone="1">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template><a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline" href="/docs/framework/core-modules/import-export" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name">Import/Export</span>
+            </a>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template><a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end" href="/docs/framework/core-modules/localization" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name">Localization</span>
+            </a>
+        </nav>
+
+      <!-- Family home (markdown) -->
+      <template x-if="at(base) &amp;&amp; home">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="home"></div>
+      </template>
+
+      <!-- Docs home -->
+      <template x-if="at(base) &amp;&amp; landing">
+        <div class="col gap-8 pb-12">
+          <template x-if="landing === 'framework'"><x-framework></x-framework></template>
+          <template x-if="landing === 'platform'"><x-docs-platform></x-docs-platform></template>
+          <template x-if="landing === 'api'"><x-docs-api></x-docs-api></template>
+          <div class="col gap-4 w-content-width max-w-full mx-auto">
+            <h2 class="h4">Explore the docs</h2>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <template x-for="card in cards" :key="card.href">
+                <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                  <span x-icon="card.icon" class="text-brand-content"></span>
+                  <span class="col">
+                    <span class="text-content-stark font-medium" x-text="card.title"></span>
+                    <small class="text-content-subtle" x-text="card.sub"></small>
+                  </span>
+                </a>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template x-if="at(base) &amp;&amp; !home &amp;&amp; !landing">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="heading"></h1>
+            <p class="text-content-neutral" x-show="intro" x-text="intro"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="card in cards" :key="card.href">
+              <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="card.icon" class="text-brand-content"></span>
+                <span class="col">
+                  <span class="text-content-stark font-medium" x-text="card.title"></span>
+                  <small class="text-content-subtle" x-text="card.sub"></small>
+                </span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Group landing -->
+      <template x-if="group?.group">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="group?.group"></h1>
+            <p class="text-content-neutral" x-show="group?.description" x-text="group?.description"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
+              <a :href="href(group, item)" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
+                <span class="text-content-stark" x-text="item.name"></span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+    </div>
+
+    <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
+    <template x-if="!article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
+      <div class="max-w-full prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
+
+    <footer class="mt-20">
+  <hr>
+  <div class="row-wrap justify-between items-center gap-4 pt-4">
+
+    <figcaption class="text-content-subtle">© 2026 MNFST OÜ • <a href="/legal/terms">Terms</a> • <a href="/legal/privacy">Privacy</a><span x-show="$route.startsWith('/docs/framework')"> • Framework under the <a href="/docs/framework/resources/license">MIT License</a></span></figcaption>
+
+    <div class="row-wrap gap-3">
+
+      <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
+
+      <div role="tablist" aria-label="Color mode" class="sm rounded-full">
+        <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h4"></button>
+        <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h5"></button>
+        <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h6"></button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+
+  <!-- Anchor links -->
+  <nav aria-label="On this page" x-show="!(at(base) &amp;&amp; landing)" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
+
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+      <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
+      <span>On this page</span>
+    </small>
+
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#create-local-data">Create Local Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#csv-formatting">CSV Formatting</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#register-local-data">Register Local Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#api-sources">API Sources</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#persisted-data">Persisted Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#display-content">Display Content</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#text">Text</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#html">HTML</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#attributes">Attributes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#lists">Lists</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#search-query">Search &amp; Query</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#route-specific">Route-Specific</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#array-methods">Array Methods</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#state-properties">State Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#how-data-updates">How Data Updates</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#safe-async">Safe Async</a></div>
+
+  </nav>
+
+</div>
+
+    <!-- Legal pages -->
+    
+
+    <!-- Support -->
+    
+
+  </main>
+
+  <!-- Footer (visible on every route) -->
+  
+
+
+
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"data-order":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"aria-selected":null,"type":null}},{"id":"h5","attrs":{"aria-selected":null,"type":null}},{"id":"h6","attrs":{"aria-selected":null,"type":null}}]</script>
+</body></html>

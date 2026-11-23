@@ -8,7 +8,7 @@ Help search engines and AI crawlers find, understand, and rank your site.
 
 Search engine optimization (SEO) and answer engine optimization (AEO, for AI crawlers) both rely on the same fundamentals. Pages need clear titles, descriptions, preview images, and machine-readable hints about what each page contains.
 
-When you render your site into an MPA with `npx mnfst-render`{copy} (see [websites](/docs/publishing/websites)), Manifest generates all of this automatically. No configuration is needed for most sites. This article covers what gets generated, when you'd want to customize it, and how.
+When you render your site into an MPA with `npx mnfst-render`{copy} (see [websites](/docs/framework/publishing/websites)), Manifest generates all of this automatically. No configuration is needed for most sites. This article covers what gets generated, when you'd want to customize it, and how.
 
 ---
 
@@ -19,16 +19,17 @@ The rendering process automatically populates:
 - **Page titles** and **descriptions** for browser tabs and search results
 - **OpenGraph** and **Twitter Card tags** for previews when your pages are shared on social media
 - **OG image snapshots**, automatic 1200×630 PNG screenshots of each page, used as the social preview image
-- **Structured data** in JSON-LD format, so search engines understand the content type (article, breadcrumb, product, etc.) and can render rich results
 - **sitemap.xml** listing every page so crawlers can find them
 - **robots.txt** telling crawlers what they can and can't index
 - **llms.txt** and **llms-full.txt** for AI crawlers, per the <a href="https://llmstxt.org" target="_blank">llmstxt.org</a> convention
+
+[Structured data](#structured-data) in JSON-LD is opt-in, through `render.structuredData`.
 
 Defaults are derived from each page's rendered content. The first `<h1>` becomes the title, the first `<p>` becomes the description, a screenshot of the page becomes the social-share image. For most sites that's enough.
 
 ### llms.txt
 
-The renderer writes `llms.txt` (a curated index of your site) and `llms-full.txt` (the concatenated full content) per the <a href="https://llmstxt.org" target="_blank">llmstxt.org</a> convention. AI crawlers prefer reading this structured plaintext over scraping rendered HTML. Pages are grouped into sections by their first URL segment.
+The renderer writes `llms.txt` (a curated index of your site) and `llms-full.txt` (the concatenated full content) per the <a href="https://llmstxt.org" target="_blank">llmstxt.org</a> convention. AI crawlers prefer reading this structured plaintext over scraping rendered HTML. Pages are grouped into sections by their first URL segment. Where a path holds two or more areas that each have their own page and child pages, such as `/docs/guides/*` and `/docs/api/*`, each area gets its own section, named after its page title.
 
 ---
 

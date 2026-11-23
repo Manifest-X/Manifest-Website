@@ -1,0 +1,43 @@
+# Auth
+
+Implement a complete authentication solution for your app with a connected <a href="https://appwrite.io/" target="_blank" rel="noopener">Appwrite</a> project.
+
+---
+
+## Setup
+
+Complete the [Appwrite setup](/docs/framework/appwrite-modules/appwrite-setup) steps to connect your Appwrite and Manifest projects.
+
+Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json` is also required for Appwrite credentials and configuring auth details. The auth module auto-loads when the `appwrite` object includes `auth`, even an empty `"auth": {}`.
+
+<div x-code-group copy>
+
+```html "Auto-detect"
+<!-- Meta -->
+<link rel="manifest" href="/manifest.json">
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"></script>
+```
+
+```html "Declared"
+<!-- Meta -->
+<link rel="manifest" href="/manifest.json">
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
+    data-modules="+appwrite-auth"></script>
+```
+
+</div>
+
+---
+
+## Next Steps
+
+Complete authentication support using the guides for:
+
+- [Users](/docs/framework/appwrite-modules/users)
+- [Teams](/docs/framework/appwrite-modules/teams) (optional)

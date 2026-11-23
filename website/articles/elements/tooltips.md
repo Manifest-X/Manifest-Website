@@ -6,9 +6,9 @@ Hover and focus hints for inline annotations.
 
 ## Setup
 
-Tooltip styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Tooltip styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
-Tooltip functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
+Tooltip functionality is included in `manifest.js` with all core modules, or it can be selectively loaded.
 
 <div x-code-group copy>
 
@@ -24,9 +24,9 @@ Tooltip functionality is included in `manifest.js` with all core plugins, or it 
 <!-- Tooltip styles only -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.tooltip.css" />
 
-<!-- Manifest JS: tooltips plugin only -->
+<!-- Manifest JS: tooltips module only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugins="tooltips"></script>
+  data-modules="tooltips"></script>
 ```
 
 </div>
@@ -128,7 +128,7 @@ Regardless of a set modifier, tooltips overflowing the viewport will attempt to 
 
 ## Rich Content
 
-Tooltip content supports HTML including [icons](/docs/elements/icons) for enhanced formatting.
+Tooltip content supports HTML including [icons](/docs/framework/elements/icons) for enhanced formatting.
 
 <div x-code-group>
 
@@ -146,49 +146,51 @@ Tooltip content supports HTML including [icons](/docs/elements/icons) for enhanc
 
 ## Dynamic Content
 
-Tooltips can display dynamic content using Alpine.js expressions.
+Tooltip content can be any Alpine.js expression, re-evaluated each time the tooltip shows. Plain text that isn't an expression, like `Hello world` or `Don't save`, displays exactly as written.
 
 <div x-code-group>
 
 ```html copy
-<div x-data="{ message: 'dynamic content', count: 42 }">
-    <button x-tooltip="'Current count: ' + count">Count Tooltip</button>
-    <button x-tooltip="`Template: ${message}`" @click="count++">Template Literal</button>
+<div x-data="{ count: 42, saved: false }">
+    <button x-tooltip="'Current count: ' + count" @click="count++">Count</button>
+    <button x-tooltip="saved ? 'All changes saved' : 'Unsaved changes'" @click="saved = !saved">Status</button>
 </div>
 ```
 
 ::: frame
-<div x-data="{ message: 'dynamic content', count: 42 }" class="row-wrap gap-4">
-    <button x-tooltip="'Current count: ' + count">Count Tooltip</button>
-    <button x-tooltip="`Template: ${message}`" @click="count++">Template Literal</button>
+<div x-data="{ count: 42, saved: false }" class="row-wrap gap-4">
+    <button x-tooltip="'Current count: ' + count" @click="count++">Count</button>
+    <button x-tooltip="saved ? 'All changes saved' : 'Unsaved changes'" @click="saved = !saved">Status</button>
 </div>
 :::
 
 </div>
 
-Note that tooltips with loop variables from `x-for` use template literals or string concatenation to ensure the expression is recognized as dynamic.
+A single word displays as text unless it names a value in scope, so `x-tooltip="count"` shows `42` while `x-tooltip="Delete"` shows `Delete`. An expression that resolves to an empty string, `false`, or `null` shows no tooltip. Expression results are escaped; add the `.html` modifier to render them as HTML.
+
+Loop variables from `x-for` work the same way.
 
 <div x-code-group copy>
 
 ```html "HTML"
 <template x-for="item in $x.example.tooltipList">
-    <h4 x-tooltip="`${item.tooltip}`" x-text="item.name"></h4>
+    <h4 x-tooltip="item.tooltip" x-text="item.name"></h4>
 </template>
 ```
 
-```yaml "example.yaml"
-tooltipList:
-    - name: "Mercury"
-      tooltip: "The hottest planet"
-    - name: "Venus"
-      tooltip: "The second hottest planet"
-    - name: "Earth"
-      tooltip: "The planet with the hottest parties"
+```json "example.json"
+{
+    "tooltipList": [
+        { "name": "Mercury", "tooltip": "The closest planet to the Sun" },
+        { "name": "Venus", "tooltip": "The hottest planet" },
+        { "name": "Earth", "tooltip": "The planet with the hottest parties" }
+    ]
+}
 ```
 
 ::: frame row-wrap gap-4
 <template x-for="item in $x.example.tooltipList">
-    <span class="h4" x-tooltip="`${item.tooltip}`" x-text="item.name"></span>
+    <span class="h4" x-tooltip="item.tooltip" x-text="item.name"></span>
 </template>
 :::
 
@@ -198,7 +200,7 @@ tooltipList:
 
 ## Data Sources
 
-Tooltips can retrieve content from [data sources](/docs/core-plugins/local-data) using the `$x` syntax.
+Tooltips can retrieve content from [data sources](/docs/framework/core-modules/local-data) using the `$x` syntax.
 
 <div x-code-group copy>
 
@@ -222,7 +224,19 @@ Tooltips can retrieve content from [data sources](/docs/core-plugins/local-data)
 
 ## Other Popovers
 
-Although tooltips are popovers, they can coexist in buttons that trigger other popovers—like Manifest's [dropdowns](/docs/elements/dropdowns) and [dialogs](/docs/elements/dialogs), or your custom popovers.
+Although tooltips are popovers, they can coexist in buttons that trigger other popovers—like Manifest's [dropdowns](/docs/framework/elements/dropdowns) and [dialogs](/docs/framework/elements/dialogs), or your custom popovers.
+
+<div x-code-group>
+
+```html copy
+<button x-tooltip="Tooltip" popovertarget="dialog">Dialog</button>
+<dialog popover id="dialog">
+    <header>Dialog</header>
+</dialog>
+
+<button x-tooltip="Tooltip" popovertarget="custom">Custom Popover</button>
+<div popover id="custom" class="m-auto p-10 border">Custom Popover</div>
+```
 
 ::: frame row-wrap gap-4
 <button x-tooltip="Tooltip" popovertarget="dialog">Dialog</button>
@@ -234,6 +248,8 @@ Although tooltips are popovers, they can coexist in buttons that trigger other p
 <div popover id="custom" class="m-auto p-10 border">Custom Popover</div>
 :::
 
+</div>
+
 ::: brand icon="lucide:info"
 Avoid mixing `x-dropdown.hover` and `x-tooltip` on the same trigger button, since they both use the hover state.
 :::
@@ -244,19 +260,21 @@ Avoid mixing `x-dropdown.hover` and `x-tooltip` on the same trigger button, sinc
 
 ### Theme
 
-Default tooltips use the following [theme](/docs/styles/theme) variables:
+Default tooltips use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|----------|
-| `--color-popover-surface`{copy} | Tooltip background color |
-| `--color-content-stark`{copy} | Tooltip text color |
+| `--color-content-stark`{copy} | Tooltip background color |
+| `--color-page`{copy} | Tooltip text color |
 | `--spacing-popover-offset`{copy} | Distance from trigger element |
+| `--radius`{copy} | Border radius for tooltip corners |
+| `--shadow-sm`{copy} | Tooltip shadow |
 
 ---
 
 ### Delay
 
-Tooltips appear after a default 500ms hover delay, and disappear immediately when the mouse leaves the trigger element. They're automatically dismissed when the trigger is clicked or pressed. Change the duration in the [theme](/docs/styles/theme) or with custom CSS that overwrites the `--tooltip-hover-delay` value:
+Tooltips appear after a default 500ms hover delay, and disappear as soon as the pointer leaves the trigger element. They also appear when the trigger gets keyboard focus, and close on blur. They're automatically dismissed when the trigger is clicked or pressed. Change the duration in the [theme](/docs/framework/styles/theme) or with custom CSS that overwrites the `--tooltip-hover-delay` value:
 
 ```css copy
 :root {
@@ -272,6 +290,7 @@ Modify styles with custom CSS for the `.tooltip` classes.
 
 ```css copy
 .tooltip { 
-    background: red;
+    background: var(--color-brand-surface);
+    color: var(--color-brand-inverse);
 }
 ```

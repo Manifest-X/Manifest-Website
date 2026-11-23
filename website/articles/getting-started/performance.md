@@ -14,11 +14,11 @@ Most of Manifest's performance work is automatic. Closed containers cost nothing
 
 **Closed containers cost nothing.** A closed menu, a closed dialog, a collapsed `<details>`, a hidden element and a tab panel that isn't selected are left alone until they are shown; nothing inside them runs. Their full markup is still in the prerendered HTML, so search engines and readers without JavaScript see everything. Once shown, they stay ready.
 
-**Data updates touch only what changed.** Each part of the page that reads a data source follows just that source. When new data arrives, existing rows are updated in place rather than replaced, so lists don't flicker and edits in progress are not disturbed. Your own changes show immediately, and network updates arriving together are applied in one go. `$x.all`, which combines every source, is only built when something reads it. See [how data updates](/docs/core-plugins/local-data#how-data-updates).
+**Data updates touch only what changed.** Each part of the page that reads a data source follows just that source. When new data arrives, existing rows are updated in place rather than replaced, so lists don't flicker and edits in progress are not disturbed. Your own changes show immediately, and network updates arriving together are applied in one go. `$x.all`, which combines every source, is only built when something reads it. See [how data updates](/docs/framework/core-modules/local-data#how-data-updates).
 
 **Text only updates when it changes.** A text binding whose value comes back unchanged leaves the page alone, and empty values (`null` or `undefined`) show as empty text rather than the word "null".
 
-**Searches and filters on data are cached.** `$search`, `$query` and `$route` remember their result until the source they read changes, so binding the same search in fifty rows costs one pass, not fifty. Your own derivations get the same treatment with [x-computed](/docs/core-plugins/computed).
+**Searches and filters on data are cached.** `$search`, `$query` and `$route` remember their result until the source they read changes, so binding the same search in fifty rows costs one pass, not fifty. Your own derivations get the same treatment with [x-computed](/docs/framework/core-modules/computed).
 
 **Repeat visits load from the browser.** Sites on Manifest hosting register a small service worker that keeps the page shell, scripts, styles and components on the visitor's device. The first visit loads from the network as usual; from the next visit on, the shell comes from the device and only the data is fetched, and a page that was already open keeps working offline. Publishing still takes effect on the next load, because the page itself is always checked against the network first. Local previews with `mnfst-run` never register it. To turn it off for a site, set `"sw": false` in `manifest.json`, or add `data-sw="off"` to the loader `<script>`.
 
@@ -54,9 +54,9 @@ If a class still turns up uncovered on a live page, Manifest loads the full engi
 
 | Situation | Use |
 |---|---|
-| A list, table or total built from data | [**x-computed**](/docs/core-plugins/computed) — a named value recalculated only when its inputs change |
-| Any list over ~100 rows, especially inside a menu | [**x-virtual**](/docs/core-plugins/virtual) — renders only the visible rows |
-| The one or two menus people open most | `x-defer.priority="1"`{copy} — warmed first, so they open instantly (see [dropdowns](/docs/elements/dropdowns#closed-menus-cost-nothing)) |
+| A list, table or total built from data | [**x-computed**](/docs/framework/core-modules/computed) — a named value recalculated only when its inputs change |
+| Any list over ~100 rows, especially inside a menu | [**x-virtual**](/docs/framework/core-modules/virtual) — renders only the visible rows |
+| The one or two menus people open most | `x-defer.priority="1"`{copy} — warmed first, so they open instantly (see [dropdowns](/docs/framework/elements/dropdowns#closed-menus-cost-nothing)) |
 
 ---
 
@@ -74,7 +74,7 @@ These containers are deferred automatically:
 - `[hidden]` elements — except `[x-route]` panes, because inactive pages are handled by the router
 - Tab panels that are not initially selected
 
-Containers with their own rendering directive are never deferred: `x-html`, `x-text`, `x-virtual`, `x-colorpicker`, `x-date`, `x-text-edit`, `x-chart`, `x-icon`, `x-svg`, `x-code`, `x-markdown` and the like. Empty containers are not deferred.
+Containers with their own rendering directive are never deferred: `x-html`, `x-text`, `x-virtual`, `x-colorpicker`, `x-date`, `x-rich-text`, `x-chart`, `x-icon`, `x-svg`, `x-code`, `x-markdown` and the like. Empty containers are not deferred.
 
 Deferred contents are initialized on the container's own open signal: `beforetoggle` for popovers and dialogs, `toggle` for details, selection for tab panels, and removal of the `hidden` attribute. Once initialized they stay that way unless the container has `x-defer.discard`. `$refs` inside a deferred container resolve after its first open.
 
@@ -88,7 +88,7 @@ Blocks toggled with `x-show` are not deferred automatically. Add `x-defer` to on
 |---|---|
 | `x-defer.lazy`{copy} | No warming — contents render on open only |
 | `x-defer.discard`{copy} | Throw the contents away when the container closes; they initialize again on the next open |
-| `x-defer.priority="n"`{copy} | Warm this container earlier (lower `n` first). The modifier is part of the attribute name and the number is its value; `x-defer="priority:1"` does nothing |
+| `x-defer.priority="n"`{copy} | Warm this container before any container without a priority (lower `n` first). The modifier is part of the attribute name and the number is its value; `x-defer="priority:1"` does nothing |
 | `x-defer.off`{copy} | Never defer this container |
 
 ---
@@ -130,8 +130,8 @@ For teams that want a CI gate, the framework repo's <a href="https://github.com/
 When your project is slow, work through this checklist:
 
 - [ ] A closed menu with `x-defer.off`? Remove it unless the contents must exist while closed.
-- [ ] A big `x-for` without `x-virtual`? Wrap it — see [virtual](/docs/core-plugins/virtual).
-- [ ] A getter that filters on every render? Make it a [computed value](/docs/core-plugins/computed).
+- [ ] A big `x-for` without `x-virtual`? Wrap it — see [virtual](/docs/framework/core-modules/virtual).
+- [ ] A getter that filters on every render? Make it a [computed value](/docs/framework/core-modules/computed).
 - [ ] A ticker that rewrites text every second? Tick at the granularity you display.
 - [ ] Popover opens paying page-wide layout? Add the `contain: layout` CSS property to large scrollers.
 
@@ -139,8 +139,8 @@ When your project is slow, work through this checklist:
 
 ## Diagnostics
 
-For tooling and plugin authors:
+For tooling and module authors:
 
-- `window.ManifestDefer.stats()`{copy} returns `{ pending, warm, cap, ready, armed, head, routes: { enabled, stashed, rendered } }`{copy}.
+- `window.ManifestDefer.stats()`{copy} returns `{ pending, warm, cap, ready, bootDrained, armed, observed, head, routes: { enabled, stashed, rendered } }`{copy}.
 - `ManifestDeferConfig.prewarmCap`{copy} sets how many containers warming may prepare (default `48`). `ManifestDeferConfig.routes = true`{copy} is the script-side form of `data-defer-routes`{copy}.
 - `manifest:defer-render`{copy} fires on a container after its contents initialize, for code that touches rendered children.

@@ -4,7 +4,7 @@ Our commitment to your privacy and data protection.
 
 ---
 
-*Updated October 14, 2026*
+*Updated November 4, 2026*
 
 This Privacy Policy (**"Policy"**) describes how MNFST OÜ (**"Manifest"**, **"we"**, **"us"** or **"our"**) collects, protects and uses the personally identifiable information (**"Personal Information"**) you (**"User"**, **"you"** or **"your"**) may provide through the Manifest website (manifestx.dev), the Manifest account dashboard (dash.manifestx.dev), the Manifest connector for AI assistants, the Manifest command-line tools, Manifest-managed hosting (including sites served on manifestx.ai and connected custom domains), and any other product, application, or service offered by Manifest (collectively, the **"Service"**). The Policy also describes the choices available to you regarding our use of your Personal Information and how you can access and update this information. This Policy does not apply to the practices of companies that we do not own or control, or to individuals that we do not employ or manage.
 
@@ -47,6 +47,8 @@ The Service can be used through an AI assistant (such as Claude) via the Manifes
 You control the content of sites you publish through the Service. For Personal Information contained in your published content, or collected by your site from its visitors through features you add, you are the controller and we process it on your behalf as a hosting provider.
 
 For sites hosted on the Service, we collect aggregate visitor analytics — such as page views, referrers, and country-level location — using a privacy-friendly analytics provider, and make these aggregates available to the site's owner. This analytics data does not identify individual visitors and is not used to profile them.
+
+If a site owner turns on hosted forms, we receive the information visitors enter into that site's forms, together with the time and the site address, and process it on the site owner's behalf: we store it for the owner, deliver it to the email addresses and webhooks the owner sets, and protect the forms against spam and abuse, including by checking visitors' IP addresses against rate limits and, where the owner enables it, Cloudflare Turnstile. We do not store visitors' IP addresses with submissions or include submission content in our logs. Submissions are kept for the period of the owner's plan (30 days on Free, one year on Pro) unless the owner deletes them sooner, and are deleted when the project is deleted. Visitors who want a submission corrected or erased should contact the site's owner; we assist owners with such requests.
 
 ---
 

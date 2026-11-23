@@ -6,7 +6,7 @@ Horizontal and vertical lines for visual separation.
 
 ## Setup
 
-Divider styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Divider styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
 <div x-code-group copy>
 
@@ -60,7 +60,7 @@ All other divider configurations use the `divider` class, which automatically cr
 
 </div>
 
-Dividers can include [icons](/docs/elements/icons) for enhanced visual separation.
+Dividers can include [icons](/docs/framework/elements/icons) for enhanced visual separation.
 
 <div x-code-group>
 
@@ -146,7 +146,7 @@ The `vertical` class changes the axis, and can be stacked with alignment classes
 
 ### Theme
 
-Default dividers use the following [theme](/docs/styles/theme) variables:
+Default dividers use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|----------|
@@ -164,12 +164,12 @@ Modify base divider styles with custom CSS for the `.divider` selector.
 
 ```css copy
 .divider {
-    color: #ff6b6b;
+    color: var(--color-negative-content);
 
     /* Lines */
     &::before,
     &::after {
-        background-color: #ff6b6b;
+        background-color: var(--color-negative-content);
         height: 2px;
     }
 
@@ -185,11 +185,11 @@ Modify base divider styles with custom CSS for the `.divider` selector.
 ::: frame text-base
 <style>
 .divider.custom {
-    color: #ff6b6b;
+    color: var(--color-negative-content);
 
     &::before,
     &::after {
-        background-color: #ff6b6b;
+        background-color: var(--color-negative-content);
         height: 2px;
     }
 
@@ -203,6 +203,11 @@ Modify base divider styles with custom CSS for the `.divider` selector.
 </style>
 
 <div class="divider custom">Custom Divider</div>
+<div class="row items-center h-12">
+    <span>Start</span>
+    <div class="divider vertical custom"></div>
+    <span>End</span>
+</div>
 :::
 
 </div>

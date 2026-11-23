@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" data-online="true" data-os="macos" dir="auto"><head>
+  <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Create a project for anything you publish, find it again by your own id, and give people access to it.">
+  <meta name="author" content="Andrew Matlock">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="google" content="notranslate">
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="preload" as="font" type="font/woff2" href="../../../../assets/fonts/Manrope.woff2" crossorigin="">
+
+  <!-- Web App & Manifest -->
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../../../../manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="../../../../manifest.theme.css">
+
+  <!-- Scripts -->
+  <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="../../../../scripts/payments-demo.js" defer=""></script>
+  <script src="../../../../scripts/hero-editor.js" defer=""></script>
+  <script src="../../../../scripts/hero-demo.js" defer=""></script>
+  <script src="../../../../scripts/console-message.js" defer=""></script>
+
+<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+@custom-variant cursor (@media (pointer: fine) and (hover: hover));
+@custom-variant pointer (@media (any-pointer: fine));
+@custom-variant mac (&:where([data-os="macos"] *));
+@custom-variant windows (&:where([data-os="windows"] *));
+@custom-variant linux (&:where([data-os="linux"] *));
+@custom-variant ios (&:where([data-os="ios"] *));
+@custom-variant android (&:where([data-os="android"] *));
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));
+@custom-variant online (&:where([data-online="true"] *));
+@custom-variant offline (&:where([data-online="false"] *));
+@custom-variant standalone (&:where([data-standalone] *));
+@custom-variant native (&:where([data-native] *));
+@custom-variant web (&:where(html:not([data-native]) *));
+@custom-variant dark (&:where(.dark, .dark *));</style><title>Projects — Manifest</title><meta property="og:title" content="Projects — Manifest"><meta property="og:description" content="Create a project for anything you publish, find it again by your own id, and give people access to it."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/api/guides/projects"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-api-guides-projects.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Projects — Manifest"><meta property="twitter:description" content="Create a project for anything you publish, find it again by your own id, and give people access to it."><meta property="twitter:image" content="/og/docs-api-guides-projects.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Projects — Manifest","description":"Create a project for anything you publish, find it again by your own id, and give people access to it.","image":"/og/docs-api-guides-projects.png","url":"https://manifestx.dev/docs/api/guides/projects"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Api","item":"https://manifestx.dev/docs/api"},{"@type":"ListItem","position":4,"name":"Guides","item":"https://manifestx.dev/docs/api/guides"},{"@type":"ListItem","position":5,"name":"Projects","item":"https://manifestx.dev/docs/api/guides/projects"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/docs/api/guides/projects">
+<meta name="manifest:router-base" content="">
+<meta name="manifest:prerender-locales" content="en">
+<meta name="manifest:prerendered" content="1">
+<meta name="manifest:router-base-depth" content="4">
+</head>
+
+<body x-data="{
+  init() {
+    const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
+    document.documentElement.setAttribute('dir', savedDirection);
+  }
+}" class="bg-surface-1">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
+
+  <header style="view-transition-name: site-header" class="site-header fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
+
+    <!-- Content Area -->
+    <nav class="row justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+
+        <!-- Start -->
+        <div class="row items-center gap-3" x-data="{
+            get family() { return $route.startsWith('/docs/platform') ? 'platform' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+        }">
+
+            <!-- Logo -->
+            <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
+                <span class="hidden md:flex">{Manifest}</span>
+                <span class="md:hidden">{M}</span>
+            </a>
+
+            <!-- Docs family -->
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation" popovertarget="docs-family" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="docs-family" aria-expanded="false" data-hydrate-id="h1">
+                <span x-text="$x.site.docs.find(d =&gt; d.key === family)?.name">API</span>
+                <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
+            </button>
+            <menu popover="" id="docs-family" role="menu" style="position-anchor: --dropdown-p1">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a :href="'/docs/' + d.key" close="">
+                        <span x-text="d.name"></span>
+                        <span x-show="family === d.key" x-icon="lucide:check" class="trailing"></span>
+                    </a>
+                </template>
+            </menu>
+
+            <!-- Docs Breadcrumbs-->
+            
+            <small class="hidden sm:flex md:hidden items-center truncate" x-route="docs/api/*">
+                <template x-if="$x.api.$route('path')?.group">
+                    <span class="row items-center"><span x-text="$x.api.$route('path')?.group"></span><span class="mx-1.5" x-icon="lucide:chevron-right"></span></span>
+                </template><span class="row items-center" data-mnfst-prerender-clone="1"><span x-text="$x.api.$route('path')?.group">Guides</span><span class="mx-1.5" x-icon="lucide:chevron-right"></span></span>
+                <span class="text-content-stark" x-text="$x.api.$route('path')?.name || 'No article'">Projects</span>
+            </small>
+            
+
+        </div>
+
+        <!-- End -->
+        <div class="row justify-end items-center gap-2">
+
+            <!-- CTAs -->
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+                <span x-icon="lucide:search"></span>
+                <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
+            </button>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="sm transparent outlined rounded-full" aria-label="GitHub" x-tooltip="GitHub" x-icon="meteor-icons:github"></a>
+            <a role="button" href="/docs" class="sm transparent outlined rounded-full">Docs</a>
+            <a role="button" href="https://dash.manifestx.dev" class="sm accent rounded-full" x-text="/(^|;\s*)mnfst_signed_in=1(;|$)/.test(document.cookie) ? 'Dashboard' : 'Sign in'">Sign in</a>
+
+            <!-- Mobile Sidebar Button -->
+            <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
+
+        </div>
+
+    </nav>
+
+</header>
+  <div x-data="{
+        sources: [['platform', '/docs/platform'], ['framework', '/docs/framework'], ['api', '/docs/api']],
+        labels: { platform: 'Platform', framework: 'Framework', api: 'API' },
+        q: '',
+        items: [],
+        ready: false,
+        loading: false,
+        active: 0,
+
+        // Fetch every article's markdown once, on first open; index title, description, headings, body.
+        async build() {
+            if (this.ready || this.loading) return;
+            this.loading = true;
+            const jobs = [];
+            for (const [src, base] of this.sources) {
+            for (let i = 0; i &lt; 20 &amp;&amp; (!$x[src] || !$x[src].length); i++) await new Promise(r =&gt; setTimeout(r, 100));
+            for (const g of ($x[src] || [])) {
+                for (const it of (g.items || [])) {
+                    if (!it.name || !it.doc) continue;
+                    const href = base + (g.slug ? '/' + g.slug : '') + '/' + it.path;
+                    jobs.push(fetch(it.doc)
+                        .then(r =&gt; r.ok ? r.text() : '')
+                        .catch(() =&gt; '')
+                        .then(md =&gt; {
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/&lt;[^&gt;]+&gt;/g, '').replace(/[*_`\[\]]/g, '').trim();
+                            const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
+                            const body = md
+                                .replace(/```[\s\S]*?```/g, ' ')
+                                .replace(/:::[^\n]*/g, ' ')
+                                .replace(/&lt;[^&gt;]+&gt;/g, ' ')
+                                .replace(/[#&gt;*_`\[\]()|]/g, ' ')
+                                .replace(/-{2,}/g, ' ')
+                                .replace(/\s+/g, ' ');
+                            this.items.push({
+                                name: it.name, group: g.group, icon: it.icon, href, desc, src,
+                                headings,
+                                hhay: headings.join(' · ').toLowerCase(),
+                                body, bhay: body.toLowerCase(),
+                            });
+                        }));
+                }
+            }
+            }
+            await Promise.all(jobs);
+            $x.$register('searchIndex', this.items);
+            this.ready = true;
+            this.loading = false;
+        },
+
+        results() {
+            const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
+            return ranked.slice(0, 20).map(it =&gt; ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i &gt; -1) return (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
+            }
+            return it.desc;
+        },
+
+        openDialog() { document.getElementById('docs-search')?.showPopover(); },
+        // The router swallows result clicks before element handlers run, so the
+        // dialog closes on the route-change event rather than the click itself.
+        closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
+        async onToggle(e) {
+            if (e.newState !== 'open') return;
+            this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() =&gt; { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
+        },
+        move(d) {
+            const n = this.results().length;
+            if (!n) return;
+            this.active = (this.active + d + n) % n;
+            this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
+        },
+        go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+
+        <!-- Query -->
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
+
+        <!-- Results -->
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
+            <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
+            <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
+                No matches for “<span x-text="q.trim()"></span>”.
+            </p>
+            <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i">
+                    <a :href="r.href" role="button" :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'" class="ghost justify-start w-full h-auto py-2 no-underline">
+                        <span class="col gap-0.5 min-w-0 grow text-left">
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <template x-if="r.group">
+                                    <small class="text-content-subtle font-normal" x-text="'· ' + r.group"></small>
+                                </template>
+                                <small class="badge sm ms-auto shrink-0 font-normal" x-text="labels[r.src]"></small>
+                            </span>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
+                        </span>
+                    </a>
+                </div>
+            </template>
+            <div class="h-2 shrink-0"></div>
+        </div>
+
+    </dialog>
+</div>
+  <nav aria-label="Menu" popover="" id="docs-nav" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 bg-popover-surface shadow-xl overflow-y-auto no-scrollbar" x-data="{
+        view: null,
+        get current() { return $route.match(/^\/docs\/(platform|api|framework)(\/|$)/)?.[1] || null },
+        get src() { return this.view || this.current },
+        get base() { return '/docs/' + this.src },
+        get groups() { return this.src ? $x[this.src] || [] : [] },
+        get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
+        here(href) { return $route.replace(/\/$/, '') === href },
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+
+    <!-- Docs -->
+    <template x-if="src">
+        <div class="col">
+            <div role="tablist" aria-label="Docs" class="sm rounded-full w-full my-4">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <button type="button" role="tab" :aria-selected="src === d.key" @click="view = d.key" x-text="d.name"></button>
+                </template>
+            </div>
+            <a role="button" :href="base" :aria-current="here(base) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="here(base) ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                <span x-icon="lucide:house"></span>
+                <span>Overview</span>
+            </a>
+            <template x-for="group in groups" :key="group.group">
+                <div class="col gap-6 py-4">
+                    <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
+                    <div class="col">
+                        <template x-for="(item, index) in group.items" :key="item.path || index">
+                            <a x-show="item.name" role="button" :href="base + (group.slug ? '/' + group.slug : '') + '/' + item.path" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="article?.path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                                <span x-icon="item.icon"></span>
+                                <span x-text="item.name"></span>
+                            </a>
+                        </template>
+                    </div>
+                    <hr>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <!-- Site -->
+    <div class="col py-4">
+        <template x-for="n in $x.site.nav" :key="n.href">
+            <a role="button" :href="n.href" :aria-current="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="n.icon"></span>
+                <span x-text="n.name"></span>
+            </a>
+        </template>
+    </div>
+    <hr class="shrink-0">
+    <template x-if="!src">
+        <div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Docs</small>
+            <div class="col">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a role="button" :href="'/docs/' + d.key" class="ghost justify-start w-full text-content-neutral">
+                        <span x-icon="d.icon"></span>
+                        <span x-text="d.name"></span>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </template>
+    <hr class="shrink-0" x-show="!src" style="display: none">
+    <div class="col py-4">
+        <template x-for="p in $x.site.pages" :key="p.href">
+            <a role="button" :href="p.href" :aria-current="$route.startsWith(p.href) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="$route.startsWith(p.href) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="p.icon"></span>
+                <span x-text="p.name"></span>
+            </a>
+        </template>
+    </div>
+
+</nav>
+
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
+
+    <!-- Home page -->
+    
+
+    <!-- Framework -->
+
+    <!-- Compare -->
+    
+
+    <!-- Documentation -->
+    
+    
+    <div class="col md:row justify-between gap-4 w-full max-w-full mx-auto" x-data="{
+    base: '/docs/api' ?? '/docs/framework',
+    src: 'api' ?? 'framework',
+    heading: 'API' ?? 'Docs',
+    intro: 'The Manifest platform\'s API: create, publish, and manage projects from your own code.' ?? '',
+    home: null ?? '',
+    landing: 'api' ?? '',
+    canonical: 'https://manifestx.dev',
+    copied: false,
+    get pages() {
+      const out = [];
+      for (const g of this.groups) for (const i of (g.items || [])) if (i.name) out.push({ href: this.href(g, i), name: i.name, group: g.group || '' });
+      return out;
+    },
+    get pageIndex() { return this.pages.findIndex(p =&gt; this.at(p.href)) },
+    get prev() { return this.pageIndex &gt; 0 ? this.pages[this.pageIndex - 1] : null },
+    get next() { const i = this.pageIndex; return i &gt; -1 &amp;&amp; i &lt; this.pages.length - 1 ? this.pages[i + 1] : null },
+    aiApps: [
+      { name: 'Claude', icon: 'simple-icons:claude', url: 'https://claude.ai/new?q=' },
+      { name: 'ChatGPT', icon: 'simple-icons:openai', url: 'https://chatgpt.com/?q=' },
+      { name: 'Gemini', icon: 'simple-icons:googlegemini', url: 'https://gemini.google.com/app', paste: true },
+      { name: 'Perplexity', icon: 'simple-icons:perplexity', url: 'https://www.perplexity.ai/search?q=' }
+    ],
+    get askPrompt() { return `Read ${this.canonical + $route.replace(/\/$/, '')} from the Manifest docs and help me with it.` },
+    askIn(app) { return app.paste ? app.url : app.url + encodeURIComponent(this.askPrompt) },
+    askCopy(app) { if (app.paste) navigator.clipboard.writeText(this.askPrompt).catch(() =&gt; {}) },
+    async copyPage() {
+      const md = await fetch(this.article.doc).then(r =&gt; r.text());
+      const clean = md.replace(/`([^`\n]+)`\{[^}\n]*\}/g, '`$1`');
+      await navigator.clipboard.writeText(`Source: ${this.canonical}${$route.replace(/\/$/, '')}\n\n${clean}`);
+      this.copied = true;
+      setTimeout(() =&gt; this.copied = false, 1500);
+    },
+    get groups() { return $x[this.src] || [] },
+    get article() { return $x[this.src].$route('path') },
+    get group() { const g = $x[this.src].$route('slug'); return g?.group &amp;&amp; this.at(this.base + '/' + g.slug) ? g : null },
+    href(group, item) { return this.base + (group.slug ? '/' + group.slug : '') + (item ? '/' + item.path : '') },
+    get cards() {
+      const out = [];
+      for (const g of this.groups) {
+        const items = (g.items || []).filter(i =&gt; i.name);
+        if (g.group) out.push({ href: this.href(g), icon: g.icon || items[0]?.icon, title: g.group, sub: items.length + (items.length === 1 ? ' article' : ' articles') });
+        else items.forEach(i =&gt; out.push({ href: this.href(g, i), icon: i.icon, title: i.name, sub: i.description || 'Start here' }));
+      }
+      return out;
+    },
+    at(path) { return $route.replace(/\/$/, '') === path },
+  }" x-route="docs/api" base="/docs/api" source="api" landing="api" heading="API" intro="The Manifest platform's API: create, publish, and manage projects from your own code.">
+
+  <!-- Desktop navigation -->
+  <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
+    <div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Getting Started</small>
+        <div class="col">
+          <a role="button" href="/docs/api/getting-started/introduction" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:book-open"></span>
+              <span>Introduction</span>
+            </a><a role="button" href="/docs/api/getting-started/quickstart" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:square-arrow-up-right"></span>
+              <span>Quickstart</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Guides</small>
+        <div class="col">
+          <a role="button" href="/docs/api/guides/projects" aria-current="page" class="text-brand-content bg-brand-surface/35 dark:bg-brand-surface/15 pointer-events-none justify-start w-full">
+              <span x-icon="lucide:folder-plus"></span>
+              <span>Projects</span>
+            </a><a role="button" href="/docs/api/guides/edit" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:pencil"></span>
+              <span>Edit</span>
+            </a><a role="button" href="/docs/api/guides/docs-template" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:file-text"></span>
+              <span>Docs Template</span>
+            </a><a role="button" href="/docs/api/guides/publish" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:upload"></span>
+              <span>Publish</span>
+            </a><a role="button" href="/docs/api/guides/domains" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:globe"></span>
+              <span>Domains</span>
+            </a><a role="button" href="/docs/api/guides/webhooks" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:webhook"></span>
+              <span>Webhooks</span>
+            </a><a role="button" href="/docs/api/guides/usage" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:chart-column"></span>
+              <span>Usage</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div><div class="col gap-2">
+        <small class="pl-2.5 text-content-subtle">Reference</small>
+        <div class="col">
+          <a role="button" href="/docs/api/reference/authentication" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:key-round"></span>
+              <span>Authentication</span>
+            </a><a role="button" href="/docs/api/reference/endpoints" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:list"></span>
+              <span>Endpoints</span>
+            </a><a role="button" href="/docs/api/reference/errors" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:triangle-alert"></span>
+              <span>Errors</span>
+            </a><a role="button" href="/docs/api/reference/limits" class="ghost text-content-neutral justify-start w-full">
+              <span x-icon="lucide:gauge"></span>
+              <span>Limits</span>
+            </a>
+        </div>
+        <hr class="mt-4 mb-8">
+      </div>
+  </nav>
+
+  <!-- Articles -->
+  <div class="col max-w-full md:max-w-[calc(100%-17rem)] mx-auto pt-12 pb-[30vh]">
+
+    <div class="col grow w-full max-w-full mx-auto">
+
+      <!-- Article -->
+      <template x-if="article?.name">
+        <div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7">
+          <span class="h6" x-text="article?.group || ''"></span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'"></span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
+              <span x-icon="'lucide:asterisk'"></span>
+              <span>Ask AI</span>
+              <span x-icon="'lucide:chevron-down'"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src">
+              <template x-for="app in aiApps" :key="app.name">
+                <a :href="askIn(app)" target="_blank" rel="noopener" role="button" class="sm ghost justify-start" @click="askCopy(app)" :title="app.paste ? 'Opens ' + app.name + ' with the question copied, ready to paste' : null">
+                  <span x-icon="app.icon"></span>
+                  <span x-text="'Ask ' + app.name"></span>
+                </a>
+              </template>
+            </menu>
+          </div>
+        </div>
+      </template><div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7" data-mnfst-prerender-clone="1">
+          <span class="h6" x-text="article?.group || ''">Guides</span>
+          <div class="row gap-1.5" data-page-actions="">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+              <span x-icon="lucide:copy"></span>
+              <span x-text="copied ? 'Copied' : 'Copy page'">Copy page</span>
+            </button>
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page" popovertarget="ask-ai-api" style="anchor-name: --dropdown-p2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p2" aria-haspopup="menu" aria-controls="ask-ai-api" aria-expanded="false" data-hydrate-id="h3">
+              <span x-icon="lucide:asterisk"></span>
+              <span>Ask AI</span>
+              <span x-icon="lucide:chevron-down"></span>
+            </button>
+            <menu popover="" :id="'ask-ai-' + src" role="menu" style="position-anchor: --dropdown-p2">
+              <a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://claude.ai/new?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fapi%2Fguides%2Fprojects%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:claude"></span>
+                  <span>Ask Claude</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://chatgpt.com/?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fapi%2Fguides%2Fprojects%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:openai"></span>
+                  <span>Ask ChatGPT</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://gemini.google.com/app" title="Opens Gemini with the question copied, ready to paste">
+                  <span x-icon="simple-icons:googlegemini"></span>
+                  <span>Ask Gemini</span>
+                </a><a target="_blank" rel="noopener" role="button" class="sm ghost justify-start" href="https://www.perplexity.ai/search?q=Read%20https%3A%2F%2Fmanifestx.dev%2Fdocs%2Fapi%2Fguides%2Fprojects%20from%20the%20Manifest%20docs%20and%20help%20me%20with%20it.">
+                  <span x-icon="simple-icons:perplexity"></span>
+                  <span>Ask Perplexity</span>
+                </a>
+            </menu>
+          </div>
+        </div>
+      <template x-if="article?.name">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" x-markdown="article?.doc"></div>
+      </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" style="opacity: 1" data-mnfst-md-src="/articles/api/projects.md" data-mnfst-prerender-clone="1"><h1 id="projects">Projects</h1><p>Create a project for anything you publish, find it again by your own id, and give people access to it.</p>
+<hr>
+<h2 id="create-a-project">Create a Project</h2><p>Each thing you publish is one project. Create it once, tagged with your own id for it.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="curl-tab-0" aria-selected="true" tabindex="0">cURL</button><button type="button" role="tab" id="javascript-tab-1" aria-selected="false" tabindex="-1">JavaScript</button></div></header>
+
+<pre x-code="bash" name="cURL" data-code-block-built="yes" aria-label="cURL" role="tabpanel" data-code-processed="yes" id="curl-panel-0" aria-labelledby="curl-tab-0"><code class="hljs language-bash" data-highlighted="yes">curl -X POST https://api.manifestx.dev/v1/projects \
+  -H <span class="hljs-string">"Authorization: Bearer <span class="hljs-variable">$MANIFEST_ACCOUNT_KEY</span>"</span> \
+  -H <span class="hljs-string">"Content-Type: application/json"</span> \
+  -d <span class="hljs-string">'{ "source_id": "site_8231", "name": "Acme Docs", "subdomain": "acme-docs" }'</span></code></pre>
+<pre x-code="js" name="JavaScript" data-code-block-built="yes" aria-label="JavaScript" role="tabpanel" data-code-processed="yes" id="javascript-panel-1" aria-labelledby="javascript-tab-1" style="display: none"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">'https://api.manifestx.dev/v1/projects'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">headers</span>: {
+    <span class="hljs-title class_">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${process.env.MANIFEST_ACCOUNT_KEY}</span>`</span>,
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+  },
+  <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>({ <span class="hljs-attr">source_id</span>: <span class="hljs-string">'site_8231'</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'Acme Docs'</span>, <span class="hljs-attr">subdomain</span>: <span class="hljs-string">'acme-docs'</span> }),
+})
+<span class="hljs-keyword">const</span> { project, project_key } = <span class="hljs-keyword">await</span> res.<span class="hljs-title function_">json</span>()</code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>source_id</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Your id for this project, 1 to 128 characters. Unique within your account.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Display name, 1 to 120 characters. The default subdomain comes from it.</td>
+</tr>
+<tr>
+<td><code>subdomain</code></td>
+<td>string</td>
+<td>no</td>
+<td>The exact label to use instead: 1 to 40 lowercase letters, digits, or single hyphens.</td>
+</tr>
+</tbody></table>
+<p>The project gets <code>&lt;label&gt;.manifestx.ai</code> and <code>&lt;label&gt;-staging.manifestx.ai</code>. Unknown fields are refused with <code>400 invalid_input</code>. A new project answers <code>201 Created</code>:</p>
+<pre x-code="json" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"project"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"proj_…"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"source_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"site_8231"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Acme Docs"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"plan"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"free"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"active"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"project_key_prefix"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"mfst_free_AbCd1234"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"created_at"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1760140800</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"urls"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"production"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://acme-docs.manifestx.ai"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"staging"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://acme-docs-staging.manifestx.ai"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"published"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"production"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"staging"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span> <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"project_key"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"mfst_free_…"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"request_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"…"</span>
+<span class="hljs-punctuation">}</span></code></pre>
+<ul>
+<li><strong><code>project_key</code></strong> is the project's own key, returned once. It starts <code>mfst_live_</code> on paid accounts. Give it to the project's own build pipeline if it publishes without you, or keep it in your vault. The API doesn't need it.</li>
+<li><strong><code>plan</code></strong> is the project's own plan, such as <code>free</code>, <code>pro</code>, or <code>api</code> for projects an Enterprise account creates.</li>
+<li><strong><code>published</code></strong> turns <code>true</code> per environment after the first publish there. The subdomains are reserved straight away.</li>
+</ul>
+<p>Free projects show the "Made with Manifest" badge and can appear in the Manifest showcase. Enterprise projects carry no badge and are private by default, so they never appear in the showcase.</p>
+<h3 id="staging-and-production">Staging and Production</h3><p>Each project has two addresses, both in <code>urls</code>, and both public. Staging is kept out of search results.</p>
+<ul>
+<li><strong>Before anything is published there,</strong> an address answers <code>404</code> with "This site hasn't been published yet."</li>
+<li><strong>Staging</strong> gets every publish, file update, and content request by default. Check changes there.</li>
+<li><strong>Production</strong> changes only when you <a href="/docs/api/guides/publish#promote-to-production">promote</a>, or publish to it directly with <code>env</code>.</li>
+<li><strong>Custom domains</strong> serve production unless you add them for staging. See <a href="/docs/api/guides/domains">Domains</a>.</li>
+<li><strong>Seeing an old version</strong> after a publish? Reload. A browser can keep a page for up to a minute.</li>
+</ul>
+<h3 id="safe-to-repeat">Safe to Repeat</h3><p><code>source_id</code> makes creates safe to retry, with no extra header.</p>
+<table>
+<thead>
+<tr>
+<th>You send</th>
+<th>You get</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>The same <code>source_id</code>, <code>name</code>, and <code>subdomain</code> (if sent)</td>
+<td><code>200 OK</code> with the existing project, without <code>project_key</code>.</td>
+</tr>
+<tr>
+<td>The same <code>source_id</code> with a different <code>name</code> or <code>subdomain</code></td>
+<td><code>409 source_id_conflict</code>, naming the existing project. Nothing changes.</td>
+</tr>
+<tr>
+<td>Two creates for one <code>source_id</code> at the same moment</td>
+<td>One project. The first gets <code>201</code>, the other <code>200</code>.</td>
+</tr>
+</tbody></table>
+<aside class="brand"><span x-icon="lucide:info"></span><p>A sync that re-sends the create body breaks once a project is renamed. Look the project up <a href="#find-a-project-by-source_id">by <code>source_id</code></a> first, and create only when nothing comes back.</p>
+</aside>
+<h3 id="free-allowance">Free Allowance</h3><p>Your keys can create up to <code>max_projects</code> projects through the API together, shown on <code>GET /me</code>. On the free allowance that's 2. Projects made with Claude or the dashboard don't count.</p>
+<p>Past the cap, a create answers <code>403 project_cap_reached</code>. Existing projects are unaffected, and deleting an allowance project frees its place. Upgrading one to Pro doesn't free it. For more, <a href="/support?topic=enterprise#contact" target="_blank">talk to us</a> about Enterprise.</p>
+<hr>
+<h2 id="find-a-project-by-source_id">Find a Project by source_id</h2><pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="curl-tab-0" aria-selected="true" tabindex="0">cURL</button><button type="button" role="tab" id="javascript-tab-1" aria-selected="false" tabindex="-1">JavaScript</button></div></header>
+
+<pre x-code="bash" name="cURL" data-code-block-built="yes" aria-label="cURL" role="tabpanel" data-code-processed="yes" id="curl-panel-0" aria-labelledby="curl-tab-0"><code class="hljs language-bash" data-highlighted="yes">curl <span class="hljs-string">"https://api.manifestx.dev/v1/projects?source_id=site_8231"</span> \
+  -H <span class="hljs-string">"Authorization: Bearer <span class="hljs-variable">$MANIFEST_ACCOUNT_KEY</span>"</span></code></pre>
+<pre x-code="js" name="JavaScript" data-code-block-built="yes" aria-label="JavaScript" role="tabpanel" data-code-processed="yes" id="javascript-panel-1" aria-labelledby="javascript-tab-1" style="display: none"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(
+  <span class="hljs-string">`https://api.manifestx.dev/v1/projects?source_id=<span class="hljs-subst">${<span class="hljs-built_in">encodeURIComponent</span>(<span class="hljs-string">'site_8231'</span>)}</span>`</span>,
+  { <span class="hljs-attr">headers</span>: { <span class="hljs-title class_">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${process.env.MANIFEST_ACCOUNT_KEY}</span>`</span> } },
+)
+<span class="hljs-keyword">const</span> { projects } = <span class="hljs-keyword">await</span> res.<span class="hljs-title function_">json</span>()
+<span class="hljs-keyword">const</span> project = projects[<span class="hljs-number">0</span>] ?? <span class="hljs-literal">null</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<pre x-code="json" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span> <span class="hljs-attr">"projects"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"proj_…"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"source_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"site_8231"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Acme Docs"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"…"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"…"</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"complete"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"request_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"…"</span> <span class="hljs-punctuation">}</span></code></pre>
+<p><code>projects</code> holds zero or one project: the live project your account created with that <code>source_id</code>. URL-encode the value. A deleted project is never returned.</p>
+<hr>
+<h2 id="list-projects">List Projects</h2><pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="curl-tab-0" aria-selected="true" tabindex="0">cURL</button><button type="button" role="tab" id="javascript-tab-1" aria-selected="false" tabindex="-1">JavaScript</button></div></header>
+
+<pre x-code="bash" name="cURL" data-code-block-built="yes" aria-label="cURL" role="tabpanel" data-code-processed="yes" id="curl-panel-0" aria-labelledby="curl-tab-0"><code class="hljs language-bash" data-highlighted="yes">curl https://api.manifestx.dev/v1/projects \
+  -H <span class="hljs-string">"Authorization: Bearer <span class="hljs-variable">$MANIFEST_ACCOUNT_KEY</span>"</span></code></pre>
+<pre x-code="js" name="JavaScript" data-code-block-built="yes" aria-label="JavaScript" role="tabpanel" data-code-processed="yes" id="javascript-panel-1" aria-labelledby="javascript-tab-1" style="display: none"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">'https://api.manifestx.dev/v1/projects'</span>, {
+  <span class="hljs-attr">headers</span>: { <span class="hljs-title class_">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${process.env.MANIFEST_ACCOUNT_KEY}</span>`</span> },
+})
+<span class="hljs-keyword">const</span> { projects, complete } = <span class="hljs-keyword">await</span> res.<span class="hljs-title function_">json</span>()</code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Returns <code>{ "projects": [ … ], "complete": true, "request_id": "…" }</code>: every live project the key reaches, newest first, shaped like the create response without <code>project_key</code>.</p>
+<p>Good to know:</p>
+<ul>
+<li><strong>Not paginated.</strong> Every project comes in one answer. To look up one, <a href="#find-a-project-by-source_id">find it by source_id</a>.</li>
+<li><strong><code>source_id</code> is <code>null</code></strong> on projects you made outside the API.</li>
+<li><strong><code>complete</code> is <code>false</code></strong> when Manifest couldn't check your team roles just then. The list holds only the projects you own, so retry.</li>
+</ul>
+<hr>
+<h2 id="get-a-project">Get a Project</h2><pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="curl-tab-0" aria-selected="true" tabindex="0">cURL</button><button type="button" role="tab" id="javascript-tab-1" aria-selected="false" tabindex="-1">JavaScript</button></div></header>
+
+<pre x-code="bash" name="cURL" data-code-block-built="yes" aria-label="cURL" role="tabpanel" data-code-processed="yes" id="curl-panel-0" aria-labelledby="curl-tab-0"><code class="hljs language-bash" data-highlighted="yes">curl https://api.manifestx.dev/v1/projects/proj_… \
+  -H <span class="hljs-string">"Authorization: Bearer <span class="hljs-variable">$MANIFEST_ACCOUNT_KEY</span>"</span></code></pre>
+<pre x-code="js" name="JavaScript" data-code-block-built="yes" aria-label="JavaScript" role="tabpanel" data-code-processed="yes" id="javascript-panel-1" aria-labelledby="javascript-tab-1" style="display: none"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`https://api.manifestx.dev/v1/projects/<span class="hljs-subst">${projectId}</span>`</span>, {
+  <span class="hljs-attr">headers</span>: { <span class="hljs-title class_">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${process.env.MANIFEST_ACCOUNT_KEY}</span>`</span> },
+})
+<span class="hljs-keyword">const</span> { project } = <span class="hljs-keyword">await</span> res.<span class="hljs-title function_">json</span>()</code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>Returns <code>{ "project": { … }, "request_id": "…" }</code>. A project the key can't reach answers <code>404 not_found</code>, the same as one that doesn't exist. A deleted project answers <code>410 project_deleted</code>.</p>
+<hr>
+<h2 id="rename-a-project">Rename a Project</h2><pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="curl-tab-0" aria-selected="true" tabindex="0">cURL</button><button type="button" role="tab" id="javascript-tab-1" aria-selected="false" tabindex="-1">JavaScript</button></div></header>
+
+<pre x-code="bash" name="cURL" data-code-block-built="yes" aria-label="cURL" role="tabpanel" data-code-processed="yes" id="curl-panel-0" aria-labelledby="curl-tab-0"><code class="hljs language-bash" data-highlighted="yes">curl -X PATCH https://api.manifestx.dev/v1/projects/proj_… \
+  -H <span class="hljs-string">"Authorization: Bearer <span class="hljs-variable">$MANIFEST_ACCOUNT_KEY</span>"</span> \
+  -H <span class="hljs-string">"Content-Type: application/json"</span> \
+  -d <span class="hljs-string">'{ "name": "Acme Help Center" }'</span></code></pre>
+<pre x-code="js" name="JavaScript" data-code-block-built="yes" aria-label="JavaScript" role="tabpanel" data-code-processed="yes" id="javascript-panel-1" aria-labelledby="javascript-tab-1" style="display: none"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`https://api.manifestx.dev/v1/projects/<span class="hljs-subst">${projectId}</span>`</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'PATCH'</span>,
+  <span class="hljs-attr">headers</span>: {
+    <span class="hljs-title class_">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${process.env.MANIFEST_ACCOUNT_KEY}</span>`</span>,
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+  },
+  <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>({ <span class="hljs-attr">name</span>: <span class="hljs-string">'Acme Help Center'</span> }),
+})
+<span class="hljs-keyword">const</span> { project } = <span class="hljs-keyword">await</span> res.<span class="hljs-title function_">json</span>()</code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>yes</td>
+<td>New display name, 1 to 120 characters.</td>
+</tr>
+</tbody></table>
+<p>Answers <code>200 OK</code> with <code>{ "project": { … }, "request_id": "…" }</code>. Only the name changes: <code>source_id</code>, subdomains, and custom domains stay. Creates with the same <code>source_id</code> then match the new name.</p>
+<p>Any other field, including <code>source_id</code>, is refused with <code>400 invalid_input</code>. Send an <code>Idempotency-Key</code> to make a retry safe.</p>
+<hr>
+<h2 id="editors">Editors</h2><p>Give the people behind a project their own access. An invited editor signs in to Manifest with the invited email, and the project appears in their own Claude, ready to edit and publish. They never see or need an API key.</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p>Inviting editors is part of Pro, so a Free project answers <code>402 pro_required</code>. Enterprise projects include it. Listing and removing editors work on every plan, so access can always be taken away.</p>
+</aside>
+<h3 id="invite-an-editor">Invite an Editor</h3><pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="curl-tab-0" aria-selected="true" tabindex="0">cURL</button><button type="button" role="tab" id="javascript-tab-1" aria-selected="false" tabindex="-1">JavaScript</button></div></header>
+
+<pre x-code="bash" name="cURL" data-code-block-built="yes" aria-label="cURL" role="tabpanel" data-code-processed="yes" id="curl-panel-0" aria-labelledby="curl-tab-0"><code class="hljs language-bash" data-highlighted="yes">curl -X POST https://api.manifestx.dev/v1/projects/proj_…/invites \
+  -H <span class="hljs-string">"Authorization: Bearer <span class="hljs-variable">$MANIFEST_ACCOUNT_KEY</span>"</span> \
+  -H <span class="hljs-string">"Content-Type: application/json"</span> \
+  -d <span class="hljs-string">'{ "email": "editor@acme.com" }'</span></code></pre>
+<pre x-code="js" name="JavaScript" data-code-block-built="yes" aria-label="JavaScript" role="tabpanel" data-code-processed="yes" id="javascript-panel-1" aria-labelledby="javascript-tab-1" style="display: none"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`https://api.manifestx.dev/v1/projects/<span class="hljs-subst">${projectId}</span>/invites`</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">headers</span>: {
+    <span class="hljs-title class_">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${process.env.MANIFEST_ACCOUNT_KEY}</span>`</span>,
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+  },
+  <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>({ <span class="hljs-attr">email</span>: <span class="hljs-string">'editor@acme.com'</span> }),
+})
+<span class="hljs-keyword">const</span> { member } = <span class="hljs-keyword">await</span> res.<span class="hljs-title function_">json</span>()</code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>email</code></td>
+<td>string</td>
+<td>yes</td>
+<td>The editor's email. They sign in with this exact address.</td>
+</tr>
+<tr>
+<td><code>role</code></td>
+<td>string</td>
+<td>no</td>
+<td><code>member</code> (default) can edit and publish. <code>admin</code> can also invite and remove others.</td>
+</tr>
+</tbody></table>
+<p>Manifest adds the editor to the project's team and emails them a sign-in link. A new editor answers <code>201 Created</code>:</p>
+<pre x-code="json" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"member"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"user_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"…"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"editor@acme.com"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"member"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"is_owner"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"already_member"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"email_sent"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"email_skipped"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">null</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"request_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"…"</span>
+<span class="hljs-punctuation">}</span></code></pre>
+<table>
+<thead>
+<tr>
+<th>If</th>
+<th>Then</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>They're already on the project</td>
+<td><code>200 OK</code> with <code>"already_member": true</code> and their current role. The role never changes.</td>
+</tr>
+<tr>
+<td>They were emailed in the last 10 minutes</td>
+<td>No new email. <code>email_skipped</code> is <code>recently_sent</code>.</td>
+</tr>
+<tr>
+<td>The address is the project owner's</td>
+<td>No email. <code>email_skipped</code> is <code>self</code>.</td>
+</tr>
+<tr>
+<td>The email couldn't be sent</td>
+<td><code>email_sent</code> is <code>false</code>. They're still added, and can join by signing in with that address.</td>
+</tr>
+</tbody></table>
+<p>Two invites for the same address at once seat them once. Each project accepts 50 invites a day, on every plan. Past that: <code>429 invite_limit</code>, with <code>Retry-After</code>.</p>
+<h3 id="list-editors">List Editors</h3><pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="curl-tab-0" aria-selected="true" tabindex="0">cURL</button><button type="button" role="tab" id="javascript-tab-1" aria-selected="false" tabindex="-1">JavaScript</button></div></header>
+
+<pre x-code="bash" name="cURL" data-code-block-built="yes" aria-label="cURL" role="tabpanel" data-code-processed="yes" id="curl-panel-0" aria-labelledby="curl-tab-0"><code class="hljs language-bash" data-highlighted="yes">curl https://api.manifestx.dev/v1/projects/proj_…/members \
+  -H <span class="hljs-string">"Authorization: Bearer <span class="hljs-variable">$MANIFEST_ACCOUNT_KEY</span>"</span></code></pre>
+<pre x-code="js" name="JavaScript" data-code-block-built="yes" aria-label="JavaScript" role="tabpanel" data-code-processed="yes" id="javascript-panel-1" aria-labelledby="javascript-tab-1" style="display: none"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`https://api.manifestx.dev/v1/projects/<span class="hljs-subst">${projectId}</span>/members`</span>, {
+  <span class="hljs-attr">headers</span>: { <span class="hljs-title class_">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${process.env.MANIFEST_ACCOUNT_KEY}</span>`</span> },
+})
+<span class="hljs-keyword">const</span> { members, complete } = <span class="hljs-keyword">await</span> res.<span class="hljs-title function_">json</span>()</code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<pre x-code="json" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"members"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">"user_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"…"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"owner@example.com"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"owner"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"is_owner"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">"user_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"…"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"editor@acme.com"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"member"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"is_owner"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span> <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"complete"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"request_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"…"</span>
+<span class="hljs-punctuation">}</span></code></pre>
+<p><code>role</code> is <code>owner</code>, <code>admin</code>, or <code>member</code>, and the owner is always first. <code>complete</code> is <code>false</code> when Manifest couldn't reach the team just then. The list then holds only the owner, so retry.</p>
+<h3 id="remove-an-editor">Remove an Editor</h3><p>Use the <code>user_id</code> from the invite or the list.</p>
+<pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="curl-tab-0" aria-selected="true" tabindex="0">cURL</button><button type="button" role="tab" id="javascript-tab-1" aria-selected="false" tabindex="-1">JavaScript</button></div></header>
+
+<pre x-code="bash" name="cURL" data-code-block-built="yes" aria-label="cURL" role="tabpanel" data-code-processed="yes" id="curl-panel-0" aria-labelledby="curl-tab-0"><code class="hljs language-bash" data-highlighted="yes">curl -X DELETE https://api.manifestx.dev/v1/projects/proj_…/members/USER_ID \
+  -H <span class="hljs-string">"Authorization: Bearer <span class="hljs-variable">$MANIFEST_ACCOUNT_KEY</span>"</span></code></pre>
+<pre x-code="js" name="JavaScript" data-code-block-built="yes" aria-label="JavaScript" role="tabpanel" data-code-processed="yes" id="javascript-panel-1" aria-labelledby="javascript-tab-1" style="display: none"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`https://api.manifestx.dev/v1/projects/<span class="hljs-subst">${projectId}</span>/members/<span class="hljs-subst">${userId}</span>`</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'DELETE'</span>,
+  <span class="hljs-attr">headers</span>: { <span class="hljs-title class_">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${process.env.MANIFEST_ACCOUNT_KEY}</span>`</span> },
+})</code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<pre x-code="json" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span> <span class="hljs-attr">"removed"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"user_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"…"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"editor@acme.com"</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"request_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"…"</span> <span class="hljs-punctuation">}</span></code></pre>
+<p>Access ends at once. The editor keeps their own Manifest account. The project owner can't be removed (<code>403 owner_not_removable</code>).</p>
+<h3 id="editors-outlive-your-keys">Editors Outlive Your Keys</h3><p>An editor's access belongs to the project, not to the key that invited them. Revoking or rotating a key removes no one. If a key leaks, list each project's editors and remove anyone you didn't invite.</p>
+<hr>
+<h2 id="delete-a-project">Delete a Project</h2><pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="curl-tab-0" aria-selected="true" tabindex="0">cURL</button><button type="button" role="tab" id="javascript-tab-1" aria-selected="false" tabindex="-1">JavaScript</button></div></header>
+
+<pre x-code="bash" name="cURL" data-code-block-built="yes" aria-label="cURL" role="tabpanel" data-code-processed="yes" id="curl-panel-0" aria-labelledby="curl-tab-0"><code class="hljs language-bash" data-highlighted="yes">curl -X DELETE https://api.manifestx.dev/v1/projects/proj_… \
+  -H <span class="hljs-string">"Authorization: Bearer <span class="hljs-variable">$MANIFEST_ACCOUNT_KEY</span>"</span></code></pre>
+<pre x-code="js" name="JavaScript" data-code-block-built="yes" aria-label="JavaScript" role="tabpanel" data-code-processed="yes" id="javascript-panel-1" aria-labelledby="javascript-tab-1" style="display: none"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`https://api.manifestx.dev/v1/projects/<span class="hljs-subst">${projectId}</span>`</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'DELETE'</span>,
+  <span class="hljs-attr">headers</span>: { <span class="hljs-title class_">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${process.env.MANIFEST_ACCOUNT_KEY}</span>`</span> },
+})
+<span class="hljs-keyword">const</span> { purge_after } = <span class="hljs-keyword">await</span> res.<span class="hljs-title function_">json</span>()</code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<pre x-code="json" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"deleted"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"proj_…"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"deleted_at"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1762041600</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"purge_after"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1764633600</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"request_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"…"</span>
+<span class="hljs-punctuation">}</span></code></pre>
+<aside class="negative"><span x-icon="lucide:triangle-alert"></span><p>The project goes offline at once. Staging and production stop serving, the default subdomains are released, and custom domains are detached. The <code>source_id</code> stays taken for good.</p>
+</aside>
+<p>After a delete:</p>
+<ul>
+<li>The project's own key stops working, and the project leaves <code>GET /projects</code>.</li>
+<li>Any request for it answers <code>410 project_deleted</code>, including a second delete.</li>
+<li>On the free allowance, its place is freed straight away.</li>
+<li>A create that reuses its <code>source_id</code> answers <code>409 source_id_deleted</code>.</li>
+<li>A <a href="/docs/api/guides/webhooks#events"><code>project.deleted</code> webhook</a> is sent once.</li>
+</ul>
+<p><strong>Restoring.</strong> Files and history are kept for 30 days, until <code>purge_after</code>. Within that window, email <a href="mailto:team@manifestx.dev">team@manifestx.dev</a> with the project id and Manifest can restore it. A restore brings back staging, production, and the default subdomains.</p>
+<p>Custom domains come back pending, because their certificates were released. Manifest sends the DNS records to check again, and the domain's <a href="/docs/api/guides/domains">status</a> shows when it's active. A subdomain or domain another project took in the meantime can't be returned.</p>
+<p><strong>Who can delete.</strong> Only the owner can delete a project made outside the API; an admin gets <code>403 forbidden</code>. A project with a Pro subscription answers <code>409 subscription_active</code>, so cancel it in the <a href="https://dash.manifestx.dev" target="_blank">dashboard</a> first.</p>
+<hr>
+<h2 id="which-projects-a-key-reaches">Which Projects a Key Reaches</h2><table>
+<thead>
+<tr>
+<th>Project</th>
+<th>What the key can do</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Projects you own or admin</td>
+<td>Publish, promote, roll back, rename, list deployments, manage domains, and invite or remove editors.</td>
+</tr>
+<tr>
+<td>Projects your keys create</td>
+<td>All of the above, plus the <a href="/docs/api/guides/docs-template">docs template</a>.</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>Your own projects</strong> are the ones in your dashboard, made in Claude, in the dashboard, or through the API.</li>
+<li><strong>Team projects</strong> need the owner or admin role. As a member, the key gets <code>403 forbidden</code>.</li>
+<li><strong>Another account's projects</strong> are out of reach. They answer <code>404 not_found</code>, like a project that doesn't exist.</li>
+<li><strong>Enterprise keys</strong> reach only the projects that account creates.</li>
+</ul>
+<p>Each project keeps its own plan. Publishing, staging, promote, and custom domains work on every plan. Rollback is part of Pro, so a Free project answers <code>402 pro_required</code>.</p>
+<p>To move a project to Pro, its owner upgrades it from the <a href="https://dash.manifestx.dev" target="_blank">dashboard</a>. Projects your keys create are listed there, and in Claude, like any other project of yours.</p>
+<hr>
+<h2 id="errors">Errors</h2><p>Every error has the <a href="/docs/api/reference/errors">same shape</a>. These are the ones specific to projects and editors.</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th><code>error</code></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>400</td>
+<td><code>invalid_input</code></td>
+<td>A field is missing, malformed, or unknown, or the body isn't JSON.</td>
+</tr>
+<tr>
+<td>400</td>
+<td><code>invalid_subdomain</code></td>
+<td><code>subdomain</code> isn't 1 to 40 lowercase letters, digits, or single hyphens.</td>
+</tr>
+<tr>
+<td>402</td>
+<td><code>pro_required</code></td>
+<td>Inviting editors is part of Pro. Upgrade the project in the dashboard.</td>
+</tr>
+<tr>
+<td>403</td>
+<td><code>project_cap_reached</code></td>
+<td>Your account's project cap is reached. The message names the cap.</td>
+</tr>
+<tr>
+<td>403</td>
+<td><code>forbidden</code></td>
+<td>You're a member, not the owner or an admin. Deleting a project made outside the API needs its owner.</td>
+</tr>
+<tr>
+<td>403</td>
+<td><code>owner_not_removable</code></td>
+<td>The project owner can't be removed.</td>
+</tr>
+<tr>
+<td>404</td>
+<td><code>not_found</code></td>
+<td>No such project, or the key can't reach it.</td>
+</tr>
+<tr>
+<td>404</td>
+<td><code>member_not_found</code></td>
+<td>No one with that <code>user_id</code> is on the project.</td>
+</tr>
+<tr>
+<td>409</td>
+<td><code>source_id_conflict</code></td>
+<td><code>source_id</code> already names a project with a different <code>name</code> or <code>subdomain</code>.</td>
+</tr>
+<tr>
+<td>409</td>
+<td><code>source_id_deleted</code></td>
+<td><code>source_id</code> named a project that was deleted. Use a new one.</td>
+</tr>
+<tr>
+<td>409</td>
+<td><code>subdomain_taken</code></td>
+<td>Another project has that subdomain.</td>
+</tr>
+<tr>
+<td>409</td>
+<td><code>subscription_active</code></td>
+<td>The project has a Pro subscription. Cancel it in the dashboard, then delete.</td>
+</tr>
+<tr>
+<td>410</td>
+<td><code>project_deleted</code></td>
+<td>The project was deleted. The message says until when Manifest can restore it.</td>
+</tr>
+<tr>
+<td>422</td>
+<td><code>subdomain_reserved</code></td>
+<td>That subdomain is reserved, like <code>login</code> or <code>billing</code>.</td>
+</tr>
+<tr>
+<td>422</td>
+<td><code>invite_failed</code></td>
+<td>Manifest's team service refused the address. The message says why; fix it rather than retrying.</td>
+</tr>
+<tr>
+<td>429</td>
+<td><code>invite_limit</code></td>
+<td>The project's 50 invites for today are used. Wait the seconds in <code>Retry-After</code>.</td>
+</tr>
+<tr>
+<td>503</td>
+<td><code>membership_unverified</code></td>
+<td>Manifest couldn't check your role on a team project. Nothing was done. Retry.</td>
+</tr>
+<tr>
+<td>503</td>
+<td><code>team_unavailable</code></td>
+<td>Manifest couldn't reach the project's team. No one was invited or removed. Retry.</td>
+</tr>
+</tbody></table>
+<p>Idempotency errors are on <a href="/docs/api/reference/errors#idempotency">Errors</a>.</p>
+</div>
+
+      <!-- Previous / next -->
+      <template x-if="article?.name &amp;&amp; (prev || next)">
+        <nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template>
+        </nav>
+      </template><nav aria-label="Previous and next" class="grid grid-cols-2 gap-3 w-2xl max-w-full mt-20" data-page-nav="" data-mnfst-prerender-clone="1">
+          <template x-if="prev">
+            <a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name"></span>
+            </a>
+          </template><a :href="prev?.href" class="col gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline" href="/docs/api/getting-started/quickstart" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Previous</small>
+              <span class="text-content-stark" x-text="prev?.name">Quickstart</span>
+            </a>
+          <template x-if="!prev"><span></span></template>
+          <template x-if="next">
+            <a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name"></span>
+            </a>
+          </template><a :href="next?.href" class="col items-end gap-0.5 px-4 py-3 rounded-lg border border-line hover:bg-surface-2 no-underline text-end" href="/docs/api/guides/edit" data-mnfst-prerender-clone="1">
+              <small class="text-content-subtle">Next</small>
+              <span class="text-content-stark" x-text="next?.name">Edit</span>
+            </a>
+        </nav>
+
+      <!-- Family home (markdown) -->
+      <template x-if="at(base) &amp;&amp; home">
+        <div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26" x-markdown="home"></div>
+      </template>
+
+      <!-- Docs home -->
+      <template x-if="at(base) &amp;&amp; landing">
+        <div class="col gap-8 pb-12">
+          <template x-if="landing === 'framework'"><x-framework></x-framework></template>
+          <template x-if="landing === 'platform'"><x-docs-platform></x-docs-platform></template>
+          <template x-if="landing === 'api'"><x-docs-api></x-docs-api></template>
+          <div class="col gap-4 w-content-width max-w-full mx-auto">
+            <h2 class="h4">Explore the docs</h2>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <template x-for="card in cards" :key="card.href">
+                <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                  <span x-icon="card.icon" class="text-brand-content"></span>
+                  <span class="col">
+                    <span class="text-content-stark font-medium" x-text="card.title"></span>
+                    <small class="text-content-subtle" x-text="card.sub"></small>
+                  </span>
+                </a>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template x-if="at(base) &amp;&amp; !home &amp;&amp; !landing">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="heading"></h1>
+            <p class="text-content-neutral" x-show="intro" x-text="intro"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="card in cards" :key="card.href">
+              <a :href="card.href" class="row items-center gap-3 px-4 py-3 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="card.icon" class="text-brand-content"></span>
+                <span class="col">
+                  <span class="text-content-stark font-medium" x-text="card.title"></span>
+                  <small class="text-content-subtle" x-text="card.sub"></small>
+                </span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Group landing -->
+      <template x-if="group?.group">
+        <div class="col gap-8 w-2xl max-w-full">
+          <div class="col gap-3">
+            <h1 x-text="group?.group"></h1>
+            <p class="text-content-neutral" x-show="group?.description" x-text="group?.description"></p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <template x-for="(item, index) in group?.items.filter(i =&gt; i.name) || []" :key="item.path || index">
+              <a :href="href(group, item)" class="row items-center gap-2.5 px-4 py-2.5 rounded-lg border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 no-underline">
+                <span x-icon="item.icon" x-show="item.icon" class="text-brand-content"></span>
+                <span class="text-content-stark" x-text="item.name"></span>
+              </a>
+            </template>
+          </div>
+        </div>
+      </template>
+
+    </div>
+
+    <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
+    <template x-if="!article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
+      <div class="max-w-full prose">
+        <h1>Article does not exist</h1>
+        <p>There is no documentation at this path.</p>
+      </div>
+    </template>
+
+    <footer class="mt-20">
+  <hr>
+  <div class="row-wrap justify-between items-center gap-4 pt-4">
+
+    <figcaption class="text-content-subtle">© 2026 MNFST OÜ • <a href="/legal/terms">Terms</a> • <a href="/legal/privacy">Privacy</a><span x-show="$route.startsWith('/docs/framework')" style="display: none"> • Framework under the <a href="/docs/framework/resources/license">MIT License</a></span></figcaption>
+
+    <div class="row-wrap gap-3">
+
+      <a href="https://github.com/Manifest-X/Manifest" target="_blank" role="button" class="sm ghost outlined rounded-full" aria-label="GitHub" x-icon="simple-icons:github"></a>
+
+      <div role="tablist" aria-label="Color mode" class="sm rounded-full">
+        <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h4"></button>
+        <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h5"></button>
+        <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h6"></button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+
+  <!-- Anchor links -->
+  <nav aria-label="On this page" x-show="!(at(base) &amp;&amp; landing)" data-static="" style="view-transition-name: docs-toc" class="hidden xl:col gap-2.5 sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-10 pb-64 pl-10 overflow-y-auto no-scrollbar">
+
+    <small class="mb-2" x-show="$store.anchors?.count &gt; 0">
+      <span x-icon="lucide:align-left" class="[dir=rtl]:rotate-180"></span>
+      <span>On this page</span>
+    </small>
+
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#create-a-project">Create a Project</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#staging-and-production">Staging and Production</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#safe-to-repeat">Safe to Repeat</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#free-allowance">Free Allowance</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#find-a-project-by-source_id">Find a Project by source_id</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#list-projects">List Projects</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#get-a-project">Get a Project</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#rename-a-project">Rename a Project</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#editors">Editors</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#invite-an-editor">Invite an Editor</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#list-editors">List Editors</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#remove-an-editor">Remove an Editor</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#editors-outlive-your-keys">Editors Outlive Your Keys</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#delete-a-project">Delete a Project</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#which-projects-a-key-reaches">Which Projects a Key Reaches</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#errors">Errors</a></div>
+
+  </nav>
+
+</div>
+    
+
+    <!-- Legal pages -->
+    
+
+    <!-- Support -->
+    
+
+  </main>
+
+  <!-- Footer (visible on every route) -->
+  
+
+
+
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"data-order":null}},{"id":"h3","attrs":{"popovertarget":null,"style":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h4","attrs":{"aria-selected":null,"type":null}},{"id":"h5","attrs":{"aria-selected":null,"type":null}},{"id":"h6","attrs":{"aria-selected":null,"type":null}}]</script>
+</body></html>

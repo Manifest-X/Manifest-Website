@@ -6,9 +6,9 @@ Anchored menus for actions and selections.
 
 ## Setup
 
-Dropdown styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/styles/theme) variables.
+Dropdown styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
-Dropdown functionality is included in `manifest.js` with all core plugins, or it can be selectively loaded.
+Dropdown functionality is included in `manifest.js` with all core modules, or it can be selectively loaded.
 
 <div x-code-group copy>
 
@@ -24,9 +24,9 @@ Dropdown functionality is included in `manifest.js` with all core plugins, or it
 <!-- Dropdown styles only -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.dropdown.css" />
 
-<!-- Manifest JS: dropdowns plugin only -->
+<!-- Manifest JS: dropdowns module only -->
 <script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
-  data-plugins="dropdowns"></script>
+  data-modules="dropdowns"></script>
 ```
 
 </div>
@@ -35,7 +35,7 @@ Dropdown functionality is included in `manifest.js` with all core plugins, or it
 Older browser versions require polyfills like OddBird's <a href="https://github.com/oddbird/popover-polyfill" target="_blank">popover</a> and <a href="https://github.com/oddbird/css-anchor-positioning" target="_blank">CSS anchor positioning</a> scripts, which mimic the HTML and CSS abilities required for dropdowns.
 :::
 
-For OS dropdowns, see [selects](/docs/elements/selects).
+For OS dropdowns, see [selects](/docs/framework/elements/selects).
 
 ---
 
@@ -122,7 +122,7 @@ Add the `context` modifier to `x-dropdown` for right-click dropdowns. The menu a
 ```
 
 ::: frame text-base
-<div x-dropdown.context="context-menu-preview" style="padding: 2rem; border: 1px dashed var(--color-line, #ccc); border-radius: var(--radius, 0.5rem); text-align: center; color: var(--color-content-subtle);">Right-click this area</div>
+<div x-dropdown.context="context-menu-preview" class="p-8 border border-dashed border-line rounded-lg text-center text-content-subtle">Right-click this area</div>
 
 <menu popover id="context-menu-preview">
     <li>Cut</li>
@@ -269,7 +269,7 @@ Nested dropdowns automatically position themselves to avoid overlapping and main
 
 ## Positioning
 
-Menus have utility classes like `top` and `bottom` to position them in relation to their trigger buttons. If no class is set, menus default to `bottom-start`, or `end-start` if nested.
+Menus have utility classes like `top` and `bottom` to position them in relation to their trigger buttons. If no class is set, menus default to `bottom-start`, or `end-top` if nested.
 
 <div x-code-group>
 
@@ -470,6 +470,7 @@ Use `<li>` elements for generic options in a dropdown, with Alpine's `@click` di
     <li><span>Trailing</span><kbd class="trailing">⌘</kbd><kbd>D</kbd></li>
     <li class="brand">Brand</li>
     <li class="accent">Accent</li>
+    <li class="positive">Positive</li>
     <li class="negative">Negative</li>
 
     <hr>
@@ -487,8 +488,8 @@ Use `<li>` elements for generic options in a dropdown, with Alpine's `@click` di
     <hr>
 
     <small>Checkboxes</small>
-    <label><input type="checkbox" /><span>Lorem ipsum dolor sit amet</span></label>
-    <label><input type="checkbox" /><span>Consectetur adipiscing elit</span></label>
+    <label><input type="checkbox" /><span>Show hidden files</span></label>
+    <label><input type="checkbox" /><span>Show file extensions</span></label>
 
     <hr>
 
@@ -534,8 +535,8 @@ Use `<li>` elements for generic options in a dropdown, with Alpine's `@click` di
     <button><span x-icon="lucide:edit"></span><span>Edit</span></button>
     <hr>
     <small>Checkboxes</small>
-    <label><input type="checkbox" /><span>Lorem ipsum dolor sit amet</span></label>
-    <label><input type="checkbox" /><span>Consectetur adipiscing elit</span></label>
+    <label><input type="checkbox" /><span>Show hidden files</span></label>
+    <label><input type="checkbox" /><span>Show file extensions</span></label>
     <hr>
     <small>Radios</small>
     <label><input type="radio" id="option-a" name="group-preview" checked /><span>Option A</span></label>
@@ -591,7 +592,7 @@ Three optional knobs on the `<menu>` element:
 The modifier is part of the attribute name and the number is its value: `x-defer.priority="1"`. Writing `x-defer="priority:1"` does nothing.
 
 ::: brand icon="lucide:info"
-If a menu lists more than ~100 items, put the list in [`x-virtual`](/docs/core-plugins/virtual#inside-menus-and-dialogs). Deferral makes the closed menu free; virtualization makes the open menu fast.
+If a menu lists more than ~100 items, put the list in [`x-virtual`](/docs/framework/core-modules/virtual#inside-menus-and-dialogs). Deferral makes the closed menu free; virtualization makes the open menu fast.
 :::
 
 <div x-code-group>
@@ -633,7 +634,7 @@ Three hundred rows are in the menu, but only the visible ones are rendered, and 
 
 ### Theme
 
-Default dropdowns use the following [theme](/docs/styles/theme) variables:
+Default dropdowns use the following [theme](/docs/framework/styles/theme) variables:
 
 | Variable | Purpose |
 |----------|----------|
@@ -655,18 +656,18 @@ If using Tailwind, individual menus can be customized with utility classes. Menu
 ```html copy
 <button x-dropdown="menu-wide-preview">Offset & Widen</button>
 <menu popover id="menu-wide-preview" class="w-100 !m-6">
-    <li>Lorem ipsum dolor sit amet</li>
-    <li>Consectetur adipiscing elit</li>
-    <li>Sed do eiusmod tempor incididunt</li>
+    <li>Duplicate</li>
+    <li>Archive</li>
+    <li>Move to another workspace</li>
 </menu>
 ```
 
 ::: frame text-base
 <button x-dropdown="menu-wide-preview">Offset & Widen</button>
 <menu popover id="menu-wide-preview" class="w-100 !m-6">
-    <li>Lorem ipsum dolor sit amet</li>
-    <li>Consectetur adipiscing elit</li>
-    <li>Sed do eiusmod tempor incididunt</li>
+    <li>Duplicate</li>
+    <li>Archive</li>
+    <li>Move to another workspace</li>
 </menu>
 :::
 
@@ -682,18 +683,18 @@ Modify base dropdown styles with custom CSS for the `menu[popover]` selector.
 
 ```css copy
 menu[popover] {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
+    background-color: var(--color-surface-1);
+    border: 2px solid var(--color-brand-surface);
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 8px 25px color-mix(in oklch, var(--color-brand-surface) 30%, transparent);
 
     /* Any relevant options */
     & :where(li, a, button, label) {
-        color: #1e40af;
+        color: var(--color-brand-content);
         border-radius: 8px;
 
         &:hover {
-            background-color: #dbeafe;
+            background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent);
         }
     }
 }
@@ -702,18 +703,18 @@ menu[popover] {
 ::: frame text-base
 <style>
 menu[popover].custom {
-    background-color: #f0f8ff;
-    border: 2px solid #3b82f6;
+    background-color: var(--color-surface-1);
+    border: 2px solid var(--color-brand-surface);
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 8px 25px color-mix(in oklch, var(--color-brand-surface) 30%, transparent);
 
     & :where(li, a, button, label) {
-        color: #1e40af;
+        color: var(--color-brand-content);
         border-radius: 8px;
     }
 
     & :where(li, a, button, label):hover {
-        background-color: #dbeafe;
+        background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent);
     }
 }
 </style>

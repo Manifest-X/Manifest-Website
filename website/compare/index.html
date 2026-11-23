@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en" data-no-view-transitions="" data-online="true" data-os="macos" dir="auto"><head>
+  <script id="manifest-theme-bootstrap">(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');}catch(e){document.documentElement.classList.add('light');}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="How building and publishing with Manifest in Claude compares with other AI app builders, on pricing, features, and ownership.">
+  <meta name="author" content="Andrew Matlock">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="google" content="notranslate">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/Manrope.woff2" crossorigin="">
+
+  <!-- Web App & Manifest -->
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="../manifest.theme.css">
+
+  <!-- Scripts -->
+  <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="../scripts/payments-demo.js" defer=""></script>
+  <script src="../scripts/hero-editor.js" defer=""></script>
+  <script src="../scripts/hero-demo.js" defer=""></script>
+  <script src="../scripts/console-message.js" defer=""></script>
+
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+@custom-variant cursor (@media (pointer: fine) and (hover: hover));
+@custom-variant pointer (@media (any-pointer: fine));
+@custom-variant mac (&:where([data-os="macos"] *));
+@custom-variant windows (&:where([data-os="windows"] *));
+@custom-variant linux (&:where([data-os="linux"] *));
+@custom-variant ios (&:where([data-os="ios"] *));
+@custom-variant android (&:where([data-os="android"] *));
+@custom-variant apple (&:where([data-os="macos"] *, [data-os="ios"] *));
+@custom-variant online (&:where([data-online="true"] *));
+@custom-variant offline (&:where([data-online="false"] *));
+@custom-variant standalone (&:where([data-standalone] *));
+@custom-variant native (&:where([data-native] *));
+@custom-variant web (&:where(html:not([data-native]) *));
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Manifest compared — Manifest</title><meta property="og:title" content="Manifest compared — Manifest"><meta property="og:description" content="How building and publishing with Manifest in Claude compares with other AI app builders, on pricing, features, and ownership."><meta property="og:type" content="website"><meta property="og:url" content="https://manifestx.dev/compare"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/compare.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Manifest compared — Manifest"><meta property="twitter:description" content="How building and publishing with Manifest in Claude compares with other AI app builders, on pricing, features, and ownership."><meta property="twitter:image" content="/og/compare.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Manifest compared — Manifest","description":"How building and publishing with Manifest in Claude compares with other AI app builders, on pricing, features, and ownership.","image":"/og/compare.png","url":"https://manifestx.dev/compare"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Compare","item":"https://manifestx.dev/compare"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+<link rel="canonical" href="https://manifestx.dev/compare">
+<meta name="manifest:router-base" content="">
+<meta name="manifest:prerender-locales" content="en">
+<meta name="manifest:prerendered" content="1">
+<meta name="manifest:router-base-depth" content="1">
+</head>
+
+<body x-data="{
+  init() {
+    const savedDirection = localStorage.getItem('manifest-direction') || 'auto';
+    document.documentElement.setAttribute('dir', savedDirection);
+  }
+}" class="bg-surface-1">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-4 focus:py-2 focus:bg-surface-1 focus:border focus:border-line focus:rounded-full" data-order="0">Skip to content</a>
+
+  <header style="view-transition-name: site-header" class="site-header fixed top-0 left-0 right-0 z-5 max-w-screen px-viewport-padding bg-surface-1/65 backdrop-blur-xl" data-component="header-1" data-order="1">
+
+    <!-- Content Area -->
+    <nav class="row justify-between items-center gap-4 max-w-full mx-auto py-4 w-full" :class="$route === '/' ? 'w-content-width' : 'w-full'" data-hydrate-id="h0">
+
+        <!-- Start -->
+        <div class="row items-center gap-3" x-data="{
+            get family() { return $route.startsWith('/docs/platform') ? 'platform' : $route.startsWith('/docs/api') ? 'api' : 'framework' },
+        }">
+
+            <!-- Logo -->
+            <a href="/#home" class="w-fit no-underline text-lg font-semibold tracking-tighter">
+                <span class="hidden md:flex">{Manifest}</span>
+                <span class="md:hidden">{M}</span>
+            </a>
+
+            <!-- Docs family -->
+            
+            <menu popover="" id="docs-family" role="menu" style="position-anchor: --dropdown-p1">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a :href="'/docs/' + d.key" close="">
+                        <span x-text="d.name"></span>
+                        <span x-show="family === d.key" x-icon="lucide:check" class="trailing"></span>
+                    </a>
+                </template>
+            </menu>
+
+            <!-- Docs Breadcrumbs-->
+            
+            
+            
+
+        </div>
+
+        <!-- End -->
+        <div class="row justify-end items-center gap-2">
+
+            <!-- CTAs -->
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+                <span x-icon="lucide:search"></span>
+                <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
+            </button>
+            <a role="button" href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="sm transparent outlined rounded-full" aria-label="GitHub" x-tooltip="GitHub" x-icon="meteor-icons:github"></a>
+            <a role="button" href="/docs" class="sm transparent outlined rounded-full">Docs</a>
+            <a role="button" href="https://dash.manifestx.dev" class="sm accent rounded-full" x-text="/(^|;\s*)mnfst_signed_in=1(;|$)/.test(document.cookie) ? 'Dashboard' : 'Sign in'">Sign in</a>
+
+            <!-- Mobile Sidebar Button -->
+            <button class="ghost flex md:hidden" popovertarget="docs-nav" x-icon="lucide:menu" aria-label="Mobile Navigation"></button>
+
+        </div>
+
+    </nav>
+
+</header>
+  <div x-data="{
+        sources: [['platform', '/docs/platform'], ['framework', '/docs/framework'], ['api', '/docs/api']],
+        labels: { platform: 'Platform', framework: 'Framework', api: 'API' },
+        q: '',
+        items: [],
+        ready: false,
+        loading: false,
+        active: 0,
+
+        // Fetch every article's markdown once, on first open; index title, description, headings, body.
+        async build() {
+            if (this.ready || this.loading) return;
+            this.loading = true;
+            const jobs = [];
+            for (const [src, base] of this.sources) {
+            for (let i = 0; i &lt; 20 &amp;&amp; (!$x[src] || !$x[src].length); i++) await new Promise(r =&gt; setTimeout(r, 100));
+            for (const g of ($x[src] || [])) {
+                for (const it of (g.items || [])) {
+                    if (!it.name || !it.doc) continue;
+                    const href = base + (g.slug ? '/' + g.slug : '') + '/' + it.path;
+                    jobs.push(fetch(it.doc)
+                        .then(r =&gt; r.ok ? r.text() : '')
+                        .catch(() =&gt; '')
+                        .then(md =&gt; {
+                            const desc = (md.match(/^#\s.+\n+([^#\n][^\n]*)/m)?.[1] || '')
+                                .replace(/&lt;[^&gt;]+&gt;/g, '').replace(/[*_`\[\]]/g, '').trim();
+                            const headings = [...md.matchAll(/^#{2,3}\s+(.+)$/gm)].map(m =&gt; m[1].trim());
+                            const body = md
+                                .replace(/```[\s\S]*?```/g, ' ')
+                                .replace(/:::[^\n]*/g, ' ')
+                                .replace(/&lt;[^&gt;]+&gt;/g, ' ')
+                                .replace(/[#&gt;*_`\[\]()|]/g, ' ')
+                                .replace(/-{2,}/g, ' ')
+                                .replace(/\s+/g, ' ');
+                            this.items.push({
+                                name: it.name, group: g.group, icon: it.icon, href, desc, src,
+                                headings,
+                                hhay: headings.join(' · ').toLowerCase(),
+                                body, bhay: body.toLowerCase(),
+                            });
+                        }));
+                }
+            }
+            }
+            await Promise.all(jobs);
+            $x.$register('searchIndex', this.items);
+            this.ready = true;
+            this.loading = false;
+        },
+
+        results() {
+            const terms = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (!terms.length) return this.items.map(it =&gt; ({ ...it, caption: it.desc }));
+            const ranked = $x.searchIndex.$search(this.q, { name: 100, hhay: 40, bhay: 15 });
+            return ranked.slice(0, 20).map(it =&gt; ({ ...it, caption: this.caption(it, terms[0]) }));
+        },
+
+        // Matched heading, content excerpt, or the article description.
+        caption(it, t0) {
+            const h = it.headings.find(h =&gt; h.toLowerCase().includes(t0));
+            if (h) return h;
+            if (!it.name.toLowerCase().includes(t0)) {
+                const i = it.bhay.indexOf(t0);
+                if (i &gt; -1) return (i &gt; 30 ? '…' : '') + it.body.slice(Math.max(0, i - 30), i + 70).trim() + '…';
+            }
+            return it.desc;
+        },
+
+        openDialog() { document.getElementById('docs-search')?.showPopover(); },
+        // The router swallows result clicks before element handlers run, so the
+        // dialog closes on the route-change event rather than the click itself.
+        closeDialog() { try { document.getElementById('docs-search')?.hidePopover(); } catch (e) { } },
+        async onToggle(e) {
+            if (e.newState !== 'open') return;
+            this.$nextTick(() =&gt; { this.$refs.input.focus(); this.$refs.input.select(); });
+            await this.build();
+            this.$nextTick(() =&gt; { if (this.$refs.list) this.$refs.list.scrollTop = 0; });
+        },
+        move(d) {
+            const n = this.results().length;
+            if (!n) return;
+            this.active = (this.active + d + n) % n;
+            this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
+        },
+        go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+
+    <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
+
+        <!-- Query -->
+        <div class="shrink-0 px-4 pt-4 pb-3 border-b border-line">
+            <label class="row items-center gap-2 w-full">
+                <span x-icon="lucide:search" class="text-content-subtle shrink-0"></span>
+                <input x-ref="input" type="search" x-model="q" placeholder="Search docs">
+            </label>
+        </div>
+
+        <!-- Results -->
+        <div x-ref="list" class="col grow overflow-y-auto no-scrollbar px-4 [overflow-anchor:none]">
+            <div class="h-2 shrink-0"></div>
+            <p x-show="loading &amp;&amp; !ready" class="px-3 py-2 text-sm text-content-subtle" style="display: none">Indexing articles…</p>
+            <p x-show="ready &amp;&amp; q.trim() &amp;&amp; !results().length" class="px-3 py-2 text-sm text-content-subtle" style="display: none">
+                No matches for “<span x-text="q.trim()"></span>”.
+            </p>
+            <template x-for="(r, i) in results()" :key="r.href" data-prerender-collapsed="1">
+                <div :data-active="i === active ? '' : null" @mouseenter="active = i">
+                    <a :href="r.href" role="button" :class="i === active ? 'bg-surface-2 !text-content-stark' : 'text-content-neutral'" class="ghost justify-start w-full h-auto py-2 no-underline">
+                        <span class="col gap-0.5 min-w-0 grow text-left">
+                            <span class="row items-center gap-2">
+                                <span x-icon="r.icon" x-show="r.icon" class="shrink-0"></span>
+                                <span class="text-content-stark" x-text="r.name"></span>
+                                <template x-if="r.group">
+                                    <small class="text-content-subtle font-normal" x-text="'· ' + r.group"></small>
+                                </template>
+                                <small class="badge sm ms-auto shrink-0 font-normal" x-text="labels[r.src]"></small>
+                            </span>
+                            <small class="text-content-subtle font-normal truncate w-full pl-6" x-show="r.caption" x-text="r.caption"></small>
+                        </span>
+                    </a>
+                </div>
+            </template>
+            <div class="h-2 shrink-0"></div>
+        </div>
+
+    </dialog>
+</div>
+  <nav aria-label="Menu" popover="" id="docs-nav" data-no-view-transition="" class="col w-64 h-full pt-8 pb-64 px-4 bg-popover-surface shadow-xl overflow-y-auto no-scrollbar" x-data="{
+        view: null,
+        get current() { return $route.match(/^\/docs\/(platform|api|framework)(\/|$)/)?.[1] || null },
+        get src() { return this.view || this.current },
+        get base() { return '/docs/' + this.src },
+        get groups() { return this.src ? $x[this.src] || [] : [] },
+        get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
+        here(href) { return $route.replace(/\/$/, '') === href },
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+
+    <!-- Docs -->
+    <template x-if="src">
+        <div class="col">
+            <div role="tablist" aria-label="Docs" class="sm rounded-full w-full my-4">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <button type="button" role="tab" :aria-selected="src === d.key" @click="view = d.key" x-text="d.name"></button>
+                </template>
+            </div>
+            <a role="button" :href="base" :aria-current="here(base) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="here(base) ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                <span x-icon="lucide:house"></span>
+                <span>Overview</span>
+            </a>
+            <template x-for="group in groups" :key="group.group">
+                <div class="col gap-6 py-4">
+                    <small class="pl-2.5 text-content-subtle" x-show="group.group" x-text="group.group"></small>
+                    <div class="col">
+                        <template x-for="(item, index) in group.items" :key="item.path || index">
+                            <a x-show="item.name" role="button" :href="base + (group.slug ? '/' + group.slug : '') + '/' + item.path" :aria-current="article?.path === item.path ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="article?.path === item.path ? 'selected brand !text-content-stark pointer-events-none' : ''">
+                                <span x-icon="item.icon"></span>
+                                <span x-text="item.name"></span>
+                            </a>
+                        </template>
+                    </div>
+                    <hr>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <!-- Site -->
+    <div class="col py-4">
+        <template x-for="n in $x.site.nav" :key="n.href">
+            <a role="button" :href="n.href" :aria-current="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="(n.href === '/' ? $route === '/' : $route.startsWith(n.href)) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="n.icon"></span>
+                <span x-text="n.name"></span>
+            </a>
+        </template>
+    </div>
+    <hr class="shrink-0">
+    <template x-if="!src">
+        <div class="col gap-6 py-4">
+            <small class="pl-2.5 text-content-subtle">Docs</small>
+            <div class="col">
+                <template x-for="d in $x.site.docs" :key="d.key">
+                    <a role="button" :href="'/docs/' + d.key" class="ghost justify-start w-full text-content-neutral">
+                        <span x-icon="d.icon"></span>
+                        <span x-text="d.name"></span>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </template>
+    <hr class="shrink-0" x-show="!src">
+    <div class="col py-4">
+        <template x-for="p in $x.site.pages" :key="p.href">
+            <a role="button" :href="p.href" :aria-current="$route.startsWith(p.href) ? 'page' : null" class="ghost justify-start w-full text-content-neutral" :class="$route.startsWith(p.href) ? 'selected brand !text-content-stark' : ''">
+                <span x-icon="p.icon"></span>
+                <span x-text="p.name"></span>
+            </a>
+        </template>
+    </div>
+
+</nav>
+
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1 bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
+
+    <!-- Home page -->
+    
+
+    <!-- Framework -->
+
+    <!-- Compare -->
+    <template x-if="$route.startsWith('/compare') &amp;&amp; !$x.compare?.$route('slug')?.slug" x-route="compare" data-component="compare-1">
+  <section class="dot-page col center w-full pt-24 pb-50">
+    <div class="col gap-10 w-content-width max-w-full">
+      <div class="col gap-3 w-2xl max-w-full">
+        <p class="eyebrow">Compare</p>
+        <h1 class="leading-tight">Manifest compared</h1>
+        <p class="text-content-neutral text-balance">How building and publishing with Manifest in Claude compares with other AI app builders, on pricing, features, and ownership.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <template x-for="c in $x.compare" :key="c.slug">
+          <a :href="'/compare/' + c.slug" class="col gap-2 p-6 border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 rounded-xl no-underline transition-colors">
+            <span class="h4 text-content-stark" x-text="c.title || 'Manifest vs ' + c.name"></span>
+            <span class="text-sm text-content-neutral" x-text="c.blurb || c.summary"></span>
+          </a>
+        </template>
+      </div>
+    </div>
+  </section>
+</template><section class="dot-page col center w-full pt-24 pb-50" data-mnfst-prerender-clone="1">
+    <div class="col gap-10 w-content-width max-w-full">
+      <div class="col gap-3 w-2xl max-w-full">
+        <p class="eyebrow">Compare</p>
+        <h1 class="leading-tight">Manifest compared</h1>
+        <p class="text-content-neutral text-balance">How building and publishing with Manifest in Claude compares with other AI app builders, on pricing, features, and ownership.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <template x-for="c in $x.compare" :key="c.slug">
+          <a :href="'/compare/' + c.slug" class="col gap-2 p-6 border border-line bg-popover-surface hover:bg-surface-2 dark:hover:bg-surface-3 rounded-xl no-underline transition-colors">
+            <span class="h4 text-content-stark" x-text="c.title || 'Manifest vs ' + c.name"></span>
+            <span class="text-sm text-content-neutral" x-text="c.blurb || c.summary"></span>
+          </a>
+        </template>
+      </div>
+    </div>
+  </section><template x-if="$route.startsWith('/compare') &amp;&amp; $x.compare?.$route('slug')?.slug" x-route="compare">
+  <div class="dot-page col w-full" x-data="{ get c() { return $x.compare.$route('slug') } }">
+
+    <!-- Header -->
+    <section class="col center w-full pt-24 pb-16">
+      <div class="col gap-12 w-content-width max-w-full">
+        <div class="col gap-4 w-2xl max-w-full">
+          <a href="/compare" class="eyebrow w-fit no-underline hover:text-content-stark">Compare</a>
+          <h1 class="leading-tight" x-text="c.title || 'Manifest vs ' + c.name"></h1>
+          <p class="text-lg text-content-neutral text-balance" x-text="c.summary"></p>
+        </div>
+        <div class="col gap-4">
+          <p class="eyebrow">With Manifest</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <template x-for="h in c.highlights" :key="h.value">
+            <div class="col gap-2 p-6 bg-popover-surface rounded-xl">
+              <span class="text-4xl font-semibold tracking-tight text-content-stark" x-text="h.value"></span>
+              <span class="text-content-neutral" x-text="h.text"></span>
+            </div>
+          </template>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Meter -->
+    <section x-show="c.prompts" class="col center w-full py-16" x-data="creditMeter">
+      <div class="col gap-10 w-content-width max-w-full">
+        <div class="col gap-2 w-2xl max-w-full">
+          <h2 class="md:col leading-tight">
+            <span>No credits.</span>
+            <span class="text-content-subtle">Just Claude.</span>
+          </h2>
+          <p class="mt-2 text-content-neutral text-balance" x-text="c.meter?.text"></p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" aria-hidden="true">
+
+          <div class="col gap-5 p-6 md:p-8 bg-surface-2 rounded-xl">
+            <div class="row items-center justify-between gap-3">
+              <span class="font-semibold" x-text="c.name"></span>
+              <span class="text-sm text-content-neutral tabular-nums" x-text="!left ? c.meter?.out : c.meter?.percent ? pct + '% ' + c.meter.left : left + ' ' + (left === 1 ? c.meter?.unit : c.meter?.units) + ' left ' + c.meter?.period"></span>
+            </div>
+            <div class="meter-track" :data-pct="Math.round(pct / 10) * 10"><span class="meter-fill"></span></div>
+            <ul class="unstyle col gap-2 list-none ps-0 text-sm">
+              <template x-for="(p, i) in c.prompts" :key="p.text">
+                <li class="meter-row row items-center justify-between gap-3 px-3.5 py-2 bg-popover-surface dark:bg-surface-3 rounded-lg" :class="[i &lt; step &amp;&amp; 'on', p.them !== 'credit' &amp;&amp; 'is-no']">
+                  <span x-text="p.text"></span>
+                  <span class="shrink-0 text-xs text-content-subtle" x-text="p.them === 'no' ? 'Not available' : p.them === 'out' ? c.meter?.none : (c.meter?.spend || '−1 ' + c.meter?.unit)"></span>
+                </li>
+              </template>
+            </ul>
+          </div>
+
+          <div class="col gap-5 p-6 md:p-8 bg-popover-surface rounded-xl">
+            <div class="row items-center justify-between gap-3">
+              <span class="font-semibold">Manifest</span>
+              <span class="text-sm text-content-neutral">Your Claude plan</span>
+            </div>
+            <div class="meter-track"><span class="meter-fill meter-full"></span></div>
+            <ul class="unstyle col gap-2 list-none ps-0 text-sm">
+              <template x-for="(p, i) in c.prompts" :key="p.text">
+                <li class="meter-row row items-center justify-between gap-3 px-3.5 py-2 bg-surface-2 dark:bg-surface-3 rounded-lg" :class="i &lt; step &amp;&amp; 'on'">
+                  <span x-text="p.text"></span><span class="shrink-0" x-icon="lucide:check"></span>
+                </li>
+              </template>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Choose -->
+    <section class="col center w-full py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-content-width max-w-full">
+        <div class="relative col gap-6 p-6 md:p-10 bg-surface-2 rounded-xl overflow-hidden">
+          <span class="grid-fade" aria-hidden="true"></span>
+          <h2 class="relative h3" x-text="c.chooseThemTitle || 'Choose ' + c.name + ' if…'"></h2>
+          <ul class="relative unstyle col gap-3 list-none ps-0 text-lg">
+            <template x-for="t in c.chooseThem" :key="t"><li class="row items-start gap-3"><span class="shrink-0 mt-1 text-content-subtle" x-icon="lucide:arrow-right"></span><span x-text="t"></span></li></template>
+          </ul>
+        </div>
+        <div class="card-invert relative col gap-6 p-6 md:p-10 rounded-xl overflow-hidden">
+          <span class="grid-fade grid-fade-tl" aria-hidden="true"></span>
+          <h2 class="relative h3 text-accent-inverse">Choose Manifest if…</h2>
+          <ul class="relative unstyle col gap-3 list-none ps-0 text-lg">
+            <template x-for="t in c.chooseUs" :key="t"><li class="row items-start gap-3"><span class="shrink-0 mt-1 text-brand-content" x-icon="lucide:arrow-right"></span><span x-text="t"></span></li></template>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plans table -->
+    <section class="col center w-full pt-16 pb-6">
+      <div class="col gap-8 w-content-width max-w-full">
+        <div class="col gap-2">
+          <h2 class="leading-tight">Side by side</h2>
+          <p class="text-content-neutral">Free plan against free plan, and paid against paid.</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="compare-table w-full min-w-xl">
+            <thead>
+              <tr><th>Free plans</th><th x-text="c.name"></th><th class="is-us">Manifest</th></tr>
+            </thead>
+            <tbody>
+                <template x-for="r in c.free" :key="r[0]">
+                  <tr>
+                    <td x-text="r[0]"></td>
+                    <template x-for="(v, i) in [r[1], r[2]]" :key="i">
+                      <td :class="i &amp;&amp; 'is-us'">
+                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
+                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" aria-label="No"></span>
+                        <span x-show="v !== '✓' &amp;&amp; v !== '—'" x-text="v"></span>
+                      </td>
+                    </template>
+                  </tr>
+                </template>
+            </tbody>
+          </table>
+          <details class="compare-more">
+            <summary>Paid plans</summary>
+            <table class="compare-table w-full min-w-xl">
+              <thead>
+                <tr><th></th><th x-text="c.paidName || c.name + ' Pro'"></th><th class="is-us">Manifest Pro</th></tr>
+              </thead>
+              <tbody>
+                <template x-for="r in c.paid" :key="r[0]">
+                  <tr>
+                    <td x-text="r[0]"></td>
+                    <template x-for="(v, i) in [r[1], r[2]]" :key="i">
+                      <td :class="i &amp;&amp; 'is-us'">
+                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
+                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" aria-label="No"></span>
+                        <span x-show="v !== '✓' &amp;&amp; v !== '—'" x-text="v"></span>
+                      </td>
+                    </template>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="col center w-full">
+      <small class="w-content-width max-w-full text-content-subtle">
+        <span x-text="'Verified ' + c.verified + ' from each company\'s published pages: '"></span>
+        <template x-for="(s, i) in c.sources" :key="s.url"><span><a :href="s.url" target="_blank" rel="nofollow noopener" x-text="s.label"></a><span x-show="i &lt; c.sources.length - 1">, </span></span></template>.
+      </small>
+    </section>
+
+    <!-- Switch -->
+    <section class="col center w-full py-24">
+      <div class="col gap-8 w-content-width max-w-full">
+        <div class="col gap-2 w-2xl max-w-full">
+          <h2 class="leading-tight" x-text="c.switch.title || 'Switching from ' + c.name"></h2>
+          <p class="text-content-neutral text-balance" x-text="c.switch.intro"></p>
+        </div>
+        <template x-for="p in c.switch.prompts" :key="p">
+          <button type="button" class="prompt-copy unstyle group col gap-2 my-4 p-5 bg-popover-surface rounded-xl text-start cursor-pointer" x-data="{ copied: false }" aria-label="Copy this prompt" @click="navigator.clipboard.writeText(p); copied = true; setTimeout(() =&gt; copied = false, 1600)">
+            <span class="row items-center justify-between gap-3">
+              <span class="eyebrow">Prompt idea</span>
+              <span class="row items-center gap-1.5 text-sm text-content-subtle transition-colors group-hover:text-content-stark">
+                <span x-icon="copied ? 'lucide:check' : 'lucide:copy'" aria-hidden="true"></span><span x-text="copied ? 'Copied' : 'Copy'">Copy</span>
+              </span>
+            </span>
+            <span class="text-lg leading-snug text-content-stark" x-text="p"></span>
+          </button>
+        </template>
+        <ol class="unstyle grid grid-cols-1 sm:grid-cols-3 gap-8 list-none ps-0">
+          <template x-for="(s, i) in c.switch.steps" :key="s.title">
+            <li class="col gap-3 pt-5 border-t border-line">
+              <span class="row center size-8 bg-accent-surface text-accent-inverse rounded-full text-sm font-semibold" aria-hidden="true" x-text="i + 1"></span>
+              <h3 class="h4" x-text="s.title"></h3>
+              <p class="text-content-neutral" x-text="s.text"></p>
+            </li>
+          </template>
+        </ol>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="col center w-full py-16">
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-10 w-content-width max-w-full">
+        <div class="col gap-3">
+          <h2 class="leading-tight">Common questions</h2>
+          <p class="text-content-neutral">Something else? <a href="/support#contact">Contact the team</a>.</p>
+        </div>
+        <div class="col">
+          <template x-for="f in c.faq" :key="f.q">
+            <details class="border-b border-line">
+              <summary x-text="f.q"></summary>
+              <p class="text-content-neutral" x-text="f.a"></p>
+            </details>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="col center w-full pt-24 pb-50 text-center">
+      <div class="col center gap-10 w-content-width max-w-full">
+        <h2 class="md:col text-5xl md:text-6xl leading-tight text-balance">
+          <span x-text="c.cta?.[0] || 'Your next project,'"></span>
+          <span class="text-content-subtle" x-text="c.cta?.[1] || 'without the credit meter.'"></span>
+        </h2>
+        <div class="col center gap-3">
+          <a role="button" href="/#setup" class="accent lg rounded-full px-8">Get started free</a>
+          <small class="text-content-subtle">Publishing is free, on your own domain</small>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</template>
+
+    <!-- Documentation -->
+    
+    
+    
+    
+
+    <!-- Legal pages -->
+    
+
+    <!-- Support -->
+    
+
+  </main>
+
+  <!-- Footer (visible on every route) -->
+  <footer class="relative isolate px-viewport-padding pt-20 pb-10 bg-surface-2 overflow-hidden" style="view-transition-name: site-footer" x-route="/, =support, compare" data-order="5">
+
+  <span class="dot-field" aria-hidden="true"></span>
+  <span class="footer-mark" aria-hidden="true">{Manifest}</span>
+
+  <!-- Content -->
+  <nav class="col gap-4 w-content-width max-w-full mx-auto">
+
+    <!-- Top -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-8 pb-10 [&amp;_a]:text-sm [&amp;_a]:w-fit">
+
+      <!-- Product -->
+      <div class="col gap-3">
+        <small class="eyebrow">Product</small>
+        <a href="/#setup">Add to Claude</a>
+        <a href="/#showcase">Showcase</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="https://dash.manifestx.dev" target="_blank" rel="noopener" class="row items-center gap-1"><span>Dashboard</span><span x-icon="lucide:arrow-up-right" class="text-content-subtle" aria-hidden="true"></span></a>
+      </div>
+
+      <!-- Docs -->
+      <div class="col gap-3">
+        <small class="eyebrow">Docs</small>
+        <a href="/docs/platform">Platform</a>
+        <a href="/docs/framework">Framework</a>
+        <a href="/docs/api">API</a>
+      </div>
+
+      <!-- Comparisons -->
+      <div class="col gap-3">
+        <small class="eyebrow">Comparisons</small>
+        <a href="/compare/lovable">vs Lovable</a>
+        <a href="/compare/webflow">vs Webflow</a>
+        <a href="/compare/wordpress">vs WordPress</a>
+        <a href="/compare">All comparisons</a>
+      </div>
+
+      <!-- Resources -->
+      <div class="col gap-3">
+        <small class="eyebrow">Resources</small>
+        <a href="/support">Support</a>
+        <a href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="row items-center gap-1"><span>GitHub</span><span x-icon="lucide:arrow-up-right" class="text-content-subtle" aria-hidden="true"></span></a>
+      </div>
+
+      <!-- Legal -->
+      <div class="col gap-3">
+        <small class="eyebrow">Legal</small>
+        <a href="/legal/terms">Terms</a>
+        <a href="/legal/privacy">Privacy</a>
+        <a href="/docs/framework/resources/license">License</a>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <!-- Bottom -->
+    <div class="row-wrap justify-between items-center gap-6">
+
+      <!-- Attribution -->
+      <figcaption>© 2026 MNFST OÜ.&nbsp; The Manifest framework is open source under the <a href="/docs/framework/resources/license">MIT License</a>.</figcaption>
+
+      <!-- Controls -->
+      <div class="row-wrap items-center gap-4">
+
+        <!-- Color mode -->
+        <div role="tablist" aria-label="Color mode" class="color-modes sm rounded-full">
+          <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h3"></button>
+          <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h4"></button>
+          <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h5"></button>
+        </div>
+
+      </div>
+    </div>
+
+  </nav>
+
+</footer>
+
+
+
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"hidden":null,"style":null,"popovertarget":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"class":"pt-[69px] px-viewport-padding dark:bg-surface-1","data-order":null}},{"id":"h3","attrs":{"aria-selected":null,"type":null}},{"id":"h4","attrs":{"aria-selected":null,"type":null}},{"id":"h5","attrs":{"aria-selected":null,"type":null}}]</script>
+</body></html>

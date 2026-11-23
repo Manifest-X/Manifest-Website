@@ -1,55 +1,54 @@
-<footer class="px-viewport-padding pt-20 pb-10 bg-surface-2" style="view-transition-name: site-footer">
+<footer class="relative isolate px-viewport-padding pt-20 pb-10 bg-surface-2 overflow-hidden" style="view-transition-name: site-footer">
+
+  <span class="dot-field" aria-hidden="true"></span>
+  <span class="footer-mark" aria-hidden="true">{Manifest}</span>
 
   <!-- Content -->
   <nav class="col gap-4 w-content-width max-w-full mx-auto">
 
     <!-- Top -->
-    <div class="columns-1 sm:columns-3 md:columns-5 gap-8 pb-10 [&_a]:text-sm">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-8 pb-10 [&_a]:text-sm [&_a]:w-fit">
 
-      <!-- Brand block -->
-      <!-- <div class="col gap-4 col-span-1">
-        <a href="/" class="row items-center w-fit no-underline">
-          <x-logo class="text-content-subtle"></x-logo>
-        </a>
-        <p class="w-60 max-w-full">The website & app framework that thinks like you do.</p>
-      </div> -->
+      <!-- Product -->
+      <div class="col gap-3">
+        <small class="eyebrow">Product</small>
+        <a href="/#setup">Add to Claude</a>
+        <a href="/#showcase">Showcase</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="https://dash.manifestx.dev" target="_blank" rel="noopener" class="row items-center gap-1"><span>Dashboard</span><span x-icon="lucide:arrow-up-right" class="text-content-subtle" aria-hidden="true"></span></a>
+      </div>
 
-      <!-- Docs columns -->
-      <template x-for="group in $x.docs" :key="group.group">
-        <div class="col gap-3 mb-8 break-inside-avoid">
-          <small x-text="group.group"></small>
+      <!-- Docs -->
+      <div class="col gap-3">
+        <small class="eyebrow">Docs</small>
+        <a href="/docs/platform">Platform</a>
+        <a href="/docs/framework">Framework</a>
+        <a href="/docs/api">API</a>
+      </div>
 
-          <!-- Group links -->
-          <template x-if="group.slug !== 'elements'">
-            <div class="col gap-3">
-              <template x-for="(item, index) in group.items" :key="item.path || index">
-                <a x-show="item.name" :href="'/docs/' + group.slug + '/' + item.path" :class="item.indent ? 'ps-3' : ''" x-text="item.name"></a>
-              </template>
-            </div>
-          </template>
+      <!-- Comparisons -->
+      <div class="col gap-3">
+        <small class="eyebrow">Comparisons</small>
+        <a href="/compare/lovable">vs Lovable</a>
+        <a href="/compare/webflow">vs Webflow</a>
+        <a href="/compare/wordpress">vs WordPress</a>
+        <a href="/compare">All comparisons</a>
+      </div>
 
-          <!-- Elements dropdown -->
-          <template x-if="group.slug === 'elements'">
-            <div class="col gap-3">
-              <button x-dropdown="elements-menu" class="link text-sm" aria-label="Browse all HTML elements" aria-haspopup="menu">
-                <span>20+ HTML Elements</span>
-                <span x-icon="lucide:chevron-down"></span>
-              </button>
-              <dialog popover id="elements-menu" class="col w-40 p-2 [&_a]:justify-start [&_a]:w-full [&_a]:h-15 [&_a]:ghost">
-                <template x-for="(item, index) in group.items" :key="item.path || index">
-                  <a role="button" :href="'/docs/' + group.slug + '/' + item.path"><span x-icon="item.icon"></span><span x-text="item.name"></span></a>
-                </template>
-              </dialog>
-            </div>
-          </template>
+      <!-- Resources -->
+      <div class="col gap-3">
+        <small class="eyebrow">Resources</small>
+        <a href="/support">Support</a>
+        <a href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener" class="row items-center gap-1"><span>GitHub</span><span x-icon="lucide:arrow-up-right" class="text-content-subtle" aria-hidden="true"></span></a>
+      </div>
 
-          <!-- GitHub -->
-          <template x-if="group.slug === 'resources'">
-            <a href="https://github.com/Manifest-X/Manifest" target="_blank" rel="noopener"><span x-icon="meteor-icons:github"></span><span>GitHub</span><span x-icon="lucide:arrow-up-right"></span></a>
-          </template>
-
-        </div>
-      </template>
+      <!-- Legal -->
+      <div class="col gap-3">
+        <small class="eyebrow">Legal</small>
+        <a href="/legal/terms">Terms</a>
+        <a href="/legal/privacy">Privacy</a>
+        <a href="/docs/framework/resources/license">License</a>
+      </div>
 
     </div>
 
@@ -59,32 +58,21 @@
     <div class="row-wrap justify-between items-center gap-6">
 
       <!-- Attribution -->
-      <figcaption>Copyright &copy; 2026 <a href="https://andrewmatlock.com" target="_blank" rel="noopener">Andrew
-          Matlock</a>.&nbsp; Manifest is open source under <a href="/docs/resources/license">MIT License</a>.&nbsp;
-        <a href="/legal/privacy">Privacy</a> &middot; <a href="/legal/terms">Terms</a>
-      </figcaption>
+      <figcaption>&copy; 2026 MNFST OÜ.&nbsp; The Manifest framework is open source under the <a href="/docs/framework/resources/license">MIT License</a>.</figcaption>
 
       <!-- Controls -->
       <div class="row-wrap items-center gap-4">
 
         <!-- Color mode -->
-        <div role="group" class="border border-line rounded-full">
-          <button x-color="'light'" class="sm rounded-s-full" :class="{ 'accent pointer-events-none': $color.current === 'light' }" x-icon="lucide:sun" aria-label="Light mode"></button>
-          <button x-color="'dark'" class="sm" :class="{ 'accent pointer-events-none': $color.current === 'dark' }" x-icon="lucide:moon" aria-label="Dark mode"></button>
-          <button x-color="'system'" class="sm rounded-e-full" :class="{ 'accent pointer-events-none': $color.current === 'system' }" x-icon="lucide:sun-moon" aria-label="Auto mode"></button>
+        <div role="tablist" aria-label="Color mode" class="color-modes sm rounded-full">
+          <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode"></button>
+          <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode"></button>
+          <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode"></button>
         </div>
-
-        <!-- Locale -->
-        <!-- <button class="sm rounded-full">
-          <span x-icon="lucide:globe"></span>
-          <span>English</span>
-        </button> -->
 
       </div>
     </div>
 
   </nav>
-
-
 
 </footer>
