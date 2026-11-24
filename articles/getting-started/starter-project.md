@@ -73,7 +73,7 @@ Some files are merged with what's already in the folder rather than replaced, ev
 - `.claude/settings.json` keeps its settings. `mcp__manifest` is added to `permissions.allow`.
 - `.env` keeps its other variables. Only `MANIFEST_API_KEY` is added or updated.
 
-The last three apply only when [the Manifest plugin](/docs/platform/introduction) sets up the project, which passes the project ID for you (and, for headless setups, a key for `.env`). If `.mcp.json` or `.claude/settings.json` isn't valid JSON, the starter stops before writing anything.
+The last three apply only to key-authenticated (headless) setups, where [Manifest](/docs/platform/introduction) passes `--project-id` and `--key` for you. Setups through the Manifest connector or plugin pass neither, so the starter writes no `.mcp.json`, `.claude/settings.json` or `.env`: the connector already provides the Manifest server. If `.mcp.json` or `.claude/settings.json` isn't valid JSON, the starter stops before writing anything.
 
 ---
 
