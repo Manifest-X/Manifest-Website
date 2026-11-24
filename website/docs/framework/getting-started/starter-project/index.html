@@ -769,7 +769,7 @@
 <li><code>.claude/settings.json</code> keeps its settings. <code>mcp__manifest</code> is added to <code>permissions.allow</code>.</li>
 <li><code>.env</code> keeps its other variables. Only <code>MANIFEST_API_KEY</code> is added or updated.</li>
 </ul>
-<p>The last three apply only when <a href="/docs/platform/introduction">the Manifest plugin</a> sets up the project, which passes the project ID for you (and, for headless setups, a key for <code>.env</code>). If <code>.mcp.json</code> or <code>.claude/settings.json</code> isn't valid JSON, the starter stops before writing anything.</p>
+<p>The last three apply only to key-authenticated (headless) setups, where <a href="/docs/platform/introduction">Manifest</a> passes <code>--project-id</code> and <code>--key</code> for you. Setups through the Manifest connector or plugin pass neither, so the starter writes no <code>.mcp.json</code>, <code>.claude/settings.json</code> or <code>.env</code>: the connector already provides the Manifest server. If <code>.mcp.json</code> or <code>.claude/settings.json</code> isn't valid JSON, the starter stops before writing anything.</p>
 <hr>
 <h2 id="run">Run</h2><pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="from-root-tab-0" aria-selected="true" tabindex="0">From Root</button><button type="button" role="tab" id="from-subdirectory-tab-1" aria-selected="false" tabindex="-1">From Subdirectory</button></div></header>
 

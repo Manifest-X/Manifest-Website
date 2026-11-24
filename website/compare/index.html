@@ -200,7 +200,7 @@
             this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
         },
         go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
-    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-hydrate-id="h2" data-component="docs-search-1" data-order="2">
 
     <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
 
@@ -249,7 +249,7 @@
         get groups() { return this.src ? $x[this.src] || [] : [] },
         get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
         here(href) { return $route.replace(/\/$/, '') === href },
-    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-order="3" data-hydrate-id="h3">
 
     <!-- Docs -->
     <template x-if="src">
@@ -315,7 +315,7 @@
 
 </nav>
 
-  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1 bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1 bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h4">
 
     <!-- Home page -->
     
@@ -357,7 +357,7 @@
         </template>
       </div>
     </div>
-  </section><template x-if="$route.startsWith('/compare') &amp;&amp; $x.compare?.$route('slug')?.slug" x-route="compare">
+  </section><template x-if="$route.startsWith('/compare') &amp;&amp; $x.compare?.$route('slug')?.slug" x-route="compare" data-component="compare-1">
   <div class="dot-page col w-full" x-data="{ get c() { return $x.compare.$route('slug') } }">
 
     <!-- Header -->
@@ -589,7 +589,7 @@
   </main>
 
   <!-- Footer (visible on every route) -->
-  <footer class="relative isolate px-viewport-padding pt-20 pb-10 bg-surface-2 overflow-hidden" style="view-transition-name: site-footer" x-route="/, =support, compare" data-order="5">
+  <footer class="relative isolate px-viewport-padding pt-20 pb-10 bg-surface-2 overflow-hidden" style="view-transition-name: site-footer" x-route="/, =support, compare" data-component="footer-1" data-order="5">
 
   <span class="dot-field" aria-hidden="true"></span>
   <span class="footer-mark" aria-hidden="true">{Manifest}</span>
@@ -656,9 +656,9 @@
 
         <!-- Color mode -->
         <div role="tablist" aria-label="Color mode" class="color-modes sm rounded-full">
-          <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h3"></button>
-          <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h4"></button>
-          <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h5"></button>
+          <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h5"></button>
+          <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h6"></button>
+          <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h7"></button>
         </div>
 
       </div>
@@ -670,5 +670,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"hidden":null,"style":null,"popovertarget":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"class":"pt-[69px] px-viewport-padding dark:bg-surface-1","data-order":null}},{"id":"h3","attrs":{"aria-selected":null,"type":null}},{"id":"h4","attrs":{"aria-selected":null,"type":null}},{"id":"h5","attrs":{"aria-selected":null,"type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"hidden":null,"style":null,"popovertarget":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"data-order":null}},{"id":"h3","attrs":{"data-order":null}},{"id":"h4","attrs":{"class":"pt-[69px] px-viewport-padding dark:bg-surface-1","data-order":null}},{"id":"h5","attrs":{"aria-selected":null,"type":null}},{"id":"h6","attrs":{"aria-selected":null,"type":null}},{"id":"h7","attrs":{"aria-selected":null,"type":null}}]</script>
 </body></html>

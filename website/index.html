@@ -200,7 +200,7 @@
             this.$nextTick(() =&gt; this.$refs.list?.querySelector('[data-active]')?.scrollIntoView({ block: 'nearest' }));
         },
         go() { this.$refs.list?.querySelector('[data-active] a')?.click(); },
-    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-component="docs-search-1" data-order="2">
+    }" x-init="$watch('q', () =&gt; active = 0)" @keydown.window.meta.k.prevent="openDialog()" @keydown.window.ctrl.k.prevent="openDialog()" @manifest:route-change.window="closeDialog()" data-hydrate-id="h2" data-component="docs-search-1" data-order="2">
 
     <dialog popover="" id="docs-search" @toggle="onToggle($event)" @keydown.down.prevent="move(1)" @keydown.up.prevent="move(-1)" @keydown.enter.prevent="go()" class="col gap-0 p-0 w-[min(38rem,92vw)] h-[min(30rem,80vh)] overflow-hidden">
 
@@ -249,7 +249,7 @@
         get groups() { return this.src ? $x[this.src] || [] : [] },
         get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
         here(href) { return $route.replace(/\/$/, '') === href },
-    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-hydrate-id="h3" data-component="docs-nav-1" data-order="3">
 
     <!-- Docs -->
     <template x-if="src">
@@ -315,12 +315,12 @@
 
 </nav>
 
-  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1 bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h2">
+  <main id="main" class="pt-[69px] px-viewport-padding dark:bg-surface-1 bg-surface-1" :class="$route === '/' || $route.startsWith('/compare') ? 'bg-surface-1' : ''" data-order="4" data-hydrate-id="h4">
 
     <!-- Home page -->
-    <template data-head="" x-route="/">
+    <template data-head="" x-route="/" data-component="home-1">
   <title>Manifest — Build and publish with Claude</title>
-</template><nav class="page-track" aria-label="Page sections" x-data="pageTrack" x-route="/">
+</template><nav class="page-track" aria-label="Page sections" x-data="pageTrack" x-route="/" data-component="home-1">
   <a href="#home" x-tooltip.start="Intro" :aria-current="at === 'home' &amp;&amp; 'true'" aria-current="true"><span class="sr-only">Intro</span></a>
   <a href="#setup" x-tooltip.start="Setup" :aria-current="at === 'setup' &amp;&amp; 'true'"><span class="sr-only">Setup</span></a>
   <a href="#found" x-tooltip.start="Discoverability" :aria-current="at === 'found' &amp;&amp; 'true'"><span class="sr-only">Discoverability</span></a>
@@ -329,7 +329,7 @@
   <a href="#showcase" x-tooltip.start="Showcase" :aria-current="at === 'showcase' &amp;&amp; 'true'"><span class="sr-only">Showcase</span></a>
   <a href="#pricing" x-tooltip.start="Pricing" :aria-current="at === 'pricing' &amp;&amp; 'true'"><span class="sr-only">Pricing</span></a>
   <a href="#faq" x-tooltip.start="Questions" :aria-current="at === 'faq' &amp;&amp; 'true'"><span class="sr-only">Questions</span></a>
-</nav><section id="home" class="hero-backdrop col center w-full pt-28 pb-20" x-route="/">
+</nav><section id="home" class="hero-backdrop col center w-full pt-28 pb-20" x-route="/" data-component="home-1">
 
   <div class="col items-center gap-14 w-content-width max-w-full">
 
@@ -374,20 +374,20 @@
         <!-- Generated site -->
         <div class="solstice col grow gap-5 mx-1.5 mb-1.5 p-5 md:p-7 rounded-lg">
           <div class="row items-center justify-between">
-            <span class="hd serif text-lg tracking-wide on" :class="t &gt;= 3 &amp;&amp; 'on'" data-hydrate-id="h3">Solstice</span>
-            <span class="hd hd-d1 px-3 py-0.5 border border-(--s-muted) rounded-full text-xs text-(--s-muted) on" :class="t &gt;= 4 &amp;&amp; 'on'" data-hydrate-id="h4">Member sign in</span>
+            <span class="hd serif text-lg tracking-wide on" :class="t &gt;= 3 &amp;&amp; 'on'" data-hydrate-id="h5">Solstice</span>
+            <span class="hd hd-d1 px-3 py-0.5 border border-(--s-muted) rounded-full text-xs text-(--s-muted) on" :class="t &gt;= 4 &amp;&amp; 'on'" data-hydrate-id="h6">Member sign in</span>
           </div>
-          <div class="hd hd-d1 col gap-1 on" :class="t &gt;= 3 &amp;&amp; 'on'" data-hydrate-id="h5">
+          <div class="hd hd-d1 col gap-1 on" :class="t &gt;= 3 &amp;&amp; 'on'" data-hydrate-id="h7">
             <p class="serif text-3xl md:text-4xl leading-tight text-(--s-heading)">Find your flow.</p>
             <p class="text-sm text-(--s-muted)">Morning and evening classes in the old town.</p>
           </div>
           <div class="grid grid-cols-2 gap-3">
-            <div class="hd col gap-1 p-3 bg-(--s-card) rounded-xl on" :class="t &gt;= 5 &amp;&amp; 'on'" data-hydrate-id="h6">
+            <div class="hd col gap-1 p-3 bg-(--s-card) rounded-xl on" :class="t &gt;= 5 &amp;&amp; 'on'" data-hydrate-id="h8">
               <span class="serif">Sunrise Flow</span>
               <small class="text-(--s-muted)">Tomorrow 7:00 · <span x-text="seats">12</span>/16</small>
               <span class="w-fit mt-2 px-3 py-0.5 bg-(--s-button) text-(--s-on) rounded-full text-xs">Book</span>
             </div>
-            <div class="hd hd-d2 col gap-1 p-3 bg-(--s-card-2) rounded-xl on" :class="t &gt;= 5 &amp;&amp; 'on'" data-hydrate-id="h7">
+            <div class="hd hd-d2 col gap-1 p-3 bg-(--s-card-2) rounded-xl on" :class="t &gt;= 5 &amp;&amp; 'on'" data-hydrate-id="h9">
               <span class="serif">Power Vinyasa</span>
               <small class="text-(--s-heading)">Tomorrow 18:30 · 15/16</small>
               <span class="w-fit mt-2 px-3 py-0.5 bg-(--s-heading) text-(--s-on) rounded-full text-xs">Book</span>
@@ -406,7 +406,7 @@
     </div>
 
   </div>
-</section><section id="setup" class="col center w-full py-24" x-route="/">
+</section><section id="setup" class="col center w-full py-24" x-route="/" data-component="home-1">
 
   <div class="col gap-10 w-content-width max-w-full">
 
@@ -432,7 +432,7 @@
           <li x-show="steps" class="py-4 border-t border-line" style="display: none">Select <b class="text-content-stark">Add</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Connect</b>, and complete the connection steps.</li>
         </ol>
         <div class="row-wrap items-center gap-x-6 gap-y-2">
-          <button type="button" class="unstyle row items-center gap-1 w-fit text-sm text-content-neutral hover:text-content-stark cursor-pointer" :aria-expanded="steps" @click="steps = !steps" aria-expanded="false" data-hydrate-id="h8">
+          <button type="button" class="unstyle row items-center gap-1 w-fit text-sm text-content-neutral hover:text-content-stark cursor-pointer" :aria-expanded="steps" @click="steps = !steps" aria-expanded="false" data-hydrate-id="h10">
             <span x-text="steps ? 'Hide the steps' : 'Show where to add it'">Show where to add it</span>
             <span class="transition-transform" :class="steps &amp;&amp; 'rotate-180'" x-icon="lucide:chevron-down" aria-hidden="true"></span>
           </button>
@@ -449,7 +449,7 @@
         <p class="text-content-neutral">Build pages, add logins and data, invite teammates, and check your visitors, <span class="plan-tip" tabindex="0" x-tooltip.bottom.start="Ask any Claude session to start or continue a Manifest project.&lt;ul&gt;&lt;li&gt;&lt;b&gt;Chat&lt;/b&gt; sessions handle the project in the cloud, up to 10 MB, with previews pushed to a URL.&lt;/li&gt;&lt;li&gt;&lt;b&gt;Code&lt;/b&gt; sessions handle the project of any size in a folder on your computer, showing live previews in Claude.&lt;/li&gt;&lt;/ul&gt;">all in the chat</span>.</p>
         <figure class="prompt-panel row-wrap items-center justify-between gap-x-4 gap-y-2 mt-auto px-3 pt-6 border-t border-line cursor-pointer" @click="copy()" @mouseenter="hover = true" @mouseleave="hover = false" x-data="promptCycle(['Add a members-only area', 'Invite sam@solstice.studio to edit', 'How many visitors this week?', 'Upgrade this project to Pro'], 0)">
           <figcaption class="eyebrow m-0">Try asking</figcaption>
-          <button type="button" class="prompt-chip unstyle row items-center gap-2 ms-auto max-w-full ps-3.5 pe-3 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-start text-content-stark cursor-pointer transition-opacity duration-300" :class="fading &amp;&amp; 'opacity-0'" :aria-label="'Copy the prompt: ' + list[i]" @focus="hover = true" @blur="hover = false" aria-label="Copy the prompt: Add a members-only area" data-hydrate-id="h9">
+          <button type="button" class="prompt-chip unstyle row items-center gap-2 ms-auto max-w-full ps-3.5 pe-3 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-start text-content-stark cursor-pointer transition-opacity duration-300" :class="fading &amp;&amp; 'opacity-0'" :aria-label="'Copy the prompt: ' + list[i]" @focus="hover = true" @blur="hover = false" aria-label="Copy the prompt: Add a members-only area" data-hydrate-id="h11">
             <span x-text="list[i]">Add a members-only area</span>
             <span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span>
             <span x-show="copied" x-icon="lucide:check" aria-hidden="true" style="display: none"></span>
@@ -466,7 +466,7 @@
         <p class="text-content-neutral">Review every change on a preview link, then go live on your own domain. Ship a website or web app, or package it for iPhone, Android, and desktop.</p>
         <figure class="prompt-panel row-wrap items-center justify-between gap-x-4 gap-y-2 mt-auto px-3 pt-6 border-t border-line cursor-pointer" @click="copy()" @mouseenter="hover = true" @mouseleave="hover = false" x-data="promptCycle(['Put it live on my domain', 'Make it an iPhone app'], 1800)">
           <figcaption class="eyebrow m-0">Try asking</figcaption>
-          <button type="button" class="prompt-chip unstyle row items-center gap-2 ms-auto max-w-full ps-3.5 pe-3 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-start text-content-stark cursor-pointer transition-opacity duration-300" :class="fading &amp;&amp; 'opacity-0'" :aria-label="'Copy the prompt: ' + list[i]" @focus="hover = true" @blur="hover = false" aria-label="Copy the prompt: Put it live on my domain" data-hydrate-id="h10">
+          <button type="button" class="prompt-chip unstyle row items-center gap-2 ms-auto max-w-full ps-3.5 pe-3 py-1.5 bg-surface-2 dark:bg-surface-3 rounded-2xl rounded-br-md text-sm text-start text-content-stark cursor-pointer transition-opacity duration-300" :class="fading &amp;&amp; 'opacity-0'" :aria-label="'Copy the prompt: ' + list[i]" @focus="hover = true" @blur="hover = false" aria-label="Copy the prompt: Put it live on my domain" data-hydrate-id="h12">
             <span x-text="list[i]">Put it live on my domain</span>
             <span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span>
             <span x-show="copied" x-icon="lucide:check" aria-hidden="true" style="display: none"></span>
@@ -477,7 +477,7 @@
     </ol>
 
   </div>
-</section><section id="found" class="col center w-full py-24" x-route="/">
+</section><section id="found" class="col center w-full py-24" x-route="/" data-component="home-1">
 
   <!-- Content -->
   <div class="col gap-10 justify-start w-content-width max-w-full">
@@ -523,12 +523,12 @@
       <figure class="col gap-3 p-4 bg-surface-2 rounded-xl">
         <figcaption class="small w-full text-start text-content-subtle">What Manifest adds</figcaption>
         <ul class="unstyle col justify-between grow gap-2 text-sm">
-          <li class="found-item on" :class="t &gt;= 1 &amp;&amp; 'on'" data-hydrate-id="h11"><span x-icon="lucide:heading" aria-hidden="true"></span>Titles and descriptions</li>
-          <li class="found-item on" :class="t &gt;= 2 &amp;&amp; 'on'" data-hydrate-id="h12"><span x-icon="lucide:braces" aria-hidden="true"></span>Structured data</li>
-          <li class="found-item on" :class="t &gt;= 3 &amp;&amp; 'on'" data-hydrate-id="h13"><span x-icon="lucide:network" aria-hidden="true"></span>sitemap.xml</li>
-          <li class="found-item on" :class="t &gt;= 4 &amp;&amp; 'on'" data-hydrate-id="h14"><span x-icon="lucide:bot" aria-hidden="true"></span>AI crawlability</li>
-          <li class="found-item on" :class="t &gt;= 5 &amp;&amp; 'on'" data-hydrate-id="h15"><span x-icon="lucide:file-text" aria-hidden="true"></span>llms.txt for AI</li>
-          <li class="found-item on" :class="t &gt;= 6 &amp;&amp; 'on'" data-hydrate-id="h16"><span x-icon="lucide:image" aria-hidden="true"></span>Social images</li>
+          <li class="found-item on" :class="t &gt;= 1 &amp;&amp; 'on'" data-hydrate-id="h13"><span x-icon="lucide:heading" aria-hidden="true"></span>Titles and descriptions</li>
+          <li class="found-item on" :class="t &gt;= 2 &amp;&amp; 'on'" data-hydrate-id="h14"><span x-icon="lucide:braces" aria-hidden="true"></span>Structured data</li>
+          <li class="found-item on" :class="t &gt;= 3 &amp;&amp; 'on'" data-hydrate-id="h15"><span x-icon="lucide:network" aria-hidden="true"></span>sitemap.xml</li>
+          <li class="found-item on" :class="t &gt;= 4 &amp;&amp; 'on'" data-hydrate-id="h16"><span x-icon="lucide:bot" aria-hidden="true"></span>AI crawlability</li>
+          <li class="found-item on" :class="t &gt;= 5 &amp;&amp; 'on'" data-hydrate-id="h17"><span x-icon="lucide:file-text" aria-hidden="true"></span>llms.txt for AI</li>
+          <li class="found-item on" :class="t &gt;= 6 &amp;&amp; 'on'" data-hydrate-id="h18"><span x-icon="lucide:image" aria-hidden="true"></span>Social images</li>
         </ul>
       </figure>
 
@@ -536,19 +536,19 @@
       <figure class="col gap-3 p-4 bg-surface-2 rounded-xl md:col-span-2">
         <figcaption class="small w-full text-start text-content-subtle">Where it shows up</figcaption>
 
-        <div class="found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm on" :class="t &gt;= 3 &amp;&amp; 'on'" data-hydrate-id="h17">
+        <div class="found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm on" :class="t &gt;= 3 &amp;&amp; 'on'" data-hydrate-id="h19">
           <small class="row gap-1.5 items-center text-content-subtle"><span x-icon="lucide:search" aria-hidden="true"></span>Search result</small>
           <span class="text-xs text-content-neutral">solstice.studio</span>
           <span class="font-medium text-(--color-found-link)">Solstice · Yoga classes in the old town</span>
           <span class="text-content-neutral">Morning and evening classes. Book Sunrise Flow or Power Vinyasa online.</span>
         </div>
 
-        <div class="found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm on" :class="t &gt;= 5 &amp;&amp; 'on'" data-hydrate-id="h18">
+        <div class="found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm on" :class="t &gt;= 5 &amp;&amp; 'on'" data-hydrate-id="h20">
           <small class="row gap-1.5 items-center text-content-subtle"><span x-icon="lucide:sparkles" aria-hidden="true"></span>AI answer</small>
           <span>Solstice runs Sunrise Flow at 7:00 tomorrow, with 4 spots left. <span class="text-(--color-found-link)">solstice.studio</span></span>
         </div>
 
-        <div class="found-card row gap-3 items-center p-3 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm on" :class="t &gt;= 6 &amp;&amp; 'on'" data-hydrate-id="h19">
+        <div class="found-card row gap-3 items-center p-3 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm on" :class="t &gt;= 6 &amp;&amp; 'on'" data-hydrate-id="h21">
           <div class="solstice col justify-center shrink-0 w-32 aspect-[1200/630] px-3 rounded-md" aria-hidden="true">
             <span class="serif text-[0.5rem] tracking-wide">Solstice</span>
             <span class="serif text-sm leading-tight text-(--s-heading)">Find your flow.</span>
@@ -564,7 +564,7 @@
     </div>
 
   </div>
-</section><section id="framework" class="col center w-full pb-24" x-route="/">
+</section><section id="framework" class="col center w-full pb-24" x-route="/" data-component="home-1">
 
   <!-- Content -->
   <div class="relative grid grid-cols-1 lg:grid-cols-2 items-center gap-10 w-content-width max-w-full p-8 md:p-12 bg-surface-2 rounded-xl overflow-hidden" x-data="{ all: false }" :class="all &amp;&amp; 'all-open'">
@@ -577,7 +577,7 @@
       <p class="text-content-neutral text-balance">Optional and open source. Built with something else? Manifest publishes that too.</p>
       <div class="row-wrap items-center gap-3 mt-2">
         <a role="button" href="/docs/framework" class="accent rounded-full ps-4">Explore the framework<span x-icon="lucide:arrow-right"></span></a>
-        <button type="button" class="ghost rounded-full" :aria-expanded="all" aria-controls="framework-all" @click="all = !all" aria-expanded="false" data-hydrate-id="h20">
+        <button type="button" class="ghost rounded-full" :aria-expanded="all" aria-controls="framework-all" @click="all = !all" aria-expanded="false" data-hydrate-id="h22">
           <span x-text="all ? 'Hide features' : 'See all features'">See all features</span>
           <span class="transition-transform" :class="all &amp;&amp; 'rotate-180'" x-icon="lucide:chevron-down" aria-hidden="true"></span>
         </button>
@@ -627,7 +627,7 @@
     </div>
 
   </div>
-</section><section id="teams" class="col center w-full py-24" x-route="/">
+</section><section id="teams" class="col center w-full py-24" x-route="/" data-component="home-1">
 
   <!-- Content -->
   <div class="col gap-10 justify-start w-content-width max-w-full">
@@ -684,7 +684,7 @@
     ],
   ],
   phone: { name: 'Nurvana', type: 'iOS app', about: 'A private membership for people connected by taste', url: 'https://apps.apple.com/ca/app/nurvana/id6829128241', img: '/assets/showcase/wall/nurvana-app.webp' },
-}" x-route="/">
+}" x-route="/" data-component="home-1">
   <div class="col gap-10 w-content-width max-w-full">
 
     <div class="col gap-1">
@@ -738,7 +738,7 @@
     </div>
 
   </div>
-</section><section id="pricing" class="col center w-full pt-24 pb-10" x-route="/">
+</section><section id="pricing" class="col center w-full pt-24 pb-10" x-route="/" data-component="home-1">
 
   <!-- Content -->
   <div class="col gap-4 justify-start w-content-width max-w-full">
@@ -757,12 +757,12 @@
     <!-- Billing toggles -->
     <div class="row-wrap items-center justify-end gap-3">
       <div role="tablist" aria-label="Billing period" class="sm rounded-full">
-        <button type="button" role="tab" :aria-selected="!yearly" @click="yearly = false" aria-selected="true" data-hydrate-id="h21">Monthly</button>
-        <button type="button" role="tab" :aria-selected="yearly" @click="yearly = true" aria-selected="false" data-hydrate-id="h22">Yearly<span class="opacity-70">· 2 months free</span></button>
+        <button type="button" role="tab" :aria-selected="!yearly" @click="yearly = false" aria-selected="true" data-hydrate-id="h23">Monthly</button>
+        <button type="button" role="tab" :aria-selected="yearly" @click="yearly = true" aria-selected="false" data-hydrate-id="h24">Yearly<span class="opacity-70">· 2 months free</span></button>
       </div>
       <div role="tablist" aria-label="Currency" class="sm rounded-full">
-        <button type="button" role="tab" :aria-selected="!eur" @click="setEur(false)" aria-selected="true" data-hydrate-id="h23">USD</button>
-        <button type="button" role="tab" :aria-selected="eur" @click="setEur(true)" aria-selected="false" data-hydrate-id="h24">EUR</button>
+        <button type="button" role="tab" :aria-selected="!eur" @click="setEur(false)" aria-selected="true" data-hydrate-id="h25">USD</button>
+        <button type="button" role="tab" :aria-selected="eur" @click="setEur(true)" aria-selected="false" data-hydrate-id="h26">EUR</button>
       </div>
     </div>
 
@@ -828,13 +828,13 @@
 
     </div>
 
-    <button type="button" class="ghost self-center rounded-full" :aria-expanded="more" @click="more = !more" aria-expanded="false" data-hydrate-id="h25">
+    <button type="button" class="ghost self-center rounded-full" :aria-expanded="more" @click="more = !more" aria-expanded="false" data-hydrate-id="h27">
       <span x-text="more ? 'Show less' : 'Compare everything included'">Compare everything included</span>
       <span class="transition-transform" :class="more &amp;&amp; 'rotate-180'" x-icon="lucide:chevron-down" aria-hidden="true"></span>
     </button>
 
   </div>
-</section><section id="faq" class="col center w-full py-24" x-route="/">
+</section><section id="faq" class="col center w-full py-24" x-route="/" data-component="home-1">
 
   <!-- Content -->
   <div class="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-10 w-content-width max-w-full">
@@ -877,7 +877,7 @@
     </div>
 
   </div>
-</section><section class="col center w-full pt-25 pb-50 text-center" x-data="ctaIdeas" x-route="/">
+</section><section class="col center w-full pt-25 pb-50 text-center" x-data="ctaIdeas" x-route="/" data-component="home-1">
   <div class="col center gap-10 w-content-width max-w-full">
     <h2 class="text-5xl md:text-6xl leading-tight text-balance">What will you <span class="text-content-subtle">make real?</span></h2>
     <a href="#setup" class="cta-prompt unstyle row items-center gap-3 w-xl max-w-full ps-5 pe-2 py-2 bg-popover-surface border border-line rounded-full text-start" aria-label="Add Manifest to Claude">
@@ -911,7 +911,7 @@
   </main>
 
   <!-- Footer (visible on every route) -->
-  <footer class="relative isolate px-viewport-padding pt-20 pb-10 bg-surface-2 overflow-hidden" style="view-transition-name: site-footer" x-route="/, =support, compare" data-order="5">
+  <footer class="relative isolate px-viewport-padding pt-20 pb-10 bg-surface-2 overflow-hidden" style="view-transition-name: site-footer" x-route="/, =support, compare" data-component="footer-1" data-order="5">
 
   <span class="dot-field" aria-hidden="true"></span>
   <span class="footer-mark" aria-hidden="true">{Manifest}</span>
@@ -978,9 +978,9 @@
 
         <!-- Color mode -->
         <div role="tablist" aria-label="Color mode" class="color-modes sm rounded-full">
-          <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h26"></button>
-          <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h27"></button>
-          <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h28"></button>
+          <button x-color="'light'" role="tab" :aria-selected="$color.current === 'light'" x-icon="lucide:sun" aria-label="Light mode" aria-selected="false" type="button" data-hydrate-id="h28"></button>
+          <button x-color="'dark'" role="tab" :aria-selected="$color.current === 'dark'" x-icon="lucide:moon" aria-label="Dark mode" aria-selected="false" type="button" data-hydrate-id="h29"></button>
+          <button x-color="'system'" role="tab" :aria-selected="$color.current === 'system'" x-icon="lucide:sun-moon" aria-label="Auto mode" aria-selected="true" type="button" data-hydrate-id="h30"></button>
         </div>
 
       </div>
@@ -992,5 +992,5 @@
 
 
 
-<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"hidden":null,"style":null,"popovertarget":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"class":"pt-[69px] px-viewport-padding dark:bg-surface-1","data-order":null}},{"id":"h3","attrs":{"class":"hd serif text-lg tracking-wide"}},{"id":"h4","attrs":{"class":"hd hd-d1 px-3 py-0.5 border border-(--s-muted) rounded-full text-xs text-(--s-muted)"}},{"id":"h5","attrs":{"class":"hd hd-d1 col gap-1"}},{"id":"h6","attrs":{"class":"hd col gap-1 p-3 bg-(--s-card) rounded-xl"}},{"id":"h7","attrs":{"class":"hd hd-d2 col gap-1 p-3 bg-(--s-card-2) rounded-xl"}},{"id":"h8","attrs":{"aria-expanded":null}},{"id":"h9","attrs":{"aria-label":null}},{"id":"h10","attrs":{"aria-label":null}},{"id":"h11","attrs":{"class":"found-item"}},{"id":"h12","attrs":{"class":"found-item"}},{"id":"h13","attrs":{"class":"found-item"}},{"id":"h14","attrs":{"class":"found-item"}},{"id":"h15","attrs":{"class":"found-item"}},{"id":"h16","attrs":{"class":"found-item"}},{"id":"h17","attrs":{"class":"found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm"}},{"id":"h18","attrs":{"class":"found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm"}},{"id":"h19","attrs":{"class":"found-card row gap-3 items-center p-3 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm"}},{"id":"h20","attrs":{"aria-expanded":null}},{"id":"h21","attrs":{"aria-selected":null}},{"id":"h22","attrs":{"aria-selected":null}},{"id":"h23","attrs":{"aria-selected":null}},{"id":"h24","attrs":{"aria-selected":null}},{"id":"h25","attrs":{"aria-expanded":null}},{"id":"h26","attrs":{"aria-selected":null,"type":null}},{"id":"h27","attrs":{"aria-selected":null,"type":null}},{"id":"h28","attrs":{"aria-selected":null,"type":null}}]</script>
+<script type="application/json" id="__manifest_hydrate__">[{"id":"h0","attrs":{"class":"row justify-between items-center gap-4 max-w-full mx-auto py-4"}},{"id":"h1","attrs":{"hidden":null,"style":null,"popovertarget":null,"aria-haspopup":null,"aria-controls":null,"aria-expanded":null}},{"id":"h2","attrs":{"data-order":null}},{"id":"h3","attrs":{"data-order":null}},{"id":"h4","attrs":{"class":"pt-[69px] px-viewport-padding dark:bg-surface-1","data-order":null}},{"id":"h5","attrs":{"class":"hd serif text-lg tracking-wide"}},{"id":"h6","attrs":{"class":"hd hd-d1 px-3 py-0.5 border border-(--s-muted) rounded-full text-xs text-(--s-muted)"}},{"id":"h7","attrs":{"class":"hd hd-d1 col gap-1"}},{"id":"h8","attrs":{"class":"hd col gap-1 p-3 bg-(--s-card) rounded-xl"}},{"id":"h9","attrs":{"class":"hd hd-d2 col gap-1 p-3 bg-(--s-card-2) rounded-xl"}},{"id":"h10","attrs":{"aria-expanded":null}},{"id":"h11","attrs":{"aria-label":null}},{"id":"h12","attrs":{"aria-label":null}},{"id":"h13","attrs":{"class":"found-item"}},{"id":"h14","attrs":{"class":"found-item"}},{"id":"h15","attrs":{"class":"found-item"}},{"id":"h16","attrs":{"class":"found-item"}},{"id":"h17","attrs":{"class":"found-item"}},{"id":"h18","attrs":{"class":"found-item"}},{"id":"h19","attrs":{"class":"found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm"}},{"id":"h20","attrs":{"class":"found-card col gap-1 p-4 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm"}},{"id":"h21","attrs":{"class":"found-card row gap-3 items-center p-3 bg-popover-surface dark:bg-surface-3 rounded-lg text-sm"}},{"id":"h22","attrs":{"aria-expanded":null}},{"id":"h23","attrs":{"aria-selected":null}},{"id":"h24","attrs":{"aria-selected":null}},{"id":"h25","attrs":{"aria-selected":null}},{"id":"h26","attrs":{"aria-selected":null}},{"id":"h27","attrs":{"aria-expanded":null}},{"id":"h28","attrs":{"aria-selected":null,"type":null}},{"id":"h29","attrs":{"aria-selected":null,"type":null}},{"id":"h30","attrs":{"aria-selected":null,"type":null}}]</script>
 </body></html>
