@@ -121,7 +121,7 @@ Manifest scripts load the latest version from CDN by default. Load a specified v
 	data-version="<version>"></script>
 ```
 
-To have the browser check the loader against a hash as well, see [Security](/docs/framework/resources/security#cdn-resource-integrity).
+To have the browser check the loader and everything it loads against published hashes, see [Security](/docs/framework/resources/security#cdn-resource-integrity).
 
 Your own scripts can be native modules (`<script type="module">`), with an import map for short import paths. Manifest starts Alpine after the module scripts in `index.html` run, so components and stores they register in an `alpine:init` listener are always in time. See [Large Apps](/docs/framework/guides/large-apps#organize-your-code).
 

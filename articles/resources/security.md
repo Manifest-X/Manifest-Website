@@ -38,16 +38,43 @@ These places execute code or render HTML by design. The framework doesn't saniti
 
 ### CDN Resource Integrity
 
-To pin the loader itself, load a specific version of the unminified `manifest.js` with an `integrity` hash plus `crossorigin="anonymous"`. The browser refuses to run the script if its bytes don't match.
+Pin the loader to an exact version and add an `integrity` hash plus `crossorigin="anonymous"`. The browser refuses to run the loader if its bytes don't match. The loader then checks everything it and its modules load from a CDN against hashes published with that version.
 
 ```html copy
-<script src="https://cdn.jsdelivr.net/npm/mnfst@<version>/lib/manifest.js"
+<script src="https://cdn.manifestx.dev/npm/mnfst@<version>/lib/manifest.min.js"
 	integrity="sha384-..."
-	crossorigin="anonymous"
-	data-version="<version>"></script>
+	crossorigin="anonymous"></script>
 ```
 
-Each version's hashes are published alongside it in `lib/manifest.integrity.json`; use the `manifest.js` entry. The hash covers the unminified file only — `manifest.min.js` is minified by the CDN and won't match. The module scripts the loader fetches afterwards are not hash-checked.
+Copy the hash from the `manifest.min.js` entry in that version's `lib/manifest.integrity.json` (for example `https://cdn.manifestx.dev/npm/mnfst@<version>/lib/manifest.integrity.json`). The file lists every script and stylesheet in the release, so your stylesheet `<link>` tags can carry `integrity` too.
+
+What gets checked:
+
+- The modules, the Tailwind engine and Alpine.
+- The third-party libraries modules load: marked and DOMPurify (markdown, SVG), highlight.js and its language files, CodeJar (code), the d3 modules and map data (charts), js-yaml and PapaParse (data), html2canvas-pro and jsPDF (export), and Polar's checkout script (payments).
+
+What isn't checked:
+
+- Checkout scripts hosted by Stripe, Paddle, Revolut, Lemon Squeezy and Razorpay. They change in place, so they can't carry a hash.
+- Icon artwork from the Iconify API.
+- The service worker module, when your `/sw.js` imports it from a CDN (see below).
+- Anything your own page loads; give those tags their own `integrity`.
+
+How checks behave:
+
+- Each script the loader adds carries `integrity` and `crossorigin="anonymous"`.
+- A file that doesn't match its hash is blocked. The console shows an error naming it, and the loader tries the next CDN. A file that matches on no CDN isn't loaded.
+- Modules load at the loader's own version, so `data-version` isn't needed. If `data-version` names another version or `latest`, no modules load and the console says why.
+- If the published hash list itself can't be verified, no modules load.
+- Alpine is checked at its default version, and at every version an earlier release defaulted to. If `data-alpine` sets another version or URL, add `data-alpine-integrity="sha384-..."`. Without it, Alpine doesn't load.
+- With checks on, code highlighting loads the highlight.js bundle plus a verified file per extra language. Code blocks with `edit` import their verified CodeJar from a `blob:` URL.
+- With a Content Security Policy, the loader reads its hash lists, map data and CodeJar with `fetch`, so the CDN hosts (`https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com`) belong in `connect-src` as well as `script-src`. Add `blob:` to `script-src` if you use code blocks with `edit`.
+
+`data-integrity="warn"` logs a warning instead of refusing in the cases above (a different `data-version`, an Alpine without a hash), and loads those files unchecked. A file that fails its hash is never loaded, and if the published hash list can't be verified, modules still don't load. Bare `data-integrity` turns the checks on for a loader tag without `integrity`, such as a self-hosted copy. `data-integrity="off"` or `"false"` turns them off.
+
+`importScripts` can't carry a hash, so with checks on, the [service worker](/docs/framework/publishing/web-apps) registers only when `/sw.js` doesn't import its module from another origin. To keep it, copy `lib/manifest.sw.min.js` from the same release into your `/sw.js`. Otherwise it stays off and the console says so. Set `data-sw="off"` to skip it quietly. `data-integrity="warn"` registers it anyway.
+
+Loaders before 0.5.309 don't check the scripts they add.
 
 ---
 
@@ -59,7 +86,7 @@ Before deploying:
 - [ ] Confirm `manifest.json` contains no inlined credentials — it is published with the site
 - [ ] Confirm `.env` is in `.gitignore` and absent from the published directory
 - [ ] Serve the site over HTTPS
-- [ ] Configure a [Content Security Policy](https://developer.mozilla.org/docs/Web/HTTP/CSP) header. Alpine evaluates attribute expressions, so `script-src` needs `'unsafe-eval'`, plus `https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com` in `script-src`, `style-src`, and `connect-src`. Icons also need `https://api.iconify.design` in `connect-src` (plus its fallbacks `https://api.simplesvg.com` and `https://api.unisvg.com`), and runtime utility classes need `style-src 'unsafe-inline'`
+- [ ] Configure a [Content Security Policy](https://developer.mozilla.org/docs/Web/HTTP/CSP) header. Alpine evaluates attribute expressions, so `script-src` needs `'unsafe-eval'`, plus `https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com` in `script-src`, `style-src`, and `connect-src` (and `blob:` in `script-src` for code blocks with `edit` when [integrity checks](#cdn-resource-integrity) are on). Icons also need `https://api.iconify.design` in `connect-src` (plus its fallbacks `https://api.simplesvg.com` and `https://api.unisvg.com`), and runtime utility classes need `style-src 'unsafe-inline'`
 
 ---
 
