@@ -341,25 +341,32 @@ You can store both sets of credentials. Your staging address always uses test cr
 The provider sends the buyer back to a page on your site. By default these are `/checkout/success`, `/checkout/pending`, `/checkout/failure`, `/checkout/error`, `/checkout/cancel` and `/checkout/expired`, and you can choose your own. The address the buyer lands on proves nothing by itself, so build these pages from `$pay.state`, which Manifest checks with the provider:
 
 ```html "HTML" copy
-<div x-show="$pay.state?.paid">
-    Thank you. Your payment of <b x-text="($pay.state.amount / 100).toFixed(2) + ' ' + $pay.state.currency"></b> is confirmed.
-</div>
-<div x-show="$pay.state?.checking">
-    We're confirming your payment. Please don't pay again.
-</div>
-<div x-show="$pay.state?.retry_after !== undefined && $pay.state?.status === 'refused'">
-    That card didn't go through. You can try another card on the payment page, or start again in a few minutes.
-</div>
-<div x-show="$pay.state?.retry_after !== undefined && $pay.state?.status !== 'refused'">
-    This payment didn't complete. You can start again in a few minutes.
-</div>
-<div x-show="$pay.state?.can_retry">
-    The payment didn't go through. <button x-pay="$pay.state.product">Try again</button>
-</div>
-<div x-show="$pay.state?.do_not_pay_again && !$pay.state?.paid && !$pay.state?.checking">
-    Please don't pay again. Contact us about this order and we'll sort it out.
-</div>
+<section x-route="checkout" x-data="{ get order() { return this.$pay?.state ?? null } }">
+    <div x-show="!order || order.checking">
+        We're confirming your payment. Please don't pay again.
+    </div>
+    <template x-if="order?.paid">
+        <div>Thank you. Your payment of <b x-text="(order.amount / 100).toFixed(2) + ' ' + order.currency"></b> is confirmed.</div>
+    </template>
+    <div x-show="order?.retry_after !== undefined && order?.status === 'refused'">
+        That card didn't go through. You can try another card on the payment page, or start again in a few minutes.
+    </div>
+    <div x-show="order?.retry_after !== undefined && order?.status !== 'refused'">
+        This payment didn't complete. You can start again in a few minutes.
+    </div>
+    <template x-if="order?.can_retry">
+        <div>The payment didn't go through. <button x-pay="order.product">Try again</button></div>
+    </template>
+    <div x-show="order?.do_not_pay_again && !order?.paid && !order?.checking">
+        Please don't pay again. Contact us about this order and we'll sort it out.
+    </div>
+</section>
 ```
+
+One section with `x-route="checkout"` covers all six default addresses as subroutes, because it renders only from `$pay.state`. Two details keep it from breaking:
+
+- Blocks that read order fields such as `amount`, `order_id` or `product` use `<template x-if>`, not `x-show`. Alpine still evaluates `x-text` inside a hidden element, so an `x-show` block throws on every load while the state is null.
+- The `order` getter reads the state defensively. Until the `payments` block is in `manifest.json`, the page shows the "confirming" message instead of throwing, so you can publish the return pages before setting up payments.
 
 | Field | Description |
 |---|---|
