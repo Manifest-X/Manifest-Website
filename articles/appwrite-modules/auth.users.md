@@ -559,10 +559,23 @@ The auth module dispatches these events on `window`:
 | `manifest:auth:logout`{copy} | The user signs out, or the session has expired |
 | `manifest:auth:session-cleared`{copy} | The session ended or changed elsewhere, such as in another tab |
 | `manifest:auth:teams-loaded`{copy} | The user's [teams](/docs/framework/appwrite-modules/teams) have loaded |
+| `manifest:auth:before-logout`{copy} | A session is about to end through `$auth`: signing out, or a guest session replaced by a sign-in (`detail.waitUntil(promise)` holds the sign-out briefly) |
 
 ```html copy
 <div x-data @manifest:auth:login.window="$toast('Welcome back')"></div>
 ```
+
+### Cleanup Before Sign-out
+
+Since 0.5.307, `manifest:auth:before-logout` fires while the session is still valid, so your code can finish work that needs it, such as deleting a record only the user may delete. Pass a promise to `event.detail.waitUntil()` and the session ends once it settles, or after 3 seconds at most so sign-out never hangs. [Presence](/docs/framework/appwrite-modules/presence) uses it to remove the person's status.
+
+```js copy
+window.addEventListener('manifest:auth:before-logout', (event) => {
+    event.detail.waitUntil(saveDraft());
+});
+```
+
+The event only fires for sessions ended through `$auth`. A session that expires or is revoked elsewhere ends without it.
 
 ---
 
