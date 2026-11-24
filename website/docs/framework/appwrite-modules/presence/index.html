@@ -30,7 +30,7 @@
   <script src="../../../../scripts/hero-demo.js" defer=""></script>
   <script src="../../../../scripts/console-message.js" defer=""></script>
 
-<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Presence — Manifest</title><meta property="og:title" content="Presence — Manifest"><meta property="og:description" content="Show who's here and what they're up to, live, with $presence."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/appwrite-modules/presence"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-appwrite-modules-presence.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Presence — Manifest"><meta property="twitter:description" content="Show who's here and what they're up to, live, with $presence."><meta property="twitter:image" content="/og/docs-framework-appwrite-modules-presence.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Presence — Manifest","description":"Show who's here and what they're up to, live, with $presence.","image":"/og/docs-framework-appwrite-modules-presence.png","url":"https://manifestx.dev/docs/framework/appwrite-modules/presence"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Appwrite Modules","item":"https://manifestx.dev/docs/framework/appwrite-modules"},{"@type":"ListItem","position":5,"name":"Presence","item":"https://manifestx.dev/docs/framework/appwrite-modules/presence"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><title>Presence — Manifest</title><meta property="og:title" content="Presence — Manifest"><meta property="og:description" content="Show who's here and what they're up to, live, with $presence."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/appwrite-modules/presence"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-appwrite-modules-presence.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Presence — Manifest"><meta property="twitter:description" content="Show who's here and what they're up to, live, with $presence."><meta property="twitter:image" content="/og/docs-framework-appwrite-modules-presence.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Presence — Manifest","description":"Show who's here and what they're up to, live, with $presence.","image":"/og/docs-framework-appwrite-modules-presence.png","url":"https://manifestx.dev/docs/framework/appwrite-modules/presence"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Appwrite Modules","item":"https://manifestx.dev/docs/framework/appwrite-modules"},{"@type":"ListItem","position":5,"name":"Presence","item":"https://manifestx.dev/docs/framework/appwrite-modules/presence"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/framework/appwrite-modules/presence">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -795,7 +795,7 @@
 <small x-show="$presence.error" class="text-negative-content" x-text="$presence.error" style="display: none"></small></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
-<p>By default, tracking is automatic: a person is marked <code>away</code> when they switch to another tab and <code>online</code> again when they return. Adjust this with options passed to <code>start()</code>:</p>
+<p>By default, tracking is automatic: a person is marked <code>away</code> when none of their tabs is visible (they switched to another site, minimized the browser, or locked the screen) and goes back to their status as soon as one is visible again. Since 0.5.307 this follows tab visibility across all of the person's tabs; earlier releases flipped on window focus, one tab at a time. Adjust this with options passed to <code>start()</code>:</p>
 <table>
 <thead>
 <tr>
@@ -807,7 +807,7 @@
 <tbody><tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">auto</code></td>
 <td><code>true</code></td>
-<td>Automatically flip between <code>online</code> and <code>away</code> as the tab loses and regains focus.</td>
+<td>Show <code>away</code> while none of the person's tabs is visible, and their own status again when one is.</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">status</code></td>
@@ -815,9 +815,14 @@
 <td>The status to publish when tracking begins.</td>
 </tr>
 <tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">keepAliveMs</code></td>
+<td><code>300000</code></td>
+<td>How often, in milliseconds, to refresh an unchanged status so it doesn't expire. Capped at 10 minutes. See <a href="#expiry">Expiry</a>.</td>
+</tr>
+<tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">heartbeatMs</code></td>
-<td><code>25000</code></td>
-<td>How often, in milliseconds, to refresh the status so it doesn't expire.</td>
+<td></td>
+<td>Older name for <code>keepAliveMs</code>, still accepted. Before 0.5.307 it set a fixed 25-second refresh from every tab.</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">scope</code></td>
@@ -827,6 +832,7 @@
 </tbody></table>
 <pre x-code="html" name="Manual control" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="Manual control" role="region"><header><div>Manual control</div></header><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Start with a custom status and no automatic away-detection --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$presence.start({ auto: false, status: 'available' })"</span>&gt;</span>Start<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>A status you set yourself stays put: with <code>auto</code> on, someone who is <code>busy</code> shows <code>away</code> while all their tabs are hidden and <code>busy</code> again when they come back.</p>
 <hr>
 <h2 id="set-a-status">Set a Status</h2><p><code>$presence.set(status)</code> publishes any label you like — there's no fixed list. Pass an optional second argument to attach extra details, such as which page the person is viewing.</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
@@ -858,6 +864,7 @@
 
 <hr>
 <h2 id="see-who-s-here">See Who's Here</h2><p><code>$presence.list</code> is the live roster — an array of everyone currently present, yourself included. It updates on its own as people arrive, change status, and leave. Loop over it to build whatever display you like.</p>
+<p>It's the one roster for your whole app, shared by every component and every open tab, so read it wherever you need it. There's no need to subscribe to Appwrite's presence channel yourself; a second subscription only repeats work the module already does.</p>
 <p>Each person carries a <code>color</code> for easy visual distinction and a <code>metadata.name</code>. The name is the person's real account name when they have one, or <code>null</code> when they don't — a guest, say. Because that fallback is <code>null</code>, <strong>you</strong> decide the label to show in its place, so it's yours to name and to <a href="/docs/framework/core-modules/localization">localize</a>.</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region" aria-label="HTML" data-group-built="yes"><header><div>HTML</div></header>
 
@@ -890,12 +897,27 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"user.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> is <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$presence.of(user.$id).status"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <hr>
-<h2 id="stop-clear">Stop &amp; Clear</h2><p>Presence tidies up after itself: a person's status clears automatically when they leave, close the tab, or sign out. To end tracking yourself, use <code>clear</code> to remove your status or <code>stop</code> to end the session entirely.</p>
+<h2 id="stop-clear">Stop &amp; Clear</h2><p>Presence tidies up after itself. A person's status is removed when they close their last tab, and when their session is ended through <code>$auth</code> — signing out, or a guest signing in to an account — the status is removed first, while the session still allows it (since 0.5.307). A session that ends some other way, such as expiring or being revoked from another device, leaves the status in place until it expires, at most 15 minutes later. Removal on closing the last tab is best effort, since the browser may not finish the request as the tab closes; if it doesn't, the status expires the same way.</p>
+<p>To end tracking yourself, use <code>clear</code> to remove your status (in every tab) or <code>stop</code> to stop tracking in this tab. <code>clear</code> finishes only once the status is gone, so it's safe to await it right before signing someone out another way.</p>
 <pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Remove your status but keep watching others --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$presence.clear()"</span>&gt;</span>Appear offline<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 
-<span class="hljs-comment">&lt;!-- Stop tracking completely --&gt;</span>
+<span class="hljs-comment">&lt;!-- Stop tracking in this tab --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$presence.stop()"</span>&gt;</span>Stop<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h2 id="many-tabs">Many Tabs</h2><p>People often keep an app open in several tabs. Since 0.5.307, presence treats a browser as one person, however many tabs they have open:</p>
+<ul>
+<li><strong>One tab speaks for the browser.</strong> The tabs pick one of themselves to publish the status and receive everyone else's, and share the roster with the others. Ten open tabs cost the same as one.</li>
+<li><strong>Closing that tab hands over.</strong> Another tab takes over immediately, without the person blinking offline. The same happens when the browser puts a background tab to sleep, and if that tab stops responding, another takes over within a few minutes or as soon as the person changes their status.</li>
+<li><strong>The most active tab wins.</strong> A person is only <code>away</code> when none of their tabs is visible, so a hidden tab never marks them away while they're working in another.</li>
+<li><strong>Any tab can set the status.</strong> <code>set()</code> and <code>clear()</code> in one tab apply to all of them, and setting a status that hasn't changed sends nothing.</li>
+</ul>
+<p>Statuses are only sent when they change, plus a slow refresh to keep them from expiring, so a busy app doesn't send a stream of updates while nothing is happening. Bursts of updates from other people are grouped into a single roster update, so a team arriving at once doesn't redraw the page once per person.</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p>Tabs coordinate with standard browser features available in every current browser. In an older browser without them, each tab publishes on its own, as earlier releases did. Only tabs that called <code>start()</code> take part, so call it in every tab that shows presence rather than calling <code>set()</code> alone. One person's tabs share a single status, so if two of their tabs are on different teams, the tab that most recently switched or set a status decides where it's shown.</p>
+</aside>
+<hr>
+<h2 id="expiry">Expiry</h2><p>Appwrite removes a status 15 minutes after its last update. While nothing changes, presence refreshes it every 5 minutes (<code>keepAliveMs</code>), which stays well inside that window even when the browser slows down background tabs, so nobody flickers offline. If a browser crashes or loses its connection, the person drops off everyone's roster when their status expires, at most 15 minutes after its last refresh; each roster removes expired statuses on its own, without waiting for Appwrite.</p>
+<p>Rosters stay current through Appwrite's realtime connection. If that connection drops for a while, updates sent in the meantime are missed: someone who arrived or changed status can be missing or out of date until their next refresh, at most 5 minutes later.</p>
 <hr>
 <h2 id="scoping-the-roster">Scoping the Roster</h2><p>When your project uses <a href="/docs/framework/appwrite-modules/teams">teams</a>, the roster automatically follows the person's current team: their status is shared with teammates only, and the roster only shows people from the same team. Without teams, everyone signed in to the project shares one global roster.</p>
 <p>You can override the default in <code>manifest.json</code> or when starting:</p>
@@ -908,7 +930,7 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-init</span>=<span class="hljs-string">"$presence.start({ scope: 'global' })"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p>Switching teams moves your status with you: it disappears from the old team's rosters and appears in the new one. The scope is enforced twice — Appwrite only delivers presence updates to people allowed to read them, and the module also drops anything outside the current scope before it reaches the roster.</p>
 <p>Until a person's team is known — however long that takes — their status stays private to them; it is never shared project-wide while a team is loading. This also means people who never resolve a team (such as guests outside any team) stay invisible to each other on team-scoped projects; if you want everyone visible regardless of teams, set the scope to <code>global</code>.</p>
-<aside class="brand"><span x-icon="lucide:info"></span><p>If some visitors are on an older release of Manifest, their statuses are shared globally rather than per team, so scoped rosters won't show them (and theirs show everyone). This resolves itself within about half a minute of them updating, as each status refresh adopts the current rules.</p>
+<aside class="brand"><span x-icon="lucide:info"></span><p>If some visitors are on an older release of Manifest, their statuses are shared globally rather than per team, so scoped rosters won't show them (and theirs show everyone). This resolves itself once they update, as their next status refresh adopts the current rules.</p>
 </aside>
 <hr>
 <h2 id="properties">Properties</h2><p>Read these anywhere in your markup — each updates reactively as presence changes.</p>
@@ -945,6 +967,11 @@
 <td>string | null</td>
 <td>The most recent error message, or <code>null</code>.</td>
 </tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$presence.leader</code></td>
+<td>boolean</td>
+<td><code>true</code> in the one tab that publishes for this browser. See <a href="#many-tabs">Many Tabs</a>.</td>
+</tr>
 </tbody></table>
 <hr>
 <h2 id="methods">Methods</h2><table>
@@ -958,7 +985,7 @@
 <tbody><tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$presence.start(options?)</code></td>
 <td><code>options</code> (object, optional)</td>
-<td>Begin tracking and publish your status. Options: <code>auto</code>, <code>status</code>, <code>heartbeatMs</code>, <code>scope</code>.</td>
+<td>Begin tracking and publish your status. Options: <code>auto</code>, <code>status</code>, <code>keepAliveMs</code>, <code>scope</code>.</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$presence.set(status, metadata?)</code></td>
@@ -978,12 +1005,12 @@
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$presence.clear()</code></td>
 <td>None</td>
-<td>Remove your own status.</td>
+<td>Remove your own status, in every tab. Resolves once it's gone.</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$presence.stop()</code></td>
 <td>None</td>
-<td>Stop tracking and disconnect.</td>
+<td>Stop tracking in this tab and empty its roster.</td>
 </tr>
 </tbody></table>
 <hr>
@@ -1024,7 +1051,7 @@
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">expiresAt</code></td>
 <td>string | null</td>
-<td>When the status will expire if not refreshed.</td>
+<td>When the status will expire if not refreshed (15 minutes after its last update).</td>
 </tr>
 </tbody></table>
 <hr>
@@ -1175,7 +1202,7 @@
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#start-tracking">Start Tracking</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#set-a-status">Set a Status</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#see-who-s-here">See Who's Here</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#stop-clear">Stop &amp; Clear</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#scoping-the-roster">Scoping the Roster</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#properties">Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#methods">Methods</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#a-presence-record">A Presence Record</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#next-steps">Next Steps</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#start-tracking">Start Tracking</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#set-a-status">Set a Status</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#see-who-s-here">See Who's Here</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#stop-clear">Stop &amp; Clear</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#many-tabs">Many Tabs</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#expiry">Expiry</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#scoping-the-roster">Scoping the Roster</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#properties">Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#methods">Methods</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#a-presence-record">A Presence Record</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#next-steps">Next Steps</a></div>
 
   </nav>
 

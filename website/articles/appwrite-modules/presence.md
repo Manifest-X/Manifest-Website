@@ -99,19 +99,22 @@ Call `$presence.start()` once the person has a session — whether they signed i
 
 </div>
 
-By default, tracking is automatic: a person is marked `away` when they switch to another tab and `online` again when they return. Adjust this with options passed to `start()`:
+By default, tracking is automatic: a person is marked `away` when none of their tabs is visible (they switched to another site, minimized the browser, or locked the screen) and goes back to their status as soon as one is visible again. Since 0.5.307 this follows tab visibility across all of the person's tabs; earlier releases flipped on window focus, one tab at a time. Adjust this with options passed to `start()`:
 
 | Option | Default | Description |
 |---|---|---|
-| `auto`{copy} | `true` | Automatically flip between `online` and `away` as the tab loses and regains focus. |
+| `auto`{copy} | `true` | Show `away` while none of the person's tabs is visible, and their own status again when one is. |
 | `status`{copy} | `"online"` | The status to publish when tracking begins. |
-| `heartbeatMs`{copy} | `25000` | How often, in milliseconds, to refresh the status so it doesn't expire. |
+| `keepAliveMs`{copy} | `300000` | How often, in milliseconds, to refresh an unchanged status so it doesn't expire. Capped at 10 minutes. See [Expiry](#expiry). |
+| `heartbeatMs`{copy} | | Older name for `keepAliveMs`, still accepted. Before 0.5.307 it set a fixed 25-second refresh from every tab. |
 | `scope`{copy} | `'team'` with teams, otherwise `'global'` | Who sees the status: the current team, everyone (`'global'`), or a specific team ID. See [Scoping the Roster](#scoping-the-roster). |
 
 ```html "Manual control" copy
 <!-- Start with a custom status and no automatic away-detection -->
 <button @click="$presence.start({ auto: false, status: 'available' })">Start</button>
 ```
+
+A status you set yourself stays put: with `auto` on, someone who is `busy` shows `away` while all their tabs are hidden and `busy` again when they come back.
 
 ---
 
@@ -157,6 +160,8 @@ By default, tracking is automatic: a person is marked `away` when they switch to
 ## See Who's Here
 
 `$presence.list` is the live roster — an array of everyone currently present, yourself included. It updates on its own as people arrive, change status, and leave. Loop over it to build whatever display you like.
+
+It's the one roster for your whole app, shared by every component and every open tab, so read it wherever you need it. There's no need to subscribe to Appwrite's presence channel yourself; a second subscription only repeats work the module already does.
 
 Each person carries a `color` for easy visual distinction and a `metadata.name`. The name is the person's real account name when they have one, or `null` when they don't — a guest, say. Because that fallback is `null`, **you** decide the label to show in its place, so it's yours to name and to [localize](/docs/framework/core-modules/localization).
 
@@ -204,15 +209,42 @@ To look up one specific person instead of the whole roster, use `$presence.of(us
 
 ## Stop & Clear
 
-Presence tidies up after itself: a person's status clears automatically when they leave, close the tab, or sign out. To end tracking yourself, use `clear` to remove your status or `stop` to end the session entirely.
+Presence tidies up after itself. A person's status is removed when they close their last tab, and when their session is ended through `$auth` — signing out, or a guest signing in to an account — the status is removed first, while the session still allows it (since 0.5.307). A session that ends some other way, such as expiring or being revoked from another device, leaves the status in place until it expires, at most 15 minutes later. Removal on closing the last tab is best effort, since the browser may not finish the request as the tab closes; if it doesn't, the status expires the same way.
+
+To end tracking yourself, use `clear` to remove your status (in every tab) or `stop` to stop tracking in this tab. `clear` finishes only once the status is gone, so it's safe to await it right before signing someone out another way.
 
 ```html copy
 <!-- Remove your status but keep watching others -->
 <button @click="$presence.clear()">Appear offline</button>
 
-<!-- Stop tracking completely -->
+<!-- Stop tracking in this tab -->
 <button @click="$presence.stop()">Stop</button>
 ```
+
+---
+
+## Many Tabs
+
+People often keep an app open in several tabs. Since 0.5.307, presence treats a browser as one person, however many tabs they have open:
+
+- **One tab speaks for the browser.** The tabs pick one of themselves to publish the status and receive everyone else's, and share the roster with the others. Ten open tabs cost the same as one.
+- **Closing that tab hands over.** Another tab takes over immediately, without the person blinking offline. The same happens when the browser puts a background tab to sleep, and if that tab stops responding, another takes over within a few minutes or as soon as the person changes their status.
+- **The most active tab wins.** A person is only `away` when none of their tabs is visible, so a hidden tab never marks them away while they're working in another.
+- **Any tab can set the status.** `set()` and `clear()` in one tab apply to all of them, and setting a status that hasn't changed sends nothing.
+
+Statuses are only sent when they change, plus a slow refresh to keep them from expiring, so a busy app doesn't send a stream of updates while nothing is happening. Bursts of updates from other people are grouped into a single roster update, so a team arriving at once doesn't redraw the page once per person.
+
+::: brand icon="lucide:info"
+Tabs coordinate with standard browser features available in every current browser. In an older browser without them, each tab publishes on its own, as earlier releases did. Only tabs that called `start()` take part, so call it in every tab that shows presence rather than calling `set()` alone. One person's tabs share a single status, so if two of their tabs are on different teams, the tab that most recently switched or set a status decides where it's shown.
+:::
+
+---
+
+## Expiry
+
+Appwrite removes a status 15 minutes after its last update. While nothing changes, presence refreshes it every 5 minutes (`keepAliveMs`), which stays well inside that window even when the browser slows down background tabs, so nobody flickers offline. If a browser crashes or loses its connection, the person drops off everyone's roster when their status expires, at most 15 minutes after its last refresh; each roster removes expired statuses on its own, without waiting for Appwrite.
+
+Rosters stay current through Appwrite's realtime connection. If that connection drops for a while, updates sent in the meantime are missed: someone who arrived or changed status can be missing or out of date until their next refresh, at most 5 minutes later.
 
 ---
 
@@ -240,7 +272,7 @@ Switching teams moves your status with you: it disappears from the old team's ro
 Until a person's team is known — however long that takes — their status stays private to them; it is never shared project-wide while a team is loading. This also means people who never resolve a team (such as guests outside any team) stay invisible to each other on team-scoped projects; if you want everyone visible regardless of teams, set the scope to `global`.
 
 ::: brand icon="lucide:info"
-If some visitors are on an older release of Manifest, their statuses are shared globally rather than per team, so scoped rosters won't show them (and theirs show everyone). This resolves itself within about half a minute of them updating, as each status refresh adopts the current rules.
+If some visitors are on an older release of Manifest, their statuses are shared globally rather than per team, so scoped rosters won't show them (and theirs show everyone). This resolves itself once they update, as their next status refresh adopts the current rules.
 :::
 
 ---
@@ -256,6 +288,7 @@ Read these anywhere in your markup — each updates reactively as presence chang
 | `$presence.me`{copy} | string \| null | Your own current status, or `null` if you aren't publishing one. |
 | `$presence.ready`{copy} | boolean | `true` once tracking has started and the roster has loaded. |
 | `$presence.error`{copy} | string \| null | The most recent error message, or `null`. |
+| `$presence.leader`{copy} | boolean | `true` in the one tab that publishes for this browser. See [Many Tabs](#many-tabs). |
 
 ---
 
@@ -263,12 +296,12 @@ Read these anywhere in your markup — each updates reactively as presence chang
 
 | Method | Parameters | Description |
 |---|---|---|
-| `$presence.start(options?)`{copy} | `options` (object, optional) | Begin tracking and publish your status. Options: `auto`, `status`, `heartbeatMs`, `scope`. |
+| `$presence.start(options?)`{copy} | `options` (object, optional) | Begin tracking and publish your status. Options: `auto`, `status`, `keepAliveMs`, `scope`. |
 | `$presence.set(status, metadata?)`{copy} | `status` (string), `metadata` (object, optional) | Publish a status label with optional details. |
 | `$presence.of(userId)`{copy} | `userId` (string) | Get one person's presence record, or `null` if they aren't present. |
 | `$presence.all()`{copy} | None | Return the full roster as an array (same as `list`). |
-| `$presence.clear()`{copy} | None | Remove your own status. |
-| `$presence.stop()`{copy} | None | Stop tracking and disconnect. |
+| `$presence.clear()`{copy} | None | Remove your own status, in every tab. Resolves once it's gone. |
+| `$presence.stop()`{copy} | None | Stop tracking in this tab and empty its roster. |
 
 ---
 
@@ -283,7 +316,7 @@ Every entry in the roster has this shape.
 | `metadata`{copy} | object | Details attached with `set`, including `color` and `name` (the account name, or `null` — pass your own with `set(status, { name })`). |
 | `color`{copy} | string | A consistent colour for this person, handy for dots and avatars. |
 | `lastSeen`{copy} | number | Timestamp of their most recent update. |
-| `expiresAt`{copy} | string \| null | When the status will expire if not refreshed. |
+| `expiresAt`{copy} | string \| null | When the status will expire if not refreshed (15 minutes after its last update). |
 
 ---
 

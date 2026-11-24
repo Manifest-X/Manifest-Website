@@ -30,7 +30,7 @@
   <script src="../../../../scripts/hero-demo.js" defer=""></script>
   <script src="../../../../scripts/console-message.js" defer=""></script>
 
-<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Payments — Manifest</title><meta property="og:title" content="Payments — Manifest"><meta property="og:description" content="Integrate payment providers with your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/payments"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-payments.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Payments — Manifest"><meta property="twitter:description" content="Integrate payment providers with your project."><meta property="twitter:image" content="/og/docs-framework-core-modules-payments.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Payments — Manifest","description":"Integrate payment providers with your project.","image":"/og/docs-framework-core-modules-payments.png","url":"https://manifestx.dev/docs/framework/core-modules/payments"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Payments","item":"https://manifestx.dev/docs/framework/core-modules/payments"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><title>Payments — Manifest</title><meta property="og:title" content="Payments — Manifest"><meta property="og:description" content="Integrate payment providers with your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/payments"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-payments.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Payments — Manifest"><meta property="twitter:description" content="Integrate payment providers with your project."><meta property="twitter:image" content="/og/docs-framework-core-modules-payments.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Payments — Manifest","description":"Integrate payment providers with your project.","image":"/og/docs-framework-core-modules-payments.png","url":"https://manifestx.dev/docs/framework/core-modules/payments"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Payments","item":"https://manifestx.dev/docs/framework/core-modules/payments"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/framework/core-modules/payments">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -735,7 +735,7 @@
       </template><div class="prose [&amp;_:where(h1,h2,h3)]:scroll-mt-26 [&amp;_table]:block [&amp;_table]:overflow-x-auto sm:[&amp;_table]:table" style="opacity: 1" data-mnfst-md-src="/articles/core-modules/payments.md" data-mnfst-prerender-clone="1"><h1 id="payments">Payments</h1><p>Integrate payment providers with your project.</p>
 <hr>
 <h2 id="overview">Overview</h2><p>The payments module connects your project to any payment provider, which are processors like <a href="https://stripe.com" target="_blank" rel="noopener">Stripe</a> or <a href="https://www.revolut.com/business/merchant-accounts/" target="_blank" rel="noopener">Revolut</a>, and merchants of record like <a href="https://www.paddle.com" target="_blank" rel="noopener">Paddle</a> or <a href="https://www.lemonsqueezy.com" target="_blank" rel="noopener">Lemon Squeezy</a> that also handle sales tax for you. Buyers check out on the provider's secure page or in a popup over yours, and your project never sees card numbers or secret keys.</p>
-<p>There are two ways to use it. <strong>Payment links</strong> simply send buyers to a checkout or donation page you already have, with no backend needed. <strong>Full checkout</strong> adds a small <a href="#payment-function">payment function</a> so you can sell by product name, confirm payments reliably, and unlock features the moment someone pays.</p>
+<p>There are three ways to use it. <strong>Payment links</strong> simply send buyers to a checkout or donation page you already have, with no backend needed. <strong>Full checkout</strong> adds a small <a href="#payment-function">payment function</a> so you can sell by product name, confirm payments reliably, and unlock features the moment someone pays. Sites on Manifest hosting can have that function <a href="#hosted-by-manifest">hosted by Manifest</a>, with nothing to deploy.</p>
 <hr>
 <h2 id="setup">Setup</h2><p>Payments isn't part of the default module set. It loads automatically when <code>manifest.json</code> contains a <code>payments</code> block, or it can be declared in <code>data-modules</code>, where the <code>+</code> prefix adds it alongside the default modules.</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="auto-detect-tab-0" aria-selected="true" tabindex="0">Auto-detect</button><button type="button" role="tab" id="declared-tab-1" aria-selected="false" tabindex="-1">Declared</button></div></header>
@@ -781,7 +781,7 @@
 <tbody><tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">provider</code></td>
 <td>–</td>
-<td>Your payment provider. Built in: <code>stripe</code>, <code>paypal</code>, <code>square</code>, <code>braintree</code>, <code>adyen</code>, <code>mollie</code>, <code>revolut</code>, <code>paddle</code>, <code>lemonsqueezy</code>, <code>polar</code>, <code>razorpay</code> — or any name you register a <a href="#providers">custom adapter</a> for. Five of these support popup checkouts; the rest use the provider's hosted page.</td>
+<td>Your payment provider. Built in: <code>stripe</code>, <code>paypal</code>, <code>square</code>, <code>braintree</code>, <code>adyen</code>, <code>mollie</code>, <code>worldpay</code>, <code>revolut</code>, <code>paddle</code>, <code>lemonsqueezy</code>, <code>polar</code>, <code>razorpay</code> — or any name you register a <a href="#providers">custom adapter</a> for. Five of these support popup checkouts; the rest use the provider's hosted page.</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">endpoint</code></td>
@@ -807,6 +807,11 @@
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">options</code></td>
 <td><code>{}</code></td>
 <td>Provider-specific options passed to the adapter.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">redirectHosts</code></td>
+<td>–</td>
+<td>Optional list of hostnames your function may send buyers to. A leading dot allows a domain and all its subdomains, as in <code>[".worldpay.com"]</code>. Any other checkout address, or one not on https, is refused. Since mnfst 0.5.311.</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">state.url</code></td>
@@ -888,6 +893,7 @@
 <td>Open the provider's billing portal instead of a checkout. Provider-dependent: Stripe, Paddle, Lemon Squeezy, and Polar host one; Revolut doesn't, and the template answers with a clear error.</td>
 </tr>
 </tbody></table>
+<p>Since mnfst 0.5.311, <code>x-pay</code> also takes an object, so a quantity or other payload needs no click handler: <code>x-pay="{ ref: 'solar-panel', quantity: qty }"</code>.</p>
 <p>Checkouts can also start from any Alpine expression using the <code>$pay</code> magic method, with an optional payload your function receives:</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="html-tab-0" aria-selected="true" tabindex="0">HTML</button><button type="button" role="tab" id="function-tab-1" aria-selected="false" tabindex="-1">Function</button></div></header>
 
@@ -1001,7 +1007,7 @@
 </tr>
 <tr>
 <td>Redirect</td>
-<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">stripe</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">square</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">paypal</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">braintree</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">adyen</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">mollie</code>, and any provider with a hosted checkout</td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">stripe</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">square</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">paypal</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">braintree</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">adyen</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">mollie</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">worldpay</code>, and any provider with a hosted checkout</td>
 </tr>
 </tbody></table>
 <p>If a popup isn't available, the module falls back to redirect when your function also returned a checkout <code>url</code>. Popup SDKs load on demand from the provider's own CDN — sites with a strict Content Security Policy should allow that provider's domain in <code>script-src</code>. Providers outside the list can add popup support without touching the framework:</p>
@@ -1016,6 +1022,134 @@
         })
     })
 <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<hr>
+<h2 id="hosted-by-manifest">Hosted by Manifest</h2><p>Sites published on Manifest hosting can skip the payment function entirely. Manifest runs it for you on your own site's address, with your own payment provider account: you keep the merchant relationship and the money goes straight to you. Worldpay is supported today.</p>
+<p>Ask Claude to set up payments, or use the <code>manifest_setup_site_payments</code> tool directly. Setup has three parts:</p>
+<ol>
+<li><strong>Products.</strong> Each product has an id, a name, a price in the currency's minor units, a currency, and an allowed quantity range. Minor units follow ISO 4217: pence or cents for GBP, EUR, USD and most currencies (£250.00 is <code>25000</code>), whole units for zero-decimal currencies such as JPY, and thousandths for three-decimal ones such as KWD. They're stored by Manifest, not in your pages, so a visitor can never change a price. Deposits work the same way: make the product the deposit amount.</li>
+<li><strong>Credentials.</strong> Claude gives you a one-time secure link. You open it and type your provider's API credentials there. They are encrypted and never shown again, to you or to Claude. Never paste them into a chat.</li>
+<li><strong>Notifications</strong> (optional). A confirmed email address gets a message whenever a payment is authorized or refunded.</li>
+</ol>
+<p>Then add the block Claude returns to <code>manifest.json</code>:</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"payments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"provider"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"worldpay"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"endpoint"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/_pay/checkout"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"state"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/_pay/state"</span> <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Buttons name a product id. A quantity travels in the payload:</p>
+<pre x-code="html" name="HTML" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="HTML" role="region"><header><div>HTML</div></header><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-pay</span>=<span class="hljs-string">"'battery-deposit'"</span>&gt;</span>Pay the deposit<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">min</span>=<span class="hljs-string">"1"</span> <span class="hljs-attr">max</span>=<span class="hljs-string">"20"</span> <span class="hljs-attr">x-model.number</span>=<span class="hljs-string">"qty"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$pay('solar-panel', { quantity: qty })"</span>&gt;</span>Buy panels<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Prices for display can come from the same catalogue, so the page and the payment never disagree:</p>
+<pre x-code="html" name="HTML" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="HTML" role="region"><header><div>HTML</div></header><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ products: [] }"</span> <span class="hljs-attr">x-init</span>=<span class="hljs-string">"products = (await (await fetch('/_pay/products')).json()).products"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"p in products"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"p.id"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"p.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"(p.amount / 100).toFixed(2) + ' ' + p.currency"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p><code>/_pay/products</code> is public, even on a private site: anyone can see the active products and their prices.</p>
+<h3 id="plans">Plans</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>Free</th>
+<th>Pro</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Live paid orders per month</td>
+<td>200</td>
+<td>10,000</td>
+</tr>
+<tr>
+<td>Notification addresses</td>
+<td>1</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Signed webhook notifications</td>
+<td>–</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+<h3 id="test-and-live">Test and Live</h3><p>You can store both sets of credentials. Your staging address always uses test credentials. The production address uses test credentials until you switch it to live. No real money moves in test mode, test payments don't count toward your plan, and test-mode notifications are limited to a few a day. Your plan's monthly limit on live payments is soft: it's checked when a checkout starts and counted when a payment goes through, so a few payments started just before the limit can still complete.</p>
+<h3 id="after-payment">After Payment</h3><p>The provider sends the buyer back to a page on your site. By default these are <code>/checkout/success</code>, <code>/checkout/pending</code>, <code>/checkout/failure</code>, <code>/checkout/error</code>, <code>/checkout/cancel</code> and <code>/checkout/expired</code>, and you can choose your own. The address the buyer lands on proves nothing by itself, so build these pages from <code>$pay.state</code>, which Manifest checks with the provider:</p>
+<pre x-code="html" name="HTML" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="HTML" role="region"><header><div>HTML</div></header><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.paid"</span>&gt;</span>
+    Thank you. Your payment of <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"($pay.state.amount / 100).toFixed(2) + ' ' + $pay.state.currency"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> is confirmed.
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.checking"</span>&gt;</span>
+    We're confirming your payment. Please don't pay again.
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.retry_after !== undefined &amp;&amp; $pay.state?.status === 'refused'"</span>&gt;</span>
+    That card didn't go through. You can try another card on the payment page, or start again in a few minutes.
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.retry_after !== undefined &amp;&amp; $pay.state?.status !== 'refused'"</span>&gt;</span>
+    This payment didn't complete. You can start again in a few minutes.
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.can_retry"</span>&gt;</span>
+    The payment didn't go through. <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-pay</span>=<span class="hljs-string">"$pay.state.product"</span>&gt;</span>Try again<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.do_not_pay_again &amp;&amp; !$pay.state?.paid &amp;&amp; !$pay.state?.checking"</span>&gt;</span>
+    Please don't pay again. Contact us about this order and we'll sort it out.
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">status</code></td>
+<td><code>created</code> (page opened, not paid), <code>pending</code>, <code>authorized</code> (funds reserved), <code>settled</code> (sent for settlement), <code>partially_refunded</code>, <code>refunded</code>, <code>refund_recorded</code> (a refund was reported without its amount), <code>refused</code>, <code>cancelled</code>, <code>expired</code> or <code>error</code>.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">paid</code></td>
+<td><code>true</code> while funds are authorized or settled and not fully refunded.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">checking</code></td>
+<td><code>true</code> while the outcome isn't known yet: the page was opened but Worldpay doesn't show a payment yet, it's processing, or Worldpay reports it in a state Manifest doesn't recognise. The buyer may already have paid, so say "we're confirming your payment". A buyer who pressed Cancel on the payment page also sees this until the page has closed and been checked (up to about 17 minutes with signed webhooks, 25 without). That's deliberate: the same page could still take a payment.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">do_not_pay_again</code></td>
+<td><code>true</code> when money is reserved, taken, refunded, possibly on its way, or the outcome can't be known. Show "please don't pay again".</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">can_retry</code></td>
+<td><code>true</code> only when all of these hold: the attempt was never authorized; its payment page has closed; a short wait has passed (2 minutes with signed webhooks, 10 without); and a status check sent to Worldpay after that wait, for the same merchant account (API user and entity), found no payment or only refused, failed, cancelled or expired attempts. A payment in a state Manifest doesn't recognise, a Worldpay outage, or a change of merchant account all keep it <code>false</code>.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">retry_after</code></td>
+<td>Only for a <code>refused</code>, <code>error</code>, <code>cancelled</code> or <code>expired</code> attempt that was never authorized: seconds until the wait ends. It can read <code>0</code> when the wait is over but Worldpay hasn't yet answered a check since the page closed. <code>can_retry</code> is the signal to act on.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">final</code></td>
+<td><code>true</code> when the order won't change any more without a refund. Orders Manifest closes because they couldn't be confirmed, and authorizations later cancelled or left to lapse, are final, with <code>do_not_pay_again</code> <code>true</code> and no retry: point the buyer to your contact details.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">settled</code></td>
+<td><code>true</code> once the payment is sent for settlement.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">test</code></td>
+<td><code>true</code> for test-mode payments.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">order_id</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">product</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">quantity</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">amount</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">currency</code></td>
+<td>The order as placed. <code>order_id</code> is the transaction reference in your provider's dashboard.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">settled_amount</code>, <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">refunded_amount</code></td>
+<td>What was actually taken and refunded. Refund amounts come only from signed webhooks (see below); a refund reported without one shows as <code>refund_recorded</code>, with <code>refunded_amount</code> <code>null</code>.</td>
+</tr>
+</tbody></table>
+<p><code>$pay.state</code> holds the latest order from this browser. On a return from checkout, the module (mnfst 0.5.311 and later) passes the return address's <code>order</code> to the state request and keeps re-checking for up to about two minutes while the order is still being confirmed. A page can also read any order by id from <code>/_pay/orders/&lt;order_id&gt;</code>.</p>
+<h3 id="worldpay">Worldpay</h3><p>Use your Worldpay eCommerce (Access Worldpay) <strong>API username and password</strong> and your <strong>merchant entity</strong>, all under Developer Tools in the Worldpay dashboard. Try and live have separate credentials. A checkout ID is not needed.</p>
+<p>In the dashboard's webhook settings, add the webhook address Claude gives you (it ends in <code>/_pay/webhook/…</code>) and turn on payment events. Turn webhooks on. Without them, Manifest follows unpaid and authorized orders by checking periodically, but it learns about refunds only from webhooks. Manifest treats every notification as a prompt to ask Worldpay for the payment's real status, so a forged notification changes nothing. If Worldpay has given you an event signature secret, enter it with your credentials: unsigned notifications are then refused, and partial captures and refunds are tracked to the penny. Claude can issue a new webhook address at any time.</p>
+<p>Buyers enter card and billing details on Worldpay's own page. Manifest never sees them; it stores only the order: product, quantity, amount, status and times.</p>
 <hr>
 <h2 id="payment-function">Payment Function</h2><p>Real payments need one small piece of server code, because two things can never happen in a browser: creating a checkout with your secret key, and confirming that money actually arrived. The payment function does both.</p>
 <p>Your function answers three requests:</p>
@@ -1373,7 +1507,7 @@ PAY_DATABASE_ID=…                # database with `entitlements` + `ledger` col
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#payment-links">Payment Links</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#full-checkouts">Full Checkouts</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#configuration">Configuration</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#start-a-checkout">Start a Checkout</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#payment-state">Payment State</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#providers">Providers</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#payment-function">Payment Function</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#appwrite-template">Appwrite Template</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#returning-from-checkout">Returning from Checkout</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#payment-links">Payment Links</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#full-checkouts">Full Checkouts</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#configuration">Configuration</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#start-a-checkout">Start a Checkout</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#payment-state">Payment State</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#providers">Providers</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#hosted-by-manifest">Hosted by Manifest</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#plans">Plans</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#test-and-live">Test and Live</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#after-payment">After Payment</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#worldpay">Worldpay</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#payment-function">Payment Function</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#appwrite-template">Appwrite Template</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#returning-from-checkout">Returning from Checkout</a></div>
 
   </nav>
 

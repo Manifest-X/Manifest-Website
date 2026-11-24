@@ -39,8 +39,10 @@ The `manifest.js` script tag accepts `data-*` attributes to control module loadi
 |---|---|---|
 | `data-modules`{copy} | (auto) | Comma-separated list of modules to load; prefix a name with `+` to add it to the defaults instead of replacing them |
 | `data-omit`{copy} | — | Comma-separated list to exclude from auto-loaded set |
-| `data-version`{copy} | `latest` | Module version to fetch from CDN |
+| `data-version`{copy} | `latest`, or the loader's own version when its tag has `integrity` | Module version to fetch from CDN |
 | `data-alpine`{copy} | The version tested with this framework release | Alpine version, a full URL, or a path starting with `/` |
+| `data-alpine-integrity`{copy} | — | Hash for a `data-alpine` version or URL, required when integrity checks are on — see [security](/docs/framework/resources/security#cdn-resource-integrity) |
+| `data-integrity`{copy} | (on when the tag has `integrity`) | Boolean — check everything the loader and modules load against published hashes; `warn` logs instead of refusing; `off` or `false` turns the checks off |
 | `data-tailwind`{copy} | (off) | Boolean — load Manifest's Tailwind v4 build |
 | `data-module-base`{copy} | CDN | Base URL/path for module scripts (for self-hosted deployments) |
 | `data-defer`{copy} | (on) | `off` turns off automatic deferral of closed containers — see [performance](/docs/framework/getting-started/performance#x-defer-reference) |
