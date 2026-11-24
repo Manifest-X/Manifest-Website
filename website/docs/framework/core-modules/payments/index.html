@@ -30,7 +30,7 @@
   <script src="../../../../scripts/hero-demo.js" defer=""></script>
   <script src="../../../../scripts/console-message.js" defer=""></script>
 
-<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><title>Payments — Manifest</title><meta property="og:title" content="Payments — Manifest"><meta property="og:description" content="Integrate payment providers with your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/payments"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-payments.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Payments — Manifest"><meta property="twitter:description" content="Integrate payment providers with your project."><meta property="twitter:image" content="/og/docs-framework-core-modules-payments.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Payments — Manifest","description":"Integrate payment providers with your project.","image":"/og/docs-framework-core-modules-payments.png","url":"https://manifestx.dev/docs/framework/core-modules/payments"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Payments","item":"https://manifestx.dev/docs/framework/core-modules/payments"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Payments — Manifest</title><meta property="og:title" content="Payments — Manifest"><meta property="og:description" content="Integrate payment providers with your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/payments"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-payments.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Payments — Manifest"><meta property="twitter:description" content="Integrate payment providers with your project."><meta property="twitter:image" content="/og/docs-framework-core-modules-payments.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Payments — Manifest","description":"Integrate payment providers with your project.","image":"/og/docs-framework-core-modules-payments.png","url":"https://manifestx.dev/docs/framework/core-modules/payments"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Payments","item":"https://manifestx.dev/docs/framework/core-modules/payments"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/framework/core-modules/payments">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -1076,24 +1076,31 @@
 </tbody></table>
 <h3 id="test-and-live">Test and Live</h3><p>You can store both sets of credentials. Your staging address always uses test credentials. The production address uses test credentials until you switch it to live. No real money moves in test mode, test payments don't count toward your plan, and test-mode notifications are limited to a few a day. Your plan's monthly limit on live payments is soft: it's checked when a checkout starts and counted when a payment goes through, so a few payments started just before the limit can still complete.</p>
 <h3 id="after-payment">After Payment</h3><p>The provider sends the buyer back to a page on your site. By default these are <code>/checkout/success</code>, <code>/checkout/pending</code>, <code>/checkout/failure</code>, <code>/checkout/error</code>, <code>/checkout/cancel</code> and <code>/checkout/expired</code>, and you can choose your own. The address the buyer lands on proves nothing by itself, so build these pages from <code>$pay.state</code>, which Manifest checks with the provider:</p>
-<pre x-code="html" name="HTML" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="HTML" role="region"><header><div>HTML</div></header><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.paid"</span>&gt;</span>
-    Thank you. Your payment of <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"($pay.state.amount / 100).toFixed(2) + ' ' + $pay.state.currency"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> is confirmed.
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.checking"</span>&gt;</span>
-    We're confirming your payment. Please don't pay again.
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.retry_after !== undefined &amp;&amp; $pay.state?.status === 'refused'"</span>&gt;</span>
-    That card didn't go through. You can try another card on the payment page, or start again in a few minutes.
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.retry_after !== undefined &amp;&amp; $pay.state?.status !== 'refused'"</span>&gt;</span>
-    This payment didn't complete. You can start again in a few minutes.
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.can_retry"</span>&gt;</span>
-    The payment didn't go through. <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-pay</span>=<span class="hljs-string">"$pay.state.product"</span>&gt;</span>Try again<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$pay.state?.do_not_pay_again &amp;&amp; !$pay.state?.paid &amp;&amp; !$pay.state?.checking"</span>&gt;</span>
-    Please don't pay again. Contact us about this order and we'll sort it out.
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<pre x-code="html" name="HTML" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="HTML" role="region"><header><div>HTML</div></header><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">x-route</span>=<span class="hljs-string">"checkout"</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ get order() { return this.$pay?.state ?? null } }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"!order || order.checking"</span>&gt;</span>
+        We're confirming your payment. Please don't pay again.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-if</span>=<span class="hljs-string">"order?.paid"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Thank you. Your payment of <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"(order.amount / 100).toFixed(2) + ' ' + order.currency"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> is confirmed.<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"order?.retry_after !== undefined &amp;&amp; order?.status === 'refused'"</span>&gt;</span>
+        That card didn't go through. You can try another card on the payment page, or start again in a few minutes.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"order?.retry_after !== undefined &amp;&amp; order?.status !== 'refused'"</span>&gt;</span>
+        This payment didn't complete. You can start again in a few minutes.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-if</span>=<span class="hljs-string">"order?.can_retry"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>The payment didn't go through. <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-pay</span>=<span class="hljs-string">"order.product"</span>&gt;</span>Try again<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"order?.do_not_pay_again &amp;&amp; !order?.paid &amp;&amp; !order?.checking"</span>&gt;</span>
+        Please don't pay again. Contact us about this order and we'll sort it out.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>One section with <code>x-route="checkout"</code> covers all six default addresses as subroutes, because it renders only from <code>$pay.state</code>. Two details keep it from breaking:</p>
+<ul>
+<li>Blocks that read order fields such as <code>amount</code>, <code>order_id</code> or <code>product</code> use <code>&lt;template x-if&gt;</code>, not <code>x-show</code>. Alpine still evaluates <code>x-text</code> inside a hidden element, so an <code>x-show</code> block throws on every load while the state is null.</li>
+<li>The <code>order</code> getter reads the state defensively. Until the <code>payments</code> block is in <code>manifest.json</code>, the page shows the "confirming" message instead of throwing, so you can publish the return pages before setting up payments.</li>
+</ul>
 <table>
 <thead>
 <tr>
