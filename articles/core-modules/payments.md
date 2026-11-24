@@ -8,7 +8,7 @@ Integrate payment providers with your project.
 
 The payments module connects your project to any payment provider, which are processors like <a href="https://stripe.com" target="_blank" rel="noopener">Stripe</a> or <a href="https://www.revolut.com/business/merchant-accounts/" target="_blank" rel="noopener">Revolut</a>, and merchants of record like <a href="https://www.paddle.com" target="_blank" rel="noopener">Paddle</a> or <a href="https://www.lemonsqueezy.com" target="_blank" rel="noopener">Lemon Squeezy</a> that also handle sales tax for you. Buyers check out on the provider's secure page or in a popup over yours, and your project never sees card numbers or secret keys.
 
-There are two ways to use it. **Payment links** simply send buyers to a checkout or donation page you already have, with no backend needed. **Full checkout** adds a small [payment function](#payment-function) so you can sell by product name, confirm payments reliably, and unlock features the moment someone pays.
+There are three ways to use it. **Payment links** simply send buyers to a checkout or donation page you already have, with no backend needed. **Full checkout** adds a small [payment function](#payment-function) so you can sell by product name, confirm payments reliably, and unlock features the moment someone pays. Sites on Manifest hosting can have that function [hosted by Manifest](#hosted-by-manifest), with nothing to deploy.
 
 ---
 
@@ -74,12 +74,13 @@ Register the payment provider in `manifest.json` under a `payments` block, point
 
 | Property | Default | Description |
 |---|---|---|
-| `provider`{copy} | – | Your payment provider. Built in: `stripe`, `paypal`, `square`, `braintree`, `adyen`, `mollie`, `revolut`, `paddle`, `lemonsqueezy`, `polar`, `razorpay` — or any name you register a [custom adapter](#providers) for. Five of these support popup checkouts; the rest use the provider's hosted page. |
+| `provider`{copy} | – | Your payment provider. Built in: `stripe`, `paypal`, `square`, `braintree`, `adyen`, `mollie`, `worldpay`, `revolut`, `paddle`, `lemonsqueezy`, `polar`, `razorpay` — or any name you register a [custom adapter](#providers) for. Five of these support popup checkouts; the rest use the provider's hosted page. |
 | `endpoint`{copy} | – | Your payment function's URL. Creates checkouts and confirms payments. |
 | `mode`{copy} | `"redirect"` | Preferred checkout style: `redirect` (provider's page) or `overlay` (popup). |
 | `publicKey`{copy} | – | A publishable key, if your provider's popup needs one. Safe to commit. |
 | `environment`{copy} | `"live"` | `live` or `sandbox`: which of the provider's popup SDKs `overlay` checkouts load. Set `sandbox` while testing with the provider's test keys, and match the environment your payment function uses. |
 | `options`{copy} | `{}` | Provider-specific options passed to the adapter. |
+| `redirectHosts`{copy} | – | Optional list of hostnames your function may send buyers to. A leading dot allows a domain and all its subdomains, as in `[".worldpay.com"]`. Any other checkout address, or one not on https, is refused. Since mnfst 0.5.311. |
 | `state.url`{copy} | – | Where to read payment state for `$pay.state`. Appwrite projects can use [databases](/docs/framework/appwrite-modules/databases) and `$x` instead. |
 
 ::: brand icon="lucide:info"
@@ -162,6 +163,8 @@ Because prices live in the function, nothing on the page can be tampered with �
 | `x-pay.overlay`{copy} | Ask for a popup checkout over the current page. |
 | `x-pay.redirect`{copy} | Ask for the provider's hosted checkout page. |
 | `x-pay.portal`{copy} | Open the provider's billing portal instead of a checkout. Provider-dependent: Stripe, Paddle, Lemon Squeezy, and Polar host one; Revolut doesn't, and the template answers with a clear error. |
+
+Since mnfst 0.5.311, `x-pay` also takes an object, so a quantity or other payload needs no click handler: `x-pay="{ ref: 'solar-panel', quantity: qty }"`.
 
 Checkouts can also start from any Alpine expression using the `$pay` magic method, with an optional payload your function receives:
 
@@ -258,7 +261,7 @@ Two checkout styles are supported, and every provider gets at least one:
 | Style | Providers |
 |---|---|
 | Overlay popup | `revolut`{copy}, `paddle`{copy}, `lemonsqueezy`{copy}, `polar`{copy}, `razorpay`{copy} |
-| Redirect | `stripe`{copy}, `square`{copy}, `paypal`{copy}, `braintree`{copy}, `adyen`{copy}, `mollie`{copy}, and any provider with a hosted checkout |
+| Redirect | `stripe`{copy}, `square`{copy}, `paypal`{copy}, `braintree`{copy}, `adyen`{copy}, `mollie`{copy}, `worldpay`{copy}, and any provider with a hosted checkout |
 
 If a popup isn't available, the module falls back to redirect when your function also returned a checkout `url`. Popup SDKs load on demand from the provider's own CDN — sites with a strict Content Security Policy should allow that provider's domain in `script-src`. Providers outside the list can add popup support without touching the framework:
 
@@ -275,6 +278,112 @@ If a popup isn't available, the module falls back to redirect when your function
     })
 </script>
 ```
+
+---
+
+## Hosted by Manifest
+
+Sites published on Manifest hosting can skip the payment function entirely. Manifest runs it for you on your own site's address, with your own payment provider account: you keep the merchant relationship and the money goes straight to you. Worldpay is supported today.
+
+Ask Claude to set up payments, or use the `manifest_setup_site_payments` tool directly. Setup has three parts:
+
+1. **Products.** Each product has an id, a name, a price in the currency's minor units, a currency, and an allowed quantity range. Minor units follow ISO 4217: pence or cents for GBP, EUR, USD and most currencies (£250.00 is `25000`), whole units for zero-decimal currencies such as JPY, and thousandths for three-decimal ones such as KWD. They're stored by Manifest, not in your pages, so a visitor can never change a price. Deposits work the same way: make the product the deposit amount.
+2. **Credentials.** Claude gives you a one-time secure link. You open it and type your provider's API credentials there. They are encrypted and never shown again, to you or to Claude. Never paste them into a chat.
+3. **Notifications** (optional). A confirmed email address gets a message whenever a payment is authorized or refunded.
+
+Then add the block Claude returns to `manifest.json`:
+
+```json "manifest.json" copy
+{
+    "payments": {
+        "provider": "worldpay",
+        "endpoint": "/_pay/checkout",
+        "state": { "url": "/_pay/state" }
+    }
+}
+```
+
+Buttons name a product id. A quantity travels in the payload:
+
+```html "HTML" copy
+<button x-pay="'battery-deposit'">Pay the deposit</button>
+
+<input type="number" min="1" max="20" x-model.number="qty">
+<button @click="$pay('solar-panel', { quantity: qty })">Buy panels</button>
+```
+
+Prices for display can come from the same catalogue, so the page and the payment never disagree:
+
+```html "HTML" copy
+<div x-data="{ products: [] }" x-init="products = (await (await fetch('/_pay/products')).json()).products">
+    <template x-for="p in products" :key="p.id">
+        <p><span x-text="p.name"></span>: <span x-text="(p.amount / 100).toFixed(2) + ' ' + p.currency"></span></p>
+    </template>
+</div>
+```
+
+`/_pay/products` is public, even on a private site: anyone can see the active products and their prices.
+
+### Plans
+
+| | Free | Pro |
+|---|---|---|
+| Live paid orders per month | 200 | 10,000 |
+| Notification addresses | 1 | 10 |
+| Signed webhook notifications | – | Yes |
+
+### Test and Live
+
+You can store both sets of credentials. Your staging address always uses test credentials. The production address uses test credentials until you switch it to live. No real money moves in test mode, test payments don't count toward your plan, and test-mode notifications are limited to a few a day. Your plan's monthly limit on live payments is soft: it's checked when a checkout starts and counted when a payment goes through, so a few payments started just before the limit can still complete.
+
+### After Payment
+
+The provider sends the buyer back to a page on your site. By default these are `/checkout/success`, `/checkout/pending`, `/checkout/failure`, `/checkout/error`, `/checkout/cancel` and `/checkout/expired`, and you can choose your own. The address the buyer lands on proves nothing by itself, so build these pages from `$pay.state`, which Manifest checks with the provider:
+
+```html "HTML" copy
+<div x-show="$pay.state?.paid">
+    Thank you. Your payment of <b x-text="($pay.state.amount / 100).toFixed(2) + ' ' + $pay.state.currency"></b> is confirmed.
+</div>
+<div x-show="$pay.state?.checking">
+    We're confirming your payment. Please don't pay again.
+</div>
+<div x-show="$pay.state?.retry_after !== undefined && $pay.state?.status === 'refused'">
+    That card didn't go through. You can try another card on the payment page, or start again in a few minutes.
+</div>
+<div x-show="$pay.state?.retry_after !== undefined && $pay.state?.status !== 'refused'">
+    This payment didn't complete. You can start again in a few minutes.
+</div>
+<div x-show="$pay.state?.can_retry">
+    The payment didn't go through. <button x-pay="$pay.state.product">Try again</button>
+</div>
+<div x-show="$pay.state?.do_not_pay_again && !$pay.state?.paid && !$pay.state?.checking">
+    Please don't pay again. Contact us about this order and we'll sort it out.
+</div>
+```
+
+| Field | Description |
+|---|---|
+| `status`{copy} | `created` (page opened, not paid), `pending`, `authorized` (funds reserved), `settled` (sent for settlement), `partially_refunded`, `refunded`, `refund_recorded` (a refund was reported without its amount), `refused`, `cancelled`, `expired` or `error`. |
+| `paid`{copy} | `true` while funds are authorized or settled and not fully refunded. |
+| `checking`{copy} | `true` while the outcome isn't known yet: the page was opened but Worldpay doesn't show a payment yet, it's processing, or Worldpay reports it in a state Manifest doesn't recognise. The buyer may already have paid, so say "we're confirming your payment". A buyer who pressed Cancel on the payment page also sees this until the page has closed and been checked (up to about 17 minutes with signed webhooks, 25 without). That's deliberate: the same page could still take a payment. |
+| `do_not_pay_again`{copy} | `true` when money is reserved, taken, refunded, possibly on its way, or the outcome can't be known. Show "please don't pay again". |
+| `can_retry`{copy} | `true` only when all of these hold: the attempt was never authorized; its payment page has closed; a short wait has passed (2 minutes with signed webhooks, 10 without); and a status check sent to Worldpay after that wait, for the same merchant account (API user and entity), found no payment or only refused, failed, cancelled or expired attempts. A payment in a state Manifest doesn't recognise, a Worldpay outage, or a change of merchant account all keep it `false`. |
+| `retry_after`{copy} | Only for a `refused`, `error`, `cancelled` or `expired` attempt that was never authorized: seconds until the wait ends. It can read `0` when the wait is over but Worldpay hasn't yet answered a check since the page closed. `can_retry` is the signal to act on. |
+| `final`{copy} | `true` when the order won't change any more without a refund. Orders Manifest closes because they couldn't be confirmed, and authorizations later cancelled or left to lapse, are final, with `do_not_pay_again` `true` and no retry: point the buyer to your contact details. |
+| `settled`{copy} | `true` once the payment is sent for settlement. |
+| `test`{copy} | `true` for test-mode payments. |
+| `order_id`{copy}, `product`{copy}, `quantity`{copy}, `amount`{copy}, `currency`{copy} | The order as placed. `order_id` is the transaction reference in your provider's dashboard. |
+| `settled_amount`{copy}, `refunded_amount`{copy} | What was actually taken and refunded. Refund amounts come only from signed webhooks (see below); a refund reported without one shows as `refund_recorded`, with `refunded_amount` `null`. |
+
+`$pay.state` holds the latest order from this browser. On a return from checkout, the module (mnfst 0.5.311 and later) passes the return address's `order` to the state request and keeps re-checking for up to about two minutes while the order is still being confirmed. A page can also read any order by id from `/_pay/orders/<order_id>`.
+
+### Worldpay
+
+Use your Worldpay eCommerce (Access Worldpay) **API username and password** and your **merchant entity**, all under Developer Tools in the Worldpay dashboard. Try and live have separate credentials. A checkout ID is not needed.
+
+In the dashboard's webhook settings, add the webhook address Claude gives you (it ends in `/_pay/webhook/…`) and turn on payment events. Turn webhooks on. Without them, Manifest follows unpaid and authorized orders by checking periodically, but it learns about refunds only from webhooks. Manifest treats every notification as a prompt to ask Worldpay for the payment's real status, so a forged notification changes nothing. If Worldpay has given you an event signature secret, enter it with your credentials: unsigned notifications are then refused, and partial captures and refunds are tracked to the penny. Claude can issue a new webhook address at any time.
+
+Buyers enter card and billing details on Worldpay's own page. Manifest never sees them; it stores only the order: product, quantity, amount, status and times.
 
 ---
 
