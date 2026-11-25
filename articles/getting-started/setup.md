@@ -114,6 +114,8 @@ The script loads:
 - **Alpine JS** v3 (the version tested with the framework release) from CDN, unless it's been added separately to your project. Override it with `data-alpine` (an Alpine version, a full URL, or a path starting with `/`).
 - **Tailwind CSS** (modified production version from our CDN) *if* the `data-tailwind` attribute is added.
 
+`data-omit` applies with or without `data-modules`, including when the loader works out the module list from `manifest.json` and the page. An omitted module is never loaded by the loader, even when the page uses it; the console then shows one warning naming the module. Names are case-insensitive. Always-on behaviours cannot be omitted, and a module that another loaded module depends on still loads. Your own code can still load an omitted module with `Manifest.loadPlugin('name')`{copy}.
+
 Manifest scripts load the latest version from CDN by default. Load a specified version by referencing it in the URL and with a `data-version` attribute for modules:
 
 ```html copy
