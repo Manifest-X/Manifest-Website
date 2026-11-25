@@ -138,7 +138,9 @@ Render settings can be configured in `manifest.json`. Most projects don't need t
 
 ### Tailwind
 
-When the manifest script tag has `data-tailwind` and the Tailwind CLI is installed (`npm i -g tailwindcss @tailwindcss/cli`), the render compiles a static `prerender.tailwind.css` for the output. It reads your `<style type="text/tailwindcss">` blocks in `index.html` in document order, the same as the browser does, so `@theme`, `@utility`, `@custom-variant` and `@source` rules carry over to the prerendered pages.
+When the manifest script tag has `data-tailwind` and Tailwind v4 is installed, the render compiles a static `prerender.tailwind.css` for the output. Install it once for every project (`npm i -g tailwindcss @tailwindcss/cli`) or per project (`npm i -D tailwindcss @tailwindcss/cli`). Without `@tailwindcss/cli`, the render runs it with `npx @tailwindcss/cli@4`. Without Tailwind, pages keep using Tailwind in the browser: a non-interactive render continues automatically, and an interactive one asks first.
+
+The render reads your `<style type="text/tailwindcss">` blocks in `index.html` in document order, the same as the browser does, so `@theme`, `@utility`, `@custom-variant` and `@source` rules carry over to the prerendered pages.
 
 ```html "index.html" copy
 <style type="text/tailwindcss">
@@ -157,13 +159,13 @@ When the manifest script tag has `data-tailwind` and the Tailwind CLI is install
 The compiled stylesheet then includes:
 
 ```css "prerender.tailwind.css"
---color-brand: #e11d48;
+:root, :host { --color-brand: #e11d48; }
 .bg-brand { background-color: var(--color-brand); }
 .tracking-label { letter-spacing: 0.2em; }
 .hocus\:underline:hover, .hocus\:underline:focus-visible { text-decoration-line: underline; }
 ```
 
-Blocks inside HTML comments or `<template>` elements are skipped. When `tailwindInput` is set, that file is the entry and `@import` rules in the blocks are ignored.
+Blocks inside HTML comments or `<template>` elements are skipped. When `tailwindInput` is set, that file is the entry and `@import` rules in the blocks are ignored. Without it, an `@import` in a block replaces the default `@import "tailwindcss"`, as in the browser, so Tailwind's own utilities are left out. Load fonts and other stylesheets with a `<link>` or a plain `<style>` instead.
 
 Manifest's device and app-state [variants](/docs/framework/styles/utilities#visibility) are always added, and their names are reserved: a block that declares one of them is overridden by Manifest's version. The reserved names are `touch`, `cursor`, `pointer`, `mac`, `windows`, `linux`, `ios`, `android`, `apple`, `online`, `offline`, `standalone`, `native` and `web`.
 
