@@ -186,7 +186,7 @@ The response is `202`: a `webhook.test`{copy} event is on its way to that endpoi
 |---|---|
 | `publish.ready`{copy} | A publish, content request, or file update is live on its environment. |
 | `publish.failed`{copy} | A publish stopped before going live, including an upload not finished within a day. What was live is unchanged. |
-| `promote.done`{copy} | What was live on staging is live on production. |
+| `promote.done`{copy} | A staging deployment is live on production: what staging served, or the one the promote named. |
 | `rollback.done`{copy} | An environment points at an earlier deployment again. |
 | `project.deleted`{copy} | A project was deleted. Its sites are offline, and Manifest can restore it for 30 days. |
 | `webhook.test`{copy} | You [asked for a test event](#test-it). Only that endpoint receives it, and it can't be listed in `events`{copy}. |
@@ -210,6 +210,7 @@ Each event is one JSON body with `type`{copy}, `timestamp`{copy} (ISO 8601, when
     "source_id": "site_8232",
     "deployment_id": "dep_…",
     "env": "staging",
+    "label": "v2.4.0",
     "url": "https://acme-docs-staging.manifestx.ai",
     "files": 42,
     "bytes": 318211
@@ -241,6 +242,7 @@ Each event is one JSON body with `type`{copy}, `timestamp`{copy} (ISO 8601, when
     "deployment_id": "dep_…",
     "env": "production",
     "from_deployment_id": "dep_…",
+    "label": "v2.4.0",
     "url": "https://acme-docs.manifestx.ai",
     "files": 42
   }
@@ -288,9 +290,10 @@ Each event is one JSON body with `type`{copy}, `timestamp`{copy} (ISO 8601, when
 </div>
 
 - **`publish.failed`{copy}:** `error`{copy} is a short code, such as `upload_expired`{copy}, `storage_cap_reached`{copy} (see [Limits](/docs/api/reference/limits)), `store_failed`{copy}, `ingest_failed`{copy}, `bad_zip`{copy}, `too_large`{copy}, or `publish_failed`{copy}. Treat any other code as a failure too. Start a new publish to recover.
-- **`promote.done`{copy}:** `deployment_id`{copy} is the new production deployment, and `from_deployment_id`{copy} is the staging deployment it was made from. `files`{copy} is the number of files the production deployment serves.
+- **`promote.done`{copy}:** `deployment_id`{copy} is the new production deployment, and `from_deployment_id`{copy} is the staging deployment it was made from. `files`{copy} is the number of files the production deployment serves. `label`{copy} is the staging deployment's label.
 - **`rollback.done`{copy}:** `deployment_id`{copy} is live now, and `previous_deployment_id`{copy} was live before. `env`{copy} is `production`{copy} or `staging`{copy}.
 - **`project.deleted`{copy}:** `deleted_at`{copy} and `restorable_until`{copy} are Unix seconds. It is sent once per delete.
+- **`label`{copy}** on `publish.ready`{copy} and `promote.done`{copy} is the name the deployment was published with, or `null`{copy}.
 - **`url`{copy}** can be `null`{copy} when the address couldn't be read at that moment.
 
 ---

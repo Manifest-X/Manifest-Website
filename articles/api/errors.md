@@ -72,7 +72,7 @@ Upload and status URL errors carry `error`{copy} and `message`{copy}, but no `re
 | 403 | `owner_not_removable`{copy} | The project owner can't be removed. |
 | 404 | `not_found`{copy} | No such project, domain, key, or webhook endpoint, or the key can't reach it. Also any unknown route. |
 | 404 | `member_not_found`{copy} | No one with that `user_id`{copy} is on the project. |
-| 404 | `unknown_deployment`{copy} | That `deployment_id`{copy} isn't one of this project's deployments for that environment. |
+| 404 | `unknown_deployment`{copy} | That `deployment_id`{copy} isn't one of this project's deployments for that environment. On promote, it isn't one of this project's deployments at all. |
 | 404 | `file_not_found`{copy} | A file read names a file that isn't live, or nothing is live on that environment yet. |
 | 404 | `unknown_token`{copy} | On the status URL: the link expired or doesn't exist. Start a new publish. |
 | 409 | `source_id_conflict`{copy} | That `source_id`{copy} already names a project with a different `name`{copy} or `subdomain`{copy}. |
@@ -92,6 +92,9 @@ Upload and status URL errors carry `error`{copy} and `message`{copy}, but no `re
 | 409 | `idempotency_in_progress`{copy} | The first request with this key is still running. Retry shortly. |
 | 409 | `ingest_in_progress`{copy} | An earlier upload to this URL is still processing. Poll the status URL. |
 | 409 | `promote_in_progress`{copy} | Another promote of this project is still running. Retry shortly. |
+| 409 | `not_staging`{copy} | Promote takes a staging deployment, and that `deployment_id`{copy} is a production one. To restore a production version, [roll back](/docs/api/guides/publish#roll-back). |
+| 409 | `not_ready`{copy} | That staging deployment is still uploading or failed, so it can't be promoted. Wait for its status to be `done`{copy}, or publish again. |
+| 409 | `live_moved`{copy} | Production isn't serving your `expect_live`{copy} deployment any more, so nothing was promoted. The message names what is live. Check [deployments](/docs/api/guides/publish#list-deployments) before retrying. |
 | 410 | `project_deleted`{copy} | The project was deleted. The message says until when Manifest can restore it. See [Projects](/docs/api/guides/projects). |
 | 410 | `expired`{copy} | The upload URL expired or was already used. Start a new publish. |
 | 413 | `too_large`{copy} | The zip is over 80 MB, a file is over 25 MB, or the unzipped build is over 250 MB. |

@@ -13,6 +13,8 @@ If you build the project yourself, publish the output as a zip. Any static build
 3. [Check the status](#check-the-status) until it's live.
 4. [Promote](#promote-to-production) staging to production.
 
+To review a build before it reaches staging, [publish it without going live](#publish-without-going-live) and promote that exact deployment by id.
+
 Every publish is a new deployment, so a bad release can be [rolled back](#roll-back). To change a few files without a new zip, see [Edit](/docs/api/guides/edit).
 
 ---
@@ -51,12 +53,14 @@ const { upload_url, status_url } = await res.json()
 | `source`{copy} | string | yes | `spa`{copy} for any static build. `render`{copy} for `mnfst-render` output. |
 | `env`{copy} | string | no | `staging`{copy} (default) or `production`{copy}. |
 | `output_dir`{copy} | string | no | The folder inside the zip to serve, such as `dist`. Defaults to the zip root for `spa`{copy}, and `website` for `render`{copy}. |
+| `label`{copy} | string | no | A name for this deployment, such as a version or commit subject. Up to 200 characters, no line breaks. Shown in the [deployment list](#list-deployments) and in webhook events. |
+| `live`{copy} | boolean | no | Staging only. `false`{copy} stores the deployment without changing what staging serves. See [Publish Without Going Live](#publish-without-going-live). |
 
 The answer is `201 Created`:
 
 ```json
 {
-  "deployment": { "id": "dep_…", "env": "staging", "source": "spa", "output_dir": "", "status": "uploading" },
+  "deployment": { "id": "dep_…", "env": "staging", "source": "spa", "output_dir": "", "status": "uploading", "label": null },
   "upload_url": "https://api.manifestx.dev/v1/uploads/put_…",
   "status_url": "https://api.manifestx.dev/v1/uploads/put_…/status",
   "expires_in_seconds": 900,
@@ -156,9 +160,74 @@ Status reads are capped at 120 a minute per IP address. A [`publish.ready` webho
 
 ---
 
+## Publish Without Going Live
+
+Store a build on staging and review it at its own address, while staging keeps serving what it served before. Send `"live": false`{copy}:
+
+<div x-code-group copy>
+
+```bash "cURL"
+curl -X POST https://api.manifestx.dev/v1/projects/proj_…/publish \
+  -H "Authorization: Bearer $MANIFEST_ACCOUNT_KEY" \
+  -H "Idempotency-Key: build-4182-held" \
+  -H "Content-Type: application/json" \
+  -d '{ "env": "staging", "source": "spa", "live": false, "label": "v2.4.0" }'
+```
+
+```js "JavaScript"
+const res = await fetch('https://api.manifestx.dev/v1/projects/proj_…/publish', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.MANIFEST_ACCOUNT_KEY}`,
+    'Idempotency-Key': 'build-4182-held',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ env: 'staging', source: 'spa', live: false, label: 'v2.4.0' }),
+})
+const { deployment, upload_url } = await res.json()
+```
+
+</div>
+
+```json
+{
+  "deployment": {
+    "id": "dep_…",
+    "env": "staging",
+    "source": "spa",
+    "output_dir": "",
+    "status": "uploading",
+    "label": "v2.4.0",
+    "live": false,
+    "preview_url": "https://preview--….manifestx.ai"
+  },
+  "upload_url": "https://api.manifestx.dev/v1/uploads/put_…",
+  "status_url": "https://api.manifestx.dev/v1/uploads/put_…/status",
+  "expires_in_seconds": 900,
+  "request_id": "…"
+}
+```
+
+Upload and check the status as usual. When it's `done`{copy}, the status carries `"live": false`{copy} and the same `preview_url`{copy}:
+
+```json
+{ "status": "done", "ok": true, "deployment_id": "dep_…", "env": "staging", "live": false, "url": "https://preview--….manifestx.ai", "preview_url": "https://preview--….manifestx.ai", "label": "v2.4.0", "files": 42, "bytes": 318211 }
+```
+
+- **The preview serves exactly that deployment.** Its address never changes, and search engines skip it, the same as staging.
+- **Unlisted, not private.** Anyone with the address can open it, the same as staging. The address can't be guessed.
+- **No `publish.ready`{copy} event.** Nothing went live. Promoting it sends `promote.done`{copy}.
+- **Pages only.** Forms, payments and AI chat don't answer on a preview address. Test those on staging or production.
+- **Kept like any staging deployment.** Staging keeps its five most recent deployments plus the live one, so promote a held build before five newer staging publishes push it out.
+- **Production only takes promotes.** `"live": false`{copy} with `"env": "production"`{copy} answers `400 invalid_input`{copy}.
+
+Every staging deployment that finished has a `preview_url`{copy} in the [deployment list](#list-deployments), not only held ones.
+
+---
+
 ## Promote to Production
 
-Ship exactly what is live on staging to production, with no rebuild.
+Ship exactly what is live on staging to production, with no rebuild. To ship a specific staging deployment instead, such as one [published without going live](#publish-without-going-live), name it.
 
 <div x-code-group copy>
 
@@ -180,14 +249,22 @@ const res = await fetch('https://api.manifestx.dev/v1/projects/proj_…/promote'
 
 </div>
 
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `deployment_id`{copy} | string | no | A staging deployment to promote. Omit it to promote what staging serves. Staging is unchanged either way. |
+| `expect_live`{copy} | string | no | The production deployment you expect to be live. The promote is refused with `409 live_moved`{copy} unless it still is, checked in the same step as the switch, so two releases can't cross. On a [prerendered](#prerender) project, the deployment you promoted also matches once its prerendered copy is live. |
+
 ```json
 {
-  "deployment": { "id": "dep_…", "env": "production", "files": 42 },
+  "deployment": { "id": "dep_…", "env": "production", "files": 42, "label": "v2.4.0" },
+  "from_deployment_id": "dep_…",
   "live_deployment_id": "dep_…",
   "url": "https://acme-docs.manifestx.ai",
   "request_id": "…"
 }
 ```
+
+A `deployment_id`{copy} must be a `ready`{copy} or `superseded`{copy} staging deployment of this project. Anything else is refused and production is unchanged: see [Errors](/docs/api/reference/errors).
 
 Promote doesn't copy files, so even large projects promote in seconds. Each promote creates a new production deployment, so send an `Idempotency-Key`{copy}: a retry with the same key returns the first result. Some projects are also [prerendered](#prerender) after a promote.
 
@@ -276,14 +353,15 @@ const res = await fetch('https://api.manifestx.dev/v1/projects/proj_…/deployme
   "env": "staging",
   "live_deployment_id": "dep_b…",
   "deployments": [
-    { "id": "dep_b…", "env": "staging", "source": "spa", "status": "ready", "is_live": true, "files": 42, "bytes": 318211, "created_at": 1760140800 },
-    { "id": "dep_a…", "env": "staging", "source": "spa", "status": "superseded", "is_live": false, "files": 40, "bytes": 301877, "created_at": 1760054400 }
+    { "id": "dep_c…", "env": "staging", "source": "spa", "status": "ready", "is_live": false, "files": 43, "bytes": 320410, "created_at": 1760227200, "label": "v2.4.0", "held": true, "preview_url": "https://preview--c….manifestx.ai" },
+    { "id": "dep_b…", "env": "staging", "source": "spa", "status": "ready", "is_live": true, "files": 42, "bytes": 318211, "created_at": 1760140800, "label": null, "preview_url": "https://preview--b….manifestx.ai" },
+    { "id": "dep_a…", "env": "staging", "source": "spa", "status": "superseded", "is_live": false, "files": 40, "bytes": 301877, "created_at": 1760054400, "label": null, "preview_url": "https://preview--a….manifestx.ai" }
   ],
   "request_id": "…"
 }
 ```
 
-`ready`{copy} and `superseded`{copy} deployments can be restored with a rollback. `uploading`{copy} and `failed`{copy} ones can't.
+`ready`{copy} and `superseded`{copy} deployments can be restored with a rollback. `uploading`{copy} and `failed`{copy} ones can't. `held`{copy} marks a deployment [published without going live](#publish-without-going-live), and `label`{copy} is the name it was published with.
 
 Each environment keeps its five most recent deployments plus the live one, and older ones are deleted. Keep your build artifacts if you might need an older version. Production on a prerendered project keeps ten, since each promoted deployment and its prerendered copy count separately.
 
