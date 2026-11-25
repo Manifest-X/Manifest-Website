@@ -136,6 +136,41 @@ Render settings can be configured in `manifest.json`. Most projects don't need t
 
 ---
 
+### Tailwind
+
+When the manifest script tag has `data-tailwind` and the Tailwind CLI is installed (`npm i -g tailwindcss @tailwindcss/cli`), the render compiles a static `prerender.tailwind.css` for the output. It reads your `<style type="text/tailwindcss">` blocks in `index.html` in document order, the same as the browser does, so `@theme`, `@utility`, `@custom-variant` and `@source` rules carry over to the prerendered pages.
+
+```html "index.html" copy
+<style type="text/tailwindcss">
+    @theme {
+        --color-brand: #e11d48;
+    }
+    @utility tracking-label {
+        letter-spacing: 0.2em;
+    }
+    @custom-variant hocus (&:hover, &:focus-visible);
+</style>
+
+<a class="bg-brand tracking-label hocus:underline" href="/">Home</a>
+```
+
+The compiled stylesheet then includes:
+
+```css "prerender.tailwind.css"
+--color-brand: #e11d48;
+.bg-brand { background-color: var(--color-brand); }
+.tracking-label { letter-spacing: 0.2em; }
+.hocus\:underline:hover, .hocus\:underline:focus-visible { text-decoration-line: underline; }
+```
+
+Blocks inside HTML comments or `<template>` elements are skipped. When `tailwindInput` is set, that file is the entry and `@import` rules in the blocks are ignored.
+
+Manifest's device and app-state [variants](/docs/framework/styles/utilities#visibility) are always added, and their names are reserved: a block that declares one of them is overridden by Manifest's version. The reserved names are `touch`, `cursor`, `pointer`, `mac`, `windows`, `linux`, `ios`, `android`, `apple`, `online`, `offline`, `standalone`, `native` and `web`.
+
+`dark` is different. By default `dark:` follows the `.dark` class, as in the browser, but a `dark` variant declared in your blocks or in the `tailwindInput` file replaces it.
+
+---
+
 ### Incremental Renders
 
 Re-rendering a large site when little has changed is mostly wasted work. Opt in with `"incremental": true` in the `render` block, or pass `--incremental` once on the command line — from then on every render refreshes the record, so any later run can skip (the run says so: `incremental active from existing ledger`). `--no-incremental` turns skipping off for a run while still refreshing the record; `"incremental": false` in the config turns the feature fully off.
