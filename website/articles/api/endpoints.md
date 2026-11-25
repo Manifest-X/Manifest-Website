@@ -37,7 +37,7 @@ Every `POST`{copy}, `PATCH`{copy}, and `DELETE`{copy} accepts an [`Idempotency-K
 | `GET`{copy} | `/projects/:id/files/:path`{copy} | [Read one file](/docs/api/guides/edit#read-one-file) |
 | `PATCH`{copy} | `/projects/:id/files`{copy} | [Update individual files on staging](/docs/api/guides/edit#update-files) |
 | **Deployments** | | |
-| `POST`{copy} | `/projects/:id/promote`{copy} | [Ship what's live on staging to production](/docs/api/guides/publish#promote-to-production) |
+| `POST`{copy} | `/projects/:id/promote`{copy} | [Ship what's live on staging, or a named staging deployment, to production](/docs/api/guides/publish#promote-to-production) |
 | `POST`{copy} | `/projects/:id/rollback`{copy} | [Go back to an earlier deployment](/docs/api/guides/publish#roll-back). **Pro** |
 | `GET`{copy} | `/projects/:id/deployments`{copy} | [List an environment's recent deployments](/docs/api/guides/publish#list-deployments) |
 | **Domains** | | |

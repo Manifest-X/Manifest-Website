@@ -723,7 +723,7 @@
 <tr>
 <td>404</td>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">unknown_deployment</code></td>
-<td>That <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">deployment_id</code> isn't one of this project's deployments for that environment.</td>
+<td>That <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">deployment_id</code> isn't one of this project's deployments for that environment. On promote, it isn't one of this project's deployments at all.</td>
 </tr>
 <tr>
 <td>404</td>
@@ -819,6 +819,21 @@
 <td>409</td>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">promote_in_progress</code></td>
 <td>Another promote of this project is still running. Retry shortly.</td>
+</tr>
+<tr>
+<td>409</td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">not_staging</code></td>
+<td>Promote takes a staging deployment, and that <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">deployment_id</code> is a production one. To restore a production version, <a href="/docs/api/guides/publish#roll-back">roll back</a>.</td>
+</tr>
+<tr>
+<td>409</td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">not_ready</code></td>
+<td>That staging deployment is still uploading or failed, so it can't be promoted. Wait for its status to be <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">done</code>, or publish again.</td>
+</tr>
+<tr>
+<td>409</td>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">live_moved</code></td>
+<td>Production isn't serving your <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">expect_live</code> deployment any more, so nothing was promoted. The message names what is live. Check <a href="/docs/api/guides/publish#list-deployments">deployments</a> before retrying.</td>
 </tr>
 <tr>
 <td>410</td>

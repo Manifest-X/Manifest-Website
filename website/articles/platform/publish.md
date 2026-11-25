@@ -23,6 +23,14 @@ Every project has two addresses: **staging** for checking changes, and **live** 
 
 If you don't say which, Claude publishes live.
 
+### Check a Build Before Staging
+
+> `Publish this to staging without changing what's on staging, and give me a preview link`{copy}
+
+Claude stores the build and replies with a preview address that shows exactly that build, while staging stays as it was. When it looks right, ask Claude to `take that version live`{.prompt copy} and that exact build goes live. Name a release by asking for a label, like `call it v2.4`{.prompt copy}; Claude shows labels when it lists versions.
+
+For release scripts, the same works with `npx mnfst-publish --no-live --label "v2.4"`{copy}, then `npx mnfst-publish --promote --deployment dep_…`{copy}. `npx mnfst-publish --list --json`{copy} reads which version is live, so your script can pass it to `--expect-live dep_…`{copy}, which refuses the promote unless that version is still live. With `--json`{copy}, the result is one object your script can read, and a refusal carries a code such as `live_moved`. An option the command doesn't know is refused, so nothing is published. With search-ready pages on, the version you promoted still matches after its finished pages replace it. Preview addresses show pages only: forms, payments and AI chat answer on staging and live.
+
 ---
 
 ## Search-Ready Pages
