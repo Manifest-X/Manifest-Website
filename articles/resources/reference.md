@@ -38,7 +38,7 @@ The `manifest.js` script tag accepts `data-*` attributes to control module loadi
 | Attribute | Default | Description |
 |---|---|---|
 | `data-modules`{copy} | (auto) | Comma-separated list of modules to load; prefix a name with `+` to add it to the defaults instead of replacing them |
-| `data-omit`{copy} | — | Comma-separated list to exclude from auto-loaded set |
+| `data-omit`{copy} | — | Comma-separated, case-insensitive list to exclude from the loaded set, with or without `data-modules`. An omitted module is never loaded by the loader, even when the page uses it, and the console shows one warning naming it. A module another loaded module depends on still loads |
 | `data-version`{copy} | `latest`, or the loader's own version when its tag has `integrity` | Module version to fetch from CDN |
 | `data-alpine`{copy} | The version tested with this framework release | Alpine version, a full URL, or a path starting with `/` |
 | `data-alpine-integrity`{copy} | — | Hash for a `data-alpine` version or URL, required when integrity checks are on — see [security](/docs/framework/resources/security#cdn-resource-integrity) |
