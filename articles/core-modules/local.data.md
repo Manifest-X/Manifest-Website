@@ -458,7 +458,7 @@ Use `$search` for real-time text filtering and `$query` for advanced filtering, 
 
 Both `$search` and `$query` operate **client-side** (in the browser) for local data sources:
 
-- **`$search(term, ...attributes)`**: Real-time text filtering across specified attributes. Returns filtered array immediately.
+- **`$search(term, ...attributes)`**: Real-time text filtering across specified attributes. Returns filtered array immediately. With no attributes it searches every field of the row, which is slower on large sources, so list the ones you need. Fields holding an object are not searched; text, numbers, dates and lists of those are.
 - **`$query(queries)`**: Advanced filtering, sorting, and pagination using query arrays. Processes data in browser.
 
 For cloud-hosted data with backend filtering, see [Appwrite databases](/docs/framework/appwrite-modules/databases).
