@@ -77,7 +77,7 @@ Five hundred items are in the array, but only the visible window is rendered as 
 
 A single `<template>` child is supported per `x-virtual` container, and the template's `x-for` and `:key` are consumed by the module (Alpine doesn't double-render them). The template may be nested — for example inside `<table><tbody>` — and the module will still find it.
 
-Without `:key`, the key defaults to `item.id`, so items without an `id` don't render; give each item a stable key. The `(item, index)` form of `x-for` isn't supported, so name a single item.
+Without `:key`, the key defaults to `item.id`, so items without an `id` don't render; give each item a stable key. The `x-for` can name the item alone (`row in items`) or the item and its index (`(row, i) in items` or `row, i in items`), and `:key` can use both names. A form `x-virtual` cannot run, such as destructuring (`({ id, name }, i) in items`), is not virtualized: the list renders in full through the normal `x-for` and the console shows a warning.
 
 ---
 
