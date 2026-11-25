@@ -18,7 +18,7 @@ Most of Manifest's performance work is automatic. Closed containers cost nothing
 
 **Text only updates when it changes.** A text binding whose value comes back unchanged leaves the page alone, and empty values (`null` or `undefined`) show as empty text rather than the word "null".
 
-**Searches and filters on data are cached.** `$search`, `$query` and `$route` remember their result until the source they read changes, so binding the same search in fifty rows costs one pass, not fifty. Your own derivations get the same treatment with [x-computed](/docs/framework/core-modules/computed).
+**Searches and filters on data are cached.** `$search`, `$query` and `$route` remember their result until the source they read changes, so binding the same search in fifty rows costs one pass, not fifty. Your own derivations get the same treatment with [x-computed](/docs/framework/core-modules/computed). If you change a row's field directly, for example with `x-model` on the row, without saving it through the data methods, search results for that row do not update until the source next changes.
 
 **Repeat visits load from the browser.** Sites on Manifest hosting register a small service worker that keeps the page shell, scripts, styles and components on the visitor's device. The first visit loads from the network as usual; from the next visit on, the shell comes from the device and only the data is fetched, and a page that was already open keeps working offline. Publishing still takes effect on the next load, because the page itself is always checked against the network first. Local previews with `mnfst-run` never register it. To turn it off for a site, set `"sw": false` in `manifest.json`, or add `data-sw="off"` to the loader `<script>`.
 
@@ -132,6 +132,12 @@ When your project is slow, work through this checklist:
 - [ ] A closed menu with `x-defer.off`? Remove it unless the contents must exist while closed.
 - [ ] A big `x-for` without `x-virtual`? Wrap it — see [virtual](/docs/framework/core-modules/virtual).
 - [ ] A getter that filters on every render? Make it a [computed value](/docs/framework/core-modules/computed).
+- [ ] `.filter()` or `.sort()` on a `$x` source inside a template expression? Move it into a [computed value](/docs/framework/core-modules/computed).
+- [ ] A getter that returns a new array or object on every read? Everything that reads it re-runs. Return a stored value instead.
+- [ ] A long list in a container without a bounded height? Give the [`x-virtual`](/docs/framework/core-modules/virtual) container a fixed height so only the visible rows render.
+- [ ] A menu cloned inside every row? Reuse one menu for many rows.
+- [ ] A class name built from data, so each row gets a new one? Use a fixed set of classes.
+- [ ] Loading `mnfst@latest` in production? Pin the version in the script URL and in `data-version` (see [setup](/docs/framework/getting-started/setup#script)) so repeat visits are served from the browser cache.
 - [ ] A ticker that rewrites text every second? Tick at the granularity you display.
 - [ ] Popover opens paying page-wide layout? Add the `contain: layout` CSS property to large scrollers.
 
