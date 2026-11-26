@@ -451,6 +451,8 @@ HTML IDs must identify single elements on a page, and generating multiple dropdo
 
 </div>
 
+A template-literal id follows its value. When the value changes, such as in a reused [virtual list](/docs/framework/core-modules/virtual#reusing-rows) row, the trigger points to the new menu, and a menu it had opened closes. Any other value is read as the id itself: `x-dropdown="row.menuId"` looks for an element with the id `row.menuId`, so write `` x-dropdown="`${row.menuId}`" `` to use the value.
+
 ---
 
 ## Content
