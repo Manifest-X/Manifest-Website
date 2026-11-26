@@ -141,7 +141,7 @@ When your project is slow, work through this checklist:
 - [ ] A long list in a container without a bounded height? Give the [`x-virtual`](/docs/framework/core-modules/virtual) container a fixed height so only the visible rows render.
 - [ ] A menu cloned inside every row? Reuse one menu for many rows.
 - [ ] A class name built from data, so each row gets a new one? Use a fixed set of classes.
-- [ ] Self-hosting with `mnfst@latest`? Pin the version in the script URL and in `data-version` (see [setup](/docs/framework/getting-started/setup#script)) so repeat visits are served from the browser cache. Sites on Manifest hosting are pinned automatically when you publish (see [publish](/docs/framework/platform/publish#framework-version)).
+- [ ] Self-hosting with `mnfst@latest`? Pin the version in the script URL and in `data-version` (see [setup](/docs/framework/getting-started/setup#script)) so repeat visits are served from the browser cache. Sites on Manifest hosting are pinned automatically when you publish (see [publish](/docs/platform/publish#framework-version)).
 - [ ] Using `data-tailwind` without a baked utilities stylesheet? Try the opt-in [Tailwind output cache](/docs/framework/styles/theme#tailwind-output-cache).
 - [ ] A ticker that rewrites text every second? Tick at the granularity you display.
 - [ ] Popover opens paying page-wide layout? Add the `contain: layout` CSS property to large scrollers.
