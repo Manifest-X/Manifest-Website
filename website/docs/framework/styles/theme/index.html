@@ -1232,6 +1232,18 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
+<h4 id="tailwind-output-cache">Tailwind Output Cache</h4><p>Set <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-tailwind="cache"</code> to keep the CSS the Tailwind engine generates in the visitor's browser. On a repeat visit that CSS is put in place before the page first paints, and the engine is downloaded only if the page shows a class the stored CSS doesn't have, or a <code>text/tailwindcss</code> block has changed. It is new and opt-in: the bare <code>data-tailwind</code> attribute works as before.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>
+    <span class="hljs-attr">data-tailwind</span>=<span class="hljs-string">"cache"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>The saving is small on fast machines (tens of milliseconds) and larger on slow ones. Its limits:</p>
+<ul>
+<li>Only <code>text/tailwindcss</code> blocks in the page's <code>&lt;head&gt;</code> are covered. A block in <code>&lt;body&gt;</code>, or one a component adds later, sends the page to the engine.</li>
+<li>Nothing is stored for a page whose CSS passes 256 KB or 6,000 classes.</li>
+<li>Each site keeps a few stored entries (at most 4, about 1 MB in all). An entry is used for up to 7 days after it was saved, and not at all after the framework version changes.</li>
+<li>Local development hosts (<code>localhost</code>, <code>127.0.0.1</code>, <code>[::1]</code>, <code>0.0.0.0</code>, <code>*.localhost</code>, <code>*.local</code>) never use it. LAN addresses, tunnels and staging hosts do.</li>
+<li>Pages that carry a utilities stylesheet baked at publish don't use it. Manifest hosting adds one to <code>index.html</code> when it finds utility classes, and prerendered pages link one.</li>
+</ul>
+<p>When the engine loads after a stored copy was applied to the page, the window receives a <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:tailwind-cache</code> event whose <code>detail.reason</code> says why: <code>unseen</code> (with the new classes in <code>detail.unseen</code>), <code>config</code> (a block changed) or <code>shipped</code> (a baked stylesheet was found).</p>
 <p>Alternatively, Tailwind can be <a href="https://tailwindcss.com/docs/installation/using-vite" target="_blank" rel="noopener">directly installed</a>. It uses a build step to compile CSS variables (from <code>@theme { ... }</code> rules) into CSS utility classes, making Manifest's utility module redundant.</p>
 </div>
 

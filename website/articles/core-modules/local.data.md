@@ -458,7 +458,7 @@ Use `$search` for real-time text filtering and `$query` for advanced filtering, 
 
 Both `$search` and `$query` operate **client-side** (in the browser) for local data sources:
 
-- **`$search(term, ...attributes)`**: Real-time text filtering across specified attributes. Returns filtered array immediately.
+- **`$search(term, ...attributes)`**: Real-time text filtering across specified attributes. Returns filtered array immediately. With no attributes it searches every field of the row, which is slower on large sources, so list the ones you need. Fields holding an object are not searched; text, numbers, dates and lists of those are.
 - **`$query(queries)`**: Advanced filtering, sorting, and pagination using query arrays. Processes data in browser.
 
 For cloud-hosted data with backend filtering, see [Appwrite databases](/docs/framework/appwrite-modules/databases).
@@ -745,13 +745,29 @@ Your own changes show immediately. Direct assignments and array mutations (and `
 
 Network updates are batched. Many arriving at once are applied together, once per frame.
 
-`$x.team` is the same array every time you read it until the source changes, then a new one. You can keep results computed from it keyed on the array itself and they stay valid until the next update. Changes made through the data methods count as updates; assigning to a row directly in a template (`$x.team[0].name = 'x'`) changes the row in place without one.
+`$x.team` is the same array every time you read it until the source changes, then a new one. You can keep results computed from it keyed on the array itself and they stay valid until the next update (except on a [granular](#field-level-updates) source). Changes made through the data methods count as updates; assigning to a row directly in a template (`$x.team[0].name = 'x'`) changes the row in place without one.
 
 If a source was loaded before, you see its cached rows immediately while fresh data loads. `$x.team.$stale` is `true` until the fresh data has landed, and `$x.team.$fresh` is a promise that resolves at that moment, for a single reveal. A reload keeps the rows on screen and merges the fresh data in place; a failed reload keeps the old rows and sets `$error`. Identical concurrent loads make one request.
 
 ```html copy
 <small x-show="$x.team.$stale">Refreshing…</small>
 ```
+
+### Field-Level Updates
+
+By default, any change to a source re-runs everything that reads it. Add `"granular": true`{copy} to a source to narrow that: when only the fields of existing rows change (a realtime update, or your own `$update`), only the parts of the page that read those fields re-run, along with `$search`, `$query` and `$route` results on the source. Parts that read the list itself re-run when rows are added, removed, reordered or reloaded.
+
+```json "manifest.json" copy
+{
+    "data": {
+        "contacts": { "url": "https://api.example.com/contacts", "granular": true }
+    }
+}
+```
+
+It is off by default and set per source. It can help a large list whose rows change one field at a time, but it is not a guaranteed speed-up: measure your page before and after.
+
+On a granular source, `$x.contacts` stays the same array when only row fields change. Don't keep values worked out from row fields against the array itself, because they won't update; use [x-computed](/docs/framework/core-modules/computed) instead.
 
 ---
 

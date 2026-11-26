@@ -256,7 +256,7 @@
         get groups() { return this.src ? $x[this.src] || [] : [] },
         get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
         here(href) { return $route.replace(/\/$/, '') === href },
-    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-order="3">
 
     <!-- Docs -->
     <template x-if="src">

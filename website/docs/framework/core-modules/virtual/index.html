@@ -30,7 +30,7 @@
   <script src="../../../../scripts/hero-demo.js" defer=""></script>
   <script src="../../../../scripts/console-message.js" defer=""></script>
 
-<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><title>Virtual Lists — Manifest</title><meta property="og:title" content="Virtual Lists — Manifest"><meta property="og:description" content="Render long lists, tables, grids, and galleries efficiently with windowed scrolling."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/virtual"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-virtual.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Virtual Lists — Manifest"><meta property="twitter:description" content="Render long lists, tables, grids, and galleries efficiently with windowed scrolling."><meta property="twitter:image" content="/og/docs-framework-core-modules-virtual.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Virtual Lists — Manifest","description":"Render long lists, tables, grids, and galleries efficiently with windowed scrolling.","image":"/og/docs-framework-core-modules-virtual.png","url":"https://manifestx.dev/docs/framework/core-modules/virtual"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Virtual","item":"https://manifestx.dev/docs/framework/core-modules/virtual"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Virtual Lists — Manifest</title><meta property="og:title" content="Virtual Lists — Manifest"><meta property="og:description" content="Render long lists, tables, grids, and galleries efficiently with windowed scrolling."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/virtual"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-virtual.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Virtual Lists — Manifest"><meta property="twitter:description" content="Render long lists, tables, grids, and galleries efficiently with windowed scrolling."><meta property="twitter:image" content="/og/docs-framework-core-modules-virtual.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Virtual Lists — Manifest","description":"Render long lists, tables, grids, and galleries efficiently with windowed scrolling.","image":"/og/docs-framework-core-modules-virtual.png","url":"https://manifestx.dev/docs/framework/core-modules/virtual"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Virtual","item":"https://manifestx.dev/docs/framework/core-modules/virtual"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/framework/core-modules/virtual">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -736,12 +736,12 @@
 <hr>
 <h2 id="overview">Overview</h2><p>When a list, table, or gallery grows past a few hundred items, rendering them all up front becomes slow — with initial paint stalls, scrolling stutters, and climbing memory. The Virtual Lists module solves this by only mounting the items currently visible in the scroll viewport, plus a small overscan buffer for smooth scrolling. A collection of ten thousand items can keep just twenty or so in the DOM at any time while the user scrolls through smoothly.</p>
 <p>Items render with the layout you already use — a stacked list, a native <code>&lt;table&gt;</code>, a CSS grid, a flex-wrap gallery, or a masonry wall — so virtualizing doesn't change your markup or break column alignment, sticky headers, or shared cell styling.</p>
-<p>Each item is measured as it renders, so tall items (multi-line text, embedded media, expanded details) coexist with short ones without configuration. There's no fixed-size requirement.</p>
+<p>Each item is measured as it renders, and again whenever its size changes, so tall items (multi-line text, embedded media, expanded details) coexist with short ones without configuration. There's no fixed-size requirement.</p>
 <p>Virtualization is a <em>rendering</em> optimization, not a data-fetching one. The data array stays in memory, and only its DOM representation is windowed. To load a large table a page at a time as people scroll, pair it with a <a href="/docs/framework/appwrite-modules/databases#large-tables">paged source</a> and the <code>virtual-end</code> event.</p>
 <aside class="brand"><span x-icon="lucide:info"></span><p><strong>SEO &amp; AEO</strong> (Answer Engine Optimization): virtualized content is rendered client-side at scroll time, so it isn't visible to search engines or AI crawlers by default. Virtualization is best applied to interactive data like dashboard content, where discoverability isn't the goal.</p>
 </aside>
 <hr>
-<h2 id="setup">Setup</h2><p>Virtual is included in <code>manifest.js</code> with all core modules, or can be selectively loaded.</p>
+<h2 id="setup">Setup</h2><p>Virtual loads automatically when the page uses <code>x-virtual</code>, or can be selectively loaded.</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-modules-(default)-tab-0" aria-selected="true" tabindex="0">All Modules (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Modules (default)" data-code-block-built="yes" aria-label="All Modules (default)" role="tabpanel" data-code-processed="yes" id="all-modules-(default)-panel-0" aria-labelledby="all-modules-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
@@ -797,8 +797,8 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>Five hundred items are in the array, but only the visible window is rendered as you scroll. The module sets <code>overflow: auto</code> on the container automatically if it isn't already scrollable.</p>
-<p>A single <code>&lt;template&gt;</code> child is supported per <code>x-virtual</code> container, and the template's <code>x-for</code> and <code>:key</code> are consumed by the module (Alpine doesn't double-render them). The template may be nested — for example inside <code>&lt;table&gt;&lt;tbody&gt;</code> — and the module will still find it.</p>
-<p>Without <code>:key</code>, the key defaults to <code>item.id</code>, so items without an <code>id</code> don't render; give each item a stable key. The <code>(item, index)</code> form of <code>x-for</code> isn't supported, so name a single item.</p>
+<p>The template's <code>x-for</code> and <code>:key</code> are consumed by the module (Alpine doesn't double-render them). The template may be nested — for example inside <code>&lt;table&gt;&lt;tbody&gt;</code> — and the module will still find it. If the container holds more than one <code>x-for</code> template (a header row built from data, say), mark the rows template with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-virtual</code>. Without the marker, the first template outside <code>&lt;thead&gt;</code> and <code>&lt;tfoot&gt;</code> is used, and the console warns when that choice was down to order alone.</p>
+<p>Without <code>:key</code>, the key defaults to <code>item.id</code>, so items without an <code>id</code> don't render; give each item a stable key. The <code>x-for</code> can name the item alone (<code>row in items</code>) or the item and its index (<code>(row, i) in items</code> or <code>row, i in items</code>), and <code>:key</code> can use both names. A form <code>x-virtual</code> cannot run, such as destructuring (<code>({ id, name }, i) in items</code>), is not virtualized: the list renders in full through the normal <code>x-for</code> and the console shows a warning.</p>
 <hr>
 <h2 id="layout">Layout</h2><p>The same <code>x-virtual</code> adapts to whatever markup fits your data — a native <a href="/docs/framework/elements/tables">table</a>, a CSS grid, a wrapping gallery, or a masonry wall. The module detects the layout automatically; masonry is the one mode you set explicitly.</p>
 <h3 id="table">Table</h3><p>Put <code>x-virtual</code> on the scroll container and let the <code>x-for</code> template live inside <code>&lt;tbody&gt;</code>. Columns align across rows and <code>&lt;thead&gt;</code> can be sticky, exactly as in a normal <a href="/docs/framework/elements/tables">table</a>.</p>
@@ -1050,7 +1050,7 @@
 <td><strong><code>height</code></strong></td>
 <td>Function</td>
 <td>—</td>
-<td>Maps an item to its height in px. Supplying it skips measurement; otherwise heights are measured on first render.</td>
+<td>Maps an item to its height in px. Supplying it skips measurement; otherwise each item is measured when it renders and whenever its size changes.</td>
 </tr>
 </tbody></table>
 <hr>
@@ -1090,7 +1090,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p>Without these options the defaults will work for most uniform collections. Tune <code>estimate</code> higher when items are tall (cards, images), and raise <code>overscan</code> if you see brief blank flashes during fast wheel-scrolling.</p>
 <hr>
-<h2 id="mixed-sizes">Mixed Sizes</h2><p>Items with variable content like multi-line descriptions, embedded images, or expanded details work without any extra configuration. Each item is measured on first render and the scroll offsets adjust to its actual size. There is no fixed-size requirement.</p>
+<h2 id="mixed-sizes">Mixed Sizes</h2><p>Items with variable content like multi-line descriptions, embedded images, or expanded details work without any extra configuration. Each item is measured when it renders and measured again whenever its size changes later, such as an image finishing loading, markdown rendering or the container being resized, and the scroll offsets adjust to its actual size. There is no fixed-size requirement.</p>
 <pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
 
 <pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-virtual</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"h-[600px] overflow-auto"</span>&gt;</span>
@@ -1112,39 +1112,39 @@
 })) }" class="w-full">
     <div x-virtual="" class="border border-line rounded font-mono text-sm h-[300px] overflow-auto" style="overflow: auto">
         <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">16:06:46</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">07:56:48</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">16:07:46</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">07:57:48</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">16:08:46</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">07:58:48</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">16:09:46</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">07:59:48</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-accent-content" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">16:10:46</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">08:00:48</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-negative-content" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">error</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">16:11:46</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">08:01:48</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">16:12:46</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">08:02:48</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">16:13:46</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">08:03:48</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">16:14:46</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">08:04:48</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-accent-content" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
@@ -1159,6 +1159,7 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>In this example, short and tall log lines coexist correctly. The scroll position stays accurate, the scrollbar reflects real total height, and items snap to their measured offsets the first time each one becomes visible.</p>
+<p>The module never moves the scroll position itself, so <code>scrollTo()</code> and <code>scrollIntoView()</code> run to the end and momentum scrolling isn't interrupted. When a rendered item above the visible area grows, the browser's own scroll anchoring keeps the view in place, where the browser supports it. There is no method to scroll to an item by its index, because items outside the window are not in the page.</p>
 <hr>
 <h2 id="dynamic-data">Dynamic Data</h2><p>Point the template's <code>x-for</code> at any reactive source — a <a href="/docs/framework/core-modules/local-data">local</a> or <a href="/docs/framework/appwrite-modules/cloud-data">cloud</a> data source through <code>$x</code>, or plain Alpine state — and the window stays in sync. Adds, deletes, sorts, and filters update the visible items automatically, and items re-bind by key, so reordering the data never scrambles their content.</p>
 <p>That makes virtualization a natural pair with <code>$search</code> and <code>$query</code>: wire a search input to <code>$x.&lt;source&gt;.$search()</code> and the list re-renders against the filtered results without rebuilding the whole DOM.</p>

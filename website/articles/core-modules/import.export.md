@@ -17,7 +17,7 @@ Together they close the loop: whatever a visitor exports, they (or anyone else) 
 
 ## Setup
 
-Import/Export is included in `manifest.js` with all core modules, or can be selectively loaded. The module name is `export`; `import` also works and loads the same file.
+Import/Export loads automatically when the page uses `x-export`, `x-import`, `$export` or `$import`, or can be selectively loaded. The module name is `export`; `import` also works and loads the same file.
 
 <div x-code-group copy>
 

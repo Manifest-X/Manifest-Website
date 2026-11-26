@@ -8,7 +8,7 @@ Collect entries or chips in filterable fields.
 
 Combobox styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
-Combobox functionality is included in `manifest.js` with all core modules, or it can be selectively loaded.
+Combobox functionality loads automatically when the page uses `x-combobox`, or it can be selectively loaded.
 
 <div x-code-group copy>
 

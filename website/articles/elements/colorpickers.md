@@ -8,7 +8,7 @@ Visual color selection with Hex, RGB, HSL, and OKLCH inputs.
 
 Color picker styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
-Color picker functionality is included in `manifest.js` with all core modules, or it can be selectively loaded.
+Color picker functionality loads automatically when the page uses `x-colorpicker` or `$colorpicker`, or it can be selectively loaded.
 
 <div x-code-group copy>
 

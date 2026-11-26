@@ -8,7 +8,7 @@ Reactive SVG charts, from simple sparklines to live dashboards.
 
 Chart styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
-Chart functionality is included in `manifest.js` with all core modules, or it can be selectively loaded.
+Chart functionality loads automatically when the page uses `x-chart` or `$chart`, or it can be selectively loaded.
 
 <div x-code-group copy>
 

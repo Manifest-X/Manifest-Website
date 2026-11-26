@@ -69,7 +69,7 @@ When an icon renders, a child SVG is generated at runtime within the parent elem
 
 ### Dynamic Icons
 
-Icons can be switched dynamically with Alpine expressions. Click the example button to swap icons.
+Icons can be switched dynamically with Alpine expressions. Click the example button to swap icons. To change an icon after it has rendered, change the expression's value rather than editing attributes on the rendered element with script.
 
 <div x-code-group>
 

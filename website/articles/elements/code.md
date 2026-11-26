@@ -8,7 +8,7 @@ Syntax-highlighted code elements using standard HTML, with numerous configurable
 
 Code block styles ship as a separate stylesheet that references [theme](/docs/framework/styles/theme) variables. The block's border, corners and background come from the `pre` styles in `manifest.css` (standalone: `manifest.typography.css`).
 
-Code block functionality is included in `manifest.js` with all core modules, or it can be loaded selectively.
+Code block functionality loads automatically when the page uses `x-code`, `x-code-group`, `<pre><code class="language-…">` or `<code copy>`, or it can be loaded selectively.
 
 <div x-code-group copy>
 

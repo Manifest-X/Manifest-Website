@@ -10,7 +10,7 @@ When a list, table, or gallery grows past a few hundred items, rendering them al
 
 Items render with the layout you already use — a stacked list, a native `<table>`, a CSS grid, a flex-wrap gallery, or a masonry wall — so virtualizing doesn't change your markup or break column alignment, sticky headers, or shared cell styling.
 
-Each item is measured as it renders, so tall items (multi-line text, embedded media, expanded details) coexist with short ones without configuration. There's no fixed-size requirement.
+Each item is measured as it renders, and again whenever its size changes, so tall items (multi-line text, embedded media, expanded details) coexist with short ones without configuration. There's no fixed-size requirement.
 
 Virtualization is a *rendering* optimization, not a data-fetching one. The data array stays in memory, and only its DOM representation is windowed. To load a large table a page at a time as people scroll, pair it with a [paged source](/docs/framework/appwrite-modules/databases#large-tables) and the `virtual-end` event.
 
@@ -22,7 +22,7 @@ Virtualization is a *rendering* optimization, not a data-fetching one. The data 
 
 ## Setup
 
-Virtual is included in `manifest.js` with all core modules, or can be selectively loaded.
+Virtual loads automatically when the page uses `x-virtual`, or can be selectively loaded.
 
 <div x-code-group copy>
 
@@ -75,9 +75,9 @@ Wrap an `x-for` template in a scrolling container marked with `x-virtual`. The c
 
 Five hundred items are in the array, but only the visible window is rendered as you scroll. The module sets `overflow: auto` on the container automatically if it isn't already scrollable.
 
-A single `<template>` child is supported per `x-virtual` container, and the template's `x-for` and `:key` are consumed by the module (Alpine doesn't double-render them). The template may be nested — for example inside `<table><tbody>` — and the module will still find it.
+The template's `x-for` and `:key` are consumed by the module (Alpine doesn't double-render them). The template may be nested — for example inside `<table><tbody>` — and the module will still find it. If the container holds more than one `x-for` template (a header row built from data, say), mark the rows template with `data-virtual`{copy}. Without the marker, the first template outside `<thead>` and `<tfoot>` is used, and the console warns when that choice was down to order alone.
 
-Without `:key`, the key defaults to `item.id`, so items without an `id` don't render; give each item a stable key. The `(item, index)` form of `x-for` isn't supported, so name a single item.
+Without `:key`, the key defaults to `item.id`, so items without an `id` don't render; give each item a stable key. The `x-for` can name the item alone (`row in items`) or the item and its index (`(row, i) in items` or `row, i in items`), and `:key` can use both names. A form `x-virtual` cannot run, such as destructuring (`({ id, name }, i) in items`), is not virtualized: the list renders in full through the normal `x-for` and the console shows a warning.
 
 ---
 
@@ -261,7 +261,7 @@ Masonry positions items absolutely and sizes the container for you. Pass a `heig
 | **`columns`** | Number | `3` | A fixed number of columns. Use this *or* `columnWidth`; with neither, masonry uses 3 columns. |
 | **`gap`** | Number | CSS `gap` | Pixel gap between items. |
 | **`span`** | Function | `() => 1` | Maps an item to how many columns it spans, for wide showcase items. |
-| **`height`** | Function | — | Maps an item to its height in px. Supplying it skips measurement; otherwise heights are measured on first render. |
+| **`height`** | Function | — | Maps an item to its height in px. Supplying it skips measurement; otherwise each item is measured when it renders and whenever its size changes. |
 
 ---
 
@@ -289,7 +289,7 @@ Without these options the defaults will work for most uniform collections. Tune 
 
 ## Mixed Sizes
 
-Items with variable content like multi-line descriptions, embedded images, or expanded details work without any extra configuration. Each item is measured on first render and the scroll offsets adjust to its actual size. There is no fixed-size requirement.
+Items with variable content like multi-line descriptions, embedded images, or expanded details work without any extra configuration. Each item is measured when it renders and measured again whenever its size changes later, such as an image finishing loading, markdown rendering or the container being resized, and the scroll offsets adjust to its actual size. There is no fixed-size requirement.
 
 <div x-code-group>
 
@@ -329,6 +329,8 @@ Items with variable content like multi-line descriptions, embedded images, or ex
 </div>
 
 In this example, short and tall log lines coexist correctly. The scroll position stays accurate, the scrollbar reflects real total height, and items snap to their measured offsets the first time each one becomes visible.
+
+The module never moves the scroll position itself, so `scrollTo()` and `scrollIntoView()` run to the end and momentum scrolling isn't interrupted. When a rendered item above the visible area grows, the browser's own scroll anchoring keeps the view in place, where the browser supports it. There is no method to scroll to an item by its index, because items outside the window are not in the page.
 
 ---
 

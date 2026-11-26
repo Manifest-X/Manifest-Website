@@ -741,7 +741,7 @@
 </ul>
 <p>Together they close the loop: whatever a visitor exports, they (or anyone else) can import back. Save files, backups, and user-made content packs all work without a single line of server code.</p>
 <hr>
-<h2 id="setup">Setup</h2><p>Import/Export is included in <code>manifest.js</code> with all core modules, or can be selectively loaded. The module name is <code>export</code>; <code>import</code> also works and loads the same file.</p>
+<h2 id="setup">Setup</h2><p>Import/Export loads automatically when the page uses <code>x-export</code>, <code>x-import</code>, <code>$export</code> or <code>$import</code>, or can be selectively loaded. The module name is <code>export</code>; <code>import</code> also works and loads the same file.</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-modules-(default)-tab-0" aria-selected="true" tabindex="0">All Modules (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Modules (default)" data-code-block-built="yes" aria-label="All Modules (default)" role="tabpanel" data-code-processed="yes" id="all-modules-(default)-panel-0" aria-labelledby="all-modules-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>

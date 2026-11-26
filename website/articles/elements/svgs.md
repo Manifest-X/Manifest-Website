@@ -6,7 +6,7 @@ Inline vector graphics with reactive styling.
 
 ## Setup
 
-The SVG module is included in `manifest.js` with all core modules, or can be selectively loaded.
+The SVG module loads automatically when the page uses `x-svg`, or can be selectively loaded.
 
 <div x-code-group copy>
 

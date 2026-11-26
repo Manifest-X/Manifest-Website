@@ -109,10 +109,12 @@ The script loads:
 
 - **Manifest Modules** (latest versions) from our CDN. The optional `data-modules` or `data-omit` attributes will include or omit comma-separated modules. Prefix a name with `+` to add it on top of the defaults (`data-modules="+chat"`) instead of replacing them. See [Reference](/docs/framework/resources/reference#data-attributes) for every loader attribute. Without these attributes, most core modules load by default, and the rest load when needed:
     - **Data, localization, components, status, payments, chat, device and the Appwrite modules** load when `manifest.json` configures them.
-    - **Rich text, submissions, chat, presence and device** also load when the page uses them (for example `x-submit` or `$chat`).
+    - **Markdown, code, SVG, combobox, slides, color picker, date picker, charts, virtual and export/import** load only when the page uses them (for example `x-markdown` or `x-chart`), including in components and content added later. **Rich text, submissions, chat, presence and device** also load when the page uses them (for example `x-submit` or `$chat`). See [on-use modules](/docs/framework/resources/reference#on-use-modules) for the cases the loader can't see.
     - **Edit** never loads by itself. Add it with `data-modules`.
 - **Alpine JS** v3 (the version tested with the framework release) from CDN, unless it's been added separately to your project. Override it with `data-alpine` (an Alpine version, a full URL, or a path starting with `/`).
 - **Tailwind CSS** (modified production version from our CDN) *if* the `data-tailwind` attribute is added.
+
+`data-omit` applies with or without `data-modules`, including when the loader works out the module list from `manifest.json` and the page. An omitted module is never loaded by the loader, even when the page uses it; the console then shows one warning naming the module. Names are case-insensitive. Always-on behaviours cannot be omitted, and a module that another loaded module depends on still loads. Your own code can still load an omitted module with `Manifest.loadPlugin('name')`{copy}.
 
 Manifest scripts load the latest version from CDN by default. Load a specified version by referencing it in the URL and with a `data-version` attribute for modules:
 
@@ -123,7 +125,7 @@ Manifest scripts load the latest version from CDN by default. Load a specified v
 
 To have the browser check the loader and everything it loads against published hashes, see [Security](/docs/framework/resources/security#cdn-resource-integrity).
 
-Your own scripts can be native modules (`<script type="module">`), with an import map for short import paths. Manifest starts Alpine after the module scripts in `index.html` run, so components and stores they register in an `alpine:init` listener are always in time. See [Large Apps](/docs/framework/guides/large-apps#organize-your-code).
+Your own scripts can be native modules (`<script type="module">`), with an import map for short import paths. Manifest starts Alpine after the module scripts in `index.html` run, so components and stores they register in an `alpine:init` listener are always in time. A script that runs only after the page has finished parsing (one added by another script, for example) can miss Alpine's start, and its `alpine:init` listeners then never run. See [Large Apps](/docs/framework/guides/large-apps#organize-your-code).
 
 ---
 

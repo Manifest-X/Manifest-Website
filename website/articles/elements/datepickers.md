@@ -8,7 +8,7 @@ Calendar dates, ranges, and times with native fallbacks and full localization.
 
 Date picker styles are included in Manifest CSS or a standalone stylesheet, both referencing [theme](/docs/framework/styles/theme) variables.
 
-Date picker functionality is included in `manifest.js` with all core modules, or it can be selectively loaded.
+Date picker functionality loads automatically when the page uses `x-date` or `$date`, or it can be selectively loaded.
 
 <div x-code-group copy>
 
