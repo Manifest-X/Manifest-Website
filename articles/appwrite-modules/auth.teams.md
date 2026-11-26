@@ -218,7 +218,7 @@ Use `creatorRoles` (plural) for finer control over what the creator receives, as
 
 `creatorRoles` takes precedence over `creatorRole`. When neither is set, the creator is assigned the first defined role.
 
-Owner-only is the safest choice for a creator who should have full, future-proof access: a member holding *no* custom role resolves to **all** permissions (including any you add later), so they can never be locked out. By contrast, assigning the creator a custom role scopes them to exactly that role's permissions — if you later edit that role down, the creator loses access too. Prefer `creatorRoles: []` for owners; reserve named roles for invited members.
+Owner-only is the safest choice for a creator who should have full, future-proof access: a member holding only Appwrite's `owner` role and no custom role resolves to **all** permissions (including any you add later), so they can never be locked out. A member with no roles at all gets none (see [how permissions resolve](#how-permissions-resolve)). By contrast, assigning the creator a custom role scopes them to exactly that role's permissions — if you later edit that role down, the creator loses access too. Prefer `creatorRoles: []` for owners; reserve named roles for invited members.
 
 <div x-code-group numbers copy  collapse="10">
 
@@ -338,6 +338,23 @@ Owner-only is the safest choice for a creator who should have full, future-proof
 :::
 
 Custom roles and changes to their permissions are stored in the team's preferences, which the module reads at most once every 15 seconds per team. Changes made through `$auth` methods show straight away, as do realtime team updates and signing in or out. Roles written another way, such as directly through the Appwrite SDK or from a server function, can take up to 15 seconds to show unless a realtime update arrives first.
+
+#### How Permissions Resolve
+
+Permission checks such as `hasTeamPermissionSync` read the signed-in user's own membership in the current team:
+
+| Membership | Permissions |
+|------------|-------------|
+| None found in the current team | None |
+| Only Appwrite's `owner` role | All |
+| One or more custom roles | Those roles' permissions |
+| No roles at all | None. Before 0.5.340 this granted all |
+
+`$auth.currentTeamMembership` holds that membership, including its `roles` and `displayRoles`. It is read-only, and `null` until the membership is known, when the user has none in the current team, and when signed out.
+
+Appwrite lists 25 members of a team at a time unless told otherwise. When the listed members of the current team don't include the user and the team has more, the module fetches the user's own membership in a separate request. Until it answers, permission checks return `false`, unless the membership is already known from an earlier listing. If the request fails or takes longer than about 3 seconds, checks are denied, and a late answer still applies when it arrives. After a failed request, the module tries once more 5 seconds later, then again at the next member listing. When the user is among the listed members, no extra request is made.
+
+Permissions are worked out in the browser from the team's roles. They decide what your interface shows and offers, and do not stop requests sent to Appwrite another way. Enforce anything that matters on the server, for example with Appwrite row and file permissions or in a function.
 
 ---
 
@@ -516,6 +533,7 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 | `$auth.teams`{copy} | array | Array of all user's teams |
 | `$auth.currentTeam`{copy} | object \| null | Currently selected team |
 | `$auth.currentTeamMemberships`{copy} | array | Members of the current team |
+| `$auth.currentTeamMembership`{copy} | object \| null | The signed-in user's own membership in the current team (read-only). See [how permissions resolve](#how-permissions-resolve) |
 | `$auth.deletedTemplateTeams`{copy} | array | Array of deleted template team names (can be reapplied) |
 
 ---
