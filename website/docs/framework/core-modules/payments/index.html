@@ -18,19 +18,19 @@
   <link rel="manifest" href="../../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.min.js" data-version="0.5.344"></script>
   <script src="../../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../../scripts/hero-demo.js" defer=""></script>
   <script src="../../../../scripts/console-message.js" defer=""></script>
 
-<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><title>Payments — Manifest</title><meta property="og:title" content="Payments — Manifest"><meta property="og:description" content="Integrate payment providers with your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/payments"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-payments.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Payments — Manifest"><meta property="twitter:description" content="Integrate payment providers with your project."><meta property="twitter:image" content="/og/docs-framework-core-modules-payments.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Payments — Manifest","description":"Integrate payment providers with your project.","image":"/og/docs-framework-core-modules-payments.png","url":"https://manifestx.dev/docs/framework/core-modules/payments"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Payments","item":"https://manifestx.dev/docs/framework/core-modules/payments"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Payments — Manifest</title><meta property="og:title" content="Payments — Manifest"><meta property="og:description" content="Integrate payment providers with your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/payments"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-payments.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Payments — Manifest"><meta property="twitter:description" content="Integrate payment providers with your project."><meta property="twitter:image" content="/og/docs-framework-core-modules-payments.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Payments — Manifest","description":"Integrate payment providers with your project.","image":"/og/docs-framework-core-modules-payments.png","url":"https://manifestx.dev/docs/framework/core-modules/payments"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Payments","item":"https://manifestx.dev/docs/framework/core-modules/payments"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/framework/core-modules/payments">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -383,7 +383,7 @@
       return out;
     },
     at(path) { return $route.replace(/\/$/, '') === path },
-  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.">
+  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference." data-component="docs-3">
 
   <!-- Desktop navigation -->
   <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
@@ -1332,15 +1332,15 @@
     <span class="hljs-keyword">const</span> e = workspace ? <span class="hljs-keyword">await</span> <span class="hljs-title function_">getEntitlement</span>(workspace) : <span class="hljs-literal">null</span>
     <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>(e ? { <span class="hljs-attr">plan</span>: e.<span class="hljs-property">plan</span>, <span class="hljs-attr">status</span>: e.<span class="hljs-property">status</span>, <span class="hljs-attr">credits</span>: e.<span class="hljs-property">credits</span> } : {})
 }</code><button class="expand" type="button" aria-expanded="false" aria-label="Show 138 more lines">+138</button></pre>
-<pre x-code="env" name="Environment" lines="" collapse="10" data-code-block-built="yes" aria-label="Environment" role="tabpanel" data-code-processed="yes" id="environment-panel-1" aria-labelledby="environment-tab-1" style="display: none"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div><code data-highlighted="yes" class="hljs language-undefined">REVOLUT_SECRET_KEY=sk_…          # provider SECRET key (sandbox to start)
-REVOLUT_WEBHOOK_SECRET=…         # returned when you register the webhook
-PAYMENTS_ENV=sandbox             # sandbox | live; set the same `environment` in manifest.json
+<pre x-code="env" name="Environment" lines="" collapse="10" data-code-block-built="yes" aria-label="Environment" role="tabpanel" data-code-processed="yes" id="environment-panel-1" aria-labelledby="environment-tab-1" style="display: none"><div class="lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div><code class="hljs language-bash" data-highlighted="yes">REVOLUT_SECRET_KEY=sk_…          <span class="hljs-comment"># provider SECRET key (sandbox to start)</span>
+REVOLUT_WEBHOOK_SECRET=…         <span class="hljs-comment"># returned when you register the webhook</span>
+PAYMENTS_ENV=sandbox             <span class="hljs-comment"># sandbox | live; set the same `environment` in manifest.json</span>
 PAYMENTS_SUCCESS_URL=https://yourapp.com/thanks?checkout=1
-PAYMENTS_CONSUME_KEY=…           # any long random string; guards POST /consume
+PAYMENTS_CONSUME_KEY=…           <span class="hljs-comment"># any long random string; guards POST /consume</span>
 APPWRITE_ENDPOINT=…
 APPWRITE_PROJECT=…
 APPWRITE_API_KEY=…
-PAY_DATABASE_ID=…                # database with `entitlements` + `ledger` collections</code></pre>
+PAY_DATABASE_ID=…                <span class="hljs-comment"># database with `entitlements` + `ledger` collections</span></code></pre>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>This example uses <a href="https://help.revolut.com/business/help/merchant-accounts/setting-up-a-merchant-account/what-is-a-merchant-account/" target="_blank" rel="noopener">Revolut Merchant</a>, verified end-to-end against its sandbox. The structure is the same for any provider — swap the two <code>fetch</code> calls and the signature check for your provider's equivalents, and the rest (products, grants, state) is untouched. On the page, every provider already works: popups for the five built-in adapters, hosted redirect for everything else.</p>

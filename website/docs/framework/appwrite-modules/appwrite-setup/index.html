@@ -18,19 +18,19 @@
   <link rel="manifest" href="../../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.min.js" data-version="0.5.344"></script>
   <script src="../../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../../scripts/hero-demo.js" defer=""></script>
   <script src="../../../../scripts/console-message.js" defer=""></script>
 
-<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><title>Appwrite Setup — Manifest</title><meta property="og:title" content="Appwrite Setup — Manifest"><meta property="og:description" content="Use Appwrite to turn Manifest projects into production-ready applications."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/appwrite-modules/appwrite-setup"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-appwrite-modules-appwrite-setup.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Appwrite Setup — Manifest"><meta property="twitter:description" content="Use Appwrite to turn Manifest projects into production-ready applications."><meta property="twitter:image" content="/og/docs-framework-appwrite-modules-appwrite-setup.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Appwrite Setup — Manifest","description":"Use Appwrite to turn Manifest projects into production-ready applications.","image":"/og/docs-framework-appwrite-modules-appwrite-setup.png","url":"https://manifestx.dev/docs/framework/appwrite-modules/appwrite-setup"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Appwrite Modules","item":"https://manifestx.dev/docs/framework/appwrite-modules"},{"@type":"ListItem","position":5,"name":"Appwrite Setup","item":"https://manifestx.dev/docs/framework/appwrite-modules/appwrite-setup"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Appwrite Setup — Manifest</title><meta property="og:title" content="Appwrite Setup — Manifest"><meta property="og:description" content="Use Appwrite to turn Manifest projects into production-ready applications."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/appwrite-modules/appwrite-setup"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-appwrite-modules-appwrite-setup.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Appwrite Setup — Manifest"><meta property="twitter:description" content="Use Appwrite to turn Manifest projects into production-ready applications."><meta property="twitter:image" content="/og/docs-framework-appwrite-modules-appwrite-setup.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Appwrite Setup — Manifest","description":"Use Appwrite to turn Manifest projects into production-ready applications.","image":"/og/docs-framework-appwrite-modules-appwrite-setup.png","url":"https://manifestx.dev/docs/framework/appwrite-modules/appwrite-setup"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Appwrite Modules","item":"https://manifestx.dev/docs/framework/appwrite-modules"},{"@type":"ListItem","position":5,"name":"Appwrite Setup","item":"https://manifestx.dev/docs/framework/appwrite-modules/appwrite-setup"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/framework/appwrite-modules/appwrite-setup">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -383,7 +383,7 @@
       return out;
     },
     at(path) { return $route.replace(/\/$/, '') === path },
-  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.">
+  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference." data-component="docs-3">
 
   <!-- Desktop navigation -->
   <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
@@ -783,7 +783,7 @@
         <span class="hljs-attr">"devKey"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"${PUBLIC_APPWRITE_DEV_KEY}"</span>
     <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span></code></pre>
-<pre x-code="env" name=".env" copy="" data-code-block-built="yes" aria-label=".env" role="tabpanel" data-code-processed="yes" id=".env-panel-1" aria-labelledby=".env-tab-1" style="display: none"><code data-highlighted="yes" class="hljs language-undefined">PUBLIC_APPWRITE_DEV_KEY=your-appwrite-dev-key</code></pre>
+<pre x-code="env" name=".env" copy="" data-code-block-built="yes" aria-label=".env" role="tabpanel" data-code-processed="yes" id=".env-panel-1" aria-labelledby=".env-tab-1" style="display: none"><code class="hljs language-bash" data-highlighted="yes">PUBLIC_APPWRITE_DEV_KEY=your-appwrite-dev-key</code></pre>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <aside class="brand"><span x-icon="lucide:info"></span><p><strong>How <code>${VAR}</code> resolution works.</strong> The framework substitutes <code>${VAR}</code> placeholders in <code>manifest.json</code> against <code>window.env</code> at runtime. The <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">npx mnfst-run</code> dev server reads your project's <code>.env</code> at startup and injects its <code>PUBLIC_</code> variables as a <code>window.env = {…}</code> block into served HTML. Other variables stay on the server, so a placeholder without the prefix is left unresolved, and an unresolved Dev Key turns the auth module off. If you serve the project with your own local server (Python's <code>http.server</code>, <code>live-server</code>, <code>serve</code>, etc.), it won't inject <code>window.env</code> for you; you'll need to add a <code>&lt;script&gt;window.env = {…}&lt;/script&gt;</code> block to <code>index.html</code> before the <code>manifest.min.js</code> tag, or your placeholders will reach the module unresolved and the auth/data modules will refuse to initialize.</p>

@@ -18,19 +18,19 @@
   <link rel="manifest" href="../../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.min.js" data-version="0.5.344"></script>
   <script src="../../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../../scripts/hero-demo.js" defer=""></script>
   <script src="../../../../scripts/console-message.js" defer=""></script>
 
-<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Local Data — Manifest</title><meta property="og:title" content="Local Data — Manifest"><meta property="og:description" content="Load YAML, JSON, or CSV files as reactive data sources."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/local-data"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-local-data.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Local Data — Manifest"><meta property="twitter:description" content="Load YAML, JSON, or CSV files as reactive data sources."><meta property="twitter:image" content="/og/docs-framework-core-modules-local-data.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Local Data — Manifest","description":"Load YAML, JSON, or CSV files as reactive data sources.","image":"/og/docs-framework-core-modules-local-data.png","url":"https://manifestx.dev/docs/framework/core-modules/local-data"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Local Data","item":"https://manifestx.dev/docs/framework/core-modules/local-data"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><title>Local Data — Manifest</title><meta property="og:title" content="Local Data — Manifest"><meta property="og:description" content="Load YAML, JSON, or CSV files as reactive data sources."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/local-data"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-local-data.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Local Data — Manifest"><meta property="twitter:description" content="Load YAML, JSON, or CSV files as reactive data sources."><meta property="twitter:image" content="/og/docs-framework-core-modules-local-data.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Local Data — Manifest","description":"Load YAML, JSON, or CSV files as reactive data sources.","image":"/og/docs-framework-core-modules-local-data.png","url":"https://manifestx.dev/docs/framework/core-modules/local-data"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Local Data","item":"https://manifestx.dev/docs/framework/core-modules/local-data"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/framework/core-modules/local-data">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -383,7 +383,7 @@
       return out;
     },
     at(path) { return $route.replace(/\/$/, '') === path },
-  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference.">
+  }" x-route="docs/framework" base="/docs/framework" source="framework" landing="framework" heading="Framework" intro="Everything you need to build with the Manifest framework — setup guides, modules, pre-styled elements, and reference." data-component="docs-3">
 
   <!-- Desktop navigation -->
   <nav aria-label="Documentation" data-static="" style="view-transition-name: docs-nav-desktop" class="shrink-0 hidden md:block sticky top-[60px] w-64 max-h-[calc(100vh-69px)] pt-12 pb-64 pr-10 overflow-y-auto no-scrollbar" x-init="(window.__manifestReady ? Promise.resolve() : new Promise(r =&gt; addEventListener('manifest:ready', r, { once: true }))).then(() =&gt; { const a = $el.querySelector('[aria-current=page]'); if (a) $el.scrollTop = Math.max(0, a.offsetTop - $el.clientHeight / 2) })">
@@ -758,14 +758,14 @@
 <h2 id="create-local-data">Create Local Data</h2><p>Create CSV, JSON, or YAML files anywhere in your project directory. Each format works identically—choose based on preference.</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="contact.csv-(key-value)-tab-0" aria-selected="true" tabindex="0">contact.csv (key-value)</button><button type="button" role="tab" id="team.csv-(tabular)-tab-1" aria-selected="false" tabindex="-1">team.csv (tabular)</button><button type="button" role="tab" id="team.json-tab-2" aria-selected="false" tabindex="-1">team.json</button><button type="button" role="tab" id="team.yaml-tab-3" aria-selected="false" tabindex="-1">team.yaml</button></div></header>
 
-<pre x-code="csv" name="contact.csv (key-value)" data-code-block-built="yes" aria-label="contact.csv (key-value)" role="tabpanel" data-code-processed="yes" id="contact.csv-(key-value)-panel-0" aria-labelledby="contact.csv-(key-value)-tab-0"><code data-highlighted="yes" class="hljs language-undefined">key,value
+<pre x-code="csv" name="contact.csv (key-value)" data-code-block-built="yes" aria-label="contact.csv (key-value)" role="tabpanel" data-code-processed="yes" id="contact.csv-(key-value)-panel-0" aria-labelledby="contact.csv-(key-value)-tab-0"><code class="hljs language-plaintext" data-highlighted="yes">key,value
 headquarters.name,Empire Headquarters
 headquarters.location,Death Star
 contact.email,forcechoke69@aol.com
 contact.phone,+1-555-0100</code></pre>
-<pre x-code="csv" name="team.csv (tabular)" data-code-block-built="yes" aria-label="team.csv (tabular)" role="tabpanel" data-code-processed="yes" id="team.csv-(tabular)-panel-1" aria-labelledby="team.csv-(tabular)-tab-1" style="display: none"><code data-highlighted="yes" class="hljs language-javascript">id,name,role,image
-<span class="hljs-number">1</span>,<span class="hljs-title class_">Darth</span> <span class="hljs-title class_">Vader</span>,<span class="hljs-title class_">Sith</span> <span class="hljs-title class_">Lord</span>,<span class="hljs-regexp">/assets/</span>examples/vader.<span class="hljs-property">webp</span>
-<span class="hljs-number">2</span>,<span class="hljs-title class_">Admiral</span> <span class="hljs-title class_">Piett</span>,<span class="hljs-title class_">Fleet</span> <span class="hljs-title class_">Commander</span>,<span class="hljs-regexp">/assets/</span>examples/piett.<span class="hljs-property">webp</span></code></pre>
+<pre x-code="csv" name="team.csv (tabular)" data-code-block-built="yes" aria-label="team.csv (tabular)" role="tabpanel" data-code-processed="yes" id="team.csv-(tabular)-panel-1" aria-labelledby="team.csv-(tabular)-tab-1" style="display: none"><code class="hljs language-plaintext" data-highlighted="yes">id,name,role,image
+1,Darth Vader,Sith Lord,/assets/examples/vader.webp
+2,Admiral Piett,Fleet Commander,/assets/examples/piett.webp</code></pre>
 <pre x-code="json" name="team.json" data-code-block-built="yes" aria-label="team.json" role="tabpanel" data-code-processed="yes" id="team.json-panel-2" aria-labelledby="team.json-tab-2" style="display: none"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">[</span>
     <span class="hljs-punctuation">{</span>
         <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Darth Vader"</span><span class="hljs-punctuation">,</span>

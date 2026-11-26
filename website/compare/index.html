@@ -18,13 +18,13 @@
   <link rel="manifest" href="../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.303/lib/manifest.min.js" data-version="0.5.303"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.min.js" data-version="0.5.344"></script>
   <script src="../scripts/payments-demo.js" defer=""></script>
   <script src="../scripts/hero-editor.js" defer=""></script>
   <script src="../scripts/hero-demo.js" defer=""></script>
@@ -249,7 +249,7 @@
         get groups() { return this.src ? $x[this.src] || [] : [] },
         get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
         here(href) { return $route.replace(/\/$/, '') === href },
-    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-order="3">
 
     <!-- Docs -->
     <template x-if="src">

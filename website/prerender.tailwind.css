@@ -2633,6 +2633,7 @@
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
@@ -2726,17 +2727,24 @@ opacity: .5;
 .\[\&\_figure\]\:rounded-full figure { --radius: 999px }
 
 .\[\&\_span\]\:rounded-full span { --radius: 999px }
+
 [role=tablist].focus\:rounded-full:focus {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_figure\]\:rounded-full figure {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_span\]\:rounded-full span {
 --radius: 999px
 }
 
 @media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:row {
 flex-flow:row nowrap
@@ -2745,14 +2753,6 @@ flex-flow:row nowrap
 @media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:block.md\:block { display: block } }
 
@@ -2765,6 +2765,10 @@ flex-flow:column nowrap
 @media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
 
 @media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
 
 @media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
 }
@@ -2781,6 +2785,7 @@ flex-flow:column nowrap
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
@@ -2900,17 +2905,24 @@ cursor:default;opacity:.5;pointer-events:none
 .\[\&\_figure\]\:rounded-full figure { --radius: 999px }
 
 .\[\&\_span\]\:rounded-full span { --radius: 999px }
+
 [role=tablist].focus\:rounded-full:focus {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_figure\]\:rounded-full figure {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_span\]\:rounded-full span {
 --radius: 999px
 }
 
 @media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:row {
 flex-flow:row nowrap
@@ -2919,14 +2931,6 @@ flex-flow:row nowrap
 @media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:block.md\:block { display: block } }
 
@@ -2939,6 +2943,10 @@ flex-flow:column nowrap
 @media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
 
 @media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
 
 @media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
 }
@@ -2955,19 +2963,20 @@ flex-flow:column nowrap
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .bg-surface-2 { background-color: var(--color-surface-2) }
 
-.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
-
 .\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
 
-.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
 
 .\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
 
 .bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
 
@@ -3074,17 +3083,24 @@ cursor:default;opacity:.5;pointer-events:none
 .\[\&\_figure\]\:rounded-full figure { --radius: 999px }
 
 .\[\&\_span\]\:rounded-full span { --radius: 999px }
+
 [role=tablist].focus\:rounded-full:focus {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_figure\]\:rounded-full figure {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_span\]\:rounded-full span {
 --radius: 999px
 }
 
 @media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:row {
 flex-flow:row nowrap
@@ -3093,14 +3109,6 @@ flex-flow:row nowrap
 @media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:block.md\:block { display: block } }
 
@@ -3113,6 +3121,188 @@ flex-flow:column nowrap
 @media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
 
 @media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
+}
+
+@layer utilities {
+.text-page { color: var(--color-page) }
+
+.bg-page { background-color: var(--color-page) }
+
+.bg-surface-1 { background-color: var(--color-surface-1) }
+
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
+.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
+:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
+
+.bg-surface-2 { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
+
+.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
+
+.bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
+
+.border-surface-3 { border-color: var(--color-surface-3) }
+
+.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
+
+.text-content-stark { color: var(--color-content-stark) }
+
+.\!text-content-stark { color: var(--color-content-stark) !important }
+
+.hover\:text-content-stark:hover { color: var(--color-content-stark) }
+
+.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
+
+.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
+
+.text-content-neutral { color: var(--color-content-neutral) }
+
+.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
+
+.text-content-subtle { color: var(--color-content-subtle) }
+
+.bg-content-subtle { background-color: var(--color-content-subtle) }
+
+.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
+
+.bg-popover-surface { background-color: var(--color-popover-surface) }
+
+.border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
+
+.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
+
+.bg-brand-surface { background-color: var(--color-brand-surface) }
+
+.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
+
+.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
+
+.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
+
+.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
+
+.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
+
+.text-brand-content { color: var(--color-brand-content) }
+
+.bg-accent-surface { background-color: var(--color-accent-surface) }
+
+.text-accent-inverse { color: var(--color-accent-inverse) }
+
+.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
+
+.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
+
+.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
+
+.bg-positive-surface { background-color: var(--color-positive-surface) }
+
+.bg-positive-content { background-color: var(--color-positive-content) }
+
+.text-negative-content { color: var(--color-negative-content) }
+
+.font-mono { font-family: var(--font-mono) }
+
+.w-content-width { width: var(--spacing-content-width) }
+
+.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
+
+.text-claude { color: var(--color-claude) }
+
+.group:hover .group-hover\:text-claude { color: var(--color-claude) }
+
+.bg-claude { background-color: var(--color-claude) }
+
+.text-stone-50 { color: var(--color-stone-50) }
+
+.bg-stone-400 { background-color: var(--color-stone-400) }
+
+.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
+
+.peer:invalid ~ .peer-invalid\:disabled {
+opacity: .5;
+        cursor: default;
+        pointer-events: none
+}
+
+.peer:invalid ~ .peer-invalid\:disabled {
+cursor:default;opacity:.5;pointer-events:none
+}
+
+.focus\:rounded-full:focus { --radius: 999px }
+
+.\[\&\_span\]\:rounded-full span { --radius: 999px }
+
+.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
+
+[role=tablist].focus\:rounded-full:focus {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_span\]\:rounded-full span {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_figure\]\:rounded-full figure {
+--radius: 999px
+}
+
+@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:row {
+flex-flow:row nowrap
+} }
+
+@media (min-width: 768px) { .md\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 768px) { .md\:block.md\:block { display: block } }
+
+@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
+
+@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
+
+@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
+
+@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
 
 @media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
 }
@@ -3169,6 +3359,7 @@ flex-flow:column nowrap
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
@@ -3264,17 +3455,24 @@ opacity: .5;
 .\[\&\_figure\]\:rounded-full figure { --radius: 999px }
 
 .\[\&\_span\]\:rounded-full span { --radius: 999px }
+
 [role=tablist].focus\:rounded-full:focus {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_figure\]\:rounded-full figure {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_span\]\:rounded-full span {
 --radius: 999px
 }
 
 @media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:row {
 flex-flow:row nowrap
@@ -3283,14 +3481,6 @@ flex-flow:row nowrap
 @media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:block.md\:block { display: block } }
 
@@ -3303,6 +3493,200 @@ flex-flow:column nowrap
 @media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
 
 @media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
+}
+
+@layer utilities {
+.text-page { color: var(--color-page) }
+
+.bg-page { background-color: var(--color-page) }
+
+.bg-surface-1 { background-color: var(--color-surface-1) }
+
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
+.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
+:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
+
+.bg-surface-2 { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+
+.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
+
+.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
+
+.bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
+
+.border-surface-3 { border-color: var(--color-surface-3) }
+
+.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
+
+.text-content-stark { color: var(--color-content-stark) }
+
+.\!text-content-stark { color: var(--color-content-stark) !important }
+
+.hover\:text-content-stark:hover { color: var(--color-content-stark) }
+
+.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
+
+.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
+
+.text-content-neutral { color: var(--color-content-neutral) }
+
+.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
+
+.text-content-subtle { color: var(--color-content-subtle) }
+
+.bg-content-subtle { background-color: var(--color-content-subtle) }
+
+.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
+
+.bg-popover-surface { background-color: var(--color-popover-surface) }
+
+.border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
+
+.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
+
+.bg-brand-surface { background-color: var(--color-brand-surface) }
+
+.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
+
+.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
+
+.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
+
+.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
+
+.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
+
+.text-brand-content { color: var(--color-brand-content) }
+
+.bg-accent-surface { background-color: var(--color-accent-surface) }
+
+.text-accent-inverse { color: var(--color-accent-inverse) }
+
+.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
+
+.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
+
+.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
+
+.bg-positive-surface { background-color: var(--color-positive-surface) }
+
+.bg-positive-content { background-color: var(--color-positive-content) }
+
+.text-negative-content { color: var(--color-negative-content) }
+
+.font-mono { font-family: var(--font-mono) }
+
+.w-content-width { width: var(--spacing-content-width) }
+
+.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
+
+.text-claude { color: var(--color-claude) }
+
+.group:hover .group-hover\:text-claude { color: var(--color-claude) }
+
+.bg-claude { background-color: var(--color-claude) }
+
+.text-stone-50 { color: var(--color-stone-50) }
+
+.bg-stone-400 { background-color: var(--color-stone-400) }
+
+.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
+
+.peer:invalid ~ .peer-invalid\:disabled {
+opacity: .5;
+        cursor: default;
+        pointer-events: none
+}
+
+.peer:invalid ~ .peer-invalid\:disabled {
+cursor:default;opacity:.5;pointer-events:none
+}
+
+.focus-within\:outlined:focus-within {
+border-color:color-mix(in oklch,var(--color-field-surface,color-mix(in oklch,oklch(20.5% 0 0) 10%,transparent)) 90%,var(--color-field-inverse,oklch(43.9% 0 0)));border-style:solid;border-width:1px; border-color:color-mix(in oklch,var(--color-field-surface,color-mix(in oklch,oklch(20.5% 0 0) 10%,transparent)) 80%,var(--color-field-inverse,oklch(43.9% 0 0)))
+}
+
+.focus-within\:outlined:focus-within {
+border-color:color-mix(in oklch,var(--color-field-surface,color-mix(in oklch,oklch(20.5% 0 0) 10%,transparent)) 90%,var(--color-field-inverse,oklch(43.9% 0 0)));border-style:solid;border-width:1px
+}
+
+.focus-within\:outlined:focus-within {
+border-color:color-mix(in oklch,var(--color-field-surface,color-mix(in oklch,oklch(20.5% 0 0) 10%,transparent)) 80%,var(--color-field-inverse,oklch(43.9% 0 0)))
+}
+
+.focus\:rounded-full:focus { --radius: 999px }
+
+.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
+
+.\[\&\_span\]\:rounded-full span { --radius: 999px }
+
+[role=tablist].focus\:rounded-full:focus {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_figure\]\:rounded-full figure {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_span\]\:rounded-full span {
+--radius: 999px
+}
+
+@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:row {
+flex-flow:row nowrap
+} }
+
+@media (min-width: 768px) { .md\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 768px) { .md\:block.md\:block { display: block } }
+
+@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
+
+@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
+
+@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
+
+@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
 
 @media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
 }
@@ -3345,6 +3729,363 @@ flex-flow:column nowrap
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
+:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
+
+.bg-surface-2 { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+
+.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
+
+.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
+
+.bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
+
+.border-surface-3 { border-color: var(--color-surface-3) }
+
+.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
+
+.bg-popover-surface { background-color: var(--color-popover-surface) }
+
+.border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
+
+.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
+
+.bg-brand-surface { background-color: var(--color-brand-surface) }
+
+.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
+
+.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
+
+.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
+
+.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
+
+.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
+
+.text-brand-content { color: var(--color-brand-content) }
+
+.bg-accent-surface { background-color: var(--color-accent-surface) }
+
+.text-accent-inverse { color: var(--color-accent-inverse) }
+
+.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
+
+.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
+
+.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
+
+.bg-positive-surface { background-color: var(--color-positive-surface) }
+
+.bg-positive-content { background-color: var(--color-positive-content) }
+
+.text-negative-content { color: var(--color-negative-content) }
+
+.font-mono { font-family: var(--font-mono) }
+
+.w-content-width { width: var(--spacing-content-width) }
+
+.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
+
+.text-claude { color: var(--color-claude) }
+
+.group:hover .group-hover\:text-claude { color: var(--color-claude) }
+
+.bg-claude { background-color: var(--color-claude) }
+
+.peer:invalid ~ .peer-invalid\:disabled {
+cursor:default;opacity:.5;pointer-events:none
+}
+
+.peer:invalid ~ .peer-invalid\:disabled {
+opacity: .5;
+        cursor: default;
+        pointer-events: none
+}
+
+.focus\:rounded-full:focus { --radius: 999px }
+
+.\[\&\_span\]\:rounded-full span { --radius: 999px }
+
+.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
+
+[role=tablist].focus\:rounded-full:focus {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_span\]\:rounded-full span {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_figure\]\:rounded-full figure {
+--radius: 999px
+}
+
+@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:row {
+flex-flow:row nowrap
+} }
+
+@media (min-width: 768px) { .md\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 768px) { .md\:block.md\:block { display: block } }
+
+@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
+
+@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
+
+@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
+
+@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
+}
+
+@layer utilities {
+.text-stone-50 { color: var(--color-stone-50) }
+
+.bg-stone-400 { background-color: var(--color-stone-400) }
+
+.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
+
+.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
+
+.text-content-stark { color: var(--color-content-stark) }
+
+.\!text-content-stark { color: var(--color-content-stark) !important }
+
+.hover\:text-content-stark:hover { color: var(--color-content-stark) }
+
+.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
+
+.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
+
+.text-content-neutral { color: var(--color-content-neutral) }
+
+.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
+
+.text-content-subtle { color: var(--color-content-subtle) }
+
+.bg-content-subtle { background-color: var(--color-content-subtle) }
+
+.text-page { color: var(--color-page) }
+
+.bg-page { background-color: var(--color-page) }
+
+.bg-surface-1 { background-color: var(--color-surface-1) }
+
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
+.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
+:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
+
+.bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
+
+.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
+
+.bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
+
+.border-surface-3 { border-color: var(--color-surface-3) }
+
+.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
+
+.bg-popover-surface { background-color: var(--color-popover-surface) }
+
+.border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
+
+.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
+
+.bg-brand-surface { background-color: var(--color-brand-surface) }
+
+.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
+
+.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
+
+.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
+
+.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
+
+.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
+
+.text-brand-content { color: var(--color-brand-content) }
+
+.bg-accent-surface { background-color: var(--color-accent-surface) }
+
+.text-accent-inverse { color: var(--color-accent-inverse) }
+
+.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
+
+.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
+
+.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
+
+.bg-positive-surface { background-color: var(--color-positive-surface) }
+
+.bg-positive-content { background-color: var(--color-positive-content) }
+
+.text-negative-content { color: var(--color-negative-content) }
+
+.font-mono { font-family: var(--font-mono) }
+
+.w-content-width { width: var(--spacing-content-width) }
+
+.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
+
+.text-claude { color: var(--color-claude) }
+
+.group:hover .group-hover\:text-claude { color: var(--color-claude) }
+
+.bg-claude { background-color: var(--color-claude) }
+
+.peer:invalid ~ .peer-invalid\:disabled {
+cursor:default;opacity:.5;pointer-events:none
+}
+
+.peer:invalid ~ .peer-invalid\:disabled {
+opacity: .5;
+        cursor: default;
+        pointer-events: none
+}
+
+.focus\:rounded-full:focus { --radius: 999px }
+
+.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
+
+.\[\&\_span\]\:rounded-full span { --radius: 999px }
+
+[role=tablist].focus\:rounded-full:focus {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_figure\]\:rounded-full figure {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_span\]\:rounded-full span {
+--radius: 999px
+}
+
+@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:row {
+flex-flow:row nowrap
+} }
+
+@media (min-width: 768px) { .md\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 768px) { .md\:block.md\:block { display: block } }
+
+@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
+
+@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
+
+@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
+
+@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
+}
+
+@layer utilities {
+.text-stone-50 { color: var(--color-stone-50) }
+
+.bg-stone-400 { background-color: var(--color-stone-400) }
+
+.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
+
+.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
+
+.text-content-stark { color: var(--color-content-stark) }
+
+.\!text-content-stark { color: var(--color-content-stark) !important }
+
+.hover\:text-content-stark:hover { color: var(--color-content-stark) }
+
+.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
+
+.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
+
+.text-content-neutral { color: var(--color-content-neutral) }
+
+.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
+
+.text-content-subtle { color: var(--color-content-subtle) }
+
+.bg-content-subtle { background-color: var(--color-content-subtle) }
+
+.text-page { color: var(--color-page) }
+
+.bg-page { background-color: var(--color-page) }
+
+.bg-surface-1 { background-color: var(--color-surface-1) }
+
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
+.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
@@ -3440,17 +4181,24 @@ opacity: .5;
 .\[\&\_figure\]\:rounded-full figure { --radius: 999px }
 
 .\[\&\_span\]\:rounded-full span { --radius: 999px }
+
 [role=tablist].focus\:rounded-full:focus {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_figure\]\:rounded-full figure {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_span\]\:rounded-full span {
 --radius: 999px
 }
 
 @media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:row {
 flex-flow:row nowrap
@@ -3459,14 +4207,6 @@ flex-flow:row nowrap
 @media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:block.md\:block { display: block } }
 
@@ -3479,6 +4219,10 @@ flex-flow:column nowrap
 @media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
 
 @media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
 
 @media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
 }
@@ -3498,9 +4242,9 @@ flex-flow:column nowrap
 
 .hover\:text-content-stark:hover { color: var(--color-content-stark) }
 
-.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
-
 .\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
+
+.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
 
 .text-content-neutral { color: var(--color-content-neutral) }
 
@@ -3521,19 +4265,20 @@ flex-flow:column nowrap
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .bg-surface-2 { background-color: var(--color-surface-2) }
 
-.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
 
 .dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
 
-.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
-
 .\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
 
 .bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
 
@@ -3541,9 +4286,9 @@ flex-flow:column nowrap
 
 .bg-surface-3 { background-color: var(--color-surface-3) }
 
-.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
-
 .dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
 
 .border-surface-3 { border-color: var(--color-surface-3) }
 
@@ -3559,13 +4304,13 @@ flex-flow:column nowrap
 
 .bg-brand-surface { background-color: var(--color-brand-surface) }
 
-.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
-
 .bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
 
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
 .dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
+
+.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
 
 .\!text-brand-inverse { color: var(--color-brand-inverse) !important }
 
@@ -3614,17 +4359,24 @@ opacity: .5;
 .\[\&\_figure\]\:rounded-full figure { --radius: 999px }
 
 .\[\&\_span\]\:rounded-full span { --radius: 999px }
+
 [role=tablist].focus\:rounded-full:focus {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_figure\]\:rounded-full figure {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_span\]\:rounded-full span {
 --radius: 999px
 }
 
 @media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:row {
 flex-flow:row nowrap
@@ -3633,14 +4385,6 @@ flex-flow:row nowrap
 @media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:block.md\:block { display: block } }
 
@@ -3653,6 +4397,10 @@ flex-flow:column nowrap
 @media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
 
 @media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
 
 @media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
 }
@@ -3669,6 +4417,7 @@ flex-flow:column nowrap
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
@@ -3796,17 +4545,24 @@ cursor:default;opacity:.5;pointer-events:none
 .\[\&\_figure\]\:rounded-full figure { --radius: 999px }
 
 .\[\&\_span\]\:rounded-full span { --radius: 999px }
+
 [role=tablist].focus\:rounded-full:focus {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_figure\]\:rounded-full figure {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_span\]\:rounded-full span {
 --radius: 999px
 }
 
 @media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:row {
 flex-flow:row nowrap
@@ -3815,14 +4571,6 @@ flex-flow:row nowrap
 @media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:block.md\:block { display: block } }
 
@@ -3835,6 +4583,726 @@ flex-flow:column nowrap
 @media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
 
 @media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
+}
+
+@layer utilities {
+.text-page { color: var(--color-page) }
+
+.bg-page { background-color: var(--color-page) }
+
+.bg-surface-1 { background-color: var(--color-surface-1) }
+
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
+.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
+:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
+
+.bg-surface-2 { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+
+.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
+
+.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
+
+.bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
+
+.border-surface-3 { border-color: var(--color-surface-3) }
+
+.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
+
+.text-content-stark { color: var(--color-content-stark) }
+
+.\!text-content-stark { color: var(--color-content-stark) !important }
+
+.hover\:text-content-stark:hover { color: var(--color-content-stark) }
+
+.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
+
+.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
+
+.text-content-neutral { color: var(--color-content-neutral) }
+
+.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
+
+.text-content-subtle { color: var(--color-content-subtle) }
+
+.bg-content-subtle { background-color: var(--color-content-subtle) }
+
+.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
+
+.bg-popover-surface { background-color: var(--color-popover-surface) }
+
+.border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
+
+.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
+
+.bg-brand-surface { background-color: var(--color-brand-surface) }
+
+.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
+
+.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
+
+.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
+
+.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
+
+.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
+
+.text-brand-content { color: var(--color-brand-content) }
+
+.bg-accent-surface { background-color: var(--color-accent-surface) }
+
+.text-accent-inverse { color: var(--color-accent-inverse) }
+
+.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
+
+.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
+
+.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
+
+.text-accent-content { color: var(--color-accent-content) }
+
+.bg-positive-surface { background-color: var(--color-positive-surface) }
+
+.bg-positive-content { background-color: var(--color-positive-content) }
+
+.text-negative-content { color: var(--color-negative-content) }
+
+.font-mono { font-family: var(--font-mono) }
+
+.w-content-width { width: var(--spacing-content-width) }
+
+.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
+
+.text-claude { color: var(--color-claude) }
+
+.group:hover .group-hover\:text-claude { color: var(--color-claude) }
+
+.bg-claude { background-color: var(--color-claude) }
+
+.text-stone-50 { color: var(--color-stone-50) }
+
+.bg-stone-400 { background-color: var(--color-stone-400) }
+
+.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
+
+.text-white { color: var(--color-white) }
+
+.peer:invalid ~ .peer-invalid\:disabled {
+opacity: .5;
+        cursor: default;
+        pointer-events: none
+}
+
+.peer:invalid ~ .peer-invalid\:disabled {
+cursor:default;opacity:.5;pointer-events:none
+}
+
+.focus\:rounded-full:focus { --radius: 999px }
+
+.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
+
+.\[\&\_span\]\:rounded-full span { --radius: 999px }
+
+[role=tablist].focus\:rounded-full:focus {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_figure\]\:rounded-full figure {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_span\]\:rounded-full span {
+--radius: 999px
+}
+
+@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:row {
+flex-flow:row nowrap
+} }
+
+@media (min-width: 768px) { .md\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 768px) { .md\:block.md\:block { display: block } }
+
+@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
+
+@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
+
+@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
+
+@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
+}
+
+@layer utilities {
+.text-page { color: var(--color-page) }
+
+.bg-page { background-color: var(--color-page) }
+
+.bg-surface-1 { background-color: var(--color-surface-1) }
+
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
+.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
+:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
+
+.bg-surface-2 { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
+
+.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
+
+.bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
+
+.border-surface-3 { border-color: var(--color-surface-3) }
+
+.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
+
+.text-content-stark { color: var(--color-content-stark) }
+
+.\!text-content-stark { color: var(--color-content-stark) !important }
+
+.hover\:text-content-stark:hover { color: var(--color-content-stark) }
+
+.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
+
+.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
+
+.text-content-neutral { color: var(--color-content-neutral) }
+
+.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
+
+.text-content-subtle { color: var(--color-content-subtle) }
+
+.bg-content-subtle { background-color: var(--color-content-subtle) }
+
+.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
+
+.bg-popover-surface { background-color: var(--color-popover-surface) }
+
+.border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
+
+.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
+
+.bg-brand-surface { background-color: var(--color-brand-surface) }
+
+.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
+
+.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
+
+.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
+
+.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
+
+.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
+
+.text-brand-content { color: var(--color-brand-content) }
+
+.bg-accent-surface { background-color: var(--color-accent-surface) }
+
+.text-accent-inverse { color: var(--color-accent-inverse) }
+
+.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
+
+.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
+
+.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
+
+.bg-positive-surface { background-color: var(--color-positive-surface) }
+
+.bg-positive-content { background-color: var(--color-positive-content) }
+
+.text-negative-content { color: var(--color-negative-content) }
+
+.font-mono { font-family: var(--font-mono) }
+
+.w-content-width { width: var(--spacing-content-width) }
+
+.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
+
+.text-claude { color: var(--color-claude) }
+
+.group:hover .group-hover\:text-claude { color: var(--color-claude) }
+
+.bg-claude { background-color: var(--color-claude) }
+
+.text-stone-50 { color: var(--color-stone-50) }
+
+.bg-stone-400 { background-color: var(--color-stone-400) }
+
+.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
+
+.peer:invalid ~ .peer-invalid\:disabled {
+opacity: .5;
+        cursor: default;
+        pointer-events: none
+}
+
+.peer:invalid ~ .peer-invalid\:disabled {
+cursor:default;opacity:.5;pointer-events:none
+}
+
+.focus\:rounded-full:focus { --radius: 999px }
+
+.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
+
+.\[\&\_span\]\:rounded-full span { --radius: 999px }
+
+[role=tablist].focus\:rounded-full:focus {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_figure\]\:rounded-full figure {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_span\]\:rounded-full span {
+--radius: 999px
+}
+
+@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:row {
+flex-flow:row nowrap
+} }
+
+@media (min-width: 768px) { .md\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 768px) { .md\:block.md\:block { display: block } }
+
+@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
+
+@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
+
+@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
+
+@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
+}
+
+@layer utilities {
+.text-page { color: var(--color-page) }
+
+.bg-page { background-color: var(--color-page) }
+
+.bg-surface-1 { background-color: var(--color-surface-1) }
+
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
+.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
+:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
+
+.bg-surface-2 { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+
+.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
+
+.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
+
+.bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
+
+.border-surface-3 { border-color: var(--color-surface-3) }
+
+.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
+
+.text-content-stark { color: var(--color-content-stark) }
+
+.\!text-content-stark { color: var(--color-content-stark) !important }
+
+.hover\:text-content-stark:hover { color: var(--color-content-stark) }
+
+.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
+
+.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
+
+.text-content-neutral { color: var(--color-content-neutral) }
+
+.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
+
+.text-content-subtle { color: var(--color-content-subtle) }
+
+.bg-content-subtle { background-color: var(--color-content-subtle) }
+
+.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
+
+.bg-popover-surface { background-color: var(--color-popover-surface) }
+
+.border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
+
+.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
+
+.bg-brand-surface { background-color: var(--color-brand-surface) }
+
+.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
+
+.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
+
+.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
+
+.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
+
+.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
+
+.text-brand-content { color: var(--color-brand-content) }
+
+.bg-accent-surface { background-color: var(--color-accent-surface) }
+
+.text-accent-inverse { color: var(--color-accent-inverse) }
+
+.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
+
+.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
+
+.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
+
+.bg-positive-surface { background-color: var(--color-positive-surface) }
+
+.bg-positive-content { background-color: var(--color-positive-content) }
+
+.text-negative-content { color: var(--color-negative-content) }
+
+.font-mono { font-family: var(--font-mono) }
+
+.w-content-width { width: var(--spacing-content-width) }
+
+.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
+
+.text-claude { color: var(--color-claude) }
+
+.group:hover .group-hover\:text-claude { color: var(--color-claude) }
+
+.bg-claude { background-color: var(--color-claude) }
+
+.text-stone-50 { color: var(--color-stone-50) }
+
+.bg-stone-400 { background-color: var(--color-stone-400) }
+
+.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
+
+.peer:invalid ~ .peer-invalid\:disabled {
+opacity: .5;
+        cursor: default;
+        pointer-events: none
+}
+
+.peer:invalid ~ .peer-invalid\:disabled {
+cursor:default;opacity:.5;pointer-events:none
+}
+
+.focus\:rounded-full:focus { --radius: 999px }
+
+.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
+
+.\[\&\_span\]\:rounded-full span { --radius: 999px }
+
+[role=tablist].focus\:rounded-full:focus {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_figure\]\:rounded-full figure {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_span\]\:rounded-full span {
+--radius: 999px
+}
+
+@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:row {
+flex-flow:row nowrap
+} }
+
+@media (min-width: 768px) { .md\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 768px) { .md\:block.md\:block { display: block } }
+
+@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
+
+@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
+
+@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
+
+@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
+}
+
+@layer utilities {
+.text-page { color: var(--color-page) }
+
+.bg-page { background-color: var(--color-page) }
+
+.bg-surface-1 { background-color: var(--color-surface-1) }
+
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
+.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
+:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
+
+.bg-surface-2 { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+
+.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
+
+.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
+
+.bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
+
+.border-surface-3 { border-color: var(--color-surface-3) }
+
+.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
+
+.text-content-stark { color: var(--color-content-stark) }
+
+.\!text-content-stark { color: var(--color-content-stark) !important }
+
+.hover\:text-content-stark:hover { color: var(--color-content-stark) }
+
+.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
+
+.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
+
+.text-content-neutral { color: var(--color-content-neutral) }
+
+.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
+
+.text-content-subtle { color: var(--color-content-subtle) }
+
+.bg-content-subtle { background-color: var(--color-content-subtle) }
+
+.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
+
+.bg-popover-surface { background-color: var(--color-popover-surface) }
+
+.border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
+
+.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
+
+.bg-brand-surface { background-color: var(--color-brand-surface) }
+
+.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
+
+.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
+
+.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
+
+.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
+
+.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
+
+.text-brand-content { color: var(--color-brand-content) }
+
+.bg-accent-surface { background-color: var(--color-accent-surface) }
+
+.text-accent-inverse { color: var(--color-accent-inverse) }
+
+.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
+
+.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
+
+.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
+
+.bg-positive-surface { background-color: var(--color-positive-surface) }
+
+.bg-positive-content { background-color: var(--color-positive-content) }
+
+.text-negative-content { color: var(--color-negative-content) }
+
+.font-mono { font-family: var(--font-mono) }
+
+.w-content-width { width: var(--spacing-content-width) }
+
+.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
+
+.text-claude { color: var(--color-claude) }
+
+.group:hover .group-hover\:text-claude { color: var(--color-claude) }
+
+.bg-claude { background-color: var(--color-claude) }
+
+.text-stone-50 { color: var(--color-stone-50) }
+
+.bg-stone-400 { background-color: var(--color-stone-400) }
+
+.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
+
+.peer:invalid ~ .peer-invalid\:disabled {
+opacity: .5;
+        cursor: default;
+        pointer-events: none
+}
+
+.peer:invalid ~ .peer-invalid\:disabled {
+cursor:default;opacity:.5;pointer-events:none
+}
+
+.focus\:rounded-full:focus { --radius: 999px }
+
+.\[\&\_span\]\:rounded-full span { --radius: 999px }
+
+.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
+
+[role=tablist].focus\:rounded-full:focus {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_span\]\:rounded-full span {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_figure\]\:rounded-full figure {
+--radius: 999px
+}
+
+@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:row {
+flex-flow:row nowrap
+} }
+
+@media (min-width: 768px) { .md\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 768px) { .md\:block.md\:block { display: block } }
+
+@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
+
+@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
+
+@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
+
+@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
 
 @media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
 }
@@ -3877,6 +5345,7 @@ flex-flow:column nowrap
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
@@ -3886,6 +5355,158 @@ flex-flow:column nowrap
 .dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
 
 .\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+
+.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
+
+.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
+
+.bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
+
+.border-surface-3 { border-color: var(--color-surface-3) }
+
+.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
+
+.bg-popover-surface { background-color: var(--color-popover-surface) }
+
+.border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
+
+.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
+
+.bg-brand-surface { background-color: var(--color-brand-surface) }
+
+.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
+
+.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
+
+.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
+
+.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
+
+.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
+
+.text-brand-content { color: var(--color-brand-content) }
+
+.bg-accent-surface { background-color: var(--color-accent-surface) }
+
+.text-accent-inverse { color: var(--color-accent-inverse) }
+
+.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
+
+.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
+
+.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
+
+.bg-positive-surface { background-color: var(--color-positive-surface) }
+
+.bg-positive-content { background-color: var(--color-positive-content) }
+
+.text-negative-content { color: var(--color-negative-content) }
+
+.font-mono { font-family: var(--font-mono) }
+
+.w-content-width { width: var(--spacing-content-width) }
+
+.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
+
+.text-claude { color: var(--color-claude) }
+
+.group:hover .group-hover\:text-claude { color: var(--color-claude) }
+
+.bg-claude { background-color: var(--color-claude) }
+
+.peer:invalid ~ .peer-invalid\:disabled {
+cursor:default;opacity:.5;pointer-events:none
+}
+
+.peer:invalid ~ .peer-invalid\:disabled {
+opacity: .5;
+        cursor: default;
+        pointer-events: none
+}
+
+.focus\:rounded-full:focus { --radius: 999px }
+
+.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
+
+.\[\&\_span\]\:rounded-full span { --radius: 999px }
+
+[role=tablist].focus\:rounded-full:focus {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_figure\]\:rounded-full figure {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_span\]\:rounded-full span {
+--radius: 999px
+}
+
+@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:row {
+flex-flow:row nowrap
+} }
+
+@media (min-width: 768px) { .md\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 768px) { .md\:block.md\:block { display: block } }
+
+@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
+
+@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
+
+@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
+
+@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
+}
+
+@layer utilities {
+.text-page { color: var(--color-page) }
+
+.bg-page { background-color: var(--color-page) }
+
+.bg-surface-1 { background-color: var(--color-surface-1) }
+
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
+.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
+:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
+
+.bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
 
 .\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
 
@@ -3908,6 +5529,26 @@ flex-flow:column nowrap
 .border-surface-3 { border-color: var(--color-surface-3) }
 
 .dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
+
+.text-content-stark { color: var(--color-content-stark) }
+
+.\!text-content-stark { color: var(--color-content-stark) !important }
+
+.hover\:text-content-stark:hover { color: var(--color-content-stark) }
+
+.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
+
+.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
+
+.text-content-neutral { color: var(--color-content-neutral) }
+
+.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
+
+.text-content-subtle { color: var(--color-content-subtle) }
+
+.bg-content-subtle { background-color: var(--color-content-subtle) }
+
+.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
 
 .bg-popover-surface { background-color: var(--color-popover-surface) }
 
@@ -3961,9 +5602,11 @@ flex-flow:column nowrap
 
 .bg-claude { background-color: var(--color-claude) }
 
-.peer:invalid ~ .peer-invalid\:disabled {
-cursor:default;opacity:.5;pointer-events:none
-}
+.text-stone-50 { color: var(--color-stone-50) }
+
+.bg-stone-400 { background-color: var(--color-stone-400) }
+
+.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
 
 .peer:invalid ~ .peer-invalid\:disabled {
 opacity: .5;
@@ -3971,22 +5614,33 @@ opacity: .5;
         pointer-events: none
 }
 
+.peer:invalid ~ .peer-invalid\:disabled {
+cursor:default;opacity:.5;pointer-events:none
+}
+
 .focus\:rounded-full:focus { --radius: 999px }
 
 .\[\&\_figure\]\:rounded-full figure { --radius: 999px }
 
 .\[\&\_span\]\:rounded-full span { --radius: 999px }
+
 [role=tablist].focus\:rounded-full:focus {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_figure\]\:rounded-full figure {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_span\]\:rounded-full span {
 --radius: 999px
 }
 
 @media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:row {
 flex-flow:row nowrap
@@ -3995,14 +5649,6 @@ flex-flow:row nowrap
 @media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:block.md\:block { display: block } }
 
@@ -4016,17 +5662,53 @@ flex-flow:column nowrap
 
 @media (min-width: 768px) { .md\:row.md\:row { display: flex } }
 
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
+
 @media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
 }
 
 @layer utilities {
-.text-stone-50 { color: var(--color-stone-50) }
+.text-page { color: var(--color-page) }
 
-.bg-stone-400 { background-color: var(--color-stone-400) }
+.bg-page { background-color: var(--color-page) }
 
-.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
+.bg-surface-1 { background-color: var(--color-surface-1) }
 
-.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
+.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
+:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
+
+.bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+
+.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
+
+.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
+
+.bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
+
+.border-surface-3 { border-color: var(--color-surface-3) }
+
+.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
 
 .text-content-stark { color: var(--color-content-stark) }
 
@@ -4046,44 +5728,7 @@ flex-flow:column nowrap
 
 .bg-content-subtle { background-color: var(--color-content-subtle) }
 
-.text-page { color: var(--color-page) }
-
-.bg-page { background-color: var(--color-page) }
-
-.bg-surface-1 { background-color: var(--color-surface-1) }
-
-.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
-
-.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
-:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
-
-.bg-surface-2 { background-color: var(--color-surface-2) }
-
-.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
-
-.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
-
-.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
-
-.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
-
-.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
-
-.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
-
-.bg-surface-3 { background-color: var(--color-surface-3) }
-
-.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
-
-.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
-
-.border-surface-3 { border-color: var(--color-surface-3) }
-
-.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
+.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
 
 .bg-popover-surface { background-color: var(--color-popover-surface) }
 
@@ -4135,14 +5780,20 @@ flex-flow:column nowrap
 
 .bg-claude { background-color: var(--color-claude) }
 
-.peer:invalid ~ .peer-invalid\:disabled {
-cursor:default;opacity:.5;pointer-events:none
-}
+.text-stone-50 { color: var(--color-stone-50) }
+
+.bg-stone-400 { background-color: var(--color-stone-400) }
+
+.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
 
 .peer:invalid ~ .peer-invalid\:disabled {
 opacity: .5;
         cursor: default;
         pointer-events: none
+}
+
+.peer:invalid ~ .peer-invalid\:disabled {
+cursor:default;opacity:.5;pointer-events:none
 }
 
 .focus-within\:outlined:focus-within {
@@ -4162,17 +5813,24 @@ border-color:color-mix(in oklch,var(--color-field-surface,color-mix(in oklch,okl
 .\[\&\_figure\]\:rounded-full figure { --radius: 999px }
 
 .\[\&\_span\]\:rounded-full span { --radius: 999px }
+
 [role=tablist].focus\:rounded-full:focus {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_figure\]\:rounded-full figure {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_span\]\:rounded-full span {
 --radius: 999px
 }
 
 @media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:row {
 flex-flow:row nowrap
@@ -4181,14 +5839,6 @@ flex-flow:row nowrap
 @media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:block.md\:block { display: block } }
 
@@ -4202,179 +5852,9 @@ flex-flow:column nowrap
 
 @media (min-width: 768px) { .md\:row.md\:row { display: flex } }
 
-@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
-}
-
-@layer utilities {
-.text-page { color: var(--color-page) }
-
-.bg-page { background-color: var(--color-page) }
-
-.bg-surface-1 { background-color: var(--color-surface-1) }
-
-.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
-
-.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
-:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
-
-.bg-surface-2 { background-color: var(--color-surface-2) }
-
-.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
-
-.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
-
-.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
-
-.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
-
-.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
-
-.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
-
-.bg-surface-3 { background-color: var(--color-surface-3) }
-
-.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
-
-.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
-
-.border-surface-3 { border-color: var(--color-surface-3) }
-
-.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
-
-.text-content-stark { color: var(--color-content-stark) }
-
-.\!text-content-stark { color: var(--color-content-stark) !important }
-
-.hover\:text-content-stark:hover { color: var(--color-content-stark) }
-
-.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
-
-.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
-
-.text-content-neutral { color: var(--color-content-neutral) }
-
-.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
-
-.text-content-subtle { color: var(--color-content-subtle) }
-
-.bg-content-subtle { background-color: var(--color-content-subtle) }
-
-.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
-
-.bg-popover-surface { background-color: var(--color-popover-surface) }
-
-.border-line { border-color: var(--color-line) }
-
-.focus\:border-line:focus { border-color: var(--color-line) }
-
-.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
-
-.bg-brand-surface { background-color: var(--color-brand-surface) }
-
-.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
-
-.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
-
-.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
-
-.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
-
-.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
-
-.text-brand-content { color: var(--color-brand-content) }
-
-.bg-accent-surface { background-color: var(--color-accent-surface) }
-
-.text-accent-inverse { color: var(--color-accent-inverse) }
-
-.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
-
-.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
-
-.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
-
-.bg-positive-surface { background-color: var(--color-positive-surface) }
-
-.bg-positive-content { background-color: var(--color-positive-content) }
-
-.text-negative-content { color: var(--color-negative-content) }
-
-.font-mono { font-family: var(--font-mono) }
-
-.w-content-width { width: var(--spacing-content-width) }
-
-.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
-
-.text-claude { color: var(--color-claude) }
-
-.group:hover .group-hover\:text-claude { color: var(--color-claude) }
-
-.bg-claude { background-color: var(--color-claude) }
-
-.text-stone-50 { color: var(--color-stone-50) }
-
-.bg-stone-400 { background-color: var(--color-stone-400) }
-
-.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
-
-.peer:invalid ~ .peer-invalid\:disabled {
-opacity: .5;
-        cursor: default;
-        pointer-events: none
-}
-
-.peer:invalid ~ .peer-invalid\:disabled {
-cursor:default;opacity:.5;pointer-events:none
-}
-
-.focus\:rounded-full:focus { --radius: 999px }
-
-.\[\&\_span\]\:rounded-full span { --radius: 999px }
-
-.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
-[role=tablist].focus\:rounded-full:focus {
---radius: 999px
-}
-[role=tablist].\[\&\_span\]\:rounded-full span {
---radius: 999px
-}
-[role=tablist].\[\&\_figure\]\:rounded-full figure {
---radius: 999px
-}
-
-@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
-
-@media (min-width: 768px) { .md\:row {
-flex-flow:row nowrap
-} }
-
-@media (min-width: 768px) { .md\:col {
-flex-flow:column nowrap
-} }
-
 @media (min-width: 1280px) { .xl\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
-
-@media (min-width: 768px) { .md\:block.md\:block { display: block } }
-
-@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
-
-@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
-
-@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
-
-@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
-
-@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
 
 @media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
 }
@@ -4417,15 +5897,16 @@ flex-flow:column nowrap
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .bg-surface-2 { background-color: var(--color-surface-2) }
 
-.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
-
 .\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
 
 .\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
 
@@ -4550,17 +6031,24 @@ background-color:var(--color-field-surface,color-mix(in oklch,oklch(20.5% 0 0) 1
 .\[\&\_figure\]\:rounded-full figure { --radius: 999px }
 
 .\[\&\_span\]\:rounded-full span { --radius: 999px }
+
 [role=tablist].focus\:rounded-full:focus {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_figure\]\:rounded-full figure {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_span\]\:rounded-full span {
 --radius: 999px
 }
 
 @media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:row {
 flex-flow:row nowrap
@@ -4569,14 +6057,6 @@ flex-flow:row nowrap
 @media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:block.md\:block { display: block } }
 
@@ -4590,17 +6070,53 @@ flex-flow:column nowrap
 
 @media (min-width: 768px) { .md\:row.md\:row { display: flex } }
 
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
+
 @media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
 }
 
 @layer utilities {
-.text-stone-50 { color: var(--color-stone-50) }
+.text-page { color: var(--color-page) }
 
-.bg-stone-400 { background-color: var(--color-stone-400) }
+.bg-page { background-color: var(--color-page) }
 
-.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
+.bg-surface-1 { background-color: var(--color-surface-1) }
 
-.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
+.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
+:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
+
+.bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
+
+.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
+
+.bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
+
+.border-surface-3 { border-color: var(--color-surface-3) }
+
+.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
 
 .text-content-stark { color: var(--color-content-stark) }
 
@@ -4620,46 +6136,7 @@ flex-flow:column nowrap
 
 .bg-content-subtle { background-color: var(--color-content-subtle) }
 
-.text-page { color: var(--color-page) }
-
-.bg-page { background-color: var(--color-page) }
-
-.bg-surface-1 { background-color: var(--color-surface-1) }
-
-.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
-
-.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
-:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
-
-.bg-surface-2 { background-color: var(--color-surface-2) }
-
-.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
-
-.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
-
-.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
-
-.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
-
-.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
-
-.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
-
-.bg-surface-2\/80 { background-color: color-mix(in oklch, var(--color-surface-2) 80%, transparent) }
-
-.bg-surface-3 { background-color: var(--color-surface-3) }
-
-.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
-
-.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
-
-.border-surface-3 { border-color: var(--color-surface-3) }
-
-.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
+.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
 
 .bg-popover-surface { background-color: var(--color-popover-surface) }
 
@@ -4711,9 +6188,11 @@ flex-flow:column nowrap
 
 .bg-claude { background-color: var(--color-claude) }
 
-.peer:invalid ~ .peer-invalid\:disabled {
-cursor:default;opacity:.5;pointer-events:none
-}
+.text-stone-50 { color: var(--color-stone-50) }
+
+.bg-stone-400 { background-color: var(--color-stone-400) }
+
+.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
 
 .peer:invalid ~ .peer-invalid\:disabled {
 opacity: .5;
@@ -4721,22 +6200,33 @@ opacity: .5;
         pointer-events: none
 }
 
+.peer:invalid ~ .peer-invalid\:disabled {
+cursor:default;opacity:.5;pointer-events:none
+}
+
 .focus\:rounded-full:focus { --radius: 999px }
 
 .\[\&\_figure\]\:rounded-full figure { --radius: 999px }
 
 .\[\&\_span\]\:rounded-full span { --radius: 999px }
+
 [role=tablist].focus\:rounded-full:focus {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_figure\]\:rounded-full figure {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_span\]\:rounded-full span {
 --radius: 999px
 }
 
 @media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:row {
 flex-flow:row nowrap
@@ -4745,14 +6235,6 @@ flex-flow:row nowrap
 @media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:block.md\:block { display: block } }
 
@@ -4765,6 +6247,10 @@ flex-flow:column nowrap
 @media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
 
 @media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
 
 @media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
 }
@@ -4781,6 +6267,405 @@ flex-flow:column nowrap
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
+:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
+
+.bg-surface-2 { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+
+.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
+
+.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
+
+.bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
+
+.border-surface-3 { border-color: var(--color-surface-3) }
+
+.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
+
+.text-content-stark { color: var(--color-content-stark) }
+
+.\!text-content-stark { color: var(--color-content-stark) !important }
+
+.hover\:text-content-stark:hover { color: var(--color-content-stark) }
+
+.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
+
+.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
+
+.text-content-neutral { color: var(--color-content-neutral) }
+
+.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
+
+.text-content-subtle { color: var(--color-content-subtle) }
+
+.bg-content-subtle { background-color: var(--color-content-subtle) }
+
+.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
+
+.bg-popover-surface { background-color: var(--color-popover-surface) }
+
+.border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
+
+.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
+
+.bg-brand-surface { background-color: var(--color-brand-surface) }
+
+.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
+
+.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
+
+.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
+
+.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
+
+.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
+
+.text-brand-content { color: var(--color-brand-content) }
+
+.bg-accent-surface { background-color: var(--color-accent-surface) }
+
+.text-accent-inverse { color: var(--color-accent-inverse) }
+
+.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
+
+.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
+
+.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
+
+.bg-positive-surface { background-color: var(--color-positive-surface) }
+
+.bg-positive-content { background-color: var(--color-positive-content) }
+
+.text-negative-content { color: var(--color-negative-content) }
+
+.font-mono { font-family: var(--font-mono) }
+
+.w-content-width { width: var(--spacing-content-width) }
+
+.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
+
+.text-claude { color: var(--color-claude) }
+
+.group:hover .group-hover\:text-claude { color: var(--color-claude) }
+
+.bg-claude { background-color: var(--color-claude) }
+
+.text-stone-50 { color: var(--color-stone-50) }
+
+.bg-stone-400 { background-color: var(--color-stone-400) }
+
+.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
+
+.peer:invalid ~ .peer-invalid\:disabled {
+opacity: .5;
+        cursor: default;
+        pointer-events: none
+}
+
+.peer:invalid ~ .peer-invalid\:disabled {
+cursor:default;opacity:.5;pointer-events:none
+}
+
+.user-valid\:positive:user-valid {
+background-color:var(--color-field-surface,oklch(87% 0 0)); background-color:var(--color-field-surface,oklch(87% 0 0))
+}
+
+.user-valid\:positive:user-valid {
+background-color:var(--color-field-surface,color-mix(in oklch,oklch(20.5% 0 0) 10%,transparent));color:var(--color-field-inverse,oklch(43.9% 0 0));:where(.toast-dismiss-button){border-inline-start:1px solid color-mix(in oklch,var(--color-field-inverse,oklch(43.9% 0 0)) 20%,transparent)}
+}
+
+.user-valid\:positive:user-valid {
+--color-field-surface:var(--color-positive-surface,#98fb98);--color-field-surface-hover:var(--color-positive-surface-hover,#90ee90);--color-field-inverse:var(--color-positive-inverse,#006400);--color-content-stark:var(--color-positive-content,#32cd32);--color-content-neutral:color-mix(in oklch,var(--color-positive-content,#32cd32) 85%,transparent);--color-content-subtle:color-mix(in oklch,var(--color-positive-content,#32cd32) 70%,transparent)
+}
+
+.user-valid\:positive:user-valid {
+& line{stroke:var(--color-chart-candle);stroke-width:1.5}& rect{fill:var(--color-chart-candle)}
+}
+
+.user-valid\:positive:user-valid {
+--color-chart-candle:var(--color-positive-content,oklch(60% 0.13 150))
+}
+
+.user-invalid\:negative:user-invalid {
+background-color:var(--color-field-surface,oklch(87% 0 0)); background-color:var(--color-field-surface,oklch(87% 0 0))
+}
+
+.user-invalid\:negative:user-invalid {
+background-color:var(--color-field-surface,color-mix(in oklch,oklch(20.5% 0 0) 10%,transparent));color:var(--color-field-inverse,oklch(43.9% 0 0));:where(.toast-dismiss-button){border-inline-start:1px solid color-mix(in oklch,var(--color-field-inverse,oklch(43.9% 0 0)) 20%,transparent)}
+}
+
+.user-invalid\:negative:user-invalid {
+--color-field-surface:var(--color-negative-surface,salmon);--color-field-surface-hover:var(--color-negative-surface-hover,#f08080);--color-field-inverse:var(--color-negative-inverse,maroon);--color-content-stark:var(--color-negative-content,crimson);--color-content-neutral:color-mix(in oklch,var(--color-negative-content,crimson) 85%,transparent);--color-content-subtle:color-mix(in oklch,var(--color-negative-content,crimson) 70%,transparent)
+}
+
+.user-invalid\:negative:user-invalid {
+& line{stroke:var(--color-chart-candle);stroke-width:1.5}& rect{fill:var(--color-chart-candle)}
+}
+
+.user-invalid\:negative:user-invalid {
+--color-chart-candle:var(--color-negative-content,oklch(60% 0.18 25))
+}
+
+.focus\:rounded-full:focus { --radius: 999px }
+
+.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
+
+.\[\&\_span\]\:rounded-full span { --radius: 999px }
+
+[role=tablist].focus\:rounded-full:focus {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_figure\]\:rounded-full figure {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_span\]\:rounded-full span {
+--radius: 999px
+}
+
+@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:row {
+flex-flow:row nowrap
+} }
+
+@media (min-width: 768px) { .md\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 768px) { .md\:block.md\:block { display: block } }
+
+@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
+
+@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
+
+@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
+
+@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
+}
+
+@layer utilities {
+.text-page { color: var(--color-page) }
+
+.bg-page { background-color: var(--color-page) }
+
+.bg-surface-1 { background-color: var(--color-surface-1) }
+
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
+.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
+:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
+
+.bg-surface-2 { background-color: var(--color-surface-2) }
+
+.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
+
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+
+.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+
+.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
+
+.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
+
+.bg-surface-2\/80 { background-color: color-mix(in oklch, var(--color-surface-2) 80%, transparent) }
+
+.bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
+
+.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
+
+.border-surface-3 { border-color: var(--color-surface-3) }
+
+.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
+
+.text-content-stark { color: var(--color-content-stark) }
+
+.\!text-content-stark { color: var(--color-content-stark) !important }
+
+.hover\:text-content-stark:hover { color: var(--color-content-stark) }
+
+.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
+
+.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
+
+.text-content-neutral { color: var(--color-content-neutral) }
+
+.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
+
+.text-content-subtle { color: var(--color-content-subtle) }
+
+.bg-content-subtle { background-color: var(--color-content-subtle) }
+
+.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
+
+.bg-popover-surface { background-color: var(--color-popover-surface) }
+
+.border-line { border-color: var(--color-line) }
+
+.focus\:border-line:focus { border-color: var(--color-line) }
+
+.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
+
+.bg-brand-surface { background-color: var(--color-brand-surface) }
+
+.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
+
+.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
+
+.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
+
+.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
+
+.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
+
+.text-brand-content { color: var(--color-brand-content) }
+
+.bg-accent-surface { background-color: var(--color-accent-surface) }
+
+.text-accent-inverse { color: var(--color-accent-inverse) }
+
+.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
+
+.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
+
+.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
+
+.bg-positive-surface { background-color: var(--color-positive-surface) }
+
+.bg-positive-content { background-color: var(--color-positive-content) }
+
+.text-negative-content { color: var(--color-negative-content) }
+
+.font-mono { font-family: var(--font-mono) }
+
+.w-content-width { width: var(--spacing-content-width) }
+
+.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
+
+.text-claude { color: var(--color-claude) }
+
+.group:hover .group-hover\:text-claude { color: var(--color-claude) }
+
+.bg-claude { background-color: var(--color-claude) }
+
+.text-stone-50 { color: var(--color-stone-50) }
+
+.bg-stone-400 { background-color: var(--color-stone-400) }
+
+.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
+
+.peer:invalid ~ .peer-invalid\:disabled {
+opacity: .5;
+        cursor: default;
+        pointer-events: none
+}
+
+.peer:invalid ~ .peer-invalid\:disabled {
+cursor:default;opacity:.5;pointer-events:none
+}
+
+.focus\:rounded-full:focus { --radius: 999px }
+
+.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
+
+.\[\&\_span\]\:rounded-full span { --radius: 999px }
+
+[role=tablist].focus\:rounded-full:focus {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_figure\]\:rounded-full figure {
+--radius: 999px
+}
+
+[role=tablist].\[\&\_span\]\:rounded-full span {
+--radius: 999px
+}
+
+@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:row {
+flex-flow:row nowrap
+} }
+
+@media (min-width: 768px) { .md\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 768px) { .md\:block.md\:block { display: block } }
+
+@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
+
+@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
+
+@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
+
+@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
+
+@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
+
+@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
+}
+
+@layer utilities {
+.text-page { color: var(--color-page) }
+
+.bg-page { background-color: var(--color-page) }
+
+.bg-surface-1 { background-color: var(--color-surface-1) }
+
+.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
+
+.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
+
+.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .\[\&\_tr\:hover\]\:bg-surface-1 tr:hover { background-color: var(--color-surface-1) }
@@ -4902,17 +6787,24 @@ cursor:default;opacity:.5;pointer-events:none
 .\[\&\_figure\]\:rounded-full figure { --radius: 999px }
 
 .\[\&\_span\]\:rounded-full span { --radius: 999px }
+
 [role=tablist].focus\:rounded-full:focus {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_figure\]\:rounded-full figure {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_span\]\:rounded-full span {
 --radius: 999px
 }
 
 @media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:row {
 flex-flow:row nowrap
@@ -4921,14 +6813,6 @@ flex-flow:row nowrap
 @media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:block.md\:block { display: block } }
 
@@ -4941,6 +6825,10 @@ flex-flow:column nowrap
 @media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
 
 @media (min-width: 768px) { .md\:row.md\:row { display: flex } }
+
+@media (min-width: 1280px) { .xl\:col {
+flex-flow:column nowrap
+} }
 
 @media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
 }
@@ -4983,6 +6871,7 @@ flex-flow:column nowrap
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
@@ -4991,11 +6880,11 @@ flex-flow:column nowrap
 
 .dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
 
+.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
+
 .hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
 
 .\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
-
-.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
 
 .bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
 
@@ -5073,20 +6962,27 @@ opacity: .5;
 
 .focus\:rounded-full:focus { --radius: 999px }
 
+.\[\&\_span\]\:rounded-full span { --radius: 999px }
+
 .\[\&\_figure\]\:rounded-full figure { --radius: 999px }
 
-.\[\&\_span\]\:rounded-full span { --radius: 999px }
 [role=tablist].focus\:rounded-full:focus {
 --radius: 999px
 }
-[role=tablist].\[\&\_figure\]\:rounded-full figure {
---radius: 999px
-}
+
 [role=tablist].\[\&\_span\]\:rounded-full span {
 --radius: 999px
 }
 
+[role=tablist].\[\&\_figure\]\:rounded-full figure {
+--radius: 999px
+}
+
 @media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:row {
 flex-flow:row nowrap
@@ -5095,14 +6991,6 @@ flex-flow:row nowrap
 @media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:block.md\:block { display: block } }
 
@@ -5116,179 +7004,9 @@ flex-flow:column nowrap
 
 @media (min-width: 768px) { .md\:row.md\:row { display: flex } }
 
-@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
-}
-
-@layer utilities {
-.text-stone-50 { color: var(--color-stone-50) }
-
-.bg-stone-400 { background-color: var(--color-stone-400) }
-
-.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
-
-.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
-
-.text-content-stark { color: var(--color-content-stark) }
-
-.\!text-content-stark { color: var(--color-content-stark) !important }
-
-.hover\:text-content-stark:hover { color: var(--color-content-stark) }
-
-.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
-
-.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
-
-.text-content-neutral { color: var(--color-content-neutral) }
-
-.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
-
-.text-content-subtle { color: var(--color-content-subtle) }
-
-.bg-content-subtle { background-color: var(--color-content-subtle) }
-
-.text-page { color: var(--color-page) }
-
-.bg-page { background-color: var(--color-page) }
-
-.bg-surface-1 { background-color: var(--color-surface-1) }
-
-.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
-
-.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
-:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
-
-.bg-surface-2 { background-color: var(--color-surface-2) }
-
-.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
-
-.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
-
-.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
-
-.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
-
-.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
-
-.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
-
-.bg-surface-3 { background-color: var(--color-surface-3) }
-
-.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
-
-.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
-
-.border-surface-3 { border-color: var(--color-surface-3) }
-
-.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
-
-.bg-popover-surface { background-color: var(--color-popover-surface) }
-
-.border-line { border-color: var(--color-line) }
-
-.focus\:border-line:focus { border-color: var(--color-line) }
-
-.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
-
-.bg-brand-surface { background-color: var(--color-brand-surface) }
-
-.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
-
-.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
-
-.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
-
-.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
-
-.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
-
-.text-brand-content { color: var(--color-brand-content) }
-
-.bg-accent-surface { background-color: var(--color-accent-surface) }
-
-.text-accent-inverse { color: var(--color-accent-inverse) }
-
-.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
-
-.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
-
-.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
-
-.bg-positive-surface { background-color: var(--color-positive-surface) }
-
-.bg-positive-content { background-color: var(--color-positive-content) }
-
-.text-negative-content { color: var(--color-negative-content) }
-
-.font-mono { font-family: var(--font-mono) }
-
-.w-content-width { width: var(--spacing-content-width) }
-
-.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
-
-.text-claude { color: var(--color-claude) }
-
-.group:hover .group-hover\:text-claude { color: var(--color-claude) }
-
-.bg-claude { background-color: var(--color-claude) }
-
-.peer:invalid ~ .peer-invalid\:disabled {
-cursor:default;opacity:.5;pointer-events:none
-}
-
-.peer:invalid ~ .peer-invalid\:disabled {
-opacity: .5;
-        cursor: default;
-        pointer-events: none
-}
-
-.focus\:rounded-full:focus { --radius: 999px }
-
-.\[\&\_span\]\:rounded-full span { --radius: 999px }
-
-.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
-[role=tablist].focus\:rounded-full:focus {
---radius: 999px
-}
-[role=tablist].\[\&\_span\]\:rounded-full span {
---radius: 999px
-}
-[role=tablist].\[\&\_figure\]\:rounded-full figure {
---radius: 999px
-}
-
-@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
-
-@media (min-width: 768px) { .md\:row {
-flex-flow:row nowrap
-} }
-
-@media (min-width: 768px) { .md\:col {
-flex-flow:column nowrap
-} }
-
 @media (min-width: 1280px) { .xl\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
-
-@media (min-width: 768px) { .md\:block.md\:block { display: block } }
-
-@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
-
-@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
-
-@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
-
-@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
-
-@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
 
 @media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
 }
@@ -5305,17 +7023,18 @@ flex-flow:column nowrap
 .dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
+
 :is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
 
 .bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
 
 .bg-surface-2 { background-color: var(--color-surface-2) }
 
-.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
+.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
 
 .dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
 
-.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
+.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
 
 .\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
 
@@ -5325,9 +7044,9 @@ flex-flow:column nowrap
 
 .bg-surface-3 { background-color: var(--color-surface-3) }
 
-.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
-
 .dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
+
+.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
 
 .border-surface-3 { border-color: var(--color-surface-3) }
 
@@ -5363,11 +7082,11 @@ flex-flow:column nowrap
 
 .bg-brand-surface { background-color: var(--color-brand-surface) }
 
-.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
-
 .bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
 
 .dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
+
+.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
 
 .bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
 
@@ -5424,17 +7143,24 @@ cursor:default;opacity:.5;pointer-events:none
 .\[\&\_figure\]\:rounded-full figure { --radius: 999px }
 
 .\[\&\_span\]\:rounded-full span { --radius: 999px }
+
 [role=tablist].focus\:rounded-full:focus {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_figure\]\:rounded-full figure {
 --radius: 999px
 }
+
 [role=tablist].\[\&\_span\]\:rounded-full span {
 --radius: 999px
 }
 
 @media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
+
+@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
+
+@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:row {
 flex-flow:row nowrap
@@ -5443,14 +7169,6 @@ flex-flow:row nowrap
 @media (min-width: 768px) { .md\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
 
 @media (min-width: 768px) { .md\:block.md\:block { display: block } }
 
@@ -5464,543 +7182,9 @@ flex-flow:column nowrap
 
 @media (min-width: 768px) { .md\:row.md\:row { display: flex } }
 
-@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
-}
-
-@layer utilities {
-.text-page { color: var(--color-page) }
-
-.bg-page { background-color: var(--color-page) }
-
-.bg-surface-1 { background-color: var(--color-surface-1) }
-
-.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
-
-.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
-:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
-
-.bg-surface-2 { background-color: var(--color-surface-2) }
-
-.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
-
-.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
-
-.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
-
-.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
-
-.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
-
-.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
-
-.bg-surface-3 { background-color: var(--color-surface-3) }
-
-.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
-
-.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
-
-.border-surface-3 { border-color: var(--color-surface-3) }
-
-.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
-
-.text-content-stark { color: var(--color-content-stark) }
-
-.\!text-content-stark { color: var(--color-content-stark) !important }
-
-.hover\:text-content-stark:hover { color: var(--color-content-stark) }
-
-.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
-
-.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
-
-.text-content-neutral { color: var(--color-content-neutral) }
-
-.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
-
-.text-content-subtle { color: var(--color-content-subtle) }
-
-.bg-content-subtle { background-color: var(--color-content-subtle) }
-
-.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
-
-.bg-popover-surface { background-color: var(--color-popover-surface) }
-
-.border-line { border-color: var(--color-line) }
-
-.focus\:border-line:focus { border-color: var(--color-line) }
-
-.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
-
-.bg-brand-surface { background-color: var(--color-brand-surface) }
-
-.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
-
-.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
-
-.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
-
-.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
-
-.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
-
-.text-brand-content { color: var(--color-brand-content) }
-
-.bg-accent-surface { background-color: var(--color-accent-surface) }
-
-.text-accent-inverse { color: var(--color-accent-inverse) }
-
-.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
-
-.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
-
-.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
-
-.bg-positive-surface { background-color: var(--color-positive-surface) }
-
-.bg-positive-content { background-color: var(--color-positive-content) }
-
-.text-negative-content { color: var(--color-negative-content) }
-
-.font-mono { font-family: var(--font-mono) }
-
-.w-content-width { width: var(--spacing-content-width) }
-
-.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
-
-.text-claude { color: var(--color-claude) }
-
-.group:hover .group-hover\:text-claude { color: var(--color-claude) }
-
-.bg-claude { background-color: var(--color-claude) }
-
-.text-stone-50 { color: var(--color-stone-50) }
-
-.bg-stone-400 { background-color: var(--color-stone-400) }
-
-.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
-
-.peer:invalid ~ .peer-invalid\:disabled {
-opacity: .5;
-        cursor: default;
-        pointer-events: none
-}
-
-.peer:invalid ~ .peer-invalid\:disabled {
-cursor:default;opacity:.5;pointer-events:none
-}
-
-.focus\:rounded-full:focus { --radius: 999px }
-
-.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
-
-.\[\&\_span\]\:rounded-full span { --radius: 999px }
-[role=tablist].focus\:rounded-full:focus {
---radius: 999px
-}
-[role=tablist].\[\&\_figure\]\:rounded-full figure {
---radius: 999px
-}
-[role=tablist].\[\&\_span\]\:rounded-full span {
---radius: 999px
-}
-
-@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
-
-@media (min-width: 768px) { .md\:row {
-flex-flow:row nowrap
-} }
-
-@media (min-width: 768px) { .md\:col {
-flex-flow:column nowrap
-} }
-
 @media (min-width: 1280px) { .xl\:col {
 flex-flow:column nowrap
 } }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
-
-@media (min-width: 768px) { .md\:block.md\:block { display: block } }
-
-@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
-
-@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
-
-@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
-
-@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
-
-@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
-
-@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
-}
-
-@layer utilities {
-.text-stone-50 { color: var(--color-stone-50) }
-
-.bg-stone-400 { background-color: var(--color-stone-400) }
-
-.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
-
-.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
-
-.text-content-stark { color: var(--color-content-stark) }
-
-.\!text-content-stark { color: var(--color-content-stark) !important }
-
-.hover\:text-content-stark:hover { color: var(--color-content-stark) }
-
-.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
-
-.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
-
-.text-content-neutral { color: var(--color-content-neutral) }
-
-.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
-
-.text-content-subtle { color: var(--color-content-subtle) }
-
-.bg-content-subtle { background-color: var(--color-content-subtle) }
-
-.text-page { color: var(--color-page) }
-
-.bg-page { background-color: var(--color-page) }
-
-.bg-surface-1 { background-color: var(--color-surface-1) }
-
-.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
-
-.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
-:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
-
-.bg-surface-2 { background-color: var(--color-surface-2) }
-
-.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
-
-.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
-
-.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
-
-.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
-
-.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
-
-.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
-
-.bg-surface-3 { background-color: var(--color-surface-3) }
-
-.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
-
-.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
-
-.border-surface-3 { border-color: var(--color-surface-3) }
-
-.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
-
-.bg-popover-surface { background-color: var(--color-popover-surface) }
-
-.border-line { border-color: var(--color-line) }
-
-.focus\:border-line:focus { border-color: var(--color-line) }
-
-.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
-
-.bg-brand-surface { background-color: var(--color-brand-surface) }
-
-.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
-
-.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
-
-.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
-
-.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
-
-.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
-
-.text-brand-content { color: var(--color-brand-content) }
-
-.bg-accent-surface { background-color: var(--color-accent-surface) }
-
-.text-accent-inverse { color: var(--color-accent-inverse) }
-
-.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
-
-.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
-
-.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
-
-.bg-positive-surface { background-color: var(--color-positive-surface) }
-
-.bg-positive-content { background-color: var(--color-positive-content) }
-
-.text-negative-content { color: var(--color-negative-content) }
-
-.font-mono { font-family: var(--font-mono) }
-
-.w-content-width { width: var(--spacing-content-width) }
-
-.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
-
-.text-claude { color: var(--color-claude) }
-
-.group:hover .group-hover\:text-claude { color: var(--color-claude) }
-
-.bg-claude { background-color: var(--color-claude) }
-
-.peer:invalid ~ .peer-invalid\:disabled {
-cursor:default;opacity:.5;pointer-events:none
-}
-
-.peer:invalid ~ .peer-invalid\:disabled {
-opacity: .5;
-        cursor: default;
-        pointer-events: none
-}
-
-.focus-within\:outlined:focus-within {
-border-color:color-mix(in oklch,var(--color-field-surface,color-mix(in oklch,oklch(20.5% 0 0) 10%,transparent)) 90%,var(--color-field-inverse,oklch(43.9% 0 0)));border-style:solid;border-width:1px; border-color:color-mix(in oklch,var(--color-field-surface,color-mix(in oklch,oklch(20.5% 0 0) 10%,transparent)) 80%,var(--color-field-inverse,oklch(43.9% 0 0)))
-}
-
-.focus-within\:outlined:focus-within {
-border-color:color-mix(in oklch,var(--color-field-surface,color-mix(in oklch,oklch(20.5% 0 0) 10%,transparent)) 90%,var(--color-field-inverse,oklch(43.9% 0 0)));border-style:solid;border-width:1px
-}
-
-.focus-within\:outlined:focus-within {
-border-color:color-mix(in oklch,var(--color-field-surface,color-mix(in oklch,oklch(20.5% 0 0) 10%,transparent)) 80%,var(--color-field-inverse,oklch(43.9% 0 0)))
-}
-
-.focus\:rounded-full:focus { --radius: 999px }
-
-.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
-
-.\[\&\_span\]\:rounded-full span { --radius: 999px }
-[role=tablist].focus\:rounded-full:focus {
---radius: 999px
-}
-[role=tablist].\[\&\_figure\]\:rounded-full figure {
---radius: 999px
-}
-[role=tablist].\[\&\_span\]\:rounded-full span {
---radius: 999px
-}
-
-@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
-
-@media (min-width: 768px) { .md\:row {
-flex-flow:row nowrap
-} }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 768px) { .md\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
-
-@media (min-width: 768px) { .md\:block.md\:block { display: block } }
-
-@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
-
-@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
-
-@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
-
-@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
-
-@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
-
-@media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
-}
-
-@layer utilities {
-.text-stone-50 { color: var(--color-stone-50) }
-
-.bg-stone-400 { background-color: var(--color-stone-400) }
-
-.dark .dark\:bg-stone-800 { background-color: var(--color-stone-800) }
-
-.text-white { color: var(--color-white) }
-
-.hover\:text-field-inverse:hover { color: var(--color-field-inverse) }
-
-.text-content-stark { color: var(--color-content-stark) }
-
-.\!text-content-stark { color: var(--color-content-stark) !important }
-
-.hover\:text-content-stark:hover { color: var(--color-content-stark) }
-
-.\[\&\_th\]\:text-content-stark th { color: var(--color-content-stark) }
-
-.group:hover .group-hover\:text-content-stark { color: var(--color-content-stark) }
-
-.text-content-neutral { color: var(--color-content-neutral) }
-
-.hover\:text-content-neutral:hover { color: var(--color-content-neutral) }
-
-.text-content-subtle { color: var(--color-content-subtle) }
-
-.bg-content-subtle { background-color: var(--color-content-subtle) }
-
-.text-page { color: var(--color-page) }
-
-.bg-page { background-color: var(--color-page) }
-
-.bg-surface-1 { background-color: var(--color-surface-1) }
-
-.focus\:bg-surface-1:focus { background-color: var(--color-surface-1) }
-
-.dark .dark\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.hover\:bg-surface-1:hover { background-color: var(--color-surface-1) }
-:is([open], :popover-open, :open) .open\:bg-surface-1 { background-color: var(--color-surface-1) }
-
-.bg-surface-1\/65 { background-color: color-mix(in oklch, var(--color-surface-1) 65%, transparent) }
-
-.bg-surface-2 { background-color: var(--color-surface-2) }
-
-.dark .dark\:bg-surface-2 { background-color: var(--color-surface-2) }
-
-.\[\&\_figure\]\:bg-surface-2 figure { background-color: var(--color-surface-2) }
-
-.\[\&\_span\]\:bg-surface-2 span { background-color: var(--color-surface-2) }
-
-.hover\:bg-surface-2:hover { background-color: var(--color-surface-2) }
-
-.bg-surface-2\/60 { background-color: color-mix(in oklch, var(--color-surface-2) 60%, transparent) }
-
-.dark .dark\:bg-surface-2\/50 { background-color: color-mix(in oklch, var(--color-surface-2) 50%, transparent) }
-
-.bg-surface-3 { background-color: var(--color-surface-3) }
-
-.dark .dark\:bg-surface-3 { background-color: var(--color-surface-3) }
-
-.dark .dark\:hover\:bg-surface-3:hover { background-color: var(--color-surface-3) }
-
-.border-surface-3 { border-color: var(--color-surface-3) }
-
-.dark .dark\:border-surface-3\/50 { border-color: color-mix(in oklch, var(--color-surface-3) 50%, transparent) }
-
-.bg-popover-surface { background-color: var(--color-popover-surface) }
-
-.border-line { border-color: var(--color-line) }
-
-.focus\:border-line:focus { border-color: var(--color-line) }
-
-.border-line\/60 { border-color: color-mix(in oklch, var(--color-line) 60%, transparent) }
-
-.bg-brand-surface { background-color: var(--color-brand-surface) }
-
-.bg-brand-surface\/10 { background-color: color-mix(in oklch, var(--color-brand-surface) 10%, transparent) }
-
-.bg-brand-surface\/35 { background-color: color-mix(in oklch, var(--color-brand-surface) 35%, transparent) }
-
-.dark .dark\:bg-brand-surface\/15 { background-color: color-mix(in oklch, var(--color-brand-surface) 15%, transparent) }
-
-.bg-brand-surface\/40 { background-color: color-mix(in oklch, var(--color-brand-surface) 40%, transparent) }
-
-.\!text-brand-inverse { color: var(--color-brand-inverse) !important }
-
-.text-brand-content { color: var(--color-brand-content) }
-
-.bg-accent-surface { background-color: var(--color-accent-surface) }
-
-.text-accent-inverse { color: var(--color-accent-inverse) }
-
-.\[\&\_p\]\:text-accent-inverse p { color: var(--color-accent-inverse) }
-
-.hover\:text-accent-inverse:hover { color: var(--color-accent-inverse) }
-
-.hover\:bg-accent-inverse\/15:hover { background-color: color-mix(in oklch, var(--color-accent-inverse) 15%, transparent) }
-
-.text-accent-content { color: var(--color-accent-content) }
-
-.bg-positive-surface { background-color: var(--color-positive-surface) }
-
-.bg-positive-content { background-color: var(--color-positive-content) }
-
-.text-negative-content { color: var(--color-negative-content) }
-
-.font-mono { font-family: var(--font-mono) }
-
-.w-content-width { width: var(--spacing-content-width) }
-
-.px-viewport-padding { padding-left: var(--spacing-viewport-padding); padding-right: var(--spacing-viewport-padding) }
-
-.text-claude { color: var(--color-claude) }
-
-.group:hover .group-hover\:text-claude { color: var(--color-claude) }
-
-.bg-claude { background-color: var(--color-claude) }
-
-.peer:invalid ~ .peer-invalid\:disabled {
-cursor:default;opacity:.5;pointer-events:none
-}
-
-.peer:invalid ~ .peer-invalid\:disabled {
-opacity: .5;
-        cursor: default;
-        pointer-events: none
-}
-
-.focus\:rounded-full:focus { --radius: 999px }
-
-.\[\&\_figure\]\:rounded-full figure { --radius: 999px }
-
-.\[\&\_span\]\:rounded-full span { --radius: 999px }
-[role=tablist].focus\:rounded-full:focus {
---radius: 999px
-}
-[role=tablist].\[\&\_figure\]\:rounded-full figure {
---radius: 999px
-}
-[role=tablist].\[\&\_span\]\:rounded-full span {
---radius: 999px
-}
-
-@media (min-width: 640px) { .sm\:font-mono { font-family: var(--font-mono) } }
-
-@media (min-width: 768px) { .md\:row {
-flex-flow:row nowrap
-} }
-
-@media (min-width: 768px) { .md\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 1280px) { .xl\:col {
-flex-flow:column nowrap
-} }
-
-@media (min-width: 640px) { .sm\:flex.sm\:flex { display: flex } }
-
-@media (min-width: 640px) { .sm\:hidden.sm\:hidden { display: none } }
-
-@media (min-width: 768px) { .md\:block.md\:block { display: block } }
-
-@media (min-width: 768px) { .md\:col.md\:col { display: flex } }
-
-@media (min-width: 768px) { .md\:flex.md\:flex { display: flex } }
-
-@media (min-width: 768px) { .md\:hidden.md\:hidden { display: none } }
-
-@media (min-width: 768px) { .md\:inline.md\:inline { display: inline } }
-
-@media (min-width: 768px) { .md\:row.md\:row { display: flex } }
 
 @media (min-width: 1280px) { .xl\:col.xl\:col { display: flex } }
 }

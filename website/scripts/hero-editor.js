@@ -190,7 +190,7 @@ document.addEventListener('alpine:init', () => {
       // by the time alpine:init fires. If for some reason it isn't (e.g.
       // the code plugin failed to load), fall back to a short polling
       // loop so we still mount when CodeJar appears.
-      if (window.ManifestCode?.loadCodeJar) {
+      const loadDeps = function () {
         // Load the FULL hljs bundle (~43 KB gz) rather than the lean
         // per-language modules. The lean path doesn't transitively register
         // sublanguage dependencies (xml's grammar references css/javascript
@@ -247,16 +247,22 @@ document.addEventListener('alpine:init', () => {
           // init, outside any reactive context.
           bumpHljsStoreVersion();
         });
-      } else {
-        // Fallback: short poll loop covering the unlikely "code plugin
-        // not loaded" case (e.g. dev pages, embed scenarios).
+      };
+      // The code module loads on use; pages without x-code need it requested
+      const poll = function () {
         let tries = 0;
-        const poll = function () {
+        const step = function () {
           if (self.editor || ++tries > 200) return;
-          if (!tryMount()) setTimeout(poll, 50);
+          if (!tryMount()) setTimeout(step, 50);
         };
-        poll();
-      }
+        step();
+      };
+      if (window.ManifestCode?.loadCodeJar) loadDeps();
+      else if (window.Manifest?.loadModule) {
+        window.Manifest.loadModule('code').then(() => {
+          if (window.ManifestCode?.loadCodeJar) loadDeps(); else poll();
+        }).catch(poll);
+      } else poll();
       // Re-attempt on route changes (e.g. /docs → /) in case deps weren't
       // ready during the initial mount window.
       window.addEventListener('manifest:route-change', tryMount);
