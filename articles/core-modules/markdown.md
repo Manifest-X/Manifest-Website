@@ -14,7 +14,7 @@ All headings generated from markdown content (`<h1>` to `<h6>` elements) will ha
 
 ## Setup
 
-Markdown is included in `manifest.js` with all core modules, or can be selectively loaded.
+Markdown loads automatically when the page uses `x-markdown`, or can be selectively loaded.
 
 <div x-code-group copy>
 
