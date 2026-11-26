@@ -553,7 +553,7 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 | Method | Parameters | Description |
 |--------|------------|-------------|
 | `$auth.createTeamFromName()`{copy} | None | Create a team using `newTeamName` property |
-| `$auth.viewTeam(...)`{copy} | `team` (object) | Load team details and memberships. When switching teams quickly, the members and permissions shown always belong to the current team |
+| `$auth.viewTeam(...)`{copy} | `team` (object) | Load team details and memberships. When switching teams quickly, or viewing a team while the teams are still loading, the members and permissions shown always belong to the current team |
 | `$auth.updateCurrentTeamName()`{copy} | None | Update current team name using `updateTeamNameInput` property |
 | `$auth.updateTeamName(...)`{copy} | `teamId` (string), `name` (string) | Rename a team |
 | `$auth.deleteTeam(...)`{copy} | `teamId` (string) | Delete a team |
