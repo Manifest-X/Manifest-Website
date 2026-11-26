@@ -173,7 +173,7 @@ Some endpoints check fields on the server and say which ones failed. When an err
 
 ## Spam Protection
 
-Manifest-hosted forms keep repeats out for you: when the same visitor sends identical fields to the same form again within 10 minutes, the submission is stored and delivered once and counts once toward your monthly limit. Identical submissions from different visitors, such as RSVPs, are each kept.
+Manifest-hosted forms keep repeats out for you: when identical fields are sent to the same form again from the same connection (network address) within 10 minutes, the submission is stored and delivered once and counts once toward your monthly limit. Identical submissions from different connections are kept separately, but people sharing one network, such as an office or venue Wi-Fi, can be treated as one sender.
 
 A <a href="https://developers.cloudflare.com/turnstile/" target="_blank">Cloudflare Turnstile</a> widget inside the form sends its token as a field. Tokens work once, so the widget is reset after every answer, ready for the next try.
 
