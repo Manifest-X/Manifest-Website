@@ -565,7 +565,7 @@ The auth module dispatches these events on `window`:
 <div x-data @manifest:auth:login.window="$toast('Welcome back')"></div>
 ```
 
-On page load, a returning signed-in visitor's account, session and (with [teams](/docs/framework/appwrite-modules/teams) enabled) team list are requested together, then the current team's members and roles together. `manifest:auth:initialized` fires as soon as the session is known, before teams load, and `manifest:auth:teams-loaded` follows. Sign-in link returns (magic URL, team invite, OAuth) and [auto guest sessions](#auto-guest-sessions) are handled right after `manifest:auth:initialized`. Since 0.5.337 they run even when the session check finishes very quickly, which earlier versions could skip.
+On page load, a returning signed-in visitor's account, session and (with [teams](/docs/framework/appwrite-modules/teams) enabled) team list are requested together, then the current team's members and roles together. `manifest:auth:initialized` fires as soon as the session is known, before teams load, and when teams load, `manifest:auth:teams-loaded` follows. Sign-in link returns (magic URL, team invite, OAuth) and [auto guest sessions](#auto-guest-sessions) are handled right after `manifest:auth:initialized`. Since 0.5.337 they run even when the session check finishes very quickly, which earlier versions could skip.
 
 ### Cleanup Before Sign-out
 

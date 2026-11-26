@@ -443,7 +443,7 @@ A closed menu's contents are not initialized until it opens, so the virtualized 
 
 ## Reusing Rows
 
-By default, a row that scrolls out of the window is removed, and a new one is built for each row scrolling in. With `recycle: true`, the leaving row's elements are handed to an entering row and given its item instead. This can make scrolling faster when rows are heavy. On a test row with about 25 bindings, a nested list and a menu, large jumps through the list were roughly 25 to 33% faster, while small scroll steps were about the same. Light rows gain little.
+By default, a row that scrolls out of the window is removed, and a new one is built for each row scrolling in. With `recycle: true`, the leaving row's elements are handed to an entering row and given its item instead. This can make large jumps through the list noticeably faster when rows are heavy. Small scroll steps and light rows gain little.
 
 ```html copy
 <div x-virtual="{ recycle: true }" class="h-[600px] overflow-auto">
@@ -477,7 +477,7 @@ Some rows are rebuilt as usual instead of being reused, so nothing a person is u
 
 - A row that holds focus.
 - A row with an open popover, `<details>` or `<dialog>`.
-- A row whose trigger has a menu or popover open elsewhere, or that is the trigger of an open context menu.
+- A row with a trigger marked `aria-expanded="true"` (as `x-dropdown` sets it) for a menu or popover open elsewhere, or that is the trigger of an open context menu.
 - Any of the above in content the row teleports elsewhere with `x-teleport`.
 - A row whose root is a `<template>`.
 

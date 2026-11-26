@@ -337,7 +337,7 @@ Owner-only is the safest choice for a creator who should have full, future-proof
 **Editing role permissions from JavaScript?** Use `await $auth.updateRolePermissions(teamId, roleName, ['manageBilling', ...])` — it persists straight to team prefs with a plain array and refreshes `$auth.allTeamRoles()`. Don't assign to `$auth.editingRole.permissions` programmatically: that object is reactive and is meant for `x-model`-bound inputs (as above). For a mid-edit flow, call `$auth.setEditingPermissions([...])` then `$auth.saveEditingRole()`.
 :::
 
-Custom roles and role changes are stored in the team's preferences, which the module reads at most once every 15 seconds per team. Changes made through `$auth` methods show straight away, as do realtime team updates and signing in or out. Roles written another way, such as directly through the Appwrite SDK or from a server function, can take up to 15 seconds to show unless a realtime update arrives first.
+Custom roles and changes to their permissions are stored in the team's preferences, which the module reads at most once every 15 seconds per team. Changes made through `$auth` methods show straight away, as do realtime team updates and signing in or out. Roles written another way, such as directly through the Appwrite SDK or from a server function, can take up to 15 seconds to show unless a realtime update arrives first.
 
 ---
 
