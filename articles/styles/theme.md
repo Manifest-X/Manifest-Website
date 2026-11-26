@@ -368,6 +368,6 @@ The saving is small on fast machines (tens of milliseconds) and larger on slow o
 - Local development hosts (`localhost`, `127.0.0.1`, `[::1]`, `0.0.0.0`, `*.localhost`, `*.local`) never use it. LAN addresses, tunnels and staging hosts do.
 - Pages that carry a utilities stylesheet baked at publish don't use it. Manifest hosting adds one to `index.html` when it finds utility classes, and prerendered pages link one.
 
-When the engine loads after a stored copy was used, the window receives a `manifest:tailwind-cache`{copy} event whose `detail.reason` says why: `unseen` (with the new classes in `detail.unseen`), `config` (a block changed) or `shipped` (a baked stylesheet was found).
+When the engine loads after a stored copy was applied to the page, the window receives a `manifest:tailwind-cache`{copy} event whose `detail.reason` says why: `unseen` (with the new classes in `detail.unseen`), `config` (a block changed) or `shipped` (a baked stylesheet was found).
 
 Alternatively, Tailwind can be <a href="https://tailwindcss.com/docs/installation/using-vite" target="_blank" rel="noopener">directly installed</a>. It uses a build step to compile CSS variables (from `@theme { ... }` rules) into CSS utility classes, making Manifest's utility module redundant.

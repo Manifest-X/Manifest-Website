@@ -28,7 +28,7 @@ None of this needs an attribute or a setting. The one switch is `data-defer="off
 
 ## Utility Classes
 
-Publishing bakes a stylesheet of every Tailwind-style utility class your pages use (`flex`, `gap-4`, `hover:underline`, `bg-brand-surface`, and their variants) instead of shipping an engine that scans the page and generates them live. When that baked sheet covers every class on a page, the live engine never loads at all — one less script, sooner interactivity.
+When you publish to Manifest hosting, the Tailwind-style utility classes found in your pages (`flex`, `gap-4`, `hover:underline`, `bg-brand-surface`, and their variants) are baked into a stylesheet linked from the page, so they are styled before any script runs. The utilities module still loads and generates only the classes the baked sheet doesn't cover, such as ones added at runtime. With `data-tailwind`, the Tailwind engine still loads as well.
 
 **Classes a scan can't see.** A class assigned only from a runtime value — `:class="ok ? 'bg-green-500' : 'bg-amber-500'"` — may not appear anywhere the publish-time scan looks. List it under `utilities.safelist` in `manifest.json` so it's baked in like any other class:
 
@@ -46,7 +46,7 @@ For a whole family built at runtime, `utilities.patterns` takes regular expressi
 }
 ```
 
-If a class still turns up uncovered on a live page, Manifest loads the full engine automatically and logs a warning — a page never renders unstyled without saying so.
+A class that isn't baked is still generated in the browser when it appears, by the utilities module or by Tailwind when `data-tailwind` is set. A class neither can produce stays unstyled.
 
 ---
 
@@ -111,9 +111,9 @@ Add `data-defer="off"` to the loader `<script>` to turn automatic deferral off f
 
 ## How Warming Works
 
-After the page settles, idle time is used to warm deferred containers before their first open: on-screen ones first, then the rest, a few at a time and only while the browser is idle. `x-defer.priority` orders containers that are equally placed, and `x-defer.lazy` keeps a container out. Warming stops at the cap (48 containers by default) and skips containers on inactive routes. Warmed containers open instantly; the rest render on open. A page that is never idle is never warmed.
+After the page settles, idle time is used to warm deferred containers before their first open: on-screen ones first, then the rest, a few at a time and only while the browser is idle. `x-defer.priority` orders containers that are equally placed, and `x-defer.lazy` keeps a container out. Warming stops at the cap (48 containers by default) and skips containers on inactive routes. Warmed containers open instantly; the rest render on open. A page that is never idle is never warmed; browsers without `requestIdleCallback` warm on a short timer instead.
 
-A click or key press that reveals new content, such as a tab switch or an opened panel, moves the containers that appear within about half a second of it to the front, nearest the click first and up to 8 per gesture. These may go past the cap; the least useful warmed containers are then put back, to render on open or when warming has room again. Containers that were already on screen, or only scrolled into view, are not moved forward: at the cap, a pending menu next to the click renders when it opens. For 1.5 seconds after each click or key press, plain warming pauses, so freed slots go to what that gesture revealed.
+A click or key press that reveals new content, such as a tab switch or an opened panel, moves the containers that appear within about half a second of it to the front, prioritized ones first, then nearest the click, up to 8 at a time. These may go past the cap; the least useful warmed containers are then put back, to render on open or when warming has room again. Containers that were already on screen, or only scrolled into view, are not moved forward: at the cap, a pending menu next to the click renders when it opens. For 1.5 seconds after each click or key press, plain warming pauses, so freed slots go to what that gesture revealed.
 
 ---
 
@@ -141,7 +141,7 @@ When your project is slow, work through this checklist:
 - [ ] A long list in a container without a bounded height? Give the [`x-virtual`](/docs/framework/core-modules/virtual) container a fixed height so only the visible rows render.
 - [ ] A menu cloned inside every row? Reuse one menu for many rows.
 - [ ] A class name built from data, so each row gets a new one? Use a fixed set of classes.
-- [ ] Self-hosting with `mnfst@latest`? Pin the version in the script URL and in `data-version` (see [setup](/docs/framework/getting-started/setup#script)) so repeat visits are served from the browser cache. Sites on Manifest hosting are pinned automatically when you publish (see [publish](/docs/platform/publish#framework-version)).
+- [ ] Not on Manifest hosting and loading `mnfst@latest`? Pin the version in the script URL and in `data-version` (see [setup](/docs/framework/getting-started/setup#script)) so repeat visits are served from the browser cache. Sites on Manifest hosting are pinned automatically when you publish (see [publish](/docs/platform/publish#framework-version)).
 - [ ] Using `data-tailwind` without a baked utilities stylesheet? Try the opt-in [Tailwind output cache](/docs/framework/styles/theme#tailwind-output-cache).
 - [ ] A ticker that rewrites text every second? Tick at the granularity you display.
 - [ ] Popover opens paying page-wide layout? Add the `contain: layout` CSS property to large scrollers.

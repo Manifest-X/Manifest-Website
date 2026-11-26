@@ -37,7 +37,7 @@ The `manifest.js` script tag accepts `data-*` attributes to control module loadi
 
 | Attribute | Default | Description |
 |---|---|---|
-| `data-modules`{copy} | (auto) | Comma-separated list of modules to load; prefix a name with `+` to add it to the defaults instead of replacing them. A list without `+` names loads exactly those modules, and [on-use loading](#on-use-modules) is off |
+| `data-modules`{copy} | (auto) | Comma-separated list of modules to load; prefix a name with `+` to add it to the defaults instead of replacing them. A list with any name not prefixed with `+` loads exactly the listed modules, and [on-use loading](#on-use-modules) is off |
 | `data-omit`{copy} | — | Comma-separated, case-insensitive list to exclude from the loaded set, with or without `data-modules`. An omitted module is never loaded by the loader, even when the page uses it, and the console shows one warning naming it. A module another loaded module depends on still loads |
 | `data-version`{copy} | `latest`, or the loader's own version when its tag has `integrity` | Module version to fetch from CDN |
 | `data-alpine`{copy} | The version tested with this framework release | Alpine version, a full URL, or a path starting with `/` |
@@ -53,9 +53,9 @@ The `manifest.js` script tag accepts `data-*` attributes to control module loadi
 
 ### On-Use Modules
 
-Without a fixed `data-modules` list, these modules load only when the page uses them: markdown, code, svg, combobox, slides, colorpicker, datepicker, charts, virtual, export (which also provides import; `import` works as a name), rich-text, submissions, chat, appwrite-presences and device. The loader looks for their attributes (`x-markdown`, `x-chart`, `x-date` and so on, with or without modifiers), for `<pre><code class="language-…">` and `<code copy>`, and for their magics (`$chart`, `$chat`, `$export`, …) in attributes and inline scripts. Components, `x-html` and other content added later are checked as they arrive.
+Without a fixed `data-modules` list, these modules load when the page uses them: markdown, code, svg, combobox, slides, colorpicker, datepicker, charts, virtual, export (which also provides import; `import` works as a name), rich-text, submissions, chat, appwrite-presences and device. Chat, appwrite-presences and device also load when `manifest.json` configures them. The loader looks for their attributes (`x-markdown`, `x-chart`, `x-date` and so on, with or without modifiers), for `<pre><code class="language-…">` and `<code copy>`, and for their magics (`$chart`, `$chat`, `$export`, …) in attributes and inline scripts. Components, `x-html` and other content added later are checked as they arrive.
 
-**Content waiting for a module.** An element that needs a module still on its way is held until the module is ready, then starts as usual. While held, it shows but doesn't respond: clicks on it are lost, while text typed into its fields is kept and handed to `x-model` when it starts. Its own `x-data` state isn't available yet. Markdown, code and SVG stay invisible while held, so raw source never shows. If a module fails to load, or loads but hasn't started 10 seconds later, held elements start without it and the console says so.
+**Content waiting for a module.** An element whose directive needs a module still on its way (markdown, code, svg, combobox, slides, colorpicker, datepicker, charts, virtual or export) is held until the module is ready, then starts as usual. While held, it shows but doesn't respond: clicks on it are lost, while text typed into its fields is kept and handed to `x-model` when it starts. Its own `x-data` state isn't available yet. Markdown, code and SVG stay invisible while held, so raw source never shows. If a module fails to load, or loads but hasn't started 10 seconds later, held elements start without it and the console says so.
 
 **What the loader can't see.** Add the module with `data-modules="+name"`{copy} when it is used only in ways the page's markup doesn't show:
 

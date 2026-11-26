@@ -578,7 +578,7 @@ During idle time, Manifest warms the menus the visitor is likely to open next, s
 
 Three optional knobs on the `<menu>` element:
 
-- `x-defer.priority="1"` — warm this menu first (a lower number is warmed earlier). Use on the one or two menus people open most.
+- `x-defer.priority="1"` — warm this menu ahead of equally placed menus without a priority, on-screen menus first (a lower number is warmed earlier). Use on the one or two menus people open most.
 - `x-defer.off` — keep a menu eager. Only for menus whose contents must exist while closed.
 - `x-defer.discard` — throw the contents away when the menu closes, for large, rarely reopened menus.
 

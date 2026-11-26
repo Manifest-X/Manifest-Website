@@ -35,7 +35,7 @@ For release scripts, the same works with `npx mnfst-publish --no-live --label "v
 
 Pages that load the framework at `mnfst@latest`, another tag such as `next`, or a version range are fixed to the exact release it points to when you publish. Each published version keeps the framework it was published with, so a new framework release doesn't change a site until you publish again, and visitors' browsers can keep the framework files cached. The next full publish picks up the newest release; an update to a few files keeps the version of the site it updates.
 
-Only the framework's own `<script>` and `<link>` tags loading from cdn.manifestx.dev, jsDelivr or unpkg are changed, and a loader tag without `data-version` gets one. Tags with an `integrity` check stay as written. If the release can't be looked up while publishing, no page is changed and the pages load what their tags name.
+Only the framework's own `<script>` and `<link>` tags loading from cdn.manifestx.dev, jsDelivr or unpkg are changed, and a loader tag without `data-version` gets one. Tags with an `integrity` check stay as written. If the release can't be looked up while publishing, or the pages name more than a few different versions, no page is changed and the pages load what their tags name. Pages over 1 MB are left as written.
 
 ---
 
