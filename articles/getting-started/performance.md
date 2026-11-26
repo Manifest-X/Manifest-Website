@@ -101,7 +101,7 @@ Work the list out once with [x-computed](/docs/framework/core-modules/computed) 
 
 </div>
 
-`open` is recalculated when a row is created, updated or deleted, or when `q` or `key` changes. In one test with 10,000 rows and 20 bindings reading the same list, this cut the work per update from about 500ms to under 100ms.
+`open` is recalculated when a row is created, updated or deleted, or when `q` or `key` changes. In one test, run outside a browser with 10,000 rows and 20 bindings reading the same list, this cut the time per update from about 500ms to about 100ms. Real timings depend on the device.
 
 It matters when many bindings read the same derived list, or when a large list changes often. A list of a few hundred rows shown once doesn't need it. Readers must be inside the element that has `x-computed`; a binding elsewhere on the page still runs its own copy.
 
