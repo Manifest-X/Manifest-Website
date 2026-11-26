@@ -370,7 +370,7 @@ Items outside the window are not in the page, so `scrollIntoView()` can't reach 
 
 </div>
 
-`scrollToIndex(index, options)` scrolls to the item at a position in the data. The index can also be text made only of digits, as `x-model` gives without `.number`. `scrollToKey(key, options)` scrolls to the item whose `:key` is `key`.
+`scrollToIndex(index, options)` scrolls to the item at a position in the data. The index can also be text made only of digits, as `x-model` gives without `.number`. `scrollToKey(key, options)` scrolls to the item whose `:key` is `key`. Keys are compared exactly, so `'42'` does not match `42`.
 
 Both return a promise that resolves with the item's row element once the row is where you asked. Rows between here and there have not been measured yet, so the module corrects the position as they render. If rows near the item then change size, for example as images load, the list keeps the item in place until nothing has changed for a moment, for up to three seconds. If sizes never stop changing, the promise resolves after about a second and a half of trying, as close as it got.
 
@@ -378,7 +378,7 @@ Both return a promise that resolves with the item's row element once the row is 
 |----------|------|---------|-------------|
 | **`align`** | String | `'start'` | Where the item lands: `start`, `center`, `end`, or `nearest` (only scrolls if the item isn't fully visible). |
 | **`behavior`** | String | instant | `'smooth'` animates the scroll. People who prefer reduced motion get an instant jump. |
-| **`offset`** | Number | `0` | Extra pixels to keep clear at the aligned edge. The list's CSS `scroll-padding` is respected too, in any unit including `calc()`. This is the simplest way to clear a sticky header. |
+| **`offset`** | Number | `0` | Extra pixels to keep clear at the aligned edge (no effect with `center`). The list's CSS `scroll-padding` is respected too, in any unit including `calc()`. This is the simplest way to clear a sticky header. |
 
 Scrolling never moves focus. To focus the row afterwards, use the element the promise gives you. The row is already in place, so focusing it doesn't move the list:
 
@@ -394,7 +394,7 @@ Scrolling never moves focus. To focus the row afterwards, use the element the pr
 - While the list is still moving to the item or keeping it in place, a scroll from somewhere else that goes straight to the very end of the list in one step, such as your own code setting `scrollTop` to the bottom, looks the same as the browser trimming the scroll position while rows resize. The list then puts the item back. A scroll that stops anywhere short of the end ends it as usual, and wheel, touch and scroll keys on the list always end it.
 - Calling again with the same item and options while a scroll is running joins it. Once it has landed, the same call lands it again if it has moved.
 - The item is followed by its key, so items added or removed elsewhere during a smooth scroll don't change where it lands.
-- A hidden list (in a closed tab, dialog or `x-show`) scrolls once it is shown. A list hidden partway through keeps its promise waiting until it is shown again.
+- A list hidden with `x-show` scrolls once it is shown, and a list hidden partway through keeps its promise waiting until it is shown again. Closed dialogs, menus and tab panels don't build their contents until they first open, so a call made before then finds no list: it warns and resolves with `null`. Call it after opening the container.
 - Only the list scrolls. If the list itself is off screen, scroll the page to it first.
 - In a list that snaps vertically (`scroll-snap-type` on the block axis), the scroll is always instant. The browser then snaps, and the row ends up where the snap puts it. The promise resolves with the row if it is visible, otherwise `null`; this happens occasionally with `end` and `nearest`.
 - From a parent's `x-init`, the list may not be ready yet: call it inside `$nextTick`.
