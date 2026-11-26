@@ -57,6 +57,7 @@ Appwrite's cloud data sources work identically to local data sources in the fron
 What a visitor can read depends on who they are: through [scopes](/docs/framework/appwrite-modules/databases#scope), `$auth.` queries, or the row and file permissions set in Appwrite.
 
 - **Identity changes reload sources.** When someone signs in, signs out, or switches accounts (a guest signing in included), in any tab, every table and bucket source reloads for the new identity. The previous user's or guest's rows are cleared at once; rows read while signed out stay on screen until the new ones arrive.
+- **Team switches reload only what was read.** When `$auth.currentTeam` changes, team-scoped sources the page has already read reload for the new team; ones not read yet load when first read. The team being set as sign-in completes is not a switch, so nothing reloads then.
 - **Unscoped sources follow Appwrite permissions.** Tables and buckets without a scope or `$auth.` queries read whatever Appwrite allows, including rows and files open to everyone (`read("any")`) or to the `guests` role for signed-out visitors. When Appwrite refuses a signed-out visitor's table read outright, the source reports an "Authentication required" `$error`; with row security on and no rows readable by guests, it settles empty with no `$error`.
 - **Scoped sources wait for a user.** Scoped tables, and sources whose queries use `$auth.` values, stay empty until someone signs in. After an [offline start](/docs/framework/appwrite-modules/users#session-recovery), a persisted source keeps the rows saved for the user last signed in on this device until the session is checked.
 
@@ -77,6 +78,8 @@ If Appwrite refuses a change, it is undone: a failed update restores only the fi
 Network updates are batched. Many arriving at once are applied together, once per frame.
 
 `$x.products` is the same array every time you read it until the source changes, then a new one, so results computed from it can be kept against the array itself.
+
+Add `"granular": true`{copy} to a source's entry in `manifest.json` so that a change to the fields of existing rows (a realtime update, or your own `$update`) re-runs only what reads those fields, not everything that reads the source. It is off by default; on a granular source the array stays the same across field-only changes. See [field-level updates](/docs/framework/core-modules/local-data#field-level-updates).
 
 Failed loads are retried before `$error` shows, and `$x.products.$reload()` fetches the source again, both as for [local sources](/docs/framework/core-modules/local-data#state-properties). On a cloud source, `$reload()` keeps an active `$query` and, on a [paged source](/docs/framework/appwrite-modules/databases#large-tables), as many rows as are loaded.
 
