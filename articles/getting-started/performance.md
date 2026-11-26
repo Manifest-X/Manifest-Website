@@ -139,6 +139,7 @@ When your project is slow, work through this checklist:
 - [ ] `.filter()` or `.sort()` on a `$x` source inside a template expression? Move it into a [computed value](/docs/framework/core-modules/computed).
 - [ ] A getter that returns a new array or object on every read? Everything that reads it re-runs. Return a stored value instead.
 - [ ] A long list in a container without a bounded height? Give the [`x-virtual`](/docs/framework/core-modules/virtual) container a fixed height so only the visible rows render.
+- [ ] Heavy rows in a long virtual list? Try [`recycle`](/docs/framework/core-modules/virtual#reusing-rows) so rows are reused as you scroll.
 - [ ] A menu cloned inside every row? Reuse one menu for many rows.
 - [ ] A class name built from data, so each row gets a new one? Use a fixed set of classes.
 - [ ] Not on Manifest hosting and loading `mnfst@latest`? Pin the version in the script URL and in `data-version` (see [setup](/docs/framework/getting-started/setup#script)) so repeat visits are served from the browser cache. Sites on Manifest hosting are pinned automatically when you publish (see [publish](/docs/platform/publish#framework-version)).
