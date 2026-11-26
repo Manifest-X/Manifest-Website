@@ -162,9 +162,16 @@ When the teams load, the module makes one of them current: the first default tea
 
 The team is saved in the browser's local storage per project and user, for the 10 most recent users. It is saved when the team changes through `viewTeam` or when the module picks a team itself, such as after the current team is deleted or left. Assigning `$auth.currentTeam` directly does not save it. Guests are not remembered. If the user no longer belongs to the saved team, the usual pick applies.
 
-To choose the starting team yourself, set `$auth.startTeamId` to a team ID as the page starts, before the teams load. It takes precedence over a remembered team and applies only if the user belongs to that team. It is cleared on sign-out and when a different user signs in.
+To choose the starting team yourself, set `$auth.startTeamId` to a team ID as the page starts. It takes precedence over a remembered team and applies only if the user belongs to that team. An `x-init` in the page's own markup runs early enough; one inside a component that loads later may not.
 
-With either set, a returning visitor's starting team members and roles are requested together with the session check, rather than after the team list.
+```html copy
+<!-- Start on the team in ?team= -->
+<div x-data x-init="$auth.startTeamId = new URLSearchParams(location.search).get('team')"></div>
+```
+
+The module picks a starting team only while no team is current, so setting `$auth.startTeamId` after the teams have loaded does not change the current team. Until a pick uses it, it is not tied to any user. Once used, it belongs to that user: it is cleared on sign-out and when a different user signs in.
+
+With either set as the page starts, a returning visitor's starting team members and roles are requested together with the session check, rather than after the team list.
 
 ---
 
@@ -372,11 +379,13 @@ Permission checks such as `hasTeamPermissionSync` read the signed-in user's own 
 | None found in the current team | None |
 | Only Appwrite's `owner` role | All |
 | One or more custom roles | Those roles' permissions |
-| No roles at all | None. Before 0.5.340 this granted all |
+| No roles at all | None |
+
+Since 0.5.340, a user missing from the listed members or holding no roles gets no permissions. Earlier versions granted all permissions in both cases.
 
 `$auth.currentTeamMembership` holds that membership, including its `roles` and `displayRoles`. It is read-only, and `null` until the membership is known, when the user has none in the current team, and when signed out.
 
-Appwrite lists 25 members of a team at a time unless told otherwise. When the listed members of the current team don't include the user and the team has more, the module fetches the user's own membership in a separate request. Until it answers, permission checks return `false`, unless the membership is already known from an earlier listing. If the request fails or takes longer than about 3 seconds, checks are denied, and a late answer still applies when it arrives. After a failed request, the module tries again 5, 15 and 45 seconds later, then at the next member listing. A newer member listing or a team switch cancels pending retries. When the user is among the listed members, no extra request is made.
+Appwrite lists 25 members of a team at a time unless told otherwise. When a listing of the current team doesn't include the user and the team has more members, or the listing used its own queries or a search, the module fetches the user's own membership in a separate request. Until it answers, permission checks return `false`, unless the membership is already known from an earlier listing. If the request fails or takes longer than about 3 seconds, checks are denied, even for a membership known before, and a late answer still applies when it arrives. When the request fails, including after those 3 seconds, the module tries again 5, 15 and 45 seconds later. After that, or if the request never answers, it tries again only at the next member listing. A newer member listing, a team switch or sign-out cancels pending retries. When the user is among the listed members, no extra request is made.
 
 `$auth.currentTeamMembershipStatus` says where that lookup stands, so the interface can tell "still checking" apart from "no access":
 
@@ -385,7 +394,7 @@ Appwrite lists 25 members of a team at a time unless told otherwise. When the li
 | `'loading'`{copy} | The membership is not known yet: the first member listing or the separate request is still running |
 | `'ready'`{copy} | The membership is known, including while it is fetched again |
 | `'none'`{copy} | The user has no membership in the current team |
-| `'error'`{copy} | The last request failed or took longer than about 3 seconds, and no membership is known. A retry may be pending |
+| `'error'`{copy} | The last request failed or took longer than about 3 seconds, so no membership is known, even one known before. A retry may be pending |
 | `null`{copy} | No current team, or signed out |
 
 ```html copy
@@ -566,7 +575,7 @@ In your Appwrite project under <b>Auth</b> > <b>Settings</b>, ensure <b>Team inv
 
 #### Large Teams
 
-By default, `$auth.currentTeamMemberships` holds the first 25 members, Appwrite's default page size. Set `memberLimit` to a whole number from 1 to 100 to change it. Any other value is ignored with a console warning.
+By default, `$auth.currentTeamMemberships` holds the first 25 members, Appwrite's default page size. Set `memberLimit` to a whole number from 1 to 100 to change it. A numeric string such as `"50"` also works, for example from an environment variable. Any other value is ignored with a console warning.
 
 ```json "manifest.json" copy
 {
@@ -582,29 +591,31 @@ By default, `$auth.currentTeamMemberships` holds the first 25 members, Appwrite'
 }
 ```
 
-`memberLimit` applies to the member listings the module makes itself, such as on sign-in, in `viewTeam` and after realtime member updates. `$auth.currentTeamMembershipsTotal` is the team's member count from the last listing, and `$auth.currentTeamMembershipsCursor` is the ID of the last listed member while the list holds fewer members than that total (otherwise `null`).
+`memberLimit` applies to the member listings the module makes itself, such as on sign-in, in `viewTeam` and after realtime member updates. `$auth.currentTeamMembershipsTotal` is the team's member count from the last listing, and `$auth.currentTeamMembershipsCursor` is the ID of the last listed member while the list holds fewer members than that total (otherwise `null`). The cursor compares only the listed page with the total, so it stays set on every page after the first, including the last.
 
-To show the next page, pass the cursor to `$auth.listMemberships()` with Appwrite's `Query.cursorAfter`. The page replaces `$auth.currentTeamMemberships`, and `viewTeam` or a realtime member update lists the first page again.
+To show the next page, pass the cursor to `$auth.listMemberships()` with Appwrite's `Query.cursorAfter`. The page replaces `$auth.currentTeamMemberships`. Any listing the module makes itself lists the first page again, such as `viewTeam`, a realtime member update, or updating or removing a member.
+
+This example uses Appwrite's default page of 25, with `memberLimit` unset. A page shorter than that is the last one. When the member count is a multiple of 25, Next on the last full page shows an empty page.
 
 ```html copy
-<div x-data="{ before: 0 }">
+<div x-data>
     <!-- Members -->
     <template x-for="membership in $auth.currentTeamMemberships" :key="membership.$id">
         <p x-text="$auth.getMemberDisplayName(membership)"></p>
     </template>
 
-    <!-- Position -->
-    <small x-text="`${before + $auth.currentTeamMemberships.length} of ${$auth.currentTeamMembershipsTotal}`"></small>
+    <!-- Count -->
+    <small x-text="`${$auth.currentTeamMemberships.length} shown of ${$auth.currentTeamMembershipsTotal}`"></small>
 
     <!-- Next page -->
-    <button x-show="$auth.currentTeamMembershipsCursor && before + $auth.currentTeamMemberships.length < $auth.currentTeamMembershipsTotal" @click="before += $auth.currentTeamMemberships.length; $auth.listMemberships($auth.currentTeam.$id, [Appwrite.Query.limit(25), Appwrite.Query.cursorAfter($auth.currentTeamMembershipsCursor)])">Next</button>
+    <button x-show="$auth.currentTeamMembershipsCursor && $auth.currentTeamMemberships.length === 25" @click="$auth.listMemberships($auth.currentTeam.$id, [Appwrite.Query.limit(25), Appwrite.Query.cursorAfter($auth.currentTeamMembershipsCursor)])">Next</button>
 
     <!-- First page -->
-    <button x-show="before > 0" @click="before = 0; $auth.viewTeam($auth.currentTeam)">First</button>
+    <button x-show="$auth.currentTeamMemberships.length < $auth.currentTeamMembershipsTotal" @click="$auth.viewTeam($auth.currentTeam)">First</button>
 </div>
 ```
 
-When a page doesn't include the signed-in user, the module looks up their membership separately, so permissions keep following it. See [how permissions resolve](#how-permissions-resolve).
+When a page doesn't include the signed-in user, the module looks up their membership separately, so permissions keep following it. The new page shows once that lookup answers, or after about 3 seconds. See [how permissions resolve](#how-permissions-resolve).
 
 ---
 
@@ -622,7 +633,7 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 | `$auth.currentTeamMembership`{copy} | object \| null | The signed-in user's own membership in the current team (read-only). See [how permissions resolve](#how-permissions-resolve) |
 | `$auth.currentTeamMembershipStatus`{copy} | string \| null | `'loading'`, `'ready'`, `'none'` or `'error'` for the user's own membership; `null` with no current team or signed out (read-only) |
 | `$auth.currentTeamMembershipsTotal`{copy} | number | Member count of the current team from its last listing |
-| `$auth.currentTeamMembershipsCursor`{copy} | string \| null | ID of the last listed member while more remain, for `Query.cursorAfter`. See [large teams](#large-teams) |
+| `$auth.currentTeamMembershipsCursor`{copy} | string \| null | ID of the last listed member while the list holds fewer than the total, for `Query.cursorAfter`. See [large teams](#large-teams) |
 | `$auth.startTeamId`{copy} | string \| null | Team to start on when the teams load, if the user belongs to it. See [starting team](#starting-team) |
 | `$auth.deletedTemplateTeams`{copy} | array | Array of deleted template team names (can be reapplied) |
 
