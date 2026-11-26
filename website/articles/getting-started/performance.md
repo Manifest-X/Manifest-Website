@@ -18,7 +18,7 @@ Most of Manifest's performance work is automatic. Closed containers cost nothing
 
 **Text only updates when it changes.** A text binding whose value comes back unchanged leaves the page alone, and empty values (`null` or `undefined`) show as empty text rather than the word "null".
 
-**Searches and filters on data are cached.** `$search`, `$query` and `$route` remember their result until the source they read changes, so binding the same search in fifty rows costs one pass, not fifty. Your own derivations get the same treatment with [x-computed](/docs/framework/core-modules/computed). If you change a row's field directly, for example with `x-model` on the row, without saving it through the data methods, search results for that row do not update until the source next changes.
+**Searches and filters on data are cached.** `$search` and `$route`, and `$query` on a local source, remember their result until the source they read changes, so binding the same search in fifty rows costs one pass, not fifty. Your own derivations get the same treatment with [x-computed](/docs/framework/core-modules/computed). If you change a row's field directly, for example with `x-model` on the row, without saving it through the data methods, search results for that row do not update until the source next changes.
 
 **Repeat visits load from the browser.** Sites on Manifest hosting register a small service worker that keeps the page shell, scripts, styles and components on the visitor's device. The first visit loads from the network as usual; from the next visit on, the shell comes from the device and only the data is fetched, and a page that was already open keeps working offline. Publishing still takes effect on the next load, because the page itself is always checked against the network first. Local previews with `mnfst-run` never register it. To turn it off for a site, set `"sw": false` in `manifest.json`, or add `data-sw="off"` to the loader `<script>`.
 
@@ -57,6 +57,55 @@ A class that isn't baked is still generated in the browser when it appears, by t
 | A list, table or total built from data | [**x-computed**](/docs/framework/core-modules/computed) — a named value recalculated only when its inputs change |
 | Any list over ~100 rows, especially inside a menu | [**x-virtual**](/docs/framework/core-modules/virtual) — renders only the visible rows |
 | The one or two menus people open most | `x-defer.priority="1"`{copy} — warmed first, so they open instantly (see [dropdowns](/docs/framework/elements/dropdowns#closed-menus-cost-nothing)) |
+
+---
+
+## Filtering & Sorting Lists
+
+A `.filter()` or `.sort()` you write in a binding runs over the whole source each time that binding updates, and each binding runs its own copy. Manifest can't cache code you write. When the source changes, for example on every realtime event, a list derived in twenty bindings is filtered and sorted twenty times.
+
+Work the list out once with [x-computed](/docs/framework/core-modules/computed) and read the result everywhere inside the element:
+
+<div x-code-group copy>
+
+```html "Before"
+<!-- Each binding filters the whole source -->
+<div x-data="{ q: '', key: 'name' }">
+    <input type="text" placeholder="Filter tasks..." x-model="q">
+    <select x-model="key">
+        <option value="name">Name</option>
+        <option value="due">Due date</option>
+    </select>
+    <p x-text="$x.tasks.filter(t => t.status === 'open' && t.name.includes(q)).length + ' open'"></p>
+    <template x-for="task in $x.tasks.filter(t => t.status === 'open' && t.name.includes(q)).sort((a, b) => String(a[key]).localeCompare(String(b[key])))" :key="task.$id">
+        <div x-text="task.name"></div>
+    </template>
+</div>
+```
+
+```html "After"
+<!-- Filtered and sorted once per change -->
+<div x-data="{ q: '', key: 'name' }"
+    x-computed:open="$x.tasks.filter(t => t.status === 'open' && t.name.includes(q)).sort((a, b) => String(a[key]).localeCompare(String(b[key])))">
+    <input type="text" placeholder="Filter tasks..." x-model="q">
+    <select x-model="key">
+        <option value="name">Name</option>
+        <option value="due">Due date</option>
+    </select>
+    <p x-text="open.length + ' open'"></p>
+    <template x-for="task in open" :key="task.$id">
+        <div x-text="task.name"></div>
+    </template>
+</div>
+```
+
+</div>
+
+`open` is recalculated when a row is created, updated or deleted, or when `q` or `key` changes. In one test, run outside a browser with 10,000 rows and 20 bindings reading the same list, this cut the time per update from about 500ms to about 100ms. Real timings depend on the device.
+
+It matters when many bindings read the same derived list, or when a large list changes often. A list of a few hundred rows shown once doesn't need it. Readers must be inside the element that has `x-computed`; a binding elsewhere on the page still runs its own copy.
+
+The data operators are already cached (see [what is automatic](#what-is-automatic)), so a `$search`, or a `$query` on a local source, doesn't need this. On an Appwrite source, `$query` asks Appwrite for new rows instead of filtering in the browser, so a filter or sort over the rows already loaded belongs in a computed value. See [search and query entries](/docs/framework/appwrite-modules/databases#search-query-entries).
 
 ---
 

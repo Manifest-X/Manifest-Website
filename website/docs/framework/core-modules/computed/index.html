@@ -794,8 +794,8 @@
 <p>The value keeps the same identity until something it reads changes, so <code>x-for</code> and <code>x-virtual</code> reuse their rows instead of rebuilding them. If the expression throws, the value keeps its last result.</p>
 <hr>
 <h2 id="when-not-to-use-it">When Not To Use It</h2><p>Simple expressions and plain getters are fine on their own. Reach for a computed value when the work grows with your data: filtering, sorting, grouping and totals.</p>
-<p>Data operators are already cached. <code>$search</code>, <code>$query</code> and <code>$route</code> on a data source remember their result until that source changes, so a search bound in many places is computed once. Use <code>x-computed</code> for derivations you write yourself, such as a <code>filter</code> or <code>reduce</code> over the rows.</p>
-<p>See <a href="/docs/framework/getting-started/performance">performance</a> for where computed values fit alongside the rest of Manifest's rendering behavior.</p>
+<p>Data operators are already cached. <code>$search</code> and <code>$route</code>, and <code>$query</code> on a local source, remember their result until that source changes, so a search bound in many places is computed once. Use <code>x-computed</code> for derivations you write yourself, such as a <code>filter</code>, <code>sort</code> or <code>reduce</code> over the rows, including over an Appwrite source, where <code>$query</code> reads from Appwrite instead.</p>
+<p>See <a href="/docs/framework/getting-started/performance#filtering-sorting-lists">filtering and sorting lists</a> for a before-and-after example, and <a href="/docs/framework/getting-started/performance">performance</a> for where computed values fit alongside the rest of Manifest's rendering behavior.</p>
 </div>
 
       <!-- Previous / next -->

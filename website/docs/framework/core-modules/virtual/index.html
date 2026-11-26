@@ -741,7 +741,7 @@
 <aside class="brand"><span x-icon="lucide:info"></span><p><strong>SEO &amp; AEO</strong> (Answer Engine Optimization): virtualized content is rendered client-side at scroll time, so it isn't visible to search engines or AI crawlers by default. Virtualization is best applied to interactive data like dashboard content, where discoverability isn't the goal.</p>
 </aside>
 <hr>
-<h2 id="setup">Setup</h2><p>Virtual loads automatically when the page uses <code>x-virtual</code>, or can be selectively loaded.</p>
+<h2 id="setup">Setup</h2><p>Virtual loads automatically when the page uses <code>x-virtual</code> or <code>$virtual</code>, or can be selectively loaded.</p>
 <pre x-code-group="" copy="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="all-modules-(default)-tab-0" aria-selected="true" tabindex="0">All Modules (default)</button><button type="button" role="tab" id="selective-tab-1" aria-selected="false" tabindex="-1">Selective</button></div></header>
 
 <pre x-code="html" name="All Modules (default)" data-code-block-built="yes" aria-label="All Modules (default)" role="tabpanel" data-code-processed="yes" id="all-modules-(default)-panel-0" aria-labelledby="all-modules-(default)-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
@@ -1118,39 +1118,39 @@
 })) }" class="w-full">
     <div x-virtual="" class="border border-line rounded font-mono text-sm h-[300px] overflow-auto" style="overflow: auto">
         <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">12:44:35</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">05:57:31</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">12:45:35</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">05:58:31</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">12:46:35</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">05:59:31</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">12:47:35</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">06:00:31</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-accent-content" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">12:48:35</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">06:01:31</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-negative-content" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">error</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">12:49:35</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">06:02:31</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">12:50:35</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">06:03:31</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">12:51:35</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">06:04:31</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">12:52:35</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">06:05:31</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-accent-content" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
@@ -1165,7 +1165,80 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>In this example, short and tall log lines coexist correctly. The scroll position stays accurate, the scrollbar reflects real total height, and items snap to their measured offsets the first time each one becomes visible.</p>
-<p>The module never moves the scroll position itself, so <code>scrollTo()</code> and <code>scrollIntoView()</code> run to the end and momentum scrolling isn't interrupted. When a rendered item above the visible area grows, the browser's own scroll anchoring keeps the view in place, where the browser supports it. There is no method to scroll to an item by its index, because items outside the window are not in the page.</p>
+<p>The module never moves the scroll position itself unless you ask it to with <code>scrollToIndex</code> or <code>scrollToKey</code>, so <code>scrollTo()</code> and <code>scrollIntoView()</code> run to the end and momentum scrolling isn't interrupted. When a rendered item above the visible area grows, the browser's own scroll anchoring keeps the view in place, where the browser supports it. To scroll to an item that isn't rendered yet, see <a href="#scrolling-to-an-item">Scrolling to an Item</a>.</p>
+<hr>
+<h2 id="scrolling-to-an-item">Scrolling to an Item</h2><p>Items outside the window are not in the page, so <code>scrollIntoView()</code> can't reach them. Use <code>$virtual</code> instead. Inside a list, <code>$virtual</code> is that list. From anywhere else, pass the list's <code>id</code> or element, as in <code>$virtual('people')</code> or <code>$virtual($refs.list)</code>.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes">
+
+<pre x-code="html" copy="" data-code-block-built="yes" role="region" data-code-processed="yes"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ jump: 0 }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">x-model.number</span>=<span class="hljs-string">"jump"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Row number"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$virtual('people').scrollToIndex(jump, { behavior: 'smooth' })"</span>&gt;</span>Go<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"people"</span> <span class="hljs-attr">x-virtual</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"h-[300px] overflow-auto"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"person in $x.people"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"person.id"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"person.name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<aside class="frame"><div x-data="{ jump: 250, people: Array.from({length: 500}, (_, i) =&gt; ({ id: i, name: ['Sirius','Vega','Polaris','Rigel','Arcturus','Lyra'][i % 6] + ' ' + (i + 1) })) }" class="col gap-3 w-full">
+    <div class="row gap-2 items-end">
+        <input type="number" min="0" max="499" x-model.number="jump" aria-label="Row number" class="max-w-32">
+        <button @click="$virtual('virtual-scroll-to-preview').scrollToIndex(jump, { behavior: 'smooth' })">Go</button>
+        <button class="ghost" @click="$virtual('virtual-scroll-to-preview').scrollToIndex(jump, { align: 'center' })">Center</button>
+    </div>
+    <div id="virtual-scroll-to-preview" x-virtual="" class="border border-line rounded h-[300px] overflow-auto" style="overflow: auto">
+        <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#0 Sirius 1</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#1 Vega 2</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#2 Polaris 3</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#3 Rigel 4</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#4 Arcturus 5</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#5 Lyra 6</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#6 Sirius 7</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#7 Vega 8</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#8 Polaris 9</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#9 Rigel 10</div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
+            <div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name"></div>
+        </template>
+    </div>
+</div></aside>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p><code>scrollToIndex(index, options)</code> scrolls to the item at a position in the data. The index can also be text made only of digits, as <code>x-model</code> gives without <code>.number</code>. <code>scrollToKey(key, options)</code> scrolls to the item whose <code>:key</code> is <code>key</code>. Keys are compared exactly, so <code>'42'</code> does not match <code>42</code>.</p>
+<p>Both return a promise that resolves with the item's row element once the row is where you asked. Rows between here and there have not been measured yet, so the module corrects the position as they render. If rows near the item then change size, for example as images load, the list keeps the item in place until nothing has changed for a moment, for up to three seconds. If sizes never stop changing, the promise resolves after about a second and a half of trying, as close as it got.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>align</code></strong></td>
+<td>String</td>
+<td><code>'start'</code></td>
+<td>Where the item lands: <code>start</code>, <code>center</code>, <code>end</code>, or <code>nearest</code> (only scrolls if the item isn't fully visible).</td>
+</tr>
+<tr>
+<td><strong><code>behavior</code></strong></td>
+<td>String</td>
+<td>instant</td>
+<td><code>'smooth'</code> animates the scroll. People who prefer reduced motion get an instant jump.</td>
+</tr>
+<tr>
+<td><strong><code>offset</code></strong></td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Extra pixels to keep clear at the aligned edge (no effect with <code>center</code>). The list's CSS <code>scroll-padding</code> is respected too, in any unit including <code>calc()</code>. This is the simplest way to clear a sticky header.</td>
+</tr>
+</tbody></table>
+<p>Scrolling never moves focus. To focus the row afterwards, use the element the promise gives you. The row is already in place, so focusing it doesn't move the list:</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"const row = await $virtual('people').scrollToKey(42, { align: 'center' }); if (row) { row.tabIndex = -1; row.focus() }"</span>&gt;</span>
+    Show #42
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<h3 id="scroll-details">Scroll Details</h3><ul>
+<li>The promise resolves with <code>null</code> when there is no item at that index or key, when a different call replaces it, when the item leaves the data, or when the list is scrolled some other way before the item is in place. That other way can be the person (wheel, touch, scroll keys on the list or with nothing focused), find in page, or your own code. Keys pressed in other widgets or scroll areas don't count. But if such a key makes the browser itself scroll the list, that scroll still ends it: for example PageDown in a field inside a row, or the caret being scrolled into view. The console warns once about a missing item or an index that isn't a whole number.</li>
+<li>While the list is still moving to the item or keeping it in place, a scroll from somewhere else that goes straight to the very end of the list in one step, such as your own code setting <code>scrollTop</code> to the bottom, looks the same as the browser trimming the scroll position while rows resize. The list then puts the item back. A scroll that stops anywhere short of the end ends it as usual, and wheel, touch and scroll keys on the list always end it.</li>
+<li>Calling again with the same item and options while a scroll is running joins it. Once it has landed, the same call lands it again if it has moved.</li>
+<li>The item is followed by its key, so items added or removed elsewhere during a smooth scroll don't change where it lands.</li>
+<li>A list hidden with <code>x-show</code> scrolls once it is shown, and a list hidden partway through keeps its promise waiting until it is shown again. Closed dialogs, menus and tab panels don't build their contents until they first open, so a call made before then finds no list: it warns and resolves with <code>null</code>. Call it after opening the container.</li>
+<li>Only the list scrolls. If the list itself is off screen, scroll the page to it first.</li>
+<li>In a list that snaps vertically (<code>scroll-snap-type</code> on the block axis), the scroll is always instant. The browser then snaps, and the row ends up where the snap puts it. The promise resolves with the row if it is visible, otherwise <code>null</code>; this happens occasionally with <code>end</code> and <code>nearest</code>.</li>
+<li>From a parent's <code>x-init</code>, the list may not be ready yet: call it inside <code>$nextTick</code>.</li>
+<li><code>$virtual</code> looks lists up by <code>id</code> in the page, so content teleported out of a list must name the list by <code>id</code>, and ids must be unique.</li>
+<li>Lists scaled with CSS <code>zoom</code> aren't supported.</li>
+</ul>
 <hr>
 <h2 id="dynamic-data">Dynamic Data</h2><p>Point the template's <code>x-for</code> at any reactive source — a <a href="/docs/framework/core-modules/local-data">local</a> or <a href="/docs/framework/appwrite-modules/cloud-data">cloud</a> data source through <code>$x</code>, or plain Alpine state — and the window stays in sync. Adds, deletes, sorts, and filters update the visible items automatically, and items re-bind by key, so reordering the data never scrambles their content.</p>
 <p>That makes virtualization a natural pair with <code>$search</code> and <code>$query</code>: wire a search input to <code>$x.&lt;source&gt;.$search()</code> and the list re-renders against the filtered results without rebuilding the whole DOM.</p>
@@ -1455,7 +1528,7 @@
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#basic-usage">Basic Usage</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#layout">Layout</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#table">Table</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#grid">Grid</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#gallery">Gallery</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#masonry">Masonry</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#customization">Customization</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#mixed-sizes">Mixed Sizes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#dynamic-data">Dynamic Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#loading-more-at-the-end">Loading More at the End</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#inside-menus-and-dialogs">Inside Menus and Dialogs</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#reusing-rows">Reusing Rows</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#rows-follow-their-item">Rows Follow Their Item</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#rows-that-are-rebuilt">Rows That Are Rebuilt</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#things-to-know">Things To Know</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#basic-usage">Basic Usage</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#layout">Layout</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#table">Table</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#grid">Grid</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#gallery">Gallery</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#masonry">Masonry</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#customization">Customization</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#mixed-sizes">Mixed Sizes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#scrolling-to-an-item">Scrolling to an Item</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#scroll-details">Scroll Details</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#dynamic-data">Dynamic Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#loading-more-at-the-end">Loading More at the End</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#inside-menus-and-dialogs">Inside Menus and Dialogs</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#reusing-rows">Reusing Rows</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#rows-follow-their-item">Rows Follow Their Item</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#rows-that-are-rebuilt">Rows That Are Rebuilt</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#things-to-know">Things To Know</a></div>
 
   </nav>
 
