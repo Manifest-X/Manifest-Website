@@ -848,6 +848,24 @@
 </template></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
+<h4 id="starting-team">Starting Team</h4><p>When the teams load, the module makes one of them current: the first default team when default teams are configured, otherwise the first team. Set <code>remember</code> to start each signed-in user on the team they last had current on this device instead.</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"appwrite"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        ...
+        <span class="hljs-attr">"auth"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            ...
+            <span class="hljs-attr">"teams"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"remember"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span>
+            <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>The team is saved in the browser's local storage per project and user, for the 10 most recent users. It is saved when the team changes through <code>viewTeam</code> or when the module picks a team itself, such as after the current team is deleted or left. Assigning <code>$auth.currentTeam</code> directly does not save it. Guests are not remembered. If the user no longer belongs to the saved team, the usual pick applies.</p>
+<p>To choose the starting team yourself, set <code>$auth.startTeamId</code> to a team ID as the page starts. It takes precedence over a remembered team and applies only if the user belongs to that team. An <code>x-init</code> in the page's own markup runs early enough; one inside a component that loads later may not.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Start on the team in ?team= --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span> <span class="hljs-attr">x-init</span>=<span class="hljs-string">"$auth.startTeamId = new URLSearchParams(location.search).get('team')"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>The module picks a starting team only while no team is current, so setting <code>$auth.startTeamId</code> after the teams have loaded does not change the current team. Until a pick uses it, it is not tied to any user. Once used, it belongs to that user: it is cleared on sign-out and when a different user signs in.</p>
+<p>With either set as the page starts, a returning visitor's starting team members and roles are requested together with the session check, rather than after the team list.</p>
 <hr>
 <h2 id="roles-permissions">Roles &amp; Permissions</h2><p>Without roles configured, every team member holds Appwrite's <code>owner</code> role, with full permission to manage the team and its members. To override this behaviour, define default roles and their permissions in <code>manifest.json</code>, which are made available to every new team.</p>
 <pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
@@ -953,7 +971,7 @@
     <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <p><code>creatorRoles</code> takes precedence over <code>creatorRole</code>. When neither is set, the creator is assigned the first defined role.</p>
-<p>Owner-only is the safest choice for a creator who should have full, future-proof access: a member holding <em>no</em> custom role resolves to <strong>all</strong> permissions (including any you add later), so they can never be locked out. By contrast, assigning the creator a custom role scopes them to exactly that role's permissions — if you later edit that role down, the creator loses access too. Prefer <code>creatorRoles: []</code> for owners; reserve named roles for invited members.</p>
+<p>Owner-only is the safest choice for a creator who should have full, future-proof access: a member holding only Appwrite's <code>owner</code> role and no custom role resolves to <strong>all</strong> permissions (including any you add later), so they can never be locked out. A member with no roles at all gets none (see <a href="#how-permissions-resolve">how permissions resolve</a>). By contrast, assigning the creator a custom role scopes them to exactly that role's permissions — if you later edit that role down, the creator loses access too. Prefer <code>creatorRoles: []</code> for owners; reserve named roles for invited members.</p>
 <pre x-code-group="" numbers="" copy="" collapse="10" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="create-custom-role-tab-0" aria-selected="true" tabindex="0">Create Custom Role</button><button type="button" role="tab" id="manage-roles-tab-1" aria-selected="false" tabindex="-1">Manage Roles</button></div></header>
 
 <pre x-code="html" name="Create Custom Role" collapse="10" data-code-block-built="yes" aria-label="Create Custom Role" role="tabpanel" data-collapsed="" style="--collapse-lines: 10" data-code-processed="yes" id="create-custom-role-panel-0" aria-labelledby="create-custom-role-tab-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Role name input --&gt;</span>
@@ -1061,6 +1079,71 @@
 <aside class="brand"><span x-icon="lucide:info"></span><p><strong>Editing role permissions from JavaScript?</strong> Use <code>await $auth.updateRolePermissions(teamId, roleName, ['manageBilling', ...])</code> — it persists straight to team prefs with a plain array and refreshes <code>$auth.allTeamRoles()</code>. Don't assign to <code>$auth.editingRole.permissions</code> programmatically: that object is reactive and is meant for <code>x-model</code>-bound inputs (as above). For a mid-edit flow, call <code>$auth.setEditingPermissions([...])</code> then <code>$auth.saveEditingRole()</code>.</p>
 </aside>
 <p>Custom roles and changes to their permissions are stored in the team's preferences, which the module reads at most once every 15 seconds per team. Changes made through <code>$auth</code> methods show straight away, as do realtime team updates and signing in or out. Roles written another way, such as directly through the Appwrite SDK or from a server function, can take up to 15 seconds to show unless a realtime update arrives first.</p>
+<h4 id="how-permissions-resolve">How Permissions Resolve</h4><p>Permission checks such as <code>hasTeamPermissionSync</code> read the signed-in user's own membership in the current team:</p>
+<table>
+<thead>
+<tr>
+<th>Membership</th>
+<th>Permissions</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>None found in the current team</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Only Appwrite's <code>owner</code> role</td>
+<td>All</td>
+</tr>
+<tr>
+<td>One or more custom roles</td>
+<td>Those roles' permissions</td>
+</tr>
+<tr>
+<td>No roles at all</td>
+<td>None</td>
+</tr>
+</tbody></table>
+<p>Since 0.5.340, a user missing from the listed members or holding no roles gets no permissions. Earlier versions granted all permissions in both cases.</p>
+<p><code>$auth.currentTeamMembership</code> holds that membership, including its <code>roles</code> and <code>displayRoles</code>. It is read-only, and <code>null</code> until the membership is known, when the user has none in the current team, and when signed out.</p>
+<p>Appwrite lists 25 members of a team at a time unless told otherwise. When a listing of the current team doesn't include the user and the team has more members, or the listing used its own queries or a search, the module fetches the user's own membership in a separate request. Until it answers, permission checks return <code>false</code>, unless the membership is already known from an earlier listing. If the request fails or takes longer than about 3 seconds, checks are denied, even for a membership known before, and a late answer still applies when it arrives. When the request fails, including after those 3 seconds, the module tries again 5, 15 and 45 seconds later. After that, or if the request never answers, it tries again only at the next member listing. A newer member listing, a team switch or sign-out cancels pending retries. When the user is among the listed members, no extra request is made.</p>
+<p><code>$auth.currentTeamMembershipStatus</code> says where that lookup stands, so the interface can tell "still checking" apart from "no access":</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">'loading'</code></td>
+<td>The membership is not known yet: the first member listing or the separate request is still running</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">'ready'</code></td>
+<td>The membership is known, including while it is fetched again</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">'none'</code></td>
+<td>The user has no membership in the current team</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">'error'</code></td>
+<td>The last request failed or took longer than about 3 seconds, so no membership is known, even one known before. A retry may be pending</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">null</code></td>
+<td>No current team, or signed out</td>
+</tr>
+</tbody></table>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Access state --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$auth.currentTeamMembershipStatus === 'loading'"</span>&gt;</span>Checking your access<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$auth.currentTeamMembershipStatus === 'error'"</span>&gt;</span>Couldn't check your access.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$auth.currentTeamMembershipStatus === 'none'"</span>&gt;</span>You're not a member of this team.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Gated action --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$auth.currentTeamMembershipStatus === 'ready'"</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"!$auth.hasTeamPermissionSync('manageBilling')"</span>&gt;</span>Billing<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Permissions are worked out in the browser from the team's roles. They decide what your interface shows and offers, and do not stop requests sent to Appwrite another way. Enforce anything that matters on the server, for example with Appwrite row and file permissions or in a function.</p>
 <hr>
 <h2 id="members">Members</h2><p>Team members can be invited, updated, and removed, subject to the respective user permissions.</p>
 <p>In your Appwrite project under <b>Auth</b> &gt; <b>Settings</b>, ensure <b>Team invites</b> is toggled on. Invitation emails can be customized under <b>Auth</b> &gt; <b>Settings</b> &gt; <b>Invite user</b>.</p>
@@ -1211,6 +1294,37 @@
 </template></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
+<h4 id="large-teams">Large Teams</h4><p>By default, <code>$auth.currentTeamMemberships</code> holds the first 25 members, Appwrite's default page size. Set <code>memberLimit</code> to a whole number from 1 to 100 to change it. A numeric string such as <code>"50"</code> also works, for example from an environment variable. Any other value is ignored with a console warning.</p>
+<pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"appwrite"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        ...
+        <span class="hljs-attr">"auth"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            ...
+            <span class="hljs-attr">"teams"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"memberLimit"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">100</span>
+            <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p><code>memberLimit</code> applies to the member listings the module makes itself, such as on sign-in, in <code>viewTeam</code> and after realtime member updates. <code>$auth.currentTeamMembershipsTotal</code> is the team's member count from the last listing, and <code>$auth.currentTeamMembershipsCursor</code> is the ID of the last listed member while the list holds fewer members than that total (otherwise <code>null</code>). The cursor compares only the listed page with the total, so it stays set on every page after the first, including the last.</p>
+<p>To show the next page, pass the cursor to <code>$auth.listMemberships()</code> with Appwrite's <code>Query.cursorAfter</code>. The page replaces <code>$auth.currentTeamMemberships</code>. Any listing the module makes itself lists the first page again, such as <code>viewTeam</code>, a realtime member update, or updating or removing a member.</p>
+<p>This example uses Appwrite's default page of 25, with <code>memberLimit</code> unset. A page shorter than that is the last one. When the member count is a multiple of 25, Next on the last full page shows an empty page.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- Members --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"membership in $auth.currentTeamMemberships"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"membership.$id"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$auth.getMemberDisplayName(membership)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Count --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"`${$auth.currentTeamMemberships.length} shown of ${$auth.currentTeamMembershipsTotal}`"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Next page --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$auth.currentTeamMembershipsCursor &amp;&amp; $auth.currentTeamMemberships.length === 25"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$auth.listMemberships($auth.currentTeam.$id, [Appwrite.Query.limit(25), Appwrite.Query.cursorAfter($auth.currentTeamMembershipsCursor)])"</span>&gt;</span>Next<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- First page --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$auth.currentTeamMemberships.length &lt; $auth.currentTeamMembershipsTotal"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$auth.viewTeam($auth.currentTeam)"</span>&gt;</span>First<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>When a page doesn't include the signed-in user, the module looks up their membership separately, so permissions keep following it. The new page shows once that lookup answers, or after about 3 seconds. See <a href="#how-permissions-resolve">how permissions resolve</a>.</p>
 <hr>
 <h2 id="properties">Properties</h2><p>Teams use the same <code>$auth</code> magic property as users to expose authentication state and methods.</p>
 <h3 id="team-state">Team State</h3><table>
@@ -1235,6 +1349,31 @@
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.currentTeamMemberships</code></td>
 <td>array</td>
 <td>Members of the current team</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.currentTeamMembership</code></td>
+<td>object | null</td>
+<td>The signed-in user's own membership in the current team (read-only). See <a href="#how-permissions-resolve">how permissions resolve</a></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.currentTeamMembershipStatus</code></td>
+<td>string | null</td>
+<td><code>'loading'</code>, <code>'ready'</code>, <code>'none'</code> or <code>'error'</code> for the user's own membership; <code>null</code> with no current team or signed out (read-only)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.currentTeamMembershipsTotal</code></td>
+<td>number</td>
+<td>Member count of the current team from its last listing</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.currentTeamMembershipsCursor</code></td>
+<td>string | null</td>
+<td>ID of the last listed member while the list holds fewer than the total, for <code>Query.cursorAfter</code>. See <a href="#large-teams">large teams</a></td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.startTeamId</code></td>
+<td>string | null</td>
+<td>Team to start on when the teams load, if the user belongs to it. See <a href="#starting-team">starting team</a></td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.deletedTemplateTeams</code></td>
@@ -1332,7 +1471,7 @@
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.viewTeam(...)</code></td>
 <td><code>team</code> (object)</td>
-<td>Load team details and memberships. When switching teams quickly, the members and permissions shown always belong to the current team</td>
+<td>Load team details and memberships. When switching teams quickly, or viewing a team while the teams are still loading, the members and permissions shown always belong to the current team</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.updateCurrentTeamName()</code></td>
@@ -1378,6 +1517,11 @@
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.inviteMember(...)</code></td>
 <td><code>teamId</code> (string), <code>roles</code> (array), <code>email</code> (string)</td>
 <td>Invite a member by email. Returns <code>{ success, membership, normalized }</code>; <code>normalized</code> is <code>true</code> when the stored roles differ from those requested (for example, a role with owner-level permissions also gets Appwrite's <code>owner</code> role)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.listMemberships(...)</code></td>
+<td><code>teamId</code> (string), <code>queries</code> (array, optional), <code>search</code> (string, optional)</td>
+<td>List a team's members. Returns <code>{ success, memberships, total }</code>. For the current team, the result replaces <code>currentTeamMemberships</code>. Without queries, uses <code>memberLimit</code> when set</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.updateMembership(...)</code></td>
