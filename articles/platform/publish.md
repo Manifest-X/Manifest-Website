@@ -31,6 +31,12 @@ Claude stores the build and replies with a preview address that shows exactly th
 
 For release scripts, the same works with `npx mnfst-publish --no-live --label "v2.4"`{copy}, then `npx mnfst-publish --promote --deployment dep_…`{copy}. `npx mnfst-publish --list --json`{copy} reads which version is live, so your script can pass it to `--expect-live dep_…`{copy}, which refuses the promote unless that version is still live. With `--json`{copy}, the result is one object your script can read, and a refusal carries a code such as `live_moved`. An option the command doesn't know is refused, so nothing is published. With search-ready pages on, the version you promoted still matches after its finished pages replace it. Preview addresses show pages only: forms, payments and AI chat answer on staging and live.
 
+### Framework Version
+
+Pages that load the framework at `mnfst@latest`, another tag such as `next`, or a version range are fixed to the exact release it points to when you publish. Each published version keeps the framework it was published with, so a new framework release doesn't change a site until you publish again, and visitors' browsers can keep the framework files cached. The next full publish picks up the newest release; an update to a few files keeps the version of the site it updates.
+
+Only the framework's own `<script>` and `<link>` tags loading from cdn.manifestx.dev, jsDelivr or unpkg are changed, and a loader tag without `data-version` gets one. Tags with an `integrity` check stay as written. If the release can't be looked up while publishing, no page is changed and the pages load what their tags name.
+
 ---
 
 ## Search-Ready Pages
