@@ -142,6 +142,30 @@ Every user can generate custom teams, view all teams, and manage them with the r
 
 </div>
 
+#### Starting Team
+
+When the teams load, the module makes one of them current: the first default team when default teams are configured, otherwise the first team. Set `remember` to start each signed-in user on the team they last had current on this device instead.
+
+```json "manifest.json" copy
+{
+    "appwrite": {
+        ...
+        "auth": {
+            ...
+            "teams": {
+                "remember": true
+            }
+        }
+    }
+}
+```
+
+The team is saved in the browser's local storage per project and user, for the 10 most recent users. It is saved when the team changes through `viewTeam` or when the module picks a team itself, such as after the current team is deleted or left. Assigning `$auth.currentTeam` directly does not save it. Guests are not remembered. If the user no longer belongs to the saved team, the usual pick applies.
+
+To choose the starting team yourself, set `$auth.startTeamId` to a team ID as the page starts, before the teams load. It takes precedence over a remembered team and applies only if the user belongs to that team. It is cleared on sign-out and when a different user signs in.
+
+With either set, a returning visitor's starting team members and roles are requested together with the session check, rather than after the team list.
+
 ---
 
 ## Roles & Permissions
@@ -352,7 +376,27 @@ Permission checks such as `hasTeamPermissionSync` read the signed-in user's own 
 
 `$auth.currentTeamMembership` holds that membership, including its `roles` and `displayRoles`. It is read-only, and `null` until the membership is known, when the user has none in the current team, and when signed out.
 
-Appwrite lists 25 members of a team at a time unless told otherwise. When the listed members of the current team don't include the user and the team has more, the module fetches the user's own membership in a separate request. Until it answers, permission checks return `false`, unless the membership is already known from an earlier listing. If the request fails or takes longer than about 3 seconds, checks are denied, and a late answer still applies when it arrives. After a failed request, the module tries once more 5 seconds later, then again at the next member listing. When the user is among the listed members, no extra request is made.
+Appwrite lists 25 members of a team at a time unless told otherwise. When the listed members of the current team don't include the user and the team has more, the module fetches the user's own membership in a separate request. Until it answers, permission checks return `false`, unless the membership is already known from an earlier listing. If the request fails or takes longer than about 3 seconds, checks are denied, and a late answer still applies when it arrives. After a failed request, the module tries again 5, 15 and 45 seconds later, then at the next member listing. A newer member listing or a team switch cancels pending retries. When the user is among the listed members, no extra request is made.
+
+`$auth.currentTeamMembershipStatus` says where that lookup stands, so the interface can tell "still checking" apart from "no access":
+
+| Value | Meaning |
+|-------|---------|
+| `'loading'`{copy} | The membership is not known yet: the first member listing or the separate request is still running |
+| `'ready'`{copy} | The membership is known, including while it is fetched again |
+| `'none'`{copy} | The user has no membership in the current team |
+| `'error'`{copy} | The last request failed or took longer than about 3 seconds, and no membership is known. A retry may be pending |
+| `null`{copy} | No current team, or signed out |
+
+```html copy
+<!-- Access state -->
+<p x-show="$auth.currentTeamMembershipStatus === 'loading'">Checking your access</p>
+<p x-show="$auth.currentTeamMembershipStatus === 'error'">Couldn't check your access.</p>
+<p x-show="$auth.currentTeamMembershipStatus === 'none'">You're not a member of this team.</p>
+
+<!-- Gated action -->
+<button x-show="$auth.currentTeamMembershipStatus === 'ready'" :disabled="!$auth.hasTeamPermissionSync('manageBilling')">Billing</button>
+```
 
 Permissions are worked out in the browser from the team's roles. They decide what your interface shows and offers, and do not stop requests sent to Appwrite another way. Enforce anything that matters on the server, for example with Appwrite row and file permissions or in a function.
 
@@ -520,6 +564,48 @@ In your Appwrite project under <b>Auth</b> > <b>Settings</b>, ensure <b>Team inv
 
 </div>
 
+#### Large Teams
+
+By default, `$auth.currentTeamMemberships` holds the first 25 members, Appwrite's default page size. Set `memberLimit` to a whole number from 1 to 100 to change it. Any other value is ignored with a console warning.
+
+```json "manifest.json" copy
+{
+    "appwrite": {
+        ...
+        "auth": {
+            ...
+            "teams": {
+                "memberLimit": 100
+            }
+        }
+    }
+}
+```
+
+`memberLimit` applies to the member listings the module makes itself, such as on sign-in, in `viewTeam` and after realtime member updates. `$auth.currentTeamMembershipsTotal` is the team's member count from the last listing, and `$auth.currentTeamMembershipsCursor` is the ID of the last listed member while the list holds fewer members than that total (otherwise `null`).
+
+To show the next page, pass the cursor to `$auth.listMemberships()` with Appwrite's `Query.cursorAfter`. The page replaces `$auth.currentTeamMemberships`, and `viewTeam` or a realtime member update lists the first page again.
+
+```html copy
+<div x-data="{ before: 0 }">
+    <!-- Members -->
+    <template x-for="membership in $auth.currentTeamMemberships" :key="membership.$id">
+        <p x-text="$auth.getMemberDisplayName(membership)"></p>
+    </template>
+
+    <!-- Position -->
+    <small x-text="`${before + $auth.currentTeamMemberships.length} of ${$auth.currentTeamMembershipsTotal}`"></small>
+
+    <!-- Next page -->
+    <button x-show="$auth.currentTeamMembershipsCursor && before + $auth.currentTeamMemberships.length < $auth.currentTeamMembershipsTotal" @click="before += $auth.currentTeamMemberships.length; $auth.listMemberships($auth.currentTeam.$id, [Appwrite.Query.limit(25), Appwrite.Query.cursorAfter($auth.currentTeamMembershipsCursor)])">Next</button>
+
+    <!-- First page -->
+    <button x-show="before > 0" @click="before = 0; $auth.viewTeam($auth.currentTeam)">First</button>
+</div>
+```
+
+When a page doesn't include the signed-in user, the module looks up their membership separately, so permissions keep following it. See [how permissions resolve](#how-permissions-resolve).
+
 ---
 
 ## Properties
@@ -534,6 +620,10 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 | `$auth.currentTeam`{copy} | object \| null | Currently selected team |
 | `$auth.currentTeamMemberships`{copy} | array | Members of the current team |
 | `$auth.currentTeamMembership`{copy} | object \| null | The signed-in user's own membership in the current team (read-only). See [how permissions resolve](#how-permissions-resolve) |
+| `$auth.currentTeamMembershipStatus`{copy} | string \| null | `'loading'`, `'ready'`, `'none'` or `'error'` for the user's own membership; `null` with no current team or signed out (read-only) |
+| `$auth.currentTeamMembershipsTotal`{copy} | number | Member count of the current team from its last listing |
+| `$auth.currentTeamMembershipsCursor`{copy} | string \| null | ID of the last listed member while more remain, for `Query.cursorAfter`. See [large teams](#large-teams) |
+| `$auth.startTeamId`{copy} | string \| null | Team to start on when the teams load, if the user belongs to it. See [starting team](#starting-team) |
 | `$auth.deletedTemplateTeams`{copy} | array | Array of deleted template team names (can be reapplied) |
 
 ---
@@ -586,6 +676,7 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 |--------|------------|-------------|
 | `$auth.inviteToCurrentTeam()`{copy} | None | Invite member using `inviteEmail` and `inviteRoles` properties |
 | `$auth.inviteMember(...)`{copy} | `teamId` (string), `roles` (array), `email` (string) | Invite a member by email. Returns `{ success, membership, normalized }`; `normalized` is `true` when the stored roles differ from those requested (for example, a role with owner-level permissions also gets Appwrite's `owner` role) |
+| `$auth.listMemberships(...)`{copy} | `teamId` (string), `queries` (array, optional), `search` (string, optional) | List a team's members. Returns `{ success, memberships, total }`. For the current team, the result replaces `currentTeamMemberships`. Without queries, uses `memberLimit` when set |
 | `$auth.updateMembership(...)`{copy} | `teamId` (string), `membershipId` (string), `roles` (array) | Set a member's roles. Returns the same `normalized` flag as `inviteMember` |
 | `$auth.startEditingMember(...)`{copy} | `teamId` (string), `membershipId` (string), `currentRoles` (array) | Start editing a member |
 | `$auth.saveEditingMember()`{copy} | None | Save member edits |
