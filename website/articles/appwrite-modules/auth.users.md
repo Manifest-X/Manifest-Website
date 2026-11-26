@@ -565,6 +565,8 @@ The auth module dispatches these events on `window`:
 <div x-data @manifest:auth:login.window="$toast('Welcome back')"></div>
 ```
 
+On page load, a returning signed-in visitor's account, session and (with [teams](/docs/framework/appwrite-modules/teams) enabled) team list are requested together, then the current team's members and roles together. `manifest:auth:initialized` fires as soon as the session is known, before teams load, and when teams load, `manifest:auth:teams-loaded` follows. Sign-in link returns (magic URL, team invite, OAuth) and [auto guest sessions](#auto-guest-sessions) are handled right after `manifest:auth:initialized`. Since 0.5.337 they run even when the session check finishes very quickly, which earlier versions could skip.
+
 ### Cleanup Before Sign-out
 
 Since 0.5.307, `manifest:auth:before-logout` fires while the session is still valid, so your code can finish work that needs it, such as deleting a record only the user may delete. Pass a promise to `event.detail.waitUntil()` and the session ends once it settles, or after 3 seconds at most so sign-out never hangs. [Presence](/docs/framework/appwrite-modules/presence) uses it to remove the person's status.

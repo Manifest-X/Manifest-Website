@@ -1082,6 +1082,12 @@
 <td>auto</td>
 <td>How items fill lines: <code>rows</code> (one per line — lists, tables, grids), <code>gallery</code> (many per line — flex-wrap or CSS grid), or <code>masonry</code>. Auto-detected from the container for all but <code>masonry</code>, which is always explicit.</td>
 </tr>
+<tr>
+<td><strong><code>recycle</code></strong></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Hand rows leaving the window to rows entering it instead of rebuilding them. See <a href="#reusing-rows">Reusing Rows</a>.</td>
+</tr>
 </tbody></table>
 <pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-virtual</span>=<span class="hljs-string">"{ estimate: 80, overscan: 5 }"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"h-[600px] overflow-auto"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"item in $x.products"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"item.id"</span>&gt;</span>
@@ -1112,39 +1118,39 @@
 })) }" class="w-full">
     <div x-virtual="" class="border border-line rounded font-mono text-sm h-[300px] overflow-auto" style="overflow: auto">
         <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">07:56:48</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">12:44:35</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">07:57:48</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">12:45:35</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">07:58:48</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">12:46:35</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">07:59:48</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">12:47:35</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-accent-content" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">08:00:48</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">12:48:35</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-negative-content" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">error</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">08:01:48</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">12:49:35</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">08:02:48</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">12:50:35</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">08:03:48</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">12:51:35</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
             </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">08:04:48</span>
+                <span class="text-content-subtle shrink-0" x-text="log.time">12:52:35</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-accent-content" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
             </div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
@@ -1264,6 +1270,45 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>A closed menu's contents are not initialized until it opens, so the virtualized list costs nothing while the menu is closed and renders only its visible rows once it opens.</p>
+<hr>
+<h2 id="reusing-rows">Reusing Rows</h2><p>By default, a row that scrolls out of the window is removed, and a new one is built for each row scrolling in. With <code>recycle: true</code>, the leaving row's elements are handed to an entering row and given its item instead. This can make large jumps through the list noticeably faster when rows are heavy. Small scroll steps and light rows gain little.</p>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-virtual</span>=<span class="hljs-string">"{ recycle: true }"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"h-[600px] overflow-auto"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"task in $x.tasks"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"task.id"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ open: false }"</span> @<span class="hljs-attr">manifest:virtual-recycle</span>=<span class="hljs-string">"open = false"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"task.title"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"open = !open"</span>&gt;</span>Notes<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"open"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"task.notes"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-dropdown</span>=<span class="hljs-string">"`task-menu-${task.id}`"</span>&gt;</span>Actions<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">popover</span> <span class="hljs-attr">:id</span>=<span class="hljs-string">"`task-menu-${task.id}`"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"`Open ${task.title}`"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<h3 id="rows-follow-their-item">Rows Follow Their Item</h3><p>A reused row must be a function of its item. Everything bound to the item updates: text, attributes, classes, <code>x-show</code>, <code>x-if</code>, nested <code>x-for</code> and <code>x-model</code>, and click handlers act on the new item. These do <strong>not</strong> reset:</p>
+<ul>
+<li>Row-local <code>x-data</code> state, and values copied from the item when the row started.</li>
+<li><code>x-init</code>, which runs once per row element, not once per item.</li>
+<li>DOM state with no binding: text typed into a field without <code>x-model</code>, an unbound checkbox, an inner scroll position, a playing video.</li>
+</ul>
+<p>To reset row-local state, listen for <code>manifest:virtual-recycle</code> on the row's <strong>root</strong> element, as in the example above. The event doesn't bubble, so a listener on an inner element never hears it. It fires after the row has updated to its new item, <code>$event.detail</code> is <code>{ key, index }</code>, and it never fires for a newly built row.</p>
+<h3 id="rows-that-are-rebuilt">Rows That Are Rebuilt</h3><p>Some rows are rebuilt as usual instead of being reused, so nothing a person is using changes under them:</p>
+<ul>
+<li>A row that holds focus.</li>
+<li>A row with an open popover, <code>&lt;details&gt;</code> or <code>&lt;dialog&gt;</code>.</li>
+<li>A row with a trigger marked <code>aria-expanded="true"</code> (as <code>x-dropdown</code> sets it) for a menu or popover open elsewhere, or that is the trigger of an open context menu.</li>
+<li>Any of the above in content the row teleports elsewhere with <code>x-teleport</code>.</li>
+<li>A row whose root is a <code>&lt;template&gt;</code>.</li>
+</ul>
+<p>Lists whose rows use <code>x-transition</code> don't reuse rows at all, and masonry layouts never do.</p>
+<h3 id="things-to-know">Things To Know</h3><ul>
+<li>The console warns when rows use <code>x-transition</code> (reuse is off for that list), and when rows use <code>x-init</code> without a <code>manifest:virtual-recycle</code> listener on the root.</li>
+<li>An image shows its previous picture until the new <code>src</code> loads.</li>
+<li><code>.once</code> handlers don't fire again for the new item.</li>
+<li>CSS transitions on bound classes can play when a row changes item.</li>
+<li>The option is read when the list starts, so changing it later has no effect.</li>
+<li>A per-row menu needs a template-literal id, as in the example, so the trigger follows the row's item. See <a href="/docs/framework/elements/dropdowns#templating">dropdown templating</a>.</li>
+</ul>
 </div>
 
       <!-- Previous / next -->
@@ -1410,7 +1455,7 @@
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#basic-usage">Basic Usage</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#layout">Layout</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#table">Table</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#grid">Grid</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#gallery">Gallery</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#masonry">Masonry</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#customization">Customization</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#mixed-sizes">Mixed Sizes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#dynamic-data">Dynamic Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#loading-more-at-the-end">Loading More at the End</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#inside-menus-and-dialogs">Inside Menus and Dialogs</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#basic-usage">Basic Usage</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#layout">Layout</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#table">Table</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#grid">Grid</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#gallery">Gallery</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#masonry">Masonry</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#customization">Customization</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#mixed-sizes">Mixed Sizes</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#dynamic-data">Dynamic Data</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#loading-more-at-the-end">Loading More at the End</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#inside-menus-and-dialogs">Inside Menus and Dialogs</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#reusing-rows">Reusing Rows</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#rows-follow-their-item">Rows Follow Their Item</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#rows-that-are-rebuilt">Rows That Are Rebuilt</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#things-to-know">Things To Know</a></div>
 
   </nav>
 

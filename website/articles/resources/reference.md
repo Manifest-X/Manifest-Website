@@ -482,6 +482,7 @@ Custom events dispatched on `window` that any component can subscribe to via `@e
 | `manifest:dev-reload`{copy} | Dev server (`mnfst-run`): a data or markdown file (`.csv`, `.json`, `.yaml`, `.md`) changed | — |
 | `submit:sent`{copy}, `submit:error`{copy} | On an `x-submit` form (not `window`; bubbles), when the endpoint answers or the request fails | `{ ok, status, data, response, error, message }` |
 | `manifest:defer-render`{copy} | On a deferred container (not `window`), after its contents initialise | — |
+| `manifest:virtual-recycle`{copy} | On a reused row's root in an `x-virtual` list with `recycle: true` (not `window`; doesn't bubble), after the row takes its new item | `{ key, index }` |
 | `alpine:init` | Alpine initialization (standard Alpine event) | — |
 
 Listen example:

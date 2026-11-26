@@ -274,6 +274,7 @@ Pass options as an object expression on the directive.
 | **`estimate`** | Number or `{ width, height }` | `50` (`120` wide) | Initial size for unmeasured items. A closer estimate produces less scroll-position drift on first paint. Galleries and masonry accept an object to seed both axes. |
 | **`overscan`** | Number | `3` | Items (or lines) to render above and below the visible window. Higher values smooth out fast scrolling at the cost of more DOM. |
 | **`mode`** | String | auto | How items fill lines: `rows` (one per line — lists, tables, grids), `gallery` (many per line — flex-wrap or CSS grid), or `masonry`. Auto-detected from the container for all but `masonry`, which is always explicit. |
+| **`recycle`** | Boolean | `false` | Hand rows leaving the window to rows entering it instead of rebuilding them. See [Reusing Rows](#reusing-rows). |
 
 ```html copy
 <div x-virtual="{ estimate: 80, overscan: 5 }" class="h-[600px] overflow-auto">
@@ -437,3 +438,56 @@ When the last item in the data is rendered, the `x-virtual` element fires a `vir
 </div>
 
 A closed menu's contents are not initialized until it opens, so the virtualized list costs nothing while the menu is closed and renders only its visible rows once it opens.
+
+---
+
+## Reusing Rows
+
+By default, a row that scrolls out of the window is removed, and a new one is built for each row scrolling in. With `recycle: true`, the leaving row's elements are handed to an entering row and given its item instead. This can make large jumps through the list noticeably faster when rows are heavy. Small scroll steps and light rows gain little.
+
+```html copy
+<div x-virtual="{ recycle: true }" class="h-[600px] overflow-auto">
+    <template x-for="task in $x.tasks" :key="task.id">
+        <div x-data="{ open: false }" @manifest:virtual-recycle="open = false">
+            <p x-text="task.title"></p>
+            <button @click="open = !open">Notes</button>
+            <p x-show="open" x-text="task.notes"></p>
+            <button x-dropdown="`task-menu-${task.id}`">Actions</button>
+            <menu popover :id="`task-menu-${task.id}`">
+                <li x-text="`Open ${task.title}`"></li>
+            </menu>
+        </div>
+    </template>
+</div>
+```
+
+### Rows Follow Their Item
+
+A reused row must be a function of its item. Everything bound to the item updates: text, attributes, classes, `x-show`, `x-if`, nested `x-for` and `x-model`, and click handlers act on the new item. These do **not** reset:
+
+- Row-local `x-data` state, and values copied from the item when the row started.
+- `x-init`, which runs once per row element, not once per item.
+- DOM state with no binding: text typed into a field without `x-model`, an unbound checkbox, an inner scroll position, a playing video.
+
+To reset row-local state, listen for `manifest:virtual-recycle` on the row's **root** element, as in the example above. The event doesn't bubble, so a listener on an inner element never hears it. It fires after the row has updated to its new item, `$event.detail` is `{ key, index }`, and it never fires for a newly built row.
+
+### Rows That Are Rebuilt
+
+Some rows are rebuilt as usual instead of being reused, so nothing a person is using changes under them:
+
+- A row that holds focus.
+- A row with an open popover, `<details>` or `<dialog>`.
+- A row with a trigger marked `aria-expanded="true"` (as `x-dropdown` sets it) for a menu or popover open elsewhere, or that is the trigger of an open context menu.
+- Any of the above in content the row teleports elsewhere with `x-teleport`.
+- A row whose root is a `<template>`.
+
+Lists whose rows use `x-transition` don't reuse rows at all, and masonry layouts never do.
+
+### Things To Know
+
+- The console warns when rows use `x-transition` (reuse is off for that list), and when rows use `x-init` without a `manifest:virtual-recycle` listener on the root.
+- An image shows its previous picture until the new `src` loads.
+- `.once` handlers don't fire again for the new item.
+- CSS transitions on bound classes can play when a row changes item.
+- The option is read when the list starts, so changing it later has no effect.
+- A per-row menu needs a template-literal id, as in the example, so the trigger follows the row's item. See [dropdown templating](/docs/framework/elements/dropdowns#templating).

@@ -30,7 +30,7 @@
   <script src="../../../../scripts/hero-demo.js" defer=""></script>
   <script src="../../../../scripts/console-message.js" defer=""></script>
 
-<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><title>Teams — Manifest</title><meta property="og:title" content="Teams — Manifest"><meta property="og:description" content="Allow users to work together within your application."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/appwrite-modules/teams"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-appwrite-modules-teams.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Teams — Manifest"><meta property="twitter:description" content="Allow users to work together within your application."><meta property="twitter:image" content="/og/docs-framework-appwrite-modules-teams.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Teams — Manifest","description":"Allow users to work together within your application.","image":"/og/docs-framework-appwrite-modules-teams.png","url":"https://manifestx.dev/docs/framework/appwrite-modules/teams"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Appwrite Modules","item":"https://manifestx.dev/docs/framework/appwrite-modules"},{"@type":"ListItem","position":5,"name":"Teams","item":"https://manifestx.dev/docs/framework/appwrite-modules/teams"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Teams — Manifest</title><meta property="og:title" content="Teams — Manifest"><meta property="og:description" content="Allow users to work together within your application."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/appwrite-modules/teams"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-appwrite-modules-teams.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Teams — Manifest"><meta property="twitter:description" content="Allow users to work together within your application."><meta property="twitter:image" content="/og/docs-framework-appwrite-modules-teams.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Teams — Manifest","description":"Allow users to work together within your application.","image":"/og/docs-framework-appwrite-modules-teams.png","url":"https://manifestx.dev/docs/framework/appwrite-modules/teams"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Appwrite Modules","item":"https://manifestx.dev/docs/framework/appwrite-modules"},{"@type":"ListItem","position":5,"name":"Teams","item":"https://manifestx.dev/docs/framework/appwrite-modules/teams"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/framework/appwrite-modules/teams">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -1060,6 +1060,7 @@
 
 <aside class="brand"><span x-icon="lucide:info"></span><p><strong>Editing role permissions from JavaScript?</strong> Use <code>await $auth.updateRolePermissions(teamId, roleName, ['manageBilling', ...])</code> — it persists straight to team prefs with a plain array and refreshes <code>$auth.allTeamRoles()</code>. Don't assign to <code>$auth.editingRole.permissions</code> programmatically: that object is reactive and is meant for <code>x-model</code>-bound inputs (as above). For a mid-edit flow, call <code>$auth.setEditingPermissions([...])</code> then <code>$auth.saveEditingRole()</code>.</p>
 </aside>
+<p>Custom roles and changes to their permissions are stored in the team's preferences, which the module reads at most once every 15 seconds per team. Changes made through <code>$auth</code> methods show straight away, as do realtime team updates and signing in or out. Roles written another way, such as directly through the Appwrite SDK or from a server function, can take up to 15 seconds to show unless a realtime update arrives first.</p>
 <hr>
 <h2 id="members">Members</h2><p>Team members can be invited, updated, and removed, subject to the respective user permissions.</p>
 <p>In your Appwrite project under <b>Auth</b> &gt; <b>Settings</b>, ensure <b>Team invites</b> is toggled on. Invitation emails can be customized under <b>Auth</b> &gt; <b>Settings</b> &gt; <b>Invite user</b>.</p>
@@ -1331,7 +1332,7 @@
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.viewTeam(...)</code></td>
 <td><code>team</code> (object)</td>
-<td>Load team details and memberships</td>
+<td>Load team details and memberships. When switching teams quickly, the members and permissions shown always belong to the current team</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.updateCurrentTeamName()</code></td>

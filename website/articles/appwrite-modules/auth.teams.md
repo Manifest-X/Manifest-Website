@@ -337,6 +337,8 @@ Owner-only is the safest choice for a creator who should have full, future-proof
 **Editing role permissions from JavaScript?** Use `await $auth.updateRolePermissions(teamId, roleName, ['manageBilling', ...])` — it persists straight to team prefs with a plain array and refreshes `$auth.allTeamRoles()`. Don't assign to `$auth.editingRole.permissions` programmatically: that object is reactive and is meant for `x-model`-bound inputs (as above). For a mid-edit flow, call `$auth.setEditingPermissions([...])` then `$auth.saveEditingRole()`.
 :::
 
+Custom roles and changes to their permissions are stored in the team's preferences, which the module reads at most once every 15 seconds per team. Changes made through `$auth` methods show straight away, as do realtime team updates and signing in or out. Roles written another way, such as directly through the Appwrite SDK or from a server function, can take up to 15 seconds to show unless a realtime update arrives first.
+
 ---
 
 ## Members
@@ -551,7 +553,7 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 | Method | Parameters | Description |
 |--------|------------|-------------|
 | `$auth.createTeamFromName()`{copy} | None | Create a team using `newTeamName` property |
-| `$auth.viewTeam(...)`{copy} | `team` (object) | Load team details and memberships |
+| `$auth.viewTeam(...)`{copy} | `team` (object) | Load team details and memberships. When switching teams quickly, the members and permissions shown always belong to the current team |
 | `$auth.updateCurrentTeamName()`{copy} | None | Update current team name using `updateTeamNameInput` property |
 | `$auth.updateTeamName(...)`{copy} | `teamId` (string), `name` (string) | Rename a team |
 | `$auth.deleteTeam(...)`{copy} | `teamId` (string) | Delete a team |
