@@ -322,6 +322,8 @@ All live features share one connection per tab; see [Realtime Options](#realtime
 
 Use `$query` to filter and sort entries in Appwrite, and `$search` to filter rows already loaded in the browser. `$query` refetches from Appwrite and replaces the source's rows, so every place that shows `$x.projects` changes; `$query([])` restores the list with only its scope applied; `$query('default')` returns to the configured default query.
 
+`$search` is cached until the rows change, so binding the same search in several places runs it once. `$query` chained after it, as in `$x.projects.$search(term).$query(...)`, still sends the query to Appwrite and replaces the source's rows; it doesn't sort the search result. To filter or sort the loaded rows in the browser, work the list out once with [x-computed](/docs/framework/core-modules/computed) (see [filtering and sorting lists](/docs/framework/getting-started/performance#filtering-sorting-lists)).
+
 <div x-code-group>
 
 ```html "All" copy
