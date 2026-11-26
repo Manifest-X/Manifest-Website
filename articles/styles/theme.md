@@ -351,4 +351,23 @@ While it's not advertised for production use, Play CDN aligns with Manifest's et
 
 </div>
 
+#### Tailwind Output Cache
+
+Set `data-tailwind="cache"`{copy} to keep the CSS the Tailwind engine generates in the visitor's browser. On a repeat visit that CSS is put in place before the page first paints, and the engine is downloaded only if the page shows a class the stored CSS doesn't have, or a `text/tailwindcss` block has changed. It is new and opt-in: the bare `data-tailwind` attribute works as before.
+
+```html copy
+<script src="https://cdn.jsdelivr.net/npm/mnfst@latest/lib/manifest.min.js"
+    data-tailwind="cache"></script>
+```
+
+The saving is small on fast machines (tens of milliseconds) and larger on slow ones. Its limits:
+
+- Only `text/tailwindcss` blocks in the page's `<head>` are covered. A block in `<body>`, or one a component adds later, sends the page to the engine.
+- Nothing is stored for a page whose CSS passes 256 KB or 6,000 classes.
+- Each site keeps a few stored entries (at most 4, about 1 MB in all). An entry is used for up to 7 days after it was saved, and not at all after the framework version changes.
+- Local development hosts (`localhost`, `127.0.0.1`, `[::1]`, `0.0.0.0`, `*.localhost`, `*.local`) never use it. LAN addresses, tunnels and staging hosts do.
+- Pages that carry a utilities stylesheet baked at publish don't use it. Manifest hosting adds one to `index.html` when it finds utility classes, and prerendered pages link one.
+
+When the engine loads after a stored copy was used, the window receives a `manifest:tailwind-cache`{copy} event whose `detail.reason` says why: `unseen` (with the new classes in `detail.unseen`), `config` (a block changed) or `shipped` (a baked stylesheet was found).
+
 Alternatively, Tailwind can be <a href="https://tailwindcss.com/docs/installation/using-vite" target="_blank" rel="noopener">directly installed</a>. It uses a build step to compile CSS variables (from `@theme { ... }` rules) into CSS utility classes, making Manifest's utility module redundant.
