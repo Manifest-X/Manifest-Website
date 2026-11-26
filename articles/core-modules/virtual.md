@@ -22,7 +22,7 @@ Virtualization is a *rendering* optimization, not a data-fetching one. The data 
 
 ## Setup
 
-Virtual loads automatically when the page uses `x-virtual`, or can be selectively loaded.
+Virtual loads automatically when the page uses `x-virtual` or `$virtual`, or can be selectively loaded.
 
 <div x-code-group copy>
 
@@ -331,7 +331,75 @@ Items with variable content like multi-line descriptions, embedded images, or ex
 
 In this example, short and tall log lines coexist correctly. The scroll position stays accurate, the scrollbar reflects real total height, and items snap to their measured offsets the first time each one becomes visible.
 
-The module never moves the scroll position itself, so `scrollTo()` and `scrollIntoView()` run to the end and momentum scrolling isn't interrupted. When a rendered item above the visible area grows, the browser's own scroll anchoring keeps the view in place, where the browser supports it. There is no method to scroll to an item by its index, because items outside the window are not in the page.
+The module never moves the scroll position itself unless you ask it to with `scrollToIndex` or `scrollToKey`, so `scrollTo()` and `scrollIntoView()` run to the end and momentum scrolling isn't interrupted. When a rendered item above the visible area grows, the browser's own scroll anchoring keeps the view in place, where the browser supports it. To scroll to an item that isn't rendered yet, see [Scrolling to an Item](#scrolling-to-an-item).
+
+---
+
+## Scrolling to an Item
+
+Items outside the window are not in the page, so `scrollIntoView()` can't reach them. Use `$virtual` instead. Inside a list, `$virtual` is that list. From anywhere else, pass the list's `id` or element, as in `$virtual('people')` or `$virtual($refs.list)`.
+
+<div x-code-group>
+
+```html copy
+<div x-data="{ jump: 0 }">
+    <input type="number" x-model.number="jump" aria-label="Row number">
+    <button @click="$virtual('people').scrollToIndex(jump, { behavior: 'smooth' })">Go</button>
+    <div id="people" x-virtual class="h-[300px] overflow-auto">
+        <template x-for="person in $x.people" :key="person.id">
+            <div x-text="person.name"></div>
+        </template>
+    </div>
+</div>
+```
+
+::: frame
+<div x-data="{ jump: 250, people: Array.from({length: 500}, (_, i) => ({ id: i, name: ['Sirius','Vega','Polaris','Rigel','Arcturus','Lyra'][i % 6] + ' ' + (i + 1) })) }" class="col gap-3 w-full">
+    <div class="row gap-2 items-end">
+        <input type="number" min="0" max="499" x-model.number="jump" aria-label="Row number" class="max-w-32">
+        <button @click="$virtual('virtual-scroll-to-preview').scrollToIndex(jump, { behavior: 'smooth' })">Go</button>
+        <button class="ghost" @click="$virtual('virtual-scroll-to-preview').scrollToIndex(jump, { align: 'center' })">Center</button>
+    </div>
+    <div id="virtual-scroll-to-preview" x-virtual class="border border-line rounded h-[300px] overflow-auto">
+        <template x-for="person in people" :key="person.id">
+            <div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name"></div>
+        </template>
+    </div>
+</div>
+:::
+
+</div>
+
+`scrollToIndex(index, options)` scrolls to the item at a position in the data. The index can also be text made only of digits, as `x-model` gives without `.number`. `scrollToKey(key, options)` scrolls to the item whose `:key` is `key`.
+
+Both return a promise that resolves with the item's row element once the row is where you asked. Rows between here and there have not been measured yet, so the module corrects the position as they render. If rows near the item then change size, for example as images load, the list keeps the item in place until nothing has changed for a moment, for up to three seconds. If sizes never stop changing, the promise resolves after about a second and a half of trying, as close as it got.
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| **`align`** | String | `'start'` | Where the item lands: `start`, `center`, `end`, or `nearest` (only scrolls if the item isn't fully visible). |
+| **`behavior`** | String | instant | `'smooth'` animates the scroll. People who prefer reduced motion get an instant jump. |
+| **`offset`** | Number | `0` | Extra pixels to keep clear at the aligned edge. The list's CSS `scroll-padding` is respected too, in any unit including `calc()`. This is the simplest way to clear a sticky header. |
+
+Scrolling never moves focus. To focus the row afterwards, use the element the promise gives you. The row is already in place, so focusing it doesn't move the list:
+
+```html copy
+<button @click="const row = await $virtual('people').scrollToKey(42, { align: 'center' }); if (row) { row.tabIndex = -1; row.focus() }">
+    Show #42
+</button>
+```
+
+### Scroll Details
+
+- The promise resolves with `null` when there is no item at that index or key, when a different call replaces it, when the item leaves the data, or when the list is scrolled some other way before the item is in place. That other way can be the person (wheel, touch, scroll keys on the list or with nothing focused), find in page, or your own code. Keys pressed in other widgets or scroll areas don't count. But if such a key makes the browser itself scroll the list, that scroll still ends it: for example PageDown in a field inside a row, or the caret being scrolled into view. The console warns once about a missing item or an index that isn't a whole number.
+- While the list is still moving to the item or keeping it in place, a scroll from somewhere else that goes straight to the very end of the list in one step, such as your own code setting `scrollTop` to the bottom, looks the same as the browser trimming the scroll position while rows resize. The list then puts the item back. A scroll that stops anywhere short of the end ends it as usual, and wheel, touch and scroll keys always end it.
+- Calling again with the same item and options while a scroll is running joins it. Once it has landed, the same call lands it again if it has moved.
+- The item is followed by its key, so items added or removed elsewhere during a smooth scroll don't change where it lands.
+- A hidden list (in a closed tab, dialog or `x-show`) scrolls once it is shown. A list hidden partway through keeps its promise waiting until it is shown again.
+- Only the list scrolls. If the list itself is off screen, scroll the page to it first.
+- In a list that snaps vertically (`scroll-snap-type` on the block axis), the scroll is always instant. The browser then snaps, and the row ends up where the snap puts it. The promise resolves with the row if it is visible, otherwise `null`; this happens occasionally with `end` and `nearest`.
+- From a parent's `x-init`, the list may not be ready yet: call it inside `$nextTick`.
+- `$virtual` looks lists up by `id` in the page, so content teleported out of a list must name the list by `id`, and ids must be unique.
+- Lists scaled with CSS `zoom` aren't supported.
 
 ---
 
