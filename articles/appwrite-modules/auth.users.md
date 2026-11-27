@@ -450,7 +450,7 @@ Reassigning team ownership between accounts is privileged — it needs a server 
 }
 ```
 
-No markup changes — after a guest verifies an OTP code, the module transparently moves their teams to the new account. The same function also garbage-collects abandoned guests and their orphaned teams on a schedule.
+No markup changes — after a guest verifies an OTP code or signs in with a passkey, the module transparently moves their teams to the new account. The same function also garbage-collects abandoned guests and their orphaned teams on a schedule.
 
 The template is one ready-made implementation; the module just calls a function that speaks a small `prepare`/`commit` contract, so you can swap the function's internals for your own backend logic if you ever need to. Its <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/guest-migration-function#readme" target="_blank" rel="noopener">README</a> walks through deploying it.
 
