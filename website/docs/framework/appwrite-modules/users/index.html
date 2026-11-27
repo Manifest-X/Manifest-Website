@@ -742,10 +742,11 @@
 <li>Magic URL</li>
 <li>Email OTP (one-time passcode)</li>
 <li>Phone OTP (SMS one-time passcode)</li>
+<li>Passkey (Face ID, Touch ID, fingerprint or device PIN)</li>
 </ul>
 <p>See Appwrite's <a href="https://appwrite.io/docs/products/auth" target="_blank" rel="noopener">Auth docs</a> for all configuration details.</p>
 <hr>
-<h2 id="sign-in-methods">Sign-in Methods</h2><p>With Manifest and Appwrite, a frontend user registration flow (vs. a login flow) is not required. Unrecognized users will have a new account automatically generated, while known users will login to their existing account (from any sign-in method).</p>
+<h2 id="sign-in-methods">Sign-in Methods</h2><p>With Manifest and Appwrite, a frontend user registration flow (vs. a login flow) is not required. Unrecognized users will have a new account automatically generated, while known users will login to their existing account (from any sign-in method). <a href="#passkeys">Passkeys</a> are the exception: a passkey is added to an account the user has already signed in to.</p>
 <aside class="brand"><span x-icon="lucide:info"></span><p>Interactive examples on this page demonstrate real authentication with <strong>you</strong> as the user. Each example reflects the most recent auth state you've set (e.g. signed-in or out). Example styles and layouts may differ from code snippets.</p>
 </aside>
 <p>In <code>manifest.json</code>, use the auth <code>methods</code> array to define your project's sign-in methods, and enable each one in the connected Appwrite project. Without <code>methods</code>, magic URLs and OAuth are enabled (<code>["magic", "oauth"]</code>). The <code>auth</code> object itself is what loads the auth module, so include it even when empty (<code>"auth": {}</code>).</p>
@@ -784,6 +785,10 @@
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">phone</code></td>
 <td>Enables passwordless login via a one-time passcode sent by SMS</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">passkey</code></td>
+<td>Enables sign-in with a passkey saved on the user's device or password manager</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">oauth</code></td>
@@ -940,6 +945,104 @@
 <p>The code-entry step is shared with email OTP: the same <code>$auth.submitOTP()</code> and <code>$auth.otpSent</code>/<code>$auth.otpExpired</code> flags drive it, so the verify markup is identical.</p>
 <p>Phone OTP requires an SMS provider (Twilio, Vonage, MSG91, or Telesign) connected in Appwrite under <b>Messaging</b> &gt; <b>Providers</b>, and the Phone method enabled under <b>Auth</b> &gt; <b>Settings</b>.</p>
 <hr>
+<h3 id="passkeys">Passkeys</h3><p>A passkey lets a user sign in with Face ID, Touch ID, a fingerprint or their device PIN, with no email, code or redirect. The passkey lives on the user's device or in their password manager and only works on your domain. Passkeys need mnfst 0.5.345 or later, Appwrite Cloud or self-hosted Appwrite 2.5 or later, and a current Appwrite SDK script (<code>appwrite@latest</code>, or 28.2.0 and up if you pin a version).</p>
+<p>A passkey belongs to an existing account, so there are two steps: the user signs in another way and adds a passkey, then uses it to sign in from then on. Pair <code>passkey</code> with at least one other method.</p>
+<pre x-code-group="" data-group-processed="yes" role="region" data-group-built="yes"><header><div class="unstyle" role="tablist" aria-label="Code examples"><button type="button" role="tab" id="manifest.json-tab-0" aria-selected="true" tabindex="0">manifest.json</button><button type="button" role="tab" id="html-tab-1" aria-selected="false" tabindex="-1">HTML</button></div></header>
+
+<pre x-code="json" name="manifest.json" copy="" data-code-block-built="yes" aria-label="manifest.json" role="tabpanel" data-code-processed="yes" id="manifest.json-panel-0" aria-labelledby="manifest.json-tab-0"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"appwrite"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        ...
+        <span class="hljs-attr">"auth"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"methods"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"passkey"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"magic"</span><span class="hljs-punctuation">]</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+<pre x-code="html" name="HTML" copy="" data-code-block-built="yes" aria-label="HTML" role="tabpanel" data-code-processed="yes" id="html-panel-1" aria-labelledby="html-tab-1" style="display: none"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-comment">&lt;!-- Sign in with a passkey --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$auth.passkeySupported &amp;&amp; (!$auth.isAuthenticated || $auth.isAnonymous)"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$auth.loginPasskey()"</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"$auth.inProgress"</span>&gt;</span>Sign in with a passkey<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Signed in: add and manage passkeys --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$auth.isAuthenticated &amp;&amp; !$auth.isAnonymous"</span> <span class="hljs-attr">x-effect</span>=<span class="hljs-string">"$auth.isAuthenticated &amp;&amp; !$auth.isAnonymous &amp;&amp; $auth.listPasskeys()"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$auth.passkeySupported"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$auth.addPasskey('My laptop')"</span> <span class="hljs-attr">:disabled</span>=<span class="hljs-string">"$auth.inProgress"</span>&gt;</span>Add a passkey<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"passkey in $auth.passkeys"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"passkey.$id"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"passkey.name || 'Passkey'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$auth.removePasskey(passkey.$id)"</span>&gt;</span>Remove<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$auth.error"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"$auth.error"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+<button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+
+<p>In Appwrite, turn on <b>Passkey</b> under <b>Auth</b> &gt; <b>Settings</b> and choose the domain your passkeys belong to. Use the main domain (<code>example.com</code>) rather than a subdomain, and make sure each hostname your site runs on is a web platform in the project. Appwrite will not let you change this domain once any passkey has been registered, including passkeys created while testing on <code>localhost</code>, so set the production domain first. Passkeys work on HTTPS on the default port, and on <code>http://localhost</code> for development (add <code>localhost</code> as a web platform; <code>127.0.0.1</code> does not work). See Appwrite's <a href="https://appwrite.io/docs/products/auth/passkeys" target="_blank" rel="noopener">passkey docs</a> for the full setup.</p>
+<p><code>$auth.passkeySupported</code> is <code>true</code> when the browser supports passkeys, so use it to show or hide the buttons. <code>$auth.loginPasskey()</code> shows the browser's passkey prompt and signs the user in; <code>$auth.method</code> then reads <code>'passkey'</code>. A passkey sign-in also satisfies Appwrite's multi-factor authentication.</p>
+<p><code>$auth.addPasskey(name)</code> registers a passkey for the signed-in user. The optional name is shown in the list. <code>$auth.listPasskeys()</code> loads the user's passkeys into <code>$auth.passkeys</code>, where each has <code>$id</code>, <code>name</code>, <code>$createdAt</code> and <code>accessedAt</code> (the last sign-in with it, empty until first used). <code>$auth.renamePasskey(id, name)</code> and <code>$auth.removePasskey(id)</code> change the list in place. Each user can have up to 10 passkeys. Removing a passkey stops it signing in, though it may stay saved on the user's device.</p>
+<p>Appwrite only allows adding or removing a passkey within 10 minutes of the user signing in. After that, these calls fail with the code <code>reauth-required</code>: ask the user to sign in again, then retry.</p>
+<p>Each passkey method resolves to <code>{ success: true }</code> plus its result (<code>user</code>, <code>passkey</code> or <code>passkeys</code>). On failure it resolves to <code>{ success: false, error, code }</code>, where <code>code</code> says why:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">cancelled</code></td>
+<td>The user dismissed the passkey prompt, or it timed out. <code>$auth.error</code> stays <code>null</code>. Browsers report some setup faults the same way, such as a domain that doesn't match.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">busy</code></td>
+<td>Another passkey prompt is already open. <code>$auth.error</code> stays <code>null</code>.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">unsupported</code></td>
+<td>The browser has no passkey support, or the Appwrite SDK script is too old</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">not-enabled</code></td>
+<td><code>passkey</code> is missing from <code>methods</code>, Passkey is off in the Appwrite project, or the site's domain doesn't match one of the project's web platforms</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">not-signed-in</code></td>
+<td>Adding or managing passkeys needs a signed-in user</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">signed-in</code></td>
+<td><code>loginPasskey()</code> was called while already signed in</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">guest</code></td>
+<td>A guest tried to add or manage passkeys</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">reauth-required</code></td>
+<td>The user signed in more than 10 minutes ago</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">limit</code></td>
+<td>The account already has 10 passkeys</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">exists</code></td>
+<td>This device or password manager already holds a passkey for the account</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">invalid</code></td>
+<td>Appwrite rejected the passkey (for example it was removed), or the request expired</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">rate-limited</code></td>
+<td>Too many attempts. Appwrite allows about 10 passkey sign-ins per IP address and 10 registration requests per user each hour.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">failed</code></td>
+<td>Anything else; see <code>error</code></td>
+</tr>
+</tbody></table>
+<pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"const result = await $auth.addPasskey(); if (result.code === 'reauth-required') $toast('Sign in again to add a passkey')"</span>&gt;</span>Add a passkey<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>With <a href="#guest-sessions">guest sessions</a>, a guest who signs in with a passkey keeps their guest session until the passkey is verified, then moves to their own account. The guest's teams are left behind unless <a href="#guest-team-carryover-otp">guest team carryover</a> is set up. Carryover adds the guest's teams to the account as they are, so default teams the guest was given arrive as duplicates of the account's own. If the last step of the sign-in fails after the guest session has ended, the visitor is left signed out and <code>manifest:auth:session-cleared</code> fires.</p>
+<p><code>$auth.addPasskey()</code> is not offered to guests. This is a frontend check, like all <code>$auth</code> checks: while Passkey is on in the project, Appwrite itself accepts a passkey registration from any recently started session, guests included.</p>
+<hr>
 <h3 id="guest-sessions">Guest Sessions</h3><p>Guest sessions allow visitors to browse your app without creating an account, with each session registered in the Appwrite userbase (including repeat visits from the same user). With Manifest, guest sessions can begin automatically or by a user action.</p>
 <p>By default, when a guest signs in, a fresh account is created and the guest session is discarded, along with anything tied to it (such as guest-created <a href="/docs/framework/appwrite-modules/teams">teams</a>). To keep them:</p>
 <table>
@@ -954,11 +1057,11 @@
 <td><a href="#guest-upgrade"><code>guestUpgrade</code></a>: converts the guest's account in place</td>
 </tr>
 <tr>
-<td>Email OTP, phone OTP</td>
+<td>Email OTP, phone OTP, passkey</td>
 <td><a href="#guest-team-carryover-otp"><code>guestMigration</code></a>: moves the guest's teams to the new account</td>
 </tr>
 </tbody></table>
-<p>OTP sign-ins can't convert a guest in place (an Appwrite limitation), so they always create a fresh account.</p>
+<p>OTP sign-ins can't convert a guest in place (an Appwrite limitation), so they always create a fresh account. A passkey sign-in always moves the guest to the account the passkey belongs to.</p>
 <br>
 
 <h4 id="auto-guest-sessions">Auto Guest Sessions</h4><p>When <code>guest-auto</code> is enabled in your manifest, all visitors automatically enter a guest session on page load.</p>
@@ -1014,7 +1117,7 @@
 <p>No markup changes are needed — <code>$auth.sendMagicLink()</code> and <code>$auth.loginOAuth()</code> handle the upgrade automatically when a guest signs in. <code>guestUpgrade</code> defaults to the value of <code>teams.guests</code>, so enabling guest teams turns it on for you.</p>
 <br>
 
-<h4 id="guest-team-carryover-otp">Guest Team Carryover (OTP)</h4><p>For email and phone OTP sign-ins, <code>guestMigration</code> carries the guest's teams over to the new account by reassigning team membership.</p>
+<h4 id="guest-team-carryover-otp">Guest Team Carryover (OTP)</h4><p>For email OTP, phone OTP and passkey sign-ins, <code>guestMigration</code> carries the guest's teams over to the new account by reassigning team membership.</p>
 <p>Reassigning team ownership between accounts is privileged — it needs a server API key, so it has to run on a server, not in the browser. To make that turnkey, Manifest provides a ready-to-deploy <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/guest-migration-function" target="_blank" rel="noopener">guest-migration function template</a>. Deploy it to your Appwrite project and point the module at it:</p>
 <pre x-code="json" name="manifest.json" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="manifest.json" role="region"><header><div>manifest.json</div></header><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"appwrite"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
@@ -1026,7 +1129,7 @@
         <span class="hljs-punctuation">}</span>
     <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
-<p>No markup changes — after a guest verifies an OTP code, the module transparently moves their teams to the new account. The same function also garbage-collects abandoned guests and their orphaned teams on a schedule.</p>
+<p>No markup changes — after a guest verifies an OTP code or signs in with a passkey, the module transparently moves their teams to the new account. The same function also garbage-collects abandoned guests and their orphaned teams on a schedule.</p>
 <p>The template is one ready-made implementation; the module just calls a function that speaks a small <code>prepare</code>/<code>commit</code> contract, so you can swap the function's internals for your own backend logic if you ever need to. Its <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/guest-migration-function#readme" target="_blank" rel="noopener">README</a> walks through deploying it.</p>
 <hr>
 <h2 id="combined-methods">Combined Methods</h2><p>Sign-in methods can be stacked to provide optionality to users.</p>
@@ -1266,6 +1369,16 @@
 <td>boolean</td>
 <td>Indicates if manual guest creation is enabled</td>
 </tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.passkeySupported</code></td>
+<td>boolean</td>
+<td>Indicates if the browser supports passkeys</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.passkeys</code></td>
+<td>array</td>
+<td>The signed-in user's passkeys, loaded by <code>$auth.listPasskeys()</code></td>
+</tr>
 </tbody></table>
 <hr>
 <h3 id="computed-properties">Computed Properties</h3><table>
@@ -1279,7 +1392,7 @@
 <tbody><tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.method</code></td>
 <td>string | null</td>
-<td>Authentication method: <code>'oauth'</code>, <code>'magic'</code>, <code>'otp'</code>, <code>'phone'</code>, <code>'anonymous'</code>, or <code>null</code></td>
+<td>Authentication method: <code>'oauth'</code>, <code>'magic'</code>, <code>'otp'</code>, <code>'phone'</code>, <code>'passkey'</code>, <code>'anonymous'</code>, or <code>null</code></td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.provider</code></td>
@@ -1320,6 +1433,31 @@
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.submitOTP(...)</code></td>
 <td><code>codeInputOrRef</code> (selector or element, optional)</td>
 <td>Verify the entered passcode and complete sign-in (email or phone).</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.loginPasskey()</code></td>
+<td>None</td>
+<td>Sign in with a passkey.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.addPasskey(...)</code></td>
+<td><code>name</code> (string, optional)</td>
+<td>Register a passkey for the signed-in user.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.listPasskeys()</code></td>
+<td>None</td>
+<td>Load the signed-in user's passkeys into <code>$auth.passkeys</code>.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.renamePasskey(...)</code></td>
+<td><code>passkey</code> (ID or passkey object), <code>name</code> (string)</td>
+<td>Rename a passkey.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.removePasskey(...)</code></td>
+<td><code>passkey</code> (ID or passkey object)</td>
+<td>Remove a passkey from the account.</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.requestGuest()</code></td>
@@ -1378,6 +1516,14 @@
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:auth:teams-loaded</code></td>
 <td>The user's <a href="/docs/framework/appwrite-modules/teams">teams</a> have loaded</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:auth:passkey-added</code></td>
+<td>A passkey was registered (<code>detail.passkey</code>)</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:auth:passkey-removed</code></td>
+<td>A passkey was removed (<code>detail.passkeyId</code>)</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:auth:before-logout</code></td>
@@ -1539,7 +1685,7 @@
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#appwrite-configuration">Appwrite Configuration</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#sign-in-methods">Sign-in Methods</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#oauth">OAuth</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#magic-urls">Magic URLs</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#email-otp">Email OTP</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#phone-otp">Phone OTP</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#guest-sessions">Guest Sessions</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#combined-methods">Combined Methods</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#properties">Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#authentication-state">Authentication State</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#computed-properties">Computed Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#available-methods">Available Methods</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#session-recovery">Session Recovery</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#events">Events</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#cleanup-before-sign-out">Cleanup Before Sign-out</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#next-steps">Next Steps</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#appwrite-configuration">Appwrite Configuration</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#sign-in-methods">Sign-in Methods</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#oauth">OAuth</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#magic-urls">Magic URLs</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#email-otp">Email OTP</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#phone-otp">Phone OTP</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#passkeys">Passkeys</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#guest-sessions">Guest Sessions</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#combined-methods">Combined Methods</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#properties">Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#authentication-state">Authentication State</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#computed-properties">Computed Properties</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#available-methods">Available Methods</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#session-recovery">Session Recovery</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#events">Events</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#cleanup-before-sign-out">Cleanup Before Sign-out</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#next-steps">Next Steps</a></div>
 
   </nav>
 
