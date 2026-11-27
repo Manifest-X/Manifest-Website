@@ -16,6 +16,7 @@ Your Appwrite project's Auth dashboard provides various options to customize the
 - Magic URL
 - Email OTP (one-time passcode)
 - Phone OTP (SMS one-time passcode)
+- Passkey (Face ID, Touch ID, fingerprint or device PIN)
 
 See Appwrite's <a href="https://appwrite.io/docs/products/auth" target="_blank" rel="noopener">Auth docs</a> for all configuration details.
 
@@ -23,7 +24,7 @@ See Appwrite's <a href="https://appwrite.io/docs/products/auth" target="_blank" 
 
 ## Sign-in Methods
 
-With Manifest and Appwrite, a frontend user registration flow (vs. a login flow) is not required. Unrecognized users will have a new account automatically generated, while known users will login to their existing account (from any sign-in method).
+With Manifest and Appwrite, a frontend user registration flow (vs. a login flow) is not required. Unrecognized users will have a new account automatically generated, while known users will login to their existing account (from any sign-in method). [Passkeys](#passkeys) are the exception: a passkey is added to an account the user has already signed in to.
 
 ::: brand icon="lucide:info"
 Interactive examples on this page demonstrate real authentication with **you** as the user. Each example reflects the most recent auth state you've set (e.g. signed-in or out). Example styles and layouts may differ from code snippets.
@@ -50,6 +51,7 @@ In `manifest.json`, use the auth `methods` array to define your project's sign-i
 | `magic`{copy} | Enables passwordless login via magic URLs sent to email |
 | `otp`{copy} | Enables passwordless login via a one-time passcode sent to email |
 | `phone`{copy} | Enables passwordless login via a one-time passcode sent by SMS |
+| `passkey`{copy} | Enables sign-in with a passkey saved on the user's device or password manager |
 | `oauth`{copy} | Enables OAuth sign-in with providers like Google, GitHub, etc. |
 
 ---
@@ -262,6 +264,78 @@ Phone OTP requires an SMS provider (Twilio, Vonage, MSG91, or Telesign) connecte
 
 ---
 
+### Passkeys
+
+A passkey lets a user sign in with Face ID, Touch ID, a fingerprint or their device PIN, with no email, code or redirect. The passkey lives on the user's device or in their password manager and only works on your domain. Passkeys need mnfst 0.5.345 or later, Appwrite Cloud or self-hosted Appwrite 2.5 or later, and a current Appwrite SDK script (`appwrite@latest`, or 28.2.0 and up if you pin a version).
+
+A passkey belongs to an existing account, so there are two steps: the user signs in another way and adds a passkey, then uses it to sign in from then on. Pair `passkey` with at least one other method.
+
+<div x-code-group>
+
+```json "manifest.json" copy
+{
+    "appwrite": {
+        ...
+        "auth": {
+            "methods": ["passkey", "magic"]
+        }
+    }
+}
+```
+
+```html "HTML" copy
+<!-- Sign in with a passkey -->
+<button x-show="$auth.passkeySupported && !$auth.isAuthenticated" @click="$auth.loginPasskey()" :disabled="$auth.inProgress">Sign in with a passkey</button>
+
+<!-- Signed in: add and manage passkeys -->
+<div x-show="$auth.isAuthenticated && !$auth.isAnonymous" x-effect="$auth.isAuthenticated && !$auth.isAnonymous && $auth.listPasskeys()">
+    <button x-show="$auth.passkeySupported" @click="$auth.addPasskey('My laptop')" :disabled="$auth.inProgress">Add a passkey</button>
+    <template x-for="passkey in $auth.passkeys" :key="passkey.$id">
+        <div>
+            <span x-text="passkey.name || 'Passkey'"></span>
+            <button @click="$auth.removePasskey(passkey.$id)">Remove</button>
+        </div>
+    </template>
+</div>
+
+<p x-show="$auth.error" x-text="$auth.error"></p>
+```
+
+</div>
+
+In Appwrite, turn on <b>Passkey</b> under <b>Auth</b> > <b>Settings</b> and choose the domain your passkeys belong to. Use the main domain (`example.com`) rather than a subdomain, and make sure each hostname your site runs on is a web platform in the project. Appwrite will not let you change this domain once any passkey has been registered, including passkeys created while testing on `localhost`, so set the production domain first. Passkeys work on HTTPS, and on `http://localhost` for development (add `localhost` as a web platform; `127.0.0.1` does not work). See Appwrite's <a href="https://appwrite.io/docs/products/auth/passkeys" target="_blank" rel="noopener">passkey docs</a> for the full setup.
+
+`$auth.passkeySupported` is `true` when the browser supports passkeys, so use it to show or hide the buttons. `$auth.loginPasskey()` shows the browser's passkey prompt and signs the user in; `$auth.method` then reads `'passkey'`. A passkey sign-in also satisfies Appwrite's multi-factor authentication.
+
+`$auth.addPasskey(name)` registers a passkey for the signed-in user. The optional name is shown in the list. `$auth.listPasskeys()` loads the user's passkeys into `$auth.passkeys`, where each has `$id`, `name`, `$createdAt` and `accessedAt` (the last sign-in with it, empty until first used). `$auth.renamePasskey(id, name)` and `$auth.removePasskey(id)` change the list in place. Each user can have up to 10 passkeys. Removing a passkey stops it signing in, though it may stay saved on the user's device.
+
+Appwrite only allows adding or removing a passkey within 10 minutes of the user signing in. After that, these calls fail with the code `reauth-required`: ask the user to sign in again, then retry.
+
+Every passkey method resolves to `{ success, error, code }`. On failure, `code` says why:
+
+| Code | Meaning |
+|------|---------|
+| `cancelled`{copy} | The user dismissed the passkey prompt, or it timed out. `$auth.error` stays `null`. |
+| `unsupported`{copy} | The browser has no passkey support, or the Appwrite SDK script is too old |
+| `not-enabled`{copy} | `passkey` is missing from `methods`, or Passkey is off in the Appwrite project |
+| `not-signed-in`{copy} | Adding or managing passkeys needs a signed-in user |
+| `signed-in`{copy} | `loginPasskey()` was called while already signed in |
+| `guest`{copy} | A guest tried to add or manage passkeys |
+| `reauth-required`{copy} | The user signed in more than 10 minutes ago |
+| `limit`{copy} | The account already has 10 passkeys |
+| `exists`{copy} | This device or password manager already holds a passkey for the account |
+| `invalid`{copy} | Appwrite rejected the passkey (for example it was removed), or the request expired |
+| `rate-limited`{copy} | Too many attempts. Appwrite allows 10 sign-ins per IP address and 10 registrations per user each hour. |
+| `failed`{copy} | Anything else; see `error` |
+
+```html copy
+<button @click="const result = await $auth.addPasskey(); if (result.code === 'reauth-required') $toast('Sign in again to add a passkey')">Add a passkey</button>
+```
+
+With [guest sessions](#guest-sessions), a guest who signs in with a passkey keeps their guest session until the passkey is verified, then moves to their own account. The guest's teams are left behind unless [guest team carryover](#guest-team-carryover-otp) is set up. `$auth.addPasskey()` is not offered to guests; this is a frontend check, like all `$auth` checks. Appwrite itself accepts a passkey registration from any signed-in session, guests included, while Passkey is on in the project.
+
+---
+
 ### Guest Sessions
 
 Guest sessions allow visitors to browse your app without creating an account, with each session registered in the Appwrite userbase (including repeat visits from the same user). With Manifest, guest sessions can begin automatically or by a user action.
@@ -271,9 +345,9 @@ By default, when a guest signs in, a fresh account is created and the guest sess
 | Sign-in method | Keep the guest's data with |
 |---|---|
 | OAuth, magic URL | [`guestUpgrade`](#guest-upgrade): converts the guest's account in place |
-| Email OTP, phone OTP | [`guestMigration`](#guest-team-carryover-otp): moves the guest's teams to the new account |
+| Email OTP, phone OTP, passkey | [`guestMigration`](#guest-team-carryover-otp): moves the guest's teams to the new account |
 
-OTP sign-ins can't convert a guest in place (an Appwrite limitation), so they always create a fresh account.
+OTP sign-ins can't convert a guest in place (an Appwrite limitation), so they always create a fresh account. A passkey sign-in always moves the guest to the account the passkey belongs to.
 
 <br>
 
@@ -509,6 +583,8 @@ Current session details (null if not authenticated). The session object comes di
 | `$auth.otpExpired`{copy} | boolean | Indicates if the entered OTP code was invalid or expired |
 | `$auth.otpPhrase`{copy} | string \| null | Email OTP anti-phishing security phrase (when requested with `{ phrase: true }`) |
 | `$auth.guestManualEnabled`{copy} | boolean | Indicates if manual guest creation is enabled |
+| `$auth.passkeySupported`{copy} | boolean | Indicates if the browser supports passkeys |
+| `$auth.passkeys`{copy} | array | The signed-in user's passkeys, loaded by `$auth.listPasskeys()` |
 
 ---
 
@@ -516,7 +592,7 @@ Current session details (null if not authenticated). The session object comes di
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `$auth.method`{copy} | string \| null | Authentication method: `'oauth'`, `'magic'`, `'otp'`, `'phone'`, `'anonymous'`, or `null` |
+| `$auth.method`{copy} | string \| null | Authentication method: `'oauth'`, `'magic'`, `'otp'`, `'phone'`, `'passkey'`, `'anonymous'`, or `null` |
 | `$auth.provider`{copy} | string \| null | OAuth provider name (e.g., `'google'`, `'github'`) or `null` for non-OAuth methods |
 
 ---
@@ -530,6 +606,11 @@ Current session details (null if not authenticated). The session object comes di
 | `$auth.sendEmailOTP(...)`{copy} | `emailInputOrRef` (selector or element, optional), `options` (optional, `{ phrase: true }` for a security phrase) | Email a one-time passcode. |
 | `$auth.sendPhoneOTP(...)`{copy} | `phoneInputOrRef` (selector or element, optional) | Text a one-time passcode to a phone number (E.164 format). |
 | `$auth.submitOTP(...)`{copy} | `codeInputOrRef` (selector or element, optional) | Verify the entered passcode and complete sign-in (email or phone). |
+| `$auth.loginPasskey()`{copy} | None | Sign in with a passkey. |
+| `$auth.addPasskey(...)`{copy} | `name` (string, optional) | Register a passkey for the signed-in user. |
+| `$auth.listPasskeys()`{copy} | None | Load the signed-in user's passkeys into `$auth.passkeys`. |
+| `$auth.renamePasskey(...)`{copy} | `passkey` (ID or passkey object), `name` (string) | Rename a passkey. |
+| `$auth.removePasskey(...)`{copy} | `passkey` (ID or passkey object) | Remove a passkey from the account. |
 | `$auth.requestGuest()`{copy} | None | Create a manual guest session. |
 | `$auth.logout()`{copy} | None | Delete current session and sign out. If automatic guest sessions are enabled, a new guest session will begin after logout. |
 | `$auth.refresh()`{copy} | None | Refresh user data from Appwrite. |
@@ -559,6 +640,8 @@ The auth module dispatches these events on `window`:
 | `manifest:auth:logout`{copy} | The user signs out, or the session has expired |
 | `manifest:auth:session-cleared`{copy} | The session ended or changed elsewhere, such as in another tab |
 | `manifest:auth:teams-loaded`{copy} | The user's [teams](/docs/framework/appwrite-modules/teams) have loaded |
+| `manifest:auth:passkey-added`{copy} | A passkey was registered (`detail.passkey`) |
+| `manifest:auth:passkey-removed`{copy} | A passkey was removed (`detail.passkeyId`) |
 | `manifest:auth:before-logout`{copy} | A session is about to end through `$auth`: signing out, or a guest session replaced by a sign-in (`detail.waitUntil(promise)` holds the sign-out briefly) |
 
 ```html copy
