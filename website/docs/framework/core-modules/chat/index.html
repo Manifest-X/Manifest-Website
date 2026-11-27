@@ -30,7 +30,7 @@
   <script src="../../../../scripts/hero-demo.js" defer=""></script>
   <script src="../../../../scripts/console-message.js" defer=""></script>
 
-<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><title>Chat — Manifest</title><meta property="og:title" content="Chat — Manifest"><meta property="og:description" content="Add conversations with AI or people to your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/chat"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-chat.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Chat — Manifest"><meta property="twitter:description" content="Add conversations with AI or people to your project."><meta property="twitter:image" content="/og/docs-framework-core-modules-chat.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Chat — Manifest","description":"Add conversations with AI or people to your project.","image":"/og/docs-framework-core-modules-chat.png","url":"https://manifestx.dev/docs/framework/core-modules/chat"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Chat","item":"https://manifestx.dev/docs/framework/core-modules/chat"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Chat — Manifest</title><meta property="og:title" content="Chat — Manifest"><meta property="og:description" content="Add conversations with AI or people to your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/chat"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-chat.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Chat — Manifest"><meta property="twitter:description" content="Add conversations with AI or people to your project."><meta property="twitter:image" content="/og/docs-framework-core-modules-chat.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Chat — Manifest","description":"Add conversations with AI or people to your project.","image":"/og/docs-framework-core-modules-chat.png","url":"https://manifestx.dev/docs/framework/core-modules/chat"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Chat","item":"https://manifestx.dev/docs/framework/core-modules/chat"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/framework/core-modules/chat">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -986,7 +986,7 @@
 <pre x-code="html" name="HTML" data-code-block-built="yes" aria-label="HTML" role="region" data-code-processed="yes" id="html-panel-0"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span>=<span class="hljs-string">"{ c: $chat.open('hist-em-1', { adapter: 'demo' }) }"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"m in c.messages"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"m.id"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">"`color:${m.author?.color}`"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.author?.displayName"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">"{ color: m.author?.color }"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.author?.displayName"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"px-2 rounded bg-surface-2"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.author?.kind"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.body.text"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">small</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.status"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
@@ -995,12 +995,12 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ c: $chat.open('hist-em-1', { adapter: 'demo' }) }" class="col gap-2">
     <p class="m-0 row-wrap gap-2 items-baseline">
-            <b style="color:#7c3aed">You</b>
+            <b style="color: rgb(124, 58, 237)">You</b>
             <small class="px-2 rounded bg-surface-2">human</small>
             <span>applied to your account</span>
             <small class="text-content-subtle">delivered</small>
         </p><p class="m-0 row-wrap gap-2 items-baseline">
-            <b style="color:#db2777">Player 7</b>
+            <b style="color: rgb(219, 39, 119)">Player 7</b>
             <small class="px-2 rounded bg-surface-2">contact</small>
             <span>bonus question</span>
             <small class="text-content-subtle">delivered</small>
@@ -1024,7 +1024,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-1"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"m in g.messages"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"m.id"</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">"`color:${m.author?.color}`"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.author?.displayName"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">"{ color: m.author?.color }"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.author?.displayName"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.body.text"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"ghost sm"</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"(m.reactions || []).some(r =&gt; r.byMe) &amp;&amp; 'selected'"</span>
                     @<span class="hljs-attr">click</span>=<span class="hljs-string">"g.react(m.id, (m.reactions || [])[0]?.emoji || '🎉')"</span>
@@ -1045,15 +1045,15 @@
     <p class="m-0"><small>In this conversation: <span x-text="g.participants.map(p =&gt; p.displayName).join(', ')">You, Ana, Bo</span></small></p>
     <div class="col gap-1">
         <p class="m-0 row-wrap gap-2 items-center">
-                <b style="color:#0ea5e9">Ana</b>
+                <b style="color: rgb(14, 165, 233)">Ana</b>
                 <span>Ship the v2 doc today?</span>
                 <button class="ghost sm">🎉</button>
             </p><p class="m-0 row-wrap gap-2 items-center">
-                <b style="color:#16a34a">Bo</b>
+                <b style="color: rgb(22, 163, 74)">Bo</b>
                 <span>+1, reviewing now</span>
                 <button class="ghost sm selected">👍 2</button>
             </p><p class="m-0 row-wrap gap-2 items-center">
-                <b style="color:#7c3aed">You</b>
+                <b style="color: rgb(124, 58, 237)">You</b>
                 <span>I’ll cut the release after</span>
                 <button class="ghost sm">🎉</button>
             </p>
@@ -1074,7 +1074,7 @@
 
     <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"n in f.flatTree({ maxDepth: 3 })"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"n.id"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">"`margin-left:${n.depth * 1.5}rem`"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">"`color:${n.author?.color}`"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"n.author?.displayName"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">"{ color: n.author?.color }"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"n.author?.displayName"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"n.body.text"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"ghost sm"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"to = n"</span>&gt;</span>reply<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
@@ -1090,23 +1090,23 @@
 <aside class="frame"><div x-data="{ f: $chat.open('forum-1', { adapter: 'demo' }), to: null, reply: '' }" class="col gap-2">
     <div class="col gap-1">
         <p class="m-0 row-wrap gap-2 items-center" style="margin-left:0rem">
-                <b style="color:#0ea5e9">Ana</b>
+                <b style="color: rgb(14, 165, 233)">Ana</b>
                 <span>Proposal: drop stored `direction`</span>
                 <button class="ghost sm">reply</button>
             </p><p class="m-0 row-wrap gap-2 items-center" style="margin-left:1.5rem">
-                <b style="color:#16a34a">Bo</b>
+                <b style="color: rgb(22, 163, 74)">Bo</b>
                 <span>Agree — derive from author</span>
                 <button class="ghost sm">reply</button>
             </p><p class="m-0 row-wrap gap-2 items-center" style="margin-left:3rem">
-                <b style="color:#7c3aed">You</b>
+                <b style="color: rgb(124, 58, 237)">You</b>
                 <span>What about group with N of our identities?</span>
                 <button class="ghost sm">reply</button>
             </p><p class="m-0 row-wrap gap-2 items-center" style="margin-left:4.5rem">
-                <b style="color:#0ea5e9">Ana</b>
+                <b style="color: rgb(14, 165, 233)">Ana</b>
                 <span>Exactly why binary breaks</span>
                 <button class="ghost sm">reply</button>
             </p><p class="m-0 row-wrap gap-2 items-center" style="margin-left:0rem">
-                <b style="color:#16a34a">Bo</b>
+                <b style="color: rgb(22, 163, 74)">Bo</b>
                 <span>(reply to a post paged out of view)</span>
                 <button class="ghost sm">reply</button>
             </p>
@@ -1146,7 +1146,7 @@
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">appwriteTableId</code></td>
 <td>–</td>
-<td>Required. A table with columns <code>conversationId</code> (indexed), <code>text</code>, <code>authorId</code>, <code>authorName</code>, and optional <code>authorColor</code>, <code>replyTo</code>. Permissions: read <code>any</code>, create <code>users</code> + <code>guests</code>.</td>
+<td>Required. A table with columns <code>conversationId</code> (indexed), <code>text</code>, <code>authorId</code>, <code>authorName</code>, and optional <code>authorColor</code>, <code>replyTo</code>. Permissions: read <code>any</code>, create <code>users</code> + <code>guests</code>. The author columns are written by the poster's browser, so treat names and colours as unverified: bind the colour with <code>:style="{ color: … }"</code>, never into a style string, and give <code>authorColor</code> a short size limit.</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">ttlHours</code></td>
@@ -1162,7 +1162,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col gap-1"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">x-for</span>=<span class="hljs-string">"m in c.messages"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"m.id"</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">"`color:${m.author?.color}`"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.author?.displayName"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">b</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">"{ color: m.author?.color }"</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.author?.displayName"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">x-text</span>=<span class="hljs-string">"m.body.text"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
@@ -1179,7 +1179,7 @@
     <div class="col gap-1">
         <template x-for="m in c.messages" :key="m.id">
             <p class="m-0">
-                <b :style="`color:${m.author?.color}`" x-text="m.author?.displayName"></b>
+                <b :style="{ color: m.author?.color }" x-text="m.author?.displayName"></b>
                 <span x-text="m.body.text"></span>
             </p>
         </template>

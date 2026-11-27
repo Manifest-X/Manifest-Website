@@ -225,7 +225,7 @@ The frame below lays these fields out for a seeded support thread. Each row show
 <div x-data="{ c: $chat.open('hist-em-1', { adapter: 'demo' }) }">
     <template x-for="m in c.messages" :key="m.id">
         <p>
-            <b :style="`color:${m.author?.color}`" x-text="m.author?.displayName"></b>
+            <b :style="{ color: m.author?.color }" x-text="m.author?.displayName"></b>
             <small class="px-2 rounded bg-surface-2" x-text="m.author?.kind"></small>
             <span x-text="m.body.text"></span>
             <small x-text="m.status"></small>
@@ -238,7 +238,7 @@ The frame below lays these fields out for a seeded support thread. Each row show
 <div x-data="{ c: $chat.open('hist-em-1', { adapter: 'demo' }) }" class="col gap-2">
     <template x-for="m in c.messages" :key="m.id">
         <p class="m-0 row-wrap gap-2 items-baseline">
-            <b :style="`color:${m.author?.color}`" x-text="m.author?.displayName"></b>
+            <b :style="{ color: m.author?.color }" x-text="m.author?.displayName"></b>
             <small class="px-2 rounded bg-surface-2" x-text="m.author?.kind"></small>
             <span x-text="m.body.text"></span>
             <small class="text-content-subtle" x-text="m.status"></small>
@@ -272,7 +272,7 @@ In the frame, invite Cy and the participant list updates. Ask the assistant and 
     <div class="col gap-1">
         <template x-for="m in g.messages" :key="m.id">
             <p>
-                <b :style="`color:${m.author?.color}`" x-text="m.author?.displayName"></b>
+                <b :style="{ color: m.author?.color }" x-text="m.author?.displayName"></b>
                 <span x-text="m.body.text"></span>
                 <button class="ghost sm" :class="(m.reactions || []).some(r => r.byMe) && 'selected'"
                     @click="g.react(m.id, (m.reactions || [])[0]?.emoji || '🎉')"
@@ -297,7 +297,7 @@ In the frame, invite Cy and the participant list updates. Ask the assistant and 
     <div class="col gap-1">
         <template x-for="m in g.messages" :key="m.id">
             <p class="m-0 row-wrap gap-2 items-center">
-                <b :style="`color:${m.author?.color}`" x-text="m.author?.displayName"></b>
+                <b :style="{ color: m.author?.color }" x-text="m.author?.displayName"></b>
                 <span x-text="m.body.text"></span>
                 <button class="ghost sm" :class="(m.reactions || []).some(r => r.byMe) && 'selected'" @click="g.react(m.id, (m.reactions || [])[0]?.emoji || '🎉')" x-text="(m.reactions || [])[0] ? m.reactions[0].emoji + ' ' + m.reactions[0].count : '🎉'"></button>
             </p>
@@ -327,7 +327,7 @@ Replying is a `send` with a parent ID. Pick a message in the frame and your repl
 
     <template x-for="n in f.flatTree({ maxDepth: 3 })" :key="n.id">
         <p :style="`margin-left:${n.depth * 1.5}rem`">
-            <b :style="`color:${n.author?.color}`" x-text="n.author?.displayName"></b>
+            <b :style="{ color: n.author?.color }" x-text="n.author?.displayName"></b>
             <span x-text="n.body.text"></span>
             <button class="ghost sm" @click="to = n">reply</button>
         </p>
@@ -347,7 +347,7 @@ Replying is a `send` with a parent ID. Pick a message in the frame and your repl
     <div class="col gap-1">
         <template x-for="n in f.flatTree({ maxDepth: 3 })" :key="n.id">
             <p class="m-0 row-wrap gap-2 items-center" :style="`margin-left:${n.depth * 1.5}rem`">
-                <b :style="`color:${n.author?.color}`" x-text="n.author?.displayName"></b>
+                <b :style="{ color: n.author?.color }" x-text="n.author?.displayName"></b>
                 <span x-text="n.body.text"></span>
                 <button class="ghost sm" @click="to = n">reply</button>
             </p>
@@ -387,7 +387,7 @@ Configure it in the same `chat` block that activates the module:
 | Property | Default | Description |
 |---|---|---|
 | `appwriteDatabaseId`{copy} | – | Required. The database holding the messages table. |
-| `appwriteTableId`{copy} | – | Required. A table with columns `conversationId` (indexed), `text`, `authorId`, `authorName`, and optional `authorColor`, `replyTo`. Permissions: read `any`, create `users` + `guests`. |
+| `appwriteTableId`{copy} | – | Required. A table with columns `conversationId` (indexed), `text`, `authorId`, `authorName`, and optional `authorColor`, `replyTo`. Permissions: read `any`, create `users` + `guests`. The author columns are written by the poster's browser, so treat names and colours as unverified: bind the colour with `:style="{ color: … }"`, never into a style string, and give `authorColor` a short size limit. |
 | `ttlHours`{copy} | – | Optional: only load messages younger than this, making conversations ephemeral. Pair with the <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/chat-prune-function" target="_blank" rel="noopener">prune function</a> to physically delete the rest on a schedule. |
 
 The frame below is this page's real comment thread. Comments come from other readers, live, and disappear after 24 hours:
@@ -400,7 +400,7 @@ The frame below is this page's real comment thread. Comments come from other rea
     <div class="col gap-1">
         <template x-for="m in c.messages" :key="m.id">
             <p>
-                <b :style="`color:${m.author?.color}`" x-text="m.author?.displayName"></b>
+                <b :style="{ color: m.author?.color }" x-text="m.author?.displayName"></b>
                 <span x-text="m.body.text"></span>
             </p>
         </template>
@@ -420,7 +420,7 @@ The frame below is this page's real comment thread. Comments come from other rea
     <div class="col gap-1">
         <template x-for="m in c.messages" :key="m.id">
             <p class="m-0">
-                <b :style="`color:${m.author?.color}`" x-text="m.author?.displayName"></b>
+                <b :style="{ color: m.author?.color }" x-text="m.author?.displayName"></b>
                 <span x-text="m.body.text"></span>
             </p>
         </template>
