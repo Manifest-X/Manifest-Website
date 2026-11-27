@@ -285,7 +285,7 @@ A passkey belongs to an existing account, so there are two steps: the user signs
 
 ```html "HTML" copy
 <!-- Sign in with a passkey -->
-<button x-show="$auth.passkeySupported && !$auth.isAuthenticated" @click="$auth.loginPasskey()" :disabled="$auth.inProgress">Sign in with a passkey</button>
+<button x-show="$auth.passkeySupported && (!$auth.isAuthenticated || $auth.isAnonymous)" @click="$auth.loginPasskey()" :disabled="$auth.inProgress">Sign in with a passkey</button>
 
 <!-- Signed in: add and manage passkeys -->
 <div x-show="$auth.isAuthenticated && !$auth.isAnonymous" x-effect="$auth.isAuthenticated && !$auth.isAnonymous && $auth.listPasskeys()">
@@ -303,7 +303,7 @@ A passkey belongs to an existing account, so there are two steps: the user signs
 
 </div>
 
-In Appwrite, turn on <b>Passkey</b> under <b>Auth</b> > <b>Settings</b> and choose the domain your passkeys belong to. Use the main domain (`example.com`) rather than a subdomain, and make sure each hostname your site runs on is a web platform in the project. Appwrite will not let you change this domain once any passkey has been registered, including passkeys created while testing on `localhost`, so set the production domain first. Passkeys work on HTTPS, and on `http://localhost` for development (add `localhost` as a web platform; `127.0.0.1` does not work). See Appwrite's <a href="https://appwrite.io/docs/products/auth/passkeys" target="_blank" rel="noopener">passkey docs</a> for the full setup.
+In Appwrite, turn on <b>Passkey</b> under <b>Auth</b> > <b>Settings</b> and choose the domain your passkeys belong to. Use the main domain (`example.com`) rather than a subdomain, and make sure each hostname your site runs on is a web platform in the project. Appwrite will not let you change this domain once any passkey has been registered, including passkeys created while testing on `localhost`, so set the production domain first. Passkeys work on HTTPS on the default port, and on `http://localhost` for development (add `localhost` as a web platform; `127.0.0.1` does not work). See Appwrite's <a href="https://appwrite.io/docs/products/auth/passkeys" target="_blank" rel="noopener">passkey docs</a> for the full setup.
 
 `$auth.passkeySupported` is `true` when the browser supports passkeys, so use it to show or hide the buttons. `$auth.loginPasskey()` shows the browser's passkey prompt and signs the user in; `$auth.method` then reads `'passkey'`. A passkey sign-in also satisfies Appwrite's multi-factor authentication.
 
@@ -311,13 +311,13 @@ In Appwrite, turn on <b>Passkey</b> under <b>Auth</b> > <b>Settings</b> and choo
 
 Appwrite only allows adding or removing a passkey within 10 minutes of the user signing in. After that, these calls fail with the code `reauth-required`: ask the user to sign in again, then retry.
 
-Every passkey method resolves to `{ success, error, code }`. On failure, `code` says why:
+Each passkey method resolves to `{ success: true }` plus its result (`user`, `passkey` or `passkeys`). On failure it resolves to `{ success: false, error, code }`, where `code` says why:
 
 | Code | Meaning |
 |------|---------|
-| `cancelled`{copy} | The user dismissed the passkey prompt, or it timed out. `$auth.error` stays `null`. |
+| `cancelled`{copy} | The user dismissed the passkey prompt, or it timed out. `$auth.error` stays `null`. Browsers report some setup faults the same way, such as a domain that doesn't match. |
 | `unsupported`{copy} | The browser has no passkey support, or the Appwrite SDK script is too old |
-| `not-enabled`{copy} | `passkey` is missing from `methods`, or Passkey is off in the Appwrite project |
+| `not-enabled`{copy} | `passkey` is missing from `methods`, Passkey is off in the Appwrite project, or the site's domain doesn't match one of the project's web platforms |
 | `not-signed-in`{copy} | Adding or managing passkeys needs a signed-in user |
 | `signed-in`{copy} | `loginPasskey()` was called while already signed in |
 | `guest`{copy} | A guest tried to add or manage passkeys |
@@ -325,14 +325,16 @@ Every passkey method resolves to `{ success, error, code }`. On failure, `code` 
 | `limit`{copy} | The account already has 10 passkeys |
 | `exists`{copy} | This device or password manager already holds a passkey for the account |
 | `invalid`{copy} | Appwrite rejected the passkey (for example it was removed), or the request expired |
-| `rate-limited`{copy} | Too many attempts. Appwrite allows 10 sign-ins per IP address and 10 registrations per user each hour. |
+| `rate-limited`{copy} | Too many attempts. Appwrite allows about 10 passkey sign-ins per IP address and 10 registration requests per user each hour. |
 | `failed`{copy} | Anything else; see `error` |
 
 ```html copy
 <button @click="const result = await $auth.addPasskey(); if (result.code === 'reauth-required') $toast('Sign in again to add a passkey')">Add a passkey</button>
 ```
 
-With [guest sessions](#guest-sessions), a guest who signs in with a passkey keeps their guest session until the passkey is verified, then moves to their own account. The guest's teams are left behind unless [guest team carryover](#guest-team-carryover-otp) is set up. `$auth.addPasskey()` is not offered to guests; this is a frontend check, like all `$auth` checks. Appwrite itself accepts a passkey registration from any signed-in session, guests included, while Passkey is on in the project.
+With [guest sessions](#guest-sessions), a guest who signs in with a passkey keeps their guest session until the passkey is verified, then moves to their own account. The guest's teams are left behind unless [guest team carryover](#guest-team-carryover-otp) is set up. Carryover adds the guest's teams to the account as they are, so default teams the guest was given arrive as duplicates of the account's own. If the last step of the sign-in fails after the guest session has ended, the visitor is left signed out and `manifest:auth:session-cleared` fires.
+
+`$auth.addPasskey()` is not offered to guests. This is a frontend check, like all `$auth` checks: while Passkey is on in the project, Appwrite itself accepts a passkey registration from any recently started session, guests included.
 
 ---
 
@@ -431,7 +433,7 @@ No markup changes are needed — `$auth.sendMagicLink()` and `$auth.loginOAuth()
 
 #### Guest Team Carryover (OTP)
 
-For email and phone OTP sign-ins, `guestMigration` carries the guest's teams over to the new account by reassigning team membership.
+For email OTP, phone OTP and passkey sign-ins, `guestMigration` carries the guest's teams over to the new account by reassigning team membership.
 
 Reassigning team ownership between accounts is privileged — it needs a server API key, so it has to run on a server, not in the browser. To make that turnkey, Manifest provides a ready-to-deploy <a href="https://github.com/Manifest-X/Manifest/tree/master/templates/guest-migration-function" target="_blank" rel="noopener">guest-migration function template</a>. Deploy it to your Appwrite project and point the module at it:
 
