@@ -316,6 +316,7 @@ Each passkey method resolves to `{ success: true }` plus its result (`user`, `pa
 | Code | Meaning |
 |------|---------|
 | `cancelled`{copy} | The user dismissed the passkey prompt, or it timed out. `$auth.error` stays `null`. Browsers report some setup faults the same way, such as a domain that doesn't match. |
+| `busy`{copy} | Another passkey prompt is already open. `$auth.error` stays `null`. |
 | `unsupported`{copy} | The browser has no passkey support, or the Appwrite SDK script is too old |
 | `not-enabled`{copy} | `passkey` is missing from `methods`, Passkey is off in the Appwrite project, or the site's domain doesn't match one of the project's web platforms |
 | `not-signed-in`{copy} | Adding or managing passkeys needs a signed-in user |
