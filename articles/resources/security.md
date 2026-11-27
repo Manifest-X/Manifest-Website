@@ -34,7 +34,12 @@ These places execute code or render HTML by design. The framework doesn't saniti
 - **Inline scripts.** `<script>` tags execute as written wherever they appear: in `index.html`, inside component HTML files referenced from `manifest.json`, and inside `<template data-head>` blocks for per-route head injection. Don't compose their bodies from data-source values or URL parameters.
 - **HTML and SVG rendering.** `x-markdown`, `x-svg`, and any custom `x-html` binding render their inputs as HTML so authors can include icons, formatting, and Manifest's custom-element extensions, as do `x-tooltip.html`, `x-toast.html`, and `$toast(message, { html: true })`. If the content comes from a party you don't control — user-submitted markdown, uploaded avatars, third-party API responses — use `x-markdown.safe` or `x-svg.safe`, or sanitize at the source before binding.
 - **Component registry.** The `components` and `preloadedComponents` arrays in `manifest.json` are fetched and executed at runtime. Keep these static — don't generate paths from URL parameters or data-source values.
-- **URL parameters.** `$url` exposes the query string as reactive data. Use values via `x-text`, `x-show`, or attribute bindings (safe by default); don't feed them back into a directive that would re-evaluate them as expressions.
+- **URL parameters.** `$url` exposes the query string as reactive data, and anyone can write a link that sets it. Values are safe in `x-text` and `x-show`. Don't feed them back into a directive that would re-evaluate them as expressions.
+- **Link and source attributes.** A value bound into `:href`, `:src`, `:action` or `:formaction` is used as a URL, and a URL starting with `javascript:` runs as code when followed. Before binding a URL that comes from the query string, a data source or another user, check that it starts with `/`, `https://` or `http://`.
+
+```html "Checking a URL before binding it" copy
+<a :href="/^(\/(?!\/)|https?:\/\/)/.test($url.next.value) ? $url.next.value : '/'">Continue</a>
+```
 
 ### CDN Resource Integrity
 
@@ -86,7 +91,62 @@ Before deploying:
 - [ ] Confirm `manifest.json` contains no inlined credentials — it is published with the site
 - [ ] Confirm `.env` is in `.gitignore` and absent from the published directory
 - [ ] Serve the site over HTTPS
-- [ ] Configure a [Content Security Policy](https://developer.mozilla.org/docs/Web/HTTP/CSP) header. Alpine evaluates attribute expressions, so `script-src` needs `'unsafe-eval'`, plus `https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com` in `script-src`, `style-src`, and `connect-src` (and `blob:` in `script-src` for code blocks with `edit` when [integrity checks](#cdn-resource-integrity) are on). Icons also need `https://api.iconify.design` in `connect-src` (plus its fallbacks `https://api.simplesvg.com` and `https://api.unisvg.com`), and runtime utility classes need `style-src 'unsafe-inline'`
+- [ ] Send a [Content Security Policy](#content-security-policy) header
+
+---
+
+## Content Security Policy
+
+A Content Security Policy (CSP) is a response header that tells the browser which scripts, styles and connections a page may use. This policy runs a Manifest project that uses the default CDNs, icons and code blocks:
+
+```text "Content-Security-Policy" copy
+default-src 'self';
+script-src 'self' 'unsafe-eval' https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com https://esm.run;
+style-src 'self' 'unsafe-inline' https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com;
+connect-src 'self' https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com https://api.iconify.design https://api.simplesvg.com https://api.unisvg.com;
+img-src 'self' data: blob: https:;
+font-src 'self' data:;
+worker-src 'self';
+object-src 'none';
+base-uri 'self';
+form-action 'self';
+frame-ancestors 'self'
+```
+
+Send it as one line. Then add what your project uses:
+
+| If the project uses | Add |
+|---|---|
+| Appwrite | Your Appwrite endpoint in `connect-src`, as both `https://` and `wss://` |
+| A prerendered site with color modes | The `sha256-` hash of the inline theme script in `script-src`. The browser console prints the hash when it blocks the script |
+| Code blocks with `edit`, with integrity checks on | `blob:` in `script-src` |
+| Payments | The provider's script host in `script-src` and its checkout host in `frame-src` |
+| Manifest hosting | `https://static.cloudflareinsights.com` in `script-src` and `https://cloudflareinsights.com` in `connect-src`, for analytics |
+
+Why each loose entry is there:
+
+- `'unsafe-eval'` in `script-src`: Alpine turns the expressions in your attributes into functions. Without it no expression runs.
+- `'unsafe-inline'` in `style-src`: utility classes are compiled into a `<style>` element in the browser, and directives such as `x-show` write `style` attributes.
+- `https://esm.run`: code highlighting loads its language files from there unless integrity checks are on.
+
+What the policy does and doesn't stop:
+
+- It stops inline `<script>` tags and `onclick`-style attributes that reach the page through injected HTML, plugins and objects, framing by other sites, and requests to hosts you haven't listed.
+- It doesn't stop injected HTML that carries Alpine directives. With `'unsafe-eval'` allowed, an injected `x-init` runs like your own. Keep untrusted content out of HTML sinks, or render it with `.safe`.
+- jsDelivr and unpkg serve every package on npm, so listing them lets a page load any script published there. If your loader tag carries `integrity`, you can drop them (and `https://esm.run`) and keep only `https://cdn.manifestx.dev`, which serves only the packages Manifest itself loads. The loader then has no second CDN to fall back to if that one is unreachable.
+
+To try a policy without breaking the page, send it as `Content-Security-Policy-Report-Only` first and read the browser console.
+
+On Manifest hosting, put response headers in a `_headers` file at the root of the published folder:
+
+```text "_headers" copy
+/*
+  Content-Security-Policy: <the policy above, on one line>
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+```
+
+A path line is followed by indented header lines, and `/*` matches every page. Hosting accepts security headers only: `Content-Security-Policy`, `Content-Security-Policy-Report-Only`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, `X-Content-Type-Options`, `Strict-Transport-Security`, the three `Cross-Origin-*-Policy` headers and `X-Robots-Tag`. Other headers in the file are ignored.
 
 ---
 

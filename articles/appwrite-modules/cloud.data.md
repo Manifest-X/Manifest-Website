@@ -102,7 +102,9 @@ For those cases, prefer the safe variants when rendering into HTML or SVG sinks:
 | User-submitted markdown | `<div x-markdown="$x.comments.body">` | `<div x-markdown.safe="$x.comments.body">` |
 | User-uploaded SVG | `<span x-svg="$x.profile.avatar">` | `<span x-svg.safe="$x.profile.avatar">` |
 
-`x-text`, attribute bindings (`:href`, `:src`, `:alt`), toasts, tooltips, and the standard Alpine `x-show` / `x-if` always treat values as data — they're safe by default. The `.safe` opt-ins exist for the HTML/SVG sinks where the default has to be permissive so authors can render their own rich content.
+`x-text`, text attributes such as `:alt` and `:title`, toasts, tooltips, and the standard Alpine `x-show` / `x-if` always treat values as data. The `.safe` opt-ins exist for the HTML/SVG sinks where the default has to be permissive so authors can render their own rich content.
+
+URL attributes are the exception. A value bound into `:href`, `:src` or `:action` is used as a URL, and a `javascript:` URL runs as code when followed. Check a user-written URL before binding it; see [Security](/docs/framework/resources/security#developer-controlled-surfaces).
 
 ---
 
