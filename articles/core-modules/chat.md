@@ -93,9 +93,11 @@ Long `system` and `grounding` text is sent as a cacheable prompt. After the firs
 
 Replies use your own Anthropic API key, so usage bills to your Anthropic account. AI chat is free on every Manifest plan.
 
-Give the key to Manifest through the connector by asking your agent, for example: "set up AI chat with my Anthropic key". Manifest stores it encrypted. Ask again to replace the key, change the daily request limit, or remove it. A project's staging and production sites share one key and one daily limit.
+Give the key to Manifest through the connector by asking your agent, for example: "set up AI chat with my Anthropic key". Manifest stores it encrypted. Ask again to replace the key, change the daily request limit, or remove it. A project's staging and production sites share one key. Staging has its own, smaller daily limit, so testing there never uses up production's.
 
-The daily request limit is your cost ceiling. For a small site, ask for a lower limit than the default.
+Anyone can call your site's relay. It only answers requests that carry your site's own `Origin`, which stops other websites' pages but not scripts, so the daily limits are the only bound on what the relay spends. For a small site, ask for a lower limit than the default, and set a spend limit on the key in the Anthropic Console as well.
+
+The daily limits count requests and spend. Spend is measured in input-token units: an input token is 1, an output token 5, a cache write 1.25 and a cache read 0.1. Each request in the daily limit adds 6,000 + 5 × `maxTokens` units to the day's budget, so the default 500 requests with the default `maxTokens` allow 5,560,000 units of visitors' messages and replies. Your `system` and `grounding` text are counted separately and aren't capped beyond the request limit. Limits reset at midnight UTC.
 
 ::: brand icon="lucide:info"
 Never put the key in `manifest.json` or a `PUBLIC_` environment variable. Both are sent to every visitor's browser.
@@ -111,16 +113,24 @@ ANTHROPIC_API_KEY=sk-ant-your-key-here
 
 | Limit or error | Response |
 |---|---|
-| About 20 requests per minute per visitor | `429` |
-| 1000 requests per day per project, shared by staging and production (adjustable through the connector) | `429` |
-| 5 MB per request, including attachments | `413` |
+| About 20 requests per minute per visitor | `429` `rate_limited` |
+| 500 production requests per day per project, and the matching spend budget (adjustable through the connector) | `429` `daily_cap_reached` |
+| On staging, a tenth of the production limit, at least 20 requests per day | `429` `daily_cap_reached` |
+| One visitor's share of the day: a fifth of the limit, at least 100 requests (or the whole limit, if smaller), and the matching spend | `429` `visitor_cap_reached` |
+| 5 MB per request, including attachments | `413` `body_too_large` |
+| A message over 16,000 characters | `413` `message_too_long` |
+| More than 4 attachments, or more than 1 PDF | `413` `too_many_attachments` |
+| A PDF over about 100,000 tokens | `413` `attachment_too_large` |
+| A PDF that can't be measured right now | `503` `unavailable` |
 | An attachment that isn't a JPEG, PNG, GIF or WebP image or a PDF (SVG and other files aren't supported) | `400` `invalid_messages` |
-| More than 100 messages of history | Older messages are dropped automatically |
-| A request from another site | `403` `forbidden_origin` |
+| A conversation that doesn't end on the visitor's message | `400` `invalid_messages` |
+| More than 40 messages or 40,000 characters of history | Older messages are dropped automatically |
+| Attachments on earlier messages | Dropped; only the latest message keeps its attachments |
+| A request without your site's own `Origin` | `403` `forbidden_origin` |
 | No `ai` block in the published `manifest.json` | `404` `ai_not_enabled` |
 | No API key set up | `503` `ai_not_configured` |
 
-Requests the relay rejects as invalid don't count toward the daily limit. The `claude` adapter shows the relay's error message in the conversation.
+A visitor is one IP address (an IPv6 /64 counts as one). Requests refused at a daily limit still count toward it. Invalid requests don't, except that a PDF refused as too long or unmeasurable counts toward the visitor's share. The `claude` adapter shows the relay's error message in the conversation.
 
 ---
 
