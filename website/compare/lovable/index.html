@@ -10,6 +10,7 @@
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
   <link rel="icon" href="../../favicon.ico" sizes="any">
+  <link rel="preconnect" href="https://cdn.manifestx.dev">
   <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
@@ -99,7 +100,7 @@
         <div class="row justify-end items-center gap-2">
 
             <!-- CTAs -->
-            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs ⌘K" x-tooltip="Search docs">
                 <span x-icon="lucide:search"></span>
                 <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
             </button>
@@ -323,7 +324,7 @@
     <!-- Framework -->
 
     <!-- Compare -->
-    <template x-if="$route.startsWith('/compare') &amp;&amp; !$x.compare?.$route('slug')?.slug" x-route="compare" data-component="compare-1">
+    <template x-if="$route.startsWith('/compare') &amp;&amp; $x.compare?.$ready &amp;&amp; !$x.compare.$route('slug')?.slug" x-route="compare" data-component="compare-1">
   <section class="dot-page col center w-full pt-24 pb-50">
     <div class="col gap-10 w-content-width max-w-full">
       <div class="col gap-3 w-2xl max-w-full">
@@ -451,8 +452,8 @@
                     <td x-text="r[0]"></td>
                     <template x-for="(v, i) in [r[1], r[2]]" :key="i">
                       <td :class="i &amp;&amp; 'is-us'">
-                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" aria-label="No"></span>
+                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" role="img" aria-label="No"></span>
                         <span x-show="v !== '✓' &amp;&amp; v !== '—'" x-text="v"></span>
                       </td>
                     </template>
@@ -472,8 +473,8 @@
                     <td x-text="r[0]"></td>
                     <template x-for="(v, i) in [r[1], r[2]]" :key="i">
                       <td :class="i &amp;&amp; 'is-us'">
-                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" aria-label="No"></span>
+                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" role="img" aria-label="No"></span>
                         <span x-show="v !== '✓' &amp;&amp; v !== '—'" x-text="v"></span>
                       </td>
                     </template>
@@ -501,7 +502,7 @@
           <p class="text-content-neutral text-balance" x-text="c.switch.intro"></p>
         </div>
         <template x-for="p in c.switch.prompts" :key="p">
-          <button type="button" class="prompt-copy unstyle group col gap-2 my-4 p-5 bg-popover-surface rounded-xl text-start cursor-pointer" x-data="{ copied: false }" aria-label="Copy this prompt" @click="navigator.clipboard.writeText(p); copied = true; setTimeout(() =&gt; copied = false, 1600)">
+          <button type="button" class="prompt-copy unstyle group col gap-2 my-4 p-5 bg-popover-surface rounded-xl text-start cursor-pointer" x-data="{ copied: false }" @click="navigator.clipboard.writeText(p); copied = true; setTimeout(() =&gt; copied = false, 1600)">
             <span class="row items-center justify-between gap-3">
               <span class="eyebrow">Prompt idea</span>
               <span class="row items-center gap-1.5 text-sm text-content-subtle transition-colors group-hover:text-content-stark">
@@ -707,89 +708,89 @@
                 <tr>
                     <td>Build by chatting</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes" style="display: none"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes" style="display: none"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span>5 credits a day</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes" style="display: none"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes" style="display: none"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span>Your Claude plan</span>
                       </td>
                   </tr><tr>
                     <td>Publish publicly</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes" style="display: none"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes" style="display: none"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span>Invite only, up to 10 people</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td>
                   </tr><tr>
                     <td>Custom domain</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes" style="display: none"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes" style="display: none"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No"></span>
                         <span style="display: none">—</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td>
                   </tr><tr>
                     <td>Check changes before going live</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td>
                   </tr><tr>
                     <td>Sync code to GitHub</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td>
                   </tr><tr>
                     <td>Publish projects built elsewhere</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes" style="display: none"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes" style="display: none"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No"></span>
                         <span style="display: none">—</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td>
                   </tr><tr>
                     <td>Teammates</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes" style="display: none"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes" style="display: none"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No"></span>
                         <span style="display: none">—</span>
                       </td>
                   </tr><tr>
                     <td>Branding badge</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes" style="display: none"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes" style="display: none"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span>Shown</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes" style="display: none"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes" style="display: none"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span>Shown</span>
                       </td>
                   </tr>
@@ -805,89 +806,89 @@
                 <tr>
                     <td>Price</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes" style="display: none"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes" style="display: none"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span>From $25 a month</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes" style="display: none"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes" style="display: none"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span>$15 a month per project</span>
                       </td>
                   </tr><tr>
                     <td>Build by chatting</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes" style="display: none"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes" style="display: none"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span>Monthly credits, plus top-ups</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes" style="display: none"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes" style="display: none"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span>Your Claude plan</span>
                       </td>
                   </tr><tr>
                     <td>Custom domain</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td>
                   </tr><tr>
                     <td>Branding badge removed</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td>
                   </tr><tr>
                     <td>Roll back a release</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td>
                   </tr><tr>
                     <td>Teammates</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td>
                   </tr><tr>
                     <td>Sync code to GitHub</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td>
                   </tr><tr>
                     <td>Publish projects built elsewhere</td>
                     <td class="">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes" style="display: none"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes" style="display: none"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No"></span>
                         <span style="display: none">—</span>
                       </td><td class="is-us">
-                        <span class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span class="cell-no" x-icon="lucide:minus" aria-label="No" style="display: none"></span>
+                        <span class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span class="cell-no" x-icon="lucide:minus" role="img" aria-label="No" style="display: none"></span>
                         <span style="display: none">✓</span>
                       </td>
                   </tr>
@@ -912,7 +913,7 @@
           <h2 class="leading-tight" x-text="c.switch.title || 'Switching from ' + c.name">Switching from Lovable</h2>
           <p class="text-content-neutral text-balance" x-text="c.switch.intro">There's nothing to export. Point Claude at your published Lovable app, and it copies it into a new Manifest project.</p>
         </div>
-        <button type="button" class="prompt-copy unstyle group col gap-2 my-4 p-5 bg-popover-surface rounded-xl text-start cursor-pointer" x-data="{ copied: false }" aria-label="Copy this prompt">
+        <button type="button" class="prompt-copy unstyle group col gap-2 my-4 p-5 bg-popover-surface rounded-xl text-start cursor-pointer" x-data="{ copied: false }">
             <span class="row items-center justify-between gap-3">
               <span class="eyebrow">Prompt idea</span>
               <span class="row items-center gap-1.5 text-sm text-content-subtle transition-colors group-hover:text-content-stark">

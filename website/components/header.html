@@ -15,7 +15,7 @@
             </a>
 
             <!-- Docs family -->
-            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation">
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-description="Switch documentation">
                 <span x-text="$x.site.docs.find(d => d.key === family)?.name"></span>
                 <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
             </button>
@@ -53,7 +53,7 @@
         <div class="row justify-end items-center gap-2">
 
             <!-- CTAs -->
-            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs ⌘K" x-tooltip="Search docs">
                 <span x-icon="lucide:search"></span>
                 <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
             </button>

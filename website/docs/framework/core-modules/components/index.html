@@ -10,6 +10,7 @@
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
   <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="preconnect" href="https://cdn.manifestx.dev">
   <link rel="preload" as="font" type="font/woff2" href="../../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
@@ -80,7 +81,7 @@
             </a>
 
             <!-- Docs family -->
-            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation" popovertarget="docs-family" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="docs-family" aria-expanded="false" data-hydrate-id="h1">
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-description="Switch documentation" popovertarget="docs-family" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="docs-family" aria-expanded="false" data-hydrate-id="h1">
                 <span x-text="$x.site.docs.find(d =&gt; d.key === family)?.name">Framework</span>
                 <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
             </button>
@@ -108,7 +109,7 @@
         <div class="row justify-end items-center gap-2">
 
             <!-- CTAs -->
-            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs ⌘K" x-tooltip="Search docs">
                 <span x-icon="lucide:search"></span>
                 <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
             </button>
@@ -684,11 +685,11 @@
         <div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7">
           <span class="h6" x-text="article?.group || ''"></span>
           <div class="row gap-1.5" data-page-actions="">
-            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy page as Markdown">
               <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
               <span x-text="copied ? 'Copied' : 'Copy page'"></span>
             </button>
-            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask AI about this page">
               <span x-icon="'lucide:asterisk'"></span>
               <span>Ask AI</span>
               <span x-icon="'lucide:chevron-down'"></span>
@@ -706,11 +707,11 @@
       </template><div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7" data-mnfst-prerender-clone="1">
           <span class="h6" x-text="article?.group || ''">Core Modules</span>
           <div class="row gap-1.5" data-page-actions="">
-            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy page as Markdown">
               <span x-icon="lucide:copy"></span>
               <span x-text="copied ? 'Copied' : 'Copy page'">Copy page</span>
             </button>
-            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page" popovertarget="ask-ai-framework" style="anchor-name: --dropdown-p2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p2" aria-haspopup="menu" aria-controls="ask-ai-framework" aria-expanded="false" data-hydrate-id="h3">
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask AI about this page" popovertarget="ask-ai-framework" style="anchor-name: --dropdown-p2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p2" aria-haspopup="menu" aria-controls="ask-ai-framework" aria-expanded="false" data-hydrate-id="h3">
               <span x-icon="lucide:asterisk"></span>
               <span>Ask AI</span>
               <span x-icon="lucide:chevron-down"></span>
@@ -1137,7 +1138,7 @@
     </div>
 
     <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
-    <template x-if="!article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
+    <template x-if="$x[src]?.$ready &amp;&amp; !article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
       <div class="max-w-full prose">
         <h1>Article does not exist</h1>
         <p>There is no documentation at this path.</p>

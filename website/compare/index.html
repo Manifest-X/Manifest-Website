@@ -10,6 +10,7 @@
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
   <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="preconnect" href="https://cdn.manifestx.dev">
   <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
@@ -30,7 +31,7 @@
   <script src="../scripts/hero-demo.js" defer=""></script>
   <script src="../scripts/console-message.js" defer=""></script>
 
-<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +45,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><title>Manifest compared — Manifest</title><meta property="og:title" content="Manifest compared — Manifest"><meta property="og:description" content="How building and publishing with Manifest in Claude compares with other AI app builders, on pricing, features, and ownership."><meta property="og:type" content="website"><meta property="og:url" content="https://manifestx.dev/compare"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/compare.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Manifest compared — Manifest"><meta property="twitter:description" content="How building and publishing with Manifest in Claude compares with other AI app builders, on pricing, features, and ownership."><meta property="twitter:image" content="/og/compare.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Manifest compared — Manifest","description":"How building and publishing with Manifest in Claude compares with other AI app builders, on pricing, features, and ownership.","image":"/og/compare.png","url":"https://manifestx.dev/compare"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Compare","item":"https://manifestx.dev/compare"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Manifest compared — Manifest</title><meta property="og:title" content="Manifest compared — Manifest"><meta property="og:description" content="How building and publishing with Manifest in Claude compares with other AI app builders, on pricing, features, and ownership."><meta property="og:type" content="website"><meta property="og:url" content="https://manifestx.dev/compare"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/compare.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Manifest compared — Manifest"><meta property="twitter:description" content="How building and publishing with Manifest in Claude compares with other AI app builders, on pricing, features, and ownership."><meta property="twitter:image" content="/og/compare.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Manifest compared — Manifest","description":"How building and publishing with Manifest in Claude compares with other AI app builders, on pricing, features, and ownership.","image":"/og/compare.png","url":"https://manifestx.dev/compare"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Compare","item":"https://manifestx.dev/compare"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/compare">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -99,7 +100,7 @@
         <div class="row justify-end items-center gap-2">
 
             <!-- CTAs -->
-            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs ⌘K" x-tooltip="Search docs">
                 <span x-icon="lucide:search"></span>
                 <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
             </button>
@@ -323,7 +324,7 @@
     <!-- Framework -->
 
     <!-- Compare -->
-    <template x-if="$route.startsWith('/compare') &amp;&amp; !$x.compare?.$route('slug')?.slug" x-route="compare" data-component="compare-1">
+    <template x-if="$route.startsWith('/compare') &amp;&amp; $x.compare?.$ready &amp;&amp; !$x.compare.$route('slug')?.slug" x-route="compare" data-component="compare-1">
   <section class="dot-page col center w-full pt-24 pb-50">
     <div class="col gap-10 w-content-width max-w-full">
       <div class="col gap-3 w-2xl max-w-full">
@@ -467,8 +468,8 @@
                     <td x-text="r[0]"></td>
                     <template x-for="(v, i) in [r[1], r[2]]" :key="i">
                       <td :class="i &amp;&amp; 'is-us'">
-                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" aria-label="No"></span>
+                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" role="img" aria-label="No"></span>
                         <span x-show="v !== '✓' &amp;&amp; v !== '—'" x-text="v"></span>
                       </td>
                     </template>
@@ -488,8 +489,8 @@
                     <td x-text="r[0]"></td>
                     <template x-for="(v, i) in [r[1], r[2]]" :key="i">
                       <td :class="i &amp;&amp; 'is-us'">
-                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" aria-label="No"></span>
+                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" role="img" aria-label="No"></span>
                         <span x-show="v !== '✓' &amp;&amp; v !== '—'" x-text="v"></span>
                       </td>
                     </template>
@@ -517,7 +518,7 @@
           <p class="text-content-neutral text-balance" x-text="c.switch.intro"></p>
         </div>
         <template x-for="p in c.switch.prompts" :key="p">
-          <button type="button" class="prompt-copy unstyle group col gap-2 my-4 p-5 bg-popover-surface rounded-xl text-start cursor-pointer" x-data="{ copied: false }" aria-label="Copy this prompt" @click="navigator.clipboard.writeText(p); copied = true; setTimeout(() =&gt; copied = false, 1600)">
+          <button type="button" class="prompt-copy unstyle group col gap-2 my-4 p-5 bg-popover-surface rounded-xl text-start cursor-pointer" x-data="{ copied: false }" @click="navigator.clipboard.writeText(p); copied = true; setTimeout(() =&gt; copied = false, 1600)">
             <span class="row items-center justify-between gap-3">
               <span class="eyebrow">Prompt idea</span>
               <span class="row items-center gap-1.5 text-sm text-content-subtle transition-colors group-hover:text-content-stark">

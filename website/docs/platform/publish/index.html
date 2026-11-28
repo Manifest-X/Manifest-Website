@@ -10,6 +10,7 @@
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
   <link rel="icon" href="../../../favicon.ico" sizes="any">
+  <link rel="preconnect" href="https://cdn.manifestx.dev">
   <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
@@ -30,7 +31,7 @@
   <script src="../../../scripts/hero-demo.js" defer=""></script>
   <script src="../../../scripts/console-message.js" defer=""></script>
 
-<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +45,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Publish — Manifest</title><meta property="og:title" content="Publish — Manifest"><meta property="og:description" content="Put a project online, check changes first, and use your own domain."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/platform/publish"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-platform-publish.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Publish — Manifest"><meta property="twitter:description" content="Put a project online, check changes first, and use your own domain."><meta property="twitter:image" content="/og/docs-platform-publish.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Publish — Manifest","description":"Put a project online, check changes first, and use your own domain.","image":"/og/docs-platform-publish.png","url":"https://manifestx.dev/docs/platform/publish"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Platform","item":"https://manifestx.dev/docs/platform"},{"@type":"ListItem","position":4,"name":"Publish","item":"https://manifestx.dev/docs/platform/publish"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><title>Publish — Manifest</title><meta property="og:title" content="Publish — Manifest"><meta property="og:description" content="Put a project online, check changes first, and use your own domain."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/platform/publish"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-platform-publish.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Publish — Manifest"><meta property="twitter:description" content="Put a project online, check changes first, and use your own domain."><meta property="twitter:image" content="/og/docs-platform-publish.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Publish — Manifest","description":"Put a project online, check changes first, and use your own domain.","image":"/og/docs-platform-publish.png","url":"https://manifestx.dev/docs/platform/publish"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Platform","item":"https://manifestx.dev/docs/platform"},{"@type":"ListItem","position":4,"name":"Publish","item":"https://manifestx.dev/docs/platform/publish"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/platform/publish">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -78,7 +79,7 @@
             </a>
 
             <!-- Docs family -->
-            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-label="Switch documentation" popovertarget="docs-family" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="docs-family" aria-expanded="false" data-hydrate-id="h1">
+            <button x-route="docs/*" x-dropdown="docs-family" class="sm ghost rounded-full" aria-description="Switch documentation" popovertarget="docs-family" style="anchor-name: --dropdown-p1, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p1" aria-haspopup="menu" aria-controls="docs-family" aria-expanded="false" data-hydrate-id="h1">
                 <span x-text="$x.site.docs.find(d =&gt; d.key === family)?.name">Platform</span>
                 <span x-icon="lucide:chevrons-up-down" class="text-content-subtle"></span>
             </button>
@@ -107,7 +108,7 @@
         <div class="row justify-end items-center gap-2">
 
             <!-- CTAs -->
-            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs ⌘K" x-tooltip="Search docs">
                 <span x-icon="lucide:search"></span>
                 <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
             </button>
@@ -420,11 +421,11 @@
         <div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7">
           <span class="h6" x-text="article?.group || ''"></span>
           <div class="row gap-1.5" data-page-actions="">
-            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy page as Markdown">
               <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
               <span x-text="copied ? 'Copied' : 'Copy page'"></span>
             </button>
-            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask AI about this page">
               <span x-icon="'lucide:asterisk'"></span>
               <span>Ask AI</span>
               <span x-icon="'lucide:chevron-down'"></span>
@@ -442,11 +443,11 @@
       </template><div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7" data-mnfst-prerender-clone="1">
           <span class="h6" x-text="article?.group || ''"></span>
           <div class="row gap-1.5" data-page-actions="">
-            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy page as Markdown">
               <span x-icon="lucide:copy"></span>
               <span x-text="copied ? 'Copied' : 'Copy page'">Copy page</span>
             </button>
-            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page" popovertarget="ask-ai-platform" style="anchor-name: --dropdown-p2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p2" aria-haspopup="menu" aria-controls="ask-ai-platform" aria-expanded="false" data-hydrate-id="h3">
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask AI about this page" popovertarget="ask-ai-platform" style="anchor-name: --dropdown-p2, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p2" aria-haspopup="menu" aria-controls="ask-ai-platform" aria-expanded="false" data-hydrate-id="h3">
               <span x-icon="lucide:asterisk"></span>
               <span>Ask AI</span>
               <span x-icon="lucide:chevron-down"></span>
@@ -658,7 +659,7 @@
     </div>
 
     <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
-    <template x-if="!article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
+    <template x-if="$x[src]?.$ready &amp;&amp; !article?.name &amp;&amp; !group?.group &amp;&amp; !at(base)">
       <div class="max-w-full prose">
         <h1>Article does not exist</h1>
         <p>There is no documentation at this path.</p>

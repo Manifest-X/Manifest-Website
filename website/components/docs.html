@@ -82,11 +82,11 @@
         <div class="row items-center justify-between gap-3 w-2xl max-w-full mb-3 min-h-7">
           <span class="h6" x-text="article?.group || ''"></span>
           <div class="row gap-1.5" data-page-actions>
-            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy this page as Markdown">
+            <button type="button" class="sm ghost outlined" @click="copyPage()" aria-label="Copy page as Markdown">
               <span x-icon="copied ? 'lucide:check' : 'lucide:copy'"></span>
               <span x-text="copied ? 'Copied' : 'Copy page'"></span>
             </button>
-            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask an AI app about this page">
+            <button type="button" class="sm ghost outlined" x-dropdown="`ask-ai-${src}`" aria-label="Ask AI about this page">
               <span x-icon="'lucide:asterisk'"></span>
               <span>Ask AI</span>
               <span x-icon="'lucide:chevron-down'"></span>
@@ -194,7 +194,7 @@
     </div>
 
     <!-- Fallback — x-if so prerendered pages don't ship it as duplicate content -->
-    <template x-if="!article?.name && !group?.group && !at(base)">
+    <template x-if="$x[src]?.$ready && !article?.name && !group?.group && !at(base)">
       <div class="max-w-full prose">
         <h1>Article does not exist</h1>
         <p>There is no documentation at this path.</p>

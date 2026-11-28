@@ -10,6 +10,7 @@
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="notranslate">
   <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="preconnect" href="https://cdn.manifestx.dev">
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/Manrope.woff2" crossorigin="">
 
   <!-- Web App & Manifest -->
@@ -30,7 +31,7 @@
   <script src="/scripts/hero-demo.js" defer=""></script>
   <script src="/scripts/console-message.js" defer=""></script>
 
-<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +45,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><title data-route-head="head-1">Manifest — Build and publish with Claude</title><meta property="og:title" content="Manifest — Build and publish with Claude"><meta property="og:description" content="Live on your own domain, with sign-ins and saved data built in. From a simple site to a full platform, without leaving Claude. No hosting accounts or API keys."><meta property="og:type" content="website"><meta property="og:url" content="https://manifestx.dev/"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/index.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Manifest — Build and publish with Claude"><meta property="twitter:description" content="Live on your own domain, with sign-ins and saved data built in. From a simple site to a full platform, without leaving Claude. No hosting accounts or API keys."><meta property="twitter:image" content="/og/index.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Manifest — Build and publish with Claude","description":"Live on your own domain, with sign-ins and saved data built in. From a simple site to a full platform, without leaving Claude. No hosting accounts or API keys.","image":"/og/index.png","url":"https://manifestx.dev/"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><title data-route-head="head-1">Manifest — Build and publish with Claude</title><style>@view-transition { navigation: none }</style><meta property="og:title" content="Manifest — Build and publish with Claude"><meta property="og:description" content="Live on your own domain, with sign-ins and saved data built in. From a simple site to a full platform, without leaving Claude. No hosting accounts or API keys."><meta property="og:type" content="website"><meta property="og:url" content="https://manifestx.dev/"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/index.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Manifest — Build and publish with Claude"><meta property="twitter:description" content="Live on your own domain, with sign-ins and saved data built in. From a simple site to a full platform, without leaving Claude. No hosting accounts or API keys."><meta property="twitter:image" content="/og/index.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Manifest — Build and publish with Claude","description":"Live on your own domain, with sign-ins and saved data built in. From a simple site to a full platform, without leaving Claude. No hosting accounts or API keys.","image":"/og/index.png","url":"https://manifestx.dev/"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -99,7 +100,7 @@
         <div class="row justify-end items-center gap-2">
 
             <!-- CTAs -->
-            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs" x-tooltip="Search docs">
+            <button popovertarget="docs-search" class="sm transparent outlined rounded-full px-0 md:px-(--spacing-field-padding)" aria-label="Search docs ⌘K" x-tooltip="Search docs">
                 <span x-icon="lucide:search"></span>
                 <span class="hidden md:inline text-xs text-content-subtle">⌘K</span>
             </button>
@@ -365,7 +366,7 @@
           <button type="button" class="unstyle row center text-content-subtle hover:text-content-stark cursor-pointer" aria-label="Replay the demo" x-tooltip="Replay" @click="replay()" x-icon="lucide:rotate-cw"></button>
           <span class="row grow min-w-0 items-center gap-2 px-3 py-1 bg-popover-surface dark:bg-surface-3 rounded-md text-xs text-content-neutral whitespace-nowrap overflow-hidden">
             <span x-show="env === 'local'" class="url-dot bg-content-subtle" x-tooltip="Local preview" aria-label="Local preview" style="display: none"></span>
-            <span x-show="env === 'staging'" class="url-dot bg-brand-surface" x-tooltip="Staging" aria-label="Staging" style="display: none"></span>
+            <span x-show="env === 'staging'" class="url-dot bg-brand-surface" x-tooltip="Staging" role="img" aria-label="Staging" style="display: none"></span>
             <span x-show="env === 'live'" class="url-dot bg-positive-surface" x-tooltip="Live" aria-label="Live"></span>
             <span class="url-text" :class="editing &amp;&amp; 'editing'" x-text="shownUrl">solstice.studio</span>
           </span>
@@ -426,8 +427,8 @@
         <ol class="unstyle col list-none ps-0 text-content-neutral">
           <li x-show="steps" class="py-4 border-t border-line" style="display: none">In Claude, go to <b class="text-content-stark">Customize</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Connectors</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">+&nbsp;Add</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Add custom connector</b>.</li>
           <li class="row-wrap items-baseline gap-x-8 gap-y-2 py-4 border-t border-line">
-            <span>Name: <button type="button" class="copy-text unstyle" x-data="{ copied: false }" aria-label="Copy the connector name" @click="navigator.clipboard.writeText('Manifest'); copied = true; setTimeout(() =&gt; copied = false, 1600)"><span>Manifest</span><span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span><span x-show="copied" x-icon="lucide:check" aria-hidden="true" style="display: none"></span></button></span>
-            <span>Server URL: <button type="button" class="copy-text unstyle" x-data="{ copied: false }" aria-label="Copy the server URL" @click="navigator.clipboard.writeText('https://mcp.manifestx.dev/mcp'); copied = true; setTimeout(() =&gt; copied = false, 1600)"><span>https://mcp.manifestx.dev/mcp</span><span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span><span x-show="copied" x-icon="lucide:check" aria-hidden="true" style="display: none"></span></button></span>
+            <span>Name: <button type="button" class="copy-text unstyle" x-data="{ copied: false }" aria-label="Copy the connector name, Manifest" @click="navigator.clipboard.writeText('Manifest'); copied = true; setTimeout(() =&gt; copied = false, 1600)"><span>Manifest</span><span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span><span x-show="copied" x-icon="lucide:check" aria-hidden="true" style="display: none"></span></button></span>
+            <span>Server URL: <button type="button" class="copy-text unstyle" x-data="{ copied: false }" aria-label="Copy the server URL, https://mcp.manifestx.dev/mcp" @click="navigator.clipboard.writeText('https://mcp.manifestx.dev/mcp'); copied = true; setTimeout(() =&gt; copied = false, 1600)"><span>https://mcp.manifestx.dev/mcp</span><span x-show="!copied" x-icon="lucide:copy" aria-hidden="true"></span><span x-show="copied" x-icon="lucide:check" aria-hidden="true" style="display: none"></span></button></span>
           </li>
           <li x-show="steps" class="py-4 border-t border-line" style="display: none">Select <b class="text-content-stark">Add</b><span class="inline-block align-middle me-0 text-content-subtle" x-icon="lucide:chevron-right" aria-hidden="true"></span><b class="text-content-stark">Connect</b>, and complete the connection steps.</li>
         </ol>
@@ -436,7 +437,7 @@
             <span x-text="steps ? 'Hide the steps' : 'Show where to add it'">Show where to add it</span>
             <span class="transition-transform" :class="steps &amp;&amp; 'rotate-180'" x-icon="lucide:chevron-down" aria-hidden="true"></span>
           </button>
-          <a href="/docs/platform/introduction#connect-claude" class="row items-center gap-1 w-fit text-sm no-underline text-content-neutral hover:text-content-stark">Read more<span x-icon="lucide:arrow-right" aria-hidden="true"></span></a>
+          <a href="/docs/platform/introduction#connect-claude" class="row items-center gap-1 w-fit text-sm no-underline text-content-neutral hover:text-content-stark">Read the setup guide<span x-icon="lucide:arrow-right" aria-hidden="true"></span></a>
         </div>
       </li>
 
@@ -880,7 +881,7 @@
 </section><section class="col center w-full pt-25 pb-50 text-center" x-data="ctaIdeas" x-route="/">
   <div class="col center gap-10 w-content-width max-w-full">
     <h2 class="text-5xl md:text-6xl leading-tight text-balance">What will you <span class="text-content-subtle">make real?</span></h2>
-    <a href="#setup" class="cta-prompt unstyle row items-center gap-3 w-xl max-w-full ps-5 pe-2 py-2 bg-popover-surface border border-line rounded-full text-start" aria-label="Add Manifest to Claude">
+    <a href="#setup" class="cta-prompt unstyle row items-center gap-3 w-xl max-w-full ps-5 pe-2 py-2 bg-popover-surface border border-line rounded-full text-start" aria-label="A booking site for my yoga studio. Add Manifest to Claude" :aria-label="idea + '. Add Manifest to Claude'">
       <span class="grow truncate text-content-neutral transition-opacity duration-500 ease-out" :class="out &amp;&amp; 'opacity-0'" x-text="idea">A booking site for my yoga studio</span>
       <span class="row center shrink-0 size-9 bg-claude text-page rounded-full" x-icon="lucide:arrow-up" aria-hidden="true"></span>
     </a>

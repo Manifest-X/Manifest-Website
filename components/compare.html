@@ -1,5 +1,5 @@
 <!-- Hub -->
-<template x-if="$route.startsWith('/compare') && !$x.compare?.$route('slug')?.slug">
+<template x-if="$route.startsWith('/compare') && $x.compare?.$ready && !$x.compare.$route('slug')?.slug">
   <section class="dot-page col center w-full pt-24 pb-50">
     <div class="col gap-10 w-content-width max-w-full">
       <div class="col gap-3 w-2xl max-w-full">
@@ -130,8 +130,8 @@
                     <td x-text="r[0]"></td>
                     <template x-for="(v, i) in [r[1], r[2]]" :key="i">
                       <td :class="i && 'is-us'">
-                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" aria-label="No"></span>
+                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" role="img" aria-label="No"></span>
                         <span x-show="v !== '✓' && v !== '—'" x-text="v"></span>
                       </td>
                     </template>
@@ -151,8 +151,8 @@
                     <td x-text="r[0]"></td>
                     <template x-for="(v, i) in [r[1], r[2]]" :key="i">
                       <td :class="i && 'is-us'">
-                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" aria-label="Yes"></span>
-                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" aria-label="No"></span>
+                        <span x-show="v === '✓'" class="cell-yes" x-icon="lucide:check" role="img" aria-label="Yes"></span>
+                        <span x-show="v === '—'" class="cell-no" x-icon="lucide:minus" role="img" aria-label="No"></span>
                         <span x-show="v !== '✓' && v !== '—'" x-text="v"></span>
                       </td>
                     </template>
@@ -180,7 +180,7 @@
           <p class="text-content-neutral text-balance" x-text="c.switch.intro"></p>
         </div>
         <template x-for="p in c.switch.prompts" :key="p">
-          <button type="button" class="prompt-copy unstyle group col gap-2 my-4 p-5 bg-popover-surface rounded-xl text-start cursor-pointer" x-data="{ copied: false }" aria-label="Copy this prompt" @click="navigator.clipboard.writeText(p); copied = true; setTimeout(() => copied = false, 1600)">
+          <button type="button" class="prompt-copy unstyle group col gap-2 my-4 p-5 bg-popover-surface rounded-xl text-start cursor-pointer" x-data="{ copied: false }" @click="navigator.clipboard.writeText(p); copied = true; setTimeout(() => copied = false, 1600)">
             <span class="row items-center justify-between gap-3">
               <span class="eyebrow">Prompt idea</span>
               <span class="row items-center gap-1.5 text-sm text-content-subtle transition-colors group-hover:text-content-stark">
