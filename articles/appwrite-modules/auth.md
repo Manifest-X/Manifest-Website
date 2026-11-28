@@ -50,7 +50,7 @@ Appwrite lets any visitor do the following once the matching method is on, so pl
 
 Two behaviors of the module itself are also worth knowing about.
 
-- **Sign-in links ask first outside the browser that requested them.** A magic URL opened in the browser that requested it signs in at once. Opened anywhere else, such as another device or a link someone else sent, it does nothing until the visitor [confirms](/docs/framework/appwrite-modules/users#magic-urls). This stops a stranger's link from quietly signing a visitor in to the stranger's account. A team invite link is still accepted on page load, but only for the signed-in account it was sent to.
+- **Sign-in links ask first outside the browser that requested them.** A magic URL opened within an hour in the browser that requested it signs in at once. Opened anywhere else, such as on another device or from a link someone else sent, it does nothing until the visitor [confirms](/docs/framework/appwrite-modules/users#magic-urls). This stops a stranger's link from quietly signing a visitor in to the stranger's account. A team invite link is still accepted on page load, but only for the signed-in account it was sent to.
 - **Any role with an owner-level permission is an Appwrite owner.** Appwrite has one privileged team role, `owner`. A role you define that includes `inviteMembers`, `updateMembers`, `removeMembers`, `renameTeam`, `deleteTeam`, or `manageRoles` is given that role so that Appwrite accepts those requests. A member who holds it can make every owner request directly, whatever your interface offers. For roles that must be limited on the server, run the action in an Appwrite function that checks the caller's role.
 
 ---

@@ -160,7 +160,7 @@ The button's `$auth.sendMagicLink()` method automatically finds the email input 
 
 When users click the magic URL in their email, they're redirected back to your app. The module automatically handles the callback and creates the session.
 
-A link opened in a different browser or device from the one that requested it asks before signing in, with a built-in "Continue signing in?" dialog. Nothing changes until the visitor chooses Continue, so a link sent by someone else can't sign them in unnoticed. To show your own confirmation instead, cancel the `manifest:auth:signin-confirm` event and use `$auth.signInPending` with `$auth.confirmSignIn()` and `$auth.cancelSignIn()`:
+A link opened within an hour in the browser that requested it signs in at once. Opened anywhere else, it asks before signing in, with a built-in "Continue signing in?" dialog. That includes another browser or device, a private window, a browser whose storage has been cleared, and the requesting browser after the hour has passed. Nothing changes until the visitor chooses Continue, so a link sent by someone else can't sign them in unnoticed. To show your own confirmation instead, cancel the `manifest:auth:signin-confirm` event and use `$auth.signInPending` with `$auth.confirmSignIn()` and `$auth.cancelSignIn()`:
 
 ```html
 <body @manifest:auth:signin-confirm.window.prevent>
@@ -594,6 +594,7 @@ Current session details (null if not authenticated). The session object comes di
 | `$auth.error`{copy} | string \| null | Error message string (null if no error) |
 | `$auth.magicLinkSent`{copy} | boolean | Indicates if magic link was sent |
 | `$auth.magicLinkExpired`{copy} | boolean | Indicates if magic link expired |
+| `$auth.signInPending`{copy} | boolean | Indicates if a sign-in link is waiting for the visitor to confirm it |
 | `$auth.otpSent`{copy} | boolean | Indicates if an OTP code (email or SMS) was sent and awaits entry |
 | `$auth.otpExpired`{copy} | boolean | Indicates if the entered OTP code was invalid or expired |
 | `$auth.otpPhrase`{copy} | string \| null | Email OTP anti-phishing security phrase (when requested with `{ phrase: true }`) |
@@ -618,6 +619,8 @@ Current session details (null if not authenticated). The session object comes di
 |--------|------------|-------------|
 | `$auth.loginOAuth(...)`{copy} | `provider` (string), `successUrl` (optional), `failureUrl` (optional) | Sign in with OAuth provider. Redirects to provider. |
 | `$auth.sendMagicLink(...)`{copy} | `emailInputOrRef` (element ID or element, optional), `redirectUrl` (optional) | Send magic link to email. |
+| `$auth.confirmSignIn()`{copy} | None | Complete a sign-in link that is waiting for confirmation. |
+| `$auth.cancelSignIn()`{copy} | None | Discard a sign-in link that is waiting for confirmation. |
 | `$auth.sendEmailOTP(...)`{copy} | `emailInputOrRef` (selector or element, optional), `options` (optional, `{ phrase: true }` for a security phrase) | Email a one-time passcode. |
 | `$auth.sendPhoneOTP(...)`{copy} | `phoneInputOrRef` (selector or element, optional) | Text a one-time passcode to a phone number (E.164 format). |
 | `$auth.submitOTP(...)`{copy} | `codeInputOrRef` (selector or element, optional) | Verify the entered passcode and complete sign-in (email or phone). |
@@ -652,6 +655,7 @@ The auth module dispatches these events on `window`:
 | `manifest:auth:initialized`{copy} | The session check on page load has finished, signed in or not (`detail.isAuthenticated`, `detail.isAnonymous`) |
 | `manifest:auth:login`{copy} | A user signs in, or a session is restored (`detail.user` holds the user) |
 | `manifest:auth:anonymous`{copy} | A guest session starts |
+| `manifest:auth:signin-confirm`{copy} | A sign-in link is waiting for confirmation. Cancel the event to replace the built-in dialog with your own |
 | `manifest:auth:logout`{copy} | The user signs out, or the session has expired |
 | `manifest:auth:session-cleared`{copy} | The session ended or changed elsewhere, such as in another tab |
 | `manifest:auth:teams-loaded`{copy} | The user's [teams](/docs/framework/appwrite-modules/teams) have loaded |
@@ -663,7 +667,7 @@ The auth module dispatches these events on `window`:
 <div x-data @manifest:auth:login.window="$toast('Welcome back')"></div>
 ```
 
-On page load, a returning signed-in visitor's account, session and (with [teams](/docs/framework/appwrite-modules/teams) enabled) team list are requested together, then the current team's members and roles together. When a [starting team](/docs/framework/appwrite-modules/teams#starting-team) is known, its members and roles go out with the first group. `manifest:auth:initialized` fires as soon as the session is known, before teams load, and when teams load, `manifest:auth:teams-loaded` follows. Sign-in link returns (magic URL, team invite, OAuth) and [auto guest sessions](#auto-guest-sessions) are handled right after `manifest:auth:initialized`. Since 0.5.337 they run even when the session check finishes very quickly, which earlier versions could skip.
+On page load, a returning signed-in visitor's account, session and (with [teams](/docs/framework/appwrite-modules/teams) enabled) team list are requested together, then the current team's members and roles together. When a [starting team](/docs/framework/appwrite-modules/teams#starting-team) is known, its members and roles go out with the first group. `manifest:auth:initialized` fires as soon as the session is known, before teams load, and when teams load, `manifest:auth:teams-loaded` follows. Sign-in link returns (magic URL, team invite, OAuth) and [auto guest sessions](#auto-guest-sessions) are handled right after `manifest:auth:initialized`, except a magic URL that is waiting for [confirmation](#magic-urls). Since 0.5.337 they run even when the session check finishes very quickly, which earlier versions could skip.
 
 ### Cleanup Before Sign-out
 

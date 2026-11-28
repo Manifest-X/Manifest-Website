@@ -695,7 +695,7 @@ Teams use the same `$auth` magic property as users to expose authentication stat
 | `$auth.inviteToCurrentTeam()`{copy} | None | Invite member using `inviteEmail` and `inviteRoles` properties |
 | `$auth.inviteMember(...)`{copy} | `teamId` (string), `roles` (array), `email` (string) | Invite a member by email. Returns `{ success, membership, normalized }`; `normalized` is `true` when the stored roles differ from those requested (for example, a role with owner-level permissions also gets Appwrite's `owner` role) |
 | `$auth.listMemberships(...)`{copy} | `teamId` (string), `queries` (array, optional), `search` (string, optional) | List a team's members. Returns `{ success, memberships, total }`. For the current team, the result replaces `currentTeamMemberships`. Without queries, uses `memberLimit` when set |
-| `$auth.updateMembership(...)`{copy} | `teamId` (string), `membershipId` (string), `roles` (array) | Set a member's roles. Returns the same `normalized` flag as `inviteMember`. Members without `updateMembers` can remove roles from their own membership but not add any |
+| `$auth.updateMembership(...)`{copy} | `teamId` (string), `membershipId` (string), `roles` (array) | Set a member's roles. Returns the same `normalized` flag as `inviteMember`. Members without `updateMembers` can only remove roles from their own membership, never add one, and Appwrite accepts the change only if they hold an owner-level permission |
 | `$auth.startEditingMember(...)`{copy} | `teamId` (string), `membershipId` (string), `currentRoles` (array) | Start editing a member |
 | `$auth.saveEditingMember()`{copy} | None | Save member edits |
 | `$auth.cancelEditingMember()`{copy} | None | Cancel member editing |
