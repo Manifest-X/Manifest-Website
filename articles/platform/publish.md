@@ -67,7 +67,7 @@ Claude tells you what to add where you bought the domain, and there's no need to
 - **A subdomain, like `shop.example.com`:** one record.
 - **Visitors typing `www`?** Add the extra record Claude gives you and they're sent to `example.com`.
 - **Moving a live domain?** Tell Claude first, and nothing goes offline during the move.
-- **To change the `.manifestx.ai` address**, ask Claude to `change my address to acme-launch`{.prompt copy}. The old address stops working.
+- **To change the `.manifestx.ai` address**, ask Claude to `change my address to acme-launch`{.prompt copy}. The old address stops working. Once it has been live for a day, the old address is reserved for your projects for 90 days, so nobody else can take it.
 
 ---
 
