@@ -415,6 +415,10 @@ Permissions are worked out in the browser from the team's roles. They decide wha
 
 Team members can be invited, updated, and removed, subject to the respective user permissions.
 
+When your app or the team defines roles, an invite needs at least one. An invite with no role is refused with a message in `$auth.error`, and nothing is sent. With no roles defined anywhere, every member is an owner, and so is an invitee.
+
+An invite link is accepted only for the account it was sent to. If it is opened while signed in to a different account, it is refused with "This invite is for a different account."
+
 In your Appwrite project under <b>Auth</b> > <b>Settings</b>, ensure <b>Team invites</b> is toggled on. Invitation emails can be customized under <b>Auth</b> > <b>Settings</b> > <b>Invite user</b>.
 
 <div x-code-group numbers copy  collapse="10">
@@ -438,6 +442,9 @@ In your Appwrite project under <b>Auth</b> > <b>Settings</b>, ensure <b>Team inv
 
 <!-- Send invite email button -->
 <button @click="$auth.inviteToCurrentTeam()" :disabled="!$auth.inviteEmail || $auth.isActionDisabled('inviteMembers')">Invite</button>
+
+<!-- Shows why an invite was refused, e.g. no role chosen -->
+<p x-show="$auth.error" x-text="$auth.error"></p>
 ```
 
 ```html "List & Manage Members"

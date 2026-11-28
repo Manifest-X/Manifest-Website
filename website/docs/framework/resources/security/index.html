@@ -30,7 +30,7 @@
   <script src="../../../../scripts/hero-demo.js" defer=""></script>
   <script src="../../../../scripts/console-message.js" defer=""></script>
 
-<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Security — Manifest</title><meta property="og:title" content="Security — Manifest"><meta property="og:description" content="Manifest's security defaults and the places to opt in to more."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/resources/security"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-resources-security.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Security — Manifest"><meta property="twitter:description" content="Manifest's security defaults and the places to opt in to more."><meta property="twitter:image" content="/og/docs-framework-resources-security.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Security — Manifest","description":"Manifest's security defaults and the places to opt in to more.","image":"/og/docs-framework-resources-security.png","url":"https://manifestx.dev/docs/framework/resources/security"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Resources","item":"https://manifestx.dev/docs/framework/resources"},{"@type":"ListItem","position":5,"name":"Security","item":"https://manifestx.dev/docs/framework/resources/security"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><title>Security — Manifest</title><meta property="og:title" content="Security — Manifest"><meta property="og:description" content="Manifest's security defaults and the places to opt in to more."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/resources/security"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-resources-security.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Security — Manifest"><meta property="twitter:description" content="Manifest's security defaults and the places to opt in to more."><meta property="twitter:image" content="/og/docs-framework-resources-security.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Security — Manifest","description":"Manifest's security defaults and the places to opt in to more.","image":"/og/docs-framework-resources-security.png","url":"https://manifestx.dev/docs/framework/resources/security"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Resources","item":"https://manifestx.dev/docs/framework/resources"},{"@type":"ListItem","position":5,"name":"Security","item":"https://manifestx.dev/docs/framework/resources/security"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/framework/resources/security">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -776,8 +776,10 @@
 <li><strong>Inline scripts.</strong> <code>&lt;script&gt;</code> tags execute as written wherever they appear: in <code>index.html</code>, inside component HTML files referenced from <code>manifest.json</code>, and inside <code>&lt;template data-head&gt;</code> blocks for per-route head injection. Don't compose their bodies from data-source values or URL parameters.</li>
 <li><strong>HTML and SVG rendering.</strong> <code>x-markdown</code>, <code>x-svg</code>, and any custom <code>x-html</code> binding render their inputs as HTML so authors can include icons, formatting, and Manifest's custom-element extensions, as do <code>x-tooltip.html</code>, <code>x-toast.html</code>, and <code>$toast(message, { html: true })</code>. If the content comes from a party you don't control — user-submitted markdown, uploaded avatars, third-party API responses — use <code>x-markdown.safe</code> or <code>x-svg.safe</code>, or sanitize at the source before binding.</li>
 <li><strong>Component registry.</strong> The <code>components</code> and <code>preloadedComponents</code> arrays in <code>manifest.json</code> are fetched and executed at runtime. Keep these static — don't generate paths from URL parameters or data-source values.</li>
-<li><strong>URL parameters.</strong> <code>$url</code> exposes the query string as reactive data. Use values via <code>x-text</code>, <code>x-show</code>, or attribute bindings (safe by default); don't feed them back into a directive that would re-evaluate them as expressions.</li>
+<li><strong>URL parameters.</strong> <code>$url</code> exposes the query string as reactive data, and anyone can write a link that sets it. Values are safe in <code>x-text</code> and <code>x-show</code>. Don't feed them back into a directive that would re-evaluate them as expressions.</li>
+<li><strong>Link and source attributes.</strong> A value bound into <code>:href</code>, <code>:src</code>, <code>:action</code>, or <code>:formaction</code> is used as a URL, and a URL starting with <code>javascript:</code> runs as code when followed. Before binding a URL that comes from the query string, a data source, or another user, check that it is a path on your own site or that it starts with <code>https://</code> or <code>http://</code>. A path needs more than a leading <code>/</code>, because browsers treat <code>//</code> and <code>/\</code> as the start of another site's address.</li>
 </ul>
+<pre x-code="html" name="Checking a URL before binding it" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="Checking a URL before binding it" role="region"><header><div>Checking a URL before binding it</div></header><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">:href</span>=<span class="hljs-string">"/^(\/(?![\/\\])|https?:\/\/)[^\t\n\r]*$/.test($url.next.first) ? $url.next.first : '/'"</span>&gt;</span>Continue<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 <h3 id="cdn-resource-integrity">CDN Resource Integrity</h3><p>Pin the loader to an exact version and add an <code>integrity</code> hash plus <code>crossorigin="anonymous"</code>. The browser refuses to run the loader if its bytes don't match. The loader then checks everything it and its modules load from a CDN against hashes published with that version.</p>
 <pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.manifestx.dev/npm/mnfst@&lt;version&gt;/lib/manifest.min.js"</span>
 	<span class="hljs-attr">integrity</span>=<span class="hljs-string">"sha384-..."</span>
@@ -815,8 +817,70 @@
 <li><input type="checkbox"> Confirm <code>manifest.json</code> contains no inlined credentials — it is published with the site</li>
 <li><input type="checkbox"> Confirm <code>.env</code> is in <code>.gitignore</code> and absent from the published directory</li>
 <li><input type="checkbox"> Serve the site over HTTPS</li>
-<li><input type="checkbox"> Configure a <a href="https://developer.mozilla.org/docs/Web/HTTP/CSP">Content Security Policy</a> header. Alpine evaluates attribute expressions, so <code>script-src</code> needs <code>'unsafe-eval'</code>, plus <code>https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com</code> in <code>script-src</code>, <code>style-src</code>, and <code>connect-src</code> (and <code>blob:</code> in <code>script-src</code> for code blocks with <code>edit</code> when <a href="#cdn-resource-integrity">integrity checks</a> are on). Icons also need <code>https://api.iconify.design</code> in <code>connect-src</code> (plus its fallbacks <code>https://api.simplesvg.com</code> and <code>https://api.unisvg.com</code>), and runtime utility classes need <code>style-src 'unsafe-inline'</code></li>
+<li><input type="checkbox"> Send a <a href="#content-security-policy">Content Security Policy</a> header</li>
 </ul>
+<hr>
+<h2 id="content-security-policy">Content Security Policy</h2><p>A Content Security Policy (CSP) is a response header that tells the browser which scripts, styles, and connections a page may use. The policy below is enough to run a Manifest project that uses the default CDNs, icons, and code blocks.</p>
+<pre x-code="text" name="Content-Security-Policy" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="Content-Security-Policy" role="region"><header><div>Content-Security-Policy</div></header><code class="hljs language-plaintext" data-highlighted="yes">default-src 'self';
+script-src 'self' 'unsafe-eval' https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com https://esm.run;
+style-src 'self' 'unsafe-inline' https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com;
+connect-src 'self' https://cdn.manifestx.dev https://cdn.jsdelivr.net https://unpkg.com https://api.iconify.design https://api.simplesvg.com https://api.unisvg.com;
+img-src 'self' data: blob: https:;
+font-src 'self' data:;
+worker-src 'self';
+object-src 'none';
+base-uri 'self';
+form-action 'self';
+frame-ancestors 'self'</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Send the policy as a single line, then add the entries that match what your project uses.</p>
+<table>
+<thead>
+<tr>
+<th>If the project uses</th>
+<th>Add</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Appwrite</td>
+<td>Your Appwrite endpoint in <code>connect-src</code>, as both <code>https://</code> and <code>wss://</code></td>
+</tr>
+<tr>
+<td>Inline scripts you write, in <code>index.html</code>, in <code>&lt;template data-head&gt;</code> blocks, or as module scripts in components</td>
+<td>The <code>sha256-</code> hash of each one in <code>script-src</code>, or move them into files.</td>
+</tr>
+<tr>
+<td>A prerendered site with color modes</td>
+<td>The <code>sha256-</code> hash of the inline theme script in <code>script-src</code>. The browser console prints the hash when it blocks the script.</td>
+</tr>
+<tr>
+<td>Code blocks with <code>edit</code>, with integrity checks on</td>
+<td><code>blob:</code> in <code>script-src</code></td>
+</tr>
+<tr>
+<td>Payments</td>
+<td>The provider's script host in <code>script-src</code> and its checkout host in <code>frame-src</code></td>
+</tr>
+<tr>
+<td>Manifest hosting</td>
+<td><code>https://static.cloudflareinsights.com</code> in <code>script-src</code> and <code>https://cloudflareinsights.com</code> in <code>connect-src</code>, for analytics</td>
+</tr>
+</tbody></table>
+<p>Three of those entries are looser than a strict policy would allow, and each is there for a reason:</p>
+<ul>
+<li><strong><code>'unsafe-eval'</code> in <code>script-src</code>.</strong> Alpine turns the expressions in your attributes into functions, so no expression runs without it.</li>
+<li><strong><code>'unsafe-inline'</code> in <code>style-src</code>.</strong> Utility classes are compiled into a <code>&lt;style&gt;</code> element in the browser, and <code>style</code> attributes count as inline styles, whether you write them in your HTML or set them with a string <code>:style</code> binding.</li>
+<li><strong><code>https://esm.run</code> in <code>script-src</code>.</strong> Code highlighting and charts load their files from there unless integrity checks are on.</li>
+</ul>
+<p>The policy stops inline <code>&lt;script&gt;</code> tags and <code>onclick</code>-style attributes that reach the page through injected HTML. It also stops embedded objects, framing by other sites, and requests to hosts you haven't listed.</p>
+<p>The policy doesn't stop injected HTML that carries Alpine directives. With <code>'unsafe-eval'</code> allowed, an injected <code>x-init</code> runs like one of your own, so keep untrusted content out of HTML sinks or render it with <code>.safe</code>.</p>
+<p>jsDelivr and unpkg serve every package on npm, so listing them lets a page load any script published there. If your loader tag carries <code>integrity</code>, you can drop both of them, along with <code>https://esm.run</code>, and keep only <code>https://cdn.manifestx.dev</code>, which serves only the packages Manifest itself loads. The loader then has no second CDN to fall back to if that one is unreachable.</p>
+<p>To try a policy without breaking the page, send it as <code>Content-Security-Policy-Report-Only</code> first and read what the browser console reports.</p>
+<p>On Manifest hosting, response headers go in a <code>_headers</code> file at the root of the published folder.</p>
+<pre x-code="text" name="_headers" copy="" data-code-processed="yes" data-code-block-built="yes" aria-label="_headers" role="region"><header><div>_headers</div></header><code class="hljs language-plaintext" data-highlighted="yes">/*
+  Content-Security-Policy: &lt;the policy above, on one line&gt;
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin</code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
+<p>Each path line is followed by its header lines, indented, and <code>/*</code> matches every page. Hosting accepts only security headers, which are <code>Content-Security-Policy</code>, <code>Content-Security-Policy-Report-Only</code>, <code>X-Frame-Options</code>, <code>Referrer-Policy</code>, <code>Permissions-Policy</code>, <code>X-Content-Type-Options</code>, <code>Strict-Transport-Security</code>, the three <code>Cross-Origin-*-Policy</code> headers, and <code>X-Robots-Tag</code>. Any other header in the file is ignored.</p>
 <hr>
 <h2 id="reporting">Reporting</h2><p>If you discover a security issue, please report it to <a href="mailto:team@manifestx.dev">team@manifestx.dev</a>. We will respond promptly and coordinate disclosure timing with you.</p>
 </div>
@@ -965,7 +1029,7 @@
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#built-in-protections">Built-in Protections</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#developer-controlled-surfaces">Developer-Controlled Surfaces</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#cdn-resource-integrity">CDN Resource Integrity</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#production-checklist">Production Checklist</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#reporting">Reporting</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#overview">Overview</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#built-in-protections">Built-in Protections</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#developer-controlled-surfaces">Developer-Controlled Surfaces</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2 pl-2" href="#cdn-resource-integrity">CDN Resource Integrity</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#production-checklist">Production Checklist</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#content-security-policy">Content Security Policy</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#reporting">Reporting</a></div>
 
   </nav>
 

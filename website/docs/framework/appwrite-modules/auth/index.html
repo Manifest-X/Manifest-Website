@@ -30,7 +30,7 @@
   <script src="../../../../scripts/hero-demo.js" defer=""></script>
   <script src="../../../../scripts/console-message.js" defer=""></script>
 
-<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><title>Auth — Manifest</title><meta property="og:title" content="Auth — Manifest"><meta property="og:description" content="Implement a complete authentication solution for your app with a connected Appwrite project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/appwrite-modules/auth"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-appwrite-modules-auth.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Auth — Manifest"><meta property="twitter:description" content="Implement a complete authentication solution for your app with a connected Appwrite project."><meta property="twitter:image" content="/og/docs-framework-appwrite-modules-auth.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Auth — Manifest","description":"Implement a complete authentication solution for your app with a connected Appwrite project.","image":"/og/docs-framework-appwrite-modules-auth.png","url":"https://manifestx.dev/docs/framework/appwrite-modules/auth"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Appwrite Modules","item":"https://manifestx.dev/docs/framework/appwrite-modules"},{"@type":"ListItem","position":5,"name":"Auth","item":"https://manifestx.dev/docs/framework/appwrite-modules/auth"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Auth — Manifest</title><meta property="og:title" content="Auth — Manifest"><meta property="og:description" content="Implement a complete authentication solution for your app with a connected Appwrite project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/appwrite-modules/auth"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-appwrite-modules-auth.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Auth — Manifest"><meta property="twitter:description" content="Implement a complete authentication solution for your app with a connected Appwrite project."><meta property="twitter:image" content="/og/docs-framework-appwrite-modules-auth.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Auth — Manifest","description":"Implement a complete authentication solution for your app with a connected Appwrite project.","image":"/og/docs-framework-appwrite-modules-auth.png","url":"https://manifestx.dev/docs/framework/appwrite-modules/auth"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Appwrite Modules","item":"https://manifestx.dev/docs/framework/appwrite-modules"},{"@type":"ListItem","position":5,"name":"Auth","item":"https://manifestx.dev/docs/framework/appwrite-modules/auth"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/framework/appwrite-modules/auth">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -256,7 +256,7 @@
         get groups() { return this.src ? $x[this.src] || [] : [] },
         get article() { return this.src === this.current ? $x[this.src].$route('path') : null },
         here(href) { return $route.replace(/\/$/, '') === href },
-    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-order="3">
+    }" @manifest:route-change.window="$el.hidePopover()" @toggle="$event.newState === 'closed' &amp;&amp; (view = null)" @click="$event.target.closest('a[href]') &amp;&amp; $el.hidePopover()" data-component="docs-nav-1" data-order="3">
 
     <!-- Docs -->
     <template x-if="src">
@@ -754,6 +754,43 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <hr>
+<h2 id="security-model">Security Model</h2><p>The auth module runs in the browser and talks to Appwrite with your project ID, which is public. Anything the module can ask Appwrite to do, anyone can ask with their own script. Your data is protected by what Appwrite itself allows, which comes down to the sign-in methods you enable and the permissions on your rows, files, and teams.</p>
+<p>Appwrite lets any visitor do the following once the matching method is on, so plan for each of them.</p>
+<table>
+<thead>
+<tr>
+<th>What a visitor can do</th>
+<th>When</th>
+<th>What to do about it</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Attach an email and password to a guest session, even with Email/Password turned off in the Appwrite console</td>
+<td>Anonymous sign-in is enabled in the Appwrite console, which the <code>guest</code> methods need</td>
+<td>Don't treat "has an email" as "signed in with a method you offer". Leave <code>guest</code> and <code>guest-auto</code> off unless the project needs them.</td>
+</tr>
+<tr>
+<td>Create an account for any email address by requesting a magic URL or email code for it</td>
+<td>Magic URL or Email OTP is enabled in the Appwrite console</td>
+<td>An account existing for an address doesn't prove that its owner created it. Only a completed sign-in does.</td>
+</tr>
+<tr>
+<td>Create teams, as many as Appwrite's rate limits allow, and choose a team's ID</td>
+<td>Always, for any signed-in user, guests included</td>
+<td>Don't key anything on a predictable team ID. If team creation should be limited, create teams from an Appwrite function instead.</td>
+</tr>
+<tr>
+<td>Call any Appwrite endpoint directly, skipping your interface</td>
+<td>Always</td>
+<td>Put the rule on the row, file, or function. <a href="/docs/framework/appwrite-modules/teams#how-permissions-resolve">Permissions</a> worked out in the browser only decide what your interface shows.</td>
+</tr>
+</tbody></table>
+<p>Two behaviors of the module itself are also worth knowing about.</p>
+<ul>
+<li><strong>Sign-in and invite links are handled on page load.</strong> When a page opens with <code>userId</code> and <code>secret</code> in its URL, the module completes that sign-in without asking. Anyone can send someone such a link, so a visitor may end up signed in to an account the sender controls. A team invite link is accepted the same way, but only for the signed-in account it was sent to. Show who is signed in, and don't assume a session on this device was started on this device.</li>
+<li><strong>Any role with an owner-level permission is an Appwrite owner.</strong> Appwrite has one privileged team role, <code>owner</code>. A role you define that includes <code>inviteMembers</code>, <code>updateMembers</code>, <code>removeMembers</code>, <code>renameTeam</code>, <code>deleteTeam</code>, or <code>manageRoles</code> is given that role so that Appwrite accepts those requests. A member who holds it can make every owner request directly, whatever your interface offers. For roles that must be limited on the server, run the action in an Appwrite function that checks the caller's role.</li>
+</ul>
+<hr>
 <h2 id="next-steps">Next Steps</h2><p>Complete authentication support using the guides for:</p>
 <ul>
 <li><a href="/docs/framework/appwrite-modules/users">Users</a></li>
@@ -905,7 +942,7 @@
       <span>On this page</span>
     </small>
 
-    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#next-steps">Next Steps</a></div>
+    <div class="col gap-1.5"><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#setup">Setup</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#security-model">Security Model</a><a class="text-content-subtle hover:text-content-neutral text-sm no-underline block mb-2" href="#next-steps">Next Steps</a></div>
 
   </nav>
 
