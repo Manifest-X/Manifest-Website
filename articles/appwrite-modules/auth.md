@@ -50,7 +50,7 @@ These are things Appwrite allows any visitor to do once the matching method is o
 
 Two behaviors of the module itself are worth knowing:
 
-- **Sign-in and invite links are handled on page load.** When a page opens with `userId` and `secret` in its URL, the module completes that sign-in (or accepts that team invite) without asking. Anyone can send someone such a link, so a visitor may end up signed in to an account the sender controls. Show who is signed in, and don't assume a session on this device was started on this device.
+- **Sign-in and invite links are handled on page load.** When a page opens with `userId` and `secret` in its URL, the module completes that sign-in without asking. Anyone can send someone such a link, so a visitor may end up signed in to an account the sender controls. A team invite link is accepted the same way, but only for the signed-in account it was sent to. Show who is signed in, and don't assume a session on this device was started on this device.
 - **Any role with an owner-level permission is an Appwrite owner.** Appwrite has one privileged team role, `owner`. A role you define that includes `inviteMembers`, `updateMembers`, `removeMembers`, `renameTeam`, `deleteTeam` or `manageRoles` is given it, so that Appwrite accepts those requests. A member holding it can make every owner request directly, whatever your interface offers. For roles that must be limited on the server, run the action in an Appwrite function that checks the caller's role.
 
 ---
