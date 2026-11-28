@@ -649,7 +649,7 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <pre x-code="json" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span> <span class="hljs-attr">"removed"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"docs.acme.com"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"request_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"…"</span> <span class="hljs-punctuation">}</span></code></pre>
-<p>The project stops answering on that domain at once, and the domain is free to add elsewhere. The CNAME can then be deleted at the DNS provider.</p>
+<p>The project stops answering on that domain at once, and the domain is free to add elsewhere. Delete the DNS record at the DNS provider straight away, unless the domain is being added again. While the record still points at Manifest, another account could add the domain and serve its own site there.</p>
 <hr>
 <h2 id="errors">Errors</h2><p>Domain errors, such as <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">hostname_taken</code> and <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">domain_cap_reached</code>, are in <a href="/docs/api/reference/errors">Errors</a>, with what to do.</p>
 </div>

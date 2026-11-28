@@ -872,6 +872,14 @@
 
 <p>The button's <code>$auth.sendMagicLink()</code> method automatically finds the email input in the same parent element, form element, or otherwise finds the first email input on the page. To target a specific input, add its element ID like <code>$auth.sendMagicLink('#email-input')</code>. When activated, a magic URL is sent and the email input field is cleared.</p>
 <p>When users click the magic URL in their email, they're redirected back to your app. The module automatically handles the callback and creates the session.</p>
+<p>A link opened within an hour in the browser that requested it signs in at once. Opened anywhere else, it asks before signing in, with a built-in "Continue signing in?" dialog. That includes another browser or device, a private window, a browser whose storage has been cleared, and the requesting browser after the hour has passed. Nothing changes until the visitor chooses Continue, so a link sent by someone else can't sign them in unnoticed. To show your own confirmation instead, cancel the <code>manifest:auth:signin-confirm</code> event and use <code>$auth.signInPending</code> with <code>$auth.confirmSignIn()</code> and <code>$auth.cancelSignIn()</code>:</p>
+<pre x-code="html" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">body</span> @<span class="hljs-attr">manifest:auth:signin-confirm.window.prevent</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-show</span>=<span class="hljs-string">"$auth.signInPending"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Continue signing in on this device?<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$auth.cancelSignIn()"</span>&gt;</span>Cancel<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$auth.confirmSignIn()"</span>&gt;</span>Continue<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></code></pre>
 <p>Email content can be customized in Appwrite under <b>Auth</b> &gt; <b>Templates</b> &gt; <b>Magic URL</b>.</p>
 <hr>
 <h3 id="email-otp">Email OTP</h3><p>Email OTP provides passwordless authentication via a one-time passcode. Users enter their email address, receive a short code by email, then enter that code to sign in — all on the same page, with no redirect.</p>
@@ -1350,6 +1358,11 @@
 <td>Indicates if magic link expired</td>
 </tr>
 <tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.signInPending</code></td>
+<td>boolean</td>
+<td>Indicates if a sign-in link is waiting for the visitor to confirm it</td>
+</tr>
+<tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.otpSent</code></td>
 <td>boolean</td>
 <td>Indicates if an OTP code (email or SMS) was sent and awaits entry</td>
@@ -1418,6 +1431,16 @@
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.sendMagicLink(...)</code></td>
 <td><code>emailInputOrRef</code> (element ID or element, optional), <code>redirectUrl</code> (optional)</td>
 <td>Send magic link to email.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.confirmSignIn()</code></td>
+<td>None</td>
+<td>Complete a sign-in link that is waiting for confirmation.</td>
+</tr>
+<tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.cancelSignIn()</code></td>
+<td>None</td>
+<td>Discard a sign-in link that is waiting for confirmation.</td>
 </tr>
 <tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">$auth.sendEmailOTP(...)</code></td>
@@ -1506,6 +1529,10 @@
 <td>A guest session starts</td>
 </tr>
 <tr>
+<td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:auth:signin-confirm</code></td>
+<td>A sign-in link is waiting for confirmation. Cancel the event to replace the built-in dialog with your own</td>
+</tr>
+<tr>
 <td><code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">manifest:auth:logout</code></td>
 <td>The user signs out, or the session has expired</td>
 </tr>
@@ -1531,7 +1558,7 @@
 </tr>
 </tbody></table>
 <pre x-code="html" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">x-data</span> @<span class="hljs-attr">manifest:auth:login.window</span>=<span class="hljs-string">"$toast('Welcome back')"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code><button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
-<p>On page load, a returning signed-in visitor's account, session and (with <a href="/docs/framework/appwrite-modules/teams">teams</a> enabled) team list are requested together, then the current team's members and roles together. When a <a href="/docs/framework/appwrite-modules/teams#starting-team">starting team</a> is known, its members and roles go out with the first group. <code>manifest:auth:initialized</code> fires as soon as the session is known, before teams load, and when teams load, <code>manifest:auth:teams-loaded</code> follows. Sign-in link returns (magic URL, team invite, OAuth) and <a href="#auto-guest-sessions">auto guest sessions</a> are handled right after <code>manifest:auth:initialized</code>. Since 0.5.337 they run even when the session check finishes very quickly, which earlier versions could skip.</p>
+<p>On page load, a returning signed-in visitor's account, session and (with <a href="/docs/framework/appwrite-modules/teams">teams</a> enabled) team list are requested together, then the current team's members and roles together. When a <a href="/docs/framework/appwrite-modules/teams#starting-team">starting team</a> is known, its members and roles go out with the first group. <code>manifest:auth:initialized</code> fires as soon as the session is known, before teams load, and when teams load, <code>manifest:auth:teams-loaded</code> follows. Sign-in link returns (magic URL, team invite, OAuth) and <a href="#auto-guest-sessions">auto guest sessions</a> are handled right after <code>manifest:auth:initialized</code>, except a magic URL that is waiting for <a href="#magic-urls">confirmation</a>. Since 0.5.337 they run even when the session check finishes very quickly, which earlier versions could skip.</p>
 <h3 id="cleanup-before-sign-out">Cleanup Before Sign-out</h3><p>Since 0.5.307, <code>manifest:auth:before-logout</code> fires while the session is still valid, so your code can finish work that needs it, such as deleting a record only the user may delete. Pass a promise to <code>event.detail.waitUntil()</code> and the session ends once it settles, or after 3 seconds at most so sign-out never hangs. <a href="/docs/framework/appwrite-modules/presence">Presence</a> uses it to remove the person's status.</p>
 <pre x-code="js" copy="" data-code-processed="yes" data-code-block-built="yes" role="region"><code class="hljs language-javascript" data-highlighted="yes"><span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'manifest:auth:before-logout'</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
     event.<span class="hljs-property">detail</span>.<span class="hljs-title function_">waitUntil</span>(<span class="hljs-title function_">saveDraft</span>());
