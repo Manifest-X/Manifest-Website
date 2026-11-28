@@ -30,7 +30,7 @@
   <script src="../../../../scripts/hero-demo.js" defer=""></script>
   <script src="../../../../scripts/console-message.js" defer=""></script>
 
-<style>@view-transition { navigation: none }</style><style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
+<style id="manifest-tailwind-variants" type="text/tailwindcss">@custom-variant touch (@media (pointer: coarse));
 @custom-variant cursor (@media (pointer: fine) and (hover: hover));
 @custom-variant pointer (@media (any-pointer: fine));
 @custom-variant mac (&:where([data-os="macos"] *));
@@ -44,7 +44,7 @@
 @custom-variant standalone (&:where([data-standalone] *));
 @custom-variant native (&:where([data-native] *));
 @custom-variant web (&:where(html:not([data-native]) *));
-@custom-variant dark (&:where(.dark, .dark *));</style><title>Chat — Manifest</title><meta property="og:title" content="Chat — Manifest"><meta property="og:description" content="Add conversations with AI or people to your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/chat"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-chat.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Chat — Manifest"><meta property="twitter:description" content="Add conversations with AI or people to your project."><meta property="twitter:image" content="/og/docs-framework-core-modules-chat.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Chat — Manifest","description":"Add conversations with AI or people to your project.","image":"/og/docs-framework-core-modules-chat.png","url":"https://manifestx.dev/docs/framework/core-modules/chat"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Chat","item":"https://manifestx.dev/docs/framework/core-modules/chat"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
+@custom-variant dark (&:where(.dark, .dark *));</style><style>@view-transition { navigation: none }</style><title>Chat — Manifest</title><meta property="og:title" content="Chat — Manifest"><meta property="og:description" content="Add conversations with AI or people to your project."><meta property="og:type" content="article"><meta property="og:url" content="https://manifestx.dev/docs/framework/core-modules/chat"><meta property="og:site_name" content="Manifest"><meta property="og:image" content="/og/docs-framework-core-modules-chat.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Chat — Manifest"><meta property="twitter:description" content="Add conversations with AI or people to your project."><meta property="twitter:image" content="/og/docs-framework-core-modules-chat.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Manifest","url":"https://manifestx.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Chat — Manifest","description":"Add conversations with AI or people to your project.","image":"/og/docs-framework-core-modules-chat.png","url":"https://manifestx.dev/docs/framework/core-modules/chat"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manifest","item":"https://manifestx.dev/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://manifestx.dev/docs"},{"@type":"ListItem","position":3,"name":"Framework","item":"https://manifestx.dev/docs/framework"},{"@type":"ListItem","position":4,"name":"Core Modules","item":"https://manifestx.dev/docs/framework/core-modules"},{"@type":"ListItem","position":5,"name":"Chat","item":"https://manifestx.dev/docs/framework/core-modules/chat"}]}</script><link rel="stylesheet" href="/prerender.tailwind.css">
 <link rel="canonical" href="https://manifestx.dev/docs/framework/core-modules/chat">
 <meta name="manifest:router-base" content="">
 <meta name="manifest:prerender-locales" content="en">
@@ -814,8 +814,9 @@
 </aside>
 <p>Long <code>system</code> and <code>grounding</code> text is sent as a cacheable prompt. After the first message, Anthropic serves it from cache at a fraction of the price.</p>
 <h3 id="api-key">API Key</h3><p>Replies use your own Anthropic API key, so usage bills to your Anthropic account. AI chat is free on every Manifest plan.</p>
-<p>Give the key to Manifest through the connector by asking your agent, for example: "set up AI chat with my Anthropic key". Manifest stores it encrypted. Ask again to replace the key, change the daily request limit, or remove it. A project's staging and production sites share one key and one daily limit.</p>
-<p>The daily request limit is your cost ceiling. For a small site, ask for a lower limit than the default.</p>
+<p>Give the key to Manifest through the Manifest plugin by asking your agent, for example: "set up AI chat with my Anthropic key". Manifest stores it encrypted. Ask again to replace the key, change the daily request limit, see today's usage, or remove it. To stop the chat, remove the key: setting the limit to 0 restores the default. A project's staging and production sites share one key. Staging has its own, smaller daily limit, so testing there never uses up production's.</p>
+<p>Anyone can call your site's relay. It only answers requests that carry your site's own <code>Origin</code>, which stops other websites' pages but not scripts, so the daily limits are the only bound on what the relay spends. For a small site, ask for a lower limit than the default, and set a spend limit in the Anthropic Console as well. Because the limits are per day, a few scripted visitors can use up the day's limit and stop the chat for everyone until it resets.</p>
+<p>The daily limits count requests and spend. Spend is measured in input-token units: an input token is 1 and an output token 5 (a cache write is 1.25 and a cache read 0.1, which only apply to your <code>system</code> and <code>grounding</code> text). Each request in the daily limit adds 6,000 + 5 × <code>maxTokens</code> units to the day's budget, so the default 500 requests with the default <code>maxTokens</code> allow 5,560,000 units of visitors' messages and replies. Your <code>system</code> and <code>grounding</code> text are counted separately and aren't capped beyond the request limit. Limits reset at midnight UTC.</p>
 <aside class="brand"><span x-icon="lucide:info"></span><p>Never put the key in <code>manifest.json</code> or a <code>PUBLIC_</code> environment variable. Both are sent to every visitor's browser.</p>
 </aside>
 <p>For local work, <code>npx mnfst-run</code> serves the same <code>/_ai/chat</code> route using <code>ANTHROPIC_API_KEY</code> from the project's <code>.env</code> file. Without a key it streams mock replies, so you can build the interface first. The same markup works locally and once published.</p>
@@ -829,26 +830,58 @@
 </thead>
 <tbody><tr>
 <td>About 20 requests per minute per visitor</td>
-<td><code>429</code></td>
+<td><code>429</code> <code>rate_limited</code></td>
 </tr>
 <tr>
-<td>1000 requests per day per project, shared by staging and production (adjustable through the connector)</td>
-<td><code>429</code></td>
+<td>500 production requests per day per project, and the matching spend budget (adjustable through the Manifest plugin)</td>
+<td><code>429</code> <code>daily_cap_reached</code></td>
+</tr>
+<tr>
+<td>On staging, a tenth of the production limit, at least 20 requests per day (or the whole limit, if smaller)</td>
+<td><code>429</code> <code>daily_cap_reached</code></td>
+</tr>
+<tr>
+<td>One visitor's share of the day: a fifth of the limit, at least 100 requests (or the whole limit, if smaller), and the matching spend</td>
+<td><code>429</code> <code>visitor_cap_reached</code></td>
 </tr>
 <tr>
 <td>5 MB per request, including attachments</td>
-<td><code>413</code></td>
+<td><code>413</code> <code>body_too_large</code></td>
+</tr>
+<tr>
+<td>The visitor's latest message over 16,000 characters</td>
+<td><code>413</code> <code>message_too_long</code></td>
+</tr>
+<tr>
+<td>More than 4 attachments, or more than 1 PDF</td>
+<td><code>413</code> <code>too_many_attachments</code></td>
+</tr>
+<tr>
+<td>A message with a PDF that comes to more than about 100,000 tokens, including the conversation sent with it</td>
+<td><code>413</code> <code>attachment_too_large</code></td>
+</tr>
+<tr>
+<td>A PDF that can't be measured right now</td>
+<td><code>503</code> <code>unavailable</code></td>
 </tr>
 <tr>
 <td>An attachment that isn't a JPEG, PNG, GIF or WebP image or a PDF (SVG and other files aren't supported)</td>
 <td><code>400</code> <code>invalid_messages</code></td>
 </tr>
 <tr>
-<td>More than 100 messages of history</td>
+<td>A conversation that doesn't end on the visitor's message</td>
+<td><code>400</code> <code>invalid_messages</code></td>
+</tr>
+<tr>
+<td>More than 40 messages or 40,000 characters of history</td>
 <td>Older messages are dropped automatically</td>
 </tr>
 <tr>
-<td>A request from another site</td>
+<td>Attachments on the visitor's earlier messages</td>
+<td>Dropped; only the latest message keeps its attachments</td>
+</tr>
+<tr>
+<td>A request without your site's own <code>Origin</code></td>
 <td><code>403</code> <code>forbidden_origin</code></td>
 </tr>
 <tr>
@@ -860,7 +893,7 @@
 <td><code>503</code> <code>ai_not_configured</code></td>
 </tr>
 </tbody></table>
-<p>Requests the relay rejects as invalid don't count toward the daily limit. The <code>claude</code> adapter shows the relay's error message in the conversation.</p>
+<p>A visitor is one IP address (an IPv6 /64 counts as one). Requests refused at a daily limit, and requests Anthropic refuses or doesn't answer, still count as requests toward it; their spend is released. Invalid requests don't, except that a PDF refused as too long or unmeasurable counts toward the visitor's share. The <code>claude</code> adapter shows the relay's error message in the conversation.</p>
 <hr>
 <h3 id="markup">Markup</h3><p>Open a conversation with <code>$chat.open</code> and render it. The call returns a reactive handle. Loop over its <code>messages</code>, bind a field to a draft, and call <code>send</code>.</p>
 <p>Three details complete the UI. Style your own messages by comparing each message's author to the handle's <code>me</code>. Render finished replies with the <a href="/docs/framework/core-modules/markdown">markdown</a> module, and show plain text with <code>x-text</code> while a reply streams. When the text comes from participants you don't control, use <code>x-markdown.safe</code> to sanitize it.</p>
