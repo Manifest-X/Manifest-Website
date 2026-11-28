@@ -160,6 +160,18 @@ The button's `$auth.sendMagicLink()` method automatically finds the email input 
 
 When users click the magic URL in their email, they're redirected back to your app. The module automatically handles the callback and creates the session.
 
+A link opened in a different browser or device from the one that requested it asks before signing in, with a built-in "Continue signing in?" dialog. Nothing changes until the visitor chooses Continue, so a link sent by someone else can't sign them in unnoticed. To show your own confirmation instead, cancel the `manifest:auth:signin-confirm` event and use `$auth.signInPending` with `$auth.confirmSignIn()` and `$auth.cancelSignIn()`:
+
+```html
+<body @manifest:auth:signin-confirm.window.prevent>
+    <div x-show="$auth.signInPending">
+        <p>Continue signing in on this device?</p>
+        <button @click="$auth.cancelSignIn()">Cancel</button>
+        <button @click="$auth.confirmSignIn()">Continue</button>
+    </div>
+</body>
+```
+
 Email content can be customized in Appwrite under <b>Auth</b> > <b>Templates</b> > <b>Magic URL</b>.
 
 ---

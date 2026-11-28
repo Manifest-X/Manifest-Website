@@ -161,7 +161,7 @@ const res = await fetch('https://api.manifestx.dev/v1/projects/proj_…/domains/
 { "removed": "docs.acme.com", "request_id": "…" }
 ```
 
-The project stops answering on that domain at once, and the domain is free to add elsewhere. The CNAME can then be deleted at the DNS provider.
+The project stops answering on that domain at once, and the domain is free to add elsewhere. Delete the DNS record at the DNS provider straight away, unless the domain is being added again. While the record still points at Manifest, another account could add the domain and serve its own site there.
 
 ---
 
