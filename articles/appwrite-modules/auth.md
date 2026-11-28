@@ -37,21 +37,21 @@ Add the Appwrite SDK and `manifest.js` scripts to the HTML head. `manifest.json`
 
 ## Security Model
 
-The auth module runs in the browser and talks to Appwrite with your project ID, which is public. Anything the module can ask Appwrite to do, anyone can ask with their own script. What protects your data is what Appwrite itself allows: the sign-in methods you enable, and the permissions on your rows, files and teams.
+The auth module runs in the browser and talks to Appwrite with your project ID, which is public. Anything the module can ask Appwrite to do, anyone can ask with their own script. Your data is protected by what Appwrite itself allows, which comes down to the sign-in methods you enable and the permissions on your rows, files, and teams.
 
-These are things Appwrite allows any visitor to do once the matching method is on. Plan for them:
+Appwrite lets any visitor do the following once the matching method is on, so plan for each of them.
 
 | What a visitor can do | When | What to do about it |
 |---|---|---|
-| Attach an email and password to a guest session, even with Email/Password turned off in the Appwrite console | Any `guest` method is enabled | Don't treat "has an email" as "signed in with a method you offer". Leave `guest-auto` off unless the project needs it |
-| Create an account for any email address by requesting a magic URL or email code for it | `magic` or `otp` is enabled | An account existing for an address doesn't prove its owner created it. Only a completed sign-in does |
-| Create teams, as many as Appwrite's rate limits allow, and choose a team's ID | Teams are enabled, including for guests | Don't key anything on a predictable team ID. If team creation should be limited, create teams from an Appwrite function instead |
-| Call any Appwrite endpoint directly, skipping your interface | Always | Put the rule on the row, file or function. [Permissions](/docs/framework/appwrite-modules/teams#how-permissions-resolve) worked out in the browser only decide what your interface shows |
+| Attach an email and password to a guest session, even with Email/Password turned off in the Appwrite console | Any `guest` method is enabled | Don't treat "has an email" as "signed in with a method you offer". Leave `guest-auto` off unless the project needs it. |
+| Create an account for any email address by requesting a magic URL or email code for it | `magic` or `otp` is enabled | An account existing for an address doesn't prove that its owner created it. Only a completed sign-in does. |
+| Create teams, as many as Appwrite's rate limits allow, and choose a team's ID | Teams are enabled, including for guests | Don't key anything on a predictable team ID. If team creation should be limited, create teams from an Appwrite function instead. |
+| Call any Appwrite endpoint directly, skipping your interface | Always | Put the rule on the row, file, or function. [Permissions](/docs/framework/appwrite-modules/teams#how-permissions-resolve) worked out in the browser only decide what your interface shows. |
 
-Two behaviors of the module itself are worth knowing:
+Two behaviors of the module itself are also worth knowing about.
 
 - **Sign-in and invite links are handled on page load.** When a page opens with `userId` and `secret` in its URL, the module completes that sign-in without asking. Anyone can send someone such a link, so a visitor may end up signed in to an account the sender controls. A team invite link is accepted the same way, but only for the signed-in account it was sent to. Show who is signed in, and don't assume a session on this device was started on this device.
-- **Any role with an owner-level permission is an Appwrite owner.** Appwrite has one privileged team role, `owner`. A role you define that includes `inviteMembers`, `updateMembers`, `removeMembers`, `renameTeam`, `deleteTeam` or `manageRoles` is given it, so that Appwrite accepts those requests. A member holding it can make every owner request directly, whatever your interface offers. For roles that must be limited on the server, run the action in an Appwrite function that checks the caller's role.
+- **Any role with an owner-level permission is an Appwrite owner.** Appwrite has one privileged team role, `owner`. A role you define that includes `inviteMembers`, `updateMembers`, `removeMembers`, `renameTeam`, `deleteTeam`, or `manageRoles` is given that role so that Appwrite accepts those requests. A member who holds it can make every owner request directly, whatever your interface offers. For roles that must be limited on the server, run the action in an Appwrite function that checks the caller's role.
 
 ---
 
