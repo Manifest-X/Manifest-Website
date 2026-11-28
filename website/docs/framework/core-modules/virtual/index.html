@@ -18,13 +18,13 @@
   <link rel="manifest" href="../../../../manifest.json">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.min.css">
-  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.code.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.346/lib/manifest.min.css">
+  <link rel="stylesheet" href="https://cdn.manifestx.dev/npm/mnfst@0.5.346/lib/manifest.code.min.css">
   <link rel="stylesheet" href="../../../../manifest.theme.css">
 
   <!-- Scripts -->
   <script src="https://cdn.manifestx.dev/npm/appwrite@latest" defer=""></script>
-  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.344/lib/manifest.min.js" data-version="0.5.344"></script>
+  <script src="https://cdn.manifestx.dev/npm/mnfst@0.5.346/lib/manifest.min.js" data-version="0.5.346"></script>
   <script src="../../../../scripts/payments-demo.js" defer=""></script>
   <script src="../../../../scripts/hero-editor.js" defer=""></script>
   <script src="../../../../scripts/hero-demo.js" defer=""></script>
@@ -765,28 +765,28 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ team: Array.from({length: 500}, (_, i) =&gt; ({ id: i, name: ['Sirius','Vega','Polaris','Betelgeuse','Rigel','Arcturus'][i % 6] + ' ' + (i + 1), role: ['Senior Engineer','Product Manager','Designer','Researcher','QA Lead','Tech Writer'][i % 6] })) }" class="w-full">
     <div x-virtual="" class="border border-line rounded h-[300px] overflow-auto" style="overflow: auto">
-        <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="p-3 border-b border-line">
+        <div data-virtual-spacer="baked" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="p-3 border-b border-line" data-virtual-row="">
                 <p class="font-semibold" x-text="member.name">Sirius 1</p>
                 <small class="text-content-subtle" x-text="member.role">Senior Engineer</small>
-            </div><div class="p-3 border-b border-line">
+            </div><div class="p-3 border-b border-line" data-virtual-row="">
                 <p class="font-semibold" x-text="member.name">Vega 2</p>
                 <small class="text-content-subtle" x-text="member.role">Product Manager</small>
-            </div><div class="p-3 border-b border-line">
+            </div><div class="p-3 border-b border-line" data-virtual-row="">
                 <p class="font-semibold" x-text="member.name">Polaris 3</p>
                 <small class="text-content-subtle" x-text="member.role">Designer</small>
-            </div><div class="p-3 border-b border-line">
+            </div><div class="p-3 border-b border-line" data-virtual-row="">
                 <p class="font-semibold" x-text="member.name">Betelgeuse 4</p>
                 <small class="text-content-subtle" x-text="member.role">Researcher</small>
-            </div><div class="p-3 border-b border-line">
+            </div><div class="p-3 border-b border-line" data-virtual-row="">
                 <p class="font-semibold" x-text="member.name">Rigel 5</p>
                 <small class="text-content-subtle" x-text="member.role">QA Lead</small>
-            </div><div class="p-3 border-b border-line">
+            </div><div class="p-3 border-b border-line" data-virtual-row="">
                 <p class="font-semibold" x-text="member.name">Arcturus 6</p>
                 <small class="text-content-subtle" x-text="member.role">Tech Writer</small>
-            </div><div class="p-3 border-b border-line">
+            </div><div class="p-3 border-b border-line" data-virtual-row="">
                 <p class="font-semibold" x-text="member.name">Sirius 7</p>
                 <small class="text-content-subtle" x-text="member.role">Senior Engineer</small>
-            </div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
+            </div><div data-virtual-spacer="baked" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template data-virtual-for="member in team" data-virtual-key="member.id">
             <div class="p-3 border-b border-line">
                 <p class="font-semibold" x-text="member.name"></p>
                 <small class="text-content-subtle" x-text="member.role"></small>
@@ -797,7 +797,7 @@
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
 <p>Five hundred items are in the array, but only the visible window is rendered as you scroll. The module sets <code>overflow: auto</code> on the container automatically if it isn't already scrollable.</p>
-<p>The template's <code>x-for</code> and <code>:key</code> are consumed by the module (Alpine doesn't double-render them). The template may be nested — for example inside <code>&lt;table&gt;&lt;tbody&gt;</code> — and the module will still find it. If the container holds more than one <code>x-for</code> template (a header row built from data, say), mark the rows template with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-virtual</code>. Without the marker, the first template outside <code>&lt;thead&gt;</code> and <code>&lt;tfoot&gt;</code> is used, and the console warns when that choice was down to order alone.</p>
+<p>The module moves the template's <code>x-for</code> and <code>:key</code> to <code>data-virtual-for</code> and <code>data-virtual-key</code>, so Alpine doesn't double-render them and a prerendered page can run the list again on load. The template may be nested — for example inside <code>&lt;table&gt;&lt;tbody&gt;</code> — and the module will still find it. If the container holds more than one <code>x-for</code> template (a header row built from data, say), mark the rows template with <code copy="" data-code-processed="yes" role="button" tabindex="0" aria-label="Click to copy">data-virtual</code>. Without the marker, the first template outside <code>&lt;thead&gt;</code> and <code>&lt;tfoot&gt;</code> is used, and the console warns when that choice was down to order alone.</p>
 <p>Without <code>:key</code>, the key defaults to <code>item.id</code>, so items without an <code>id</code> don't render; give each item a stable key. The <code>x-for</code> can name the item alone (<code>row in items</code>) or the item and its index (<code>(row, i) in items</code> or <code>row, i in items</code>), and <code>:key</code> can use both names. A form <code>x-virtual</code> cannot run, such as destructuring (<code>({ id, name }, i) in items</code>), is not virtualized: the list renders in full through the normal <code>x-for</code> and the console shows a warning.</p>
 <hr>
 <h2 id="layout">Layout</h2><p>The same <code>x-virtual</code> adapts to whatever markup fits your data — a native <a href="/docs/framework/elements/tables">table</a>, a CSS grid, a wrapping gallery, or a masonry wall. The module detects the layout automatically; masonry is the one mode you set explicitly.</p>
@@ -827,51 +827,51 @@
                 <tr><th class="w-32">Name</th><th>Email</th><th class="w-28">Role</th></tr>
             </thead>
             <tbody>
-                <tr data-virtual-spacer="" aria-hidden="true" style="height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"><td colspan="3" style="padding: 0px; border: 0px; height: 0px"></td></tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" class="">
+                <tr data-virtual-spacer="baked" aria-hidden="true" style="height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"><td colspan="3" style="padding: 0px; border: 0px; height: 0px"></td></tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" data-virtual-row="" class="">
                         <td x-text="user.name">Sirius 1</td>
                         <td x-text="user.email">user1@acme.io</td>
                         <td x-text="user.role">Engineer</td>
-                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" class="bg-surface-1">
+                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" data-virtual-row="" class="bg-surface-1">
                         <td x-text="user.name">Vega 2</td>
                         <td x-text="user.email">user2@acme.io</td>
                         <td x-text="user.role">Designer</td>
-                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" class="">
+                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" data-virtual-row="" class="">
                         <td x-text="user.name">Polaris 3</td>
                         <td x-text="user.email">user3@acme.io</td>
                         <td x-text="user.role">PM</td>
-                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" class="bg-surface-1">
+                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" data-virtual-row="" class="bg-surface-1">
                         <td x-text="user.name">Rigel 4</td>
                         <td x-text="user.email">user4@acme.io</td>
                         <td x-text="user.role">Researcher</td>
-                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" class="">
+                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" data-virtual-row="" class="">
                         <td x-text="user.name">Arcturus 5</td>
                         <td x-text="user.email">user5@acme.io</td>
                         <td x-text="user.role">QA</td>
-                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" class="bg-surface-1">
+                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" data-virtual-row="" class="bg-surface-1">
                         <td x-text="user.name">Lyra 6</td>
                         <td x-text="user.email">user6@acme.io</td>
                         <td x-text="user.role">Writer</td>
-                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" class="">
+                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" data-virtual-row="" class="">
                         <td x-text="user.name">Sirius 7</td>
                         <td x-text="user.email">user7@acme.io</td>
                         <td x-text="user.role">Engineer</td>
-                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" class="bg-surface-1">
+                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" data-virtual-row="" class="bg-surface-1">
                         <td x-text="user.name">Vega 8</td>
                         <td x-text="user.email">user8@acme.io</td>
                         <td x-text="user.role">Designer</td>
-                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" class="">
+                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" data-virtual-row="" class="">
                         <td x-text="user.name">Polaris 9</td>
                         <td x-text="user.email">user9@acme.io</td>
                         <td x-text="user.role">PM</td>
-                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" class="bg-surface-1">
+                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" data-virtual-row="" class="bg-surface-1">
                         <td x-text="user.name">Rigel 10</td>
                         <td x-text="user.email">user10@acme.io</td>
                         <td x-text="user.role">Researcher</td>
-                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" class="">
+                    </tr><tr :class="user.id % 2 ? 'bg-surface-1' : ''" data-virtual-row="" class="">
                         <td x-text="user.name">Arcturus 11</td>
                         <td x-text="user.email">user11@acme.io</td>
                         <td x-text="user.role">QA</td>
-                    </tr><tr data-virtual-spacer="" aria-hidden="true" style="height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"><td colspan="3" style="padding: 0px; border: 0px; height: 41538px"></td></tr><template>
+                    </tr><tr data-virtual-spacer="baked" aria-hidden="true" style="height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"><td colspan="3" style="padding: 0px; border: 0px; height: 41538px"></td></tr><template data-virtual-for="user in users" data-virtual-key="user.id">
                     <tr :class="user.id % 2 ? 'bg-surface-1' : ''">
                         <td x-text="user.name"></td>
                         <td x-text="user.email"></td>
@@ -906,51 +906,51 @@
         <div class="grid-header">
             <div>Name</div><div>Email</div><div>Role</div>
         </div>
-        <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none; grid-column: 1 / -1"></div><div class="grid-row">
+        <div data-virtual-spacer="baked" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none; grid-column: 1 / -1"></div><div class="grid-row" data-virtual-row="">
                 <div x-text="user.name">Sirius 1</div>
                 <div x-text="user.email">user1@acme.io</div>
                 <div x-text="user.role">Engineer</div>
-            </div><div class="grid-row">
+            </div><div class="grid-row" data-virtual-row="">
                 <div x-text="user.name">Vega 2</div>
                 <div x-text="user.email">user2@acme.io</div>
                 <div x-text="user.role">Designer</div>
-            </div><div class="grid-row">
+            </div><div class="grid-row" data-virtual-row="">
                 <div x-text="user.name">Polaris 3</div>
                 <div x-text="user.email">user3@acme.io</div>
                 <div x-text="user.role">PM</div>
-            </div><div class="grid-row">
+            </div><div class="grid-row" data-virtual-row="">
                 <div x-text="user.name">Rigel 4</div>
                 <div x-text="user.email">user4@acme.io</div>
                 <div x-text="user.role">Researcher</div>
-            </div><div class="grid-row">
+            </div><div class="grid-row" data-virtual-row="">
                 <div x-text="user.name">Arcturus 5</div>
                 <div x-text="user.email">user5@acme.io</div>
                 <div x-text="user.role">QA</div>
-            </div><div class="grid-row">
+            </div><div class="grid-row" data-virtual-row="">
                 <div x-text="user.name">Lyra 6</div>
                 <div x-text="user.email">user6@acme.io</div>
                 <div x-text="user.role">Writer</div>
-            </div><div class="grid-row">
+            </div><div class="grid-row" data-virtual-row="">
                 <div x-text="user.name">Sirius 7</div>
                 <div x-text="user.email">user7@acme.io</div>
                 <div x-text="user.role">Engineer</div>
-            </div><div class="grid-row">
+            </div><div class="grid-row" data-virtual-row="">
                 <div x-text="user.name">Vega 8</div>
                 <div x-text="user.email">user8@acme.io</div>
                 <div x-text="user.role">Designer</div>
-            </div><div class="grid-row">
+            </div><div class="grid-row" data-virtual-row="">
                 <div x-text="user.name">Polaris 9</div>
                 <div x-text="user.email">user9@acme.io</div>
                 <div x-text="user.role">PM</div>
-            </div><div class="grid-row">
+            </div><div class="grid-row" data-virtual-row="">
                 <div x-text="user.name">Rigel 10</div>
                 <div x-text="user.email">user10@acme.io</div>
                 <div x-text="user.role">Researcher</div>
-            </div><div class="grid-row">
+            </div><div class="grid-row" data-virtual-row="">
                 <div x-text="user.name">Arcturus 11</div>
                 <div x-text="user.email">user11@acme.io</div>
                 <div x-text="user.role">QA</div>
-            </div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none; grid-column: 1 / -1"></div><template>
+            </div><div data-virtual-spacer="baked" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none; grid-column: 1 / -1"></div><template data-virtual-for="user in users" data-virtual-key="user.id">
             <div class="grid-row">
                 <div x-text="user.name"></div>
                 <div x-text="user.email"></div>
@@ -976,7 +976,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ tiles: Array.from({length: 1000}, (_, i) =&gt; ({ id: i, w: 90 + ((i * 47) % 140), h: 70 + ((i * 71) % 120), color: `hsl(${(i * 53) % 360} 65% 58%)` })) }" class="w-full">
     <div x-virtual="{ estimate: { width: 160, height: 120 } }" class="border border-line rounded flex flex-wrap content-start gap-2 h-80 overflow-auto p-2" style="overflow: auto">
-        <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none; flex: 0 0 100%"></div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 90px; height: 70px; background: hsl(0 65% 58%)">#0</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 137px; height: 141px; background: hsl(53 65% 58%)">#1</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 184px; height: 92px; background: hsl(106 65% 58%)">#2</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 91px; height: 163px; background: hsl(159 65% 58%)">#3</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 138px; height: 114px; background: hsl(212 65% 58%)">#4</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 185px; height: 185px; background: hsl(265 65% 58%)">#5</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" style="width: 92px; height: 136px; background: hsl(318 65% 58%)">#6</div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none; flex: 0 0 100%"></div><template>
+        <div data-virtual-spacer="baked" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none; flex: 0 0 100%"></div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" data-virtual-row="" style="width: 90px; height: 70px; background: hsl(0 65% 58%)">#0</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" data-virtual-row="" style="width: 137px; height: 141px; background: hsl(53 65% 58%)">#1</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" data-virtual-row="" style="width: 184px; height: 92px; background: hsl(106 65% 58%)">#2</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" data-virtual-row="" style="width: 91px; height: 163px; background: hsl(159 65% 58%)">#3</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" data-virtual-row="" style="width: 138px; height: 114px; background: hsl(212 65% 58%)">#4</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" data-virtual-row="" style="width: 185px; height: 185px; background: hsl(265 65% 58%)">#5</div><div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id" data-virtual-row="" style="width: 92px; height: 136px; background: hsl(318 65% 58%)">#6</div><div data-virtual-spacer="baked" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none; flex: 0 0 100%"></div><template data-virtual-for="tile in tiles" data-virtual-key="tile.id">
             <div class="center rounded text-white text-sm font-semibold" :style="`width: ${tile.w}px; height: ${tile.h}px; background: ${tile.color}`" x-text="'#' + tile.id"></div>
         </template>
     </div>
@@ -1005,10 +1005,10 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 <aside class="frame"><div x-data="{ blocks: Array.from({length: 1000}, (_, i) =&gt; ({ id: i, span: i % 11 === 0 ? 2 : 1, height: 80 + ((i * 61) % 160) + (i % 23 === 0 ? 140 : 0), color: `hsl(${(i * 53) % 360} 65% 58%)` })) }" class="w-full">
     <div x-virtual="{ mode: 'masonry', columnWidth: 140, gap: 8, span: block =&gt; block.span, height: block =&gt; block.height }" class="border border-line rounded relative h-96 overflow-auto" style="overflow: auto; position: relative">
-        <template>
+        <template data-virtual-for="block in blocks" data-virtual-key="block.id">
             <div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id"></div>
         </template>
-    <div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 220px; background: rgb(218, 78, 78); position: absolute; left: 0px; top: 0px; width: 314px" data-hydrate-id="h4">#0</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 141px; background: rgb(218, 201, 78); position: absolute; left: 322px; top: 0px; width: 153px" data-hydrate-id="h5">#1</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 202px; background: rgb(111, 218, 78); position: absolute; left: 483px; top: 0px; width: 153px" data-hydrate-id="h6">#2</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 103px; background: rgb(78, 218, 169); position: absolute; left: 322px; top: 149px; width: 153px" data-hydrate-id="h7">#3</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 164px; background: rgb(78, 143, 218); position: absolute; left: 483px; top: 210px; width: 153px" data-hydrate-id="h8">#4</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 225px; background: rgb(136, 78, 218); position: absolute; left: 0px; top: 228px; width: 153px" data-hydrate-id="h9">#5</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 126px; background: rgb(218, 78, 176); position: absolute; left: 161px; top: 228px; width: 153px" data-hydrate-id="h10">#6</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 187px; background: rgb(218, 104, 78); position: absolute; left: 322px; top: 260px; width: 153px" data-hydrate-id="h11">#7</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 88px; background: rgb(208, 218, 78); position: absolute; left: 161px; top: 362px; width: 153px" data-hydrate-id="h12">#8</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 149px; background: rgb(85, 218, 78); position: absolute; left: 483px; top: 382px; width: 153px" data-hydrate-id="h13">#9</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 210px; background: rgb(78, 218, 194); position: absolute; left: 322px; top: 455px; width: 153px" data-hydrate-id="h14">#10</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" style="height: 111px; background: rgb(78, 118, 218); position: absolute; left: 0px; top: 461px; width: 314px" data-hydrate-id="h15">#11</div><div data-virtual-spacer="" aria-hidden="true" style="position: absolute; top: 0px; left: 0px; width: 1px; height: 0px; pointer-events: none"></div></div>
+    <div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" data-virtual-row="" style="height: 220px; background: rgb(218, 78, 78); position: absolute; left: 0px; top: 0px; width: 314px" data-hydrate-id="h4">#0</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" data-virtual-row="" style="height: 141px; background: rgb(218, 201, 78); position: absolute; left: 322px; top: 0px; width: 153px" data-hydrate-id="h5">#1</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" data-virtual-row="" style="height: 202px; background: rgb(111, 218, 78); position: absolute; left: 483px; top: 0px; width: 153px" data-hydrate-id="h6">#2</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" data-virtual-row="" style="height: 103px; background: rgb(78, 218, 169); position: absolute; left: 322px; top: 149px; width: 153px" data-hydrate-id="h7">#3</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" data-virtual-row="" style="height: 164px; background: rgb(78, 143, 218); position: absolute; left: 483px; top: 210px; width: 153px" data-hydrate-id="h8">#4</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" data-virtual-row="" style="height: 225px; background: rgb(136, 78, 218); position: absolute; left: 0px; top: 228px; width: 153px" data-hydrate-id="h9">#5</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" data-virtual-row="" style="height: 126px; background: rgb(218, 78, 176); position: absolute; left: 161px; top: 228px; width: 153px" data-hydrate-id="h10">#6</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" data-virtual-row="" style="height: 187px; background: rgb(218, 104, 78); position: absolute; left: 322px; top: 260px; width: 153px" data-hydrate-id="h11">#7</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" data-virtual-row="" style="height: 88px; background: rgb(208, 218, 78); position: absolute; left: 161px; top: 362px; width: 153px" data-hydrate-id="h12">#8</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" data-virtual-row="" style="height: 149px; background: rgb(85, 218, 78); position: absolute; left: 483px; top: 382px; width: 153px" data-hydrate-id="h13">#9</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" data-virtual-row="" style="height: 210px; background: rgb(78, 218, 194); position: absolute; left: 322px; top: 455px; width: 153px" data-hydrate-id="h14">#10</div><div class="center rounded text-white text-sm font-semibold" :style="`height: ${block.height}px; background: ${block.color}`" x-text="'#' + block.id" data-virtual-row="" style="height: 111px; background: rgb(78, 118, 218); position: absolute; left: 0px; top: 461px; width: 314px" data-hydrate-id="h15">#11</div><div data-virtual-spacer="baked" aria-hidden="true" style="position: absolute; top: 0px; left: 0px; width: 1px; height: 0px; pointer-events: none"></div></div>
 </div></aside>
 <button class="copy" type="button" aria-label="Copy code to clipboard"></button></pre>
 
@@ -1117,43 +1117,43 @@
         : 'Standard log line.'
 })) }" class="w-full">
     <div x-virtual="" class="border border-line rounded font-mono text-sm h-[300px] overflow-auto" style="overflow: auto">
-        <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">06:29:39</span>
+        <div data-virtual-spacer="baked" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="row gap-3 p-2 border-b border-line" data-virtual-row="">
+                <span class="text-content-subtle shrink-0" x-text="log.time">07:20:47</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
-            </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">06:30:39</span>
+            </div><div class="row gap-3 p-2 border-b border-line" data-virtual-row="">
+                <span class="text-content-subtle shrink-0" x-text="log.time">07:21:47</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
-            </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">06:31:39</span>
+            </div><div class="row gap-3 p-2 border-b border-line" data-virtual-row="">
+                <span class="text-content-subtle shrink-0" x-text="log.time">07:22:47</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
-            </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">06:32:39</span>
+            </div><div class="row gap-3 p-2 border-b border-line" data-virtual-row="">
+                <span class="text-content-subtle shrink-0" x-text="log.time">07:23:47</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-accent-content" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
-            </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">06:33:39</span>
+            </div><div class="row gap-3 p-2 border-b border-line" data-virtual-row="">
+                <span class="text-content-subtle shrink-0" x-text="log.time">07:24:47</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-negative-content" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">error</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
-            </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">06:34:39</span>
+            </div><div class="row gap-3 p-2 border-b border-line" data-virtual-row="">
+                <span class="text-content-subtle shrink-0" x-text="log.time">07:25:47</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
-            </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">06:35:39</span>
+            </div><div class="row gap-3 p-2 border-b border-line" data-virtual-row="">
+                <span class="text-content-subtle shrink-0" x-text="log.time">07:26:47</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
-            </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">06:36:39</span>
+            </div><div class="row gap-3 p-2 border-b border-line" data-virtual-row="">
+                <span class="text-content-subtle shrink-0" x-text="log.time">07:27:47</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-content-subtle" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">info</span>
                 <span class="flex-1" x-text="log.message">Standard log line.</span>
-            </div><div class="row gap-3 p-2 border-b border-line">
-                <span class="text-content-subtle shrink-0" x-text="log.time">06:37:39</span>
+            </div><div class="row gap-3 p-2 border-b border-line" data-virtual-row="">
+                <span class="text-content-subtle shrink-0" x-text="log.time">07:28:47</span>
                 <span class="shrink-0 uppercase text-xs font-bold text-accent-content" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level">warn</span>
                 <span class="flex-1" x-text="log.message">Detail entry — this line includes additional context that wraps onto a second line so it ends up taller than its neighbours and demonstrates per-item height measurement.</span>
-            </div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
+            </div><div data-virtual-spacer="baked" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template data-virtual-for="log in logs" data-virtual-key="log.id">
             <div class="row gap-3 p-2 border-b border-line">
                 <span class="text-content-subtle shrink-0" x-text="log.time"></span>
                 <span class="shrink-0 uppercase text-xs font-bold" :class="log.level === 'error' ? 'text-negative-content' : log.level === 'warn' ? 'text-accent-content' : 'text-content-subtle'" x-text="log.level"></span>
@@ -1186,7 +1186,7 @@
         <button class="ghost" @click="$virtual('virtual-scroll-to-preview').scrollToIndex(jump, { align: 'center' })">Center</button>
     </div>
     <div id="virtual-scroll-to-preview" x-virtual="" class="border border-line rounded h-[300px] overflow-auto" style="overflow: auto">
-        <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#0 Sirius 1</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#1 Vega 2</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#2 Polaris 3</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#3 Rigel 4</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#4 Arcturus 5</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#5 Lyra 6</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#6 Sirius 7</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#7 Vega 8</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#8 Polaris 9</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name">#9 Rigel 10</div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
+        <div data-virtual-spacer="baked" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name" data-virtual-row="">#0 Sirius 1</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name" data-virtual-row="">#1 Vega 2</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name" data-virtual-row="">#2 Polaris 3</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name" data-virtual-row="">#3 Rigel 4</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name" data-virtual-row="">#4 Arcturus 5</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name" data-virtual-row="">#5 Lyra 6</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name" data-virtual-row="">#6 Sirius 7</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name" data-virtual-row="">#7 Vega 8</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name" data-virtual-row="">#8 Polaris 9</div><div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name" data-virtual-row="">#9 Rigel 10</div><div data-virtual-spacer="baked" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template data-virtual-for="person in people" data-virtual-key="person.id">
             <div class="p-3 border-b border-line" x-text="'#' + person.id + ' ' + person.name"></div>
         </template>
     </div>
@@ -1270,34 +1270,34 @@
 }" class="col gap-3 w-full">
     <input type="text" placeholder="Filter products..." aria-label="Filter products" x-model="term">
     <div x-virtual="" class="border border-line rounded h-[300px] overflow-auto" style="overflow: auto">
-        <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="row gap-4 p-3 border-b border-line">
+        <div data-virtual-spacer="baked" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div class="row gap-4 p-3 border-b border-line" data-virtual-row="">
                 <p class="flex-1" x-text="product.name">Telescope Mk-1</p>
                 <small>$<span x-text="product.price">10</span></small>
-            </div><div class="row gap-4 p-3 border-b border-line">
+            </div><div class="row gap-4 p-3 border-b border-line" data-virtual-row="">
                 <p class="flex-1" x-text="product.name">Star Chart Mk-2</p>
                 <small>$<span x-text="product.price">23</span></small>
-            </div><div class="row gap-4 p-3 border-b border-line">
+            </div><div class="row gap-4 p-3 border-b border-line" data-virtual-row="">
                 <p class="flex-1" x-text="product.name">Sextant Mk-3</p>
                 <small>$<span x-text="product.price">36</span></small>
-            </div><div class="row gap-4 p-3 border-b border-line">
+            </div><div class="row gap-4 p-3 border-b border-line" data-virtual-row="">
                 <p class="flex-1" x-text="product.name">Astrolabe Mk-4</p>
                 <small>$<span x-text="product.price">49</span></small>
-            </div><div class="row gap-4 p-3 border-b border-line">
+            </div><div class="row gap-4 p-3 border-b border-line" data-virtual-row="">
                 <p class="flex-1" x-text="product.name">Chronometer Mk-5</p>
                 <small>$<span x-text="product.price">62</span></small>
-            </div><div class="row gap-4 p-3 border-b border-line">
+            </div><div class="row gap-4 p-3 border-b border-line" data-virtual-row="">
                 <p class="flex-1" x-text="product.name">Spectrometer Mk-6</p>
                 <small>$<span x-text="product.price">75</span></small>
-            </div><div class="row gap-4 p-3 border-b border-line">
+            </div><div class="row gap-4 p-3 border-b border-line" data-virtual-row="">
                 <p class="flex-1" x-text="product.name">Telescope Mk-7</p>
                 <small>$<span x-text="product.price">88</span></small>
-            </div><div class="row gap-4 p-3 border-b border-line">
+            </div><div class="row gap-4 p-3 border-b border-line" data-virtual-row="">
                 <p class="flex-1" x-text="product.name">Star Chart Mk-8</p>
                 <small>$<span x-text="product.price">101</span></small>
-            </div><div class="row gap-4 p-3 border-b border-line">
+            </div><div class="row gap-4 p-3 border-b border-line" data-virtual-row="">
                 <p class="flex-1" x-text="product.name">Sextant Mk-9</p>
                 <small>$<span x-text="product.price">114</span></small>
-            </div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
+            </div><div data-virtual-spacer="baked" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template data-virtual-for="product in filtered" data-virtual-key="product.id">
             <div class="row gap-4 p-3 border-b border-line">
                 <p class="flex-1" x-text="product.name"></p>
                 <small>$<span x-text="product.price"></span></small>
@@ -1334,7 +1334,7 @@
     <button x-dropdown="virtual-in-menu-preview" popovertarget="virtual-in-menu-preview" style="anchor-name: --dropdown-p3, var(--co-anchor, --no-anchor); --trigger-anchor: --dropdown-p3" aria-haspopup="menu" aria-controls="virtual-in-menu-preview" aria-expanded="false" data-hydrate-id="h16">Country</button>
     <menu popover="" id="virtual-in-menu-preview" role="menu" style="position-anchor: --dropdown-p3">
         <div x-virtual="" class="h-64" style="overflow: auto">
-            <div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div data-virtual-spacer="" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template>
+            <div data-virtual-spacer="baked" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><div data-virtual-spacer="baked" aria-hidden="true" style="width: 100%; height: 0px; padding: 0px; margin: 0px; border: 0px; background: none; pointer-events: none"></div><template data-virtual-for="country in countries" data-virtual-key="country.id">
                 <li x-text="country.name"></li>
             </template>
         </div>
