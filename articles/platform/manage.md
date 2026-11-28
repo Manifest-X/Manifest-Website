@@ -33,7 +33,7 @@ On Pro, invite people to a project. Each person works from their own Claude with
 
 > `Invite sam@example.com to this project`{copy}
 
-- **Members** can edit and publish. **Admins** can also invite people, take a staged version live, roll back, and change the project's addresses and settings.
+- **Members** can edit and publish, including to the live site. **Admins** can also invite and remove people, promote a staged version, roll back, and change the project's addresses and settings.
 - To start editing, the invitee opens a new Code session and asks Claude to `download the latest published version`{.prompt copy}.
 - To remove someone, ask `remove sam@example.com`{.prompt copy}. This works on any plan.
 

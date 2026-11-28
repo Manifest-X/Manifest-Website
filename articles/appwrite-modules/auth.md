@@ -43,9 +43,9 @@ Appwrite lets any visitor do the following once the matching method is on, so pl
 
 | What a visitor can do | When | What to do about it |
 |---|---|---|
-| Attach an email and password to a guest session, even with Email/Password turned off in the Appwrite console | Any `guest` method is enabled | Don't treat "has an email" as "signed in with a method you offer". Leave `guest-auto` off unless the project needs it. |
-| Create an account for any email address by requesting a magic URL or email code for it | `magic` or `otp` is enabled | An account existing for an address doesn't prove that its owner created it. Only a completed sign-in does. |
-| Create teams, as many as Appwrite's rate limits allow, and choose a team's ID | Teams are enabled, including for guests | Don't key anything on a predictable team ID. If team creation should be limited, create teams from an Appwrite function instead. |
+| Attach an email and password to a guest session, even with Email/Password turned off in the Appwrite console | Anonymous sign-in is enabled in the Appwrite console, which the `guest` methods need | Don't treat "has an email" as "signed in with a method you offer". Leave `guest` and `guest-auto` off unless the project needs them. |
+| Create an account for any email address by requesting a magic URL or email code for it | Magic URL or Email OTP is enabled in the Appwrite console | An account existing for an address doesn't prove that its owner created it. Only a completed sign-in does. |
+| Create teams, as many as Appwrite's rate limits allow, and choose a team's ID | Always, for any signed-in user, guests included | Don't key anything on a predictable team ID. If team creation should be limited, create teams from an Appwrite function instead. |
 | Call any Appwrite endpoint directly, skipping your interface | Always | Put the rule on the row, file, or function. [Permissions](/docs/framework/appwrite-modules/teams#how-permissions-resolve) worked out in the browser only decide what your interface shows. |
 
 Two behaviors of the module itself are also worth knowing about.

@@ -35,10 +35,10 @@ These places execute code or render HTML by design. The framework doesn't saniti
 - **HTML and SVG rendering.** `x-markdown`, `x-svg`, and any custom `x-html` binding render their inputs as HTML so authors can include icons, formatting, and Manifest's custom-element extensions, as do `x-tooltip.html`, `x-toast.html`, and `$toast(message, { html: true })`. If the content comes from a party you don't control — user-submitted markdown, uploaded avatars, third-party API responses — use `x-markdown.safe` or `x-svg.safe`, or sanitize at the source before binding.
 - **Component registry.** The `components` and `preloadedComponents` arrays in `manifest.json` are fetched and executed at runtime. Keep these static — don't generate paths from URL parameters or data-source values.
 - **URL parameters.** `$url` exposes the query string as reactive data, and anyone can write a link that sets it. Values are safe in `x-text` and `x-show`. Don't feed them back into a directive that would re-evaluate them as expressions.
-- **Link and source attributes.** A value bound into `:href`, `:src`, `:action`, or `:formaction` is used as a URL, and a URL starting with `javascript:` runs as code when followed. Before binding a URL that comes from the query string, a data source, or another user, check that it starts with `/`, `https://`, or `http://`.
+- **Link and source attributes.** A value bound into `:href`, `:src`, `:action`, or `:formaction` is used as a URL, and a URL starting with `javascript:` runs as code when followed. Before binding a URL that comes from the query string, a data source, or another user, check that it is a path on your own site or that it starts with `https://` or `http://`. A path needs more than a leading `/`, because browsers treat `//` and `/\` as the start of another site's address.
 
 ```html "Checking a URL before binding it" copy
-<a :href="/^(\/(?!\/)|https?:\/\/)/.test($url.next.value) ? $url.next.value : '/'">Continue</a>
+<a :href="/^(\/(?![\/\\])|https?:\/\/)[^\t\n\r]*$/.test($url.next.first) ? $url.next.first : '/'">Continue</a>
 ```
 
 ### CDN Resource Integrity
@@ -118,6 +118,7 @@ Send the policy as a single line, then add the entries that match what your proj
 | If the project uses | Add |
 |---|---|
 | Appwrite | Your Appwrite endpoint in `connect-src`, as both `https://` and `wss://` |
+| Inline scripts you write, in `index.html`, in `<template data-head>` blocks, or as module scripts in components | The `sha256-` hash of each one in `script-src`, or move them into files. |
 | A prerendered site with color modes | The `sha256-` hash of the inline theme script in `script-src`. The browser console prints the hash when it blocks the script. |
 | Code blocks with `edit`, with integrity checks on | `blob:` in `script-src` |
 | Payments | The provider's script host in `script-src` and its checkout host in `frame-src` |
@@ -126,8 +127,8 @@ Send the policy as a single line, then add the entries that match what your proj
 Three of those entries are looser than a strict policy would allow, and each is there for a reason:
 
 - **`'unsafe-eval'` in `script-src`.** Alpine turns the expressions in your attributes into functions, so no expression runs without it.
-- **`'unsafe-inline'` in `style-src`.** Utility classes are compiled into a `<style>` element in the browser, and directives such as `x-show` write `style` attributes.
-- **`https://esm.run` in `script-src`.** Code highlighting loads its language files from there unless integrity checks are on.
+- **`'unsafe-inline'` in `style-src`.** Utility classes are compiled into a `<style>` element in the browser, and `style` attributes count as inline styles, whether you write them in your HTML or set them with a string `:style` binding.
+- **`https://esm.run` in `script-src`.** Code highlighting and charts load their files from there unless integrity checks are on.
 
 The policy stops inline `<script>` tags and `onclick`-style attributes that reach the page through injected HTML. It also stops embedded objects, framing by other sites, and requests to hosts you haven't listed.
 
