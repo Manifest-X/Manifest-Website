@@ -83,6 +83,8 @@ Routing accounts for URL content that does not affect the path:
 
 An element can combine `x-route` with `x-show`, rendering only when both the route matches and the expression is true. An inline `display` on a routed element without `x-show` is kept when its route hides and shows it again. With `x-show`, Alpine manages the element's inline display.
 
+While the page loads, only the route that matches the address is painted. The other routes stay hidden from the first frame, and a `!*` fallback appears only once the router finds no other match.
+
 ```html
 <!-- Shows on /settings and its subpages, only while advanced is true -->
 <div x-route="/settings" x-show="advanced">...</div>

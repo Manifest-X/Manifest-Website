@@ -48,7 +48,7 @@ Create tab menus with `x-tab` selectable targets and `x-tabpanel` content areas,
 
 </div>
 
-The module works by automatically creating an Alpine property named `tab` (or `tab_<group>` for a named `x-tabpanel` group), which uses the `x-tab` values to show the selected panel and hide the others.
+The module works by automatically creating an Alpine property named `tab` (or `tab_<group>` for a named `x-tabpanel` group), which uses the `x-tab` values to show the selected panel and hide the others. Unselected panels stay hidden from the first paint, before the module has loaded.
 
 Wrap the buttons in an element with `role="tablist"` to opt into the full accessibility pattern — the module then adds `role="tab"`, roving focus, and arrow-key navigation, and the wrapper picks up the [tab bar styling](/docs/framework/elements/forms) with a sliding selected background. Plain buttons outside a tablist look the same whether selected or not; style `[aria-selected="true"]` to mark the active one (see [Styles](#styles)).
 

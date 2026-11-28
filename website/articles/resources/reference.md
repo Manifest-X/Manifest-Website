@@ -112,7 +112,7 @@ See <a href="https://alpinejs.dev/start-here" target="_blank">alpinejs.dev</a> f
 | `x-bind:<attr>` (`:<attr>`) | Bind any attribute to an expression |
 | `x-on:<event>` (`@<event>`) | Listen for an event and run a statement |
 | `x-effect` | Re-run a statement whenever its reactive dependencies change |
-| `x-cloak` | Hide an element until Alpine has initialized |
+| `x-cloak` | Hide an element until Alpine has initialized. Elements with `x-show` or `:hidden`, routes that don't match, and unselected tab panels are already hidden until then, so they don't need it |
 | `x-ignore` | Skip Alpine processing inside this element |
 | `x-ref` | Name an element for `$refs.<name>` access |
 | `x-transition` | Apply CSS classes during enter/leave |
